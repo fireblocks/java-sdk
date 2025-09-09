@@ -4766,6 +4766,377 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+  /connected_accounts:
+    get:
+      description: |
+        Returns all connected accounts </br>
+        **Note**:
+        - This endpoint is currently in beta and might be subject to changes.
+      operationId: getConnectedAccounts
+      parameters:
+      - description: Whether to include only main accounts in the response.
+        explode: true
+        in: query
+        name: mainAccounts
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: Page size for pagination.
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Page cursor for pagination.
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectedAccountsResponse"
+          description: Get accounts response
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get connected accounts
+      tags:
+      - Connected Accounts (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ConnectedAccountsResponse>>\
+            \ = fireblocks.connectedAccountsBeta.getConnectedAccounts(connectedAccountsBetaApiGetConnectedAccountsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ConnectedAccountsResponse>> response\
+            \ = fireblocks.connectedAccountsBeta().getConnectedAccounts(mainAccounts,\
+            \ pageSize, pageCursor);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.connected_accounts_beta.get_connected_accounts(main_accounts,\
+            \ page_size, page_cursor);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ConnectedAccountsResponse>>\
+          \ = fireblocks.connectedAccountsBeta.getConnectedAccounts(connectedAccountsBetaApiGetConnectedAccountsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ConnectedAccountsResponse>> response\
+          \ = fireblocks.connectedAccountsBeta().getConnectedAccounts(mainAccounts,\
+          \ pageSize, pageCursor);"
+      - lang: Python
+        source: "response = fireblocks.connected_accounts_beta.get_connected_accounts(main_accounts,\
+          \ page_size, page_cursor);"
+      x-accepts:
+      - application/json
+  /connected_accounts/{accountId}:
+    get:
+      description: |
+        Retrieve detailed information about a specific connected account by ID. </br>
+        **Note**:
+        - This endpoint is currently in beta and might be subject to changes.
+      operationId: getConnectedAccount
+      parameters:
+      - description: The ID of the account to fetch.
+        explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectedSingleAccountResponse"
+          description: Account response
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get connected account
+      tags:
+      - Connected Accounts (Beta)
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ConnectedSingleAccountResponse>>\
+            \ = fireblocks.connectedAccountsBeta.getConnectedAccount(connectedAccountsBetaApiGetConnectedAccountRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ConnectedSingleAccountResponse>> response
+            = fireblocks.connectedAccountsBeta().getConnectedAccount(accountId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.connected_accounts_beta.get_connected_account(account_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ConnectedSingleAccountResponse>>\
+          \ = fireblocks.connectedAccountsBeta.getConnectedAccount(connectedAccountsBetaApiGetConnectedAccountRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<ConnectedSingleAccountResponse>> response
+          = fireblocks.connectedAccountsBeta().getConnectedAccount(accountId);
+      - lang: Python
+        source: response = fireblocks.connected_accounts_beta.get_connected_account(account_id);
+      x-accepts:
+      - application/json
+  /connected_accounts/{accountId}/balances:
+    get:
+      description: |
+        Retrieve current asset balances for a specific connected account as a flat list (one row per assetId, balanceType)
+         </br>
+         **Note**:
+         - This endpoint is currently in beta and might be subject to changes.
+      operationId: getConnectedAccountBalances
+      parameters:
+      - description: The ID of the account to fetch balances for.
+        explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: simple
+      - description: Page size for pagination.
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - description: Page cursor for pagination.
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectedAccountBalancesResponse"
+          description: Account balances response
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get balances for an account
+      tags:
+      - Connected Accounts (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ConnectedAccountBalancesResponse>>\
+            \ = fireblocks.connectedAccountsBeta.getConnectedAccountBalances(connectedAccountsBetaApiGetConnectedAccountBalancesRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ConnectedAccountBalancesResponse>>\
+            \ response = fireblocks.connectedAccountsBeta().getConnectedAccountBalances(accountId,\
+            \ pageSize, pageCursor);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.connected_accounts_beta.get_connected_account_balances(account_id,\
+            \ page_size, page_cursor);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ConnectedAccountBalancesResponse>>\
+          \ = fireblocks.connectedAccountsBeta.getConnectedAccountBalances(connectedAccountsBetaApiGetConnectedAccountBalancesRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ConnectedAccountBalancesResponse>>\
+          \ response = fireblocks.connectedAccountsBeta().getConnectedAccountBalances(accountId,\
+          \ pageSize, pageCursor);"
+      - lang: Python
+        source: "response = fireblocks.connected_accounts_beta.get_connected_account_balances(account_id,\
+          \ page_size, page_cursor);"
+      x-accepts:
+      - application/json
+  /connected_accounts/{accountId}/rates:
+    get:
+      description: Retrieve current exchange rates for converting between specific
+        assets in a connected account.
+      operationId: getConnectedAccountRates
+      parameters:
+      - description: The ID of the account to fetch rates for.
+        explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: simple
+      - description: The ID of the asset to fetch rates for.
+        explode: true
+        in: query
+        name: baseAssetId
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: form
+      - description: The ID of the asset to get the rates nominally.
+        explode: true
+        in: query
+        name: quoteAssetId
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectedAccountRateResponse"
+          description: Rates response
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get exchange rates for an account
+      tags:
+      - Connected Accounts (Beta)
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ConnectedAccountRateResponse>>\
+            \ = fireblocks.connectedAccountsBeta.getConnectedAccountRates(connectedAccountsBetaApiGetConnectedAccountRatesRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ConnectedAccountRateResponse>> response\
+            \ = fireblocks.connectedAccountsBeta().getConnectedAccountRates(accountId,\
+            \ baseAssetId, quoteAssetId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.connected_accounts_beta.get_connected_account_rates(account_id,\
+            \ base_asset_id, quote_asset_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ConnectedAccountRateResponse>>\
+          \ = fireblocks.connectedAccountsBeta.getConnectedAccountRates(connectedAccountsBetaApiGetConnectedAccountRatesRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ConnectedAccountRateResponse>> response\
+          \ = fireblocks.connectedAccountsBeta().getConnectedAccountRates(accountId,\
+          \ baseAssetId, quoteAssetId);"
+      - lang: Python
+        source: "response = fireblocks.connected_accounts_beta.get_connected_account_rates(account_id,\
+          \ base_asset_id, quote_asset_id);"
+      x-accepts:
+      - application/json
+  /connected_accounts/{accountId}/manifest/capabilities/trading/pairs:
+    get:
+      description: "Retrieve all asset trading pairs supported by a specific connected\
+        \ account, including the pair type (quote, market, onOffRamp)."
+      operationId: getConnectedAccountTradingPairs
+      parameters:
+      - description: The ID of the account to fetch supported pairs for.
+        explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: simple
+      - description: Page size for pagination.
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 100
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Page cursor for pagination.
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectedAccountTradingPairsResponse"
+          description: Supported pairs response
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get supported trading pairs for an account
+      tags:
+      - Connected Accounts (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ConnectedAccountTradingPairsResponse>>\
+            \ = fireblocks.connectedAccountsBeta.getConnectedAccountTradingPairs(connectedAccountsBetaApiGetConnectedAccountTradingPairsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ConnectedAccountTradingPairsResponse>>\
+            \ response = fireblocks.connectedAccountsBeta().getConnectedAccountTradingPairs(accountId,\
+            \ pageSize, pageCursor);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.connected_accounts_beta.get_connected_account_trading_pairs(account_id,\
+            \ page_size, page_cursor);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ConnectedAccountTradingPairsResponse>>\
+          \ = fireblocks.connectedAccountsBeta.getConnectedAccountTradingPairs(connectedAccountsBetaApiGetConnectedAccountTradingPairsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ConnectedAccountTradingPairsResponse>>\
+          \ response = fireblocks.connectedAccountsBeta().getConnectedAccountTradingPairs(accountId,\
+          \ pageSize, pageCursor);"
+      - lang: Python
+        source: "response = fireblocks.connected_accounts_beta.get_connected_account_trading_pairs(account_id,\
+          \ page_size, page_cursor);"
+      x-accepts:
+      - application/json
   /network_connections:
     get:
       description: |
@@ -9417,7 +9788,7 @@ paths:
       summary: Estimate transaction fee
       tags:
       - Transactions
-      x-rate-limit-category: high_compute
+      x-rate-limit-category: async
       x-readme:
         code-samples:
         - language: python
@@ -12634,7 +13005,7 @@ paths:
       description: |
         Resend notification by ID
 
-        Endpoint Permission: Owner, Admin, Non-Signing Admin.
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer.
       operationId: resendNotificationById
       parameters:
       - description: The ID of the webhook
@@ -12705,7 +13076,7 @@ paths:
       description: |
         Resend notifications by resource Id
 
-        Endpoint Permission: Owner, Admin, Non-Signing Admin.
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer.
       operationId: resendNotificationsByResourceId
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -12776,7 +13147,7 @@ paths:
       description: |
         Resend all failed notifications for a webhook in the last 24 hours
 
-        Endpoint Permission: Owner, Admin, Non-Signing Admin.
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer.
       operationId: resendFailedNotifications
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -16833,19 +17204,30 @@ paths:
           \ idempotency_key);"
       x-accepts:
       - application/json
-  /swap/providers:
+  /trading/providers:
     get:
       description: |-
-        Return a list of all supported swap providers.
+        Retrieve a list of all available external providers supporting trading activities through the platform.
 
         Note: These endpoints are currently in beta and might be subject to changes.
 
-        If you want to participate and learn more about the Fireblocks Swap, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
 
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-      operationId: getSwapProviders
+      operationId: getTradingProviders
       parameters:
-      - description: Cursor of the required page
+      - description: Page size for pagination.
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 20
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Page cursor for pagination.
         explode: true
         in: query
         name: pageCursor
@@ -16853,145 +17235,68 @@ paths:
         schema:
           type: string
         style: form
-      - description: "Number of items in a page, Acceptable values are 1-100. Maximum\
-          \ value is 100"
-        example: 10
-        explode: true
-        in: query
-        name: pageSize
-        required: false
-        schema:
-          default: 10
-          maximum: 100
-          minimum: 1
-          type: number
-        style: form
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SwapProvidersPaginatedResponse"
-          description: A paginated response containing ProviderDto objects
-        default:
-          $ref: "#/components/responses/Error"
-      summary: Get Providers List
+                $ref: "#/components/schemas/ProvidersListResponse"
+          description: Providers response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorResponse"
+          description: Unauthorized. Missing / invalid JWT token in Authorization
+            header.
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorResponse"
+          description: Internal error.
+      summary: Get providers
       tags:
-      - Swap (Beta)
+      - Trading (Beta)
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<SwapProvidersPaginatedResponse>>\
-            \ = fireblocks.swapBeta.getSwapProviders(swapBetaApiGetSwapProvidersRequest);"
+          code: "const response: Promise<FireblocksResponse<ProvidersListResponse>>\
+            \ = fireblocks.tradingBeta.getTradingProviders(tradingBetaApiGetTradingProvidersRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<SwapProvidersPaginatedResponse>> response\
-            \ = fireblocks.swapBeta().getSwapProviders(pageCursor, pageSize);"
+          code: "CompletableFuture<ApiResponse<ProvidersListResponse>> response =\
+            \ fireblocks.tradingBeta().getTradingProviders(pageSize, pageCursor);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.swap_beta.get_swap_providers(page_cursor, page_size);"
+          code: "response = fireblocks.trading_beta.get_trading_providers(page_size,\
+            \ page_cursor);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<SwapProvidersPaginatedResponse>>\
-          \ = fireblocks.swapBeta.getSwapProviders(swapBetaApiGetSwapProvidersRequest);"
+        source: "const response: Promise<FireblocksResponse<ProvidersListResponse>>\
+          \ = fireblocks.tradingBeta.getTradingProviders(tradingBetaApiGetTradingProvidersRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<SwapProvidersPaginatedResponse>> response\
-          \ = fireblocks.swapBeta().getSwapProviders(pageCursor, pageSize);"
+        source: "CompletableFuture<ApiResponse<ProvidersListResponse>> response =\
+          \ fireblocks.tradingBeta().getTradingProviders(pageSize, pageCursor);"
       - lang: Python
-        source: "response = fireblocks.swap_beta.get_swap_providers(page_cursor, page_size);"
+        source: "response = fireblocks.trading_beta.get_trading_providers(page_size,\
+          \ page_cursor);"
       x-accepts:
       - application/json
-  /swap/providers/{providerId}/approve_terms:
+  /trading/quotes:
     post:
       description: |-
-        Approve the terms of service for a swap provider.
-        Some providers require this approval before performing a swap action for the first time.
+        Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.
 
         Note: These endpoints are currently in beta and might be subject to changes.
 
-        If you want to participate and learn more about the Fireblocks Swap, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
 
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
-      operationId: approveTermsOfService
-      parameters:
-      - explode: false
-        in: path
-        name: providerId
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      - description: "A unique identifier for the request. If the request is sent\
-          \ multiple times with the same idempotency key, the server will return the\
-          \ same response as the first request. The idempotency key is valid for 24\
-          \ hours."
-        explode: false
-        in: header
-        name: Idempotency-Key
-        required: false
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SwapProvider"
-          description: successfully approve terms of service
-        default:
-          $ref: "#/components/responses/Error"
-      summary: Approve terms of service
-      tags:
-      - Swap (Beta)
-      x-rate-limit-category: write
-      x-readme:
-        code-samples:
-        - language: typescript
-          code: "const response: Promise<FireblocksResponse<SwapProvider>> = fireblocks.swapBeta.approveTermsOfService(swapBetaApiApproveTermsOfServiceRequest);"
-          name: Fireblocks SDK TypeScript example
-        - language: java
-          code: "CompletableFuture<ApiResponse<SwapProvider>> response = fireblocks.swapBeta().approveTermsOfService(providerId,\
-            \ idempotencyKey);"
-          name: Fireblocks SDK Java example
-        - language: python
-          code: "response = fireblocks.swap_beta.approve_terms_of_service(provider_id,\
-            \ idempotency_key);"
-          name: Fireblocks SDK Python example
-      x-codeSamples:
-      - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<SwapProvider>> = fireblocks.swapBeta.approveTermsOfService(swapBetaApiApproveTermsOfServiceRequest);"
-      - lang: Java
-        source: "CompletableFuture<ApiResponse<SwapProvider>> response = fireblocks.swapBeta().approveTermsOfService(providerId,\
-          \ idempotencyKey);"
-      - lang: Python
-        source: "response = fireblocks.swap_beta.approve_terms_of_service(provider_id,\
-          \ idempotency_key);"
-      x-accepts:
-      - application/json
-  /swap/providers/{providerId}/quote:
-    post:
-      description: |-
-        Create a quote from specific swap provider.
-
-        Note: These endpoints are currently in beta and might be subject to changes.
-
-        If you want to participate and learn more about the Fireblocks Swap, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
-
-        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: createQuote
       parameters:
-      - explode: false
-        in: path
-        name: providerId
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
       - description: "A unique identifier for the request. If the request is sent\
           \ multiple times with the same idempotency key, the server will return the\
           \ same response as the first request. The idempotency key is valid for 24\
@@ -17007,130 +17312,230 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/QuoteRequest"
+              $ref: "#/components/schemas/CreateQuote"
         required: true
       responses:
         "201":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/QuoteResponse"
-          description: "The response can be one of two possible DTOs, depending if\
-            \ the request contains the accountId property."
-        default:
-          $ref: "#/components/responses/Error"
+                $ref: "#/components/schemas/QuotesResponse"
+          description: Quote created
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorResponse"
+          description: Unauthorized. Missing / invalid JWT token in Authorization
+            header.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorResponse"
+          description: Not found
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorResponse"
+          description: Internal error.
       summary: Create a quote
       tags:
-      - Swap (Beta)
+      - Trading (Beta)
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<QuoteResponse>> = fireblocks.swapBeta.createQuote(swapBetaApiCreateQuoteRequest);"
+          code: "const response: Promise<FireblocksResponse<QuotesResponse>> = fireblocks.tradingBeta.createQuote(tradingBetaApiCreateQuoteRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<QuoteResponse>> response = fireblocks.swapBeta().createQuote(quoteRequest,\
-            \ providerId, idempotencyKey);"
+          code: "CompletableFuture<ApiResponse<QuotesResponse>> response = fireblocks.tradingBeta().createQuote(createQuote,\
+            \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.swap_beta.create_quote(quote_request, provider_id,\
-            \ idempotency_key);"
+          code: "response = fireblocks.trading_beta.create_quote(create_quote, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<QuoteResponse>> = fireblocks.swapBeta.createQuote(swapBetaApiCreateQuoteRequest);"
+        source: "const response: Promise<FireblocksResponse<QuotesResponse>> = fireblocks.tradingBeta.createQuote(tradingBetaApiCreateQuoteRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<QuoteResponse>> response = fireblocks.swapBeta().createQuote(quoteRequest,\
-          \ providerId, idempotencyKey);"
+        source: "CompletableFuture<ApiResponse<QuotesResponse>> response = fireblocks.tradingBeta().createQuote(createQuote,\
+          \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.swap_beta.create_quote(quote_request, provider_id,\
-          \ idempotency_key);"
+        source: "response = fireblocks.trading_beta.create_quote(create_quote, idempotency_key);"
       x-content-type: application/json
       x-accepts:
       - application/json
-  /swap/operations:
+  /trading/orders:
     get:
       description: |-
-        Return a list of swap operations for the specific workspace
-        The operations are sorted by creation date in descending order, meaning the most recent operation appears first.
+        Retrieve a paginated list of orders with optional filtering by account, provider, status, and time range.
 
         Note:These endpoints are currently in beta and might be subject to changes.
 
-        If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
 
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-      operationId: getSwapOperations
+      operationId: getOrders
       parameters:
-      - description: Cursor of the required page
+      - description: pageSize for pagination.
         explode: true
+        in: query
+        name: pageSize
+        required: true
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - explode: true
         in: query
         name: pageCursor
         required: false
         schema:
+          minLength: 1
           type: string
         style: form
-      - description: "Number of items in a page, Acceptable values are 1-100. Maximum\
-          \ value is 100"
-        example: 10
+      - description: ASC / DESC ordering (default DESC)
         explode: true
         in: query
-        name: pageSize
+        name: order
         required: false
         schema:
-          default: 10
-          maximum: 100
-          minimum: 1
-          type: number
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      - description: Filter by accountId.
+        explode: true
+        in: query
+        name: accountId
+        required: false
+        schema:
+          items:
+            minLength: 1
+            type: string
+          type: array
+        style: form
+      - description: Filter by providerId.
+        explode: true
+        in: query
+        name: providerId
+        required: false
+        schema:
+          items:
+            minLength: 1
+            type: string
+          type: array
+        style: form
+      - description: Filter by order status.
+        explode: true
+        in: query
+        name: statuses
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/OrderStatus"
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: startTime
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: endTime
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: assetConversionType
+        required: false
+        schema:
+          description: Filter by asset conversion type.
+          enum:
+          - DIGITAL_ONLY
+          - FIAT
+          type: string
         style: form
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SwapOperationsPaginatedResponse"
-          description: A paginated response containing OperationDto objects
-        default:
-          $ref: "#/components/responses/Error"
-      summary: Get Operations list
+                $ref: "#/components/schemas/GetOrdersResponse"
+          description: Orders response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorResponse"
+          description: Unauthorized. Missing / invalid JWT token in Authorization
+            header.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorResponse"
+          description: Not found
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorResponse"
+          description: Internal error.
+      summary: Get orders
       tags:
-      - Swap (Beta)
+      - Trading (Beta)
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<SwapOperationsPaginatedResponse>>\
-            \ = fireblocks.swapBeta.getSwapOperations(swapBetaApiGetSwapOperationsRequest);"
+          code: "const response: Promise<FireblocksResponse<GetOrdersResponse>> =\
+            \ fireblocks.tradingBeta.getOrders(tradingBetaApiGetOrdersRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<SwapOperationsPaginatedResponse>> response\
-            \ = fireblocks.swapBeta().getSwapOperations(pageCursor, pageSize);"
+          code: "CompletableFuture<ApiResponse<GetOrdersResponse>> response = fireblocks.tradingBeta().getOrders(pageSize,\
+            \ pageCursor, order, accountId, providerId, statuses, startTime, endTime,\
+            \ assetConversionType);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.swap_beta.get_swap_operations(page_cursor,\
-            \ page_size);"
+          code: "response = fireblocks.trading_beta.get_orders(page_size, page_cursor,\
+            \ order, account_id, provider_id, statuses, start_time, end_time, asset_conversion_type);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<SwapOperationsPaginatedResponse>>\
-          \ = fireblocks.swapBeta.getSwapOperations(swapBetaApiGetSwapOperationsRequest);"
+        source: "const response: Promise<FireblocksResponse<GetOrdersResponse>> =\
+          \ fireblocks.tradingBeta.getOrders(tradingBetaApiGetOrdersRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<SwapOperationsPaginatedResponse>> response\
-          \ = fireblocks.swapBeta().getSwapOperations(pageCursor, pageSize);"
+        source: "CompletableFuture<ApiResponse<GetOrdersResponse>> response = fireblocks.tradingBeta().getOrders(pageSize,\
+          \ pageCursor, order, accountId, providerId, statuses, startTime, endTime,\
+          \ assetConversionType);"
       - lang: Python
-        source: "response = fireblocks.swap_beta.get_swap_operations(page_cursor,\
-          \ page_size);"
+        source: "response = fireblocks.trading_beta.get_orders(page_size, page_cursor,\
+          \ order, account_id, provider_id, statuses, start_time, end_time, asset_conversion_type);"
       x-accepts:
       - application/json
     post:
       description: |-
-        Create swap operation based on a provided quote Id
+        Create an order to buy or sell an asset. If no source is given, an external source will be use.
 
         Note: These endpoints are currently in beta and might be subject to changes.
 
-        If you want to participate and learn more about the Fireblocks Swap, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
 
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
-      operationId: createSwapOperation
+      operationId: createOrder
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
           \ multiple times with the same idempotency key, the server will return the\
@@ -17147,63 +17552,82 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SwapOperationRequest"
+              $ref: "#/components/schemas/CreateOrderRequest"
         required: true
       responses:
-        "201":
+        "202":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SwapOperation"
-          description: ""
-        default:
-          $ref: "#/components/responses/Error"
-      summary: Create swap operation
+                $ref: "#/components/schemas/OrderDetails"
+          description: Order creation response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorResponse"
+          description: Unauthorized. Missing / invalid JWT token in Authorization
+            header.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorResponse"
+          description: Not found
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorResponse"
+          description: Internal error.
+      summary: Create an order
       tags:
-      - Swap (Beta)
+      - Trading (Beta)
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<SwapOperation>> = fireblocks.swapBeta.createSwapOperation(swapBetaApiCreateSwapOperationRequest);"
+          code: "const response: Promise<FireblocksResponse<OrderDetails>> = fireblocks.tradingBeta.createOrder(tradingBetaApiCreateOrderRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<SwapOperation>> response = fireblocks.swapBeta().createSwapOperation(swapOperationRequest,\
+          code: "CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.tradingBeta().createOrder(createOrderRequest,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.swap_beta.create_swap_operation(swap_operation_request,\
+          code: "response = fireblocks.trading_beta.create_order(create_order_request,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<SwapOperation>> = fireblocks.swapBeta.createSwapOperation(swapBetaApiCreateSwapOperationRequest);"
+        source: "const response: Promise<FireblocksResponse<OrderDetails>> = fireblocks.tradingBeta.createOrder(tradingBetaApiCreateOrderRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<SwapOperation>> response = fireblocks.swapBeta().createSwapOperation(swapOperationRequest,\
+        source: "CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.tradingBeta().createOrder(createOrderRequest,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.swap_beta.create_swap_operation(swap_operation_request,\
+        source: "response = fireblocks.trading_beta.create_order(create_order_request,\
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
       - application/json
-  /swap/operations/{operationId}:
+  /trading/orders/{orderId}:
     get:
       description: |-
-        Get swap operation Details by ID.
+        Retrieve detailed information about a specific order by its ID.
 
         Note:These endpoints are currently in beta and might be subject to changes.
 
-        If you want to participate and learn more about the Fireblocks Swap, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
 
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-      operationId: getSwapOperationById
+      operationId: getOrder
       parameters:
-      - explode: false
+      - description: The ID of the order to fetch.
+        explode: false
         in: path
-        name: operationId
+        name: orderId
         required: true
         schema:
+          minLength: 1
           type: string
         style: simple
       responses:
@@ -17211,32 +17635,49 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SwapOperation"
-          description: ""
-        default:
-          $ref: "#/components/responses/Error"
-      summary: Get operation details
+                $ref: "#/components/schemas/OrderDetails"
+          description: Order response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorResponse"
+          description: Unauthorized. Missing / invalid JWT token in Authorization
+            header.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorResponse"
+          description: Not found
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorResponse"
+          description: Internal error.
+      summary: Get order details
       tags:
-      - Swap (Beta)
+      - Trading (Beta)
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<SwapOperation>> = fireblocks.swapBeta.getSwapOperationById(swapBetaApiGetSwapOperationByIdRequest);"
+          code: "const response: Promise<FireblocksResponse<OrderDetails>> = fireblocks.tradingBeta.getOrder(tradingBetaApiGetOrderRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<SwapOperation>> response = fireblocks.swapBeta().getSwapOperationById(operationId);
+          code: CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.tradingBeta().getOrder(orderId);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.swap_beta.get_swap_operation_by_id(operation_id);
+          code: response = fireblocks.trading_beta.get_order(order_id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<SwapOperation>> = fireblocks.swapBeta.getSwapOperationById(swapBetaApiGetSwapOperationByIdRequest);"
+        source: "const response: Promise<FireblocksResponse<OrderDetails>> = fireblocks.tradingBeta.getOrder(tradingBetaApiGetOrderRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<SwapOperation>> response = fireblocks.swapBeta().getSwapOperationById(operationId);
+        source: CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.tradingBeta().getOrder(orderId);
       - lang: Python
-        source: response = fireblocks.swap_beta.get_swap_operation_by_id(operation_id);
+        source: response = fireblocks.trading_beta.get_order(order_id);
       x-accepts:
       - application/json
   /admin_quorum:
@@ -25762,9 +26203,13 @@ components:
       type: string
     ExchangeAsset:
       example:
+        providerSymbol: BTC
         total: total
         lockedAmount: lockedAmount
+        assetSymbol: BTC
         balance: balance
+        assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+        assetLegacyId: BTC
         available: available
         id: id
         credit: credit
@@ -25781,19 +26226,43 @@ components:
           type: string
         credit:
           type: string
+        assetId:
+          description: The id of the asset
+          example: 2306088f-97ed-4293-8d28-8ab627f272d7
+          type: string
+        providerSymbol:
+          description: The provider symbol of the asset
+          example: BTC
+          type: string
+        assetSymbol:
+          description: The asset symbol of the asset
+          example: BTC
+          type: string
+        assetLegacyId:
+          description: The asset legacy id of the asset
+          example: BTC
+          type: string
       type: object
     ExchangeTradingAccount:
       example:
         assets:
-        - total: total
+        - providerSymbol: BTC
+          total: total
           lockedAmount: lockedAmount
+          assetSymbol: BTC
           balance: balance
+          assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+          assetLegacyId: BTC
           available: available
           id: id
           credit: credit
-        - total: total
+        - providerSymbol: BTC
+          total: total
           lockedAmount: lockedAmount
+          assetSymbol: BTC
           balance: balance
+          assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+          assetLegacyId: BTC
           available: available
           id: id
           credit: credit
@@ -25813,30 +26282,46 @@ components:
       example:
         tradingAccounts:
         - assets:
-          - total: total
+          - providerSymbol: BTC
+            total: total
             lockedAmount: lockedAmount
+            assetSymbol: BTC
             balance: balance
+            assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+            assetLegacyId: BTC
             available: available
             id: id
             credit: credit
-          - total: total
+          - providerSymbol: BTC
+            total: total
             lockedAmount: lockedAmount
+            assetSymbol: BTC
             balance: balance
+            assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+            assetLegacyId: BTC
             available: available
             id: id
             credit: credit
           name: name
           type: type
         - assets:
-          - total: total
+          - providerSymbol: BTC
+            total: total
             lockedAmount: lockedAmount
+            assetSymbol: BTC
             balance: balance
+            assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+            assetLegacyId: BTC
             available: available
             id: id
             credit: credit
-          - total: total
+          - providerSymbol: BTC
+            total: total
             lockedAmount: lockedAmount
+            assetSymbol: BTC
             balance: balance
+            assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+            assetLegacyId: BTC
             available: available
             id: id
             credit: credit
@@ -25844,15 +26329,23 @@ components:
           type: type
         isSubaccount: true
         assets:
-        - total: total
+        - providerSymbol: BTC
+          total: total
           lockedAmount: lockedAmount
+          assetSymbol: BTC
           balance: balance
+          assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+          assetLegacyId: BTC
           available: available
           id: id
           credit: credit
-        - total: total
+        - providerSymbol: BTC
+          total: total
           lockedAmount: lockedAmount
+          assetSymbol: BTC
           balance: balance
+          assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+          assetLegacyId: BTC
           available: available
           id: id
           credit: credit
@@ -25941,30 +26434,46 @@ components:
         ExchangeAccount:
         - tradingAccounts:
           - assets:
-            - total: total
+            - providerSymbol: BTC
+              total: total
               lockedAmount: lockedAmount
+              assetSymbol: BTC
               balance: balance
+              assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+              assetLegacyId: BTC
               available: available
               id: id
               credit: credit
-            - total: total
+            - providerSymbol: BTC
+              total: total
               lockedAmount: lockedAmount
+              assetSymbol: BTC
               balance: balance
+              assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+              assetLegacyId: BTC
               available: available
               id: id
               credit: credit
             name: name
             type: type
           - assets:
-            - total: total
+            - providerSymbol: BTC
+              total: total
               lockedAmount: lockedAmount
+              assetSymbol: BTC
               balance: balance
+              assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+              assetLegacyId: BTC
               available: available
               id: id
               credit: credit
-            - total: total
+            - providerSymbol: BTC
+              total: total
               lockedAmount: lockedAmount
+              assetSymbol: BTC
               balance: balance
+              assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+              assetLegacyId: BTC
               available: available
               id: id
               credit: credit
@@ -25972,15 +26481,23 @@ components:
             type: type
           isSubaccount: true
           assets:
-          - total: total
+          - providerSymbol: BTC
+            total: total
             lockedAmount: lockedAmount
+            assetSymbol: BTC
             balance: balance
+            assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+            assetLegacyId: BTC
             available: available
             id: id
             credit: credit
-          - total: total
+          - providerSymbol: BTC
+            total: total
             lockedAmount: lockedAmount
+            assetSymbol: BTC
             balance: balance
+            assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+            assetLegacyId: BTC
             available: available
             id: id
             credit: credit
@@ -25992,30 +26509,46 @@ components:
           status: status
         - tradingAccounts:
           - assets:
-            - total: total
+            - providerSymbol: BTC
+              total: total
               lockedAmount: lockedAmount
+              assetSymbol: BTC
               balance: balance
+              assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+              assetLegacyId: BTC
               available: available
               id: id
               credit: credit
-            - total: total
+            - providerSymbol: BTC
+              total: total
               lockedAmount: lockedAmount
+              assetSymbol: BTC
               balance: balance
+              assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+              assetLegacyId: BTC
               available: available
               id: id
               credit: credit
             name: name
             type: type
           - assets:
-            - total: total
+            - providerSymbol: BTC
+              total: total
               lockedAmount: lockedAmount
+              assetSymbol: BTC
               balance: balance
+              assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+              assetLegacyId: BTC
               available: available
               id: id
               credit: credit
-            - total: total
+            - providerSymbol: BTC
+              total: total
               lockedAmount: lockedAmount
+              assetSymbol: BTC
               balance: balance
+              assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+              assetLegacyId: BTC
               available: available
               id: id
               credit: credit
@@ -26023,15 +26556,23 @@ components:
             type: type
           isSubaccount: true
           assets:
-          - total: total
+          - providerSymbol: BTC
+            total: total
             lockedAmount: lockedAmount
+            assetSymbol: BTC
             balance: balance
+            assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+            assetLegacyId: BTC
             available: available
             id: id
             credit: credit
-          - total: total
+          - providerSymbol: BTC
+            total: total
             lockedAmount: lockedAmount
+            assetSymbol: BTC
             balance: balance
+            assetId: 2306088f-97ed-4293-8d28-8ab627f272d7
+            assetLegacyId: BTC
             available: available
             id: id
             credit: credit
@@ -26236,6 +26777,388 @@ components:
           type: boolean
       required:
       - success
+      type: object
+    ConnectedAccountApprovalStatus:
+      enum:
+      - WAITING_FOR_APPROVAL
+      - APPROVED
+      - REJECTED
+      - CANCELLED
+      - FAILED
+      type: string
+    ConnectedAccountTotalBalance:
+      example:
+        amount: "1201.15"
+        denominatedAssetId: ea6c3cb7-355a-4ee3-82ff-267c69970214
+        hasFullAssetCoverage: true
+      properties:
+        amount:
+          description: The denominated currency value of the account.
+          example: "1201.15"
+          type: string
+        denominatedAssetId:
+          description: The asset ID of the total balance.
+          example: ea6c3cb7-355a-4ee3-82ff-267c69970214
+          type: string
+        hasFullAssetCoverage:
+          default: false
+          description: "Indicates whether the total amount represents the complete\
+            \ balance of all assets in the account. When true, all asset balances\
+            \ have been successfully converted to the denominated currency. When false,\
+            \ some assets could not be included in the total due to missing exchange\
+            \ rates or non-convertible assets."
+          example: true
+          type: boolean
+      required:
+      - amount
+      - denominatedAssetId
+      - hasFullAssetCoverage
+      type: object
+    ConnectedAccountAssetType:
+      enum:
+      - DIGITAL
+      - FIAT
+      type: string
+    ConnectedAccountCapability:
+      enum:
+      - WITHDRAWALS
+      - DEPOSITS
+      - TRADING
+      type: string
+    ConnectedAccountManifest:
+      example:
+        assetTypes: []
+        capabilities:
+        - WITHDRAWALS
+      properties:
+        assetTypes:
+          description: Asset types supported by the connected account.
+          example: []
+          items:
+            $ref: "#/components/schemas/ConnectedAccountAssetType"
+          type: array
+        capabilities:
+          description: |
+            Features supported for the connected account. Logic: - If account capabilities include ramp -> TRADING - If account capabilities include transfers -> DEPOSITS - If account capabilities include transfersBlockchain / transfersFiat / transfersPeerAccounts / transfersInternal -> WITHDRAWALS
+          example:
+          - WITHDRAWALS
+          items:
+            $ref: "#/components/schemas/ConnectedAccountCapability"
+          type: array
+      required:
+      - assetTypes
+      - capabilities
+      type: object
+    ConnectedAccount:
+      properties:
+        id:
+          description: Unique identifier of the connected account.
+          example: acc-123456
+          type: string
+        name:
+          description: Human-readable name of the connected account.
+          example: Main Venue Account
+          type: string
+        providerId:
+          description: The ID of the venue the account belongs to.
+          example: BRIDGE
+          type: string
+        status:
+          $ref: "#/components/schemas/ConnectedAccountApprovalStatus"
+        totalBalance:
+          $ref: "#/components/schemas/ConnectedAccountTotalBalance"
+        manifest:
+          $ref: "#/components/schemas/ConnectedAccountManifest"
+        parentId:
+          description: "The ID of the parent main account, if this is a sub account."
+          example: acc-parent-001
+          type: string
+      required:
+      - id
+      - manifest
+      - name
+      - providerId
+      - status
+      - totalBalance
+      type: object
+    ConnectedAccountsResponse:
+      example:
+        next: eyJwYWdlIjoyfQ==
+        total: 2
+        data:
+        - id: acc-123456
+          name: Main Venue Account
+          providerId: BRIDGE
+          status: APPROVED
+          totalBalance:
+            amount: "1201.15"
+            denominatedAssetId: ea6c3cb7-355a-4ee3-82ff-267c69970214
+            hasFullAssetCoverage: true
+          manifest:
+            assetTypes: []
+            capabilities:
+            - DEPOSITS
+            - WITHDRAWALS
+        - id: acc-654321
+          name: Secondary Account
+          providerId: BRIDGE
+          status: WAITING_FOR_APPROVAL
+          totalBalance:
+            amount: "0.00"
+            denominatedAssetId: ea6c3cb7-355a-4ee3-82ff-267c69970214
+            hasFullAssetCoverage: false
+          manifest:
+            assetTypes: []
+            capabilities:
+            - WITHDRAWALS
+      properties:
+        data:
+          description: List of connected accounts matching the query.
+          example:
+          - id: acc-123456
+            name: Main Venue Account
+            providerId: BRIDGE
+            status: APPROVED
+            totalBalance:
+              amount: "1201.15"
+              denominatedAssetId: ea6c3cb7-355a-4ee3-82ff-267c69970214
+              hasFullAssetCoverage: true
+            manifest:
+              assetTypes: []
+              capabilities:
+              - DEPOSITS
+              - WITHDRAWALS
+          - id: acc-654321
+            name: Secondary Account
+            providerId: BRIDGE
+            status: WAITING_FOR_APPROVAL
+            totalBalance:
+              amount: "0.00"
+              denominatedAssetId: ea6c3cb7-355a-4ee3-82ff-267c69970214
+              hasFullAssetCoverage: false
+            manifest:
+              assetTypes: []
+              capabilities:
+              - WITHDRAWALS
+          items:
+            $ref: "#/components/schemas/ConnectedAccount"
+          type: array
+        total:
+          description: Total number of accounts by query.
+          example: 2
+          type: integer
+        next:
+          description: "A cursor for the next page of results, if available."
+          example: eyJwYWdlIjoyfQ==
+          type: string
+      required:
+      - data
+      type: object
+    ConnectedSingleAccount:
+      properties:
+        subAccountsIds:
+          description: IDs of sub-accounts associated with this connected account.
+          example:
+          - acc-sub-001
+          - acc-sub-002
+          items:
+            type: string
+          type: array
+      type: object
+    ConnectedSingleAccountResponse:
+      allOf:
+      - $ref: "#/components/schemas/ConnectedAccount"
+      - $ref: "#/components/schemas/ConnectedSingleAccount"
+      example:
+        totalBalance:
+          amount: "1201.15"
+          denominatedAssetId: ea6c3cb7-355a-4ee3-82ff-267c69970214
+          hasFullAssetCoverage: true
+        providerId: BRIDGE
+        manifest:
+          assetTypes: []
+          capabilities:
+          - WITHDRAWALS
+        name: Main Venue Account
+        id: acc-123456
+        parentId: acc-parent-001
+        subAccountsIds:
+        - acc-sub-001
+        - acc-sub-002
+        status: WAITING_FOR_APPROVAL
+    ConnectedAccountBalances:
+      properties:
+        assetId:
+          description: "Asset identifier (e.g., BTC, ETH, USDC)."
+          example: BTC
+          type: string
+        availableAmount:
+          description: Amount available for use.
+          example: "100.00"
+          type: string
+        totalAmount:
+          description: Total amount including locked/held balances.
+          example: "120.00"
+          type: string
+        lockedAmount:
+          description: Amount currently locked/held.
+          example: "20.00"
+          type: string
+        creditAmount:
+          description: "Credit line amount, if applicable (0 when not used)."
+          example: "0"
+          type: string
+        balanceType:
+          description: "Wallet type/category (e.g., SPOT, MARGIN, FUNDING)."
+          example: FUNDING
+          type: string
+        balanceName:
+          description: Display name for the balance type (at the provider)
+          example: Trader1 Wallet
+          type: string
+      required:
+      - assetId
+      - availableAmount
+      - balanceType
+      - totalAmount
+      type: object
+    ConnectedAccountBalancesResponse:
+      example:
+        next: eyJwYWdlIjoyfQ==
+        total: 2
+        data:
+        - assetId: BTC
+          availableAmount: "100.00"
+          totalAmount: "120.00"
+          balanceType: FUNDING
+          balanceName: Trader1 Wallet
+      properties:
+        data:
+          description: "Flat balance row for a single asset within an account and\
+            \ wallet type. One row per (assetId, balanceType)."
+          example:
+          - assetId: BTC
+            availableAmount: "100.00"
+            totalAmount: "120.00"
+            balanceType: FUNDING
+            balanceName: Trader1 Wallet
+          items:
+            $ref: "#/components/schemas/ConnectedAccountBalances"
+          type: array
+        total:
+          description: Total number of balance rows by query.
+          example: 2
+          type: integer
+        next:
+          description: "A cursor for the next page of results, if available."
+          example: eyJwYWdlIjoyfQ==
+          type: string
+      required:
+      - data
+      type: object
+    ConnectedAccountRateResponse:
+      example:
+        accountId: ea6c3cb7-355a-4ee3-82ff-267c69970210
+        baseAssetId: BTC
+        rate: "1.2345"
+        quoteAssetId: USD
+      properties:
+        accountId:
+          description: The ID of the account that generated the quote.
+          example: ea6c3cb7-355a-4ee3-82ff-267c69970210
+          type: string
+        baseAssetId:
+          description: The source asset identifier
+          example: BTC
+          type: string
+        quoteAssetId:
+          description: The target asset identifier
+          example: USD
+          type: string
+        rate:
+          description: The exchange rate value
+          example: "1.2345"
+          type: string
+      required:
+      - accountId
+      - baseAssetId
+      - quoteAssetId
+      - rate
+      type: object
+    ConnectedAccountTradingPairSupportedType:
+      enum:
+      - QUOTE
+      - MARKET
+      - LIMIT
+      type: string
+    ConnectedAccountTradingPair:
+      properties:
+        id:
+          description: The ID of the trading pair.
+          example: ea6c3cb7-355a-4ee3-82ff-267c69970210
+          type: string
+        baseAssetId:
+          description: The Symbol of the base asset.
+          example: BTC
+          type: string
+        quoteAssetId:
+          description: The symbol of the quote asset.
+          example: USD
+          type: string
+        supportedTypes:
+          items:
+            $ref: "#/components/schemas/ConnectedAccountTradingPairSupportedType"
+          type: array
+      required:
+      - baseAssetId
+      - id
+      - quoteAssetId
+      - supportedTypes
+      type: object
+    ConnectedAccountTradingPairsResponse:
+      example:
+        next: next
+        total: 2
+        data:
+        - id: ea6c3cb7-355a-4ee3-82ff-267c69970210
+          baseAssetId: BTC
+          quoteAssetId: USD
+          supportedTypes:
+          - MARKET
+        - id: ea6c3cb7-355a-4ee3-82ff-267c69970211
+          baseAssetId: ETH
+          quoteAssetId: USDC
+          supportedTypes:
+          - QUOTE
+          - MARKET
+      properties:
+        data:
+          example:
+          - id: ea6c3cb7-355a-4ee3-82ff-267c69970210
+            baseAssetId: BTC
+            quoteAssetId: USD
+            supportedTypes:
+            - MARKET
+          - id: ea6c3cb7-355a-4ee3-82ff-267c69970211
+            baseAssetId: ETH
+            quoteAssetId: USDC
+            supportedTypes:
+            - QUOTE
+            - MARKET
+          items:
+            $ref: "#/components/schemas/ConnectedAccountTradingPair"
+          type: array
+        total:
+          description: Total number of asset pairs matching the query.
+          example: 2
+          type: integer
+        next:
+          description: "A cursor for the next page of results, if available."
+          nullable: true
+          type: string
+          example: null
+      required:
+      - data
       type: object
     NetworkChannel:
       deprecated: true
@@ -27961,6 +28884,12 @@ components:
       - userId
       - userName
       type: object
+    AssetFeature:
+      description: Asset feature
+      enum:
+      - STABLECOIN
+      example: STABLECOIN
+      type: string
     AssetDetailsMetadata:
       example:
         note:
@@ -27968,6 +28897,9 @@ components:
           userName: Test test
           userId: 056776ab-9efa-4219-9820-9ece0cc4d90d
           updatedAt: 2025-06-08T19:42:49Z
+        features:
+        - STABLECOIN
+        - STABLECOIN
         website: https://example.org
         scope: GLOBAL
         deprecated: false
@@ -28008,6 +28940,11 @@ components:
           type: array
         note:
           $ref: "#/components/schemas/AssetNote"
+        features:
+          description: Asset features
+          items:
+            $ref: "#/components/schemas/AssetFeature"
+          type: array
       required:
       - deprecated
       - scope
@@ -28022,6 +28959,9 @@ components:
             userName: Test test
             userId: 056776ab-9efa-4219-9820-9ece0cc4d90d
             updatedAt: 2025-06-08T19:42:49Z
+          features:
+          - STABLECOIN
+          - STABLECOIN
           website: https://example.org
           scope: GLOBAL
           deprecated: false
@@ -28094,6 +29034,9 @@ components:
               userName: Test test
               userId: 056776ab-9efa-4219-9820-9ece0cc4d90d
               updatedAt: 2025-06-08T19:42:49Z
+            features:
+            - STABLECOIN
+            - STABLECOIN
             website: https://example.org
             scope: GLOBAL
             deprecated: false
@@ -28127,6 +29070,9 @@ components:
               userName: Test test
               userId: 056776ab-9efa-4219-9820-9ece0cc4d90d
               updatedAt: 2025-06-08T19:42:49Z
+            features:
+            - STABLECOIN
+            - STABLECOIN
             website: https://example.org
             scope: GLOBAL
             deprecated: false
@@ -43209,654 +44155,1625 @@ components:
       items:
         $ref: "#/components/schemas/Provider"
       type: array
-    SwapProviderProtocolsEnum:
-      description: Protocol options supported by each provider. `UNISWAP` supports
-        `UNISWAP_CLASSIC` and `UNISWAPX`. `WRAP_UNWRAP` supports `WRAP` and `UNWRAP.`
-      enum:
-      - UNISWAP_CLASSIC
-      - UNISWAPX
-      - WRAP
-      - UNWRAP
-      example: UNISWAP_CLASSIC
-      type: string
-    ProviderCategoryEnum:
-      description: "Category that classify the provider, Supported categories are:\
-        \  `DEX`, `CEX`, `OTC`"
-      enum:
-      - DEX
-      - CEX
-      - OTC
-      - WRAP_UNWRAP
-      example: DEX
-      type: string
-    SwapProvider:
+    BaseProvider:
       example:
-        termsOfServiceUrl: https://uniswap.org/terms-of-service
-        isTermsApprovalRequired: true
-        name: Uniswap
-        id: 3e2efee1-0d69-4276-a6e6-711531185e4f
-        protocols:
-        - UNISWAP_CLASSIC
-        - UNISWAPX
-        category: DEX
-        isTermsOfServiceApproved: true
+        id: prov_7b4e2d9f1c8a5e3b
+        name: Global Exchange Partners
+        logo: https://example.com/logos/global-exchange-partners.png
+        accountBased: false
       properties:
         id:
-          description: The uuid that identifies the provider
-          example: 3e2efee1-0d69-4276-a6e6-711531185e4f
-          format: uuid
+          description: Unique identifier for the provider
           type: string
         name:
-          description: Name of the provider
-          example: Uniswap
+          description: Display name of the provider
           type: string
-        protocols:
-          description: List of supported protocols. Protocols are specific per provider
-          example:
-          - UNISWAP_CLASSIC
-          - UNISWAPX
-          items:
-            $ref: "#/components/schemas/SwapProviderProtocolsEnum"
-          type: array
-        category:
-          $ref: "#/components/schemas/ProviderCategoryEnum"
-        isTermsApprovalRequired:
-          description: "Indicates whether the terms of service are required for the\
-            \ provider. if `true`, the user must approve the terms of service before\
-            \ using the provider. otherwise, `termsOfServiceUrl` and `isTermsOfServiceApproved`\
-            \ are not shown under the provider data."
-          example: true
-          type: boolean
-        termsOfServiceUrl:
-          description: URL to the terms of service
-          example: https://uniswap.org/terms-of-service
+        logo:
+          description: URL to the logo image of the provider
           type: string
-        isTermsOfServiceApproved:
-          description: Indicates whether the terms of service are approved by the
-            user
-          example: true
+        accountBased:
+          description: Indicates whether the provider access model is through accounts
+            or directly
           type: boolean
       required:
-      - category
+      - accountBased
       - id
-      - isTermsApprovalRequired
       - name
-      - protocols
       type: object
-    SwapProvidersPaginatedResponse:
+    Capability:
+      enum:
+      - WITHDRAWALS
+      - DEPOSITS
+      - TRADING
+      example: TRADING
+      type: string
+    Manifest:
       example:
-        next: MjAyMy0xMi0xMyA====TNjowOC4zMDI=:MTEwMA==
+        assetTypes:
+        - DIGITAL
+        - FIAT
+        capabilities:
+        - SPOT_TRADING
+        - LIMIT_ORDERS
+      properties:
+        assetTypes:
+          items:
+            enum:
+            - DIGITAL
+            - FIAT
+            type: string
+          type: array
+        capabilities:
+          items:
+            $ref: "#/components/schemas/Capability"
+          type: array
+      required:
+      - assetTypes
+      - capabilities
+      type: object
+    AccountBase:
+      example:
+        id: acc_9f4e2d8b1c6a5e73
+        name: Main Trading Account
+      properties:
+        id:
+          description: The ID of the account
+          type: string
+        name:
+          description: The name of the account
+          type: string
+      required:
+      - id
+      - name
+      type: object
+    AccountBasedAccessProvider:
+      allOf:
+      - $ref: "#/components/schemas/BaseProvider"
+      - properties:
+          manifest:
+            $ref: "#/components/schemas/Manifest"
+          connected:
+            description: Whether the provider is currently connected
+            type: boolean
+          accounts:
+            items:
+              $ref: "#/components/schemas/AccountBase"
+            type: array
+        required:
+        - accountBased
+        - connected
+        - manifest
+        type: object
+      example:
+        id: prov_9a2c4e8f7b1d3a6e
+        name: Premium Trading Co
+        logo: https://example.com/logos/premium-trading-co.png
+        accountBased: true
+        manifest:
+          assetTypes:
+          - DIGITAL
+          - FIAT
+          capabilities:
+          - SPOT_TRADING
+        connected: true
+        accounts:
+        - id: acc_5f8e2d9c1a7b4e36
+          name: Trading Account 1
+          description: Primary trading account
+    DirectAccessProvider:
+      allOf:
+      - $ref: "#/components/schemas/BaseProvider"
+      - properties:
+          approved:
+            description: Whether the provider was approved for use
+            type: boolean
+          hasTermsOfService:
+            description: Whether the provider has terms of service
+            type: boolean
+          termsOfServiceUrl:
+            description: URL to the terms of service document
+            type: string
+        required:
+        - accountBased
+        - hasTermsOfService
+        type: object
+      example:
+        id: prov_2f8e1d9b4c7a5e3f
+        name: DirectTrade Solutions
+        logo: https://example.com/logos/directtrade-solutions.png
+        accountBased: false
+        approved: true
+        hasTermsOfService: true
+        termsOfServiceUrl: https://directtrade.example.com/terms
+    TradingProvider:
+      oneOf:
+      - $ref: "#/components/schemas/AccountBasedAccessProvider"
+      - $ref: "#/components/schemas/DirectAccessProvider"
+    ProvidersListResponse:
+      example:
         data:
-        - termsOfServiceUrl: https://uniswap.org/terms-of-service
-          isTermsApprovalRequired: true
-          name: Uniswap
-          id: 3e2efee1-0d69-4276-a6e6-711531185e4f
-          protocols:
-          - UNISWAP_CLASSIC
-          - UNISWAPX
-          category: DEX
-          isTermsOfServiceApproved: true
-        - termsOfServiceUrl: https://uniswap.org/terms-of-service
-          isTermsApprovalRequired: true
-          name: Uniswap
-          id: 3e2efee1-0d69-4276-a6e6-711531185e4f
-          protocols:
-          - UNISWAP_CLASSIC
-          - UNISWAPX
-          category: DEX
-          isTermsOfServiceApproved: true
+        - id: bridge-provider-001
+          name: Bridge Provider
+          logo: https://example.com/logos/bridge.png
+          accountBased: true
+          manifest:
+            assetTypes:
+            - DIGITAL
+            - FIAT
+            capabilities:
+            - TRADING
+            - WITHDRAWALS
+          connected: true
+          accounts:
+          - id: acc_9f4e2d8b1c6a5e73
+            name: Main Trading Account
+        - id: uniswap-v3-provider
+          name: Uniswap V3
+          logo: https://example.com/logos/uniswap.png
+          accountBased: false
+          approved: true
+          hasTermsOfService: true
+          termsOfServiceUrl: https://uniswap.org/terms
+        total: 2
+        next: cursor_abc123def456
       properties:
         data:
-          description: The data of the current page
+          description: List of available providers
           items:
-            $ref: "#/components/schemas/SwapProvider"
+            $ref: "#/components/schemas/TradingProvider"
           type: array
+        total:
+          description: Total number of providers matching the query.
+          type: integer
         next:
-          description: "The cursor to fetch the next page of results, if absent or\
-            \ null, there are no additional results."
-          example: MjAyMy0xMi0xMyA====TNjowOC4zMDI=:MTEwMA==
-          nullable: true
+          description: "A cursor for the next page of results, if available."
           type: string
       required:
       - data
+      - total
       type: object
-    QuoteRequest:
+    ErrorCodes:
+      enum:
+      - INVALID_TOKEN
+      - MISSING_PARAMETER
+      - INVALID_PARAMETER
+      - RESOURCE_NOT_FOUND
+      - INVALID_TIME_RANGE
+      - UNAUTHORIZED
+      - ACCOUNT_NOT_ACTIVE
+      - UNMANAGED_WALLET_NOT_APPROVED
+      example: INVALID_PARAMETER
+      type: string
+    TradingErrorResponse:
       example:
-        accountId: "1"
-        protocol: UNISWAP_CLASSIC
-        inputAsset: WETH
-        inputAmount: "10"
-        outputAsset: DAI
-        slippageTolerance: 0.5
+        error:
+          type: VALIDATION
+          message: "Invalid base amount: must be greater than 0"
+          errorCode: INVALID_AMOUNT
       properties:
+        error:
+          $ref: "#/components/schemas/TradingErrorResponse_error"
+      required:
+      - error
+      type: object
+    AccountProviderID:
+      example:
+        providerId: prov_8c3f1a4b2d6e9f7c
+        accountId: acc_5e9a2d1c4b7f3e8a
+      properties:
+        providerId:
+          description: The ID of the provider associated with the account.
+          type: string
         accountId:
-          description: The id of the vault account or account id
-          example: "1"
+          description: The ID of the account associated with the provider.
           type: string
-        inputAmount:
-          description: "The amount of tokens the swapper will provide, positive number,\
-            \ can be a decimal."
-          example: "10"
-          type: string
-        inputAsset:
-          description: The id of the asset the swapper will provide
-          example: WETH
-          type: string
-        outputAsset:
-          description: The id of the asset the swapper will receive
-          example: DAI
-          type: string
-        slippageTolerance:
-          description: The slippage tolerance is a percentage. The slippage tolerance
-            is the maximum amount the price can change between the time the transaction
-            is submitted and the time it is executed
-          example: 0.5
-          maximum: 100
-          minimum: 0
-          type: number
-        protocol:
-          $ref: "#/components/schemas/SwapProviderProtocolsEnum"
       required:
-      - inputAmount
-      - inputAsset
-      - outputAsset
-      - protocol
-      - slippageTolerance
+      - accountId
+      - providerId
       type: object
-    ProviderAdditionalData:
-      description: Provider specific additional data
+    ProviderID:
       example:
-        priceImpact: "0.01"
+        providerId: prov_8c3f1a4b2d6e9f7c
       properties:
-        priceImpact:
-          example: "0.01"
+        providerId:
+          description: The ID of the provider associated with the account.
           type: string
       required:
-      - priceImpact
+      - providerId
       type: object
-    SwapRequiredActionsEnum:
+    TransferRail:
+      description: "Transfer rail: \n* **BLOCKCHAIN** - Transfer over the public blockchain\n\
+        * **INTERNAL** - Internal transfer within the same account (e.g. sub-accounts\
+        \ or same api key)\n* **PEER** - Peer transfer within the same provider network\n\
+        * **SWIFT** - International wire transfer\n* **IBAN** - International Bank\
+        \ Account Number transfer\n* **US_WIRE** - Domestic wire transfer within the\
+        \ United States (e.g. FedWire)\n* **ACH** - Automated Clearing House transfer,\
+        \ typically takes longer but not as expensive as wire transfers\n* **SEPA**\
+        \ - Euro transfers within the SEPA zone\n* **SPEI** - Mexican interbank electronic\
+        \ payment system\n* **PIX** - Brazilian instant payment system\n* **LOCAL_BANK_TRANSFER_AFRICA**\
+        \ - Local bank transfers within Africa\n* **MOBILE_MONEY** - Mobile money\
+        \ transfers (e.g. M-Pesa)\n"
+      enum:
+      - BLOCKCHAIN
+      - INTERNAL
+      - PEER
+      - SWIFT
+      - IBAN
+      - US_WIRE
+      - ACH
+      - SEPA
+      - SPEI
+      - PIX
+      - LOCAL_BANK_TRANSFER_AFRICA
+      - MOBILE_MONEY
+      example: BLOCKCHAIN
+      type: string
+    PlatformAccount:
+      example:
+        type: VAULT_ACCOUNT
+        accountId: vault_acc_5e9a2d1c4b7f3e8a
+      properties:
+        type:
+          enum:
+          - VAULT_ACCOUNT
+          - CONNECTED_ACCOUNT
+          - FIAT_ACCOUNT
+          type: string
+        accountId:
+          type: string
+      required:
+      - accountId
+      - type
+      type: object
+    ExternalAccount:
+      example:
+        type: EXTERNAL
+      properties:
+        type:
+          enum:
+          - EXTERNAL
+          type: string
+      required:
+      - type
+      type: object
+    SettlementSourceAccount:
+      discriminator:
+        mapping:
+          VAULT_ACCOUNT: "#/components/schemas/PlatformAccount"
+          CONNECTED_ACCOUNT: "#/components/schemas/PlatformAccount"
+          FIAT_ACCOUNT: "#/components/schemas/PlatformAccount"
+          EXTERNAL: "#/components/schemas/ExternalAccount"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/PlatformAccount"
+      - $ref: "#/components/schemas/ExternalAccount"
+    PeerType:
+      enum:
+      - VAULT_ACCOUNT
+      - EXCHANGE_ACCOUNT
+      - INTERNAL_WALLET
+      - EXTERNAL_WALLET
+      - FIAT_ACCOUNT
+      example: VAULT_ACCOUNT
+      type: string
+    InternalReference:
+      example:
+        type: VAULT_ACCOUNT
+        accountId: vault_acc_9f3e2d1c4b8a7e5f
+      properties:
+        type:
+          $ref: "#/components/schemas/PeerType"
+        accountId:
+          type: string
+      required:
+      - accountId
+      - type
+      type: object
+    OneTimeAddressReference:
+      example:
+        type: ONE_TIME_ADDRESS
+        address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+        tag: destination-memo-123
+      properties:
+        type:
+          enum:
+          - ONE_TIME_ADDRESS
+          type: string
+        address:
+          type: string
+        tag:
+          type: string
+      required:
+      - address
+      - type
+      type: object
+    AccountReference:
+      discriminator:
+        mapping:
+          VAULT_ACCOUNT: "#/components/schemas/InternalReference"
+          EXCHANGE_ACCOUNT: "#/components/schemas/InternalReference"
+          INTERNAL_WALLET: "#/components/schemas/InternalReference"
+          EXTERNAL_WALLET: "#/components/schemas/InternalReference"
+          FIAT_ACCOUNT: "#/components/schemas/InternalReference"
+          ONE_TIME_ADDRESS: "#/components/schemas/OneTimeAddressReference"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/InternalReference"
+      - $ref: "#/components/schemas/OneTimeAddressReference"
+    DVPSettlement:
+      description: Source/Destination accounts for the quote (must have for defi quotes)
+      example:
+        type: DVP
+        sourceAccount:
+          type: VAULT_ACCOUNT
+          id: vault_acc_3f7e1d9b2c5a8e4f
+        destinationAccount:
+          type: VAULT_ACCOUNT
+          id: vault_acc_7b2e5d8f1c4a9e3b
+      properties:
+        type:
+          enum:
+          - DVP
+          type: string
+        sourceAccount:
+          $ref: "#/components/schemas/SettlementSourceAccount"
+        destinationAccount:
+          $ref: "#/components/schemas/AccountReference"
+      required:
+      - destinationAccount
+      - sourceAccount
+      - type
+      type: object
+    CreateQuote:
+      example:
+        scope:
+        - providerId: prov_8c3f1a4b2d6e9f7c
+          accountId: acc_5e9a2d1c4b7f3e8a
+        baseAssetId: USD
+        baseAssetRail: FIAT_RAILS
+        quoteAssetId: BTC
+        quoteAssetRail: BLOCKCHAIN_RAILS
+        baseAmount: "1000.00"
+        side: BUY
+        slippageBps: 100
+        settlement:
+          type: DVP
+          sourceAccount:
+            type: VAULT_ACCOUNT
+            id: vault_acc_3f7e1d9b2c5a8e4f
+          destinationAccount:
+            type: VAULT_ACCOUNT
+            id: vault_acc_7b2e5d8f1c4a9e3b
+      properties:
+        scope:
+          items:
+            $ref: "#/components/schemas/CreateQuote_scope_inner"
+          type: array
+        baseAssetId:
+          type: string
+        baseAssetRail:
+          $ref: "#/components/schemas/TransferRail"
+        quoteAssetId:
+          type: string
+        quoteAssetRail:
+          $ref: "#/components/schemas/TransferRail"
+        baseAmount:
+          description: The amount to convert from
+          example: "100.00"
+          pattern: ^\d+(\.\d+)?$
+          type: string
+        slippageBps:
+          default: 50
+          description: Slippage tolerance in basis points (bps) for defi quotes -
+            1 is 0.01% and 10000 is 100%
+          maximum: 10000
+          minimum: 1
+          type: number
+        settlement:
+          $ref: "#/components/schemas/DVPSettlement"
+        side:
+          description: Side of the order
+          enum:
+          - BUY
+          - SELL
+          type: string
+      required:
+      - baseAmount
+      - baseAssetId
+      - quoteAssetId
+      - scope
+      - side
+      type: object
+    AccountAccess:
+      example:
+        type: PROVIDER_ACCOUNT
+        providerId: bridge-provider-001
+        accountId: acc_9f4e2d8b1c6a5e73
+      properties:
+        type:
+          description: Indicates this uses account-based access
+          enum:
+          - PROVIDER_ACCOUNT
+          type: string
+        providerId:
+          description: The ID of the provider
+          type: string
+        accountId:
+          description: The ID of the account
+          type: string
+      required:
+      - accountId
+      - type
+      type: object
+    DirectAccess:
+      example:
+        type: PROVIDER
+        providerId: uniswap-v3-provider
+      properties:
+        type:
+          description: Indicates this uses direct provider access
+          enum:
+          - PROVIDER
+          type: string
+        providerId:
+          description: The ID of the provider
+          type: string
+      required:
+      - providerId
+      - type
+      type: object
+    AccessType:
+      discriminator:
+        mapping:
+          PROVIDER_ACCOUNT: "#/components/schemas/AccountAccess"
+          PROVIDER: "#/components/schemas/DirectAccess"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/AccountAccess"
+      - $ref: "#/components/schemas/DirectAccess"
+    ExecutionStepType:
       enum:
       - APPROVE
       - PERMIT
       - CONTRACT_CALL
-      example: APPROVE
+      - EXECUTE
+      - SETTLEMENT
+      example: EXECUTE
       type: string
-    QuoteFee:
+    FixedFee:
+      allOf:
+      - properties:
+          amountType:
+            enum:
+            - FIXED
+            type: string
+          amount:
+            description: The fixed amount of the fee
+            example: "0.01"
+            pattern: ^\d+(\.\d+)?$
+            type: string
+        required:
+        - amount
+        - amountType
+        type: object
       example:
-        networkFeeAssetId: ETH
-        providerFee: "5742266"
-        providerFeeAssetId: DAI
-        providerFeeRate: 0.25
-        networkApproveFee: "1478987585080628"
-        networkExecutionFee: "1478987585080628"
-      properties:
-        networkExecutionFee:
-          description: The gas fee in the asset unit.
-          example: "1478987585080628"
-          type: string
-        networkFeeAssetId:
-          description: The network fee in Fireblocks asset representation
-          example: ETH
-          type: string
-        providerFee:
-          description: The provider fee in the asset unit.
-          example: "5742266"
-          type: string
-        providerFeeAssetId:
-          description: The provider fee in Fireblocks asset representation
-          example: DAI
-          type: string
-        providerFeeRate:
-          description: Percentages of the provider fee out of the gross amount
-          example: 0.25
-          type: number
-        networkApproveFee:
-          description: The gas fee in the asset unit.
-          example: "1478987585080628"
-          type: string
-      required:
-      - networkExecutionFee
-      - networkFeeAssetId
-      - providerFee
-      - providerFeeAssetId
-      - providerFeeRate
-      type: object
-    WalletQuoteResponse:
-      description: Return a quote with id that can be used for swap operation.
+        amountType: FIXED
+        amount: "0.01"
+    BpsFee:
+      allOf:
+      - properties:
+          amountType:
+            enum:
+            - BPS
+            type: string
+          amount:
+            description: "Fee in basis points (1 = 0.01%, 10000 = 100%)"
+            example: 50
+            maximum: 10000
+            minimum: 0
+            type: number
+        required:
+        - amount
+        - amountType
+        type: object
       example:
-        expiredAt: 2023-07-13T15:55:34.256Z
-        protocol: UNISWAP_CLASSIC
-        requiredActions:
-        - APPROVE
-        - APPROVE
-        outputMinAmount: "10"
-        inputAsset: WETH
-        inputAmount: "10"
-        slippageTolerance: 0.5
-        outputAsset: DAI
-        estimatedFees:
-          networkFeeAssetId: ETH
-          providerFee: "5742266"
-          providerFeeAssetId: DAI
-          providerFeeRate: 0.25
-          networkApproveFee: "1478987585080628"
-          networkExecutionFee: "1478987585080628"
-        additionalData:
-          priceImpact: "0.01"
-        outputMaxAmount: "20"
-        providerQuoteId: 550e8400-e29b-41d4-a716-446655440000
-      properties:
-        protocol:
-          $ref: "#/components/schemas/SwapProviderProtocolsEnum"
-        inputAmount:
-          description: The amount of tokens the swapper will provide
-          example: "10"
-          type: string
-        inputAsset:
-          description: The id of the asset the swapper will provide
-          example: WETH
-          type: string
-        slippageTolerance:
-          description: The slippage tolerance is a percentage. The slippage tolerance
-            is the maximum amount the price can change between the time the transaction
-            is submitted and the time it is executed
-          example: 0.5
-          type: number
-        outputMinAmount:
-          description: The minimum amount of tokens the swapper will receive
-          example: "10"
-          type: string
-        outputMaxAmount:
-          description: Maximum amount of tokens that the swapper will receive
-          example: "20"
-          type: string
-        outputAsset:
-          description: The id of the asset the swapper will receive
-          example: DAI
-          type: string
-        additionalData:
-          $ref: "#/components/schemas/ProviderAdditionalData"
-        providerQuoteId:
-          description: An identifier that uniquely identifies the received quote
-          example: 550e8400-e29b-41d4-a716-446655440000
-          format: uuid
-          type: string
-        expiredAt:
-          description: When was the received `providerQuoteId` is expired (ISO Date
-            time).
-          example: 2023-07-13T15:55:34.256Z
-          format: date-time
-          type: string
-        requiredActions:
-          description: The required actions for completing a swap operation
-          items:
-            $ref: "#/components/schemas/SwapRequiredActionsEnum"
-          type: array
-        estimatedFees:
-          $ref: "#/components/schemas/QuoteFee"
-      required:
-      - additionalData
-      - estimatedFees
-      - expiredAt
-      - inputAmount
-      - inputAsset
-      - outputAsset
-      - outputMaxAmount
-      - outputMinAmount
-      - protocol
-      - providerQuoteId
-      - requiredActions
-      - slippageTolerance
-      type: object
-    NonWalletQuoteFee:
-      description: The estimated fees for the swap operation.
-      properties:
-        networkExecutionFee:
-          description: The gas fee in the asset unit.
-          example: "1478987585080628"
-          type: string
-        networkFeeAssetId:
-          description: The network fee in Fireblocks asset representation
-          example: ETH
-          type: string
-        providerFee:
-          description: The provider fee in the asset unit.
-          example: "5742266"
-          type: string
-        providerFeeAssetId:
-          description: The provider fee in Fireblocks asset representation
-          example: DAI
-          type: string
-        providerFeeRate:
-          description: Percentages of the provider fee out of the gross amount
-          example: 0.25
-          type: number
-      required:
-      - networkExecutionFee
-      - networkFeeAssetId
-      - providerFee
-      - providerFeeAssetId
-      - providerFeeRate
-      type: object
-    NonWalletQuoteResponse:
-      description: Return a quote that cannot be used for a swap operation.
-      properties:
-        protocol:
-          $ref: "#/components/schemas/SwapProviderProtocolsEnum"
-        inputAmount:
-          description: The amount of tokens the swapper will provide
-          example: "10"
-          type: string
-        inputAsset:
-          description: The id of the asset the swapper will provide
-          example: WETH
-          type: string
-        slippageTolerance:
-          description: The slippage tolerance is a percentage. The slippage tolerance
-            is the maximum amount the price can change between the time the transaction
-            is submitted and the time it is executed
-          example: 0.5
-          type: number
-        outputMinAmount:
-          description: The minimum amount of tokens the swapper will receive
-          example: "10"
-          type: string
-        outputMaxAmount:
-          description: Maximum amount of tokens that the swapper will receive
-          example: "20"
-          type: string
-        outputAsset:
-          description: The id of the asset the swapper will receive
-          example: DAI
-          type: string
-        additionalData:
-          $ref: "#/components/schemas/ProviderAdditionalData"
-        estimatedFees:
-          $ref: "#/components/schemas/NonWalletQuoteFee"
-      required:
-      - additionalData
-      - estimatedFees
-      - inputAmount
-      - inputAsset
-      - outputAsset
-      - outputMaxAmount
-      - outputMinAmount
-      - protocol
-      - slippageTolerance
-      type: object
-    QuoteResponse:
-      oneOf:
-      - $ref: "#/components/schemas/WalletQuoteResponse"
-      - $ref: "#/components/schemas/NonWalletQuoteResponse"
-    SwapRequiredAction:
+        amountType: BPS
+        amount: 50
+    Fee:
+      allOf:
+      - properties:
+          feeType:
+            description: |
+              The type of fee, such as ORDER, NETWORK, or SPREAD. ORDER - Fee for executing the order. NETWORK - Fee for network transactions. SPREAD - Fee for the difference between buy and sell prices.
+            enum:
+            - ORDER
+            - NETWORK
+            - SPREAD
+            type: string
+          assetId:
+            description: The asset identifier for the fee.
+            type: string
+          amountType:
+            description: "The type of amount for the fee, either FIXED or BPS (basis\
+              \ points)."
+            enum:
+            - FIXED
+            - BPS
+            type: string
+        required:
+        - amountType
+        - assetId
+        - feeType
+        type: object
+      - discriminator:
+          mapping:
+            FIXED: "#/components/schemas/FixedFee"
+            BPS: "#/components/schemas/BpsFee"
+          propertyName: amountType
+        oneOf:
+        - $ref: "#/components/schemas/FixedFee"
+        - $ref: "#/components/schemas/BpsFee"
+    ExecutionStepDetails:
       example:
-        txId: fc69381c-1e35-48c2-8415-484d1c2f55cx
-        type: APPROVE
-        status: PENDING
+        type: MARKET_EXECUTION
+        fee:
+          feeType: ORDER
+          assetId: USD
+          amountType: FIXED
+          amount: "2.50"
       properties:
         type:
-          $ref: "#/components/schemas/SwapRequiredActionsEnum"
-        status:
-          description: The status of the required action
+          $ref: "#/components/schemas/ExecutionStepType"
+        fee:
+          $ref: "#/components/schemas/Fee"
+      required:
+      - type
+      type: object
+    CommittedQuoteType:
+      example:
+        type: COMMITTED
+        expiresAt: 2024-01-15T14:30:00.000Z
+      properties:
+        type:
+          description: Indicates this is a committed quote
           enum:
-          - WAITING
-          - PROCESSING
-          - COMPLETED
-          - FAILED
-          - CANCELED
-          example: PENDING
+          - COMMITTED
           type: string
+        expiresAt:
+          description: ISO 8601 timestamp of the expiration time of the quote.
+          format: date-time
+          type: string
+      required:
+      - expiresAt
+      - type
+      type: object
+    IndicativeQuoteType:
+      example:
+        type: INDICATIVE
+      properties:
+        type:
+          description: Indicates this is an indicative quote
+          enum:
+          - INDICATIVE
+          type: string
+      required:
+      - type
+      type: object
+    Quote:
+      allOf:
+      - properties:
+          via:
+            $ref: "#/components/schemas/AccessType"
+          id:
+            type: string
+          type:
+            enum:
+            - COMMITTED
+            - INDICATIVE
+            type: string
+          quoteAssetId:
+            type: string
+          baseAssetId:
+            type: string
+          baseAmount:
+            type: string
+          quoteAmount:
+            type: string
+          priceImpact:
+            type: number
+          quoteMinAmount:
+            type: string
+          executionSteps:
+            items:
+              $ref: "#/components/schemas/ExecutionStepDetails"
+            type: array
+          generalFees:
+            items:
+              $ref: "#/components/schemas/Fee"
+            type: array
+          side:
+            description: Side of the order
+            enum:
+            - BUY
+            - SELL
+            type: string
+        required:
+        - baseAmount
+        - baseAssetId
+        - id
+        - quoteAmount
+        - quoteAssetId
+        - side
+        - type
+        - via
+        type: object
+      - discriminator:
+          mapping:
+            COMMITTED: "#/components/schemas/CommittedQuoteType"
+            INDICATIVE: "#/components/schemas/IndicativeQuoteType"
+          propertyName: type
+        oneOf:
+        - $ref: "#/components/schemas/CommittedQuoteType"
+        - $ref: "#/components/schemas/IndicativeQuoteType"
+    QuotesResponse:
+      example:
+        quotes:
+        - via:
+            type: PROVIDER_ACCOUNT
+            providerId: bridge-provider-001
+            accountId: acc_9f4e2d8b1c6a5e73
+          id: quote_8f2e4d1a9c5b7e3f
+          type: COMMITTED
+          baseAssetId: USDC
+          quoteAssetId: BTC
+          baseAmount: "1000.00"
+          quoteAmount: "0.02458"
+          priceImpact: 0.005
+          quoteMinAmount: "0.02450"
+          expiresAt: 2024-01-15T10:35:00.000Z
+          executionSteps:
+          - type: EXECUTE
+            fee:
+              feeType: ORDER
+              assetId: USDC
+              amountType: FIXED
+              amount: "2.50"
+          generalFees:
+          - feeType: ORDER
+            assetId: USDC
+            amountType: FIXED
+            amount: "2.50"
+      properties:
+        quotes:
+          items:
+            $ref: "#/components/schemas/Quote"
+          type: array
+      type: object
+    OrderStatus:
+      enum:
+      - CREATED
+      - PENDING_USER_ACTION
+      - PROCESSING
+      - CANCELED
+      - COMPLETED
+      - FAILED
+      example: PROCESSING
+      type: string
+    OrderSummary:
+      example:
+        id: ord_5f8e2d9c1a7b4e36
+        via:
+          type: PROVIDER_ACCOUNT
+          providerId: prov_8c3f1a4b2d6e9f7c
+          accountId: acc_5e9a2d1c4b7f3e8a
+        side: BUY
+        baseAmount: "1000.00"
+        quoteAmount: "0.02458"
+        baseAssetId: USD
+        quoteAssetId: BTC
+        status: COMPLETED
+        destination:
+          type: VAULT_ACCOUNT
+          accountId: vault_acc_7b2e5d8f1c4a9e3b
+        source:
+          type: VAULT_ACCOUNT
+          accountId: vault_acc_3f7e1d9b2c5a8e4f
+        createdAt: 2024-01-15T10:30:00.000Z
+      properties:
+        id:
+          type: string
+        via:
+          $ref: "#/components/schemas/AccessType"
+        side:
+          description: Side of the order
+          enum:
+          - BUY
+          - SELL
+          type: string
+        baseAmount:
+          type: string
+        quoteAmount:
+          type: string
+        baseAssetId:
+          type: string
+        quoteAssetId:
+          type: string
+        status:
+          $ref: "#/components/schemas/OrderStatus"
+        destination:
+          $ref: "#/components/schemas/AccountReference"
+        source:
+          $ref: "#/components/schemas/SettlementSourceAccount"
+        createdAt:
+          format: date-time
+          type: string
+      required:
+      - baseAmount
+      - baseAssetId
+      - createdAt
+      - destination
+      - id
+      - quoteAssetId
+      - side
+      - status
+      - via
+      type: object
+    GetOrdersResponse:
+      example:
+        data:
+        - id: ord_5f8e2d9c1a7b4e36
+          via:
+            type: PROVIDER_ACCOUNT
+            providerId: prov_8c3f1a4b2d6e9f7c
+            accountId: acc_5e9a2d1c4b7f3e8a
+          baseAmount: "1000.00"
+          quoteAmount: "0.02458"
+          baseAssetId: USD
+          quoteAssetId: BTC
+          status: COMPLETED
+          destination:
+            type: VAULT_ACCOUNT
+            accountId: vault_acc_7b2e5d8f1c4a9e3b
+          createdAt: 2024-01-15T10:30:00.000Z
+        total: 1
+        next: cursor_next_page_token
+      properties:
+        data:
+          items:
+            $ref: "#/components/schemas/OrderSummary"
+          type: array
+        total:
+          description: Total number of orders matching the query.
+          type: integer
+        next:
+          description: "A cursor for the next page of results, if available."
+          type: string
+      required:
+      - data
+      - total
+      type: object
+    TimeInForce:
+      description: Time in force for limit orders
+      enum:
+      - FOK
+      example: FOK
+      type: string
+    ExecutionRequestBaseDetails:
+      example:
+        side: BUY
+        baseAmount: "1000.00"
+        baseAssetId: USDC
+        baseAssetRail: BLOCKCHAIN
+        quoteAssetId: BTC
+        quoteAssetRail: BLOCKCHAIN
+      properties:
+        side:
+          default: BUY
+          description: Side of the order
+          enum:
+          - BUY
+          - SELL
+          type: string
+        baseAmount:
+          description: Amount to convert
+          type: string
+        baseAssetId:
+          description: Source asset identifier
+          type: string
+        baseAssetRail:
+          $ref: "#/components/schemas/TransferRail"
+        quoteAssetId:
+          description: Target asset identifier
+          type: string
+        quoteAssetRail:
+          $ref: "#/components/schemas/TransferRail"
+      required:
+      - baseAmount
+      - baseAssetId
+      - quoteAssetId
+      - side
+      type: object
+    LimitExecutionRequestDetails:
+      allOf:
+      - properties:
+          type:
+            description: Order type for limit orders
+            enum:
+            - LIMIT
+            type: string
+          timeInForce:
+            $ref: "#/components/schemas/TimeInForce"
+          limitPrice:
+            description: Price for limit orders
+            type: string
+        required:
+        - limitPrice
+        - timeInForce
+        - type
+        type: object
+      - $ref: "#/components/schemas/ExecutionRequestBaseDetails"
+      example:
+        type: LIMIT
+        timeInForce: GTC
+        limitPrice: "41000.00"
+        baseAssetId: USD
+        quoteAssetId: BTC
+        side: BUY
+        baseAmount: "1000.00"
+    MarketExecutionRequestDetails:
+      allOf:
+      - properties:
+          type:
+            description: Order type for market orders
+            enum:
+            - MARKET
+            type: string
+        required:
+        - type
+        type: object
+      - $ref: "#/components/schemas/ExecutionRequestBaseDetails"
+      example:
+        type: MARKET
+        baseAssetId: USD
+        quoteAssetId: BTC
+        side: BUY
+        baseAmount: "1000.00"
+    QuoteExecutionRequestDetails:
+      example:
+        type: QUOTE
+        quoteId: quote_8f2e4d1a9c5b7e3f
+      properties:
+        type:
+          description: Order type for quote orders
+          enum:
+          - QUOTE
+          type: string
+        quoteId:
+          description: Quote ID for quote orders
+          type: string
+      required:
+      - quoteId
+      - type
+      type: object
+    MarketRequoteRequestDetails:
+      example:
+        type: MARKET
+      properties:
+        type:
+          description: Indicates that the order should be re-quoted if the original
+            quote is expired. This will lead to a market order.
+          enum:
+          - MARKET
+          type: string
+      required:
+      - type
+      type: object
+    RetryRequoteRequestDetails:
+      example:
+        type: RETRY
+        count: 1
+        slippageBps: 50
+      properties:
+        type:
+          description: "Indicates that the order should be re-quoted if the original\
+            \ quote is expired, trying to match the original quote."
+          enum:
+          - RETRY
+          type: string
+        count:
+          description: "If quote is expired, how many times to re-generate new quotes\
+            \ to try having the order executed as in the original quote."
+          maximum: 10
+          minimum: 1
+          type: number
+        slippageBps:
+          default: 1
+          description: Slippage tolerance in basis points (bps) for quote orders -
+            1 is 0.01% and 10000 is 100%
+          maximum: 10000
+          minimum: 1
+          type: number
+      required:
+      - count
+      - type
+      type: object
+    QuoteExecutionWithRequoteRequestDetails:
+      allOf:
+      - $ref: "#/components/schemas/QuoteExecutionRequestDetails"
+      - properties:
+          reQuote:
+            $ref: "#/components/schemas/QuoteExecutionWithRequoteRequestDetails_allOf_reQuote"
+        type: object
+      example:
+        type: QUOTE
+        quoteId: quote_8f2e4d1a9c5b7e3f
+        reQuote:
+          type: RETRY
+          count: 1
+          slippageBps: 50
+    ExecutionRequestDetails:
+      description: Order execution details
+      discriminator:
+        mapping:
+          LIMIT: "#/components/schemas/LimitExecutionRequestDetails"
+          MARKET: "#/components/schemas/MarketExecutionRequestDetails"
+          QUOTE: "#/components/schemas/QuoteExecutionWithRequoteRequestDetails"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/LimitExecutionRequestDetails"
+      - $ref: "#/components/schemas/MarketExecutionRequestDetails"
+      - $ref: "#/components/schemas/QuoteExecutionWithRequoteRequestDetails"
+    PrefundedSettlement:
+      example:
+        type: PREFUNDED
+        destinationAccount:
+          type: VAULT_ACCOUNT
+          accountId: vault_acc_9f4e2d8b1c6a5e73
+      properties:
+        type:
+          enum:
+          - PREFUNDED
+          type: string
+        destinationAccount:
+          $ref: "#/components/schemas/AccountReference"
+      required:
+      - destinationAccount
+      - type
+      type: object
+    PostOrderSettlement:
+      example:
+        type: POST_ORDER
+      properties:
+        type:
+          enum:
+          - POST_ORDER
+          type: string
+      required:
+      - type
+      type: object
+    Settlement:
+      description: Settlement configuration for the order
+      discriminator:
+        mapping:
+          PREFUNDED: "#/components/schemas/PrefundedSettlement"
+          DVP: "#/components/schemas/DVPSettlement"
+          POST_ORDER: "#/components/schemas/PostOrderSettlement"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/PrefundedSettlement"
+      - $ref: "#/components/schemas/DVPSettlement"
+      - $ref: "#/components/schemas/PostOrderSettlement"
+    ParticipantRelationshipType:
+      enum:
+      - FirstParty
+      - SecondParty
+      - ThirdParty
+      example: FirstParty
+      type: string
+    PostalAddress:
+      example:
+        streetName: Fifth Avenue
+        buildingNumber: "350"
+        postalCode: "10118"
+        city: New York
+        subdivision: NY
+        district: Manhattan
+        country: US
+      properties:
+        streetName:
+          type: string
+        buildingNumber:
+          type: string
+        postalCode:
+          type: string
+        city:
+          type: string
+        subdivision:
+          type: string
+        district:
+          type: string
+        country:
+          type: string
+      required:
+      - buildingNumber
+      - city
+      - country
+      - district
+      - postalCode
+      - streetName
+      - subdivision
+      type: object
+    PersonalIdentification:
+      example:
+        externalReferenceId: person_ref_7f3e2d1c4b8a5e9f
+        entityType: INDIVIDUAL
+        participantRelationshipType: FirstParty
+        fullName:
+          firstName: Alexander
+          lastName: Johnson
+        dateOfBirth: 1985-03-15
+        postalAddress:
+          streetName: Oak Street
+          buildingNumber: "742"
+          postalCode: "90210"
+          city: Beverly Hills
+          subdivision: CA
+          district: Los Angeles County
+          country: US
+      properties:
+        externalReferenceId:
+          type: string
+        entityType:
+          enum:
+          - INDIVIDUAL
+          type: string
+        participantRelationshipType:
+          $ref: "#/components/schemas/ParticipantRelationshipType"
+        fullName:
+          $ref: "#/components/schemas/PersonalIdentification_fullName"
+        dateOfBirth:
+          format: date
+          type: string
+        postalAddress:
+          $ref: "#/components/schemas/PostalAddress"
+      required:
+      - dateOfBirth
+      - entityType
+      - externalReferenceId
+      - fullName
+      - participantRelationshipType
+      - postalAddress
+      type: object
+    BusinessIdentification:
+      example:
+        externalReferenceId: bus_ref_9f3e2d1c4b8a7e5f
+        entityType: BUSINESS
+        participantRelationshipType: COUNTERPARTY
+        businessName: TechCorp Solutions LLC
+        registrationNumber: TC-2023-001547
+        postalAddress:
+          streetAddress: 789 Innovation Drive
+          city: San Francisco
+          state: CA
+          postalCode: "94105"
+          country: US
+      properties:
+        externalReferenceId:
+          type: string
+        entityType:
+          enum:
+          - BUSINESS
+          type: string
+        participantRelationshipType:
+          $ref: "#/components/schemas/ParticipantRelationshipType"
+        businessName:
+          type: string
+        registrationNumber:
+          type: string
+        postalAddress:
+          $ref: "#/components/schemas/PostalAddress"
+      required:
+      - businessName
+      - entityType
+      - externalReferenceId
+      - participantRelationshipType
+      - postalAddress
+      - registrationNumber
+      type: object
+    Identification:
+      discriminator:
+        mapping:
+          INDIVIDUAL: "#/components/schemas/PersonalIdentification"
+          BUSINESS: "#/components/schemas/BusinessIdentification"
+        propertyName: entityType
+      oneOf:
+      - $ref: "#/components/schemas/PersonalIdentification"
+      - $ref: "#/components/schemas/BusinessIdentification"
+    ParticipantsIdentification:
+      description: KYC/AML participant identification
+      example:
+        originator:
+          externalReferenceId: user_123456
+          entityType: INDIVIDUAL
+          participantRelationshipType: FirstParty
+          fullName:
+            firstName: John
+            lastName: Smith
+          dateOfBirth: 1985-03-15
+          postalAddress:
+            streetName: Main Street
+            buildingNumber: "123"
+            postalCode: "10001"
+            city: New York
+            subdivision: NY
+            district: Manhattan
+            country: US
+        beneficiary:
+          externalReferenceId: user_789012
+          entityType: INDIVIDUAL
+          participantRelationshipType: ThirdParty
+          fullName:
+            firstName: Alice
+            lastName: Johnson
+          dateOfBirth: 1990-07-22
+          postalAddress:
+            streetName: Broadway
+            buildingNumber: "456"
+            postalCode: "10002"
+            city: New York
+            subdivision: NY
+            district: Manhattan
+            country: US
+      properties:
+        originator:
+          $ref: "#/components/schemas/Identification"
+        beneficiary:
+          $ref: "#/components/schemas/Identification"
+      type: object
+    CreateOrderRequest:
+      example:
+        via:
+          type: PROVIDER_ACCOUNT
+          providerId: prov_8c3f1a4b2d6e9f7c
+          accountId: acc_5e9a2d1c4b7f3e8a
+        executionRequestDetails:
+          type: MARKET
+          baseAssetId: USD
+          quoteAssetId: BTC
+          side: BUY
+          baseAmount: "1000.00"
+        settlement:
+          type: DVP
+          sourceAccount:
+            type: VAULT_ACCOUNT
+            id: vault_acc_3f7e1d9b2c5a8e4f
+          destinationAccount:
+            type: VAULT_ACCOUNT
+            id: vault_acc_7b2e5d8f1c4a9e3b
+        customerInternalReferenceId: order_ref_2024_001
+        note: Monthly investment order
+      properties:
+        via:
+          $ref: "#/components/schemas/AccessType"
+        executionRequestDetails:
+          $ref: "#/components/schemas/ExecutionRequestDetails"
+        settlement:
+          $ref: "#/components/schemas/Settlement"
+        participantsIdentification:
+          $ref: "#/components/schemas/ParticipantsIdentification"
+        customerInternalReferenceId:
+          description: Internal reference ID for the customer
+          type: string
+        note:
+          description: Optional note for the order
+          maxLength: 512
+          type: string
+      required:
+      - executionRequestDetails
+      - settlement
+      - via
+      type: object
+    BlockchainTransfer:
+      example:
+        type: BLOCKCHAIN
+        txHash: 0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b
+        amount: "250.75"
+      properties:
+        type:
+          enum:
+          - BLOCKCHAIN
+          type: string
+        txHash:
+          description: The hash of the transaction on the blockchain.
+          type: string
+        amount:
+          description: The amount of the transaction.
+          type: string
+      required:
+      - amount
+      type: object
+    FiatTransfer:
+      example:
+        type: FIAT
+        amount: "750.25"
+        referenceId: fiat_ref_2024_003_789
+      properties:
+        type:
+          enum:
+          - FIAT
+          type: string
+        amount:
+          description: The amount of the fiat transfer.
+          type: string
+        referenceId:
+          description: The reference ID for the fiat transfer.
+          type: string
+      required:
+      - amount
+      type: object
+    TransferReceipt:
+      discriminator:
+        mapping:
+          BLOCKCHAIN: "#/components/schemas/BlockchainTransfer"
+          FIAT: "#/components/schemas/FiatTransfer"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/BlockchainTransfer"
+      - $ref: "#/components/schemas/FiatTransfer"
+    ExecutionStepStatusEnum:
+      enum:
+      - WAITING
+      - PROCESSING
+      - COMPLETED
+      - FAILED
+      - CANCELLED
+      example: PROCESSING
+      type: string
+    ExecutionStepError:
+      enum:
+      - INTERNAL_ERROR
+      - QUOTE_EXPIRED
+      - INSUFFICIENT_OUTPUT_AMOUNT
+      - INSUFFICIENT_FUNDS
+      - LAST_TRANSACTION_FAILED
+      - SWAP_APPROVAL_FAILED
+      - PROVIDER_EXECUTION_ERROR
+      example: INSUFFICIENT_FUNDS
+      type: string
+    ExecutionStep:
+      example:
+        type: EXECUTE
+        status: PROCESSING
+        fee:
+          feeType: NETWORK
+          assetId: ETH
+          amountType: FIXED
+          amount: "0.01"
+        txId: tx_abc123def456
+      properties:
+        type:
+          $ref: "#/components/schemas/ExecutionStepType"
+        status:
+          $ref: "#/components/schemas/ExecutionStepStatusEnum"
+        fee:
+          $ref: "#/components/schemas/Fee"
         txId:
-          description: The transaction id of the required action
-          example: fc69381c-1e35-48c2-8415-484d1c2f55cx
           type: string
+        txHash:
+          type: string
+        error:
+          $ref: "#/components/schemas/ExecutionStepError"
       required:
       - status
       - type
       type: object
-    SwapFlowError:
-      description: The error message for the swap
-      example: expired
-      nullable: true
+    ExecutionResponseBaseDetails:
+      example:
+        side: BUY
+        baseAmount: "1000.00"
+        baseAssetId: USDC
+        baseAssetRail: BLOCKCHAIN
+        quoteAssetId: BTC
+        quoteAssetRail: BLOCKCHAIN
       properties:
-        code:
-          description: The code representing the error
-          example: "123"
+        side:
+          default: BUY
+          description: Side of the order
+          enum:
+          - BUY
+          - SELL
           type: string
-        message:
-          description: Error message
-          example: Failed to swap
+        baseAmount:
+          description: Amount to convert
+          type: string
+        baseAssetId:
+          description: Source asset identifier
+          type: string
+        baseAssetRail:
+          $ref: "#/components/schemas/TransferRail"
+        quoteAssetId:
+          description: Target asset identifier
+          type: string
+        quoteAssetRail:
+          $ref: "#/components/schemas/TransferRail"
+      required:
+      - baseAmount
+      - baseAssetId
+      - quoteAssetId
+      - side
+      type: object
+    LimitExecutionResponseDetails:
+      allOf:
+      - properties:
+          type:
+            description: Order type for limit orders
+            enum:
+            - LIMIT
+            type: string
+          timeInForce:
+            $ref: "#/components/schemas/TimeInForce"
+          limitPrice:
+            description: Price for limit orders
+            type: string
+        required:
+        - limitPrice
+        - timeInForce
+        - type
+        type: object
+      - $ref: "#/components/schemas/ExecutionResponseBaseDetails"
+      example:
+        type: LIMIT
+        timeInForce: FOK
+        limitPrice: "41000.00"
+        side: BUY
+        baseAmount: "1000.00"
+        baseAssetId: USD
+        quoteAssetId: BTC
+        baseAssetRail: BLOCKCHAIN
+        quoteAssetRail: BLOCKCHAIN
+    MarketExecutionResponseDetails:
+      allOf:
+      - properties:
+          type:
+            description: Order type for market orders
+            enum:
+            - MARKET
+            type: string
+        required:
+        - type
+        type: object
+      - $ref: "#/components/schemas/ExecutionResponseBaseDetails"
+      example:
+        type: MARKET
+        side: BUY
+        baseAmount: "1000.00"
+        baseAssetId: USDC
+        baseAssetRail: BLOCKCHAIN
+        quoteAssetId: BTC
+        quoteAssetRail: BLOCKCHAIN
+    QuoteExecutionResponseDetails:
+      allOf:
+      - properties:
+          type:
+            description: Order type for quote orders
+            enum:
+            - QUOTE
+            type: string
+          quoteId:
+            description: Quote ID for quote orders
+            type: string
+          quoteAmount:
+            description: Quote amount for quote orders
+            type: string
+        required:
+        - quoteAmount
+        - quoteId
+        - type
+        type: object
+      - $ref: "#/components/schemas/ExecutionResponseBaseDetails"
+      example:
+        type: QUOTE
+        quoteId: quote_8f2e4d1a9c5b7e3f
+        quoteAmount: "0.02458"
+        side: BUY
+        baseAmount: "1000.00"
+        baseAssetId: USDC
+        baseAssetRail: BLOCKCHAIN
+        quoteAssetId: BTC
+        quoteAssetRail: BLOCKCHAIN
+    QuoteExecutionWithRequoteResponseDetails:
+      allOf:
+      - $ref: "#/components/schemas/QuoteExecutionResponseDetails"
+      - properties:
+          reQuote:
+            $ref: "#/components/schemas/QuoteExecutionWithRequoteResponseDetails_allOf_reQuote"
+        type: object
+      example:
+        type: QUOTE
+        quoteId: quote_8f2e4d1a9c5b7e3f
+        side: BUY
+        baseAmount: "1000.00"
+        baseAssetId: USDC
+        baseAssetRail: BLOCKCHAIN
+        quoteAssetId: BTC
+        quoteAssetRail: BLOCKCHAIN
+        reQuote:
+          type: RETRY
+          count: 1
+          slippageBps: 50
+    ExecutionResponseDetails:
+      discriminator:
+        mapping:
+          LIMIT: "#/components/schemas/LimitExecutionResponseDetails"
+          MARKET: "#/components/schemas/MarketExecutionResponseDetails"
+          QUOTE: "#/components/schemas/QuoteExecutionWithRequoteResponseDetails"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/LimitExecutionResponseDetails"
+      - $ref: "#/components/schemas/MarketExecutionResponseDetails"
+      - $ref: "#/components/schemas/QuoteExecutionWithRequoteResponseDetails"
+    AccountHolderDetails:
+      example:
+        name: John Smith
+        city: New York
+        country: US
+        subdivision: NY
+        address: "123 Wall Street, Apt 4B"
+        postalCode: "10005"
+      properties:
+        name:
+          description: Full name of the account holder.
+          type: string
+        city:
+          type: string
+        country:
+          description: "Country code, as specified in ISO 3166-1 alpha-2."
+          type: string
+        subdivision:
+          description: "Country administrative subdivision, as specified in ISO 3166-2."
+          type: string
+        address:
+          description: Account holder street address.
+          type: string
+        postalCode:
           type: string
       required:
-      - code
-      - message
+      - name
       type: object
-    SwapOperation:
+    PaymentInstructions:
       example:
-        outputFinalAmount: "15"
-        outputMinAmount: "10"
-        inputAmount: "10"
-        error: expired
-        outputMaxAmount: "20"
-        accountId: "1"
-        createdAt: 2023-07-13T15:55:34.256Z
-        protocol: UNISWAP_CLASSIC
-        requiredActions:
-        - txId: fc69381c-1e35-48c2-8415-484d1c2f55cx
-          type: APPROVE
-          status: PENDING
-        - txId: fc69381c-1e35-48c2-8415-484d1c2f55cx
-          type: APPROVE
-          status: PENDING
-        createdBy: 15a8f89f-f562-46ca-bcd3-56f8dd124816
-        providerId: 3e2efee1-0d69-4276-a6e6-711531185e4f
-        inputAsset: WETH
-        slippageTolerance: 0.5
-        outputAsset: DAI
-        id: 51cfb2c1-126d-4ff6-8512-ffba48f4b296
-        category: DEX
-        status: CREATED
-        updatedAt: 2023-07-13T15:55:34.256Z
+        type: IBAN
+        address:
+          accountHolder:
+            name: John Smith
+            city: London
+            country: GB
+            subdivision: ENG
+            address: 123 King's Road
+            postalCode: SW3 4LX
+          iban: GB82WEST12345698765432
+        referenceId: PAY_INST_abc123def456
+      properties:
+        type:
+          enum:
+          - IBAN
+          - SWIFT
+          - ACH
+          - US_WIRE
+          - SPEI
+          - SEPA
+          - PIX
+          - LOCAL_BANK_TRANSFER_AFRICA
+          - MOBILE_MONEY
+          type: string
+        address:
+          $ref: "#/components/schemas/AccountHolderDetails"
+        referenceId:
+          type: string
+      required:
+      - address
+      - referenceId
+      - type
+      type: object
+    OrderDetails:
+      example:
+        id: order_9f4e2d8b1c6a5e73
+        via:
+          type: PROVIDER_ACCOUNT
+          providerId: bridge-provider-001
+          accountId: acc_9f4e2d8b1c6a5e73
+        status: PROCESSING
+        createdAt: 2024-01-15T10:30:00.000Z
+        updatedAt: 2024-01-15T10:30:30.000Z
+        receipt:
+          type: BLOCKCHAIN
+          txHash: 0x1234567890abcdef
+          amount: "0.02458"
+        generalFees:
+        - feeType: ORDER
+          assetId: USDC
+          amountType: FIXED
+          amount: "5.00"
+        executionSteps:
+        - type: EXECUTE
+          status: PROCESSING
+          fee:
+            feeType: NETWORK
+            assetId: ETH
+            amountType: FIXED
+            amount: "0.01"
+          txId: tx_abc123def456
+        executionResponseDetails:
+          type: MARKET
+          side: BUY
+          baseAmount: "1000.00"
+          baseAssetId: USDC
+          quoteAssetId: BTC
+        settlement:
+          type: PREFUNDED
+          destinationAccount:
+            type: VAULT_ACCOUNT
+            accountId: vault_acc_9f4e2d8b1c6a5e73
+        createdBy: user_123abc456def789
+        customerInternalReferenceId: order_ref_2024_001
+        note: Monthly investment order
       properties:
         id:
-          description: The id of the swap operation
-          example: 51cfb2c1-126d-4ff6-8512-ffba48f4b296
           type: string
-        accountId:
-          description: The id of the vault account or account id
-          example: "1"
-          type: string
-        providerId:
-          description: The uuid that identifies the provider
-          example: 3e2efee1-0d69-4276-a6e6-711531185e4f
-          format: uuid
-          type: string
-        category:
-          $ref: "#/components/schemas/ProviderCategoryEnum"
-        protocol:
-          $ref: "#/components/schemas/SwapProviderProtocolsEnum"
+        via:
+          $ref: "#/components/schemas/AccessType"
         status:
-          description: |-
-            **CREATED** – The swap request has been created but not yet started.
-            **PENDING_USER_ACTION** – Awaiting a user action (e.g. signature or approval).
-            **PENDING_PROVIDER_ACTION** – Awaiting the provider to process the request.
-            **PROCESSING** – The swap is actively being executed on‐chain.
-            **COMPLETED** – The swap has finished successfully.
-            **CANCELED** – The swap was cancelled by user or provider before completion.
-            **FAILED** – The swap attempted but encountered an error.
-          enum:
-          - CREATED
-          - TRANSACTION_IN_PROGRESS
-          - PENDING_PROVIDER_ACTION
-          - COMPLETED
-          - CANCELED
-          - FAILED
-          example: CREATED
-          type: string
-        inputAmount:
-          description: The amount of tokens the swapper will provide
-          example: "10"
-          type: string
-        inputAsset:
-          description: The id of the asset the swapper will provide
-          example: WETH
-          type: string
-        slippageTolerance:
-          description: The slippage tolerance is a percentage. The slippage tolerance
-            is the maximum amount the price can change between the time the transaction
-            is submitted and the time it is executed
-          example: 0.5
-          type: number
-        outputMinAmount:
-          description: The minimum amount of tokens the swapper will receive
-          example: "10"
-          type: string
-        outputMaxAmount:
-          description: Maximum amount of tokens that the swapper will receive
-          example: "20"
-          type: string
-        outputAsset:
-          description: The id of the asset the swapper will receive
-          example: DAI
-          type: string
-        outputFinalAmount:
-          description: Final amount of tokens that the swapper will receive
-          example: "15"
-          nullable: true
-          type: string
-        requiredActions:
-          description: "The required actions for the swap, including the type of action,\
-            \ the status of the action, and the transaction id"
-          items:
-            $ref: "#/components/schemas/SwapRequiredAction"
-          type: array
-        error:
-          $ref: "#/components/schemas/SwapFlowError"
+          $ref: "#/components/schemas/OrderStatus"
         createdAt:
-          description: The creation time of the swap operation (ISO Date time).
-          example: 2023-07-13T15:55:34.256Z
           format: date-time
           type: string
         updatedAt:
-          description: The last update time of the swap operation (ISO Date time).
-          example: 2023-07-13T15:55:34.256Z
           format: date-time
           type: string
+        receipt:
+          $ref: "#/components/schemas/TransferReceipt"
+        generalFees:
+          items:
+            $ref: "#/components/schemas/Fee"
+          type: array
+        executionSteps:
+          items:
+            $ref: "#/components/schemas/ExecutionStep"
+          type: array
+        executionResponseDetails:
+          $ref: "#/components/schemas/ExecutionResponseDetails"
+        settlement:
+          $ref: "#/components/schemas/Settlement"
+        participantsIdentification:
+          $ref: "#/components/schemas/ParticipantsIdentification"
+        paymentInstructions:
+          description: "Payment instructions for the order, the client can use one\
+            \ of these to pay the order."
+          items:
+            $ref: "#/components/schemas/PaymentInstructions"
+          type: array
         createdBy:
-          description: Fireblocks user id that issued the swap
-          example: 15a8f89f-f562-46ca-bcd3-56f8dd124816
-          format: uuid
+          description: The ID of the user who created the order
+          type: string
+        customerInternalReferenceId:
+          description: Internal reference ID for the customer
+          type: string
+        note:
+          description: Optional note for the Order
+          maxLength: 512
+          type: string
+        expiresAt:
+          format: date-time
           type: string
       required:
-      - accountId
-      - category
       - createdAt
       - createdBy
+      - executionResponseDetails
+      - executionSteps
       - id
-      - inputAmount
-      - inputAsset
-      - outputAsset
-      - outputMaxAmount
-      - outputMinAmount
-      - protocol
-      - providerId
-      - requiredActions
-      - slippageTolerance
+      - settlement
       - status
-      - updatedAt
-      type: object
-    SwapOperationsPaginatedResponse:
-      example:
-        next: MjAyMy0xMi0xMyA====TNjowOC4zMDI=:MTEwMA==
-        data:
-        - outputFinalAmount: "15"
-          outputMinAmount: "10"
-          inputAmount: "10"
-          error: expired
-          outputMaxAmount: "20"
-          accountId: "1"
-          createdAt: 2023-07-13T15:55:34.256Z
-          protocol: UNISWAP_CLASSIC
-          requiredActions:
-          - txId: fc69381c-1e35-48c2-8415-484d1c2f55cx
-            type: APPROVE
-            status: PENDING
-          - txId: fc69381c-1e35-48c2-8415-484d1c2f55cx
-            type: APPROVE
-            status: PENDING
-          createdBy: 15a8f89f-f562-46ca-bcd3-56f8dd124816
-          providerId: 3e2efee1-0d69-4276-a6e6-711531185e4f
-          inputAsset: WETH
-          slippageTolerance: 0.5
-          outputAsset: DAI
-          id: 51cfb2c1-126d-4ff6-8512-ffba48f4b296
-          category: DEX
-          status: CREATED
-          updatedAt: 2023-07-13T15:55:34.256Z
-        - outputFinalAmount: "15"
-          outputMinAmount: "10"
-          inputAmount: "10"
-          error: expired
-          outputMaxAmount: "20"
-          accountId: "1"
-          createdAt: 2023-07-13T15:55:34.256Z
-          protocol: UNISWAP_CLASSIC
-          requiredActions:
-          - txId: fc69381c-1e35-48c2-8415-484d1c2f55cx
-            type: APPROVE
-            status: PENDING
-          - txId: fc69381c-1e35-48c2-8415-484d1c2f55cx
-            type: APPROVE
-            status: PENDING
-          createdBy: 15a8f89f-f562-46ca-bcd3-56f8dd124816
-          providerId: 3e2efee1-0d69-4276-a6e6-711531185e4f
-          inputAsset: WETH
-          slippageTolerance: 0.5
-          outputAsset: DAI
-          id: 51cfb2c1-126d-4ff6-8512-ffba48f4b296
-          category: DEX
-          status: CREATED
-          updatedAt: 2023-07-13T15:55:34.256Z
-      properties:
-        data:
-          description: The data of the current page
-          items:
-            $ref: "#/components/schemas/SwapOperation"
-          type: array
-        next:
-          description: "The cursor to fetch the next page of results, if absent or\
-            \ null, there are no additional results."
-          example: MjAyMy0xMi0xMyA====TNjowOC4zMDI=:MTEwMA==
-          nullable: true
-          type: string
-      required:
-      - data
-      type: object
-    SwapOperationRequest:
-      example:
-        txNote: request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d
-        feeLevel: MEDIUM
-        providerQuoteId: 550e8400-e29b-41d4-a716-446655440000
-      properties:
-        providerQuoteId:
-          description: An identifier that uniquely identifies the received quote
-          example: 550e8400-e29b-41d4-a716-446655440000
-          format: uuid
-          type: string
-        feeLevel:
-          description: The fee level of the transaction
-          enum:
-          - LOW
-          - MEDIUM
-          - HIGH
-          example: MEDIUM
-          type: string
-        txNote:
-          description: user note on the transaction
-          example: request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d
-          type: string
-      required:
-      - providerQuoteId
+      - via
       type: object
     SetAdminQuorumThresholdRequest:
       properties:
@@ -55847,6 +57764,58 @@ components:
       oneOf:
       - $ref: "#/components/schemas/ContractDataEncodedDataString"
       - $ref: "#/components/schemas/ContractDataLogDataParam"
+    TradingErrorResponse_error:
+      properties:
+        type:
+          enum:
+          - INTERNAL
+          - AUTHENTICATION
+          - AUTHORIZATION
+          - VALIDATION
+          - NOT_FOUND
+          - UNPROCESSABLE_ENTITY
+          - FORBIDDEN
+          type: string
+        message:
+          type: string
+        errorCode:
+          $ref: "#/components/schemas/ErrorCodes"
+      required:
+      - message
+      - type
+      type: object
+    CreateQuote_scope_inner:
+      oneOf:
+      - $ref: "#/components/schemas/AccountProviderID"
+      - $ref: "#/components/schemas/ProviderID"
+    QuoteExecutionWithRequoteRequestDetails_allOf_reQuote:
+      discriminator:
+        mapping:
+          MARKET: "#/components/schemas/MarketRequoteRequestDetails"
+          RETRY: "#/components/schemas/RetryRequoteRequestDetails"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/MarketRequoteRequestDetails"
+      - $ref: "#/components/schemas/RetryRequoteRequestDetails"
+    PersonalIdentification_fullName:
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+      required:
+      - firstName
+      - lastName
+      type: object
+    QuoteExecutionWithRequoteResponseDetails_allOf_reQuote:
+      discriminator:
+        mapping:
+          MARKET: "#/components/schemas/MarketRequoteRequestDetails"
+          RETRY: "#/components/schemas/RetryRequoteRequestDetails"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/MarketRequoteRequestDetails"
+      - $ref: "#/components/schemas/RetryRequoteRequestDetails"
     SetOtaStatusResponse_oneOf:
       example:
         message: No change needed. The current status is false
