@@ -27,7 +27,11 @@ import java.util.StringJoiner;
     ExchangeAsset.JSON_PROPERTY_LOCKED_AMOUNT,
     ExchangeAsset.JSON_PROPERTY_TOTAL,
     ExchangeAsset.JSON_PROPERTY_AVAILABLE,
-    ExchangeAsset.JSON_PROPERTY_CREDIT
+    ExchangeAsset.JSON_PROPERTY_CREDIT,
+    ExchangeAsset.JSON_PROPERTY_ASSET_ID,
+    ExchangeAsset.JSON_PROPERTY_PROVIDER_SYMBOL,
+    ExchangeAsset.JSON_PROPERTY_ASSET_SYMBOL,
+    ExchangeAsset.JSON_PROPERTY_ASSET_LEGACY_ID
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -50,6 +54,18 @@ public class ExchangeAsset {
 
     public static final String JSON_PROPERTY_CREDIT = "credit";
     @jakarta.annotation.Nullable private String credit;
+
+    public static final String JSON_PROPERTY_ASSET_ID = "assetId";
+    @jakarta.annotation.Nullable private String assetId;
+
+    public static final String JSON_PROPERTY_PROVIDER_SYMBOL = "providerSymbol";
+    @jakarta.annotation.Nullable private String providerSymbol;
+
+    public static final String JSON_PROPERTY_ASSET_SYMBOL = "assetSymbol";
+    @jakarta.annotation.Nullable private String assetSymbol;
+
+    public static final String JSON_PROPERTY_ASSET_LEGACY_ID = "assetLegacyId";
+    @jakarta.annotation.Nullable private String assetLegacyId;
 
     public ExchangeAsset() {}
 
@@ -191,6 +207,98 @@ public class ExchangeAsset {
         this.credit = credit;
     }
 
+    public ExchangeAsset assetId(@jakarta.annotation.Nullable String assetId) {
+        this.assetId = assetId;
+        return this;
+    }
+
+    /**
+     * The id of the asset
+     *
+     * @return assetId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ASSET_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAssetId() {
+        return assetId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ASSET_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAssetId(@jakarta.annotation.Nullable String assetId) {
+        this.assetId = assetId;
+    }
+
+    public ExchangeAsset providerSymbol(@jakarta.annotation.Nullable String providerSymbol) {
+        this.providerSymbol = providerSymbol;
+        return this;
+    }
+
+    /**
+     * The provider symbol of the asset
+     *
+     * @return providerSymbol
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PROVIDER_SYMBOL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getProviderSymbol() {
+        return providerSymbol;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PROVIDER_SYMBOL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setProviderSymbol(@jakarta.annotation.Nullable String providerSymbol) {
+        this.providerSymbol = providerSymbol;
+    }
+
+    public ExchangeAsset assetSymbol(@jakarta.annotation.Nullable String assetSymbol) {
+        this.assetSymbol = assetSymbol;
+        return this;
+    }
+
+    /**
+     * The asset symbol of the asset
+     *
+     * @return assetSymbol
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ASSET_SYMBOL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAssetSymbol() {
+        return assetSymbol;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ASSET_SYMBOL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAssetSymbol(@jakarta.annotation.Nullable String assetSymbol) {
+        this.assetSymbol = assetSymbol;
+    }
+
+    public ExchangeAsset assetLegacyId(@jakarta.annotation.Nullable String assetLegacyId) {
+        this.assetLegacyId = assetLegacyId;
+        return this;
+    }
+
+    /**
+     * The asset legacy id of the asset
+     *
+     * @return assetLegacyId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ASSET_LEGACY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAssetLegacyId() {
+        return assetLegacyId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ASSET_LEGACY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAssetLegacyId(@jakarta.annotation.Nullable String assetLegacyId) {
+        this.assetLegacyId = assetLegacyId;
+    }
+
     /** Return true if this ExchangeAsset object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -206,12 +314,26 @@ public class ExchangeAsset {
                 && Objects.equals(this.lockedAmount, exchangeAsset.lockedAmount)
                 && Objects.equals(this.total, exchangeAsset.total)
                 && Objects.equals(this.available, exchangeAsset.available)
-                && Objects.equals(this.credit, exchangeAsset.credit);
+                && Objects.equals(this.credit, exchangeAsset.credit)
+                && Objects.equals(this.assetId, exchangeAsset.assetId)
+                && Objects.equals(this.providerSymbol, exchangeAsset.providerSymbol)
+                && Objects.equals(this.assetSymbol, exchangeAsset.assetSymbol)
+                && Objects.equals(this.assetLegacyId, exchangeAsset.assetLegacyId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, balance, lockedAmount, total, available, credit);
+        return Objects.hash(
+                id,
+                balance,
+                lockedAmount,
+                total,
+                available,
+                credit,
+                assetId,
+                providerSymbol,
+                assetSymbol,
+                assetLegacyId);
     }
 
     @Override
@@ -224,6 +346,10 @@ public class ExchangeAsset {
         sb.append("    total: ").append(toIndentedString(total)).append("\n");
         sb.append("    available: ").append(toIndentedString(available)).append("\n");
         sb.append("    credit: ").append(toIndentedString(credit)).append("\n");
+        sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
+        sb.append("    providerSymbol: ").append(toIndentedString(providerSymbol)).append("\n");
+        sb.append("    assetSymbol: ").append(toIndentedString(assetSymbol)).append("\n");
+        sb.append("    assetLegacyId: ").append(toIndentedString(assetLegacyId)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -327,6 +453,46 @@ public class ExchangeAsset {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getCredit()))));
+        }
+
+        // add `assetId` to the URL query string
+        if (getAssetId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sassetId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
+        }
+
+        // add `providerSymbol` to the URL query string
+        if (getProviderSymbol() != null) {
+            joiner.add(
+                    String.format(
+                            "%sproviderSymbol%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getProviderSymbol()))));
+        }
+
+        // add `assetSymbol` to the URL query string
+        if (getAssetSymbol() != null) {
+            joiner.add(
+                    String.format(
+                            "%sassetSymbol%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetSymbol()))));
+        }
+
+        // add `assetLegacyId` to the URL query string
+        if (getAssetLegacyId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sassetLegacyId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetLegacyId()))));
         }
 
         return joiner.toString();

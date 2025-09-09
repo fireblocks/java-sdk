@@ -42,6 +42,7 @@ public class Fireblocks {
     private BlockchainsAssetsApi blockchainsAssets;
     private ComplianceApi compliance;
     private ComplianceScreeningConfigurationApi complianceScreeningConfiguration;
+    private ConnectedAccountsBetaApi connectedAccountsBeta;
     private ConsoleUserApi consoleUser;
     private ContractInteractionsApi contractInteractions;
     private ContractTemplatesApi contractTemplates;
@@ -67,9 +68,9 @@ public class Fireblocks {
     private ResetDeviceApi resetDevice;
     private SmartTransferApi smartTransfer;
     private StakingApi staking;
-    private SwapBetaApi swapBeta;
     private TagsApi tags;
     private TokenizationApi tokenization;
+    private TradingBetaApi tradingBeta;
     private TransactionsApi transactions;
     private TravelRuleApi travelRule;
     private UserGroupsBetaApi userGroupsBeta;
@@ -261,6 +262,13 @@ public class Fireblocks {
         return complianceScreeningConfiguration;
     }
 
+    public ConnectedAccountsBetaApi connectedAccountsBeta() {
+        if (connectedAccountsBeta == null) {
+            connectedAccountsBeta = new ConnectedAccountsBetaApi(apiClient);
+        }
+        return connectedAccountsBeta;
+    }
+
     public ConsoleUserApi consoleUser() {
         if (consoleUser == null) {
             consoleUser = new ConsoleUserApi(apiClient);
@@ -436,13 +444,6 @@ public class Fireblocks {
         return staking;
     }
 
-    public SwapBetaApi swapBeta() {
-        if (swapBeta == null) {
-            swapBeta = new SwapBetaApi(apiClient);
-        }
-        return swapBeta;
-    }
-
     public TagsApi tags() {
         if (tags == null) {
             tags = new TagsApi(apiClient);
@@ -455,6 +456,13 @@ public class Fireblocks {
             tokenization = new TokenizationApi(apiClient);
         }
         return tokenization;
+    }
+
+    public TradingBetaApi tradingBeta() {
+        if (tradingBeta == null) {
+            tradingBeta = new TradingBetaApi(apiClient);
+        }
+        return tradingBeta;
     }
 
     public TransactionsApi transactions() {

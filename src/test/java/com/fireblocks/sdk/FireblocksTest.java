@@ -406,6 +406,14 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetConnectedAccountsBetaApi() {
+        setupFireblocks(true, null, null);
+        ConnectedAccountsBetaApi connectedAccountsBeta = fireblocks.connectedAccountsBeta();
+        Assert.assertNotNull(connectedAccountsBeta);
+        Assert.assertSame(connectedAccountsBeta, fireblocks.connectedAccountsBeta());
+    }
+
+    @Test
     public void testGetConsoleUserApi() {
         setupFireblocks(true, null, null);
         ConsoleUserApi consoleUser = fireblocks.consoleUser();
@@ -606,14 +614,6 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetSwapBetaApi() {
-        setupFireblocks(true, null, null);
-        SwapBetaApi swapBeta = fireblocks.swapBeta();
-        Assert.assertNotNull(swapBeta);
-        Assert.assertSame(swapBeta, fireblocks.swapBeta());
-    }
-
-    @Test
     public void testGetTagsApi() {
         setupFireblocks(true, null, null);
         TagsApi tags = fireblocks.tags();
@@ -627,6 +627,14 @@ public class FireblocksTest {
         TokenizationApi tokenization = fireblocks.tokenization();
         Assert.assertNotNull(tokenization);
         Assert.assertSame(tokenization, fireblocks.tokenization());
+    }
+
+    @Test
+    public void testGetTradingBetaApi() {
+        setupFireblocks(true, null, null);
+        TradingBetaApi tradingBeta = fireblocks.tradingBeta();
+        Assert.assertNotNull(tradingBeta);
+        Assert.assertSame(tradingBeta, fireblocks.tradingBeta());
     }
 
     @Test

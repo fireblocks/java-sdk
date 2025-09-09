@@ -60,4 +60,28 @@ class ExchangeAssetTest {
     void creditTest() {
         // TODO: test credit
     }
+
+    /** Test the property 'assetId' */
+    @Test
+    void assetIdTest() {
+        // TODO: test assetId
+    }
+
+    /** Test the property 'providerSymbol' */
+    @Test
+    void providerSymbolTest() {
+        // TODO: test providerSymbol
+    }
+
+    /** Test the property 'assetSymbol' */
+    @Test
+    void assetSymbolTest() {
+        // TODO: test assetSymbol
+    }
+
+    /** Test the property 'assetLegacyId' */
+    @Test
+    void assetLegacyIdTest() {
+        // TODO: test assetLegacyId
+    }
 }

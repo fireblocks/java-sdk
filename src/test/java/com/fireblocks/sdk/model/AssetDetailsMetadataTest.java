@@ -66,4 +66,10 @@ class AssetDetailsMetadataTest {
     void noteTest() {
         // TODO: test note
     }
+
+    /** Test the property 'features' */
+    @Test
+    void featuresTest() {
+        // TODO: test features
+    }
 }

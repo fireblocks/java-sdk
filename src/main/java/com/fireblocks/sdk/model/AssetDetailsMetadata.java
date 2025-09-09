@@ -31,7 +31,8 @@ import java.util.StringJoiner;
     AssetDetailsMetadata.JSON_PROPERTY_DEPRECATION_REFERRAL_ID,
     AssetDetailsMetadata.JSON_PROPERTY_WEBSITE,
     AssetDetailsMetadata.JSON_PROPERTY_MEDIA,
-    AssetDetailsMetadata.JSON_PROPERTY_NOTE
+    AssetDetailsMetadata.JSON_PROPERTY_NOTE,
+    AssetDetailsMetadata.JSON_PROPERTY_FEATURES
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -57,6 +58,9 @@ public class AssetDetailsMetadata {
 
     public static final String JSON_PROPERTY_NOTE = "note";
     @jakarta.annotation.Nullable private AssetNote note;
+
+    public static final String JSON_PROPERTY_FEATURES = "features";
+    @jakarta.annotation.Nullable private List<AssetFeature> features = new ArrayList<>();
 
     public AssetDetailsMetadata() {}
 
@@ -241,6 +245,37 @@ public class AssetDetailsMetadata {
         this.note = note;
     }
 
+    public AssetDetailsMetadata features(@jakarta.annotation.Nullable List<AssetFeature> features) {
+        this.features = features;
+        return this;
+    }
+
+    public AssetDetailsMetadata addFeaturesItem(AssetFeature featuresItem) {
+        if (this.features == null) {
+            this.features = new ArrayList<>();
+        }
+        this.features.add(featuresItem);
+        return this;
+    }
+
+    /**
+     * Asset features
+     *
+     * @return features
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_FEATURES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<AssetFeature> getFeatures() {
+        return features;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FEATURES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setFeatures(@jakarta.annotation.Nullable List<AssetFeature> features) {
+        this.features = features;
+    }
+
     /** Return true if this AssetDetailsMetadata object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -258,13 +293,14 @@ public class AssetDetailsMetadata {
                         this.deprecationReferralId, assetDetailsMetadata.deprecationReferralId)
                 && Objects.equals(this.website, assetDetailsMetadata.website)
                 && Objects.equals(this.media, assetDetailsMetadata.media)
-                && Objects.equals(this.note, assetDetailsMetadata.note);
+                && Objects.equals(this.note, assetDetailsMetadata.note)
+                && Objects.equals(this.features, assetDetailsMetadata.features);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                scope, verified, deprecated, deprecationReferralId, website, media, note);
+                scope, verified, deprecated, deprecationReferralId, website, media, note, features);
     }
 
     @Override
@@ -280,6 +316,7 @@ public class AssetDetailsMetadata {
         sb.append("    website: ").append(toIndentedString(website)).append("\n");
         sb.append("    media: ").append(toIndentedString(media)).append("\n");
         sb.append("    note: ").append(toIndentedString(note)).append("\n");
+        sb.append("    features: ").append(toIndentedString(features)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -404,6 +441,25 @@ public class AssetDetailsMetadata {
         // add `note` to the URL query string
         if (getNote() != null) {
             joiner.add(getNote().toUrlQueryString(prefix + "note" + suffix));
+        }
+
+        // add `features` to the URL query string
+        if (getFeatures() != null) {
+            for (int i = 0; i < getFeatures().size(); i++) {
+                if (getFeatures().get(i) != null) {
+                    joiner.add(
+                            String.format(
+                                    "%sfeatures%s%s=%s",
+                                    prefix,
+                                    suffix,
+                                    "".equals(suffix)
+                                            ? ""
+                                            : String.format(
+                                                    "%s%d%s", containerPrefix, i, containerSuffix),
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getFeatures().get(i)))));
+                }
+            }
         }
 
         return joiner.toString();

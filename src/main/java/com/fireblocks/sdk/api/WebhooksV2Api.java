@@ -789,7 +789,7 @@ public class WebhooksV2Api {
     }
     /**
      * Resend failed notifications Resend all failed notifications for a webhook in the last 24
-     * hours Endpoint Permission: Owner, Admin, Non-Signing Admin.
+     * hours Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer.
      *
      * @param resendFailedNotificationsRequest (required)
      * @param webhookId The ID of the webhook (required)
@@ -886,7 +886,7 @@ public class WebhooksV2Api {
     }
     /**
      * Resend notification by id Resend notification by ID Endpoint Permission: Owner, Admin,
-     * Non-Signing Admin.
+     * Non-Signing Admin, Editor, Signer.
      *
      * @param webhookId The ID of the webhook (required)
      * @param notificationId The ID of the notification (required)
@@ -957,7 +957,7 @@ public class WebhooksV2Api {
     }
     /**
      * Resend notifications by resource Id Resend notifications by resource Id Endpoint Permission:
-     * Owner, Admin, Non-Signing Admin.
+     * Owner, Admin, Non-Signing Admin, Editor, Signer.
      *
      * @param resendNotificationsByResourceIdRequest (required)
      * @param webhookId The ID of the webhook (required)

@@ -184,7 +184,7 @@ public class WebhooksV2ApiTest {
      * Resend failed notifications
      *
      * <p>Resend all failed notifications for a webhook in the last 24 hours Endpoint Permission:
-     * Owner, Admin, Non-Signing Admin.
+     * Owner, Admin, Non-Signing Admin, Editor, Signer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -201,7 +201,8 @@ public class WebhooksV2ApiTest {
     /**
      * Resend notification by id
      *
-     * <p>Resend notification by ID Endpoint Permission: Owner, Admin, Non-Signing Admin.
+     * <p>Resend notification by ID Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor,
+     * Signer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -218,7 +219,8 @@ public class WebhooksV2ApiTest {
     /**
      * Resend notifications by resource Id
      *
-     * <p>Resend notifications by resource Id Endpoint Permission: Owner, Admin, Non-Signing Admin.
+     * <p>Resend notifications by resource Id Endpoint Permission: Owner, Admin, Non-Signing Admin,
+     * Editor, Signer.
      *
      * @throws ApiException if the Api call fails
      */
