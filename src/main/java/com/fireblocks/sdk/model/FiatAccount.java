@@ -47,7 +47,7 @@ public class FiatAccount {
     @jakarta.annotation.Nullable private String address;
 
     public static final String JSON_PROPERTY_ASSETS = "assets";
-    @jakarta.annotation.Nullable private List<FiatAsset> assets = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<FiatAsset> assets;
 
     public FiatAccount() {}
 

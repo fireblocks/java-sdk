@@ -34,7 +34,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class VaultAccountsPagedResponse {
     public static final String JSON_PROPERTY_ACCOUNTS = "accounts";
-    @jakarta.annotation.Nullable private List<VaultAccount> accounts = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<VaultAccount> accounts;
 
     public static final String JSON_PROPERTY_PAGING = "paging";
     @jakarta.annotation.Nullable private VaultAccountsPagedResponsePaging paging;

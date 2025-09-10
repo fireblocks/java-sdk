@@ -40,7 +40,7 @@ public class SmartTransferTicketFilteredResponse {
     @jakarta.annotation.Nonnull private String after;
 
     public static final String JSON_PROPERTY_DATA = "data";
-    @jakarta.annotation.Nonnull private List<SmartTransferTicket> data = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<SmartTransferTicket> data;
 
     public SmartTransferTicketFilteredResponse() {}
 

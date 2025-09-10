@@ -20,15 +20,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
-import com.fireblocks.sdk.model.AddExchangeAccountRequest;
-import com.fireblocks.sdk.model.AddExchangeAccountResponse;
 import com.fireblocks.sdk.model.ConvertAssetsRequest;
 import com.fireblocks.sdk.model.ConvertAssetsResponse;
 import com.fireblocks.sdk.model.CreateInternalTransferRequest;
 import com.fireblocks.sdk.model.ExchangeAccount;
 import com.fireblocks.sdk.model.ExchangeAccountsPaged;
 import com.fireblocks.sdk.model.ExchangeAsset;
-import com.fireblocks.sdk.model.GetExchangeAccountsCredentialsPublicKeyResponse;
 import com.fireblocks.sdk.model.InternalTransferResponse;
 import java.io.IOException;
 import java.io.InputStream;
@@ -84,89 +81,6 @@ public class ExchangeAccountsApi {
         return operationId + " call failed with: " + statusCode + " - " + body;
     }
 
-    /**
-     * Add an exchange account Add an exchange account to exchanges.
-     *
-     * @param addExchangeAccountRequest (required)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;AddExchangeAccountResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<AddExchangeAccountResponse>> addExchangeAccount(
-            AddExchangeAccountRequest addExchangeAccountRequest, String idempotencyKey)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    addExchangeAccountRequestBuilder(addExchangeAccountRequest, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "addExchangeAccount", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<AddExchangeAccountResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            AddExchangeAccountResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder addExchangeAccountRequestBuilder(
-            AddExchangeAccountRequest addExchangeAccountRequest, String idempotencyKey)
-            throws ApiException {
-        ValidationUtils.assertParamExists(
-                "addExchangeAccount", "addExchangeAccountRequest", addExchangeAccountRequest);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/exchange_accounts";
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(addExchangeAccountRequest);
-            localVarRequestBuilder.method(
-                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
     /**
      * Convert exchange account funds from the source asset to the destination asset. Convert
      * exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC,
@@ -393,73 +307,6 @@ public class ExchangeAccountsApi {
                                 "{exchangeAccountId}",
                                 ApiClient.urlEncode(exchangeAccountId.toString()))
                         .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Get public key to encrypt exchange credentials Return public key
-     *
-     * @return
-     *     CompletableFuture&lt;ApiResponse&lt;GetExchangeAccountsCredentialsPublicKeyResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<GetExchangeAccountsCredentialsPublicKeyResponse>>
-            getExchangeAccountsCredentialsPublicKey() throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    getExchangeAccountsCredentialsPublicKeyRequestBuilder();
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "getExchangeAccountsCredentialsPublicKey",
-                                                    localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<
-                                                    GetExchangeAccountsCredentialsPublicKeyResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            GetExchangeAccountsCredentialsPublicKeyResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getExchangeAccountsCredentialsPublicKeyRequestBuilder()
-            throws ApiException {
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/exchange_accounts/credentials_public_key";
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 

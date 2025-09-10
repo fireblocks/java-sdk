@@ -18,7 +18,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreateNetworkIdRequest;
 import com.fireblocks.sdk.model.DeleteNetworkConnectionResponse;
@@ -26,7 +25,6 @@ import com.fireblocks.sdk.model.DeleteNetworkIdResponse;
 import com.fireblocks.sdk.model.NetworkConnection;
 import com.fireblocks.sdk.model.NetworkConnectionResponse;
 import com.fireblocks.sdk.model.NetworkIdResponse;
-import com.fireblocks.sdk.model.SearchNetworkIdsResponse;
 import com.fireblocks.sdk.model.SetNetworkIdDiscoverabilityRequest;
 import com.fireblocks.sdk.model.SetNetworkIdNameRequest;
 import com.fireblocks.sdk.model.SetNetworkIdResponse;
@@ -36,15 +34,12 @@ import com.fireblocks.sdk.model.SetRoutingPolicyResponse;
 import com.fireblocks.sdk.model.ThirdPartyRouting;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -749,9 +744,7 @@ public class NetworkConnectionsApi {
      *
      * @return CompletableFuture&lt;ApiResponse&lt;List&lt;NetworkIdResponse&gt;&gt;&gt;
      * @throws ApiException if fails to make API call
-     * @deprecated
      */
-    @Deprecated
     public CompletableFuture<ApiResponse<List<NetworkIdResponse>>> getNetworkIds()
             throws ApiException {
         try {
@@ -863,127 +856,6 @@ public class NetworkConnectionsApi {
         String localVarPath = "/network_ids/routing_policy_asset_groups";
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Search network IDs, both local IDs and discoverable remote IDs Retrieves a list of all local
-     * and discoverable remote network IDs. Can be filtered. **Note:** This API call is subject to
-     * Flexible Routing Schemes. Your routing policy defines how your transactions are routed. You
-     * can choose 1 of the 3 different schemes mentioned below for each asset type: - **None**;
-     * Defines the profile routing to no destination for that asset type. Incoming transactions to
-     * asset types routed to &#x60;None&#x60; will fail. - **Custom**; Route to an account that you
-     * choose. If you remove the account, incoming transactions will fail until you choose another
-     * one. - **Default**; Use the routing specified by the network profile the connection is
-     * connected to. This scheme is also referred to as \&quot;Profile Routing\&quot; Default
-     * Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT → **None** -
-     * Network Connection Crypto → **Default** - Network Connection FIAT → **Default** - **Note**:
-     * By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;,
-     * &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;).
-     *
-     * @param search Search string - displayName networkId. Optional (optional)
-     * @param excludeSelf Exclude your networkIds. Optional, default false (optional)
-     * @param onlySelf Include just your networkIds. Optional, default false (optional)
-     * @param excludeConnected Exclude connected networkIds. Optional, default false (optional)
-     * @param pageCursor ID of the record after which to fetch $limit records (optional)
-     * @param pageSize Number of records to fetch. By default, it is 50 (optional, default to 50)
-     * @return CompletableFuture&lt;ApiResponse&lt;SearchNetworkIdsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<SearchNetworkIdsResponse>> searchNetworkIds(
-            String search,
-            Boolean excludeSelf,
-            Boolean onlySelf,
-            Boolean excludeConnected,
-            String pageCursor,
-            BigDecimal pageSize)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    searchNetworkIdsRequestBuilder(
-                            search, excludeSelf, onlySelf, excludeConnected, pageCursor, pageSize);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("searchNetworkIds", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<SearchNetworkIdsResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            SearchNetworkIdsResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder searchNetworkIdsRequestBuilder(
-            String search,
-            Boolean excludeSelf,
-            Boolean onlySelf,
-            Boolean excludeConnected,
-            String pageCursor,
-            BigDecimal pageSize)
-            throws ApiException {
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/network_ids/search";
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-        String localVarQueryParameterBaseName;
-        localVarQueryParameterBaseName = "search";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("search", search));
-        localVarQueryParameterBaseName = "excludeSelf";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("excludeSelf", excludeSelf));
-        localVarQueryParameterBaseName = "onlySelf";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("onlySelf", onlySelf));
-        localVarQueryParameterBaseName = "excludeConnected";
-        localVarQueryParams.addAll(
-                ApiClient.parameterToPairs("excludeConnected", excludeConnected));
-        localVarQueryParameterBaseName = "pageCursor";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
-        localVarQueryParameterBaseName = "pageSize";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
-
-        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
-            StringJoiner queryJoiner = new StringJoiner("&");
-            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
-            if (localVarQueryStringJoiner.length() != 0) {
-                queryJoiner.add(localVarQueryStringJoiner.toString());
-            }
-            localVarRequestBuilder.uri(
-                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
-        } else {
-            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-        }
 
         localVarRequestBuilder.header("Accept", "application/json");
 

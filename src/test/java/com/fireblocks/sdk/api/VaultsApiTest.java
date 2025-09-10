@@ -19,9 +19,6 @@ import com.fireblocks.sdk.model.CreateAddressRequest;
 import com.fireblocks.sdk.model.CreateAddressResponse;
 import com.fireblocks.sdk.model.CreateAssetsRequest;
 import com.fireblocks.sdk.model.CreateMultipleAccountsRequest;
-import com.fireblocks.sdk.model.CreateMultipleDepositAddressesJobStatus;
-import com.fireblocks.sdk.model.CreateMultipleDepositAddressesRequest;
-import com.fireblocks.sdk.model.CreateMultipleVaultAccountsJobStatus;
 import com.fireblocks.sdk.model.CreateVaultAccountRequest;
 import com.fireblocks.sdk.model.CreateVaultAssetResponse;
 import com.fireblocks.sdk.model.GetMaxSpendableAmountResponse;
@@ -38,12 +35,10 @@ import com.fireblocks.sdk.model.UpdateVaultAccountAssetAddressRequest;
 import com.fireblocks.sdk.model.UpdateVaultAccountRequest;
 import com.fireblocks.sdk.model.VaultAccount;
 import com.fireblocks.sdk.model.VaultAccountsPagedResponse;
-import com.fireblocks.sdk.model.VaultAccountsTagAttachmentsRequest;
 import com.fireblocks.sdk.model.VaultActionStatus;
 import com.fireblocks.sdk.model.VaultAsset;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -71,22 +66,6 @@ public class VaultsApiTest {
     }
 
     /**
-     * Attach tags to a vault accounts
-     *
-     * <p>Attach one or more tags to the requested vault accounts.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void attachTagsToVaultAccountsTest() throws ApiException {
-        VaultAccountsTagAttachmentsRequest vaultAccountsTagAttachmentsRequest = null;
-        String idempotencyKey = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
-                api.attachTagsToVaultAccounts(vaultAccountsTagAttachmentsRequest, idempotencyKey);
-    }
-
-    /**
      * Convert a segwit address to legacy format
      *
      * <p>Converts an existing segwit address to the legacy format.
@@ -108,8 +87,7 @@ public class VaultsApiTest {
      *
      * <p>Create multiple vault accounts by running an async job. &lt;/br&gt; **Note**: - These
      * endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k
-     * per operation and 200k per customer during beta testing. Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor.
+     * per operation and 200k per customer during beta testing.
      *
      * @throws ApiException if the Api call fails
      */
@@ -119,23 +97,6 @@ public class VaultsApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<JobCreated>> response =
                 api.createMultipleAccounts(createMultipleAccountsRequest, idempotencyKey);
-    }
-
-    /**
-     * Bulk creation of new deposit addresses
-     *
-     * <p>Create multiple deposit address by running an async job. &lt;/br&gt; **Note**: - We limit
-     * accounts to 10k per operation. Endpoint Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void createMultipleDepositAddressesTest() throws ApiException {
-        CreateMultipleDepositAddressesRequest createMultipleDepositAddressesRequest = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<JobCreated>> response =
-                api.createMultipleDepositAddresses(
-                        createMultipleDepositAddressesRequest, idempotencyKey);
     }
 
     /**
@@ -190,22 +151,6 @@ public class VaultsApiTest {
     }
 
     /**
-     * Detach tags from a vault accounts
-     *
-     * <p>Detach one or more tags from the requested vault account.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void detachTagsFromVaultAccountsTest() throws ApiException {
-        VaultAccountsTagAttachmentsRequest vaultAccountsTagAttachmentsRequest = null;
-        String idempotencyKey = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
-                api.detachTagsFromVaultAccounts(vaultAccountsTagAttachmentsRequest, idempotencyKey);
-    }
-
-    /**
      * List asset wallets (Paginated)
      *
      * <p>Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is
@@ -223,36 +168,6 @@ public class VaultsApiTest {
         BigDecimal limit = null;
         CompletableFuture<ApiResponse<PaginatedAssetWalletResponse>> response =
                 api.getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit);
-    }
-
-    /**
-     * Get job status of bulk creation of new deposit addresses
-     *
-     * <p>Returns the status of bulk creation of new deposit addresses job and the result or error
-     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void getCreateMultipleDepositAddressesJobStatusTest() throws ApiException {
-        String jobId = null;
-        CompletableFuture<ApiResponse<CreateMultipleDepositAddressesJobStatus>> response =
-                api.getCreateMultipleDepositAddressesJobStatus(jobId);
-    }
-
-    /**
-     * Get job status of bulk creation of new vault accounts
-     *
-     * <p>Returns the status of bulk creation of new vault accounts job and the result or error
-     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void getCreateMultipleVaultAccountsJobStatusTest() throws ApiException {
-        String jobId = null;
-        CompletableFuture<ApiResponse<CreateMultipleVaultAccountsJobStatus>> response =
-                api.getCreateMultipleVaultAccountsJobStatus(jobId);
     }
 
     /**
@@ -292,7 +207,6 @@ public class VaultsApiTest {
         String before = null;
         String after = null;
         BigDecimal limit = null;
-        List<UUID> tagIds = null;
         CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> response =
                 api.getPagedVaultAccounts(
                         namePrefix,
@@ -302,8 +216,7 @@ public class VaultsApiTest {
                         orderBy,
                         before,
                         after,
-                        limit,
-                        tagIds);
+                        limit);
     }
 
     /**

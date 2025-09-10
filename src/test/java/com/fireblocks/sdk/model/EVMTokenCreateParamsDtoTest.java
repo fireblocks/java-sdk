@@ -31,9 +31,9 @@ class EVMTokenCreateParamsDtoTest {
         // TODO: test contractId
     }
 
-    /** Test the property 'deployFunctionParams' */
+    /** Test the property 'constructorParams' */
     @Test
-    void deployFunctionParamsTest() {
-        // TODO: test deployFunctionParams
+    void constructorParamsTest() {
+        // TODO: test constructorParams
     }
 }

@@ -25,7 +25,6 @@ import com.fireblocks.sdk.model.TokenResponse;
 import com.fireblocks.sdk.model.UpdateTokenOwnershipStatusDto;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -163,11 +162,9 @@ public class NftsApiTest {
     @Test
     public void refreshNFTMetadataTest() throws ApiException {
         String id = null;
-        UUID xEndUserWalletId = null;
         String idempotencyKey = null;
 
-        CompletableFuture<ApiResponse<Void>> response =
-                api.refreshNFTMetadata(id, xEndUserWalletId, idempotencyKey);
+        CompletableFuture<ApiResponse<Void>> response = api.refreshNFTMetadata(id, idempotencyKey);
     }
 
     /**
@@ -198,12 +195,10 @@ public class NftsApiTest {
     public void updateTokenOwnershipStatusTest() throws ApiException {
         UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto = null;
         String id = null;
-        UUID xEndUserWalletId = null;
         String idempotencyKey = null;
 
         CompletableFuture<ApiResponse<Void>> response =
-                api.updateTokenOwnershipStatus(
-                        updateTokenOwnershipStatusDto, id, xEndUserWalletId, idempotencyKey);
+                api.updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, idempotencyKey);
     }
 
     /**
@@ -216,12 +211,10 @@ public class NftsApiTest {
     @Test
     public void updateTokensOwnershipSpamTest() throws ApiException {
         List<TokenOwnershipSpamUpdatePayload> tokenOwnershipSpamUpdatePayload = null;
-        UUID xEndUserWalletId = null;
         String idempotencyKey = null;
 
         CompletableFuture<ApiResponse<Void>> response =
-                api.updateTokensOwnershipSpam(
-                        tokenOwnershipSpamUpdatePayload, xEndUserWalletId, idempotencyKey);
+                api.updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload, idempotencyKey);
     }
 
     /**
@@ -234,11 +227,9 @@ public class NftsApiTest {
     @Test
     public void updateTokensOwnershipStatusTest() throws ApiException {
         List<TokenOwnershipStatusUpdatePayload> tokenOwnershipStatusUpdatePayload = null;
-        UUID xEndUserWalletId = null;
         String idempotencyKey = null;
 
         CompletableFuture<ApiResponse<Void>> response =
-                api.updateTokensOwnershipStatus(
-                        tokenOwnershipStatusUpdatePayload, xEndUserWalletId, idempotencyKey);
+                api.updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload, idempotencyKey);
     }
 }

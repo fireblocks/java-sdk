@@ -5,89 +5,57 @@
 ## Enum
 
 
-* `INDEPENDENT_RESERVE` (value: `"INDEPENDENT_RESERVE"`)
+* `BINANCE` (value: `"BINANCE"`)
 
-* `ENCLAVE_MARKETS` (value: `"ENCLAVE_MARKETS"`)
+* `BINANCEUS` (value: `"BINANCEUS"`)
 
-* `BIT` (value: `"BIT"`)
-
-* `COINFLEX` (value: `"COINFLEX"`)
-
-* `KUCOIN` (value: `"KUCOIN"`)
-
-* `PXS` (value: `"PXS"`)
-
-* `LIQUID` (value: `"LIQUID"`)
+* `BITFINEX` (value: `"BITFINEX"`)
 
 * `BITHUMB` (value: `"BITHUMB"`)
 
-* `BITFINEX` (value: `"BITFINEX"`)
+* `BITMEX` (value: `"BITMEX"`)
 
 * `BITSO` (value: `"BITSO"`)
 
 * `BITSTAMP` (value: `"BITSTAMP"`)
 
-* `KRAKEN` (value: `"KRAKEN"`)
-
-* `KRAKENINTL` (value: `"KRAKENINTL"`)
-
-* `BINANCE` (value: `"BINANCE"`)
-
-* `BINANCEUS` (value: `"BINANCEUS"`)
-
-* `CRYPTOCOM` (value: `"CRYPTOCOM"`)
-
-* `BYBIT_V2` (value: `"BYBIT_V2"`)
-
-* `COINBASEPRO` (value: `"COINBASEPRO"`)
-
-* `COINBASEPRIME` (value: `"COINBASEPRIME"`)
-
-* `COINBASEINTERNATIONAL` (value: `"COINBASEINTERNATIONAL"`)
-
-* `WHITEBIT` (value: `"WHITEBIT"`)
-
-* `COINBASEEXCHANGE` (value: `"COINBASEEXCHANGE"`)
-
-* `KORBIT` (value: `"KORBIT"`)
-
-* `HITBTC` (value: `"HITBTC"`)
-
-* `GEMINI` (value: `"GEMINI"`)
+* `BITTREX` (value: `"BITTREX"`)
 
 * `CIRCLE` (value: `"CIRCLE"`)
 
-* `BITMEX` (value: `"BITMEX"`)
-
-* `HUOBI` (value: `"HUOBI"`)
-
-* `DERIBIT` (value: `"DERIBIT"`)
-
-* `OKCOIN_V5` (value: `"OKCOIN_V5"`)
-
-* `OKEX` (value: `"OKEX"`)
+* `COINBASEPRO` (value: `"COINBASEPRO"`)
 
 * `COINMETRO` (value: `"COINMETRO"`)
 
-* `GATEIO` (value: `"GATEIO"`)
+* `COINSPRO` (value: `"COINSPRO"`)
 
-* `SCRYPT` (value: `"SCRYPT"`)
+* `CRYPTOCOM` (value: `"CRYPTOCOM"`)
 
-* `COINHAKO` (value: `"COINHAKO"`)
+* `DERIBIT` (value: `"DERIBIT"`)
 
-* `LIGHTBIT` (value: `"LIGHTBIT"`)
+* `FTX` (value: `"FTX"`)
 
-* `BULLISH` (value: `"BULLISH"`)
+* `FIXUS` (value: `"FIXUS"`)
 
-* `CANVAS_CONNECT` (value: `"CANVAS_CONNECT"`)
+* `GEMINI` (value: `"GEMINI"`)
 
-* `BITGET` (value: `"BITGET"`)
+* `HITBTC` (value: `"HITBTC"`)
 
-* `LUNO` (value: `"LUNO"`)
+* `HUOBI` (value: `"HUOBI"`)
 
-* `BIT_GENERA` (value: `"BIT_GENERA"`)
+* `KORBIT` (value: `"KORBIT"`)
 
-* `TRANSFERO` (value: `"TRANSFERO"`)
+* `KRAKEN` (value: `"KRAKEN"`)
+
+* `LIQUID` (value: `"LIQUID"`)
+
+* `POLONIEX` (value: `"POLONIEX"`)
+
+* `OKCOIN` (value: `"OKCOIN"`)
+
+* `OKEX` (value: `"OKEX"`)
+
+* `SEEDCX` (value: `"SEEDCX"`)
 
 
 

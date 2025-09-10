@@ -31,8 +31,8 @@ public class JobManagementApiTest {
     /**
      * Cancel a running job
      *
-     * <p>Stop the given job immediately. If the job is in the &#39;Active&#39; state, the job will
-     * be canceled after completing the current task. Vault accounts and Wallets that are already
+     * <p>Stop the given job immediately. If the job is in the ‘Active’ state, the job will be
+     * canceled after completing the current task. Vault accounts and Wallets that are already
      * created will not be affected.
      *
      * @throws ApiException if the Api call fails
@@ -105,7 +105,7 @@ public class JobManagementApiTest {
      * Pause a job
      *
      * <p>Pause the given job, after the current task is done. A paused job can later be resumed by
-     * calling &#39;continue&#39;, or canceled.
+     * calling ‘continue’, or canceled.
      *
      * @throws ApiException if the Api call fails
      */

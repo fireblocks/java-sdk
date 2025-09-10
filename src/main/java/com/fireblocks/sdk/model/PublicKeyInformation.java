@@ -13,12 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.ApiClient;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,82 +33,47 @@ import java.util.StringJoiner;
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class PublicKeyInformation {
-    /** Elliptic Curve */
-    public enum AlgorithmEnum {
-        MPC_ECDSA_SECP256_K1(String.valueOf("MPC_ECDSA_SECP256K1")),
-
-        MPC_ECDSA_SECP256_R1(String.valueOf("MPC_ECDSA_SECP256R1")),
-
-        MPC_EDDSA_ED25519(String.valueOf("MPC_EDDSA_ED25519"));
-
-        private String value;
-
-        AlgorithmEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static AlgorithmEnum fromValue(String value) {
-            for (AlgorithmEnum b : AlgorithmEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
     public static final String JSON_PROPERTY_ALGORITHM = "algorithm";
-    @jakarta.annotation.Nullable private AlgorithmEnum algorithm;
+    @jakarta.annotation.Nullable private String algorithm;
 
     public static final String JSON_PROPERTY_DERIVATION_PATH = "derivationPath";
-    @jakarta.annotation.Nullable private List<Integer> derivationPath = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<BigDecimal> derivationPath;
 
     public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
     @jakarta.annotation.Nullable private String publicKey;
 
     public PublicKeyInformation() {}
 
-    public PublicKeyInformation algorithm(@jakarta.annotation.Nullable AlgorithmEnum algorithm) {
+    public PublicKeyInformation algorithm(@jakarta.annotation.Nullable String algorithm) {
         this.algorithm = algorithm;
         return this;
     }
 
     /**
-     * Elliptic Curve
+     * Get algorithm
      *
      * @return algorithm
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_ALGORITHM)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public AlgorithmEnum getAlgorithm() {
+    public String getAlgorithm() {
         return algorithm;
     }
 
     @JsonProperty(JSON_PROPERTY_ALGORITHM)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAlgorithm(@jakarta.annotation.Nullable AlgorithmEnum algorithm) {
+    public void setAlgorithm(@jakarta.annotation.Nullable String algorithm) {
         this.algorithm = algorithm;
     }
 
     public PublicKeyInformation derivationPath(
-            @jakarta.annotation.Nullable List<Integer> derivationPath) {
+            @jakarta.annotation.Nullable List<BigDecimal> derivationPath) {
         this.derivationPath = derivationPath;
         return this;
     }
 
-    public PublicKeyInformation addDerivationPathItem(Integer derivationPathItem) {
+    public PublicKeyInformation addDerivationPathItem(BigDecimal derivationPathItem) {
         if (this.derivationPath == null) {
             this.derivationPath = new ArrayList<>();
         }
@@ -118,20 +82,20 @@ public class PublicKeyInformation {
     }
 
     /**
-     * BIP44 derivation path
+     * Get derivationPath
      *
      * @return derivationPath
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<Integer> getDerivationPath() {
+    public List<BigDecimal> getDerivationPath() {
         return derivationPath;
     }
 
     @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDerivationPath(@jakarta.annotation.Nullable List<Integer> derivationPath) {
+    public void setDerivationPath(@jakarta.annotation.Nullable List<BigDecimal> derivationPath) {
         this.derivationPath = derivationPath;
     }
 
@@ -141,7 +105,7 @@ public class PublicKeyInformation {
     }
 
     /**
-     * Compressed/Uncompressed public key value in hex representation
+     * Get publicKey
      *
      * @return publicKey
      */
@@ -245,17 +209,19 @@ public class PublicKeyInformation {
         // add `derivationPath` to the URL query string
         if (getDerivationPath() != null) {
             for (int i = 0; i < getDerivationPath().size(); i++) {
-                joiner.add(
-                        String.format(
-                                "%sderivationPath%s%s=%s",
-                                prefix,
-                                suffix,
-                                "".equals(suffix)
-                                        ? ""
-                                        : String.format(
-                                                "%s%d%s", containerPrefix, i, containerSuffix),
-                                ApiClient.urlEncode(
-                                        ApiClient.valueToString(getDerivationPath().get(i)))));
+                if (getDerivationPath().get(i) != null) {
+                    joiner.add(
+                            String.format(
+                                    "%sderivationPath%s%s=%s",
+                                    prefix,
+                                    suffix,
+                                    "".equals(suffix)
+                                            ? ""
+                                            : String.format(
+                                                    "%s%d%s", containerPrefix, i, containerSuffix),
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getDerivationPath().get(i)))));
+                }
             }
         }
 

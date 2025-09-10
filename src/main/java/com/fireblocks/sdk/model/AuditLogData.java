@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
-import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -40,10 +39,10 @@ public class AuditLogData {
     @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
-    @jakarta.annotation.Nullable private BigDecimal timestamp;
+    @jakarta.annotation.Nullable private String timestamp;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-    @jakarta.annotation.Nullable private BigDecimal createdAt;
+    @jakarta.annotation.Nullable private String createdAt;
 
     public static final String JSON_PROPERTY_USER = "user";
     @jakarta.annotation.Nullable private String user;
@@ -85,7 +84,7 @@ public class AuditLogData {
         this.id = id;
     }
 
-    public AuditLogData timestamp(@jakarta.annotation.Nullable BigDecimal timestamp) {
+    public AuditLogData timestamp(@jakarta.annotation.Nullable String timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -98,17 +97,17 @@ public class AuditLogData {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_TIMESTAMP)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
     @JsonProperty(JSON_PROPERTY_TIMESTAMP)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTimestamp(@jakarta.annotation.Nullable BigDecimal timestamp) {
+    public void setTimestamp(@jakarta.annotation.Nullable String timestamp) {
         this.timestamp = timestamp;
     }
 
-    public AuditLogData createdAt(@jakarta.annotation.Nullable BigDecimal createdAt) {
+    public AuditLogData createdAt(@jakarta.annotation.Nullable String createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -121,13 +120,13 @@ public class AuditLogData {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCreatedAt(@jakarta.annotation.Nullable BigDecimal createdAt) {
+    public void setCreatedAt(@jakarta.annotation.Nullable String createdAt) {
         this.createdAt = createdAt;
     }
 

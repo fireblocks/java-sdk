@@ -36,16 +36,4 @@ class TransactionRequestDestinationTest {
     void destinationTest() {
         // TODO: test destination
     }
-
-    /** Test the property 'travelRuleMessageId' */
-    @Test
-    void travelRuleMessageIdTest() {
-        // TODO: test travelRuleMessageId
-    }
-
-    /** Test the property 'customerRefId' */
-    @Test
-    void customerRefIdTest() {
-        // TODO: test customerRefId
-    }
 }

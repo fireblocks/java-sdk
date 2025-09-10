@@ -4,99 +4,12 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**addExchangeAccount**](ExchangeAccountsApi.md#addExchangeAccount) | **POST** /exchange_accounts | Add an exchange account |
 | [**convertAssets**](ExchangeAccountsApi.md#convertAssets) | **POST** /exchange_accounts/{exchangeAccountId}/convert | Convert exchange account funds from the source asset to the destination asset. |
 | [**getExchangeAccount**](ExchangeAccountsApi.md#getExchangeAccount) | **GET** /exchange_accounts/{exchangeAccountId} | Find a specific exchange account |
 | [**getExchangeAccountAsset**](ExchangeAccountsApi.md#getExchangeAccountAsset) | **GET** /exchange_accounts/{exchangeAccountId}/{assetId} | Find an asset for an exchange account |
-| [**getExchangeAccountsCredentialsPublicKey**](ExchangeAccountsApi.md#getExchangeAccountsCredentialsPublicKey) | **GET** /exchange_accounts/credentials_public_key | Get public key to encrypt exchange credentials |
 | [**getPagedExchangeAccounts**](ExchangeAccountsApi.md#getPagedExchangeAccounts) | **GET** /exchange_accounts/paged | Pagination list exchange accounts |
 | [**internalTransfer**](ExchangeAccountsApi.md#internalTransfer) | **POST** /exchange_accounts/{exchangeAccountId}/internal_transfer | Internal transfer for exchange accounts |
 
-
-
-## addExchangeAccount
-
-> CompletableFuture<ApiResponse<AddExchangeAccountResponse>> addExchangeAccount addExchangeAccount(addExchangeAccountRequest, idempotencyKey)
-
-Add an exchange account
-
-Add an exchange account to exchanges.
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.ExchangeAccountsApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        AddExchangeAccountRequest addExchangeAccountRequest = new AddExchangeAccountRequest(); // AddExchangeAccountRequest | 
-        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-        try {
-            CompletableFuture<ApiResponse<AddExchangeAccountResponse>> response = fireblocks.exchangeAccounts().addExchangeAccount(addExchangeAccountRequest, idempotencyKey);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-            System.out.println("Response body: " + response.get().getData());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling ExchangeAccountsApi#addExchangeAccount");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ExchangeAccountsApi#addExchangeAccount");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **addExchangeAccountRequest** | [**AddExchangeAccountRequest**](AddExchangeAccountRequest.md)|  | |
-| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
-
-### Return type
-
-CompletableFuture<ApiResponse<[**AddExchangeAccountResponse**](AddExchangeAccountResponse.md)>>
-
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **201** | An Exchange Account identifier object |  * X-Request-ID -  <br>  |
-| **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
 ## convertAssets
@@ -351,85 +264,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | An ExchangeAccountAsset object |  * X-Request-ID -  <br>  |
-| **0** | Error Response |  * X-Request-ID -  <br>  |
-
-
-## getExchangeAccountsCredentialsPublicKey
-
-> CompletableFuture<ApiResponse<GetExchangeAccountsCredentialsPublicKeyResponse>> getExchangeAccountsCredentialsPublicKey getExchangeAccountsCredentialsPublicKey()
-
-Get public key to encrypt exchange credentials
-
-Return public key
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.ExchangeAccountsApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        try {
-            CompletableFuture<ApiResponse<GetExchangeAccountsCredentialsPublicKeyResponse>> response = fireblocks.exchangeAccounts().getExchangeAccountsCredentialsPublicKey();
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-            System.out.println("Response body: " + response.get().getData());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling ExchangeAccountsApi#getExchangeAccountsCredentialsPublicKey");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ExchangeAccountsApi#getExchangeAccountsCredentialsPublicKey");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-This endpoint does not need any parameter.
-
-### Return type
-
-CompletableFuture<ApiResponse<[**GetExchangeAccountsCredentialsPublicKeyResponse**](GetExchangeAccountsCredentialsPublicKeyResponse.md)>>
-
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | public key as string |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

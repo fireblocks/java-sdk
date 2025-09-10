@@ -18,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
-import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,7 +26,6 @@ import java.util.StringJoiner;
     TravelRuleValidateTransactionRequest.JSON_PROPERTY_TRANSACTION_ASSET,
     TravelRuleValidateTransactionRequest.JSON_PROPERTY_DESTINATION,
     TravelRuleValidateTransactionRequest.JSON_PROPERTY_TRANSACTION_AMOUNT,
-    TravelRuleValidateTransactionRequest.JSON_PROPERTY_TRANSACTION_ASSET_DECIMALS,
     TravelRuleValidateTransactionRequest.JSON_PROPERTY_ORIGINATOR_V_A_S_PDID,
     TravelRuleValidateTransactionRequest.JSON_PROPERTY_ORIGINATOR_EQUALS_BENEFICIARY,
     TravelRuleValidateTransactionRequest.JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR,
@@ -49,10 +47,6 @@ public class TravelRuleValidateTransactionRequest {
 
     public static final String JSON_PROPERTY_TRANSACTION_AMOUNT = "transactionAmount";
     @jakarta.annotation.Nonnull private String transactionAmount;
-
-    public static final String JSON_PROPERTY_TRANSACTION_ASSET_DECIMALS =
-            "transactionAssetDecimals";
-    @jakarta.annotation.Nullable private BigDecimal transactionAssetDecimals;
 
     public static final String JSON_PROPERTY_ORIGINATOR_V_A_S_PDID = "originatorVASPdid";
     @jakarta.annotation.Nonnull private String originatorVASPdid;
@@ -107,7 +101,7 @@ public class TravelRuleValidateTransactionRequest {
     }
 
     /**
-     * Transaction asset symbol (BTC,ETH)
+     * Transaction asset symbol BTC,ETH)
      *
      * @return transactionAsset
      */
@@ -170,32 +164,6 @@ public class TravelRuleValidateTransactionRequest {
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setTransactionAmount(@jakarta.annotation.Nonnull String transactionAmount) {
         this.transactionAmount = transactionAmount;
-    }
-
-    public TravelRuleValidateTransactionRequest transactionAssetDecimals(
-            @jakarta.annotation.Nullable BigDecimal transactionAssetDecimals) {
-        this.transactionAssetDecimals = transactionAssetDecimals;
-        return this;
-    }
-
-    /**
-     * Number of decimals in the transaction asset. This is used to convert the transaction amount
-     * to the smallest unit of the asset
-     *
-     * @return transactionAssetDecimals
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TRANSACTION_ASSET_DECIMALS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getTransactionAssetDecimals() {
-        return transactionAssetDecimals;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TRANSACTION_ASSET_DECIMALS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTransactionAssetDecimals(
-            @jakarta.annotation.Nullable BigDecimal transactionAssetDecimals) {
-        this.transactionAssetDecimals = transactionAssetDecimals;
     }
 
     public TravelRuleValidateTransactionRequest originatorVASPdid(
@@ -377,7 +345,7 @@ public class TravelRuleValidateTransactionRequest {
     }
 
     /**
-     * Get beneficiaryAddress
+     * Beneficiary name
      *
      * @return beneficiaryAddress
      */
@@ -415,9 +383,6 @@ public class TravelRuleValidateTransactionRequest {
                         this.transactionAmount,
                         travelRuleValidateTransactionRequest.transactionAmount)
                 && Objects.equals(
-                        this.transactionAssetDecimals,
-                        travelRuleValidateTransactionRequest.transactionAssetDecimals)
-                && Objects.equals(
                         this.originatorVASPdid,
                         travelRuleValidateTransactionRequest.originatorVASPdid)
                 && Objects.equals(
@@ -448,7 +413,6 @@ public class TravelRuleValidateTransactionRequest {
                 transactionAsset,
                 destination,
                 transactionAmount,
-                transactionAssetDecimals,
                 originatorVASPdid,
                 originatorEqualsBeneficiary,
                 travelRuleBehavior,
@@ -467,9 +431,6 @@ public class TravelRuleValidateTransactionRequest {
         sb.append("    destination: ").append(toIndentedString(destination)).append("\n");
         sb.append("    transactionAmount: ")
                 .append(toIndentedString(transactionAmount))
-                .append("\n");
-        sb.append("    transactionAssetDecimals: ")
-                .append(toIndentedString(transactionAssetDecimals))
                 .append("\n");
         sb.append("    originatorVASPdid: ")
                 .append(toIndentedString(originatorVASPdid))
@@ -568,17 +529,6 @@ public class TravelRuleValidateTransactionRequest {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getTransactionAmount()))));
-        }
-
-        // add `transactionAssetDecimals` to the URL query string
-        if (getTransactionAssetDecimals() != null) {
-            joiner.add(
-                    String.format(
-                            "%stransactionAssetDecimals%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(
-                                    ApiClient.valueToString(getTransactionAssetDecimals()))));
         }
 
         // add `originatorVASPdid` to the URL query string

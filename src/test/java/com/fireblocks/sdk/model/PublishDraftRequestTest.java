@@ -25,12 +25,6 @@ class PublishDraftRequestTest {
         // TODO: test PublishDraftRequest
     }
 
-    /** Test the property 'policyTypes' */
-    @Test
-    void policyTypesTest() {
-        // TODO: test policyTypes
-    }
-
     /** Test the property 'draftId' */
     @Test
     void draftIdTest() {

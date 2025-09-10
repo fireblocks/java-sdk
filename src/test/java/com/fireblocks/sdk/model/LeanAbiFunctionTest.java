@@ -36,16 +36,4 @@ class LeanAbiFunctionTest {
     void inputsTest() {
         // TODO: test inputs
     }
-
-    /** Test the property 'outputs' */
-    @Test
-    void outputsTest() {
-        // TODO: test outputs
-    }
-
-    /** Test the property 'stateMutability' */
-    @Test
-    void stateMutabilityTest() {
-        // TODO: test stateMutability
-    }
 }

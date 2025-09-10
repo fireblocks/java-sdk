@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -32,20 +33,32 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class TravelRuleAddress {
     public static final String JSON_PROPERTY_STREET = "street";
-    @jakarta.annotation.Nullable private String street;
+    @jakarta.annotation.Nonnull private String street;
 
     public static final String JSON_PROPERTY_CITY = "city";
-    @jakarta.annotation.Nullable private String city;
+    @jakarta.annotation.Nonnull private String city;
 
     public static final String JSON_PROPERTY_STATE = "state";
-    @jakarta.annotation.Nullable private String state;
+    @jakarta.annotation.Nonnull private String state;
 
     public static final String JSON_PROPERTY_POSTAL_CODE = "postalCode";
-    @jakarta.annotation.Nullable private String postalCode;
+    @jakarta.annotation.Nonnull private String postalCode;
 
     public TravelRuleAddress() {}
 
-    public TravelRuleAddress street(@jakarta.annotation.Nullable String street) {
+    @JsonCreator
+    public TravelRuleAddress(
+            @JsonProperty(value = JSON_PROPERTY_STREET, required = true) String street,
+            @JsonProperty(value = JSON_PROPERTY_CITY, required = true) String city,
+            @JsonProperty(value = JSON_PROPERTY_STATE, required = true) String state,
+            @JsonProperty(value = JSON_PROPERTY_POSTAL_CODE, required = true) String postalCode) {
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.postalCode = postalCode;
+    }
+
+    public TravelRuleAddress street(@jakarta.annotation.Nonnull String street) {
         this.street = street;
         return this;
     }
@@ -55,20 +68,20 @@ public class TravelRuleAddress {
      *
      * @return street
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_STREET)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getStreet() {
         return street;
     }
 
     @JsonProperty(JSON_PROPERTY_STREET)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStreet(@jakarta.annotation.Nullable String street) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setStreet(@jakarta.annotation.Nonnull String street) {
         this.street = street;
     }
 
-    public TravelRuleAddress city(@jakarta.annotation.Nullable String city) {
+    public TravelRuleAddress city(@jakarta.annotation.Nonnull String city) {
         this.city = city;
         return this;
     }
@@ -78,20 +91,20 @@ public class TravelRuleAddress {
      *
      * @return city
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_CITY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getCity() {
         return city;
     }
 
     @JsonProperty(JSON_PROPERTY_CITY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCity(@jakarta.annotation.Nullable String city) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCity(@jakarta.annotation.Nonnull String city) {
         this.city = city;
     }
 
-    public TravelRuleAddress state(@jakarta.annotation.Nullable String state) {
+    public TravelRuleAddress state(@jakarta.annotation.Nonnull String state) {
         this.state = state;
         return this;
     }
@@ -101,20 +114,20 @@ public class TravelRuleAddress {
      *
      * @return state
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_STATE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getState() {
         return state;
     }
 
     @JsonProperty(JSON_PROPERTY_STATE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setState(@jakarta.annotation.Nullable String state) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setState(@jakarta.annotation.Nonnull String state) {
         this.state = state;
     }
 
-    public TravelRuleAddress postalCode(@jakarta.annotation.Nullable String postalCode) {
+    public TravelRuleAddress postalCode(@jakarta.annotation.Nonnull String postalCode) {
         this.postalCode = postalCode;
         return this;
     }
@@ -124,16 +137,16 @@ public class TravelRuleAddress {
      *
      * @return postalCode
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getPostalCode() {
         return postalCode;
     }
 
     @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPostalCode(@jakarta.annotation.Nullable String postalCode) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPostalCode(@jakarta.annotation.Nonnull String postalCode) {
         this.postalCode = postalCode;
     }
 

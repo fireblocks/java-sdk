@@ -18,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -46,10 +45,10 @@ public class ContractDoc {
     @jakarta.annotation.Nonnull private String kind;
 
     public static final String JSON_PROPERTY_METHODS = "methods";
-    @jakarta.annotation.Nonnull private Map<String, FunctionDoc> methods = new HashMap<>();
+    @jakarta.annotation.Nonnull private Map<String, FunctionDoc> methods;
 
     public static final String JSON_PROPERTY_VERSION = "version";
-    @jakarta.annotation.Nonnull private BigDecimal version;
+    @jakarta.annotation.Nonnull private String version;
 
     public ContractDoc() {}
 
@@ -58,7 +57,7 @@ public class ContractDoc {
             @JsonProperty(value = JSON_PROPERTY_KIND, required = true) String kind,
             @JsonProperty(value = JSON_PROPERTY_METHODS, required = true)
                     Map<String, FunctionDoc> methods,
-            @JsonProperty(value = JSON_PROPERTY_VERSION, required = true) BigDecimal version) {
+            @JsonProperty(value = JSON_PROPERTY_VERSION, required = true) String version) {
         this.kind = kind;
         this.methods = methods;
         this.version = version;
@@ -164,7 +163,7 @@ public class ContractDoc {
         this.methods = methods;
     }
 
-    public ContractDoc version(@jakarta.annotation.Nonnull BigDecimal version) {
+    public ContractDoc version(@jakarta.annotation.Nonnull String version) {
         this.version = version;
         return this;
     }
@@ -177,13 +176,13 @@ public class ContractDoc {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_VERSION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public BigDecimal getVersion() {
+    public String getVersion() {
         return version;
     }
 
     @JsonProperty(JSON_PROPERTY_VERSION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVersion(@jakarta.annotation.Nonnull BigDecimal version) {
+    public void setVersion(@jakarta.annotation.Nonnull String version) {
         this.version = version;
     }
 

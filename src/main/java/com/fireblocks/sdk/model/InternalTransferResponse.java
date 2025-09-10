@@ -22,19 +22,13 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /** InternalTransferResponse */
-@JsonPropertyOrder({
-    InternalTransferResponse.JSON_PROPERTY_SUCCESS,
-    InternalTransferResponse.JSON_PROPERTY_ID
-})
+@JsonPropertyOrder({InternalTransferResponse.JSON_PROPERTY_SUCCESS})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class InternalTransferResponse {
     public static final String JSON_PROPERTY_SUCCESS = "success";
     @jakarta.annotation.Nonnull private Boolean success;
-
-    public static final String JSON_PROPERTY_ID = "id";
-    @jakarta.annotation.Nullable private String id;
 
     public InternalTransferResponse() {}
 
@@ -67,29 +61,6 @@ public class InternalTransferResponse {
         this.success = success;
     }
 
-    public InternalTransferResponse id(@jakarta.annotation.Nullable String id) {
-        this.id = id;
-        return this;
-    }
-
-    /**
-     * The transaction ID of the internal transfer
-     *
-     * @return id
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getId() {
-        return id;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(@jakarta.annotation.Nullable String id) {
-        this.id = id;
-    }
-
     /** Return true if this InternalTransferResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -100,13 +71,12 @@ public class InternalTransferResponse {
             return false;
         }
         InternalTransferResponse internalTransferResponse = (InternalTransferResponse) o;
-        return Objects.equals(this.success, internalTransferResponse.success)
-                && Objects.equals(this.id, internalTransferResponse.id);
+        return Objects.equals(this.success, internalTransferResponse.success);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(success, id);
+        return Objects.hash(success);
     }
 
     @Override
@@ -114,7 +84,6 @@ public class InternalTransferResponse {
         StringBuilder sb = new StringBuilder();
         sb.append("class InternalTransferResponse {\n");
         sb.append("    success: ").append(toIndentedString(success)).append("\n");
-        sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -170,14 +139,6 @@ public class InternalTransferResponse {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getSuccess()))));
-        }
-
-        // add `id` to the URL query string
-        if (getId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sid%s=%s",
-                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         return joiner.toString();

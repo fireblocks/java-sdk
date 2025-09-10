@@ -406,14 +406,6 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetConnectedAccountsBetaApi() {
-        setupFireblocks(true, null, null);
-        ConnectedAccountsBetaApi connectedAccountsBeta = fireblocks.connectedAccountsBeta();
-        Assert.assertNotNull(connectedAccountsBeta);
-        Assert.assertSame(connectedAccountsBeta, fireblocks.connectedAccountsBeta());
-    }
-
-    @Test
     public void testGetConsoleUserApi() {
         setupFireblocks(true, null, null);
         ConsoleUserApi consoleUser = fireblocks.consoleUser();
@@ -459,14 +451,6 @@ public class FireblocksTest {
         DeployedContractsApi deployedContracts = fireblocks.deployedContracts();
         Assert.assertNotNull(deployedContracts);
         Assert.assertSame(deployedContracts, fireblocks.deployedContracts());
-    }
-
-    @Test
-    public void testGetEmbeddedWalletsApi() {
-        setupFireblocks(true, null, null);
-        EmbeddedWalletsApi embeddedWallets = fireblocks.embeddedWallets();
-        Assert.assertNotNull(embeddedWallets);
-        Assert.assertSame(embeddedWallets, fireblocks.embeddedWallets());
     }
 
     @Test
@@ -526,14 +510,6 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetKeysBetaApi() {
-        setupFireblocks(true, null, null);
-        KeysBetaApi keysBeta = fireblocks.keysBeta();
-        Assert.assertNotNull(keysBeta);
-        Assert.assertSame(keysBeta, fireblocks.keysBeta());
-    }
-
-    @Test
     public void testGetNetworkConnectionsApi() {
         setupFireblocks(true, null, null);
         NetworkConnectionsApi networkConnections = fireblocks.networkConnections();
@@ -582,14 +558,6 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetPolicyEditorV2BetaApi() {
-        setupFireblocks(true, null, null);
-        PolicyEditorV2BetaApi policyEditorV2Beta = fireblocks.policyEditorV2Beta();
-        Assert.assertNotNull(policyEditorV2Beta);
-        Assert.assertSame(policyEditorV2Beta, fireblocks.policyEditorV2Beta());
-    }
-
-    @Test
     public void testGetResetDeviceApi() {
         setupFireblocks(true, null, null);
         ResetDeviceApi resetDevice = fireblocks.resetDevice();
@@ -606,19 +574,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetStakingApi() {
+    public void testGetStakingBetaApi() {
         setupFireblocks(true, null, null);
-        StakingApi staking = fireblocks.staking();
-        Assert.assertNotNull(staking);
-        Assert.assertSame(staking, fireblocks.staking());
-    }
-
-    @Test
-    public void testGetTagsApi() {
-        setupFireblocks(true, null, null);
-        TagsApi tags = fireblocks.tags();
-        Assert.assertNotNull(tags);
-        Assert.assertSame(tags, fireblocks.tags());
+        StakingBetaApi stakingBeta = fireblocks.stakingBeta();
+        Assert.assertNotNull(stakingBeta);
+        Assert.assertSame(stakingBeta, fireblocks.stakingBeta());
     }
 
     @Test
@@ -630,14 +590,6 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetTradingBetaApi() {
-        setupFireblocks(true, null, null);
-        TradingBetaApi tradingBeta = fireblocks.tradingBeta();
-        Assert.assertNotNull(tradingBeta);
-        Assert.assertSame(tradingBeta, fireblocks.tradingBeta());
-    }
-
-    @Test
     public void testGetTransactionsApi() {
         setupFireblocks(true, null, null);
         TransactionsApi transactions = fireblocks.transactions();
@@ -646,11 +598,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetTravelRuleApi() {
+    public void testGetTravelRuleBetaApi() {
         setupFireblocks(true, null, null);
-        TravelRuleApi travelRule = fireblocks.travelRule();
-        Assert.assertNotNull(travelRule);
-        Assert.assertSame(travelRule, fireblocks.travelRule());
+        TravelRuleBetaApi travelRuleBeta = fireblocks.travelRuleBeta();
+        Assert.assertNotNull(travelRuleBeta);
+        Assert.assertSame(travelRuleBeta, fireblocks.travelRuleBeta());
     }
 
     @Test
@@ -691,14 +643,6 @@ public class FireblocksTest {
         WebhooksApi webhooks = fireblocks.webhooks();
         Assert.assertNotNull(webhooks);
         Assert.assertSame(webhooks, fireblocks.webhooks());
-    }
-
-    @Test
-    public void testGetWebhooksV2Api() {
-        setupFireblocks(true, null, null);
-        WebhooksV2Api webhooksV2 = fireblocks.webhooksV2();
-        Assert.assertNotNull(webhooksV2);
-        Assert.assertSame(webhooksV2, fireblocks.webhooksV2());
     }
 
     @Test

@@ -5,17 +5,12 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**activateAssetForVaultAccount**](VaultsApi.md#activateAssetForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/activate | Activate a wallet in a vault account |
-| [**attachTagsToVaultAccounts**](VaultsApi.md#attachTagsToVaultAccounts) | **POST** /vault/accounts/attached_tags/attach | Attach tags to a vault accounts |
 | [**createLegacyAddress**](VaultsApi.md#createLegacyAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy | Convert a segwit address to legacy format |
 | [**createMultipleAccounts**](VaultsApi.md#createMultipleAccounts) | **POST** /vault/accounts/bulk | Bulk creation of new vault accounts |
-| [**createMultipleDepositAddresses**](VaultsApi.md#createMultipleDepositAddresses) | **POST** /vault/accounts/addresses/bulk | Bulk creation of new deposit addresses |
 | [**createVaultAccount**](VaultsApi.md#createVaultAccount) | **POST** /vault/accounts | Create a new vault account |
 | [**createVaultAccountAsset**](VaultsApi.md#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new wallet |
 | [**createVaultAccountAssetAddress**](VaultsApi.md#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address |
-| [**detachTagsFromVaultAccounts**](VaultsApi.md#detachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags/detach | Detach tags from a vault accounts |
 | [**getAssetWallets**](VaultsApi.md#getAssetWallets) | **GET** /vault/asset_wallets | List asset wallets (Paginated) |
-| [**getCreateMultipleDepositAddressesJobStatus**](VaultsApi.md#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get job status of bulk creation of new deposit addresses |
-| [**getCreateMultipleVaultAccountsJobStatus**](VaultsApi.md#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts |
 | [**getMaxSpendableAmount**](VaultsApi.md#getMaxSpendableAmount) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount | Get the maximum spendable amount in a single transaction. |
 | [**getPagedVaultAccounts**](VaultsApi.md#getPagedVaultAccounts) | **GET** /vault/accounts_paged | List vault accounts (Paginated) |
 | [**getPublicKeyInfo**](VaultsApi.md#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key information |
@@ -124,89 +119,6 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## attachTagsToVaultAccounts
-
-> CompletableFuture<ApiResponse<Void>> attachTagsToVaultAccounts attachTagsToVaultAccounts(vaultAccountsTagAttachmentsRequest, idempotencyKey)
-
-Attach tags to a vault accounts
-
-Attach one or more tags to the requested vault accounts.
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.VaultsApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        VaultAccountsTagAttachmentsRequest vaultAccountsTagAttachmentsRequest = new VaultAccountsTagAttachmentsRequest(); // VaultAccountsTagAttachmentsRequest | 
-        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-        try {
-            CompletableFuture<ApiResponse<Void>> response = fireblocks.vaults().attachTagsToVaultAccounts(vaultAccountsTagAttachmentsRequest, idempotencyKey);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling VaultsApi#attachTagsToVaultAccounts");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling VaultsApi#attachTagsToVaultAccounts");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **vaultAccountsTagAttachmentsRequest** | [**VaultAccountsTagAttachmentsRequest**](VaultAccountsTagAttachmentsRequest.md)|  | |
-| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
-
-### Return type
-
-
-CompletableFuture<ApiResponse<Void>>
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **204** | Tags were attached successfully |  -  |
-
-
 ## createLegacyAddress
 
 > CompletableFuture<ApiResponse<CreateAddressResponse>> createLegacyAddress createLegacyAddress(vaultAccountId, assetId, addressId, idempotencyKey)
@@ -302,7 +214,7 @@ No authorization required
 
 Bulk creation of new vault accounts
 
-Create multiple vault accounts by running an async job. &lt;/br&gt; **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor. 
+Create multiple vault accounts by running an async job. &lt;/br&gt; **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. 
 
 ### Example
 
@@ -358,91 +270,6 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **createMultipleAccountsRequest** | [**CreateMultipleAccountsRequest**](CreateMultipleAccountsRequest.md)|  | |
-| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
-
-### Return type
-
-CompletableFuture<ApiResponse<[**JobCreated**](JobCreated.md)>>
-
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | A JobCreated object |  * X-Request-ID -  <br>  |
-| **0** | Error Response |  * X-Request-ID -  <br>  |
-
-
-## createMultipleDepositAddresses
-
-> CompletableFuture<ApiResponse<JobCreated>> createMultipleDepositAddresses createMultipleDepositAddresses(createMultipleDepositAddressesRequest, idempotencyKey)
-
-Bulk creation of new deposit addresses
-
-Create multiple deposit address by running an async job. &lt;/br&gt; **Note**: - We limit accounts to 10k per operation. Endpoint Permission: Admin, Non-Signing Admin. 
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.VaultsApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        CreateMultipleDepositAddressesRequest createMultipleDepositAddressesRequest = new CreateMultipleDepositAddressesRequest(); // CreateMultipleDepositAddressesRequest | 
-        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-        try {
-            CompletableFuture<ApiResponse<JobCreated>> response = fireblocks.vaults().createMultipleDepositAddresses(createMultipleDepositAddressesRequest, idempotencyKey);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-            System.out.println("Response body: " + response.get().getData());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling VaultsApi#createMultipleDepositAddresses");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling VaultsApi#createMultipleDepositAddresses");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **createMultipleDepositAddressesRequest** | [**CreateMultipleDepositAddressesRequest**](CreateMultipleDepositAddressesRequest.md)|  | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
@@ -729,89 +556,6 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## detachTagsFromVaultAccounts
-
-> CompletableFuture<ApiResponse<Void>> detachTagsFromVaultAccounts detachTagsFromVaultAccounts(vaultAccountsTagAttachmentsRequest, idempotencyKey)
-
-Detach tags from a vault accounts
-
-Detach one or more tags from the requested vault account.
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.VaultsApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        VaultAccountsTagAttachmentsRequest vaultAccountsTagAttachmentsRequest = new VaultAccountsTagAttachmentsRequest(); // VaultAccountsTagAttachmentsRequest | 
-        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-        try {
-            CompletableFuture<ApiResponse<Void>> response = fireblocks.vaults().detachTagsFromVaultAccounts(vaultAccountsTagAttachmentsRequest, idempotencyKey);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling VaultsApi#detachTagsFromVaultAccounts");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling VaultsApi#detachTagsFromVaultAccounts");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **vaultAccountsTagAttachmentsRequest** | [**VaultAccountsTagAttachmentsRequest**](VaultAccountsTagAttachmentsRequest.md)|  | |
-| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
-
-### Return type
-
-
-CompletableFuture<ApiResponse<Void>>
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **204** | Tags were detached successfully |  -  |
-
-
 ## getAssetWallets
 
 > CompletableFuture<ApiResponse<PaginatedAssetWalletResponse>> getAssetWallets getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit)
@@ -904,172 +648,6 @@ No authorization required
 | **200** | A PaginatedAssetWalletResponse object |  * X-Request-ID -  <br>  |
 
 
-## getCreateMultipleDepositAddressesJobStatus
-
-> CompletableFuture<ApiResponse<CreateMultipleDepositAddressesJobStatus>> getCreateMultipleDepositAddressesJobStatus getCreateMultipleDepositAddressesJobStatus(jobId)
-
-Get job status of bulk creation of new deposit addresses
-
-Returns the status of bulk creation of new deposit addresses job and the result or error Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.VaultsApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        String jobId = "019681b4-107d-7243-942d-4c3c30e36fae"; // String | The ID of the job to create addresses
-        try {
-            CompletableFuture<ApiResponse<CreateMultipleDepositAddressesJobStatus>> response = fireblocks.vaults().getCreateMultipleDepositAddressesJobStatus(jobId);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-            System.out.println("Response body: " + response.get().getData());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling VaultsApi#getCreateMultipleDepositAddressesJobStatus");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling VaultsApi#getCreateMultipleDepositAddressesJobStatus");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **jobId** | **String**| The ID of the job to create addresses | |
-
-### Return type
-
-CompletableFuture<ApiResponse<[**CreateMultipleDepositAddressesJobStatus**](CreateMultipleDepositAddressesJobStatus.md)>>
-
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | A Job with status |  * X-Request-ID -  <br>  |
-| **0** | Error Response |  * X-Request-ID -  <br>  |
-
-
-## getCreateMultipleVaultAccountsJobStatus
-
-> CompletableFuture<ApiResponse<CreateMultipleVaultAccountsJobStatus>> getCreateMultipleVaultAccountsJobStatus getCreateMultipleVaultAccountsJobStatus(jobId)
-
-Get job status of bulk creation of new vault accounts
-
-Returns the status of bulk creation of new vault accounts job and the result or error Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.VaultsApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        String jobId = "019681b4-107d-7243-942d-4c3c30e36fae"; // String | The ID of the job to create addresses
-        try {
-            CompletableFuture<ApiResponse<CreateMultipleVaultAccountsJobStatus>> response = fireblocks.vaults().getCreateMultipleVaultAccountsJobStatus(jobId);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-            System.out.println("Response body: " + response.get().getData());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling VaultsApi#getCreateMultipleVaultAccountsJobStatus");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling VaultsApi#getCreateMultipleVaultAccountsJobStatus");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **jobId** | **String**| The ID of the job to create addresses | |
-
-### Return type
-
-CompletableFuture<ApiResponse<[**CreateMultipleVaultAccountsJobStatus**](CreateMultipleVaultAccountsJobStatus.md)>>
-
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | A Job with status |  * X-Request-ID -  <br>  |
-| **0** | Error Response |  * X-Request-ID -  <br>  |
-
-
 ## getMaxSpendableAmount
 
 > CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> getMaxSpendableAmount getMaxSpendableAmount(vaultAccountId, assetId, manualSignging)
@@ -1159,7 +737,7 @@ No authorization required
 
 ## getPagedVaultAccounts
 
-> CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> getPagedVaultAccounts getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit, tagIds)
+> CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> getPagedVaultAccounts getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit)
 
 List vault accounts (Paginated)
 
@@ -1196,9 +774,8 @@ public class Example {
         String before = "before_example"; // String | 
         String after = "after_example"; // String | 
         BigDecimal limit = new BigDecimal("200"); // BigDecimal | 
-        List<UUID> tagIds = Arrays.asList(); // List<UUID> | List of tag IDs to filter vault accounts.
         try {
-            CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> response = fireblocks.vaults().getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit, tagIds);
+            CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> response = fireblocks.vaults().getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1233,7 +810,6 @@ public class Example {
 | **before** | **String**|  | [optional] |
 | **after** | **String**|  | [optional] |
 | **limit** | **BigDecimal**|  | [optional] [default to 200] |
-| **tagIds** | [**List&lt;UUID&gt;**](UUID.md)| List of tag IDs to filter vault accounts. | [optional] |
 
 ### Return type
 

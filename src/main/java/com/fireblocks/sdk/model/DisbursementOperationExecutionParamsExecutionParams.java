@@ -39,9 +39,7 @@ public class DisbursementOperationExecutionParamsExecutionParams {
     @jakarta.annotation.Nullable private Account paymentAccount;
 
     public static final String JSON_PROPERTY_INSTRUCTION_SET = "instructionSet";
-
-    @jakarta.annotation.Nullable
-    private List<DisbursementInstruction> instructionSet = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<DisbursementInstruction> instructionSet;
 
     public DisbursementOperationExecutionParamsExecutionParams() {}
 

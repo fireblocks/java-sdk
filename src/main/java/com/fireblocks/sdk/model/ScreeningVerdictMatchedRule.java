@@ -35,7 +35,7 @@ public class ScreeningVerdictMatchedRule {
     @jakarta.annotation.Nullable private String action;
 
     public static final String JSON_PROPERTY_CATEGORY = "category";
-    @jakarta.annotation.Nullable private List<String> category = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> category;
 
     public ScreeningVerdictMatchedRule() {}
 

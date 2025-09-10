@@ -66,7 +66,7 @@ public class TokenOwnershipResponse {
     @jakarta.annotation.Nullable private String cachedMetadataURI;
 
     public static final String JSON_PROPERTY_MEDIA = "media";
-    @jakarta.annotation.Nullable private List<MediaEntityResponse> media = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<MediaEntityResponse> media;
 
     public static final String JSON_PROPERTY_SPAM = "spam";
     @jakarta.annotation.Nullable private SpamOwnershipResponse spam;
@@ -106,37 +106,7 @@ public class TokenOwnershipResponse {
 
         XTZ_TEST(String.valueOf("XTZ_TEST")),
 
-        BASECHAIN_ETH(String.valueOf("BASECHAIN_ETH")),
-
-        BASECHAIN_ETH_TEST3(String.valueOf("BASECHAIN_ETH_TEST3")),
-
-        BASECHAIN_ETH_TEST5(String.valueOf("BASECHAIN_ETH_TEST5")),
-
-        ETHERLINK(String.valueOf("ETHERLINK")),
-
-        ETHERLINK_TEST(String.valueOf("ETHERLINK_TEST")),
-
-        MANTLE(String.valueOf("MANTLE")),
-
-        MANTLE_TEST(String.valueOf("MANTLE_TEST")),
-
-        GUN_GUNZILLA(String.valueOf("GUN_GUNZILLA")),
-
-        GUN_GUNZILLA_TEST(String.valueOf("GUN_GUNZILLA_TEST")),
-
-        ETH_SONEIUM(String.valueOf("ETH_SONEIUM")),
-
-        SONEIUM_MINATO_TEST(String.valueOf("SONEIUM_MINATO_TEST")),
-
-        IOTX_IOTEX(String.valueOf("IOTX_IOTEX")),
-
-        KLAY_KAIA(String.valueOf("KLAY_KAIA")),
-
-        KLAY_KAIA_TEST(String.valueOf("KLAY_KAIA_TEST")),
-
-        APECHAIN(String.valueOf("APECHAIN")),
-
-        APECHAIN_TEST(String.valueOf("APECHAIN_TEST"));
+        BASECHAIN_ETH(String.valueOf("BASECHAIN_ETH"));
 
         private String value;
 

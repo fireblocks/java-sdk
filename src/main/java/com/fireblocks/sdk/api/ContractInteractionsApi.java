@@ -20,11 +20,8 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.ContractAbiResponseDto;
-import com.fireblocks.sdk.model.ContractDataDecodeRequest;
-import com.fireblocks.sdk.model.ContractDataDecodedResponse;
 import com.fireblocks.sdk.model.ParameterWithValue;
 import com.fireblocks.sdk.model.ReadCallFunctionDto;
-import com.fireblocks.sdk.model.TransactionReceiptResponse;
 import com.fireblocks.sdk.model.WriteCallFunctionDto;
 import com.fireblocks.sdk.model.WriteCallFunctionResponseDto;
 import java.io.IOException;
@@ -79,116 +76,11 @@ public class ContractInteractionsApi {
     }
 
     /**
-     * Decode a function call data, error, or event log Decode a function call data, error, or event
-     * log from a deployed contract by blockchain native asset id and contract address.
-     *
-     * @param contractDataDecodeRequest (required)
-     * @param contractAddress The contract&#39;s onchain address (required)
-     * @param baseAssetId The blockchain native asset identifier (required)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ContractDataDecodedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<ContractDataDecodedResponse>> decodeContractData(
-            ContractDataDecodeRequest contractDataDecodeRequest,
-            String contractAddress,
-            String baseAssetId,
-            String idempotencyKey)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    decodeContractDataRequestBuilder(
-                            contractDataDecodeRequest,
-                            contractAddress,
-                            baseAssetId,
-                            idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "decodeContractData", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<ContractDataDecodedResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            ContractDataDecodedResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder decodeContractDataRequestBuilder(
-            ContractDataDecodeRequest contractDataDecodeRequest,
-            String contractAddress,
-            String baseAssetId,
-            String idempotencyKey)
-            throws ApiException {
-        ValidationUtils.assertParamExists(
-                "decodeContractData", "contractDataDecodeRequest", contractDataDecodeRequest);
-        ValidationUtils.assertParamExistsAndNotEmpty(
-                "decodeContractData", "contractAddress", contractAddress);
-        ValidationUtils.assertParamExistsAndNotEmpty(
-                "decodeContractData", "baseAssetId", baseAssetId);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/decode"
-                        .replace(
-                                "{contractAddress}",
-                                ApiClient.urlEncode(contractAddress.toString()))
-                        .replace("{baseAssetId}", ApiClient.urlEncode(baseAssetId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(contractDataDecodeRequest);
-            localVarRequestBuilder.method(
-                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
      * Return deployed contract&#39;s ABI Return deployed contract&#39;s ABI by blockchain native
      * asset id and contract address
      *
      * @param contractAddress The contract&#39;s onchain address (required)
-     * @param baseAssetId (required)
+     * @param assetId (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
@@ -196,11 +88,10 @@ public class ContractInteractionsApi {
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<ContractAbiResponseDto>> getDeployedContractAbi(
-            String contractAddress, String baseAssetId, String idempotencyKey) throws ApiException {
+            String contractAddress, String assetId, String idempotencyKey) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    getDeployedContractAbiRequestBuilder(
-                            contractAddress, baseAssetId, idempotencyKey);
+                    getDeployedContractAbiRequestBuilder(contractAddress, assetId, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -235,20 +126,19 @@ public class ContractInteractionsApi {
     }
 
     private HttpRequest.Builder getDeployedContractAbiRequestBuilder(
-            String contractAddress, String baseAssetId, String idempotencyKey) throws ApiException {
+            String contractAddress, String assetId, String idempotencyKey) throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty(
                 "getDeployedContractAbi", "contractAddress", contractAddress);
-        ValidationUtils.assertParamExistsAndNotEmpty(
-                "getDeployedContractAbi", "baseAssetId", baseAssetId);
+        ValidationUtils.assertParamExistsAndNotEmpty("getDeployedContractAbi", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
         String localVarPath =
-                "/contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions"
+                "/contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions"
                         .replace(
                                 "{contractAddress}",
                                 ApiClient.urlEncode(contractAddress.toString()))
-                        .replace("{baseAssetId}", ApiClient.urlEncode(baseAssetId.toString()));
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
@@ -267,85 +157,12 @@ public class ContractInteractionsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get transaction receipt Retrieve the transaction receipt by blockchain native asset ID and
-     * transaction hash
-     *
-     * @param baseAssetId The blockchain base assetId (required)
-     * @param txHash The transaction hash (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TransactionReceiptResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<TransactionReceiptResponse>> getTransactionReceipt(
-            String baseAssetId, String txHash) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    getTransactionReceiptRequestBuilder(baseAssetId, txHash);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "getTransactionReceipt", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<TransactionReceiptResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            TransactionReceiptResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getTransactionReceiptRequestBuilder(
-            String baseAssetId, String txHash) throws ApiException {
-        ValidationUtils.assertParamExistsAndNotEmpty(
-                "getTransactionReceipt", "baseAssetId", baseAssetId);
-        ValidationUtils.assertParamExistsAndNotEmpty("getTransactionReceipt", "txHash", txHash);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/contract_interactions/base_asset_id/{baseAssetId}/tx_hash/{txHash}/receipt"
-                        .replace("{baseAssetId}", ApiClient.urlEncode(baseAssetId.toString()))
-                        .replace("{txHash}", ApiClient.urlEncode(txHash.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
      * Call a read function on a deployed contract Call a read function on a deployed contract by
      * blockchain native asset id and contract address
      *
      * @param readCallFunctionDto (required)
      * @param contractAddress The contract&#39;s onchain address (required)
-     * @param baseAssetId (required)
+     * @param assetId (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
@@ -355,13 +172,13 @@ public class ContractInteractionsApi {
     public CompletableFuture<ApiResponse<List<ParameterWithValue>>> readCallFunction(
             ReadCallFunctionDto readCallFunctionDto,
             String contractAddress,
-            String baseAssetId,
+            String assetId,
             String idempotencyKey)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     readCallFunctionRequestBuilder(
-                            readCallFunctionDto, contractAddress, baseAssetId, idempotencyKey);
+                            readCallFunctionDto, contractAddress, assetId, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -398,24 +215,23 @@ public class ContractInteractionsApi {
     private HttpRequest.Builder readCallFunctionRequestBuilder(
             ReadCallFunctionDto readCallFunctionDto,
             String contractAddress,
-            String baseAssetId,
+            String assetId,
             String idempotencyKey)
             throws ApiException {
         ValidationUtils.assertParamExists(
                 "readCallFunction", "readCallFunctionDto", readCallFunctionDto);
         ValidationUtils.assertParamExistsAndNotEmpty(
                 "readCallFunction", "contractAddress", contractAddress);
-        ValidationUtils.assertParamExistsAndNotEmpty(
-                "readCallFunction", "baseAssetId", baseAssetId);
+        ValidationUtils.assertParamExistsAndNotEmpty("readCallFunction", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
         String localVarPath =
-                "/contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/read"
+                "/contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions/read"
                         .replace(
                                 "{contractAddress}",
                                 ApiClient.urlEncode(contractAddress.toString()))
-                        .replace("{baseAssetId}", ApiClient.urlEncode(baseAssetId.toString()));
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
@@ -447,7 +263,7 @@ public class ContractInteractionsApi {
      *
      * @param writeCallFunctionDto (required)
      * @param contractAddress The contract&#39;s onchain address (required)
-     * @param baseAssetId (required)
+     * @param assetId (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
@@ -457,13 +273,13 @@ public class ContractInteractionsApi {
     public CompletableFuture<ApiResponse<WriteCallFunctionResponseDto>> writeCallFunction(
             WriteCallFunctionDto writeCallFunctionDto,
             String contractAddress,
-            String baseAssetId,
+            String assetId,
             String idempotencyKey)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     writeCallFunctionRequestBuilder(
-                            writeCallFunctionDto, contractAddress, baseAssetId, idempotencyKey);
+                            writeCallFunctionDto, contractAddress, assetId, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -499,24 +315,23 @@ public class ContractInteractionsApi {
     private HttpRequest.Builder writeCallFunctionRequestBuilder(
             WriteCallFunctionDto writeCallFunctionDto,
             String contractAddress,
-            String baseAssetId,
+            String assetId,
             String idempotencyKey)
             throws ApiException {
         ValidationUtils.assertParamExists(
                 "writeCallFunction", "writeCallFunctionDto", writeCallFunctionDto);
         ValidationUtils.assertParamExistsAndNotEmpty(
                 "writeCallFunction", "contractAddress", contractAddress);
-        ValidationUtils.assertParamExistsAndNotEmpty(
-                "writeCallFunction", "baseAssetId", baseAssetId);
+        ValidationUtils.assertParamExistsAndNotEmpty("writeCallFunction", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
         String localVarPath =
-                "/contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/write"
+                "/contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions/write"
                         .replace(
                                 "{contractAddress}",
                                 ApiClient.urlEncode(contractAddress.toString()))
-                        .replace("{baseAssetId}", ApiClient.urlEncode(baseAssetId.toString()));
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 

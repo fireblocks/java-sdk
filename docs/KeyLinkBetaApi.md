@@ -356,7 +356,7 @@ No authorization required
 
 ## getSigningKeysList
 
-> CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> getSigningKeysList getSigningKeysList(pageCursor, pageSize, sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned)
+> CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> getSigningKeysList getSigningKeysList(pageCursor, pageSize, sortBy, order)
 
 Get list of signing keys
 
@@ -389,14 +389,8 @@ public class Example {
         BigDecimal pageSize = new BigDecimal("10"); // BigDecimal | Amount of results to return in the next page
         String sortBy = "createdAt"; // String | Field(s) to use for sorting
         String order = "ASC"; // String | Is the order ascending or descending
-        BigDecimal vaultAccountId = new BigDecimal("4"); // BigDecimal | Return keys assigned to a specific vault
-        String agentUserId = "12fed207-5bdf-4a0c-ab12-fcd2627f75d1"; // String | Return keys associated with a specific agent user
-        String algorithm = "ECDSA_SECP256K1"; // String | Return only keys with a specific algorithm
-        Boolean enabled = true; // Boolean | Return keys that have been proof of ownership
-        Boolean available = true; // Boolean | Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set
-        Boolean isAssigned = true; // Boolean | Return keys that are assigned to a vault account
         try {
-            CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response = fireblocks.keyLinkBeta().getSigningKeysList(pageCursor, pageSize, sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned);
+            CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response = fireblocks.keyLinkBeta().getSigningKeysList(pageCursor, pageSize, sortBy, order);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -427,12 +421,6 @@ public class Example {
 | **pageSize** | **BigDecimal**| Amount of results to return in the next page | [optional] [default to 10] |
 | **sortBy** | **String**| Field(s) to use for sorting | [optional] [default to createdAt] [enum: createdAt] |
 | **order** | **String**| Is the order ascending or descending | [optional] [default to ASC] [enum: ASC, DESC] |
-| **vaultAccountId** | **BigDecimal**| Return keys assigned to a specific vault | [optional] |
-| **agentUserId** | **String**| Return keys associated with a specific agent user | [optional] |
-| **algorithm** | **String**| Return only keys with a specific algorithm | [optional] [enum: ECDSA_SECP256K1, EDDSA_ED25519] |
-| **enabled** | **Boolean**| Return keys that have been proof of ownership | [optional] |
-| **available** | **Boolean**| Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set | [optional] |
-| **isAssigned** | **Boolean**| Return keys that are assigned to a vault account | [optional] |
 
 ### Return type
 

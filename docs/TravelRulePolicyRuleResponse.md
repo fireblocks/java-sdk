@@ -18,7 +18,7 @@
 |**baseAsset** | **String** |  |  [optional] |
 |**amount** | **BigDecimal** |  |  [optional] |
 |**amountUSD** | **BigDecimal** |  |  [optional] |
-|**networkProtocol** | **String** | The network protocol of the token |  [optional] |
+|**networkProtocol** | **String** |  |  [optional] |
 |**operation** | **String** |  |  [optional] |
 |**action** | [**ActionEnum**](#ActionEnum) |  |  |
 

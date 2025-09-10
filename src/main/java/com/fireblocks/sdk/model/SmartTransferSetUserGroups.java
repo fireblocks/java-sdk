@@ -30,7 +30,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class SmartTransferSetUserGroups {
     public static final String JSON_PROPERTY_USER_GROUP_IDS = "userGroupIds";
-    @jakarta.annotation.Nonnull private List<String> userGroupIds = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> userGroupIds;
 
     public SmartTransferSetUserGroups() {}
 

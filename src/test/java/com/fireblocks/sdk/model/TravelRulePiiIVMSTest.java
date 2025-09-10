@@ -25,21 +25,57 @@ class TravelRulePiiIVMSTest {
         // TODO: test TravelRulePiiIVMS
     }
 
-    /** Test the property 'originatorPersons' */
+    /** Test the property 'fullName' */
     @Test
-    void originatorPersonsTest() {
-        // TODO: test originatorPersons
+    void fullNameTest() {
+        // TODO: test fullName
     }
 
-    /** Test the property 'beneficiaryPersons' */
+    /** Test the property 'dateOfBirth' */
     @Test
-    void beneficiaryPersonsTest() {
-        // TODO: test beneficiaryPersons
+    void dateOfBirthTest() {
+        // TODO: test dateOfBirth
     }
 
-    /** Test the property 'accountNumber' */
+    /** Test the property 'placeOfBirth' */
     @Test
-    void accountNumberTest() {
-        // TODO: test accountNumber
+    void placeOfBirthTest() {
+        // TODO: test placeOfBirth
+    }
+
+    /** Test the property 'address' */
+    @Test
+    void addressTest() {
+        // TODO: test address
+    }
+
+    /** Test the property 'identificationNumber' */
+    @Test
+    void identificationNumberTest() {
+        // TODO: test identificationNumber
+    }
+
+    /** Test the property 'nationality' */
+    @Test
+    void nationalityTest() {
+        // TODO: test nationality
+    }
+
+    /** Test the property 'countryOfResidence' */
+    @Test
+    void countryOfResidenceTest() {
+        // TODO: test countryOfResidence
+    }
+
+    /** Test the property 'taxIdentificationNumber' */
+    @Test
+    void taxIdentificationNumberTest() {
+        // TODO: test taxIdentificationNumber
+    }
+
+    /** Test the property 'customerNumber' */
+    @Test
+    void customerNumberTest() {
+        // TODO: test customerNumber
     }
 }

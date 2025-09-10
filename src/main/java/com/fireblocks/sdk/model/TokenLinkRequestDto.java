@@ -26,9 +26,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
     TokenLinkRequestDto.JSON_PROPERTY_TYPE,
     TokenLinkRequestDto.JSON_PROPERTY_REF_ID,
-    TokenLinkRequestDto.JSON_PROPERTY_DISPLAY_NAME,
-    TokenLinkRequestDto.JSON_PROPERTY_BASE_ASSET_ID,
-    TokenLinkRequestDto.JSON_PROPERTY_CONTRACT_ADDRESS
+    TokenLinkRequestDto.JSON_PROPERTY_DISPLAY_NAME
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -75,23 +73,19 @@ public class TokenLinkRequestDto {
     @jakarta.annotation.Nonnull private TypeEnum type;
 
     public static final String JSON_PROPERTY_REF_ID = "refId";
-    @jakarta.annotation.Nullable private String refId;
+    @jakarta.annotation.Nonnull private String refId;
 
     public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
     @jakarta.annotation.Nullable private String displayName;
-
-    public static final String JSON_PROPERTY_BASE_ASSET_ID = "baseAssetId";
-    @jakarta.annotation.Nullable private String baseAssetId;
-
-    public static final String JSON_PROPERTY_CONTRACT_ADDRESS = "contractAddress";
-    @jakarta.annotation.Nullable private String contractAddress;
 
     public TokenLinkRequestDto() {}
 
     @JsonCreator
     public TokenLinkRequestDto(
-            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type) {
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
+            @JsonProperty(value = JSON_PROPERTY_REF_ID, required = true) String refId) {
         this.type = type;
+        this.refId = refId;
     }
 
     public TokenLinkRequestDto type(@jakarta.annotation.Nonnull TypeEnum type) {
@@ -117,7 +111,7 @@ public class TokenLinkRequestDto {
         this.type = type;
     }
 
-    public TokenLinkRequestDto refId(@jakarta.annotation.Nullable String refId) {
+    public TokenLinkRequestDto refId(@jakarta.annotation.Nonnull String refId) {
         this.refId = refId;
         return this;
     }
@@ -128,16 +122,16 @@ public class TokenLinkRequestDto {
      *
      * @return refId
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_REF_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getRefId() {
         return refId;
     }
 
     @JsonProperty(JSON_PROPERTY_REF_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRefId(@jakarta.annotation.Nullable String refId) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setRefId(@jakarta.annotation.Nonnull String refId) {
         this.refId = refId;
     }
 
@@ -164,53 +158,6 @@ public class TokenLinkRequestDto {
         this.displayName = displayName;
     }
 
-    public TokenLinkRequestDto baseAssetId(@jakarta.annotation.Nullable String baseAssetId) {
-        this.baseAssetId = baseAssetId;
-        return this;
-    }
-
-    /**
-     * The blockchain base assetId
-     *
-     * @return baseAssetId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_BASE_ASSET_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getBaseAssetId() {
-        return baseAssetId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_BASE_ASSET_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBaseAssetId(@jakarta.annotation.Nullable String baseAssetId) {
-        this.baseAssetId = baseAssetId;
-    }
-
-    public TokenLinkRequestDto contractAddress(
-            @jakarta.annotation.Nullable String contractAddress) {
-        this.contractAddress = contractAddress;
-        return this;
-    }
-
-    /**
-     * The contract&#39;s onchain address
-     *
-     * @return contractAddress
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getContractAddress() {
-        return contractAddress;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setContractAddress(@jakarta.annotation.Nullable String contractAddress) {
-        this.contractAddress = contractAddress;
-    }
-
     /** Return true if this TokenLinkRequestDto object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -223,14 +170,12 @@ public class TokenLinkRequestDto {
         TokenLinkRequestDto tokenLinkRequestDto = (TokenLinkRequestDto) o;
         return Objects.equals(this.type, tokenLinkRequestDto.type)
                 && Objects.equals(this.refId, tokenLinkRequestDto.refId)
-                && Objects.equals(this.displayName, tokenLinkRequestDto.displayName)
-                && Objects.equals(this.baseAssetId, tokenLinkRequestDto.baseAssetId)
-                && Objects.equals(this.contractAddress, tokenLinkRequestDto.contractAddress);
+                && Objects.equals(this.displayName, tokenLinkRequestDto.displayName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, refId, displayName, baseAssetId, contractAddress);
+        return Objects.hash(type, refId, displayName);
     }
 
     @Override
@@ -240,8 +185,6 @@ public class TokenLinkRequestDto {
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    refId: ").append(toIndentedString(refId)).append("\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
-        sb.append("    baseAssetId: ").append(toIndentedString(baseAssetId)).append("\n");
-        sb.append("    contractAddress: ").append(toIndentedString(contractAddress)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -317,26 +260,6 @@ public class TokenLinkRequestDto {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getDisplayName()))));
-        }
-
-        // add `baseAssetId` to the URL query string
-        if (getBaseAssetId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sbaseAssetId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getBaseAssetId()))));
-        }
-
-        // add `contractAddress` to the URL query string
-        if (getContractAddress() != null) {
-            joiner.add(
-                    String.format(
-                            "%scontractAddress%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getContractAddress()))));
         }
 
         return joiner.toString();

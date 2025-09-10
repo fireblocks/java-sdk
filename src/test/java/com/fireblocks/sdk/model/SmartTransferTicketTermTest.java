@@ -49,12 +49,6 @@ class SmartTransferTicketTermTest {
         // TODO: test amount
     }
 
-    /** Test the property 'dvpSrcDstVaultId' */
-    @Test
-    void dvpSrcDstVaultIdTest() {
-        // TODO: test dvpSrcDstVaultId
-    }
-
     /** Test the property 'amountUsd' */
     @Test
     void amountUsdTest() {

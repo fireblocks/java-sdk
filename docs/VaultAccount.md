@@ -13,7 +13,6 @@
 |**hiddenOnUI** | **Boolean** |  |  [optional] |
 |**customerRefId** | **String** |  |  [optional] |
 |**autoFuel** | **Boolean** |  |  [optional] |
-|**tags** | [**List&lt;Tag&gt;**](Tag.md) | List of tags attached to the vault account |  [optional] |
 
 
 

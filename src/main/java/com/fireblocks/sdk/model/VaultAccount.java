@@ -29,8 +29,7 @@ import java.util.StringJoiner;
     VaultAccount.JSON_PROPERTY_ASSETS,
     VaultAccount.JSON_PROPERTY_HIDDEN_ON_U_I,
     VaultAccount.JSON_PROPERTY_CUSTOMER_REF_ID,
-    VaultAccount.JSON_PROPERTY_AUTO_FUEL,
-    VaultAccount.JSON_PROPERTY_TAGS
+    VaultAccount.JSON_PROPERTY_AUTO_FUEL
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -43,7 +42,7 @@ public class VaultAccount {
     @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_ASSETS = "assets";
-    @jakarta.annotation.Nullable private List<VaultAsset> assets = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<VaultAsset> assets;
 
     public static final String JSON_PROPERTY_HIDDEN_ON_U_I = "hiddenOnUI";
     @jakarta.annotation.Nullable private Boolean hiddenOnUI;
@@ -53,9 +52,6 @@ public class VaultAccount {
 
     public static final String JSON_PROPERTY_AUTO_FUEL = "autoFuel";
     @jakarta.annotation.Nullable private Boolean autoFuel;
-
-    public static final String JSON_PROPERTY_TAGS = "tags";
-    @jakarta.annotation.Nullable private List<Tag> tags = new ArrayList<>();
 
     public VaultAccount() {}
 
@@ -205,37 +201,6 @@ public class VaultAccount {
         this.autoFuel = autoFuel;
     }
 
-    public VaultAccount tags(@jakarta.annotation.Nullable List<Tag> tags) {
-        this.tags = tags;
-        return this;
-    }
-
-    public VaultAccount addTagsItem(Tag tagsItem) {
-        if (this.tags == null) {
-            this.tags = new ArrayList<>();
-        }
-        this.tags.add(tagsItem);
-        return this;
-    }
-
-    /**
-     * List of tags attached to the vault account
-     *
-     * @return tags
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TAGS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TAGS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTags(@jakarta.annotation.Nullable List<Tag> tags) {
-        this.tags = tags;
-    }
-
     /** Return true if this VaultAccount object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -251,13 +216,12 @@ public class VaultAccount {
                 && Objects.equals(this.assets, vaultAccount.assets)
                 && Objects.equals(this.hiddenOnUI, vaultAccount.hiddenOnUI)
                 && Objects.equals(this.customerRefId, vaultAccount.customerRefId)
-                && Objects.equals(this.autoFuel, vaultAccount.autoFuel)
-                && Objects.equals(this.tags, vaultAccount.tags);
+                && Objects.equals(this.autoFuel, vaultAccount.autoFuel);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, assets, hiddenOnUI, customerRefId, autoFuel, tags);
+        return Objects.hash(id, name, assets, hiddenOnUI, customerRefId, autoFuel);
     }
 
     @Override
@@ -270,7 +234,6 @@ public class VaultAccount {
         sb.append("    hiddenOnUI: ").append(toIndentedString(hiddenOnUI)).append("\n");
         sb.append("    customerRefId: ").append(toIndentedString(customerRefId)).append("\n");
         sb.append("    autoFuel: ").append(toIndentedString(autoFuel)).append("\n");
-        sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -387,29 +350,6 @@ public class VaultAccount {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getAutoFuel()))));
-        }
-
-        // add `tags` to the URL query string
-        if (getTags() != null) {
-            for (int i = 0; i < getTags().size(); i++) {
-                if (getTags().get(i) != null) {
-                    joiner.add(
-                            getTags()
-                                    .get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%stags%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
-            }
         }
 
         return joiner.toString();

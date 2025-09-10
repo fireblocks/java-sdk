@@ -31,8 +31,7 @@ import java.util.UUID;
     DestinationTransferPeerPathResponse.JSON_PROPERTY_SUB_TYPE,
     DestinationTransferPeerPathResponse.JSON_PROPERTY_ID,
     DestinationTransferPeerPathResponse.JSON_PROPERTY_NAME,
-    DestinationTransferPeerPathResponse.JSON_PROPERTY_WALLET_ID,
-    DestinationTransferPeerPathResponse.JSON_PROPERTY_TRADING_ACCOUNT
+    DestinationTransferPeerPathResponse.JSON_PROPERTY_WALLET_ID
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -52,9 +51,6 @@ public class DestinationTransferPeerPathResponse {
 
     public static final String JSON_PROPERTY_WALLET_ID = "walletId";
     @jakarta.annotation.Nullable private UUID walletId;
-
-    public static final String JSON_PROPERTY_TRADING_ACCOUNT = "tradingAccount";
-    @jakarta.annotation.Nullable private String tradingAccount;
 
     public DestinationTransferPeerPathResponse() {}
 
@@ -122,13 +118,14 @@ public class DestinationTransferPeerPathResponse {
 
     /**
      * The ID of the peer. You can retrieve the ID of each venue object using the endpoints for
-     * [listing vault accounts](https://developers.fireblocks.com/reference/getpagedvaultaccounts),
-     * [listing exchange account](https://developers.fireblocks.com/reference/getexchangeaccounts),
-     * [listing fiat accounts](https://developers.fireblocks.com/reference/getfiataccounts),
-     * [listing internal wallets](https://developers.fireblocks.com/reference/getinternalwallets),
-     * [listing external wallets](https://developers.fireblocks.com/reference/getexternalwallets),
+     * [listing vault
+     * accounts](https://developers.fireblocks.com/reference/get_vault-accounts-paged), [listing
+     * exchange account](https://developers.fireblocks.com/reference/get_exchange-accounts),
+     * [listing fiat accounts](https://developers.fireblocks.com/reference/get_fiat-accounts),
+     * [listing internal wallets](https://developers.fireblocks.com/reference/get_internal-wallets),
+     * [listing external wallets](https://developers.fireblocks.com/reference/get_external-wallets),
      * [listing network
-     * connections](https://developers.fireblocks.com/reference/getnetworkconnections). For the
+     * connections](https://developers.fireblocks.com/reference/get_network-connections). For the
      * other types, this parameter is not needed.
      *
      * @return id
@@ -193,31 +190,6 @@ public class DestinationTransferPeerPathResponse {
         this.walletId = walletId;
     }
 
-    public DestinationTransferPeerPathResponse tradingAccount(
-            @jakarta.annotation.Nullable String tradingAccount) {
-        this.tradingAccount = tradingAccount;
-        return this;
-    }
-
-    /**
-     * If this transaction is an exchange internal transfer, this field will be populated with the
-     * type of that trading account.
-     *
-     * @return tradingAccount
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TRADING_ACCOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getTradingAccount() {
-        return tradingAccount;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TRADING_ACCOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTradingAccount(@jakarta.annotation.Nullable String tradingAccount) {
-        this.tradingAccount = tradingAccount;
-    }
-
     /** Return true if this DestinationTransferPeerPathResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -233,14 +205,12 @@ public class DestinationTransferPeerPathResponse {
                 && Objects.equals(this.subType, destinationTransferPeerPathResponse.subType)
                 && Objects.equals(this.id, destinationTransferPeerPathResponse.id)
                 && Objects.equals(this.name, destinationTransferPeerPathResponse.name)
-                && Objects.equals(this.walletId, destinationTransferPeerPathResponse.walletId)
-                && Objects.equals(
-                        this.tradingAccount, destinationTransferPeerPathResponse.tradingAccount);
+                && Objects.equals(this.walletId, destinationTransferPeerPathResponse.walletId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, subType, id, name, walletId, tradingAccount);
+        return Objects.hash(type, subType, id, name, walletId);
     }
 
     @Override
@@ -252,7 +222,6 @@ public class DestinationTransferPeerPathResponse {
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    walletId: ").append(toIndentedString(walletId)).append("\n");
-        sb.append("    tradingAccount: ").append(toIndentedString(tradingAccount)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -346,16 +315,6 @@ public class DestinationTransferPeerPathResponse {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getWalletId()))));
-        }
-
-        // add `tradingAccount` to the URL query string
-        if (getTradingAccount() != null) {
-            joiner.add(
-                    String.format(
-                            "%stradingAccount%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getTradingAccount()))));
         }
 
         return joiner.toString();

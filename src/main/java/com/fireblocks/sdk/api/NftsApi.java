@@ -39,7 +39,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -680,19 +679,17 @@ public class NftsApi {
      * Refresh token metadata Updates the latest token metadata.
      *
      * @param id NFT ID (required)
-     * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
-     *     end-user wallet operations. (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<Void>> refreshNFTMetadata(
-            String id, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
+    public CompletableFuture<ApiResponse<Void>> refreshNFTMetadata(String id, String idempotencyKey)
+            throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    refreshNFTMetadataRequestBuilder(id, xEndUserWalletId, idempotencyKey);
+                    refreshNFTMetadataRequestBuilder(id, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -716,8 +713,8 @@ public class NftsApi {
         }
     }
 
-    private HttpRequest.Builder refreshNFTMetadataRequestBuilder(
-            String id, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
+    private HttpRequest.Builder refreshNFTMetadataRequestBuilder(String id, String idempotencyKey)
+            throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty("refreshNFTMetadata", "id", id);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -727,9 +724,6 @@ public class NftsApi {
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        if (xEndUserWalletId != null) {
-            localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
-        }
         if (idempotencyKey != null) {
             localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
         }
@@ -838,8 +832,6 @@ public class NftsApi {
      *
      * @param updateTokenOwnershipStatusDto (required)
      * @param id NFT ID (required)
-     * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
-     *     end-user wallet operations. (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
@@ -849,13 +841,12 @@ public class NftsApi {
     public CompletableFuture<ApiResponse<Void>> updateTokenOwnershipStatus(
             UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto,
             String id,
-            UUID xEndUserWalletId,
             String idempotencyKey)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateTokenOwnershipStatusRequestBuilder(
-                            updateTokenOwnershipStatusDto, id, xEndUserWalletId, idempotencyKey);
+                            updateTokenOwnershipStatusDto, id, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -883,7 +874,6 @@ public class NftsApi {
     private HttpRequest.Builder updateTokenOwnershipStatusRequestBuilder(
             UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto,
             String id,
-            UUID xEndUserWalletId,
             String idempotencyKey)
             throws ApiException {
         ValidationUtils.assertParamExists(
@@ -900,9 +890,6 @@ public class NftsApi {
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        if (xEndUserWalletId != null) {
-            localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
-        }
         if (idempotencyKey != null) {
             localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
         }
@@ -930,8 +917,6 @@ public class NftsApi {
      * ownerships, in all tenant vaults.
      *
      * @param tokenOwnershipSpamUpdatePayload (required)
-     * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
-     *     end-user wallet operations. (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
@@ -940,13 +925,12 @@ public class NftsApi {
      */
     public CompletableFuture<ApiResponse<Void>> updateTokensOwnershipSpam(
             List<TokenOwnershipSpamUpdatePayload> tokenOwnershipSpamUpdatePayload,
-            UUID xEndUserWalletId,
             String idempotencyKey)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateTokensOwnershipSpamRequestBuilder(
-                            tokenOwnershipSpamUpdatePayload, xEndUserWalletId, idempotencyKey);
+                            tokenOwnershipSpamUpdatePayload, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -972,7 +956,6 @@ public class NftsApi {
 
     private HttpRequest.Builder updateTokensOwnershipSpamRequestBuilder(
             List<TokenOwnershipSpamUpdatePayload> tokenOwnershipSpamUpdatePayload,
-            UUID xEndUserWalletId,
             String idempotencyKey)
             throws ApiException {
         ValidationUtils.assertParamExists(
@@ -986,9 +969,6 @@ public class NftsApi {
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        if (xEndUserWalletId != null) {
-            localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
-        }
         if (idempotencyKey != null) {
             localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
         }
@@ -1015,8 +995,6 @@ public class NftsApi {
      * Update tokens ownership status Updates tokens status for a tenant, in all tenant vaults.
      *
      * @param tokenOwnershipStatusUpdatePayload (required)
-     * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
-     *     end-user wallet operations. (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
@@ -1025,13 +1003,12 @@ public class NftsApi {
      */
     public CompletableFuture<ApiResponse<Void>> updateTokensOwnershipStatus(
             List<TokenOwnershipStatusUpdatePayload> tokenOwnershipStatusUpdatePayload,
-            UUID xEndUserWalletId,
             String idempotencyKey)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateTokensOwnershipStatusRequestBuilder(
-                            tokenOwnershipStatusUpdatePayload, xEndUserWalletId, idempotencyKey);
+                            tokenOwnershipStatusUpdatePayload, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -1058,7 +1035,6 @@ public class NftsApi {
 
     private HttpRequest.Builder updateTokensOwnershipStatusRequestBuilder(
             List<TokenOwnershipStatusUpdatePayload> tokenOwnershipStatusUpdatePayload,
-            UUID xEndUserWalletId,
             String idempotencyKey)
             throws ApiException {
         ValidationUtils.assertParamExists(
@@ -1072,9 +1048,6 @@ public class NftsApi {
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        if (xEndUserWalletId != null) {
-            localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
-        }
         if (idempotencyKey != null) {
             localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
         }

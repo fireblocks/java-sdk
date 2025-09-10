@@ -25,18 +25,6 @@ class NetworkIdResponseTest {
         // TODO: test NetworkIdResponse
     }
 
-    /** Test the property 'routingPolicy' */
-    @Test
-    void routingPolicyTest() {
-        // TODO: test routingPolicy
-    }
-
-    /** Test the property 'isDiscoverable' */
-    @Test
-    void isDiscoverableTest() {
-        // TODO: test isDiscoverable
-    }
-
     /** Test the property 'id' */
     @Test
     void idTest() {
@@ -47,5 +35,17 @@ class NetworkIdResponseTest {
     @Test
     void nameTest() {
         // TODO: test name
+    }
+
+    /** Test the property 'routingPolicy' */
+    @Test
+    void routingPolicyTest() {
+        // TODO: test routingPolicy
+    }
+
+    /** Test the property 'isDiscoverable' */
+    @Test
+    void isDiscoverableTest() {
+        // TODO: test isDiscoverable
     }
 }

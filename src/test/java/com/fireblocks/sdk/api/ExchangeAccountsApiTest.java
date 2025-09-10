@@ -15,15 +15,12 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.model.AddExchangeAccountRequest;
-import com.fireblocks.sdk.model.AddExchangeAccountResponse;
 import com.fireblocks.sdk.model.ConvertAssetsRequest;
 import com.fireblocks.sdk.model.ConvertAssetsResponse;
 import com.fireblocks.sdk.model.CreateInternalTransferRequest;
 import com.fireblocks.sdk.model.ExchangeAccount;
 import com.fireblocks.sdk.model.ExchangeAccountsPaged;
 import com.fireblocks.sdk.model.ExchangeAsset;
-import com.fireblocks.sdk.model.GetExchangeAccountsCredentialsPublicKeyResponse;
 import com.fireblocks.sdk.model.InternalTransferResponse;
 import java.math.BigDecimal;
 import java.util.List;
@@ -36,21 +33,6 @@ import org.junit.Test;
 public class ExchangeAccountsApiTest {
 
     private final ExchangeAccountsApi api = new ExchangeAccountsApi();
-
-    /**
-     * Add an exchange account
-     *
-     * <p>Add an exchange account to exchanges.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void addExchangeAccountTest() throws ApiException {
-        AddExchangeAccountRequest addExchangeAccountRequest = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<AddExchangeAccountResponse>> response =
-                api.addExchangeAccount(addExchangeAccountRequest, idempotencyKey);
-    }
 
     /**
      * Convert exchange account funds from the source asset to the destination asset.
@@ -96,19 +78,6 @@ public class ExchangeAccountsApiTest {
         String assetId = null;
         CompletableFuture<ApiResponse<ExchangeAsset>> response =
                 api.getExchangeAccountAsset(exchangeAccountId, assetId);
-    }
-
-    /**
-     * Get public key to encrypt exchange credentials
-     *
-     * <p>Return public key
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void getExchangeAccountsCredentialsPublicKeyTest() throws ApiException {
-        CompletableFuture<ApiResponse<GetExchangeAccountsCredentialsPublicKeyResponse>> response =
-                api.getExchangeAccountsCredentialsPublicKey();
     }
 
     /**

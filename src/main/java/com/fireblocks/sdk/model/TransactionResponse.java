@@ -58,7 +58,7 @@ import java.util.StringJoiner;
     TransactionResponse.JSON_PROPERTY_EXCHANGE_TX_ID,
     TransactionResponse.JSON_PROPERTY_CUSTOMER_REF_ID,
     TransactionResponse.JSON_PROPERTY_AML_SCREENING_RESULT,
-    TransactionResponse.JSON_PROPERTY_COMPLIANCE_RESULTS,
+    TransactionResponse.JSON_PROPERTY_COMPLIANCE_RESULT,
     TransactionResponse.JSON_PROPERTY_EXTRA_PARAMETERS,
     TransactionResponse.JSON_PROPERTY_SIGNED_MESSAGES,
     TransactionResponse.JSON_PROPERTY_NUM_OF_CONFIRMATIONS,
@@ -117,9 +117,7 @@ public class TransactionResponse {
     @jakarta.annotation.Nullable private DestinationTransferPeerPathResponse destination;
 
     public static final String JSON_PROPERTY_DESTINATIONS = "destinations";
-
-    @jakarta.annotation.Nullable
-    private List<TransactionResponseDestination> destinations = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<TransactionResponseDestination> destinations;
 
     public static final String JSON_PROPERTY_DESTINATION_ADDRESS = "destinationAddress";
     @jakarta.annotation.Nullable private String destinationAddress;
@@ -149,7 +147,7 @@ public class TransactionResponse {
     @jakarta.annotation.Nullable private String feeCurrency;
 
     public static final String JSON_PROPERTY_NETWORK_RECORDS = "networkRecords";
-    @jakarta.annotation.Nullable private List<NetworkRecord> networkRecords = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<NetworkRecord> networkRecords;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
     @jakarta.annotation.Nullable private BigDecimal createdAt;
@@ -161,7 +159,7 @@ public class TransactionResponse {
     @jakarta.annotation.Nullable private String createdBy;
 
     public static final String JSON_PROPERTY_SIGNED_BY = "signedBy";
-    @jakarta.annotation.Nullable private List<String> signedBy = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> signedBy;
 
     public static final String JSON_PROPERTY_REJECTED_BY = "rejectedBy";
     @jakarta.annotation.Nullable private String rejectedBy;
@@ -178,14 +176,14 @@ public class TransactionResponse {
     public static final String JSON_PROPERTY_AML_SCREENING_RESULT = "amlScreeningResult";
     @jakarta.annotation.Nullable private AmlScreeningResult amlScreeningResult;
 
-    public static final String JSON_PROPERTY_COMPLIANCE_RESULTS = "complianceResults";
-    @jakarta.annotation.Nullable private ComplianceResults complianceResults;
+    public static final String JSON_PROPERTY_COMPLIANCE_RESULT = "complianceResult";
+    @jakarta.annotation.Nullable private ComplianceResult complianceResult;
 
     public static final String JSON_PROPERTY_EXTRA_PARAMETERS = "extraParameters";
     @jakarta.annotation.Nullable private Object extraParameters;
 
     public static final String JSON_PROPERTY_SIGNED_MESSAGES = "signedMessages";
-    @jakarta.annotation.Nullable private List<SignedMessage> signedMessages = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<SignedMessage> signedMessages;
 
     public static final String JSON_PROPERTY_NUM_OF_CONFIRMATIONS = "numOfConfirmations";
     @jakarta.annotation.Nullable private BigDecimal numOfConfirmations;
@@ -1064,29 +1062,29 @@ public class TransactionResponse {
         this.amlScreeningResult = amlScreeningResult;
     }
 
-    public TransactionResponse complianceResults(
-            @jakarta.annotation.Nullable ComplianceResults complianceResults) {
-        this.complianceResults = complianceResults;
+    public TransactionResponse complianceResult(
+            @jakarta.annotation.Nullable ComplianceResult complianceResult) {
+        this.complianceResult = complianceResult;
         return this;
     }
 
     /**
-     * Get complianceResults
+     * Get complianceResult
      *
-     * @return complianceResults
+     * @return complianceResult
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_COMPLIANCE_RESULTS)
+    @JsonProperty(JSON_PROPERTY_COMPLIANCE_RESULT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ComplianceResults getComplianceResults() {
-        return complianceResults;
+    public ComplianceResult getComplianceResult() {
+        return complianceResult;
     }
 
-    @JsonProperty(JSON_PROPERTY_COMPLIANCE_RESULTS)
+    @JsonProperty(JSON_PROPERTY_COMPLIANCE_RESULT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setComplianceResults(
-            @jakarta.annotation.Nullable ComplianceResults complianceResults) {
-        this.complianceResults = complianceResults;
+    public void setComplianceResult(
+            @jakarta.annotation.Nullable ComplianceResult complianceResult) {
+        this.complianceResult = complianceResult;
     }
 
     public TransactionResponse extraParameters(
@@ -1109,14 +1107,7 @@ public class TransactionResponse {
      * value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The
      * Fireblocks [development
      * libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries)
-     * are recommended for building contract call transactions. For **exchange compliance (e.g.,
-     * Binance) and Travel Rule purposes**, include the key &#x60;piiData&#x60; containing a
-     * **custom JSON structure** with Personally Identifiable Information (PII) relevant to the
-     * transaction. This data must be fully **encrypted by the sender** before being submitted to
-     * the Fireblocks API. The recommended encryption method is **hybrid encryption** using
-     * AES-256-GCM for the payload and RSA-OAEP for key exchange, with the recipient exchange’s
-     * public key. [development
-     * libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks)
+     * are recommended for building contract call transactions.
      *
      * @return extraParameters
      */
@@ -1562,7 +1553,7 @@ public class TransactionResponse {
                 && Objects.equals(this.exchangeTxId, transactionResponse.exchangeTxId)
                 && Objects.equals(this.customerRefId, transactionResponse.customerRefId)
                 && Objects.equals(this.amlScreeningResult, transactionResponse.amlScreeningResult)
-                && Objects.equals(this.complianceResults, transactionResponse.complianceResults)
+                && Objects.equals(this.complianceResult, transactionResponse.complianceResult)
                 && Objects.equals(this.extraParameters, transactionResponse.extraParameters)
                 && Objects.equals(this.signedMessages, transactionResponse.signedMessages)
                 && Objects.equals(this.numOfConfirmations, transactionResponse.numOfConfirmations)
@@ -1615,7 +1606,7 @@ public class TransactionResponse {
                 exchangeTxId,
                 customerRefId,
                 amlScreeningResult,
-                complianceResults,
+                complianceResult,
                 extraParameters,
                 signedMessages,
                 numOfConfirmations,
@@ -1681,9 +1672,7 @@ public class TransactionResponse {
         sb.append("    amlScreeningResult: ")
                 .append(toIndentedString(amlScreeningResult))
                 .append("\n");
-        sb.append("    complianceResults: ")
-                .append(toIndentedString(complianceResults))
-                .append("\n");
+        sb.append("    complianceResult: ").append(toIndentedString(complianceResult)).append("\n");
         sb.append("    extraParameters: ").append(toIndentedString(extraParameters)).append("\n");
         sb.append("    signedMessages: ").append(toIndentedString(signedMessages)).append("\n");
         sb.append("    numOfConfirmations: ")
@@ -2061,10 +2050,10 @@ public class TransactionResponse {
                             .toUrlQueryString(prefix + "amlScreeningResult" + suffix));
         }
 
-        // add `complianceResults` to the URL query string
-        if (getComplianceResults() != null) {
+        // add `complianceResult` to the URL query string
+        if (getComplianceResult() != null) {
             joiner.add(
-                    getComplianceResults().toUrlQueryString(prefix + "complianceResults" + suffix));
+                    getComplianceResult().toUrlQueryString(prefix + "complianceResult" + suffix));
         }
 
         // add `extraParameters` to the URL query string

@@ -24,9 +24,6 @@ import com.fireblocks.sdk.model.CreateAddressRequest;
 import com.fireblocks.sdk.model.CreateAddressResponse;
 import com.fireblocks.sdk.model.CreateAssetsRequest;
 import com.fireblocks.sdk.model.CreateMultipleAccountsRequest;
-import com.fireblocks.sdk.model.CreateMultipleDepositAddressesJobStatus;
-import com.fireblocks.sdk.model.CreateMultipleDepositAddressesRequest;
-import com.fireblocks.sdk.model.CreateMultipleVaultAccountsJobStatus;
 import com.fireblocks.sdk.model.CreateVaultAccountRequest;
 import com.fireblocks.sdk.model.CreateVaultAssetResponse;
 import com.fireblocks.sdk.model.GetMaxSpendableAmountResponse;
@@ -43,7 +40,6 @@ import com.fireblocks.sdk.model.UpdateVaultAccountAssetAddressRequest;
 import com.fireblocks.sdk.model.UpdateVaultAccountRequest;
 import com.fireblocks.sdk.model.VaultAccount;
 import com.fireblocks.sdk.model.VaultAccountsPagedResponse;
-import com.fireblocks.sdk.model.VaultAccountsTagAttachmentsRequest;
 import com.fireblocks.sdk.model.VaultActionStatus;
 import com.fireblocks.sdk.model.VaultAsset;
 import java.io.IOException;
@@ -57,7 +53,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -184,84 +179,6 @@ public class VaultsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Attach tags to a vault accounts Attach one or more tags to the requested vault accounts.
-     *
-     * @param vaultAccountsTagAttachmentsRequest (required)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<Void>> attachTagsToVaultAccounts(
-            VaultAccountsTagAttachmentsRequest vaultAccountsTagAttachmentsRequest,
-            String idempotencyKey)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    attachTagsToVaultAccountsRequestBuilder(
-                            vaultAccountsTagAttachmentsRequest, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "attachTagsToVaultAccounts", localVarResponse));
-                                }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder attachTagsToVaultAccountsRequestBuilder(
-            VaultAccountsTagAttachmentsRequest vaultAccountsTagAttachmentsRequest,
-            String idempotencyKey)
-            throws ApiException {
-        ValidationUtils.assertParamExists(
-                "attachTagsToVaultAccounts",
-                "vaultAccountsTagAttachmentsRequest",
-                vaultAccountsTagAttachmentsRequest);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/vault/accounts/attached_tags/attach";
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(vaultAccountsTagAttachmentsRequest);
-            localVarRequestBuilder.method(
-                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
      * Convert a segwit address to legacy format Converts an existing segwit address to the legacy
      * format.
      *
@@ -350,7 +267,6 @@ public class VaultsApi {
      * Bulk creation of new vault accounts Create multiple vault accounts by running an async job.
      * &lt;/br&gt; **Note**: - These endpoints are currently in beta and might be subject to
      * changes. - We limit accounts to 10k per operation and 200k per customer during beta testing.
-     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param createMultipleAccountsRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -422,97 +338,6 @@ public class VaultsApi {
         try {
             byte[] localVarPostBody =
                     memberVarObjectMapper.writeValueAsBytes(createMultipleAccountsRequest);
-            localVarRequestBuilder.method(
-                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Bulk creation of new deposit addresses Create multiple deposit address by running an async
-     * job. &lt;/br&gt; **Note**: - We limit accounts to 10k per operation. Endpoint Permission:
-     * Admin, Non-Signing Admin.
-     *
-     * @param createMultipleDepositAddressesRequest (required)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;JobCreated&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<JobCreated>> createMultipleDepositAddresses(
-            CreateMultipleDepositAddressesRequest createMultipleDepositAddressesRequest,
-            String idempotencyKey)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    createMultipleDepositAddressesRequestBuilder(
-                            createMultipleDepositAddressesRequest, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "createMultipleDepositAddresses",
-                                                    localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<JobCreated>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            JobCreated>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder createMultipleDepositAddressesRequestBuilder(
-            CreateMultipleDepositAddressesRequest createMultipleDepositAddressesRequest,
-            String idempotencyKey)
-            throws ApiException {
-        ValidationUtils.assertParamExists(
-                "createMultipleDepositAddresses",
-                "createMultipleDepositAddressesRequest",
-                createMultipleDepositAddressesRequest);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/vault/accounts/addresses/bulk";
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(createMultipleDepositAddressesRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {
@@ -804,85 +629,6 @@ public class VaultsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Detach tags from a vault accounts Detach one or more tags from the requested vault account.
-     *
-     * @param vaultAccountsTagAttachmentsRequest (required)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<Void>> detachTagsFromVaultAccounts(
-            VaultAccountsTagAttachmentsRequest vaultAccountsTagAttachmentsRequest,
-            String idempotencyKey)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    detachTagsFromVaultAccountsRequestBuilder(
-                            vaultAccountsTagAttachmentsRequest, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "detachTagsFromVaultAccounts",
-                                                    localVarResponse));
-                                }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder detachTagsFromVaultAccountsRequestBuilder(
-            VaultAccountsTagAttachmentsRequest vaultAccountsTagAttachmentsRequest,
-            String idempotencyKey)
-            throws ApiException {
-        ValidationUtils.assertParamExists(
-                "detachTagsFromVaultAccounts",
-                "vaultAccountsTagAttachmentsRequest",
-                vaultAccountsTagAttachmentsRequest);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/vault/accounts/attached_tags/detach";
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(vaultAccountsTagAttachmentsRequest);
-            localVarRequestBuilder.method(
-                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
      * List asset wallets (Paginated) Gets all asset wallets at all of the vault accounts in your
      * workspace. An asset wallet is an asset at a vault account. This method allows fast traversal
      * of all account balances.
@@ -986,151 +732,6 @@ public class VaultsApi {
         } else {
             localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
         }
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Get job status of bulk creation of new deposit addresses Returns the status of bulk creation
-     * of new deposit addresses job and the result or error Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @param jobId The ID of the job to create addresses (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateMultipleDepositAddressesJobStatus&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<CreateMultipleDepositAddressesJobStatus>>
-            getCreateMultipleDepositAddressesJobStatus(String jobId) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    getCreateMultipleDepositAddressesJobStatusRequestBuilder(jobId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "getCreateMultipleDepositAddressesJobStatus",
-                                                    localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<
-                                                    CreateMultipleDepositAddressesJobStatus>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            CreateMultipleDepositAddressesJobStatus>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getCreateMultipleDepositAddressesJobStatusRequestBuilder(
-            String jobId) throws ApiException {
-        ValidationUtils.assertParamExistsAndNotEmpty(
-                "getCreateMultipleDepositAddressesJobStatus", "jobId", jobId);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/vault/accounts/addresses/bulk/{jobId}"
-                        .replace("{jobId}", ApiClient.urlEncode(jobId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Get job status of bulk creation of new vault accounts Returns the status of bulk creation of
-     * new vault accounts job and the result or error Endpoint Permission: Admin, Non-Signing Admin,
-     * Signer, Approver, Editor, Viewer.
-     *
-     * @param jobId The ID of the job to create addresses (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateMultipleVaultAccountsJobStatus&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<CreateMultipleVaultAccountsJobStatus>>
-            getCreateMultipleVaultAccountsJobStatus(String jobId) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    getCreateMultipleVaultAccountsJobStatusRequestBuilder(jobId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "getCreateMultipleVaultAccountsJobStatus",
-                                                    localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<CreateMultipleVaultAccountsJobStatus>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            CreateMultipleVaultAccountsJobStatus>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getCreateMultipleVaultAccountsJobStatusRequestBuilder(String jobId)
-            throws ApiException {
-        ValidationUtils.assertParamExistsAndNotEmpty(
-                "getCreateMultipleVaultAccountsJobStatus", "jobId", jobId);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/vault/accounts/bulk/{jobId}"
-                        .replace("{jobId}", ApiClient.urlEncode(jobId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
         localVarRequestBuilder.header("Accept", "application/json");
 
@@ -1251,7 +852,6 @@ public class VaultsApi {
      * @param before (optional)
      * @param after (optional)
      * @param limit (optional, default to 200)
-     * @param tagIds List of tag IDs to filter vault accounts. (optional
      * @return CompletableFuture&lt;ApiResponse&lt;VaultAccountsPagedResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
@@ -1263,8 +863,7 @@ public class VaultsApi {
             String orderBy,
             String before,
             String after,
-            BigDecimal limit,
-            List<UUID> tagIds)
+            BigDecimal limit)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
@@ -1276,8 +875,7 @@ public class VaultsApi {
                             orderBy,
                             before,
                             after,
-                            limit,
-                            tagIds);
+                            limit);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -1319,8 +917,7 @@ public class VaultsApi {
             String orderBy,
             String before,
             String after,
-            BigDecimal limit,
-            List<UUID> tagIds)
+            BigDecimal limit)
             throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -1347,8 +944,6 @@ public class VaultsApi {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("after", after));
         localVarQueryParameterBaseName = "limit";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("limit", limit));
-        localVarQueryParameterBaseName = "tagIds";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "tagIds", tagIds));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");

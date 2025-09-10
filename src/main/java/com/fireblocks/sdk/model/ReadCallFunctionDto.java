@@ -17,6 +17,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,39 +29,46 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class ReadCallFunctionDto {
     public static final String JSON_PROPERTY_ABI_FUNCTION = "abiFunction";
-    @jakarta.annotation.Nonnull private ReadCallFunctionDtoAbiFunction abiFunction;
+    @jakarta.annotation.Nonnull private List<ReadAbiFunction> abiFunction;
 
     public ReadCallFunctionDto() {}
 
     @JsonCreator
     public ReadCallFunctionDto(
             @JsonProperty(value = JSON_PROPERTY_ABI_FUNCTION, required = true)
-                    ReadCallFunctionDtoAbiFunction abiFunction) {
+                    List<ReadAbiFunction> abiFunction) {
         this.abiFunction = abiFunction;
     }
 
     public ReadCallFunctionDto abiFunction(
-            @jakarta.annotation.Nonnull ReadCallFunctionDtoAbiFunction abiFunction) {
+            @jakarta.annotation.Nonnull List<ReadAbiFunction> abiFunction) {
         this.abiFunction = abiFunction;
         return this;
     }
 
+    public ReadCallFunctionDto addAbiFunctionItem(ReadAbiFunction abiFunctionItem) {
+        if (this.abiFunction == null) {
+            this.abiFunction = new ArrayList<>();
+        }
+        this.abiFunction.add(abiFunctionItem);
+        return this;
+    }
+
     /**
-     * Get abiFunction
+     * The abi of the read function you wish to call
      *
      * @return abiFunction
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ABI_FUNCTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public ReadCallFunctionDtoAbiFunction getAbiFunction() {
+    public List<ReadAbiFunction> getAbiFunction() {
         return abiFunction;
     }
 
     @JsonProperty(JSON_PROPERTY_ABI_FUNCTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbiFunction(
-            @jakarta.annotation.Nonnull ReadCallFunctionDtoAbiFunction abiFunction) {
+    public void setAbiFunction(@jakarta.annotation.Nonnull List<ReadAbiFunction> abiFunction) {
         this.abiFunction = abiFunction;
     }
 
@@ -135,7 +144,25 @@ public class ReadCallFunctionDto {
 
         // add `abiFunction` to the URL query string
         if (getAbiFunction() != null) {
-            joiner.add(getAbiFunction().toUrlQueryString(prefix + "abiFunction" + suffix));
+            for (int i = 0; i < getAbiFunction().size(); i++) {
+                if (getAbiFunction().get(i) != null) {
+                    joiner.add(
+                            getAbiFunction()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%sabiFunction%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
         }
 
         return joiner.toString();

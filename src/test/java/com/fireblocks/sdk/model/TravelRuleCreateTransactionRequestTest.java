@@ -38,22 +38,10 @@ class TravelRuleCreateTransactionRequestTest {
         // TODO: test beneficiaryVASPdid
     }
 
-    /** Test the property 'originatorVASPname' */
-    @Test
-    void originatorVASPnameTest() {
-        // TODO: test originatorVASPname
-    }
-
     /** Test the property 'beneficiaryVASPname' */
     @Test
     void beneficiaryVASPnameTest() {
         // TODO: test beneficiaryVASPname
-    }
-
-    /** Test the property 'beneficiaryVASPwebsite' */
-    @Test
-    void beneficiaryVASPwebsiteTest() {
-        // TODO: test beneficiaryVASPwebsite
     }
 
     /** Test the property 'transactionBlockchainInfo' */
@@ -86,12 +74,6 @@ class TravelRuleCreateTransactionRequestTest {
         // TODO: test protocol
     }
 
-    /** Test the property 'targetProtocol' */
-    @Test
-    void targetProtocolTest() {
-        // TODO: test targetProtocol
-    }
-
     /** Test the property 'skipBeneficiaryDataValidation' */
     @Test
     void skipBeneficiaryDataValidationTest() {
@@ -102,24 +84,6 @@ class TravelRuleCreateTransactionRequestTest {
     @Test
     void travelRuleBehaviorTest() {
         // TODO: test travelRuleBehavior
-    }
-
-    /** Test the property 'originatorRef' */
-    @Test
-    void originatorRefTest() {
-        // TODO: test originatorRef
-    }
-
-    /** Test the property 'beneficiaryRef' */
-    @Test
-    void beneficiaryRefTest() {
-        // TODO: test beneficiaryRef
-    }
-
-    /** Test the property 'travelRuleBehaviorRef' */
-    @Test
-    void travelRuleBehaviorRefTest() {
-        // TODO: test travelRuleBehaviorRef
     }
 
     /** Test the property 'originatorProof' */
@@ -134,21 +98,9 @@ class TravelRuleCreateTransactionRequestTest {
         // TODO: test beneficiaryProof
     }
 
-    /** Test the property 'beneficiaryDid' */
+    /** Test the property 'pii' */
     @Test
-    void beneficiaryDidTest() {
-        // TODO: test beneficiaryDid
-    }
-
-    /** Test the property 'originatorDid' */
-    @Test
-    void originatorDidTest() {
-        // TODO: test originatorDid
-    }
-
-    /** Test the property 'isNonCustodial' */
-    @Test
-    void isNonCustodialTest() {
-        // TODO: test isNonCustodial
+    void piiTest() {
+        // TODO: test pii
     }
 }

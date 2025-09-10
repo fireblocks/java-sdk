@@ -80,19 +80,11 @@ public class AbiFunction {
     public static final String JSON_PROPERTY_STATE_MUTABILITY = "stateMutability";
     @jakarta.annotation.Nullable private StateMutabilityEnum stateMutability;
 
-    /** The type of the function */
+    /** The type if the function */
     public enum TypeEnum {
-        CONSTRUCTOR(String.valueOf("constructor")),
-
         FUNCTION(String.valueOf("function")),
 
-        ERROR(String.valueOf("error")),
-
-        EVENT(String.valueOf("event")),
-
-        RECEIVE(String.valueOf("receive")),
-
-        FALLBACK(String.valueOf("fallback"));
+        CONSTRUCTOR(String.valueOf("constructor"));
 
         private String value;
 
@@ -125,10 +117,10 @@ public class AbiFunction {
     @jakarta.annotation.Nonnull private TypeEnum type;
 
     public static final String JSON_PROPERTY_INPUTS = "inputs";
-    @jakarta.annotation.Nullable private List<Parameter> inputs = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<Parameter> inputs;
 
     public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-    @jakarta.annotation.Nullable private List<Parameter> outputs = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<Parameter> outputs;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
     @jakarta.annotation.Nullable private String description;
@@ -136,8 +128,11 @@ public class AbiFunction {
     public AbiFunction() {}
 
     @JsonCreator
-    public AbiFunction(@JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type) {
+    public AbiFunction(
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
+            @JsonProperty(value = JSON_PROPERTY_INPUTS, required = true) List<Parameter> inputs) {
         this.type = type;
+        this.inputs = inputs;
     }
 
     public AbiFunction name(@jakarta.annotation.Nullable String name) {
@@ -194,7 +189,7 @@ public class AbiFunction {
     }
 
     /**
-     * The type of the function
+     * The type if the function
      *
      * @return type
      */
@@ -211,7 +206,7 @@ public class AbiFunction {
         this.type = type;
     }
 
-    public AbiFunction inputs(@jakarta.annotation.Nullable List<Parameter> inputs) {
+    public AbiFunction inputs(@jakarta.annotation.Nonnull List<Parameter> inputs) {
         this.inputs = inputs;
         return this;
     }
@@ -229,16 +224,16 @@ public class AbiFunction {
      *
      * @return inputs
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_INPUTS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public List<Parameter> getInputs() {
         return inputs;
     }
 
     @JsonProperty(JSON_PROPERTY_INPUTS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setInputs(@jakarta.annotation.Nullable List<Parameter> inputs) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setInputs(@jakarta.annotation.Nonnull List<Parameter> inputs) {
         this.inputs = inputs;
     }
 

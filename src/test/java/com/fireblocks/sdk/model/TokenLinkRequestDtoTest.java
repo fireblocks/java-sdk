@@ -42,16 +42,4 @@ class TokenLinkRequestDtoTest {
     void displayNameTest() {
         // TODO: test displayName
     }
-
-    /** Test the property 'baseAssetId' */
-    @Test
-    void baseAssetIdTest() {
-        // TODO: test baseAssetId
-    }
-
-    /** Test the property 'contractAddress' */
-    @Test
-    void contractAddressTest() {
-        // TODO: test contractAddress
-    }
 }

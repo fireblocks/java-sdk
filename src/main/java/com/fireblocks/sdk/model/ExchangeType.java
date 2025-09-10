@@ -16,91 +16,59 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Exchange account&#39;s type */
+/** Gets or Sets ExchangeType */
 public enum ExchangeType {
-    INDEPENDENT_RESERVE("INDEPENDENT_RESERVE"),
+    BINANCE("BINANCE"),
 
-    ENCLAVE_MARKETS("ENCLAVE_MARKETS"),
+    BINANCEUS("BINANCEUS"),
 
-    BIT("BIT"),
-
-    COINFLEX("COINFLEX"),
-
-    KUCOIN("KUCOIN"),
-
-    PXS("PXS"),
-
-    LIQUID("LIQUID"),
+    BITFINEX("BITFINEX"),
 
     BITHUMB("BITHUMB"),
 
-    BITFINEX("BITFINEX"),
+    BITMEX("BITMEX"),
 
     BITSO("BITSO"),
 
     BITSTAMP("BITSTAMP"),
 
-    KRAKEN("KRAKEN"),
-
-    KRAKENINTL("KRAKENINTL"),
-
-    BINANCE("BINANCE"),
-
-    BINANCEUS("BINANCEUS"),
-
-    CRYPTOCOM("CRYPTOCOM"),
-
-    BYBIT_V2("BYBIT_V2"),
-
-    COINBASEPRO("COINBASEPRO"),
-
-    COINBASEPRIME("COINBASEPRIME"),
-
-    COINBASEINTERNATIONAL("COINBASEINTERNATIONAL"),
-
-    WHITEBIT("WHITEBIT"),
-
-    COINBASEEXCHANGE("COINBASEEXCHANGE"),
-
-    KORBIT("KORBIT"),
-
-    HITBTC("HITBTC"),
-
-    GEMINI("GEMINI"),
+    BITTREX("BITTREX"),
 
     CIRCLE("CIRCLE"),
 
-    BITMEX("BITMEX"),
-
-    HUOBI("HUOBI"),
-
-    DERIBIT("DERIBIT"),
-
-    OKCOIN_V5("OKCOIN_V5"),
-
-    OKEX("OKEX"),
+    COINBASEPRO("COINBASEPRO"),
 
     COINMETRO("COINMETRO"),
 
-    GATEIO("GATEIO"),
+    COINSPRO("COINSPRO"),
 
-    SCRYPT("SCRYPT"),
+    CRYPTOCOM("CRYPTOCOM"),
 
-    COINHAKO("COINHAKO"),
+    DERIBIT("DERIBIT"),
 
-    LIGHTBIT("LIGHTBIT"),
+    FTX("FTX"),
 
-    BULLISH("BULLISH"),
+    FIXUS("FIXUS"),
 
-    CANVAS_CONNECT("CANVAS_CONNECT"),
+    GEMINI("GEMINI"),
 
-    BITGET("BITGET"),
+    HITBTC("HITBTC"),
 
-    LUNO("LUNO"),
+    HUOBI("HUOBI"),
 
-    BIT_GENERA("BIT_GENERA"),
+    KORBIT("KORBIT"),
 
-    TRANSFERO("TRANSFERO");
+    KRAKEN("KRAKEN"),
+
+    LIQUID("LIQUID"),
+
+    POLONIEX("POLONIEX"),
+
+    OKCOIN("OKCOIN"),
+
+    OKEX("OKEX"),
+
+    SEEDCX("SEEDCX");
 
     private String value;
 

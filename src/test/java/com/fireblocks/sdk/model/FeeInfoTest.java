@@ -42,34 +42,4 @@ class FeeInfoTest {
     void gasPriceTest() {
         // TODO: test gasPrice
     }
-
-    /** Test the property 'paidByRelay' */
-    @Test
-    void paidByRelayTest() {
-        // TODO: test paidByRelay
-    }
-
-    /** Test the property 'relayType' */
-    @Test
-    void relayTypeTest() {
-        // TODO: test relayType
-    }
-
-    /** Test the property 'relayId' */
-    @Test
-    void relayIdTest() {
-        // TODO: test relayId
-    }
-
-    /** Test the property 'relayName' */
-    @Test
-    void relayNameTest() {
-        // TODO: test relayName
-    }
-
-    /** Test the property 'feeUSD' */
-    @Test
-    void feeUSDTest() {
-        // TODO: test feeUSD
-    }
 }

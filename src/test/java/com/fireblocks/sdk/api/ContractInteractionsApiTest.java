@@ -16,11 +16,8 @@ package com.fireblocks.sdk.api;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ContractAbiResponseDto;
-import com.fireblocks.sdk.model.ContractDataDecodeRequest;
-import com.fireblocks.sdk.model.ContractDataDecodedResponse;
 import com.fireblocks.sdk.model.ParameterWithValue;
 import com.fireblocks.sdk.model.ReadCallFunctionDto;
-import com.fireblocks.sdk.model.TransactionReceiptResponse;
 import com.fireblocks.sdk.model.WriteCallFunctionDto;
 import com.fireblocks.sdk.model.WriteCallFunctionResponseDto;
 import java.util.List;
@@ -35,25 +32,6 @@ public class ContractInteractionsApiTest {
     private final ContractInteractionsApi api = new ContractInteractionsApi();
 
     /**
-     * Decode a function call data, error, or event log
-     *
-     * <p>Decode a function call data, error, or event log from a deployed contract by blockchain
-     * native asset id and contract address.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void decodeContractDataTest() throws ApiException {
-        ContractDataDecodeRequest contractDataDecodeRequest = null;
-        String contractAddress = null;
-        String baseAssetId = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<ContractDataDecodedResponse>> response =
-                api.decodeContractData(
-                        contractDataDecodeRequest, contractAddress, baseAssetId, idempotencyKey);
-    }
-
-    /**
      * Return deployed contract&#39;s ABI
      *
      * <p>Return deployed contract&#39;s ABI by blockchain native asset id and contract address
@@ -63,25 +41,10 @@ public class ContractInteractionsApiTest {
     @Test
     public void getDeployedContractAbiTest() throws ApiException {
         String contractAddress = null;
-        String baseAssetId = null;
+        String assetId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ContractAbiResponseDto>> response =
-                api.getDeployedContractAbi(contractAddress, baseAssetId, idempotencyKey);
-    }
-
-    /**
-     * Get transaction receipt
-     *
-     * <p>Retrieve the transaction receipt by blockchain native asset ID and transaction hash
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void getTransactionReceiptTest() throws ApiException {
-        String baseAssetId = null;
-        String txHash = null;
-        CompletableFuture<ApiResponse<TransactionReceiptResponse>> response =
-                api.getTransactionReceipt(baseAssetId, txHash);
+                api.getDeployedContractAbi(contractAddress, assetId, idempotencyKey);
     }
 
     /**
@@ -96,11 +59,10 @@ public class ContractInteractionsApiTest {
     public void readCallFunctionTest() throws ApiException {
         ReadCallFunctionDto readCallFunctionDto = null;
         String contractAddress = null;
-        String baseAssetId = null;
+        String assetId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<List<ParameterWithValue>>> response =
-                api.readCallFunction(
-                        readCallFunctionDto, contractAddress, baseAssetId, idempotencyKey);
+                api.readCallFunction(readCallFunctionDto, contractAddress, assetId, idempotencyKey);
     }
 
     /**
@@ -116,10 +78,10 @@ public class ContractInteractionsApiTest {
     public void writeCallFunctionTest() throws ApiException {
         WriteCallFunctionDto writeCallFunctionDto = null;
         String contractAddress = null;
-        String baseAssetId = null;
+        String assetId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<WriteCallFunctionResponseDto>> response =
                 api.writeCallFunction(
-                        writeCallFunctionDto, contractAddress, baseAssetId, idempotencyKey);
+                        writeCallFunctionDto, contractAddress, assetId, idempotencyKey);
     }
 }

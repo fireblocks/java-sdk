@@ -72,7 +72,7 @@ public class AuthorizationGroups {
     }
 
     public static final String JSON_PROPERTY_USERS = "users";
-    @jakarta.annotation.Nullable private Map<String, InnerEnum> users = new HashMap<>();
+    @jakarta.annotation.Nullable private Map<String, InnerEnum> users;
 
     public AuthorizationGroups() {}
 

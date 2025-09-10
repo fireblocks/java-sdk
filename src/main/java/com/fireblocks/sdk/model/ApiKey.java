@@ -24,11 +24,7 @@ import java.util.StringJoiner;
 import java.util.UUID;
 
 /** ApiKey */
-@JsonPropertyOrder({
-    ApiKey.JSON_PROPERTY_ID,
-    ApiKey.JSON_PROPERTY_LAST_SEEN,
-    ApiKey.JSON_PROPERTY_CALLBACK_HANDLER
-})
+@JsonPropertyOrder({ApiKey.JSON_PROPERTY_ID, ApiKey.JSON_PROPERTY_LAST_SEEN})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
@@ -37,16 +33,17 @@ public class ApiKey {
     @jakarta.annotation.Nonnull private UUID id;
 
     public static final String JSON_PROPERTY_LAST_SEEN = "lastSeen";
-    @jakarta.annotation.Nullable private OffsetDateTime lastSeen;
-
-    public static final String JSON_PROPERTY_CALLBACK_HANDLER = "callbackHandler";
-    @jakarta.annotation.Nullable private CallbackHandler callbackHandler;
+    @jakarta.annotation.Nonnull private OffsetDateTime lastSeen;
 
     public ApiKey() {}
 
     @JsonCreator
-    public ApiKey(@JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id) {
+    public ApiKey(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id,
+            @JsonProperty(value = JSON_PROPERTY_LAST_SEEN, required = true)
+                    OffsetDateTime lastSeen) {
         this.id = id;
+        this.lastSeen = lastSeen;
     }
 
     public ApiKey id(@jakarta.annotation.Nonnull UUID id) {
@@ -72,7 +69,7 @@ public class ApiKey {
         this.id = id;
     }
 
-    public ApiKey lastSeen(@jakarta.annotation.Nullable OffsetDateTime lastSeen) {
+    public ApiKey lastSeen(@jakarta.annotation.Nonnull OffsetDateTime lastSeen) {
         this.lastSeen = lastSeen;
         return this;
     }
@@ -82,40 +79,17 @@ public class ApiKey {
      *
      * @return lastSeen
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_LAST_SEEN)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public OffsetDateTime getLastSeen() {
         return lastSeen;
     }
 
     @JsonProperty(JSON_PROPERTY_LAST_SEEN)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLastSeen(@jakarta.annotation.Nullable OffsetDateTime lastSeen) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setLastSeen(@jakarta.annotation.Nonnull OffsetDateTime lastSeen) {
         this.lastSeen = lastSeen;
-    }
-
-    public ApiKey callbackHandler(@jakarta.annotation.Nullable CallbackHandler callbackHandler) {
-        this.callbackHandler = callbackHandler;
-        return this;
-    }
-
-    /**
-     * Get callbackHandler
-     *
-     * @return callbackHandler
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CALLBACK_HANDLER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public CallbackHandler getCallbackHandler() {
-        return callbackHandler;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CALLBACK_HANDLER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCallbackHandler(@jakarta.annotation.Nullable CallbackHandler callbackHandler) {
-        this.callbackHandler = callbackHandler;
     }
 
     /** Return true if this ApiKey object is equal to o. */
@@ -128,14 +102,12 @@ public class ApiKey {
             return false;
         }
         ApiKey apiKey = (ApiKey) o;
-        return Objects.equals(this.id, apiKey.id)
-                && Objects.equals(this.lastSeen, apiKey.lastSeen)
-                && Objects.equals(this.callbackHandler, apiKey.callbackHandler);
+        return Objects.equals(this.id, apiKey.id) && Objects.equals(this.lastSeen, apiKey.lastSeen);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, lastSeen, callbackHandler);
+        return Objects.hash(id, lastSeen);
     }
 
     @Override
@@ -144,7 +116,6 @@ public class ApiKey {
         sb.append("class ApiKey {\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    lastSeen: ").append(toIndentedString(lastSeen)).append("\n");
-        sb.append("    callbackHandler: ").append(toIndentedString(callbackHandler)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -208,11 +179,6 @@ public class ApiKey {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getLastSeen()))));
-        }
-
-        // add `callbackHandler` to the URL query string
-        if (getCallbackHandler() != null) {
-            joiner.add(getCallbackHandler().toUrlQueryString(prefix + "callbackHandler" + suffix));
         }
 
         return joiner.toString();

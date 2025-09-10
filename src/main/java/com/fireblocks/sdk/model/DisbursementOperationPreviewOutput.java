@@ -31,8 +31,7 @@ public class DisbursementOperationPreviewOutput {
     public static final String JSON_PROPERTY_INSTRUCTION_SET = "instructionSet";
 
     @jakarta.annotation.Nonnull
-    private List<DisbursementOperationPreviewOutputInstructionSetInner> instructionSet =
-            new ArrayList<>();
+    private List<DisbursementOperationPreviewOutputInstructionSetInner> instructionSet;
 
     public DisbursementOperationPreviewOutput() {}
 

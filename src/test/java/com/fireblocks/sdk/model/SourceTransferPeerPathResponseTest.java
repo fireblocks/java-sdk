@@ -54,10 +54,4 @@ class SourceTransferPeerPathResponseTest {
     void walletIdTest() {
         // TODO: test walletId
     }
-
-    /** Test the property 'tradingAccount' */
-    @Test
-    void tradingAccountTest() {
-        // TODO: test tradingAccount
-    }
 }

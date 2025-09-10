@@ -35,7 +35,7 @@ public class SetConfirmationsThresholdResponse {
     @jakarta.annotation.Nullable private Boolean success;
 
     public static final String JSON_PROPERTY_TRANSACTIONS = "transactions";
-    @jakarta.annotation.Nullable private List<String> transactions = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> transactions;
 
     public SetConfirmationsThresholdResponse() {}
 

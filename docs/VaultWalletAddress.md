@@ -27,8 +27,6 @@
 |---- | -----|
 | SEGWIT | &quot;SEGWIT&quot; |
 | LEGACY | &quot;LEGACY&quot; |
-| BASE | &quot;BASE&quot; |
-| PAYMENT | &quot;PAYMENT&quot; |
 
 
 

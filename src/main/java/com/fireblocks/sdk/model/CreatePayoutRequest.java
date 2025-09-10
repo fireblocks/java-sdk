@@ -35,7 +35,7 @@ public class CreatePayoutRequest {
     @jakarta.annotation.Nonnull private PaymentAccount paymentAccount;
 
     public static final String JSON_PROPERTY_INSTRUCTION_SET = "instructionSet";
-    @jakarta.annotation.Nonnull private List<PayoutInstruction> instructionSet = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<PayoutInstruction> instructionSet;
 
     public CreatePayoutRequest() {}
 

@@ -42,7 +42,7 @@ public class NetworkConnection {
     public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
 
     @jakarta.annotation.Nullable
-    private Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy = new HashMap<>();
+    private Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy;
 
     public NetworkConnection() {}
 

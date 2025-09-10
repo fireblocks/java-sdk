@@ -31,10 +31,10 @@ class CreateTokenRequestDtoCreateParamsTest {
         // TODO: test contractId
     }
 
-    /** Test the property 'deployFunctionParams' */
+    /** Test the property 'constructorParams' */
     @Test
-    void deployFunctionParamsTest() {
-        // TODO: test deployFunctionParams
+    void constructorParamsTest() {
+        // TODO: test constructorParams
     }
 
     /** Test the property 'symbol' */
@@ -53,11 +53,5 @@ class CreateTokenRequestDtoCreateParamsTest {
     @Test
     void issuerAddressTest() {
         // TODO: test issuerAddress
-    }
-
-    /** Test the property 'decimals' */
-    @Test
-    void decimalsTest() {
-        // TODO: test decimals
     }
 }

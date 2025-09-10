@@ -8,8 +8,8 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** | The unique identifier of the audit log |  [optional] |
-|**timestamp** | **BigDecimal** | The timestamp of the audit log |  [optional] |
-|**createdAt** | **BigDecimal** | The timestamp of the audit log creation |  [optional] |
+|**timestamp** | **String** | The timestamp of the audit log |  [optional] |
+|**createdAt** | **String** | The timestamp of the audit log creation |  [optional] |
 |**user** | **String** | The user who performed the action |  [optional] |
 |**subject** | **String** | The subject of the action |  [optional] |
 |**event** | **String** | The event that was performed |  [optional] |

@@ -51,15 +51,13 @@ public class ExchangeAccount {
     @jakarta.annotation.Nullable private String status;
 
     public static final String JSON_PROPERTY_ASSETS = "assets";
-    @jakarta.annotation.Nullable private List<ExchangeAsset> assets = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<ExchangeAsset> assets;
 
     public static final String JSON_PROPERTY_SUCCESS = "success";
     @jakarta.annotation.Nullable private Boolean success;
 
     public static final String JSON_PROPERTY_TRADING_ACCOUNTS = "tradingAccounts";
-
-    @jakarta.annotation.Nullable
-    private List<ExchangeTradingAccount> tradingAccounts = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<ExchangeTradingAccount> tradingAccounts;
 
     public static final String JSON_PROPERTY_IS_SUBACCOUNT = "isSubaccount";
     @jakarta.annotation.Nullable private Boolean isSubaccount;

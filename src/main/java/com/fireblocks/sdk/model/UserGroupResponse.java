@@ -43,7 +43,7 @@ public class UserGroupResponse {
     @jakarta.annotation.Nullable private String status;
 
     public static final String JSON_PROPERTY_MEMBER_IDS = "memberIds";
-    @jakarta.annotation.Nullable private List<String> memberIds = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> memberIds;
 
     public UserGroupResponse() {}
 

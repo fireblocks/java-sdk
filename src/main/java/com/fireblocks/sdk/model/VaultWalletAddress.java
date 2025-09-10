@@ -62,11 +62,7 @@ public class VaultWalletAddress {
     public enum AddressFormatEnum {
         SEGWIT(String.valueOf("SEGWIT")),
 
-        LEGACY(String.valueOf("LEGACY")),
-
-        BASE(String.valueOf("BASE")),
-
-        PAYMENT(String.valueOf("PAYMENT"));
+        LEGACY(String.valueOf("LEGACY"));
 
         private String value;
 

@@ -34,7 +34,7 @@ public class ListOwnedCollectionsResponse {
     @jakarta.annotation.Nullable private Paging paging;
 
     public static final String JSON_PROPERTY_DATA = "data";
-    @jakarta.annotation.Nullable private List<CollectionOwnershipResponse> data = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<CollectionOwnershipResponse> data;
 
     public ListOwnedCollectionsResponse() {}
 

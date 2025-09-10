@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.model;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -33,34 +32,20 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class CreateInternalTransferRequest {
     public static final String JSON_PROPERTY_ASSET = "asset";
-    @jakarta.annotation.Nonnull private String asset;
+    @jakarta.annotation.Nullable private String asset;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    @jakarta.annotation.Nonnull private String amount;
+    @jakarta.annotation.Nullable private String amount;
 
     public static final String JSON_PROPERTY_SOURCE_TYPE = "sourceType";
-    @jakarta.annotation.Nonnull private TradingAccountType sourceType;
+    @jakarta.annotation.Nullable private TradingAccountType sourceType;
 
     public static final String JSON_PROPERTY_DEST_TYPE = "destType";
-    @jakarta.annotation.Nonnull private TradingAccountType destType;
+    @jakarta.annotation.Nullable private TradingAccountType destType;
 
     public CreateInternalTransferRequest() {}
 
-    @JsonCreator
-    public CreateInternalTransferRequest(
-            @JsonProperty(value = JSON_PROPERTY_ASSET, required = true) String asset,
-            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) String amount,
-            @JsonProperty(value = JSON_PROPERTY_SOURCE_TYPE, required = true)
-                    TradingAccountType sourceType,
-            @JsonProperty(value = JSON_PROPERTY_DEST_TYPE, required = true)
-                    TradingAccountType destType) {
-        this.asset = asset;
-        this.amount = amount;
-        this.sourceType = sourceType;
-        this.destType = destType;
-    }
-
-    public CreateInternalTransferRequest asset(@jakarta.annotation.Nonnull String asset) {
+    public CreateInternalTransferRequest asset(@jakarta.annotation.Nullable String asset) {
         this.asset = asset;
         return this;
     }
@@ -70,20 +55,20 @@ public class CreateInternalTransferRequest {
      *
      * @return asset
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_ASSET)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public String getAsset() {
         return asset;
     }
 
     @JsonProperty(JSON_PROPERTY_ASSET)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAsset(@jakarta.annotation.Nonnull String asset) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAsset(@jakarta.annotation.Nullable String asset) {
         this.asset = asset;
     }
 
-    public CreateInternalTransferRequest amount(@jakarta.annotation.Nonnull String amount) {
+    public CreateInternalTransferRequest amount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
         return this;
     }
@@ -93,21 +78,21 @@ public class CreateInternalTransferRequest {
      *
      * @return amount
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public String getAmount() {
         return amount;
     }
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(@jakarta.annotation.Nonnull String amount) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAmount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
     }
 
     public CreateInternalTransferRequest sourceType(
-            @jakarta.annotation.Nonnull TradingAccountType sourceType) {
+            @jakarta.annotation.Nullable TradingAccountType sourceType) {
         this.sourceType = sourceType;
         return this;
     }
@@ -117,21 +102,21 @@ public class CreateInternalTransferRequest {
      *
      * @return sourceType
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_SOURCE_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public TradingAccountType getSourceType() {
         return sourceType;
     }
 
     @JsonProperty(JSON_PROPERTY_SOURCE_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSourceType(@jakarta.annotation.Nonnull TradingAccountType sourceType) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSourceType(@jakarta.annotation.Nullable TradingAccountType sourceType) {
         this.sourceType = sourceType;
     }
 
     public CreateInternalTransferRequest destType(
-            @jakarta.annotation.Nonnull TradingAccountType destType) {
+            @jakarta.annotation.Nullable TradingAccountType destType) {
         this.destType = destType;
         return this;
     }
@@ -141,16 +126,16 @@ public class CreateInternalTransferRequest {
      *
      * @return destType
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_DEST_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public TradingAccountType getDestType() {
         return destType;
     }
 
     @JsonProperty(JSON_PROPERTY_DEST_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDestType(@jakarta.annotation.Nonnull TradingAccountType destType) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDestType(@jakarta.annotation.Nullable TradingAccountType destType) {
         this.destType = destType;
     }
 

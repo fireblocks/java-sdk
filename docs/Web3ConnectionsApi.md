@@ -13,7 +13,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 ## create
 
-> CompletableFuture<ApiResponse<CreateConnectionResponse>> create create(createConnectionRequest, idempotencyKey, xEndUserWalletId)
+> CompletableFuture<ApiResponse<CreateConnectionResponse>> create create(createConnectionRequest, idempotencyKey)
 
 Create a new Web3 connection.
 
@@ -44,9 +44,8 @@ public class Example {
 
         CreateConnectionRequest createConnectionRequest = new CreateConnectionRequest(); // CreateConnectionRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-        UUID xEndUserWalletId = UUID.randomUUID(); // UUID | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
         try {
-            CompletableFuture<ApiResponse<CreateConnectionResponse>> response = fireblocks.web3Connections().create(createConnectionRequest, idempotencyKey, xEndUserWalletId);
+            CompletableFuture<ApiResponse<CreateConnectionResponse>> response = fireblocks.web3Connections().create(createConnectionRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -75,7 +74,6 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **createConnectionRequest** | [**CreateConnectionRequest**](CreateConnectionRequest.md)|  | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
-| **xEndUserWalletId** | **UUID**| Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | [optional] |
 
 ### Return type
 
@@ -101,7 +99,7 @@ No authorization required
 
 ## get
 
-> CompletableFuture<ApiResponse<GetConnectionsResponse>> get get(xEndUserWalletId, order, filter, sort, pageSize, next)
+> CompletableFuture<ApiResponse<GetConnectionsResponse>> get get(order, filter, sort, pageSize, next)
 
 List all open Web3 connections.
 
@@ -130,14 +128,13 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        UUID xEndUserWalletId = UUID.randomUUID(); // UUID | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
         String order = "ASC"; // String | List order; ascending or descending.
         GetFilterParameter filter = new GetFilterParameter(); // GetFilterParameter | Parsed filter object
         String sort = "id"; // String | Property to sort Web3 connections by.
         BigDecimal pageSize = new BigDecimal("10"); // BigDecimal | Amount of results to return in the next page.
         String next = "next_example"; // String | Cursor to the next page
         try {
-            CompletableFuture<ApiResponse<GetConnectionsResponse>> response = fireblocks.web3Connections().get(xEndUserWalletId, order, filter, sort, pageSize, next);
+            CompletableFuture<ApiResponse<GetConnectionsResponse>> response = fireblocks.web3Connections().get(order, filter, sort, pageSize, next);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -164,7 +161,6 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **xEndUserWalletId** | **UUID**| Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | [optional] |
 | **order** | **String**| List order; ascending or descending. | [optional] [default to ASC] [enum: ASC, DESC] |
 | **filter** | [**GetFilterParameter**](.md)| Parsed filter object | [optional] |
 | **sort** | **String**| Property to sort Web3 connections by. | [optional] [default to createdAt] [enum: id, userId, vaultAccountId, createdAt, feeLevel, appUrl, appName] |
@@ -195,7 +191,7 @@ No authorization required
 
 ## remove
 
-> CompletableFuture<ApiResponse<Void>> remove remove(id, xEndUserWalletId)
+> CompletableFuture<ApiResponse<Void>> remove remove(id)
 
 Remove an existing Web3 connection.
 
@@ -225,9 +221,8 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         String id = "id_example"; // String | The ID of the existing Web3 connection to remove.
-        UUID xEndUserWalletId = UUID.randomUUID(); // UUID | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
         try {
-            CompletableFuture<ApiResponse<Void>> response = fireblocks.web3Connections().remove(id, xEndUserWalletId);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.web3Connections().remove(id);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
@@ -254,7 +249,6 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| The ID of the existing Web3 connection to remove. | |
-| **xEndUserWalletId** | **UUID**| Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | [optional] |
 
 ### Return type
 
@@ -280,7 +274,7 @@ No authorization required
 
 ## submit
 
-> CompletableFuture<ApiResponse<Void>> submit submit(respondToConnectionRequest, id, idempotencyKey, xEndUserWalletId)
+> CompletableFuture<ApiResponse<Void>> submit submit(respondToConnectionRequest, id, idempotencyKey)
 
 Respond to a pending Web3 connection request.
 
@@ -312,9 +306,8 @@ public class Example {
         RespondToConnectionRequest respondToConnectionRequest = new RespondToConnectionRequest(); // RespondToConnectionRequest | 
         String id = "id_example"; // String | The ID of the initiated Web3 connection to approve.
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-        UUID xEndUserWalletId = UUID.randomUUID(); // UUID | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
         try {
-            CompletableFuture<ApiResponse<Void>> response = fireblocks.web3Connections().submit(respondToConnectionRequest, id, idempotencyKey, xEndUserWalletId);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.web3Connections().submit(respondToConnectionRequest, id, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
@@ -343,7 +336,6 @@ public class Example {
 | **respondToConnectionRequest** | [**RespondToConnectionRequest**](RespondToConnectionRequest.md)|  | |
 | **id** | **String**| The ID of the initiated Web3 connection to approve. | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
-| **xEndUserWalletId** | **UUID**| Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | [optional] |
 
 ### Return type
 

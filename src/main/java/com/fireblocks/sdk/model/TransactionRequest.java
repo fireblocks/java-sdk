@@ -41,7 +41,6 @@ import java.util.StringJoiner;
     TransactionRequest.JSON_PROPERTY_PRIORITY_FEE,
     TransactionRequest.JSON_PROPERTY_FAIL_ON_LOW_FEE,
     TransactionRequest.JSON_PROPERTY_MAX_FEE,
-    TransactionRequest.JSON_PROPERTY_MAX_TOTAL_FEE,
     TransactionRequest.JSON_PROPERTY_GAS_LIMIT,
     TransactionRequest.JSON_PROPERTY_GAS_PRICE,
     TransactionRequest.JSON_PROPERTY_NETWORK_FEE,
@@ -49,11 +48,9 @@ import java.util.StringJoiner;
     TransactionRequest.JSON_PROPERTY_EXTRA_PARAMETERS,
     TransactionRequest.JSON_PROPERTY_CUSTOMER_REF_ID,
     TransactionRequest.JSON_PROPERTY_TRAVEL_RULE_MESSAGE,
-    TransactionRequest.JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID,
     TransactionRequest.JSON_PROPERTY_AUTO_STAKING,
     TransactionRequest.JSON_PROPERTY_NETWORK_STAKING,
-    TransactionRequest.JSON_PROPERTY_CPU_STAKING,
-    TransactionRequest.JSON_PROPERTY_USE_GASLESS
+    TransactionRequest.JSON_PROPERTY_CPU_STAKING
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -80,9 +77,7 @@ public class TransactionRequest {
     @jakarta.annotation.Nullable private DestinationTransferPeerPath destination;
 
     public static final String JSON_PROPERTY_DESTINATIONS = "destinations";
-
-    @jakarta.annotation.Nullable
-    private List<TransactionRequestDestination> destinations = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<TransactionRequestDestination> destinations;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
     @jakarta.annotation.Nullable private TransactionRequestAmount amount;
@@ -146,9 +141,6 @@ public class TransactionRequest {
     public static final String JSON_PROPERTY_MAX_FEE = "maxFee";
     @jakarta.annotation.Nullable private String maxFee;
 
-    public static final String JSON_PROPERTY_MAX_TOTAL_FEE = "maxTotalFee";
-    @jakarta.annotation.Nullable private String maxTotalFee;
-
     public static final String JSON_PROPERTY_GAS_LIMIT = "gasLimit";
     @jakarta.annotation.Nullable private TransactionRequestGasLimit gasLimit;
 
@@ -170,9 +162,6 @@ public class TransactionRequest {
     public static final String JSON_PROPERTY_TRAVEL_RULE_MESSAGE = "travelRuleMessage";
     @jakarta.annotation.Nullable private TravelRuleCreateTransactionRequest travelRuleMessage;
 
-    public static final String JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID = "travelRuleMessageId";
-    @jakarta.annotation.Nullable private String travelRuleMessageId;
-
     public static final String JSON_PROPERTY_AUTO_STAKING = "autoStaking";
     @jakarta.annotation.Nullable private Boolean autoStaking;
 
@@ -181,9 +170,6 @@ public class TransactionRequest {
 
     public static final String JSON_PROPERTY_CPU_STAKING = "cpuStaking";
     @jakarta.annotation.Nullable private TransactionRequestNetworkStaking cpuStaking;
-
-    public static final String JSON_PROPERTY_USE_GASLESS = "useGasless";
-    @jakarta.annotation.Nullable private Boolean useGasless;
 
     public TransactionRequest() {}
 
@@ -241,15 +227,14 @@ public class TransactionRequest {
     }
 
     /**
-     * **This parameter will become required for all transactions on March 1, 2026.** This parameter
-     * allows you to add a unique ID of your own to help prevent duplicate transactions. No specific
-     * format is required for this parameter. After you submit a transaction with an external ID,
-     * Fireblocks will automatically reject all future transactions with the same ID. Using an
-     * external ID primarily helps in situations where, even though a submitted transaction responds
-     * with an error due to an internet outage, the transaction was still sent to and processed on
-     * the blockchain. Use the [Get a specific transaction by external transaction
-     * ID](https://developers.fireblocks.com/reference/gettransactionbyexternalid) endpoint to
-     * validate whether these transactions have been processed.
+     * An optional but highly recommended parameter. Fireblocks will reject future transactions with
+     * same ID. You should set this to a unique ID representing the transaction, to avoid submitting
+     * the same transaction twice. This helps with cases where submitting the transaction responds
+     * with an error code due to Internet interruptions, but the transaction was actually sent and
+     * processed. To validate whether a transaction has been processed, [Find a specific transaction
+     * by external transaction
+     * ID](https://developers.fireblocks.com/reference/get_transactions-external-tx-id-externaltxid).
+     * There is no specific format required for this parameter.
      *
      * @return externalTxId
      */
@@ -571,30 +556,6 @@ public class TransactionRequest {
         this.maxFee = maxFee;
     }
 
-    public TransactionRequest maxTotalFee(@jakarta.annotation.Nullable String maxTotalFee) {
-        this.maxTotalFee = maxTotalFee;
-        return this;
-    }
-
-    /**
-     * For BTC-based blockchains only. The maximum fee (in the units of the fee-paying asset) that
-     * should be paid for the transaction.
-     *
-     * @return maxTotalFee
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_MAX_TOTAL_FEE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getMaxTotalFee() {
-        return maxTotalFee;
-    }
-
-    @JsonProperty(JSON_PROPERTY_MAX_TOTAL_FEE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMaxTotalFee(@jakarta.annotation.Nullable String maxTotalFee) {
-        this.maxTotalFee = maxTotalFee;
-    }
-
     public TransactionRequest gasLimit(
             @jakarta.annotation.Nullable TransactionRequestGasLimit gasLimit) {
         this.gasLimit = gasLimit;
@@ -712,14 +673,7 @@ public class TransactionRequest {
      * value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The
      * Fireblocks [development
      * libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries)
-     * are recommended for building contract call transactions. For **exchange compliance (e.g.,
-     * Binance) and Travel Rule purposes**, include the key &#x60;piiData&#x60; containing a
-     * **custom JSON structure** with Personally Identifiable Information (PII) relevant to the
-     * transaction. This data must be fully **encrypted by the sender** before being submitted to
-     * the Fireblocks API. The recommended encryption method is **hybrid encryption** using
-     * AES-256-GCM for the payload and RSA-OAEP for key exchange, with the recipient exchange’s
-     * public key. [development
-     * libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks)
+     * are recommended for building contract call transactions.
      *
      * @return extraParameters
      */
@@ -782,31 +736,6 @@ public class TransactionRequest {
     public void setTravelRuleMessage(
             @jakarta.annotation.Nullable TravelRuleCreateTransactionRequest travelRuleMessage) {
         this.travelRuleMessage = travelRuleMessage;
-    }
-
-    public TransactionRequest travelRuleMessageId(
-            @jakarta.annotation.Nullable String travelRuleMessageId) {
-        this.travelRuleMessageId = travelRuleMessageId;
-        return this;
-    }
-
-    /**
-     * The ID of the travel rule message from any travel rule provider. Used for travel rule linking
-     * functionality to associate transactions with existing travel rule messages.
-     *
-     * @return travelRuleMessageId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getTravelRuleMessageId() {
-        return travelRuleMessageId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTravelRuleMessageId(@jakarta.annotation.Nullable String travelRuleMessageId) {
-        this.travelRuleMessageId = travelRuleMessageId;
     }
 
     public TransactionRequest autoStaking(@jakarta.annotation.Nullable Boolean autoStaking) {
@@ -888,29 +817,6 @@ public class TransactionRequest {
         this.cpuStaking = cpuStaking;
     }
 
-    public TransactionRequest useGasless(@jakarta.annotation.Nullable Boolean useGasless) {
-        this.useGasless = useGasless;
-        return this;
-    }
-
-    /**
-     * - Override the default gasless configuration by sending true\\false
-     *
-     * @return useGasless
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_USE_GASLESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getUseGasless() {
-        return useGasless;
-    }
-
-    @JsonProperty(JSON_PROPERTY_USE_GASLESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUseGasless(@jakarta.annotation.Nullable Boolean useGasless) {
-        this.useGasless = useGasless;
-    }
-
     /** Return true if this TransactionRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -936,7 +842,6 @@ public class TransactionRequest {
                 && Objects.equals(this.priorityFee, transactionRequest.priorityFee)
                 && Objects.equals(this.failOnLowFee, transactionRequest.failOnLowFee)
                 && Objects.equals(this.maxFee, transactionRequest.maxFee)
-                && Objects.equals(this.maxTotalFee, transactionRequest.maxTotalFee)
                 && Objects.equals(this.gasLimit, transactionRequest.gasLimit)
                 && Objects.equals(this.gasPrice, transactionRequest.gasPrice)
                 && Objects.equals(this.networkFee, transactionRequest.networkFee)
@@ -944,11 +849,9 @@ public class TransactionRequest {
                 && Objects.equals(this.extraParameters, transactionRequest.extraParameters)
                 && Objects.equals(this.customerRefId, transactionRequest.customerRefId)
                 && Objects.equals(this.travelRuleMessage, transactionRequest.travelRuleMessage)
-                && Objects.equals(this.travelRuleMessageId, transactionRequest.travelRuleMessageId)
                 && Objects.equals(this.autoStaking, transactionRequest.autoStaking)
                 && Objects.equals(this.networkStaking, transactionRequest.networkStaking)
-                && Objects.equals(this.cpuStaking, transactionRequest.cpuStaking)
-                && Objects.equals(this.useGasless, transactionRequest.useGasless);
+                && Objects.equals(this.cpuStaking, transactionRequest.cpuStaking);
     }
 
     @Override
@@ -969,7 +872,6 @@ public class TransactionRequest {
                 priorityFee,
                 failOnLowFee,
                 maxFee,
-                maxTotalFee,
                 gasLimit,
                 gasPrice,
                 networkFee,
@@ -977,11 +879,9 @@ public class TransactionRequest {
                 extraParameters,
                 customerRefId,
                 travelRuleMessage,
-                travelRuleMessageId,
                 autoStaking,
                 networkStaking,
-                cpuStaking,
-                useGasless);
+                cpuStaking);
     }
 
     @Override
@@ -1005,7 +905,6 @@ public class TransactionRequest {
         sb.append("    priorityFee: ").append(toIndentedString(priorityFee)).append("\n");
         sb.append("    failOnLowFee: ").append(toIndentedString(failOnLowFee)).append("\n");
         sb.append("    maxFee: ").append(toIndentedString(maxFee)).append("\n");
-        sb.append("    maxTotalFee: ").append(toIndentedString(maxTotalFee)).append("\n");
         sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
         sb.append("    gasPrice: ").append(toIndentedString(gasPrice)).append("\n");
         sb.append("    networkFee: ").append(toIndentedString(networkFee)).append("\n");
@@ -1015,13 +914,9 @@ public class TransactionRequest {
         sb.append("    travelRuleMessage: ")
                 .append(toIndentedString(travelRuleMessage))
                 .append("\n");
-        sb.append("    travelRuleMessageId: ")
-                .append(toIndentedString(travelRuleMessageId))
-                .append("\n");
         sb.append("    autoStaking: ").append(toIndentedString(autoStaking)).append("\n");
         sb.append("    networkStaking: ").append(toIndentedString(networkStaking)).append("\n");
         sb.append("    cpuStaking: ").append(toIndentedString(cpuStaking)).append("\n");
-        sb.append("    useGasless: ").append(toIndentedString(useGasless)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -1207,16 +1102,6 @@ public class TransactionRequest {
                             ApiClient.urlEncode(ApiClient.valueToString(getMaxFee()))));
         }
 
-        // add `maxTotalFee` to the URL query string
-        if (getMaxTotalFee() != null) {
-            joiner.add(
-                    String.format(
-                            "%smaxTotalFee%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getMaxTotalFee()))));
-        }
-
         // add `gasLimit` to the URL query string
         if (getGasLimit() != null) {
             joiner.add(getGasLimit().toUrlQueryString(prefix + "gasLimit" + suffix));
@@ -1268,17 +1153,6 @@ public class TransactionRequest {
                     getTravelRuleMessage().toUrlQueryString(prefix + "travelRuleMessage" + suffix));
         }
 
-        // add `travelRuleMessageId` to the URL query string
-        if (getTravelRuleMessageId() != null) {
-            joiner.add(
-                    String.format(
-                            "%stravelRuleMessageId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(
-                                    ApiClient.valueToString(getTravelRuleMessageId()))));
-        }
-
         // add `autoStaking` to the URL query string
         if (getAutoStaking() != null) {
             joiner.add(
@@ -1297,16 +1171,6 @@ public class TransactionRequest {
         // add `cpuStaking` to the URL query string
         if (getCpuStaking() != null) {
             joiner.add(getCpuStaking().toUrlQueryString(prefix + "cpuStaking" + suffix));
-        }
-
-        // add `useGasless` to the URL query string
-        if (getUseGasless() != null) {
-            joiner.add(
-                    String.format(
-                            "%suseGasless%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getUseGasless()))));
         }
 
         return joiner.toString();

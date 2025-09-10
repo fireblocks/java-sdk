@@ -31,7 +31,7 @@ public class SetRoutingPolicyRequest {
     public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
 
     @jakarta.annotation.Nonnull
-    private Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy = new HashMap<>();
+    private Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy;
 
     public SetRoutingPolicyRequest() {}
 

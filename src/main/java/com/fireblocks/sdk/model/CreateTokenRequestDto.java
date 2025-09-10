@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -28,10 +27,7 @@ import java.util.StringJoiner;
     CreateTokenRequestDto.JSON_PROPERTY_ASSET_ID,
     CreateTokenRequestDto.JSON_PROPERTY_VAULT_ACCOUNT_ID,
     CreateTokenRequestDto.JSON_PROPERTY_CREATE_PARAMS,
-    CreateTokenRequestDto.JSON_PROPERTY_DISPLAY_NAME,
-    CreateTokenRequestDto.JSON_PROPERTY_USE_GASLESS,
-    CreateTokenRequestDto.JSON_PROPERTY_FEE,
-    CreateTokenRequestDto.JSON_PROPERTY_FEE_LEVEL
+    CreateTokenRequestDto.JSON_PROPERTY_DISPLAY_NAME
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -51,52 +47,6 @@ public class CreateTokenRequestDto {
 
     public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
     @jakarta.annotation.Nullable private String displayName;
-
-    public static final String JSON_PROPERTY_USE_GASLESS = "useGasless";
-    @jakarta.annotation.Nullable private Boolean useGasless;
-
-    public static final String JSON_PROPERTY_FEE = "fee";
-    @jakarta.annotation.Nullable private String fee;
-
-    /**
-     * Fee level for the write function transaction. interchangeable with the &#39;fee&#39; field
-     */
-    public enum FeeLevelEnum {
-        LOW(String.valueOf("LOW")),
-
-        MEDIUM(String.valueOf("MEDIUM")),
-
-        HIGH(String.valueOf("HIGH"));
-
-        private String value;
-
-        FeeLevelEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static FeeLevelEnum fromValue(String value) {
-            for (FeeLevelEnum b : FeeLevelEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    @jakarta.annotation.Nullable private FeeLevelEnum feeLevel;
 
     public CreateTokenRequestDto() {}
 
@@ -227,78 +177,6 @@ public class CreateTokenRequestDto {
         this.displayName = displayName;
     }
 
-    public CreateTokenRequestDto useGasless(@jakarta.annotation.Nullable Boolean useGasless) {
-        this.useGasless = useGasless;
-        return this;
-    }
-
-    /**
-     * Indicates whether the token should be created in a gasless manner, utilizing the ERC-2771
-     * standard. When set to true, the transaction will be relayed by a designated relayer. The
-     * workspace must be configured to use Fireblocks gasless relay.
-     *
-     * @return useGasless
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_USE_GASLESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getUseGasless() {
-        return useGasless;
-    }
-
-    @JsonProperty(JSON_PROPERTY_USE_GASLESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUseGasless(@jakarta.annotation.Nullable Boolean useGasless) {
-        this.useGasless = useGasless;
-    }
-
-    public CreateTokenRequestDto fee(@jakarta.annotation.Nullable String fee) {
-        this.fee = fee;
-        return this;
-    }
-
-    /**
-     * Max fee amount for the write function transaction. interchangeable with the
-     * &#39;feeLevel&#39; field
-     *
-     * @return fee
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_FEE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getFee() {
-        return fee;
-    }
-
-    @JsonProperty(JSON_PROPERTY_FEE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFee(@jakarta.annotation.Nullable String fee) {
-        this.fee = fee;
-    }
-
-    public CreateTokenRequestDto feeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
-        this.feeLevel = feeLevel;
-        return this;
-    }
-
-    /**
-     * Fee level for the write function transaction. interchangeable with the &#39;fee&#39; field
-     *
-     * @return feeLevel
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public FeeLevelEnum getFeeLevel() {
-        return feeLevel;
-    }
-
-    @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
-        this.feeLevel = feeLevel;
-    }
-
     /** Return true if this CreateTokenRequestDto object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -313,23 +191,12 @@ public class CreateTokenRequestDto {
                 && Objects.equals(this.assetId, createTokenRequestDto.assetId)
                 && Objects.equals(this.vaultAccountId, createTokenRequestDto.vaultAccountId)
                 && Objects.equals(this.createParams, createTokenRequestDto.createParams)
-                && Objects.equals(this.displayName, createTokenRequestDto.displayName)
-                && Objects.equals(this.useGasless, createTokenRequestDto.useGasless)
-                && Objects.equals(this.fee, createTokenRequestDto.fee)
-                && Objects.equals(this.feeLevel, createTokenRequestDto.feeLevel);
+                && Objects.equals(this.displayName, createTokenRequestDto.displayName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                blockchainId,
-                assetId,
-                vaultAccountId,
-                createParams,
-                displayName,
-                useGasless,
-                fee,
-                feeLevel);
+        return Objects.hash(blockchainId, assetId, vaultAccountId, createParams, displayName);
     }
 
     @Override
@@ -341,9 +208,6 @@ public class CreateTokenRequestDto {
         sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
         sb.append("    createParams: ").append(toIndentedString(createParams)).append("\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
-        sb.append("    useGasless: ").append(toIndentedString(useGasless)).append("\n");
-        sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
-        sb.append("    feeLevel: ").append(toIndentedString(feeLevel)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -434,36 +298,6 @@ public class CreateTokenRequestDto {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getDisplayName()))));
-        }
-
-        // add `useGasless` to the URL query string
-        if (getUseGasless() != null) {
-            joiner.add(
-                    String.format(
-                            "%suseGasless%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getUseGasless()))));
-        }
-
-        // add `fee` to the URL query string
-        if (getFee() != null) {
-            joiner.add(
-                    String.format(
-                            "%sfee%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getFee()))));
-        }
-
-        // add `feeLevel` to the URL query string
-        if (getFeeLevel() != null) {
-            joiner.add(
-                    String.format(
-                            "%sfeeLevel%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         return joiner.toString();

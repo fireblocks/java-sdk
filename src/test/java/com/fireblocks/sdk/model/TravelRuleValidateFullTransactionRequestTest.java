@@ -26,18 +26,6 @@ class TravelRuleValidateFullTransactionRequestTest {
         // TODO: test TravelRuleValidateFullTransactionRequest
     }
 
-    /** Test the property 'originatorVASPdid' */
-    @Test
-    void originatorVASPdidTest() {
-        // TODO: test originatorVASPdid
-    }
-
-    /** Test the property 'beneficiaryVASPdid' */
-    @Test
-    void beneficiaryVASPdidTest() {
-        // TODO: test beneficiaryVASPdid
-    }
-
     /** Test the property 'transactionAsset' */
     @Test
     void transactionAssetTest() {
@@ -50,10 +38,28 @@ class TravelRuleValidateFullTransactionRequestTest {
         // TODO: test transactionAmount
     }
 
-    /** Test the property 'originatorVASPname' */
+    /** Test the property 'originatorDid' */
     @Test
-    void originatorVASPnameTest() {
-        // TODO: test originatorVASPname
+    void originatorDidTest() {
+        // TODO: test originatorDid
+    }
+
+    /** Test the property 'beneficiaryDid' */
+    @Test
+    void beneficiaryDidTest() {
+        // TODO: test beneficiaryDid
+    }
+
+    /** Test the property 'originatorVASPdid' */
+    @Test
+    void originatorVASPdidTest() {
+        // TODO: test originatorVASPdid
+    }
+
+    /** Test the property 'beneficiaryVASPdid' */
+    @Test
+    void beneficiaryVASPdidTest() {
+        // TODO: test beneficiaryVASPdid
     }
 
     /** Test the property 'beneficiaryVASPname' */
@@ -92,6 +98,12 @@ class TravelRuleValidateFullTransactionRequestTest {
         // TODO: test protocol
     }
 
+    /** Test the property 'notificationEmail' */
+    @Test
+    void notificationEmailTest() {
+        // TODO: test notificationEmail
+    }
+
     /** Test the property 'skipBeneficiaryDataValidation' */
     @Test
     void skipBeneficiaryDataValidationTest() {
@@ -102,24 +114,6 @@ class TravelRuleValidateFullTransactionRequestTest {
     @Test
     void travelRuleBehaviorTest() {
         // TODO: test travelRuleBehavior
-    }
-
-    /** Test the property 'originatorRef' */
-    @Test
-    void originatorRefTest() {
-        // TODO: test originatorRef
-    }
-
-    /** Test the property 'beneficiaryRef' */
-    @Test
-    void beneficiaryRefTest() {
-        // TODO: test beneficiaryRef
-    }
-
-    /** Test the property 'travelRuleBehaviorRef' */
-    @Test
-    void travelRuleBehaviorRefTest() {
-        // TODO: test travelRuleBehaviorRef
     }
 
     /** Test the property 'originatorProof' */
@@ -134,39 +128,9 @@ class TravelRuleValidateFullTransactionRequestTest {
         // TODO: test beneficiaryProof
     }
 
-    /** Test the property 'beneficiaryDid' */
-    @Test
-    void beneficiaryDidTest() {
-        // TODO: test beneficiaryDid
-    }
-
-    /** Test the property 'originatorDid' */
-    @Test
-    void originatorDidTest() {
-        // TODO: test originatorDid
-    }
-
-    /** Test the property 'isNonCustodial' */
-    @Test
-    void isNonCustodialTest() {
-        // TODO: test isNonCustodial
-    }
-
-    /** Test the property 'notificationEmail' */
-    @Test
-    void notificationEmailTest() {
-        // TODO: test notificationEmail
-    }
-
     /** Test the property 'pii' */
     @Test
     void piiTest() {
         // TODO: test pii
-    }
-
-    /** Test the property 'piiUrl' */
-    @Test
-    void piiUrlTest() {
-        // TODO: test piiUrl
     }
 }

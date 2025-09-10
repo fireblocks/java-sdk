@@ -115,12 +115,6 @@ class TransactionRequestTest {
         // TODO: test maxFee
     }
 
-    /** Test the property 'maxTotalFee' */
-    @Test
-    void maxTotalFeeTest() {
-        // TODO: test maxTotalFee
-    }
-
     /** Test the property 'gasLimit' */
     @Test
     void gasLimitTest() {
@@ -163,12 +157,6 @@ class TransactionRequestTest {
         // TODO: test travelRuleMessage
     }
 
-    /** Test the property 'travelRuleMessageId' */
-    @Test
-    void travelRuleMessageIdTest() {
-        // TODO: test travelRuleMessageId
-    }
-
     /** Test the property 'autoStaking' */
     @Test
     void autoStakingTest() {
@@ -185,11 +173,5 @@ class TransactionRequestTest {
     @Test
     void cpuStakingTest() {
         // TODO: test cpuStaking
-    }
-
-    /** Test the property 'useGasless' */
-    @Test
-    void useGaslessTest() {
-        // TODO: test useGasless
     }
 }

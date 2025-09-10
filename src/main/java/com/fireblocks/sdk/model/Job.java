@@ -60,7 +60,7 @@ public class Job {
     @jakarta.annotation.Nullable private String state;
 
     public static final String JSON_PROPERTY_TASKS = "tasks";
-    @jakarta.annotation.Nullable private List<Task> tasks = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<Task> tasks;
 
     public Job() {}
 

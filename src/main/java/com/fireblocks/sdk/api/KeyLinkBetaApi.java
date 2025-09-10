@@ -422,41 +422,15 @@ public class KeyLinkBetaApi {
      * @param pageSize Amount of results to return in the next page (optional, default to 10)
      * @param sortBy Field(s) to use for sorting (optional, default to createdAt)
      * @param order Is the order ascending or descending (optional, default to ASC)
-     * @param vaultAccountId Return keys assigned to a specific vault (optional)
-     * @param agentUserId Return keys associated with a specific agent user (optional)
-     * @param algorithm Return only keys with a specific algorithm (optional)
-     * @param enabled Return keys that have been proof of ownership (optional)
-     * @param available Return keys that are proof of ownership but not assigned. Available filter
-     *     can be used only when vaultAccountId and enabled filters are not set (optional)
-     * @param isAssigned Return keys that are assigned to a vault account (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;GetSigningKeyResponseDto&gt;&gt;
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> getSigningKeysList(
-            String pageCursor,
-            BigDecimal pageSize,
-            String sortBy,
-            String order,
-            BigDecimal vaultAccountId,
-            String agentUserId,
-            String algorithm,
-            Boolean enabled,
-            Boolean available,
-            Boolean isAssigned)
+            String pageCursor, BigDecimal pageSize, String sortBy, String order)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    getSigningKeysListRequestBuilder(
-                            pageCursor,
-                            pageSize,
-                            sortBy,
-                            order,
-                            vaultAccountId,
-                            agentUserId,
-                            algorithm,
-                            enabled,
-                            available,
-                            isAssigned);
+                    getSigningKeysListRequestBuilder(pageCursor, pageSize, sortBy, order);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -491,16 +465,7 @@ public class KeyLinkBetaApi {
     }
 
     private HttpRequest.Builder getSigningKeysListRequestBuilder(
-            String pageCursor,
-            BigDecimal pageSize,
-            String sortBy,
-            String order,
-            BigDecimal vaultAccountId,
-            String agentUserId,
-            String algorithm,
-            Boolean enabled,
-            Boolean available,
-            Boolean isAssigned)
+            String pageCursor, BigDecimal pageSize, String sortBy, String order)
             throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -518,18 +483,6 @@ public class KeyLinkBetaApi {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("sortBy", sortBy));
         localVarQueryParameterBaseName = "order";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
-        localVarQueryParameterBaseName = "vaultAccountId";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("vaultAccountId", vaultAccountId));
-        localVarQueryParameterBaseName = "agentUserId";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("agentUserId", agentUserId));
-        localVarQueryParameterBaseName = "algorithm";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("algorithm", algorithm));
-        localVarQueryParameterBaseName = "enabled";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("enabled", enabled));
-        localVarQueryParameterBaseName = "available";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("available", available));
-        localVarQueryParameterBaseName = "isAssigned";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("isAssigned", isAssigned));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");
