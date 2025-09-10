@@ -44,9 +44,7 @@ public class ContractDeployRequest {
     @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_CONSTRUCTOR_PARAMETERS = "constructorParameters";
-
-    @jakarta.annotation.Nullable
-    private List<ParameterWithValue> constructorParameters = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<ParameterWithValue> constructorParameters;
 
     public static final String JSON_PROPERTY_USE_GASLESS = "useGasless";
     @jakarta.annotation.Nullable private Boolean useGasless;

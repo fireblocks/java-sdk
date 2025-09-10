@@ -43,7 +43,7 @@ public class TxLog {
     @jakarta.annotation.Nonnull private String address;
 
     public static final String JSON_PROPERTY_TOPICS = "topics";
-    @jakarta.annotation.Nonnull private List<String> topics = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> topics;
 
     public static final String JSON_PROPERTY_DATA = "data";
     @jakarta.annotation.Nonnull private String data;

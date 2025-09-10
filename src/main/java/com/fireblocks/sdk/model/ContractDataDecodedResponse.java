@@ -33,9 +33,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class ContractDataDecodedResponse {
     public static final String JSON_PROPERTY_RESULT = "result";
-
-    @jakarta.annotation.Nonnull
-    private List<ContractDataDecodeResponseParams> result = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ContractDataDecodeResponseParams> result;
 
     public static final String JSON_PROPERTY_TYPE = "type";
     @jakarta.annotation.Nonnull private ContractDataDecodeDataType type;

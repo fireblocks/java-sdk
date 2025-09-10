@@ -34,20 +34,16 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class DelegationSummary {
     public static final String JSON_PROPERTY_ACTIVE = "active";
-    @jakarta.annotation.Nonnull private List<AmountAndChainDescriptor> active = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<AmountAndChainDescriptor> active;
 
     public static final String JSON_PROPERTY_INACTIVE = "inactive";
-    @jakarta.annotation.Nonnull private List<AmountAndChainDescriptor> inactive = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<AmountAndChainDescriptor> inactive;
 
     public static final String JSON_PROPERTY_REWARDS_AMOUNT = "rewardsAmount";
-
-    @jakarta.annotation.Nonnull
-    private List<AmountAndChainDescriptor> rewardsAmount = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<AmountAndChainDescriptor> rewardsAmount;
 
     public static final String JSON_PROPERTY_TOTAL_STAKED = "totalStaked";
-
-    @jakarta.annotation.Nonnull
-    private List<AmountAndChainDescriptor> totalStaked = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<AmountAndChainDescriptor> totalStaked;
 
     public DelegationSummary() {}
 

@@ -43,7 +43,7 @@ public class VaultAccount {
     @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_ASSETS = "assets";
-    @jakarta.annotation.Nullable private List<VaultAsset> assets = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<VaultAsset> assets;
 
     public static final String JSON_PROPERTY_HIDDEN_ON_U_I = "hiddenOnUI";
     @jakarta.annotation.Nullable private Boolean hiddenOnUI;
@@ -55,7 +55,7 @@ public class VaultAccount {
     @jakarta.annotation.Nullable private Boolean autoFuel;
 
     public static final String JSON_PROPERTY_TAGS = "tags";
-    @jakarta.annotation.Nullable private List<Tag> tags = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<Tag> tags;
 
     public VaultAccount() {}
 

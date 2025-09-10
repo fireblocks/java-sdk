@@ -34,7 +34,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class GetAuditLogsResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    @jakarta.annotation.Nullable private List<AuditLogData> data = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<AuditLogData> data;
 
     public static final String JSON_PROPERTY_CURSOR = "cursor";
     @jakarta.annotation.Nullable private String cursor;

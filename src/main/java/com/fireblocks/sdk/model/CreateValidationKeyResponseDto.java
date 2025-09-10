@@ -39,7 +39,7 @@ public class CreateValidationKeyResponseDto {
     @jakarta.annotation.Nonnull private ValidationKeyDto validationKey;
 
     public static final String JSON_PROPERTY_ADMINS = "admins";
-    @jakarta.annotation.Nonnull private List<String> admins = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> admins;
 
     public static final String JSON_PROPERTY_APPROVAL_THRESHOLD = "approvalThreshold";
     @jakarta.annotation.Nonnull private BigDecimal approvalThreshold;

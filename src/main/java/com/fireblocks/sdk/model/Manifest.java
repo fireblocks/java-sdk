@@ -64,10 +64,10 @@ public class Manifest {
     }
 
     public static final String JSON_PROPERTY_ASSET_TYPES = "assetTypes";
-    @jakarta.annotation.Nonnull private List<AssetTypesEnum> assetTypes = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<AssetTypesEnum> assetTypes;
 
     public static final String JSON_PROPERTY_CAPABILITIES = "capabilities";
-    @jakarta.annotation.Nonnull private List<Capability> capabilities = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<Capability> capabilities;
 
     public Manifest() {}
 

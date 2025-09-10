@@ -52,9 +52,7 @@ public class CollectionTokenMetadataDto {
     @jakarta.annotation.Nullable private String externalUrl;
 
     public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
-
-    @jakarta.annotation.Nullable
-    private List<CollectionTokenMetadataAttributeDto> attributes = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<CollectionTokenMetadataAttributeDto> attributes;
 
     public CollectionTokenMetadataDto() {}
 

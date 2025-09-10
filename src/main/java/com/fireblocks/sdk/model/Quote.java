@@ -120,12 +120,10 @@ public class Quote {
     @jakarta.annotation.Nullable private String quoteMinAmount;
 
     public static final String JSON_PROPERTY_EXECUTION_STEPS = "executionSteps";
-
-    @jakarta.annotation.Nullable
-    private List<ExecutionStepDetails> executionSteps = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<ExecutionStepDetails> executionSteps;
 
     public static final String JSON_PROPERTY_GENERAL_FEES = "generalFees";
-    @jakarta.annotation.Nullable private List<Fee> generalFees = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<Fee> generalFees;
 
     /** Side of the order */
     public enum SideEnum {

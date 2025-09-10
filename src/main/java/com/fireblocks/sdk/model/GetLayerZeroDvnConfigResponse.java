@@ -38,9 +38,7 @@ public class GetLayerZeroDvnConfigResponse {
     @jakarta.annotation.Nonnull private UUID sourceAdapterTokenLinkId;
 
     public static final String JSON_PROPERTY_CHANNEL_CONFIGS = "channelConfigs";
-
-    @jakarta.annotation.Nonnull
-    private List<ChannelDvnConfigWithConfirmations> channelConfigs = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ChannelDvnConfigWithConfirmations> channelConfigs;
 
     public GetLayerZeroDvnConfigResponse() {}
 

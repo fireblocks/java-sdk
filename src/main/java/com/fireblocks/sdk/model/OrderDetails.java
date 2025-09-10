@@ -66,10 +66,10 @@ public class OrderDetails {
     @jakarta.annotation.Nullable private TransferReceipt receipt;
 
     public static final String JSON_PROPERTY_GENERAL_FEES = "generalFees";
-    @jakarta.annotation.Nullable private List<Fee> generalFees = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<Fee> generalFees;
 
     public static final String JSON_PROPERTY_EXECUTION_STEPS = "executionSteps";
-    @jakarta.annotation.Nonnull private List<ExecutionStep> executionSteps = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ExecutionStep> executionSteps;
 
     public static final String JSON_PROPERTY_EXECUTION_RESPONSE_DETAILS =
             "executionResponseDetails";
@@ -83,9 +83,7 @@ public class OrderDetails {
     @jakarta.annotation.Nullable private ParticipantsIdentification participantsIdentification;
 
     public static final String JSON_PROPERTY_PAYMENT_INSTRUCTIONS = "paymentInstructions";
-
-    @jakarta.annotation.Nullable
-    private List<PaymentInstructions> paymentInstructions = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<PaymentInstructions> paymentInstructions;
 
     public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
     @jakarta.annotation.Nonnull private String createdBy;

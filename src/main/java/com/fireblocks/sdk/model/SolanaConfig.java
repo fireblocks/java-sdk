@@ -31,7 +31,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class SolanaConfig {
     public static final String JSON_PROPERTY_EXTENSIONS = "extensions";
-    @jakarta.annotation.Nullable private List<String> extensions = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> extensions;
 
     /** The type of the contract. */
     public enum TypeEnum {

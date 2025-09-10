@@ -46,7 +46,7 @@ public class ConnectedAccountTradingPair {
     public static final String JSON_PROPERTY_SUPPORTED_TYPES = "supportedTypes";
 
     @jakarta.annotation.Nonnull
-    private List<ConnectedAccountTradingPairSupportedType> supportedTypes = new ArrayList<>();
+    private List<ConnectedAccountTradingPairSupportedType> supportedTypes;
 
     public ConnectedAccountTradingPair() {}
 

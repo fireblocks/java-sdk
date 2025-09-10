@@ -28,7 +28,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class QuotesResponse {
     public static final String JSON_PROPERTY_QUOTES = "quotes";
-    @jakarta.annotation.Nullable private List<Quote> quotes = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<Quote> quotes;
 
     public QuotesResponse() {}
 

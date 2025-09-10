@@ -32,7 +32,7 @@ public class GasslessStandardConfigurations {
 
     @jakarta.annotation.Nullable
     private Map<String, GasslessStandardConfigurationsGaslessStandardConfigurationsValue>
-            gaslessStandardConfigurations = new HashMap<>();
+            gaslessStandardConfigurations;
 
     public GasslessStandardConfigurations() {}
 

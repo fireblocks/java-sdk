@@ -73,13 +73,13 @@ public class LegacyPolicyRuleOperators {
     @jakarta.annotation.Nullable private WildcardEnum wildcard;
 
     public static final String JSON_PROPERTY_USERS = "users";
-    @jakarta.annotation.Nullable private List<String> users = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> users;
 
     public static final String JSON_PROPERTY_USERS_GROUPS = "usersGroups";
-    @jakarta.annotation.Nullable private List<String> usersGroups = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> usersGroups;
 
     public static final String JSON_PROPERTY_SERVICES = "services";
-    @jakarta.annotation.Nullable private List<String> services = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> services;
 
     public LegacyPolicyRuleOperators() {}
 

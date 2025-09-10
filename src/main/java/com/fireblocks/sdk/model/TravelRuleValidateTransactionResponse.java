@@ -139,7 +139,7 @@ public class TravelRuleValidateTransactionResponse {
     @jakarta.annotation.Nonnull private String beneficiaryVASPname;
 
     public static final String JSON_PROPERTY_WARNINGS = "warnings";
-    @jakarta.annotation.Nonnull private List<String> warnings = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> warnings;
 
     public TravelRuleValidateTransactionResponse() {}
 

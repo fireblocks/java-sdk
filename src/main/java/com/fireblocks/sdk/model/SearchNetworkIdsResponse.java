@@ -32,7 +32,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class SearchNetworkIdsResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    @jakarta.annotation.Nullable private List<NetworkIdResponse> data = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<NetworkIdResponse> data;
 
     public static final String JSON_PROPERTY_NEXT = "next";
     @jakarta.annotation.Nullable private String next;

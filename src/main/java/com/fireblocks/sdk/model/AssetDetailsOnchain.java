@@ -49,7 +49,7 @@ public class AssetDetailsOnchain {
     @jakarta.annotation.Nonnull private BigDecimal decimals;
 
     public static final String JSON_PROPERTY_STANDARDS = "standards";
-    @jakarta.annotation.Nullable private List<String> standards = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> standards;
 
     public AssetDetailsOnchain() {}
 

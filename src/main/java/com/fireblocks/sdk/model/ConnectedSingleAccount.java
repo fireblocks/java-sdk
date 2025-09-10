@@ -29,7 +29,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class ConnectedSingleAccount {
     public static final String JSON_PROPERTY_SUB_ACCOUNTS_IDS = "subAccountsIds";
-    @jakarta.annotation.Nullable private List<String> subAccountsIds = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> subAccountsIds;
 
     public ConnectedSingleAccount() {}
 

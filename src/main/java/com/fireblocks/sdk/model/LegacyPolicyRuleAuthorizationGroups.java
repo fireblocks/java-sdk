@@ -80,7 +80,7 @@ public class LegacyPolicyRuleAuthorizationGroups {
     public static final String JSON_PROPERTY_GROUPS = "groups";
 
     @jakarta.annotation.Nullable
-    private List<LegacyPolicyRuleAuthorizationGroupsGroupsInner> groups = new ArrayList<>();
+    private List<LegacyPolicyRuleAuthorizationGroupsGroupsInner> groups;
 
     public LegacyPolicyRuleAuthorizationGroups() {}
 

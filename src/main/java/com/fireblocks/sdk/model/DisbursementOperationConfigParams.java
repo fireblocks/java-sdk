@@ -35,9 +35,7 @@ public class DisbursementOperationConfigParams {
     @jakarta.annotation.Nullable private Account paymentAccount;
 
     public static final String JSON_PROPERTY_INSTRUCTION_SET = "instructionSet";
-
-    @jakarta.annotation.Nonnull
-    private List<DisbursementInstruction> instructionSet = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<DisbursementInstruction> instructionSet;
 
     public DisbursementOperationConfigParams() {}
 

@@ -37,14 +37,10 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class TravelRuleNaturalPerson {
     public static final String JSON_PROPERTY_NAME = "name";
-
-    @jakarta.annotation.Nullable
-    private List<TravelRuleNaturalPersonNameIdentifier> name = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<TravelRuleNaturalPersonNameIdentifier> name;
 
     public static final String JSON_PROPERTY_GEOGRAPHIC_ADDRESS = "geographicAddress";
-
-    @jakarta.annotation.Nullable
-    private List<TravelRuleGeographicAddress> geographicAddress = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<TravelRuleGeographicAddress> geographicAddress;
 
     public static final String JSON_PROPERTY_NATIONAL_IDENTIFICATION = "nationalIdentification";
     @jakarta.annotation.Nullable private TravelRuleNationalIdentification nationalIdentification;

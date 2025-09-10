@@ -32,7 +32,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class GetLinkedCollectionsPaginatedResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    @jakarta.annotation.Nullable private List<CollectionLinkDto> data = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<CollectionLinkDto> data;
 
     public static final String JSON_PROPERTY_NEXT = "next";
     @jakarta.annotation.Nullable private String next;

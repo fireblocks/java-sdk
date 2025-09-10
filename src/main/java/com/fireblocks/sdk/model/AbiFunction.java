@@ -125,10 +125,10 @@ public class AbiFunction {
     @jakarta.annotation.Nonnull private TypeEnum type;
 
     public static final String JSON_PROPERTY_INPUTS = "inputs";
-    @jakarta.annotation.Nullable private List<Parameter> inputs = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<Parameter> inputs;
 
     public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-    @jakarta.annotation.Nullable private List<Parameter> outputs = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<Parameter> outputs;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
     @jakarta.annotation.Nullable private String description;

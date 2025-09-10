@@ -35,7 +35,7 @@ public class UserGroupUpdateRequest {
     @jakarta.annotation.Nullable private String groupName;
 
     public static final String JSON_PROPERTY_MEMBER_IDS = "memberIds";
-    @jakarta.annotation.Nullable private List<String> memberIds = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> memberIds;
 
     public UserGroupUpdateRequest() {}
 

@@ -40,7 +40,7 @@ public class ReissueMultichainTokenRequest {
     @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_CHAINS = "chains";
-    @jakarta.annotation.Nonnull private List<String> chains = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> chains;
 
     public static final String JSON_PROPERTY_USE_GASLESS = "useGasless";
     @jakarta.annotation.Nullable private Boolean useGasless;

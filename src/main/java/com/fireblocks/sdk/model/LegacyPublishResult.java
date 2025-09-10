@@ -38,7 +38,7 @@ public class LegacyPublishResult {
     @jakarta.annotation.Nonnull private LegacyPolicyStatus status;
 
     public static final String JSON_PROPERTY_RULES = "rules";
-    @jakarta.annotation.Nonnull private List<LegacyPolicyRule> rules = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<LegacyPolicyRule> rules;
 
     public static final String JSON_PROPERTY_CHECK_RESULT = "checkResult";
     @jakarta.annotation.Nonnull private LegacyPolicyCheckResult checkResult;

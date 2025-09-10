@@ -38,7 +38,7 @@ public class DraftResponse {
     @jakarta.annotation.Nonnull private String status;
 
     public static final String JSON_PROPERTY_RULES = "rules";
-    @jakarta.annotation.Nonnull private List<PolicyRule> rules = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<PolicyRule> rules;
 
     public static final String JSON_PROPERTY_DRAFT_ID = "draftId";
     @jakarta.annotation.Nonnull private String draftId;

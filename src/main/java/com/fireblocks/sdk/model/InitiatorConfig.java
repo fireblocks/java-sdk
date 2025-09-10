@@ -37,19 +37,19 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class InitiatorConfig {
     public static final String JSON_PROPERTY_USERS = "users";
-    @jakarta.annotation.Nullable private List<String> users = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> users;
 
     public static final String JSON_PROPERTY_GROUPS = "groups";
-    @jakarta.annotation.Nullable private List<String> groups = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> groups;
 
     public static final String JSON_PROPERTY_SERVICES = "services";
-    @jakarta.annotation.Nullable private List<String> services = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> services;
 
     public static final String JSON_PROPERTY_FB_ADMIN_GROUPS = "fbAdminGroups";
-    @jakarta.annotation.Nullable private List<String> fbAdminGroups = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> fbAdminGroups;
 
     public static final String JSON_PROPERTY_EXCHANGE = "exchange";
-    @jakarta.annotation.Nullable private List<String> exchange = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> exchange;
 
     public static final String JSON_PROPERTY_OPERATOR = "operator";
     @jakarta.annotation.Nonnull private PolicyOperator operator;

@@ -82,9 +82,7 @@ public class SmartTransferCreateTicket {
     @jakarta.annotation.Nullable private BigDecimal expiresIn;
 
     public static final String JSON_PROPERTY_TERMS = "terms";
-
-    @jakarta.annotation.Nullable
-    private List<SmartTransferCreateTicketTerm> terms = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<SmartTransferCreateTicketTerm> terms;
 
     public static final String JSON_PROPERTY_EXTERNAL_REF_ID = "externalRefId";
     @jakarta.annotation.Nullable private String externalRefId;

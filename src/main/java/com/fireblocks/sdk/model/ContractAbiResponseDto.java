@@ -32,12 +32,10 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class ContractAbiResponseDto {
     public static final String JSON_PROPERTY_ABI = "abi";
-
-    @jakarta.annotation.Nonnull
-    private List<ContractAbiResponseDtoAbiInner> abi = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ContractAbiResponseDtoAbiInner> abi;
 
     public static final String JSON_PROPERTY_IMPLEMENTATION_ABI = "implementationAbi";
-    @jakarta.annotation.Nullable private List<AbiFunction> implementationAbi = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<AbiFunction> implementationAbi;
 
     public ContractAbiResponseDto() {}
 

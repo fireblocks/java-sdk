@@ -33,7 +33,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class CosignersPaginatedResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    @jakarta.annotation.Nonnull private List<Cosigner> data = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<Cosigner> data;
 
     public static final String JSON_PROPERTY_NEXT = "next";
     @jakarta.annotation.Nullable private String next;

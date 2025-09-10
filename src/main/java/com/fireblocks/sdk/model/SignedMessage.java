@@ -77,7 +77,7 @@ public class SignedMessage {
     @jakarta.annotation.Nullable private AlgorithmEnum algorithm;
 
     public static final String JSON_PROPERTY_DERIVATION_PATH = "derivationPath";
-    @jakarta.annotation.Nullable private List<BigDecimal> derivationPath = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<BigDecimal> derivationPath;
 
     public static final String JSON_PROPERTY_SIGNATURE = "signature";
     @jakarta.annotation.Nullable private SignedMessageSignature signature;

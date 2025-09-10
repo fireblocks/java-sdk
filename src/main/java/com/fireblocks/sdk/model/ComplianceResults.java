@@ -41,9 +41,7 @@ public class ComplianceResults {
     @jakarta.annotation.Nullable private ComplianceScreeningResult tr;
 
     public static final String JSON_PROPERTY_AML_LIST = "amlList";
-
-    @jakarta.annotation.Nullable
-    private List<ComplianceScreeningResult> amlList = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<ComplianceScreeningResult> amlList;
 
     public static final String JSON_PROPERTY_STATUS = "status";
     @jakarta.annotation.Nullable private ComplianceResultStatusesEnum status;

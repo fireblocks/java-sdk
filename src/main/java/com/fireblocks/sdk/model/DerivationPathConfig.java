@@ -34,7 +34,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class DerivationPathConfig {
     public static final String JSON_PROPERTY_PATH = "path";
-    @jakarta.annotation.Nonnull private List<BigDecimal> path = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<BigDecimal> path;
 
     public static final String JSON_PROPERTY_PARTIAL = "partial";
     @jakarta.annotation.Nullable private Boolean partial;

@@ -41,7 +41,7 @@ public class CreateWebhookRequest {
     @jakarta.annotation.Nullable private String description;
 
     public static final String JSON_PROPERTY_EVENTS = "events";
-    @jakarta.annotation.Nonnull private List<WebhookEvent> events = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<WebhookEvent> events;
 
     public static final String JSON_PROPERTY_ENABLED = "enabled";
     @jakarta.annotation.Nullable private Boolean enabled = true;

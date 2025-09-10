@@ -31,7 +31,7 @@ import java.util.UUID;
         comments = "Generator version: 7.14.0")
 public class SetLayerZeroPeersResponse {
     public static final String JSON_PROPERTY_TXN_IDS = "txnIds";
-    @jakarta.annotation.Nonnull private List<UUID> txnIds = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<UUID> txnIds;
 
     public SetLayerZeroPeersResponse() {}
 

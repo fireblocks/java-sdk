@@ -41,9 +41,7 @@ public class EmbeddedWalletLatestBackupResponse {
     @jakarta.annotation.Nonnull private BigDecimal createdAt;
 
     public static final String JSON_PROPERTY_KEYS = "keys";
-
-    @jakarta.annotation.Nonnull
-    private List<EmbeddedWalletLatestBackupKey> keys = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<EmbeddedWalletLatestBackupKey> keys;
 
     public EmbeddedWalletLatestBackupResponse() {}
 

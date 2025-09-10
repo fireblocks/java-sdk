@@ -29,7 +29,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class GetAPIUsersResponse {
     public static final String JSON_PROPERTY_USERS = "users";
-    @jakarta.annotation.Nonnull private List<APIUser> users = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<APIUser> users;
 
     public GetAPIUsersResponse() {}
 

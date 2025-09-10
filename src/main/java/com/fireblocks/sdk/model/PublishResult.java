@@ -38,7 +38,7 @@ public class PublishResult {
     @jakarta.annotation.Nonnull private PolicyStatus status;
 
     public static final String JSON_PROPERTY_RULES = "rules";
-    @jakarta.annotation.Nonnull private List<PolicyRule> rules = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<PolicyRule> rules;
 
     public static final String JSON_PROPERTY_CHECK_RESULT = "checkResult";
     @jakarta.annotation.Nonnull private PolicyCheckResult checkResult;

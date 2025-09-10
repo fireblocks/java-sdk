@@ -39,10 +39,10 @@ public class CreateMultipleAccountsRequest {
     @jakarta.annotation.Nonnull private Integer count;
 
     public static final String JSON_PROPERTY_BASE_ASSET_IDS = "baseAssetIds";
-    @jakarta.annotation.Nonnull private List<String> baseAssetIds = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> baseAssetIds;
 
     public static final String JSON_PROPERTY_NAMES = "names";
-    @jakarta.annotation.Nullable private List<String> names = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> names;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_NAMES_STARTING_INDEX =
             "vaultAccountNamesStartingIndex";

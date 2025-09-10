@@ -378,7 +378,7 @@ public class LegacyPolicyRule {
     @jakarta.annotation.Nonnull private BigDecimal periodSec;
 
     public static final String JSON_PROPERTY_AUTHORIZERS = "authorizers";
-    @jakarta.annotation.Nullable private List<String> authorizers = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> authorizers;
 
     public static final String JSON_PROPERTY_AUTHORIZERS_COUNT = "authorizersCount";
     @jakarta.annotation.Nullable private BigDecimal authorizersCount;

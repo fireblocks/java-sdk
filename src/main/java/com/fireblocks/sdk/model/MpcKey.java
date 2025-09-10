@@ -46,7 +46,7 @@ public class MpcKey {
     @jakarta.annotation.Nonnull private BigDecimal algorithm;
 
     public static final String JSON_PROPERTY_PLAYERS = "players";
-    @jakarta.annotation.Nonnull private List<Players> players = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<Players> players;
 
     public static final String JSON_PROPERTY_LAST_PREPROCESSED_INDEX = "lastPreprocessedIndex";
     @jakarta.annotation.Nullable private BigDecimal lastPreprocessedIndex;

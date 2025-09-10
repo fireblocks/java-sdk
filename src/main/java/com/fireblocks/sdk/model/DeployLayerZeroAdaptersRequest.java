@@ -42,9 +42,7 @@ public class DeployLayerZeroAdaptersRequest {
     @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_CREATE_PARAMS = "createParams";
-
-    @jakarta.annotation.Nonnull
-    private List<LayerZeroAdapterCreateParams> createParams = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<LayerZeroAdapterCreateParams> createParams;
 
     public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
     @jakarta.annotation.Nullable private String displayName;

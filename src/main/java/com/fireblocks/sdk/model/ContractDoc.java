@@ -46,7 +46,7 @@ public class ContractDoc {
     @jakarta.annotation.Nonnull private String kind;
 
     public static final String JSON_PROPERTY_METHODS = "methods";
-    @jakarta.annotation.Nonnull private Map<String, FunctionDoc> methods = new HashMap<>();
+    @jakarta.annotation.Nonnull private Map<String, FunctionDoc> methods;
 
     public static final String JSON_PROPERTY_VERSION = "version";
     @jakarta.annotation.Nonnull private BigDecimal version;

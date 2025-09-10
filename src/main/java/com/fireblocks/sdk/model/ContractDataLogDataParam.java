@@ -36,7 +36,7 @@ public class ContractDataLogDataParam {
     @jakarta.annotation.Nonnull private String data;
 
     public static final String JSON_PROPERTY_TOPICS = "topics";
-    @jakarta.annotation.Nonnull private List<String> topics = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> topics;
 
     public ContractDataLogDataParam() {}
 

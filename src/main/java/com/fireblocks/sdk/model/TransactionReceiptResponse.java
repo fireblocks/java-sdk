@@ -66,7 +66,7 @@ public class TransactionReceiptResponse {
     @jakarta.annotation.Nonnull private Integer gasUsed;
 
     public static final String JSON_PROPERTY_LOGS = "logs";
-    @jakarta.annotation.Nonnull private List<TxLog> logs = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<TxLog> logs;
 
     public static final String JSON_PROPERTY_LOGS_BLOOM = "logsBloom";
     @jakarta.annotation.Nonnull private String logsBloom;

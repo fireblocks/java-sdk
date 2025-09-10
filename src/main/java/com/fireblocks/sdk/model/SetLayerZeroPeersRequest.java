@@ -44,9 +44,7 @@ public class SetLayerZeroPeersRequest {
 
     public static final String JSON_PROPERTY_DESTINATION_ADAPTER_TOKEN_LINK_IDS =
             "destinationAdapterTokenLinkIds";
-
-    @jakarta.annotation.Nonnull
-    private List<UUID> destinationAdapterTokenLinkIds = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<UUID> destinationAdapterTokenLinkIds;
 
     public static final String JSON_PROPERTY_BIDIRECTIONAL = "bidirectional";
     @jakarta.annotation.Nonnull private Boolean bidirectional;

@@ -39,10 +39,10 @@ public class LeanAbiFunction {
     @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_INPUTS = "inputs";
-    @jakarta.annotation.Nonnull private List<ParameterWithValue> inputs = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ParameterWithValue> inputs;
 
     public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-    @jakarta.annotation.Nullable private List<ParameterWithValue> outputs = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<ParameterWithValue> outputs;
 
     /** The state mutability of the function (e.g., view, pure, nonpayable, payable) */
     public enum StateMutabilityEnum {

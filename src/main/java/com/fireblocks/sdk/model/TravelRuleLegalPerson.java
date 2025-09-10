@@ -39,9 +39,7 @@ public class TravelRuleLegalPerson {
     @jakarta.annotation.Nullable private TravelRuleLegalPersonNameIdentifier name;
 
     public static final String JSON_PROPERTY_GEOGRAPHIC_ADDRESS = "geographicAddress";
-
-    @jakarta.annotation.Nullable
-    private List<TravelRuleGeographicAddress> geographicAddress = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<TravelRuleGeographicAddress> geographicAddress;
 
     public static final String JSON_PROPERTY_NATIONAL_IDENTIFICATION = "nationalIdentification";
     @jakarta.annotation.Nullable private TravelRuleNationalIdentification nationalIdentification;

@@ -42,7 +42,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class CreateQuote {
     public static final String JSON_PROPERTY_SCOPE = "scope";
-    @jakarta.annotation.Nonnull private List<CreateQuoteScopeInner> scope = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<CreateQuoteScopeInner> scope;
 
     public static final String JSON_PROPERTY_BASE_ASSET_ID = "baseAssetId";
     @jakarta.annotation.Nonnull private String baseAssetId;

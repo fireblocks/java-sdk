@@ -39,13 +39,13 @@ public class SolanaInstructionWithValue {
     @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_DISCRIMINATOR = "discriminator";
-    @jakarta.annotation.Nonnull private List<BigDecimal> discriminator = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<BigDecimal> discriminator;
 
     public static final String JSON_PROPERTY_ACCOUNTS = "accounts";
-    @jakarta.annotation.Nonnull private List<SOLAccountWithValue> accounts = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<SOLAccountWithValue> accounts;
 
     public static final String JSON_PROPERTY_ARGS = "args";
-    @jakarta.annotation.Nonnull private List<SolParameterWithValue> args = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<SolParameterWithValue> args;
 
     public SolanaInstructionWithValue() {}
 

@@ -80,9 +80,7 @@ public class Delegation {
     @jakarta.annotation.Nonnull private String status;
 
     public static final String JSON_PROPERTY_RELATED_TRANSACTIONS = "relatedTransactions";
-
-    @jakarta.annotation.Nonnull
-    private List<RelatedTransaction> relatedTransactions = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<RelatedTransaction> relatedTransactions;
 
     public static final String JSON_PROPERTY_VALIDATOR_ADDRESS = "validatorAddress";
     @jakarta.annotation.Nonnull private String validatorAddress;
@@ -91,7 +89,7 @@ public class Delegation {
     @jakarta.annotation.Nonnull private StakingProvider providerId;
 
     public static final String JSON_PROPERTY_AVAILABLE_ACTIONS = "availableActions";
-    @jakarta.annotation.Nonnull private List<String> availableActions = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> availableActions;
 
     public static final String JSON_PROPERTY_IN_PROGRESS = "inProgress";
     @jakarta.annotation.Nonnull private Boolean inProgress;
@@ -103,7 +101,7 @@ public class Delegation {
     @jakarta.annotation.Nonnull private SolanaBlockchainData blockchainPositionInfo;
 
     public static final String JSON_PROPERTY_RELATED_REQUESTS = "relatedRequests";
-    @jakarta.annotation.Nullable private List<RelatedRequest> relatedRequests = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<RelatedRequest> relatedRequests;
 
     public Delegation() {}
 

@@ -35,7 +35,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class NotificationPaginatedResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    @jakarta.annotation.Nonnull private List<Notification> data = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<Notification> data;
 
     public static final String JSON_PROPERTY_TOTAL = "total";
     @jakarta.annotation.Nullable private BigDecimal total;

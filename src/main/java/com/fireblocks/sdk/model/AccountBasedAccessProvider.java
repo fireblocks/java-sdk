@@ -56,7 +56,7 @@ public class AccountBasedAccessProvider {
     @jakarta.annotation.Nonnull private Boolean connected;
 
     public static final String JSON_PROPERTY_ACCOUNTS = "accounts";
-    @jakarta.annotation.Nullable private List<AccountBase> accounts = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<AccountBase> accounts;
 
     public AccountBasedAccessProvider() {}
 

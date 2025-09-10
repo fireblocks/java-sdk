@@ -117,9 +117,7 @@ public class TransactionResponse {
     @jakarta.annotation.Nullable private DestinationTransferPeerPathResponse destination;
 
     public static final String JSON_PROPERTY_DESTINATIONS = "destinations";
-
-    @jakarta.annotation.Nullable
-    private List<TransactionResponseDestination> destinations = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<TransactionResponseDestination> destinations;
 
     public static final String JSON_PROPERTY_DESTINATION_ADDRESS = "destinationAddress";
     @jakarta.annotation.Nullable private String destinationAddress;
@@ -149,7 +147,7 @@ public class TransactionResponse {
     @jakarta.annotation.Nullable private String feeCurrency;
 
     public static final String JSON_PROPERTY_NETWORK_RECORDS = "networkRecords";
-    @jakarta.annotation.Nullable private List<NetworkRecord> networkRecords = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<NetworkRecord> networkRecords;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
     @jakarta.annotation.Nullable private BigDecimal createdAt;
@@ -161,7 +159,7 @@ public class TransactionResponse {
     @jakarta.annotation.Nullable private String createdBy;
 
     public static final String JSON_PROPERTY_SIGNED_BY = "signedBy";
-    @jakarta.annotation.Nullable private List<String> signedBy = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> signedBy;
 
     public static final String JSON_PROPERTY_REJECTED_BY = "rejectedBy";
     @jakarta.annotation.Nullable private String rejectedBy;
@@ -185,7 +183,7 @@ public class TransactionResponse {
     @jakarta.annotation.Nullable private Object extraParameters;
 
     public static final String JSON_PROPERTY_SIGNED_MESSAGES = "signedMessages";
-    @jakarta.annotation.Nullable private List<SignedMessage> signedMessages = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<SignedMessage> signedMessages;
 
     public static final String JSON_PROPERTY_NUM_OF_CONFIRMATIONS = "numOfConfirmations";
     @jakarta.annotation.Nullable private BigDecimal numOfConfirmations;

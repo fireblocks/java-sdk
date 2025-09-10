@@ -29,9 +29,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class DisbursementOperationExecutionOutput {
     public static final String JSON_PROPERTY_INSTRUCTION_SET = "instructionSet";
-
-    @jakarta.annotation.Nonnull
-    private List<DisbursementInstructionOutput> instructionSet = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<DisbursementInstructionOutput> instructionSet;
 
     public DisbursementOperationExecutionOutput() {}
 

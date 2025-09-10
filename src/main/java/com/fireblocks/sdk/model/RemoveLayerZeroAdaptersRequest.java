@@ -37,7 +37,7 @@ public class RemoveLayerZeroAdaptersRequest {
     @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_ADAPTER_TOKEN_LINK_IDS = "adapterTokenLinkIds";
-    @jakarta.annotation.Nonnull private List<UUID> adapterTokenLinkIds = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<UUID> adapterTokenLinkIds;
 
     public RemoveLayerZeroAdaptersRequest() {}
 

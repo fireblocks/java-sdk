@@ -91,7 +91,7 @@ public class SessionDTO {
     @jakarta.annotation.Nonnull private FeeLevelEnum feeLevel;
 
     public static final String JSON_PROPERTY_CHAIN_IDS = "chainIds";
-    @jakarta.annotation.Nonnull private List<String> chainIds = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> chainIds;
 
     /** The connection&#39;s type */
     public enum ConnectionTypeEnum {

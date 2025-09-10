@@ -46,8 +46,7 @@ public class EmbeddedWalletDeviceKeySetupResponse {
     public static final String JSON_PROPERTY_SETUP_STATUS = "setupStatus";
 
     @jakarta.annotation.Nonnull
-    private List<EmbeddedWalletDeviceKeySetupResponseSetupStatusInner> setupStatus =
-            new ArrayList<>();
+    private List<EmbeddedWalletDeviceKeySetupResponseSetupStatusInner> setupStatus;
 
     public EmbeddedWalletDeviceKeySetupResponse() {}
 

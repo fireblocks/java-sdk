@@ -34,7 +34,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class ConnectedAccountTradingPairsResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    @jakarta.annotation.Nonnull private List<ConnectedAccountTradingPair> data = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ConnectedAccountTradingPair> data;
 
     public static final String JSON_PROPERTY_TOTAL = "total";
     @jakarta.annotation.Nullable private Integer total;

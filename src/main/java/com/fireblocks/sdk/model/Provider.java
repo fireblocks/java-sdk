@@ -45,7 +45,7 @@ public class Provider {
     @jakarta.annotation.Nonnull private String providerName;
 
     public static final String JSON_PROPERTY_VALIDATORS = "validators";
-    @jakarta.annotation.Nonnull private List<Validator> validators = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<Validator> validators;
 
     public static final String JSON_PROPERTY_ICON_URL = "iconUrl";
     @jakarta.annotation.Nullable private String iconUrl;

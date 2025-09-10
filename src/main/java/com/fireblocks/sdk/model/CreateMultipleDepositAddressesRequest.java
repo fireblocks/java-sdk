@@ -46,7 +46,7 @@ public class CreateMultipleDepositAddressesRequest {
     @jakarta.annotation.Nonnull private Integer count;
 
     public static final String JSON_PROPERTY_DESCRIPTIONS = "descriptions";
-    @jakarta.annotation.Nullable private List<String> descriptions = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> descriptions;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_TO_COPY_DESC_FROM =
             "vaultAccountToCopyDescFrom";

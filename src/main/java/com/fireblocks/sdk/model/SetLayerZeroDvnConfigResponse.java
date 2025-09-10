@@ -30,7 +30,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class SetLayerZeroDvnConfigResponse {
     public static final String JSON_PROPERTY_TXN_IDS = "txnIds";
-    @jakarta.annotation.Nonnull private List<String> txnIds = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> txnIds;
 
     public SetLayerZeroDvnConfigResponse() {}
 

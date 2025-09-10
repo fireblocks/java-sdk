@@ -36,9 +36,7 @@ public class EVMTokenCreateParamsDto {
     @jakarta.annotation.Nonnull private String contractId;
 
     public static final String JSON_PROPERTY_DEPLOY_FUNCTION_PARAMS = "deployFunctionParams";
-
-    @jakarta.annotation.Nullable
-    private List<ParameterWithValue> deployFunctionParams = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<ParameterWithValue> deployFunctionParams;
 
     public EVMTokenCreateParamsDto() {}
 
