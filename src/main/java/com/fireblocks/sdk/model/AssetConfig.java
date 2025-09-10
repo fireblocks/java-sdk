@@ -37,7 +37,7 @@ public class AssetConfig {
     @jakarta.annotation.Nonnull private Boolean nftTransfer;
 
     public static final String JSON_PROPERTY_ASSET_TYPES = "assetTypes";
-    @jakarta.annotation.Nullable private List<AssetTypesConfigInner> assetTypes = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<AssetTypesConfigInner> assetTypes;
 
     public static final String JSON_PROPERTY_OPERATOR = "operator";
     @jakarta.annotation.Nullable private PolicyOperator operator;

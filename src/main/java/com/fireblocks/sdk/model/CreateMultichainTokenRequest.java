@@ -49,7 +49,7 @@ public class CreateMultichainTokenRequest {
     @jakarta.annotation.Nullable private String salt;
 
     public static final String JSON_PROPERTY_CHAINS = "chains";
-    @jakarta.annotation.Nonnull private List<String> chains = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> chains;
 
     public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
     @jakarta.annotation.Nullable private String displayName;

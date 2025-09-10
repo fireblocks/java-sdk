@@ -41,7 +41,7 @@ public class GetLayerZeroPeersResponse {
     @jakarta.annotation.Nonnull private String adapterAddress;
 
     public static final String JSON_PROPERTY_PEERS = "peers";
-    @jakarta.annotation.Nonnull private List<PeerAdapterInfo> peers = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<PeerAdapterInfo> peers;
 
     public GetLayerZeroPeersResponse() {}
 

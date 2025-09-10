@@ -31,7 +31,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class PaginatedAssetWalletResponse {
     public static final String JSON_PROPERTY_ASSET_WALLETS = "assetWallets";
-    @jakarta.annotation.Nullable private List<AssetWallet> assetWallets = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<AssetWallet> assetWallets;
 
     public static final String JSON_PROPERTY_PAGING = "paging";
     @jakarta.annotation.Nullable private PaginatedAssetWalletResponsePaging paging;

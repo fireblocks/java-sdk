@@ -36,7 +36,7 @@ public class GetMpcKeysResponse {
     @jakarta.annotation.Nonnull private String tenantId;
 
     public static final String JSON_PROPERTY_KEYS = "keys";
-    @jakarta.annotation.Nonnull private List<MpcKey> keys = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<MpcKey> keys;
 
     public GetMpcKeysResponse() {}
 

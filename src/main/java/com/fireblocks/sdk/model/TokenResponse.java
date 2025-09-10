@@ -58,7 +58,7 @@ public class TokenResponse {
     @jakarta.annotation.Nullable private String cachedMetadataURI;
 
     public static final String JSON_PROPERTY_MEDIA = "media";
-    @jakarta.annotation.Nullable private List<MediaEntityResponse> media = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<MediaEntityResponse> media;
 
     public static final String JSON_PROPERTY_SPAM = "spam";
     @jakarta.annotation.Nullable private SpamTokenResponse spam;

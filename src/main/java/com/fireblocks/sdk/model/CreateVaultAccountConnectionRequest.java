@@ -79,7 +79,7 @@ public class CreateVaultAccountConnectionRequest {
     @jakarta.annotation.Nonnull private String uri;
 
     public static final String JSON_PROPERTY_CHAIN_IDS = "chainIds";
-    @jakarta.annotation.Nullable private List<String> chainIds = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> chainIds;
 
     public CreateVaultAccountConnectionRequest() {}
 

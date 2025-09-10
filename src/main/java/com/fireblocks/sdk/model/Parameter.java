@@ -48,7 +48,7 @@ public class Parameter {
     @jakarta.annotation.Nonnull private String type;
 
     public static final String JSON_PROPERTY_COMPONENTS = "components";
-    @jakarta.annotation.Nullable private List<Parameter> components = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<Parameter> components;
 
     public Parameter() {}
 

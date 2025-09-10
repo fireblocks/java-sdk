@@ -37,7 +37,7 @@ public class CreateMultipleDepositAddressesJobStatus {
     @jakarta.annotation.Nonnull private String status;
 
     public static final String JSON_PROPERTY_ADDRESSES = "addresses";
-    @jakarta.annotation.Nullable private List<NewAddress> addresses = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<NewAddress> addresses;
 
     public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
     @jakarta.annotation.Nullable private String errorMessage;

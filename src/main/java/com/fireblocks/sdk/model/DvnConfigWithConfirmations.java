@@ -36,10 +36,10 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class DvnConfigWithConfirmations {
     public static final String JSON_PROPERTY_DVN_ADDRESSES = "dvnAddresses";
-    @jakarta.annotation.Nonnull private List<String> dvnAddresses = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> dvnAddresses;
 
     public static final String JSON_PROPERTY_OPTIONAL_D_V_N_ADDRESSES = "optionalDVNAddresses";
-    @jakarta.annotation.Nullable private List<String> optionalDVNAddresses = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> optionalDVNAddresses;
 
     public static final String JSON_PROPERTY_OPTIONAL_THRESHOLD = "optionalThreshold";
     @jakarta.annotation.Nonnull private BigDecimal optionalThreshold;

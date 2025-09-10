@@ -78,7 +78,7 @@ public class AuthorizationInfo {
     @jakarta.annotation.Nullable private LogicEnum logic;
 
     public static final String JSON_PROPERTY_GROUPS = "groups";
-    @jakarta.annotation.Nullable private List<AuthorizationGroups> groups = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<AuthorizationGroups> groups;
 
     public AuthorizationInfo() {}
 

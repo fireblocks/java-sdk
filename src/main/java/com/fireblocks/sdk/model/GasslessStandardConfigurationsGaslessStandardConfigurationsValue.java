@@ -38,7 +38,7 @@ public class GasslessStandardConfigurationsGaslessStandardConfigurationsValue {
     @jakarta.annotation.Nullable private OffsetDateTime lastOnChainCheck;
 
     public static final String JSON_PROPERTY_FORWARDER_ADDRESSES = "forwarderAddresses";
-    @jakarta.annotation.Nullable private List<String> forwarderAddresses = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> forwarderAddresses;
 
     public GasslessStandardConfigurationsGaslessStandardConfigurationsValue() {}
 

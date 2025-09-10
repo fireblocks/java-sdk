@@ -74,7 +74,7 @@ public class ReadAbiFunction {
     @jakarta.annotation.Nonnull private StateMutabilityEnum stateMutability;
 
     public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-    @jakarta.annotation.Nullable private List<Parameter> outputs = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<Parameter> outputs;
 
     public static final String JSON_PROPERTY_NAME = "name";
     @jakarta.annotation.Nullable private String name;
@@ -83,7 +83,7 @@ public class ReadAbiFunction {
     @jakarta.annotation.Nonnull private String type;
 
     public static final String JSON_PROPERTY_INPUTS = "inputs";
-    @jakarta.annotation.Nonnull private List<ParameterWithValue> inputs = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ParameterWithValue> inputs;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
     @jakarta.annotation.Nullable private String description;

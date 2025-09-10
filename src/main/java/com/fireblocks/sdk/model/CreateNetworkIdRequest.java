@@ -36,9 +36,7 @@ public class CreateNetworkIdRequest {
     @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
-
-    @jakarta.annotation.Nullable
-    private Map<String, NetworkIdRoutingPolicyValue> routingPolicy = new HashMap<>();
+    @jakarta.annotation.Nullable private Map<String, NetworkIdRoutingPolicyValue> routingPolicy;
 
     public CreateNetworkIdRequest() {}
 

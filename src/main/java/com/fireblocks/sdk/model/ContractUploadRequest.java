@@ -102,7 +102,7 @@ public class ContractUploadRequest {
     @jakarta.annotation.Nullable private ContractDoc docs;
 
     public static final String JSON_PROPERTY_ABI = "abi";
-    @jakarta.annotation.Nonnull private List<AbiFunction> abi = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<AbiFunction> abi;
 
     public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
     @jakarta.annotation.Nullable private ContractAttributes attributes;

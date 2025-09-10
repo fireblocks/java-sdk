@@ -29,9 +29,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class SetNetworkIdRoutingPolicyRequest {
     public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
-
-    @jakarta.annotation.Nonnull
-    private Map<String, NetworkIdRoutingPolicyValue> routingPolicy = new HashMap<>();
+    @jakarta.annotation.Nonnull private Map<String, NetworkIdRoutingPolicyValue> routingPolicy;
 
     public SetNetworkIdRoutingPolicyRequest() {}
 

@@ -33,14 +33,10 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class ConnectedAccountManifest {
     public static final String JSON_PROPERTY_ASSET_TYPES = "assetTypes";
-
-    @jakarta.annotation.Nonnull
-    private List<ConnectedAccountAssetType> assetTypes = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ConnectedAccountAssetType> assetTypes;
 
     public static final String JSON_PROPERTY_CAPABILITIES = "capabilities";
-
-    @jakarta.annotation.Nonnull
-    private List<ConnectedAccountCapability> capabilities = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ConnectedAccountCapability> capabilities;
 
     public ConnectedAccountManifest() {}
 

@@ -34,10 +34,10 @@ import java.util.UUID;
         comments = "Generator version: 7.14.0")
 public class VaultAccountsTagAttachmentsRequest {
     public static final String JSON_PROPERTY_TAG_IDS = "tagIds";
-    @jakarta.annotation.Nonnull private List<UUID> tagIds = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<UUID> tagIds;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_IDS = "vaultAccountIds";
-    @jakarta.annotation.Nonnull private List<String> vaultAccountIds = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> vaultAccountIds;
 
     public VaultAccountsTagAttachmentsRequest() {}
 

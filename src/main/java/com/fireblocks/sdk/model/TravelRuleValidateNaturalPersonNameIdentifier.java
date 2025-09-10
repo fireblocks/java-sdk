@@ -34,18 +34,17 @@ public class TravelRuleValidateNaturalPersonNameIdentifier {
     public static final String JSON_PROPERTY_NAME_IDENTIFIER = "nameIdentifier";
 
     @jakarta.annotation.Nullable
-    private List<TravelRuleValidateNaturalNameIdentifier> nameIdentifier = new ArrayList<>();
+    private List<TravelRuleValidateNaturalNameIdentifier> nameIdentifier;
 
     public static final String JSON_PROPERTY_LOCAL_NAME_IDENTIFIER = "localNameIdentifier";
 
     @jakarta.annotation.Nullable
-    private List<TravelRuleValidateNaturalNameIdentifier> localNameIdentifier = new ArrayList<>();
+    private List<TravelRuleValidateNaturalNameIdentifier> localNameIdentifier;
 
     public static final String JSON_PROPERTY_PHONETIC_NAME_IDENTIFIER = "phoneticNameIdentifier";
 
     @jakarta.annotation.Nullable
-    private List<TravelRuleValidateNaturalNameIdentifier> phoneticNameIdentifier =
-            new ArrayList<>();
+    private List<TravelRuleValidateNaturalNameIdentifier> phoneticNameIdentifier;
 
     public TravelRuleValidateNaturalPersonNameIdentifier() {}
 

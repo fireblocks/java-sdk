@@ -39,7 +39,7 @@ public class TransactionResponseContractCallDecodedData {
     @jakarta.annotation.Nullable private String contractName;
 
     public static final String JSON_PROPERTY_FUNCTION_CALLS = "functionCalls";
-    @jakarta.annotation.Nullable private List<Object> functionCalls = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<Object> functionCalls;
 
     public TransactionResponseContractCallDecodedData() {}
 

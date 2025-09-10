@@ -132,7 +132,7 @@ public class TravelRuleValidateGeographicAddress {
     @jakarta.annotation.Nullable private String countrySubDivision;
 
     public static final String JSON_PROPERTY_ADDRESS_LINE = "addressLine";
-    @jakarta.annotation.Nullable private List<String> addressLine = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> addressLine;
 
     public TravelRuleValidateGeographicAddress() {}
 

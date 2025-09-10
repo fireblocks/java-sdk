@@ -39,7 +39,7 @@ public class ExchangeTradingAccount {
     @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_ASSETS = "assets";
-    @jakarta.annotation.Nullable private List<ExchangeAsset> assets = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<ExchangeAsset> assets;
 
     public ExchangeTradingAccount() {}
 

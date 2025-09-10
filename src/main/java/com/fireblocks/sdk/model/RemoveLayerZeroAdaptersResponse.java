@@ -33,12 +33,10 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class RemoveLayerZeroAdaptersResponse {
     public static final String JSON_PROPERTY_DEACTIVATED = "deactivated";
-    @jakarta.annotation.Nonnull private List<String> deactivated = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> deactivated;
 
     public static final String JSON_PROPERTY_FAILED = "failed";
-
-    @jakarta.annotation.Nonnull
-    private List<RemoveLayerZeroAdapterFailedResult> failed = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<RemoveLayerZeroAdapterFailedResult> failed;
 
     public RemoveLayerZeroAdaptersResponse() {}
 

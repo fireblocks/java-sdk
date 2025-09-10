@@ -49,7 +49,7 @@ public class MultichainDeploymentMetadata {
     @jakarta.annotation.Nullable private String deploymentSalt;
 
     public static final String JSON_PROPERTY_INIT_PARAMS = "initParams";
-    @jakarta.annotation.Nullable private List<ParameterWithValue> initParams = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<ParameterWithValue> initParams;
 
     public static final String JSON_PROPERTY_ENCODED_INIT_PARAMS = "encodedInitParams";
     @jakarta.annotation.Nullable private String encodedInitParams;

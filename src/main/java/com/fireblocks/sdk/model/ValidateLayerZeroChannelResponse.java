@@ -36,7 +36,7 @@ public class ValidateLayerZeroChannelResponse {
     @jakarta.annotation.Nonnull private Boolean correct;
 
     public static final String JSON_PROPERTY_ERRORS = "errors";
-    @jakarta.annotation.Nonnull private List<String> errors = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> errors;
 
     public ValidateLayerZeroChannelResponse() {}
 

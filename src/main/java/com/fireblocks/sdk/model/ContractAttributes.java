@@ -34,10 +34,10 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class ContractAttributes {
     public static final String JSON_PROPERTY_USE_CASES = "useCases";
-    @jakarta.annotation.Nonnull private List<String> useCases = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> useCases;
 
     public static final String JSON_PROPERTY_STANDARDS = "standards";
-    @jakarta.annotation.Nonnull private List<String> standards = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> standards;
 
     public static final String JSON_PROPERTY_AUDITOR = "auditor";
     @jakarta.annotation.Nonnull private AuditorData auditor;

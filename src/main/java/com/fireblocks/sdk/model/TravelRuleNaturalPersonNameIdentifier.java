@@ -32,19 +32,15 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class TravelRuleNaturalPersonNameIdentifier {
     public static final String JSON_PROPERTY_NAME_IDENTIFIER = "nameIdentifier";
-
-    @jakarta.annotation.Nullable
-    private List<TravelRuleNaturalNameIdentifier> nameIdentifier = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<TravelRuleNaturalNameIdentifier> nameIdentifier;
 
     public static final String JSON_PROPERTY_LOCAL_NAME_IDENTIFIER = "localNameIdentifier";
-
-    @jakarta.annotation.Nullable
-    private List<TravelRuleNaturalNameIdentifier> localNameIdentifier = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<TravelRuleNaturalNameIdentifier> localNameIdentifier;
 
     public static final String JSON_PROPERTY_PHONETIC_NAME_IDENTIFIER = "phoneticNameIdentifier";
 
     @jakarta.annotation.Nullable
-    private List<TravelRuleNaturalNameIdentifier> phoneticNameIdentifier = new ArrayList<>();
+    private List<TravelRuleNaturalNameIdentifier> phoneticNameIdentifier;
 
     public TravelRuleNaturalPersonNameIdentifier() {}
 

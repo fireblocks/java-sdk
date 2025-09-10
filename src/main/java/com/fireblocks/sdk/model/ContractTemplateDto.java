@@ -58,7 +58,7 @@ public class ContractTemplateDto {
     @jakarta.annotation.Nullable private String longDescription;
 
     public static final String JSON_PROPERTY_ABI = "abi";
-    @jakarta.annotation.Nonnull private List<AbiFunction> abi = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<AbiFunction> abi;
 
     public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
     @jakarta.annotation.Nullable private ContractAttributes attributes;

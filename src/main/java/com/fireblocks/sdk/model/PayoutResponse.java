@@ -62,9 +62,7 @@ public class PayoutResponse {
     @jakarta.annotation.Nullable private PayoutInitMethod initMethod;
 
     public static final String JSON_PROPERTY_INSTRUCTION_SET = "instructionSet";
-
-    @jakarta.annotation.Nonnull
-    private List<PayoutInstructionResponse> instructionSet = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<PayoutInstructionResponse> instructionSet;
 
     public static final String JSON_PROPERTY_REPORT_URL = "reportUrl";
     @jakarta.annotation.Nullable private String reportUrl;

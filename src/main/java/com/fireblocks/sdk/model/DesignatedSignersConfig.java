@@ -73,10 +73,10 @@ public class DesignatedSignersConfig {
     @jakarta.annotation.Nonnull private TypeEnum type;
 
     public static final String JSON_PROPERTY_USERS = "users";
-    @jakarta.annotation.Nullable private List<String> users = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> users;
 
     public static final String JSON_PROPERTY_GROUPS = "groups";
-    @jakarta.annotation.Nullable private List<String> groups = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> groups;
 
     public DesignatedSignersConfig() {}
 

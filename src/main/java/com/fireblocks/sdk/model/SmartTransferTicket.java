@@ -231,7 +231,7 @@ public class SmartTransferTicket {
     @jakarta.annotation.Nullable private String orderCreatedByNetworkId;
 
     public static final String JSON_PROPERTY_TERMS = "terms";
-    @jakarta.annotation.Nullable private List<SmartTransferTicketTerm> terms = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<SmartTransferTicketTerm> terms;
 
     public static final String JSON_PROPERTY_EXPIRES_IN = "expiresIn";
     @jakarta.annotation.Nullable private BigDecimal expiresIn;

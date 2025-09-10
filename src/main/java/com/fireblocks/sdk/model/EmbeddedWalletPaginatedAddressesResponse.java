@@ -33,7 +33,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class EmbeddedWalletPaginatedAddressesResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    @jakarta.annotation.Nonnull private List<EmbeddedWalletAddressDetails> data = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<EmbeddedWalletAddressDetails> data;
 
     public static final String JSON_PROPERTY_NEXT = "next";
     @jakarta.annotation.Nullable private String next;

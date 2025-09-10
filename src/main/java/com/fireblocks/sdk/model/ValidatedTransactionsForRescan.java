@@ -39,7 +39,7 @@ public class ValidatedTransactionsForRescan {
     @jakarta.annotation.Nullable private String networkProtocol;
 
     public static final String JSON_PROPERTY_TX_HASHES = "txHashes";
-    @jakarta.annotation.Nullable private List<String> txHashes = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> txHashes;
 
     public ValidatedTransactionsForRescan() {}
 

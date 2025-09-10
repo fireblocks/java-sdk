@@ -34,10 +34,10 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class LegacyPolicyRuleAuthorizationGroupsGroupsInner {
     public static final String JSON_PROPERTY_USERS = "users";
-    @jakarta.annotation.Nullable private List<String> users = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> users;
 
     public static final String JSON_PROPERTY_USERS_GROUPS = "usersGroups";
-    @jakarta.annotation.Nullable private List<String> usersGroups = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> usersGroups;
 
     public static final String JSON_PROPERTY_TH = "th";
     @jakarta.annotation.Nullable private BigDecimal th;

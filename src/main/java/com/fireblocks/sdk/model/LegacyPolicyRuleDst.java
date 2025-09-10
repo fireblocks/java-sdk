@@ -29,9 +29,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class LegacyPolicyRuleDst {
     public static final String JSON_PROPERTY_IDS = "ids";
-
-    @jakarta.annotation.Nullable
-    private List<List<LegacySrcOrDestAttributesInner>> ids = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<List<LegacySrcOrDestAttributesInner>> ids;
 
     public LegacyPolicyRuleDst() {}
 

@@ -28,7 +28,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class LegacyPolicyRules {
     public static final String JSON_PROPERTY_RULES = "rules";
-    @jakarta.annotation.Nullable private List<LegacyPolicyRule> rules = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<LegacyPolicyRule> rules;
 
     public LegacyPolicyRules() {}
 

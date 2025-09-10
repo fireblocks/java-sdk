@@ -73,7 +73,7 @@ public class PublicKeyInformation {
     @jakarta.annotation.Nullable private AlgorithmEnum algorithm;
 
     public static final String JSON_PROPERTY_DERIVATION_PATH = "derivationPath";
-    @jakarta.annotation.Nullable private List<Integer> derivationPath = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<Integer> derivationPath;
 
     public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
     @jakarta.annotation.Nullable private String publicKey;

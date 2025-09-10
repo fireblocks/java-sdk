@@ -36,10 +36,10 @@ public class FunctionDoc {
     @jakarta.annotation.Nullable private String details;
 
     public static final String JSON_PROPERTY_PARAMS = "params";
-    @jakarta.annotation.Nullable private Map<String, String> params = new HashMap<>();
+    @jakarta.annotation.Nullable private Map<String, String> params;
 
     public static final String JSON_PROPERTY_RETURNS = "returns";
-    @jakarta.annotation.Nullable private Map<String, String> returns = new HashMap<>();
+    @jakarta.annotation.Nullable private Map<String, String> returns;
 
     public FunctionDoc() {}
 

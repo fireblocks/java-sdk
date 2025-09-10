@@ -33,7 +33,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class PublishDraftRequest {
     public static final String JSON_PROPERTY_POLICY_TYPES = "policyTypes";
-    @jakarta.annotation.Nonnull private List<PolicyType> policyTypes = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<PolicyType> policyTypes;
 
     public static final String JSON_PROPERTY_DRAFT_ID = "draftId";
     @jakarta.annotation.Nonnull private String draftId;

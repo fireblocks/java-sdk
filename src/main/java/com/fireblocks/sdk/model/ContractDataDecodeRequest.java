@@ -40,7 +40,7 @@ public class ContractDataDecodeRequest {
     @jakarta.annotation.Nonnull private ContractDataDecodeDataType dataType;
 
     public static final String JSON_PROPERTY_ABI = "abi";
-    @jakarta.annotation.Nullable private List<AbiFunction> abi = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<AbiFunction> abi;
 
     public ContractDataDecodeRequest() {}
 

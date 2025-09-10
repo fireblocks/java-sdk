@@ -44,7 +44,7 @@ public class UnmanagedWallet {
     @jakarta.annotation.Nullable private String customerRefId;
 
     public static final String JSON_PROPERTY_ASSETS = "assets";
-    @jakarta.annotation.Nonnull private List<WalletAsset> assets = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<WalletAsset> assets;
 
     public UnmanagedWallet() {}
 

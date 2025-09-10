@@ -37,9 +37,7 @@ public class CreateMultipleVaultAccountsJobStatus {
     @jakarta.annotation.Nonnull private String status;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNTS = "vaultAccounts";
-
-    @jakarta.annotation.Nullable
-    private Map<String, Map<String, String>> vaultAccounts = new HashMap<>();
+    @jakarta.annotation.Nullable private Map<String, Map<String, String>> vaultAccounts;
 
     public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
     @jakarta.annotation.Nullable private String errorMessage;

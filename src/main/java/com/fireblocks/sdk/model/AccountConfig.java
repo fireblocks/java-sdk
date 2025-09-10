@@ -40,10 +40,10 @@ public class AccountConfig {
     @jakarta.annotation.Nonnull private AccountType2 type;
 
     public static final String JSON_PROPERTY_SUB_TYPE = "subType";
-    @jakarta.annotation.Nullable private List<AccountIdentifier> subType = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<AccountIdentifier> subType;
 
     public static final String JSON_PROPERTY_IDS = "ids";
-    @jakarta.annotation.Nullable private List<AccountIdentifier> ids = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<AccountIdentifier> ids;
 
     public static final String JSON_PROPERTY_OPERATOR = "operator";
     @jakarta.annotation.Nonnull private PolicyOperator operator;

@@ -34,7 +34,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class ExchangeAccountsPaged {
     public static final String JSON_PROPERTY_EXCHANGE_ACCOUNT = "ExchangeAccount";
-    @jakarta.annotation.Nullable private List<ExchangeAccount> exchangeAccount = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<ExchangeAccount> exchangeAccount;
 
     public static final String JSON_PROPERTY_PAGING = "paging";
     @jakarta.annotation.Nullable private ExchangeAccountsPagedPaging paging;

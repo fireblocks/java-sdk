@@ -32,7 +32,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class LegacyPolicyResponse {
     public static final String JSON_PROPERTY_RULES = "rules";
-    @jakarta.annotation.Nonnull private List<LegacyPolicyRule> rules = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<LegacyPolicyRule> rules;
 
     public static final String JSON_PROPERTY_METADATA = "metadata";
     @jakarta.annotation.Nonnull private LegacyPolicyMetadata metadata;

@@ -31,12 +31,10 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class ExchangeSettlementTransactionsResponse {
     public static final String JSON_PROPERTY_TO_EXCHANGE = "toExchange";
-    @jakarta.annotation.Nullable private List<ToExchangeTransaction> toExchange = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<ToExchangeTransaction> toExchange;
 
     public static final String JSON_PROPERTY_TO_COLLATERAL = "toCollateral";
-
-    @jakarta.annotation.Nullable
-    private List<ToCollateralTransaction> toCollateral = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<ToCollateralTransaction> toCollateral;
 
     public ExchangeSettlementTransactionsResponse() {}
 

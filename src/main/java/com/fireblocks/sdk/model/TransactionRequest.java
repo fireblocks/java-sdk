@@ -80,9 +80,7 @@ public class TransactionRequest {
     @jakarta.annotation.Nullable private DestinationTransferPeerPath destination;
 
     public static final String JSON_PROPERTY_DESTINATIONS = "destinations";
-
-    @jakarta.annotation.Nullable
-    private List<TransactionRequestDestination> destinations = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<TransactionRequestDestination> destinations;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
     @jakarta.annotation.Nullable private TransactionRequestAmount amount;

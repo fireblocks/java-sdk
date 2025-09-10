@@ -41,7 +41,7 @@ public class AddAbiRequestDto {
     @jakarta.annotation.Nonnull private String baseAssetId;
 
     public static final String JSON_PROPERTY_ABI = "abi";
-    @jakarta.annotation.Nonnull private List<AbiFunction> abi = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<AbiFunction> abi;
 
     public static final String JSON_PROPERTY_NAME = "name";
     @jakarta.annotation.Nullable private String name;

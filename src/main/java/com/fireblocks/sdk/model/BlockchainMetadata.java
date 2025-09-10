@@ -41,7 +41,7 @@ public class BlockchainMetadata {
     @jakarta.annotation.Nonnull private Boolean deprecated;
 
     public static final String JSON_PROPERTY_MEDIA = "media";
-    @jakarta.annotation.Nullable private List<BlockchainMedia> media = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<BlockchainMedia> media;
 
     public static final String JSON_PROPERTY_EXPLORER = "explorer";
     @jakarta.annotation.Nullable private BlockchainExplorer explorer;

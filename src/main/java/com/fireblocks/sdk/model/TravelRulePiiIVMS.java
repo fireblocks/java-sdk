@@ -33,17 +33,13 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class TravelRulePiiIVMS {
     public static final String JSON_PROPERTY_ORIGINATOR_PERSONS = "originatorPersons";
-
-    @jakarta.annotation.Nullable
-    private List<TravelRulePerson> originatorPersons = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<TravelRulePerson> originatorPersons;
 
     public static final String JSON_PROPERTY_BENEFICIARY_PERSONS = "beneficiaryPersons";
-
-    @jakarta.annotation.Nullable
-    private List<TravelRulePerson> beneficiaryPersons = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<TravelRulePerson> beneficiaryPersons;
 
     public static final String JSON_PROPERTY_ACCOUNT_NUMBER = "accountNumber";
-    @jakarta.annotation.Nullable private List<String> accountNumber = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> accountNumber;
 
     public TravelRulePiiIVMS() {}
 

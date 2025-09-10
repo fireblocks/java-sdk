@@ -74,7 +74,7 @@ public class WriteAbiFunction {
     @jakarta.annotation.Nonnull private StateMutabilityEnum stateMutability;
 
     public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-    @jakarta.annotation.Nullable private List<Parameter> outputs = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<Parameter> outputs;
 
     /** Gets or Sets type */
     public enum TypeEnum {
@@ -114,7 +114,7 @@ public class WriteAbiFunction {
     @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_INPUTS = "inputs";
-    @jakarta.annotation.Nonnull private List<ParameterWithValue> inputs = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ParameterWithValue> inputs;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
     @jakarta.annotation.Nullable private String description;

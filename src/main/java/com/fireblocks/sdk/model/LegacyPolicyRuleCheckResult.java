@@ -75,7 +75,7 @@ public class LegacyPolicyRuleCheckResult {
     @jakarta.annotation.Nonnull private StatusEnum status;
 
     public static final String JSON_PROPERTY_ERRORS = "errors";
-    @jakarta.annotation.Nonnull private List<LegacyPolicyRuleError> errors = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<LegacyPolicyRuleError> errors;
 
     public LegacyPolicyRuleCheckResult() {}
 

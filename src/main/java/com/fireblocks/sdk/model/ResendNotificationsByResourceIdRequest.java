@@ -37,9 +37,7 @@ public class ResendNotificationsByResourceIdRequest {
     @jakarta.annotation.Nonnull private UUID resourceId;
 
     public static final String JSON_PROPERTY_EXCLUDE_STATUSES = "excludeStatuses";
-
-    @jakarta.annotation.Nullable
-    private List<NotificationStatus> excludeStatuses = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<NotificationStatus> excludeStatuses;
 
     public ResendNotificationsByResourceIdRequest() {}
 

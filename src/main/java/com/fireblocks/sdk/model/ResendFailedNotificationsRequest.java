@@ -36,7 +36,7 @@ public class ResendFailedNotificationsRequest {
     @jakarta.annotation.Nullable private BigDecimal startTime;
 
     public static final String JSON_PROPERTY_EVENTS = "events";
-    @jakarta.annotation.Nullable private List<WebhookEvent> events = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<WebhookEvent> events;
 
     public ResendFailedNotificationsRequest() {}
 

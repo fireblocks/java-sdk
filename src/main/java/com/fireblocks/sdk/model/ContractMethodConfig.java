@@ -35,7 +35,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class ContractMethodConfig {
     public static final String JSON_PROPERTY_METHOD_CALLS = "methodCalls";
-    @jakarta.annotation.Nonnull private List<String> methodCalls = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> methodCalls;
 
     /** Operator for method calls */
     public enum OperatorEnum {

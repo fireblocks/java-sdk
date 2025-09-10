@@ -42,7 +42,7 @@ public class GetDeployableAddressRequest {
     @jakarta.annotation.Nonnull private UUID templateId;
 
     public static final String JSON_PROPERTY_INIT_PARAMS = "initParams";
-    @jakarta.annotation.Nonnull private List<ParameterWithValue> initParams = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ParameterWithValue> initParams;
 
     public static final String JSON_PROPERTY_SALT = "salt";
     @jakarta.annotation.Nonnull private String salt;

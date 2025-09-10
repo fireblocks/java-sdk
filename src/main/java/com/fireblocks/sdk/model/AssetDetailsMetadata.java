@@ -54,13 +54,13 @@ public class AssetDetailsMetadata {
     @jakarta.annotation.Nullable private String website;
 
     public static final String JSON_PROPERTY_MEDIA = "media";
-    @jakarta.annotation.Nullable private List<AssetMedia> media = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<AssetMedia> media;
 
     public static final String JSON_PROPERTY_NOTE = "note";
     @jakarta.annotation.Nullable private AssetNote note;
 
     public static final String JSON_PROPERTY_FEATURES = "features";
-    @jakarta.annotation.Nullable private List<AssetFeature> features = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<AssetFeature> features;
 
     public AssetDetailsMetadata() {}
 

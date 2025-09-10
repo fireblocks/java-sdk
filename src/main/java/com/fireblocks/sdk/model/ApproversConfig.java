@@ -79,9 +79,7 @@ public class ApproversConfig {
     @jakarta.annotation.Nullable private Boolean allowOperatorAsAuthorizer;
 
     public static final String JSON_PROPERTY_APPROVAL_GROUPS = "approvalGroups";
-
-    @jakarta.annotation.Nullable
-    private List<ApproversConfigApprovalGroupsInner> approvalGroups = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<ApproversConfigApprovalGroupsInner> approvalGroups;
 
     public ApproversConfig() {}
 

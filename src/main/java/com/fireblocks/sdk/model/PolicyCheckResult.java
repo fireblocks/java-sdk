@@ -37,7 +37,7 @@ public class PolicyCheckResult {
     @jakarta.annotation.Nonnull private BigDecimal errors;
 
     public static final String JSON_PROPERTY_RESULTS = "results";
-    @jakarta.annotation.Nonnull private List<PolicyRuleCheckResult> results = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<PolicyRuleCheckResult> results;
 
     public PolicyCheckResult() {}
 

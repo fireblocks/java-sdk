@@ -34,9 +34,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class NetworkIdResponse {
     public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
-
-    @jakarta.annotation.Nullable
-    private Map<String, NetworkIdRoutingPolicyValue> routingPolicy = new HashMap<>();
+    @jakarta.annotation.Nullable private Map<String, NetworkIdRoutingPolicyValue> routingPolicy;
 
     public static final String JSON_PROPERTY_IS_DISCOVERABLE = "isDiscoverable";
     @jakarta.annotation.Nullable private Boolean isDiscoverable;

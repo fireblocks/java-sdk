@@ -48,7 +48,7 @@ public class PayoutInstructionResponse {
     @jakarta.annotation.Nonnull private PayoutInstructionState state;
 
     public static final String JSON_PROPERTY_TRANSACTIONS = "transactions";
-    @jakarta.annotation.Nonnull private List<Transaction> transactions = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<Transaction> transactions;
 
     public PayoutInstructionResponse() {}
 

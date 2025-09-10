@@ -32,7 +32,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class SmartTransferStatisticInflow {
     public static final String JSON_PROPERTY_COINS = "coins";
-    @jakarta.annotation.Nullable private List<SmartTransferCoinStatistic> coins = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<SmartTransferCoinStatistic> coins;
 
     public static final String JSON_PROPERTY_TICKET_COUNT = "ticketCount";
     @jakarta.annotation.Nullable private Integer ticketCount;

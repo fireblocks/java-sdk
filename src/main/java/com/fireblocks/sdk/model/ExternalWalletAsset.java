@@ -59,9 +59,7 @@ public class ExternalWalletAsset {
     @jakarta.annotation.Nullable private String activationTime;
 
     public static final String JSON_PROPERTY_ADDITIONAL_INFO = "additionalInfo";
-
-    @jakarta.annotation.Nullable
-    private List<WalletAssetAdditionalInfo> additionalInfo = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<WalletAssetAdditionalInfo> additionalInfo;
 
     public ExternalWalletAsset() {}
 

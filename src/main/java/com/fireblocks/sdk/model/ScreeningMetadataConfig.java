@@ -206,13 +206,13 @@ public class ScreeningMetadataConfig {
     @jakarta.annotation.Nullable private ExposureTypeEnum exposureType;
 
     public static final String JSON_PROPERTY_CATEGORY = "category";
-    @jakarta.annotation.Nullable private List<String> category = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> category;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    @jakarta.annotation.Nullable private List<String> name = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> name;
 
     public static final String JSON_PROPERTY_CATEGORY_ID = "categoryId";
-    @jakarta.annotation.Nullable private List<String> categoryId = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<String> categoryId;
 
     /** Transaction status */
     public enum StatusEnum {

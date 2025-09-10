@@ -40,7 +40,7 @@ public class ContractDataDecodeResponseParams {
     @jakarta.annotation.Nonnull private String signature;
 
     public static final String JSON_PROPERTY_ARGS = "args";
-    @jakarta.annotation.Nonnull private List<ParameterWithValue> args = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ParameterWithValue> args;
 
     public ContractDataDecodeResponseParams() {}
 

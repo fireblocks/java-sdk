@@ -49,7 +49,7 @@ public class Webhook {
     @jakarta.annotation.Nullable private String description;
 
     public static final String JSON_PROPERTY_EVENTS = "events";
-    @jakarta.annotation.Nonnull private List<WebhookEvent> events = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<WebhookEvent> events;
 
     /** The status of the webhook */
     public enum StatusEnum {

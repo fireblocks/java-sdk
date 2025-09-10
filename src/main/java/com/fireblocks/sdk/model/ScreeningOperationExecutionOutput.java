@@ -29,7 +29,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class ScreeningOperationExecutionOutput {
     public static final String JSON_PROPERTY_VERDICTS = "verdicts";
-    @jakarta.annotation.Nonnull private List<ScreeningVerdict> verdicts = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ScreeningVerdict> verdicts;
 
     public ScreeningOperationExecutionOutput() {}
 

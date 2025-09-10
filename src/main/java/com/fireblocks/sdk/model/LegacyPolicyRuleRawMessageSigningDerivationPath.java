@@ -30,7 +30,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class LegacyPolicyRuleRawMessageSigningDerivationPath {
     public static final String JSON_PROPERTY_PATH = "path";
-    @jakarta.annotation.Nullable private List<BigDecimal> path = new ArrayList<>();
+    @jakarta.annotation.Nullable private List<BigDecimal> path;
 
     public LegacyPolicyRuleRawMessageSigningDerivationPath() {}
 

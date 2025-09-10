@@ -36,7 +36,7 @@ public class OperationExecutionFailure {
     @jakarta.annotation.Nonnull private String reason;
 
     public static final String JSON_PROPERTY_DATA = "data";
-    @jakarta.annotation.Nullable private Map<String, Object> data = new HashMap<>();
+    @jakarta.annotation.Nullable private Map<String, Object> data;
 
     public OperationExecutionFailure() {}
 
