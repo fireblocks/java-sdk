@@ -26,9 +26,9 @@ import com.fireblocks.sdk.model.ConvertAssetsRequest;
 import com.fireblocks.sdk.model.ConvertAssetsResponse;
 import com.fireblocks.sdk.model.CreateInternalTransferRequest;
 import com.fireblocks.sdk.model.ExchangeAccount;
-import com.fireblocks.sdk.model.ExchangeAccountsPaged;
 import com.fireblocks.sdk.model.ExchangeAsset;
 import com.fireblocks.sdk.model.GetExchangeAccountsCredentialsPublicKeyResponse;
+import com.fireblocks.sdk.model.GetPagedExchangeAccountsResponse;
 import com.fireblocks.sdk.model.InternalTransferResponse;
 import java.io.IOException;
 import java.io.InputStream;
@@ -480,11 +480,12 @@ public class ExchangeAccountsApi {
      * @param limit number of exchanges per page (required)
      * @param before (optional)
      * @param after (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;ExchangeAccountsPaged&gt;&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;GetPagedExchangeAccountsResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<List<ExchangeAccountsPaged>>> getPagedExchangeAccounts(
-            BigDecimal limit, String before, String after) throws ApiException {
+    public CompletableFuture<ApiResponse<GetPagedExchangeAccountsResponse>>
+            getPagedExchangeAccounts(BigDecimal limit, String before, String after)
+                    throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getPagedExchangeAccountsRequestBuilder(limit, before, after);
@@ -503,7 +504,7 @@ public class ExchangeAccountsApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<List<ExchangeAccountsPaged>>(
+                                            new ApiResponse<GetPagedExchangeAccountsResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -511,8 +512,7 @@ public class ExchangeAccountsApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            List<
-                                                                                    ExchangeAccountsPaged>>() {})));
+                                                                            GetPagedExchangeAccountsResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }

@@ -35,6 +35,7 @@ import java.util.StringJoiner;
     TransactionResponse.JSON_PROPERTY_OPERATION,
     TransactionResponse.JSON_PROPERTY_NOTE,
     TransactionResponse.JSON_PROPERTY_ASSET_ID,
+    TransactionResponse.JSON_PROPERTY_ASSET_TYPE,
     TransactionResponse.JSON_PROPERTY_SOURCE,
     TransactionResponse.JSON_PROPERTY_SOURCE_ADDRESS,
     TransactionResponse.JSON_PROPERTY_TAG,
@@ -59,12 +60,18 @@ import java.util.StringJoiner;
     TransactionResponse.JSON_PROPERTY_CUSTOMER_REF_ID,
     TransactionResponse.JSON_PROPERTY_AML_SCREENING_RESULT,
     TransactionResponse.JSON_PROPERTY_COMPLIANCE_RESULTS,
+    TransactionResponse.JSON_PROPERTY_NOT_BROADCAST_BY_FIREBLOCKS,
+    TransactionResponse.JSON_PROPERTY_DAPP_URL,
+    TransactionResponse.JSON_PROPERTY_GAS_LIMIT,
+    TransactionResponse.JSON_PROPERTY_BLOCKCHAIN_INDEX,
+    TransactionResponse.JSON_PROPERTY_PAID_RENT,
     TransactionResponse.JSON_PROPERTY_EXTRA_PARAMETERS,
     TransactionResponse.JSON_PROPERTY_SIGNED_MESSAGES,
     TransactionResponse.JSON_PROPERTY_NUM_OF_CONFIRMATIONS,
     TransactionResponse.JSON_PROPERTY_BLOCK_INFO,
     TransactionResponse.JSON_PROPERTY_INDEX,
     TransactionResponse.JSON_PROPERTY_REWARD_INFO,
+    TransactionResponse.JSON_PROPERTY_FEE_PAYER_INFO,
     TransactionResponse.JSON_PROPERTY_SYSTEM_MESSAGES,
     TransactionResponse.JSON_PROPERTY_ADDRESS_TYPE,
     TransactionResponse.JSON_PROPERTY_REQUESTED_AMOUNT,
@@ -74,7 +81,10 @@ import java.util.StringJoiner;
     TransactionResponse.JSON_PROPERTY_SERVICE_FEE,
     TransactionResponse.JSON_PROPERTY_FEE,
     TransactionResponse.JSON_PROPERTY_NETWORK_FEE,
-    TransactionResponse.JSON_PROPERTY_ERROR_DESCRIPTION
+    TransactionResponse.JSON_PROPERTY_ERROR_DESCRIPTION,
+    TransactionResponse.JSON_PROPERTY_REPLACED_TX_HASH,
+    TransactionResponse.JSON_PROPERTY_NONCE,
+    TransactionResponse.JSON_PROPERTY_BLOCKCHAIN_INFO
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -103,6 +113,9 @@ public class TransactionResponse {
 
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
     @jakarta.annotation.Nullable private String assetId;
+
+    public static final String JSON_PROPERTY_ASSET_TYPE = "assetType";
+    @jakarta.annotation.Nullable private String assetType;
 
     public static final String JSON_PROPERTY_SOURCE = "source";
     @jakarta.annotation.Nullable private SourceTransferPeerPathResponse source;
@@ -179,6 +192,22 @@ public class TransactionResponse {
     public static final String JSON_PROPERTY_COMPLIANCE_RESULTS = "complianceResults";
     @jakarta.annotation.Nullable private ComplianceResults complianceResults;
 
+    public static final String JSON_PROPERTY_NOT_BROADCAST_BY_FIREBLOCKS =
+            "notBroadcastByFireblocks";
+    @jakarta.annotation.Nullable private Boolean notBroadcastByFireblocks;
+
+    public static final String JSON_PROPERTY_DAPP_URL = "dappUrl";
+    @jakarta.annotation.Nullable private String dappUrl;
+
+    public static final String JSON_PROPERTY_GAS_LIMIT = "gasLimit";
+    @jakarta.annotation.Nullable private String gasLimit;
+
+    public static final String JSON_PROPERTY_BLOCKCHAIN_INDEX = "blockchainIndex";
+    @jakarta.annotation.Nullable private String blockchainIndex;
+
+    public static final String JSON_PROPERTY_PAID_RENT = "paidRent";
+    @jakarta.annotation.Nullable private String paidRent;
+
     public static final String JSON_PROPERTY_EXTRA_PARAMETERS = "extraParameters";
     @jakarta.annotation.Nullable private Object extraParameters;
 
@@ -196,6 +225,9 @@ public class TransactionResponse {
 
     public static final String JSON_PROPERTY_REWARD_INFO = "rewardInfo";
     @jakarta.annotation.Nullable private RewardInfo rewardInfo;
+
+    public static final String JSON_PROPERTY_FEE_PAYER_INFO = "feePayerInfo";
+    @jakarta.annotation.Nullable private FeePayerInfo feePayerInfo;
 
     public static final String JSON_PROPERTY_SYSTEM_MESSAGES = "systemMessages";
     @jakarta.annotation.Nullable private SystemMessageInfo systemMessages;
@@ -261,6 +293,15 @@ public class TransactionResponse {
 
     public static final String JSON_PROPERTY_ERROR_DESCRIPTION = "errorDescription";
     @jakarta.annotation.Nullable private String errorDescription;
+
+    public static final String JSON_PROPERTY_REPLACED_TX_HASH = "replacedTxHash";
+    @jakarta.annotation.Nullable private String replacedTxHash;
+
+    public static final String JSON_PROPERTY_NONCE = "nonce";
+    @jakarta.annotation.Nullable private String nonce;
+
+    public static final String JSON_PROPERTY_BLOCKCHAIN_INFO = "blockchainInfo";
+    @jakarta.annotation.Nullable private Object blockchainInfo;
 
     public TransactionResponse() {}
 
@@ -468,6 +509,29 @@ public class TransactionResponse {
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setAssetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
+    }
+
+    public TransactionResponse assetType(@jakarta.annotation.Nullable String assetType) {
+        this.assetType = assetType;
+        return this;
+    }
+
+    /**
+     * Type classification of the asset
+     *
+     * @return assetType
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ASSET_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAssetType() {
+        return assetType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ASSET_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAssetType(@jakarta.annotation.Nullable String assetType) {
+        this.assetType = assetType;
     }
 
     public TransactionResponse source(
@@ -1087,6 +1151,124 @@ public class TransactionResponse {
         this.complianceResults = complianceResults;
     }
 
+    public TransactionResponse notBroadcastByFireblocks(
+            @jakarta.annotation.Nullable Boolean notBroadcastByFireblocks) {
+        this.notBroadcastByFireblocks = notBroadcastByFireblocks;
+        return this;
+    }
+
+    /**
+     * Indicates the transaction was not broadcast by Fireblocks
+     *
+     * @return notBroadcastByFireblocks
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_NOT_BROADCAST_BY_FIREBLOCKS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getNotBroadcastByFireblocks() {
+        return notBroadcastByFireblocks;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NOT_BROADCAST_BY_FIREBLOCKS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setNotBroadcastByFireblocks(
+            @jakarta.annotation.Nullable Boolean notBroadcastByFireblocks) {
+        this.notBroadcastByFireblocks = notBroadcastByFireblocks;
+    }
+
+    public TransactionResponse dappUrl(@jakarta.annotation.Nullable String dappUrl) {
+        this.dappUrl = dappUrl;
+        return this;
+    }
+
+    /**
+     * DApp URL for Web3 transactions
+     *
+     * @return dappUrl
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_DAPP_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getDappUrl() {
+        return dappUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DAPP_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDappUrl(@jakarta.annotation.Nullable String dappUrl) {
+        this.dappUrl = dappUrl;
+    }
+
+    public TransactionResponse gasLimit(@jakarta.annotation.Nullable String gasLimit) {
+        this.gasLimit = gasLimit;
+        return this;
+    }
+
+    /**
+     * Gas limit for EVM-based blockchain transactions
+     *
+     * @return gasLimit
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_GAS_LIMIT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getGasLimit() {
+        return gasLimit;
+    }
+
+    @JsonProperty(JSON_PROPERTY_GAS_LIMIT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setGasLimit(@jakarta.annotation.Nullable String gasLimit) {
+        this.gasLimit = gasLimit;
+    }
+
+    public TransactionResponse blockchainIndex(
+            @jakarta.annotation.Nullable String blockchainIndex) {
+        this.blockchainIndex = blockchainIndex;
+        return this;
+    }
+
+    /**
+     * Blockchain-specific index or identifier for the transaction
+     *
+     * @return blockchainIndex
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_INDEX)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getBlockchainIndex() {
+        return blockchainIndex;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_INDEX)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBlockchainIndex(@jakarta.annotation.Nullable String blockchainIndex) {
+        this.blockchainIndex = blockchainIndex;
+    }
+
+    public TransactionResponse paidRent(@jakarta.annotation.Nullable String paidRent) {
+        this.paidRent = paidRent;
+        return this;
+    }
+
+    /**
+     * Solana rent payment amount
+     *
+     * @return paidRent
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PAID_RENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPaidRent() {
+        return paidRent;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PAID_RENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPaidRent(@jakarta.annotation.Nullable String paidRent) {
+        this.paidRent = paidRent;
+    }
+
     public TransactionResponse extraParameters(
             @jakarta.annotation.Nullable Object extraParameters) {
         this.extraParameters = extraParameters;
@@ -1257,6 +1439,30 @@ public class TransactionResponse {
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setRewardInfo(@jakarta.annotation.Nullable RewardInfo rewardInfo) {
         this.rewardInfo = rewardInfo;
+    }
+
+    public TransactionResponse feePayerInfo(
+            @jakarta.annotation.Nullable FeePayerInfo feePayerInfo) {
+        this.feePayerInfo = feePayerInfo;
+        return this;
+    }
+
+    /**
+     * Get feePayerInfo
+     *
+     * @return feePayerInfo
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_FEE_PAYER_INFO)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public FeePayerInfo getFeePayerInfo() {
+        return feePayerInfo;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FEE_PAYER_INFO)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setFeePayerInfo(@jakarta.annotation.Nullable FeePayerInfo feePayerInfo) {
+        this.feePayerInfo = feePayerInfo;
     }
 
     public TransactionResponse systemMessages(
@@ -1516,6 +1722,76 @@ public class TransactionResponse {
         this.errorDescription = errorDescription;
     }
 
+    public TransactionResponse replacedTxHash(@jakarta.annotation.Nullable String replacedTxHash) {
+        this.replacedTxHash = replacedTxHash;
+        return this;
+    }
+
+    /**
+     * if the transaction is a replace by fee (RBF) transaction, this is the hash of the
+     * transsaction that was replaced
+     *
+     * @return replacedTxHash
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_REPLACED_TX_HASH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getReplacedTxHash() {
+        return replacedTxHash;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REPLACED_TX_HASH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setReplacedTxHash(@jakarta.annotation.Nullable String replacedTxHash) {
+        this.replacedTxHash = replacedTxHash;
+    }
+
+    public TransactionResponse nonce(@jakarta.annotation.Nullable String nonce) {
+        this.nonce = nonce;
+        return this;
+    }
+
+    /**
+     * blockchain nonce for the transaction
+     *
+     * @return nonce
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_NONCE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getNonce() {
+        return nonce;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NONCE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setNonce(@jakarta.annotation.Nullable String nonce) {
+        this.nonce = nonce;
+    }
+
+    public TransactionResponse blockchainInfo(@jakarta.annotation.Nullable Object blockchainInfo) {
+        this.blockchainInfo = blockchainInfo;
+        return this;
+    }
+
+    /**
+     * A JSON used to store additional data that is blockchain-specific.
+     *
+     * @return blockchainInfo
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_INFO)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Object getBlockchainInfo() {
+        return blockchainInfo;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_INFO)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBlockchainInfo(@jakarta.annotation.Nullable Object blockchainInfo) {
+        this.blockchainInfo = blockchainInfo;
+    }
+
     /** Return true if this TransactionResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -1534,6 +1810,7 @@ public class TransactionResponse {
                 && Objects.equals(this.operation, transactionResponse.operation)
                 && Objects.equals(this.note, transactionResponse.note)
                 && Objects.equals(this.assetId, transactionResponse.assetId)
+                && Objects.equals(this.assetType, transactionResponse.assetType)
                 && Objects.equals(this.source, transactionResponse.source)
                 && Objects.equals(this.sourceAddress, transactionResponse.sourceAddress)
                 && Objects.equals(this.tag, transactionResponse.tag)
@@ -1561,12 +1838,19 @@ public class TransactionResponse {
                 && Objects.equals(this.customerRefId, transactionResponse.customerRefId)
                 && Objects.equals(this.amlScreeningResult, transactionResponse.amlScreeningResult)
                 && Objects.equals(this.complianceResults, transactionResponse.complianceResults)
+                && Objects.equals(
+                        this.notBroadcastByFireblocks, transactionResponse.notBroadcastByFireblocks)
+                && Objects.equals(this.dappUrl, transactionResponse.dappUrl)
+                && Objects.equals(this.gasLimit, transactionResponse.gasLimit)
+                && Objects.equals(this.blockchainIndex, transactionResponse.blockchainIndex)
+                && Objects.equals(this.paidRent, transactionResponse.paidRent)
                 && Objects.equals(this.extraParameters, transactionResponse.extraParameters)
                 && Objects.equals(this.signedMessages, transactionResponse.signedMessages)
                 && Objects.equals(this.numOfConfirmations, transactionResponse.numOfConfirmations)
                 && Objects.equals(this.blockInfo, transactionResponse.blockInfo)
                 && Objects.equals(this.index, transactionResponse.index)
                 && Objects.equals(this.rewardInfo, transactionResponse.rewardInfo)
+                && Objects.equals(this.feePayerInfo, transactionResponse.feePayerInfo)
                 && Objects.equals(this.systemMessages, transactionResponse.systemMessages)
                 && Objects.equals(this.addressType, transactionResponse.addressType)
                 && Objects.equals(this.requestedAmount, transactionResponse.requestedAmount)
@@ -1576,7 +1860,10 @@ public class TransactionResponse {
                 && Objects.equals(this.serviceFee, transactionResponse.serviceFee)
                 && Objects.equals(this.fee, transactionResponse.fee)
                 && Objects.equals(this.networkFee, transactionResponse.networkFee)
-                && Objects.equals(this.errorDescription, transactionResponse.errorDescription);
+                && Objects.equals(this.errorDescription, transactionResponse.errorDescription)
+                && Objects.equals(this.replacedTxHash, transactionResponse.replacedTxHash)
+                && Objects.equals(this.nonce, transactionResponse.nonce)
+                && Objects.equals(this.blockchainInfo, transactionResponse.blockchainInfo);
     }
 
     @Override
@@ -1590,6 +1877,7 @@ public class TransactionResponse {
                 operation,
                 note,
                 assetId,
+                assetType,
                 source,
                 sourceAddress,
                 tag,
@@ -1614,12 +1902,18 @@ public class TransactionResponse {
                 customerRefId,
                 amlScreeningResult,
                 complianceResults,
+                notBroadcastByFireblocks,
+                dappUrl,
+                gasLimit,
+                blockchainIndex,
+                paidRent,
                 extraParameters,
                 signedMessages,
                 numOfConfirmations,
                 blockInfo,
                 index,
                 rewardInfo,
+                feePayerInfo,
                 systemMessages,
                 addressType,
                 requestedAmount,
@@ -1629,7 +1923,10 @@ public class TransactionResponse {
                 serviceFee,
                 fee,
                 networkFee,
-                errorDescription);
+                errorDescription,
+                replacedTxHash,
+                nonce,
+                blockchainInfo);
     }
 
     @Override
@@ -1644,6 +1941,7 @@ public class TransactionResponse {
         sb.append("    operation: ").append(toIndentedString(operation)).append("\n");
         sb.append("    note: ").append(toIndentedString(note)).append("\n");
         sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
+        sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
         sb.append("    source: ").append(toIndentedString(source)).append("\n");
         sb.append("    sourceAddress: ").append(toIndentedString(sourceAddress)).append("\n");
         sb.append("    tag: ").append(toIndentedString(tag)).append("\n");
@@ -1682,6 +1980,13 @@ public class TransactionResponse {
         sb.append("    complianceResults: ")
                 .append(toIndentedString(complianceResults))
                 .append("\n");
+        sb.append("    notBroadcastByFireblocks: ")
+                .append(toIndentedString(notBroadcastByFireblocks))
+                .append("\n");
+        sb.append("    dappUrl: ").append(toIndentedString(dappUrl)).append("\n");
+        sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
+        sb.append("    blockchainIndex: ").append(toIndentedString(blockchainIndex)).append("\n");
+        sb.append("    paidRent: ").append(toIndentedString(paidRent)).append("\n");
         sb.append("    extraParameters: ").append(toIndentedString(extraParameters)).append("\n");
         sb.append("    signedMessages: ").append(toIndentedString(signedMessages)).append("\n");
         sb.append("    numOfConfirmations: ")
@@ -1690,6 +1995,7 @@ public class TransactionResponse {
         sb.append("    blockInfo: ").append(toIndentedString(blockInfo)).append("\n");
         sb.append("    index: ").append(toIndentedString(index)).append("\n");
         sb.append("    rewardInfo: ").append(toIndentedString(rewardInfo)).append("\n");
+        sb.append("    feePayerInfo: ").append(toIndentedString(feePayerInfo)).append("\n");
         sb.append("    systemMessages: ").append(toIndentedString(systemMessages)).append("\n");
         sb.append("    addressType: ").append(toIndentedString(addressType)).append("\n");
         sb.append("    requestedAmount: ").append(toIndentedString(requestedAmount)).append("\n");
@@ -1700,6 +2006,9 @@ public class TransactionResponse {
         sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
         sb.append("    networkFee: ").append(toIndentedString(networkFee)).append("\n");
         sb.append("    errorDescription: ").append(toIndentedString(errorDescription)).append("\n");
+        sb.append("    replacedTxHash: ").append(toIndentedString(replacedTxHash)).append("\n");
+        sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
+        sb.append("    blockchainInfo: ").append(toIndentedString(blockchainInfo)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -1823,6 +2132,16 @@ public class TransactionResponse {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
+        }
+
+        // add `assetType` to the URL query string
+        if (getAssetType() != null) {
+            joiner.add(
+                    String.format(
+                            "%sassetType%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetType()))));
         }
 
         // add `source` to the URL query string
@@ -2065,6 +2384,57 @@ public class TransactionResponse {
                     getComplianceResults().toUrlQueryString(prefix + "complianceResults" + suffix));
         }
 
+        // add `notBroadcastByFireblocks` to the URL query string
+        if (getNotBroadcastByFireblocks() != null) {
+            joiner.add(
+                    String.format(
+                            "%snotBroadcastByFireblocks%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getNotBroadcastByFireblocks()))));
+        }
+
+        // add `dappUrl` to the URL query string
+        if (getDappUrl() != null) {
+            joiner.add(
+                    String.format(
+                            "%sdappUrl%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getDappUrl()))));
+        }
+
+        // add `gasLimit` to the URL query string
+        if (getGasLimit() != null) {
+            joiner.add(
+                    String.format(
+                            "%sgasLimit%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getGasLimit()))));
+        }
+
+        // add `blockchainIndex` to the URL query string
+        if (getBlockchainIndex() != null) {
+            joiner.add(
+                    String.format(
+                            "%sblockchainIndex%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockchainIndex()))));
+        }
+
+        // add `paidRent` to the URL query string
+        if (getPaidRent() != null) {
+            joiner.add(
+                    String.format(
+                            "%spaidRent%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getPaidRent()))));
+        }
+
         // add `extraParameters` to the URL query string
         if (getExtraParameters() != null) {
             joiner.add(
@@ -2126,6 +2496,11 @@ public class TransactionResponse {
         // add `rewardInfo` to the URL query string
         if (getRewardInfo() != null) {
             joiner.add(getRewardInfo().toUrlQueryString(prefix + "rewardInfo" + suffix));
+        }
+
+        // add `feePayerInfo` to the URL query string
+        if (getFeePayerInfo() != null) {
+            joiner.add(getFeePayerInfo().toUrlQueryString(prefix + "feePayerInfo" + suffix));
         }
 
         // add `systemMessages` to the URL query string
@@ -2221,6 +2596,36 @@ public class TransactionResponse {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getErrorDescription()))));
+        }
+
+        // add `replacedTxHash` to the URL query string
+        if (getReplacedTxHash() != null) {
+            joiner.add(
+                    String.format(
+                            "%sreplacedTxHash%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getReplacedTxHash()))));
+        }
+
+        // add `nonce` to the URL query string
+        if (getNonce() != null) {
+            joiner.add(
+                    String.format(
+                            "%snonce%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getNonce()))));
+        }
+
+        // add `blockchainInfo` to the URL query string
+        if (getBlockchainInfo() != null) {
+            joiner.add(
+                    String.format(
+                            "%sblockchainInfo%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockchainInfo()))));
         }
 
         return joiner.toString();

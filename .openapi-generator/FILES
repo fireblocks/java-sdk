@@ -304,8 +304,6 @@ docs/EstimatedNetworkFeeResponse.md
 docs/EstimatedTransactionFeeResponse.md
 docs/ExchangeAccount.md
 docs/ExchangeAccountsApi.md
-docs/ExchangeAccountsPaged.md
-docs/ExchangeAccountsPagedPaging.md
 docs/ExchangeAsset.md
 docs/ExchangeSettlementTransactionsResponse.md
 docs/ExchangeTradingAccount.md
@@ -333,6 +331,7 @@ docs/FeeBreakdownOneOf.md
 docs/FeeBreakdownOneOf1.md
 docs/FeeInfo.md
 docs/FeeLevel.md
+docs/FeePayerInfo.md
 docs/FetchAbiRequestDto.md
 docs/FiatAccount.md
 docs/FiatAccountType.md
@@ -365,6 +364,8 @@ docs/GetNFTsResponse.md
 docs/GetOrdersResponse.md
 docs/GetOtaStatusResponse.md
 docs/GetOwnershipTokensResponse.md
+docs/GetPagedExchangeAccountsResponse.md
+docs/GetPagedExchangeAccountsResponsePaging.md
 docs/GetSigningKeyResponseDto.md
 docs/GetTransactionOperation.md
 docs/GetValidationKeyResponseDto.md
@@ -1170,8 +1171,6 @@ src/main/java/com/fireblocks/sdk/model/EstimatedFeeDetails.java
 src/main/java/com/fireblocks/sdk/model/EstimatedNetworkFeeResponse.java
 src/main/java/com/fireblocks/sdk/model/EstimatedTransactionFeeResponse.java
 src/main/java/com/fireblocks/sdk/model/ExchangeAccount.java
-src/main/java/com/fireblocks/sdk/model/ExchangeAccountsPaged.java
-src/main/java/com/fireblocks/sdk/model/ExchangeAccountsPagedPaging.java
 src/main/java/com/fireblocks/sdk/model/ExchangeAsset.java
 src/main/java/com/fireblocks/sdk/model/ExchangeSettlementTransactionsResponse.java
 src/main/java/com/fireblocks/sdk/model/ExchangeTradingAccount.java
@@ -1198,6 +1197,7 @@ src/main/java/com/fireblocks/sdk/model/FeeBreakdownOneOf.java
 src/main/java/com/fireblocks/sdk/model/FeeBreakdownOneOf1.java
 src/main/java/com/fireblocks/sdk/model/FeeInfo.java
 src/main/java/com/fireblocks/sdk/model/FeeLevel.java
+src/main/java/com/fireblocks/sdk/model/FeePayerInfo.java
 src/main/java/com/fireblocks/sdk/model/FetchAbiRequestDto.java
 src/main/java/com/fireblocks/sdk/model/FiatAccount.java
 src/main/java/com/fireblocks/sdk/model/FiatAccountType.java
@@ -1228,6 +1228,8 @@ src/main/java/com/fireblocks/sdk/model/GetNFTsResponse.java
 src/main/java/com/fireblocks/sdk/model/GetOrdersResponse.java
 src/main/java/com/fireblocks/sdk/model/GetOtaStatusResponse.java
 src/main/java/com/fireblocks/sdk/model/GetOwnershipTokensResponse.java
+src/main/java/com/fireblocks/sdk/model/GetPagedExchangeAccountsResponse.java
+src/main/java/com/fireblocks/sdk/model/GetPagedExchangeAccountsResponsePaging.java
 src/main/java/com/fireblocks/sdk/model/GetSigningKeyResponseDto.java
 src/main/java/com/fireblocks/sdk/model/GetTransactionOperation.java
 src/main/java/com/fireblocks/sdk/model/GetValidationKeyResponseDto.java
@@ -1984,8 +1986,6 @@ src/test/java/com/fireblocks/sdk/model/EstimatedFeeDetailsTest.java
 src/test/java/com/fireblocks/sdk/model/EstimatedNetworkFeeResponseTest.java
 src/test/java/com/fireblocks/sdk/model/EstimatedTransactionFeeResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ExchangeAccountTest.java
-src/test/java/com/fireblocks/sdk/model/ExchangeAccountsPagedPagingTest.java
-src/test/java/com/fireblocks/sdk/model/ExchangeAccountsPagedTest.java
 src/test/java/com/fireblocks/sdk/model/ExchangeAssetTest.java
 src/test/java/com/fireblocks/sdk/model/ExchangeSettlementTransactionsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ExchangeTradingAccountTest.java
@@ -2011,6 +2011,7 @@ src/test/java/com/fireblocks/sdk/model/FeeBreakdownOneOfTest.java
 src/test/java/com/fireblocks/sdk/model/FeeBreakdownTest.java
 src/test/java/com/fireblocks/sdk/model/FeeInfoTest.java
 src/test/java/com/fireblocks/sdk/model/FeeLevelTest.java
+src/test/java/com/fireblocks/sdk/model/FeePayerInfoTest.java
 src/test/java/com/fireblocks/sdk/model/FeeTest.java
 src/test/java/com/fireblocks/sdk/model/FetchAbiRequestDtoTest.java
 src/test/java/com/fireblocks/sdk/model/FiatAccountTest.java
@@ -2042,6 +2043,8 @@ src/test/java/com/fireblocks/sdk/model/GetNFTsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetOrdersResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetOtaStatusResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetOwnershipTokensResponseTest.java
+src/test/java/com/fireblocks/sdk/model/GetPagedExchangeAccountsResponsePagingTest.java
+src/test/java/com/fireblocks/sdk/model/GetPagedExchangeAccountsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetSigningKeyResponseDtoTest.java
 src/test/java/com/fireblocks/sdk/model/GetTransactionOperationTest.java
 src/test/java/com/fireblocks/sdk/model/GetValidationKeyResponseDtoTest.java

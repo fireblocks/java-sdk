@@ -16,9 +16,7 @@
 |**isDropped** | **Boolean** |  |  [optional] |
 |**type** | **String** |  |  [optional] |
 |**destinationAddress** | **String** |  |  [optional] |
-|**sourceAddress** | **String** |  |  [optional] |
 |**amountUSD** | **String** |  |  [optional] |
-|**index** | **BigDecimal** |  |  [optional] |
 |**rewardInfo** | [**RewardInfo**](RewardInfo.md) |  |  [optional] |
 
 

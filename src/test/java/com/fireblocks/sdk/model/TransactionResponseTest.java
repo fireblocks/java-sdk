@@ -73,6 +73,12 @@ class TransactionResponseTest {
         // TODO: test assetId
     }
 
+    /** Test the property 'assetType' */
+    @Test
+    void assetTypeTest() {
+        // TODO: test assetType
+    }
+
     /** Test the property 'source' */
     @Test
     void sourceTest() {
@@ -217,6 +223,36 @@ class TransactionResponseTest {
         // TODO: test complianceResults
     }
 
+    /** Test the property 'notBroadcastByFireblocks' */
+    @Test
+    void notBroadcastByFireblocksTest() {
+        // TODO: test notBroadcastByFireblocks
+    }
+
+    /** Test the property 'dappUrl' */
+    @Test
+    void dappUrlTest() {
+        // TODO: test dappUrl
+    }
+
+    /** Test the property 'gasLimit' */
+    @Test
+    void gasLimitTest() {
+        // TODO: test gasLimit
+    }
+
+    /** Test the property 'blockchainIndex' */
+    @Test
+    void blockchainIndexTest() {
+        // TODO: test blockchainIndex
+    }
+
+    /** Test the property 'paidRent' */
+    @Test
+    void paidRentTest() {
+        // TODO: test paidRent
+    }
+
     /** Test the property 'extraParameters' */
     @Test
     void extraParametersTest() {
@@ -251,6 +287,12 @@ class TransactionResponseTest {
     @Test
     void rewardInfoTest() {
         // TODO: test rewardInfo
+    }
+
+    /** Test the property 'feePayerInfo' */
+    @Test
+    void feePayerInfoTest() {
+        // TODO: test feePayerInfo
     }
 
     /** Test the property 'systemMessages' */
@@ -311,5 +353,23 @@ class TransactionResponseTest {
     @Test
     void errorDescriptionTest() {
         // TODO: test errorDescription
+    }
+
+    /** Test the property 'replacedTxHash' */
+    @Test
+    void replacedTxHashTest() {
+        // TODO: test replacedTxHash
+    }
+
+    /** Test the property 'nonce' */
+    @Test
+    void nonceTest() {
+        // TODO: test nonce
+    }
+
+    /** Test the property 'blockchainInfo' */
+    @Test
+    void blockchainInfoTest() {
+        // TODO: test blockchainInfo
     }
 }

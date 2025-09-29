@@ -435,7 +435,7 @@ No authorization required
 
 ## getPagedExchangeAccounts
 
-> CompletableFuture<ApiResponse<List<ExchangeAccountsPaged>>> getPagedExchangeAccounts getPagedExchangeAccounts(limit, before, after)
+> CompletableFuture<ApiResponse<GetPagedExchangeAccountsResponse>> getPagedExchangeAccounts getPagedExchangeAccounts(limit, before, after)
 
 Pagination list exchange accounts
 
@@ -468,7 +468,7 @@ public class Example {
         String before = "before_example"; // String | 
         String after = "after_example"; // String | 
         try {
-            CompletableFuture<ApiResponse<List<ExchangeAccountsPaged>>> response = fireblocks.exchangeAccounts().getPagedExchangeAccounts(limit, before, after);
+            CompletableFuture<ApiResponse<GetPagedExchangeAccountsResponse>> response = fireblocks.exchangeAccounts().getPagedExchangeAccounts(limit, before, after);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -501,7 +501,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**List&lt;ExchangeAccountsPaged&gt;**](ExchangeAccountsPaged.md)>>
+CompletableFuture<ApiResponse<[**GetPagedExchangeAccountsResponse**](GetPagedExchangeAccountsResponse.md)>>
 
 
 ### Authorization

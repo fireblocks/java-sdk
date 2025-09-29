@@ -15,20 +15,20 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for ExchangeAccountsPaged */
-class ExchangeAccountsPagedTest {
-    private final ExchangeAccountsPaged model = new ExchangeAccountsPaged();
+/** Model tests for GetPagedExchangeAccountsResponse */
+class GetPagedExchangeAccountsResponseTest {
+    private final GetPagedExchangeAccountsResponse model = new GetPagedExchangeAccountsResponse();
 
-    /** Model tests for ExchangeAccountsPaged */
+    /** Model tests for GetPagedExchangeAccountsResponse */
     @Test
-    void testExchangeAccountsPaged() {
-        // TODO: test ExchangeAccountsPaged
+    void testGetPagedExchangeAccountsResponse() {
+        // TODO: test GetPagedExchangeAccountsResponse
     }
 
-    /** Test the property 'exchangeAccount' */
+    /** Test the property 'exchanges' */
     @Test
-    void exchangeAccountTest() {
-        // TODO: test exchangeAccount
+    void exchangesTest() {
+        // TODO: test exchanges
     }
 
     /** Test the property 'paging' */

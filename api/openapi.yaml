@@ -4160,9 +4160,9 @@ paths:
             \ = fireblocks.exchangeAccounts.getPagedExchangeAccounts(exchangeAccountsApiGetPagedExchangeAccountsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<List<ExchangeAccountsPaged>>> response\
-            \ = fireblocks.exchangeAccounts().getPagedExchangeAccounts(limit, before,\
-            \ after);"
+          code: "CompletableFuture<ApiResponse<GetPagedExchangeAccountsResponse>>\
+            \ response = fireblocks.exchangeAccounts().getPagedExchangeAccounts(limit,\
+            \ before, after);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.exchange_accounts.get_paged_exchange_accounts(limit,\
@@ -4173,9 +4173,9 @@ paths:
         source: "const response: Promise<FireblocksResponse<GetPagedExchangeAccountsResponse>>\
           \ = fireblocks.exchangeAccounts.getPagedExchangeAccounts(exchangeAccountsApiGetPagedExchangeAccountsRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<List<ExchangeAccountsPaged>>> response\
-          \ = fireblocks.exchangeAccounts().getPagedExchangeAccounts(limit, before,\
-          \ after);"
+        source: "CompletableFuture<ApiResponse<GetPagedExchangeAccountsResponse>>\
+          \ response = fireblocks.exchangeAccounts().getPagedExchangeAccounts(limit,\
+          \ before, after);"
       - lang: Python
         source: "response = fireblocks.exchange_accounts.get_paged_exchange_accounts(limit,\
           \ before, after);"
@@ -21690,6 +21690,33 @@ paths:
           minimum: 1
           type: number
         style: form
+      - description: Sort by field
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          default: createdAt
+          enum:
+          - createdAt
+          - updatedAt
+          - submittedAt
+          example: createdAt
+          type: string
+        style: form
+      - description: ASC / DESC ordering (default DESC)
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          example: DESC
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -21717,12 +21744,12 @@ paths:
           code: "CompletableFuture<ApiResponse<SmartTransferTicketFilteredResponse>>\
             \ response = fireblocks.smartTransfer().searchTickets(q, statuses, networkId,\
             \ createdByMe, expiresAfter, expiresBefore, type, externalRefId, after,\
-            \ limit);"
+            \ limit, sortBy, order);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.smart_transfer.search_tickets(q, statuses,\
             \ network_id, created_by_me, expires_after, expires_before, type, external_ref_id,\
-            \ after, limit);"
+            \ after, limit, sort_by, order);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -21732,11 +21759,11 @@ paths:
         source: "CompletableFuture<ApiResponse<SmartTransferTicketFilteredResponse>>\
           \ response = fireblocks.smartTransfer().searchTickets(q, statuses, networkId,\
           \ createdByMe, expiresAfter, expiresBefore, type, externalRefId, after,\
-          \ limit);"
+          \ limit, sortBy, order);"
       - lang: Python
         source: "response = fireblocks.smart_transfer.search_tickets(q, statuses,\
           \ network_id, created_by_me, expires_after, expires_before, type, external_ref_id,\
-          \ after, limit);"
+          \ after, limit, sort_by, order);"
       x-accepts:
       - application/json
     post:
@@ -26428,10 +26455,10 @@ components:
         exchangeType:
           $ref: "#/components/schemas/ExchangeType"
       type: object
-    ExchangeAccountsPaged:
+    GetPagedExchangeAccountsResponse:
       example:
         prevUrl: prevUrl
-        ExchangeAccount:
+        exchanges:
         - tradingAccounts:
           - assets:
             - providerSymbol: BTC
@@ -26587,21 +26614,19 @@ components:
           after: after
         nextUrl: nextUrl
       properties:
-        ExchangeAccount:
+        exchanges:
           items:
             $ref: "#/components/schemas/ExchangeAccount"
           type: array
         paging:
-          $ref: "#/components/schemas/ExchangeAccountsPaged_paging"
+          $ref: "#/components/schemas/GetPagedExchangeAccountsResponse_paging"
         prevUrl:
           type: string
         nextUrl:
           type: string
+      required:
+      - exchanges
       type: object
-    GetPagedExchangeAccountsResponse:
-      items:
-        $ref: "#/components/schemas/ExchangeAccountsPaged"
-      type: array
     TradingAccountType:
       enum:
       - COIN_FUTURES
@@ -28072,8 +28097,8 @@ components:
     ExternalWalletAsset:
       example:
         address: address
-        lockedAmount: lockedAmount
-        balance: balance
+        lockedAmount: 6.027456183070403
+        balance: 0.8008281904610115
         additionalInfo:
         - accountHolderCity: accountHolderCity
           ibanCity: ibanCity
@@ -28119,9 +28144,9 @@ components:
         address:
           type: string
         balance:
-          type: string
+          type: number
         lockedAmount:
-          type: string
+          type: number
         tag:
           type: string
         activationTime:
@@ -29741,6 +29766,7 @@ components:
       - END_USER_WALLET
       - PROGRAM_CALL
       - MULTI_DESTINATION
+      - OEC_PARTNER
       type: string
     SourceTransferPeerPathResponse:
       description: Source of the transaction.
@@ -29899,7 +29925,6 @@ components:
             users:
               key: PENDING_AUTHORIZATION
           logic: AND
-        destinationAddress: ""
         amlScreeningResult:
           provider: provider
           payload: "{}"
@@ -29910,12 +29935,7 @@ components:
           subType: subType
           id: id
           type: null
-        destinationAddressDescription: ""
       properties:
-        destinationAddress:
-          description: Address where the asset was transferred.
-        destinationAddressDescription:
-          description: Description of the address.
         amount:
           description: The amount to be sent to this destination.
           type: string
@@ -29959,7 +29979,9 @@ components:
         relayType: LOCAL
         relayId: "1"
         networkFee: networkFee
+        L2networkFee: "0.0005"
         relayName: Tenant Name
+        L1networkFee: "0.003955"
         feeUSD: "0.0013"
         gasPrice: gasPrice
         paidByRelay: true
@@ -29972,6 +29994,14 @@ components:
             amount (serviceFee = amount - netAmount)
           type: string
         gasPrice:
+          type: string
+        L1networkFee:
+          description: Layer 1 network fee for Layer 2 blockchain transactions
+          example: "0.003955"
+          type: string
+        L2networkFee:
+          description: Layer 2 network fee (gas price component for Layer 2 transactions)
+          example: "0.0005"
           type: string
         paidByRelay:
           description: Wether the fee was paid by the relay or not
@@ -30015,9 +30045,12 @@ components:
       example:
         amountUSD: amountUSD
         destinationAddress: destinationAddress
-        sourceAddress: sourceAddress
         netAmount: netAmount
+        rewardInfo:
+          destRewards: destRewards
+          srcRewards: srcRewards
         networkFee: networkFee
+        assetId: assetId
         destination:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           tradingAccount: tradingAccount
@@ -30025,7 +30058,6 @@ components:
           subType: subType
           id: id
           type: null
-        index: 6.027456183070403
         source:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           tradingAccount: tradingAccount
@@ -30034,12 +30066,8 @@ components:
           id: id
           type: VAULT_ACCOUNT
         type: type
-        isDropped: true
-        rewardInfo:
-          destRewards: destRewards
-          srcRewards: srcRewards
-        assetId: assetId
         txHash: txHash
+        isDropped: true
       properties:
         source:
           $ref: "#/components/schemas/SourceTransferPeerPathResponse"
@@ -30061,24 +30089,27 @@ components:
           type: string
         destinationAddress:
           type: string
-        sourceAddress:
-          type: string
         amountUSD:
           type: string
-        index:
-          type: number
         rewardInfo:
           $ref: "#/components/schemas/RewardInfo"
       type: object
     ComplianceScreeningResult:
       example:
-        provider: provider
+        provider: CHAINALYSIS
         payload: "{}"
-        bypassReason: bypassReason
+        bypassReason: MANUAL
         screeningStatus: COMPLETED
-        timestamp: 5.637376656633329
+        timestamp: 5.962133916683182
       properties:
         provider:
+          description: Screening provider
+          enum:
+          - CHAINALYSIS
+          - ELLIPTIC
+          - CHAINALYSIS_V2
+          - ELLIPTIC_HOLISTIC
+          - NONE
           type: string
         payload:
           description: |
@@ -30087,6 +30118,18 @@ components:
             The payload is different for each screening provider.
           type: object
         bypassReason:
+          description: Reason AML screening was bypassed
+          enum:
+          - MANUAL
+          - UNSUPPORTED_ASSET
+          - BYPASSED_FAILURE
+          - UNSUPPORTED_ROUTE
+          - PASSED_BY_POLICY
+          - TIMED_OUT
+          - BAD_CREDENTIALS
+          - CONFIGURATION_ERROR
+          - DROPPED_BY_BLOCKCHAIN
+          - PROCESS_DISMISSED
           type: string
         screeningStatus:
           enum:
@@ -30131,7 +30174,7 @@ components:
       example:
         provider: provider
         success: true
-        timestamp: 2.3021358869347655
+        timestamp: 5.637376656633329
       properties:
         provider:
           type: string
@@ -30144,32 +30187,32 @@ components:
       description: The result of the Compliance AML/Travel Rule screening.
       example:
         aml:
-          provider: provider
+          provider: CHAINALYSIS
           payload: "{}"
-          bypassReason: bypassReason
+          bypassReason: MANUAL
           screeningStatus: COMPLETED
-          timestamp: 5.637376656633329
+          timestamp: 5.962133916683182
         amlRegistration:
           provider: provider
           success: true
-          timestamp: 2.3021358869347655
+          timestamp: 5.637376656633329
         amlList:
-        - provider: provider
+        - provider: CHAINALYSIS
           payload: "{}"
-          bypassReason: bypassReason
+          bypassReason: MANUAL
           screeningStatus: COMPLETED
-          timestamp: 5.637376656633329
-        - provider: provider
+          timestamp: 5.962133916683182
+        - provider: CHAINALYSIS
           payload: "{}"
-          bypassReason: bypassReason
+          bypassReason: MANUAL
           screeningStatus: COMPLETED
-          timestamp: 5.637376656633329
+          timestamp: 5.962133916683182
         tr:
-          provider: provider
+          provider: CHAINALYSIS
           payload: "{}"
-          bypassReason: bypassReason
+          bypassReason: MANUAL
           screeningStatus: COMPLETED
-          timestamp: 5.637376656633329
+          timestamp: 5.962133916683182
         status: Started
       properties:
         aml:
@@ -30202,13 +30245,13 @@ components:
       description: A list of signed messages returned for raw signing.
       example:
         derivationPath:
-        - 7.061401241503109
-        - 7.061401241503109
+        - 2.3021358869347655
+        - 2.3021358869347655
         signature:
           r: r
           s: s
           fullSig: fullSig
-          v: 9.301444243932576
+          v: 7.061401241503109
         publicKey: publicKey
         content: content
         algorithm: MPC_ECDSA_SECP256K1
@@ -30247,6 +30290,15 @@ components:
           nullable: true
           type: string
       type: object
+    FeePayerInfo:
+      example:
+        feePayerAccountId: "123"
+      properties:
+        feePayerAccountId:
+          description: The account ID of the fee payer
+          example: "123"
+          type: string
+      type: object
     SystemMessageInfo:
       example:
         type: WARN
@@ -30267,7 +30319,6 @@ components:
       type: object
     TransactionResponse:
       example:
-        note: note
         authorizationInfo:
           allowOperatorAsAuthorizer: true
           groups:
@@ -30278,29 +30329,14 @@ components:
             users:
               key: PENDING_AUTHORIZATION
           logic: AND
-        amountUSD: 1.0246457001441578
+        amountUSD: 1.2315135367772556
         destinationAddress: destinationAddress
-        contractCallDecodedData:
-          functionCalls:
-          - "{}"
-          - "{}"
-          contractName: contractName
-        errorDescription: errorDescription
         signedBy:
         - signedBy
         - signedBy
-        destinationTag: destinationTag
-        networkFee: 7.457744773683766
-        fee: 6.84685269835264
-        destination:
-          walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          tradingAccount: tradingAccount
-          name: name
-          subType: subType
-          id: id
-          type: null
+        networkFee: 6.84685269835264
+        fee: 1.4894159098541704
         feeCurrency: feeCurrency
-        extraParameters: "{}"
         source:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           tradingAccount: tradingAccount
@@ -30308,84 +30344,29 @@ components:
           subType: subType
           id: id
           type: VAULT_ACCOUNT
-        externalTxId: externalTxId
-        networkRecords:
-        - amountUSD: amountUSD
-          destinationAddress: destinationAddress
-          sourceAddress: sourceAddress
-          netAmount: netAmount
-          networkFee: networkFee
-          destination:
-            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tradingAccount: tradingAccount
-            name: name
-            subType: subType
-            id: id
-            type: null
-          index: 6.027456183070403
-          source:
-            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tradingAccount: tradingAccount
-            name: name
-            subType: subType
-            id: id
-            type: VAULT_ACCOUNT
-          type: type
-          isDropped: true
-          rewardInfo:
-            destRewards: destRewards
-            srcRewards: srcRewards
-          assetId: assetId
-          txHash: txHash
-        - amountUSD: amountUSD
-          destinationAddress: destinationAddress
-          sourceAddress: sourceAddress
-          netAmount: netAmount
-          networkFee: networkFee
-          destination:
-            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tradingAccount: tradingAccount
-            name: name
-            subType: subType
-            id: id
-            type: null
-          index: 6.027456183070403
-          source:
-            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tradingAccount: tradingAccount
-            name: name
-            subType: subType
-            id: id
-            type: VAULT_ACCOUNT
-          type: type
-          isDropped: true
-          rewardInfo:
-            destRewards: destRewards
-            srcRewards: srcRewards
-          assetId: assetId
-          txHash: txHash
-        createdAt: 1.4658129805029452
-        lastUpdated: 5.962133916683182
+        createdAt: 6.027456183070403
+        lastUpdated: 1.4658129805029452
+        gasLimit: "21000"
         feeInfo:
           serviceFee: serviceFee
           relayType: LOCAL
           relayId: "1"
           networkFee: networkFee
+          L2networkFee: "0.0005"
           relayName: Tenant Name
+          L1networkFee: "0.003955"
           feeUSD: "0.0013"
           gasPrice: gasPrice
           paidByRelay: true
-        assetId: assetId
         id: id
         tag: tag
         txHash: txHash
+        notBroadcastByFireblocks: false
         blockInfo:
           blockHash: blockHash
           blockHeight: blockHeight
-        serviceFee: 1.4894159098541704
-        amount: 7.386281948385884
-        sourceAddress: sourceAddress
-        netAmount: 1.2315135367772556
+        serviceFee: 1.0246457001441578
+        dappUrl: https://app.uniswap.org
         addressType: ""
         destinations:
         - amount: amount
@@ -30400,7 +30381,6 @@ components:
               users:
                 key: PENDING_AUTHORIZATION
             logic: AND
-          destinationAddress: ""
           amlScreeningResult:
             provider: provider
             payload: "{}"
@@ -30411,7 +30391,6 @@ components:
             subType: subType
             id: id
             type: null
-          destinationAddressDescription: ""
         - amount: amount
           amountUSD: amountUSD
           authorizationInfo:
@@ -30424,7 +30403,6 @@ components:
               users:
                 key: PENDING_AUTHORIZATION
             logic: AND
-          destinationAddress: ""
           amlScreeningResult:
             provider: provider
             payload: "{}"
@@ -30435,74 +30413,43 @@ components:
             subType: subType
             id: id
             type: null
-          destinationAddressDescription: ""
         signedMessages:
         - derivationPath:
-          - 7.061401241503109
-          - 7.061401241503109
+          - 2.3021358869347655
+          - 2.3021358869347655
           signature:
             r: r
             s: s
             fullSig: fullSig
-            v: 9.301444243932576
+            v: 7.061401241503109
           publicKey: publicKey
           content: content
           algorithm: MPC_ECDSA_SECP256K1
         - derivationPath:
-          - 7.061401241503109
-          - 7.061401241503109
+          - 2.3021358869347655
+          - 2.3021358869347655
           signature:
             r: r
             s: s
             fullSig: fullSig
-            v: 9.301444243932576
+            v: 7.061401241503109
           publicKey: publicKey
           content: content
           algorithm: MPC_ECDSA_SECP256K1
-        index: 2.027123023002322
+        index: 3.616076749251911
         amountInfo:
           amount: amount
           amountUSD: amountUSD
           netAmount: netAmount
           requestedAmount: requestedAmount
         customerRefId: customerRefId
+        nonce: "11228"
         subStatus: subStatus
+        assetType: ERC20
         treatAsGrossAmount: true
-        systemMessages:
-          type: WARN
-          message: Slow transaction processing. Outgoing transactions might be stuck.
+        paidRent: "0.00203928"
         rejectedBy: rejectedBy
-        numOfConfirmations: 3.616076749251911
-        complianceResults:
-          aml:
-            provider: provider
-            payload: "{}"
-            bypassReason: bypassReason
-            screeningStatus: COMPLETED
-            timestamp: 5.637376656633329
-          amlRegistration:
-            provider: provider
-            success: true
-            timestamp: 2.3021358869347655
-          amlList:
-          - provider: provider
-            payload: "{}"
-            bypassReason: bypassReason
-            screeningStatus: COMPLETED
-            timestamp: 5.637376656633329
-          - provider: provider
-            payload: "{}"
-            bypassReason: bypassReason
-            screeningStatus: COMPLETED
-            timestamp: 5.637376656633329
-          tr:
-            provider: provider
-            payload: "{}"
-            bypassReason: bypassReason
-            screeningStatus: COMPLETED
-            timestamp: 5.637376656633329
-          status: Started
-        createdBy: createdBy
+        numOfConfirmations: 9.301444243932576
         exchangeTxId: exchangeTxId
         rewardInfo:
           destRewards: destRewards
@@ -30510,10 +30457,121 @@ components:
         amlScreeningResult:
           provider: provider
           payload: "{}"
-        destinationAddressDescription: destinationAddressDescription
-        requestedAmount: 4.145608029883936
-        operation: TRANSFER
+        requestedAmount: 2.027123023002322
         status: status
+        note: note
+        blockchainInfo:
+          evmTransferType: NATIVE
+        contractCallDecodedData:
+          functionCalls:
+          - "{}"
+          - "{}"
+          contractName: contractName
+        errorDescription: errorDescription
+        destinationTag: destinationTag
+        destination:
+          walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tradingAccount: tradingAccount
+          name: name
+          subType: subType
+          id: id
+          type: null
+        extraParameters: "{}"
+        replacedTxHash: replacedTxHash
+        externalTxId: externalTxId
+        networkRecords:
+        - amountUSD: amountUSD
+          destinationAddress: destinationAddress
+          netAmount: netAmount
+          rewardInfo:
+            destRewards: destRewards
+            srcRewards: srcRewards
+          networkFee: networkFee
+          assetId: assetId
+          destination:
+            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tradingAccount: tradingAccount
+            name: name
+            subType: subType
+            id: id
+            type: null
+          source:
+            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tradingAccount: tradingAccount
+            name: name
+            subType: subType
+            id: id
+            type: VAULT_ACCOUNT
+          type: type
+          txHash: txHash
+          isDropped: true
+        - amountUSD: amountUSD
+          destinationAddress: destinationAddress
+          netAmount: netAmount
+          rewardInfo:
+            destRewards: destRewards
+            srcRewards: srcRewards
+          networkFee: networkFee
+          assetId: assetId
+          destination:
+            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tradingAccount: tradingAccount
+            name: name
+            subType: subType
+            id: id
+            type: null
+          source:
+            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tradingAccount: tradingAccount
+            name: name
+            subType: subType
+            id: id
+            type: VAULT_ACCOUNT
+          type: type
+          txHash: txHash
+          isDropped: true
+        blockchainIndex: 1.1.1
+        assetId: assetId
+        amount: 4.145608029883936
+        sourceAddress: sourceAddress
+        netAmount: 7.386281948385884
+        systemMessages:
+          type: WARN
+          message: Slow transaction processing. Outgoing transactions might be stuck.
+        complianceResults:
+          aml:
+            provider: CHAINALYSIS
+            payload: "{}"
+            bypassReason: MANUAL
+            screeningStatus: COMPLETED
+            timestamp: 5.962133916683182
+          amlRegistration:
+            provider: provider
+            success: true
+            timestamp: 5.637376656633329
+          amlList:
+          - provider: CHAINALYSIS
+            payload: "{}"
+            bypassReason: MANUAL
+            screeningStatus: COMPLETED
+            timestamp: 5.962133916683182
+          - provider: CHAINALYSIS
+            payload: "{}"
+            bypassReason: MANUAL
+            screeningStatus: COMPLETED
+            timestamp: 5.962133916683182
+          tr:
+            provider: CHAINALYSIS
+            payload: "{}"
+            bypassReason: MANUAL
+            screeningStatus: COMPLETED
+            timestamp: 5.962133916683182
+          status: Started
+        createdBy: createdBy
+        feePayerInfo:
+          feePayerAccountId: "123"
+        destinationAddressDescription: destinationAddressDescription
+        operation: TRANSFER
       properties:
         id:
           description: ID of the transaction.
@@ -30561,6 +30619,10 @@ components:
             \ list of supported assets and their IDs on Fireblocks.](https://developers.fireblocks.com/reference/get_supported-assets)"
           type: string
           x-fb-entity: asset
+        assetType:
+          description: Type classification of the asset
+          example: ERC20
+          type: string
         source:
           $ref: "#/components/schemas/SourceTransferPeerPathResponse"
         sourceAddress:
@@ -30651,6 +30713,26 @@ components:
           $ref: "#/components/schemas/AmlScreeningResult"
         complianceResults:
           $ref: "#/components/schemas/ComplianceResults"
+        notBroadcastByFireblocks:
+          description: Indicates the transaction was not broadcast by Fireblocks
+          example: false
+          type: boolean
+        dappUrl:
+          description: DApp URL for Web3 transactions
+          example: https://app.uniswap.org
+          type: string
+        gasLimit:
+          description: Gas limit for EVM-based blockchain transactions
+          example: "21000"
+          type: string
+        blockchainIndex:
+          description: Blockchain-specific index or identifier for the transaction
+          example: 1.1.1
+          type: string
+        paidRent:
+          description: Solana rent payment amount
+          example: "0.00203928"
+          type: string
         extraParameters:
           description: |
             Additional protocol / operation specific key-value parameters:
@@ -30681,6 +30763,8 @@ components:
           type: number
         rewardInfo:
           $ref: "#/components/schemas/RewardInfo"
+        feePayerInfo:
+          $ref: "#/components/schemas/FeePayerInfo"
         systemMessages:
           $ref: "#/components/schemas/SystemMessageInfo"
         addressType:
@@ -30730,6 +30814,19 @@ components:
           description: The transaction's revert reason. This field will be returned
             when  `subStatus` =  'SMART_CONTRACT_EXECUTION_FAILED'.
           type: string
+        replacedTxHash:
+          description: "if the transaction is a replace by fee (RBF) transaction,\
+            \ this is the hash of the transsaction that was replaced"
+          type: string
+        nonce:
+          description: blockchain nonce for the transaction
+          example: "11228"
+          type: string
+        blockchainInfo:
+          description: A JSON used to store additional data that is blockchain-specific.
+          example:
+            evmTransferType: NATIVE
+          type: object
       type: object
     GetTransactionsResponse:
       items:
@@ -57417,7 +57514,7 @@ components:
       - backedUp
       - confirmed
       type: object
-    ExchangeAccountsPaged_paging:
+    GetPagedExchangeAccountsResponse_paging:
       example:
         before: before
         after: after
@@ -57488,7 +57585,7 @@ components:
         r: r
         s: s
         fullSig: fullSig
-        v: 9.301444243932576
+        v: 7.061401241503109
       properties:
         fullSig:
           type: string

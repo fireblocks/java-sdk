@@ -21,12 +21,11 @@ import com.fireblocks.sdk.model.ConvertAssetsRequest;
 import com.fireblocks.sdk.model.ConvertAssetsResponse;
 import com.fireblocks.sdk.model.CreateInternalTransferRequest;
 import com.fireblocks.sdk.model.ExchangeAccount;
-import com.fireblocks.sdk.model.ExchangeAccountsPaged;
 import com.fireblocks.sdk.model.ExchangeAsset;
 import com.fireblocks.sdk.model.GetExchangeAccountsCredentialsPublicKeyResponse;
+import com.fireblocks.sdk.model.GetPagedExchangeAccountsResponse;
 import com.fireblocks.sdk.model.InternalTransferResponse;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -123,7 +122,7 @@ public class ExchangeAccountsApiTest {
         BigDecimal limit = null;
         String before = null;
         String after = null;
-        CompletableFuture<ApiResponse<List<ExchangeAccountsPaged>>> response =
+        CompletableFuture<ApiResponse<GetPagedExchangeAccountsResponse>> response =
                 api.getPagedExchangeAccounts(limit, before, after);
     }
 

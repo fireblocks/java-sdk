@@ -79,22 +79,10 @@ class NetworkRecordTest {
         // TODO: test destinationAddress
     }
 
-    /** Test the property 'sourceAddress' */
-    @Test
-    void sourceAddressTest() {
-        // TODO: test sourceAddress
-    }
-
     /** Test the property 'amountUSD' */
     @Test
     void amountUSDTest() {
         // TODO: test amountUSD
-    }
-
-    /** Test the property 'index' */
-    @Test
-    void indexTest() {
-        // TODO: test index
     }
 
     /** Test the property 'rewardInfo' */

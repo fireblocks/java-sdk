@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>12.1.1</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:12.1.1"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-12.1.1.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -743,8 +743,6 @@ Class | Method | HTTP request | Description
  - [EstimatedNetworkFeeResponse](docs/EstimatedNetworkFeeResponse.md)
  - [EstimatedTransactionFeeResponse](docs/EstimatedTransactionFeeResponse.md)
  - [ExchangeAccount](docs/ExchangeAccount.md)
- - [ExchangeAccountsPaged](docs/ExchangeAccountsPaged.md)
- - [ExchangeAccountsPagedPaging](docs/ExchangeAccountsPagedPaging.md)
  - [ExchangeAsset](docs/ExchangeAsset.md)
  - [ExchangeSettlementTransactionsResponse](docs/ExchangeSettlementTransactionsResponse.md)
  - [ExchangeTradingAccount](docs/ExchangeTradingAccount.md)
@@ -771,6 +769,7 @@ Class | Method | HTTP request | Description
  - [FeeBreakdownOneOf1](docs/FeeBreakdownOneOf1.md)
  - [FeeInfo](docs/FeeInfo.md)
  - [FeeLevel](docs/FeeLevel.md)
+ - [FeePayerInfo](docs/FeePayerInfo.md)
  - [FetchAbiRequestDto](docs/FetchAbiRequestDto.md)
  - [FiatAccount](docs/FiatAccount.md)
  - [FiatAccountType](docs/FiatAccountType.md)
@@ -801,6 +800,8 @@ Class | Method | HTTP request | Description
  - [GetOrdersResponse](docs/GetOrdersResponse.md)
  - [GetOtaStatusResponse](docs/GetOtaStatusResponse.md)
  - [GetOwnershipTokensResponse](docs/GetOwnershipTokensResponse.md)
+ - [GetPagedExchangeAccountsResponse](docs/GetPagedExchangeAccountsResponse.md)
+ - [GetPagedExchangeAccountsResponsePaging](docs/GetPagedExchangeAccountsResponsePaging.md)
  - [GetSigningKeyResponseDto](docs/GetSigningKeyResponseDto.md)
  - [GetTransactionOperation](docs/GetTransactionOperation.md)
  - [GetValidationKeyResponseDto](docs/GetValidationKeyResponseDto.md)

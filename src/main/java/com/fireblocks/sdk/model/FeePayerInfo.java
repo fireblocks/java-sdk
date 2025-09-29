@@ -20,70 +20,41 @@ import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** ExchangeAccountsPagedPaging */
-@JsonPropertyOrder({
-    ExchangeAccountsPagedPaging.JSON_PROPERTY_AFTER,
-    ExchangeAccountsPagedPaging.JSON_PROPERTY_BEFORE
-})
+/** FeePayerInfo */
+@JsonPropertyOrder({FeePayerInfo.JSON_PROPERTY_FEE_PAYER_ACCOUNT_ID})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class ExchangeAccountsPagedPaging {
-    public static final String JSON_PROPERTY_AFTER = "after";
-    @jakarta.annotation.Nullable private String after;
+public class FeePayerInfo {
+    public static final String JSON_PROPERTY_FEE_PAYER_ACCOUNT_ID = "feePayerAccountId";
+    @jakarta.annotation.Nullable private String feePayerAccountId;
 
-    public static final String JSON_PROPERTY_BEFORE = "before";
-    @jakarta.annotation.Nullable private String before;
+    public FeePayerInfo() {}
 
-    public ExchangeAccountsPagedPaging() {}
-
-    public ExchangeAccountsPagedPaging after(@jakarta.annotation.Nullable String after) {
-        this.after = after;
+    public FeePayerInfo feePayerAccountId(@jakarta.annotation.Nullable String feePayerAccountId) {
+        this.feePayerAccountId = feePayerAccountId;
         return this;
     }
 
     /**
-     * Query value to the after page
+     * The account ID of the fee payer
      *
-     * @return after
+     * @return feePayerAccountId
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AFTER)
+    @JsonProperty(JSON_PROPERTY_FEE_PAYER_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getAfter() {
-        return after;
+    public String getFeePayerAccountId() {
+        return feePayerAccountId;
     }
 
-    @JsonProperty(JSON_PROPERTY_AFTER)
+    @JsonProperty(JSON_PROPERTY_FEE_PAYER_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAfter(@jakarta.annotation.Nullable String after) {
-        this.after = after;
+    public void setFeePayerAccountId(@jakarta.annotation.Nullable String feePayerAccountId) {
+        this.feePayerAccountId = feePayerAccountId;
     }
 
-    public ExchangeAccountsPagedPaging before(@jakarta.annotation.Nullable String before) {
-        this.before = before;
-        return this;
-    }
-
-    /**
-     * Query value to the before page
-     *
-     * @return before
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_BEFORE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getBefore() {
-        return before;
-    }
-
-    @JsonProperty(JSON_PROPERTY_BEFORE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBefore(@jakarta.annotation.Nullable String before) {
-        this.before = before;
-    }
-
-    /** Return true if this ExchangeAccountsPaged_paging object is equal to o. */
+    /** Return true if this FeePayerInfo object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -92,22 +63,22 @@ public class ExchangeAccountsPagedPaging {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ExchangeAccountsPagedPaging exchangeAccountsPagedPaging = (ExchangeAccountsPagedPaging) o;
-        return Objects.equals(this.after, exchangeAccountsPagedPaging.after)
-                && Objects.equals(this.before, exchangeAccountsPagedPaging.before);
+        FeePayerInfo feePayerInfo = (FeePayerInfo) o;
+        return Objects.equals(this.feePayerAccountId, feePayerInfo.feePayerAccountId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(after, before);
+        return Objects.hash(feePayerAccountId);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class ExchangeAccountsPagedPaging {\n");
-        sb.append("    after: ").append(toIndentedString(after)).append("\n");
-        sb.append("    before: ").append(toIndentedString(before)).append("\n");
+        sb.append("class FeePayerInfo {\n");
+        sb.append("    feePayerAccountId: ")
+                .append(toIndentedString(feePayerAccountId))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -155,24 +126,14 @@ public class ExchangeAccountsPagedPaging {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `after` to the URL query string
-        if (getAfter() != null) {
+        // add `feePayerAccountId` to the URL query string
+        if (getFeePayerAccountId() != null) {
             joiner.add(
                     String.format(
-                            "%safter%s=%s",
+                            "%sfeePayerAccountId%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getAfter()))));
-        }
-
-        // add `before` to the URL query string
-        if (getBefore() != null) {
-            joiner.add(
-                    String.format(
-                            "%sbefore%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getBefore()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeePayerAccountId()))));
         }
 
         return joiner.toString();

@@ -22,8 +22,6 @@ import java.util.StringJoiner;
 
 /** TransactionResponseDestination */
 @JsonPropertyOrder({
-    TransactionResponseDestination.JSON_PROPERTY_DESTINATION_ADDRESS,
-    TransactionResponseDestination.JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION,
     TransactionResponseDestination.JSON_PROPERTY_AMOUNT,
     TransactionResponseDestination.JSON_PROPERTY_AMOUNT_U_S_D,
     TransactionResponseDestination.JSON_PROPERTY_AML_SCREENING_RESULT,
@@ -34,13 +32,6 @@ import java.util.StringJoiner;
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class TransactionResponseDestination {
-    public static final String JSON_PROPERTY_DESTINATION_ADDRESS = "destinationAddress";
-    @jakarta.annotation.Nullable private Object destinationAddress = null;
-
-    public static final String JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION =
-            "destinationAddressDescription";
-    @jakarta.annotation.Nullable private Object destinationAddressDescription = null;
-
     public static final String JSON_PROPERTY_AMOUNT = "amount";
     @jakarta.annotation.Nullable private String amount;
 
@@ -57,55 +48,6 @@ public class TransactionResponseDestination {
     @jakarta.annotation.Nullable private AuthorizationInfo authorizationInfo;
 
     public TransactionResponseDestination() {}
-
-    public TransactionResponseDestination destinationAddress(
-            @jakarta.annotation.Nullable Object destinationAddress) {
-        this.destinationAddress = destinationAddress;
-        return this;
-    }
-
-    /**
-     * Address where the asset was transferred.
-     *
-     * @return destinationAddress
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Object getDestinationAddress() {
-        return destinationAddress;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestinationAddress(@jakarta.annotation.Nullable Object destinationAddress) {
-        this.destinationAddress = destinationAddress;
-    }
-
-    public TransactionResponseDestination destinationAddressDescription(
-            @jakarta.annotation.Nullable Object destinationAddressDescription) {
-        this.destinationAddressDescription = destinationAddressDescription;
-        return this;
-    }
-
-    /**
-     * Description of the address.
-     *
-     * @return destinationAddressDescription
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Object getDestinationAddressDescription() {
-        return destinationAddressDescription;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestinationAddressDescription(
-            @jakarta.annotation.Nullable Object destinationAddressDescription) {
-        this.destinationAddressDescription = destinationAddressDescription;
-    }
 
     public TransactionResponseDestination amount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
@@ -239,12 +181,7 @@ public class TransactionResponseDestination {
         }
         TransactionResponseDestination transactionResponseDestination =
                 (TransactionResponseDestination) o;
-        return Objects.equals(
-                        this.destinationAddress, transactionResponseDestination.destinationAddress)
-                && Objects.equals(
-                        this.destinationAddressDescription,
-                        transactionResponseDestination.destinationAddressDescription)
-                && Objects.equals(this.amount, transactionResponseDestination.amount)
+        return Objects.equals(this.amount, transactionResponseDestination.amount)
                 && Objects.equals(this.amountUSD, transactionResponseDestination.amountUSD)
                 && Objects.equals(
                         this.amlScreeningResult, transactionResponseDestination.amlScreeningResult)
@@ -255,26 +192,13 @@ public class TransactionResponseDestination {
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                destinationAddress,
-                destinationAddressDescription,
-                amount,
-                amountUSD,
-                amlScreeningResult,
-                destination,
-                authorizationInfo);
+        return Objects.hash(amount, amountUSD, amlScreeningResult, destination, authorizationInfo);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TransactionResponseDestination {\n");
-        sb.append("    destinationAddress: ")
-                .append(toIndentedString(destinationAddress))
-                .append("\n");
-        sb.append("    destinationAddressDescription: ")
-                .append(toIndentedString(destinationAddressDescription))
-                .append("\n");
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
         sb.append("    amountUSD: ").append(toIndentedString(amountUSD)).append("\n");
         sb.append("    amlScreeningResult: ")
@@ -330,27 +254,6 @@ public class TransactionResponseDestination {
         }
 
         StringJoiner joiner = new StringJoiner("&");
-
-        // add `destinationAddress` to the URL query string
-        if (getDestinationAddress() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdestinationAddress%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getDestinationAddress()))));
-        }
-
-        // add `destinationAddressDescription` to the URL query string
-        if (getDestinationAddressDescription() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdestinationAddressDescription%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(
-                                    ApiClient.valueToString(getDestinationAddressDescription()))));
-        }
 
         // add `amount` to the URL query string
         if (getAmount() != null) {
