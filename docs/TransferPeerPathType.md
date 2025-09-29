@@ -33,5 +33,7 @@
 
 * `MULTI_DESTINATION` (value: `"MULTI_DESTINATION"`)
 
+* `OEC_PARTNER` (value: `"OEC_PARTNER"`)
+
 
 

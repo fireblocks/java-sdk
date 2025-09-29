@@ -1153,7 +1153,7 @@ No authorization required
 
 ## searchTickets
 
-> CompletableFuture<ApiResponse<SmartTransferTicketFilteredResponse>> searchTickets searchTickets(q, statuses, networkId, createdByMe, expiresAfter, expiresBefore, type, externalRefId, after, limit)
+> CompletableFuture<ApiResponse<SmartTransferTicketFilteredResponse>> searchTickets searchTickets(q, statuses, networkId, createdByMe, expiresAfter, expiresBefore, type, externalRefId, after, limit, sortBy, order)
 
 Find Ticket
 
@@ -1192,8 +1192,10 @@ public class Example {
         String externalRefId = "externalRefId_example"; // String | External ref. ID that workspace can use to identify ticket outside of Fireblocks system.
         String after = "after_example"; // String | ID of the record after which to fetch $limit records
         BigDecimal limit = new BigDecimal(78); // BigDecimal | Number of records to fetch. By default, it is 100
+        String sortBy = "createdAt"; // String | Sort by field
+        String order = "ASC"; // String | ASC / DESC ordering (default DESC)
         try {
-            CompletableFuture<ApiResponse<SmartTransferTicketFilteredResponse>> response = fireblocks.smartTransfer().searchTickets(q, statuses, networkId, createdByMe, expiresAfter, expiresBefore, type, externalRefId, after, limit);
+            CompletableFuture<ApiResponse<SmartTransferTicketFilteredResponse>> response = fireblocks.smartTransfer().searchTickets(q, statuses, networkId, createdByMe, expiresAfter, expiresBefore, type, externalRefId, after, limit, sortBy, order);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1230,6 +1232,8 @@ public class Example {
 | **externalRefId** | **String**| External ref. ID that workspace can use to identify ticket outside of Fireblocks system. | [optional] |
 | **after** | **String**| ID of the record after which to fetch $limit records | [optional] |
 | **limit** | **BigDecimal**| Number of records to fetch. By default, it is 100 | [optional] |
+| **sortBy** | **String**| Sort by field | [optional] [default to createdAt] [enum: createdAt, updatedAt, submittedAt] |
+| **order** | **String**| ASC / DESC ordering (default DESC) | [optional] [default to DESC] [enum: ASC, DESC] |
 
 ### Return type
 

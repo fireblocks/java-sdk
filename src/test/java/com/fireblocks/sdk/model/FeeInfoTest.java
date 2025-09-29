@@ -43,6 +43,18 @@ class FeeInfoTest {
         // TODO: test gasPrice
     }
 
+    /** Test the property 'l1networkFee' */
+    @Test
+    void l1networkFeeTest() {
+        // TODO: test l1networkFee
+    }
+
+    /** Test the property 'l2networkFee' */
+    @Test
+    void l2networkFeeTest() {
+        // TODO: test l2networkFee
+    }
+
     /** Test the property 'paidByRelay' */
     @Test
     void paidByRelayTest() {

@@ -35,14 +35,102 @@ import java.util.StringJoiner;
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class ComplianceScreeningResult {
+    /** Screening provider */
+    public enum ProviderEnum {
+        CHAINALYSIS(String.valueOf("CHAINALYSIS")),
+
+        ELLIPTIC(String.valueOf("ELLIPTIC")),
+
+        CHAINALYSIS_V2(String.valueOf("CHAINALYSIS_V2")),
+
+        ELLIPTIC_HOLISTIC(String.valueOf("ELLIPTIC_HOLISTIC")),
+
+        NONE(String.valueOf("NONE"));
+
+        private String value;
+
+        ProviderEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static ProviderEnum fromValue(String value) {
+            for (ProviderEnum b : ProviderEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
     public static final String JSON_PROPERTY_PROVIDER = "provider";
-    @jakarta.annotation.Nullable private String provider;
+    @jakarta.annotation.Nullable private ProviderEnum provider;
 
     public static final String JSON_PROPERTY_PAYLOAD = "payload";
     @jakarta.annotation.Nullable private Object payload;
 
+    /** Reason AML screening was bypassed */
+    public enum BypassReasonEnum {
+        MANUAL(String.valueOf("MANUAL")),
+
+        UNSUPPORTED_ASSET(String.valueOf("UNSUPPORTED_ASSET")),
+
+        BYPASSED_FAILURE(String.valueOf("BYPASSED_FAILURE")),
+
+        UNSUPPORTED_ROUTE(String.valueOf("UNSUPPORTED_ROUTE")),
+
+        PASSED_BY_POLICY(String.valueOf("PASSED_BY_POLICY")),
+
+        TIMED_OUT(String.valueOf("TIMED_OUT")),
+
+        BAD_CREDENTIALS(String.valueOf("BAD_CREDENTIALS")),
+
+        CONFIGURATION_ERROR(String.valueOf("CONFIGURATION_ERROR")),
+
+        DROPPED_BY_BLOCKCHAIN(String.valueOf("DROPPED_BY_BLOCKCHAIN")),
+
+        PROCESS_DISMISSED(String.valueOf("PROCESS_DISMISSED"));
+
+        private String value;
+
+        BypassReasonEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static BypassReasonEnum fromValue(String value) {
+            for (BypassReasonEnum b : BypassReasonEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
     public static final String JSON_PROPERTY_BYPASS_REASON = "bypassReason";
-    @jakarta.annotation.Nullable private String bypassReason;
+    @jakarta.annotation.Nullable private BypassReasonEnum bypassReason;
 
     /** Gets or Sets screeningStatus */
     public enum ScreeningStatusEnum {
@@ -91,26 +179,26 @@ public class ComplianceScreeningResult {
 
     public ComplianceScreeningResult() {}
 
-    public ComplianceScreeningResult provider(@jakarta.annotation.Nullable String provider) {
+    public ComplianceScreeningResult provider(@jakarta.annotation.Nullable ProviderEnum provider) {
         this.provider = provider;
         return this;
     }
 
     /**
-     * Get provider
+     * Screening provider
      *
      * @return provider
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_PROVIDER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getProvider() {
+    public ProviderEnum getProvider() {
         return provider;
     }
 
     @JsonProperty(JSON_PROPERTY_PROVIDER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setProvider(@jakarta.annotation.Nullable String provider) {
+    public void setProvider(@jakarta.annotation.Nullable ProviderEnum provider) {
         this.provider = provider;
     }
 
@@ -139,26 +227,26 @@ public class ComplianceScreeningResult {
     }
 
     public ComplianceScreeningResult bypassReason(
-            @jakarta.annotation.Nullable String bypassReason) {
+            @jakarta.annotation.Nullable BypassReasonEnum bypassReason) {
         this.bypassReason = bypassReason;
         return this;
     }
 
     /**
-     * Get bypassReason
+     * Reason AML screening was bypassed
      *
      * @return bypassReason
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_BYPASS_REASON)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getBypassReason() {
+    public BypassReasonEnum getBypassReason() {
         return bypassReason;
     }
 
     @JsonProperty(JSON_PROPERTY_BYPASS_REASON)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBypassReason(@jakarta.annotation.Nullable String bypassReason) {
+    public void setBypassReason(@jakarta.annotation.Nullable BypassReasonEnum bypassReason) {
         this.bypassReason = bypassReason;
     }
 

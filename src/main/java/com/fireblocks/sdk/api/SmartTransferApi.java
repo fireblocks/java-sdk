@@ -1134,6 +1134,8 @@ public class SmartTransferApi {
      *     Fireblocks system. (optional)
      * @param after ID of the record after which to fetch $limit records (optional)
      * @param limit Number of records to fetch. By default, it is 100 (optional)
+     * @param sortBy Sort by field (optional, default to createdAt)
+     * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
      * @return CompletableFuture&lt;ApiResponse&lt;SmartTransferTicketFilteredResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
@@ -1147,7 +1149,9 @@ public class SmartTransferApi {
             String type,
             String externalRefId,
             String after,
-            BigDecimal limit)
+            BigDecimal limit,
+            String sortBy,
+            String order)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
@@ -1161,7 +1165,9 @@ public class SmartTransferApi {
                             type,
                             externalRefId,
                             after,
-                            limit);
+                            limit,
+                            sortBy,
+                            order);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -1204,7 +1210,9 @@ public class SmartTransferApi {
             String type,
             String externalRefId,
             String after,
-            BigDecimal limit)
+            BigDecimal limit,
+            String sortBy,
+            String order)
             throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -1234,6 +1242,10 @@ public class SmartTransferApi {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("after", after));
         localVarQueryParameterBaseName = "limit";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("limit", limit));
+        localVarQueryParameterBaseName = "sortBy";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sortBy", sortBy));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");

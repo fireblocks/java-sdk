@@ -265,6 +265,8 @@ public class SmartTransferApiTest {
         String externalRefId = null;
         String after = null;
         BigDecimal limit = null;
+        String sortBy = null;
+        String order = null;
         CompletableFuture<ApiResponse<SmartTransferTicketFilteredResponse>> response =
                 api.searchTickets(
                         q,
@@ -276,7 +278,9 @@ public class SmartTransferApiTest {
                         type,
                         externalRefId,
                         after,
-                        limit);
+                        limit,
+                        sortBy,
+                        order);
     }
 
     /**

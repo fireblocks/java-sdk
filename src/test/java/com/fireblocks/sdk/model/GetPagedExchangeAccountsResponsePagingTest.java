@@ -15,14 +15,15 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for ExchangeAccountsPagedPaging */
-class ExchangeAccountsPagedPagingTest {
-    private final ExchangeAccountsPagedPaging model = new ExchangeAccountsPagedPaging();
+/** Model tests for GetPagedExchangeAccountsResponsePaging */
+class GetPagedExchangeAccountsResponsePagingTest {
+    private final GetPagedExchangeAccountsResponsePaging model =
+            new GetPagedExchangeAccountsResponsePaging();
 
-    /** Model tests for ExchangeAccountsPagedPaging */
+    /** Model tests for GetPagedExchangeAccountsResponsePaging */
     @Test
-    void testExchangeAccountsPagedPaging() {
-        // TODO: test ExchangeAccountsPagedPaging
+    void testGetPagedExchangeAccountsResponsePaging() {
+        // TODO: test GetPagedExchangeAccountsResponsePaging
     }
 
     /** Test the property 'after' */

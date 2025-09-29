@@ -27,6 +27,8 @@ import java.util.StringJoiner;
     FeeInfo.JSON_PROPERTY_NETWORK_FEE,
     FeeInfo.JSON_PROPERTY_SERVICE_FEE,
     FeeInfo.JSON_PROPERTY_GAS_PRICE,
+    FeeInfo.JSON_PROPERTY_L1NETWORK_FEE,
+    FeeInfo.JSON_PROPERTY_L2NETWORK_FEE,
     FeeInfo.JSON_PROPERTY_PAID_BY_RELAY,
     FeeInfo.JSON_PROPERTY_RELAY_TYPE,
     FeeInfo.JSON_PROPERTY_RELAY_ID,
@@ -45,6 +47,12 @@ public class FeeInfo {
 
     public static final String JSON_PROPERTY_GAS_PRICE = "gasPrice";
     @jakarta.annotation.Nullable private String gasPrice;
+
+    public static final String JSON_PROPERTY_L1NETWORK_FEE = "L1networkFee";
+    @jakarta.annotation.Nullable private String l1networkFee;
+
+    public static final String JSON_PROPERTY_L2NETWORK_FEE = "L2networkFee";
+    @jakarta.annotation.Nullable private String l2networkFee;
 
     public static final String JSON_PROPERTY_PAID_BY_RELAY = "paidByRelay";
     @jakarta.annotation.Nullable private Boolean paidByRelay;
@@ -164,6 +172,52 @@ public class FeeInfo {
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setGasPrice(@jakarta.annotation.Nullable String gasPrice) {
         this.gasPrice = gasPrice;
+    }
+
+    public FeeInfo l1networkFee(@jakarta.annotation.Nullable String l1networkFee) {
+        this.l1networkFee = l1networkFee;
+        return this;
+    }
+
+    /**
+     * Layer 1 network fee for Layer 2 blockchain transactions
+     *
+     * @return l1networkFee
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_L1NETWORK_FEE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getL1networkFee() {
+        return l1networkFee;
+    }
+
+    @JsonProperty(JSON_PROPERTY_L1NETWORK_FEE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setL1networkFee(@jakarta.annotation.Nullable String l1networkFee) {
+        this.l1networkFee = l1networkFee;
+    }
+
+    public FeeInfo l2networkFee(@jakarta.annotation.Nullable String l2networkFee) {
+        this.l2networkFee = l2networkFee;
+        return this;
+    }
+
+    /**
+     * Layer 2 network fee (gas price component for Layer 2 transactions)
+     *
+     * @return l2networkFee
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_L2NETWORK_FEE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getL2networkFee() {
+        return l2networkFee;
+    }
+
+    @JsonProperty(JSON_PROPERTY_L2NETWORK_FEE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setL2networkFee(@jakarta.annotation.Nullable String l2networkFee) {
+        this.l2networkFee = l2networkFee;
     }
 
     public FeeInfo paidByRelay(@jakarta.annotation.Nullable Boolean paidByRelay) {
@@ -294,6 +348,8 @@ public class FeeInfo {
         return Objects.equals(this.networkFee, feeInfo.networkFee)
                 && Objects.equals(this.serviceFee, feeInfo.serviceFee)
                 && Objects.equals(this.gasPrice, feeInfo.gasPrice)
+                && Objects.equals(this.l1networkFee, feeInfo.l1networkFee)
+                && Objects.equals(this.l2networkFee, feeInfo.l2networkFee)
                 && Objects.equals(this.paidByRelay, feeInfo.paidByRelay)
                 && Objects.equals(this.relayType, feeInfo.relayType)
                 && Objects.equals(this.relayId, feeInfo.relayId)
@@ -307,6 +363,8 @@ public class FeeInfo {
                 networkFee,
                 serviceFee,
                 gasPrice,
+                l1networkFee,
+                l2networkFee,
                 paidByRelay,
                 relayType,
                 relayId,
@@ -321,6 +379,8 @@ public class FeeInfo {
         sb.append("    networkFee: ").append(toIndentedString(networkFee)).append("\n");
         sb.append("    serviceFee: ").append(toIndentedString(serviceFee)).append("\n");
         sb.append("    gasPrice: ").append(toIndentedString(gasPrice)).append("\n");
+        sb.append("    l1networkFee: ").append(toIndentedString(l1networkFee)).append("\n");
+        sb.append("    l2networkFee: ").append(toIndentedString(l2networkFee)).append("\n");
         sb.append("    paidByRelay: ").append(toIndentedString(paidByRelay)).append("\n");
         sb.append("    relayType: ").append(toIndentedString(relayType)).append("\n");
         sb.append("    relayId: ").append(toIndentedString(relayId)).append("\n");
@@ -401,6 +461,26 @@ public class FeeInfo {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getGasPrice()))));
+        }
+
+        // add `L1networkFee` to the URL query string
+        if (getL1networkFee() != null) {
+            joiner.add(
+                    String.format(
+                            "%sL1networkFee%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getL1networkFee()))));
+        }
+
+        // add `L2networkFee` to the URL query string
+        if (getL2networkFee() != null) {
+            joiner.add(
+                    String.format(
+                            "%sL2networkFee%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getL2networkFee()))));
         }
 
         // add `paidByRelay` to the URL query string

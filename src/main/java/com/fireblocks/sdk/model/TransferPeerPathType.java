@@ -44,7 +44,9 @@ public enum TransferPeerPathType {
 
     PROGRAM_CALL("PROGRAM_CALL"),
 
-    MULTI_DESTINATION("MULTI_DESTINATION");
+    MULTI_DESTINATION("MULTI_DESTINATION"),
+
+    OEC_PARTNER("OEC_PARTNER");
 
     private String value;
 

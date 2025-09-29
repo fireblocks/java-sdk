@@ -1,6 +1,6 @@
 
 
-# ExchangeAccountsPagedPaging
+# GetPagedExchangeAccountsResponsePaging
 
 
 ## Properties

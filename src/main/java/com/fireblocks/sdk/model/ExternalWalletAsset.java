@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -47,10 +48,10 @@ public class ExternalWalletAsset {
     @jakarta.annotation.Nullable private String address;
 
     public static final String JSON_PROPERTY_BALANCE = "balance";
-    @jakarta.annotation.Nullable private String balance;
+    @jakarta.annotation.Nullable private BigDecimal balance;
 
     public static final String JSON_PROPERTY_LOCKED_AMOUNT = "lockedAmount";
-    @jakarta.annotation.Nullable private String lockedAmount;
+    @jakarta.annotation.Nullable private BigDecimal lockedAmount;
 
     public static final String JSON_PROPERTY_TAG = "tag";
     @jakarta.annotation.Nullable private String tag;
@@ -133,7 +134,7 @@ public class ExternalWalletAsset {
         this.address = address;
     }
 
-    public ExternalWalletAsset balance(@jakarta.annotation.Nullable String balance) {
+    public ExternalWalletAsset balance(@jakarta.annotation.Nullable BigDecimal balance) {
         this.balance = balance;
         return this;
     }
@@ -146,17 +147,17 @@ public class ExternalWalletAsset {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_BALANCE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
     @JsonProperty(JSON_PROPERTY_BALANCE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBalance(@jakarta.annotation.Nullable String balance) {
+    public void setBalance(@jakarta.annotation.Nullable BigDecimal balance) {
         this.balance = balance;
     }
 
-    public ExternalWalletAsset lockedAmount(@jakarta.annotation.Nullable String lockedAmount) {
+    public ExternalWalletAsset lockedAmount(@jakarta.annotation.Nullable BigDecimal lockedAmount) {
         this.lockedAmount = lockedAmount;
         return this;
     }
@@ -169,13 +170,13 @@ public class ExternalWalletAsset {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_LOCKED_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getLockedAmount() {
+    public BigDecimal getLockedAmount() {
         return lockedAmount;
     }
 
     @JsonProperty(JSON_PROPERTY_LOCKED_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLockedAmount(@jakarta.annotation.Nullable String lockedAmount) {
+    public void setLockedAmount(@jakarta.annotation.Nullable BigDecimal lockedAmount) {
         this.lockedAmount = lockedAmount;
     }
 

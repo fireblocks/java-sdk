@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -22,22 +23,22 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** ExchangeAccountsPaged */
+/** GetPagedExchangeAccountsResponse */
 @JsonPropertyOrder({
-    ExchangeAccountsPaged.JSON_PROPERTY_EXCHANGE_ACCOUNT,
-    ExchangeAccountsPaged.JSON_PROPERTY_PAGING,
-    ExchangeAccountsPaged.JSON_PROPERTY_PREV_URL,
-    ExchangeAccountsPaged.JSON_PROPERTY_NEXT_URL
+    GetPagedExchangeAccountsResponse.JSON_PROPERTY_EXCHANGES,
+    GetPagedExchangeAccountsResponse.JSON_PROPERTY_PAGING,
+    GetPagedExchangeAccountsResponse.JSON_PROPERTY_PREV_URL,
+    GetPagedExchangeAccountsResponse.JSON_PROPERTY_NEXT_URL
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class ExchangeAccountsPaged {
-    public static final String JSON_PROPERTY_EXCHANGE_ACCOUNT = "ExchangeAccount";
-    @jakarta.annotation.Nullable private List<ExchangeAccount> exchangeAccount;
+public class GetPagedExchangeAccountsResponse {
+    public static final String JSON_PROPERTY_EXCHANGES = "exchanges";
+    @jakarta.annotation.Nonnull private List<ExchangeAccount> exchanges;
 
     public static final String JSON_PROPERTY_PAGING = "paging";
-    @jakarta.annotation.Nullable private ExchangeAccountsPagedPaging paging;
+    @jakarta.annotation.Nullable private GetPagedExchangeAccountsResponsePaging paging;
 
     public static final String JSON_PROPERTY_PREV_URL = "prevUrl";
     @jakarta.annotation.Nullable private String prevUrl;
@@ -45,43 +46,49 @@ public class ExchangeAccountsPaged {
     public static final String JSON_PROPERTY_NEXT_URL = "nextUrl";
     @jakarta.annotation.Nullable private String nextUrl;
 
-    public ExchangeAccountsPaged() {}
+    public GetPagedExchangeAccountsResponse() {}
 
-    public ExchangeAccountsPaged exchangeAccount(
-            @jakarta.annotation.Nullable List<ExchangeAccount> exchangeAccount) {
-        this.exchangeAccount = exchangeAccount;
+    @JsonCreator
+    public GetPagedExchangeAccountsResponse(
+            @JsonProperty(value = JSON_PROPERTY_EXCHANGES, required = true)
+                    List<ExchangeAccount> exchanges) {
+        this.exchanges = exchanges;
+    }
+
+    public GetPagedExchangeAccountsResponse exchanges(
+            @jakarta.annotation.Nonnull List<ExchangeAccount> exchanges) {
+        this.exchanges = exchanges;
         return this;
     }
 
-    public ExchangeAccountsPaged addExchangeAccountItem(ExchangeAccount exchangeAccountItem) {
-        if (this.exchangeAccount == null) {
-            this.exchangeAccount = new ArrayList<>();
+    public GetPagedExchangeAccountsResponse addExchangesItem(ExchangeAccount exchangesItem) {
+        if (this.exchanges == null) {
+            this.exchanges = new ArrayList<>();
         }
-        this.exchangeAccount.add(exchangeAccountItem);
+        this.exchanges.add(exchangesItem);
         return this;
     }
 
     /**
-     * Get exchangeAccount
+     * Get exchanges
      *
-     * @return exchangeAccount
+     * @return exchanges
      */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_EXCHANGE_ACCOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<ExchangeAccount> getExchangeAccount() {
-        return exchangeAccount;
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_EXCHANGES)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<ExchangeAccount> getExchanges() {
+        return exchanges;
     }
 
-    @JsonProperty(JSON_PROPERTY_EXCHANGE_ACCOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExchangeAccount(
-            @jakarta.annotation.Nullable List<ExchangeAccount> exchangeAccount) {
-        this.exchangeAccount = exchangeAccount;
+    @JsonProperty(JSON_PROPERTY_EXCHANGES)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setExchanges(@jakarta.annotation.Nonnull List<ExchangeAccount> exchanges) {
+        this.exchanges = exchanges;
     }
 
-    public ExchangeAccountsPaged paging(
-            @jakarta.annotation.Nullable ExchangeAccountsPagedPaging paging) {
+    public GetPagedExchangeAccountsResponse paging(
+            @jakarta.annotation.Nullable GetPagedExchangeAccountsResponsePaging paging) {
         this.paging = paging;
         return this;
     }
@@ -94,17 +101,18 @@ public class ExchangeAccountsPaged {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_PAGING)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ExchangeAccountsPagedPaging getPaging() {
+    public GetPagedExchangeAccountsResponsePaging getPaging() {
         return paging;
     }
 
     @JsonProperty(JSON_PROPERTY_PAGING)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPaging(@jakarta.annotation.Nullable ExchangeAccountsPagedPaging paging) {
+    public void setPaging(
+            @jakarta.annotation.Nullable GetPagedExchangeAccountsResponsePaging paging) {
         this.paging = paging;
     }
 
-    public ExchangeAccountsPaged prevUrl(@jakarta.annotation.Nullable String prevUrl) {
+    public GetPagedExchangeAccountsResponse prevUrl(@jakarta.annotation.Nullable String prevUrl) {
         this.prevUrl = prevUrl;
         return this;
     }
@@ -127,7 +135,7 @@ public class ExchangeAccountsPaged {
         this.prevUrl = prevUrl;
     }
 
-    public ExchangeAccountsPaged nextUrl(@jakarta.annotation.Nullable String nextUrl) {
+    public GetPagedExchangeAccountsResponse nextUrl(@jakarta.annotation.Nullable String nextUrl) {
         this.nextUrl = nextUrl;
         return this;
     }
@@ -150,7 +158,7 @@ public class ExchangeAccountsPaged {
         this.nextUrl = nextUrl;
     }
 
-    /** Return true if this ExchangeAccountsPaged object is equal to o. */
+    /** Return true if this GetPagedExchangeAccountsResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -159,23 +167,24 @@ public class ExchangeAccountsPaged {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ExchangeAccountsPaged exchangeAccountsPaged = (ExchangeAccountsPaged) o;
-        return Objects.equals(this.exchangeAccount, exchangeAccountsPaged.exchangeAccount)
-                && Objects.equals(this.paging, exchangeAccountsPaged.paging)
-                && Objects.equals(this.prevUrl, exchangeAccountsPaged.prevUrl)
-                && Objects.equals(this.nextUrl, exchangeAccountsPaged.nextUrl);
+        GetPagedExchangeAccountsResponse getPagedExchangeAccountsResponse =
+                (GetPagedExchangeAccountsResponse) o;
+        return Objects.equals(this.exchanges, getPagedExchangeAccountsResponse.exchanges)
+                && Objects.equals(this.paging, getPagedExchangeAccountsResponse.paging)
+                && Objects.equals(this.prevUrl, getPagedExchangeAccountsResponse.prevUrl)
+                && Objects.equals(this.nextUrl, getPagedExchangeAccountsResponse.nextUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(exchangeAccount, paging, prevUrl, nextUrl);
+        return Objects.hash(exchanges, paging, prevUrl, nextUrl);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class ExchangeAccountsPaged {\n");
-        sb.append("    exchangeAccount: ").append(toIndentedString(exchangeAccount)).append("\n");
+        sb.append("class GetPagedExchangeAccountsResponse {\n");
+        sb.append("    exchanges: ").append(toIndentedString(exchanges)).append("\n");
         sb.append("    paging: ").append(toIndentedString(paging)).append("\n");
         sb.append("    prevUrl: ").append(toIndentedString(prevUrl)).append("\n");
         sb.append("    nextUrl: ").append(toIndentedString(nextUrl)).append("\n");
@@ -226,16 +235,16 @@ public class ExchangeAccountsPaged {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `ExchangeAccount` to the URL query string
-        if (getExchangeAccount() != null) {
-            for (int i = 0; i < getExchangeAccount().size(); i++) {
-                if (getExchangeAccount().get(i) != null) {
+        // add `exchanges` to the URL query string
+        if (getExchanges() != null) {
+            for (int i = 0; i < getExchanges().size(); i++) {
+                if (getExchanges().get(i) != null) {
                     joiner.add(
-                            getExchangeAccount()
+                            getExchanges()
                                     .get(i)
                                     .toUrlQueryString(
                                             String.format(
-                                                    "%sExchangeAccount%s%s",
+                                                    "%sexchanges%s%s",
                                                     prefix,
                                                     suffix,
                                                     "".equals(suffix)
