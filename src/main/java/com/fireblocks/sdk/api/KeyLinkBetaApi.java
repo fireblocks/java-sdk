@@ -429,6 +429,8 @@ public class KeyLinkBetaApi {
      * @param available Return keys that are proof of ownership but not assigned. Available filter
      *     can be used only when vaultAccountId and enabled filters are not set (optional)
      * @param isAssigned Return keys that are assigned to a vault account (optional)
+     * @param keyPrefix A case-insensitive prefix filter that matches records where either keyId or
+     *     signingDeviceKeyID starts with the specified value. (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;GetSigningKeyResponseDto&gt;&gt;
      * @throws ApiException if fails to make API call
      */
@@ -442,7 +444,8 @@ public class KeyLinkBetaApi {
             String algorithm,
             Boolean enabled,
             Boolean available,
-            Boolean isAssigned)
+            Boolean isAssigned,
+            String keyPrefix)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
@@ -456,7 +459,8 @@ public class KeyLinkBetaApi {
                             algorithm,
                             enabled,
                             available,
-                            isAssigned);
+                            isAssigned,
+                            keyPrefix);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -500,7 +504,8 @@ public class KeyLinkBetaApi {
             String algorithm,
             Boolean enabled,
             Boolean available,
-            Boolean isAssigned)
+            Boolean isAssigned,
+            String keyPrefix)
             throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -530,6 +535,8 @@ public class KeyLinkBetaApi {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("available", available));
         localVarQueryParameterBaseName = "isAssigned";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("isAssigned", isAssigned));
+        localVarQueryParameterBaseName = "keyPrefix";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("keyPrefix", keyPrefix));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");

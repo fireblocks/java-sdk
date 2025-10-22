@@ -57,7 +57,7 @@ paths:
       tags:
       - Vaults
       x-internal: true
-      x-rate-limit-category: query
+      x-rate-limit-category: high_compute
       x-readme:
         code-samples:
         - language: python
@@ -235,7 +235,7 @@ paths:
       summary: List vault accounts (Paginated)
       tags:
       - Vaults
-      x-rate-limit-category: query
+      x-rate-limit-category: external_query
       x-readme:
         code-samples:
         - language: python
@@ -302,7 +302,7 @@ paths:
       summary: Find a vault account by ID
       tags:
       - Vaults
-      x-rate-limit-category: read
+      x-rate-limit-category: external_query
       x-readme:
         code-samples:
         - language: python
@@ -1126,7 +1126,7 @@ paths:
       summary: Refresh asset balance data
       tags:
       - Vaults
-      x-rate-limit-category: async
+      x-rate-limit-category: high_compute
       x-readme:
         code-samples:
         - language: python
@@ -4024,7 +4024,7 @@ paths:
       tags:
       - Exchange accounts
       x-internal: true
-      x-rate-limit-category: query
+      x-rate-limit-category: high_compute
       x-readme:
         code-samples:
         - language: python
@@ -4209,7 +4209,7 @@ paths:
       summary: Find a specific exchange account
       tags:
       - Exchange accounts
-      x-rate-limit-category: query
+      x-rate-limit-category: external_query
       x-readme:
         code-samples:
         - language: python
@@ -4425,7 +4425,7 @@ paths:
       summary: Find an asset for an exchange account
       tags:
       - Exchange accounts
-      x-rate-limit-category: query
+      x-rate-limit-category: external_query
       x-readme:
         code-samples:
         - language: python
@@ -6290,7 +6290,7 @@ paths:
       summary: List internal wallets
       tags:
       - Internal wallets
-      x-rate-limit-category: query
+      x-rate-limit-category: high_compute
       x-readme:
         code-samples:
         - language: typescript
@@ -6481,7 +6481,7 @@ paths:
       summary: Get an asset from an internal wallet
       tags:
       - Internal wallets
-      x-rate-limit-category: query
+      x-rate-limit-category: external_query
       x-readme:
         code-samples:
         - language: python
@@ -6811,7 +6811,7 @@ paths:
       summary: Get an asset from an internal wallet
       tags:
       - Internal wallets
-      x-rate-limit-category: read
+      x-rate-limit-category: external_query
       x-readme:
         code-samples:
         - language: python
@@ -7050,6 +7050,15 @@ paths:
           nullable: true
           type: boolean
         style: form
+      - description: A case-insensitive prefix filter that matches records where either
+          keyId or signingDeviceKeyID starts with the specified value.
+        explode: true
+        in: query
+        name: keyPrefix
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -7077,12 +7086,12 @@ paths:
           code: "CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response\
             \ = fireblocks.keyLinkBeta().getSigningKeysList(pageCursor, pageSize,\
             \ sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available,\
-            \ isAssigned);"
+            \ isAssigned, keyPrefix);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.key_link_beta.get_signing_keys_list(page_cursor,\
             \ page_size, sort_by, order, vault_account_id, agent_user_id, algorithm,\
-            \ enabled, available, is_assigned);"
+            \ enabled, available, is_assigned, key_prefix);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -7091,11 +7100,12 @@ paths:
       - lang: Java
         source: "CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response\
           \ = fireblocks.keyLinkBeta().getSigningKeysList(pageCursor, pageSize, sortBy,\
-          \ order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned);"
+          \ order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned,\
+          \ keyPrefix);"
       - lang: Python
         source: "response = fireblocks.key_link_beta.get_signing_keys_list(page_cursor,\
           \ page_size, sort_by, order, vault_account_id, agent_user_id, algorithm,\
-          \ enabled, available, is_assigned);"
+          \ enabled, available, is_assigned, key_prefix);"
       x-accepts:
       - application/json
     post:
@@ -7757,7 +7767,7 @@ paths:
       summary: List external wallets
       tags:
       - External wallets
-      x-rate-limit-category: query
+      x-rate-limit-category: external_query
       x-readme:
         code-samples:
         - language: python
@@ -8679,7 +8689,7 @@ paths:
       summary: List all asset types supported by Fireblocks - legacy endpoint
       tags:
       - Blockchains & assets
-      x-rate-limit-category: query
+      x-rate-limit-category: external_query
       x-readme:
         code-samples:
         - language: python
@@ -8827,7 +8837,7 @@ paths:
       summary: List assets
       tags:
       - Blockchains & assets
-      x-rate-limit-category: query
+      x-rate-limit-category: external_query
       x-readme:
         code-samples:
         - language: python
@@ -8950,7 +8960,7 @@ paths:
       summary: Register an asset
       tags:
       - Blockchains & assets
-      x-rate-limit-category: write
+      x-rate-limit-category: high_compute
       x-readme:
         code-samples:
         - language: python
@@ -9043,7 +9053,7 @@ paths:
       summary: Get an asset
       tags:
       - Blockchains & assets
-      x-rate-limit-category: read
+      x-rate-limit-category: external_query
       x-readme:
         code-samples:
         - language: python
@@ -9343,7 +9353,7 @@ paths:
       summary: List blockchains
       tags:
       - Blockchains & assets
-      x-rate-limit-category: query
+      x-rate-limit-category: external_query
       x-readme:
         code-samples:
         - language: python
@@ -9421,7 +9431,7 @@ paths:
       summary: Get an blockchain
       tags:
       - Blockchains & assets
-      x-rate-limit-category: read
+      x-rate-limit-category: external_query
       x-readme:
         code-samples:
         - language: python
@@ -18884,7 +18894,7 @@ paths:
       summary: List all open Web3 connections.
       tags:
       - Web3 connections
-      x-rate-limit-category: high_compute
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -30169,6 +30179,7 @@ components:
       - TRIncomingCompleted
       - TRIncomingFailed
       - IncomingCompleted
+      - UpdateCompleted
       type: string
     AmlRegistrationResult:
       example:
@@ -42458,6 +42469,7 @@ components:
           description: description of MYTOKEN
         tokenId: "1"
         vaultAccountId: "0"
+        externalId: 0192e4f5-924e-7bb9-8e5b-c748270feb38
         to: 0x5503766D27d1ED4525f5053222E18b29C38eDdB2
         metadataURI: ipfs://QmP4P6f7mDHzikhdwLBVSCxCPEgmjwcWSVBHbtSyfBYzBC
       properties:
@@ -42491,6 +42503,12 @@ components:
           example:
             name: MYTOKEN
             description: description of MYTOKEN
+        externalId:
+          description: External id that can be used to identify the transaction in
+            your system. The unique identifier of the transaction outside of Fireblocks
+            with max length of 255 characters
+          example: 0192e4f5-924e-7bb9-8e5b-c748270feb38
+          type: string
       required:
       - to
       - tokenId
@@ -42512,6 +42530,7 @@ components:
         amount: "1"
         tokenId: "1"
         vaultAccountId: "0"
+        externalId: 0192e4f5-924e-7bb9-8e5b-c748270feb38
       properties:
         vaultAccountId:
           description: The id of the vault account that initiates the burn function
@@ -42525,6 +42544,12 @@ components:
           description: "For ERC721, amount is optional or should always be 1 and for\
             \ ERC1155, amount should be 1 or greater"
           example: "1"
+          type: string
+        externalId:
+          description: External id that can be used to identify the transaction in
+            your system. The unique identifier of the transaction outside of Fireblocks
+            with max length of 255 characters
+          example: 0192e4f5-924e-7bb9-8e5b-c748270feb38
           type: string
       required:
       - tokenId

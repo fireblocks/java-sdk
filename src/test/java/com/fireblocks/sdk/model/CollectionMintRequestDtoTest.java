@@ -60,4 +60,10 @@ class CollectionMintRequestDtoTest {
     void metadataTest() {
         // TODO: test metadata
     }
+
+    /** Test the property 'externalId' */
+    @Test
+    void externalIdTest() {
+        // TODO: test externalId
+    }
 }
