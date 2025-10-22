@@ -25,7 +25,8 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
     CollectionBurnRequestDto.JSON_PROPERTY_VAULT_ACCOUNT_ID,
     CollectionBurnRequestDto.JSON_PROPERTY_TOKEN_ID,
-    CollectionBurnRequestDto.JSON_PROPERTY_AMOUNT
+    CollectionBurnRequestDto.JSON_PROPERTY_AMOUNT,
+    CollectionBurnRequestDto.JSON_PROPERTY_EXTERNAL_ID
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -39,6 +40,9 @@ public class CollectionBurnRequestDto {
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
     @jakarta.annotation.Nullable private String amount;
+
+    public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
+    @jakarta.annotation.Nullable private String externalId;
 
     public CollectionBurnRequestDto() {}
 
@@ -122,6 +126,30 @@ public class CollectionBurnRequestDto {
         this.amount = amount;
     }
 
+    public CollectionBurnRequestDto externalId(@jakarta.annotation.Nullable String externalId) {
+        this.externalId = externalId;
+        return this;
+    }
+
+    /**
+     * External id that can be used to identify the transaction in your system. The unique
+     * identifier of the transaction outside of Fireblocks with max length of 255 characters
+     *
+     * @return externalId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getExternalId() {
+        return externalId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setExternalId(@jakarta.annotation.Nullable String externalId) {
+        this.externalId = externalId;
+    }
+
     /** Return true if this CollectionBurnRequestDto object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -134,12 +162,13 @@ public class CollectionBurnRequestDto {
         CollectionBurnRequestDto collectionBurnRequestDto = (CollectionBurnRequestDto) o;
         return Objects.equals(this.vaultAccountId, collectionBurnRequestDto.vaultAccountId)
                 && Objects.equals(this.tokenId, collectionBurnRequestDto.tokenId)
-                && Objects.equals(this.amount, collectionBurnRequestDto.amount);
+                && Objects.equals(this.amount, collectionBurnRequestDto.amount)
+                && Objects.equals(this.externalId, collectionBurnRequestDto.externalId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(vaultAccountId, tokenId, amount);
+        return Objects.hash(vaultAccountId, tokenId, amount, externalId);
     }
 
     @Override
@@ -149,6 +178,7 @@ public class CollectionBurnRequestDto {
         sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
         sb.append("    tokenId: ").append(toIndentedString(tokenId)).append("\n");
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+        sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -224,6 +254,16 @@ public class CollectionBurnRequestDto {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
+        }
+
+        // add `externalId` to the URL query string
+        if (getExternalId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sexternalId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getExternalId()))));
         }
 
         return joiner.toString();

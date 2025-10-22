@@ -62,7 +62,9 @@ public enum ComplianceResultStatusesEnum {
 
     TR_INCOMING_FAILED("TRIncomingFailed"),
 
-    INCOMING_COMPLETED("IncomingCompleted");
+    INCOMING_COMPLETED("IncomingCompleted"),
+
+    UPDATE_COMPLETED("UpdateCompleted");
 
     private String value;
 

@@ -51,5 +51,7 @@
 
 * `INCOMING_COMPLETED` (value: `"IncomingCompleted"`)
 
+* `UPDATE_COMPLETED` (value: `"UpdateCompleted"`)
+
 
 

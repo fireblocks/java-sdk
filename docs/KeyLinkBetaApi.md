@@ -356,7 +356,7 @@ No authorization required
 
 ## getSigningKeysList
 
-> CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> getSigningKeysList getSigningKeysList(pageCursor, pageSize, sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned)
+> CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> getSigningKeysList getSigningKeysList(pageCursor, pageSize, sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned, keyPrefix)
 
 Get list of signing keys
 
@@ -395,8 +395,9 @@ public class Example {
         Boolean enabled = true; // Boolean | Return keys that have been proof of ownership
         Boolean available = true; // Boolean | Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set
         Boolean isAssigned = true; // Boolean | Return keys that are assigned to a vault account
+        String keyPrefix = "keyPrefix_example"; // String | A case-insensitive prefix filter that matches records where either keyId or signingDeviceKeyID starts with the specified value.
         try {
-            CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response = fireblocks.keyLinkBeta().getSigningKeysList(pageCursor, pageSize, sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned);
+            CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response = fireblocks.keyLinkBeta().getSigningKeysList(pageCursor, pageSize, sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned, keyPrefix);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -433,6 +434,7 @@ public class Example {
 | **enabled** | **Boolean**| Return keys that have been proof of ownership | [optional] |
 | **available** | **Boolean**| Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set | [optional] |
 | **isAssigned** | **Boolean**| Return keys that are assigned to a vault account | [optional] |
+| **keyPrefix** | **String**| A case-insensitive prefix filter that matches records where either keyId or signingDeviceKeyID starts with the specified value. | [optional] |
 
 ### Return type
 

@@ -137,6 +137,7 @@ public class KeyLinkBetaApiTest {
         Boolean enabled = null;
         Boolean available = null;
         Boolean isAssigned = null;
+        String keyPrefix = null;
         CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response =
                 api.getSigningKeysList(
                         pageCursor,
@@ -148,7 +149,8 @@ public class KeyLinkBetaApiTest {
                         algorithm,
                         enabled,
                         available,
-                        isAssigned);
+                        isAssigned,
+                        keyPrefix);
     }
 
     /**

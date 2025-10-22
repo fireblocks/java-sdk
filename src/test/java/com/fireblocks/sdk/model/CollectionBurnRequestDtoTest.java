@@ -42,4 +42,10 @@ class CollectionBurnRequestDtoTest {
     void amountTest() {
         // TODO: test amount
     }
+
+    /** Test the property 'externalId' */
+    @Test
+    void externalIdTest() {
+        // TODO: test externalId
+    }
 }
