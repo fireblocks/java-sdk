@@ -43,6 +43,12 @@ class AccountConfigTest {
         // TODO: test ids
     }
 
+    /** Test the property 'tags' */
+    @Test
+    void tagsTest() {
+        // TODO: test tags
+    }
+
     /** Test the property 'operator' */
     @Test
     void operatorTest() {

@@ -74,7 +74,7 @@ public class RetryRequoteRequestDetails {
     @jakarta.annotation.Nonnull private BigDecimal count;
 
     public static final String JSON_PROPERTY_SLIPPAGE_BPS = "slippageBps";
-    @jakarta.annotation.Nullable private BigDecimal slippageBps = new BigDecimal("1");
+    @jakarta.annotation.Nullable private BigDecimal slippageBps;
 
     public RetryRequoteRequestDetails() {}
 

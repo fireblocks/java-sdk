@@ -8,7 +8,7 @@ Screening metadata configuration
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**direction** | [**DirectionEnum**](#DirectionEnum) | Direction of transaction |  |
+|**direction** | [**DirectionEnum**](#DirectionEnum) | Direction of transaction |  [optional] |
 |**provider** | [**ProviderEnum**](#ProviderEnum) | Screening provider |  [optional] |
 |**riskRating** | [**RiskRatingEnum**](#RiskRatingEnum) | Risk rating threshold |  [optional] |
 |**riskScore** | **String** | Risk score threshold |  [optional] |

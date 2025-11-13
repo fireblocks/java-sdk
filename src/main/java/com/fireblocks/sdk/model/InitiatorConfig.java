@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.model;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -52,16 +51,9 @@ public class InitiatorConfig {
     @jakarta.annotation.Nullable private List<String> exchange;
 
     public static final String JSON_PROPERTY_OPERATOR = "operator";
-    @jakarta.annotation.Nonnull private PolicyOperator operator;
+    @jakarta.annotation.Nullable private PolicyOperator operator;
 
     public InitiatorConfig() {}
-
-    @JsonCreator
-    public InitiatorConfig(
-            @JsonProperty(value = JSON_PROPERTY_OPERATOR, required = true)
-                    PolicyOperator operator) {
-        this.operator = operator;
-    }
 
     public InitiatorConfig users(@jakarta.annotation.Nullable List<String> users) {
         this.users = users;
@@ -218,7 +210,7 @@ public class InitiatorConfig {
         this.exchange = exchange;
     }
 
-    public InitiatorConfig operator(@jakarta.annotation.Nonnull PolicyOperator operator) {
+    public InitiatorConfig operator(@jakarta.annotation.Nullable PolicyOperator operator) {
         this.operator = operator;
         return this;
     }
@@ -228,16 +220,16 @@ public class InitiatorConfig {
      *
      * @return operator
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_OPERATOR)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public PolicyOperator getOperator() {
         return operator;
     }
 
     @JsonProperty(JSON_PROPERTY_OPERATOR)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOperator(@jakarta.annotation.Nonnull PolicyOperator operator) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOperator(@jakarta.annotation.Nullable PolicyOperator operator) {
         this.operator = operator;
     }
 

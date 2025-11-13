@@ -8,19 +8,9 @@ Amount over time configuration
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**range** | [**AmountOverTimeConfigRange**](AmountOverTimeConfigRange.md) |  |  |
-|**currency** | [**CurrencyEnum**](#CurrencyEnum) | Currency for the amount |  [optional] |
+|**range** | [**AmountRangeMinMax2**](AmountRangeMinMax2.md) |  |  |
+|**currency** | **PolicyCurrency** |  |  |
 |**timePeriod** | [**TimePeriodConfig**](TimePeriodConfig.md) |  |  |
-
-
-
-## Enum: CurrencyEnum
-
-| Name | Value |
-|---- | -----|
-| NATIVE | &quot;NATIVE&quot; |
-| USD | &quot;USD&quot; |
-| EUR | &quot;EUR&quot; |
 
 
 

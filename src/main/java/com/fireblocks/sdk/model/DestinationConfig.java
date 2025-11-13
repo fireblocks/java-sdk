@@ -29,6 +29,7 @@ import java.util.StringJoiner;
     DestinationConfig.JSON_PROPERTY_TYPE,
     DestinationConfig.JSON_PROPERTY_SUB_TYPE,
     DestinationConfig.JSON_PROPERTY_IDS,
+    DestinationConfig.JSON_PROPERTY_TAGS,
     DestinationConfig.JSON_PROPERTY_OPERATOR,
     DestinationConfig.JSON_PROPERTY_MATCH_FROM,
     DestinationConfig.JSON_PROPERTY_ADDRESS_TYPE
@@ -38,7 +39,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class DestinationConfig {
     public static final String JSON_PROPERTY_TYPE = "type";
-    @jakarta.annotation.Nonnull private AccountType2 type;
+    @jakarta.annotation.Nullable private List<AccountType2> type;
 
     public static final String JSON_PROPERTY_SUB_TYPE = "subType";
     @jakarta.annotation.Nullable private List<AccountIdentifier> subType;
@@ -46,10 +47,16 @@ public class DestinationConfig {
     public static final String JSON_PROPERTY_IDS = "ids";
     @jakarta.annotation.Nullable private List<AccountIdentifier> ids;
 
+    public static final String JSON_PROPERTY_TAGS = "tags";
+    @jakarta.annotation.Nullable private List<PolicyTag> tags;
+
     public static final String JSON_PROPERTY_OPERATOR = "operator";
     @jakarta.annotation.Nonnull private PolicyOperator operator;
 
-    /** Whether to match from account or source */
+    /**
+     * Whether to match from account or source (relevant only for ORDER policy type). If set to
+     * ACCOUNT, only matchFrom is allowed and other fields are not required.
+     */
     public enum MatchFromEnum {
         ACCOUNT(String.valueOf("ACCOUNT")),
 
@@ -87,15 +94,11 @@ public class DestinationConfig {
 
     /** Type of destination addresses allowed */
     public enum AddressTypeEnum {
-        ALL(String.valueOf("ALL")),
-
         STAR(String.valueOf("*")),
 
         WHITELISTED(String.valueOf("WHITELISTED")),
 
-        ONE_TIME(String.valueOf("ONE_TIME")),
-
-        OEC_PARTNER(String.valueOf("OEC_PARTNER"));
+        ONE_TIME(String.valueOf("ONE_TIME"));
 
         private String value;
 
@@ -131,35 +134,41 @@ public class DestinationConfig {
 
     @JsonCreator
     public DestinationConfig(
-            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) AccountType2 type,
             @JsonProperty(value = JSON_PROPERTY_OPERATOR, required = true) PolicyOperator operator,
             @JsonProperty(value = JSON_PROPERTY_ADDRESS_TYPE, required = true)
                     AddressTypeEnum addressType) {
-        this.type = type;
         this.operator = operator;
         this.addressType = addressType;
     }
 
-    public DestinationConfig type(@jakarta.annotation.Nonnull AccountType2 type) {
+    public DestinationConfig type(@jakarta.annotation.Nullable List<AccountType2> type) {
         this.type = type;
         return this;
     }
 
+    public DestinationConfig addTypeItem(AccountType2 typeItem) {
+        if (this.type == null) {
+            this.type = new ArrayList<>();
+        }
+        this.type.add(typeItem);
+        return this;
+    }
+
     /**
-     * Get type
+     * Destination account types
      *
      * @return type
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AccountType2 getType() {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<AccountType2> getType() {
         return type;
     }
 
     @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(@jakarta.annotation.Nonnull AccountType2 type) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setType(@jakarta.annotation.Nullable List<AccountType2> type) {
         this.type = type;
     }
 
@@ -225,6 +234,37 @@ public class DestinationConfig {
         this.ids = ids;
     }
 
+    public DestinationConfig tags(@jakarta.annotation.Nullable List<PolicyTag> tags) {
+        this.tags = tags;
+        return this;
+    }
+
+    public DestinationConfig addTagsItem(PolicyTag tagsItem) {
+        if (this.tags == null) {
+            this.tags = new ArrayList<>();
+        }
+        this.tags.add(tagsItem);
+        return this;
+    }
+
+    /**
+     * Tags for destination matching
+     *
+     * @return tags
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TAGS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<PolicyTag> getTags() {
+        return tags;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TAGS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTags(@jakarta.annotation.Nullable List<PolicyTag> tags) {
+        this.tags = tags;
+    }
+
     public DestinationConfig operator(@jakarta.annotation.Nonnull PolicyOperator operator) {
         this.operator = operator;
         return this;
@@ -254,7 +294,8 @@ public class DestinationConfig {
     }
 
     /**
-     * Whether to match from account or source
+     * Whether to match from account or source (relevant only for ORDER policy type). If set to
+     * ACCOUNT, only matchFrom is allowed and other fields are not required.
      *
      * @return matchFrom
      */
@@ -307,6 +348,7 @@ public class DestinationConfig {
         return Objects.equals(this.type, destinationConfig.type)
                 && Objects.equals(this.subType, destinationConfig.subType)
                 && Objects.equals(this.ids, destinationConfig.ids)
+                && Objects.equals(this.tags, destinationConfig.tags)
                 && Objects.equals(this.operator, destinationConfig.operator)
                 && Objects.equals(this.matchFrom, destinationConfig.matchFrom)
                 && Objects.equals(this.addressType, destinationConfig.addressType);
@@ -314,7 +356,7 @@ public class DestinationConfig {
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, subType, ids, operator, matchFrom, addressType);
+        return Objects.hash(type, subType, ids, tags, operator, matchFrom, addressType);
     }
 
     @Override
@@ -324,6 +366,7 @@ public class DestinationConfig {
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    subType: ").append(toIndentedString(subType)).append("\n");
         sb.append("    ids: ").append(toIndentedString(ids)).append("\n");
+        sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
         sb.append("    operator: ").append(toIndentedString(operator)).append("\n");
         sb.append("    matchFrom: ").append(toIndentedString(matchFrom)).append("\n");
         sb.append("    addressType: ").append(toIndentedString(addressType)).append("\n");
@@ -376,12 +419,21 @@ public class DestinationConfig {
 
         // add `type` to the URL query string
         if (getType() != null) {
-            joiner.add(
-                    String.format(
-                            "%stype%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
+            for (int i = 0; i < getType().size(); i++) {
+                if (getType().get(i) != null) {
+                    joiner.add(
+                            String.format(
+                                    "%stype%s%s=%s",
+                                    prefix,
+                                    suffix,
+                                    "".equals(suffix)
+                                            ? ""
+                                            : String.format(
+                                                    "%s%d%s", containerPrefix, i, containerSuffix),
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getType().get(i)))));
+                }
+            }
         }
 
         // add `subType` to the URL query string
@@ -416,6 +468,29 @@ public class DestinationConfig {
                                     .toUrlQueryString(
                                             String.format(
                                                     "%sids%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
+        }
+
+        // add `tags` to the URL query string
+        if (getTags() != null) {
+            for (int i = 0; i < getTags().size(); i++) {
+                if (getTags().get(i) != null) {
+                    joiner.add(
+                            getTags()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%stags%s%s",
                                                     prefix,
                                                     suffix,
                                                     "".equals(suffix)

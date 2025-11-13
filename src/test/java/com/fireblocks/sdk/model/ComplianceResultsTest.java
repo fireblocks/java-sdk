@@ -54,4 +54,16 @@ class ComplianceResultsTest {
     void amlRegistrationTest() {
         // TODO: test amlRegistration
     }
+
+    /** Test the property 'trlinkRegistration' */
+    @Test
+    void trlinkRegistrationTest() {
+        // TODO: test trlinkRegistration
+    }
+
+    /** Test the property 'trlinkDestinations' */
+    @Test
+    void trlinkDestinationsTest() {
+        // TODO: test trlinkDestinations
+    }
 }

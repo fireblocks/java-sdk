@@ -14,13 +14,14 @@ V2 Policy rule which is enforced on transactions
 |**type** | **PolicyType** |  |  |
 |**subType** | **PolicyType** |  |  [optional] |
 |**initiator** | [**InitiatorConfigPattern**](InitiatorConfigPattern.md) |  |  |
-|**asset** | [**AssetConfig**](AssetConfig.md) |  |  |
-|**source** | [**AccountConfig**](AccountConfig.md) |  |  |
+|**asset** | [**AssetConfig**](AssetConfig.md) |  |  [optional] |
+|**source** | [**SourceConfig**](SourceConfig.md) |  |  |
 |**destination** | [**DestinationConfig**](DestinationConfig.md) |  |  [optional] |
 |**account** | [**AccountConfig**](AccountConfig.md) |  |  [optional] |
+|**side** | **OrderSide** |  |  [optional] |
 |**verdict** | [**VerdictConfig**](VerdictConfig.md) |  |  |
 |**amountOverTime** | [**AmountOverTimeConfig**](AmountOverTimeConfig.md) |  |  [optional] |
-|**amount** | [**AmountRange**](AmountRange.md) |  |  [optional] |
+|**amount** | [**AmountConfig**](AmountConfig.md) |  |  [optional] |
 |**externalDescriptor** | **String** | External descriptor for the rule |  [optional] |
 |**method** | [**ContractMethodPattern**](ContractMethodPattern.md) |  |  [optional] |
 |**isGlobalPolicy** | **Boolean** | Whether this is a global policy |  [optional] |
@@ -30,6 +31,7 @@ V2 Policy rule which is enforced on transactions
 |**baseAsset** | [**AssetConfig**](AssetConfig.md) |  |  [optional] |
 |**quoteAmount** | [**AmountRange**](AmountRange.md) |  |  [optional] |
 |**baseAmount** | [**AmountRange**](AmountRange.md) |  |  [optional] |
+|**dAppAddress** | [**DAppAddressConfig**](DAppAddressConfig.md) |  |  [optional] |
 |**derivationPath** | [**DerivationPathConfig**](DerivationPathConfig.md) |  |  [optional] |
 |**index** | **BigDecimal** | Index for the policy rule |  [optional] |
 

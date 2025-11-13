@@ -16,8 +16,12 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Status of compliance result screening. */
+/** Status of compliance result screening */
 public enum ComplianceResultStatusesEnum {
+    UNKNOWN("Unknown"),
+
+    STALLED("Stalled"),
+
     STARTED("Started"),
 
     NETWORK_CONNECTION_ADDRESS_RESOLVE("NetworkConnectionAddressResolve"),
@@ -36,13 +40,45 @@ public enum ComplianceResultStatusesEnum {
 
     TR_STARTED("TRStarted"),
 
+    TR_LINK_STARTED("TRLinkStarted"),
+
+    TR_LINK_DESTINATION_STARTED("TRLinkDestinationStarted"),
+
+    TR_LINK_DESTINATION_PRESCREEN_POLICY("TRLinkDestinationPrescreenPolicy"),
+
+    TR_LINK_DESTINATION_NO_TRM_POLICY("TRLinkDestinationNoTRMPolicy"),
+
+    TR_LINK_DESTINATION_SCREEN("TRLinkDestinationScreen"),
+
+    TR_LINK_DESTINATION_POSTSCREEN_POLICY("TRLinkDestinationPostscreenPolicy"),
+
+    TR_LINK_DESTINATION_COMPLETED("TRLinkDestinationCompleted"),
+
+    TR_LINK_COMPLETED("TRLinkCompleted"),
+
     TR_COMPLETED("TRCompleted"),
 
     TR_FAILED("TRFailed"),
 
     COMPLETED("Completed"),
 
+    REGISTRATION_STARTED("RegistrationStarted"),
+
+    REGISTRATION_WAIT_FOR_FIRST_CONFIRMATION("RegistrationWaitForFirstConfirmation"),
+
+    AML_REGISTRATION_STARTED("AMLRegistrationStarted"),
+
+    AML_REGISTRATION_COMPLETED("AMLRegistrationCompleted"),
+
+    TR_UPDATE_STARTED("TRUpdateStarted"),
+
+    TR_UPDATE_COMPLETED("TRUpdateCompleted"),
+
+    UPDATE_COMPLETED("UpdateCompleted"),
+
     INCOMING_STARTED("IncomingStarted"),
+
+    INCOMING_BYORK_SL("IncomingByorkSL"),
 
     INCOMING_SCREENING_PREPARE("IncomingScreeningPrepare"),
 
@@ -64,7 +100,19 @@ public enum ComplianceResultStatusesEnum {
 
     INCOMING_COMPLETED("IncomingCompleted"),
 
-    UPDATE_COMPLETED("UpdateCompleted");
+    ADDRESS_AML_INITIATED("AddressAmlInitiated"),
+
+    ADDRESS_AML_ADDRESS_RESOLVE("AddressAmlAddressResolve"),
+
+    ADDRESS_AML_PREPARE("AddressAmlPrepare"),
+
+    ADDRESS_AML_PROCESSING("AddressAmlProcessing"),
+
+    ADDRESS_AML_SUCCEEDED("AddressAmlSucceeded"),
+
+    ADDRESS_AML_FAILED("AddressAmlFailed"),
+
+    ADDRESS_AML_COMPLETED("AddressAmlCompleted");
 
     private String value;
 

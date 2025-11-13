@@ -43,6 +43,8 @@ import com.fireblocks.sdk.model.UpdateVaultAccountAssetAddressRequest;
 import com.fireblocks.sdk.model.UpdateVaultAccountRequest;
 import com.fireblocks.sdk.model.VaultAccount;
 import com.fireblocks.sdk.model.VaultAccountsPagedResponse;
+import com.fireblocks.sdk.model.VaultAccountsTagAttachmentOperationsRequest;
+import com.fireblocks.sdk.model.VaultAccountsTagAttachmentOperationsResponse;
 import com.fireblocks.sdk.model.VaultAccountsTagAttachmentsRequest;
 import com.fireblocks.sdk.model.VaultActionStatus;
 import com.fireblocks.sdk.model.VaultAsset;
@@ -184,7 +186,103 @@ public class VaultsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Attach tags to a vault accounts Attach one or more tags to the requested vault accounts.
+     * Attach or detach tags from a vault accounts Attach or detach one or more tags from the
+     * requested vault accounts.
+     *
+     * @param vaultAccountsTagAttachmentOperationsRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return
+     *     CompletableFuture&lt;ApiResponse&lt;VaultAccountsTagAttachmentOperationsResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<VaultAccountsTagAttachmentOperationsResponse>>
+            attachOrDetachTagsFromVaultAccounts(
+                    VaultAccountsTagAttachmentOperationsRequest
+                            vaultAccountsTagAttachmentOperationsRequest,
+                    String idempotencyKey)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    attachOrDetachTagsFromVaultAccountsRequestBuilder(
+                            vaultAccountsTagAttachmentOperationsRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "attachOrDetachTagsFromVaultAccounts",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<
+                                                    VaultAccountsTagAttachmentOperationsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            VaultAccountsTagAttachmentOperationsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder attachOrDetachTagsFromVaultAccountsRequestBuilder(
+            VaultAccountsTagAttachmentOperationsRequest vaultAccountsTagAttachmentOperationsRequest,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "attachOrDetachTagsFromVaultAccounts",
+                "vaultAccountsTagAttachmentOperationsRequest",
+                vaultAccountsTagAttachmentOperationsRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/vault/accounts/attached_tags";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(
+                            vaultAccountsTagAttachmentOperationsRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Attach tags to a vault accounts (deprecated) Attach one or more tags to the requested vault
+     * accounts. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
      *
      * @param vaultAccountsTagAttachmentsRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -804,7 +902,8 @@ public class VaultsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Detach tags from a vault accounts Detach one or more tags from the requested vault account.
+     * Detach tags from a vault accounts (deprecated) Detach one or more tags from the requested
+     * vault account. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
      *
      * @param vaultAccountsTagAttachmentsRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple

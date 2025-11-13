@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**type** | [**TypeEnum**](#TypeEnum) | Order type for quote orders |  |
 |**quoteId** | **String** | Quote ID for quote orders |  |
-|**reQuote** | [**QuoteExecutionWithRequoteRequestDetailsAllOfReQuote**](QuoteExecutionWithRequoteRequestDetailsAllOfReQuote.md) |  |  [optional] |
+|**reQuote** | [**ReQuoteDetailsReQuote**](ReQuoteDetailsReQuote.md) |  |  [optional] |
 
 
 

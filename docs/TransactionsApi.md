@@ -707,7 +707,7 @@ No authorization required
 
 ## getTransactions
 
-> CompletableFuture<ApiResponse<List<TransactionResponse>>> getTransactions getTransactions(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId)
+> CompletableFuture<ApiResponse<List<TransactionResponse>>> getTransactions getTransactions(next, prev, before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId)
 
 List transaction history
 
@@ -736,6 +736,8 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
+        String next = "next_example"; // String | Cursor returned in next-page header that can be used to fetch the next page of results
+        String prev = "prev_example"; // String | Cursor returned in prev-page header that can be used to fetch the previous page of results
         String before = "before_example"; // String | Unix timestamp in milliseconds. Returns only transactions created before the specified date
         String after = "after_example"; // String | Unix timestamp in milliseconds. Returns only transactions created after the specified date
         String status = "status_example"; // String | You can filter by one of the statuses.
@@ -751,7 +753,7 @@ public class Example {
         String sourceWalletId = "sourceWalletId_example"; // String | Returns only results where the source is a specific end user wallet
         String destWalletId = "destWalletId_example"; // String | Returns only results where the destination is a specific end user wallet
         try {
-            CompletableFuture<ApiResponse<List<TransactionResponse>>> response = fireblocks.transactions().getTransactions(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId);
+            CompletableFuture<ApiResponse<List<TransactionResponse>>> response = fireblocks.transactions().getTransactions(next, prev, before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -778,6 +780,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **next** | **String**| Cursor returned in next-page header that can be used to fetch the next page of results | [optional] |
+| **prev** | **String**| Cursor returned in prev-page header that can be used to fetch the previous page of results | [optional] |
 | **before** | **String**| Unix timestamp in milliseconds. Returns only transactions created before the specified date | [optional] |
 | **after** | **String**| Unix timestamp in milliseconds. Returns only transactions created after the specified date | [optional] |
 | **status** | **String**| You can filter by one of the statuses. | [optional] |

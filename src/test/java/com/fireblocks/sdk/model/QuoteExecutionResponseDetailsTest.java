@@ -25,6 +25,24 @@ class QuoteExecutionResponseDetailsTest {
         // TODO: test QuoteExecutionResponseDetails
     }
 
+    /** Test the property 'type' */
+    @Test
+    void typeTest() {
+        // TODO: test type
+    }
+
+    /** Test the property 'quoteId' */
+    @Test
+    void quoteIdTest() {
+        // TODO: test quoteId
+    }
+
+    /** Test the property 'quoteAmount' */
+    @Test
+    void quoteAmountTest() {
+        // TODO: test quoteAmount
+    }
+
     /** Test the property 'side' */
     @Test
     void sideTest() {
@@ -59,23 +77,5 @@ class QuoteExecutionResponseDetailsTest {
     @Test
     void quoteAssetRailTest() {
         // TODO: test quoteAssetRail
-    }
-
-    /** Test the property 'type' */
-    @Test
-    void typeTest() {
-        // TODO: test type
-    }
-
-    /** Test the property 'quoteId' */
-    @Test
-    void quoteIdTest() {
-        // TODO: test quoteId
-    }
-
-    /** Test the property 'quoteAmount' */
-    @Test
-    void quoteAmountTest() {
-        // TODO: test quoteAmount
     }
 }

@@ -32,6 +32,7 @@ import com.fireblocks.sdk.model.ResendNotificationsByResourceIdRequest;
 import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
 import com.fireblocks.sdk.model.WebhookEvent;
+import com.fireblocks.sdk.model.WebhookMetric;
 import com.fireblocks.sdk.model.WebhookPaginatedResponse;
 import java.io.IOException;
 import java.io.InputStream;
@@ -227,6 +228,77 @@ public class WebhooksV2Api {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get webhook metrics Get webhook metrics by webhook id and metric name
+     *
+     * @param webhookId (required)
+     * @param metricName Name of the metric to retrieve (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookMetric&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<WebhookMetric>> getMetrics(
+            UUID webhookId, String metricName) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getMetricsRequestBuilder(webhookId, metricName);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getMetrics", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<WebhookMetric>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            WebhookMetric>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getMetricsRequestBuilder(UUID webhookId, String metricName)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getMetrics", "webhookId", webhookId.toString());
+        ValidationUtils.assertParamExistsAndNotEmpty("getMetrics", "metricName", metricName);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks/{webhookId}/metrics/{metricName}"
+                        .replace("{webhookId}", ApiClient.urlEncode(webhookId.toString()))
+                        .replace("{metricName}", ApiClient.urlEncode(metricName.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

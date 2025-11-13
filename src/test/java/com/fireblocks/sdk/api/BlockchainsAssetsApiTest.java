@@ -143,7 +143,7 @@ public class BlockchainsAssetsApiTest {
      *
      * <p>Register a new asset to a workspace and return the newly created asset&#39;s details.
      * Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR -
-     * Solana
+     * Solana - Sui
      *
      * @throws ApiException if the Api call fails
      */

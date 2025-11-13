@@ -726,6 +726,10 @@ public class TransactionsApi {
     /**
      * List transaction history Lists the transaction history for your workspace.
      *
+     * @param next Cursor returned in next-page header that can be used to fetch the next page of
+     *     results (optional)
+     * @param prev Cursor returned in prev-page header that can be used to fetch the previous page
+     *     of results (optional)
      * @param before Unix timestamp in milliseconds. Returns only transactions created before the
      *     specified date (optional)
      * @param after Unix timestamp in milliseconds. Returns only transactions created after the
@@ -751,6 +755,8 @@ public class TransactionsApi {
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<List<TransactionResponse>>> getTransactions(
+            String next,
+            String prev,
             String before,
             String after,
             String status,
@@ -769,6 +775,8 @@ public class TransactionsApi {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTransactionsRequestBuilder(
+                            next,
+                            prev,
                             before,
                             after,
                             status,
@@ -817,6 +825,8 @@ public class TransactionsApi {
     }
 
     private HttpRequest.Builder getTransactionsRequestBuilder(
+            String next,
+            String prev,
             String before,
             String after,
             String status,
@@ -840,6 +850,10 @@ public class TransactionsApi {
         List<Pair> localVarQueryParams = new ArrayList<>();
         StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
         String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "next";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("next", next));
+        localVarQueryParameterBaseName = "prev";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("prev", prev));
         localVarQueryParameterBaseName = "before";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("before", before));
         localVarQueryParameterBaseName = "after";

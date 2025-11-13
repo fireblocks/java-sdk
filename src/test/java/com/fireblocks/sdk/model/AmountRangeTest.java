@@ -25,21 +25,9 @@ class AmountRangeTest {
         // TODO: test AmountRange
     }
 
-    /** Test the property 'min' */
+    /** Test the property 'range' */
     @Test
-    void minTest() {
-        // TODO: test min
-    }
-
-    /** Test the property 'max' */
-    @Test
-    void maxTest() {
-        // TODO: test max
-    }
-
-    /** Test the property 'currency' */
-    @Test
-    void currencyTest() {
-        // TODO: test currency
+    void rangeTest() {
+        // TODO: test range
     }
 }

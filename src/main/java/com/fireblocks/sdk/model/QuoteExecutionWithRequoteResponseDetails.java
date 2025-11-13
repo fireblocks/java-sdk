@@ -131,9 +131,7 @@ public class QuoteExecutionWithRequoteResponseDetails {
     @jakarta.annotation.Nullable private TransferRail quoteAssetRail;
 
     public static final String JSON_PROPERTY_RE_QUOTE = "reQuote";
-
-    @jakarta.annotation.Nullable
-    private QuoteExecutionWithRequoteResponseDetailsAllOfReQuote reQuote;
+    @jakarta.annotation.Nullable private ReQuoteDetailsReQuote reQuote;
 
     public QuoteExecutionWithRequoteResponseDetails() {}
 
@@ -373,8 +371,7 @@ public class QuoteExecutionWithRequoteResponseDetails {
     }
 
     public QuoteExecutionWithRequoteResponseDetails reQuote(
-            @jakarta.annotation.Nullable
-                    QuoteExecutionWithRequoteResponseDetailsAllOfReQuote reQuote) {
+            @jakarta.annotation.Nullable ReQuoteDetailsReQuote reQuote) {
         this.reQuote = reQuote;
         return this;
     }
@@ -387,15 +384,13 @@ public class QuoteExecutionWithRequoteResponseDetails {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_RE_QUOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public QuoteExecutionWithRequoteResponseDetailsAllOfReQuote getReQuote() {
+    public ReQuoteDetailsReQuote getReQuote() {
         return reQuote;
     }
 
     @JsonProperty(JSON_PROPERTY_RE_QUOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setReQuote(
-            @jakarta.annotation.Nullable
-                    QuoteExecutionWithRequoteResponseDetailsAllOfReQuote reQuote) {
+    public void setReQuote(@jakarta.annotation.Nullable ReQuoteDetailsReQuote reQuote) {
         this.reQuote = reQuote;
     }
 

@@ -36,7 +36,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class ApproversConfig {
     public static final String JSON_PROPERTY_CAN_INITIATOR_APPROVE = "canInitiatorApprove";
-    @jakarta.annotation.Nullable private Boolean canInitiatorApprove;
+    @jakarta.annotation.Nonnull private Boolean canInitiatorApprove;
 
     /** Operator for approval groups */
     public enum OperatorEnum {
@@ -83,8 +83,15 @@ public class ApproversConfig {
 
     public ApproversConfig() {}
 
+    @JsonCreator
+    public ApproversConfig(
+            @JsonProperty(value = JSON_PROPERTY_CAN_INITIATOR_APPROVE, required = true)
+                    Boolean canInitiatorApprove) {
+        this.canInitiatorApprove = canInitiatorApprove;
+    }
+
     public ApproversConfig canInitiatorApprove(
-            @jakarta.annotation.Nullable Boolean canInitiatorApprove) {
+            @jakarta.annotation.Nonnull Boolean canInitiatorApprove) {
         this.canInitiatorApprove = canInitiatorApprove;
         return this;
     }
@@ -94,16 +101,16 @@ public class ApproversConfig {
      *
      * @return canInitiatorApprove
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_CAN_INITIATOR_APPROVE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public Boolean getCanInitiatorApprove() {
         return canInitiatorApprove;
     }
 
     @JsonProperty(JSON_PROPERTY_CAN_INITIATOR_APPROVE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCanInitiatorApprove(@jakarta.annotation.Nullable Boolean canInitiatorApprove) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCanInitiatorApprove(@jakarta.annotation.Nonnull Boolean canInitiatorApprove) {
         this.canInitiatorApprove = canInitiatorApprove;
     }
 

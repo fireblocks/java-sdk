@@ -78,7 +78,7 @@ public class ScreeningMetadataConfig {
     }
 
     public static final String JSON_PROPERTY_DIRECTION = "direction";
-    @jakarta.annotation.Nonnull private DirectionEnum direction;
+    @jakarta.annotation.Nullable private DirectionEnum direction;
 
     /** Screening provider */
     public enum ProviderEnum {
@@ -266,14 +266,7 @@ public class ScreeningMetadataConfig {
 
     public ScreeningMetadataConfig() {}
 
-    @JsonCreator
-    public ScreeningMetadataConfig(
-            @JsonProperty(value = JSON_PROPERTY_DIRECTION, required = true)
-                    DirectionEnum direction) {
-        this.direction = direction;
-    }
-
-    public ScreeningMetadataConfig direction(@jakarta.annotation.Nonnull DirectionEnum direction) {
+    public ScreeningMetadataConfig direction(@jakarta.annotation.Nullable DirectionEnum direction) {
         this.direction = direction;
         return this;
     }
@@ -283,16 +276,16 @@ public class ScreeningMetadataConfig {
      *
      * @return direction
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_DIRECTION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public DirectionEnum getDirection() {
         return direction;
     }
 
     @JsonProperty(JSON_PROPERTY_DIRECTION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDirection(@jakarta.annotation.Nonnull DirectionEnum direction) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDirection(@jakarta.annotation.Nullable DirectionEnum direction) {
         this.direction = direction;
     }
 

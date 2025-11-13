@@ -24,18 +24,52 @@ import java.util.StringJoiner;
 
 /** MarketExecutionResponseDetails */
 @JsonPropertyOrder({
+    MarketExecutionResponseDetails.JSON_PROPERTY_TYPE,
     MarketExecutionResponseDetails.JSON_PROPERTY_SIDE,
     MarketExecutionResponseDetails.JSON_PROPERTY_BASE_AMOUNT,
     MarketExecutionResponseDetails.JSON_PROPERTY_BASE_ASSET_ID,
     MarketExecutionResponseDetails.JSON_PROPERTY_BASE_ASSET_RAIL,
     MarketExecutionResponseDetails.JSON_PROPERTY_QUOTE_ASSET_ID,
-    MarketExecutionResponseDetails.JSON_PROPERTY_QUOTE_ASSET_RAIL,
-    MarketExecutionResponseDetails.JSON_PROPERTY_TYPE
+    MarketExecutionResponseDetails.JSON_PROPERTY_QUOTE_ASSET_RAIL
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class MarketExecutionResponseDetails {
+    /** Order type for market orders */
+    public enum TypeEnum {
+        MARKET(String.valueOf("MARKET"));
+
+        private String value;
+
+        TypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static TypeEnum fromValue(String value) {
+            for (TypeEnum b : TypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    public static final String JSON_PROPERTY_TYPE = "type";
+    @jakarta.annotation.Nonnull private TypeEnum type;
+
     /** Side of the order */
     public enum SideEnum {
         BUY(String.valueOf("BUY")),
@@ -87,54 +121,43 @@ public class MarketExecutionResponseDetails {
     public static final String JSON_PROPERTY_QUOTE_ASSET_RAIL = "quoteAssetRail";
     @jakarta.annotation.Nullable private TransferRail quoteAssetRail;
 
-    /** Order type for market orders */
-    public enum TypeEnum {
-        MARKET(String.valueOf("MARKET"));
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_TYPE = "type";
-    @jakarta.annotation.Nonnull private TypeEnum type;
-
     public MarketExecutionResponseDetails() {}
 
     @JsonCreator
     public MarketExecutionResponseDetails(
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
             @JsonProperty(value = JSON_PROPERTY_SIDE, required = true) SideEnum side,
             @JsonProperty(value = JSON_PROPERTY_BASE_AMOUNT, required = true) String baseAmount,
             @JsonProperty(value = JSON_PROPERTY_BASE_ASSET_ID, required = true) String baseAssetId,
             @JsonProperty(value = JSON_PROPERTY_QUOTE_ASSET_ID, required = true)
-                    String quoteAssetId,
-            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type) {
+                    String quoteAssetId) {
+        this.type = type;
         this.side = side;
         this.baseAmount = baseAmount;
         this.baseAssetId = baseAssetId;
         this.quoteAssetId = quoteAssetId;
+    }
+
+    public MarketExecutionResponseDetails type(@jakarta.annotation.Nonnull TypeEnum type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Order type for market orders
+     *
+     * @return type
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public TypeEnum getType() {
+        return type;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
     }
 
@@ -281,29 +304,6 @@ public class MarketExecutionResponseDetails {
         this.quoteAssetRail = quoteAssetRail;
     }
 
-    public MarketExecutionResponseDetails type(@jakarta.annotation.Nonnull TypeEnum type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * Order type for market orders
-     *
-     * @return type
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TypeEnum getType() {
-        return type;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
-        this.type = type;
-    }
-
     /** Return true if this MarketExecutionResponseDetails object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -315,33 +315,33 @@ public class MarketExecutionResponseDetails {
         }
         MarketExecutionResponseDetails marketExecutionResponseDetails =
                 (MarketExecutionResponseDetails) o;
-        return Objects.equals(this.side, marketExecutionResponseDetails.side)
+        return Objects.equals(this.type, marketExecutionResponseDetails.type)
+                && Objects.equals(this.side, marketExecutionResponseDetails.side)
                 && Objects.equals(this.baseAmount, marketExecutionResponseDetails.baseAmount)
                 && Objects.equals(this.baseAssetId, marketExecutionResponseDetails.baseAssetId)
                 && Objects.equals(this.baseAssetRail, marketExecutionResponseDetails.baseAssetRail)
                 && Objects.equals(this.quoteAssetId, marketExecutionResponseDetails.quoteAssetId)
                 && Objects.equals(
-                        this.quoteAssetRail, marketExecutionResponseDetails.quoteAssetRail)
-                && Objects.equals(this.type, marketExecutionResponseDetails.type);
+                        this.quoteAssetRail, marketExecutionResponseDetails.quoteAssetRail);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                side, baseAmount, baseAssetId, baseAssetRail, quoteAssetId, quoteAssetRail, type);
+                type, side, baseAmount, baseAssetId, baseAssetRail, quoteAssetId, quoteAssetRail);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class MarketExecutionResponseDetails {\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    side: ").append(toIndentedString(side)).append("\n");
         sb.append("    baseAmount: ").append(toIndentedString(baseAmount)).append("\n");
         sb.append("    baseAssetId: ").append(toIndentedString(baseAssetId)).append("\n");
         sb.append("    baseAssetRail: ").append(toIndentedString(baseAssetRail)).append("\n");
         sb.append("    quoteAssetId: ").append(toIndentedString(quoteAssetId)).append("\n");
         sb.append("    quoteAssetRail: ").append(toIndentedString(quoteAssetRail)).append("\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -388,6 +388,16 @@ public class MarketExecutionResponseDetails {
         }
 
         StringJoiner joiner = new StringJoiner("&");
+
+        // add `type` to the URL query string
+        if (getType() != null) {
+            joiner.add(
+                    String.format(
+                            "%stype%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
+        }
 
         // add `side` to the URL query string
         if (getSide() != null) {
@@ -447,16 +457,6 @@ public class MarketExecutionResponseDetails {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getQuoteAssetRail()))));
-        }
-
-        // add `type` to the URL query string
-        if (getType() != null) {
-            joiner.add(
-                    String.format(
-                            "%stype%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         return joiner.toString();

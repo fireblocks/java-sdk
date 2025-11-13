@@ -81,7 +81,7 @@ public class RegisterNewAssetRequest {
     /**
      * Asset address. - EVM-based chains: token contract address - Stellar (XLM): issuer address -
      * Algorand (ALGO): asset ID - TRON (TRX): token contract address - NEAR: token address -
-     * Solana: token&#39;s mint account address
+     * Solana: token&#39;s mint account address - Sui: token&#39;s type
      *
      * @return address
      */

@@ -7,15 +7,23 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+|**type** | [**TypeEnum**](#TypeEnum) | Order type for quote orders |  |
+|**quoteId** | **String** | Quote ID for quote orders |  |
+|**quoteAmount** | **String** | Quote amount for quote orders |  |
 |**side** | [**SideEnum**](#SideEnum) | Side of the order |  |
 |**baseAmount** | **String** | Amount to convert |  |
 |**baseAssetId** | **String** | Source asset identifier |  |
 |**baseAssetRail** | **TransferRail** |  |  [optional] |
 |**quoteAssetId** | **String** | Target asset identifier |  |
 |**quoteAssetRail** | **TransferRail** |  |  [optional] |
-|**type** | [**TypeEnum**](#TypeEnum) | Order type for quote orders |  |
-|**quoteId** | **String** | Quote ID for quote orders |  |
-|**quoteAmount** | **String** | Quote amount for quote orders |  |
+
+
+
+## Enum: TypeEnum
+
+| Name | Value |
+|---- | -----|
+| QUOTE | &quot;QUOTE&quot; |
 
 
 
@@ -25,14 +33,6 @@
 |---- | -----|
 | BUY | &quot;BUY&quot; |
 | SELL | &quot;SELL&quot; |
-
-
-
-## Enum: TypeEnum
-
-| Name | Value |
-|---- | -----|
-| QUOTE | &quot;QUOTE&quot; |
 
 
 

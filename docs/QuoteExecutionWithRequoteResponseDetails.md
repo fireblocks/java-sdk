@@ -16,7 +16,7 @@
 |**baseAssetRail** | **TransferRail** |  |  [optional] |
 |**quoteAssetId** | **String** | Target asset identifier |  |
 |**quoteAssetRail** | **TransferRail** |  |  [optional] |
-|**reQuote** | [**QuoteExecutionWithRequoteResponseDetailsAllOfReQuote**](QuoteExecutionWithRequoteResponseDetailsAllOfReQuote.md) |  |  [optional] |
+|**reQuote** | [**ReQuoteDetailsReQuote**](ReQuoteDetailsReQuote.md) |  |  [optional] |
 
 
 

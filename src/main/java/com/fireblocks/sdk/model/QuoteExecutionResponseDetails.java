@@ -24,20 +24,60 @@ import java.util.StringJoiner;
 
 /** QuoteExecutionResponseDetails */
 @JsonPropertyOrder({
+    QuoteExecutionResponseDetails.JSON_PROPERTY_TYPE,
+    QuoteExecutionResponseDetails.JSON_PROPERTY_QUOTE_ID,
+    QuoteExecutionResponseDetails.JSON_PROPERTY_QUOTE_AMOUNT,
     QuoteExecutionResponseDetails.JSON_PROPERTY_SIDE,
     QuoteExecutionResponseDetails.JSON_PROPERTY_BASE_AMOUNT,
     QuoteExecutionResponseDetails.JSON_PROPERTY_BASE_ASSET_ID,
     QuoteExecutionResponseDetails.JSON_PROPERTY_BASE_ASSET_RAIL,
     QuoteExecutionResponseDetails.JSON_PROPERTY_QUOTE_ASSET_ID,
-    QuoteExecutionResponseDetails.JSON_PROPERTY_QUOTE_ASSET_RAIL,
-    QuoteExecutionResponseDetails.JSON_PROPERTY_TYPE,
-    QuoteExecutionResponseDetails.JSON_PROPERTY_QUOTE_ID,
-    QuoteExecutionResponseDetails.JSON_PROPERTY_QUOTE_AMOUNT
+    QuoteExecutionResponseDetails.JSON_PROPERTY_QUOTE_ASSET_RAIL
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class QuoteExecutionResponseDetails {
+    /** Order type for quote orders */
+    public enum TypeEnum {
+        QUOTE(String.valueOf("QUOTE"));
+
+        private String value;
+
+        TypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static TypeEnum fromValue(String value) {
+            for (TypeEnum b : TypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    public static final String JSON_PROPERTY_TYPE = "type";
+    @jakarta.annotation.Nonnull private TypeEnum type;
+
+    public static final String JSON_PROPERTY_QUOTE_ID = "quoteId";
+    @jakarta.annotation.Nonnull private String quoteId;
+
+    public static final String JSON_PROPERTY_QUOTE_AMOUNT = "quoteAmount";
+    @jakarta.annotation.Nonnull private String quoteAmount;
+
     /** Side of the order */
     public enum SideEnum {
         BUY(String.valueOf("BUY")),
@@ -89,64 +129,94 @@ public class QuoteExecutionResponseDetails {
     public static final String JSON_PROPERTY_QUOTE_ASSET_RAIL = "quoteAssetRail";
     @jakarta.annotation.Nullable private TransferRail quoteAssetRail;
 
-    /** Order type for quote orders */
-    public enum TypeEnum {
-        QUOTE(String.valueOf("QUOTE"));
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_TYPE = "type";
-    @jakarta.annotation.Nonnull private TypeEnum type;
-
-    public static final String JSON_PROPERTY_QUOTE_ID = "quoteId";
-    @jakarta.annotation.Nonnull private String quoteId;
-
-    public static final String JSON_PROPERTY_QUOTE_AMOUNT = "quoteAmount";
-    @jakarta.annotation.Nonnull private String quoteAmount;
-
     public QuoteExecutionResponseDetails() {}
 
     @JsonCreator
     public QuoteExecutionResponseDetails(
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
+            @JsonProperty(value = JSON_PROPERTY_QUOTE_ID, required = true) String quoteId,
+            @JsonProperty(value = JSON_PROPERTY_QUOTE_AMOUNT, required = true) String quoteAmount,
             @JsonProperty(value = JSON_PROPERTY_SIDE, required = true) SideEnum side,
             @JsonProperty(value = JSON_PROPERTY_BASE_AMOUNT, required = true) String baseAmount,
             @JsonProperty(value = JSON_PROPERTY_BASE_ASSET_ID, required = true) String baseAssetId,
             @JsonProperty(value = JSON_PROPERTY_QUOTE_ASSET_ID, required = true)
-                    String quoteAssetId,
-            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
-            @JsonProperty(value = JSON_PROPERTY_QUOTE_ID, required = true) String quoteId,
-            @JsonProperty(value = JSON_PROPERTY_QUOTE_AMOUNT, required = true) String quoteAmount) {
+                    String quoteAssetId) {
+        this.type = type;
+        this.quoteId = quoteId;
+        this.quoteAmount = quoteAmount;
         this.side = side;
         this.baseAmount = baseAmount;
         this.baseAssetId = baseAssetId;
         this.quoteAssetId = quoteAssetId;
+    }
+
+    public QuoteExecutionResponseDetails type(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
+        return this;
+    }
+
+    /**
+     * Order type for quote orders
+     *
+     * @return type
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public TypeEnum getType() {
+        return type;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
+        this.type = type;
+    }
+
+    public QuoteExecutionResponseDetails quoteId(@jakarta.annotation.Nonnull String quoteId) {
         this.quoteId = quoteId;
+        return this;
+    }
+
+    /**
+     * Quote ID for quote orders
+     *
+     * @return quoteId
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_QUOTE_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getQuoteId() {
+        return quoteId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_QUOTE_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setQuoteId(@jakarta.annotation.Nonnull String quoteId) {
+        this.quoteId = quoteId;
+    }
+
+    public QuoteExecutionResponseDetails quoteAmount(
+            @jakarta.annotation.Nonnull String quoteAmount) {
+        this.quoteAmount = quoteAmount;
+        return this;
+    }
+
+    /**
+     * Quote amount for quote orders
+     *
+     * @return quoteAmount
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_QUOTE_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getQuoteAmount() {
+        return quoteAmount;
+    }
+
+    @JsonProperty(JSON_PROPERTY_QUOTE_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setQuoteAmount(@jakarta.annotation.Nonnull String quoteAmount) {
         this.quoteAmount = quoteAmount;
     }
 
@@ -292,76 +362,6 @@ public class QuoteExecutionResponseDetails {
         this.quoteAssetRail = quoteAssetRail;
     }
 
-    public QuoteExecutionResponseDetails type(@jakarta.annotation.Nonnull TypeEnum type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * Order type for quote orders
-     *
-     * @return type
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TypeEnum getType() {
-        return type;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
-        this.type = type;
-    }
-
-    public QuoteExecutionResponseDetails quoteId(@jakarta.annotation.Nonnull String quoteId) {
-        this.quoteId = quoteId;
-        return this;
-    }
-
-    /**
-     * Quote ID for quote orders
-     *
-     * @return quoteId
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_QUOTE_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getQuoteId() {
-        return quoteId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_QUOTE_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setQuoteId(@jakarta.annotation.Nonnull String quoteId) {
-        this.quoteId = quoteId;
-    }
-
-    public QuoteExecutionResponseDetails quoteAmount(
-            @jakarta.annotation.Nonnull String quoteAmount) {
-        this.quoteAmount = quoteAmount;
-        return this;
-    }
-
-    /**
-     * Quote amount for quote orders
-     *
-     * @return quoteAmount
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_QUOTE_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getQuoteAmount() {
-        return quoteAmount;
-    }
-
-    @JsonProperty(JSON_PROPERTY_QUOTE_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setQuoteAmount(@jakarta.annotation.Nonnull String quoteAmount) {
-        this.quoteAmount = quoteAmount;
-    }
-
     /** Return true if this QuoteExecutionResponseDetails object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -373,44 +373,45 @@ public class QuoteExecutionResponseDetails {
         }
         QuoteExecutionResponseDetails quoteExecutionResponseDetails =
                 (QuoteExecutionResponseDetails) o;
-        return Objects.equals(this.side, quoteExecutionResponseDetails.side)
+        return Objects.equals(this.type, quoteExecutionResponseDetails.type)
+                && Objects.equals(this.quoteId, quoteExecutionResponseDetails.quoteId)
+                && Objects.equals(this.quoteAmount, quoteExecutionResponseDetails.quoteAmount)
+                && Objects.equals(this.side, quoteExecutionResponseDetails.side)
                 && Objects.equals(this.baseAmount, quoteExecutionResponseDetails.baseAmount)
                 && Objects.equals(this.baseAssetId, quoteExecutionResponseDetails.baseAssetId)
                 && Objects.equals(this.baseAssetRail, quoteExecutionResponseDetails.baseAssetRail)
                 && Objects.equals(this.quoteAssetId, quoteExecutionResponseDetails.quoteAssetId)
-                && Objects.equals(this.quoteAssetRail, quoteExecutionResponseDetails.quoteAssetRail)
-                && Objects.equals(this.type, quoteExecutionResponseDetails.type)
-                && Objects.equals(this.quoteId, quoteExecutionResponseDetails.quoteId)
-                && Objects.equals(this.quoteAmount, quoteExecutionResponseDetails.quoteAmount);
+                && Objects.equals(
+                        this.quoteAssetRail, quoteExecutionResponseDetails.quoteAssetRail);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+                type,
+                quoteId,
+                quoteAmount,
                 side,
                 baseAmount,
                 baseAssetId,
                 baseAssetRail,
                 quoteAssetId,
-                quoteAssetRail,
-                type,
-                quoteId,
-                quoteAmount);
+                quoteAssetRail);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class QuoteExecutionResponseDetails {\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    quoteId: ").append(toIndentedString(quoteId)).append("\n");
+        sb.append("    quoteAmount: ").append(toIndentedString(quoteAmount)).append("\n");
         sb.append("    side: ").append(toIndentedString(side)).append("\n");
         sb.append("    baseAmount: ").append(toIndentedString(baseAmount)).append("\n");
         sb.append("    baseAssetId: ").append(toIndentedString(baseAssetId)).append("\n");
         sb.append("    baseAssetRail: ").append(toIndentedString(baseAssetRail)).append("\n");
         sb.append("    quoteAssetId: ").append(toIndentedString(quoteAssetId)).append("\n");
         sb.append("    quoteAssetRail: ").append(toIndentedString(quoteAssetRail)).append("\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
-        sb.append("    quoteId: ").append(toIndentedString(quoteId)).append("\n");
-        sb.append("    quoteAmount: ").append(toIndentedString(quoteAmount)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -457,6 +458,36 @@ public class QuoteExecutionResponseDetails {
         }
 
         StringJoiner joiner = new StringJoiner("&");
+
+        // add `type` to the URL query string
+        if (getType() != null) {
+            joiner.add(
+                    String.format(
+                            "%stype%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
+        }
+
+        // add `quoteId` to the URL query string
+        if (getQuoteId() != null) {
+            joiner.add(
+                    String.format(
+                            "%squoteId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getQuoteId()))));
+        }
+
+        // add `quoteAmount` to the URL query string
+        if (getQuoteAmount() != null) {
+            joiner.add(
+                    String.format(
+                            "%squoteAmount%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getQuoteAmount()))));
+        }
 
         // add `side` to the URL query string
         if (getSide() != null) {
@@ -516,36 +547,6 @@ public class QuoteExecutionResponseDetails {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getQuoteAssetRail()))));
-        }
-
-        // add `type` to the URL query string
-        if (getType() != null) {
-            joiner.add(
-                    String.format(
-                            "%stype%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
-        }
-
-        // add `quoteId` to the URL query string
-        if (getQuoteId() != null) {
-            joiner.add(
-                    String.format(
-                            "%squoteId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getQuoteId()))));
-        }
-
-        // add `quoteAmount` to the URL query string
-        if (getQuoteAmount() != null) {
-            joiner.add(
-                    String.format(
-                            "%squoteAmount%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getQuoteAmount()))));
         }
 
         return joiner.toString();

@@ -25,6 +25,24 @@ class LimitExecutionResponseDetailsTest {
         // TODO: test LimitExecutionResponseDetails
     }
 
+    /** Test the property 'type' */
+    @Test
+    void typeTest() {
+        // TODO: test type
+    }
+
+    /** Test the property 'timeInForce' */
+    @Test
+    void timeInForceTest() {
+        // TODO: test timeInForce
+    }
+
+    /** Test the property 'limitPrice' */
+    @Test
+    void limitPriceTest() {
+        // TODO: test limitPrice
+    }
+
     /** Test the property 'side' */
     @Test
     void sideTest() {
@@ -59,23 +77,5 @@ class LimitExecutionResponseDetailsTest {
     @Test
     void quoteAssetRailTest() {
         // TODO: test quoteAssetRail
-    }
-
-    /** Test the property 'type' */
-    @Test
-    void typeTest() {
-        // TODO: test type
-    }
-
-    /** Test the property 'timeInForce' */
-    @Test
-    void timeInForceTest() {
-        // TODO: test timeInForce
-    }
-
-    /** Test the property 'limitPrice' */
-    @Test
-    void limitPriceTest() {
-        // TODO: test limitPrice
     }
 }

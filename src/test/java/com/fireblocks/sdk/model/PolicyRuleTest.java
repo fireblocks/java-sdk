@@ -85,6 +85,12 @@ class PolicyRuleTest {
         // TODO: test account
     }
 
+    /** Test the property 'side' */
+    @Test
+    void sideTest() {
+        // TODO: test side
+    }
+
     /** Test the property 'verdict' */
     @Test
     void verdictTest() {
@@ -155,6 +161,12 @@ class PolicyRuleTest {
     @Test
     void baseAmountTest() {
         // TODO: test baseAmount
+    }
+
+    /** Test the property 'dAppAddress' */
+    @Test
+    void dAppAddressTest() {
+        // TODO: test dAppAddress
     }
 
     /** Test the property 'derivationPath' */

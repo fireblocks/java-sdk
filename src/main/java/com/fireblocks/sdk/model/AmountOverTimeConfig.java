@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -33,45 +32,10 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class AmountOverTimeConfig {
     public static final String JSON_PROPERTY_RANGE = "range";
-    @jakarta.annotation.Nonnull private AmountOverTimeConfigRange range;
-
-    /** Currency for the amount */
-    public enum CurrencyEnum {
-        NATIVE(String.valueOf("NATIVE")),
-
-        USD(String.valueOf("USD")),
-
-        EUR(String.valueOf("EUR"));
-
-        private String value;
-
-        CurrencyEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static CurrencyEnum fromValue(String value) {
-            for (CurrencyEnum b : CurrencyEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
+    @jakarta.annotation.Nonnull private AmountRangeMinMax2 range;
 
     public static final String JSON_PROPERTY_CURRENCY = "currency";
-    @jakarta.annotation.Nullable private CurrencyEnum currency;
+    @jakarta.annotation.Nonnull private PolicyCurrency currency;
 
     public static final String JSON_PROPERTY_TIME_PERIOD = "timePeriod";
     @jakarta.annotation.Nonnull private TimePeriodConfig timePeriod;
@@ -80,15 +44,16 @@ public class AmountOverTimeConfig {
 
     @JsonCreator
     public AmountOverTimeConfig(
-            @JsonProperty(value = JSON_PROPERTY_RANGE, required = true)
-                    AmountOverTimeConfigRange range,
+            @JsonProperty(value = JSON_PROPERTY_RANGE, required = true) AmountRangeMinMax2 range,
+            @JsonProperty(value = JSON_PROPERTY_CURRENCY, required = true) PolicyCurrency currency,
             @JsonProperty(value = JSON_PROPERTY_TIME_PERIOD, required = true)
                     TimePeriodConfig timePeriod) {
         this.range = range;
+        this.currency = currency;
         this.timePeriod = timePeriod;
     }
 
-    public AmountOverTimeConfig range(@jakarta.annotation.Nonnull AmountOverTimeConfigRange range) {
+    public AmountOverTimeConfig range(@jakarta.annotation.Nonnull AmountRangeMinMax2 range) {
         this.range = range;
         return this;
     }
@@ -101,36 +66,36 @@ public class AmountOverTimeConfig {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_RANGE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AmountOverTimeConfigRange getRange() {
+    public AmountRangeMinMax2 getRange() {
         return range;
     }
 
     @JsonProperty(JSON_PROPERTY_RANGE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRange(@jakarta.annotation.Nonnull AmountOverTimeConfigRange range) {
+    public void setRange(@jakarta.annotation.Nonnull AmountRangeMinMax2 range) {
         this.range = range;
     }
 
-    public AmountOverTimeConfig currency(@jakarta.annotation.Nullable CurrencyEnum currency) {
+    public AmountOverTimeConfig currency(@jakarta.annotation.Nonnull PolicyCurrency currency) {
         this.currency = currency;
         return this;
     }
 
     /**
-     * Currency for the amount
+     * Get currency
      *
      * @return currency
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_CURRENCY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public CurrencyEnum getCurrency() {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public PolicyCurrency getCurrency() {
         return currency;
     }
 
     @JsonProperty(JSON_PROPERTY_CURRENCY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCurrency(@jakarta.annotation.Nullable CurrencyEnum currency) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCurrency(@jakarta.annotation.Nonnull PolicyCurrency currency) {
         this.currency = currency;
     }
 

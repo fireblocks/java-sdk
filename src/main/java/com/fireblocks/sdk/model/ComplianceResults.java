@@ -28,7 +28,9 @@ import java.util.StringJoiner;
     ComplianceResults.JSON_PROPERTY_TR,
     ComplianceResults.JSON_PROPERTY_AML_LIST,
     ComplianceResults.JSON_PROPERTY_STATUS,
-    ComplianceResults.JSON_PROPERTY_AML_REGISTRATION
+    ComplianceResults.JSON_PROPERTY_AML_REGISTRATION,
+    ComplianceResults.JSON_PROPERTY_TRLINK_REGISTRATION,
+    ComplianceResults.JSON_PROPERTY_TRLINK_DESTINATIONS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -48,6 +50,12 @@ public class ComplianceResults {
 
     public static final String JSON_PROPERTY_AML_REGISTRATION = "amlRegistration";
     @jakarta.annotation.Nullable private AmlRegistrationResult amlRegistration;
+
+    public static final String JSON_PROPERTY_TRLINK_REGISTRATION = "trlinkRegistration";
+    @jakarta.annotation.Nullable private TRLinkRegistrationResult trlinkRegistration;
+
+    public static final String JSON_PROPERTY_TRLINK_DESTINATIONS = "trlinkDestinations";
+    @jakarta.annotation.Nullable private List<TRLinkResult> trlinkDestinations;
 
     public ComplianceResults() {}
 
@@ -178,6 +186,64 @@ public class ComplianceResults {
         this.amlRegistration = amlRegistration;
     }
 
+    public ComplianceResults trlinkRegistration(
+            @jakarta.annotation.Nullable TRLinkRegistrationResult trlinkRegistration) {
+        this.trlinkRegistration = trlinkRegistration;
+        return this;
+    }
+
+    /**
+     * Get trlinkRegistration
+     *
+     * @return trlinkRegistration
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TRLINK_REGISTRATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public TRLinkRegistrationResult getTrlinkRegistration() {
+        return trlinkRegistration;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRLINK_REGISTRATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTrlinkRegistration(
+            @jakarta.annotation.Nullable TRLinkRegistrationResult trlinkRegistration) {
+        this.trlinkRegistration = trlinkRegistration;
+    }
+
+    public ComplianceResults trlinkDestinations(
+            @jakarta.annotation.Nullable List<TRLinkResult> trlinkDestinations) {
+        this.trlinkDestinations = trlinkDestinations;
+        return this;
+    }
+
+    public ComplianceResults addTrlinkDestinationsItem(TRLinkResult trlinkDestinationsItem) {
+        if (this.trlinkDestinations == null) {
+            this.trlinkDestinations = new ArrayList<>();
+        }
+        this.trlinkDestinations.add(trlinkDestinationsItem);
+        return this;
+    }
+
+    /**
+     * The list of TRLink destination screening results.
+     *
+     * @return trlinkDestinations
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TRLINK_DESTINATIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<TRLinkResult> getTrlinkDestinations() {
+        return trlinkDestinations;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRLINK_DESTINATIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTrlinkDestinations(
+            @jakarta.annotation.Nullable List<TRLinkResult> trlinkDestinations) {
+        this.trlinkDestinations = trlinkDestinations;
+    }
+
     /** Return true if this ComplianceResults object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -192,12 +258,15 @@ public class ComplianceResults {
                 && Objects.equals(this.tr, complianceResults.tr)
                 && Objects.equals(this.amlList, complianceResults.amlList)
                 && Objects.equals(this.status, complianceResults.status)
-                && Objects.equals(this.amlRegistration, complianceResults.amlRegistration);
+                && Objects.equals(this.amlRegistration, complianceResults.amlRegistration)
+                && Objects.equals(this.trlinkRegistration, complianceResults.trlinkRegistration)
+                && Objects.equals(this.trlinkDestinations, complianceResults.trlinkDestinations);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(aml, tr, amlList, status, amlRegistration);
+        return Objects.hash(
+                aml, tr, amlList, status, amlRegistration, trlinkRegistration, trlinkDestinations);
     }
 
     @Override
@@ -209,6 +278,12 @@ public class ComplianceResults {
         sb.append("    amlList: ").append(toIndentedString(amlList)).append("\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    amlRegistration: ").append(toIndentedString(amlRegistration)).append("\n");
+        sb.append("    trlinkRegistration: ")
+                .append(toIndentedString(trlinkRegistration))
+                .append("\n");
+        sb.append("    trlinkDestinations: ")
+                .append(toIndentedString(trlinkDestinations))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -302,6 +377,36 @@ public class ComplianceResults {
         // add `amlRegistration` to the URL query string
         if (getAmlRegistration() != null) {
             joiner.add(getAmlRegistration().toUrlQueryString(prefix + "amlRegistration" + suffix));
+        }
+
+        // add `trlinkRegistration` to the URL query string
+        if (getTrlinkRegistration() != null) {
+            joiner.add(
+                    getTrlinkRegistration()
+                            .toUrlQueryString(prefix + "trlinkRegistration" + suffix));
+        }
+
+        // add `trlinkDestinations` to the URL query string
+        if (getTrlinkDestinations() != null) {
+            for (int i = 0; i < getTrlinkDestinations().size(); i++) {
+                if (getTrlinkDestinations().get(i) != null) {
+                    joiner.add(
+                            getTrlinkDestinations()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%strlinkDestinations%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
         }
 
         return joiner.toString();

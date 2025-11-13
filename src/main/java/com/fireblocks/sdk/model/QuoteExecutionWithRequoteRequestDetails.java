@@ -70,9 +70,7 @@ public class QuoteExecutionWithRequoteRequestDetails {
     @jakarta.annotation.Nonnull private String quoteId;
 
     public static final String JSON_PROPERTY_RE_QUOTE = "reQuote";
-
-    @jakarta.annotation.Nullable
-    private QuoteExecutionWithRequoteRequestDetailsAllOfReQuote reQuote;
+    @jakarta.annotation.Nullable private ReQuoteDetailsReQuote reQuote;
 
     public QuoteExecutionWithRequoteRequestDetails() {}
 
@@ -132,8 +130,7 @@ public class QuoteExecutionWithRequoteRequestDetails {
     }
 
     public QuoteExecutionWithRequoteRequestDetails reQuote(
-            @jakarta.annotation.Nullable
-                    QuoteExecutionWithRequoteRequestDetailsAllOfReQuote reQuote) {
+            @jakarta.annotation.Nullable ReQuoteDetailsReQuote reQuote) {
         this.reQuote = reQuote;
         return this;
     }
@@ -146,15 +143,13 @@ public class QuoteExecutionWithRequoteRequestDetails {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_RE_QUOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public QuoteExecutionWithRequoteRequestDetailsAllOfReQuote getReQuote() {
+    public ReQuoteDetailsReQuote getReQuote() {
         return reQuote;
     }
 
     @JsonProperty(JSON_PROPERTY_RE_QUOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setReQuote(
-            @jakarta.annotation.Nullable
-                    QuoteExecutionWithRequoteRequestDetailsAllOfReQuote reQuote) {
+    public void setReQuote(@jakarta.annotation.Nullable ReQuoteDetailsReQuote reQuote) {
         this.reQuote = reQuote;
     }
 
