@@ -37,10 +37,10 @@ class ComplianceScreeningResultTest {
         // TODO: test payload
     }
 
-    /** Test the property 'bypassReason' */
+    /** Test the property 'timestamp' */
     @Test
-    void bypassReasonTest() {
-        // TODO: test bypassReason
+    void timestampTest() {
+        // TODO: test timestamp
     }
 
     /** Test the property 'screeningStatus' */
@@ -49,9 +49,159 @@ class ComplianceScreeningResultTest {
         // TODO: test screeningStatus
     }
 
-    /** Test the property 'timestamp' */
+    /** Test the property 'bypassReason' */
     @Test
-    void timestampTest() {
-        // TODO: test timestamp
+    void bypassReasonTest() {
+        // TODO: test bypassReason
+    }
+
+    /** Test the property 'status' */
+    @Test
+    void statusTest() {
+        // TODO: test status
+    }
+
+    /** Test the property 'prevStatus' */
+    @Test
+    void prevStatusTest() {
+        // TODO: test prevStatus
+    }
+
+    /** Test the property 'prevBypassReason' */
+    @Test
+    void prevBypassReasonTest() {
+        // TODO: test prevBypassReason
+    }
+
+    /** Test the property 'verdict' */
+    @Test
+    void verdictTest() {
+        // TODO: test verdict
+    }
+
+    /** Test the property 'risk' */
+    @Test
+    void riskTest() {
+        // TODO: test risk
+    }
+
+    /** Test the property 'extendedRisk' */
+    @Test
+    void extendedRiskTest() {
+        // TODO: test extendedRisk
+    }
+
+    /** Test the property 'externalId' */
+    @Test
+    void externalIdTest() {
+        // TODO: test externalId
+    }
+
+    /** Test the property 'customerRefId' */
+    @Test
+    void customerRefIdTest() {
+        // TODO: test customerRefId
+    }
+
+    /** Test the property 'refId' */
+    @Test
+    void refIdTest() {
+        // TODO: test refId
+    }
+
+    /** Test the property 'category' */
+    @Test
+    void categoryTest() {
+        // TODO: test category
+    }
+
+    /** Test the property 'categoryId' */
+    @Test
+    void categoryIdTest() {
+        // TODO: test categoryId
+    }
+
+    /** Test the property 'destAddress' */
+    @Test
+    void destAddressTest() {
+        // TODO: test destAddress
+    }
+
+    /** Test the property 'destTag' */
+    @Test
+    void destTagTest() {
+        // TODO: test destTag
+    }
+
+    /** Test the property 'destRecordId' */
+    @Test
+    void destRecordIdTest() {
+        // TODO: test destRecordId
+    }
+
+    /** Test the property 'addressResolutionSignature' */
+    @Test
+    void addressResolutionSignatureTest() {
+        // TODO: test addressResolutionSignature
+    }
+
+    /** Test the property 'amlResult' */
+    @Test
+    void amlResultTest() {
+        // TODO: test amlResult
+    }
+
+    /** Test the property 'result' */
+    @Test
+    void resultTest() {
+        // TODO: test result
+    }
+
+    /** Test the property 'detailsMessage' */
+    @Test
+    void detailsMessageTest() {
+        // TODO: test detailsMessage
+    }
+
+    /** Test the property 'matchedAlert' */
+    @Test
+    void matchedAlertTest() {
+        // TODO: test matchedAlert
+    }
+
+    /** Test the property 'matchedRule' */
+    @Test
+    void matchedRuleTest() {
+        // TODO: test matchedRule
+    }
+
+    /** Test the property 'matchedPrescreeningRule' */
+    @Test
+    void matchedPrescreeningRuleTest() {
+        // TODO: test matchedPrescreeningRule
+    }
+
+    /** Test the property 'matchedNoTrmScreeningRule' */
+    @Test
+    void matchedNoTrmScreeningRuleTest() {
+        // TODO: test matchedNoTrmScreeningRule
+    }
+
+    /** Test the property 'customerIntegrationId' */
+    @Test
+    void customerIntegrationIdTest() {
+        // TODO: test customerIntegrationId
+    }
+
+    /** Test the property 'customerShortName' */
+    @Test
+    void customerShortNameTest() {
+        // TODO: test customerShortName
+    }
+
+    /** Test the property 'travelRuleMessageId' */
+    @Test
+    void travelRuleMessageIdTest() {
+        // TODO: test travelRuleMessageId
     }
 }

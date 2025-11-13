@@ -539,7 +539,7 @@ public class BlockchainsAssetsApi {
     /**
      * Register an asset Register a new asset to a workspace and return the newly created
      * asset&#39;s details. Currently supported chains are: - EVM based chains - Stellar - Algorand
-     * - TRON - NEAR - Solana
+     * - TRON - NEAR - Solana - Sui
      *
      * @param registerNewAssetRequest (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple

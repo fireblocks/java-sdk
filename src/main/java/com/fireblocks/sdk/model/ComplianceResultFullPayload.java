@@ -28,7 +28,9 @@ import java.util.StringJoiner;
     ComplianceResultFullPayload.JSON_PROPERTY_TR,
     ComplianceResultFullPayload.JSON_PROPERTY_AML_LIST,
     ComplianceResultFullPayload.JSON_PROPERTY_STATUS,
-    ComplianceResultFullPayload.JSON_PROPERTY_AML_REGISTRATION
+    ComplianceResultFullPayload.JSON_PROPERTY_AML_REGISTRATION,
+    ComplianceResultFullPayload.JSON_PROPERTY_TRLINK_REGISTRATION,
+    ComplianceResultFullPayload.JSON_PROPERTY_TRLINK_DESTINATIONS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -48,6 +50,12 @@ public class ComplianceResultFullPayload {
 
     public static final String JSON_PROPERTY_AML_REGISTRATION = "amlRegistration";
     @jakarta.annotation.Nullable private AmlRegistrationResultFullPayload amlRegistration;
+
+    public static final String JSON_PROPERTY_TRLINK_REGISTRATION = "trlinkRegistration";
+    @jakarta.annotation.Nullable private TRLinkRegistrationResultFullPayload trlinkRegistration;
+
+    public static final String JSON_PROPERTY_TRLINK_DESTINATIONS = "trlinkDestinations";
+    @jakarta.annotation.Nullable private List<TRLinkResultFullPayload> trlinkDestinations;
 
     public ComplianceResultFullPayload() {}
 
@@ -182,6 +190,65 @@ public class ComplianceResultFullPayload {
         this.amlRegistration = amlRegistration;
     }
 
+    public ComplianceResultFullPayload trlinkRegistration(
+            @jakarta.annotation.Nullable TRLinkRegistrationResultFullPayload trlinkRegistration) {
+        this.trlinkRegistration = trlinkRegistration;
+        return this;
+    }
+
+    /**
+     * Get trlinkRegistration
+     *
+     * @return trlinkRegistration
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TRLINK_REGISTRATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public TRLinkRegistrationResultFullPayload getTrlinkRegistration() {
+        return trlinkRegistration;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRLINK_REGISTRATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTrlinkRegistration(
+            @jakarta.annotation.Nullable TRLinkRegistrationResultFullPayload trlinkRegistration) {
+        this.trlinkRegistration = trlinkRegistration;
+    }
+
+    public ComplianceResultFullPayload trlinkDestinations(
+            @jakarta.annotation.Nullable List<TRLinkResultFullPayload> trlinkDestinations) {
+        this.trlinkDestinations = trlinkDestinations;
+        return this;
+    }
+
+    public ComplianceResultFullPayload addTrlinkDestinationsItem(
+            TRLinkResultFullPayload trlinkDestinationsItem) {
+        if (this.trlinkDestinations == null) {
+            this.trlinkDestinations = new ArrayList<>();
+        }
+        this.trlinkDestinations.add(trlinkDestinationsItem);
+        return this;
+    }
+
+    /**
+     * The list of TRLink destination screening results.
+     *
+     * @return trlinkDestinations
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TRLINK_DESTINATIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<TRLinkResultFullPayload> getTrlinkDestinations() {
+        return trlinkDestinations;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRLINK_DESTINATIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTrlinkDestinations(
+            @jakarta.annotation.Nullable List<TRLinkResultFullPayload> trlinkDestinations) {
+        this.trlinkDestinations = trlinkDestinations;
+    }
+
     /** Return true if this ComplianceResultFullPayload object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -196,13 +263,17 @@ public class ComplianceResultFullPayload {
                 && Objects.equals(this.tr, complianceResultFullPayload.tr)
                 && Objects.equals(this.amlList, complianceResultFullPayload.amlList)
                 && Objects.equals(this.status, complianceResultFullPayload.status)
+                && Objects.equals(this.amlRegistration, complianceResultFullPayload.amlRegistration)
                 && Objects.equals(
-                        this.amlRegistration, complianceResultFullPayload.amlRegistration);
+                        this.trlinkRegistration, complianceResultFullPayload.trlinkRegistration)
+                && Objects.equals(
+                        this.trlinkDestinations, complianceResultFullPayload.trlinkDestinations);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(aml, tr, amlList, status, amlRegistration);
+        return Objects.hash(
+                aml, tr, amlList, status, amlRegistration, trlinkRegistration, trlinkDestinations);
     }
 
     @Override
@@ -214,6 +285,12 @@ public class ComplianceResultFullPayload {
         sb.append("    amlList: ").append(toIndentedString(amlList)).append("\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    amlRegistration: ").append(toIndentedString(amlRegistration)).append("\n");
+        sb.append("    trlinkRegistration: ")
+                .append(toIndentedString(trlinkRegistration))
+                .append("\n");
+        sb.append("    trlinkDestinations: ")
+                .append(toIndentedString(trlinkDestinations))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -307,6 +384,36 @@ public class ComplianceResultFullPayload {
         // add `amlRegistration` to the URL query string
         if (getAmlRegistration() != null) {
             joiner.add(getAmlRegistration().toUrlQueryString(prefix + "amlRegistration" + suffix));
+        }
+
+        // add `trlinkRegistration` to the URL query string
+        if (getTrlinkRegistration() != null) {
+            joiner.add(
+                    getTrlinkRegistration()
+                            .toUrlQueryString(prefix + "trlinkRegistration" + suffix));
+        }
+
+        // add `trlinkDestinations` to the URL query string
+        if (getTrlinkDestinations() != null) {
+            for (int i = 0; i < getTrlinkDestinations().size(); i++) {
+                if (getTrlinkDestinations().get(i) != null) {
+                    joiner.add(
+                            getTrlinkDestinations()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%strlinkDestinations%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
         }
 
         return joiner.toString();

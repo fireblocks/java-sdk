@@ -26,7 +26,9 @@ public enum ExecutionStepType {
 
     EXECUTE("EXECUTE"),
 
-    SETTLEMENT("SETTLEMENT");
+    SETTLEMENT("SETTLEMENT"),
+
+    DELIVERY("DELIVERY");
 
     private String value;
 

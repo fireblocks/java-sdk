@@ -42,4 +42,22 @@ class TagTest {
     void descriptionTest() {
         // TODO: test description
     }
+
+    /** Test the property 'isProtected' */
+    @Test
+    void isProtectedTest() {
+        // TODO: test isProtected
+    }
+
+    /** Test the property 'color' */
+    @Test
+    void colorTest() {
+        // TODO: test color
+    }
+
+    /** Test the property 'updatedAt' */
+    @Test
+    void updatedAtTest() {
+        // TODO: test updatedAt
+    }
 }

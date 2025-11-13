@@ -18,9 +18,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Operator for selection */
 public enum PolicyOperator {
-    INCLUDES("INCLUDES"),
-
-    EXCLUDES("EXCLUDES");
+    INCLUDES("INCLUDES");
 
     private String value;
 

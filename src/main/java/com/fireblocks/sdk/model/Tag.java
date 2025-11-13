@@ -23,7 +23,14 @@ import java.util.StringJoiner;
 import java.util.UUID;
 
 /** Tag */
-@JsonPropertyOrder({Tag.JSON_PROPERTY_ID, Tag.JSON_PROPERTY_LABEL, Tag.JSON_PROPERTY_DESCRIPTION})
+@JsonPropertyOrder({
+    Tag.JSON_PROPERTY_ID,
+    Tag.JSON_PROPERTY_LABEL,
+    Tag.JSON_PROPERTY_DESCRIPTION,
+    Tag.JSON_PROPERTY_IS_PROTECTED,
+    Tag.JSON_PROPERTY_COLOR,
+    Tag.JSON_PROPERTY_UPDATED_AT
+})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
@@ -36,6 +43,15 @@ public class Tag {
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
     @jakarta.annotation.Nullable private String description;
+
+    public static final String JSON_PROPERTY_IS_PROTECTED = "isProtected";
+    @jakarta.annotation.Nullable private Boolean isProtected;
+
+    public static final String JSON_PROPERTY_COLOR = "color";
+    @jakarta.annotation.Nullable private String color;
+
+    public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
+    @jakarta.annotation.Nullable private String updatedAt;
 
     public Tag() {}
 
@@ -116,6 +132,75 @@ public class Tag {
         this.description = description;
     }
 
+    public Tag isProtected(@jakarta.annotation.Nullable Boolean isProtected) {
+        this.isProtected = isProtected;
+        return this;
+    }
+
+    /**
+     * Whether the tag is protected
+     *
+     * @return isProtected
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_IS_PROTECTED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getIsProtected() {
+        return isProtected;
+    }
+
+    @JsonProperty(JSON_PROPERTY_IS_PROTECTED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIsProtected(@jakarta.annotation.Nullable Boolean isProtected) {
+        this.isProtected = isProtected;
+    }
+
+    public Tag color(@jakarta.annotation.Nullable String color) {
+        this.color = color;
+        return this;
+    }
+
+    /**
+     * The color of the tag in hex format
+     *
+     * @return color
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_COLOR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getColor() {
+        return color;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COLOR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setColor(@jakarta.annotation.Nullable String color) {
+        this.color = color;
+    }
+
+    public Tag updatedAt(@jakarta.annotation.Nullable String updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    /**
+     * The date and time the tag was last updated
+     *
+     * @return updatedAt
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUpdatedAt(@jakarta.annotation.Nullable String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     /** Return true if this Tag object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -128,12 +213,15 @@ public class Tag {
         Tag tag = (Tag) o;
         return Objects.equals(this.id, tag.id)
                 && Objects.equals(this.label, tag.label)
-                && Objects.equals(this.description, tag.description);
+                && Objects.equals(this.description, tag.description)
+                && Objects.equals(this.isProtected, tag.isProtected)
+                && Objects.equals(this.color, tag.color)
+                && Objects.equals(this.updatedAt, tag.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, label, description);
+        return Objects.hash(id, label, description, isProtected, color, updatedAt);
     }
 
     @Override
@@ -143,6 +231,9 @@ public class Tag {
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    label: ").append(toIndentedString(label)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
+        sb.append("    isProtected: ").append(toIndentedString(isProtected)).append("\n");
+        sb.append("    color: ").append(toIndentedString(color)).append("\n");
+        sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -216,6 +307,36 @@ public class Tag {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
+        }
+
+        // add `isProtected` to the URL query string
+        if (getIsProtected() != null) {
+            joiner.add(
+                    String.format(
+                            "%sisProtected%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsProtected()))));
+        }
+
+        // add `color` to the URL query string
+        if (getColor() != null) {
+            joiner.add(
+                    String.format(
+                            "%scolor%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getColor()))));
+        }
+
+        // add `updatedAt` to the URL query string
+        if (getUpdatedAt() != null) {
+            joiner.add(
+                    String.format(
+                            "%supdatedAt%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getUpdatedAt()))));
         }
 
         return joiner.toString();

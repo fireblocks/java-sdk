@@ -13,6 +13,8 @@ The result of the Compliance AML/Travel Rule screening.
 |**amlList** | [**List&lt;ComplianceScreeningResult&gt;**](ComplianceScreeningResult.md) | The list of all results of the AML screening. |  [optional] |
 |**status** | **ComplianceResultStatusesEnum** |  |  [optional] |
 |**amlRegistration** | [**AmlRegistrationResult**](AmlRegistrationResult.md) |  |  [optional] |
+|**trlinkRegistration** | [**TRLinkRegistrationResult**](TRLinkRegistrationResult.md) |  |  [optional] |
+|**trlinkDestinations** | [**List&lt;TRLinkResult&gt;**](TRLinkResult.md) | The list of TRLink destination screening results. |  [optional] |
 
 
 

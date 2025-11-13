@@ -24,20 +24,60 @@ import java.util.StringJoiner;
 
 /** LimitExecutionResponseDetails */
 @JsonPropertyOrder({
+    LimitExecutionResponseDetails.JSON_PROPERTY_TYPE,
+    LimitExecutionResponseDetails.JSON_PROPERTY_TIME_IN_FORCE,
+    LimitExecutionResponseDetails.JSON_PROPERTY_LIMIT_PRICE,
     LimitExecutionResponseDetails.JSON_PROPERTY_SIDE,
     LimitExecutionResponseDetails.JSON_PROPERTY_BASE_AMOUNT,
     LimitExecutionResponseDetails.JSON_PROPERTY_BASE_ASSET_ID,
     LimitExecutionResponseDetails.JSON_PROPERTY_BASE_ASSET_RAIL,
     LimitExecutionResponseDetails.JSON_PROPERTY_QUOTE_ASSET_ID,
-    LimitExecutionResponseDetails.JSON_PROPERTY_QUOTE_ASSET_RAIL,
-    LimitExecutionResponseDetails.JSON_PROPERTY_TYPE,
-    LimitExecutionResponseDetails.JSON_PROPERTY_TIME_IN_FORCE,
-    LimitExecutionResponseDetails.JSON_PROPERTY_LIMIT_PRICE
+    LimitExecutionResponseDetails.JSON_PROPERTY_QUOTE_ASSET_RAIL
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class LimitExecutionResponseDetails {
+    /** Order type for limit orders */
+    public enum TypeEnum {
+        LIMIT(String.valueOf("LIMIT"));
+
+        private String value;
+
+        TypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static TypeEnum fromValue(String value) {
+            for (TypeEnum b : TypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    public static final String JSON_PROPERTY_TYPE = "type";
+    @jakarta.annotation.Nonnull private TypeEnum type;
+
+    public static final String JSON_PROPERTY_TIME_IN_FORCE = "timeInForce";
+    @jakarta.annotation.Nonnull private TimeInForce timeInForce;
+
+    public static final String JSON_PROPERTY_LIMIT_PRICE = "limitPrice";
+    @jakarta.annotation.Nonnull private String limitPrice;
+
     /** Side of the order */
     public enum SideEnum {
         BUY(String.valueOf("BUY")),
@@ -89,65 +129,95 @@ public class LimitExecutionResponseDetails {
     public static final String JSON_PROPERTY_QUOTE_ASSET_RAIL = "quoteAssetRail";
     @jakarta.annotation.Nullable private TransferRail quoteAssetRail;
 
-    /** Order type for limit orders */
-    public enum TypeEnum {
-        LIMIT(String.valueOf("LIMIT"));
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_TYPE = "type";
-    @jakarta.annotation.Nonnull private TypeEnum type;
-
-    public static final String JSON_PROPERTY_TIME_IN_FORCE = "timeInForce";
-    @jakarta.annotation.Nonnull private TimeInForce timeInForce;
-
-    public static final String JSON_PROPERTY_LIMIT_PRICE = "limitPrice";
-    @jakarta.annotation.Nonnull private String limitPrice;
-
     public LimitExecutionResponseDetails() {}
 
     @JsonCreator
     public LimitExecutionResponseDetails(
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
+            @JsonProperty(value = JSON_PROPERTY_TIME_IN_FORCE, required = true)
+                    TimeInForce timeInForce,
+            @JsonProperty(value = JSON_PROPERTY_LIMIT_PRICE, required = true) String limitPrice,
             @JsonProperty(value = JSON_PROPERTY_SIDE, required = true) SideEnum side,
             @JsonProperty(value = JSON_PROPERTY_BASE_AMOUNT, required = true) String baseAmount,
             @JsonProperty(value = JSON_PROPERTY_BASE_ASSET_ID, required = true) String baseAssetId,
             @JsonProperty(value = JSON_PROPERTY_QUOTE_ASSET_ID, required = true)
-                    String quoteAssetId,
-            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
-            @JsonProperty(value = JSON_PROPERTY_TIME_IN_FORCE, required = true)
-                    TimeInForce timeInForce,
-            @JsonProperty(value = JSON_PROPERTY_LIMIT_PRICE, required = true) String limitPrice) {
+                    String quoteAssetId) {
+        this.type = type;
+        this.timeInForce = timeInForce;
+        this.limitPrice = limitPrice;
         this.side = side;
         this.baseAmount = baseAmount;
         this.baseAssetId = baseAssetId;
         this.quoteAssetId = quoteAssetId;
+    }
+
+    public LimitExecutionResponseDetails type(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
+        return this;
+    }
+
+    /**
+     * Order type for limit orders
+     *
+     * @return type
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public TypeEnum getType() {
+        return type;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
+        this.type = type;
+    }
+
+    public LimitExecutionResponseDetails timeInForce(
+            @jakarta.annotation.Nonnull TimeInForce timeInForce) {
         this.timeInForce = timeInForce;
+        return this;
+    }
+
+    /**
+     * Get timeInForce
+     *
+     * @return timeInForce
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_TIME_IN_FORCE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public TimeInForce getTimeInForce() {
+        return timeInForce;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TIME_IN_FORCE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTimeInForce(@jakarta.annotation.Nonnull TimeInForce timeInForce) {
+        this.timeInForce = timeInForce;
+    }
+
+    public LimitExecutionResponseDetails limitPrice(@jakarta.annotation.Nonnull String limitPrice) {
+        this.limitPrice = limitPrice;
+        return this;
+    }
+
+    /**
+     * Price for limit orders
+     *
+     * @return limitPrice
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_LIMIT_PRICE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getLimitPrice() {
+        return limitPrice;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LIMIT_PRICE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setLimitPrice(@jakarta.annotation.Nonnull String limitPrice) {
         this.limitPrice = limitPrice;
     }
 
@@ -293,76 +363,6 @@ public class LimitExecutionResponseDetails {
         this.quoteAssetRail = quoteAssetRail;
     }
 
-    public LimitExecutionResponseDetails type(@jakarta.annotation.Nonnull TypeEnum type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * Order type for limit orders
-     *
-     * @return type
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TypeEnum getType() {
-        return type;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
-        this.type = type;
-    }
-
-    public LimitExecutionResponseDetails timeInForce(
-            @jakarta.annotation.Nonnull TimeInForce timeInForce) {
-        this.timeInForce = timeInForce;
-        return this;
-    }
-
-    /**
-     * Get timeInForce
-     *
-     * @return timeInForce
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_TIME_IN_FORCE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TimeInForce getTimeInForce() {
-        return timeInForce;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TIME_IN_FORCE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTimeInForce(@jakarta.annotation.Nonnull TimeInForce timeInForce) {
-        this.timeInForce = timeInForce;
-    }
-
-    public LimitExecutionResponseDetails limitPrice(@jakarta.annotation.Nonnull String limitPrice) {
-        this.limitPrice = limitPrice;
-        return this;
-    }
-
-    /**
-     * Price for limit orders
-     *
-     * @return limitPrice
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_LIMIT_PRICE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getLimitPrice() {
-        return limitPrice;
-    }
-
-    @JsonProperty(JSON_PROPERTY_LIMIT_PRICE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLimitPrice(@jakarta.annotation.Nonnull String limitPrice) {
-        this.limitPrice = limitPrice;
-    }
-
     /** Return true if this LimitExecutionResponseDetails object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -374,44 +374,45 @@ public class LimitExecutionResponseDetails {
         }
         LimitExecutionResponseDetails limitExecutionResponseDetails =
                 (LimitExecutionResponseDetails) o;
-        return Objects.equals(this.side, limitExecutionResponseDetails.side)
+        return Objects.equals(this.type, limitExecutionResponseDetails.type)
+                && Objects.equals(this.timeInForce, limitExecutionResponseDetails.timeInForce)
+                && Objects.equals(this.limitPrice, limitExecutionResponseDetails.limitPrice)
+                && Objects.equals(this.side, limitExecutionResponseDetails.side)
                 && Objects.equals(this.baseAmount, limitExecutionResponseDetails.baseAmount)
                 && Objects.equals(this.baseAssetId, limitExecutionResponseDetails.baseAssetId)
                 && Objects.equals(this.baseAssetRail, limitExecutionResponseDetails.baseAssetRail)
                 && Objects.equals(this.quoteAssetId, limitExecutionResponseDetails.quoteAssetId)
-                && Objects.equals(this.quoteAssetRail, limitExecutionResponseDetails.quoteAssetRail)
-                && Objects.equals(this.type, limitExecutionResponseDetails.type)
-                && Objects.equals(this.timeInForce, limitExecutionResponseDetails.timeInForce)
-                && Objects.equals(this.limitPrice, limitExecutionResponseDetails.limitPrice);
+                && Objects.equals(
+                        this.quoteAssetRail, limitExecutionResponseDetails.quoteAssetRail);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+                type,
+                timeInForce,
+                limitPrice,
                 side,
                 baseAmount,
                 baseAssetId,
                 baseAssetRail,
                 quoteAssetId,
-                quoteAssetRail,
-                type,
-                timeInForce,
-                limitPrice);
+                quoteAssetRail);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class LimitExecutionResponseDetails {\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    timeInForce: ").append(toIndentedString(timeInForce)).append("\n");
+        sb.append("    limitPrice: ").append(toIndentedString(limitPrice)).append("\n");
         sb.append("    side: ").append(toIndentedString(side)).append("\n");
         sb.append("    baseAmount: ").append(toIndentedString(baseAmount)).append("\n");
         sb.append("    baseAssetId: ").append(toIndentedString(baseAssetId)).append("\n");
         sb.append("    baseAssetRail: ").append(toIndentedString(baseAssetRail)).append("\n");
         sb.append("    quoteAssetId: ").append(toIndentedString(quoteAssetId)).append("\n");
         sb.append("    quoteAssetRail: ").append(toIndentedString(quoteAssetRail)).append("\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
-        sb.append("    timeInForce: ").append(toIndentedString(timeInForce)).append("\n");
-        sb.append("    limitPrice: ").append(toIndentedString(limitPrice)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -458,6 +459,36 @@ public class LimitExecutionResponseDetails {
         }
 
         StringJoiner joiner = new StringJoiner("&");
+
+        // add `type` to the URL query string
+        if (getType() != null) {
+            joiner.add(
+                    String.format(
+                            "%stype%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
+        }
+
+        // add `timeInForce` to the URL query string
+        if (getTimeInForce() != null) {
+            joiner.add(
+                    String.format(
+                            "%stimeInForce%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getTimeInForce()))));
+        }
+
+        // add `limitPrice` to the URL query string
+        if (getLimitPrice() != null) {
+            joiner.add(
+                    String.format(
+                            "%slimitPrice%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getLimitPrice()))));
+        }
 
         // add `side` to the URL query string
         if (getSide() != null) {
@@ -517,36 +548,6 @@ public class LimitExecutionResponseDetails {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getQuoteAssetRail()))));
-        }
-
-        // add `type` to the URL query string
-        if (getType() != null) {
-            joiner.add(
-                    String.format(
-                            "%stype%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
-        }
-
-        // add `timeInForce` to the URL query string
-        if (getTimeInForce() != null) {
-            joiner.add(
-                    String.format(
-                            "%stimeInForce%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getTimeInForce()))));
-        }
-
-        // add `limitPrice` to the URL query string
-        if (getLimitPrice() != null) {
-            joiner.add(
-                    String.format(
-                            "%slimitPrice%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getLimitPrice()))));
         }
 
         return joiner.toString();

@@ -25,6 +25,12 @@ class MarketExecutionRequestDetailsTest {
         // TODO: test MarketExecutionRequestDetails
     }
 
+    /** Test the property 'type' */
+    @Test
+    void typeTest() {
+        // TODO: test type
+    }
+
     /** Test the property 'side' */
     @Test
     void sideTest() {
@@ -59,11 +65,5 @@ class MarketExecutionRequestDetailsTest {
     @Test
     void quoteAssetRailTest() {
         // TODO: test quoteAssetRail
-    }
-
-    /** Test the property 'type' */
-    @Test
-    void typeTest() {
-        // TODO: test type
     }
 }

@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum OrderStatus {
     CREATED("CREATED"),
 
+    AWAITING_PAYMENT("AWAITING_PAYMENT"),
+
     PENDING_USER_ACTION("PENDING_USER_ACTION"),
 
     PROCESSING("PROCESSING"),

@@ -175,6 +175,8 @@ public class TransactionsApiTest {
      */
     @Test
     public void getTransactionsTest() throws ApiException {
+        String next = null;
+        String prev = null;
         String before = null;
         String after = null;
         String status = null;
@@ -191,6 +193,8 @@ public class TransactionsApiTest {
         String destWalletId = null;
         CompletableFuture<ApiResponse<List<TransactionResponse>>> response =
                 api.getTransactions(
+                        next,
+                        prev,
                         before,
                         after,
                         status,

@@ -17,108 +17,47 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** Amount range configuration */
-@JsonPropertyOrder({
-    AmountRange.JSON_PROPERTY_MIN,
-    AmountRange.JSON_PROPERTY_MAX,
-    AmountRange.JSON_PROPERTY_CURRENCY
-})
+/** Amount range with minimum and maximum values */
+@JsonPropertyOrder({AmountRange.JSON_PROPERTY_RANGE})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class AmountRange {
-    public static final String JSON_PROPERTY_MIN = "min";
-    @jakarta.annotation.Nonnull private String min;
-
-    public static final String JSON_PROPERTY_MAX = "max";
-    @jakarta.annotation.Nonnull private String max;
-
-    public static final String JSON_PROPERTY_CURRENCY = "currency";
-    @jakarta.annotation.Nonnull private String currency;
+    public static final String JSON_PROPERTY_RANGE = "range";
+    @jakarta.annotation.Nonnull private AmountRangeMinMax2 range;
 
     public AmountRange() {}
 
     @JsonCreator
     public AmountRange(
-            @JsonProperty(value = JSON_PROPERTY_MIN, required = true) String min,
-            @JsonProperty(value = JSON_PROPERTY_MAX, required = true) String max,
-            @JsonProperty(value = JSON_PROPERTY_CURRENCY, required = true) String currency) {
-        this.min = min;
-        this.max = max;
-        this.currency = currency;
+            @JsonProperty(value = JSON_PROPERTY_RANGE, required = true) AmountRangeMinMax2 range) {
+        this.range = range;
     }
 
-    public AmountRange min(@jakarta.annotation.Nonnull String min) {
-        this.min = min;
+    public AmountRange range(@jakarta.annotation.Nonnull AmountRangeMinMax2 range) {
+        this.range = range;
         return this;
     }
 
     /**
-     * Minimum amount
+     * Get range
      *
-     * @return min
+     * @return range
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_MIN)
+    @JsonProperty(JSON_PROPERTY_RANGE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getMin() {
-        return min;
+    public AmountRangeMinMax2 getRange() {
+        return range;
     }
 
-    @JsonProperty(JSON_PROPERTY_MIN)
+    @JsonProperty(JSON_PROPERTY_RANGE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMin(@jakarta.annotation.Nonnull String min) {
-        this.min = min;
-    }
-
-    public AmountRange max(@jakarta.annotation.Nonnull String max) {
-        this.max = max;
-        return this;
-    }
-
-    /**
-     * Maximum amount
-     *
-     * @return max
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_MAX)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getMax() {
-        return max;
-    }
-
-    @JsonProperty(JSON_PROPERTY_MAX)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMax(@jakarta.annotation.Nonnull String max) {
-        this.max = max;
-    }
-
-    public AmountRange currency(@jakarta.annotation.Nonnull String currency) {
-        this.currency = currency;
-        return this;
-    }
-
-    /**
-     * Currency for the amount
-     *
-     * @return currency
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_CURRENCY)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getCurrency() {
-        return currency;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CURRENCY)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCurrency(@jakarta.annotation.Nonnull String currency) {
-        this.currency = currency;
+    public void setRange(@jakarta.annotation.Nonnull AmountRangeMinMax2 range) {
+        this.range = range;
     }
 
     /** Return true if this AmountRange object is equal to o. */
@@ -131,23 +70,19 @@ public class AmountRange {
             return false;
         }
         AmountRange amountRange = (AmountRange) o;
-        return Objects.equals(this.min, amountRange.min)
-                && Objects.equals(this.max, amountRange.max)
-                && Objects.equals(this.currency, amountRange.currency);
+        return Objects.equals(this.range, amountRange.range);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(min, max, currency);
+        return Objects.hash(range);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class AmountRange {\n");
-        sb.append("    min: ").append(toIndentedString(min)).append("\n");
-        sb.append("    max: ").append(toIndentedString(max)).append("\n");
-        sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+        sb.append("    range: ").append(toIndentedString(range)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -195,34 +130,9 @@ public class AmountRange {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `min` to the URL query string
-        if (getMin() != null) {
-            joiner.add(
-                    String.format(
-                            "%smin%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getMin()))));
-        }
-
-        // add `max` to the URL query string
-        if (getMax() != null) {
-            joiner.add(
-                    String.format(
-                            "%smax%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getMax()))));
-        }
-
-        // add `currency` to the URL query string
-        if (getCurrency() != null) {
-            joiner.add(
-                    String.format(
-                            "%scurrency%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getCurrency()))));
+        // add `range` to the URL query string
+        if (getRange() != null) {
+            joiner.add(getRange().toUrlQueryString(prefix + "range" + suffix));
         }
 
         return joiner.toString();

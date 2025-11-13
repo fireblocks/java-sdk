@@ -27,6 +27,7 @@ import com.fireblocks.sdk.model.ResendNotificationsByResourceIdRequest;
 import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
 import com.fireblocks.sdk.model.WebhookEvent;
+import com.fireblocks.sdk.model.WebhookMetric;
 import com.fireblocks.sdk.model.WebhookPaginatedResponse;
 import java.math.BigDecimal;
 import java.util.List;
@@ -68,6 +69,21 @@ public class WebhooksV2ApiTest {
     public void deleteWebhookTest() throws ApiException {
         UUID webhookId = null;
         CompletableFuture<ApiResponse<Webhook>> response = api.deleteWebhook(webhookId);
+    }
+
+    /**
+     * Get webhook metrics
+     *
+     * <p>Get webhook metrics by webhook id and metric name
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getMetricsTest() throws ApiException {
+        UUID webhookId = null;
+        String metricName = null;
+        CompletableFuture<ApiResponse<WebhookMetric>> response =
+                api.getMetrics(webhookId, metricName);
     }
 
     /**

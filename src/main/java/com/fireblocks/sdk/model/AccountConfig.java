@@ -24,11 +24,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** Policy source/destination configuration */
+/** Policy account configuration */
 @JsonPropertyOrder({
     AccountConfig.JSON_PROPERTY_TYPE,
     AccountConfig.JSON_PROPERTY_SUB_TYPE,
     AccountConfig.JSON_PROPERTY_IDS,
+    AccountConfig.JSON_PROPERTY_TAGS,
     AccountConfig.JSON_PROPERTY_OPERATOR,
     AccountConfig.JSON_PROPERTY_MATCH_FROM
 })
@@ -37,13 +38,16 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class AccountConfig {
     public static final String JSON_PROPERTY_TYPE = "type";
-    @jakarta.annotation.Nonnull private AccountType2 type;
+    @jakarta.annotation.Nullable private List<AccountType2> type;
 
     public static final String JSON_PROPERTY_SUB_TYPE = "subType";
     @jakarta.annotation.Nullable private List<AccountIdentifier> subType;
 
     public static final String JSON_PROPERTY_IDS = "ids";
     @jakarta.annotation.Nullable private List<AccountIdentifier> ids;
+
+    public static final String JSON_PROPERTY_TAGS = "tags";
+    @jakarta.annotation.Nullable private List<PolicyTag> tags;
 
     public static final String JSON_PROPERTY_OPERATOR = "operator";
     @jakarta.annotation.Nonnull private PolicyOperator operator;
@@ -88,33 +92,39 @@ public class AccountConfig {
 
     @JsonCreator
     public AccountConfig(
-            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) AccountType2 type,
             @JsonProperty(value = JSON_PROPERTY_OPERATOR, required = true)
                     PolicyOperator operator) {
-        this.type = type;
         this.operator = operator;
     }
 
-    public AccountConfig type(@jakarta.annotation.Nonnull AccountType2 type) {
+    public AccountConfig type(@jakarta.annotation.Nullable List<AccountType2> type) {
         this.type = type;
         return this;
     }
 
+    public AccountConfig addTypeItem(AccountType2 typeItem) {
+        if (this.type == null) {
+            this.type = new ArrayList<>();
+        }
+        this.type.add(typeItem);
+        return this;
+    }
+
     /**
-     * Get type
+     * Account types
      *
      * @return type
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AccountType2 getType() {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<AccountType2> getType() {
         return type;
     }
 
     @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(@jakarta.annotation.Nonnull AccountType2 type) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setType(@jakarta.annotation.Nullable List<AccountType2> type) {
         this.type = type;
     }
 
@@ -180,6 +190,37 @@ public class AccountConfig {
         this.ids = ids;
     }
 
+    public AccountConfig tags(@jakarta.annotation.Nullable List<PolicyTag> tags) {
+        this.tags = tags;
+        return this;
+    }
+
+    public AccountConfig addTagsItem(PolicyTag tagsItem) {
+        if (this.tags == null) {
+            this.tags = new ArrayList<>();
+        }
+        this.tags.add(tagsItem);
+        return this;
+    }
+
+    /**
+     * Tags for account matching
+     *
+     * @return tags
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TAGS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<PolicyTag> getTags() {
+        return tags;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TAGS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTags(@jakarta.annotation.Nullable List<PolicyTag> tags) {
+        this.tags = tags;
+    }
+
     public AccountConfig operator(@jakarta.annotation.Nonnull PolicyOperator operator) {
         this.operator = operator;
         return this;
@@ -239,13 +280,14 @@ public class AccountConfig {
         return Objects.equals(this.type, accountConfig.type)
                 && Objects.equals(this.subType, accountConfig.subType)
                 && Objects.equals(this.ids, accountConfig.ids)
+                && Objects.equals(this.tags, accountConfig.tags)
                 && Objects.equals(this.operator, accountConfig.operator)
                 && Objects.equals(this.matchFrom, accountConfig.matchFrom);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, subType, ids, operator, matchFrom);
+        return Objects.hash(type, subType, ids, tags, operator, matchFrom);
     }
 
     @Override
@@ -255,6 +297,7 @@ public class AccountConfig {
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    subType: ").append(toIndentedString(subType)).append("\n");
         sb.append("    ids: ").append(toIndentedString(ids)).append("\n");
+        sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
         sb.append("    operator: ").append(toIndentedString(operator)).append("\n");
         sb.append("    matchFrom: ").append(toIndentedString(matchFrom)).append("\n");
         sb.append("}");
@@ -306,12 +349,21 @@ public class AccountConfig {
 
         // add `type` to the URL query string
         if (getType() != null) {
-            joiner.add(
-                    String.format(
-                            "%stype%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
+            for (int i = 0; i < getType().size(); i++) {
+                if (getType().get(i) != null) {
+                    joiner.add(
+                            String.format(
+                                    "%stype%s%s=%s",
+                                    prefix,
+                                    suffix,
+                                    "".equals(suffix)
+                                            ? ""
+                                            : String.format(
+                                                    "%s%d%s", containerPrefix, i, containerSuffix),
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getType().get(i)))));
+                }
+            }
         }
 
         // add `subType` to the URL query string
@@ -346,6 +398,29 @@ public class AccountConfig {
                                     .toUrlQueryString(
                                             String.format(
                                                     "%sids%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
+        }
+
+        // add `tags` to the URL query string
+        if (getTags() != null) {
+            for (int i = 0; i < getTags().size(); i++) {
+                if (getTags().get(i) != null) {
+                    joiner.add(
+                            getTags()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%stags%s%s",
                                                     prefix,
                                                     suffix,
                                                     "".equals(suffix)

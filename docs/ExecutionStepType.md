@@ -15,5 +15,7 @@
 
 * `SETTLEMENT` (value: `"SETTLEMENT"`)
 
+* `DELIVERY` (value: `"DELIVERY"`)
+
 
 

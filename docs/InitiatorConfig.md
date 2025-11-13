@@ -13,7 +13,7 @@ Policy rule initiator configuration
 |**services** | **List&lt;String&gt;** |  |  [optional] |
 |**fbAdminGroups** | **List&lt;String&gt;** |  |  [optional] |
 |**exchange** | **List&lt;String&gt;** |  |  [optional] |
-|**operator** | **PolicyOperator** |  |  |
+|**operator** | **PolicyOperator** |  |  [optional] |
 
 
 

@@ -34,22 +34,6 @@ import java.util.StringJoiner;
 public class PaymentInstructions {
     /** Gets or Sets type */
     public enum TypeEnum {
-        IBAN(String.valueOf("IBAN")),
-
-        SWIFT(String.valueOf("SWIFT")),
-
-        ACH(String.valueOf("ACH")),
-
-        US_WIRE(String.valueOf("US_WIRE")),
-
-        SPEI(String.valueOf("SPEI")),
-
-        SEPA(String.valueOf("SEPA")),
-
-        PIX(String.valueOf("PIX")),
-
-        LOCAL_BANK_TRANSFER_AFRICA(String.valueOf("LOCAL_BANK_TRANSFER_AFRICA")),
-
         MOBILE_MONEY(String.valueOf("MOBILE_MONEY"));
 
         private String value;
@@ -83,10 +67,10 @@ public class PaymentInstructions {
     @jakarta.annotation.Nonnull private TypeEnum type;
 
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    @jakarta.annotation.Nonnull private AccountHolderDetails address;
+    @jakarta.annotation.Nonnull private MobileMoneyAddress address;
 
     public static final String JSON_PROPERTY_REFERENCE_ID = "referenceId";
-    @jakarta.annotation.Nonnull private String referenceId;
+    @jakarta.annotation.Nullable private String referenceId;
 
     public PaymentInstructions() {}
 
@@ -94,11 +78,9 @@ public class PaymentInstructions {
     public PaymentInstructions(
             @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
             @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = true)
-                    AccountHolderDetails address,
-            @JsonProperty(value = JSON_PROPERTY_REFERENCE_ID, required = true) String referenceId) {
+                    MobileMoneyAddress address) {
         this.type = type;
         this.address = address;
-        this.referenceId = referenceId;
     }
 
     public PaymentInstructions type(@jakarta.annotation.Nonnull TypeEnum type) {
@@ -124,7 +106,7 @@ public class PaymentInstructions {
         this.type = type;
     }
 
-    public PaymentInstructions address(@jakarta.annotation.Nonnull AccountHolderDetails address) {
+    public PaymentInstructions address(@jakarta.annotation.Nonnull MobileMoneyAddress address) {
         this.address = address;
         return this;
     }
@@ -137,17 +119,17 @@ public class PaymentInstructions {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AccountHolderDetails getAddress() {
+    public MobileMoneyAddress getAddress() {
         return address;
     }
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAddress(@jakarta.annotation.Nonnull AccountHolderDetails address) {
+    public void setAddress(@jakarta.annotation.Nonnull MobileMoneyAddress address) {
         this.address = address;
     }
 
-    public PaymentInstructions referenceId(@jakarta.annotation.Nonnull String referenceId) {
+    public PaymentInstructions referenceId(@jakarta.annotation.Nullable String referenceId) {
         this.referenceId = referenceId;
         return this;
     }
@@ -157,16 +139,16 @@ public class PaymentInstructions {
      *
      * @return referenceId
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_REFERENCE_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public String getReferenceId() {
         return referenceId;
     }
 
     @JsonProperty(JSON_PROPERTY_REFERENCE_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setReferenceId(@jakarta.annotation.Nonnull String referenceId) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setReferenceId(@jakarta.annotation.Nullable String referenceId) {
         this.referenceId = referenceId;
     }
 

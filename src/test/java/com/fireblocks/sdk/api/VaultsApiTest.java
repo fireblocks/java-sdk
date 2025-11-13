@@ -38,6 +38,8 @@ import com.fireblocks.sdk.model.UpdateVaultAccountAssetAddressRequest;
 import com.fireblocks.sdk.model.UpdateVaultAccountRequest;
 import com.fireblocks.sdk.model.VaultAccount;
 import com.fireblocks.sdk.model.VaultAccountsPagedResponse;
+import com.fireblocks.sdk.model.VaultAccountsTagAttachmentOperationsRequest;
+import com.fireblocks.sdk.model.VaultAccountsTagAttachmentOperationsResponse;
 import com.fireblocks.sdk.model.VaultAccountsTagAttachmentsRequest;
 import com.fireblocks.sdk.model.VaultActionStatus;
 import com.fireblocks.sdk.model.VaultAsset;
@@ -71,9 +73,27 @@ public class VaultsApiTest {
     }
 
     /**
-     * Attach tags to a vault accounts
+     * Attach or detach tags from a vault accounts
      *
-     * <p>Attach one or more tags to the requested vault accounts.
+     * <p>Attach or detach one or more tags from the requested vault accounts.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void attachOrDetachTagsFromVaultAccountsTest() throws ApiException {
+        VaultAccountsTagAttachmentOperationsRequest vaultAccountsTagAttachmentOperationsRequest =
+                null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<VaultAccountsTagAttachmentOperationsResponse>> response =
+                api.attachOrDetachTagsFromVaultAccounts(
+                        vaultAccountsTagAttachmentOperationsRequest, idempotencyKey);
+    }
+
+    /**
+     * Attach tags to a vault accounts (deprecated)
+     *
+     * <p>Attach one or more tags to the requested vault accounts. This endpoint is deprecated.
+     * Please use /vault/accounts/attached_tags instead.
      *
      * @throws ApiException if the Api call fails
      */
@@ -190,9 +210,10 @@ public class VaultsApiTest {
     }
 
     /**
-     * Detach tags from a vault accounts
+     * Detach tags from a vault accounts (deprecated)
      *
-     * <p>Detach one or more tags from the requested vault account.
+     * <p>Detach one or more tags from the requested vault account. This endpoint is deprecated.
+     * Please use /vault/accounts/attached_tags instead.
      *
      * @throws ApiException if the Api call fails
      */

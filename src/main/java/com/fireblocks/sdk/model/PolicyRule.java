@@ -35,6 +35,7 @@ import java.util.StringJoiner;
     PolicyRule.JSON_PROPERTY_SOURCE,
     PolicyRule.JSON_PROPERTY_DESTINATION,
     PolicyRule.JSON_PROPERTY_ACCOUNT,
+    PolicyRule.JSON_PROPERTY_SIDE,
     PolicyRule.JSON_PROPERTY_VERDICT,
     PolicyRule.JSON_PROPERTY_AMOUNT_OVER_TIME,
     PolicyRule.JSON_PROPERTY_AMOUNT,
@@ -47,6 +48,7 @@ import java.util.StringJoiner;
     PolicyRule.JSON_PROPERTY_BASE_ASSET,
     PolicyRule.JSON_PROPERTY_QUOTE_AMOUNT,
     PolicyRule.JSON_PROPERTY_BASE_AMOUNT,
+    PolicyRule.JSON_PROPERTY_D_APP_ADDRESS,
     PolicyRule.JSON_PROPERTY_DERIVATION_PATH,
     PolicyRule.JSON_PROPERTY_INDEX
 })
@@ -104,16 +106,19 @@ public class PolicyRule {
     @jakarta.annotation.Nonnull private InitiatorConfigPattern initiator;
 
     public static final String JSON_PROPERTY_ASSET = "asset";
-    @jakarta.annotation.Nonnull private AssetConfig asset;
+    @jakarta.annotation.Nullable private AssetConfig asset;
 
     public static final String JSON_PROPERTY_SOURCE = "source";
-    @jakarta.annotation.Nonnull private AccountConfig source;
+    @jakarta.annotation.Nonnull private SourceConfig source;
 
     public static final String JSON_PROPERTY_DESTINATION = "destination";
     @jakarta.annotation.Nullable private DestinationConfig destination;
 
     public static final String JSON_PROPERTY_ACCOUNT = "account";
     @jakarta.annotation.Nullable private AccountConfig account;
+
+    public static final String JSON_PROPERTY_SIDE = "side";
+    @jakarta.annotation.Nullable private OrderSide side;
 
     public static final String JSON_PROPERTY_VERDICT = "verdict";
     @jakarta.annotation.Nonnull private VerdictConfig verdict;
@@ -122,7 +127,7 @@ public class PolicyRule {
     @jakarta.annotation.Nullable private AmountOverTimeConfig amountOverTime;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    @jakarta.annotation.Nullable private AmountRange amount;
+    @jakarta.annotation.Nullable private AmountConfig amount;
 
     public static final String JSON_PROPERTY_EXTERNAL_DESCRIPTOR = "externalDescriptor";
     @jakarta.annotation.Nullable private String externalDescriptor;
@@ -151,6 +156,9 @@ public class PolicyRule {
     public static final String JSON_PROPERTY_BASE_AMOUNT = "baseAmount";
     @jakarta.annotation.Nullable private AmountRange baseAmount;
 
+    public static final String JSON_PROPERTY_D_APP_ADDRESS = "dAppAddress";
+    @jakarta.annotation.Nullable private DAppAddressConfig dAppAddress;
+
     public static final String JSON_PROPERTY_DERIVATION_PATH = "derivationPath";
     @jakarta.annotation.Nullable private DerivationPathConfig derivationPath;
 
@@ -168,15 +176,13 @@ public class PolicyRule {
             @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) PolicyType type,
             @JsonProperty(value = JSON_PROPERTY_INITIATOR, required = true)
                     InitiatorConfigPattern initiator,
-            @JsonProperty(value = JSON_PROPERTY_ASSET, required = true) AssetConfig asset,
-            @JsonProperty(value = JSON_PROPERTY_SOURCE, required = true) AccountConfig source,
+            @JsonProperty(value = JSON_PROPERTY_SOURCE, required = true) SourceConfig source,
             @JsonProperty(value = JSON_PROPERTY_VERDICT, required = true) VerdictConfig verdict) {
         this.name = name;
         this.id = id;
         this.policyEngineVersion = policyEngineVersion;
         this.type = type;
         this.initiator = initiator;
-        this.asset = asset;
         this.source = source;
         this.verdict = verdict;
     }
@@ -321,7 +327,7 @@ public class PolicyRule {
         this.initiator = initiator;
     }
 
-    public PolicyRule asset(@jakarta.annotation.Nonnull AssetConfig asset) {
+    public PolicyRule asset(@jakarta.annotation.Nullable AssetConfig asset) {
         this.asset = asset;
         return this;
     }
@@ -331,20 +337,20 @@ public class PolicyRule {
      *
      * @return asset
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_ASSET)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public AssetConfig getAsset() {
         return asset;
     }
 
     @JsonProperty(JSON_PROPERTY_ASSET)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAsset(@jakarta.annotation.Nonnull AssetConfig asset) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAsset(@jakarta.annotation.Nullable AssetConfig asset) {
         this.asset = asset;
     }
 
-    public PolicyRule source(@jakarta.annotation.Nonnull AccountConfig source) {
+    public PolicyRule source(@jakarta.annotation.Nonnull SourceConfig source) {
         this.source = source;
         return this;
     }
@@ -357,13 +363,13 @@ public class PolicyRule {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_SOURCE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AccountConfig getSource() {
+    public SourceConfig getSource() {
         return source;
     }
 
     @JsonProperty(JSON_PROPERTY_SOURCE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSource(@jakarta.annotation.Nonnull AccountConfig source) {
+    public void setSource(@jakarta.annotation.Nonnull SourceConfig source) {
         this.source = source;
     }
 
@@ -411,6 +417,29 @@ public class PolicyRule {
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setAccount(@jakarta.annotation.Nullable AccountConfig account) {
         this.account = account;
+    }
+
+    public PolicyRule side(@jakarta.annotation.Nullable OrderSide side) {
+        this.side = side;
+        return this;
+    }
+
+    /**
+     * Get side
+     *
+     * @return side
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SIDE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OrderSide getSide() {
+        return side;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SIDE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSide(@jakarta.annotation.Nullable OrderSide side) {
+        this.side = side;
     }
 
     public PolicyRule verdict(@jakarta.annotation.Nonnull VerdictConfig verdict) {
@@ -461,7 +490,7 @@ public class PolicyRule {
         this.amountOverTime = amountOverTime;
     }
 
-    public PolicyRule amount(@jakarta.annotation.Nullable AmountRange amount) {
+    public PolicyRule amount(@jakarta.annotation.Nullable AmountConfig amount) {
         this.amount = amount;
         return this;
     }
@@ -474,13 +503,13 @@ public class PolicyRule {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public AmountRange getAmount() {
+    public AmountConfig getAmount() {
         return amount;
     }
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(@jakarta.annotation.Nullable AmountRange amount) {
+    public void setAmount(@jakarta.annotation.Nullable AmountConfig amount) {
         this.amount = amount;
     }
 
@@ -693,6 +722,29 @@ public class PolicyRule {
         this.baseAmount = baseAmount;
     }
 
+    public PolicyRule dAppAddress(@jakarta.annotation.Nullable DAppAddressConfig dAppAddress) {
+        this.dAppAddress = dAppAddress;
+        return this;
+    }
+
+    /**
+     * Get dAppAddress
+     *
+     * @return dAppAddress
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_D_APP_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public DAppAddressConfig getdAppAddress() {
+        return dAppAddress;
+    }
+
+    @JsonProperty(JSON_PROPERTY_D_APP_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setdAppAddress(@jakarta.annotation.Nullable DAppAddressConfig dAppAddress) {
+        this.dAppAddress = dAppAddress;
+    }
+
     public PolicyRule derivationPath(
             @jakarta.annotation.Nullable DerivationPathConfig derivationPath) {
         this.derivationPath = derivationPath;
@@ -761,6 +813,7 @@ public class PolicyRule {
                 && Objects.equals(this.source, policyRule.source)
                 && Objects.equals(this.destination, policyRule.destination)
                 && Objects.equals(this.account, policyRule.account)
+                && Objects.equals(this.side, policyRule.side)
                 && Objects.equals(this.verdict, policyRule.verdict)
                 && Objects.equals(this.amountOverTime, policyRule.amountOverTime)
                 && Objects.equals(this.amount, policyRule.amount)
@@ -773,6 +826,7 @@ public class PolicyRule {
                 && Objects.equals(this.baseAsset, policyRule.baseAsset)
                 && Objects.equals(this.quoteAmount, policyRule.quoteAmount)
                 && Objects.equals(this.baseAmount, policyRule.baseAmount)
+                && Objects.equals(this.dAppAddress, policyRule.dAppAddress)
                 && Objects.equals(this.derivationPath, policyRule.derivationPath)
                 && Objects.equals(this.index, policyRule.index);
     }
@@ -790,6 +844,7 @@ public class PolicyRule {
                 source,
                 destination,
                 account,
+                side,
                 verdict,
                 amountOverTime,
                 amount,
@@ -802,6 +857,7 @@ public class PolicyRule {
                 baseAsset,
                 quoteAmount,
                 baseAmount,
+                dAppAddress,
                 derivationPath,
                 index);
     }
@@ -822,6 +878,7 @@ public class PolicyRule {
         sb.append("    source: ").append(toIndentedString(source)).append("\n");
         sb.append("    destination: ").append(toIndentedString(destination)).append("\n");
         sb.append("    account: ").append(toIndentedString(account)).append("\n");
+        sb.append("    side: ").append(toIndentedString(side)).append("\n");
         sb.append("    verdict: ").append(toIndentedString(verdict)).append("\n");
         sb.append("    amountOverTime: ").append(toIndentedString(amountOverTime)).append("\n");
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
@@ -838,6 +895,7 @@ public class PolicyRule {
         sb.append("    baseAsset: ").append(toIndentedString(baseAsset)).append("\n");
         sb.append("    quoteAmount: ").append(toIndentedString(quoteAmount)).append("\n");
         sb.append("    baseAmount: ").append(toIndentedString(baseAmount)).append("\n");
+        sb.append("    dAppAddress: ").append(toIndentedString(dAppAddress)).append("\n");
         sb.append("    derivationPath: ").append(toIndentedString(derivationPath)).append("\n");
         sb.append("    index: ").append(toIndentedString(index)).append("\n");
         sb.append("}");
@@ -961,6 +1019,16 @@ public class PolicyRule {
             joiner.add(getAccount().toUrlQueryString(prefix + "account" + suffix));
         }
 
+        // add `side` to the URL query string
+        if (getSide() != null) {
+            joiner.add(
+                    String.format(
+                            "%sside%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getSide()))));
+        }
+
         // add `verdict` to the URL query string
         if (getVerdict() != null) {
             joiner.add(getVerdict().toUrlQueryString(prefix + "verdict" + suffix));
@@ -1030,6 +1098,11 @@ public class PolicyRule {
         // add `baseAmount` to the URL query string
         if (getBaseAmount() != null) {
             joiner.add(getBaseAmount().toUrlQueryString(prefix + "baseAmount" + suffix));
+        }
+
+        // add `dAppAddress` to the URL query string
+        if (getdAppAddress() != null) {
+            joiner.add(getdAppAddress().toUrlQueryString(prefix + "dAppAddress" + suffix));
         }
 
         // add `derivationPath` to the URL query string
