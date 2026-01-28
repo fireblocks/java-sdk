@@ -36,34 +36,4 @@ class TravelRuleOwnershipProofTest {
     void proofTest() {
         // TODO: test proof
     }
-
-    /** Test the property 'attestation' */
-    @Test
-    void attestationTest() {
-        // TODO: test attestation
-    }
-
-    /** Test the property 'address' */
-    @Test
-    void addressTest() {
-        // TODO: test address
-    }
-
-    /** Test the property 'walletProvider' */
-    @Test
-    void walletProviderTest() {
-        // TODO: test walletProvider
-    }
-
-    /** Test the property 'url' */
-    @Test
-    void urlTest() {
-        // TODO: test url
-    }
-
-    /** Test the property 'confirmed' */
-    @Test
-    void confirmedTest() {
-        // TODO: test confirmed
-    }
 }

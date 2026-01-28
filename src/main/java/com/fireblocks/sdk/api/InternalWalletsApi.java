@@ -18,25 +18,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreateInternalWalletAssetRequest;
 import com.fireblocks.sdk.model.CreateWalletRequest;
-import com.fireblocks.sdk.model.PaginatedAssetsResponse;
 import com.fireblocks.sdk.model.SetCustomerRefIdRequest;
 import com.fireblocks.sdk.model.UnmanagedWallet;
 import com.fireblocks.sdk.model.WalletAsset;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -81,10 +76,7 @@ public class InternalWalletsApi {
     }
 
     /**
-     * Create an internal wallet Creates a new internal wallet with the requested name. Learn more
-     * about Whitelisted Internal Addresses
-     * [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets) Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Create an internal wallet Creates a new internal wallet with the requested name.
      *
      * @param createWalletRequest (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -162,12 +154,7 @@ public class InternalWalletsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Add an asset to an internal wallet Adds an asset to an existing internal wallet. Internal
-     * Wallets are whitelisted wallets that belong to you outside of Fireblocks. - You can see the
-     * balance of the Internal Wallet via Fireblocks - You cannot initiate transactions from
-     * Internal Wallets through Fireblocks Learn more about Whitelisted Internal Addresses
-     * [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets) Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Add an asset to an internal wallet Adds an asset to an existing internal wallet.
      *
      * @param walletId The ID of the wallet (required)
      * @param assetId The ID of the asset to add (required)
@@ -264,10 +251,7 @@ public class InternalWalletsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Delete an internal wallet Deletes an internal wallet by ID. Internal Wallets are whitelisted
-     * wallets that belong to you outside of Fireblocks. - You can see the balance of the Internal
-     * Wallet via Fireblocks - You cannot initiate transactions from Internal Wallets through
-     * Fireblocks Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Delete an internal wallet Deletes an internal wallet by ID.
      *
      * @param walletId The ID of the wallet to delete (required)
      * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
@@ -325,12 +309,8 @@ public class InternalWalletsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Delete a whitelisted address Deletes a whitelisted address (for an asset) from an internal
-     * wallet. Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks. -
-     * You can see the balance of the Internal Wallet via Fireblocks - You cannot initiate
-     * transactions from Internal Wallets through Fireblocks Learn more about Whitelisted Internal
-     * Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)
-     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Delete a whitelisted address from an internal wallet Deletes a whitelisted address (for an
+     * asset) from an internal wallet.
      *
      * @param walletId The ID of the wallet (required)
      * @param assetId The ID of the asset to delete (required)
@@ -393,13 +373,7 @@ public class InternalWalletsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get an asset from an internal wallet Returns information for an asset in an internal wallet.
-     * This endpoint will be deprecated after 6 months. &lt;/br&gt;As part of the depreciation
-     * process this endpoint will no longer return balances, only addresses. &lt;/br&gt;Until it is
-     * deprecated, this endpoint will behave the same way. Internal Wallets are whitelisted wallets
-     * that belong to you outside of Fireblocks. - You can see the balance of the Internal Wallet
-     * via Fireblocks - You cannot initiate transactions from Internal Wallets through Fireblocks
-     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Get assets for internal wallet Returns all assets in an internal wallet by ID.
      *
      * @param walletId The ID of the wallet to return (required)
      * @return CompletableFuture&lt;ApiResponse&lt;UnmanagedWallet&gt;&gt;
@@ -466,11 +440,6 @@ public class InternalWalletsApi {
     }
     /**
      * Get an asset from an internal wallet Returns information for an asset in an internal wallet.
-     * Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks. - You can
-     * see the balance of the Internal Wallet via Fireblocks - You cannot initiate transactions from
-     * Internal Wallets through Fireblocks Learn more about Whitelisted Internal Addresses
-     * [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets) Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @param walletId The ID of the wallet (required)
      * @param assetId The ID of the asset to return (required)
@@ -542,114 +511,10 @@ public class InternalWalletsApi {
         return localVarRequestBuilder;
     }
     /**
-     * List assets in an internal wallet (Paginated) Returns a paginated response of assets in an
-     * internal wallet. This is a new paginated endpoint that gets all the assets from the wallet
-     * container with balances. &lt;/br&gt;This endpoint returns a limited amount of results with a
-     * quick response time. Internal Wallets are whitelisted wallets that belong to you outside of
-     * Fireblocks. - You can see the balance of the Internal Wallet via Fireblocks - You cannot
-     * initiate transactions from Internal Wallets through Fireblocks Learn more about Whitelisted
-     * Internal Addresses
-     * [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets) Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @param walletId The ID of the internal wallet to return assets for (required)
-     * @param pageSize (optional, default to 50)
-     * @param pageCursor (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;PaginatedAssetsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<PaginatedAssetsResponse>> getInternalWalletAssetsPaginated(
-            String walletId, BigDecimal pageSize, String pageCursor) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    getInternalWalletAssetsPaginatedRequestBuilder(walletId, pageSize, pageCursor);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "getInternalWalletAssetsPaginated",
-                                                    localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<PaginatedAssetsResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            PaginatedAssetsResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getInternalWalletAssetsPaginatedRequestBuilder(
-            String walletId, BigDecimal pageSize, String pageCursor) throws ApiException {
-        ValidationUtils.assertParamExistsAndNotEmpty(
-                "getInternalWalletAssetsPaginated", "walletId", walletId);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/internal_wallets/{walletId}/assets"
-                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-        String localVarQueryParameterBaseName;
-        localVarQueryParameterBaseName = "pageSize";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
-        localVarQueryParameterBaseName = "pageCursor";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
-
-        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
-            StringJoiner queryJoiner = new StringJoiner("&");
-            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
-            if (localVarQueryStringJoiner.length() != 0) {
-                queryJoiner.add(localVarQueryStringJoiner.toString());
-            }
-            localVarRequestBuilder.uri(
-                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
-        } else {
-            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-        }
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * List internal wallets Gets a list of internal wallets. **Note**: - BTC-based assets belonging
+     * List internal wallets Gets a list of internal wallets. **Note**: BTC-based assets belonging
      * to whitelisted addresses cannot be retrieved between 00:00 UTC and 00:01 UTC daily due to
-     * third-party provider, Blockchain, being unavailable for this 60 second period.
-     * &lt;/br&gt;Please wait until the next minute to retrieve BTC-based assets. - The list of
-     * assets returned will NOT include the balances anymore. Internal Wallets are whitelisted
-     * wallets that belong to you outside of Fireblocks. - You can see the balance of the Internal
-     * Wallet via Fireblocks - You cannot initiate transactions from Internal Wallets through
-     * Fireblocks Learn more about Whitelisted Internal Addresses
-     * [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets) Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * third-party provider, Blockchair, being unavailable for this 60 second period. Please wait
+     * until the next minute to retrieve BTC-based assets.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;List&lt;UnmanagedWallet&gt;&gt;&gt;
      * @throws ApiException if fails to make API call
@@ -713,12 +578,7 @@ public class InternalWalletsApi {
     }
     /**
      * Set an AML/KYT customer reference ID for an internal wallet Sets an AML/KYT customer
-     * reference ID for the specific internal wallet. Internal Wallets are whitelisted wallets that
-     * belong to you outside of Fireblocks. - You can see the balance of the Internal Wallet via
-     * Fireblocks - You cannot initiate transactions from Internal Wallets through Fireblocks Learn
-     * more about Whitelisted Internal Addresses
-     * [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets) Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * reference ID for the specific internal wallet.
      *
      * @param setCustomerRefIdRequest (required)
      * @param walletId The wallet ID (required)

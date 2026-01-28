@@ -15,16 +15,13 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.model.SmartTransferApproveTerm;
 import com.fireblocks.sdk.model.SmartTransferCreateTicket;
 import com.fireblocks.sdk.model.SmartTransferCreateTicketTerm;
-import com.fireblocks.sdk.model.SmartTransferFundDvpTicket;
 import com.fireblocks.sdk.model.SmartTransferFundTerm;
 import com.fireblocks.sdk.model.SmartTransferManuallyFundTerm;
 import com.fireblocks.sdk.model.SmartTransferSetTicketExpiration;
 import com.fireblocks.sdk.model.SmartTransferSetTicketExternalId;
 import com.fireblocks.sdk.model.SmartTransferSetUserGroups;
-import com.fireblocks.sdk.model.SmartTransferStatistic;
 import com.fireblocks.sdk.model.SmartTransferSubmitTicket;
 import com.fireblocks.sdk.model.SmartTransferTicketFilteredResponse;
 import com.fireblocks.sdk.model.SmartTransferTicketResponse;
@@ -43,25 +40,6 @@ import org.junit.Test;
 public class SmartTransferApiTest {
 
     private final SmartTransferApi api = new SmartTransferApi();
-
-    /**
-     * Define funding source and give approve to contract to transfer asset
-     *
-     * <p>Set funding source for ticket term and creating approving transaction for contract to
-     * transfer asset
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void approveDvPTicketTermTest() throws ApiException {
-        SmartTransferApproveTerm smartTransferApproveTerm = null;
-        String ticketId = null;
-        String termId = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response =
-                api.approveDvPTicketTerm(
-                        smartTransferApproveTerm, ticketId, termId, idempotencyKey);
-    }
 
     /**
      * Cancel Ticket
@@ -154,22 +132,6 @@ public class SmartTransferApiTest {
     }
 
     /**
-     * Fund dvp ticket
-     *
-     * <p>Create or fulfill dvp ticket order
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void fundDvpTicketTest() throws ApiException {
-        SmartTransferFundDvpTicket smartTransferFundDvpTicket = null;
-        String ticketId = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response =
-                api.fundDvpTicket(smartTransferFundDvpTicket, ticketId, idempotencyKey);
-    }
-
-    /**
      * Define funding source
      *
      * <p>Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer
@@ -185,19 +147,6 @@ public class SmartTransferApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response =
                 api.fundTicketTerm(smartTransferFundTerm, ticketId, termId, idempotencyKey);
-    }
-
-    /**
-     * Get smart transfers statistic
-     *
-     * <p>Get smart transfer statistic
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void getSmartTransferStatisticTest() throws ApiException {
-        CompletableFuture<ApiResponse<SmartTransferStatistic>> response =
-                api.getSmartTransferStatistic();
     }
 
     /**
@@ -265,8 +214,6 @@ public class SmartTransferApiTest {
         String externalRefId = null;
         String after = null;
         BigDecimal limit = null;
-        String sortBy = null;
-        String order = null;
         CompletableFuture<ApiResponse<SmartTransferTicketFilteredResponse>> response =
                 api.searchTickets(
                         q,
@@ -278,9 +225,7 @@ public class SmartTransferApiTest {
                         type,
                         externalRefId,
                         after,
-                        limit,
-                        sortBy,
-                        order);
+                        limit);
     }
 
     /**

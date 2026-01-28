@@ -78,10 +78,4 @@ class ContractUploadRequestTest {
     void attributesTest() {
         // TODO: test attributes
     }
-
-    /** Test the property 'protocol' */
-    @Test
-    void protocolTest() {
-        // TODO: test protocol
-    }
 }

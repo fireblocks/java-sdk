@@ -27,14 +27,12 @@ import com.fireblocks.sdk.model.DropTransactionResponse;
 import com.fireblocks.sdk.model.EstimatedNetworkFeeResponse;
 import com.fireblocks.sdk.model.EstimatedTransactionFeeResponse;
 import com.fireblocks.sdk.model.FreezeTransactionResponse;
-import com.fireblocks.sdk.model.RescanTransaction;
 import com.fireblocks.sdk.model.SetConfirmationsThresholdRequest;
 import com.fireblocks.sdk.model.SetConfirmationsThresholdResponse;
 import com.fireblocks.sdk.model.TransactionRequest;
 import com.fireblocks.sdk.model.TransactionResponse;
 import com.fireblocks.sdk.model.UnfreezeTransactionResponse;
 import com.fireblocks.sdk.model.ValidateAddressResponse;
-import com.fireblocks.sdk.model.ValidatedTransactionsForRescan;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -726,10 +724,6 @@ public class TransactionsApi {
     /**
      * List transaction history Lists the transaction history for your workspace.
      *
-     * @param next Cursor returned in next-page header that can be used to fetch the next page of
-     *     results (optional)
-     * @param prev Cursor returned in prev-page header that can be used to fetch the previous page
-     *     of results (optional)
      * @param before Unix timestamp in milliseconds. Returns only transactions created before the
      *     specified date (optional)
      * @param after Unix timestamp in milliseconds. Returns only transactions created after the
@@ -755,8 +749,6 @@ public class TransactionsApi {
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<List<TransactionResponse>>> getTransactions(
-            String next,
-            String prev,
             String before,
             String after,
             String status,
@@ -775,8 +767,6 @@ public class TransactionsApi {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTransactionsRequestBuilder(
-                            next,
-                            prev,
                             before,
                             after,
                             status,
@@ -825,8 +815,6 @@ public class TransactionsApi {
     }
 
     private HttpRequest.Builder getTransactionsRequestBuilder(
-            String next,
-            String prev,
             String before,
             String after,
             String status,
@@ -850,10 +838,6 @@ public class TransactionsApi {
         List<Pair> localVarQueryParams = new ArrayList<>();
         StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
         String localVarQueryParameterBaseName;
-        localVarQueryParameterBaseName = "next";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("next", next));
-        localVarQueryParameterBaseName = "prev";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("prev", prev));
         localVarQueryParameterBaseName = "before";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("before", before));
         localVarQueryParameterBaseName = "after";
@@ -898,91 +882,6 @@ public class TransactionsApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * rescan array of transactions rescan transaction by running an async job. &lt;/br&gt;
-     * **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit
-     * the amount of the transaction to 16 per request.
-     *
-     * @param rescanTransaction (required)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return
-     *     CompletableFuture&lt;ApiResponse&lt;List&lt;ValidatedTransactionsForRescan&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<List<ValidatedTransactionsForRescan>>>
-            rescanTransactionsBeta(List<RescanTransaction> rescanTransaction, String idempotencyKey)
-                    throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    rescanTransactionsBetaRequestBuilder(rescanTransaction, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "rescanTransactionsBeta", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<List<ValidatedTransactionsForRescan>>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            List<
-                                                                                    ValidatedTransactionsForRescan>>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder rescanTransactionsBetaRequestBuilder(
-            List<RescanTransaction> rescanTransaction, String idempotencyKey) throws ApiException {
-        ValidationUtils.assertParamExists(
-                "rescanTransactionsBeta", "rescanTransaction", rescanTransaction);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/transactions/rescan";
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(rescanTransaction);
-            localVarRequestBuilder.method(
-                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

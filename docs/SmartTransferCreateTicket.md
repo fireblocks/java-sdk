@@ -22,7 +22,6 @@
 | Name | Value |
 |---- | -----|
 | ASYNC | &quot;ASYNC&quot; |
-| DVP | &quot;DVP&quot; |
 
 
 

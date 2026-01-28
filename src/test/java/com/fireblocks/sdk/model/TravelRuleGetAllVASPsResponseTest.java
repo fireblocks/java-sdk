@@ -25,21 +25,9 @@ class TravelRuleGetAllVASPsResponseTest {
         // TODO: test TravelRuleGetAllVASPsResponse
     }
 
-    /** Test the property 'data' */
+    /** Test the property 'vasps' */
     @Test
-    void dataTest() {
-        // TODO: test data
-    }
-
-    /** Test the property 'total' */
-    @Test
-    void totalTest() {
-        // TODO: test total
-    }
-
-    /** Test the property 'next' */
-    @Test
-    void nextTest() {
-        // TODO: test next
+    void vaspsTest() {
+        // TODO: test vasps
     }
 }

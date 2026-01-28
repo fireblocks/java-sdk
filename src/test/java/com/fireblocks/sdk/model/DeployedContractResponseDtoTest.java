@@ -54,28 +54,4 @@ class DeployedContractResponseDtoTest {
     void blockchainIdTest() {
         // TODO: test blockchainId
     }
-
-    /** Test the property 'baseAssetId' */
-    @Test
-    void baseAssetIdTest() {
-        // TODO: test baseAssetId
-    }
-
-    /** Test the property 'gaslessConfig' */
-    @Test
-    void gaslessConfigTest() {
-        // TODO: test gaslessConfig
-    }
-
-    /** Test the property 'multichainDeploymentMetadata' */
-    @Test
-    void multichainDeploymentMetadataTest() {
-        // TODO: test multichainDeploymentMetadata
-    }
-
-    /** Test the property 'solanaConfig' */
-    @Test
-    void solanaConfigTest() {
-        // TODO: test solanaConfig
-    }
 }

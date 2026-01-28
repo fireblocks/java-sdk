@@ -23,42 +23,13 @@ import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/**
- * The result of the AML/Travel Rule screening. This unified schema contains all fields that may be
- * returned for both AML and Travel Rule screening results. Not all fields will be present in every
- * response - the actual fields depend on the screening type and provider.
- */
+/** ComplianceScreeningResult */
 @JsonPropertyOrder({
     ComplianceScreeningResult.JSON_PROPERTY_PROVIDER,
     ComplianceScreeningResult.JSON_PROPERTY_PAYLOAD,
-    ComplianceScreeningResult.JSON_PROPERTY_TIMESTAMP,
-    ComplianceScreeningResult.JSON_PROPERTY_SCREENING_STATUS,
     ComplianceScreeningResult.JSON_PROPERTY_BYPASS_REASON,
-    ComplianceScreeningResult.JSON_PROPERTY_STATUS,
-    ComplianceScreeningResult.JSON_PROPERTY_PREV_STATUS,
-    ComplianceScreeningResult.JSON_PROPERTY_PREV_BYPASS_REASON,
-    ComplianceScreeningResult.JSON_PROPERTY_VERDICT,
-    ComplianceScreeningResult.JSON_PROPERTY_RISK,
-    ComplianceScreeningResult.JSON_PROPERTY_EXTENDED_RISK,
-    ComplianceScreeningResult.JSON_PROPERTY_EXTERNAL_ID,
-    ComplianceScreeningResult.JSON_PROPERTY_CUSTOMER_REF_ID,
-    ComplianceScreeningResult.JSON_PROPERTY_REF_ID,
-    ComplianceScreeningResult.JSON_PROPERTY_CATEGORY,
-    ComplianceScreeningResult.JSON_PROPERTY_CATEGORY_ID,
-    ComplianceScreeningResult.JSON_PROPERTY_DEST_ADDRESS,
-    ComplianceScreeningResult.JSON_PROPERTY_DEST_TAG,
-    ComplianceScreeningResult.JSON_PROPERTY_DEST_RECORD_ID,
-    ComplianceScreeningResult.JSON_PROPERTY_ADDRESS_RESOLUTION_SIGNATURE,
-    ComplianceScreeningResult.JSON_PROPERTY_AML_RESULT,
-    ComplianceScreeningResult.JSON_PROPERTY_RESULT,
-    ComplianceScreeningResult.JSON_PROPERTY_DETAILS_MESSAGE,
-    ComplianceScreeningResult.JSON_PROPERTY_MATCHED_ALERT,
-    ComplianceScreeningResult.JSON_PROPERTY_MATCHED_RULE,
-    ComplianceScreeningResult.JSON_PROPERTY_MATCHED_PRESCREENING_RULE,
-    ComplianceScreeningResult.JSON_PROPERTY_MATCHED_NO_TRM_SCREENING_RULE,
-    ComplianceScreeningResult.JSON_PROPERTY_CUSTOMER_INTEGRATION_ID,
-    ComplianceScreeningResult.JSON_PROPERTY_CUSTOMER_SHORT_NAME,
-    ComplianceScreeningResult.JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID
+    ComplianceScreeningResult.JSON_PROPERTY_SCREENING_STATUS,
+    ComplianceScreeningResult.JSON_PROPERTY_TIMESTAMP
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -70,10 +41,10 @@ public class ComplianceScreeningResult {
     public static final String JSON_PROPERTY_PAYLOAD = "payload";
     @jakarta.annotation.Nullable private Object payload;
 
-    public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
-    @jakarta.annotation.Nullable private BigDecimal timestamp;
+    public static final String JSON_PROPERTY_BYPASS_REASON = "bypassReason";
+    @jakarta.annotation.Nullable private String bypassReason;
 
-    /** Current status of the screening process */
+    /** Gets or Sets screeningStatus */
     public enum ScreeningStatusEnum {
         COMPLETED(String.valueOf("COMPLETED")),
 
@@ -115,85 +86,8 @@ public class ComplianceScreeningResult {
     public static final String JSON_PROPERTY_SCREENING_STATUS = "screeningStatus";
     @jakarta.annotation.Nullable private ScreeningStatusEnum screeningStatus;
 
-    public static final String JSON_PROPERTY_BYPASS_REASON = "bypassReason";
-    @jakarta.annotation.Nullable private String bypassReason;
-
-    public static final String JSON_PROPERTY_STATUS = "status";
-    @jakarta.annotation.Nullable private AmlStatusEnum status;
-
-    public static final String JSON_PROPERTY_PREV_STATUS = "prevStatus";
-    @jakarta.annotation.Nullable private AmlStatusEnum prevStatus;
-
-    public static final String JSON_PROPERTY_PREV_BYPASS_REASON = "prevBypassReason";
-    @jakarta.annotation.Nullable private String prevBypassReason;
-
-    public static final String JSON_PROPERTY_VERDICT = "verdict";
-    @jakarta.annotation.Nullable private ScreeningVerdictEnum verdict;
-
-    public static final String JSON_PROPERTY_RISK = "risk";
-    @jakarta.annotation.Nullable private ScreeningRiskLevelEnum risk;
-
-    public static final String JSON_PROPERTY_EXTENDED_RISK = "extendedRisk";
-    @jakarta.annotation.Nullable private ScreeningRiskLevelEnum extendedRisk;
-
-    public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
-    @jakarta.annotation.Nullable private String externalId;
-
-    public static final String JSON_PROPERTY_CUSTOMER_REF_ID = "customerRefId";
-    @jakarta.annotation.Nullable private String customerRefId;
-
-    public static final String JSON_PROPERTY_REF_ID = "refId";
-    @jakarta.annotation.Nullable private String refId;
-
-    public static final String JSON_PROPERTY_CATEGORY = "category";
-    @jakarta.annotation.Nullable private String category;
-
-    public static final String JSON_PROPERTY_CATEGORY_ID = "categoryId";
-    @jakarta.annotation.Nullable private BigDecimal categoryId;
-
-    public static final String JSON_PROPERTY_DEST_ADDRESS = "destAddress";
-    @jakarta.annotation.Nullable private String destAddress;
-
-    public static final String JSON_PROPERTY_DEST_TAG = "destTag";
-    @jakarta.annotation.Nullable private String destTag;
-
-    public static final String JSON_PROPERTY_DEST_RECORD_ID = "destRecordId";
-    @jakarta.annotation.Nullable private String destRecordId;
-
-    public static final String JSON_PROPERTY_ADDRESS_RESOLUTION_SIGNATURE =
-            "addressResolutionSignature";
-    @jakarta.annotation.Nullable private String addressResolutionSignature;
-
-    public static final String JSON_PROPERTY_AML_RESULT = "amlResult";
-    @jakarta.annotation.Nullable private AmlResult amlResult;
-
-    public static final String JSON_PROPERTY_RESULT = "result";
-    @jakarta.annotation.Nullable private TravelRuleResult result;
-
-    public static final String JSON_PROPERTY_DETAILS_MESSAGE = "detailsMessage";
-    @jakarta.annotation.Nullable private String detailsMessage;
-
-    public static final String JSON_PROPERTY_MATCHED_ALERT = "matchedAlert";
-    @jakarta.annotation.Nullable private Object matchedAlert;
-
-    public static final String JSON_PROPERTY_MATCHED_RULE = "matchedRule";
-    @jakarta.annotation.Nullable private Object matchedRule;
-
-    public static final String JSON_PROPERTY_MATCHED_PRESCREENING_RULE = "matchedPrescreeningRule";
-    @jakarta.annotation.Nullable private TravelRulePrescreeningRule matchedPrescreeningRule;
-
-    public static final String JSON_PROPERTY_MATCHED_NO_TRM_SCREENING_RULE =
-            "matchedNoTrmScreeningRule";
-    @jakarta.annotation.Nullable private Object matchedNoTrmScreeningRule;
-
-    public static final String JSON_PROPERTY_CUSTOMER_INTEGRATION_ID = "customerIntegrationId";
-    @jakarta.annotation.Nullable private String customerIntegrationId;
-
-    public static final String JSON_PROPERTY_CUSTOMER_SHORT_NAME = "customerShortName";
-    @jakarta.annotation.Nullable private String customerShortName;
-
-    public static final String JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID = "travelRuleMessageId";
-    @jakarta.annotation.Nullable private String travelRuleMessageId;
+    public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
+    @jakarta.annotation.Nullable private BigDecimal timestamp;
 
     public ComplianceScreeningResult() {}
 
@@ -203,8 +97,7 @@ public class ComplianceScreeningResult {
     }
 
     /**
-     * The AML/Travel Rule provider name. For AML: ELLIPTIC, CHAINALYSIS, SCORECHAIN,
-     * MERKLE_SCIENCE, etc. For Travel Rule: NOTABENE, SYGNA, or any TRLink provider name
+     * Get provider
      *
      * @return provider
      */
@@ -227,9 +120,8 @@ public class ComplianceScreeningResult {
     }
 
     /**
-     * The raw payload of the screening result from the provider. The payload is a JSON object that
-     * contains the screening result. The payload structure is different for each screening
-     * provider. This field contains the complete, unmodified response from the screening service.
+     * The payload of the screening result. The payload is a JSON object that contains the screening
+     * result. The payload is different for each screening provider.
      *
      * @return payload
      */
@@ -246,27 +138,28 @@ public class ComplianceScreeningResult {
         this.payload = payload;
     }
 
-    public ComplianceScreeningResult timestamp(@jakarta.annotation.Nullable BigDecimal timestamp) {
-        this.timestamp = timestamp;
+    public ComplianceScreeningResult bypassReason(
+            @jakarta.annotation.Nullable String bypassReason) {
+        this.bypassReason = bypassReason;
         return this;
     }
 
     /**
-     * Unix timestamp in milliseconds when the screening result was generated
+     * Get bypassReason
      *
-     * @return timestamp
+     * @return bypassReason
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+    @JsonProperty(JSON_PROPERTY_BYPASS_REASON)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getTimestamp() {
-        return timestamp;
+    public String getBypassReason() {
+        return bypassReason;
     }
 
-    @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+    @JsonProperty(JSON_PROPERTY_BYPASS_REASON)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTimestamp(@jakarta.annotation.Nullable BigDecimal timestamp) {
-        this.timestamp = timestamp;
+    public void setBypassReason(@jakarta.annotation.Nullable String bypassReason) {
+        this.bypassReason = bypassReason;
     }
 
     public ComplianceScreeningResult screeningStatus(
@@ -276,7 +169,7 @@ public class ComplianceScreeningResult {
     }
 
     /**
-     * Current status of the screening process
+     * Get screeningStatus
      *
      * @return screeningStatus
      */
@@ -294,628 +187,27 @@ public class ComplianceScreeningResult {
         this.screeningStatus = screeningStatus;
     }
 
-    public ComplianceScreeningResult bypassReason(
-            @jakarta.annotation.Nullable String bypassReason) {
-        this.bypassReason = bypassReason;
+    public ComplianceScreeningResult timestamp(@jakarta.annotation.Nullable BigDecimal timestamp) {
+        this.timestamp = timestamp;
         return this;
     }
 
     /**
-     * Reason for bypassing the screening, if applicable. For AML: SANCTIONS_SCREENING_BYPASS,
-     * SANCTIONS_RECIPIENT_BYPASS, etc. For Travel Rule: BELOW_THRESHOLD, NO_TRM_AVAILABLE, etc.
+     * Get timestamp
      *
-     * @return bypassReason
+     * @return timestamp
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_BYPASS_REASON)
+    @JsonProperty(JSON_PROPERTY_TIMESTAMP)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getBypassReason() {
-        return bypassReason;
+    public BigDecimal getTimestamp() {
+        return timestamp;
     }
 
-    @JsonProperty(JSON_PROPERTY_BYPASS_REASON)
+    @JsonProperty(JSON_PROPERTY_TIMESTAMP)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBypassReason(@jakarta.annotation.Nullable String bypassReason) {
-        this.bypassReason = bypassReason;
-    }
-
-    public ComplianceScreeningResult status(@jakarta.annotation.Nullable AmlStatusEnum status) {
-        this.status = status;
-        return this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return status
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_STATUS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public AmlStatusEnum getStatus() {
-        return status;
-    }
-
-    @JsonProperty(JSON_PROPERTY_STATUS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(@jakarta.annotation.Nullable AmlStatusEnum status) {
-        this.status = status;
-    }
-
-    public ComplianceScreeningResult prevStatus(
-            @jakarta.annotation.Nullable AmlStatusEnum prevStatus) {
-        this.prevStatus = prevStatus;
-        return this;
-    }
-
-    /**
-     * Get prevStatus
-     *
-     * @return prevStatus
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PREV_STATUS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public AmlStatusEnum getPrevStatus() {
-        return prevStatus;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PREV_STATUS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPrevStatus(@jakarta.annotation.Nullable AmlStatusEnum prevStatus) {
-        this.prevStatus = prevStatus;
-    }
-
-    public ComplianceScreeningResult prevBypassReason(
-            @jakarta.annotation.Nullable String prevBypassReason) {
-        this.prevBypassReason = prevBypassReason;
-        return this;
-    }
-
-    /**
-     * Previous bypass reason before the current bypass reason change
-     *
-     * @return prevBypassReason
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PREV_BYPASS_REASON)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getPrevBypassReason() {
-        return prevBypassReason;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PREV_BYPASS_REASON)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPrevBypassReason(@jakarta.annotation.Nullable String prevBypassReason) {
-        this.prevBypassReason = prevBypassReason;
-    }
-
-    public ComplianceScreeningResult verdict(
-            @jakarta.annotation.Nullable ScreeningVerdictEnum verdict) {
-        this.verdict = verdict;
-        return this;
-    }
-
-    /**
-     * Get verdict
-     *
-     * @return verdict
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_VERDICT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ScreeningVerdictEnum getVerdict() {
-        return verdict;
-    }
-
-    @JsonProperty(JSON_PROPERTY_VERDICT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVerdict(@jakarta.annotation.Nullable ScreeningVerdictEnum verdict) {
-        this.verdict = verdict;
-    }
-
-    public ComplianceScreeningResult risk(
-            @jakarta.annotation.Nullable ScreeningRiskLevelEnum risk) {
-        this.risk = risk;
-        return this;
-    }
-
-    /**
-     * Get risk
-     *
-     * @return risk
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_RISK)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ScreeningRiskLevelEnum getRisk() {
-        return risk;
-    }
-
-    @JsonProperty(JSON_PROPERTY_RISK)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRisk(@jakarta.annotation.Nullable ScreeningRiskLevelEnum risk) {
-        this.risk = risk;
-    }
-
-    public ComplianceScreeningResult extendedRisk(
-            @jakarta.annotation.Nullable ScreeningRiskLevelEnum extendedRisk) {
-        this.extendedRisk = extendedRisk;
-        return this;
-    }
-
-    /**
-     * Get extendedRisk
-     *
-     * @return extendedRisk
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_EXTENDED_RISK)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ScreeningRiskLevelEnum getExtendedRisk() {
-        return extendedRisk;
-    }
-
-    @JsonProperty(JSON_PROPERTY_EXTENDED_RISK)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExtendedRisk(@jakarta.annotation.Nullable ScreeningRiskLevelEnum extendedRisk) {
-        this.extendedRisk = extendedRisk;
-    }
-
-    public ComplianceScreeningResult externalId(@jakarta.annotation.Nullable String externalId) {
-        this.externalId = externalId;
-        return this;
-    }
-
-    /**
-     * External identifier for the screening (provider-specific)
-     *
-     * @return externalId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getExternalId() {
-        return externalId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExternalId(@jakarta.annotation.Nullable String externalId) {
-        this.externalId = externalId;
-    }
-
-    public ComplianceScreeningResult customerRefId(
-            @jakarta.annotation.Nullable String customerRefId) {
-        this.customerRefId = customerRefId;
-        return this;
-    }
-
-    /**
-     * Customer-provided reference identifier for tracking
-     *
-     * @return customerRefId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getCustomerRefId() {
-        return customerRefId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomerRefId(@jakarta.annotation.Nullable String customerRefId) {
-        this.customerRefId = customerRefId;
-    }
-
-    public ComplianceScreeningResult refId(@jakarta.annotation.Nullable String refId) {
-        this.refId = refId;
-        return this;
-    }
-
-    /**
-     * Internal reference identifier
-     *
-     * @return refId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_REF_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getRefId() {
-        return refId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_REF_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRefId(@jakarta.annotation.Nullable String refId) {
-        this.refId = refId;
-    }
-
-    public ComplianceScreeningResult category(@jakarta.annotation.Nullable String category) {
-        this.category = category;
-        return this;
-    }
-
-    /**
-     * Risk category classification. Examples: EXCHANGE, GAMBLING, MIXER, DARKNET_SERVICE,
-     * SANCTIONED_ENTITY
-     *
-     * @return category
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CATEGORY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getCategory() {
-        return category;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CATEGORY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCategory(@jakarta.annotation.Nullable String category) {
-        this.category = category;
-    }
-
-    public ComplianceScreeningResult categoryId(
-            @jakarta.annotation.Nullable BigDecimal categoryId) {
-        this.categoryId = categoryId;
-        return this;
-    }
-
-    /**
-     * Numeric identifier for the risk category
-     *
-     * @return categoryId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CATEGORY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getCategoryId() {
-        return categoryId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CATEGORY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCategoryId(@jakarta.annotation.Nullable BigDecimal categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public ComplianceScreeningResult destAddress(@jakarta.annotation.Nullable String destAddress) {
-        this.destAddress = destAddress;
-        return this;
-    }
-
-    /**
-     * The destination blockchain address associated with the screening
-     *
-     * @return destAddress
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DEST_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getDestAddress() {
-        return destAddress;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DEST_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestAddress(@jakarta.annotation.Nullable String destAddress) {
-        this.destAddress = destAddress;
-    }
-
-    public ComplianceScreeningResult destTag(@jakarta.annotation.Nullable String destTag) {
-        this.destTag = destTag;
-        return this;
-    }
-
-    /**
-     * Destination tag or memo (for chains that support it like XRP, XLM)
-     *
-     * @return destTag
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DEST_TAG)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getDestTag() {
-        return destTag;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DEST_TAG)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestTag(@jakarta.annotation.Nullable String destTag) {
-        this.destTag = destTag;
-    }
-
-    public ComplianceScreeningResult destRecordId(
-            @jakarta.annotation.Nullable String destRecordId) {
-        this.destRecordId = destRecordId;
-        return this;
-    }
-
-    /**
-     * The destination record identifier used by the screening provider
-     *
-     * @return destRecordId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DEST_RECORD_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getDestRecordId() {
-        return destRecordId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DEST_RECORD_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestRecordId(@jakarta.annotation.Nullable String destRecordId) {
-        this.destRecordId = destRecordId;
-    }
-
-    public ComplianceScreeningResult addressResolutionSignature(
-            @jakarta.annotation.Nullable String addressResolutionSignature) {
-        this.addressResolutionSignature = addressResolutionSignature;
-        return this;
-    }
-
-    /**
-     * Cryptographic signature for address resolution verification
-     *
-     * @return addressResolutionSignature
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ADDRESS_RESOLUTION_SIGNATURE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getAddressResolutionSignature() {
-        return addressResolutionSignature;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ADDRESS_RESOLUTION_SIGNATURE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddressResolutionSignature(
-            @jakarta.annotation.Nullable String addressResolutionSignature) {
-        this.addressResolutionSignature = addressResolutionSignature;
-    }
-
-    public ComplianceScreeningResult amlResult(@jakarta.annotation.Nullable AmlResult amlResult) {
-        this.amlResult = amlResult;
-        return this;
-    }
-
-    /**
-     * Get amlResult
-     *
-     * @return amlResult
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AML_RESULT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public AmlResult getAmlResult() {
-        return amlResult;
-    }
-
-    @JsonProperty(JSON_PROPERTY_AML_RESULT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmlResult(@jakarta.annotation.Nullable AmlResult amlResult) {
-        this.amlResult = amlResult;
-    }
-
-    public ComplianceScreeningResult result(@jakarta.annotation.Nullable TravelRuleResult result) {
-        this.result = result;
-        return this;
-    }
-
-    /**
-     * Get result
-     *
-     * @return result
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_RESULT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TravelRuleResult getResult() {
-        return result;
-    }
-
-    @JsonProperty(JSON_PROPERTY_RESULT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setResult(@jakarta.annotation.Nullable TravelRuleResult result) {
-        this.result = result;
-    }
-
-    public ComplianceScreeningResult detailsMessage(
-            @jakarta.annotation.Nullable String detailsMessage) {
-        this.detailsMessage = detailsMessage;
-        return this;
-    }
-
-    /**
-     * Additional human-readable details or message about the screening result
-     *
-     * @return detailsMessage
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DETAILS_MESSAGE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getDetailsMessage() {
-        return detailsMessage;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DETAILS_MESSAGE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDetailsMessage(@jakarta.annotation.Nullable String detailsMessage) {
-        this.detailsMessage = detailsMessage;
-    }
-
-    public ComplianceScreeningResult matchedAlert(
-            @jakarta.annotation.Nullable Object matchedAlert) {
-        this.matchedAlert = matchedAlert;
-        return this;
-    }
-
-    /**
-     * Information about the AML alert that was matched, if any. Contains details about the specific
-     * alert that triggered during screening.
-     *
-     * @return matchedAlert
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_MATCHED_ALERT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Object getMatchedAlert() {
-        return matchedAlert;
-    }
-
-    @JsonProperty(JSON_PROPERTY_MATCHED_ALERT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMatchedAlert(@jakarta.annotation.Nullable Object matchedAlert) {
-        this.matchedAlert = matchedAlert;
-    }
-
-    public ComplianceScreeningResult matchedRule(@jakarta.annotation.Nullable Object matchedRule) {
-        this.matchedRule = matchedRule;
-        return this;
-    }
-
-    /**
-     * The matched rule information for this screening result. Contains details about which
-     * screening rule was applied and matched.
-     *
-     * @return matchedRule
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_MATCHED_RULE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Object getMatchedRule() {
-        return matchedRule;
-    }
-
-    @JsonProperty(JSON_PROPERTY_MATCHED_RULE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMatchedRule(@jakarta.annotation.Nullable Object matchedRule) {
-        this.matchedRule = matchedRule;
-    }
-
-    public ComplianceScreeningResult matchedPrescreeningRule(
-            @jakarta.annotation.Nullable TravelRulePrescreeningRule matchedPrescreeningRule) {
-        this.matchedPrescreeningRule = matchedPrescreeningRule;
-        return this;
-    }
-
-    /**
-     * Get matchedPrescreeningRule
-     *
-     * @return matchedPrescreeningRule
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_MATCHED_PRESCREENING_RULE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TravelRulePrescreeningRule getMatchedPrescreeningRule() {
-        return matchedPrescreeningRule;
-    }
-
-    @JsonProperty(JSON_PROPERTY_MATCHED_PRESCREENING_RULE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMatchedPrescreeningRule(
-            @jakarta.annotation.Nullable TravelRulePrescreeningRule matchedPrescreeningRule) {
-        this.matchedPrescreeningRule = matchedPrescreeningRule;
-    }
-
-    public ComplianceScreeningResult matchedNoTrmScreeningRule(
-            @jakarta.annotation.Nullable Object matchedNoTrmScreeningRule) {
-        this.matchedNoTrmScreeningRule = matchedNoTrmScreeningRule;
-        return this;
-    }
-
-    /**
-     * Matched no-TRM (Travel Rule Message) screening rule details. Used when TRLink screening
-     * detects a missing TRM scenario.
-     *
-     * @return matchedNoTrmScreeningRule
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_MATCHED_NO_TRM_SCREENING_RULE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Object getMatchedNoTrmScreeningRule() {
-        return matchedNoTrmScreeningRule;
-    }
-
-    @JsonProperty(JSON_PROPERTY_MATCHED_NO_TRM_SCREENING_RULE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMatchedNoTrmScreeningRule(
-            @jakarta.annotation.Nullable Object matchedNoTrmScreeningRule) {
-        this.matchedNoTrmScreeningRule = matchedNoTrmScreeningRule;
-    }
-
-    public ComplianceScreeningResult customerIntegrationId(
-            @jakarta.annotation.Nullable String customerIntegrationId) {
-        this.customerIntegrationId = customerIntegrationId;
-        return this;
-    }
-
-    /**
-     * Customer integration identifier used by Travel Rule providers
-     *
-     * @return customerIntegrationId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CUSTOMER_INTEGRATION_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getCustomerIntegrationId() {
-        return customerIntegrationId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CUSTOMER_INTEGRATION_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomerIntegrationId(
-            @jakarta.annotation.Nullable String customerIntegrationId) {
-        this.customerIntegrationId = customerIntegrationId;
-    }
-
-    public ComplianceScreeningResult customerShortName(
-            @jakarta.annotation.Nullable String customerShortName) {
-        this.customerShortName = customerShortName;
-        return this;
-    }
-
-    /**
-     * Customer short name registered with Travel Rule providers
-     *
-     * @return customerShortName
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CUSTOMER_SHORT_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getCustomerShortName() {
-        return customerShortName;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CUSTOMER_SHORT_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomerShortName(@jakarta.annotation.Nullable String customerShortName) {
-        this.customerShortName = customerShortName;
-    }
-
-    public ComplianceScreeningResult travelRuleMessageId(
-            @jakarta.annotation.Nullable String travelRuleMessageId) {
-        this.travelRuleMessageId = travelRuleMessageId;
-        return this;
-    }
-
-    /**
-     * Travel rule message identifier for linking and tracking across providers
-     *
-     * @return travelRuleMessageId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getTravelRuleMessageId() {
-        return travelRuleMessageId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTravelRuleMessageId(@jakarta.annotation.Nullable String travelRuleMessageId) {
-        this.travelRuleMessageId = travelRuleMessageId;
+    public void setTimestamp(@jakarta.annotation.Nullable BigDecimal timestamp) {
+        this.timestamp = timestamp;
     }
 
     /** Return true if this ComplianceScreeningResult object is equal to o. */
@@ -930,78 +222,14 @@ public class ComplianceScreeningResult {
         ComplianceScreeningResult complianceScreeningResult = (ComplianceScreeningResult) o;
         return Objects.equals(this.provider, complianceScreeningResult.provider)
                 && Objects.equals(this.payload, complianceScreeningResult.payload)
-                && Objects.equals(this.timestamp, complianceScreeningResult.timestamp)
-                && Objects.equals(this.screeningStatus, complianceScreeningResult.screeningStatus)
                 && Objects.equals(this.bypassReason, complianceScreeningResult.bypassReason)
-                && Objects.equals(this.status, complianceScreeningResult.status)
-                && Objects.equals(this.prevStatus, complianceScreeningResult.prevStatus)
-                && Objects.equals(this.prevBypassReason, complianceScreeningResult.prevBypassReason)
-                && Objects.equals(this.verdict, complianceScreeningResult.verdict)
-                && Objects.equals(this.risk, complianceScreeningResult.risk)
-                && Objects.equals(this.extendedRisk, complianceScreeningResult.extendedRisk)
-                && Objects.equals(this.externalId, complianceScreeningResult.externalId)
-                && Objects.equals(this.customerRefId, complianceScreeningResult.customerRefId)
-                && Objects.equals(this.refId, complianceScreeningResult.refId)
-                && Objects.equals(this.category, complianceScreeningResult.category)
-                && Objects.equals(this.categoryId, complianceScreeningResult.categoryId)
-                && Objects.equals(this.destAddress, complianceScreeningResult.destAddress)
-                && Objects.equals(this.destTag, complianceScreeningResult.destTag)
-                && Objects.equals(this.destRecordId, complianceScreeningResult.destRecordId)
-                && Objects.equals(
-                        this.addressResolutionSignature,
-                        complianceScreeningResult.addressResolutionSignature)
-                && Objects.equals(this.amlResult, complianceScreeningResult.amlResult)
-                && Objects.equals(this.result, complianceScreeningResult.result)
-                && Objects.equals(this.detailsMessage, complianceScreeningResult.detailsMessage)
-                && Objects.equals(this.matchedAlert, complianceScreeningResult.matchedAlert)
-                && Objects.equals(this.matchedRule, complianceScreeningResult.matchedRule)
-                && Objects.equals(
-                        this.matchedPrescreeningRule,
-                        complianceScreeningResult.matchedPrescreeningRule)
-                && Objects.equals(
-                        this.matchedNoTrmScreeningRule,
-                        complianceScreeningResult.matchedNoTrmScreeningRule)
-                && Objects.equals(
-                        this.customerIntegrationId, complianceScreeningResult.customerIntegrationId)
-                && Objects.equals(
-                        this.customerShortName, complianceScreeningResult.customerShortName)
-                && Objects.equals(
-                        this.travelRuleMessageId, complianceScreeningResult.travelRuleMessageId);
+                && Objects.equals(this.screeningStatus, complianceScreeningResult.screeningStatus)
+                && Objects.equals(this.timestamp, complianceScreeningResult.timestamp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                provider,
-                payload,
-                timestamp,
-                screeningStatus,
-                bypassReason,
-                status,
-                prevStatus,
-                prevBypassReason,
-                verdict,
-                risk,
-                extendedRisk,
-                externalId,
-                customerRefId,
-                refId,
-                category,
-                categoryId,
-                destAddress,
-                destTag,
-                destRecordId,
-                addressResolutionSignature,
-                amlResult,
-                result,
-                detailsMessage,
-                matchedAlert,
-                matchedRule,
-                matchedPrescreeningRule,
-                matchedNoTrmScreeningRule,
-                customerIntegrationId,
-                customerShortName,
-                travelRuleMessageId);
+        return Objects.hash(provider, payload, bypassReason, screeningStatus, timestamp);
     }
 
     @Override
@@ -1010,46 +238,9 @@ public class ComplianceScreeningResult {
         sb.append("class ComplianceScreeningResult {\n");
         sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
         sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
-        sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
-        sb.append("    screeningStatus: ").append(toIndentedString(screeningStatus)).append("\n");
         sb.append("    bypassReason: ").append(toIndentedString(bypassReason)).append("\n");
-        sb.append("    status: ").append(toIndentedString(status)).append("\n");
-        sb.append("    prevStatus: ").append(toIndentedString(prevStatus)).append("\n");
-        sb.append("    prevBypassReason: ").append(toIndentedString(prevBypassReason)).append("\n");
-        sb.append("    verdict: ").append(toIndentedString(verdict)).append("\n");
-        sb.append("    risk: ").append(toIndentedString(risk)).append("\n");
-        sb.append("    extendedRisk: ").append(toIndentedString(extendedRisk)).append("\n");
-        sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
-        sb.append("    customerRefId: ").append(toIndentedString(customerRefId)).append("\n");
-        sb.append("    refId: ").append(toIndentedString(refId)).append("\n");
-        sb.append("    category: ").append(toIndentedString(category)).append("\n");
-        sb.append("    categoryId: ").append(toIndentedString(categoryId)).append("\n");
-        sb.append("    destAddress: ").append(toIndentedString(destAddress)).append("\n");
-        sb.append("    destTag: ").append(toIndentedString(destTag)).append("\n");
-        sb.append("    destRecordId: ").append(toIndentedString(destRecordId)).append("\n");
-        sb.append("    addressResolutionSignature: ")
-                .append(toIndentedString(addressResolutionSignature))
-                .append("\n");
-        sb.append("    amlResult: ").append(toIndentedString(amlResult)).append("\n");
-        sb.append("    result: ").append(toIndentedString(result)).append("\n");
-        sb.append("    detailsMessage: ").append(toIndentedString(detailsMessage)).append("\n");
-        sb.append("    matchedAlert: ").append(toIndentedString(matchedAlert)).append("\n");
-        sb.append("    matchedRule: ").append(toIndentedString(matchedRule)).append("\n");
-        sb.append("    matchedPrescreeningRule: ")
-                .append(toIndentedString(matchedPrescreeningRule))
-                .append("\n");
-        sb.append("    matchedNoTrmScreeningRule: ")
-                .append(toIndentedString(matchedNoTrmScreeningRule))
-                .append("\n");
-        sb.append("    customerIntegrationId: ")
-                .append(toIndentedString(customerIntegrationId))
-                .append("\n");
-        sb.append("    customerShortName: ")
-                .append(toIndentedString(customerShortName))
-                .append("\n");
-        sb.append("    travelRuleMessageId: ")
-                .append(toIndentedString(travelRuleMessageId))
-                .append("\n");
+        sb.append("    screeningStatus: ").append(toIndentedString(screeningStatus)).append("\n");
+        sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -1117,14 +308,14 @@ public class ComplianceScreeningResult {
                             ApiClient.urlEncode(ApiClient.valueToString(getPayload()))));
         }
 
-        // add `timestamp` to the URL query string
-        if (getTimestamp() != null) {
+        // add `bypassReason` to the URL query string
+        if (getBypassReason() != null) {
             joiner.add(
                     String.format(
-                            "%stimestamp%s=%s",
+                            "%sbypassReason%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getTimestamp()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBypassReason()))));
         }
 
         // add `screeningStatus` to the URL query string
@@ -1137,255 +328,14 @@ public class ComplianceScreeningResult {
                             ApiClient.urlEncode(ApiClient.valueToString(getScreeningStatus()))));
         }
 
-        // add `bypassReason` to the URL query string
-        if (getBypassReason() != null) {
+        // add `timestamp` to the URL query string
+        if (getTimestamp() != null) {
             joiner.add(
                     String.format(
-                            "%sbypassReason%s=%s",
+                            "%stimestamp%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getBypassReason()))));
-        }
-
-        // add `status` to the URL query string
-        if (getStatus() != null) {
-            joiner.add(
-                    String.format(
-                            "%sstatus%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
-        }
-
-        // add `prevStatus` to the URL query string
-        if (getPrevStatus() != null) {
-            joiner.add(
-                    String.format(
-                            "%sprevStatus%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getPrevStatus()))));
-        }
-
-        // add `prevBypassReason` to the URL query string
-        if (getPrevBypassReason() != null) {
-            joiner.add(
-                    String.format(
-                            "%sprevBypassReason%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getPrevBypassReason()))));
-        }
-
-        // add `verdict` to the URL query string
-        if (getVerdict() != null) {
-            joiner.add(
-                    String.format(
-                            "%sverdict%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getVerdict()))));
-        }
-
-        // add `risk` to the URL query string
-        if (getRisk() != null) {
-            joiner.add(
-                    String.format(
-                            "%srisk%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getRisk()))));
-        }
-
-        // add `extendedRisk` to the URL query string
-        if (getExtendedRisk() != null) {
-            joiner.add(
-                    String.format(
-                            "%sextendedRisk%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getExtendedRisk()))));
-        }
-
-        // add `externalId` to the URL query string
-        if (getExternalId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sexternalId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getExternalId()))));
-        }
-
-        // add `customerRefId` to the URL query string
-        if (getCustomerRefId() != null) {
-            joiner.add(
-                    String.format(
-                            "%scustomerRefId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getCustomerRefId()))));
-        }
-
-        // add `refId` to the URL query string
-        if (getRefId() != null) {
-            joiner.add(
-                    String.format(
-                            "%srefId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getRefId()))));
-        }
-
-        // add `category` to the URL query string
-        if (getCategory() != null) {
-            joiner.add(
-                    String.format(
-                            "%scategory%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getCategory()))));
-        }
-
-        // add `categoryId` to the URL query string
-        if (getCategoryId() != null) {
-            joiner.add(
-                    String.format(
-                            "%scategoryId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getCategoryId()))));
-        }
-
-        // add `destAddress` to the URL query string
-        if (getDestAddress() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdestAddress%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getDestAddress()))));
-        }
-
-        // add `destTag` to the URL query string
-        if (getDestTag() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdestTag%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getDestTag()))));
-        }
-
-        // add `destRecordId` to the URL query string
-        if (getDestRecordId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdestRecordId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getDestRecordId()))));
-        }
-
-        // add `addressResolutionSignature` to the URL query string
-        if (getAddressResolutionSignature() != null) {
-            joiner.add(
-                    String.format(
-                            "%saddressResolutionSignature%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(
-                                    ApiClient.valueToString(getAddressResolutionSignature()))));
-        }
-
-        // add `amlResult` to the URL query string
-        if (getAmlResult() != null) {
-            joiner.add(getAmlResult().toUrlQueryString(prefix + "amlResult" + suffix));
-        }
-
-        // add `result` to the URL query string
-        if (getResult() != null) {
-            joiner.add(getResult().toUrlQueryString(prefix + "result" + suffix));
-        }
-
-        // add `detailsMessage` to the URL query string
-        if (getDetailsMessage() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdetailsMessage%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getDetailsMessage()))));
-        }
-
-        // add `matchedAlert` to the URL query string
-        if (getMatchedAlert() != null) {
-            joiner.add(
-                    String.format(
-                            "%smatchedAlert%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getMatchedAlert()))));
-        }
-
-        // add `matchedRule` to the URL query string
-        if (getMatchedRule() != null) {
-            joiner.add(
-                    String.format(
-                            "%smatchedRule%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getMatchedRule()))));
-        }
-
-        // add `matchedPrescreeningRule` to the URL query string
-        if (getMatchedPrescreeningRule() != null) {
-            joiner.add(
-                    getMatchedPrescreeningRule()
-                            .toUrlQueryString(prefix + "matchedPrescreeningRule" + suffix));
-        }
-
-        // add `matchedNoTrmScreeningRule` to the URL query string
-        if (getMatchedNoTrmScreeningRule() != null) {
-            joiner.add(
-                    String.format(
-                            "%smatchedNoTrmScreeningRule%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(
-                                    ApiClient.valueToString(getMatchedNoTrmScreeningRule()))));
-        }
-
-        // add `customerIntegrationId` to the URL query string
-        if (getCustomerIntegrationId() != null) {
-            joiner.add(
-                    String.format(
-                            "%scustomerIntegrationId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(
-                                    ApiClient.valueToString(getCustomerIntegrationId()))));
-        }
-
-        // add `customerShortName` to the URL query string
-        if (getCustomerShortName() != null) {
-            joiner.add(
-                    String.format(
-                            "%scustomerShortName%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getCustomerShortName()))));
-        }
-
-        // add `travelRuleMessageId` to the URL query string
-        if (getTravelRuleMessageId() != null) {
-            joiner.add(
-                    String.format(
-                            "%stravelRuleMessageId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(
-                                    ApiClient.valueToString(getTravelRuleMessageId()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTimestamp()))));
         }
 
         return joiner.toString();

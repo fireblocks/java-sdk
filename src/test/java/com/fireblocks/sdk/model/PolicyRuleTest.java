@@ -25,22 +25,34 @@ class PolicyRuleTest {
         // TODO: test PolicyRule
     }
 
-    /** Test the property 'name' */
+    /** Test the property 'operator' */
     @Test
-    void nameTest() {
-        // TODO: test name
+    void operatorTest() {
+        // TODO: test operator
     }
 
-    /** Test the property 'id' */
+    /** Test the property 'operators' */
     @Test
-    void idTest() {
-        // TODO: test id
+    void operatorsTest() {
+        // TODO: test operators
     }
 
-    /** Test the property 'policyEngineVersion' */
+    /** Test the property 'transactionType' */
     @Test
-    void policyEngineVersionTest() {
-        // TODO: test policyEngineVersion
+    void transactionTypeTest() {
+        // TODO: test transactionType
+    }
+
+    /** Test the property 'designatedSigner' */
+    @Test
+    void designatedSignerTest() {
+        // TODO: test designatedSigner
+    }
+
+    /** Test the property 'designatedSigners' */
+    @Test
+    void designatedSignersTest() {
+        // TODO: test designatedSigners
     }
 
     /** Test the property 'type' */
@@ -49,16 +61,10 @@ class PolicyRuleTest {
         // TODO: test type
     }
 
-    /** Test the property 'subType' */
+    /** Test the property 'action' */
     @Test
-    void subTypeTest() {
-        // TODO: test subType
-    }
-
-    /** Test the property 'initiator' */
-    @Test
-    void initiatorTest() {
-        // TODO: test initiator
+    void actionTest() {
+        // TODO: test action
     }
 
     /** Test the property 'asset' */
@@ -67,40 +73,70 @@ class PolicyRuleTest {
         // TODO: test asset
     }
 
-    /** Test the property 'source' */
+    /** Test the property 'srcType' */
     @Test
-    void sourceTest() {
-        // TODO: test source
+    void srcTypeTest() {
+        // TODO: test srcType
     }
 
-    /** Test the property 'destination' */
+    /** Test the property 'srcSubType' */
     @Test
-    void destinationTest() {
-        // TODO: test destination
+    void srcSubTypeTest() {
+        // TODO: test srcSubType
     }
 
-    /** Test the property 'account' */
+    /** Test the property 'srcId' */
     @Test
-    void accountTest() {
-        // TODO: test account
+    void srcIdTest() {
+        // TODO: test srcId
     }
 
-    /** Test the property 'side' */
+    /** Test the property 'src' */
     @Test
-    void sideTest() {
-        // TODO: test side
+    void srcTest() {
+        // TODO: test src
     }
 
-    /** Test the property 'verdict' */
+    /** Test the property 'dstType' */
     @Test
-    void verdictTest() {
-        // TODO: test verdict
+    void dstTypeTest() {
+        // TODO: test dstType
     }
 
-    /** Test the property 'amountOverTime' */
+    /** Test the property 'dstSubType' */
     @Test
-    void amountOverTimeTest() {
-        // TODO: test amountOverTime
+    void dstSubTypeTest() {
+        // TODO: test dstSubType
+    }
+
+    /** Test the property 'dstId' */
+    @Test
+    void dstIdTest() {
+        // TODO: test dstId
+    }
+
+    /** Test the property 'dst' */
+    @Test
+    void dstTest() {
+        // TODO: test dst
+    }
+
+    /** Test the property 'dstAddressType' */
+    @Test
+    void dstAddressTypeTest() {
+        // TODO: test dstAddressType
+    }
+
+    /** Test the property 'amountCurrency' */
+    @Test
+    void amountCurrencyTest() {
+        // TODO: test amountCurrency
+    }
+
+    /** Test the property 'amountScope' */
+    @Test
+    void amountScopeTest() {
+        // TODO: test amountScope
     }
 
     /** Test the property 'amount' */
@@ -109,75 +145,57 @@ class PolicyRuleTest {
         // TODO: test amount
     }
 
+    /** Test the property 'periodSec' */
+    @Test
+    void periodSecTest() {
+        // TODO: test periodSec
+    }
+
+    /** Test the property 'authorizers' */
+    @Test
+    void authorizersTest() {
+        // TODO: test authorizers
+    }
+
+    /** Test the property 'authorizersCount' */
+    @Test
+    void authorizersCountTest() {
+        // TODO: test authorizersCount
+    }
+
+    /** Test the property 'authorizationGroups' */
+    @Test
+    void authorizationGroupsTest() {
+        // TODO: test authorizationGroups
+    }
+
+    /** Test the property 'amountAggregation' */
+    @Test
+    void amountAggregationTest() {
+        // TODO: test amountAggregation
+    }
+
+    /** Test the property 'rawMessageSigning' */
+    @Test
+    void rawMessageSigningTest() {
+        // TODO: test rawMessageSigning
+    }
+
+    /** Test the property 'applyForApprove' */
+    @Test
+    void applyForApproveTest() {
+        // TODO: test applyForApprove
+    }
+
+    /** Test the property 'applyForTypedMessage' */
+    @Test
+    void applyForTypedMessageTest() {
+        // TODO: test applyForTypedMessage
+    }
+
     /** Test the property 'externalDescriptor' */
     @Test
     void externalDescriptorTest() {
         // TODO: test externalDescriptor
-    }
-
-    /** Test the property 'method' */
-    @Test
-    void methodTest() {
-        // TODO: test method
-    }
-
-    /** Test the property 'isGlobalPolicy' */
-    @Test
-    void isGlobalPolicyTest() {
-        // TODO: test isGlobalPolicy
-    }
-
-    /** Test the property 'programCall' */
-    @Test
-    void programCallTest() {
-        // TODO: test programCall
-    }
-
-    /** Test the property 'screeningMetadata' */
-    @Test
-    void screeningMetadataTest() {
-        // TODO: test screeningMetadata
-    }
-
-    /** Test the property 'quoteAsset' */
-    @Test
-    void quoteAssetTest() {
-        // TODO: test quoteAsset
-    }
-
-    /** Test the property 'baseAsset' */
-    @Test
-    void baseAssetTest() {
-        // TODO: test baseAsset
-    }
-
-    /** Test the property 'quoteAmount' */
-    @Test
-    void quoteAmountTest() {
-        // TODO: test quoteAmount
-    }
-
-    /** Test the property 'baseAmount' */
-    @Test
-    void baseAmountTest() {
-        // TODO: test baseAmount
-    }
-
-    /** Test the property 'dAppAddress' */
-    @Test
-    void dAppAddressTest() {
-        // TODO: test dAppAddress
-    }
-
-    /** Test the property 'derivationPath' */
-    @Test
-    void derivationPathTest() {
-        // TODO: test derivationPath
-    }
-
-    /** Test the property 'index' */
-    @Test
-    void indexTest() {
-        // TODO: test index
     }
 }

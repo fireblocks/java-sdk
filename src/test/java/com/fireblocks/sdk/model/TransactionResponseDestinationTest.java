@@ -25,6 +25,18 @@ class TransactionResponseDestinationTest {
         // TODO: test TransactionResponseDestination
     }
 
+    /** Test the property 'destinationAddress' */
+    @Test
+    void destinationAddressTest() {
+        // TODO: test destinationAddress
+    }
+
+    /** Test the property 'destinationAddressDescription' */
+    @Test
+    void destinationAddressDescriptionTest() {
+        // TODO: test destinationAddressDescription
+    }
+
     /** Test the property 'amount' */
     @Test
     void amountTest() {

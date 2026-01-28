@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -27,9 +26,7 @@ import java.util.UUID;
 @JsonPropertyOrder({
     Cosigner.JSON_PROPERTY_ARCHIVED,
     Cosigner.JSON_PROPERTY_ID,
-    Cosigner.JSON_PROPERTY_NAME,
-    Cosigner.JSON_PROPERTY_TYPE,
-    Cosigner.JSON_PROPERTY_VERSION
+    Cosigner.JSON_PROPERTY_NAME
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -43,51 +40,6 @@ public class Cosigner {
 
     public static final String JSON_PROPERTY_NAME = "name";
     @jakarta.annotation.Nullable private String name;
-
-    /** The type of the cosigner */
-    public enum TypeEnum {
-        SANDBOX(String.valueOf("SANDBOX")),
-
-        SGX(String.valueOf("SGX")),
-
-        GCP_CONFSPACE(String.valueOf("GCP-CONFSPACE")),
-
-        AWS_NITRO(String.valueOf("AWS-NITRO")),
-
-        PLAIN(String.valueOf("PLAIN"));
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_TYPE = "type";
-    @jakarta.annotation.Nullable private TypeEnum type;
-
-    public static final String JSON_PROPERTY_VERSION = "version";
-    @jakarta.annotation.Nullable private Version version;
 
     public Cosigner() {}
 
@@ -168,52 +120,6 @@ public class Cosigner {
         this.name = name;
     }
 
-    public Cosigner type(@jakarta.annotation.Nullable TypeEnum type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * The type of the cosigner
-     *
-     * @return type
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TypeEnum getType() {
-        return type;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(@jakarta.annotation.Nullable TypeEnum type) {
-        this.type = type;
-    }
-
-    public Cosigner version(@jakarta.annotation.Nullable Version version) {
-        this.version = version;
-        return this;
-    }
-
-    /**
-     * Get version
-     *
-     * @return version
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_VERSION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Version getVersion() {
-        return version;
-    }
-
-    @JsonProperty(JSON_PROPERTY_VERSION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVersion(@jakarta.annotation.Nullable Version version) {
-        this.version = version;
-    }
-
     /** Return true if this Cosigner object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -226,14 +132,12 @@ public class Cosigner {
         Cosigner cosigner = (Cosigner) o;
         return Objects.equals(this.archived, cosigner.archived)
                 && Objects.equals(this.id, cosigner.id)
-                && Objects.equals(this.name, cosigner.name)
-                && Objects.equals(this.type, cosigner.type)
-                && Objects.equals(this.version, cosigner.version);
+                && Objects.equals(this.name, cosigner.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(archived, id, name, type, version);
+        return Objects.hash(archived, id, name);
     }
 
     @Override
@@ -243,8 +147,6 @@ public class Cosigner {
         sb.append("    archived: ").append(toIndentedString(archived)).append("\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
-        sb.append("    version: ").append(toIndentedString(version)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -318,21 +220,6 @@ public class Cosigner {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getName()))));
-        }
-
-        // add `type` to the URL query string
-        if (getType() != null) {
-            joiner.add(
-                    String.format(
-                            "%stype%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
-        }
-
-        // add `version` to the URL query string
-        if (getVersion() != null) {
-            joiner.add(getVersion().toUrlQueryString(prefix + "version" + suffix));
         }
 
         return joiner.toString();

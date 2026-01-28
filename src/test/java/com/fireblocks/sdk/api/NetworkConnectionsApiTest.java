@@ -21,7 +21,6 @@ import com.fireblocks.sdk.model.DeleteNetworkIdResponse;
 import com.fireblocks.sdk.model.NetworkConnection;
 import com.fireblocks.sdk.model.NetworkConnectionResponse;
 import com.fireblocks.sdk.model.NetworkIdResponse;
-import com.fireblocks.sdk.model.SearchNetworkIdsResponse;
 import com.fireblocks.sdk.model.SetNetworkIdDiscoverabilityRequest;
 import com.fireblocks.sdk.model.SetNetworkIdNameRequest;
 import com.fireblocks.sdk.model.SetNetworkIdResponse;
@@ -29,7 +28,6 @@ import com.fireblocks.sdk.model.SetNetworkIdRoutingPolicyRequest;
 import com.fireblocks.sdk.model.SetRoutingPolicyRequest;
 import com.fireblocks.sdk.model.SetRoutingPolicyResponse;
 import com.fireblocks.sdk.model.ThirdPartyRouting;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
@@ -270,37 +268,6 @@ public class NetworkConnectionsApiTest {
     @Test
     public void getRoutingPolicyAssetGroupsTest() throws ApiException {
         CompletableFuture<ApiResponse<List<String>>> response = api.getRoutingPolicyAssetGroups();
-    }
-
-    /**
-     * Search network IDs, both local IDs and discoverable remote IDs
-     *
-     * <p>Retrieves a list of all local and discoverable remote network IDs. Can be filtered.
-     * **Note:** This API call is subject to Flexible Routing Schemes. Your routing policy defines
-     * how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below
-     * for each asset type: - **None**; Defines the profile routing to no destination for that asset
-     * type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail. -
-     * **Custom**; Route to an account that you choose. If you remove the account, incoming
-     * transactions will fail until you choose another one. - **Default**; Use the routing specified
-     * by the network profile the connection is connected to. This scheme is also referred to as
-     * \&quot;Profile Routing\&quot; Default Workspace Presets: - Network Profile Crypto →
-     * **Custom** - Network Profile FIAT → **None** - Network Connection Crypto → **Default** -
-     * Network Connection FIAT → **Default** - **Note**: By default, Custom routing scheme uses
-     * (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;).
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void searchNetworkIdsTest() throws ApiException {
-        String search = null;
-        Boolean excludeSelf = null;
-        Boolean onlySelf = null;
-        Boolean excludeConnected = null;
-        String pageCursor = null;
-        BigDecimal pageSize = null;
-        CompletableFuture<ApiResponse<SearchNetworkIdsResponse>> response =
-                api.searchNetworkIds(
-                        search, excludeSelf, onlySelf, excludeConnected, pageCursor, pageSize);
     }
 
     /**

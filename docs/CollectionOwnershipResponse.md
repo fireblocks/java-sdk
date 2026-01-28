@@ -30,21 +30,6 @@
 | XTZ | &quot;XTZ&quot; |
 | XTZ_TEST | &quot;XTZ_TEST&quot; |
 | BASECHAIN_ETH | &quot;BASECHAIN_ETH&quot; |
-| BASECHAIN_ETH_TEST3 | &quot;BASECHAIN_ETH_TEST3&quot; |
-| BASECHAIN_ETH_TEST5 | &quot;BASECHAIN_ETH_TEST5&quot; |
-| ETHERLINK | &quot;ETHERLINK&quot; |
-| ETHERLINK_TEST | &quot;ETHERLINK_TEST&quot; |
-| MANTLE | &quot;MANTLE&quot; |
-| MANTLE_TEST | &quot;MANTLE_TEST&quot; |
-| GUN_GUNZILLA | &quot;GUN_GUNZILLA&quot; |
-| GUN_GUNZILLA_TEST | &quot;GUN_GUNZILLA_TEST&quot; |
-| ETH_SONEIUM | &quot;ETH_SONEIUM&quot; |
-| SONEIUM_MINATO_TEST | &quot;SONEIUM_MINATO_TEST&quot; |
-| IOTX_IOTEX | &quot;IOTX_IOTEX&quot; |
-| KLAY_KAIA | &quot;KLAY_KAIA&quot; |
-| KLAY_KAIA_TEST | &quot;KLAY_KAIA_TEST&quot; |
-| APECHAIN | &quot;APECHAIN&quot; |
-| APECHAIN_TEST | &quot;APECHAIN_TEST&quot; |
 
 
 

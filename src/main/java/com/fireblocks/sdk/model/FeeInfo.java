@@ -13,11 +13,9 @@
 package com.fireblocks.sdk.model;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -26,14 +24,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
     FeeInfo.JSON_PROPERTY_NETWORK_FEE,
     FeeInfo.JSON_PROPERTY_SERVICE_FEE,
-    FeeInfo.JSON_PROPERTY_GAS_PRICE,
-    FeeInfo.JSON_PROPERTY_L1NETWORK_FEE,
-    FeeInfo.JSON_PROPERTY_L2NETWORK_FEE,
-    FeeInfo.JSON_PROPERTY_PAID_BY_RELAY,
-    FeeInfo.JSON_PROPERTY_RELAY_TYPE,
-    FeeInfo.JSON_PROPERTY_RELAY_ID,
-    FeeInfo.JSON_PROPERTY_RELAY_NAME,
-    FeeInfo.JSON_PROPERTY_FEE_U_S_D
+    FeeInfo.JSON_PROPERTY_GAS_PRICE
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -47,60 +38,6 @@ public class FeeInfo {
 
     public static final String JSON_PROPERTY_GAS_PRICE = "gasPrice";
     @jakarta.annotation.Nullable private String gasPrice;
-
-    public static final String JSON_PROPERTY_L1NETWORK_FEE = "L1networkFee";
-    @jakarta.annotation.Nullable private String l1networkFee;
-
-    public static final String JSON_PROPERTY_L2NETWORK_FEE = "L2networkFee";
-    @jakarta.annotation.Nullable private String l2networkFee;
-
-    public static final String JSON_PROPERTY_PAID_BY_RELAY = "paidByRelay";
-    @jakarta.annotation.Nullable private Boolean paidByRelay;
-
-    /** Wether the relay is the same tenant (LOCAL) or another tenant (THIRD_PARTY) */
-    public enum RelayTypeEnum {
-        LOCAL(String.valueOf("LOCAL")),
-
-        THIRD_PARTY(String.valueOf("THIRD_PARTY"));
-
-        private String value;
-
-        RelayTypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static RelayTypeEnum fromValue(String value) {
-            for (RelayTypeEnum b : RelayTypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_RELAY_TYPE = "relayType";
-    @jakarta.annotation.Nullable private RelayTypeEnum relayType;
-
-    public static final String JSON_PROPERTY_RELAY_ID = "relayId";
-    @jakarta.annotation.Nullable private String relayId;
-
-    public static final String JSON_PROPERTY_RELAY_NAME = "relayName";
-    @jakarta.annotation.Nullable private String relayName;
-
-    public static final String JSON_PROPERTY_FEE_U_S_D = "feeUSD";
-    @jakarta.annotation.Nullable private String feeUSD;
 
     public FeeInfo() {}
 
@@ -174,167 +111,6 @@ public class FeeInfo {
         this.gasPrice = gasPrice;
     }
 
-    public FeeInfo l1networkFee(@jakarta.annotation.Nullable String l1networkFee) {
-        this.l1networkFee = l1networkFee;
-        return this;
-    }
-
-    /**
-     * Layer 1 network fee for Layer 2 blockchain transactions
-     *
-     * @return l1networkFee
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_L1NETWORK_FEE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getL1networkFee() {
-        return l1networkFee;
-    }
-
-    @JsonProperty(JSON_PROPERTY_L1NETWORK_FEE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setL1networkFee(@jakarta.annotation.Nullable String l1networkFee) {
-        this.l1networkFee = l1networkFee;
-    }
-
-    public FeeInfo l2networkFee(@jakarta.annotation.Nullable String l2networkFee) {
-        this.l2networkFee = l2networkFee;
-        return this;
-    }
-
-    /**
-     * Layer 2 network fee (gas price component for Layer 2 transactions)
-     *
-     * @return l2networkFee
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_L2NETWORK_FEE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getL2networkFee() {
-        return l2networkFee;
-    }
-
-    @JsonProperty(JSON_PROPERTY_L2NETWORK_FEE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setL2networkFee(@jakarta.annotation.Nullable String l2networkFee) {
-        this.l2networkFee = l2networkFee;
-    }
-
-    public FeeInfo paidByRelay(@jakarta.annotation.Nullable Boolean paidByRelay) {
-        this.paidByRelay = paidByRelay;
-        return this;
-    }
-
-    /**
-     * Wether the fee was paid by the relay or not
-     *
-     * @return paidByRelay
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PAID_BY_RELAY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getPaidByRelay() {
-        return paidByRelay;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PAID_BY_RELAY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPaidByRelay(@jakarta.annotation.Nullable Boolean paidByRelay) {
-        this.paidByRelay = paidByRelay;
-    }
-
-    public FeeInfo relayType(@jakarta.annotation.Nullable RelayTypeEnum relayType) {
-        this.relayType = relayType;
-        return this;
-    }
-
-    /**
-     * Wether the relay is the same tenant (LOCAL) or another tenant (THIRD_PARTY)
-     *
-     * @return relayType
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_RELAY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public RelayTypeEnum getRelayType() {
-        return relayType;
-    }
-
-    @JsonProperty(JSON_PROPERTY_RELAY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRelayType(@jakarta.annotation.Nullable RelayTypeEnum relayType) {
-        this.relayType = relayType;
-    }
-
-    public FeeInfo relayId(@jakarta.annotation.Nullable String relayId) {
-        this.relayId = relayId;
-        return this;
-    }
-
-    /**
-     * The vault account ID of the relay
-     *
-     * @return relayId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_RELAY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getRelayId() {
-        return relayId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_RELAY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRelayId(@jakarta.annotation.Nullable String relayId) {
-        this.relayId = relayId;
-    }
-
-    public FeeInfo relayName(@jakarta.annotation.Nullable String relayName) {
-        this.relayName = relayName;
-        return this;
-    }
-
-    /**
-     * The name of the tenant, only for THIRD_PARTY relays
-     *
-     * @return relayName
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_RELAY_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getRelayName() {
-        return relayName;
-    }
-
-    @JsonProperty(JSON_PROPERTY_RELAY_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRelayName(@jakarta.annotation.Nullable String relayName) {
-        this.relayName = relayName;
-    }
-
-    public FeeInfo feeUSD(@jakarta.annotation.Nullable String feeUSD) {
-        this.feeUSD = feeUSD;
-        return this;
-    }
-
-    /**
-     * The USD value of the fee
-     *
-     * @return feeUSD
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_FEE_U_S_D)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getFeeUSD() {
-        return feeUSD;
-    }
-
-    @JsonProperty(JSON_PROPERTY_FEE_U_S_D)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeUSD(@jakarta.annotation.Nullable String feeUSD) {
-        this.feeUSD = feeUSD;
-    }
-
     /** Return true if this FeeInfo object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -347,29 +123,12 @@ public class FeeInfo {
         FeeInfo feeInfo = (FeeInfo) o;
         return Objects.equals(this.networkFee, feeInfo.networkFee)
                 && Objects.equals(this.serviceFee, feeInfo.serviceFee)
-                && Objects.equals(this.gasPrice, feeInfo.gasPrice)
-                && Objects.equals(this.l1networkFee, feeInfo.l1networkFee)
-                && Objects.equals(this.l2networkFee, feeInfo.l2networkFee)
-                && Objects.equals(this.paidByRelay, feeInfo.paidByRelay)
-                && Objects.equals(this.relayType, feeInfo.relayType)
-                && Objects.equals(this.relayId, feeInfo.relayId)
-                && Objects.equals(this.relayName, feeInfo.relayName)
-                && Objects.equals(this.feeUSD, feeInfo.feeUSD);
+                && Objects.equals(this.gasPrice, feeInfo.gasPrice);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                networkFee,
-                serviceFee,
-                gasPrice,
-                l1networkFee,
-                l2networkFee,
-                paidByRelay,
-                relayType,
-                relayId,
-                relayName,
-                feeUSD);
+        return Objects.hash(networkFee, serviceFee, gasPrice);
     }
 
     @Override
@@ -379,13 +138,6 @@ public class FeeInfo {
         sb.append("    networkFee: ").append(toIndentedString(networkFee)).append("\n");
         sb.append("    serviceFee: ").append(toIndentedString(serviceFee)).append("\n");
         sb.append("    gasPrice: ").append(toIndentedString(gasPrice)).append("\n");
-        sb.append("    l1networkFee: ").append(toIndentedString(l1networkFee)).append("\n");
-        sb.append("    l2networkFee: ").append(toIndentedString(l2networkFee)).append("\n");
-        sb.append("    paidByRelay: ").append(toIndentedString(paidByRelay)).append("\n");
-        sb.append("    relayType: ").append(toIndentedString(relayType)).append("\n");
-        sb.append("    relayId: ").append(toIndentedString(relayId)).append("\n");
-        sb.append("    relayName: ").append(toIndentedString(relayName)).append("\n");
-        sb.append("    feeUSD: ").append(toIndentedString(feeUSD)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -461,76 +213,6 @@ public class FeeInfo {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getGasPrice()))));
-        }
-
-        // add `L1networkFee` to the URL query string
-        if (getL1networkFee() != null) {
-            joiner.add(
-                    String.format(
-                            "%sL1networkFee%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getL1networkFee()))));
-        }
-
-        // add `L2networkFee` to the URL query string
-        if (getL2networkFee() != null) {
-            joiner.add(
-                    String.format(
-                            "%sL2networkFee%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getL2networkFee()))));
-        }
-
-        // add `paidByRelay` to the URL query string
-        if (getPaidByRelay() != null) {
-            joiner.add(
-                    String.format(
-                            "%spaidByRelay%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getPaidByRelay()))));
-        }
-
-        // add `relayType` to the URL query string
-        if (getRelayType() != null) {
-            joiner.add(
-                    String.format(
-                            "%srelayType%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getRelayType()))));
-        }
-
-        // add `relayId` to the URL query string
-        if (getRelayId() != null) {
-            joiner.add(
-                    String.format(
-                            "%srelayId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getRelayId()))));
-        }
-
-        // add `relayName` to the URL query string
-        if (getRelayName() != null) {
-            joiner.add(
-                    String.format(
-                            "%srelayName%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getRelayName()))));
-        }
-
-        // add `feeUSD` to the URL query string
-        if (getFeeUSD() != null) {
-            joiner.add(
-                    String.format(
-                            "%sfeeUSD%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getFeeUSD()))));
         }
 
         return joiner.toString();

@@ -29,11 +29,5 @@
 
 * `END_USER_WALLET` (value: `"END_USER_WALLET"`)
 
-* `PROGRAM_CALL` (value: `"PROGRAM_CALL"`)
-
-* `MULTI_DESTINATION` (value: `"MULTI_DESTINATION"`)
-
-* `OEC_PARTNER` (value: `"OEC_PARTNER"`)
-
 
 

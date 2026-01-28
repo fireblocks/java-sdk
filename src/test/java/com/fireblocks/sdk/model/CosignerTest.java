@@ -42,16 +42,4 @@ class CosignerTest {
     void nameTest() {
         // TODO: test name
     }
-
-    /** Test the property 'type' */
-    @Test
-    void typeTest() {
-        // TODO: test type
-    }
-
-    /** Test the property 'version' */
-    @Test
-    void versionTest() {
-        // TODO: test version
-    }
 }

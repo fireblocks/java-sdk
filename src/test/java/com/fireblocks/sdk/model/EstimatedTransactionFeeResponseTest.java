@@ -42,10 +42,4 @@ class EstimatedTransactionFeeResponseTest {
     void highTest() {
         // TODO: test high
     }
-
-    /** Test the property 'feeDetails' */
-    @Test
-    void feeDetailsTest() {
-        // TODO: test feeDetails
-    }
 }

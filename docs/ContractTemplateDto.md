@@ -11,7 +11,7 @@
 |**name** | **String** | The name of the contract template |  |
 |**description** | **String** | A short description of the contract template |  |
 |**longDescription** | **String** | A full description of the contract template. May contain   to break the lines |  [optional] |
-|**abi** | [**List&lt;AbiFunction&gt;**](AbiFunction.md) | The abi of the contract template. Necessary for displaying and for after deployment encoding |  |
+|**abi** | **List&lt;List&lt;AbiFunction&gt;&gt;** |  |  |
 |**attributes** | [**ContractAttributes**](ContractAttributes.md) | The attributes related to this contract template. It will be displayed in the tokenization page |  [optional] |
 |**docs** | [**ContractDoc**](ContractDoc.md) | A &#x60;natspec&#x60; compliant documentation json. Can be retrieved from the output json after compilation |  [optional] |
 |**owner** | **String** | The workspace id of the owner of this contract template. If it&#39;s a private contract, only this workspace will be allowed to deploy it |  [optional] |

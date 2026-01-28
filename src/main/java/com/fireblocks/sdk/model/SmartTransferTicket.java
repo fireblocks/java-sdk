@@ -32,8 +32,6 @@ import java.util.StringJoiner;
     SmartTransferTicket.JSON_PROPERTY_TYPE,
     SmartTransferTicket.JSON_PROPERTY_DIRECTION,
     SmartTransferTicket.JSON_PROPERTY_STATUS,
-    SmartTransferTicket.JSON_PROPERTY_DVP_EXECUTION_STATUS,
-    SmartTransferTicket.JSON_PROPERTY_ORDER_CREATED_BY_NETWORK_ID,
     SmartTransferTicket.JSON_PROPERTY_TERMS,
     SmartTransferTicket.JSON_PROPERTY_EXPIRES_IN,
     SmartTransferTicket.JSON_PROPERTY_EXPIRES_AT,
@@ -58,11 +56,9 @@ public class SmartTransferTicket {
     public static final String JSON_PROPERTY_ID = "id";
     @jakarta.annotation.Nonnull private String id;
 
-    /** Kind of Smart Transfer. Can be either &#x60;ASYNC&#x60; or &#x60;DVP&#x60; */
+    /** Kind of Smart Transfer. Can be either &#x60;ASYNC&#x60; or &#x60;ATOMIC&#x60; */
     public enum TypeEnum {
-        ASYNC(String.valueOf("ASYNC")),
-
-        DVP(String.valueOf("DVP"));
+        ASYNC(String.valueOf("ASYNC"));
 
         private String value;
 
@@ -180,56 +176,6 @@ public class SmartTransferTicket {
     public static final String JSON_PROPERTY_STATUS = "status";
     @jakarta.annotation.Nonnull private StatusEnum status;
 
-    /** Current status of DVP execution */
-    public enum DvpExecutionStatusEnum {
-        STARTED(String.valueOf("STARTED")),
-
-        CREATING_ORDER(String.valueOf("CREATING_ORDER")),
-
-        ORDER_CREATED(String.valueOf("ORDER_CREATED")),
-
-        FULFILLING(String.valueOf("FULFILLING")),
-
-        FULFILLING_ORDER_FAILED(String.valueOf("FULFILLING_ORDER_FAILED")),
-
-        CREATING_ORDER_FAILED(String.valueOf("CREATING_ORDER_FAILED")),
-
-        FULFILLED(String.valueOf("FULFILLED"));
-
-        private String value;
-
-        DvpExecutionStatusEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static DvpExecutionStatusEnum fromValue(String value) {
-            for (DvpExecutionStatusEnum b : DvpExecutionStatusEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_DVP_EXECUTION_STATUS = "dvpExecutionStatus";
-    @jakarta.annotation.Nullable private DvpExecutionStatusEnum dvpExecutionStatus;
-
-    public static final String JSON_PROPERTY_ORDER_CREATED_BY_NETWORK_ID =
-            "orderCreatedByNetworkId";
-    @jakarta.annotation.Nullable private String orderCreatedByNetworkId;
-
     public static final String JSON_PROPERTY_TERMS = "terms";
     @jakarta.annotation.Nullable private List<SmartTransferTicketTerm> terms;
 
@@ -332,7 +278,7 @@ public class SmartTransferTicket {
     }
 
     /**
-     * Kind of Smart Transfer. Can be either &#x60;ASYNC&#x60; or &#x60;DVP&#x60;
+     * Kind of Smart Transfer. Can be either &#x60;ASYNC&#x60; or &#x60;ATOMIC&#x60;
      *
      * @return type
      */
@@ -393,56 +339,6 @@ public class SmartTransferTicket {
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
-    }
-
-    public SmartTransferTicket dvpExecutionStatus(
-            @jakarta.annotation.Nullable DvpExecutionStatusEnum dvpExecutionStatus) {
-        this.dvpExecutionStatus = dvpExecutionStatus;
-        return this;
-    }
-
-    /**
-     * Current status of DVP execution
-     *
-     * @return dvpExecutionStatus
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DVP_EXECUTION_STATUS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public DvpExecutionStatusEnum getDvpExecutionStatus() {
-        return dvpExecutionStatus;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DVP_EXECUTION_STATUS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDvpExecutionStatus(
-            @jakarta.annotation.Nullable DvpExecutionStatusEnum dvpExecutionStatus) {
-        this.dvpExecutionStatus = dvpExecutionStatus;
-    }
-
-    public SmartTransferTicket orderCreatedByNetworkId(
-            @jakarta.annotation.Nullable String orderCreatedByNetworkId) {
-        this.orderCreatedByNetworkId = orderCreatedByNetworkId;
-        return this;
-    }
-
-    /**
-     * ID of network profile that created order
-     *
-     * @return orderCreatedByNetworkId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ORDER_CREATED_BY_NETWORK_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getOrderCreatedByNetworkId() {
-        return orderCreatedByNetworkId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ORDER_CREATED_BY_NETWORK_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOrderCreatedByNetworkId(
-            @jakarta.annotation.Nullable String orderCreatedByNetworkId) {
-        this.orderCreatedByNetworkId = orderCreatedByNetworkId;
     }
 
     public SmartTransferTicket terms(
@@ -844,9 +740,6 @@ public class SmartTransferTicket {
                 && Objects.equals(this.type, smartTransferTicket.type)
                 && Objects.equals(this.direction, smartTransferTicket.direction)
                 && Objects.equals(this.status, smartTransferTicket.status)
-                && Objects.equals(this.dvpExecutionStatus, smartTransferTicket.dvpExecutionStatus)
-                && Objects.equals(
-                        this.orderCreatedByNetworkId, smartTransferTicket.orderCreatedByNetworkId)
                 && Objects.equals(this.terms, smartTransferTicket.terms)
                 && Objects.equals(this.expiresIn, smartTransferTicket.expiresIn)
                 && Objects.equals(this.expiresAt, smartTransferTicket.expiresAt)
@@ -874,8 +767,6 @@ public class SmartTransferTicket {
                 type,
                 direction,
                 status,
-                dvpExecutionStatus,
-                orderCreatedByNetworkId,
                 terms,
                 expiresIn,
                 expiresAt,
@@ -902,12 +793,6 @@ public class SmartTransferTicket {
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
-        sb.append("    dvpExecutionStatus: ")
-                .append(toIndentedString(dvpExecutionStatus))
-                .append("\n");
-        sb.append("    orderCreatedByNetworkId: ")
-                .append(toIndentedString(orderCreatedByNetworkId))
-                .append("\n");
         sb.append("    terms: ").append(toIndentedString(terms)).append("\n");
         sb.append("    expiresIn: ").append(toIndentedString(expiresIn)).append("\n");
         sb.append("    expiresAt: ").append(toIndentedString(expiresAt)).append("\n");
@@ -1013,27 +898,6 @@ public class SmartTransferTicket {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
-        }
-
-        // add `dvpExecutionStatus` to the URL query string
-        if (getDvpExecutionStatus() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdvpExecutionStatus%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getDvpExecutionStatus()))));
-        }
-
-        // add `orderCreatedByNetworkId` to the URL query string
-        if (getOrderCreatedByNetworkId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sorderCreatedByNetworkId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(
-                                    ApiClient.valueToString(getOrderCreatedByNetworkId()))));
         }
 
         // add `terms` to the URL query string

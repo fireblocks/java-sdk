@@ -36,10 +36,4 @@ class ApiKeyTest {
     void lastSeenTest() {
         // TODO: test lastSeen
     }
-
-    /** Test the property 'callbackHandler' */
-    @Test
-    void callbackHandlerTest() {
-        // TODO: test callbackHandler
-    }
 }

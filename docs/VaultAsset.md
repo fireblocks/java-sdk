@@ -15,7 +15,7 @@
 |**frozen** | **String** | The cumulative frozen balance |  [optional] |
 |**lockedAmount** | **String** | Funds in outgoing transactions that are not yet published to the network |  [optional] |
 |**staked** | **String** | Staked balance |  [optional] |
-|**totalStakedCPU** | **String** | Deprecated |  [optional] |
+|**totalStakedCPU** | **BigDecimal** | Deprecated |  [optional] |
 |**totalStakedNetwork** | **String** | Deprecated |  [optional] |
 |**selfStakedCPU** | **String** | Deprecated |  [optional] |
 |**selfStakedNetwork** | **String** | Deprecated |  [optional] |

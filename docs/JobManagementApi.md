@@ -19,7 +19,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Cancel a running job
 
-Stop the given job immediately. If the job is in the &#39;Active&#39; state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
+Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
 
 ### Example
 
@@ -438,7 +438,7 @@ No authorization required
 
 Pause a job
 
-Pause the given job, after the current task is done. A paused job can later be resumed by calling &#39;continue&#39;, or canceled.
+Pause the given job, after the current task is done. A paused job can later be resumed by calling ‘continue’, or canceled.
 
 ### Example
 

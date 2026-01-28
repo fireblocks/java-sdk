@@ -77,10 +77,10 @@ public class AssetResponse {
     @jakarta.annotation.Nonnull private AssetClassEnum assetClass;
 
     public static final String JSON_PROPERTY_ONCHAIN = "onchain";
-    @jakarta.annotation.Nonnull private AssetOnchain onchain;
+    @jakarta.annotation.Nonnull private AssetResponseOnchain onchain;
 
     public static final String JSON_PROPERTY_METADATA = "metadata";
-    @jakarta.annotation.Nonnull private AssetMetadata metadata;
+    @jakarta.annotation.Nonnull private AssetResponseMetadata metadata;
 
     public AssetResponse() {}
 
@@ -89,8 +89,10 @@ public class AssetResponse {
             @JsonProperty(value = JSON_PROPERTY_LEGACY_ID, required = true) String legacyId,
             @JsonProperty(value = JSON_PROPERTY_ASSET_CLASS, required = true)
                     AssetClassEnum assetClass,
-            @JsonProperty(value = JSON_PROPERTY_ONCHAIN, required = true) AssetOnchain onchain,
-            @JsonProperty(value = JSON_PROPERTY_METADATA, required = true) AssetMetadata metadata) {
+            @JsonProperty(value = JSON_PROPERTY_ONCHAIN, required = true)
+                    AssetResponseOnchain onchain,
+            @JsonProperty(value = JSON_PROPERTY_METADATA, required = true)
+                    AssetResponseMetadata metadata) {
         this.legacyId = legacyId;
         this.assetClass = assetClass;
         this.onchain = onchain;
@@ -143,7 +145,7 @@ public class AssetResponse {
         this.assetClass = assetClass;
     }
 
-    public AssetResponse onchain(@jakarta.annotation.Nonnull AssetOnchain onchain) {
+    public AssetResponse onchain(@jakarta.annotation.Nonnull AssetResponseOnchain onchain) {
         this.onchain = onchain;
         return this;
     }
@@ -156,17 +158,17 @@ public class AssetResponse {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ONCHAIN)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AssetOnchain getOnchain() {
+    public AssetResponseOnchain getOnchain() {
         return onchain;
     }
 
     @JsonProperty(JSON_PROPERTY_ONCHAIN)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOnchain(@jakarta.annotation.Nonnull AssetOnchain onchain) {
+    public void setOnchain(@jakarta.annotation.Nonnull AssetResponseOnchain onchain) {
         this.onchain = onchain;
     }
 
-    public AssetResponse metadata(@jakarta.annotation.Nonnull AssetMetadata metadata) {
+    public AssetResponse metadata(@jakarta.annotation.Nonnull AssetResponseMetadata metadata) {
         this.metadata = metadata;
         return this;
     }
@@ -179,13 +181,13 @@ public class AssetResponse {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_METADATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AssetMetadata getMetadata() {
+    public AssetResponseMetadata getMetadata() {
         return metadata;
     }
 
     @JsonProperty(JSON_PROPERTY_METADATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMetadata(@jakarta.annotation.Nonnull AssetMetadata metadata) {
+    public void setMetadata(@jakarta.annotation.Nonnull AssetResponseMetadata metadata) {
         this.metadata = metadata;
     }
 

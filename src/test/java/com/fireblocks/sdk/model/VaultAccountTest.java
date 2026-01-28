@@ -60,10 +60,4 @@ class VaultAccountTest {
     void autoFuelTest() {
         // TODO: test autoFuel
     }
-
-    /** Test the property 'tags' */
-    @Test
-    void tagsTest() {
-        // TODO: test tags
-    }
 }

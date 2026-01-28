@@ -27,11 +27,7 @@ import java.util.StringJoiner;
     DeployedContractResponseDto.JSON_PROPERTY_CONTRACT_ADDRESS,
     DeployedContractResponseDto.JSON_PROPERTY_CONTRACT_TEMPLATE_ID,
     DeployedContractResponseDto.JSON_PROPERTY_VAULT_ACCOUNT_ID,
-    DeployedContractResponseDto.JSON_PROPERTY_BLOCKCHAIN_ID,
-    DeployedContractResponseDto.JSON_PROPERTY_BASE_ASSET_ID,
-    DeployedContractResponseDto.JSON_PROPERTY_GASLESS_CONFIG,
-    DeployedContractResponseDto.JSON_PROPERTY_MULTICHAIN_DEPLOYMENT_METADATA,
-    DeployedContractResponseDto.JSON_PROPERTY_SOLANA_CONFIG
+    DeployedContractResponseDto.JSON_PROPERTY_BLOCKCHAIN_ID
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -51,19 +47,6 @@ public class DeployedContractResponseDto {
 
     public static final String JSON_PROPERTY_BLOCKCHAIN_ID = "blockchainId";
     @jakarta.annotation.Nonnull private String blockchainId;
-
-    public static final String JSON_PROPERTY_BASE_ASSET_ID = "baseAssetId";
-    @jakarta.annotation.Nullable private String baseAssetId;
-
-    public static final String JSON_PROPERTY_GASLESS_CONFIG = "gaslessConfig";
-    @jakarta.annotation.Nullable private GasslessStandardConfigurations gaslessConfig;
-
-    public static final String JSON_PROPERTY_MULTICHAIN_DEPLOYMENT_METADATA =
-            "multichainDeploymentMetadata";
-    @jakarta.annotation.Nullable private MultichainDeploymentMetadata multichainDeploymentMetadata;
-
-    public static final String JSON_PROPERTY_SOLANA_CONFIG = "solanaConfig";
-    @jakarta.annotation.Nullable private SolanaConfig solanaConfig;
 
     public DeployedContractResponseDto() {}
 
@@ -201,106 +184,6 @@ public class DeployedContractResponseDto {
         this.blockchainId = blockchainId;
     }
 
-    public DeployedContractResponseDto baseAssetId(
-            @jakarta.annotation.Nullable String baseAssetId) {
-        this.baseAssetId = baseAssetId;
-        return this;
-    }
-
-    /**
-     * The blockchain base assetId
-     *
-     * @return baseAssetId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_BASE_ASSET_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getBaseAssetId() {
-        return baseAssetId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_BASE_ASSET_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBaseAssetId(@jakarta.annotation.Nullable String baseAssetId) {
-        this.baseAssetId = baseAssetId;
-    }
-
-    public DeployedContractResponseDto gaslessConfig(
-            @jakarta.annotation.Nullable GasslessStandardConfigurations gaslessConfig) {
-        this.gaslessConfig = gaslessConfig;
-        return this;
-    }
-
-    /**
-     * Get gaslessConfig
-     *
-     * @return gaslessConfig
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_GASLESS_CONFIG)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public GasslessStandardConfigurations getGaslessConfig() {
-        return gaslessConfig;
-    }
-
-    @JsonProperty(JSON_PROPERTY_GASLESS_CONFIG)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGaslessConfig(
-            @jakarta.annotation.Nullable GasslessStandardConfigurations gaslessConfig) {
-        this.gaslessConfig = gaslessConfig;
-    }
-
-    public DeployedContractResponseDto multichainDeploymentMetadata(
-            @jakarta.annotation.Nullable
-                    MultichainDeploymentMetadata multichainDeploymentMetadata) {
-        this.multichainDeploymentMetadata = multichainDeploymentMetadata;
-        return this;
-    }
-
-    /**
-     * Get multichainDeploymentMetadata
-     *
-     * @return multichainDeploymentMetadata
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_MULTICHAIN_DEPLOYMENT_METADATA)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public MultichainDeploymentMetadata getMultichainDeploymentMetadata() {
-        return multichainDeploymentMetadata;
-    }
-
-    @JsonProperty(JSON_PROPERTY_MULTICHAIN_DEPLOYMENT_METADATA)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMultichainDeploymentMetadata(
-            @jakarta.annotation.Nullable
-                    MultichainDeploymentMetadata multichainDeploymentMetadata) {
-        this.multichainDeploymentMetadata = multichainDeploymentMetadata;
-    }
-
-    public DeployedContractResponseDto solanaConfig(
-            @jakarta.annotation.Nullable SolanaConfig solanaConfig) {
-        this.solanaConfig = solanaConfig;
-        return this;
-    }
-
-    /**
-     * Get solanaConfig
-     *
-     * @return solanaConfig
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_SOLANA_CONFIG)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public SolanaConfig getSolanaConfig() {
-        return solanaConfig;
-    }
-
-    @JsonProperty(JSON_PROPERTY_SOLANA_CONFIG)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSolanaConfig(@jakarta.annotation.Nullable SolanaConfig solanaConfig) {
-        this.solanaConfig = solanaConfig;
-    }
-
     /** Return true if this DeployedContractResponseDto object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -316,27 +199,12 @@ public class DeployedContractResponseDto {
                 && Objects.equals(
                         this.contractTemplateId, deployedContractResponseDto.contractTemplateId)
                 && Objects.equals(this.vaultAccountId, deployedContractResponseDto.vaultAccountId)
-                && Objects.equals(this.blockchainId, deployedContractResponseDto.blockchainId)
-                && Objects.equals(this.baseAssetId, deployedContractResponseDto.baseAssetId)
-                && Objects.equals(this.gaslessConfig, deployedContractResponseDto.gaslessConfig)
-                && Objects.equals(
-                        this.multichainDeploymentMetadata,
-                        deployedContractResponseDto.multichainDeploymentMetadata)
-                && Objects.equals(this.solanaConfig, deployedContractResponseDto.solanaConfig);
+                && Objects.equals(this.blockchainId, deployedContractResponseDto.blockchainId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                id,
-                contractAddress,
-                contractTemplateId,
-                vaultAccountId,
-                blockchainId,
-                baseAssetId,
-                gaslessConfig,
-                multichainDeploymentMetadata,
-                solanaConfig);
+        return Objects.hash(id, contractAddress, contractTemplateId, vaultAccountId, blockchainId);
     }
 
     @Override
@@ -350,12 +218,6 @@ public class DeployedContractResponseDto {
                 .append("\n");
         sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
         sb.append("    blockchainId: ").append(toIndentedString(blockchainId)).append("\n");
-        sb.append("    baseAssetId: ").append(toIndentedString(baseAssetId)).append("\n");
-        sb.append("    gaslessConfig: ").append(toIndentedString(gaslessConfig)).append("\n");
-        sb.append("    multichainDeploymentMetadata: ")
-                .append(toIndentedString(multichainDeploymentMetadata))
-                .append("\n");
-        sb.append("    solanaConfig: ").append(toIndentedString(solanaConfig)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -449,33 +311,6 @@ public class DeployedContractResponseDto {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getBlockchainId()))));
-        }
-
-        // add `baseAssetId` to the URL query string
-        if (getBaseAssetId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sbaseAssetId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getBaseAssetId()))));
-        }
-
-        // add `gaslessConfig` to the URL query string
-        if (getGaslessConfig() != null) {
-            joiner.add(getGaslessConfig().toUrlQueryString(prefix + "gaslessConfig" + suffix));
-        }
-
-        // add `multichainDeploymentMetadata` to the URL query string
-        if (getMultichainDeploymentMetadata() != null) {
-            joiner.add(
-                    getMultichainDeploymentMetadata()
-                            .toUrlQueryString(prefix + "multichainDeploymentMetadata" + suffix));
-        }
-
-        // add `solanaConfig` to the URL query string
-        if (getSolanaConfig() != null) {
-            joiner.add(getSolanaConfig().toUrlQueryString(prefix + "solanaConfig" + suffix));
         }
 
         return joiner.toString();

@@ -48,10 +48,4 @@ class PolicyMetadataTest {
     void publishedAtTest() {
         // TODO: test publishedAt
     }
-
-    /** Test the property 'policyType' */
-    @Test
-    void policyTypeTest() {
-        // TODO: test policyType
-    }
 }

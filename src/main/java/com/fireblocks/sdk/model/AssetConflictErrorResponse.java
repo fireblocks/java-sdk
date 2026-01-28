@@ -18,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
-import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -35,14 +34,14 @@ public class AssetConflictErrorResponse {
     @jakarta.annotation.Nonnull private String message;
 
     public static final String JSON_PROPERTY_CODE = "code";
-    @jakarta.annotation.Nonnull private BigDecimal code;
+    @jakarta.annotation.Nonnull private String code;
 
     public AssetConflictErrorResponse() {}
 
     @JsonCreator
     public AssetConflictErrorResponse(
             @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = true) String message,
-            @JsonProperty(value = JSON_PROPERTY_CODE, required = true) BigDecimal code) {
+            @JsonProperty(value = JSON_PROPERTY_CODE, required = true) String code) {
         this.message = message;
         this.code = code;
     }
@@ -70,7 +69,7 @@ public class AssetConflictErrorResponse {
         this.message = message;
     }
 
-    public AssetConflictErrorResponse code(@jakarta.annotation.Nonnull BigDecimal code) {
+    public AssetConflictErrorResponse code(@jakarta.annotation.Nonnull String code) {
         this.code = code;
         return this;
     }
@@ -83,13 +82,13 @@ public class AssetConflictErrorResponse {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_CODE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public BigDecimal getCode() {
+    public String getCode() {
         return code;
     }
 
     @JsonProperty(JSON_PROPERTY_CODE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCode(@jakarta.annotation.Nonnull BigDecimal code) {
+    public void setCode(@jakarta.annotation.Nonnull String code) {
         this.code = code;
     }
 

@@ -15,7 +15,6 @@
 |**operation** | **GetTransactionOperation** |  |  [optional] |
 |**note** | **String** | Custom note, not sent to the blockchain, that describes the transaction at your Fireblocks workspace. |  [optional] |
 |**assetId** | **String** | The ID of the asset to transfer, for &#x60;TRANSFER&#x60;, &#x60;MINT&#x60;, &#x60;BURN&#x60;, &#x60;ENABLE_ASSET&#x60;,&#x60;STAKE&#x60; ,&#x60;UNSTAKE&#x60; or &#x60;WITHDRAW&#x60; operations. [See the list of supported assets and their IDs on Fireblocks.](https://developers.fireblocks.com/reference/get_supported-assets) |  [optional] |
-|**assetType** | **String** | Type classification of the asset |  [optional] |
 |**source** | [**SourceTransferPeerPathResponse**](SourceTransferPeerPathResponse.md) |  |  [optional] |
 |**sourceAddress** | **String** | For account based assets only, the source address of the transaction. **Note:** If the status is &#x60;CONFIRMING&#x60;, &#x60;COMPLETED&#x60;, or has been &#x60;CONFIRMING&#x60;; then moved forward to &#x60;FAILED&#x60; or &#x60;REJECTED&#x60;, then this parameter will contain the source address. In any other case, this parameter will be empty. |  [optional] |
 |**tag** | **String** | Source address tag for XRP, used as memo for EOS/XLM, or Bank Transfer Description for the fiat provider BLINC (by BCB Group). |  [optional] |
@@ -39,19 +38,13 @@
 |**exchangeTxId** | **String** | If the transaction originated from an exchange, this is the ID of this transaction at the exchange. |  [optional] |
 |**customerRefId** | **String** | The ID for AML providers to associate the owner of funds with transactions. |  [optional] |
 |**amlScreeningResult** | [**AmlScreeningResult**](AmlScreeningResult.md) |  |  [optional] |
-|**complianceResults** | [**ComplianceResults**](ComplianceResults.md) |  |  [optional] |
-|**notBroadcastByFireblocks** | **Boolean** | Indicates the transaction was not broadcast by Fireblocks |  [optional] |
-|**dappUrl** | **String** | DApp URL for Web3 transactions |  [optional] |
-|**gasLimit** | **String** | Gas limit for EVM-based blockchain transactions |  [optional] |
-|**blockchainIndex** | **String** | Blockchain-specific index or identifier for the transaction |  [optional] |
-|**paidRent** | **String** | Solana rent payment amount |  [optional] |
-|**extraParameters** | **Object** | Additional protocol / operation specific key-value parameters:  For UTXO-based blockchain input selection, add the key &#x60;inputsSelection&#x60; with the value set the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)  For &#x60;RAW&#x60; operations, add the key &#x60;rawMessageData&#x60; with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)  For &#x60;CONTRACT_CALL&#x60; operations, add the key &#x60;contractCallData&#x60; with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions. For **exchange compliance (e.g., Binance) and Travel Rule purposes**, include the key &#x60;piiData&#x60; containing a **custom JSON structure** with Personally Identifiable Information (PII) relevant to the transaction. This data must be fully **encrypted by the sender** before being submitted to the Fireblocks API. The recommended encryption method is **hybrid encryption** using AES-256-GCM for the payload and RSA-OAEP for key exchange, with the recipient exchange’s public key. [development libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks)  |  [optional] |
+|**complianceResult** | [**ComplianceResult**](ComplianceResult.md) |  |  [optional] |
+|**extraParameters** | **Object** | Additional protocol / operation specific key-value parameters:  For UTXO-based blockchain input selection, add the key &#x60;inputsSelection&#x60; with the value set the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)  For &#x60;RAW&#x60; operations, add the key &#x60;rawMessageData&#x60; with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)  For &#x60;CONTRACT_CALL&#x60; operations, add the key &#x60;contractCallData&#x60; with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions.  |  [optional] |
 |**signedMessages** | [**List&lt;SignedMessage&gt;**](SignedMessage.md) |  |  [optional] |
 |**numOfConfirmations** | **BigDecimal** | The number of confirmations of the transaction. The number will increase until the transaction will be considered completed according to the confirmation policy. |  [optional] |
 |**blockInfo** | [**BlockInfo**](BlockInfo.md) |  |  [optional] |
 |**index** | **BigDecimal** | For UTXO based assets this is the vOut, for Ethereum based, this is the index of the event of the contract call.  **Note:** This field is not returned if a transaction uses the &#x60;destinations&#x60; object with more than one value. |  [optional] |
 |**rewardInfo** | [**RewardInfo**](RewardInfo.md) |  |  [optional] |
-|**feePayerInfo** | [**FeePayerInfo**](FeePayerInfo.md) |  |  [optional] |
 |**systemMessages** | [**SystemMessageInfo**](SystemMessageInfo.md) |  |  [optional] |
 |**addressType** | [**AddressTypeEnum**](#AddressTypeEnum) |  |  [optional] |
 |**requestedAmount** | **BigDecimal** | The amount requested by the user. Deprecated - please use the &#x60;amountInfo&#x60; field for accuracy. |  [optional] |
@@ -62,9 +55,6 @@
 |**fee** | **BigDecimal** | Deprecated - please use the &#x60;feeInfo&#x60; field for accuracy. |  [optional] |
 |**networkFee** | **BigDecimal** | The fee paid to the network. Deprecated - please use the &#x60;feeInfo&#x60; field for accuracy. |  [optional] |
 |**errorDescription** | **String** | The transaction&#39;s revert reason. This field will be returned when  &#x60;subStatus&#x60; &#x3D;  &#39;SMART_CONTRACT_EXECUTION_FAILED&#39;. |  [optional] |
-|**replacedTxHash** | **String** | if the transaction is a replace by fee (RBF) transaction, this is the hash of the transsaction that was replaced |  [optional] |
-|**nonce** | **String** | blockchain nonce for the transaction |  [optional] |
-|**blockchainInfo** | **Object** | A JSON used to store additional data that is blockchain-specific. |  [optional] |
 
 
 

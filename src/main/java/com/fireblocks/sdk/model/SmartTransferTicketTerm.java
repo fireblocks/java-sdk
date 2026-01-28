@@ -29,7 +29,6 @@ import java.util.StringJoiner;
     SmartTransferTicketTerm.JSON_PROPERTY_TICKET_ID,
     SmartTransferTicketTerm.JSON_PROPERTY_ASSET,
     SmartTransferTicketTerm.JSON_PROPERTY_AMOUNT,
-    SmartTransferTicketTerm.JSON_PROPERTY_DVP_SRC_DST_VAULT_ID,
     SmartTransferTicketTerm.JSON_PROPERTY_AMOUNT_USD,
     SmartTransferTicketTerm.JSON_PROPERTY_FROM_NETWORK_ID,
     SmartTransferTicketTerm.JSON_PROPERTY_FROM_NETWORK_ID_NAME,
@@ -57,9 +56,6 @@ public class SmartTransferTicketTerm {
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
     @jakarta.annotation.Nonnull private String amount;
-
-    public static final String JSON_PROPERTY_DVP_SRC_DST_VAULT_ID = "dvpSrcDstVaultId";
-    @jakarta.annotation.Nullable private String dvpSrcDstVaultId;
 
     public static final String JSON_PROPERTY_AMOUNT_USD = "amountUsd";
     @jakarta.annotation.Nullable private String amountUsd;
@@ -323,30 +319,6 @@ public class SmartTransferTicketTerm {
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setAmount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
-    }
-
-    public SmartTransferTicketTerm dvpSrcDstVaultId(
-            @jakarta.annotation.Nullable String dvpSrcDstVaultId) {
-        this.dvpSrcDstVaultId = dvpSrcDstVaultId;
-        return this;
-    }
-
-    /**
-     * Identifier of the source and destination vault for DVP execution
-     *
-     * @return dvpSrcDstVaultId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DVP_SRC_DST_VAULT_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getDvpSrcDstVaultId() {
-        return dvpSrcDstVaultId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DVP_SRC_DST_VAULT_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDvpSrcDstVaultId(@jakarta.annotation.Nullable String dvpSrcDstVaultId) {
-        this.dvpSrcDstVaultId = dvpSrcDstVaultId;
     }
 
     public SmartTransferTicketTerm amountUsd(@jakarta.annotation.Nullable String amountUsd) {
@@ -618,7 +590,6 @@ public class SmartTransferTicketTerm {
                 && Objects.equals(this.ticketId, smartTransferTicketTerm.ticketId)
                 && Objects.equals(this.asset, smartTransferTicketTerm.asset)
                 && Objects.equals(this.amount, smartTransferTicketTerm.amount)
-                && Objects.equals(this.dvpSrcDstVaultId, smartTransferTicketTerm.dvpSrcDstVaultId)
                 && Objects.equals(this.amountUsd, smartTransferTicketTerm.amountUsd)
                 && Objects.equals(this.fromNetworkId, smartTransferTicketTerm.fromNetworkId)
                 && Objects.equals(this.fromNetworkIdName, smartTransferTicketTerm.fromNetworkIdName)
@@ -639,7 +610,6 @@ public class SmartTransferTicketTerm {
                 ticketId,
                 asset,
                 amount,
-                dvpSrcDstVaultId,
                 amountUsd,
                 fromNetworkId,
                 fromNetworkIdName,
@@ -661,7 +631,6 @@ public class SmartTransferTicketTerm {
         sb.append("    ticketId: ").append(toIndentedString(ticketId)).append("\n");
         sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-        sb.append("    dvpSrcDstVaultId: ").append(toIndentedString(dvpSrcDstVaultId)).append("\n");
         sb.append("    amountUsd: ").append(toIndentedString(amountUsd)).append("\n");
         sb.append("    fromNetworkId: ").append(toIndentedString(fromNetworkId)).append("\n");
         sb.append("    fromNetworkIdName: ")
@@ -758,16 +727,6 @@ public class SmartTransferTicketTerm {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
-        }
-
-        // add `dvpSrcDstVaultId` to the URL query string
-        if (getDvpSrcDstVaultId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdvpSrcDstVaultId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getDvpSrcDstVaultId()))));
         }
 
         // add `amountUsd` to the URL query string

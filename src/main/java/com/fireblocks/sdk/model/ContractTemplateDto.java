@@ -58,7 +58,7 @@ public class ContractTemplateDto {
     @jakarta.annotation.Nullable private String longDescription;
 
     public static final String JSON_PROPERTY_ABI = "abi";
-    @jakarta.annotation.Nonnull private List<AbiFunction> abi;
+    @jakarta.annotation.Nonnull private List<List<AbiFunction>> abi;
 
     public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
     @jakarta.annotation.Nullable private ContractAttributes attributes;
@@ -167,7 +167,7 @@ public class ContractTemplateDto {
             @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
             @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
             @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = true) String description,
-            @JsonProperty(value = JSON_PROPERTY_ABI, required = true) List<AbiFunction> abi,
+            @JsonProperty(value = JSON_PROPERTY_ABI, required = true) List<List<AbiFunction>> abi,
             @JsonProperty(value = JSON_PROPERTY_IS_PUBLIC, required = true) Boolean isPublic,
             @JsonProperty(value = JSON_PROPERTY_INITIALIZATION_PHASE, required = true)
                     InitializationPhaseEnum initializationPhase) {
@@ -272,12 +272,12 @@ public class ContractTemplateDto {
         this.longDescription = longDescription;
     }
 
-    public ContractTemplateDto abi(@jakarta.annotation.Nonnull List<AbiFunction> abi) {
+    public ContractTemplateDto abi(@jakarta.annotation.Nonnull List<List<AbiFunction>> abi) {
         this.abi = abi;
         return this;
     }
 
-    public ContractTemplateDto addAbiItem(AbiFunction abiItem) {
+    public ContractTemplateDto addAbiItem(List<AbiFunction> abiItem) {
         if (this.abi == null) {
             this.abi = new ArrayList<>();
         }
@@ -286,20 +286,20 @@ public class ContractTemplateDto {
     }
 
     /**
-     * The abi of the contract template. Necessary for displaying and for after deployment encoding
+     * Get abi
      *
      * @return abi
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ABI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<AbiFunction> getAbi() {
+    public List<List<AbiFunction>> getAbi() {
         return abi;
     }
 
     @JsonProperty(JSON_PROPERTY_ABI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbi(@jakarta.annotation.Nonnull List<AbiFunction> abi) {
+    public void setAbi(@jakarta.annotation.Nonnull List<List<AbiFunction>> abi) {
         this.abi = abi;
     }
 
@@ -679,19 +679,15 @@ public class ContractTemplateDto {
             for (int i = 0; i < getAbi().size(); i++) {
                 if (getAbi().get(i) != null) {
                     joiner.add(
-                            getAbi().get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%sabi%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
+                            String.format(
+                                    "%sabi%s%s=%s",
+                                    prefix,
+                                    suffix,
+                                    "".equals(suffix)
+                                            ? ""
+                                            : String.format(
+                                                    "%s%d%s", containerPrefix, i, containerSuffix),
+                                    ApiClient.urlEncode(ApiClient.valueToString(getAbi().get(i)))));
                 }
             }
         }

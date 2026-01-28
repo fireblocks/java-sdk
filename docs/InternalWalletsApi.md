@@ -7,10 +7,9 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**createInternalWallet**](InternalWalletsApi.md#createInternalWallet) | **POST** /internal_wallets | Create an internal wallet |
 | [**createInternalWalletAsset**](InternalWalletsApi.md#createInternalWalletAsset) | **POST** /internal_wallets/{walletId}/{assetId} | Add an asset to an internal wallet |
 | [**deleteInternalWallet**](InternalWalletsApi.md#deleteInternalWallet) | **DELETE** /internal_wallets/{walletId} | Delete an internal wallet |
-| [**deleteInternalWalletAsset**](InternalWalletsApi.md#deleteInternalWalletAsset) | **DELETE** /internal_wallets/{walletId}/{assetId} | Delete a whitelisted address |
-| [**getInternalWallet**](InternalWalletsApi.md#getInternalWallet) | **GET** /internal_wallets/{walletId} | Get an asset from an internal wallet |
+| [**deleteInternalWalletAsset**](InternalWalletsApi.md#deleteInternalWalletAsset) | **DELETE** /internal_wallets/{walletId}/{assetId} | Delete a whitelisted address from an internal wallet |
+| [**getInternalWallet**](InternalWalletsApi.md#getInternalWallet) | **GET** /internal_wallets/{walletId} | Get assets for internal wallet |
 | [**getInternalWalletAsset**](InternalWalletsApi.md#getInternalWalletAsset) | **GET** /internal_wallets/{walletId}/{assetId} | Get an asset from an internal wallet |
-| [**getInternalWalletAssetsPaginated**](InternalWalletsApi.md#getInternalWalletAssetsPaginated) | **GET** /internal_wallets/{walletId}/assets | List assets in an internal wallet (Paginated) |
 | [**getInternalWallets**](InternalWalletsApi.md#getInternalWallets) | **GET** /internal_wallets | List internal wallets |
 | [**setCustomerRefIdForInternalWallet**](InternalWalletsApi.md#setCustomerRefIdForInternalWallet) | **POST** /internal_wallets/{walletId}/set_customer_ref_id | Set an AML/KYT customer reference ID for an internal wallet |
 
@@ -22,7 +21,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Create an internal wallet
 
-Creates a new internal wallet with the requested name.  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Creates a new internal wallet with the requested name.
 
 ### Example
 
@@ -107,7 +106,7 @@ No authorization required
 
 Add an asset to an internal wallet
 
-Adds an asset to an existing internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks    Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Adds an asset to an existing internal wallet.
 
 ### Example
 
@@ -196,7 +195,7 @@ No authorization required
 
 Delete an internal wallet
 
-Deletes an internal wallet by ID. Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Deletes an internal wallet by ID.
 
 ### Example
 
@@ -276,9 +275,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<Void>> deleteInternalWalletAsset deleteInternalWalletAsset(walletId, assetId)
 
-Delete a whitelisted address
+Delete a whitelisted address from an internal wallet
 
-Deletes a whitelisted address (for an asset) from an internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Deletes a whitelisted address (for an asset) from an internal wallet.
 
 ### Example
 
@@ -360,9 +359,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<UnmanagedWallet>> getInternalWallet getInternalWallet(walletId)
 
-Get an asset from an internal wallet
+Get assets for internal wallet
 
-Returns information for an asset in an internal wallet.  This endpoint will be deprecated after 6 months. &lt;/br&gt;As part of the depreciation process this endpoint will no longer return balances, only addresses. &lt;/br&gt;Until it is deprecated, this endpoint will behave the same way.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns all assets in an internal wallet by ID.
 
 ### Example
 
@@ -445,7 +444,7 @@ No authorization required
 
 Get an asset from an internal wallet
 
-Returns information for an asset in an internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns information for an asset in an internal wallet.
 
 ### Example
 
@@ -524,100 +523,13 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## getInternalWalletAssetsPaginated
-
-> CompletableFuture<ApiResponse<PaginatedAssetsResponse>> getInternalWalletAssetsPaginated getInternalWalletAssetsPaginated(walletId, pageSize, pageCursor)
-
-List assets in an internal wallet (Paginated)
-
-Returns a paginated response of assets in an internal wallet.  This is a new paginated endpoint that gets all the assets from the wallet container with balances. &lt;/br&gt;This endpoint returns a limited amount of results with a quick response time.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.InternalWalletsApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        String walletId = "walletId_example"; // String | The ID of the internal wallet to return assets for
-        BigDecimal pageSize = new BigDecimal("50"); // BigDecimal | 
-        String pageCursor = "pageCursor_example"; // String | 
-        try {
-            CompletableFuture<ApiResponse<PaginatedAssetsResponse>> response = fireblocks.internalWallets().getInternalWalletAssetsPaginated(walletId, pageSize, pageCursor);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-            System.out.println("Response body: " + response.get().getData());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling InternalWalletsApi#getInternalWalletAssetsPaginated");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling InternalWalletsApi#getInternalWalletAssetsPaginated");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **walletId** | **String**| The ID of the internal wallet to return assets for | |
-| **pageSize** | **BigDecimal**|  | [optional] [default to 50] |
-| **pageCursor** | **String**|  | [optional] |
-
-### Return type
-
-CompletableFuture<ApiResponse<[**PaginatedAssetsResponse**](PaginatedAssetsResponse.md)>>
-
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | A paginated response of assets for the internal wallet |  * X-Request-ID -  <br>  |
-| **0** | Error Response |  * X-Request-ID -  <br>  |
-
-
 ## getInternalWallets
 
 > CompletableFuture<ApiResponse<List<UnmanagedWallet>>> getInternalWallets getInternalWallets()
 
 List internal wallets
 
-Gets a list of internal wallets.   **Note**: - BTC-based assets belonging to whitelisted addresses cannot be   retrieved between 00:00 UTC and 00:01 UTC daily due to third-party   provider, Blockchain, being unavailable for this 60 second period.   &lt;/br&gt;Please wait until the next minute to retrieve BTC-based assets. - The list of assets returned will NOT include the balances anymore.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Gets a list of internal wallets.  **Note**: BTC-based assets belonging to whitelisted addresses cannot be retrieved between 00:00 UTC and 00:01 UTC daily due to third-party provider, Blockchair, being unavailable for this 60 second period. Please wait until the next minute to retrieve BTC-based assets. 
 
 ### Example
 
@@ -696,7 +608,7 @@ No authorization required
 
 Set an AML/KYT customer reference ID for an internal wallet
 
-Sets an AML/KYT customer reference ID for the specific internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Sets an AML/KYT customer reference ID for the specific internal wallet.
 
 ### Example
 

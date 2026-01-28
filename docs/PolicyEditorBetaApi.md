@@ -4,21 +4,21 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**getActivePolicyLegacy**](PolicyEditorBetaApi.md#getActivePolicyLegacy) | **GET** /tap/active_policy | Get the active policy and its validation |
-| [**getDraftLegacy**](PolicyEditorBetaApi.md#getDraftLegacy) | **GET** /tap/draft | Get the active draft |
-| [**publishDraftLegacy**](PolicyEditorBetaApi.md#publishDraftLegacy) | **POST** /tap/draft | Send publish request for a certain draft id |
+| [**getActivePolicy**](PolicyEditorBetaApi.md#getActivePolicy) | **GET** /tap/active_policy | Get the active policy and its validation |
+| [**getDraft**](PolicyEditorBetaApi.md#getDraft) | **GET** /tap/draft | Get the active draft |
+| [**publishDraft**](PolicyEditorBetaApi.md#publishDraft) | **POST** /tap/draft | Send publish request for a certain draft id |
 | [**publishPolicyRules**](PolicyEditorBetaApi.md#publishPolicyRules) | **POST** /tap/publish | Send publish request for a set of policy rules |
-| [**updateDraftLegacy**](PolicyEditorBetaApi.md#updateDraftLegacy) | **PUT** /tap/draft | Update the draft with a new set of rules |
+| [**updateDraft**](PolicyEditorBetaApi.md#updateDraft) | **PUT** /tap/draft | Update the draft with a new set of rules |
 
 
 
-## getActivePolicyLegacy
+## getActivePolicy
 
-> CompletableFuture<ApiResponse<LegacyPolicyAndValidationResponse>> getActivePolicyLegacy getActivePolicyLegacy()
+> CompletableFuture<ApiResponse<PolicyAndValidationResponse>> getActivePolicy getActivePolicy()
 
 Get the active policy and its validation
 
-Legacy Endpoint – Returns the active policy and its validation. &lt;/br&gt; **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.&lt;/br&gt; - The &#x60;getActivePolicy&#x60; endpoint under policy/paths provides policy type-specific operations and improved functionality.&lt;/br&gt; - These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+Returns the active policy and its validation. &lt;/br&gt; **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
 
 ### Example
 
@@ -44,19 +44,19 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         try {
-            CompletableFuture<ApiResponse<LegacyPolicyAndValidationResponse>> response = fireblocks.policyEditorBeta().getActivePolicyLegacy();
+            CompletableFuture<ApiResponse<PolicyAndValidationResponse>> response = fireblocks.policyEditorBeta().getActivePolicy();
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling PolicyEditorBetaApi#getActivePolicyLegacy");
+            System.err.println("Exception when calling PolicyEditorBetaApi#getActivePolicy");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
         } catch (ApiException e) {
-            System.err.println("Exception when calling PolicyEditorBetaApi#getActivePolicyLegacy");
+            System.err.println("Exception when calling PolicyEditorBetaApi#getActivePolicy");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Response headers: " + e.getResponseHeaders());
             System.err.println("Reason: " + e.getResponseBody());
@@ -72,7 +72,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**LegacyPolicyAndValidationResponse**](LegacyPolicyAndValidationResponse.md)>>
+CompletableFuture<ApiResponse<[**PolicyAndValidationResponse**](PolicyAndValidationResponse.md)>>
 
 
 ### Authorization
@@ -91,13 +91,13 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## getDraftLegacy
+## getDraft
 
-> CompletableFuture<ApiResponse<LegacyDraftReviewAndValidationResponse>> getDraftLegacy getDraftLegacy()
+> CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>> getDraft getDraft()
 
 Get the active draft
 
-Legacy Endpoint – Returns the active draft and its validation. &lt;/br&gt; **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.&lt;/br&gt; - The &#x60;getDraft&#x60; endpoint under policy/paths provides policy type-specific operations and improved functionality.&lt;/br&gt; - These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+Returns the active draft and its validation. &lt;/br&gt; **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
 
 ### Example
 
@@ -123,19 +123,19 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         try {
-            CompletableFuture<ApiResponse<LegacyDraftReviewAndValidationResponse>> response = fireblocks.policyEditorBeta().getDraftLegacy();
+            CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>> response = fireblocks.policyEditorBeta().getDraft();
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling PolicyEditorBetaApi#getDraftLegacy");
+            System.err.println("Exception when calling PolicyEditorBetaApi#getDraft");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
         } catch (ApiException e) {
-            System.err.println("Exception when calling PolicyEditorBetaApi#getDraftLegacy");
+            System.err.println("Exception when calling PolicyEditorBetaApi#getDraft");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Response headers: " + e.getResponseHeaders());
             System.err.println("Reason: " + e.getResponseBody());
@@ -151,7 +151,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**LegacyDraftReviewAndValidationResponse**](LegacyDraftReviewAndValidationResponse.md)>>
+CompletableFuture<ApiResponse<[**DraftReviewAndValidationResponse**](DraftReviewAndValidationResponse.md)>>
 
 
 ### Authorization
@@ -170,13 +170,13 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## publishDraftLegacy
+## publishDraft
 
-> CompletableFuture<ApiResponse<LegacyPublishResult>> publishDraftLegacy publishDraftLegacy(legacyPublishDraftRequest, idempotencyKey)
+> CompletableFuture<ApiResponse<PublishResult>> publishDraft publishDraft(publishDraftRequest, idempotencyKey)
 
 Send publish request for a certain draft id
 
-Legacy Endpoint – Send publish request of certain draft id and returns the response. &lt;/br&gt; **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.&lt;/br&gt; - The &#x60;publishDraft&#x60; endpoint under policy/paths provides improved functionality and better performance.&lt;/br&gt; - These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+Send publish request of certain draft id and returns the response. &lt;/br&gt; **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
 
 ### Example
 
@@ -201,22 +201,22 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        LegacyPublishDraftRequest legacyPublishDraftRequest = new LegacyPublishDraftRequest(); // LegacyPublishDraftRequest | 
+        PublishDraftRequest publishDraftRequest = new PublishDraftRequest(); // PublishDraftRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<LegacyPublishResult>> response = fireblocks.policyEditorBeta().publishDraftLegacy(legacyPublishDraftRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<PublishResult>> response = fireblocks.policyEditorBeta().publishDraft(publishDraftRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling PolicyEditorBetaApi#publishDraftLegacy");
+            System.err.println("Exception when calling PolicyEditorBetaApi#publishDraft");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
         } catch (ApiException e) {
-            System.err.println("Exception when calling PolicyEditorBetaApi#publishDraftLegacy");
+            System.err.println("Exception when calling PolicyEditorBetaApi#publishDraft");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Response headers: " + e.getResponseHeaders());
             System.err.println("Reason: " + e.getResponseBody());
@@ -231,12 +231,12 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **legacyPublishDraftRequest** | [**LegacyPublishDraftRequest**](LegacyPublishDraftRequest.md)|  | |
+| **publishDraftRequest** | [**PublishDraftRequest**](PublishDraftRequest.md)|  | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**LegacyPublishResult**](LegacyPublishResult.md)>>
+CompletableFuture<ApiResponse<[**PublishResult**](PublishResult.md)>>
 
 
 ### Authorization
@@ -257,7 +257,7 @@ No authorization required
 
 ## publishPolicyRules
 
-> CompletableFuture<ApiResponse<LegacyPublishResult>> publishPolicyRules publishPolicyRules(legacyPolicyRules, idempotencyKey)
+> CompletableFuture<ApiResponse<PublishResult>> publishPolicyRules publishPolicyRules(policyRules, idempotencyKey)
 
 Send publish request for a set of policy rules
 
@@ -286,10 +286,10 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        LegacyPolicyRules legacyPolicyRules = new LegacyPolicyRules(); // LegacyPolicyRules | 
+        PolicyRules policyRules = new PolicyRules(); // PolicyRules | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<LegacyPublishResult>> response = fireblocks.policyEditorBeta().publishPolicyRules(legacyPolicyRules, idempotencyKey);
+            CompletableFuture<ApiResponse<PublishResult>> response = fireblocks.policyEditorBeta().publishPolicyRules(policyRules, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -316,12 +316,12 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **legacyPolicyRules** | [**LegacyPolicyRules**](LegacyPolicyRules.md)|  | |
+| **policyRules** | [**PolicyRules**](PolicyRules.md)|  | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**LegacyPublishResult**](LegacyPublishResult.md)>>
+CompletableFuture<ApiResponse<[**PublishResult**](PublishResult.md)>>
 
 
 ### Authorization
@@ -340,13 +340,13 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## updateDraftLegacy
+## updateDraft
 
-> CompletableFuture<ApiResponse<LegacyDraftReviewAndValidationResponse>> updateDraftLegacy updateDraftLegacy(legacyPolicyRules, idempotencyKey)
+> CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>> updateDraft updateDraft(policyRules, idempotencyKey)
 
 Update the draft with a new set of rules
 
-Legacy Endpoint – Update the draft and return its validation. &lt;/br&gt; **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.&lt;/br&gt; - The &#x60;updateDraft&#x60; endpoint under policy/paths provides policy type-specific operations and improved functionality.&lt;/br&gt; - These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+Update the draft and return its validation. &lt;/br&gt; **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
 
 ### Example
 
@@ -371,22 +371,22 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        LegacyPolicyRules legacyPolicyRules = new LegacyPolicyRules(); // LegacyPolicyRules | 
+        PolicyRules policyRules = new PolicyRules(); // PolicyRules | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<LegacyDraftReviewAndValidationResponse>> response = fireblocks.policyEditorBeta().updateDraftLegacy(legacyPolicyRules, idempotencyKey);
+            CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>> response = fireblocks.policyEditorBeta().updateDraft(policyRules, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling PolicyEditorBetaApi#updateDraftLegacy");
+            System.err.println("Exception when calling PolicyEditorBetaApi#updateDraft");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
         } catch (ApiException e) {
-            System.err.println("Exception when calling PolicyEditorBetaApi#updateDraftLegacy");
+            System.err.println("Exception when calling PolicyEditorBetaApi#updateDraft");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Response headers: " + e.getResponseHeaders());
             System.err.println("Reason: " + e.getResponseBody());
@@ -401,12 +401,12 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **legacyPolicyRules** | [**LegacyPolicyRules**](LegacyPolicyRules.md)|  | |
+| **policyRules** | [**PolicyRules**](PolicyRules.md)|  | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**LegacyDraftReviewAndValidationResponse**](LegacyDraftReviewAndValidationResponse.md)>>
+CompletableFuture<ApiResponse<[**DraftReviewAndValidationResponse**](DraftReviewAndValidationResponse.md)>>
 
 
 ### Authorization

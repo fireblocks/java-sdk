@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +27,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
     ContractDeployRequest.JSON_PROPERTY_ASSET_ID,
     ContractDeployRequest.JSON_PROPERTY_VAULT_ACCOUNT_ID,
-    ContractDeployRequest.JSON_PROPERTY_CONSTRUCTOR_PARAMETERS,
-    ContractDeployRequest.JSON_PROPERTY_USE_GASLESS,
-    ContractDeployRequest.JSON_PROPERTY_FEE,
-    ContractDeployRequest.JSON_PROPERTY_FEE_LEVEL
+    ContractDeployRequest.JSON_PROPERTY_CONSTRUCTOR_PARAMETERS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -45,52 +41,6 @@ public class ContractDeployRequest {
 
     public static final String JSON_PROPERTY_CONSTRUCTOR_PARAMETERS = "constructorParameters";
     @jakarta.annotation.Nullable private List<ParameterWithValue> constructorParameters;
-
-    public static final String JSON_PROPERTY_USE_GASLESS = "useGasless";
-    @jakarta.annotation.Nullable private Boolean useGasless;
-
-    public static final String JSON_PROPERTY_FEE = "fee";
-    @jakarta.annotation.Nullable private String fee;
-
-    /**
-     * Fee level for the write function transaction. interchangeable with the &#39;fee&#39; field
-     */
-    public enum FeeLevelEnum {
-        LOW(String.valueOf("LOW")),
-
-        MEDIUM(String.valueOf("MEDIUM")),
-
-        HIGH(String.valueOf("HIGH"));
-
-        private String value;
-
-        FeeLevelEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static FeeLevelEnum fromValue(String value) {
-            for (FeeLevelEnum b : FeeLevelEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    @jakarta.annotation.Nullable private FeeLevelEnum feeLevel;
 
     public ContractDeployRequest() {}
 
@@ -183,78 +133,6 @@ public class ContractDeployRequest {
         this.constructorParameters = constructorParameters;
     }
 
-    public ContractDeployRequest useGasless(@jakarta.annotation.Nullable Boolean useGasless) {
-        this.useGasless = useGasless;
-        return this;
-    }
-
-    /**
-     * Indicates whether the token should be created in a gasless manner, utilizing the ERC-2771
-     * standard. When set to true, the transaction will be relayed by a designated relayer. The
-     * workspace must be configured to use Fireblocks gasless relay.
-     *
-     * @return useGasless
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_USE_GASLESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getUseGasless() {
-        return useGasless;
-    }
-
-    @JsonProperty(JSON_PROPERTY_USE_GASLESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUseGasless(@jakarta.annotation.Nullable Boolean useGasless) {
-        this.useGasless = useGasless;
-    }
-
-    public ContractDeployRequest fee(@jakarta.annotation.Nullable String fee) {
-        this.fee = fee;
-        return this;
-    }
-
-    /**
-     * Max fee amount for the write function transaction. interchangeable with the
-     * &#39;feeLevel&#39; field
-     *
-     * @return fee
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_FEE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getFee() {
-        return fee;
-    }
-
-    @JsonProperty(JSON_PROPERTY_FEE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFee(@jakarta.annotation.Nullable String fee) {
-        this.fee = fee;
-    }
-
-    public ContractDeployRequest feeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
-        this.feeLevel = feeLevel;
-        return this;
-    }
-
-    /**
-     * Fee level for the write function transaction. interchangeable with the &#39;fee&#39; field
-     *
-     * @return feeLevel
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public FeeLevelEnum getFeeLevel() {
-        return feeLevel;
-    }
-
-    @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
-        this.feeLevel = feeLevel;
-    }
-
     /** Return true if this ContractDeployRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -268,16 +146,12 @@ public class ContractDeployRequest {
         return Objects.equals(this.assetId, contractDeployRequest.assetId)
                 && Objects.equals(this.vaultAccountId, contractDeployRequest.vaultAccountId)
                 && Objects.equals(
-                        this.constructorParameters, contractDeployRequest.constructorParameters)
-                && Objects.equals(this.useGasless, contractDeployRequest.useGasless)
-                && Objects.equals(this.fee, contractDeployRequest.fee)
-                && Objects.equals(this.feeLevel, contractDeployRequest.feeLevel);
+                        this.constructorParameters, contractDeployRequest.constructorParameters);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                assetId, vaultAccountId, constructorParameters, useGasless, fee, feeLevel);
+        return Objects.hash(assetId, vaultAccountId, constructorParameters);
     }
 
     @Override
@@ -289,9 +163,6 @@ public class ContractDeployRequest {
         sb.append("    constructorParameters: ")
                 .append(toIndentedString(constructorParameters))
                 .append("\n");
-        sb.append("    useGasless: ").append(toIndentedString(useGasless)).append("\n");
-        sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
-        sb.append("    feeLevel: ").append(toIndentedString(feeLevel)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -380,36 +251,6 @@ public class ContractDeployRequest {
                                                                     containerSuffix))));
                 }
             }
-        }
-
-        // add `useGasless` to the URL query string
-        if (getUseGasless() != null) {
-            joiner.add(
-                    String.format(
-                            "%suseGasless%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getUseGasless()))));
-        }
-
-        // add `fee` to the URL query string
-        if (getFee() != null) {
-            joiner.add(
-                    String.format(
-                            "%sfee%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getFee()))));
-        }
-
-        // add `feeLevel` to the URL query string
-        if (getFeeLevel() != null) {
-            joiner.add(
-                    String.format(
-                            "%sfeeLevel%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         return joiner.toString();

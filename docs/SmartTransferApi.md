@@ -4,16 +4,13 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**approveDvPTicketTerm**](SmartTransferApi.md#approveDvPTicketTerm) | **PUT** /smart_transfers/{ticketId}/terms/{termId}/dvp/approve | Define funding source and give approve to contract to transfer asset |
 | [**cancelTicket**](SmartTransferApi.md#cancelTicket) | **PUT** /smart-transfers/{ticketId}/cancel | Cancel Ticket |
 | [**createTicket**](SmartTransferApi.md#createTicket) | **POST** /smart-transfers | Create Ticket |
 | [**createTicketTerm**](SmartTransferApi.md#createTicketTerm) | **POST** /smart-transfers/{ticketId}/terms | Create leg (term) |
 | [**findTicketById**](SmartTransferApi.md#findTicketById) | **GET** /smart-transfers/{ticketId} | Search Tickets by ID |
 | [**findTicketTermById**](SmartTransferApi.md#findTicketTermById) | **GET** /smart-transfers/{ticketId}/terms/{termId} | Search ticket by leg (term) ID |
 | [**fulfillTicket**](SmartTransferApi.md#fulfillTicket) | **PUT** /smart-transfers/{ticketId}/fulfill | Fund ticket manually |
-| [**fundDvpTicket**](SmartTransferApi.md#fundDvpTicket) | **PUT** /smart_transfers/{ticketId}/dvp/fund | Fund dvp ticket |
 | [**fundTicketTerm**](SmartTransferApi.md#fundTicketTerm) | **PUT** /smart-transfers/{ticketId}/terms/{termId}/fund | Define funding source |
-| [**getSmartTransferStatistic**](SmartTransferApi.md#getSmartTransferStatistic) | **GET** /smart_transfers/statistic | Get smart transfers statistic |
 | [**getSmartTransferUserGroups**](SmartTransferApi.md#getSmartTransferUserGroups) | **GET** /smart-transfers/settings/user-groups | Get user group |
 | [**manuallyFundTicketTerm**](SmartTransferApi.md#manuallyFundTicketTerm) | **PUT** /smart-transfers/{ticketId}/terms/{termId}/manually-fund | Manually add term transaction |
 | [**removeTicketTerm**](SmartTransferApi.md#removeTicketTerm) | **DELETE** /smart-transfers/{ticketId}/terms/{termId} | Delete ticket leg (term) |
@@ -24,97 +21,6 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**submitTicket**](SmartTransferApi.md#submitTicket) | **PUT** /smart-transfers/{ticketId}/submit | Submit ticket |
 | [**updateTicketTerm**](SmartTransferApi.md#updateTicketTerm) | **PUT** /smart-transfers/{ticketId}/terms/{termId} | Update ticket leg (term) |
 
-
-
-## approveDvPTicketTerm
-
-> CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> approveDvPTicketTerm approveDvPTicketTerm(smartTransferApproveTerm, ticketId, termId, idempotencyKey)
-
-Define funding source and give approve to contract to transfer asset
-
-Set funding source for ticket term and creating approving transaction for contract to transfer asset
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.SmartTransferApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        SmartTransferApproveTerm smartTransferApproveTerm = new SmartTransferApproveTerm(); // SmartTransferApproveTerm | 
-        String ticketId = "ticketId_example"; // String | 
-        String termId = "termId_example"; // String | 
-        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-        try {
-            CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response = fireblocks.smartTransfer().approveDvPTicketTerm(smartTransferApproveTerm, ticketId, termId, idempotencyKey);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-            System.out.println("Response body: " + response.get().getData());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling SmartTransferApi#approveDvPTicketTerm");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling SmartTransferApi#approveDvPTicketTerm");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **smartTransferApproveTerm** | [**SmartTransferApproveTerm**](SmartTransferApproveTerm.md)|  | |
-| **ticketId** | **String**|  | |
-| **termId** | **String**|  | |
-| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
-
-### Return type
-
-CompletableFuture<ApiResponse<[**SmartTransferTicketTermResponse**](SmartTransferTicketTermResponse.md)>>
-
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **201** | Creating approval transaction started |  -  |
-| **403** | Unauthorized |  -  |
-| **404** | Not found |  -  |
-| **422** | Bad Request |  -  |
 
 
 ## cancelTicket
@@ -635,95 +541,6 @@ No authorization required
 | **422** | Bad Request |  -  |
 
 
-## fundDvpTicket
-
-> CompletableFuture<ApiResponse<SmartTransferTicketResponse>> fundDvpTicket fundDvpTicket(smartTransferFundDvpTicket, ticketId, idempotencyKey)
-
-Fund dvp ticket
-
-Create or fulfill dvp ticket order
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.SmartTransferApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        SmartTransferFundDvpTicket smartTransferFundDvpTicket = new SmartTransferFundDvpTicket(); // SmartTransferFundDvpTicket | 
-        String ticketId = "ticketId_example"; // String | 
-        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-        try {
-            CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().fundDvpTicket(smartTransferFundDvpTicket, ticketId, idempotencyKey);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-            System.out.println("Response body: " + response.get().getData());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling SmartTransferApi#fundDvpTicket");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling SmartTransferApi#fundDvpTicket");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **smartTransferFundDvpTicket** | [**SmartTransferFundDvpTicket**](SmartTransferFundDvpTicket.md)|  | |
-| **ticketId** | **String**|  | |
-| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
-
-### Return type
-
-CompletableFuture<ApiResponse<[**SmartTransferTicketResponse**](SmartTransferTicketResponse.md)>>
-
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successfully started creating or fulfilling order on dvp Smart Transfer ticket |  -  |
-| **403** | Unauthorized |  -  |
-| **404** | Not found |  -  |
-| **422** | Bad Request |  -  |
-
-
 ## fundTicketTerm
 
 > CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> fundTicketTerm fundTicketTerm(smartTransferFundTerm, ticketId, termId, idempotencyKey)
@@ -813,86 +630,6 @@ No authorization required
 | **403** | Unauthorized |  -  |
 | **404** | Not found |  -  |
 | **422** | Bad Request |  -  |
-
-
-## getSmartTransferStatistic
-
-> CompletableFuture<ApiResponse<SmartTransferStatistic>> getSmartTransferStatistic getSmartTransferStatistic()
-
-Get smart transfers statistic
-
-Get smart transfer statistic
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.SmartTransferApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        try {
-            CompletableFuture<ApiResponse<SmartTransferStatistic>> response = fireblocks.smartTransfer().getSmartTransferStatistic();
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-            System.out.println("Response body: " + response.get().getData());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling SmartTransferApi#getSmartTransferStatistic");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling SmartTransferApi#getSmartTransferStatistic");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-This endpoint does not need any parameter.
-
-### Return type
-
-CompletableFuture<ApiResponse<[**SmartTransferStatistic**](SmartTransferStatistic.md)>>
-
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Smart Transfer ticket statistic returned successfully |  -  |
-| **403** | Unauthorized |  -  |
-| **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
 ## getSmartTransferUserGroups
@@ -1153,7 +890,7 @@ No authorization required
 
 ## searchTickets
 
-> CompletableFuture<ApiResponse<SmartTransferTicketFilteredResponse>> searchTickets searchTickets(q, statuses, networkId, createdByMe, expiresAfter, expiresBefore, type, externalRefId, after, limit, sortBy, order)
+> CompletableFuture<ApiResponse<SmartTransferTicketFilteredResponse>> searchTickets searchTickets(q, statuses, networkId, createdByMe, expiresAfter, expiresBefore, type, externalRefId, after, limit)
 
 Find Ticket
 
@@ -1188,14 +925,12 @@ public class Example {
         Boolean createdByMe = true; // Boolean | Filter created tickets by created by self or by others. Optional
         OffsetDateTime expiresAfter = OffsetDateTime.now(); // OffsetDateTime | Lower bound of search range. Optional
         OffsetDateTime expiresBefore = OffsetDateTime.now(); // OffsetDateTime | Upper bound of search range. Optional
-        String type = "ASYNC"; // String | Type of transfer. ASYNC executes transfers as they are funded, DVP executes all terms (legs) as one dvp transfer
+        String type = "ASYNC"; // String | Type of transfer. ASYNC executes transfers as they are funded, ATOMIC executes all terms (legs) as one atomic transfer
         String externalRefId = "externalRefId_example"; // String | External ref. ID that workspace can use to identify ticket outside of Fireblocks system.
         String after = "after_example"; // String | ID of the record after which to fetch $limit records
         BigDecimal limit = new BigDecimal(78); // BigDecimal | Number of records to fetch. By default, it is 100
-        String sortBy = "createdAt"; // String | Sort by field
-        String order = "ASC"; // String | ASC / DESC ordering (default DESC)
         try {
-            CompletableFuture<ApiResponse<SmartTransferTicketFilteredResponse>> response = fireblocks.smartTransfer().searchTickets(q, statuses, networkId, createdByMe, expiresAfter, expiresBefore, type, externalRefId, after, limit, sortBy, order);
+            CompletableFuture<ApiResponse<SmartTransferTicketFilteredResponse>> response = fireblocks.smartTransfer().searchTickets(q, statuses, networkId, createdByMe, expiresAfter, expiresBefore, type, externalRefId, after, limit);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1228,12 +963,10 @@ public class Example {
 | **createdByMe** | **Boolean**| Filter created tickets by created by self or by others. Optional | [optional] |
 | **expiresAfter** | **OffsetDateTime**| Lower bound of search range. Optional | [optional] |
 | **expiresBefore** | **OffsetDateTime**| Upper bound of search range. Optional | [optional] |
-| **type** | **String**| Type of transfer. ASYNC executes transfers as they are funded, DVP executes all terms (legs) as one dvp transfer | [optional] [enum: ASYNC, DVP] |
+| **type** | **String**| Type of transfer. ASYNC executes transfers as they are funded, ATOMIC executes all terms (legs) as one atomic transfer | [optional] [enum: ASYNC] |
 | **externalRefId** | **String**| External ref. ID that workspace can use to identify ticket outside of Fireblocks system. | [optional] |
 | **after** | **String**| ID of the record after which to fetch $limit records | [optional] |
 | **limit** | **BigDecimal**| Number of records to fetch. By default, it is 100 | [optional] |
-| **sortBy** | **String**| Sort by field | [optional] [default to createdAt] [enum: createdAt, updatedAt, submittedAt] |
-| **order** | **String**| ASC / DESC ordering (default DESC) | [optional] [default to DESC] [enum: ASC, DESC] |
 
 ### Return type
 

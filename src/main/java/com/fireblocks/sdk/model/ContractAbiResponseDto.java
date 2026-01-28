@@ -32,7 +32,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class ContractAbiResponseDto {
     public static final String JSON_PROPERTY_ABI = "abi";
-    @jakarta.annotation.Nonnull private List<ContractAbiResponseDtoAbiInner> abi;
+    @jakarta.annotation.Nonnull private List<AbiFunction> abi;
 
     public static final String JSON_PROPERTY_IMPLEMENTATION_ABI = "implementationAbi";
     @jakarta.annotation.Nullable private List<AbiFunction> implementationAbi;
@@ -41,18 +41,16 @@ public class ContractAbiResponseDto {
 
     @JsonCreator
     public ContractAbiResponseDto(
-            @JsonProperty(value = JSON_PROPERTY_ABI, required = true)
-                    List<ContractAbiResponseDtoAbiInner> abi) {
+            @JsonProperty(value = JSON_PROPERTY_ABI, required = true) List<AbiFunction> abi) {
         this.abi = abi;
     }
 
-    public ContractAbiResponseDto abi(
-            @jakarta.annotation.Nonnull List<ContractAbiResponseDtoAbiInner> abi) {
+    public ContractAbiResponseDto abi(@jakarta.annotation.Nonnull List<AbiFunction> abi) {
         this.abi = abi;
         return this;
     }
 
-    public ContractAbiResponseDto addAbiItem(ContractAbiResponseDtoAbiInner abiItem) {
+    public ContractAbiResponseDto addAbiItem(AbiFunction abiItem) {
         if (this.abi == null) {
             this.abi = new ArrayList<>();
         }
@@ -68,13 +66,13 @@ public class ContractAbiResponseDto {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ABI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<ContractAbiResponseDtoAbiInner> getAbi() {
+    public List<AbiFunction> getAbi() {
         return abi;
     }
 
     @JsonProperty(JSON_PROPERTY_ABI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbi(@jakarta.annotation.Nonnull List<ContractAbiResponseDtoAbiInner> abi) {
+    public void setAbi(@jakarta.annotation.Nonnull List<AbiFunction> abi) {
         this.abi = abi;
     }
 

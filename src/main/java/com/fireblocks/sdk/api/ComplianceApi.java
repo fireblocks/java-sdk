@@ -18,15 +18,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.ValidationUtils;
-import com.fireblocks.sdk.model.AmlVerdictManualRequest;
-import com.fireblocks.sdk.model.AmlVerdictManualResponse;
-import com.fireblocks.sdk.model.ComplianceResultFullPayload;
-import com.fireblocks.sdk.model.CreateTransactionResponse;
 import com.fireblocks.sdk.model.ScreeningConfigurationsRequest;
 import com.fireblocks.sdk.model.ScreeningPolicyResponse;
 import com.fireblocks.sdk.model.ScreeningProviderRulesConfigurationResponse;
-import com.fireblocks.sdk.model.ScreeningUpdateConfigurations;
+import com.fireblocks.sdk.model.ScreeningUpdateConfigurationsRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -266,75 +261,6 @@ public class ComplianceApi {
         return localVarRequestBuilder;
     }
     /**
-     * Provides all the compliance details for the given screened transaction. Provides all the
-     * compliance details for the given screened transaction.
-     *
-     * @param txId Fireblocks transaction ID of the screened transaction (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ComplianceResultFullPayload&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<ComplianceResultFullPayload>> getScreeningFullDetails(
-            String txId) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    getScreeningFullDetailsRequestBuilder(txId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "getScreeningFullDetails", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<ComplianceResultFullPayload>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            ComplianceResultFullPayload>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getScreeningFullDetailsRequestBuilder(String txId)
-            throws ApiException {
-        ValidationUtils.assertParamExistsAndNotEmpty("getScreeningFullDetails", "txId", txId);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/screening/transaction/{txId}"
-                        .replace("{txId}", ApiClient.urlEncode(txId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
      * Travel Rule - View Screening Policy Get the screening policy for Travel Rule.
      *
      * @return
@@ -390,169 +316,6 @@ public class ComplianceApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Calling the \&quot;Bypass Screening Policy\&quot; API endpoint triggers a new transaction,
-     * with the API user as the initiator, bypassing the screening policy check This endpoint is
-     * restricted to Admin API users and is only applicable to outgoing transactions.
-     *
-     * @param txId The transaction id that was rejected by screening checks (required)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateTransactionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<CreateTransactionResponse>>
-            retryRejectedTransactionBypassScreeningChecks(String txId, String idempotencyKey)
-                    throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    retryRejectedTransactionBypassScreeningChecksRequestBuilder(
-                            txId, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "retryRejectedTransactionBypassScreeningChecks",
-                                                    localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<CreateTransactionResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            CreateTransactionResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder retryRejectedTransactionBypassScreeningChecksRequestBuilder(
-            String txId, String idempotencyKey) throws ApiException {
-        ValidationUtils.assertParamExistsAndNotEmpty(
-                "retryRejectedTransactionBypassScreeningChecks", "txId", txId);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/screening/transaction/{txId}/bypass_screening_policy"
-                        .replace("{txId}", ApiClient.urlEncode(txId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Set AML Verdict for Manual Screening Verdict. Set AML verdict for incoming transactions when
-     * Manual Screening Verdict feature is enabled.
-     *
-     * @param amlVerdictManualRequest (required)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;AmlVerdictManualResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<AmlVerdictManualResponse>> setAmlVerdict(
-            AmlVerdictManualRequest amlVerdictManualRequest, String idempotencyKey)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    setAmlVerdictRequestBuilder(amlVerdictManualRequest, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("setAmlVerdict", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<AmlVerdictManualResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            AmlVerdictManualResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder setAmlVerdictRequestBuilder(
-            AmlVerdictManualRequest amlVerdictManualRequest, String idempotencyKey)
-            throws ApiException {
-        ValidationUtils.assertParamExists(
-                "setAmlVerdict", "amlVerdictManualRequest", amlVerdictManualRequest);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/screening/aml/verdict/manual";
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(amlVerdictManualRequest);
-            localVarRequestBuilder.method(
-                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }
@@ -636,22 +399,17 @@ public class ComplianceApi {
     /**
      * Tenant - Screening Configuration Update tenant screening configuration.
      *
-     * @param screeningUpdateConfigurations (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ScreeningUpdateConfigurations&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;ScreeningUpdateConfigurationsRequest&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<ScreeningUpdateConfigurations>>
-            updateScreeningConfiguration(
-                    ScreeningUpdateConfigurations screeningUpdateConfigurations,
-                    String idempotencyKey)
-                    throws ApiException {
+    public CompletableFuture<ApiResponse<ScreeningUpdateConfigurationsRequest>>
+            updateScreeningConfiguration(String idempotencyKey) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    updateScreeningConfigurationRequestBuilder(
-                            screeningUpdateConfigurations, idempotencyKey);
+                    updateScreeningConfigurationRequestBuilder(idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -668,7 +426,7 @@ public class ComplianceApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<ScreeningUpdateConfigurations>(
+                                            new ApiResponse<ScreeningUpdateConfigurationsRequest>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -676,7 +434,7 @@ public class ComplianceApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            ScreeningUpdateConfigurations>() {})));
+                                                                            ScreeningUpdateConfigurationsRequest>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -686,13 +444,8 @@ public class ComplianceApi {
         }
     }
 
-    private HttpRequest.Builder updateScreeningConfigurationRequestBuilder(
-            ScreeningUpdateConfigurations screeningUpdateConfigurations, String idempotencyKey)
+    private HttpRequest.Builder updateScreeningConfigurationRequestBuilder(String idempotencyKey)
             throws ApiException {
-        ValidationUtils.assertParamExists(
-                "updateScreeningConfiguration",
-                "screeningUpdateConfigurations",
-                screeningUpdateConfigurations);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -703,17 +456,9 @@ public class ComplianceApi {
         if (idempotencyKey != null) {
             localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
         }
-        localVarRequestBuilder.header("Content-Type", "application/json");
         localVarRequestBuilder.header("Accept", "application/json");
 
-        try {
-            byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(screeningUpdateConfigurations);
-            localVarRequestBuilder.method(
-                    "PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
+        localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

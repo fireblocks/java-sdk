@@ -9,11 +9,9 @@ Data object with result data
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** | Unique id of Smart Transfer ticket |  |
-|**type** | [**TypeEnum**](#TypeEnum) | Kind of Smart Transfer. Can be either &#x60;ASYNC&#x60; or &#x60;DVP&#x60; |  |
+|**type** | [**TypeEnum**](#TypeEnum) | Kind of Smart Transfer. Can be either &#x60;ASYNC&#x60; or &#x60;ATOMIC&#x60; |  |
 |**direction** | [**DirectionEnum**](#DirectionEnum) | Direction of Smart Transfer. |  [optional] |
 |**status** | [**StatusEnum**](#StatusEnum) | Current status of Smart Transfer ticket |  |
-|**dvpExecutionStatus** | [**DvpExecutionStatusEnum**](#DvpExecutionStatusEnum) | Current status of DVP execution |  [optional] |
-|**orderCreatedByNetworkId** | **String** | ID of network profile that created order |  [optional] |
 |**terms** | [**List&lt;SmartTransferTicketTerm&gt;**](SmartTransferTicketTerm.md) | Ticket terms (legs) |  [optional] |
 |**expiresIn** | **BigDecimal** | Number of hours for expiration.This data is valid only it ticket not in DRAFT state and it will be used to calculate expiresAt value |  [optional] |
 |**expiresAt** | **OffsetDateTime** | Date and time at which the ticket will expire if no funding is performed. |  [optional] |
@@ -38,7 +36,6 @@ Data object with result data
 | Name | Value |
 |---- | -----|
 | ASYNC | &quot;ASYNC&quot; |
-| DVP | &quot;DVP&quot; |
 
 
 
@@ -64,20 +61,6 @@ Data object with result data
 | FULFILLED | &quot;FULFILLED&quot; |
 | EXPIRED | &quot;EXPIRED&quot; |
 | CANCELED | &quot;CANCELED&quot; |
-
-
-
-## Enum: DvpExecutionStatusEnum
-
-| Name | Value |
-|---- | -----|
-| STARTED | &quot;STARTED&quot; |
-| CREATING_ORDER | &quot;CREATING_ORDER&quot; |
-| ORDER_CREATED | &quot;ORDER_CREATED&quot; |
-| FULFILLING | &quot;FULFILLING&quot; |
-| FULFILLING_ORDER_FAILED | &quot;FULFILLING_ORDER_FAILED&quot; |
-| CREATING_ORDER_FAILED | &quot;CREATING_ORDER_FAILED&quot; |
-| FULFILLED | &quot;FULFILLED&quot; |
 
 
 

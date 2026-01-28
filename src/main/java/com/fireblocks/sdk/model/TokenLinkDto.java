@@ -208,7 +208,8 @@ public class TokenLinkDto {
     }
 
     /**
-     * The Fireblocks&#39; reference id
+     * The Fireblocks&#39; reference id. Can be a Fireblocks&#39; supported asset, collectionId or
+     * contractId
      *
      * @return refId
      */
@@ -231,7 +232,7 @@ public class TokenLinkDto {
     }
 
     /**
-     * The token display name. If was not provided, would be taken from the contract template
+     * The token display name. If was not provided, would be taken from the contract template name
      *
      * @return displayName
      */

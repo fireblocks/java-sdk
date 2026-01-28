@@ -42,14 +42,12 @@ public class Fireblocks {
     private BlockchainsAssetsApi blockchainsAssets;
     private ComplianceApi compliance;
     private ComplianceScreeningConfigurationApi complianceScreeningConfiguration;
-    private ConnectedAccountsBetaApi connectedAccountsBeta;
     private ConsoleUserApi consoleUser;
     private ContractInteractionsApi contractInteractions;
     private ContractTemplatesApi contractTemplates;
     private ContractsApi contracts;
     private CosignersBetaApi cosignersBeta;
     private DeployedContractsApi deployedContracts;
-    private EmbeddedWalletsApi embeddedWallets;
     private ExchangeAccountsApi exchangeAccounts;
     private ExternalWalletsApi externalWallets;
     private FiatAccountsApi fiatAccounts;
@@ -57,28 +55,23 @@ public class Fireblocks {
     private InternalWalletsApi internalWallets;
     private JobManagementApi jobManagement;
     private KeyLinkBetaApi keyLinkBeta;
-    private KeysBetaApi keysBeta;
     private NetworkConnectionsApi networkConnections;
     private NftsApi nfts;
     private OffExchangesApi offExchanges;
     private OtaBetaApi otaBeta;
     private PaymentsPayoutApi paymentsPayout;
     private PolicyEditorBetaApi policyEditorBeta;
-    private PolicyEditorV2BetaApi policyEditorV2Beta;
     private ResetDeviceApi resetDevice;
     private SmartTransferApi smartTransfer;
-    private StakingApi staking;
-    private TagsApi tags;
+    private StakingBetaApi stakingBeta;
     private TokenizationApi tokenization;
-    private TradingBetaApi tradingBeta;
     private TransactionsApi transactions;
-    private TravelRuleApi travelRule;
+    private TravelRuleBetaApi travelRuleBeta;
     private UserGroupsBetaApi userGroupsBeta;
     private UsersApi users;
     private VaultsApi vaults;
     private Web3ConnectionsApi web3Connections;
     private WebhooksApi webhooks;
-    private WebhooksV2Api webhooksV2;
     private WhitelistIpAddressesApi whitelistIpAddresses;
     private WorkspaceStatusBetaApi workspaceStatusBeta;
 
@@ -262,13 +255,6 @@ public class Fireblocks {
         return complianceScreeningConfiguration;
     }
 
-    public ConnectedAccountsBetaApi connectedAccountsBeta() {
-        if (connectedAccountsBeta == null) {
-            connectedAccountsBeta = new ConnectedAccountsBetaApi(apiClient);
-        }
-        return connectedAccountsBeta;
-    }
-
     public ConsoleUserApi consoleUser() {
         if (consoleUser == null) {
             consoleUser = new ConsoleUserApi(apiClient);
@@ -309,13 +295,6 @@ public class Fireblocks {
             deployedContracts = new DeployedContractsApi(apiClient);
         }
         return deployedContracts;
-    }
-
-    public EmbeddedWalletsApi embeddedWallets() {
-        if (embeddedWallets == null) {
-            embeddedWallets = new EmbeddedWalletsApi(apiClient);
-        }
-        return embeddedWallets;
     }
 
     public ExchangeAccountsApi exchangeAccounts() {
@@ -367,13 +346,6 @@ public class Fireblocks {
         return keyLinkBeta;
     }
 
-    public KeysBetaApi keysBeta() {
-        if (keysBeta == null) {
-            keysBeta = new KeysBetaApi(apiClient);
-        }
-        return keysBeta;
-    }
-
     public NetworkConnectionsApi networkConnections() {
         if (networkConnections == null) {
             networkConnections = new NetworkConnectionsApi(apiClient);
@@ -416,13 +388,6 @@ public class Fireblocks {
         return policyEditorBeta;
     }
 
-    public PolicyEditorV2BetaApi policyEditorV2Beta() {
-        if (policyEditorV2Beta == null) {
-            policyEditorV2Beta = new PolicyEditorV2BetaApi(apiClient);
-        }
-        return policyEditorV2Beta;
-    }
-
     public ResetDeviceApi resetDevice() {
         if (resetDevice == null) {
             resetDevice = new ResetDeviceApi(apiClient);
@@ -437,18 +402,11 @@ public class Fireblocks {
         return smartTransfer;
     }
 
-    public StakingApi staking() {
-        if (staking == null) {
-            staking = new StakingApi(apiClient);
+    public StakingBetaApi stakingBeta() {
+        if (stakingBeta == null) {
+            stakingBeta = new StakingBetaApi(apiClient);
         }
-        return staking;
-    }
-
-    public TagsApi tags() {
-        if (tags == null) {
-            tags = new TagsApi(apiClient);
-        }
-        return tags;
+        return stakingBeta;
     }
 
     public TokenizationApi tokenization() {
@@ -458,13 +416,6 @@ public class Fireblocks {
         return tokenization;
     }
 
-    public TradingBetaApi tradingBeta() {
-        if (tradingBeta == null) {
-            tradingBeta = new TradingBetaApi(apiClient);
-        }
-        return tradingBeta;
-    }
-
     public TransactionsApi transactions() {
         if (transactions == null) {
             transactions = new TransactionsApi(apiClient);
@@ -472,11 +423,11 @@ public class Fireblocks {
         return transactions;
     }
 
-    public TravelRuleApi travelRule() {
-        if (travelRule == null) {
-            travelRule = new TravelRuleApi(apiClient);
+    public TravelRuleBetaApi travelRuleBeta() {
+        if (travelRuleBeta == null) {
+            travelRuleBeta = new TravelRuleBetaApi(apiClient);
         }
-        return travelRule;
+        return travelRuleBeta;
     }
 
     public UserGroupsBetaApi userGroupsBeta() {
@@ -512,13 +463,6 @@ public class Fireblocks {
             webhooks = new WebhooksApi(apiClient);
         }
         return webhooks;
-    }
-
-    public WebhooksV2Api webhooksV2() {
-        if (webhooksV2 == null) {
-            webhooksV2 = new WebhooksV2Api(apiClient);
-        }
-        return webhooksV2;
     }
 
     public WhitelistIpAddressesApi whitelistIpAddresses() {

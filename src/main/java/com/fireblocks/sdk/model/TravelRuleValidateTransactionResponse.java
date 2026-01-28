@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,93 +43,11 @@ public class TravelRuleValidateTransactionResponse {
     public static final String JSON_PROPERTY_TYPE = "type";
     @jakarta.annotation.Nonnull private String type;
 
-    /**
-     * \&quot;beneficiaryAddressType\&quot; will tell you if your blockchain analytics provider or
-     * internal address book has been able to identify the wallet address.
-     */
-    public enum BeneficiaryAddressTypeEnum {
-        UNKNOWN(String.valueOf("UNKNOWN")),
-
-        HOSTED(String.valueOf("HOSTED")),
-
-        UNHOSTED(String.valueOf("UNHOSTED"));
-
-        private String value;
-
-        BeneficiaryAddressTypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static BeneficiaryAddressTypeEnum fromValue(String value) {
-            for (BeneficiaryAddressTypeEnum b : BeneficiaryAddressTypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
     public static final String JSON_PROPERTY_BENEFICIARY_ADDRESS_TYPE = "beneficiaryAddressType";
-    @jakarta.annotation.Nonnull private BeneficiaryAddressTypeEnum beneficiaryAddressType;
-
-    /**
-     * \&quot;addressSource\&quot; will tell you if the address was found in your internal address
-     * book or identified by the blockchain analytics provider.
-     */
-    public enum AddressSourceEnum {
-        UNKNOWN(String.valueOf("UNKNOWN")),
-
-        ADDRESS_HASH(String.valueOf("ADDRESS_HASH")),
-
-        ADDRESS_GRAPH(String.valueOf("ADDRESS_GRAPH")),
-
-        CHAINALYSIS(String.valueOf("CHAINALYSIS")),
-
-        ELLIPTIC(String.valueOf("ELLIPTIC")),
-
-        CRYSTAL(String.valueOf("CRYSTAL"));
-
-        private String value;
-
-        AddressSourceEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static AddressSourceEnum fromValue(String value) {
-            for (AddressSourceEnum b : AddressSourceEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
+    @jakarta.annotation.Nonnull private String beneficiaryAddressType;
 
     public static final String JSON_PROPERTY_ADDRESS_SOURCE = "addressSource";
-    @jakarta.annotation.Nonnull private AddressSourceEnum addressSource;
+    @jakarta.annotation.Nonnull private String addressSource;
 
     public static final String JSON_PROPERTY_BENEFICIARY_V_A_S_PDID = "beneficiaryVASPdid";
     @jakarta.annotation.Nonnull private String beneficiaryVASPdid;
@@ -148,9 +65,9 @@ public class TravelRuleValidateTransactionResponse {
             @JsonProperty(value = JSON_PROPERTY_IS_VALID, required = true) Boolean isValid,
             @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) String type,
             @JsonProperty(value = JSON_PROPERTY_BENEFICIARY_ADDRESS_TYPE, required = true)
-                    BeneficiaryAddressTypeEnum beneficiaryAddressType,
+                    String beneficiaryAddressType,
             @JsonProperty(value = JSON_PROPERTY_ADDRESS_SOURCE, required = true)
-                    AddressSourceEnum addressSource,
+                    String addressSource,
             @JsonProperty(value = JSON_PROPERTY_BENEFICIARY_V_A_S_PDID, required = true)
                     String beneficiaryVASPdid,
             @JsonProperty(value = JSON_PROPERTY_BENEFICIARY_V_A_S_PNAME, required = true)
@@ -219,7 +136,7 @@ public class TravelRuleValidateTransactionResponse {
     }
 
     public TravelRuleValidateTransactionResponse beneficiaryAddressType(
-            @jakarta.annotation.Nonnull BeneficiaryAddressTypeEnum beneficiaryAddressType) {
+            @jakarta.annotation.Nonnull String beneficiaryAddressType) {
         this.beneficiaryAddressType = beneficiaryAddressType;
         return this;
     }
@@ -233,19 +150,19 @@ public class TravelRuleValidateTransactionResponse {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_BENEFICIARY_ADDRESS_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public BeneficiaryAddressTypeEnum getBeneficiaryAddressType() {
+    public String getBeneficiaryAddressType() {
         return beneficiaryAddressType;
     }
 
     @JsonProperty(JSON_PROPERTY_BENEFICIARY_ADDRESS_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setBeneficiaryAddressType(
-            @jakarta.annotation.Nonnull BeneficiaryAddressTypeEnum beneficiaryAddressType) {
+            @jakarta.annotation.Nonnull String beneficiaryAddressType) {
         this.beneficiaryAddressType = beneficiaryAddressType;
     }
 
     public TravelRuleValidateTransactionResponse addressSource(
-            @jakarta.annotation.Nonnull AddressSourceEnum addressSource) {
+            @jakarta.annotation.Nonnull String addressSource) {
         this.addressSource = addressSource;
         return this;
     }
@@ -259,13 +176,13 @@ public class TravelRuleValidateTransactionResponse {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ADDRESS_SOURCE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AddressSourceEnum getAddressSource() {
+    public String getAddressSource() {
         return addressSource;
     }
 
     @JsonProperty(JSON_PROPERTY_ADDRESS_SOURCE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAddressSource(@jakarta.annotation.Nonnull AddressSourceEnum addressSource) {
+    public void setAddressSource(@jakarta.annotation.Nonnull String addressSource) {
         this.addressSource = addressSource;
     }
 

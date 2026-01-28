@@ -25,22 +25,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * Calls a smart contract method for web3 operations on any EVM blockchain. The Fireblocks
  * [development
  * libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are
- * recommended for building contract call transactions. * &#x60;PROGRAM_CALL&#x60; - Execute
- * multiple instructions on Solana blockchain. The @solana/web3.js library is recommended for
- * building program call transactions. Currently in beta and disabled * &#x60;TYPED_MESSAGE&#x60; -
- * An off-chain message in either Ethereum Personal Message or EIP712 format. Use it to sign
- * specific readable messages that are not actual transactions. [Learn more about typed
+ * recommended for building contract call transactions. * &#x60;TYPED_MESSAGE&#x60; - An off-chain
+ * message in either Ethereum Personal Message or EIP712 format. Use it to sign specific readable
+ * messages that are not actual transactions. [Learn more about typed
  * messages](https://developers.fireblocks.com/docs/typed-message-signing). * &#x60;RAW&#x60; - An
  * off-chain message with no predefined format. Use it to sign any message with your private key,
  * including protocols such as blockchains and custom transaction types that are not natively
  * supported by Fireblocks. [Learn more about raw signing
- * transactions.](https://developers.fireblocks.com/docs/raw-message-signing) * &#x60;APPROVE&#x60;
- * - Enables the approve function for a smart contract or wallet to withdraw from a designated
- * wallet. [Learn
- * more](https://support.fireblocks.io/hc/en-us/articles/4404616097426-Amount-Cap-for-Approve-transactions).
- * * &#x60;ENABLE_ASSET&#x60; - Algorand, DigitalBits, Solana, and Stellar require an on-chain
- * transaction to create an asset wallet and enable the deposit address. This transaction is
- * automatically created when adding assets on these blockchains at a vault account.
+ * transactions.](https://developers.fireblocks.com/docs/raw-message-signing)
  */
 public enum TransactionOperation {
     TRANSFER("TRANSFER"),
@@ -49,17 +41,11 @@ public enum TransactionOperation {
 
     CONTRACT_CALL("CONTRACT_CALL"),
 
-    PROGRAM_CALL("PROGRAM_CALL"),
-
     MINT("MINT"),
 
     RAW("RAW"),
 
-    TYPED_MESSAGE("TYPED_MESSAGE"),
-
-    APPROVE("APPROVE"),
-
-    ENABLE_ASSET("ENABLE_ASSET");
+    TYPED_MESSAGE("TYPED_MESSAGE");
 
     private String value;
 

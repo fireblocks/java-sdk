@@ -7,10 +7,10 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**asset** | **String** |  |  |
-|**amount** | **String** |  |  |
-|**sourceType** | **TradingAccountType** |  |  |
-|**destType** | **TradingAccountType** |  |  |
+|**asset** | **String** |  |  [optional] |
+|**amount** | **String** |  |  [optional] |
+|**sourceType** | **TradingAccountType** |  |  [optional] |
+|**destType** | **TradingAccountType** |  |  [optional] |
 
 
 

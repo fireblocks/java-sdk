@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
+import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -31,7 +32,9 @@ import java.util.StringJoiner;
     NetworkRecord.JSON_PROPERTY_IS_DROPPED,
     NetworkRecord.JSON_PROPERTY_TYPE,
     NetworkRecord.JSON_PROPERTY_DESTINATION_ADDRESS,
+    NetworkRecord.JSON_PROPERTY_SOURCE_ADDRESS,
     NetworkRecord.JSON_PROPERTY_AMOUNT_U_S_D,
+    NetworkRecord.JSON_PROPERTY_INDEX,
     NetworkRecord.JSON_PROPERTY_REWARD_INFO
 })
 @jakarta.annotation.Generated(
@@ -65,8 +68,14 @@ public class NetworkRecord {
     public static final String JSON_PROPERTY_DESTINATION_ADDRESS = "destinationAddress";
     @jakarta.annotation.Nullable private String destinationAddress;
 
+    public static final String JSON_PROPERTY_SOURCE_ADDRESS = "sourceAddress";
+    @jakarta.annotation.Nullable private String sourceAddress;
+
     public static final String JSON_PROPERTY_AMOUNT_U_S_D = "amountUSD";
     @jakarta.annotation.Nullable private String amountUSD;
+
+    public static final String JSON_PROPERTY_INDEX = "index";
+    @jakarta.annotation.Nullable private BigDecimal index;
 
     public static final String JSON_PROPERTY_REWARD_INFO = "rewardInfo";
     @jakarta.annotation.Nullable private RewardInfo rewardInfo;
@@ -284,6 +293,29 @@ public class NetworkRecord {
         this.destinationAddress = destinationAddress;
     }
 
+    public NetworkRecord sourceAddress(@jakarta.annotation.Nullable String sourceAddress) {
+        this.sourceAddress = sourceAddress;
+        return this;
+    }
+
+    /**
+     * Get sourceAddress
+     *
+     * @return sourceAddress
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SOURCE_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getSourceAddress() {
+        return sourceAddress;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SOURCE_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSourceAddress(@jakarta.annotation.Nullable String sourceAddress) {
+        this.sourceAddress = sourceAddress;
+    }
+
     public NetworkRecord amountUSD(@jakarta.annotation.Nullable String amountUSD) {
         this.amountUSD = amountUSD;
         return this;
@@ -305,6 +337,29 @@ public class NetworkRecord {
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setAmountUSD(@jakarta.annotation.Nullable String amountUSD) {
         this.amountUSD = amountUSD;
+    }
+
+    public NetworkRecord index(@jakarta.annotation.Nullable BigDecimal index) {
+        this.index = index;
+        return this;
+    }
+
+    /**
+     * Get index
+     *
+     * @return index
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_INDEX)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public BigDecimal getIndex() {
+        return index;
+    }
+
+    @JsonProperty(JSON_PROPERTY_INDEX)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIndex(@jakarta.annotation.Nullable BigDecimal index) {
+        this.index = index;
     }
 
     public NetworkRecord rewardInfo(@jakarta.annotation.Nullable RewardInfo rewardInfo) {
@@ -349,7 +404,9 @@ public class NetworkRecord {
                 && Objects.equals(this.isDropped, networkRecord.isDropped)
                 && Objects.equals(this.type, networkRecord.type)
                 && Objects.equals(this.destinationAddress, networkRecord.destinationAddress)
+                && Objects.equals(this.sourceAddress, networkRecord.sourceAddress)
                 && Objects.equals(this.amountUSD, networkRecord.amountUSD)
+                && Objects.equals(this.index, networkRecord.index)
                 && Objects.equals(this.rewardInfo, networkRecord.rewardInfo);
     }
 
@@ -365,7 +422,9 @@ public class NetworkRecord {
                 isDropped,
                 type,
                 destinationAddress,
+                sourceAddress,
                 amountUSD,
+                index,
                 rewardInfo);
     }
 
@@ -384,7 +443,9 @@ public class NetworkRecord {
         sb.append("    destinationAddress: ")
                 .append(toIndentedString(destinationAddress))
                 .append("\n");
+        sb.append("    sourceAddress: ").append(toIndentedString(sourceAddress)).append("\n");
         sb.append("    amountUSD: ").append(toIndentedString(amountUSD)).append("\n");
+        sb.append("    index: ").append(toIndentedString(index)).append("\n");
         sb.append("    rewardInfo: ").append(toIndentedString(rewardInfo)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -513,6 +574,16 @@ public class NetworkRecord {
                             ApiClient.urlEncode(ApiClient.valueToString(getDestinationAddress()))));
         }
 
+        // add `sourceAddress` to the URL query string
+        if (getSourceAddress() != null) {
+            joiner.add(
+                    String.format(
+                            "%ssourceAddress%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getSourceAddress()))));
+        }
+
         // add `amountUSD` to the URL query string
         if (getAmountUSD() != null) {
             joiner.add(
@@ -521,6 +592,16 @@ public class NetworkRecord {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getAmountUSD()))));
+        }
+
+        // add `index` to the URL query string
+        if (getIndex() != null) {
+            joiner.add(
+                    String.format(
+                            "%sindex%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getIndex()))));
         }
 
         // add `rewardInfo` to the URL query string

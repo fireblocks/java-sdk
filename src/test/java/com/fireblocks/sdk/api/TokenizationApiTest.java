@@ -15,37 +15,11 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.model.AdapterProcessingResult;
-import com.fireblocks.sdk.model.CollectionBurnRequestDto;
-import com.fireblocks.sdk.model.CollectionBurnResponseDto;
-import com.fireblocks.sdk.model.CollectionDeployRequestDto;
-import com.fireblocks.sdk.model.CollectionLinkDto;
-import com.fireblocks.sdk.model.CollectionMintRequestDto;
-import com.fireblocks.sdk.model.CollectionMintResponseDto;
-import com.fireblocks.sdk.model.CreateMultichainTokenRequest;
 import com.fireblocks.sdk.model.CreateTokenRequestDto;
-import com.fireblocks.sdk.model.DeployLayerZeroAdaptersRequest;
-import com.fireblocks.sdk.model.DeployableAddressResponse;
-import com.fireblocks.sdk.model.GetDeployableAddressRequest;
-import com.fireblocks.sdk.model.GetLayerZeroDvnConfigResponse;
-import com.fireblocks.sdk.model.GetLayerZeroPeersResponse;
-import com.fireblocks.sdk.model.GetLinkedCollectionsPaginatedResponse;
-import com.fireblocks.sdk.model.ReissueMultichainTokenRequest;
-import com.fireblocks.sdk.model.RemoveLayerZeroAdaptersRequest;
-import com.fireblocks.sdk.model.RemoveLayerZeroAdaptersResponse;
-import com.fireblocks.sdk.model.RemoveLayerZeroPeersRequest;
-import com.fireblocks.sdk.model.RemoveLayerZeroPeersResponse;
-import com.fireblocks.sdk.model.SetLayerZeroDvnConfigRequest;
-import com.fireblocks.sdk.model.SetLayerZeroDvnConfigResponse;
-import com.fireblocks.sdk.model.SetLayerZeroPeersRequest;
-import com.fireblocks.sdk.model.SetLayerZeroPeersResponse;
 import com.fireblocks.sdk.model.TokenLinkDto;
 import com.fireblocks.sdk.model.TokenLinkRequestDto;
 import com.fireblocks.sdk.model.TokensPaginatedResponse;
-import com.fireblocks.sdk.model.ValidateLayerZeroChannelResponse;
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -55,161 +29,6 @@ import org.junit.Test;
 public class TokenizationApiTest {
 
     private final TokenizationApi api = new TokenizationApi();
-
-    /**
-     * Burn tokens
-     *
-     * <p>Burn tokens in a collection
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void burnCollectionTokenTest() throws ApiException {
-        CollectionBurnRequestDto collectionBurnRequestDto = null;
-        String id = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<CollectionBurnResponseDto>> response =
-                api.burnCollectionToken(collectionBurnRequestDto, id, idempotencyKey);
-    }
-
-    /**
-     * Create a new collection
-     *
-     * <p>Create a new collection and link it as a token
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void createNewCollectionTest() throws ApiException {
-        CollectionDeployRequestDto collectionDeployRequestDto = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<CollectionLinkDto>> response =
-                api.createNewCollection(collectionDeployRequestDto, idempotencyKey);
-    }
-
-    /**
-     * Remove LayerZero adapters
-     *
-     * <p>Remove LayerZero adapters by deactivating and unlinking them. This endpoint revokes roles
-     * and deactivates the specified adapter contracts.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void deactivateAndUnlinkAdaptersTest() throws ApiException {
-        RemoveLayerZeroAdaptersRequest removeLayerZeroAdaptersRequest = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<RemoveLayerZeroAdaptersResponse>> response =
-                api.deactivateAndUnlinkAdapters(removeLayerZeroAdaptersRequest, idempotencyKey);
-    }
-
-    /**
-     * Deploy LayerZero adapters
-     *
-     * <p>Deploy LayerZero adapters for multichain token bridging functionality. This endpoint
-     * creates adapter contracts that enable cross-chain token transfers.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void deployAndLinkAdaptersTest() throws ApiException {
-        DeployLayerZeroAdaptersRequest deployLayerZeroAdaptersRequest = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<List<AdapterProcessingResult>>> response =
-                api.deployAndLinkAdapters(deployLayerZeroAdaptersRequest, idempotencyKey);
-    }
-
-    /**
-     * Get collection token details
-     *
-     * <p>Get collection token details by id
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void fetchCollectionTokenDetailsTest() throws ApiException {
-        String id = null;
-        String tokenId = null;
-        CompletableFuture<ApiResponse<CollectionLinkDto>> response =
-                api.fetchCollectionTokenDetails(id, tokenId);
-    }
-
-    /**
-     * Get a collection by id
-     *
-     * <p>Get a collection by id
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void getCollectionByIdTest() throws ApiException {
-        String id = null;
-        CompletableFuture<ApiResponse<CollectionLinkDto>> response = api.getCollectionById(id);
-    }
-
-    /**
-     * Get deterministic address for contract deployment
-     *
-     * <p>Get a deterministic address for contract deployment. The address is derived from the
-     * contract&#39;s bytecode and provided salt. This endpoint is used to get the address of a
-     * contract that will be deployed in the future.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void getDeployableAddressTest() throws ApiException {
-        GetDeployableAddressRequest getDeployableAddressRequest = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<DeployableAddressResponse>> response =
-                api.getDeployableAddress(getDeployableAddressRequest, idempotencyKey);
-    }
-
-    /**
-     * Get LayerZero DVN configuration
-     *
-     * <p>Retrieve the DVN (Data Verification Network) configuration for a specific adapter. Returns
-     * DVN configurations for channels between the source adapter and its peers.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void getLayerZeroDvnConfigTest() throws ApiException {
-        UUID adapterTokenLinkId = null;
-        UUID peerAdapterTokenLinkId = null;
-        CompletableFuture<ApiResponse<GetLayerZeroDvnConfigResponse>> response =
-                api.getLayerZeroDvnConfig(adapterTokenLinkId, peerAdapterTokenLinkId);
-    }
-
-    /**
-     * Get LayerZero peers
-     *
-     * <p>Retrieve the LayerZero peers configured for a specific adapter. Returns information about
-     * peer relationships for cross-chain communication.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void getLayerZeroPeersTest() throws ApiException {
-        UUID adapterTokenLinkId = null;
-        CompletableFuture<ApiResponse<GetLayerZeroPeersResponse>> response =
-                api.getLayerZeroPeers(adapterTokenLinkId);
-    }
-
-    /**
-     * Get collections
-     *
-     * <p>Get collections (paginated)
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void getLinkedCollectionsTest() throws ApiException {
-        String pageCursor = null;
-        BigDecimal pageSize = null;
-        Object status = null;
-        CompletableFuture<ApiResponse<GetLinkedCollectionsPaginatedResponse>> response =
-                api.getLinkedCollections(pageCursor, pageSize, status);
-    }
 
     /**
      * Return a linked token
@@ -261,24 +80,11 @@ public class TokenizationApiTest {
     }
 
     /**
-     * Issue a token on one or more blockchains
+     * Link a token
      *
-     * <p>Facilitates the creation of a new token on one or more blockchains.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void issueTokenMultiChainTest() throws ApiException {
-        CreateMultichainTokenRequest createMultichainTokenRequest = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<List<TokenLinkDto>>> response =
-                api.issueTokenMultiChain(createMultichainTokenRequest, idempotencyKey);
-    }
-
-    /**
-     * Link a contract
-     *
-     * <p>Link an a contract
+     * <p>Link an already existing token (by assetId, collectionId or contractId as refId) to a
+     * workspace across EVM, Stellar, or Ripple platforms. The token will be linked to the workspace
+     * if it does not already exist.
      *
      * @throws ApiException if the Api call fails
      */
@@ -288,90 +94,6 @@ public class TokenizationApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<TokenLinkDto>> response =
                 api.link(tokenLinkRequestDto, idempotencyKey);
-    }
-
-    /**
-     * Mint tokens
-     *
-     * <p>Mint tokens and upload metadata
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void mintCollectionTokenTest() throws ApiException {
-        CollectionMintRequestDto collectionMintRequestDto = null;
-        String id = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<CollectionMintResponseDto>> response =
-                api.mintCollectionToken(collectionMintRequestDto, id, idempotencyKey);
-    }
-
-    /**
-     * Reissue a multichain token
-     *
-     * <p>Reissue a multichain token. This endpoint allows you to reissue a token on one or more
-     * blockchains. The token must be initially issued using the issueTokenMultiChain endpoint.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void reIssueTokenMultiChainTest() throws ApiException {
-        ReissueMultichainTokenRequest reissueMultichainTokenRequest = null;
-        String tokenLinkId = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<List<TokenLinkDto>>> response =
-                api.reIssueTokenMultiChain(
-                        reissueMultichainTokenRequest, tokenLinkId, idempotencyKey);
-    }
-
-    /**
-     * Remove LayerZero peers
-     *
-     * <p>Remove LayerZero peers to disconnect adapter contracts. This endpoint removes peer
-     * relationships between LayerZero adapters.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void removeLayerZeroPeersTest() throws ApiException {
-        RemoveLayerZeroPeersRequest removeLayerZeroPeersRequest = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<RemoveLayerZeroPeersResponse>> response =
-                api.removeLayerZeroPeers(removeLayerZeroPeersRequest, idempotencyKey);
-    }
-
-    /**
-     * Set LayerZero DVN configuration
-     *
-     * <p>Configure DVN settings for LayerZero adapters. This endpoint sets up the DVN configuration
-     * for message verification between source and destination adapters.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void setLayerZeroDvnConfigTest() throws ApiException {
-        SetLayerZeroDvnConfigRequest setLayerZeroDvnConfigRequest = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<SetLayerZeroDvnConfigResponse>> response =
-                api.setLayerZeroDvnConfig(setLayerZeroDvnConfigRequest, idempotencyKey);
-    }
-
-    /**
-     * Set LayerZero peers
-     *
-     * <p>Set LayerZero peers to establish connections between adapter contracts. This endpoint
-     * creates peer relationships that enable cross-chain communication. It sets the destination
-     * adapter as a peer of the source adapter. If &#x60;bidirectional&#x60; is true, it also sets
-     * the source adapter as a peer of the destination adapter(s).
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void setLayerZeroPeersTest() throws ApiException {
-        SetLayerZeroPeersRequest setLayerZeroPeersRequest = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<SetLayerZeroPeersResponse>> response =
-                api.setLayerZeroPeers(setLayerZeroPeersRequest, idempotencyKey);
     }
 
     /**
@@ -387,35 +109,5 @@ public class TokenizationApiTest {
         String id = null;
 
         CompletableFuture<ApiResponse<Void>> response = api.unlink(id);
-    }
-
-    /**
-     * Delete a collection link
-     *
-     * <p>Delete a collection link
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void unlinkCollectionTest() throws ApiException {
-        String id = null;
-
-        CompletableFuture<ApiResponse<Void>> response = api.unlinkCollection(id);
-    }
-
-    /**
-     * Validate LayerZero channel configuration
-     *
-     * <p>Validate the LayerZero channel configuration between adapters. This endpoint checks if the
-     * channel configuration is correct and returns any validation errors.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void validateLayerZeroChannelConfigTest() throws ApiException {
-        UUID adapterTokenLinkId = null;
-        UUID peerAdapterTokenLinkId = null;
-        CompletableFuture<ApiResponse<ValidateLayerZeroChannelResponse>> response =
-                api.validateLayerZeroChannelConfig(adapterTokenLinkId, peerAdapterTokenLinkId);
     }
 }

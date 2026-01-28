@@ -13,7 +13,6 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getTransaction**](TransactionsApi.md#getTransaction) | **GET** /transactions/{txId} | Find a specific transaction by Fireblocks transaction ID |
 | [**getTransactionByExternalId**](TransactionsApi.md#getTransactionByExternalId) | **GET** /transactions/external_tx_id/{externalTxId} | Find a specific transaction by external transaction ID |
 | [**getTransactions**](TransactionsApi.md#getTransactions) | **GET** /transactions | List transaction history |
-| [**rescanTransactionsBeta**](TransactionsApi.md#rescanTransactionsBeta) | **POST** /transactions/rescan | rescan array of transactions |
 | [**setConfirmationThresholdByTransactionHash**](TransactionsApi.md#setConfirmationThresholdByTransactionHash) | **POST** /txHash/{txHash}/set_confirmation_threshold | Set confirmation threshold by transaction hash |
 | [**setTransactionConfirmationThreshold**](TransactionsApi.md#setTransactionConfirmationThreshold) | **POST** /transactions/{txId}/set_confirmation_threshold | Set confirmation threshold by transaction ID |
 | [**unfreezeTransaction**](TransactionsApi.md#unfreezeTransaction) | **POST** /transactions/{txId}/unfreeze | Unfreeze a transaction |
@@ -707,7 +706,7 @@ No authorization required
 
 ## getTransactions
 
-> CompletableFuture<ApiResponse<List<TransactionResponse>>> getTransactions getTransactions(next, prev, before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId)
+> CompletableFuture<ApiResponse<List<TransactionResponse>>> getTransactions getTransactions(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId)
 
 List transaction history
 
@@ -736,8 +735,6 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        String next = "next_example"; // String | Cursor returned in next-page header that can be used to fetch the next page of results
-        String prev = "prev_example"; // String | Cursor returned in prev-page header that can be used to fetch the previous page of results
         String before = "before_example"; // String | Unix timestamp in milliseconds. Returns only transactions created before the specified date
         String after = "after_example"; // String | Unix timestamp in milliseconds. Returns only transactions created after the specified date
         String status = "status_example"; // String | You can filter by one of the statuses.
@@ -753,7 +750,7 @@ public class Example {
         String sourceWalletId = "sourceWalletId_example"; // String | Returns only results where the source is a specific end user wallet
         String destWalletId = "destWalletId_example"; // String | Returns only results where the destination is a specific end user wallet
         try {
-            CompletableFuture<ApiResponse<List<TransactionResponse>>> response = fireblocks.transactions().getTransactions(next, prev, before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId);
+            CompletableFuture<ApiResponse<List<TransactionResponse>>> response = fireblocks.transactions().getTransactions(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -780,8 +777,6 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **next** | **String**| Cursor returned in next-page header that can be used to fetch the next page of results | [optional] |
-| **prev** | **String**| Cursor returned in prev-page header that can be used to fetch the previous page of results | [optional] |
 | **before** | **String**| Unix timestamp in milliseconds. Returns only transactions created before the specified date | [optional] |
 | **after** | **String**| Unix timestamp in milliseconds. Returns only transactions created after the specified date | [optional] |
 | **status** | **String**| You can filter by one of the statuses. | [optional] |
@@ -815,91 +810,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | A list of transactions |  * X-Request-ID -  <br>  * next-page -  <br>  * prev-page -  <br>  |
-| **0** | Error Response |  * X-Request-ID -  <br>  |
-
-
-## rescanTransactionsBeta
-
-> CompletableFuture<ApiResponse<List<ValidatedTransactionsForRescan>>> rescanTransactionsBeta rescanTransactionsBeta(rescanTransaction, idempotencyKey)
-
-rescan array of transactions
-
-rescan transaction by running an async job. &lt;/br&gt; **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit the amount of the transaction to 16 per request. 
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.TransactionsApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        List<RescanTransaction> rescanTransaction = Arrays.asList(); // List<RescanTransaction> | 
-        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-        try {
-            CompletableFuture<ApiResponse<List<ValidatedTransactionsForRescan>>> response = fireblocks.transactions().rescanTransactionsBeta(rescanTransaction, idempotencyKey);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-            System.out.println("Response body: " + response.get().getData());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling TransactionsApi#rescanTransactionsBeta");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling TransactionsApi#rescanTransactionsBeta");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **rescanTransaction** | [**List&lt;RescanTransaction&gt;**](RescanTransaction.md)|  | |
-| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
-
-### Return type
-
-CompletableFuture<ApiResponse<[**List&lt;ValidatedTransactionsForRescan&gt;**](ValidatedTransactionsForRescan.md)>>
-
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | A array of validated transactions that were sent to rescan |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

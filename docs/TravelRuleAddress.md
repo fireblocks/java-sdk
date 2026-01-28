@@ -7,10 +7,10 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**street** | **String** | Street address |  [optional] |
-|**city** | **String** | City |  [optional] |
-|**state** | **String** | State or province |  [optional] |
-|**postalCode** | **String** | Postal or ZIP code |  [optional] |
+|**street** | **String** | Street address |  |
+|**city** | **String** | City |  |
+|**state** | **String** | State or province |  |
+|**postalCode** | **String** | Postal or ZIP code |  |
 
 
 

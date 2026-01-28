@@ -26,7 +26,7 @@ import java.util.StringJoiner;
 /** EVMTokenCreateParamsDto */
 @JsonPropertyOrder({
     EVMTokenCreateParamsDto.JSON_PROPERTY_CONTRACT_ID,
-    EVMTokenCreateParamsDto.JSON_PROPERTY_DEPLOY_FUNCTION_PARAMS
+    EVMTokenCreateParamsDto.JSON_PROPERTY_CONSTRUCTOR_PARAMS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -35,8 +35,8 @@ public class EVMTokenCreateParamsDto {
     public static final String JSON_PROPERTY_CONTRACT_ID = "contractId";
     @jakarta.annotation.Nonnull private String contractId;
 
-    public static final String JSON_PROPERTY_DEPLOY_FUNCTION_PARAMS = "deployFunctionParams";
-    @jakarta.annotation.Nullable private List<ParameterWithValue> deployFunctionParams;
+    public static final String JSON_PROPERTY_CONSTRUCTOR_PARAMS = "constructorParams";
+    @jakarta.annotation.Nullable private List<List<ParameterWithValue>> constructorParams;
 
     public EVMTokenCreateParamsDto() {}
 
@@ -69,38 +69,38 @@ public class EVMTokenCreateParamsDto {
         this.contractId = contractId;
     }
 
-    public EVMTokenCreateParamsDto deployFunctionParams(
-            @jakarta.annotation.Nullable List<ParameterWithValue> deployFunctionParams) {
-        this.deployFunctionParams = deployFunctionParams;
+    public EVMTokenCreateParamsDto constructorParams(
+            @jakarta.annotation.Nullable List<List<ParameterWithValue>> constructorParams) {
+        this.constructorParams = constructorParams;
         return this;
     }
 
-    public EVMTokenCreateParamsDto addDeployFunctionParamsItem(
-            ParameterWithValue deployFunctionParamsItem) {
-        if (this.deployFunctionParams == null) {
-            this.deployFunctionParams = new ArrayList<>();
+    public EVMTokenCreateParamsDto addConstructorParamsItem(
+            List<ParameterWithValue> constructorParamsItem) {
+        if (this.constructorParams == null) {
+            this.constructorParams = new ArrayList<>();
         }
-        this.deployFunctionParams.add(deployFunctionParamsItem);
+        this.constructorParams.add(constructorParamsItem);
         return this;
     }
 
     /**
-     * The deploy function parameters and values of the contract template
+     * The constructor parameters and values of the contract template
      *
-     * @return deployFunctionParams
+     * @return constructorParams
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DEPLOY_FUNCTION_PARAMS)
+    @JsonProperty(JSON_PROPERTY_CONSTRUCTOR_PARAMS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<ParameterWithValue> getDeployFunctionParams() {
-        return deployFunctionParams;
+    public List<List<ParameterWithValue>> getConstructorParams() {
+        return constructorParams;
     }
 
-    @JsonProperty(JSON_PROPERTY_DEPLOY_FUNCTION_PARAMS)
+    @JsonProperty(JSON_PROPERTY_CONSTRUCTOR_PARAMS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDeployFunctionParams(
-            @jakarta.annotation.Nullable List<ParameterWithValue> deployFunctionParams) {
-        this.deployFunctionParams = deployFunctionParams;
+    public void setConstructorParams(
+            @jakarta.annotation.Nullable List<List<ParameterWithValue>> constructorParams) {
+        this.constructorParams = constructorParams;
     }
 
     /** Return true if this EVMTokenCreateParamsDto object is equal to o. */
@@ -115,12 +115,12 @@ public class EVMTokenCreateParamsDto {
         EVMTokenCreateParamsDto evMTokenCreateParamsDto = (EVMTokenCreateParamsDto) o;
         return Objects.equals(this.contractId, evMTokenCreateParamsDto.contractId)
                 && Objects.equals(
-                        this.deployFunctionParams, evMTokenCreateParamsDto.deployFunctionParams);
+                        this.constructorParams, evMTokenCreateParamsDto.constructorParams);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(contractId, deployFunctionParams);
+        return Objects.hash(contractId, constructorParams);
     }
 
     @Override
@@ -128,8 +128,8 @@ public class EVMTokenCreateParamsDto {
         StringBuilder sb = new StringBuilder();
         sb.append("class EVMTokenCreateParamsDto {\n");
         sb.append("    contractId: ").append(toIndentedString(contractId)).append("\n");
-        sb.append("    deployFunctionParams: ")
-                .append(toIndentedString(deployFunctionParams))
+        sb.append("    constructorParams: ")
+                .append(toIndentedString(constructorParams))
                 .append("\n");
         sb.append("}");
         return sb.toString();
@@ -188,25 +188,22 @@ public class EVMTokenCreateParamsDto {
                             ApiClient.urlEncode(ApiClient.valueToString(getContractId()))));
         }
 
-        // add `deployFunctionParams` to the URL query string
-        if (getDeployFunctionParams() != null) {
-            for (int i = 0; i < getDeployFunctionParams().size(); i++) {
-                if (getDeployFunctionParams().get(i) != null) {
+        // add `constructorParams` to the URL query string
+        if (getConstructorParams() != null) {
+            for (int i = 0; i < getConstructorParams().size(); i++) {
+                if (getConstructorParams().get(i) != null) {
                     joiner.add(
-                            getDeployFunctionParams()
-                                    .get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%sdeployFunctionParams%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
+                            String.format(
+                                    "%sconstructorParams%s%s=%s",
+                                    prefix,
+                                    suffix,
+                                    "".equals(suffix)
+                                            ? ""
+                                            : String.format(
+                                                    "%s%d%s", containerPrefix, i, containerSuffix),
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(
+                                                    getConstructorParams().get(i)))));
                 }
             }
         }

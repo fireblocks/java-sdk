@@ -17,128 +17,263 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** Personal identifiable information related to the transaction */
+/** TravelRulePiiIVMS */
 @JsonPropertyOrder({
-    TravelRulePiiIVMS.JSON_PROPERTY_ORIGINATOR_PERSONS,
-    TravelRulePiiIVMS.JSON_PROPERTY_BENEFICIARY_PERSONS,
-    TravelRulePiiIVMS.JSON_PROPERTY_ACCOUNT_NUMBER
+    TravelRulePiiIVMS.JSON_PROPERTY_FULL_NAME,
+    TravelRulePiiIVMS.JSON_PROPERTY_DATE_OF_BIRTH,
+    TravelRulePiiIVMS.JSON_PROPERTY_PLACE_OF_BIRTH,
+    TravelRulePiiIVMS.JSON_PROPERTY_ADDRESS,
+    TravelRulePiiIVMS.JSON_PROPERTY_IDENTIFICATION_NUMBER,
+    TravelRulePiiIVMS.JSON_PROPERTY_NATIONALITY,
+    TravelRulePiiIVMS.JSON_PROPERTY_COUNTRY_OF_RESIDENCE,
+    TravelRulePiiIVMS.JSON_PROPERTY_TAX_IDENTIFICATION_NUMBER,
+    TravelRulePiiIVMS.JSON_PROPERTY_CUSTOMER_NUMBER
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class TravelRulePiiIVMS {
-    public static final String JSON_PROPERTY_ORIGINATOR_PERSONS = "originatorPersons";
-    @jakarta.annotation.Nullable private List<TravelRulePerson> originatorPersons;
+    public static final String JSON_PROPERTY_FULL_NAME = "fullName";
+    @jakarta.annotation.Nullable private String fullName;
 
-    public static final String JSON_PROPERTY_BENEFICIARY_PERSONS = "beneficiaryPersons";
-    @jakarta.annotation.Nullable private List<TravelRulePerson> beneficiaryPersons;
+    public static final String JSON_PROPERTY_DATE_OF_BIRTH = "dateOfBirth";
+    @jakarta.annotation.Nullable private String dateOfBirth;
 
-    public static final String JSON_PROPERTY_ACCOUNT_NUMBER = "accountNumber";
-    @jakarta.annotation.Nullable private List<String> accountNumber;
+    public static final String JSON_PROPERTY_PLACE_OF_BIRTH = "placeOfBirth";
+    @jakarta.annotation.Nullable private String placeOfBirth;
+
+    public static final String JSON_PROPERTY_ADDRESS = "address";
+    @jakarta.annotation.Nullable private String address;
+
+    public static final String JSON_PROPERTY_IDENTIFICATION_NUMBER = "identificationNumber";
+    @jakarta.annotation.Nullable private String identificationNumber;
+
+    public static final String JSON_PROPERTY_NATIONALITY = "nationality";
+    @jakarta.annotation.Nullable private String nationality;
+
+    public static final String JSON_PROPERTY_COUNTRY_OF_RESIDENCE = "countryOfResidence";
+    @jakarta.annotation.Nullable private String countryOfResidence;
+
+    public static final String JSON_PROPERTY_TAX_IDENTIFICATION_NUMBER = "taxIdentificationNumber";
+    @jakarta.annotation.Nullable private String taxIdentificationNumber;
+
+    public static final String JSON_PROPERTY_CUSTOMER_NUMBER = "customerNumber";
+    @jakarta.annotation.Nullable private String customerNumber;
 
     public TravelRulePiiIVMS() {}
 
-    public TravelRulePiiIVMS originatorPersons(
-            @jakarta.annotation.Nullable List<TravelRulePerson> originatorPersons) {
-        this.originatorPersons = originatorPersons;
-        return this;
-    }
-
-    public TravelRulePiiIVMS addOriginatorPersonsItem(TravelRulePerson originatorPersonsItem) {
-        if (this.originatorPersons == null) {
-            this.originatorPersons = new ArrayList<>();
-        }
-        this.originatorPersons.add(originatorPersonsItem);
+    public TravelRulePiiIVMS fullName(@jakarta.annotation.Nullable String fullName) {
+        this.fullName = fullName;
         return this;
     }
 
     /**
-     * Information about the originator of the transaction
+     * Get fullName
      *
-     * @return originatorPersons
+     * @return fullName
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ORIGINATOR_PERSONS)
+    @JsonProperty(JSON_PROPERTY_FULL_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<TravelRulePerson> getOriginatorPersons() {
-        return originatorPersons;
+    public String getFullName() {
+        return fullName;
     }
 
-    @JsonProperty(JSON_PROPERTY_ORIGINATOR_PERSONS)
+    @JsonProperty(JSON_PROPERTY_FULL_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOriginatorPersons(
-            @jakarta.annotation.Nullable List<TravelRulePerson> originatorPersons) {
-        this.originatorPersons = originatorPersons;
+    public void setFullName(@jakarta.annotation.Nullable String fullName) {
+        this.fullName = fullName;
     }
 
-    public TravelRulePiiIVMS beneficiaryPersons(
-            @jakarta.annotation.Nullable List<TravelRulePerson> beneficiaryPersons) {
-        this.beneficiaryPersons = beneficiaryPersons;
-        return this;
-    }
-
-    public TravelRulePiiIVMS addBeneficiaryPersonsItem(TravelRulePerson beneficiaryPersonsItem) {
-        if (this.beneficiaryPersons == null) {
-            this.beneficiaryPersons = new ArrayList<>();
-        }
-        this.beneficiaryPersons.add(beneficiaryPersonsItem);
+    public TravelRulePiiIVMS dateOfBirth(@jakarta.annotation.Nullable String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
         return this;
     }
 
     /**
-     * Information about the beneficiary of the transaction
+     * Get dateOfBirth
      *
-     * @return beneficiaryPersons
+     * @return dateOfBirth
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_BENEFICIARY_PERSONS)
+    @JsonProperty(JSON_PROPERTY_DATE_OF_BIRTH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<TravelRulePerson> getBeneficiaryPersons() {
-        return beneficiaryPersons;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    @JsonProperty(JSON_PROPERTY_BENEFICIARY_PERSONS)
+    @JsonProperty(JSON_PROPERTY_DATE_OF_BIRTH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBeneficiaryPersons(
-            @jakarta.annotation.Nullable List<TravelRulePerson> beneficiaryPersons) {
-        this.beneficiaryPersons = beneficiaryPersons;
+    public void setDateOfBirth(@jakarta.annotation.Nullable String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public TravelRulePiiIVMS accountNumber(
-            @jakarta.annotation.Nullable List<String> accountNumber) {
-        this.accountNumber = accountNumber;
-        return this;
-    }
-
-    public TravelRulePiiIVMS addAccountNumberItem(String accountNumberItem) {
-        if (this.accountNumber == null) {
-            this.accountNumber = new ArrayList<>();
-        }
-        this.accountNumber.add(accountNumberItem);
+    public TravelRulePiiIVMS placeOfBirth(@jakarta.annotation.Nullable String placeOfBirth) {
+        this.placeOfBirth = placeOfBirth;
         return this;
     }
 
     /**
-     * Beneficiary account number. The value must be encrypted.
+     * Get placeOfBirth
      *
-     * @return accountNumber
+     * @return placeOfBirth
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ACCOUNT_NUMBER)
+    @JsonProperty(JSON_PROPERTY_PLACE_OF_BIRTH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<String> getAccountNumber() {
-        return accountNumber;
+    public String getPlaceOfBirth() {
+        return placeOfBirth;
     }
 
-    @JsonProperty(JSON_PROPERTY_ACCOUNT_NUMBER)
+    @JsonProperty(JSON_PROPERTY_PLACE_OF_BIRTH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAccountNumber(@jakarta.annotation.Nullable List<String> accountNumber) {
-        this.accountNumber = accountNumber;
+    public void setPlaceOfBirth(@jakarta.annotation.Nullable String placeOfBirth) {
+        this.placeOfBirth = placeOfBirth;
+    }
+
+    public TravelRulePiiIVMS address(@jakarta.annotation.Nullable String address) {
+        this.address = address;
+        return this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return address
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAddress() {
+        return address;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAddress(@jakarta.annotation.Nullable String address) {
+        this.address = address;
+    }
+
+    public TravelRulePiiIVMS identificationNumber(
+            @jakarta.annotation.Nullable String identificationNumber) {
+        this.identificationNumber = identificationNumber;
+        return this;
+    }
+
+    /**
+     * Get identificationNumber
+     *
+     * @return identificationNumber
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_IDENTIFICATION_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getIdentificationNumber() {
+        return identificationNumber;
+    }
+
+    @JsonProperty(JSON_PROPERTY_IDENTIFICATION_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIdentificationNumber(@jakarta.annotation.Nullable String identificationNumber) {
+        this.identificationNumber = identificationNumber;
+    }
+
+    public TravelRulePiiIVMS nationality(@jakarta.annotation.Nullable String nationality) {
+        this.nationality = nationality;
+        return this;
+    }
+
+    /**
+     * Get nationality
+     *
+     * @return nationality
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_NATIONALITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getNationality() {
+        return nationality;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NATIONALITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setNationality(@jakarta.annotation.Nullable String nationality) {
+        this.nationality = nationality;
+    }
+
+    public TravelRulePiiIVMS countryOfResidence(
+            @jakarta.annotation.Nullable String countryOfResidence) {
+        this.countryOfResidence = countryOfResidence;
+        return this;
+    }
+
+    /**
+     * Get countryOfResidence
+     *
+     * @return countryOfResidence
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_COUNTRY_OF_RESIDENCE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCountryOfResidence() {
+        return countryOfResidence;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COUNTRY_OF_RESIDENCE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCountryOfResidence(@jakarta.annotation.Nullable String countryOfResidence) {
+        this.countryOfResidence = countryOfResidence;
+    }
+
+    public TravelRulePiiIVMS taxIdentificationNumber(
+            @jakarta.annotation.Nullable String taxIdentificationNumber) {
+        this.taxIdentificationNumber = taxIdentificationNumber;
+        return this;
+    }
+
+    /**
+     * Get taxIdentificationNumber
+     *
+     * @return taxIdentificationNumber
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TAX_IDENTIFICATION_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTaxIdentificationNumber() {
+        return taxIdentificationNumber;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TAX_IDENTIFICATION_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTaxIdentificationNumber(
+            @jakarta.annotation.Nullable String taxIdentificationNumber) {
+        this.taxIdentificationNumber = taxIdentificationNumber;
+    }
+
+    public TravelRulePiiIVMS customerNumber(@jakarta.annotation.Nullable String customerNumber) {
+        this.customerNumber = customerNumber;
+        return this;
+    }
+
+    /**
+     * Get customerNumber
+     *
+     * @return customerNumber
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CUSTOMER_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCustomerNumber() {
+        return customerNumber;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CUSTOMER_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCustomerNumber(@jakarta.annotation.Nullable String customerNumber) {
+        this.customerNumber = customerNumber;
     }
 
     /** Return true if this TravelRulePiiIVMS object is equal to o. */
@@ -151,27 +286,51 @@ public class TravelRulePiiIVMS {
             return false;
         }
         TravelRulePiiIVMS travelRulePiiIVMS = (TravelRulePiiIVMS) o;
-        return Objects.equals(this.originatorPersons, travelRulePiiIVMS.originatorPersons)
-                && Objects.equals(this.beneficiaryPersons, travelRulePiiIVMS.beneficiaryPersons)
-                && Objects.equals(this.accountNumber, travelRulePiiIVMS.accountNumber);
+        return Objects.equals(this.fullName, travelRulePiiIVMS.fullName)
+                && Objects.equals(this.dateOfBirth, travelRulePiiIVMS.dateOfBirth)
+                && Objects.equals(this.placeOfBirth, travelRulePiiIVMS.placeOfBirth)
+                && Objects.equals(this.address, travelRulePiiIVMS.address)
+                && Objects.equals(this.identificationNumber, travelRulePiiIVMS.identificationNumber)
+                && Objects.equals(this.nationality, travelRulePiiIVMS.nationality)
+                && Objects.equals(this.countryOfResidence, travelRulePiiIVMS.countryOfResidence)
+                && Objects.equals(
+                        this.taxIdentificationNumber, travelRulePiiIVMS.taxIdentificationNumber)
+                && Objects.equals(this.customerNumber, travelRulePiiIVMS.customerNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(originatorPersons, beneficiaryPersons, accountNumber);
+        return Objects.hash(
+                fullName,
+                dateOfBirth,
+                placeOfBirth,
+                address,
+                identificationNumber,
+                nationality,
+                countryOfResidence,
+                taxIdentificationNumber,
+                customerNumber);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TravelRulePiiIVMS {\n");
-        sb.append("    originatorPersons: ")
-                .append(toIndentedString(originatorPersons))
+        sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
+        sb.append("    dateOfBirth: ").append(toIndentedString(dateOfBirth)).append("\n");
+        sb.append("    placeOfBirth: ").append(toIndentedString(placeOfBirth)).append("\n");
+        sb.append("    address: ").append(toIndentedString(address)).append("\n");
+        sb.append("    identificationNumber: ")
+                .append(toIndentedString(identificationNumber))
                 .append("\n");
-        sb.append("    beneficiaryPersons: ")
-                .append(toIndentedString(beneficiaryPersons))
+        sb.append("    nationality: ").append(toIndentedString(nationality)).append("\n");
+        sb.append("    countryOfResidence: ")
+                .append(toIndentedString(countryOfResidence))
                 .append("\n");
-        sb.append("    accountNumber: ").append(toIndentedString(accountNumber)).append("\n");
+        sb.append("    taxIdentificationNumber: ")
+                .append(toIndentedString(taxIdentificationNumber))
+                .append("\n");
+        sb.append("    customerNumber: ").append(toIndentedString(customerNumber)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -219,67 +378,96 @@ public class TravelRulePiiIVMS {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `originatorPersons` to the URL query string
-        if (getOriginatorPersons() != null) {
-            for (int i = 0; i < getOriginatorPersons().size(); i++) {
-                if (getOriginatorPersons().get(i) != null) {
-                    joiner.add(
-                            getOriginatorPersons()
-                                    .get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%soriginatorPersons%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
-            }
+        // add `fullName` to the URL query string
+        if (getFullName() != null) {
+            joiner.add(
+                    String.format(
+                            "%sfullName%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getFullName()))));
         }
 
-        // add `beneficiaryPersons` to the URL query string
-        if (getBeneficiaryPersons() != null) {
-            for (int i = 0; i < getBeneficiaryPersons().size(); i++) {
-                if (getBeneficiaryPersons().get(i) != null) {
-                    joiner.add(
-                            getBeneficiaryPersons()
-                                    .get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%sbeneficiaryPersons%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
-            }
+        // add `dateOfBirth` to the URL query string
+        if (getDateOfBirth() != null) {
+            joiner.add(
+                    String.format(
+                            "%sdateOfBirth%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getDateOfBirth()))));
         }
 
-        // add `accountNumber` to the URL query string
-        if (getAccountNumber() != null) {
-            for (int i = 0; i < getAccountNumber().size(); i++) {
-                joiner.add(
-                        String.format(
-                                "%saccountNumber%s%s=%s",
-                                prefix,
-                                suffix,
-                                "".equals(suffix)
-                                        ? ""
-                                        : String.format(
-                                                "%s%d%s", containerPrefix, i, containerSuffix),
-                                ApiClient.urlEncode(
-                                        ApiClient.valueToString(getAccountNumber().get(i)))));
-            }
+        // add `placeOfBirth` to the URL query string
+        if (getPlaceOfBirth() != null) {
+            joiner.add(
+                    String.format(
+                            "%splaceOfBirth%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getPlaceOfBirth()))));
+        }
+
+        // add `address` to the URL query string
+        if (getAddress() != null) {
+            joiner.add(
+                    String.format(
+                            "%saddress%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
+        }
+
+        // add `identificationNumber` to the URL query string
+        if (getIdentificationNumber() != null) {
+            joiner.add(
+                    String.format(
+                            "%sidentificationNumber%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getIdentificationNumber()))));
+        }
+
+        // add `nationality` to the URL query string
+        if (getNationality() != null) {
+            joiner.add(
+                    String.format(
+                            "%snationality%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getNationality()))));
+        }
+
+        // add `countryOfResidence` to the URL query string
+        if (getCountryOfResidence() != null) {
+            joiner.add(
+                    String.format(
+                            "%scountryOfResidence%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getCountryOfResidence()))));
+        }
+
+        // add `taxIdentificationNumber` to the URL query string
+        if (getTaxIdentificationNumber() != null) {
+            joiner.add(
+                    String.format(
+                            "%staxIdentificationNumber%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getTaxIdentificationNumber()))));
+        }
+
+        // add `customerNumber` to the URL query string
+        if (getCustomerNumber() != null) {
+            joiner.add(
+                    String.format(
+                            "%scustomerNumber%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getCustomerNumber()))));
         }
 
         return joiner.toString();

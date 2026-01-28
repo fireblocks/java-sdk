@@ -20,15 +20,10 @@ import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** Ownership proof related to the originator of the transaction. */
+/** TravelRuleOwnershipProof */
 @JsonPropertyOrder({
     TravelRuleOwnershipProof.JSON_PROPERTY_TYPE,
-    TravelRuleOwnershipProof.JSON_PROPERTY_PROOF,
-    TravelRuleOwnershipProof.JSON_PROPERTY_ATTESTATION,
-    TravelRuleOwnershipProof.JSON_PROPERTY_ADDRESS,
-    TravelRuleOwnershipProof.JSON_PROPERTY_WALLET_PROVIDER,
-    TravelRuleOwnershipProof.JSON_PROPERTY_URL,
-    TravelRuleOwnershipProof.JSON_PROPERTY_CONFIRMED
+    TravelRuleOwnershipProof.JSON_PROPERTY_PROOF
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -40,21 +35,6 @@ public class TravelRuleOwnershipProof {
     public static final String JSON_PROPERTY_PROOF = "proof";
     @jakarta.annotation.Nullable private String proof;
 
-    public static final String JSON_PROPERTY_ATTESTATION = "attestation";
-    @jakarta.annotation.Nullable private String attestation;
-
-    public static final String JSON_PROPERTY_ADDRESS = "address";
-    @jakarta.annotation.Nullable private String address;
-
-    public static final String JSON_PROPERTY_WALLET_PROVIDER = "wallet_provider";
-    @jakarta.annotation.Nullable private String walletProvider;
-
-    public static final String JSON_PROPERTY_URL = "url";
-    @jakarta.annotation.Nullable private String url;
-
-    public static final String JSON_PROPERTY_CONFIRMED = "confirmed";
-    @jakarta.annotation.Nullable private Boolean confirmed;
-
     public TravelRuleOwnershipProof() {}
 
     public TravelRuleOwnershipProof type(@jakarta.annotation.Nullable String type) {
@@ -63,11 +43,7 @@ public class TravelRuleOwnershipProof {
     }
 
     /**
-     * The type of ownership proof. Example values: - &#x60;eip-191&#x60;: Ethereum signature proof
-     * - &#x60;eip-712&#x60;: Ethereum typed data signature proof - &#x60;bip-137&#x60;: Bitcoin
-     * signature proof - &#x60;microtransfer&#x60;: Microtransaction (Satoshi test) -
-     * &#x60;screenshot&#x60;: Uploaded screenshot of the wallet - &#x60;self-declaration&#x60;:
-     * Checkbox attestation of ownership
+     * Type of ownership proof
      *
      * @return type
      */
@@ -90,9 +66,7 @@ public class TravelRuleOwnershipProof {
     }
 
     /**
-     * The cryptographic signature, transaction hash, or other proof depending on the type.
-     * Examples: - For &#x60;eip-191&#x60;: &#x60;0x3dd4a17a...ce4a2bcd1b&#x60; - For
-     * &#x60;microtransfer&#x60;: The transaction hash &#x60;H3V8GXBy39Dz...tr3TSTkY&#x3D;&#x60;
+     * Identification number
      *
      * @return proof
      */
@@ -109,129 +83,6 @@ public class TravelRuleOwnershipProof {
         this.proof = proof;
     }
 
-    public TravelRuleOwnershipProof attestation(@jakarta.annotation.Nullable String attestation) {
-        this.attestation = attestation;
-        return this;
-    }
-
-    /**
-     * A human-readable statement of wallet ownership. Required for signature proofs and
-     * self-declarations. Examples: - &#x60;I certify that ETH account 0x896B...0b9b belongs to
-     * me.&#x60; - &#x60;I hereby declare that the blockchain address
-     * 0xa437bEed902AF9338B7DEB23848e195d85019510 is under my control.&#x60;
-     *
-     * @return attestation
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ATTESTATION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getAttestation() {
-        return attestation;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ATTESTATION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAttestation(@jakarta.annotation.Nullable String attestation) {
-        this.attestation = attestation;
-    }
-
-    public TravelRuleOwnershipProof address(@jakarta.annotation.Nullable String address) {
-        this.address = address;
-        return this;
-    }
-
-    /**
-     * The wallet address being verified. Examples: - For Ethereum: &#x60;0x896B...0b9b&#x60; - For
-     * Bitcoin: &#x60;1442...dxhsQ&#x60;
-     *
-     * @return address
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getAddress() {
-        return address;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddress(@jakarta.annotation.Nullable String address) {
-        this.address = address;
-    }
-
-    public TravelRuleOwnershipProof walletProvider(
-            @jakarta.annotation.Nullable String walletProvider) {
-        this.walletProvider = walletProvider;
-        return this;
-    }
-
-    /**
-     * The wallet provider or method used for verification. Examples: - For Metamask:
-     * &#x60;Metamask&#x60; - For manual signature: &#x60;manual&#x60;
-     *
-     * @return walletProvider
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_WALLET_PROVIDER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getWalletProvider() {
-        return walletProvider;
-    }
-
-    @JsonProperty(JSON_PROPERTY_WALLET_PROVIDER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setWalletProvider(@jakarta.annotation.Nullable String walletProvider) {
-        this.walletProvider = walletProvider;
-    }
-
-    public TravelRuleOwnershipProof url(@jakarta.annotation.Nullable String url) {
-        this.url = url;
-        return this;
-    }
-
-    /**
-     * The URL for the uploaded screenshot (for &#x60;screenshot&#x60; proof types only). Example:
-     * &#x60;https://example.com/uploaded_image.png&#x60;
-     *
-     * @return url
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_URL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getUrl() {
-        return url;
-    }
-
-    @JsonProperty(JSON_PROPERTY_URL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUrl(@jakarta.annotation.Nullable String url) {
-        this.url = url;
-    }
-
-    public TravelRuleOwnershipProof confirmed(@jakarta.annotation.Nullable Boolean confirmed) {
-        this.confirmed = confirmed;
-        return this;
-    }
-
-    /**
-     * Whether the user confirmed ownership of the wallet (for &#x60;self-declaration&#x60; proofs).
-     * Example: &#x60;true&#x60;
-     *
-     * @return confirmed
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CONFIRMED)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getConfirmed() {
-        return confirmed;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CONFIRMED)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setConfirmed(@jakarta.annotation.Nullable Boolean confirmed) {
-        this.confirmed = confirmed;
-    }
-
     /** Return true if this TravelRuleOwnershipProof object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -243,17 +94,12 @@ public class TravelRuleOwnershipProof {
         }
         TravelRuleOwnershipProof travelRuleOwnershipProof = (TravelRuleOwnershipProof) o;
         return Objects.equals(this.type, travelRuleOwnershipProof.type)
-                && Objects.equals(this.proof, travelRuleOwnershipProof.proof)
-                && Objects.equals(this.attestation, travelRuleOwnershipProof.attestation)
-                && Objects.equals(this.address, travelRuleOwnershipProof.address)
-                && Objects.equals(this.walletProvider, travelRuleOwnershipProof.walletProvider)
-                && Objects.equals(this.url, travelRuleOwnershipProof.url)
-                && Objects.equals(this.confirmed, travelRuleOwnershipProof.confirmed);
+                && Objects.equals(this.proof, travelRuleOwnershipProof.proof);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, proof, attestation, address, walletProvider, url, confirmed);
+        return Objects.hash(type, proof);
     }
 
     @Override
@@ -262,11 +108,6 @@ public class TravelRuleOwnershipProof {
         sb.append("class TravelRuleOwnershipProof {\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    proof: ").append(toIndentedString(proof)).append("\n");
-        sb.append("    attestation: ").append(toIndentedString(attestation)).append("\n");
-        sb.append("    address: ").append(toIndentedString(address)).append("\n");
-        sb.append("    walletProvider: ").append(toIndentedString(walletProvider)).append("\n");
-        sb.append("    url: ").append(toIndentedString(url)).append("\n");
-        sb.append("    confirmed: ").append(toIndentedString(confirmed)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -332,56 +173,6 @@ public class TravelRuleOwnershipProof {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getProof()))));
-        }
-
-        // add `attestation` to the URL query string
-        if (getAttestation() != null) {
-            joiner.add(
-                    String.format(
-                            "%sattestation%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getAttestation()))));
-        }
-
-        // add `address` to the URL query string
-        if (getAddress() != null) {
-            joiner.add(
-                    String.format(
-                            "%saddress%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
-        }
-
-        // add `wallet_provider` to the URL query string
-        if (getWalletProvider() != null) {
-            joiner.add(
-                    String.format(
-                            "%swallet_provider%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getWalletProvider()))));
-        }
-
-        // add `url` to the URL query string
-        if (getUrl() != null) {
-            joiner.add(
-                    String.format(
-                            "%surl%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getUrl()))));
-        }
-
-        // add `confirmed` to the URL query string
-        if (getConfirmed() != null) {
-            joiner.add(
-                    String.format(
-                            "%sconfirmed%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getConfirmed()))));
         }
 
         return joiner.toString();

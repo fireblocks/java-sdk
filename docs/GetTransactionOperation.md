@@ -29,9 +29,5 @@
 
 * `SUPPLY_TO_COMPOUND` (value: `"SUPPLY_TO_COMPOUND"`)
 
-* `PROGRAM_CALL` (value: `"PROGRAM_CALL"`)
-
-* `APPROVE` (value: `"APPROVE"`)
-
 
 

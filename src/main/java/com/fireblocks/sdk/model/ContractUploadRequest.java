@@ -34,8 +34,7 @@ import java.util.StringJoiner;
     ContractUploadRequest.JSON_PROPERTY_TYPE,
     ContractUploadRequest.JSON_PROPERTY_DOCS,
     ContractUploadRequest.JSON_PROPERTY_ABI,
-    ContractUploadRequest.JSON_PROPERTY_ATTRIBUTES,
-    ContractUploadRequest.JSON_PROPERTY_PROTOCOL
+    ContractUploadRequest.JSON_PROPERTY_ATTRIBUTES
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -96,52 +95,16 @@ public class ContractUploadRequest {
     }
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    @jakarta.annotation.Nonnull private TypeEnum type;
+    @jakarta.annotation.Nullable private TypeEnum type;
 
     public static final String JSON_PROPERTY_DOCS = "docs";
     @jakarta.annotation.Nullable private ContractDoc docs;
 
     public static final String JSON_PROPERTY_ABI = "abi";
-    @jakarta.annotation.Nonnull private List<AbiFunction> abi;
+    @jakarta.annotation.Nonnull private List<List<AbiFunction>> abi;
 
     public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
     @jakarta.annotation.Nullable private ContractAttributes attributes;
-
-    /** The protocol that the template will be used for */
-    public enum ProtocolEnum {
-        ETH(String.valueOf("ETH")),
-
-        SOL(String.valueOf("SOL"));
-
-        private String value;
-
-        ProtocolEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static ProtocolEnum fromValue(String value) {
-            for (ProtocolEnum b : ProtocolEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_PROTOCOL = "protocol";
-    @jakarta.annotation.Nullable private ProtocolEnum protocol;
 
     public ContractUploadRequest() {}
 
@@ -150,12 +113,10 @@ public class ContractUploadRequest {
             @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
             @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = true) String description,
             @JsonProperty(value = JSON_PROPERTY_BYTECODE, required = true) String bytecode,
-            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
-            @JsonProperty(value = JSON_PROPERTY_ABI, required = true) List<AbiFunction> abi) {
+            @JsonProperty(value = JSON_PROPERTY_ABI, required = true) List<List<AbiFunction>> abi) {
         this.name = name;
         this.description = description;
         this.bytecode = bytecode;
-        this.type = type;
         this.abi = abi;
     }
 
@@ -275,7 +236,7 @@ public class ContractUploadRequest {
         this.sourcecode = sourcecode;
     }
 
-    public ContractUploadRequest type(@jakarta.annotation.Nonnull TypeEnum type) {
+    public ContractUploadRequest type(@jakarta.annotation.Nullable TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -285,16 +246,16 @@ public class ContractUploadRequest {
      *
      * @return type
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public TypeEnum getType() {
         return type;
     }
 
     @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setType(@jakarta.annotation.Nullable TypeEnum type) {
         this.type = type;
     }
 
@@ -322,12 +283,12 @@ public class ContractUploadRequest {
         this.docs = docs;
     }
 
-    public ContractUploadRequest abi(@jakarta.annotation.Nonnull List<AbiFunction> abi) {
+    public ContractUploadRequest abi(@jakarta.annotation.Nonnull List<List<AbiFunction>> abi) {
         this.abi = abi;
         return this;
     }
 
-    public ContractUploadRequest addAbiItem(AbiFunction abiItem) {
+    public ContractUploadRequest addAbiItem(List<AbiFunction> abiItem) {
         if (this.abi == null) {
             this.abi = new ArrayList<>();
         }
@@ -336,20 +297,20 @@ public class ContractUploadRequest {
     }
 
     /**
-     * The abi of the contract template. Necessary for displaying and for after deployment encoding
+     * Get abi
      *
      * @return abi
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ABI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<AbiFunction> getAbi() {
+    public List<List<AbiFunction>> getAbi() {
         return abi;
     }
 
     @JsonProperty(JSON_PROPERTY_ABI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbi(@jakarta.annotation.Nonnull List<AbiFunction> abi) {
+    public void setAbi(@jakarta.annotation.Nonnull List<List<AbiFunction>> abi) {
         this.abi = abi;
     }
 
@@ -378,29 +339,6 @@ public class ContractUploadRequest {
         this.attributes = attributes;
     }
 
-    public ContractUploadRequest protocol(@jakarta.annotation.Nullable ProtocolEnum protocol) {
-        this.protocol = protocol;
-        return this;
-    }
-
-    /**
-     * The protocol that the template will be used for
-     *
-     * @return protocol
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PROTOCOL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ProtocolEnum getProtocol() {
-        return protocol;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PROTOCOL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setProtocol(@jakarta.annotation.Nullable ProtocolEnum protocol) {
-        this.protocol = protocol;
-    }
-
     /** Return true if this ContractUploadRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -419,8 +357,7 @@ public class ContractUploadRequest {
                 && Objects.equals(this.type, contractUploadRequest.type)
                 && Objects.equals(this.docs, contractUploadRequest.docs)
                 && Objects.equals(this.abi, contractUploadRequest.abi)
-                && Objects.equals(this.attributes, contractUploadRequest.attributes)
-                && Objects.equals(this.protocol, contractUploadRequest.protocol);
+                && Objects.equals(this.attributes, contractUploadRequest.attributes);
     }
 
     @Override
@@ -434,8 +371,7 @@ public class ContractUploadRequest {
                 type,
                 docs,
                 abi,
-                attributes,
-                protocol);
+                attributes);
     }
 
     @Override
@@ -451,7 +387,6 @@ public class ContractUploadRequest {
         sb.append("    docs: ").append(toIndentedString(docs)).append("\n");
         sb.append("    abi: ").append(toIndentedString(abi)).append("\n");
         sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
-        sb.append("    protocol: ").append(toIndentedString(protocol)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -569,19 +504,15 @@ public class ContractUploadRequest {
             for (int i = 0; i < getAbi().size(); i++) {
                 if (getAbi().get(i) != null) {
                     joiner.add(
-                            getAbi().get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%sabi%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
+                            String.format(
+                                    "%sabi%s%s=%s",
+                                    prefix,
+                                    suffix,
+                                    "".equals(suffix)
+                                            ? ""
+                                            : String.format(
+                                                    "%s%d%s", containerPrefix, i, containerSuffix),
+                                    ApiClient.urlEncode(ApiClient.valueToString(getAbi().get(i)))));
                 }
             }
         }
@@ -589,16 +520,6 @@ public class ContractUploadRequest {
         // add `attributes` to the URL query string
         if (getAttributes() != null) {
             joiner.add(getAttributes().toUrlQueryString(prefix + "attributes" + suffix));
-        }
-
-        // add `protocol` to the URL query string
-        if (getProtocol() != null) {
-            joiner.add(
-                    String.format(
-                            "%sprotocol%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getProtocol()))));
         }
 
         return joiner.toString();

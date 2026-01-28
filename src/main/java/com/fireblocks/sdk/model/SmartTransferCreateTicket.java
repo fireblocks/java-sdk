@@ -44,9 +44,7 @@ public class SmartTransferCreateTicket {
 
     /** Gets or Sets type */
     public enum TypeEnum {
-        ASYNC(String.valueOf("ASYNC")),
-
-        DVP(String.valueOf("DVP"));
+        ASYNC(String.valueOf("ASYNC"));
 
         private String value;
 

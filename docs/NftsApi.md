@@ -262,7 +262,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **blockchainDescriptor** | **String**| Blockchain descriptor filter | [optional] [enum: ETH, ETH_TEST3, ETH_TEST5, ETH_TEST6, POLYGON, POLYGON_TEST_MUMBAI, AMOY_POLYGON_TEST, XTZ, XTZ_TEST, BASECHAIN_ETH, BASECHAIN_ETH_TEST3, BASECHAIN_ETH_TEST5, ETHERLINK, ETHERLINK_TEST, MANTLE, MANTLE_TEST, GUN_GUNZILLA, GUN_GUNZILLA_TEST, ETH_SONEIUM, SONEIUM_MINATO_TEST, IOTX_IOTEX, KLAY_KAIA, KLAY_KAIA_TEST, APECHAIN, APECHAIN_TEST] |
+| **blockchainDescriptor** | **String**| Blockchain descriptor filter | [optional] [enum: ETH, ETH_TEST3, ETH_TEST5, ETH_TEST6, POLYGON, POLYGON_TEST_MUMBAI, AMOY_POLYGON_TEST, XTZ, XTZ_TEST, BASECHAIN_ETH] |
 | **vaultAccountIds** | **String**| A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request.  This field will be ignored when walletType&#x3D;END_USER_WALLET or ncwId is provided. | [optional] |
 | **ncwId** | **String**| Tenant&#39;s Non-Custodial Wallet ID | [optional] |
 | **ncwAccountIds** | **String**| A comma separated list of Non-Custodial account IDs. Up to 100 are allowed in a single request. This field will be ignored when walletType&#x3D;VAULT_ACCOUNT or ncwId is not provided. | [optional] |
@@ -493,7 +493,7 @@ No authorization required
 
 ## refreshNFTMetadata
 
-> CompletableFuture<ApiResponse<Void>> refreshNFTMetadata refreshNFTMetadata(id, xEndUserWalletId, idempotencyKey)
+> CompletableFuture<ApiResponse<Void>> refreshNFTMetadata refreshNFTMetadata(id, idempotencyKey)
 
 Refresh token metadata
 
@@ -523,10 +523,9 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         String id = "NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd"; // String | NFT ID
-        UUID xEndUserWalletId = UUID.randomUUID(); // UUID | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = fireblocks.nfts().refreshNFTMetadata(id, xEndUserWalletId, idempotencyKey);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.nfts().refreshNFTMetadata(id, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
@@ -553,7 +552,6 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| NFT ID | |
-| **xEndUserWalletId** | **UUID**| Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | [optional] |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
@@ -637,7 +635,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **blockchainDescriptor** | **String**| Blockchain descriptor filter | [enum: ETH, ETH_TEST5, ETH_TEST6, POLYGON, POLYGON_TEST_MUMBAI, AMOY_POLYGON_TEST, BASECHAIN_ETH, BASECHAIN_ETH_TEST5, ETHERLINK, ETHERLINK_TEST, MANTLE, MANTLE_TEST, GUN_GUNZILLA, GUN_GUNZILLA_TEST, ETH_SONEIUM, SONEIUM_MINATO_TEST, IOTX_IOTEX, KLAY_KAIA, KLAY_KAIA_TEST, APECHAIN, APECHAIN_TEST] |
+| **blockchainDescriptor** | **String**| Blockchain descriptor filter | [enum: ETH, ETH_TEST3, ETH_TEST5, ETH_TEST6, POLYGON, POLYGON_TEST_MUMBAI, AMOY_POLYGON_TEST, BASECHAIN_ETH] |
 | **vaultAccountId** | **String**| Vault account filter | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
@@ -663,7 +661,7 @@ No authorization required
 
 ## updateTokenOwnershipStatus
 
-> CompletableFuture<ApiResponse<Void>> updateTokenOwnershipStatus updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, xEndUserWalletId, idempotencyKey)
+> CompletableFuture<ApiResponse<Void>> updateTokenOwnershipStatus updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, idempotencyKey)
 
 Update token ownership status
 
@@ -694,10 +692,9 @@ public class Example {
 
         UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto = new UpdateTokenOwnershipStatusDto(); // UpdateTokenOwnershipStatusDto | 
         String id = "NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd"; // String | NFT ID
-        UUID xEndUserWalletId = UUID.randomUUID(); // UUID | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = fireblocks.nfts().updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, xEndUserWalletId, idempotencyKey);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.nfts().updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
@@ -725,7 +722,6 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **updateTokenOwnershipStatusDto** | [**UpdateTokenOwnershipStatusDto**](UpdateTokenOwnershipStatusDto.md)|  | |
 | **id** | **String**| NFT ID | |
-| **xEndUserWalletId** | **UUID**| Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | [optional] |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
@@ -750,7 +746,7 @@ No authorization required
 
 ## updateTokensOwnershipSpam
 
-> CompletableFuture<ApiResponse<Void>> updateTokensOwnershipSpam updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload, xEndUserWalletId, idempotencyKey)
+> CompletableFuture<ApiResponse<Void>> updateTokensOwnershipSpam updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload, idempotencyKey)
 
 Update tokens ownership spam property
 
@@ -780,10 +776,9 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         List<TokenOwnershipSpamUpdatePayload> tokenOwnershipSpamUpdatePayload = Arrays.asList(); // List<TokenOwnershipSpamUpdatePayload> | 
-        UUID xEndUserWalletId = UUID.randomUUID(); // UUID | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = fireblocks.nfts().updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload, xEndUserWalletId, idempotencyKey);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.nfts().updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
@@ -810,7 +805,6 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tokenOwnershipSpamUpdatePayload** | [**List&lt;TokenOwnershipSpamUpdatePayload&gt;**](TokenOwnershipSpamUpdatePayload.md)|  | |
-| **xEndUserWalletId** | **UUID**| Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | [optional] |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
@@ -837,7 +831,7 @@ No authorization required
 
 ## updateTokensOwnershipStatus
 
-> CompletableFuture<ApiResponse<Void>> updateTokensOwnershipStatus updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload, xEndUserWalletId, idempotencyKey)
+> CompletableFuture<ApiResponse<Void>> updateTokensOwnershipStatus updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload, idempotencyKey)
 
 Update tokens ownership status
 
@@ -867,10 +861,9 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         List<TokenOwnershipStatusUpdatePayload> tokenOwnershipStatusUpdatePayload = Arrays.asList(); // List<TokenOwnershipStatusUpdatePayload> | 
-        UUID xEndUserWalletId = UUID.randomUUID(); // UUID | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = fireblocks.nfts().updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload, xEndUserWalletId, idempotencyKey);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.nfts().updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
@@ -897,7 +890,6 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tokenOwnershipStatusUpdatePayload** | [**List&lt;TokenOwnershipStatusUpdatePayload&gt;**](TokenOwnershipStatusUpdatePayload.md)|  | |
-| **xEndUserWalletId** | **UUID**| Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | [optional] |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type

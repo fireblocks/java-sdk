@@ -60,16 +60,4 @@ class WriteCallFunctionDtoTest {
     void noteTest() {
         // TODO: test note
     }
-
-    /** Test the property 'useGasless' */
-    @Test
-    void useGaslessTest() {
-        // TODO: test useGasless
-    }
-
-    /** Test the property 'externalId' */
-    @Test
-    void externalIdTest() {
-        // TODO: test externalId
-    }
 }

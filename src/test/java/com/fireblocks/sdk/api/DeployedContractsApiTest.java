@@ -15,11 +15,8 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.model.AddAbiRequestDto;
-import com.fireblocks.sdk.model.ContractWithAbiDto;
 import com.fireblocks.sdk.model.DeployedContractResponseDto;
 import com.fireblocks.sdk.model.DeployedContractsPaginatedResponse;
-import com.fireblocks.sdk.model.FetchAbiRequestDto;
 import java.math.BigDecimal;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
@@ -30,36 +27,6 @@ import org.junit.Test;
 public class DeployedContractsApiTest {
 
     private final DeployedContractsApi api = new DeployedContractsApi();
-
-    /**
-     * Save contract ABI
-     *
-     * <p>Save contract ABI for the tenant
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void addContractABITest() throws ApiException {
-        AddAbiRequestDto addAbiRequestDto = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<ContractWithAbiDto>> response =
-                api.addContractABI(addAbiRequestDto, idempotencyKey);
-    }
-
-    /**
-     * Fetch the contract ABI
-     *
-     * <p>Fetch the ABI. If not found fetch the ABI from the block explorer
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void fetchContractAbiTest() throws ApiException {
-        FetchAbiRequestDto fetchAbiRequestDto = null;
-        String idempotencyKey = null;
-        CompletableFuture<ApiResponse<ContractWithAbiDto>> response =
-                api.fetchContractAbi(fetchAbiRequestDto, idempotencyKey);
-    }
 
     /**
      * Return deployed contract data
@@ -103,10 +70,10 @@ public class DeployedContractsApiTest {
         String pageCursor = null;
         BigDecimal pageSize = null;
         String contractAddress = null;
-        String baseAssetId = null;
-        String contractTemplateId = null;
+        String assetId = null;
+        String templateId = null;
         CompletableFuture<ApiResponse<DeployedContractsPaginatedResponse>> response =
                 api.getDeployedContracts(
-                        pageCursor, pageSize, contractAddress, baseAssetId, contractTemplateId);
+                        pageCursor, pageSize, contractAddress, assetId, templateId);
     }
 }

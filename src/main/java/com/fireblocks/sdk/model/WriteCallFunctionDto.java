@@ -19,6 +19,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.ApiClient;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,9 +31,7 @@ import java.util.StringJoiner;
     WriteCallFunctionDto.JSON_PROPERTY_AMOUNT,
     WriteCallFunctionDto.JSON_PROPERTY_FEE_LEVEL,
     WriteCallFunctionDto.JSON_PROPERTY_FEE,
-    WriteCallFunctionDto.JSON_PROPERTY_NOTE,
-    WriteCallFunctionDto.JSON_PROPERTY_USE_GASLESS,
-    WriteCallFunctionDto.JSON_PROPERTY_EXTERNAL_ID
+    WriteCallFunctionDto.JSON_PROPERTY_NOTE
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -41,7 +41,7 @@ public class WriteCallFunctionDto {
     @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_ABI_FUNCTION = "abiFunction";
-    @jakarta.annotation.Nonnull private WriteCallFunctionDtoAbiFunction abiFunction;
+    @jakarta.annotation.Nonnull private List<WriteAbiFunction> abiFunction;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
     @jakarta.annotation.Nullable private String amount;
@@ -92,12 +92,6 @@ public class WriteCallFunctionDto {
     public static final String JSON_PROPERTY_NOTE = "note";
     @jakarta.annotation.Nullable private String note;
 
-    public static final String JSON_PROPERTY_USE_GASLESS = "useGasless";
-    @jakarta.annotation.Nullable private Boolean useGasless;
-
-    public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
-    @jakarta.annotation.Nullable private String externalId;
-
     public WriteCallFunctionDto() {}
 
     @JsonCreator
@@ -105,7 +99,7 @@ public class WriteCallFunctionDto {
             @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
                     String vaultAccountId,
             @JsonProperty(value = JSON_PROPERTY_ABI_FUNCTION, required = true)
-                    WriteCallFunctionDtoAbiFunction abiFunction) {
+                    List<WriteAbiFunction> abiFunction) {
         this.vaultAccountId = vaultAccountId;
         this.abiFunction = abiFunction;
     }
@@ -134,27 +128,34 @@ public class WriteCallFunctionDto {
     }
 
     public WriteCallFunctionDto abiFunction(
-            @jakarta.annotation.Nonnull WriteCallFunctionDtoAbiFunction abiFunction) {
+            @jakarta.annotation.Nonnull List<WriteAbiFunction> abiFunction) {
         this.abiFunction = abiFunction;
         return this;
     }
 
+    public WriteCallFunctionDto addAbiFunctionItem(WriteAbiFunction abiFunctionItem) {
+        if (this.abiFunction == null) {
+            this.abiFunction = new ArrayList<>();
+        }
+        this.abiFunction.add(abiFunctionItem);
+        return this;
+    }
+
     /**
-     * Get abiFunction
+     * The abi of the read function you wish to call
      *
      * @return abiFunction
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ABI_FUNCTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public WriteCallFunctionDtoAbiFunction getAbiFunction() {
+    public List<WriteAbiFunction> getAbiFunction() {
         return abiFunction;
     }
 
     @JsonProperty(JSON_PROPERTY_ABI_FUNCTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbiFunction(
-            @jakarta.annotation.Nonnull WriteCallFunctionDtoAbiFunction abiFunction) {
+    public void setAbiFunction(@jakarta.annotation.Nonnull List<WriteAbiFunction> abiFunction) {
         this.abiFunction = abiFunction;
     }
 
@@ -252,55 +253,6 @@ public class WriteCallFunctionDto {
         this.note = note;
     }
 
-    public WriteCallFunctionDto useGasless(@jakarta.annotation.Nullable Boolean useGasless) {
-        this.useGasless = useGasless;
-        return this;
-    }
-
-    /**
-     * Indicates whether the token should be created in a gasless manner, utilizing the ERC-2771
-     * standard. When set to true, the transaction will be relayed by a designated relayer. The
-     * workspace must be configured to use Fireblocks gasless relay.
-     *
-     * @return useGasless
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_USE_GASLESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getUseGasless() {
-        return useGasless;
-    }
-
-    @JsonProperty(JSON_PROPERTY_USE_GASLESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUseGasless(@jakarta.annotation.Nullable Boolean useGasless) {
-        this.useGasless = useGasless;
-    }
-
-    public WriteCallFunctionDto externalId(@jakarta.annotation.Nullable String externalId) {
-        this.externalId = externalId;
-        return this;
-    }
-
-    /**
-     * External id that can be used to identify the transaction in your system. The unique
-     * identifier of the transaction outside of Fireblocks with max length of 255 characters
-     *
-     * @return externalId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getExternalId() {
-        return externalId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExternalId(@jakarta.annotation.Nullable String externalId) {
-        this.externalId = externalId;
-    }
-
     /** Return true if this WriteCallFunctionDto object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -316,15 +268,12 @@ public class WriteCallFunctionDto {
                 && Objects.equals(this.amount, writeCallFunctionDto.amount)
                 && Objects.equals(this.feeLevel, writeCallFunctionDto.feeLevel)
                 && Objects.equals(this.fee, writeCallFunctionDto.fee)
-                && Objects.equals(this.note, writeCallFunctionDto.note)
-                && Objects.equals(this.useGasless, writeCallFunctionDto.useGasless)
-                && Objects.equals(this.externalId, writeCallFunctionDto.externalId);
+                && Objects.equals(this.note, writeCallFunctionDto.note);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                vaultAccountId, abiFunction, amount, feeLevel, fee, note, useGasless, externalId);
+        return Objects.hash(vaultAccountId, abiFunction, amount, feeLevel, fee, note);
     }
 
     @Override
@@ -337,8 +286,6 @@ public class WriteCallFunctionDto {
         sb.append("    feeLevel: ").append(toIndentedString(feeLevel)).append("\n");
         sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
         sb.append("    note: ").append(toIndentedString(note)).append("\n");
-        sb.append("    useGasless: ").append(toIndentedString(useGasless)).append("\n");
-        sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -398,7 +345,25 @@ public class WriteCallFunctionDto {
 
         // add `abiFunction` to the URL query string
         if (getAbiFunction() != null) {
-            joiner.add(getAbiFunction().toUrlQueryString(prefix + "abiFunction" + suffix));
+            for (int i = 0; i < getAbiFunction().size(); i++) {
+                if (getAbiFunction().get(i) != null) {
+                    joiner.add(
+                            getAbiFunction()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%sabiFunction%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
         }
 
         // add `amount` to the URL query string
@@ -439,26 +404,6 @@ public class WriteCallFunctionDto {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getNote()))));
-        }
-
-        // add `useGasless` to the URL query string
-        if (getUseGasless() != null) {
-            joiner.add(
-                    String.format(
-                            "%suseGasless%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getUseGasless()))));
-        }
-
-        // add `externalId` to the URL query string
-        if (getExternalId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sexternalId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getExternalId()))));
         }
 
         return joiner.toString();
