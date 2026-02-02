@@ -4,8 +4,8 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createApiUser**](ApiUserApi.md#createApiUser) | **POST** /management/api_users | Create Api user |
-| [**getApiUsers**](ApiUserApi.md#getApiUsers) | **GET** /management/api_users | Get Api users |
+| [**createApiUser**](ApiUserApi.md#createApiUser) | **POST** /management/api_users | Create API Key |
+| [**getApiUsers**](ApiUserApi.md#getApiUsers) | **GET** /management/api_users | Get API Keys |
 
 
 
@@ -13,9 +13,9 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 > CompletableFuture<ApiResponse<Void>> createApiUser createApiUser(createAPIUser, idempotencyKey)
 
-Create Api user
+Create API Key
 
-Creates Api user in your tenant
+Create a new API key in your workspace. Learn more about Fireblocks API Keys management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -101,9 +101,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<GetAPIUsersResponse>> getApiUsers getApiUsers()
 
-Get Api users
+Get API Keys
 
-Get Api users of your tenant
+List all API keys in your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

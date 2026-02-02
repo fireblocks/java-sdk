@@ -7,17 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**TypeEnum**](#TypeEnum) |  |  |
+|**type** | **OneTimeAddressPeerType** |  |  |
 |**address** | **String** |  |  |
 |**tag** | **String** |  |  [optional] |
-
-
-
-## Enum: TypeEnum
-
-| Name | Value |
-|---- | -----|
-| ONE_TIME_ADDRESS | &quot;ONE_TIME_ADDRESS&quot; |
 
 
 

@@ -7,17 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**TypeEnum**](#TypeEnum) | Order type for quote orders |  |
+|**type** | **QuoteTypeEnum** |  |  |
 |**quoteId** | **String** | Quote ID for quote orders |  |
 |**reQuote** | [**ReQuoteDetailsReQuote**](ReQuoteDetailsReQuote.md) |  |  [optional] |
-
-
-
-## Enum: TypeEnum
-
-| Name | Value |
-|---- | -----|
-| QUOTE | &quot;QUOTE&quot; |
 
 
 

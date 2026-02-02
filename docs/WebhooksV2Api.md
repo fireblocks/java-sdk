@@ -4,7 +4,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createWebhook**](WebhooksV2Api.md#createWebhook) | **POST** /webhooks | Create new webhook |
+| [**createWebhook**](WebhooksV2Api.md#createWebhook) | **POST** /webhooks | Create a new webhook |
 | [**deleteWebhook**](WebhooksV2Api.md#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook |
 | [**getMetrics**](WebhooksV2Api.md#getMetrics) | **GET** /webhooks/{webhookId}/metrics/{metricName} | Get webhook metrics |
 | [**getNotification**](WebhooksV2Api.md#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id |
@@ -24,9 +24,9 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 > CompletableFuture<ApiResponse<Webhook>> createWebhook createWebhook(createWebhookRequest, idempotencyKey)
 
-Create new webhook
+Create a new webhook
 
-Creates a new webhook, which will be triggered on the specified events  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+Creates a new webhook, which will be triggered on the specified events  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
 
 ### Example
 
@@ -724,7 +724,7 @@ No authorization required
 
 Get all webhooks
 
-Get all webhooks (paginated) 
+Get all webhooks (paginated). 
 
 ### Example
 

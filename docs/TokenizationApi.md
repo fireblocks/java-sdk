@@ -16,6 +16,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getLinkedCollections**](TokenizationApi.md#getLinkedCollections) | **GET** /tokenization/collections | Get collections |
 | [**getLinkedToken**](TokenizationApi.md#getLinkedToken) | **GET** /tokenization/tokens/{id} | Return a linked token |
 | [**getLinkedTokens**](TokenizationApi.md#getLinkedTokens) | **GET** /tokenization/tokens | List all linked tokens |
+| [**getLinkedTokensCount**](TokenizationApi.md#getLinkedTokensCount) | **GET** /tokenization/tokens/count | Get the total count of linked tokens |
 | [**issueNewToken**](TokenizationApi.md#issueNewToken) | **POST** /tokenization/tokens | Issue a new token |
 | [**issueTokenMultiChain**](TokenizationApi.md#issueTokenMultiChain) | **POST** /tokenization/multichain/tokens | Issue a token on one or more blockchains |
 | [**link**](TokenizationApi.md#link) | **POST** /tokenization/tokens/link | Link a contract |
@@ -123,7 +124,7 @@ No authorization required
 
 Create a new collection
 
-Create a new collection and link it as a token
+Create a new collection and link it as a token. &lt;/br&gt;Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
 
 ### Example
 
@@ -812,7 +813,7 @@ No authorization required
 
 Get collections
 
-Get collections (paginated)
+Get collections (paginated). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1063,13 +1064,92 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getLinkedTokensCount
+
+> CompletableFuture<ApiResponse<LinkedTokensCount>> getLinkedTokensCount getLinkedTokensCount()
+
+Get the total count of linked tokens
+
+Get the total count of linked tokens
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        try {
+            CompletableFuture<ApiResponse<LinkedTokensCount>> response = fireblocks.tokenization().getLinkedTokensCount();
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#getLinkedTokensCount");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#getLinkedTokensCount");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+CompletableFuture<ApiResponse<[**LinkedTokensCount**](LinkedTokensCount.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Count fetched successfully |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## issueNewToken
 
 > CompletableFuture<ApiResponse<TokenLinkDto>> issueNewToken issueNewToken(createTokenRequestDto, idempotencyKey)
 
 Issue a new token
 
-Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \&quot;PENDING\&quot; until the token is deployed or \&quot;SUCCESS\&quot; if no deployment is needed.
+Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \&quot;PENDING\&quot; until the token is deployed or \&quot;SUCCESS\&quot; if no deployment is needed. &lt;/br&gt;Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
 
 ### Example
 

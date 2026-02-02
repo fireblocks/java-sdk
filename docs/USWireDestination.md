@@ -16,7 +16,7 @@
 
 | Name | Value |
 |---- | -----|
-| US_WIRE | &quot;US_WIRE&quot; |
+| WIRE | &quot;WIRE&quot; |
 
 
 

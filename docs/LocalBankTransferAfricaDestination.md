@@ -16,7 +16,7 @@
 
 | Name | Value |
 |---- | -----|
-| LOCAL_BANK_TRANSFER_AFRICA | &quot;LOCAL_BANK_TRANSFER_AFRICA&quot; |
+| LOCAL_BANK_TRANSFER | &quot;LOCAL_BANK_TRANSFER&quot; |
 
 
 

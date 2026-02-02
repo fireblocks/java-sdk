@@ -8,19 +8,13 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**externalReferenceId** | **String** |  |  |
-|**entityType** | [**EntityTypeEnum**](#EntityTypeEnum) |  |  |
+|**entityType** | **PersonalEntityTypeEnum** |  |  |
 |**participantRelationshipType** | **ParticipantRelationshipType** |  |  |
 |**fullName** | [**PersonalIdentificationFullName**](PersonalIdentificationFullName.md) |  |  |
 |**dateOfBirth** | **LocalDate** |  |  |
 |**postalAddress** | [**PostalAddress**](PostalAddress.md) |  |  |
-
-
-
-## Enum: EntityTypeEnum
-
-| Name | Value |
-|---- | -----|
-| INDIVIDUAL | &quot;INDIVIDUAL&quot; |
+|**email** | **String** |  |  [optional] |
+|**phone** | **String** | Mobile phone number in E.164 format |  [optional] |
 
 
 

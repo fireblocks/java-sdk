@@ -12,7 +12,7 @@
 |**validatorName** | **String** | The destination validator address name |  |
 |**providerName** | **String** | The destination validator provider name |  |
 |**chainDescriptor** | **String** | The protocol identifier (e.g. \&quot;ETH\&quot;/ \&quot;SOL\&quot;) to use |  |
-|**amount** | **String** | Amount of tokens to stake, measured in the staked asset unit. |  |
+|**amount** | **String** | Total value of the staking position. For Solana, Lido and Ethereum (compounding validator): includes the original stake plus accumulated rewards. For MATIC, Cosmos and Ethereum (legacy validator): refers to the amount currently staked. |  |
 |**rewardsAmount** | **String** | The amount staked in the position, measured in the staked asset unit. |  |
 |**dateCreated** | **OffsetDateTime** | When was the request made (ISO Date). |  |
 |**dateUpdated** | **OffsetDateTime** | When has the position last changed (ISO Date). |  |
@@ -21,10 +21,10 @@
 |**validatorAddress** | **String** | The destination address of the staking transaction. |  |
 |**providerId** | **StakingProvider** |  |  |
 |**availableActions** | **List&lt;String&gt;** | An array of available actions that can be performed. for example, actions like \&quot;unstake\&quot; or \&quot;withdraw\&quot;. |  |
-|**inProgress** | **Boolean** | Indicates whether there is an ongoing action for this position (true if ongoing, false if not). |  |
-|**inProgressTxId** | **String** | The transaction ID of the ongoing request |  [optional] |
-|**blockchainPositionInfo** | [**SolanaBlockchainData**](SolanaBlockchainData.md) |  |  |
-|**relatedRequests** | [**List&lt;RelatedRequest&gt;**](RelatedRequest.md) | An array of partial unstake requests for this position, relevant only for the Lido provider. Each object includes the status of the unstake request, a boolean indicating whether the action is in progress, the amount of tokens to unstake, and the transaction ID of the request. With Lido, a position may have multiple partial unstake requests in different states. This field is optional and not applicable for other providers. |  [optional] |
+|**inProgress** | **Boolean** | Indicates whether there is an ongoing action for this position related to this request |  |
+|**inProgressTxId** | **String** | The transaction ID of the initial stake position request only. Only present when there is an active initial stake transaction. |  [optional] |
+|**blockchainPositionInfo** | [**DelegationBlockchainPositionInfo**](DelegationBlockchainPositionInfo.md) |  |  |
+|**relatedRequests** | [**List&lt;RelatedRequest&gt;**](RelatedRequest.md) |  |  [optional] |
 
 
 

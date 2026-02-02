@@ -10,6 +10,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getContractTemplateById**](ContractTemplatesApi.md#getContractTemplateById) | **GET** /tokenization/templates/{contractTemplateId} | Return contract template by id |
 | [**getContractTemplates**](ContractTemplatesApi.md#getContractTemplates) | **GET** /tokenization/templates | List all contract templates |
 | [**getFunctionAbiByContractTemplateId**](ContractTemplatesApi.md#getFunctionAbiByContractTemplateId) | **GET** /tokenization/templates/{contractTemplateId}/function | Return contract template&#39;s function |
+| [**getSupportedBlockchainsByTemplateId**](ContractTemplatesApi.md#getSupportedBlockchainsByTemplateId) | **GET** /tokenization/templates/{contractTemplateId}/supported_blockchains | Get supported blockchains for the template |
 | [**uploadContractTemplate**](ContractTemplatesApi.md#uploadContractTemplate) | **POST** /tokenization/templates | Upload contract template |
 
 
@@ -361,7 +362,7 @@ No authorization required
 
 List all contract templates
 
-Return minimal representation of all the contract templates available for the workspace
+Return minimal representation of all the contract templates available for the workspace. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -391,7 +392,7 @@ public class Example {
         String pageCursor = "MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA=="; // String | Page cursor to get the next page
         BigDecimal pageSize = new BigDecimal("10"); // BigDecimal | Number of items per page, requesting more then max will return max items
         String type = "FUNGIBLE_TOKEN"; // String | The type of the contract templates you wish to retrieve. Can accept one type, more or none
-        String initializationPhase = "ON_DEPLOYMENT"; // String | 
+        String initializationPhase = "ON_DEPLOYMENT"; // String | For standalone contracts use ON_DEPLOYMENT and for contracts that are behind proxies use POST_DEPLOYMENT
         try {
             CompletableFuture<ApiResponse<TemplatesPaginatedResponse>> response = fireblocks.contractTemplates().getContractTemplates(limit, offset, pageCursor, pageSize, type, initializationPhase);
             System.out.println("Status code: " + response.get().getStatusCode());
@@ -425,7 +426,7 @@ public class Example {
 | **pageCursor** | **String**| Page cursor to get the next page | [optional] |
 | **pageSize** | **BigDecimal**| Number of items per page, requesting more then max will return max items | [optional] |
 | **type** | **String**| The type of the contract templates you wish to retrieve. Can accept one type, more or none | [optional] [enum: FUNGIBLE_TOKEN, NON_FUNGIBLE_TOKEN, TOKEN_UTILITY] |
-| **initializationPhase** | **String**|  | [optional] [enum: ON_DEPLOYMENT, POST_DEPLOYMENT] |
+| **initializationPhase** | **String**| For standalone contracts use ON_DEPLOYMENT and for contracts that are behind proxies use POST_DEPLOYMENT | [optional] [enum: ON_DEPLOYMENT, POST_DEPLOYMENT] |
 
 ### Return type
 
@@ -530,6 +531,90 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Contract template&#x60;s function ABI was returned successfully |  -  |
+| **404** | Could not find contract. |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getSupportedBlockchainsByTemplateId
+
+> CompletableFuture<ApiResponse<SupportedBlockChainsResponse>> getSupportedBlockchainsByTemplateId getSupportedBlockchainsByTemplateId(contractTemplateId)
+
+Get supported blockchains for the template
+
+Get supported blockchains for the template
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ContractTemplatesApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String contractTemplateId = "b70701f4-d7b1-4795-a8ee-b09cdb5b850d"; // String | The Contract Template identifier
+        try {
+            CompletableFuture<ApiResponse<SupportedBlockChainsResponse>> response = fireblocks.contractTemplates().getSupportedBlockchainsByTemplateId(contractTemplateId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ContractTemplatesApi#getSupportedBlockchainsByTemplateId");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ContractTemplatesApi#getSupportedBlockchainsByTemplateId");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **contractTemplateId** | **String**| The Contract Template identifier | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**SupportedBlockChainsResponse**](SupportedBlockChainsResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Supported blockchains list |  -  |
 | **404** | Could not find contract. |  -  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 

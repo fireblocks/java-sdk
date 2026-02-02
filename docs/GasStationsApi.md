@@ -17,7 +17,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Get gas station settings by asset
 
-Returns gas station settings and balances for a requested asset.
+Returns gas station settings and balances for a requested asset. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -100,7 +100,7 @@ No authorization required
 
 Get gas station settings
 
-Returns gas station settings and ETH balance.
+Returns gas station settings and ETH balance. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -179,7 +179,7 @@ No authorization required
 
 Edit gas station settings
 
-Configures gas station settings for ETH.
+Configures gas station settings for ETH. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -264,7 +264,7 @@ No authorization required
 
 Edit gas station settings for an asset
 
-Configures gas station settings for a requested asset.
+Configures gas station settings for a requested asset. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

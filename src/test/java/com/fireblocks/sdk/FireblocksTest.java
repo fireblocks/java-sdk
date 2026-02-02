@@ -364,14 +364,6 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetAssetsApi() {
-        setupFireblocks(true, null, null);
-        AssetsApi assets = fireblocks.assets();
-        Assert.assertNotNull(assets);
-        Assert.assertSame(assets, fireblocks.assets());
-    }
-
-    @Test
     public void testGetAuditLogsApi() {
         setupFireblocks(true, null, null);
         AuditLogsApi auditLogs = fireblocks.auditLogs();
@@ -510,14 +502,6 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetJobManagementApi() {
-        setupFireblocks(true, null, null);
-        JobManagementApi jobManagement = fireblocks.jobManagement();
-        Assert.assertNotNull(jobManagement);
-        Assert.assertSame(jobManagement, fireblocks.jobManagement());
-    }
-
-    @Test
     public void testGetKeyLinkBetaApi() {
         setupFireblocks(true, null, null);
         KeyLinkBetaApi keyLinkBeta = fireblocks.keyLinkBeta();
@@ -555,6 +539,14 @@ public class FireblocksTest {
         OffExchangesApi offExchanges = fireblocks.offExchanges();
         Assert.assertNotNull(offExchanges);
         Assert.assertSame(offExchanges, fireblocks.offExchanges());
+    }
+
+    @Test
+    public void testGetOnchainDataApi() {
+        setupFireblocks(true, null, null);
+        OnchainDataApi onchainData = fireblocks.onchainData();
+        Assert.assertNotNull(onchainData);
+        Assert.assertSame(onchainData, fireblocks.onchainData());
     }
 
     @Test
@@ -627,6 +619,14 @@ public class FireblocksTest {
         TokenizationApi tokenization = fireblocks.tokenization();
         Assert.assertNotNull(tokenization);
         Assert.assertSame(tokenization, fireblocks.tokenization());
+    }
+
+    @Test
+    public void testGetTrLinkApi() {
+        setupFireblocks(true, null, null);
+        TrLinkApi trLink = fireblocks.trLink();
+        Assert.assertNotNull(trLink);
+        Assert.assertSame(trLink, fireblocks.trLink());
     }
 
     @Test

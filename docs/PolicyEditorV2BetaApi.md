@@ -17,7 +17,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Get the active policy and its validation by policy type
 
-Returns the active policy and its validation for a specific policy type. &lt;/br&gt; **Note:** These endpoints are currently in beta and might be subject to changes. 
+Returns the active policy and its validation for a specific policy type.  **Note:** This endpoint is currently in beta and subject to change. If you want to participate in the Policies beta, contact your Fireblocks Customer Success Manager or send an email to csm@fireblocks.com.  Endpoint Permissions: Owner, Admin, Non-Signing Admin. 
 
 ### Example
 

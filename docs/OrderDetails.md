@@ -14,7 +14,7 @@
 |**updatedAt** | **OffsetDateTime** |  |  [optional] |
 |**receipt** | [**TransferReceipt**](TransferReceipt.md) |  |  [optional] |
 |**generalFees** | [**List&lt;Fee&gt;**](Fee.md) |  |  [optional] |
-|**executionSteps** | [**List&lt;ExecutionStep&gt;**](ExecutionStep.md) |  |  |
+|**executionSteps** | [**List&lt;OrderExecutionStep&gt;**](OrderExecutionStep.md) |  |  |
 |**executionResponseDetails** | [**ExecutionResponseDetails**](ExecutionResponseDetails.md) |  |  |
 |**settlement** | [**Settlement**](Settlement.md) |  |  |
 |**participantsIdentification** | [**ParticipantsIdentification**](ParticipantsIdentification.md) |  |  [optional] |
@@ -23,6 +23,7 @@
 |**customerInternalReferenceId** | **String** | Internal reference ID for the customer |  [optional] |
 |**note** | **String** | Optional note for the Order |  [optional] |
 |**expiresAt** | **OffsetDateTime** |  |  [optional] |
+|**failure** | [**Failure**](Failure.md) |  |  [optional] |
 
 
 

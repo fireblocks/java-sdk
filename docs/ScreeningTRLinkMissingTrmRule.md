@@ -8,7 +8,7 @@ TRLink missing TRM rule definition
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**customerId** | **String** | Reference to TrlinkCustomer.id |  [optional] |
+|**customerId** | **String** | Reference to TRLinkCustomer.id |  [optional] |
 |**direction** | **TravelRuleDirectionEnum** |  |  [optional] |
 |**sourceType** | **TransferPeerTypeEnum** |  |  [optional] |
 |**sourceSubType** | **TransferPeerSubTypeEnum** |  |  [optional] |

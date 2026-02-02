@@ -13,5 +13,13 @@
 
 * `P2P` (value: `"p2p"`)
 
+* `BLOCKDAEMON` (value: `"blockdaemon"`)
+
+* `GALAXY` (value: `"galaxy"`)
+
+* `PIER_TWO` (value: `"pierTwo"`)
+
+* `KRAKEN` (value: `"kraken"`)
+
 
 

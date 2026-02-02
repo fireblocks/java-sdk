@@ -5,6 +5,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**addEmbeddedWalletAsset**](EmbeddedWalletsApi.md#addEmbeddedWalletAsset) | **POST** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId} | Add asset to account |
+| [**assignEmbeddedWallet**](EmbeddedWalletsApi.md#assignEmbeddedWallet) | **POST** /ncw/wallets/{walletId}/assign | Assign a wallet |
 | [**createEmbeddedWallet**](EmbeddedWalletsApi.md#createEmbeddedWallet) | **POST** /ncw/wallets | Create a new wallet |
 | [**createEmbeddedWalletAccount**](EmbeddedWalletsApi.md#createEmbeddedWalletAccount) | **POST** /ncw/wallets/{walletId}/accounts | Create a new account |
 | [**getEmbeddedWallet**](EmbeddedWalletsApi.md#getEmbeddedWallet) | **GET** /ncw/wallets/{walletId} | Get a wallet |
@@ -12,14 +13,19 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getEmbeddedWalletAddresses**](EmbeddedWalletsApi.md#getEmbeddedWalletAddresses) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/addresses | Retrieve asset addresses |
 | [**getEmbeddedWalletAsset**](EmbeddedWalletsApi.md#getEmbeddedWalletAsset) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId} | Retrieve asset |
 | [**getEmbeddedWalletAssetBalance**](EmbeddedWalletsApi.md#getEmbeddedWalletAssetBalance) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/balance | Retrieve asset balance |
+| [**getEmbeddedWalletAssets**](EmbeddedWalletsApi.md#getEmbeddedWalletAssets) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets | Retrieve assets |
 | [**getEmbeddedWalletDevice**](EmbeddedWalletsApi.md#getEmbeddedWalletDevice) | **GET** /ncw/wallets/{walletId}/devices/{deviceId} | Get Embedded Wallet Device |
 | [**getEmbeddedWalletDeviceSetupState**](EmbeddedWalletsApi.md#getEmbeddedWalletDeviceSetupState) | **GET** /ncw/wallets/{walletId}/devices/{deviceId}/setup_status | Get device key setup state |
+| [**getEmbeddedWalletDevicesPaginated**](EmbeddedWalletsApi.md#getEmbeddedWalletDevicesPaginated) | **GET** /ncw/wallets/{walletId}/devices_paginated | Get registered devices - paginated |
 | [**getEmbeddedWalletLatestBackup**](EmbeddedWalletsApi.md#getEmbeddedWalletLatestBackup) | **GET** /ncw/wallets/{walletId}/backup/latest | Get wallet Latest Backup details |
 | [**getEmbeddedWalletPublicKeyInfoForAddress**](EmbeddedWalletsApi.md#getEmbeddedWalletPublicKeyInfoForAddress) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/{change}/{addressIndex}/public_key_info | Get the public key of an asset |
+| [**getEmbeddedWalletSetupStatus**](EmbeddedWalletsApi.md#getEmbeddedWalletSetupStatus) | **GET** /ncw/wallets/{walletId}/setup_status | Get wallet key setup state |
 | [**getEmbeddedWalletSupportedAssets**](EmbeddedWalletsApi.md#getEmbeddedWalletSupportedAssets) | **GET** /ncw/wallets/supported_assets | Retrieve supported assets |
 | [**getEmbeddedWallets**](EmbeddedWalletsApi.md#getEmbeddedWallets) | **GET** /ncw/wallets | List wallets |
 | [**getPublicKeyInfoNcw**](EmbeddedWalletsApi.md#getPublicKeyInfoNcw) | **GET** /ncw/wallets/{walletId}/public_key_info | Get the public key for a derivation path |
 | [**refreshEmbeddedWalletAssetBalance**](EmbeddedWalletsApi.md#refreshEmbeddedWalletAssetBalance) | **PUT** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/balance | Refresh asset balance |
+| [**updateEmbeddedWalletDeviceStatus**](EmbeddedWalletsApi.md#updateEmbeddedWalletDeviceStatus) | **PATCH** /ncw/wallets/{walletId}/devices/{deviceId}/status | Update device status |
+| [**updateEmbeddedWalletStatus**](EmbeddedWalletsApi.md#updateEmbeddedWalletStatus) | **PATCH** /ncw/wallets/{walletId}/status | Update wallet status |
 
 
 
@@ -109,6 +115,91 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Created |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## assignEmbeddedWallet
+
+> CompletableFuture<ApiResponse<EmbeddedWallet>> assignEmbeddedWallet assignEmbeddedWallet(walletId, idempotencyKey)
+
+Assign a wallet
+
+Assign a specific Non Custodial Wallet to a user
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.EmbeddedWalletsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String walletId = "550e8400-e29b-41d4-a716-446655440000"; // String | Wallet Id
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<EmbeddedWallet>> response = fireblocks.embeddedWallets().assignEmbeddedWallet(walletId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling EmbeddedWalletsApi#assignEmbeddedWallet");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling EmbeddedWalletsApi#assignEmbeddedWallet");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **walletId** | **String**| Wallet Id | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**EmbeddedWallet**](EmbeddedWallet.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Wallet Assigned |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -719,6 +810,99 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getEmbeddedWalletAssets
+
+> CompletableFuture<ApiResponse<EmbeddedWalletPaginatedAssetsResponse>> getEmbeddedWalletAssets getEmbeddedWalletAssets(walletId, accountId, sort, pageCursor, pageSize, order)
+
+Retrieve assets
+
+Retrieve assets for a specific account under a specific Non Custodial Wallet
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.EmbeddedWalletsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String walletId = "550e8400-e29b-41d4-a716-446655440000"; // String | Wallet Id
+        String accountId = "0"; // String | The ID of the account
+        List<String> sort = Arrays.asList(); // List<String> | Sort by fields
+        String pageCursor = "pageCursor_example"; // String | Cursor to the next page
+        BigDecimal pageSize = new BigDecimal("200"); // BigDecimal | Amount of results to return in the next page
+        String order = "ASC"; // String | Is the order ascending or descending
+        try {
+            CompletableFuture<ApiResponse<EmbeddedWalletPaginatedAssetsResponse>> response = fireblocks.embeddedWallets().getEmbeddedWalletAssets(walletId, accountId, sort, pageCursor, pageSize, order);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling EmbeddedWalletsApi#getEmbeddedWalletAssets");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling EmbeddedWalletsApi#getEmbeddedWalletAssets");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **walletId** | **String**| Wallet Id | |
+| **accountId** | **String**| The ID of the account | |
+| **sort** | [**List&lt;String&gt;**](String.md)| Sort by fields | [optional] [enum: assetId, createdAt] |
+| **pageCursor** | **String**| Cursor to the next page | [optional] |
+| **pageSize** | **BigDecimal**| Amount of results to return in the next page | [optional] [default to 200] |
+| **order** | **String**| Is the order ascending or descending | [optional] [default to ASC] [enum: ASC, DESC] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**EmbeddedWalletPaginatedAssetsResponse**](EmbeddedWalletPaginatedAssetsResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getEmbeddedWalletDevice
 
 > CompletableFuture<ApiResponse<EmbeddedWalletDevice>> getEmbeddedWalletDevice getEmbeddedWalletDevice(walletId, deviceId)
@@ -886,6 +1070,98 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getEmbeddedWalletDevicesPaginated
+
+> CompletableFuture<ApiResponse<EmbeddedWalletPaginatedDevicesResponse>> getEmbeddedWalletDevicesPaginated getEmbeddedWalletDevicesPaginated(walletId, sort, pageCursor, pageSize, order)
+
+Get registered devices - paginated
+
+Get a paginated list of registered devices for a specific Non Custodial Wallet
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.EmbeddedWalletsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String walletId = "550e8400-e29b-41d4-a716-446655440000"; // String | Wallet Id
+        List<String> sort = Arrays.asList(); // List<String> | Sort by fields
+        String pageCursor = "pageCursor_example"; // String | Cursor to the next page
+        BigDecimal pageSize = new BigDecimal("200"); // BigDecimal | Amount of results to return in the next page
+        String order = "ASC"; // String | Is the order ascending or descending
+        try {
+            CompletableFuture<ApiResponse<EmbeddedWalletPaginatedDevicesResponse>> response = fireblocks.embeddedWallets().getEmbeddedWalletDevicesPaginated(walletId, sort, pageCursor, pageSize, order);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling EmbeddedWalletsApi#getEmbeddedWalletDevicesPaginated");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling EmbeddedWalletsApi#getEmbeddedWalletDevicesPaginated");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **walletId** | **String**| Wallet Id | |
+| **sort** | [**List&lt;String&gt;**](String.md)| Sort by fields | [optional] [enum: createdAt] |
+| **pageCursor** | **String**| Cursor to the next page | [optional] |
+| **pageSize** | **BigDecimal**| Amount of results to return in the next page | [optional] [default to 200] |
+| **order** | **String**| Is the order ascending or descending | [optional] [default to ASC] [enum: ASC, DESC] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**EmbeddedWalletPaginatedDevicesResponse**](EmbeddedWalletPaginatedDevicesResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  * X-Request-ID -  <br>  |
+| **400** | Query parameters were invalid |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -1064,6 +1340,89 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Public Key Information |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getEmbeddedWalletSetupStatus
+
+> CompletableFuture<ApiResponse<EmbeddedWalletSetupStatusResponse>> getEmbeddedWalletSetupStatus getEmbeddedWalletSetupStatus(walletId)
+
+Get wallet key setup state
+
+Get the key setup state for a specific Non Custodial Wallet, including required algorithms and device setup status
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.EmbeddedWalletsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String walletId = "550e8400-e29b-41d4-a716-446655440000"; // String | Wallet Id
+        try {
+            CompletableFuture<ApiResponse<EmbeddedWalletSetupStatusResponse>> response = fireblocks.embeddedWallets().getEmbeddedWalletSetupStatus(walletId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling EmbeddedWalletsApi#getEmbeddedWalletSetupStatus");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling EmbeddedWalletsApi#getEmbeddedWalletSetupStatus");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **walletId** | **String**| Wallet Id | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**EmbeddedWalletSetupStatusResponse**](EmbeddedWalletSetupStatusResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -1422,5 +1781,179 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## updateEmbeddedWalletDeviceStatus
+
+> CompletableFuture<ApiResponse<Void>> updateEmbeddedWalletDeviceStatus updateEmbeddedWalletDeviceStatus(enableDevice, walletId, deviceId, idempotencyKey)
+
+Update device status
+
+Update the enabled/disabled status of a specific device for a Non Custodial Wallet
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.EmbeddedWalletsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        EnableDevice enableDevice = new EnableDevice(); // EnableDevice | 
+        String walletId = "550e8400-e29b-41d4-a716-446655440000"; // String | Wallet Id
+        String deviceId = "9ee1bff0-6dba-4f0c-9b75-03fe90e66fa3"; // String | Device Id
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.embeddedWallets().updateEmbeddedWalletDeviceStatus(enableDevice, walletId, deviceId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling EmbeddedWalletsApi#updateEmbeddedWalletDeviceStatus");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling EmbeddedWalletsApi#updateEmbeddedWalletDeviceStatus");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **enableDevice** | [**EnableDevice**](EnableDevice.md)|  | |
+| **walletId** | **String**| Wallet Id | |
+| **deviceId** | **String**| Device Id | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+
+CompletableFuture<ApiResponse<Void>>
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content - Device status updated successfully |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## updateEmbeddedWalletStatus
+
+> CompletableFuture<ApiResponse<Void>> updateEmbeddedWalletStatus updateEmbeddedWalletStatus(enableWallet, walletId, idempotencyKey)
+
+Update wallet status
+
+Update the enabled/disabled status of a specific Non Custodial Wallet
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.EmbeddedWalletsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        EnableWallet enableWallet = new EnableWallet(); // EnableWallet | 
+        String walletId = "550e8400-e29b-41d4-a716-446655440000"; // String | Wallet Id
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.embeddedWallets().updateEmbeddedWalletStatus(enableWallet, walletId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling EmbeddedWalletsApi#updateEmbeddedWalletStatus");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling EmbeddedWalletsApi#updateEmbeddedWalletStatus");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **enableWallet** | [**EnableWallet**](EnableWallet.md)|  | |
+| **walletId** | **String**| Wallet Id | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+
+CompletableFuture<ApiResponse<Void>>
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content - Wallet status updated successfully |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
