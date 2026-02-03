@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** |  |  |
 |**via** | [**AccessType**](AccessType.md) |  |  |
-|**side** | [**SideEnum**](#SideEnum) | Side of the order |  |
+|**side** | **Side** |  |  |
 |**baseAmount** | **String** |  |  |
 |**quoteAmount** | **String** |  |  [optional] |
 |**baseAssetId** | **String** |  |  |
@@ -18,15 +18,6 @@
 |**destination** | [**AccountReference**](AccountReference.md) |  |  |
 |**source** | [**SettlementSourceAccount**](SettlementSourceAccount.md) |  |  [optional] |
 |**createdAt** | **OffsetDateTime** |  |  |
-
-
-
-## Enum: SideEnum
-
-| Name | Value |
-|---- | -----|
-| BUY | &quot;BUY&quot; |
-| SELL | &quot;SELL&quot; |
 
 
 

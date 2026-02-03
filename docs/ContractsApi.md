@@ -4,13 +4,13 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**addContractAsset**](ContractsApi.md#addContractAsset) | **POST** /contracts/{contractId}/{assetId} | Add an asset to a contract |
-| [**createContract**](ContractsApi.md#createContract) | **POST** /contracts | Create a contract |
+| [**addContractAsset**](ContractsApi.md#addContractAsset) | **POST** /contracts/{contractId}/{assetId} | Add an asset to a whitelisted contract |
+| [**createContract**](ContractsApi.md#createContract) | **POST** /contracts | Add a contract |
 | [**deleteContract**](ContractsApi.md#deleteContract) | **DELETE** /contracts/{contractId} | Delete a contract |
-| [**deleteContractAsset**](ContractsApi.md#deleteContractAsset) | **DELETE** /contracts/{contractId}/{assetId} | Delete a contract asset |
-| [**getContract**](ContractsApi.md#getContract) | **GET** /contracts/{contractId} | Find a specific contract |
-| [**getContractAsset**](ContractsApi.md#getContractAsset) | **GET** /contracts/{contractId}/{assetId} | Find a contract asset |
-| [**getContracts**](ContractsApi.md#getContracts) | **GET** /contracts | List contracts |
+| [**deleteContractAsset**](ContractsApi.md#deleteContractAsset) | **DELETE** /contracts/{contractId}/{assetId} | Delete an asset from a whitelisted contract |
+| [**getContract**](ContractsApi.md#getContract) | **GET** /contracts/{contractId} | Find a Specific Whitelisted Contract |
+| [**getContractAsset**](ContractsApi.md#getContractAsset) | **GET** /contracts/{contractId}/{assetId} | Find a whitelisted contract&#39;s asset |
+| [**getContracts**](ContractsApi.md#getContracts) | **GET** /contracts | List Whitelisted Contracts |
 
 
 
@@ -18,9 +18,9 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 > CompletableFuture<ApiResponse<ExternalWalletAsset>> addContractAsset addContractAsset(contractId, assetId, addContractAssetRequest, idempotencyKey)
 
-Add an asset to a contract
+Add an asset to a whitelisted contract
 
-Adds an asset to an existing contract.
+Adds an asset to a whitelisted contract. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -107,9 +107,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<UnmanagedWallet>> createContract createContract(createContractRequest, idempotencyKey)
 
-Create a contract
+Add a contract
 
-Creates a new contract.
+Adds a contract to the workspace whitelist. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -194,7 +194,7 @@ No authorization required
 
 Delete a contract
 
-Deletes a contract by ID.
+Deletes a contract by ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -274,9 +274,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<Void>> deleteContractAsset deleteContractAsset(contractId, assetId)
 
-Delete a contract asset
+Delete an asset from a whitelisted contract
 
-Deletes a contract asset by ID.
+Deletes a whitelisted contract asset by ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -358,9 +358,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<UnmanagedWallet>> getContract getContract(contractId)
 
-Find a specific contract
+Find a Specific Whitelisted Contract
 
-Returns a contract by ID.
+Returns a whitelisted contract by Fireblocks Contract ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -441,9 +441,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<ExternalWalletAsset>> getContractAsset getContractAsset(contractId, assetId)
 
-Find a contract asset
+Find a whitelisted contract&#39;s asset
 
-Returns a contract asset by ID.
+Returns a whitelisted contract&#39;s asset by ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -526,9 +526,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<List<UnmanagedWallet>>> getContracts getContracts()
 
-List contracts
+List Whitelisted Contracts
 
-Gets a list of contracts.
+Gets a list of whitelisted contracts. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 

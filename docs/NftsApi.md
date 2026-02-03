@@ -582,7 +582,7 @@ No authorization required
 
 Refresh vault account tokens
 
-Updates all tokens and balances per blockchain and vault account. 
+Updates all tokens and balances per blockchain and vault account. Learn more about Fireblocks NFT management in the following [guide](https://developers.fireblocks.com/reference/deploy-an-nft-collection).  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

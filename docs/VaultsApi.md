@@ -5,32 +5,31 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**activateAssetForVaultAccount**](VaultsApi.md#activateAssetForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/activate | Activate a wallet in a vault account |
-| [**attachOrDetachTagsFromVaultAccounts**](VaultsApi.md#attachOrDetachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags | Attach or detach tags from a vault accounts |
-| [**attachTagsToVaultAccounts**](VaultsApi.md#attachTagsToVaultAccounts) | **POST** /vault/accounts/attached_tags/attach | Attach tags to a vault accounts (deprecated) |
+| [**attachOrDetachTagsFromVaultAccounts**](VaultsApi.md#attachOrDetachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags | Attach or detach tags from vault accounts |
 | [**createLegacyAddress**](VaultsApi.md#createLegacyAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy | Convert a segwit address to legacy format |
 | [**createMultipleAccounts**](VaultsApi.md#createMultipleAccounts) | **POST** /vault/accounts/bulk | Bulk creation of new vault accounts |
 | [**createMultipleDepositAddresses**](VaultsApi.md#createMultipleDepositAddresses) | **POST** /vault/accounts/addresses/bulk | Bulk creation of new deposit addresses |
 | [**createVaultAccount**](VaultsApi.md#createVaultAccount) | **POST** /vault/accounts | Create a new vault account |
-| [**createVaultAccountAsset**](VaultsApi.md#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new wallet |
+| [**createVaultAccountAsset**](VaultsApi.md#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new vault wallet |
 | [**createVaultAccountAssetAddress**](VaultsApi.md#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address |
-| [**detachTagsFromVaultAccounts**](VaultsApi.md#detachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags/detach | Detach tags from a vault accounts (deprecated) |
-| [**getAssetWallets**](VaultsApi.md#getAssetWallets) | **GET** /vault/asset_wallets | List asset wallets (Paginated) |
-| [**getCreateMultipleDepositAddressesJobStatus**](VaultsApi.md#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get job status of bulk creation of new deposit addresses |
+| [**getAssetWallets**](VaultsApi.md#getAssetWallets) | **GET** /vault/asset_wallets | Get vault wallets (Paginated) |
+| [**getCreateMultipleDepositAddressesJobStatus**](VaultsApi.md#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get the job status of the bulk deposit address creation |
 | [**getCreateMultipleVaultAccountsJobStatus**](VaultsApi.md#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts |
-| [**getMaxSpendableAmount**](VaultsApi.md#getMaxSpendableAmount) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount | Get the maximum spendable amount in a single transaction. |
-| [**getPagedVaultAccounts**](VaultsApi.md#getPagedVaultAccounts) | **GET** /vault/accounts_paged | List vault accounts (Paginated) |
-| [**getPublicKeyInfo**](VaultsApi.md#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key information |
-| [**getPublicKeyInfoForAddress**](VaultsApi.md#getPublicKeyInfoForAddress) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/{change}/{addressIndex}/public_key_info | Get the public key for a vault account |
+| [**getMaxBipIndexUsed**](VaultsApi.md#getMaxBipIndexUsed) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_bip_index_used | Get maximum BIP44 index used |
+| [**getMaxSpendableAmount**](VaultsApi.md#getMaxSpendableAmount) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount | Get max spendable amount in a transaction |
+| [**getPagedVaultAccounts**](VaultsApi.md#getPagedVaultAccounts) | **GET** /vault/accounts_paged | Get vault accounts (Paginated) |
+| [**getPublicKeyInfo**](VaultsApi.md#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key for a derivation path |
+| [**getPublicKeyInfoForAddress**](VaultsApi.md#getPublicKeyInfoForAddress) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/{change}/{addressIndex}/public_key_info | Get an asset&#39;s public key |
 | [**getUnspentInputs**](VaultsApi.md#getUnspentInputs) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs | Get UTXO unspent inputs information |
-| [**getVaultAccount**](VaultsApi.md#getVaultAccount) | **GET** /vault/accounts/{vaultAccountId} | Find a vault account by ID |
+| [**getVaultAccount**](VaultsApi.md#getVaultAccount) | **GET** /vault/accounts/{vaultAccountId} | Get a vault account by ID |
 | [**getVaultAccountAsset**](VaultsApi.md#getVaultAccountAsset) | **GET** /vault/accounts/{vaultAccountId}/{assetId} | Get the asset balance for a vault account |
-| [**getVaultAccountAssetAddressesPaginated**](VaultsApi.md#getVaultAccountAssetAddressesPaginated) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated | List addresses (Paginated) |
+| [**getVaultAccountAssetAddressesPaginated**](VaultsApi.md#getVaultAccountAssetAddressesPaginated) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated | Get addresses (Paginated) |
 | [**getVaultAssets**](VaultsApi.md#getVaultAssets) | **GET** /vault/assets | Get asset balance for chosen assets |
-| [**getVaultBalanceByAsset**](VaultsApi.md#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by asset |
+| [**getVaultBalanceByAsset**](VaultsApi.md#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by an asset |
 | [**hideVaultAccount**](VaultsApi.md#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console |
 | [**setCustomerRefIdForAddress**](VaultsApi.md#setCustomerRefIdForAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id | Assign AML customer reference ID |
-| [**setVaultAccountAutoFuel**](VaultsApi.md#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Turn autofueling on or off |
-| [**setVaultAccountCustomerRefId**](VaultsApi.md#setVaultAccountCustomerRefId) | **POST** /vault/accounts/{vaultAccountId}/set_customer_ref_id | Set an AML/KYT customer reference ID for a vault account |
+| [**setVaultAccountAutoFuel**](VaultsApi.md#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Set auto fueling to on or off |
+| [**setVaultAccountCustomerRefId**](VaultsApi.md#setVaultAccountCustomerRefId) | **POST** /vault/accounts/{vaultAccountId}/set_customer_ref_id | Set an AML/KYT ID for a vault account |
 | [**unhideVaultAccount**](VaultsApi.md#unhideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/unhide | Unhide a vault account in the console |
 | [**updateVaultAccount**](VaultsApi.md#updateVaultAccount) | **PUT** /vault/accounts/{vaultAccountId} | Rename a vault account |
 | [**updateVaultAccountAssetAddress**](VaultsApi.md#updateVaultAccountAssetAddress) | **PUT** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId} | Update address description |
@@ -44,7 +43,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Activate a wallet in a vault account
 
-Initiates activation for a wallet in a vault account.
+Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -129,9 +128,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<VaultAccountsTagAttachmentOperationsResponse>> attachOrDetachTagsFromVaultAccounts attachOrDetachTagsFromVaultAccounts(vaultAccountsTagAttachmentOperationsRequest, idempotencyKey)
 
-Attach or detach tags from a vault accounts
+Attach or detach tags from vault accounts
 
-Attach or detach one or more tags from the requested vault accounts.
+Attach or detach one or more tags from the requested vault accounts. Endpoint Permission: For protected tags: Owner, Admin, Non-Signing Admin. For non protected tags: Owner, Admin, Non-Signing Admin, Signer, Editor, Approver.
 
 ### Example
 
@@ -211,96 +210,13 @@ No authorization required
 | **404** | - Tags with the requested ID not found. - Vault accounts with the requested ID not found.  |  * X-Request-ID -  <br>  |
 
 
-## attachTagsToVaultAccounts
-
-> CompletableFuture<ApiResponse<Void>> attachTagsToVaultAccounts attachTagsToVaultAccounts(vaultAccountsTagAttachmentsRequest, idempotencyKey)
-
-Attach tags to a vault accounts (deprecated)
-
-Attach one or more tags to the requested vault accounts. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.VaultsApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        VaultAccountsTagAttachmentsRequest vaultAccountsTagAttachmentsRequest = new VaultAccountsTagAttachmentsRequest(); // VaultAccountsTagAttachmentsRequest | 
-        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-        try {
-            CompletableFuture<ApiResponse<Void>> response = fireblocks.vaults().attachTagsToVaultAccounts(vaultAccountsTagAttachmentsRequest, idempotencyKey);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling VaultsApi#attachTagsToVaultAccounts");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling VaultsApi#attachTagsToVaultAccounts");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **vaultAccountsTagAttachmentsRequest** | [**VaultAccountsTagAttachmentsRequest**](VaultAccountsTagAttachmentsRequest.md)|  | |
-| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
-
-### Return type
-
-
-CompletableFuture<ApiResponse<Void>>
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **204** | Tags were attached successfully |  -  |
-
-
 ## createLegacyAddress
 
 > CompletableFuture<ApiResponse<CreateAddressResponse>> createLegacyAddress createLegacyAddress(vaultAccountId, assetId, addressId, idempotencyKey)
 
 Convert a segwit address to legacy format
 
-Converts an existing segwit address to the legacy format.
+Converts an existing segwit address to the legacy format. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -389,7 +305,7 @@ No authorization required
 
 Bulk creation of new vault accounts
 
-Create multiple vault accounts by running an async job. &lt;/br&gt; **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor. 
+Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - Limited to a maximum of 10,000 accounts per operation.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
 
 ### Example
 
@@ -474,7 +390,7 @@ No authorization required
 
 Bulk creation of new deposit addresses
 
-Create multiple deposit address by running an async job. &lt;/br&gt; **Note**: - We limit accounts to 10k per operation. Endpoint Permission: Admin, Non-Signing Admin. 
+**For UTXO blockchains only.**  Create multiple deposit addresses by running an async job. - The target Vault account should already have a UTXO asset wallet with a permanent address. - Limited to a maximum of 10,000 addresses per operation. Use multiple operations for the same Vault account/permanent address if needed.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
 
 ### Example
 
@@ -559,7 +475,7 @@ No authorization required
 
 Create a new vault account
 
-Creates a new vault account with the requested name.
+Creates a new vault account with the requested name. **Note: ** Vault account names should consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -642,9 +558,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<CreateVaultAssetResponse>> createVaultAccountAsset createVaultAccountAsset(vaultAccountId, assetId, createAssetsRequest, idempotencyKey)
 
-Create a new wallet
+Create a new vault wallet
 
-Creates a wallet for a specific asset in a vault account.
+Creates a wallet for a specific asset in a vault account. Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -733,7 +649,7 @@ No authorization required
 
 Create new asset deposit address
 
-Creates a new deposit address for an asset of a vault account.
+Creates a new deposit address for an asset of a vault account. Should be used for UTXO or Tag/Memo based assets ONLY.  Requests with account based assets will fail.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -816,96 +732,13 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## detachTagsFromVaultAccounts
-
-> CompletableFuture<ApiResponse<Void>> detachTagsFromVaultAccounts detachTagsFromVaultAccounts(vaultAccountsTagAttachmentsRequest, idempotencyKey)
-
-Detach tags from a vault accounts (deprecated)
-
-Detach one or more tags from the requested vault account. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.VaultsApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        VaultAccountsTagAttachmentsRequest vaultAccountsTagAttachmentsRequest = new VaultAccountsTagAttachmentsRequest(); // VaultAccountsTagAttachmentsRequest | 
-        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-        try {
-            CompletableFuture<ApiResponse<Void>> response = fireblocks.vaults().detachTagsFromVaultAccounts(vaultAccountsTagAttachmentsRequest, idempotencyKey);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling VaultsApi#detachTagsFromVaultAccounts");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling VaultsApi#detachTagsFromVaultAccounts");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **vaultAccountsTagAttachmentsRequest** | [**VaultAccountsTagAttachmentsRequest**](VaultAccountsTagAttachmentsRequest.md)|  | |
-| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
-
-### Return type
-
-
-CompletableFuture<ApiResponse<Void>>
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **204** | Tags were detached successfully |  -  |
-
-
 ## getAssetWallets
 
 > CompletableFuture<ApiResponse<PaginatedAssetWalletResponse>> getAssetWallets getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit)
 
-List asset wallets (Paginated)
+Get vault wallets (Paginated)
 
-Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is an asset at a vault account. This method allows fast traversal of all account balances. 
+Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -930,12 +763,12 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        BigDecimal totalAmountLargerThan = new BigDecimal(78); // BigDecimal | When specified, only asset wallets with total balance larger than this amount are returned.
-        String assetId = "assetId_example"; // String | When specified, only asset wallets cross vault accounts that have this asset ID are returned.
+        BigDecimal totalAmountLargerThan = new BigDecimal(78); // BigDecimal | When specified, only vault wallets with total balance greater than this amount are returned.
+        String assetId = "assetId_example"; // String | When specified, only vault wallets with the specified ID are returned.
         String orderBy = "ASC"; // String | 
-        String before = "before_example"; // String | Fetches the next paginated response before this element. This element is a cursor and is returned at the response of the previous page.
+        String before = "before_example"; // String | Fetches the next paginated response before this element.  This element is a cursor and is returned at the response of the previous page. 
         String after = "after_example"; // String | Fetches the next paginated response after this element. This element is a cursor and is returned at the response of the previous page.
-        BigDecimal limit = new BigDecimal("200"); // BigDecimal | The maximum number of asset wallets in a single response. The default is 200 and the maximum is 1000.
+        BigDecimal limit = new BigDecimal("200"); // BigDecimal | The maximum number of vault wallets in a single response.   The default is 200 and the maximum is 1000. 
         try {
             CompletableFuture<ApiResponse<PaginatedAssetWalletResponse>> response = fireblocks.vaults().getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit);
             System.out.println("Status code: " + response.get().getStatusCode());
@@ -964,12 +797,12 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **totalAmountLargerThan** | **BigDecimal**| When specified, only asset wallets with total balance larger than this amount are returned. | [optional] |
-| **assetId** | **String**| When specified, only asset wallets cross vault accounts that have this asset ID are returned. | [optional] |
+| **totalAmountLargerThan** | **BigDecimal**| When specified, only vault wallets with total balance greater than this amount are returned. | [optional] |
+| **assetId** | **String**| When specified, only vault wallets with the specified ID are returned. | [optional] |
 | **orderBy** | **String**|  | [optional] [default to DESC] [enum: ASC, DESC] |
-| **before** | **String**| Fetches the next paginated response before this element. This element is a cursor and is returned at the response of the previous page. | [optional] |
+| **before** | **String**| Fetches the next paginated response before this element.  This element is a cursor and is returned at the response of the previous page.  | [optional] |
 | **after** | **String**| Fetches the next paginated response after this element. This element is a cursor and is returned at the response of the previous page. | [optional] |
-| **limit** | **BigDecimal**| The maximum number of asset wallets in a single response. The default is 200 and the maximum is 1000. | [optional] [default to 200] |
+| **limit** | **BigDecimal**| The maximum number of vault wallets in a single response.   The default is 200 and the maximum is 1000.  | [optional] [default to 200] |
 
 ### Return type
 
@@ -995,9 +828,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<CreateMultipleDepositAddressesJobStatus>> getCreateMultipleDepositAddressesJobStatus getCreateMultipleDepositAddressesJobStatus(jobId)
 
-Get job status of bulk creation of new deposit addresses
+Get the job status of the bulk deposit address creation
 
-Returns the status of bulk creation of new deposit addresses job and the result or error Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
+Returns the current status of (or an error for) the specified deposit addresss bulk creation job.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer. 
 
 ### Example
 
@@ -1080,7 +913,7 @@ No authorization required
 
 Get job status of bulk creation of new vault accounts
 
-Returns the status of bulk creation of new vault accounts job and the result or error Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
+Returns the current status of (or error for) the specified vault account bulk creation job.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
 
 ### Example
 
@@ -1157,13 +990,98 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getMaxBipIndexUsed
+
+> CompletableFuture<ApiResponse<GetMaxBipIndexUsedResponse>> getMaxBipIndexUsed getMaxBipIndexUsed(vaultAccountId, assetId)
+
+Get maximum BIP44 index used
+
+Retrieves the maximum BIP44 address index and change address index used for a specific asset in a vault account (BIP44 standard).
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.VaultsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
+        String assetId = "assetId_example"; // String | The ID of the asset
+        try {
+            CompletableFuture<ApiResponse<GetMaxBipIndexUsedResponse>> response = fireblocks.vaults().getMaxBipIndexUsed(vaultAccountId, assetId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling VaultsApi#getMaxBipIndexUsed");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VaultsApi#getMaxBipIndexUsed");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **vaultAccountId** | **String**| The ID of the vault account | |
+| **assetId** | **String**| The ID of the asset | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**GetMaxBipIndexUsedResponse**](GetMaxBipIndexUsedResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getMaxSpendableAmount
 
 > CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> getMaxSpendableAmount getMaxSpendableAmount(vaultAccountId, assetId, manualSignging)
 
-Get the maximum spendable amount in a single transaction.
+Get max spendable amount in a transaction
 
-Get the maximum amount of a particular asset that can be spent in a single transaction from a specified vault account (UTXO assets only, with a limitation on number of inputs embedded). Send several transactions if you want to spend more than the maximum spendable amount.
+**UTXO assets only.**  Retrieve the maximum amount of the specified asset that can be spent in a single transaction from the specified vault account.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
 
 ### Example
 
@@ -1246,11 +1164,11 @@ No authorization required
 
 ## getPagedVaultAccounts
 
-> CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> getPagedVaultAccounts getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit, tagIds)
+> CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> getPagedVaultAccounts getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit, tagIds, includeTagIds, excludeTagIds)
 
-List vault accounts (Paginated)
+Get vault accounts (Paginated)
 
-Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time.
+Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1277,15 +1195,17 @@ public class Example {
 
         String namePrefix = "namePrefix_example"; // String | 
         String nameSuffix = "nameSuffix_example"; // String | 
-        BigDecimal minAmountThreshold = new BigDecimal(78); // BigDecimal | Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts.
+        BigDecimal minAmountThreshold = new BigDecimal("10"); // BigDecimal | Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts. The amount set in this parameter is the native asset amount and not its USD value.
         String assetId = "assetId_example"; // String | 
         String orderBy = "ASC"; // String | 
         String before = "before_example"; // String | 
         String after = "after_example"; // String | 
         BigDecimal limit = new BigDecimal("200"); // BigDecimal | 
-        List<UUID> tagIds = Arrays.asList(); // List<UUID> | List of tag IDs to filter vault accounts.
+        List<UUID> tagIds = Arrays.asList(); // List<UUID> | DEPRECATED - use includeTagIds instead
+        List<UUID> includeTagIds = Arrays.asList(); // List<UUID> | List of tag IDs to include. Vault accounts with any of these tags will be included
+        List<UUID> excludeTagIds = Arrays.asList(); // List<UUID> | List of tag IDs to exclude. Vault accounts with any of these tags will be filtered out
         try {
-            CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> response = fireblocks.vaults().getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit, tagIds);
+            CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> response = fireblocks.vaults().getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit, tagIds, includeTagIds, excludeTagIds);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1314,13 +1234,15 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **namePrefix** | **String**|  | [optional] |
 | **nameSuffix** | **String**|  | [optional] |
-| **minAmountThreshold** | **BigDecimal**| Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts. | [optional] |
+| **minAmountThreshold** | **BigDecimal**| Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts. The amount set in this parameter is the native asset amount and not its USD value. | [optional] |
 | **assetId** | **String**|  | [optional] |
 | **orderBy** | **String**|  | [optional] [default to DESC] [enum: ASC, DESC] |
 | **before** | **String**|  | [optional] |
 | **after** | **String**|  | [optional] |
 | **limit** | **BigDecimal**|  | [optional] [default to 200] |
-| **tagIds** | [**List&lt;UUID&gt;**](UUID.md)| List of tag IDs to filter vault accounts. | [optional] |
+| **tagIds** | [**List&lt;UUID&gt;**](UUID.md)| DEPRECATED - use includeTagIds instead | [optional] |
+| **includeTagIds** | [**List&lt;UUID&gt;**](UUID.md)| List of tag IDs to include. Vault accounts with any of these tags will be included | [optional] |
+| **excludeTagIds** | [**List&lt;UUID&gt;**](UUID.md)| List of tag IDs to exclude. Vault accounts with any of these tags will be filtered out | [optional] |
 
 ### Return type
 
@@ -1346,9 +1268,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<PublicKeyInformation>> getPublicKeyInfo getPublicKeyInfo(derivationPath, algorithm, compressed)
 
-Get the public key information
+Get the public key for a derivation path
 
-Gets the public key information based on derivation path and signing algorithm.
+Gets the public key information based on derivation path and signing algorithm. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -1433,9 +1355,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<PublicKeyInformation>> getPublicKeyInfoForAddress getPublicKeyInfoForAddress(vaultAccountId, assetId, change, addressIndex, compressed)
 
-Get the public key for a vault account
+Get an asset&#39;s public key
 
-Gets the public key information for the vault account.
+Get the public key information for a specific asset in a vault account. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -1526,7 +1448,7 @@ No authorization required
 
 Get UTXO unspent inputs information
 
-Returns unspent inputs information of an asset in a vault account.
+Returns unspent inputs information of an UTXO asset in a vault account.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1609,9 +1531,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<VaultAccount>> getVaultAccount getVaultAccount(vaultAccountId)
 
-Find a vault account by ID
+Get a vault account by ID
 
-Returns the requested vault account.
+Get a vault account by its unique ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1636,7 +1558,7 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account to return type: string
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
         try {
             CompletableFuture<ApiResponse<VaultAccount>> response = fireblocks.vaults().getVaultAccount(vaultAccountId);
             System.out.println("Status code: " + response.get().getStatusCode());
@@ -1665,7 +1587,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **vaultAccountId** | **String**| The ID of the vault account to return type: string | |
+| **vaultAccountId** | **String**| The ID of the vault account | |
 
 ### Return type
 
@@ -1694,7 +1616,7 @@ No authorization required
 
 Get the asset balance for a vault account
 
-Returns a wallet for a specific asset of a vault account.
+Returns a specific vault wallet balance information for a specific asset.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,   Viewer.
 
 ### Example
 
@@ -1777,9 +1699,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<PaginatedAddressResponse>> getVaultAccountAssetAddressesPaginated getVaultAccountAssetAddressesPaginated(vaultAccountId, assetId, limit, before, after)
 
-List addresses (Paginated)
+Get addresses (Paginated)
 
-Returns a paginated response of the addresses for a given vault account and asset.
+Returns a paginated response of the addresses for a given vault account and asset. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1870,7 +1792,7 @@ No authorization required
 
 Get asset balance for chosen assets
 
-Gets the assets amount summary for all accounts or filtered accounts.
+Gets the assets amount summary for all accounts or filtered accounts.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1953,9 +1875,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<VaultAsset>> getVaultBalanceByAsset getVaultBalanceByAsset(assetId)
 
-Get vault balance by asset
+Get vault balance by an asset
 
-Gets the vault balance summary for an asset.
+Get the total balance of an asset across all the vault accounts.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -2038,7 +1960,7 @@ No authorization required
 
 Hide a vault account in the console
 
-Hides the requested vault account from the web console view.
+Hides the requested vault account from the web console view. This operation is required when creating thousands of vault accounts to serve your end-users. Used for preventing the web console to be swamped with too much vault accounts. Learn more in the following [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts). NOTE: Hiding the vault account from the web console will also hide all the related transactions to/from this vault. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -2123,7 +2045,7 @@ No authorization required
 
 Assign AML customer reference ID
 
-Sets an AML/KYT customer reference ID for a specific address.
+Sets an AML/KYT customer reference ID for a specific address. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -2212,9 +2134,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<VaultActionStatus>> setVaultAccountAutoFuel setVaultAccountAutoFuel(setAutoFuelRequest, vaultAccountId, idempotencyKey)
 
-Turn autofueling on or off
+Set auto fueling to on or off
 
-Sets the autofueling property of the vault account to enabled or disabled.
+Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with &#39;autoFuel&#x3D;true&#39; are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -2299,9 +2221,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<VaultActionStatus>> setVaultAccountCustomerRefId setVaultAccountCustomerRefId(setCustomerRefIdRequest, vaultAccountId, idempotencyKey)
 
-Set an AML/KYT customer reference ID for a vault account
+Set an AML/KYT ID for a vault account
 
-Assigns an AML/KYT customer reference ID for the vault account.
+Assigns an AML/KYT customer reference ID for the vault account. Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -2388,7 +2310,7 @@ No authorization required
 
 Unhide a vault account in the console
 
-Makes a hidden vault account visible in web console view.
+Makes a hidden vault account visible in web console view. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -2473,7 +2395,7 @@ No authorization required
 
 Rename a vault account
 
-Renames the requested vault account.
+Renames the requested vault account. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 
@@ -2560,7 +2482,7 @@ No authorization required
 
 Update address description
 
-Updates the description of an existing address of an asset in a vault account.
+Updates the description of an existing address of an asset in a vault account. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -2651,7 +2573,7 @@ No authorization required
 
 Refresh asset balance data
 
-Updates the balance of a specific asset in a vault account.
+Updates the balance of a specific asset in a vault account.  This API endpoint is subject to a strict rate limit. Should be used by clients in very specific scenarios.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

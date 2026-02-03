@@ -38,6 +38,7 @@
 |**authorizationInfo** | [**AuthorizationInfo**](AuthorizationInfo.md) |  |  [optional] |
 |**exchangeTxId** | **String** | If the transaction originated from an exchange, this is the ID of this transaction at the exchange. |  [optional] |
 |**customerRefId** | **String** | The ID for AML providers to associate the owner of funds with transactions. |  [optional] |
+|**travelRuleMessageId** | **String** | The ID of the travel rule message from any travel rule provider. Used for  travel rule linking functionality to associate transactions with existing  travel rule messages. |  [optional] |
 |**amlScreeningResult** | [**AmlScreeningResult**](AmlScreeningResult.md) |  |  [optional] |
 |**complianceResults** | [**ComplianceResults**](ComplianceResults.md) |  |  [optional] |
 |**notBroadcastByFireblocks** | **Boolean** | Indicates the transaction was not broadcast by Fireblocks |  [optional] |
@@ -52,7 +53,7 @@
 |**index** | **BigDecimal** | For UTXO based assets this is the vOut, for Ethereum based, this is the index of the event of the contract call.  **Note:** This field is not returned if a transaction uses the &#x60;destinations&#x60; object with more than one value. |  [optional] |
 |**rewardInfo** | [**RewardInfo**](RewardInfo.md) |  |  [optional] |
 |**feePayerInfo** | [**FeePayerInfo**](FeePayerInfo.md) |  |  [optional] |
-|**systemMessages** | [**SystemMessageInfo**](SystemMessageInfo.md) |  |  [optional] |
+|**systemMessages** | [**List&lt;SystemMessageInfo&gt;**](SystemMessageInfo.md) |  |  [optional] |
 |**addressType** | [**AddressTypeEnum**](#AddressTypeEnum) |  |  [optional] |
 |**requestedAmount** | **BigDecimal** | The amount requested by the user. Deprecated - please use the &#x60;amountInfo&#x60; field for accuracy. |  [optional] |
 |**amount** | **BigDecimal** | If the transfer is a withdrawal from an exchange, the actual amount that was requested to be transferred. Otherwise, the requested amount. Deprecated - please use the &#x60;amountInfo&#x60; field for accuracy. |  [optional] |

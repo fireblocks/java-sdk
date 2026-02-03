@@ -15,5 +15,7 @@
 
 * `SFT` (value: `"SFT"`)
 
+* `VIRTUAL` (value: `"VIRTUAL"`)
+
 
 

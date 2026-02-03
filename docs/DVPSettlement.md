@@ -8,17 +8,9 @@ Source/Destination accounts for the quote (must have for defi quotes)
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**TypeEnum**](#TypeEnum) |  |  |
+|**type** | **DVPSettlementType** |  |  |
 |**sourceAccount** | [**SettlementSourceAccount**](SettlementSourceAccount.md) |  |  |
 |**destinationAccount** | [**AccountReference**](AccountReference.md) |  |  |
-
-
-
-## Enum: TypeEnum
-
-| Name | Value |
-|---- | -----|
-| DVP | &quot;DVP&quot; |
 
 
 

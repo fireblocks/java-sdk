@@ -5,8 +5,8 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**getAsset**](BlockchainsAssetsApi.md#getAsset) | **GET** /assets/{id} | Get an asset |
-| [**getBlockchain**](BlockchainsAssetsApi.md#getBlockchain) | **GET** /blockchains/{id} | Get an blockchain |
-| [**getSupportedAssets**](BlockchainsAssetsApi.md#getSupportedAssets) | **GET** /supported_assets | List all asset types supported by Fireblocks - legacy endpoint |
+| [**getBlockchain**](BlockchainsAssetsApi.md#getBlockchain) | **GET** /blockchains/{id} | Get a Blockchain by ID |
+| [**getSupportedAssets**](BlockchainsAssetsApi.md#getSupportedAssets) | **GET** /supported_assets | List assets (Legacy) |
 | [**listAssets**](BlockchainsAssetsApi.md#listAssets) | **GET** /assets | List assets |
 | [**listBlockchains**](BlockchainsAssetsApi.md#listBlockchains) | **GET** /blockchains | List blockchains |
 | [**registerNewAsset**](BlockchainsAssetsApi.md#registerNewAsset) | **POST** /assets | Register an asset |
@@ -106,9 +106,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<BlockchainResponse>> getBlockchain getBlockchain(id)
 
-Get an blockchain
+Get a Blockchain by ID
 
-Returns an blockchain by ID or legacyID. 
+Returns a blockchain by ID or legacyID. 
 
 ### Example
 
@@ -191,9 +191,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<List<AssetTypeResponse>>> getSupportedAssets getSupportedAssets()
 
-List all asset types supported by Fireblocks - legacy endpoint
+List assets (Legacy)
 
-Legacy Endpoint – Retrieves all assets supported by Fireblocks in your workspace without extended information.&lt;/br&gt; **Note**:    - This endpoint will remain available for the foreseeable future and is not deprecated.&lt;/br&gt;   - The &#x60;listAssets&#x60; endpoint provides more detailed asset information and improved performance.&lt;/br&gt;   - We recommend transitioning to the &#x60;listAssets&#x60; endpoint for better results. 
+**This legacy endpoint has not been deprecated but it should not be used in your operations. Instead, use the new [List assets](https://developers.fireblocks.com/reference/listassets) endpoint for better performance and to retrieve more detailed asset information.**  Retrieves all assets supported by Fireblocks in your workspace.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
 
 ### Example
 
@@ -272,7 +272,7 @@ No authorization required
 
 List assets
 
-Retrieves all assets supported by Fireblocks in your workspace, providing extended information and enhanced performance compared to the legacy &#x60;supported_assets&#x60; endpoint.&lt;/br&gt; **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice.&lt;/br&gt; 
+Retrieves a paginated list of all assets supported by Fireblocks in your workspace  **Note:** We will continue to support and display the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
 
 ### Example
 
@@ -335,7 +335,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **blockchainId** | **String**| Blockchain id of the assets | [optional] |
-| **assetClass** | [**AssetClass**](.md)| Assets class | [optional] [enum: NATIVE, FT, FIAT, NFT, SFT] |
+| **assetClass** | [**AssetClass**](.md)| Assets class | [optional] [enum: NATIVE, FT, FIAT, NFT, SFT, VIRTUAL] |
 | **symbol** | **String**| Assets onchain symbol | [optional] |
 | **scope** | [**AssetScope**](.md)| Scope of the assets | [optional] [enum: GLOBAL, LOCAL] |
 | **deprecated** | **Boolean**| Are assets deprecated | [optional] |
@@ -372,7 +372,7 @@ No authorization required
 
 List blockchains
 
-Returns all blockchains supported by Fireblocks. 
+Returns all blockchains supported by Fireblocks.&lt;/br&gt; 
 
 ### Example
 
@@ -466,7 +466,7 @@ No authorization required
 
 Register an asset
 
-Register a new asset to a workspace and return the newly created asset&#39;s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR - Solana - Sui 
+Register a new asset to a workspace and return the newly created asset&#39;s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR - Solana - Sui - TON 
 
 ### Example
 

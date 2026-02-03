@@ -18,7 +18,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Create user group
 
-Create a new user group.&lt;/br&gt;  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+Create a new user group. Users with the Viewer role cannot be added to groups. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -268,7 +268,7 @@ No authorization required
 
 List user groups
 
-Get all user groups in your workspace. &lt;/br&gt;  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+Get all user groups in your workspace  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

@@ -5,6 +5,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**decodeContractData**](ContractInteractionsApi.md#decodeContractData) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/decode | Decode a function call data, error, or event log |
+| [**getContractAddress**](ContractInteractionsApi.md#getContractAddress) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/tx_hash/{txHash} | Get contract address by transaction hash |
 | [**getDeployedContractAbi**](ContractInteractionsApi.md#getDeployedContractAbi) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions | Return deployed contract&#39;s ABI |
 | [**getTransactionReceipt**](ContractInteractionsApi.md#getTransactionReceipt) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/tx_hash/{txHash}/receipt | Get transaction receipt |
 | [**readCallFunction**](ContractInteractionsApi.md#readCallFunction) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/read | Call a read function on a deployed contract |
@@ -102,13 +103,100 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getContractAddress
+
+> CompletableFuture<ApiResponse<ContractAddressResponse>> getContractAddress getContractAddress(baseAssetId, txHash, idempotencyKey)
+
+Get contract address by transaction hash
+
+Retrieve the contract address by blockchain native asset ID and transaction hash
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ContractInteractionsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String baseAssetId = "ETH_TEST3"; // String | The blockchain base assetId
+        String txHash = "0x3b015ca0518c55d7bff4e3f5aa5d0431705771553ba8a95cf20e34cb597f57f6"; // String | The transaction hash
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<ContractAddressResponse>> response = fireblocks.contractInteractions().getContractAddress(baseAssetId, txHash, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ContractInteractionsApi#getContractAddress");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ContractInteractionsApi#getContractAddress");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **baseAssetId** | **String**| The blockchain base assetId | |
+| **txHash** | **String**| The transaction hash | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**ContractAddressResponse**](ContractAddressResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Retrieved The Contract Address Successfully |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getDeployedContractAbi
 
 > CompletableFuture<ApiResponse<ContractAbiResponseDto>> getDeployedContractAbi getDeployedContractAbi(contractAddress, baseAssetId, idempotencyKey)
 
 Return deployed contract&#39;s ABI
 
-Return deployed contract&#39;s ABI by blockchain native asset id and contract address
+Return deployed contract&#39;s ABI by blockchain native asset id and contract address. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
 
 ### Example
 
@@ -134,7 +222,7 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         String contractAddress = "0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66"; // String | The contract's onchain address
-        String baseAssetId = "baseAssetId_example"; // String | 
+        String baseAssetId = "ETH"; // String | The blockchain base assetId
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
             CompletableFuture<ApiResponse<ContractAbiResponseDto>> response = fireblocks.contractInteractions().getDeployedContractAbi(contractAddress, baseAssetId, idempotencyKey);
@@ -165,7 +253,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **contractAddress** | **String**| The contract&#39;s onchain address | |
-| **baseAssetId** | **String**|  | |
+| **baseAssetId** | **String**| The blockchain base assetId | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
@@ -195,7 +283,7 @@ No authorization required
 
 Get transaction receipt
 
-Retrieve the transaction receipt by blockchain native asset ID and transaction hash
+Retrieve the transaction receipt by blockchain native asset ID and transaction hash &gt; **Note** &gt; This functionality is exclusively available for EVM (Ethereum Virtual Machine) compatible chains.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
 
 ### Example
 

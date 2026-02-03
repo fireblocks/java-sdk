@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>13.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:13.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-13.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -141,13 +141,12 @@ All URIs are relative to *https://api.fireblocks.io/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ApiUserApi* | [**createApiUser**](docs/ApiUserApi.md#createApiUser) | **POST** /management/api_users | Create Api user
-*ApiUserApi* | [**getApiUsers**](docs/ApiUserApi.md#getApiUsers) | **GET** /management/api_users | Get Api users
-*AssetsApi* | [**createAssetsBulk**](docs/AssetsApi.md#createAssetsBulk) | **POST** /vault/assets/bulk | Bulk creation of wallets
+*ApiUserApi* | [**createApiUser**](docs/ApiUserApi.md#createApiUser) | **POST** /management/api_users | Create API Key
+*ApiUserApi* | [**getApiUsers**](docs/ApiUserApi.md#getApiUsers) | **GET** /management/api_users | Get API Keys
 *AuditLogsApi* | [**getAuditLogs**](docs/AuditLogsApi.md#getAuditLogs) | **GET** /management/audit_logs | Get audit logs
 *BlockchainsAssetsApi* | [**getAsset**](docs/BlockchainsAssetsApi.md#getAsset) | **GET** /assets/{id} | Get an asset
-*BlockchainsAssetsApi* | [**getBlockchain**](docs/BlockchainsAssetsApi.md#getBlockchain) | **GET** /blockchains/{id} | Get an blockchain
-*BlockchainsAssetsApi* | [**getSupportedAssets**](docs/BlockchainsAssetsApi.md#getSupportedAssets) | **GET** /supported_assets | List all asset types supported by Fireblocks - legacy endpoint
+*BlockchainsAssetsApi* | [**getBlockchain**](docs/BlockchainsAssetsApi.md#getBlockchain) | **GET** /blockchains/{id} | Get a Blockchain by ID
+*BlockchainsAssetsApi* | [**getSupportedAssets**](docs/BlockchainsAssetsApi.md#getSupportedAssets) | **GET** /supported_assets | List assets (Legacy)
 *BlockchainsAssetsApi* | [**listAssets**](docs/BlockchainsAssetsApi.md#listAssets) | **GET** /assets | List assets
 *BlockchainsAssetsApi* | [**listBlockchains**](docs/BlockchainsAssetsApi.md#listBlockchains) | **GET** /blockchains | List blockchains
 *BlockchainsAssetsApi* | [**registerNewAsset**](docs/BlockchainsAssetsApi.md#registerNewAsset) | **POST** /assets | Register an asset
@@ -165,14 +164,17 @@ Class | Method | HTTP request | Description
 *ComplianceApi* | [**updateTravelRuleConfig**](docs/ComplianceApi.md#updateTravelRuleConfig) | **PUT** /screening/travel_rule/policy_configuration | Update Travel Rule Configuration
 *ComplianceScreeningConfigurationApi* | [**getAmlScreeningConfiguration**](docs/ComplianceScreeningConfigurationApi.md#getAmlScreeningConfiguration) | **GET** /screening/aml/policy_configuration | Get AML Screening Policy Configuration
 *ComplianceScreeningConfigurationApi* | [**getScreeningConfiguration**](docs/ComplianceScreeningConfigurationApi.md#getScreeningConfiguration) | **GET** /screening/travel_rule/policy_configuration | Get Travel Rule Screening Policy Configuration
+*ConnectedAccountsBetaApi* | [**disconnectConnectedAccount**](docs/ConnectedAccountsBetaApi.md#disconnectConnectedAccount) | **DELETE** /connected_accounts/{accountId} | Disconnect connected account
 *ConnectedAccountsBetaApi* | [**getConnectedAccount**](docs/ConnectedAccountsBetaApi.md#getConnectedAccount) | **GET** /connected_accounts/{accountId} | Get connected account
 *ConnectedAccountsBetaApi* | [**getConnectedAccountBalances**](docs/ConnectedAccountsBetaApi.md#getConnectedAccountBalances) | **GET** /connected_accounts/{accountId}/balances | Get balances for an account
 *ConnectedAccountsBetaApi* | [**getConnectedAccountRates**](docs/ConnectedAccountsBetaApi.md#getConnectedAccountRates) | **GET** /connected_accounts/{accountId}/rates | Get exchange rates for an account
 *ConnectedAccountsBetaApi* | [**getConnectedAccountTradingPairs**](docs/ConnectedAccountsBetaApi.md#getConnectedAccountTradingPairs) | **GET** /connected_accounts/{accountId}/manifest/capabilities/trading/pairs | Get supported trading pairs for an account
 *ConnectedAccountsBetaApi* | [**getConnectedAccounts**](docs/ConnectedAccountsBetaApi.md#getConnectedAccounts) | **GET** /connected_accounts | Get connected accounts
+*ConnectedAccountsBetaApi* | [**renameConnectedAccount**](docs/ConnectedAccountsBetaApi.md#renameConnectedAccount) | **POST** /connected_accounts/{accountId}/rename | Rename Connected Account
 *ConsoleUserApi* | [**createConsoleUser**](docs/ConsoleUserApi.md#createConsoleUser) | **POST** /management/users | Create console user
 *ConsoleUserApi* | [**getConsoleUsers**](docs/ConsoleUserApi.md#getConsoleUsers) | **GET** /management/users | Get console users
 *ContractInteractionsApi* | [**decodeContractData**](docs/ContractInteractionsApi.md#decodeContractData) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/decode | Decode a function call data, error, or event log
+*ContractInteractionsApi* | [**getContractAddress**](docs/ContractInteractionsApi.md#getContractAddress) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/tx_hash/{txHash} | Get contract address by transaction hash
 *ContractInteractionsApi* | [**getDeployedContractAbi**](docs/ContractInteractionsApi.md#getDeployedContractAbi) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions | Return deployed contract&#39;s ABI
 *ContractInteractionsApi* | [**getTransactionReceipt**](docs/ContractInteractionsApi.md#getTransactionReceipt) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/tx_hash/{txHash}/receipt | Get transaction receipt
 *ContractInteractionsApi* | [**readCallFunction**](docs/ContractInteractionsApi.md#readCallFunction) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/read | Call a read function on a deployed contract
@@ -183,14 +185,15 @@ Class | Method | HTTP request | Description
 *ContractTemplatesApi* | [**getContractTemplateById**](docs/ContractTemplatesApi.md#getContractTemplateById) | **GET** /tokenization/templates/{contractTemplateId} | Return contract template by id
 *ContractTemplatesApi* | [**getContractTemplates**](docs/ContractTemplatesApi.md#getContractTemplates) | **GET** /tokenization/templates | List all contract templates
 *ContractTemplatesApi* | [**getFunctionAbiByContractTemplateId**](docs/ContractTemplatesApi.md#getFunctionAbiByContractTemplateId) | **GET** /tokenization/templates/{contractTemplateId}/function | Return contract template&#39;s function
+*ContractTemplatesApi* | [**getSupportedBlockchainsByTemplateId**](docs/ContractTemplatesApi.md#getSupportedBlockchainsByTemplateId) | **GET** /tokenization/templates/{contractTemplateId}/supported_blockchains | Get supported blockchains for the template
 *ContractTemplatesApi* | [**uploadContractTemplate**](docs/ContractTemplatesApi.md#uploadContractTemplate) | **POST** /tokenization/templates | Upload contract template
-*ContractsApi* | [**addContractAsset**](docs/ContractsApi.md#addContractAsset) | **POST** /contracts/{contractId}/{assetId} | Add an asset to a contract
-*ContractsApi* | [**createContract**](docs/ContractsApi.md#createContract) | **POST** /contracts | Create a contract
+*ContractsApi* | [**addContractAsset**](docs/ContractsApi.md#addContractAsset) | **POST** /contracts/{contractId}/{assetId} | Add an asset to a whitelisted contract
+*ContractsApi* | [**createContract**](docs/ContractsApi.md#createContract) | **POST** /contracts | Add a contract
 *ContractsApi* | [**deleteContract**](docs/ContractsApi.md#deleteContract) | **DELETE** /contracts/{contractId} | Delete a contract
-*ContractsApi* | [**deleteContractAsset**](docs/ContractsApi.md#deleteContractAsset) | **DELETE** /contracts/{contractId}/{assetId} | Delete a contract asset
-*ContractsApi* | [**getContract**](docs/ContractsApi.md#getContract) | **GET** /contracts/{contractId} | Find a specific contract
-*ContractsApi* | [**getContractAsset**](docs/ContractsApi.md#getContractAsset) | **GET** /contracts/{contractId}/{assetId} | Find a contract asset
-*ContractsApi* | [**getContracts**](docs/ContractsApi.md#getContracts) | **GET** /contracts | List contracts
+*ContractsApi* | [**deleteContractAsset**](docs/ContractsApi.md#deleteContractAsset) | **DELETE** /contracts/{contractId}/{assetId} | Delete an asset from a whitelisted contract
+*ContractsApi* | [**getContract**](docs/ContractsApi.md#getContract) | **GET** /contracts/{contractId} | Find a Specific Whitelisted Contract
+*ContractsApi* | [**getContractAsset**](docs/ContractsApi.md#getContractAsset) | **GET** /contracts/{contractId}/{assetId} | Find a whitelisted contract&#39;s asset
+*ContractsApi* | [**getContracts**](docs/ContractsApi.md#getContracts) | **GET** /contracts | List Whitelisted Contracts
 *CosignersBetaApi* | [**addCosigner**](docs/CosignersBetaApi.md#addCosigner) | **POST** /cosigners | Add cosigner
 *CosignersBetaApi* | [**getApiKey**](docs/CosignersBetaApi.md#getApiKey) | **GET** /cosigners/{cosignerId}/api_keys/{apiKeyId} | Get API key
 *CosignersBetaApi* | [**getApiKeys**](docs/CosignersBetaApi.md#getApiKeys) | **GET** /cosigners/{cosignerId}/api_keys | Get all API keys
@@ -207,6 +210,7 @@ Class | Method | HTTP request | Description
 *DeployedContractsApi* | [**getDeployedContractById**](docs/DeployedContractsApi.md#getDeployedContractById) | **GET** /tokenization/contracts/{id} | Return deployed contract data by id
 *DeployedContractsApi* | [**getDeployedContracts**](docs/DeployedContractsApi.md#getDeployedContracts) | **GET** /tokenization/contracts | List deployed contracts data
 *EmbeddedWalletsApi* | [**addEmbeddedWalletAsset**](docs/EmbeddedWalletsApi.md#addEmbeddedWalletAsset) | **POST** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId} | Add asset to account
+*EmbeddedWalletsApi* | [**assignEmbeddedWallet**](docs/EmbeddedWalletsApi.md#assignEmbeddedWallet) | **POST** /ncw/wallets/{walletId}/assign | Assign a wallet
 *EmbeddedWalletsApi* | [**createEmbeddedWallet**](docs/EmbeddedWalletsApi.md#createEmbeddedWallet) | **POST** /ncw/wallets | Create a new wallet
 *EmbeddedWalletsApi* | [**createEmbeddedWalletAccount**](docs/EmbeddedWalletsApi.md#createEmbeddedWalletAccount) | **POST** /ncw/wallets/{walletId}/accounts | Create a new account
 *EmbeddedWalletsApi* | [**getEmbeddedWallet**](docs/EmbeddedWalletsApi.md#getEmbeddedWallet) | **GET** /ncw/wallets/{walletId} | Get a wallet
@@ -214,20 +218,25 @@ Class | Method | HTTP request | Description
 *EmbeddedWalletsApi* | [**getEmbeddedWalletAddresses**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletAddresses) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/addresses | Retrieve asset addresses
 *EmbeddedWalletsApi* | [**getEmbeddedWalletAsset**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletAsset) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId} | Retrieve asset
 *EmbeddedWalletsApi* | [**getEmbeddedWalletAssetBalance**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletAssetBalance) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/balance | Retrieve asset balance
+*EmbeddedWalletsApi* | [**getEmbeddedWalletAssets**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletAssets) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets | Retrieve assets
 *EmbeddedWalletsApi* | [**getEmbeddedWalletDevice**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletDevice) | **GET** /ncw/wallets/{walletId}/devices/{deviceId} | Get Embedded Wallet Device
 *EmbeddedWalletsApi* | [**getEmbeddedWalletDeviceSetupState**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletDeviceSetupState) | **GET** /ncw/wallets/{walletId}/devices/{deviceId}/setup_status | Get device key setup state
+*EmbeddedWalletsApi* | [**getEmbeddedWalletDevicesPaginated**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletDevicesPaginated) | **GET** /ncw/wallets/{walletId}/devices_paginated | Get registered devices - paginated
 *EmbeddedWalletsApi* | [**getEmbeddedWalletLatestBackup**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletLatestBackup) | **GET** /ncw/wallets/{walletId}/backup/latest | Get wallet Latest Backup details
 *EmbeddedWalletsApi* | [**getEmbeddedWalletPublicKeyInfoForAddress**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletPublicKeyInfoForAddress) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/{change}/{addressIndex}/public_key_info | Get the public key of an asset
+*EmbeddedWalletsApi* | [**getEmbeddedWalletSetupStatus**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletSetupStatus) | **GET** /ncw/wallets/{walletId}/setup_status | Get wallet key setup state
 *EmbeddedWalletsApi* | [**getEmbeddedWalletSupportedAssets**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletSupportedAssets) | **GET** /ncw/wallets/supported_assets | Retrieve supported assets
 *EmbeddedWalletsApi* | [**getEmbeddedWallets**](docs/EmbeddedWalletsApi.md#getEmbeddedWallets) | **GET** /ncw/wallets | List wallets
 *EmbeddedWalletsApi* | [**getPublicKeyInfoNcw**](docs/EmbeddedWalletsApi.md#getPublicKeyInfoNcw) | **GET** /ncw/wallets/{walletId}/public_key_info | Get the public key for a derivation path
 *EmbeddedWalletsApi* | [**refreshEmbeddedWalletAssetBalance**](docs/EmbeddedWalletsApi.md#refreshEmbeddedWalletAssetBalance) | **PUT** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/balance | Refresh asset balance
+*EmbeddedWalletsApi* | [**updateEmbeddedWalletDeviceStatus**](docs/EmbeddedWalletsApi.md#updateEmbeddedWalletDeviceStatus) | **PATCH** /ncw/wallets/{walletId}/devices/{deviceId}/status | Update device status
+*EmbeddedWalletsApi* | [**updateEmbeddedWalletStatus**](docs/EmbeddedWalletsApi.md#updateEmbeddedWalletStatus) | **PATCH** /ncw/wallets/{walletId}/status | Update wallet status
 *ExchangeAccountsApi* | [**addExchangeAccount**](docs/ExchangeAccountsApi.md#addExchangeAccount) | **POST** /exchange_accounts | Add an exchange account
-*ExchangeAccountsApi* | [**convertAssets**](docs/ExchangeAccountsApi.md#convertAssets) | **POST** /exchange_accounts/{exchangeAccountId}/convert | Convert exchange account funds from the source asset to the destination asset.
-*ExchangeAccountsApi* | [**getExchangeAccount**](docs/ExchangeAccountsApi.md#getExchangeAccount) | **GET** /exchange_accounts/{exchangeAccountId} | Find a specific exchange account
-*ExchangeAccountsApi* | [**getExchangeAccountAsset**](docs/ExchangeAccountsApi.md#getExchangeAccountAsset) | **GET** /exchange_accounts/{exchangeAccountId}/{assetId} | Find an asset for an exchange account
+*ExchangeAccountsApi* | [**convertAssets**](docs/ExchangeAccountsApi.md#convertAssets) | **POST** /exchange_accounts/{exchangeAccountId}/convert | Convert exchange account funds
+*ExchangeAccountsApi* | [**getExchangeAccount**](docs/ExchangeAccountsApi.md#getExchangeAccount) | **GET** /exchange_accounts/{exchangeAccountId} | Get a specific exchange account
+*ExchangeAccountsApi* | [**getExchangeAccountAsset**](docs/ExchangeAccountsApi.md#getExchangeAccountAsset) | **GET** /exchange_accounts/{exchangeAccountId}/{assetId} | Get an asset for an exchange account
 *ExchangeAccountsApi* | [**getExchangeAccountsCredentialsPublicKey**](docs/ExchangeAccountsApi.md#getExchangeAccountsCredentialsPublicKey) | **GET** /exchange_accounts/credentials_public_key | Get public key to encrypt exchange credentials
-*ExchangeAccountsApi* | [**getPagedExchangeAccounts**](docs/ExchangeAccountsApi.md#getPagedExchangeAccounts) | **GET** /exchange_accounts/paged | Pagination list exchange accounts
+*ExchangeAccountsApi* | [**getPagedExchangeAccounts**](docs/ExchangeAccountsApi.md#getPagedExchangeAccounts) | **GET** /exchange_accounts/paged | List connected exchange accounts
 *ExchangeAccountsApi* | [**internalTransfer**](docs/ExchangeAccountsApi.md#internalTransfer) | **POST** /exchange_accounts/{exchangeAccountId}/internal_transfer | Internal transfer for exchange accounts
 *ExternalWalletsApi* | [**addAssetToExternalWallet**](docs/ExternalWalletsApi.md#addAssetToExternalWallet) | **POST** /external_wallets/{walletId}/{assetId} | Add an asset to an external wallet.
 *ExternalWalletsApi* | [**createExternalWallet**](docs/ExternalWalletsApi.md#createExternalWallet) | **POST** /external_wallets | Create an external wallet
@@ -249,17 +258,11 @@ Class | Method | HTTP request | Description
 *InternalWalletsApi* | [**createInternalWalletAsset**](docs/InternalWalletsApi.md#createInternalWalletAsset) | **POST** /internal_wallets/{walletId}/{assetId} | Add an asset to an internal wallet
 *InternalWalletsApi* | [**deleteInternalWallet**](docs/InternalWalletsApi.md#deleteInternalWallet) | **DELETE** /internal_wallets/{walletId} | Delete an internal wallet
 *InternalWalletsApi* | [**deleteInternalWalletAsset**](docs/InternalWalletsApi.md#deleteInternalWalletAsset) | **DELETE** /internal_wallets/{walletId}/{assetId} | Delete a whitelisted address
-*InternalWalletsApi* | [**getInternalWallet**](docs/InternalWalletsApi.md#getInternalWallet) | **GET** /internal_wallets/{walletId} | Get an asset from an internal wallet
+*InternalWalletsApi* | [**getInternalWallet**](docs/InternalWalletsApi.md#getInternalWallet) | **GET** /internal_wallets/{walletId} | Get assets for internal wallet
 *InternalWalletsApi* | [**getInternalWalletAsset**](docs/InternalWalletsApi.md#getInternalWalletAsset) | **GET** /internal_wallets/{walletId}/{assetId} | Get an asset from an internal wallet
 *InternalWalletsApi* | [**getInternalWalletAssetsPaginated**](docs/InternalWalletsApi.md#getInternalWalletAssetsPaginated) | **GET** /internal_wallets/{walletId}/assets | List assets in an internal wallet (Paginated)
 *InternalWalletsApi* | [**getInternalWallets**](docs/InternalWalletsApi.md#getInternalWallets) | **GET** /internal_wallets | List internal wallets
-*InternalWalletsApi* | [**setCustomerRefIdForInternalWallet**](docs/InternalWalletsApi.md#setCustomerRefIdForInternalWallet) | **POST** /internal_wallets/{walletId}/set_customer_ref_id | Set an AML/KYT customer reference ID for an internal wallet
-*JobManagementApi* | [**cancelJob**](docs/JobManagementApi.md#cancelJob) | **POST** /batch/{jobId}/cancel | Cancel a running job
-*JobManagementApi* | [**continueJob**](docs/JobManagementApi.md#continueJob) | **POST** /batch/{jobId}/continue | Continue a paused job
-*JobManagementApi* | [**getJob**](docs/JobManagementApi.md#getJob) | **GET** /batch/{jobId} | Get job details
-*JobManagementApi* | [**getJobTasks**](docs/JobManagementApi.md#getJobTasks) | **GET** /batch/{jobId}/tasks | Return a list of tasks for given job
-*JobManagementApi* | [**getJobs**](docs/JobManagementApi.md#getJobs) | **GET** /batch/jobs | Return a list of jobs belonging to tenant
-*JobManagementApi* | [**pauseJob**](docs/JobManagementApi.md#pauseJob) | **POST** /batch/{jobId}/pause | Pause a job
+*InternalWalletsApi* | [**setCustomerRefIdForInternalWallet**](docs/InternalWalletsApi.md#setCustomerRefIdForInternalWallet) | **POST** /internal_wallets/{walletId}/set_customer_ref_id | Set an AML/KYT customer reference ID for internal wallet
 *KeyLinkBetaApi* | [**createSigningKey**](docs/KeyLinkBetaApi.md#createSigningKey) | **POST** /key_link/signing_keys | Add a new signing key
 *KeyLinkBetaApi* | [**createValidationKey**](docs/KeyLinkBetaApi.md#createValidationKey) | **POST** /key_link/validation_keys | Add a new validation key
 *KeyLinkBetaApi* | [**disableValidationKey**](docs/KeyLinkBetaApi.md#disableValidationKey) | **PATCH** /key_link/validation_keys/{keyId} | Disables a validation key
@@ -267,21 +270,21 @@ Class | Method | HTTP request | Description
 *KeyLinkBetaApi* | [**getSigningKeysList**](docs/KeyLinkBetaApi.md#getSigningKeysList) | **GET** /key_link/signing_keys | Get list of signing keys
 *KeyLinkBetaApi* | [**getValidationKey**](docs/KeyLinkBetaApi.md#getValidationKey) | **GET** /key_link/validation_keys/{keyId} | Get a validation key by &#x60;keyId&#x60;
 *KeyLinkBetaApi* | [**getValidationKeysList**](docs/KeyLinkBetaApi.md#getValidationKeysList) | **GET** /key_link/validation_keys | Get list of registered validation keys
-*KeyLinkBetaApi* | [**setAgentId**](docs/KeyLinkBetaApi.md#setAgentId) | **PATCH** /key_link/signing_keys/{keyId}/agent_user_id | Set agent user id that can sign with the signing key identified by the Fireblocks provided &#x60;keyId&#x60;
-*KeyLinkBetaApi* | [**updateSigningKey**](docs/KeyLinkBetaApi.md#updateSigningKey) | **PATCH** /key_link/signing_keys/{keyId} | Modify the signing by Fireblocks provided &#x60;keyId&#x60;
+*KeyLinkBetaApi* | [**setAgentId**](docs/KeyLinkBetaApi.md#setAgentId) | **PATCH** /key_link/signing_keys/{keyId}/agent_user_id | Set agent user id
+*KeyLinkBetaApi* | [**updateSigningKey**](docs/KeyLinkBetaApi.md#updateSigningKey) | **PATCH** /key_link/signing_keys/{keyId} | Modify the signing keyId
 *KeysBetaApi* | [**getMpcKeysList**](docs/KeysBetaApi.md#getMpcKeysList) | **GET** /keys/mpc/list | Get list of mpc keys
 *KeysBetaApi* | [**getMpcKeysListByUser**](docs/KeysBetaApi.md#getMpcKeysListByUser) | **GET** /keys/mpc/list/{userId} | Get list of mpc keys by &#x60;userId&#x60;
-*NetworkConnectionsApi* | [**checkThirdPartyRouting**](docs/NetworkConnectionsApi.md#checkThirdPartyRouting) | **GET** /network_connections/{connectionId}/is_third_party_routing/{assetType} | Retrieve third-party network routing validation by asset type.
-*NetworkConnectionsApi* | [**createNetworkConnection**](docs/NetworkConnectionsApi.md#createNetworkConnection) | **POST** /network_connections | Creates a new network connection
+*NetworkConnectionsApi* | [**checkThirdPartyRouting**](docs/NetworkConnectionsApi.md#checkThirdPartyRouting) | **GET** /network_connections/{connectionId}/is_third_party_routing/{assetType} | Retrieve third-party network routing validation
+*NetworkConnectionsApi* | [**createNetworkConnection**](docs/NetworkConnectionsApi.md#createNetworkConnection) | **POST** /network_connections | Create a new network connection
 *NetworkConnectionsApi* | [**createNetworkId**](docs/NetworkConnectionsApi.md#createNetworkId) | **POST** /network_ids | Creates a new Network ID
 *NetworkConnectionsApi* | [**deleteNetworkConnection**](docs/NetworkConnectionsApi.md#deleteNetworkConnection) | **DELETE** /network_connections/{connectionId} | Deletes a network connection by ID
 *NetworkConnectionsApi* | [**deleteNetworkId**](docs/NetworkConnectionsApi.md#deleteNetworkId) | **DELETE** /network_ids/{networkId} | Deletes specific network ID.
 *NetworkConnectionsApi* | [**getNetwork**](docs/NetworkConnectionsApi.md#getNetwork) | **GET** /network_connections/{connectionId} | Get a network connection
 *NetworkConnectionsApi* | [**getNetworkConnections**](docs/NetworkConnectionsApi.md#getNetworkConnections) | **GET** /network_connections | List network connections
 *NetworkConnectionsApi* | [**getNetworkId**](docs/NetworkConnectionsApi.md#getNetworkId) | **GET** /network_ids/{networkId} | Returns specific network ID.
-*NetworkConnectionsApi* | [**getNetworkIds**](docs/NetworkConnectionsApi.md#getNetworkIds) | **GET** /network_ids | Returns all network IDs, both local IDs and discoverable remote IDs
+*NetworkConnectionsApi* | [**getNetworkIds**](docs/NetworkConnectionsApi.md#getNetworkIds) | **GET** /network_ids | Get all network IDs
 *NetworkConnectionsApi* | [**getRoutingPolicyAssetGroups**](docs/NetworkConnectionsApi.md#getRoutingPolicyAssetGroups) | **GET** /network_ids/routing_policy_asset_groups | Returns all enabled routing policy asset groups
-*NetworkConnectionsApi* | [**searchNetworkIds**](docs/NetworkConnectionsApi.md#searchNetworkIds) | **GET** /network_ids/search | Search network IDs, both local IDs and discoverable remote IDs
+*NetworkConnectionsApi* | [**searchNetworkIds**](docs/NetworkConnectionsApi.md#searchNetworkIds) | **GET** /network_ids/search | Get both local IDs and discoverable remote IDs
 *NetworkConnectionsApi* | [**setNetworkIdDiscoverability**](docs/NetworkConnectionsApi.md#setNetworkIdDiscoverability) | **PATCH** /network_ids/{networkId}/set_discoverability | Update network ID&#39;s discoverability.
 *NetworkConnectionsApi* | [**setNetworkIdName**](docs/NetworkConnectionsApi.md#setNetworkIdName) | **PATCH** /network_ids/{networkId}/set_name | Update network ID&#39;s name.
 *NetworkConnectionsApi* | [**setNetworkIdRoutingPolicy**](docs/NetworkConnectionsApi.md#setNetworkIdRoutingPolicy) | **PATCH** /network_ids/{networkId}/set_routing_policy | Update network id routing policy.
@@ -296,11 +299,19 @@ Class | Method | HTTP request | Description
 *NftsApi* | [**updateTokenOwnershipStatus**](docs/NftsApi.md#updateTokenOwnershipStatus) | **PUT** /nfts/ownership/tokens/{id}/status | Update token ownership status
 *NftsApi* | [**updateTokensOwnershipSpam**](docs/NftsApi.md#updateTokensOwnershipSpam) | **PUT** /nfts/ownership/tokens/spam | Update tokens ownership spam property
 *NftsApi* | [**updateTokensOwnershipStatus**](docs/NftsApi.md#updateTokensOwnershipStatus) | **PUT** /nfts/ownership/tokens/status | Update tokens ownership status
-*OffExchangesApi* | [**addOffExchange**](docs/OffExchangesApi.md#addOffExchange) | **POST** /off_exchange/add | add collateral
+*OffExchangesApi* | [**addOffExchange**](docs/OffExchangesApi.md#addOffExchange) | **POST** /off_exchange/add | Add Collateral
 *OffExchangesApi* | [**getOffExchangeCollateralAccounts**](docs/OffExchangesApi.md#getOffExchangeCollateralAccounts) | **GET** /off_exchange/collateral_accounts/{mainExchangeAccountId} | Find a specific collateral exchange account
-*OffExchangesApi* | [**getOffExchangeSettlementTransactions**](docs/OffExchangesApi.md#getOffExchangeSettlementTransactions) | **GET** /off_exchange/settlements/transactions | get settlements transactions from exchange
-*OffExchangesApi* | [**removeOffExchange**](docs/OffExchangesApi.md#removeOffExchange) | **POST** /off_exchange/remove | remove collateral
-*OffExchangesApi* | [**settleOffExchangeTrades**](docs/OffExchangesApi.md#settleOffExchangeTrades) | **POST** /off_exchange/settlements/trader | create settlement for a trader
+*OffExchangesApi* | [**getOffExchangeSettlementTransactions**](docs/OffExchangesApi.md#getOffExchangeSettlementTransactions) | **GET** /off_exchange/settlements/transactions | Get Settlements Transactions
+*OffExchangesApi* | [**removeOffExchange**](docs/OffExchangesApi.md#removeOffExchange) | **POST** /off_exchange/remove | Remove Collateral
+*OffExchangesApi* | [**settleOffExchangeTrades**](docs/OffExchangesApi.md#settleOffExchangeTrades) | **POST** /off_exchange/settlements/trader | Create Settlement for a Trader
+*OnchainDataApi* | [**getAccessRegistryCurrentState**](docs/OnchainDataApi.md#getAccessRegistryCurrentState) | **GET** /onchain_data/base_asset_id/{baseAssetId}/access_registry_address/{accessRegistryAddress}/list | Get the current state of addresses in an access registry
+*OnchainDataApi* | [**getAccessRegistrySummary**](docs/OnchainDataApi.md#getAccessRegistrySummary) | **GET** /onchain_data/base_asset_id/{baseAssetId}/access_registry_address/{accessRegistryAddress}/summary | Summary of access registry state
+*OnchainDataApi* | [**getActiveRolesForContract**](docs/OnchainDataApi.md#getActiveRolesForContract) | **GET** /onchain_data/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/roles | List of active roles for a given contract address and base asset ID
+*OnchainDataApi* | [**getContractBalanceHistory**](docs/OnchainDataApi.md#getContractBalanceHistory) | **GET** /onchain_data/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/account_address/{accountAddress}/balance_history | Get historical balance data for a specific account in a contract
+*OnchainDataApi* | [**getContractBalancesSummary**](docs/OnchainDataApi.md#getContractBalancesSummary) | **GET** /onchain_data/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/summary | Get summary for the token contract
+*OnchainDataApi* | [**getContractTotalSupply**](docs/OnchainDataApi.md#getContractTotalSupply) | **GET** /onchain_data/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/total_supply | Get historical total supply data for a contract
+*OnchainDataApi* | [**getLatestBalancesForContract**](docs/OnchainDataApi.md#getLatestBalancesForContract) | **GET** /onchain_data/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/balances | Get latest balances for all addresses holding tokens from a contract
+*OnchainDataApi* | [**getOnchainTransactions**](docs/OnchainDataApi.md#getOnchainTransactions) | **GET** /onchain_data/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/transactions | Fetch onchain transactions for a contract
 *OtaBetaApi* | [**getOtaStatus**](docs/OtaBetaApi.md#getOtaStatus) | **GET** /management/ota | Returns current OTA status
 *OtaBetaApi* | [**setOtaStatus**](docs/OtaBetaApi.md#setOtaStatus) | **PUT** /management/ota | Enable or disable transactions to OTA
 *PaymentsPayoutApi* | [**createPayout**](docs/PaymentsPayoutApi.md#createPayout) | **POST** /payments/payout | Create a payout instruction set
@@ -316,12 +327,12 @@ Class | Method | HTTP request | Description
 *PolicyEditorV2BetaApi* | [**publishDraft**](docs/PolicyEditorV2BetaApi.md#publishDraft) | **POST** /policy/draft | Send publish request for a certain draft id
 *PolicyEditorV2BetaApi* | [**updateDraft**](docs/PolicyEditorV2BetaApi.md#updateDraft) | **PUT** /policy/draft | Update the draft with a new set of rules by policy types
 *ResetDeviceApi* | [**resetDevice**](docs/ResetDeviceApi.md#resetDevice) | **POST** /management/users/{id}/reset_device | Resets device
-*SmartTransferApi* | [**approveDvPTicketTerm**](docs/SmartTransferApi.md#approveDvPTicketTerm) | **PUT** /smart_transfers/{ticketId}/terms/{termId}/dvp/approve | Define funding source and give approve to contract to transfer asset
+*SmartTransferApi* | [**approveDvPTicketTerm**](docs/SmartTransferApi.md#approveDvPTicketTerm) | **PUT** /smart_transfers/{ticketId}/terms/{termId}/dvp/approve | Set funding source and approval
 *SmartTransferApi* | [**cancelTicket**](docs/SmartTransferApi.md#cancelTicket) | **PUT** /smart-transfers/{ticketId}/cancel | Cancel Ticket
 *SmartTransferApi* | [**createTicket**](docs/SmartTransferApi.md#createTicket) | **POST** /smart-transfers | Create Ticket
 *SmartTransferApi* | [**createTicketTerm**](docs/SmartTransferApi.md#createTicketTerm) | **POST** /smart-transfers/{ticketId}/terms | Create leg (term)
-*SmartTransferApi* | [**findTicketById**](docs/SmartTransferApi.md#findTicketById) | **GET** /smart-transfers/{ticketId} | Search Tickets by ID
-*SmartTransferApi* | [**findTicketTermById**](docs/SmartTransferApi.md#findTicketTermById) | **GET** /smart-transfers/{ticketId}/terms/{termId} | Search ticket by leg (term) ID
+*SmartTransferApi* | [**findTicketById**](docs/SmartTransferApi.md#findTicketById) | **GET** /smart-transfers/{ticketId} | Search Ticket by ID
+*SmartTransferApi* | [**findTicketTermById**](docs/SmartTransferApi.md#findTicketTermById) | **GET** /smart-transfers/{ticketId}/terms/{termId} | Get Smart Transfer ticket term
 *SmartTransferApi* | [**fulfillTicket**](docs/SmartTransferApi.md#fulfillTicket) | **PUT** /smart-transfers/{ticketId}/fulfill | Fund ticket manually
 *SmartTransferApi* | [**fundDvpTicket**](docs/SmartTransferApi.md#fundDvpTicket) | **PUT** /smart_transfers/{ticketId}/dvp/fund | Fund dvp ticket
 *SmartTransferApi* | [**fundTicketTerm**](docs/SmartTransferApi.md#fundTicketTerm) | **PUT** /smart-transfers/{ticketId}/terms/{termId}/fund | Define funding source
@@ -335,22 +346,24 @@ Class | Method | HTTP request | Description
 *SmartTransferApi* | [**setUserGroups**](docs/SmartTransferApi.md#setUserGroups) | **POST** /smart-transfers/settings/user-groups | Set user group
 *SmartTransferApi* | [**submitTicket**](docs/SmartTransferApi.md#submitTicket) | **PUT** /smart-transfers/{ticketId}/submit | Submit ticket
 *SmartTransferApi* | [**updateTicketTerm**](docs/SmartTransferApi.md#updateTicketTerm) | **PUT** /smart-transfers/{ticketId}/terms/{termId} | Update ticket leg (term)
-*StakingApi* | [**approveTermsOfServiceByProviderId**](docs/StakingApi.md#approveTermsOfServiceByProviderId) | **POST** /staking/providers/{providerId}/approveTermsOfService | Approve staking terms of service
-*StakingApi* | [**claimRewards**](docs/StakingApi.md#claimRewards) | **POST** /staking/chains/{chainDescriptor}/claim_rewards | Execute a Claim Rewards operation
-*StakingApi* | [**getAllDelegations**](docs/StakingApi.md#getAllDelegations) | **GET** /staking/positions | List staking positions details
-*StakingApi* | [**getChainInfo**](docs/StakingApi.md#getChainInfo) | **GET** /staking/chains/{chainDescriptor}/chainInfo | Get chain-specific staking summary
-*StakingApi* | [**getChains**](docs/StakingApi.md#getChains) | **GET** /staking/chains | List staking supported chains
-*StakingApi* | [**getDelegationById**](docs/StakingApi.md#getDelegationById) | **GET** /staking/positions/{id} | Get staking position details
-*StakingApi* | [**getProviders**](docs/StakingApi.md#getProviders) | **GET** /staking/providers | List staking providers details
-*StakingApi* | [**getSummary**](docs/StakingApi.md#getSummary) | **GET** /staking/positions/summary | Get staking summary details
-*StakingApi* | [**getSummaryByVault**](docs/StakingApi.md#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get staking summary details by vault
-*StakingApi* | [**mergeStakeAccounts**](docs/StakingApi.md#mergeStakeAccounts) | **POST** /staking/chains/{chainDescriptor}/merge | Merge Solana on stake accounts
-*StakingApi* | [**split**](docs/StakingApi.md#split) | **POST** /staking/chains/{chainDescriptor}/split | Execute a Split operation on SOL/SOL_TEST stake account
-*StakingApi* | [**stake**](docs/StakingApi.md#stake) | **POST** /staking/chains/{chainDescriptor}/stake | Initiate Stake Operation
-*StakingApi* | [**unstake**](docs/StakingApi.md#unstake) | **POST** /staking/chains/{chainDescriptor}/unstake | Execute an Unstake operation
-*StakingApi* | [**withdraw**](docs/StakingApi.md#withdraw) | **POST** /staking/chains/{chainDescriptor}/withdraw | Execute a Withdraw operation
-*TagsApi* | [**createTag**](docs/TagsApi.md#createTag) | **POST** /tags | Create a tag
+*StakingApi* | [**approveTermsOfServiceByProviderId**](docs/StakingApi.md#approveTermsOfServiceByProviderId) | **POST** /staking/providers/{providerId}/approveTermsOfService | Approve provider terms of service
+*StakingApi* | [**claimRewards**](docs/StakingApi.md#claimRewards) | **POST** /staking/chains/{chainDescriptor}/claim_rewards | Claim accrued rewards
+*StakingApi* | [**getAllDelegations**](docs/StakingApi.md#getAllDelegations) | **GET** /staking/positions | List staking positions
+*StakingApi* | [**getChainInfo**](docs/StakingApi.md#getChainInfo) | **GET** /staking/chains/{chainDescriptor}/chainInfo | Get chain-level staking parameters
+*StakingApi* | [**getChains**](docs/StakingApi.md#getChains) | **GET** /staking/chains | List supported staking chains
+*StakingApi* | [**getDelegationById**](docs/StakingApi.md#getDelegationById) | **GET** /staking/positions/{id} | Get position details
+*StakingApi* | [**getProviders**](docs/StakingApi.md#getProviders) | **GET** /staking/providers | List staking providers
+*StakingApi* | [**getSummary**](docs/StakingApi.md#getSummary) | **GET** /staking/positions/summary | Get positions summary
+*StakingApi* | [**getSummaryByVault**](docs/StakingApi.md#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get positions summary by vault
+*StakingApi* | [**mergeStakeAccounts**](docs/StakingApi.md#mergeStakeAccounts) | **POST** /staking/chains/{chainDescriptor}/merge | Merge staking positions
+*StakingApi* | [**split**](docs/StakingApi.md#split) | **POST** /staking/chains/{chainDescriptor}/split | Split a staking position
+*StakingApi* | [**stake**](docs/StakingApi.md#stake) | **POST** /staking/chains/{chainDescriptor}/stake | Initiate or add to existing stake
+*StakingApi* | [**unstake**](docs/StakingApi.md#unstake) | **POST** /staking/chains/{chainDescriptor}/unstake | Initiate unstake
+*StakingApi* | [**withdraw**](docs/StakingApi.md#withdraw) | **POST** /staking/chains/{chainDescriptor}/withdraw | Withdraw staked funds
+*TagsApi* | [**cancelApprovalRequest**](docs/TagsApi.md#cancelApprovalRequest) | **POST** /tags/approval_requests/{id}/cancel | Cancel an approval request by id
+*TagsApi* | [**createTag**](docs/TagsApi.md#createTag) | **POST** /tags | Create a new tag
 *TagsApi* | [**deleteTag**](docs/TagsApi.md#deleteTag) | **DELETE** /tags/{tagId} | Delete a tag
+*TagsApi* | [**getApprovalRequest**](docs/TagsApi.md#getApprovalRequest) | **GET** /tags/approval_requests/{id} | Get an approval request by id
 *TagsApi* | [**getTag**](docs/TagsApi.md#getTag) | **GET** /tags/{tagId} | Get a tag
 *TagsApi* | [**getTags**](docs/TagsApi.md#getTags) | **GET** /tags | Get list of tags
 *TagsApi* | [**updateTag**](docs/TagsApi.md#updateTag) | **PATCH** /tags/{tagId} | Update a tag
@@ -366,6 +379,7 @@ Class | Method | HTTP request | Description
 *TokenizationApi* | [**getLinkedCollections**](docs/TokenizationApi.md#getLinkedCollections) | **GET** /tokenization/collections | Get collections
 *TokenizationApi* | [**getLinkedToken**](docs/TokenizationApi.md#getLinkedToken) | **GET** /tokenization/tokens/{id} | Return a linked token
 *TokenizationApi* | [**getLinkedTokens**](docs/TokenizationApi.md#getLinkedTokens) | **GET** /tokenization/tokens | List all linked tokens
+*TokenizationApi* | [**getLinkedTokensCount**](docs/TokenizationApi.md#getLinkedTokensCount) | **GET** /tokenization/tokens/count | Get the total count of linked tokens
 *TokenizationApi* | [**issueNewToken**](docs/TokenizationApi.md#issueNewToken) | **POST** /tokenization/tokens | Issue a new token
 *TokenizationApi* | [**issueTokenMultiChain**](docs/TokenizationApi.md#issueTokenMultiChain) | **POST** /tokenization/multichain/tokens | Issue a token on one or more blockchains
 *TokenizationApi* | [**link**](docs/TokenizationApi.md#link) | **POST** /tokenization/tokens/link | Link a contract
@@ -377,6 +391,31 @@ Class | Method | HTTP request | Description
 *TokenizationApi* | [**unlink**](docs/TokenizationApi.md#unlink) | **DELETE** /tokenization/tokens/{id} | Unlink a token
 *TokenizationApi* | [**unlinkCollection**](docs/TokenizationApi.md#unlinkCollection) | **DELETE** /tokenization/collections/{id} | Delete a collection link
 *TokenizationApi* | [**validateLayerZeroChannelConfig**](docs/TokenizationApi.md#validateLayerZeroChannelConfig) | **GET** /tokenization/multichain/bridge/layerzero/validate | Validate LayerZero channel configuration
+*TrLinkApi* | [**assessTRLinkTravelRuleRequirement**](docs/TrLinkApi.md#assessTRLinkTravelRuleRequirement) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/trm/assess | Assess Travel Rule requirement
+*TrLinkApi* | [**cancelTRLinkTrm**](docs/TrLinkApi.md#cancelTRLinkTrm) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/cancel | Cancel Travel Rule Message
+*TrLinkApi* | [**connectTRLinkIntegration**](docs/TrLinkApi.md#connectTRLinkIntegration) | **PUT** /screening/trlink/customers/integration/{customerIntegrationId} | Connect customer integration
+*TrLinkApi* | [**createTRLinkCustomer**](docs/TrLinkApi.md#createTRLinkCustomer) | **POST** /screening/trlink/customers | Create customer
+*TrLinkApi* | [**createTRLinkIntegration**](docs/TrLinkApi.md#createTRLinkIntegration) | **POST** /screening/trlink/customers/integration | Create customer integration
+*TrLinkApi* | [**createTRLinkTrm**](docs/TrLinkApi.md#createTRLinkTrm) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/trm | Create Travel Rule Message
+*TrLinkApi* | [**deleteTRLinkCustomer**](docs/TrLinkApi.md#deleteTRLinkCustomer) | **DELETE** /screening/trlink/customers/{customerId} | Delete customer
+*TrLinkApi* | [**disconnectTRLinkIntegration**](docs/TrLinkApi.md#disconnectTRLinkIntegration) | **DELETE** /screening/trlink/customers/integration/{customerIntegrationId} | Disconnect customer integration
+*TrLinkApi* | [**getTRLinkCustomerById**](docs/TrLinkApi.md#getTRLinkCustomerById) | **GET** /screening/trlink/customers/{customerId} | Get customer by ID
+*TrLinkApi* | [**getTRLinkCustomerIntegrationById**](docs/TrLinkApi.md#getTRLinkCustomerIntegrationById) | **GET** /screening/trlink/customers/{customerId}/integrations/{customerIntegrationId} | Get customer integration by ID
+*TrLinkApi* | [**getTRLinkCustomerIntegrations**](docs/TrLinkApi.md#getTRLinkCustomerIntegrations) | **GET** /screening/trlink/customers/{customerId}/integrations | Get customer integrations
+*TrLinkApi* | [**getTRLinkCustomers**](docs/TrLinkApi.md#getTRLinkCustomers) | **GET** /screening/trlink/customers | Get all customers
+*TrLinkApi* | [**getTRLinkIntegrationPublicKey**](docs/TrLinkApi.md#getTRLinkIntegrationPublicKey) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/public_key | Get public key for PII encryption
+*TrLinkApi* | [**getTRLinkPartners**](docs/TrLinkApi.md#getTRLinkPartners) | **GET** /screening/trlink/partners | List available TRLink partners
+*TrLinkApi* | [**getTRLinkPolicy**](docs/TrLinkApi.md#getTRLinkPolicy) | **GET** /screening/trlink/policy | Get TRLink policy
+*TrLinkApi* | [**getTRLinkSupportedAsset**](docs/TrLinkApi.md#getTRLinkSupportedAsset) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/assets/{assetId} | Get supported asset by ID
+*TrLinkApi* | [**getTRLinkTrmById**](docs/TrLinkApi.md#getTRLinkTrmById) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId} | Get TRM by ID
+*TrLinkApi* | [**getTRLinkVaspById**](docs/TrLinkApi.md#getTRLinkVaspById) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/vasps/{vaspId} | Get VASP by ID
+*TrLinkApi* | [**listTRLinkSupportedAssets**](docs/TrLinkApi.md#listTRLinkSupportedAssets) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/assets | List supported assets
+*TrLinkApi* | [**listTRLinkVasps**](docs/TrLinkApi.md#listTRLinkVasps) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/vasps | List VASPs
+*TrLinkApi* | [**redirectTRLinkTrm**](docs/TrLinkApi.md#redirectTRLinkTrm) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/redirect | Redirect Travel Rule Message
+*TrLinkApi* | [**setTRLinkDestinationTravelRuleMessageId**](docs/TrLinkApi.md#setTRLinkDestinationTravelRuleMessageId) | **POST** /screening/trlink/transaction/{txId}/destination/travel_rule_message_id | Set destination travel rule message ID
+*TrLinkApi* | [**setTRLinkTransactionTravelRuleMessageId**](docs/TrLinkApi.md#setTRLinkTransactionTravelRuleMessageId) | **POST** /screening/trlink/transaction/{txId}/travel_rule_message_id | Set transaction travel rule message ID
+*TrLinkApi* | [**testTRLinkIntegrationConnection**](docs/TrLinkApi.md#testTRLinkIntegrationConnection) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/test_connection | Test connection
+*TrLinkApi* | [**updateTRLinkCustomer**](docs/TrLinkApi.md#updateTRLinkCustomer) | **PUT** /screening/trlink/customers/{customerId} | Update customer
 *TradingBetaApi* | [**createOrder**](docs/TradingBetaApi.md#createOrder) | **POST** /trading/orders | Create an order
 *TradingBetaApi* | [**createQuote**](docs/TradingBetaApi.md#createQuote) | **POST** /trading/quotes | Create a quote
 *TradingBetaApi* | [**getOrder**](docs/TradingBetaApi.md#getOrder) | **GET** /trading/orders/{orderId} | Get order details
@@ -384,18 +423,19 @@ Class | Method | HTTP request | Description
 *TradingBetaApi* | [**getTradingProviders**](docs/TradingBetaApi.md#getTradingProviders) | **GET** /trading/providers | Get providers
 *TransactionsApi* | [**cancelTransaction**](docs/TransactionsApi.md#cancelTransaction) | **POST** /transactions/{txId}/cancel | Cancel a transaction
 *TransactionsApi* | [**createTransaction**](docs/TransactionsApi.md#createTransaction) | **POST** /transactions | Create a new transaction
-*TransactionsApi* | [**dropTransaction**](docs/TransactionsApi.md#dropTransaction) | **POST** /transactions/{txId}/drop | Drop ETH transaction by ID
+*TransactionsApi* | [**dropTransaction**](docs/TransactionsApi.md#dropTransaction) | **POST** /transactions/{txId}/drop | Drop ETH (EVM) transaction by ID
 *TransactionsApi* | [**estimateNetworkFee**](docs/TransactionsApi.md#estimateNetworkFee) | **GET** /estimate_network_fee | Estimate the required fee for an asset
 *TransactionsApi* | [**estimateTransactionFee**](docs/TransactionsApi.md#estimateTransactionFee) | **POST** /transactions/estimate_fee | Estimate transaction fee
 *TransactionsApi* | [**freezeTransaction**](docs/TransactionsApi.md#freezeTransaction) | **POST** /transactions/{txId}/freeze | Freeze a transaction
-*TransactionsApi* | [**getTransaction**](docs/TransactionsApi.md#getTransaction) | **GET** /transactions/{txId} | Find a specific transaction by Fireblocks transaction ID
-*TransactionsApi* | [**getTransactionByExternalId**](docs/TransactionsApi.md#getTransactionByExternalId) | **GET** /transactions/external_tx_id/{externalTxId} | Find a specific transaction by external transaction ID
-*TransactionsApi* | [**getTransactions**](docs/TransactionsApi.md#getTransactions) | **GET** /transactions | List transaction history
-*TransactionsApi* | [**rescanTransactionsBeta**](docs/TransactionsApi.md#rescanTransactionsBeta) | **POST** /transactions/rescan | rescan array of transactions
+*TransactionsApi* | [**getTransaction**](docs/TransactionsApi.md#getTransaction) | **GET** /transactions/{txId} | Get a specific transaction by Fireblocks transaction ID
+*TransactionsApi* | [**getTransactionByExternalId**](docs/TransactionsApi.md#getTransactionByExternalId) | **GET** /transactions/external_tx_id/{externalTxId} | Get a specific transaction by external transaction ID
+*TransactionsApi* | [**getTransactions**](docs/TransactionsApi.md#getTransactions) | **GET** /transactions | Get transaction history
 *TransactionsApi* | [**setConfirmationThresholdByTransactionHash**](docs/TransactionsApi.md#setConfirmationThresholdByTransactionHash) | **POST** /txHash/{txHash}/set_confirmation_threshold | Set confirmation threshold by transaction hash
-*TransactionsApi* | [**setTransactionConfirmationThreshold**](docs/TransactionsApi.md#setTransactionConfirmationThreshold) | **POST** /transactions/{txId}/set_confirmation_threshold | Set confirmation threshold by transaction ID
+*TransactionsApi* | [**setTransactionConfirmationThreshold**](docs/TransactionsApi.md#setTransactionConfirmationThreshold) | **POST** /transactions/{txId}/set_confirmation_threshold | Set confirmation threshold by Fireblocks Transaction ID
 *TransactionsApi* | [**unfreezeTransaction**](docs/TransactionsApi.md#unfreezeTransaction) | **POST** /transactions/{txId}/unfreeze | Unfreeze a transaction
 *TransactionsApi* | [**validateAddress**](docs/TransactionsApi.md#validateAddress) | **GET** /transactions/validate_address/{assetId}/{address} | Validate destination address
+*TravelRuleApi* | [**createTrustProofOfAddress**](docs/TravelRuleApi.md#createTrustProofOfAddress) | **POST** /screening/travel_rule/providers/trust/proof_of_address | Create Trust Network Proof of Address
+*TravelRuleApi* | [**getTrustProofOfAddress**](docs/TravelRuleApi.md#getTrustProofOfAddress) | **GET** /screening/travel_rule/providers/trust/proof_of_address/{transactionId} | Retrieve Trust Network Proof of Address Signature
 *TravelRuleApi* | [**getVASPByDID**](docs/TravelRuleApi.md#getVASPByDID) | **GET** /screening/travel_rule/vasp/{did} | Get VASP details
 *TravelRuleApi* | [**getVASPs**](docs/TravelRuleApi.md#getVASPs) | **GET** /screening/travel_rule/vasp | Get All VASPs
 *TravelRuleApi* | [**getVaspForVault**](docs/TravelRuleApi.md#getVaspForVault) | **GET** /screening/travel_rule/vault/{vaultAccountId}/vasp | Get assigned VASP to vault
@@ -409,32 +449,31 @@ Class | Method | HTTP request | Description
 *UserGroupsBetaApi* | [**updateUserGroup**](docs/UserGroupsBetaApi.md#updateUserGroup) | **PUT** /management/user_groups/{groupId} | Update user group
 *UsersApi* | [**getUsers**](docs/UsersApi.md#getUsers) | **GET** /users | List users
 *VaultsApi* | [**activateAssetForVaultAccount**](docs/VaultsApi.md#activateAssetForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/activate | Activate a wallet in a vault account
-*VaultsApi* | [**attachOrDetachTagsFromVaultAccounts**](docs/VaultsApi.md#attachOrDetachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags | Attach or detach tags from a vault accounts
-*VaultsApi* | [**attachTagsToVaultAccounts**](docs/VaultsApi.md#attachTagsToVaultAccounts) | **POST** /vault/accounts/attached_tags/attach | Attach tags to a vault accounts (deprecated)
+*VaultsApi* | [**attachOrDetachTagsFromVaultAccounts**](docs/VaultsApi.md#attachOrDetachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags | Attach or detach tags from vault accounts
 *VaultsApi* | [**createLegacyAddress**](docs/VaultsApi.md#createLegacyAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy | Convert a segwit address to legacy format
 *VaultsApi* | [**createMultipleAccounts**](docs/VaultsApi.md#createMultipleAccounts) | **POST** /vault/accounts/bulk | Bulk creation of new vault accounts
 *VaultsApi* | [**createMultipleDepositAddresses**](docs/VaultsApi.md#createMultipleDepositAddresses) | **POST** /vault/accounts/addresses/bulk | Bulk creation of new deposit addresses
 *VaultsApi* | [**createVaultAccount**](docs/VaultsApi.md#createVaultAccount) | **POST** /vault/accounts | Create a new vault account
-*VaultsApi* | [**createVaultAccountAsset**](docs/VaultsApi.md#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new wallet
+*VaultsApi* | [**createVaultAccountAsset**](docs/VaultsApi.md#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new vault wallet
 *VaultsApi* | [**createVaultAccountAssetAddress**](docs/VaultsApi.md#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address
-*VaultsApi* | [**detachTagsFromVaultAccounts**](docs/VaultsApi.md#detachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags/detach | Detach tags from a vault accounts (deprecated)
-*VaultsApi* | [**getAssetWallets**](docs/VaultsApi.md#getAssetWallets) | **GET** /vault/asset_wallets | List asset wallets (Paginated)
-*VaultsApi* | [**getCreateMultipleDepositAddressesJobStatus**](docs/VaultsApi.md#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get job status of bulk creation of new deposit addresses
+*VaultsApi* | [**getAssetWallets**](docs/VaultsApi.md#getAssetWallets) | **GET** /vault/asset_wallets | Get vault wallets (Paginated)
+*VaultsApi* | [**getCreateMultipleDepositAddressesJobStatus**](docs/VaultsApi.md#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get the job status of the bulk deposit address creation
 *VaultsApi* | [**getCreateMultipleVaultAccountsJobStatus**](docs/VaultsApi.md#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts
-*VaultsApi* | [**getMaxSpendableAmount**](docs/VaultsApi.md#getMaxSpendableAmount) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount | Get the maximum spendable amount in a single transaction.
-*VaultsApi* | [**getPagedVaultAccounts**](docs/VaultsApi.md#getPagedVaultAccounts) | **GET** /vault/accounts_paged | List vault accounts (Paginated)
-*VaultsApi* | [**getPublicKeyInfo**](docs/VaultsApi.md#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key information
-*VaultsApi* | [**getPublicKeyInfoForAddress**](docs/VaultsApi.md#getPublicKeyInfoForAddress) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/{change}/{addressIndex}/public_key_info | Get the public key for a vault account
+*VaultsApi* | [**getMaxBipIndexUsed**](docs/VaultsApi.md#getMaxBipIndexUsed) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_bip_index_used | Get maximum BIP44 index used
+*VaultsApi* | [**getMaxSpendableAmount**](docs/VaultsApi.md#getMaxSpendableAmount) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount | Get max spendable amount in a transaction
+*VaultsApi* | [**getPagedVaultAccounts**](docs/VaultsApi.md#getPagedVaultAccounts) | **GET** /vault/accounts_paged | Get vault accounts (Paginated)
+*VaultsApi* | [**getPublicKeyInfo**](docs/VaultsApi.md#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key for a derivation path
+*VaultsApi* | [**getPublicKeyInfoForAddress**](docs/VaultsApi.md#getPublicKeyInfoForAddress) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/{change}/{addressIndex}/public_key_info | Get an asset&#39;s public key
 *VaultsApi* | [**getUnspentInputs**](docs/VaultsApi.md#getUnspentInputs) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs | Get UTXO unspent inputs information
-*VaultsApi* | [**getVaultAccount**](docs/VaultsApi.md#getVaultAccount) | **GET** /vault/accounts/{vaultAccountId} | Find a vault account by ID
+*VaultsApi* | [**getVaultAccount**](docs/VaultsApi.md#getVaultAccount) | **GET** /vault/accounts/{vaultAccountId} | Get a vault account by ID
 *VaultsApi* | [**getVaultAccountAsset**](docs/VaultsApi.md#getVaultAccountAsset) | **GET** /vault/accounts/{vaultAccountId}/{assetId} | Get the asset balance for a vault account
-*VaultsApi* | [**getVaultAccountAssetAddressesPaginated**](docs/VaultsApi.md#getVaultAccountAssetAddressesPaginated) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated | List addresses (Paginated)
+*VaultsApi* | [**getVaultAccountAssetAddressesPaginated**](docs/VaultsApi.md#getVaultAccountAssetAddressesPaginated) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated | Get addresses (Paginated)
 *VaultsApi* | [**getVaultAssets**](docs/VaultsApi.md#getVaultAssets) | **GET** /vault/assets | Get asset balance for chosen assets
-*VaultsApi* | [**getVaultBalanceByAsset**](docs/VaultsApi.md#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by asset
+*VaultsApi* | [**getVaultBalanceByAsset**](docs/VaultsApi.md#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by an asset
 *VaultsApi* | [**hideVaultAccount**](docs/VaultsApi.md#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console
 *VaultsApi* | [**setCustomerRefIdForAddress**](docs/VaultsApi.md#setCustomerRefIdForAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id | Assign AML customer reference ID
-*VaultsApi* | [**setVaultAccountAutoFuel**](docs/VaultsApi.md#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Turn autofueling on or off
-*VaultsApi* | [**setVaultAccountCustomerRefId**](docs/VaultsApi.md#setVaultAccountCustomerRefId) | **POST** /vault/accounts/{vaultAccountId}/set_customer_ref_id | Set an AML/KYT customer reference ID for a vault account
+*VaultsApi* | [**setVaultAccountAutoFuel**](docs/VaultsApi.md#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Set auto fueling to on or off
+*VaultsApi* | [**setVaultAccountCustomerRefId**](docs/VaultsApi.md#setVaultAccountCustomerRefId) | **POST** /vault/accounts/{vaultAccountId}/set_customer_ref_id | Set an AML/KYT ID for a vault account
 *VaultsApi* | [**unhideVaultAccount**](docs/VaultsApi.md#unhideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/unhide | Unhide a vault account in the console
 *VaultsApi* | [**updateVaultAccount**](docs/VaultsApi.md#updateVaultAccount) | **PUT** /vault/accounts/{vaultAccountId} | Rename a vault account
 *VaultsApi* | [**updateVaultAccountAssetAddress**](docs/VaultsApi.md#updateVaultAccountAssetAddress) | **PUT** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId} | Update address description
@@ -443,9 +482,9 @@ Class | Method | HTTP request | Description
 *Web3ConnectionsApi* | [**get**](docs/Web3ConnectionsApi.md#get) | **GET** /connections | List all open Web3 connections.
 *Web3ConnectionsApi* | [**remove**](docs/Web3ConnectionsApi.md#remove) | **DELETE** /connections/wc/{id} | Remove an existing Web3 connection.
 *Web3ConnectionsApi* | [**submit**](docs/Web3ConnectionsApi.md#submit) | **PUT** /connections/wc/{id} | Respond to a pending Web3 connection request.
-*WebhooksApi* | [**resendTransactionWebhooks**](docs/WebhooksApi.md#resendTransactionWebhooks) | **POST** /webhooks/resend/{txId} | Resend failed webhooks for a transaction by ID
+*WebhooksApi* | [**resendTransactionWebhooks**](docs/WebhooksApi.md#resendTransactionWebhooks) | **POST** /webhooks/resend/{txId} | Resend webhooks for a transaction by ID
 *WebhooksApi* | [**resendWebhooks**](docs/WebhooksApi.md#resendWebhooks) | **POST** /webhooks/resend | Resend failed webhooks
-*WebhooksV2Api* | [**createWebhook**](docs/WebhooksV2Api.md#createWebhook) | **POST** /webhooks | Create new webhook
+*WebhooksV2Api* | [**createWebhook**](docs/WebhooksV2Api.md#createWebhook) | **POST** /webhooks | Create a new webhook
 *WebhooksV2Api* | [**deleteWebhook**](docs/WebhooksV2Api.md#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook
 *WebhooksV2Api* | [**getMetrics**](docs/WebhooksV2Api.md#getMetrics) | **GET** /webhooks/{webhookId}/metrics/{metricName} | Get webhook metrics
 *WebhooksV2Api* | [**getNotification**](docs/WebhooksV2Api.md#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id
@@ -458,7 +497,7 @@ Class | Method | HTTP request | Description
 *WebhooksV2Api* | [**resendNotificationById**](docs/WebhooksV2Api.md#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id
 *WebhooksV2Api* | [**resendNotificationsByResourceId**](docs/WebhooksV2Api.md#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id
 *WebhooksV2Api* | [**updateWebhook**](docs/WebhooksV2Api.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
-*WhitelistIpAddressesApi* | [**getWhitelistIpAddresses**](docs/WhitelistIpAddressesApi.md#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | Gets whitelisted ip addresses
+*WhitelistIpAddressesApi* | [**getWhitelistIpAddresses**](docs/WhitelistIpAddressesApi.md#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | Get whitelisted ip addresses for an API Key
 *WorkspaceStatusBetaApi* | [**getWorkspaceStatus**](docs/WorkspaceStatusBetaApi.md#getWorkspaceStatus) | **GET** /management/workspace_status | Returns current workspace status
 
 
@@ -467,6 +506,9 @@ Class | Method | HTTP request | Description
  - [APIUser](docs/APIUser.md)
  - [AbaPaymentInfo](docs/AbaPaymentInfo.md)
  - [AbiFunction](docs/AbiFunction.md)
+ - [AccessRegistryAddressItem](docs/AccessRegistryAddressItem.md)
+ - [AccessRegistryCurrentStateResponse](docs/AccessRegistryCurrentStateResponse.md)
+ - [AccessRegistrySummaryResponse](docs/AccessRegistrySummaryResponse.md)
  - [AccessType](docs/AccessType.md)
  - [Account](docs/Account.md)
  - [AccountAccess](docs/AccountAccess.md)
@@ -476,7 +518,6 @@ Class | Method | HTTP request | Description
  - [AccountConfig](docs/AccountConfig.md)
  - [AccountHolderDetails](docs/AccountHolderDetails.md)
  - [AccountIdentifier](docs/AccountIdentifier.md)
- - [AccountProviderID](docs/AccountProviderID.md)
  - [AccountReference](docs/AccountReference.md)
  - [AccountType](docs/AccountType.md)
  - [AccountType2](docs/AccountType2.md)
@@ -496,6 +537,8 @@ Class | Method | HTTP request | Description
  - [AdditionalInfo](docs/AdditionalInfo.md)
  - [AdditionalInfoRequest](docs/AdditionalInfoRequest.md)
  - [AdditionalInfoRequestAdditionalInfo](docs/AdditionalInfoRequestAdditionalInfo.md)
+ - [AddressBalanceItemDto](docs/AddressBalanceItemDto.md)
+ - [AddressBalancePagedResponse](docs/AddressBalancePagedResponse.md)
  - [AddressNotAvailableError](docs/AddressNotAvailableError.md)
  - [AlertExposureTypeEnum](docs/AlertExposureTypeEnum.md)
  - [AlertLevelEnum](docs/AlertLevelEnum.md)
@@ -518,6 +561,7 @@ Class | Method | HTTP request | Description
  - [AmountRangeMinMax2](docs/AmountRangeMinMax2.md)
  - [ApiKey](docs/ApiKey.md)
  - [ApiKeysPaginatedResponse](docs/ApiKeysPaginatedResponse.md)
+ - [ApprovalRequest](docs/ApprovalRequest.md)
  - [ApproversConfig](docs/ApproversConfig.md)
  - [ApproversConfigApprovalGroupsInner](docs/ApproversConfigApprovalGroupsInner.md)
  - [Asset](docs/Asset.md)
@@ -546,6 +590,7 @@ Class | Method | HTTP request | Description
  - [AssetPriceResponse](docs/AssetPriceResponse.md)
  - [AssetResponse](docs/AssetResponse.md)
  - [AssetScope](docs/AssetScope.md)
+ - [AssetTypeEnum](docs/AssetTypeEnum.md)
  - [AssetTypeResponse](docs/AssetTypeResponse.md)
  - [AssetTypesConfigInner](docs/AssetTypesConfigInner.md)
  - [AssetWallet](docs/AssetWallet.md)
@@ -553,9 +598,14 @@ Class | Method | HTTP request | Description
  - [AuditorData](docs/AuditorData.md)
  - [AuthorizationGroups](docs/AuthorizationGroups.md)
  - [AuthorizationInfo](docs/AuthorizationInfo.md)
+ - [BalanceHistoryItemDto](docs/BalanceHistoryItemDto.md)
+ - [BalanceHistoryPagedResponse](docs/BalanceHistoryPagedResponse.md)
+ - [BankAddress](docs/BankAddress.md)
  - [BaseProvider](docs/BaseProvider.md)
  - [BasicAddressRequest](docs/BasicAddressRequest.md)
  - [BlockInfo](docs/BlockInfo.md)
+ - [BlockchainAddress](docs/BlockchainAddress.md)
+ - [BlockchainDestination](docs/BlockchainDestination.md)
  - [BlockchainExplorer](docs/BlockchainExplorer.md)
  - [BlockchainMedia](docs/BlockchainMedia.md)
  - [BlockchainMetadata](docs/BlockchainMetadata.md)
@@ -564,6 +614,7 @@ Class | Method | HTTP request | Description
  - [BlockchainResponse](docs/BlockchainResponse.md)
  - [BlockchainTransfer](docs/BlockchainTransfer.md)
  - [BpsFee](docs/BpsFee.md)
+ - [BusinessEntityTypeEnum](docs/BusinessEntityTypeEnum.md)
  - [BusinessIdentification](docs/BusinessIdentification.md)
  - [CallbackHandler](docs/CallbackHandler.md)
  - [CallbackHandlerRequest](docs/CallbackHandlerRequest.md)
@@ -584,6 +635,7 @@ Class | Method | HTTP request | Description
  - [CollectionTokenMetadataAttributeDto](docs/CollectionTokenMetadataAttributeDto.md)
  - [CollectionTokenMetadataDto](docs/CollectionTokenMetadataDto.md)
  - [CollectionType](docs/CollectionType.md)
+ - [CommittedQuoteEnum](docs/CommittedQuoteEnum.md)
  - [CommittedQuoteType](docs/CommittedQuoteType.md)
  - [ComplianceResultFullPayload](docs/ComplianceResultFullPayload.md)
  - [ComplianceResultStatusesEnum](docs/ComplianceResultStatusesEnum.md)
@@ -603,6 +655,7 @@ Class | Method | HTTP request | Description
  - [ConnectedAccountBalances](docs/ConnectedAccountBalances.md)
  - [ConnectedAccountBalancesResponse](docs/ConnectedAccountBalancesResponse.md)
  - [ConnectedAccountCapability](docs/ConnectedAccountCapability.md)
+ - [ConnectedAccountErrorResponse](docs/ConnectedAccountErrorResponse.md)
  - [ConnectedAccountManifest](docs/ConnectedAccountManifest.md)
  - [ConnectedAccountRateResponse](docs/ConnectedAccountRateResponse.md)
  - [ConnectedAccountTotalBalance](docs/ConnectedAccountTotalBalance.md)
@@ -615,6 +668,7 @@ Class | Method | HTTP request | Description
  - [ConsoleUser](docs/ConsoleUser.md)
  - [ContractAbiResponseDto](docs/ContractAbiResponseDto.md)
  - [ContractAbiResponseDtoAbiInner](docs/ContractAbiResponseDtoAbiInner.md)
+ - [ContractAddressResponse](docs/ContractAddressResponse.md)
  - [ContractAttributes](docs/ContractAttributes.md)
  - [ContractDataDecodeDataType](docs/ContractDataDecodeDataType.md)
  - [ContractDataDecodeError](docs/ContractDataDecodeError.md)
@@ -650,7 +704,6 @@ Class | Method | HTTP request | Description
  - [CreateAPIUser](docs/CreateAPIUser.md)
  - [CreateAddressRequest](docs/CreateAddressRequest.md)
  - [CreateAddressResponse](docs/CreateAddressResponse.md)
- - [CreateAssetsBulkRequest](docs/CreateAssetsBulkRequest.md)
  - [CreateAssetsRequest](docs/CreateAssetsRequest.md)
  - [CreateConfigOperationRequest](docs/CreateConfigOperationRequest.md)
  - [CreateConnectionRequest](docs/CreateConnectionRequest.md)
@@ -691,8 +744,11 @@ Class | Method | HTTP request | Description
  - [CustomRoutingDest](docs/CustomRoutingDest.md)
  - [DAppAddressConfig](docs/DAppAddressConfig.md)
  - [DVPSettlement](docs/DVPSettlement.md)
+ - [DVPSettlementType](docs/DVPSettlementType.md)
+ - [DecodedLog](docs/DecodedLog.md)
  - [DefaultNetworkRoutingDest](docs/DefaultNetworkRoutingDest.md)
  - [Delegation](docs/Delegation.md)
+ - [DelegationBlockchainPositionInfo](docs/DelegationBlockchainPositionInfo.md)
  - [DelegationSummary](docs/DelegationSummary.md)
  - [DeleteNetworkConnectionResponse](docs/DeleteNetworkConnectionResponse.md)
  - [DeleteNetworkIdResponse](docs/DeleteNetworkIdResponse.md)
@@ -750,15 +806,22 @@ Class | Method | HTTP request | Description
  - [EmbeddedWalletLatestBackupResponse](docs/EmbeddedWalletLatestBackupResponse.md)
  - [EmbeddedWalletPaginatedAddressesResponse](docs/EmbeddedWalletPaginatedAddressesResponse.md)
  - [EmbeddedWalletPaginatedAssetsResponse](docs/EmbeddedWalletPaginatedAssetsResponse.md)
+ - [EmbeddedWalletPaginatedDevicesResponse](docs/EmbeddedWalletPaginatedDevicesResponse.md)
  - [EmbeddedWalletPaginatedWalletsResponse](docs/EmbeddedWalletPaginatedWalletsResponse.md)
+ - [EmbeddedWalletRequiredAlgorithms](docs/EmbeddedWalletRequiredAlgorithms.md)
  - [EmbeddedWalletSetUpStatus](docs/EmbeddedWalletSetUpStatus.md)
- - [ErrorCodes](docs/ErrorCodes.md)
+ - [EmbeddedWalletSetupStatusResponse](docs/EmbeddedWalletSetupStatusResponse.md)
+ - [EnableDevice](docs/EnableDevice.md)
+ - [EnableWallet](docs/EnableWallet.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [ErrorResponseError](docs/ErrorResponseError.md)
  - [ErrorSchema](docs/ErrorSchema.md)
  - [EstimatedFeeDetails](docs/EstimatedFeeDetails.md)
  - [EstimatedNetworkFeeResponse](docs/EstimatedNetworkFeeResponse.md)
  - [EstimatedTransactionFeeResponse](docs/EstimatedTransactionFeeResponse.md)
+ - [EthereumBlockchainData](docs/EthereumBlockchainData.md)
+ - [EuropeanSEPAAddress](docs/EuropeanSEPAAddress.md)
+ - [EuropeanSEPADestination](docs/EuropeanSEPADestination.md)
  - [ExchangeAccount](docs/ExchangeAccount.md)
  - [ExchangeAsset](docs/ExchangeAsset.md)
  - [ExchangeSettlementTransactionsResponse](docs/ExchangeSettlementTransactionsResponse.md)
@@ -772,14 +835,21 @@ Class | Method | HTTP request | Description
  - [ExecutionResponseBaseDetails](docs/ExecutionResponseBaseDetails.md)
  - [ExecutionResponseDetails](docs/ExecutionResponseDetails.md)
  - [ExecutionScreeningOperation](docs/ExecutionScreeningOperation.md)
- - [ExecutionStep](docs/ExecutionStep.md)
- - [ExecutionStepDetails](docs/ExecutionStepDetails.md)
  - [ExecutionStepError](docs/ExecutionStepError.md)
  - [ExecutionStepStatusEnum](docs/ExecutionStepStatusEnum.md)
  - [ExecutionStepType](docs/ExecutionStepType.md)
  - [ExecutionTransferOperation](docs/ExecutionTransferOperation.md)
  - [ExternalAccount](docs/ExternalAccount.md)
+ - [ExternalAccountLocalBankAfrica](docs/ExternalAccountLocalBankAfrica.md)
+ - [ExternalAccountLocalBankAfricaType](docs/ExternalAccountLocalBankAfricaType.md)
+ - [ExternalAccountMobileMoney](docs/ExternalAccountMobileMoney.md)
+ - [ExternalAccountMobileMoneyProvider](docs/ExternalAccountMobileMoneyProvider.md)
+ - [ExternalAccountMobileMoneyType](docs/ExternalAccountMobileMoneyType.md)
+ - [ExternalAccountSenderInformation](docs/ExternalAccountSenderInformation.md)
+ - [ExternalAccountType](docs/ExternalAccountType.md)
  - [ExternalWalletAsset](docs/ExternalWalletAsset.md)
+ - [Failure](docs/Failure.md)
+ - [FailureReason](docs/FailureReason.md)
  - [Fee](docs/Fee.md)
  - [FeeBreakdown](docs/FeeBreakdown.md)
  - [FeeBreakdownOneOf](docs/FeeBreakdownOneOf.md)
@@ -788,12 +858,15 @@ Class | Method | HTTP request | Description
  - [FeeLevel](docs/FeeLevel.md)
  - [FeePayerInfo](docs/FeePayerInfo.md)
  - [FeePropertiesDetails](docs/FeePropertiesDetails.md)
+ - [FeeTypeEnum](docs/FeeTypeEnum.md)
  - [FetchAbiRequestDto](docs/FetchAbiRequestDto.md)
  - [FiatAccount](docs/FiatAccount.md)
  - [FiatAccountType](docs/FiatAccountType.md)
  - [FiatAsset](docs/FiatAsset.md)
  - [FiatDestination](docs/FiatDestination.md)
+ - [FiatPaymentMetadata](docs/FiatPaymentMetadata.md)
  - [FiatTransfer](docs/FiatTransfer.md)
+ - [FixedAmountTypeEnum](docs/FixedAmountTypeEnum.md)
  - [FixedFee](docs/FixedFee.md)
  - [FreezeTransactionResponse](docs/FreezeTransactionResponse.md)
  - [FunctionDoc](docs/FunctionDoc.md)
@@ -813,6 +886,7 @@ Class | Method | HTTP request | Description
  - [GetLayerZeroDvnConfigResponse](docs/GetLayerZeroDvnConfigResponse.md)
  - [GetLayerZeroPeersResponse](docs/GetLayerZeroPeersResponse.md)
  - [GetLinkedCollectionsPaginatedResponse](docs/GetLinkedCollectionsPaginatedResponse.md)
+ - [GetMaxBipIndexUsedResponse](docs/GetMaxBipIndexUsedResponse.md)
  - [GetMaxSpendableAmountResponse](docs/GetMaxSpendableAmountResponse.md)
  - [GetMpcKeysResponse](docs/GetMpcKeysResponse.md)
  - [GetNFTsResponse](docs/GetNFTsResponse.md)
@@ -832,6 +906,7 @@ Class | Method | HTTP request | Description
  - [IbanPaymentInfo](docs/IbanPaymentInfo.md)
  - [Identification](docs/Identification.md)
  - [IdlType](docs/IdlType.md)
+ - [IndicativeQuoteEnum](docs/IndicativeQuoteEnum.md)
  - [IndicativeQuoteType](docs/IndicativeQuoteType.md)
  - [InitiatorConfig](docs/InitiatorConfig.md)
  - [InitiatorConfigPattern](docs/InitiatorConfigPattern.md)
@@ -839,7 +914,6 @@ Class | Method | HTTP request | Description
  - [InternalReference](docs/InternalReference.md)
  - [InternalTransferResponse](docs/InternalTransferResponse.md)
  - [InvalidParamaterValueError](docs/InvalidParamaterValueError.md)
- - [Job](docs/Job.md)
  - [JobCreated](docs/JobCreated.md)
  - [LayerZeroAdapterCreateParams](docs/LayerZeroAdapterCreateParams.md)
  - [LbtPaymentInfo](docs/LbtPaymentInfo.md)
@@ -874,9 +948,7 @@ Class | Method | HTTP request | Description
  - [LegacyPublishDraftRequest](docs/LegacyPublishDraftRequest.md)
  - [LegacyPublishResult](docs/LegacyPublishResult.md)
  - [LegacySrcOrDestAttributesInner](docs/LegacySrcOrDestAttributesInner.md)
- - [LimitExecutionRequestDetails](docs/LimitExecutionRequestDetails.md)
- - [LimitExecutionResponseDetails](docs/LimitExecutionResponseDetails.md)
- - [LimitTypeDetails](docs/LimitTypeDetails.md)
+ - [LinkedTokensCount](docs/LinkedTokensCount.md)
  - [ListAssetsResponse](docs/ListAssetsResponse.md)
  - [ListBlockchainsResponse](docs/ListBlockchainsResponse.md)
  - [ListOwnedCollectionsResponse](docs/ListOwnedCollectionsResponse.md)
@@ -887,7 +959,9 @@ Class | Method | HTTP request | Description
  - [MarketExecutionRequestDetails](docs/MarketExecutionRequestDetails.md)
  - [MarketExecutionResponseDetails](docs/MarketExecutionResponseDetails.md)
  - [MarketRequoteRequestDetails](docs/MarketRequoteRequestDetails.md)
+ - [MarketRequoteTypeEnum](docs/MarketRequoteTypeEnum.md)
  - [MarketTypeDetails](docs/MarketTypeDetails.md)
+ - [MarketTypeEnum](docs/MarketTypeEnum.md)
  - [MediaEntityResponse](docs/MediaEntityResponse.md)
  - [MergeStakeAccountsRequest](docs/MergeStakeAccountsRequest.md)
  - [MergeStakeAccountsResponse](docs/MergeStakeAccountsResponse.md)
@@ -918,11 +992,15 @@ Class | Method | HTTP request | Description
  - [NotificationPaginatedResponse](docs/NotificationPaginatedResponse.md)
  - [NotificationStatus](docs/NotificationStatus.md)
  - [NotificationWithData](docs/NotificationWithData.md)
+ - [OnchainTransaction](docs/OnchainTransaction.md)
+ - [OnchainTransactionsPagedResponse](docs/OnchainTransactionsPagedResponse.md)
  - [OneTimeAddress](docs/OneTimeAddress.md)
  - [OneTimeAddressAccount](docs/OneTimeAddressAccount.md)
+ - [OneTimeAddressPeerType](docs/OneTimeAddressPeerType.md)
  - [OneTimeAddressReference](docs/OneTimeAddressReference.md)
  - [OperationExecutionFailure](docs/OperationExecutionFailure.md)
  - [OrderDetails](docs/OrderDetails.md)
+ - [OrderExecutionStep](docs/OrderExecutionStep.md)
  - [OrderSide](docs/OrderSide.md)
  - [OrderStatus](docs/OrderStatus.md)
  - [OrderSummary](docs/OrderSummary.md)
@@ -945,7 +1023,7 @@ Class | Method | HTTP request | Description
  - [PaymentAccountResponse](docs/PaymentAccountResponse.md)
  - [PaymentAccountType](docs/PaymentAccountType.md)
  - [PaymentInstructions](docs/PaymentInstructions.md)
- - [PaymentInstructionsDetails](docs/PaymentInstructionsDetails.md)
+ - [PaymentInstructionsOneOf](docs/PaymentInstructionsOneOf.md)
  - [PayoutInitMethod](docs/PayoutInitMethod.md)
  - [PayoutInstruction](docs/PayoutInstruction.md)
  - [PayoutInstructionResponse](docs/PayoutInstructionResponse.md)
@@ -955,12 +1033,14 @@ Class | Method | HTTP request | Description
  - [PayoutStatus](docs/PayoutStatus.md)
  - [PeerAdapterInfo](docs/PeerAdapterInfo.md)
  - [PeerType](docs/PeerType.md)
+ - [PersonalEntityTypeEnum](docs/PersonalEntityTypeEnum.md)
  - [PersonalIdentification](docs/PersonalIdentification.md)
  - [PersonalIdentificationFullName](docs/PersonalIdentificationFullName.md)
  - [PixAddress](docs/PixAddress.md)
  - [PixDestination](docs/PixDestination.md)
  - [PixPaymentInfo](docs/PixPaymentInfo.md)
  - [PlatformAccount](docs/PlatformAccount.md)
+ - [PlatformPeerType](docs/PlatformPeerType.md)
  - [Players](docs/Players.md)
  - [PolicyAndValidationResponse](docs/PolicyAndValidationResponse.md)
  - [PolicyCheckResult](docs/PolicyCheckResult.md)
@@ -977,24 +1057,24 @@ Class | Method | HTTP request | Description
  - [PolicyValidation](docs/PolicyValidation.md)
  - [PolicyVerdictActionEnum](docs/PolicyVerdictActionEnum.md)
  - [PolicyVerdictActionEnum2](docs/PolicyVerdictActionEnum2.md)
- - [PostOrderSettlement](docs/PostOrderSettlement.md)
  - [PostalAddress](docs/PostalAddress.md)
  - [PreScreening](docs/PreScreening.md)
  - [PrefundedSettlement](docs/PrefundedSettlement.md)
+ - [PrefundedSettlementType](docs/PrefundedSettlementType.md)
  - [ProgramCallConfig](docs/ProgramCallConfig.md)
  - [Provider](docs/Provider.md)
- - [ProviderID](docs/ProviderID.md)
  - [ProvidersListResponse](docs/ProvidersListResponse.md)
  - [PublicKeyInformation](docs/PublicKeyInformation.md)
  - [PublishDraftRequest](docs/PublishDraftRequest.md)
  - [PublishResult](docs/PublishResult.md)
  - [Quote](docs/Quote.md)
  - [QuoteExecutionRequestDetails](docs/QuoteExecutionRequestDetails.md)
- - [QuoteExecutionResponseDetails](docs/QuoteExecutionResponseDetails.md)
+ - [QuoteExecutionStep](docs/QuoteExecutionStep.md)
  - [QuoteExecutionTypeDetails](docs/QuoteExecutionTypeDetails.md)
  - [QuoteExecutionWithRequoteRequestDetails](docs/QuoteExecutionWithRequoteRequestDetails.md)
  - [QuoteExecutionWithRequoteResponseDetails](docs/QuoteExecutionWithRequoteResponseDetails.md)
  - [QuotePropertiesDetails](docs/QuotePropertiesDetails.md)
+ - [QuoteTypeEnum](docs/QuoteTypeEnum.md)
  - [QuotesResponse](docs/QuotesResponse.md)
  - [ReQuoteDetails](docs/ReQuoteDetails.md)
  - [ReQuoteDetailsReQuote](docs/ReQuoteDetailsReQuote.md)
@@ -1012,9 +1092,10 @@ Class | Method | HTTP request | Description
  - [RemoveLayerZeroAdaptersResponse](docs/RemoveLayerZeroAdaptersResponse.md)
  - [RemoveLayerZeroPeersRequest](docs/RemoveLayerZeroPeersRequest.md)
  - [RemoveLayerZeroPeersResponse](docs/RemoveLayerZeroPeersResponse.md)
+ - [RenameConnectedAccountRequest](docs/RenameConnectedAccountRequest.md)
+ - [RenameConnectedAccountResponse](docs/RenameConnectedAccountResponse.md)
  - [RenameCosigner](docs/RenameCosigner.md)
  - [RenameVaultAccountResponse](docs/RenameVaultAccountResponse.md)
- - [RescanTransaction](docs/RescanTransaction.md)
  - [ResendFailedNotificationsJobStatusResponse](docs/ResendFailedNotificationsJobStatusResponse.md)
  - [ResendFailedNotificationsRequest](docs/ResendFailedNotificationsRequest.md)
  - [ResendFailedNotificationsResponse](docs/ResendFailedNotificationsResponse.md)
@@ -1024,12 +1105,16 @@ Class | Method | HTTP request | Description
  - [ResendWebhooksResponse](docs/ResendWebhooksResponse.md)
  - [RespondToConnectionRequest](docs/RespondToConnectionRequest.md)
  - [RetryRequoteRequestDetails](docs/RetryRequoteRequestDetails.md)
+ - [RetryRequoteTypeEnum](docs/RetryRequoteTypeEnum.md)
  - [RewardInfo](docs/RewardInfo.md)
  - [RewardsInfo](docs/RewardsInfo.md)
+ - [RoleDetails](docs/RoleDetails.md)
+ - [RoleGrantee](docs/RoleGrantee.md)
  - [SEPAAddress](docs/SEPAAddress.md)
  - [SEPADestination](docs/SEPADestination.md)
  - [SOLAccount](docs/SOLAccount.md)
  - [SOLAccountWithValue](docs/SOLAccountWithValue.md)
+ - [ScopeItem](docs/ScopeItem.md)
  - [ScreeningAlertExposureTypeEnum](docs/ScreeningAlertExposureTypeEnum.md)
  - [ScreeningAmlAlert](docs/ScreeningAmlAlert.md)
  - [ScreeningAmlMatchedRule](docs/ScreeningAmlMatchedRule.md)
@@ -1086,6 +1171,7 @@ Class | Method | HTTP request | Description
  - [SettlementRequestBody](docs/SettlementRequestBody.md)
  - [SettlementResponse](docs/SettlementResponse.md)
  - [SettlementSourceAccount](docs/SettlementSourceAccount.md)
+ - [Side](docs/Side.md)
  - [SignedMessage](docs/SignedMessage.md)
  - [SignedMessageSignature](docs/SignedMessageSignature.md)
  - [SigningKeyDto](docs/SigningKeyDto.md)
@@ -1132,26 +1218,69 @@ Class | Method | HTTP request | Description
  - [SpeiDestination](docs/SpeiDestination.md)
  - [SplitRequest](docs/SplitRequest.md)
  - [SplitResponse](docs/SplitResponse.md)
+ - [StEthBlockchainData](docs/StEthBlockchainData.md)
  - [StakeRequest](docs/StakeRequest.md)
  - [StakeResponse](docs/StakeResponse.md)
  - [StakingProvider](docs/StakingProvider.md)
  - [Status](docs/Status.md)
  - [StellarRippleCreateParamsDto](docs/StellarRippleCreateParamsDto.md)
+ - [SupportedBlockChainsResponse](docs/SupportedBlockChainsResponse.md)
+ - [SupportedBlockchain](docs/SupportedBlockchain.md)
  - [SwiftAddress](docs/SwiftAddress.md)
  - [SwiftDestination](docs/SwiftDestination.md)
  - [SystemMessageInfo](docs/SystemMessageInfo.md)
+ - [TRLinkAPIPagedResponse](docs/TRLinkAPIPagedResponse.md)
  - [TRLinkAmount](docs/TRLinkAmount.md)
+ - [TRLinkAmount2](docs/TRLinkAmount2.md)
+ - [TRLinkAmountRange](docs/TRLinkAmountRange.md)
+ - [TRLinkAssessTravelRuleRequest](docs/TRLinkAssessTravelRuleRequest.md)
+ - [TRLinkAssessTravelRuleResponse](docs/TRLinkAssessTravelRuleResponse.md)
+ - [TRLinkAssessmentDecision](docs/TRLinkAssessmentDecision.md)
+ - [TRLinkAsset](docs/TRLinkAsset.md)
+ - [TRLinkAssetData](docs/TRLinkAssetData.md)
+ - [TRLinkAssetFormat](docs/TRLinkAssetFormat.md)
+ - [TRLinkAssetsListPagedResponse](docs/TRLinkAssetsListPagedResponse.md)
+ - [TRLinkCancelTrmRequest](docs/TRLinkCancelTrmRequest.md)
+ - [TRLinkConnectIntegrationRequest](docs/TRLinkConnectIntegrationRequest.md)
+ - [TRLinkCreateCustomerRequest](docs/TRLinkCreateCustomerRequest.md)
+ - [TRLinkCreateIntegrationRequest](docs/TRLinkCreateIntegrationRequest.md)
+ - [TRLinkCreateTrmRequest](docs/TRLinkCreateTrmRequest.md)
+ - [TRLinkCurrency](docs/TRLinkCurrency.md)
+ - [TRLinkCustomerIntegrationResponse](docs/TRLinkCustomerIntegrationResponse.md)
+ - [TRLinkCustomerResponse](docs/TRLinkCustomerResponse.md)
+ - [TRLinkDestinationTransferPeerPath](docs/TRLinkDestinationTransferPeerPath.md)
+ - [TRLinkDiscoverableStatus](docs/TRLinkDiscoverableStatus.md)
+ - [TRLinkFiatValue](docs/TRLinkFiatValue.md)
+ - [TRLinkGeographicAddressRequest](docs/TRLinkGeographicAddressRequest.md)
+ - [TRLinkGetSupportedAssetResponse](docs/TRLinkGetSupportedAssetResponse.md)
+ - [TRLinkIvms](docs/TRLinkIvms.md)
+ - [TRLinkIvmsResponse](docs/TRLinkIvmsResponse.md)
+ - [TRLinkJwkPublicKey](docs/TRLinkJwkPublicKey.md)
  - [TRLinkMissingTrmAction](docs/TRLinkMissingTrmAction.md)
+ - [TRLinkMissingTrmAction2](docs/TRLinkMissingTrmAction2.md)
  - [TRLinkMissingTrmActionEnum](docs/TRLinkMissingTrmActionEnum.md)
  - [TRLinkMissingTrmDecision](docs/TRLinkMissingTrmDecision.md)
  - [TRLinkMissingTrmRule](docs/TRLinkMissingTrmRule.md)
+ - [TRLinkMissingTrmRule2](docs/TRLinkMissingTrmRule2.md)
+ - [TRLinkOneTimeAddress](docs/TRLinkOneTimeAddress.md)
+ - [TRLinkPaging](docs/TRLinkPaging.md)
+ - [TRLinkPartnerResponse](docs/TRLinkPartnerResponse.md)
+ - [TRLinkPolicyResponse](docs/TRLinkPolicyResponse.md)
+ - [TRLinkPostScreeningAction](docs/TRLinkPostScreeningAction.md)
  - [TRLinkPostScreeningRule](docs/TRLinkPostScreeningRule.md)
+ - [TRLinkPostScreeningRule2](docs/TRLinkPostScreeningRule2.md)
  - [TRLinkPreScreeningAction](docs/TRLinkPreScreeningAction.md)
+ - [TRLinkPreScreeningAction2](docs/TRLinkPreScreeningAction2.md)
  - [TRLinkPreScreeningActionEnum](docs/TRLinkPreScreeningActionEnum.md)
  - [TRLinkPreScreeningRule](docs/TRLinkPreScreeningRule.md)
+ - [TRLinkPreScreeningRule2](docs/TRLinkPreScreeningRule2.md)
+ - [TRLinkProviderData](docs/TRLinkProviderData.md)
  - [TRLinkProviderResult](docs/TRLinkProviderResult.md)
  - [TRLinkProviderResultWithRule](docs/TRLinkProviderResultWithRule.md)
  - [TRLinkProviderResultWithRule2](docs/TRLinkProviderResultWithRule2.md)
+ - [TRLinkPublicAssetInfo](docs/TRLinkPublicAssetInfo.md)
+ - [TRLinkPublicKeyResponse](docs/TRLinkPublicKeyResponse.md)
+ - [TRLinkRedirectTrmRequest](docs/TRLinkRedirectTrmRequest.md)
  - [TRLinkRegistrationResult](docs/TRLinkRegistrationResult.md)
  - [TRLinkRegistrationResultFullPayload](docs/TRLinkRegistrationResultFullPayload.md)
  - [TRLinkRegistrationStatus](docs/TRLinkRegistrationStatus.md)
@@ -1159,22 +1288,39 @@ Class | Method | HTTP request | Description
  - [TRLinkResult](docs/TRLinkResult.md)
  - [TRLinkResultFullPayload](docs/TRLinkResultFullPayload.md)
  - [TRLinkRuleBase](docs/TRLinkRuleBase.md)
+ - [TRLinkSetDestinationTravelRuleMessageIdRequest](docs/TRLinkSetDestinationTravelRuleMessageIdRequest.md)
+ - [TRLinkSetDestinationTravelRuleMessageIdResponse](docs/TRLinkSetDestinationTravelRuleMessageIdResponse.md)
+ - [TRLinkSetTransactionTravelRuleMessageIdRequest](docs/TRLinkSetTransactionTravelRuleMessageIdRequest.md)
+ - [TRLinkSetTransactionTravelRuleMessageIdResponse](docs/TRLinkSetTransactionTravelRuleMessageIdResponse.md)
+ - [TRLinkSourceTransferPeerPath](docs/TRLinkSourceTransferPeerPath.md)
+ - [TRLinkTestConnectionResponse](docs/TRLinkTestConnectionResponse.md)
+ - [TRLinkThresholds](docs/TRLinkThresholds.md)
+ - [TRLinkTransactionDirection](docs/TRLinkTransactionDirection.md)
+ - [TRLinkTransferPeerPath](docs/TRLinkTransferPeerPath.md)
+ - [TRLinkTrmDirection](docs/TRLinkTrmDirection.md)
+ - [TRLinkTrmInfoResponse](docs/TRLinkTrmInfoResponse.md)
  - [TRLinkTrmScreeningStatus](docs/TRLinkTrmScreeningStatus.md)
  - [TRLinkTrmScreeningStatusEnum](docs/TRLinkTrmScreeningStatusEnum.md)
+ - [TRLinkTrmStatus](docs/TRLinkTrmStatus.md)
+ - [TRLinkTxnInfo](docs/TRLinkTxnInfo.md)
+ - [TRLinkUpdateCustomerRequest](docs/TRLinkUpdateCustomerRequest.md)
+ - [TRLinkVaspDto](docs/TRLinkVaspDto.md)
+ - [TRLinkVaspGeographicAddress](docs/TRLinkVaspGeographicAddress.md)
+ - [TRLinkVaspListDto](docs/TRLinkVaspListDto.md)
+ - [TRLinkVaspNationalIdentification](docs/TRLinkVaspNationalIdentification.md)
  - [TRLinkVerdict](docs/TRLinkVerdict.md)
  - [TRLinkVerdictEnum](docs/TRLinkVerdictEnum.md)
  - [Tag](docs/Tag.md)
  - [TagAttachmentOperationAction](docs/TagAttachmentOperationAction.md)
  - [TagsPagedResponse](docs/TagsPagedResponse.md)
- - [Task](docs/Task.md)
  - [TemplatesPaginatedResponse](docs/TemplatesPaginatedResponse.md)
  - [ThirdPartyRouting](docs/ThirdPartyRouting.md)
- - [TimeInForce](docs/TimeInForce.md)
  - [TimePeriodConfig](docs/TimePeriodConfig.md)
  - [TimePeriodMatchType](docs/TimePeriodMatchType.md)
  - [ToCollateralTransaction](docs/ToCollateralTransaction.md)
  - [ToExchangeTransaction](docs/ToExchangeTransaction.md)
  - [TokenCollectionResponse](docs/TokenCollectionResponse.md)
+ - [TokenContractSummaryResponse](docs/TokenContractSummaryResponse.md)
  - [TokenInfoNotFoundErrorResponse](docs/TokenInfoNotFoundErrorResponse.md)
  - [TokenLinkDto](docs/TokenLinkDto.md)
  - [TokenLinkDtoTokenMetadata](docs/TokenLinkDtoTokenMetadata.md)
@@ -1186,9 +1332,10 @@ Class | Method | HTTP request | Description
  - [TokenOwnershipStatusUpdatePayload](docs/TokenOwnershipStatusUpdatePayload.md)
  - [TokenResponse](docs/TokenResponse.md)
  - [TokensPaginatedResponse](docs/TokensPaginatedResponse.md)
+ - [TotalSupplyItemDto](docs/TotalSupplyItemDto.md)
+ - [TotalSupplyPagedResponse](docs/TotalSupplyPagedResponse.md)
  - [TradingAccountType](docs/TradingAccountType.md)
- - [TradingErrorResponse](docs/TradingErrorResponse.md)
- - [TradingErrorResponseError](docs/TradingErrorResponseError.md)
+ - [TradingErrorSchema](docs/TradingErrorSchema.md)
  - [TradingProvider](docs/TradingProvider.md)
  - [Transaction](docs/Transaction.md)
  - [TransactionDirection](docs/TransactionDirection.md)
@@ -1267,7 +1414,11 @@ Class | Method | HTTP request | Description
  - [TravelRuleValidateTransactionResponse](docs/TravelRuleValidateTransactionResponse.md)
  - [TravelRuleVaspForVault](docs/TravelRuleVaspForVault.md)
  - [TravelRuleVerdictEnum](docs/TravelRuleVerdictEnum.md)
+ - [TrustProofOfAddressCreateResponse](docs/TrustProofOfAddressCreateResponse.md)
+ - [TrustProofOfAddressRequest](docs/TrustProofOfAddressRequest.md)
+ - [TrustProofOfAddressResponse](docs/TrustProofOfAddressResponse.md)
  - [TxLog](docs/TxLog.md)
+ - [TypedMessageTransactionStatusEnum](docs/TypedMessageTransactionStatusEnum.md)
  - [USWireAddress](docs/USWireAddress.md)
  - [USWireDestination](docs/USWireDestination.md)
  - [UnfreezeTransactionResponse](docs/UnfreezeTransactionResponse.md)
@@ -1295,7 +1446,6 @@ Class | Method | HTTP request | Description
  - [UserType](docs/UserType.md)
  - [ValidateAddressResponse](docs/ValidateAddressResponse.md)
  - [ValidateLayerZeroChannelResponse](docs/ValidateLayerZeroChannelResponse.md)
- - [ValidatedTransactionsForRescan](docs/ValidatedTransactionsForRescan.md)
  - [ValidationKeyDto](docs/ValidationKeyDto.md)
  - [Validator](docs/Validator.md)
  - [VaultAccount](docs/VaultAccount.md)
@@ -1306,13 +1456,12 @@ Class | Method | HTTP request | Description
  - [VaultAccountsPagedResponsePaging](docs/VaultAccountsPagedResponsePaging.md)
  - [VaultAccountsTagAttachmentOperationsRequest](docs/VaultAccountsTagAttachmentOperationsRequest.md)
  - [VaultAccountsTagAttachmentOperationsResponse](docs/VaultAccountsTagAttachmentOperationsResponse.md)
- - [VaultAccountsTagAttachmentsRequest](docs/VaultAccountsTagAttachmentsRequest.md)
  - [VaultActionStatus](docs/VaultActionStatus.md)
  - [VaultAsset](docs/VaultAsset.md)
  - [VaultWalletAddress](docs/VaultWalletAddress.md)
  - [VendorDto](docs/VendorDto.md)
  - [VerdictConfig](docs/VerdictConfig.md)
- - [Version](docs/Version.md)
+ - [VersionSummary](docs/VersionSummary.md)
  - [WalletAsset](docs/WalletAsset.md)
  - [WalletAssetAdditionalInfo](docs/WalletAssetAdditionalInfo.md)
  - [Webhook](docs/Webhook.md)
@@ -1331,5 +1480,5 @@ Class | Method | HTTP request | Description
 
 ## Author
 
-support@fireblocks.com
+developers@fireblocks.com
 

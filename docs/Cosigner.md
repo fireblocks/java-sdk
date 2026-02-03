@@ -11,7 +11,7 @@
 |**id** | **UUID** | The unique identifier of the cosigner |  |
 |**name** | **String** | The name of the cosigner |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) | The type of the cosigner |  [optional] |
-|**version** | [**Version**](Version.md) |  |  [optional] |
+|**version** | [**VersionSummary**](VersionSummary.md) |  |  [optional] |
 
 
 

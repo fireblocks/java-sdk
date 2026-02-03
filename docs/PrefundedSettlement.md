@@ -7,16 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**TypeEnum**](#TypeEnum) |  |  |
+|**type** | **PrefundedSettlementType** |  |  |
 |**destinationAccount** | [**AccountReference**](AccountReference.md) |  |  |
-
-
-
-## Enum: TypeEnum
-
-| Name | Value |
-|---- | -----|
-| PREFUNDED | &quot;PREFUNDED&quot; |
 
 
 

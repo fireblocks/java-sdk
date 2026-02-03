@@ -5,11 +5,11 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**addExchangeAccount**](ExchangeAccountsApi.md#addExchangeAccount) | **POST** /exchange_accounts | Add an exchange account |
-| [**convertAssets**](ExchangeAccountsApi.md#convertAssets) | **POST** /exchange_accounts/{exchangeAccountId}/convert | Convert exchange account funds from the source asset to the destination asset. |
-| [**getExchangeAccount**](ExchangeAccountsApi.md#getExchangeAccount) | **GET** /exchange_accounts/{exchangeAccountId} | Find a specific exchange account |
-| [**getExchangeAccountAsset**](ExchangeAccountsApi.md#getExchangeAccountAsset) | **GET** /exchange_accounts/{exchangeAccountId}/{assetId} | Find an asset for an exchange account |
+| [**convertAssets**](ExchangeAccountsApi.md#convertAssets) | **POST** /exchange_accounts/{exchangeAccountId}/convert | Convert exchange account funds |
+| [**getExchangeAccount**](ExchangeAccountsApi.md#getExchangeAccount) | **GET** /exchange_accounts/{exchangeAccountId} | Get a specific exchange account |
+| [**getExchangeAccountAsset**](ExchangeAccountsApi.md#getExchangeAccountAsset) | **GET** /exchange_accounts/{exchangeAccountId}/{assetId} | Get an asset for an exchange account |
 | [**getExchangeAccountsCredentialsPublicKey**](ExchangeAccountsApi.md#getExchangeAccountsCredentialsPublicKey) | **GET** /exchange_accounts/credentials_public_key | Get public key to encrypt exchange credentials |
-| [**getPagedExchangeAccounts**](ExchangeAccountsApi.md#getPagedExchangeAccounts) | **GET** /exchange_accounts/paged | Pagination list exchange accounts |
+| [**getPagedExchangeAccounts**](ExchangeAccountsApi.md#getPagedExchangeAccounts) | **GET** /exchange_accounts/paged | List connected exchange accounts |
 | [**internalTransfer**](ExchangeAccountsApi.md#internalTransfer) | **POST** /exchange_accounts/{exchangeAccountId}/internal_transfer | Internal transfer for exchange accounts |
 
 
@@ -20,7 +20,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Add an exchange account
 
-Add an exchange account to exchanges.
+Add an exchange account to exchanges.   Note: This endpoint currently only supports the following exchanges &#x60;INDEPENDENT_RESERVE&#x60;,&#x60;BIT&#x60;, &#x60;BITHUMB&#x60;, &#x60;BITSO&#x60;, &#x60;CRYPTOCOM&#x60;, &#x60;BYBIT_V2&#x60;, &#x60;WHITEBIT&#x60;, &#x60;HITBTC&#x60;, &#x60;GEMINI&#x60;, &#x60;HUOBI&#x60;, &#x60;GATEIO&#x60;, &#x60;COINHAKO&#x60;, &#x60;BULLISH&#x60;, &#x60;BITGET&#x60;, and &#x60;LUNO&#x60;  To add an exchange account, please use the following [guide](https://developers.fireblocks.com/docs/add-an-exchange-account). 
 
 ### Example
 
@@ -103,9 +103,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<ConvertAssetsResponse>> convertAssets convertAssets(exchangeAccountId, convertAssetsRequest, idempotencyKey)
 
-Convert exchange account funds from the source asset to the destination asset.
+Convert exchange account funds
 
-Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
+Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -190,9 +190,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<ExchangeAccount>> getExchangeAccount getExchangeAccount(exchangeAccountId)
 
-Find a specific exchange account
+Get a specific exchange account
 
-Returns an exchange account by ID.
+Returns an exchange account by ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -273,9 +273,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<ExchangeAsset>> getExchangeAccountAsset getExchangeAccountAsset(exchangeAccountId, assetId)
 
-Find an asset for an exchange account
+Get an asset for an exchange account
 
-Returns an asset for an exchange account.
+Returns an asset for an exchange account. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -437,9 +437,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<GetPagedExchangeAccountsResponse>> getPagedExchangeAccounts getPagedExchangeAccounts(limit, before, after)
 
-Pagination list exchange accounts
+List connected exchange accounts
 
-Returns a page include exchange accounts.
+Returns a list of the connected exchange accounts in your workspace. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -526,7 +526,7 @@ No authorization required
 
 Internal transfer for exchange accounts
 
-Transfers funds between trading accounts under the same exchange account.
+Transfers funds between trading accounts under the same exchange account. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

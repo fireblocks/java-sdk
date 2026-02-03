@@ -4,6 +4,7 @@
 
 ## oneOf schemas
 * [AchDestination](AchDestination.md)
+* [EuropeanSEPADestination](EuropeanSEPADestination.md)
 * [IbanDestination](IbanDestination.md)
 * [LocalBankTransferAfricaDestination](LocalBankTransferAfricaDestination.md)
 * [MobileMoneyDestination](MobileMoneyDestination.md)
@@ -18,6 +19,7 @@
 // Import classes:
 import com.fireblocks.sdk.model.FiatDestination;
 import com.fireblocks.sdk.model.AchDestination;
+import com.fireblocks.sdk.model.EuropeanSEPADestination;
 import com.fireblocks.sdk.model.IbanDestination;
 import com.fireblocks.sdk.model.LocalBankTransferAfricaDestination;
 import com.fireblocks.sdk.model.MobileMoneyDestination;
@@ -37,6 +39,13 @@ public class Example {
         exampleFiatDestination.setActualInstance(exampleAchDestination);
         // to get back the AchDestination set earlier
         AchDestination testAchDestination = (AchDestination) exampleFiatDestination.getActualInstance();
+
+        // create a new EuropeanSEPADestination
+        EuropeanSEPADestination exampleEuropeanSEPADestination = new EuropeanSEPADestination();
+        // set FiatDestination to EuropeanSEPADestination
+        exampleFiatDestination.setActualInstance(exampleEuropeanSEPADestination);
+        // to get back the EuropeanSEPADestination set earlier
+        EuropeanSEPADestination testEuropeanSEPADestination = (EuropeanSEPADestination) exampleFiatDestination.getActualInstance();
 
         // create a new IbanDestination
         IbanDestination exampleIbanDestination = new IbanDestination();

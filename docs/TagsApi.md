@@ -4,21 +4,110 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createTag**](TagsApi.md#createTag) | **POST** /tags | Create a tag |
+| [**cancelApprovalRequest**](TagsApi.md#cancelApprovalRequest) | **POST** /tags/approval_requests/{id}/cancel | Cancel an approval request by id |
+| [**createTag**](TagsApi.md#createTag) | **POST** /tags | Create a new tag |
 | [**deleteTag**](TagsApi.md#deleteTag) | **DELETE** /tags/{tagId} | Delete a tag |
+| [**getApprovalRequest**](TagsApi.md#getApprovalRequest) | **GET** /tags/approval_requests/{id} | Get an approval request by id |
 | [**getTag**](TagsApi.md#getTag) | **GET** /tags/{tagId} | Get a tag |
 | [**getTags**](TagsApi.md#getTags) | **GET** /tags | Get list of tags |
 | [**updateTag**](TagsApi.md#updateTag) | **PATCH** /tags/{tagId} | Update a tag |
 
 
 
+## cancelApprovalRequest
+
+> CompletableFuture<ApiResponse<Void>> cancelApprovalRequest cancelApprovalRequest(id, idempotencyKey)
+
+Cancel an approval request by id
+
+Cancel an approval request by id. Can only cancel requests in PENDING status. Returns 202 Accepted when the cancellation is processed.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TagsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String id = "12345"; // String | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.tags().cancelApprovalRequest(id, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TagsApi#cancelApprovalRequest");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TagsApi#cancelApprovalRequest");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+
+CompletableFuture<ApiResponse<Void>>
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Approval request cancellation processed |  * X-Request-ID -  <br>  |
+| **401** | Unauthorized |  * X-Request-ID -  <br>  |
+| **404** | Approval request not found |  * X-Request-ID -  <br>  |
+| **409** | Invalid approval request state - cannot cancel request that is not in PENDING status |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## createTag
 
 > CompletableFuture<ApiResponse<Tag>> createTag createTag(createTagRequest, idempotencyKey)
 
-Create a tag
+Create a new tag
 
-Create a new tag.
+Create a new tag. Endpoint Permissions: For protected tags: ADMIN,NON_SIGNING_ADMIN,OWNER. For non protected tags: ADMIN,NON_SIGNING_ADMIN,OWNER,SIGNER,EDITOR,APPROVER.
 
 ### Example
 
@@ -93,7 +182,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | A tag object |  * X-Request-ID -  <br>  |
+| **201** | Tag created successfully |  * X-Request-ID -  <br>  |
 
 
 ## deleteTag
@@ -102,7 +191,7 @@ No authorization required
 
 Delete a tag
 
-Delete the specified tag.
+Delete the specified tag. Endpoint Permission: For protected tags: Owner, Admin, Non-Signing Admin. For non protected tags: Owner, Admin, Non-Signing Admin, Signer, Editor, Approver.
 
 ### Example
 
@@ -175,6 +264,91 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **204** | Tag was deleted successfully |  * X-Request-ID -  <br>  |
+
+
+## getApprovalRequest
+
+> CompletableFuture<ApiResponse<ApprovalRequest>> getApprovalRequest getApprovalRequest(id)
+
+Get an approval request by id
+
+Get an approval request by id
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TagsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String id = "12345"; // String | 
+        try {
+            CompletableFuture<ApiResponse<ApprovalRequest>> response = fireblocks.tags().getApprovalRequest(id);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TagsApi#getApprovalRequest");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TagsApi#getApprovalRequest");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**|  | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**ApprovalRequest**](ApprovalRequest.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Approval request fetched successfully |  * X-Request-ID -  <br>  |
+| **401** | Unauthorized |  * X-Request-ID -  <br>  |
+| **404** | Approval request not found |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
 ## getTag
@@ -261,7 +435,7 @@ No authorization required
 
 ## getTags
 
-> CompletableFuture<ApiResponse<TagsPagedResponse>> getTags getTags(pageCursor, pageSize, label, tagIds)
+> CompletableFuture<ApiResponse<TagsPagedResponse>> getTags getTags(pageCursor, pageSize, label, tagIds, includePendingApprovalsInfo, isProtected)
 
 Get list of tags
 
@@ -294,8 +468,10 @@ public class Example {
         BigDecimal pageSize = new BigDecimal("100"); // BigDecimal | Maximum number of items in the page
         String label = "VIP"; // String | Label prefix to filter by.
         List<UUID> tagIds = Arrays.asList(); // List<UUID> | List of tag IDs to filter by.
+        Boolean includePendingApprovalsInfo = false; // Boolean | Whether to include pending approval requests info.
+        Boolean isProtected = true; // Boolean | 
         try {
-            CompletableFuture<ApiResponse<TagsPagedResponse>> response = fireblocks.tags().getTags(pageCursor, pageSize, label, tagIds);
+            CompletableFuture<ApiResponse<TagsPagedResponse>> response = fireblocks.tags().getTags(pageCursor, pageSize, label, tagIds, includePendingApprovalsInfo, isProtected);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -326,6 +502,8 @@ public class Example {
 | **pageSize** | **BigDecimal**| Maximum number of items in the page | [optional] [default to 100] |
 | **label** | **String**| Label prefix to filter by. | [optional] |
 | **tagIds** | [**List&lt;UUID&gt;**](UUID.md)| List of tag IDs to filter by. | [optional] |
+| **includePendingApprovalsInfo** | **Boolean**| Whether to include pending approval requests info. | [optional] [default to false] |
+| **isProtected** | **Boolean**|  | [optional] |
 
 ### Return type
 
@@ -344,7 +522,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | A TagsPagedResponse object |  * X-Request-ID -  <br>  |
+| **200** | Tags fetched successfully |  * X-Request-ID -  <br>  |
 
 
 ## updateTag
@@ -353,7 +531,7 @@ No authorization required
 
 Update a tag
 
-Update an existing specified tag.
+Update an existing specified tag. Endpoint Permission: For protected tags: Owner, Admin, Non-Signing Admin. For non protected tags: Owner, Admin, Non-Signing Admin, Signer, Editor, Approver.
 
 ### Example
 

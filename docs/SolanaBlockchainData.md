@@ -9,7 +9,7 @@ Additional fields per blockchain - can be empty or missing if not initialized or
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**stakeAccountAddress** | **String** | The stake account address matching the stakeAccountId. |  |
-|**stakeAccountDerivationChangeValue** | **BigDecimal** | The value of the change level in the BIP44 path which was used to derive the stake account address |  |
+|**stakeAccountDerivationChangeValue** | **BigDecimal** | The value of the change level in the BIP32 path which was used to derive the stake account address. |  |
 
 
 

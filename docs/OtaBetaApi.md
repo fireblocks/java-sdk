@@ -94,7 +94,7 @@ No authorization required
 
 Enable or disable transactions to OTA
 
-Enable or disable transactions to OTA
+Enable or disable transactions to One Time Addresses (Non Whitelisted addresses). Learn more about [One Time Addresses](https://support.fireblocks.io/hc/en-us/articles/4409104568338-One-Time-Address-OTA-feature)
 
 ### Example
 

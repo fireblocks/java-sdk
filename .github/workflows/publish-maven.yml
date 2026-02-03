@@ -8,10 +8,17 @@ jobs:
   bump-version:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate GitHub App token
+        id: generate-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.SDK_GENERATION_APP_ID }}
+          private-key: ${{ secrets.SDK_GENERATION_APP_PRIVATE_KEY }}
+
       - name: Check out repository code
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.RELEASE_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
       - name: Set up Python
         uses: actions/setup-python@v2
         with:

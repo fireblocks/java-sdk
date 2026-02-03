@@ -5,7 +5,6 @@
 Order execution details
 
 ## oneOf schemas
-* [LimitExecutionRequestDetails](LimitExecutionRequestDetails.md)
 * [MarketExecutionRequestDetails](MarketExecutionRequestDetails.md)
 * [QuoteExecutionWithRequoteRequestDetails](QuoteExecutionWithRequoteRequestDetails.md)
 
@@ -13,20 +12,12 @@ Order execution details
 ```java
 // Import classes:
 import com.fireblocks.sdk.model.ExecutionRequestDetails;
-import com.fireblocks.sdk.model.LimitExecutionRequestDetails;
 import com.fireblocks.sdk.model.MarketExecutionRequestDetails;
 import com.fireblocks.sdk.model.QuoteExecutionWithRequoteRequestDetails;
 
 public class Example {
     public static void main(String[] args) {
         ExecutionRequestDetails exampleExecutionRequestDetails = new ExecutionRequestDetails();
-
-        // create a new LimitExecutionRequestDetails
-        LimitExecutionRequestDetails exampleLimitExecutionRequestDetails = new LimitExecutionRequestDetails();
-        // set ExecutionRequestDetails to LimitExecutionRequestDetails
-        exampleExecutionRequestDetails.setActualInstance(exampleLimitExecutionRequestDetails);
-        // to get back the LimitExecutionRequestDetails set earlier
-        LimitExecutionRequestDetails testLimitExecutionRequestDetails = (LimitExecutionRequestDetails) exampleExecutionRequestDetails.getActualInstance();
 
         // create a new MarketExecutionRequestDetails
         MarketExecutionRequestDetails exampleMarketExecutionRequestDetails = new MarketExecutionRequestDetails();

@@ -4,7 +4,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**resendTransactionWebhooks**](WebhooksApi.md#resendTransactionWebhooks) | **POST** /webhooks/resend/{txId} | Resend failed webhooks for a transaction by ID |
+| [**resendTransactionWebhooks**](WebhooksApi.md#resendTransactionWebhooks) | **POST** /webhooks/resend/{txId} | Resend webhooks for a transaction by ID |
 | [**resendWebhooks**](WebhooksApi.md#resendWebhooks) | **POST** /webhooks/resend | Resend failed webhooks |
 
 
@@ -13,9 +13,9 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 > CompletableFuture<ApiResponse<ResendWebhooksByTransactionIdResponse>> resendTransactionWebhooks resendTransactionWebhooks(resendTransactionWebhooksRequest, txId, idempotencyKey)
 
-Resend failed webhooks for a transaction by ID
+Resend webhooks for a transaction by ID
 
-Resends failed webhook notifications for a transaction by ID.
+Resends webhook notifications for a transaction by its unique identifier.  Learn more about Fireblocks Webhooks in the following [guide](https://developers.fireblocks.com/docs/configure-webhooks).  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
 
 ### Example
 
@@ -102,7 +102,7 @@ No authorization required
 
 Resend failed webhooks
 
-Resends all failed webhook notifications.
+Resends all failed webhook notifications.  Learn more about Fireblocks Webhooks in the following [guide](https://developers.fireblocks.com/docs/configure-webhooks).  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

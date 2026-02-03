@@ -4,11 +4,11 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**addOffExchange**](OffExchangesApi.md#addOffExchange) | **POST** /off_exchange/add | add collateral |
+| [**addOffExchange**](OffExchangesApi.md#addOffExchange) | **POST** /off_exchange/add | Add Collateral |
 | [**getOffExchangeCollateralAccounts**](OffExchangesApi.md#getOffExchangeCollateralAccounts) | **GET** /off_exchange/collateral_accounts/{mainExchangeAccountId} | Find a specific collateral exchange account |
-| [**getOffExchangeSettlementTransactions**](OffExchangesApi.md#getOffExchangeSettlementTransactions) | **GET** /off_exchange/settlements/transactions | get settlements transactions from exchange |
-| [**removeOffExchange**](OffExchangesApi.md#removeOffExchange) | **POST** /off_exchange/remove | remove collateral |
-| [**settleOffExchangeTrades**](OffExchangesApi.md#settleOffExchangeTrades) | **POST** /off_exchange/settlements/trader | create settlement for a trader |
+| [**getOffExchangeSettlementTransactions**](OffExchangesApi.md#getOffExchangeSettlementTransactions) | **GET** /off_exchange/settlements/transactions | Get Settlements Transactions |
+| [**removeOffExchange**](OffExchangesApi.md#removeOffExchange) | **POST** /off_exchange/remove | Remove Collateral |
+| [**settleOffExchangeTrades**](OffExchangesApi.md#settleOffExchangeTrades) | **POST** /off_exchange/settlements/trader | Create Settlement for a Trader |
 
 
 
@@ -16,9 +16,9 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 > CompletableFuture<ApiResponse<CreateTransactionResponse>> addOffExchange addOffExchange(addCollateralRequestBody, idempotencyKey)
 
-add collateral
+Add Collateral
 
-add collateral, create deposit request
+Add collateral and create deposit request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -103,7 +103,7 @@ No authorization required
 
 Find a specific collateral exchange account
 
-Returns a collateral account by mainExchangeAccountId.
+Returns a collateral account by mainExchangeAccountId. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -184,9 +184,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<ExchangeSettlementTransactionsResponse>> getOffExchangeSettlementTransactions getOffExchangeSettlementTransactions(mainExchangeAccountId)
 
-get settlements transactions from exchange
+Get Settlements Transactions
 
-get settlements transactions from exchange
+Get settlements transactions from exchange. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -267,9 +267,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<CreateTransactionResponse>> removeOffExchange removeOffExchange(removeCollateralRequestBody, idempotencyKey)
 
-remove collateral
+Remove Collateral
 
-remove collateral, create withdraw request
+Remove collateral, create withdraw request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -352,9 +352,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<SettlementResponse>> settleOffExchangeTrades settleOffExchangeTrades(settlementRequestBody, idempotencyKey)
 
-create settlement for a trader
+Create Settlement for a Trader
 
-create settlement for a trader
+Create settlement for a trader. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

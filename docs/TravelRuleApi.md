@@ -4,6 +4,8 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
+| [**createTrustProofOfAddress**](TravelRuleApi.md#createTrustProofOfAddress) | **POST** /screening/travel_rule/providers/trust/proof_of_address | Create Trust Network Proof of Address |
+| [**getTrustProofOfAddress**](TravelRuleApi.md#getTrustProofOfAddress) | **GET** /screening/travel_rule/providers/trust/proof_of_address/{transactionId} | Retrieve Trust Network Proof of Address Signature |
 | [**getVASPByDID**](TravelRuleApi.md#getVASPByDID) | **GET** /screening/travel_rule/vasp/{did} | Get VASP details |
 | [**getVASPs**](TravelRuleApi.md#getVASPs) | **GET** /screening/travel_rule/vasp | Get All VASPs |
 | [**getVaspForVault**](TravelRuleApi.md#getVaspForVault) | **GET** /screening/travel_rule/vault/{vaultAccountId}/vasp | Get assigned VASP to vault |
@@ -11,6 +13,174 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**updateVasp**](TravelRuleApi.md#updateVasp) | **PUT** /screening/travel_rule/vasp/update | Add jsonDidKey to VASP details |
 | [**validateFullTravelRuleTransaction**](TravelRuleApi.md#validateFullTravelRuleTransaction) | **POST** /screening/travel_rule/transaction/validate/full | Validate Full Travel Rule Transaction |
 
+
+
+## createTrustProofOfAddress
+
+> CompletableFuture<ApiResponse<TrustProofOfAddressCreateResponse>> createTrustProofOfAddress createTrustProofOfAddress(trustProofOfAddressRequest, idempotencyKey)
+
+Create Trust Network Proof of Address
+
+Creates a cryptographic proof of address ownership for TRUST network.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TravelRuleApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        TrustProofOfAddressRequest trustProofOfAddressRequest = new TrustProofOfAddressRequest(); // TrustProofOfAddressRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<TrustProofOfAddressCreateResponse>> response = fireblocks.travelRule().createTrustProofOfAddress(trustProofOfAddressRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TravelRuleApi#createTrustProofOfAddress");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TravelRuleApi#createTrustProofOfAddress");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **trustProofOfAddressRequest** | [**TrustProofOfAddressRequest**](TrustProofOfAddressRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**TrustProofOfAddressCreateResponse**](TrustProofOfAddressCreateResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Proof of address transaction created successfully |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getTrustProofOfAddress
+
+> CompletableFuture<ApiResponse<TrustProofOfAddressResponse>> getTrustProofOfAddress getTrustProofOfAddress(transactionId)
+
+Retrieve Trust Network Proof of Address Signature
+
+Retrieves the TRUST-compatible encoded signature for a proof of address transaction. Send this signature directly to TRUST for verification.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TravelRuleApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID transactionId = UUID.fromString("550e8400-e29b-41d4-a716-446655440000"); // UUID | Fireblocks transaction ID (UUID format)
+        try {
+            CompletableFuture<ApiResponse<TrustProofOfAddressResponse>> response = fireblocks.travelRule().getTrustProofOfAddress(transactionId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TravelRuleApi#getTrustProofOfAddress");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TravelRuleApi#getTrustProofOfAddress");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **transactionId** | **UUID**| Fireblocks transaction ID (UUID format) | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**TrustProofOfAddressResponse**](TrustProofOfAddressResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Encoded signature retrieved successfully |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
 ## getVASPByDID

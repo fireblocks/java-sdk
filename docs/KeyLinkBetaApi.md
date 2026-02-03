@@ -11,8 +11,8 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getSigningKeysList**](KeyLinkBetaApi.md#getSigningKeysList) | **GET** /key_link/signing_keys | Get list of signing keys |
 | [**getValidationKey**](KeyLinkBetaApi.md#getValidationKey) | **GET** /key_link/validation_keys/{keyId} | Get a validation key by &#x60;keyId&#x60; |
 | [**getValidationKeysList**](KeyLinkBetaApi.md#getValidationKeysList) | **GET** /key_link/validation_keys | Get list of registered validation keys |
-| [**setAgentId**](KeyLinkBetaApi.md#setAgentId) | **PATCH** /key_link/signing_keys/{keyId}/agent_user_id | Set agent user id that can sign with the signing key identified by the Fireblocks provided &#x60;keyId&#x60; |
-| [**updateSigningKey**](KeyLinkBetaApi.md#updateSigningKey) | **PATCH** /key_link/signing_keys/{keyId} | Modify the signing by Fireblocks provided &#x60;keyId&#x60; |
+| [**setAgentId**](KeyLinkBetaApi.md#setAgentId) | **PATCH** /key_link/signing_keys/{keyId}/agent_user_id | Set agent user id |
+| [**updateSigningKey**](KeyLinkBetaApi.md#updateSigningKey) | **PATCH** /key_link/signing_keys/{keyId} | Modify the signing keyId |
 
 
 
@@ -22,7 +22,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Add a new signing key
 
-Adds a new signing key to the workspace. The added key will be linked to the specific Fireblocks agent user ID. The same user will receive the proof of ownership message to be signed, and upon successful proof, the key will become enabled. Please note that this endpoint is available only for Key Link enabled workspaces. **Note:**  This endpoint is currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+Adds a new signing key to the workspace. The added key will be linked to the specific Fireblocks agent user ID. The same user will receive the proof of ownership message to be signed, and upon successful proof, the key will become enabled.
 
 ### Example
 
@@ -107,7 +107,7 @@ No authorization required
 
 Add a new validation key
 
-Adds a new validation key used to validate signing keys. The new validation key will undergo an approval process by the workspace quorum. Please note that this endpoint is available only for Key Link enabled workspaces. **Note:**  This endpoint is currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+Adds a new validation key used to validate signing keys. The new validation key will undergo an approval process by the workspace quorum.
 
 ### Example
 
@@ -192,7 +192,7 @@ No authorization required
 
 Disables a validation key
 
-Allows disabling validation key even if it has not expired yet. It is not allowed to enable the validation key back. Another key has to be used for future validations. Please note that this endpoint is available only for Key Link enabled workspaces. **Note:**  This endpoint is currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+Allows disabling validation key even if it has not expired yet. It is not allowed to enable the validation key back. Another key has to be used for future validations.
 
 ### Example
 
@@ -277,7 +277,7 @@ No authorization required
 
 Get a signing key by &#x60;keyId&#x60;
 
-Returns a signing key if it exists, identified by the specified Fireblocks provided &#x60;keyId&#x60;. Please note that this endpoint is available only for Key Link enabled workspaces. **Note:**  This endpoint is currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+Returns a signing key if it exists, identified by the specified &#x60;keyId&#x60;.
 
 ### Example
 
@@ -360,7 +360,7 @@ No authorization required
 
 Get list of signing keys
 
-Returns the list of signing keys in the workspace Please note that this endpoint is available only for Key Link enabled workspaces. **Note:**  This endpoint is currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+Returns the list of signing keys in the workspace
 
 ### Example
 
@@ -463,7 +463,7 @@ No authorization required
 
 Get a validation key by &#x60;keyId&#x60;
 
-Returns a validation key if it exists, identified by the specified &#x60;keyId&#x60;. Please note that this endpoint is available only for Key Link enabled workspaces. **Note:**  This endpoint is currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+Returns a validation key if it exists, identified by the specified &#x60;keyId&#x60;.
 
 ### Example
 
@@ -546,7 +546,7 @@ No authorization required
 
 Get list of registered validation keys
 
-Returns the list of validation keys in the workspace Please note that this endpoint is available only for Key Link enabled workspaces. **Note:**  This endpoint is currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+Returns the list of validation keys in the workspace
 
 ### Example
 
@@ -633,9 +633,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<Void>> setAgentId setAgentId(modifySigningKeyAgentIdDto, keyId)
 
-Set agent user id that can sign with the signing key identified by the Fireblocks provided &#x60;keyId&#x60;
+Set agent user id
 
-Can modify existing signing key id if the key is not enabled. The change done in background and will be visible once applied. If key is already enabled (after proof of ownership) the user cannot be changed. Please note that this endpoint is available only for Key Link enabled workspaces. **Note:**  This endpoint is currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+Can modify existing signing key id if the key is not enabled. The change done in background and will be visible once applied. If key is already enabled (after proof of ownership) the user cannot be changed.
 
 ### Example
 
@@ -717,9 +717,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<SigningKeyDto>> updateSigningKey updateSigningKey(modifySigningKeyDto, keyId)
 
-Modify the signing by Fireblocks provided &#x60;keyId&#x60;
+Modify the signing keyId
 
-Allows assigning the signing key to a vault account, if it hasn&#39;t been assigned to any other vault accounts yet. Please note that this endpoint is available only for Key Link enabled workspaces. **Note:**  This endpoint is currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+Allows assigning the signing key to a vault account, if it hasn&#39;t been assigned to any other vault accounts yet.
 
 ### Example
 
