@@ -1,0 +1,91 @@
+name: Draft Release from PR
+
+on:
+  push:
+    branches:
+      - master_changelog_test
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  draft-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get last merged PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr list \
+            --state merged \
+            --base master_changelog_test \
+            --limit 1 \
+            --json number,title,body,labels \
+            > pr.json
+          
+          PR_NUM=$(jq -r '.[0].number // "none"' pr.json)
+          PR_TITLE=$(jq -r '.[0].title // "none"' pr.json)
+          echo "Found merged PR: #$PR_NUM - $PR_TITLE"
+
+      - name: Get latest release version
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          LAST_TAG=$(gh release list --limit 1 --json tagName -q '.[0].tagName')
+
+          if [[ -z "$LAST_TAG" || "$LAST_TAG" == "null" ]]; then
+            echo "No existing release found, starting from v0.1.0"
+            echo "LAST_TAG=v0.1.0" >> $GITHUB_ENV
+          else
+            echo "Found latest release: $LAST_TAG"
+            echo "LAST_TAG=$LAST_TAG" >> $GITHUB_ENV
+          fi
+
+      - name: Calculate next version from labels
+        run: |
+          V="${LAST_TAG#v}"
+
+          MAJOR=$(echo $V | cut -d. -f1)
+          MINOR=$(echo $V | cut -d. -f2)
+          PATCH=$(echo $V | cut -d. -f3)
+
+          LABELS=$(jq -r '.[0].labels[].name' pr.json)
+          echo "Found labels: $LABELS"
+
+          if echo "$LABELS" | grep -q "major"; then
+            echo "Bumping MAJOR version"
+            MAJOR=$((MAJOR+1))
+            MINOR=0
+            PATCH=0
+          elif echo "$LABELS" | grep -q "minor"; then
+            echo "Bumping MINOR version"
+            MINOR=$((MINOR+1))
+            PATCH=0
+          else
+            echo "Bumping PATCH version"
+            PATCH=$((PATCH+1))
+          fi
+
+          echo "Calculated next version: v$MAJOR.$MINOR.$PATCH"
+          echo "VERSION=v$MAJOR.$MINOR.$PATCH" >> $GITHUB_ENV
+
+      - name: Create DRAFT release using PR BODY
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_BODY=$(jq -r '.[0].body // ""' pr.json)
+
+          echo "Creating draft release..."
+          echo "Version: $VERSION"
+
+          gh release create "$VERSION" \
+            --draft \
+            --title "$VERSION" \
+            --notes "$PR_BODY"
+          
+          echo "Draft release created successfully!"
