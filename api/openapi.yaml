@@ -32251,6 +32251,7 @@ components:
           tag: tag
           activationTime: activationTime
           status: WAITING_FOR_APPROVAL
+        test: true
         name: name
         id: id
         customerRefId: customerRefId
@@ -32265,10 +32266,13 @@ components:
           items:
             $ref: "#/components/schemas/WalletAsset"
           type: array
+        test:
+          type: boolean
       required:
       - assets
       - id
       - name
+      - test
       type: object
     GetInternalWalletsResponse:
       items:
@@ -32306,6 +32310,7 @@ components:
             tag: tag
             activationTime: activationTime
             status: WAITING_FOR_APPROVAL
+          test: true
           name: name
           id: id
           customerRefId: customerRefId
