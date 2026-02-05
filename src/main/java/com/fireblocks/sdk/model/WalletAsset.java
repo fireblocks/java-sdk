@@ -50,7 +50,7 @@ public class WalletAsset {
     @jakarta.annotation.Nullable private String address;
 
     public static final String JSON_PROPERTY_TAG = "tag";
-    @jakarta.annotation.Nullable private String tag;
+    @jakarta.annotation.Nullable private Boolean tag;
 
     public static final String JSON_PROPERTY_ACTIVATION_TIME = "activationTime";
     @jakarta.annotation.Nullable private String activationTime;
@@ -172,7 +172,7 @@ public class WalletAsset {
         this.address = address;
     }
 
-    public WalletAsset tag(@jakarta.annotation.Nullable String tag) {
+    public WalletAsset tag(@jakarta.annotation.Nullable Boolean tag) {
         this.tag = tag;
         return this;
     }
@@ -185,13 +185,13 @@ public class WalletAsset {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_TAG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getTag() {
+    public Boolean getTag() {
         return tag;
     }
 
     @JsonProperty(JSON_PROPERTY_TAG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTag(@jakarta.annotation.Nullable String tag) {
+    public void setTag(@jakarta.annotation.Nullable Boolean tag) {
         this.tag = tag;
     }
 

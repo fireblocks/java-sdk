@@ -13425,6 +13425,63 @@ paths:
       x-accepts:
       - application/json
   /webhooks/{webhookId}/notifications/{notificationId}:
+    delete:
+      description: |
+        Delete notification by id
+      operationId: deleteNotification
+      parameters:
+      - description: The ID of the webhook to fetch
+        explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the notification to fetch
+        explode: false
+        in: path
+        name: notificationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Delete notification by id
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.webhooksV2.deleteNotification(webhooksV2ApiDeleteNotificationRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.webhooksV2().deleteNotification(webhookId,\
+            \ notificationId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2.delete_notification(webhook_id,\
+            \ notification_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.webhooksV2.deleteNotification(webhooksV2ApiDeleteNotificationRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.webhooksV2().deleteNotification(webhookId,\
+          \ notificationId);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2.delete_notification(webhook_id,\
+          \ notification_id);"
+      x-accepts:
+      - application/json
     get:
       description: |
         Get notification by id
@@ -32215,7 +32272,7 @@ components:
         address: address
         balance: balance
         id: id
-        tag: tag
+        tag: true
         activationTime: activationTime
         status: WAITING_FOR_APPROVAL
       properties:
@@ -32230,7 +32287,7 @@ components:
         address:
           type: string
         tag:
-          type: string
+          type: boolean
         activationTime:
           type: string
       type: object
@@ -32241,16 +32298,17 @@ components:
           address: address
           balance: balance
           id: id
-          tag: tag
+          tag: true
           activationTime: activationTime
           status: WAITING_FOR_APPROVAL
         - lockedAmount: lockedAmount
           address: address
           balance: balance
           id: id
-          tag: tag
+          tag: true
           activationTime: activationTime
           status: WAITING_FOR_APPROVAL
+        test: true
         name: name
         id: id
         customerRefId: customerRefId
@@ -32265,10 +32323,13 @@ components:
           items:
             $ref: "#/components/schemas/WalletAsset"
           type: array
+        test:
+          type: boolean
       required:
       - assets
       - id
       - name
+      - test
       type: object
     GetInternalWalletsResponse:
       items:
@@ -32296,16 +32357,17 @@ components:
             address: address
             balance: balance
             id: id
-            tag: tag
+            tag: true
             activationTime: activationTime
             status: WAITING_FOR_APPROVAL
           - lockedAmount: lockedAmount
             address: address
             balance: balance
             id: id
-            tag: tag
+            tag: true
             activationTime: activationTime
             status: WAITING_FOR_APPROVAL
+          test: true
           name: name
           id: id
           customerRefId: customerRefId

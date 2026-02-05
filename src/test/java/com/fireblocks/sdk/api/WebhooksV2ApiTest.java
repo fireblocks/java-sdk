@@ -59,6 +59,22 @@ public class WebhooksV2ApiTest {
     }
 
     /**
+     * Delete notification by id
+     *
+     * <p>Delete notification by id
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void deleteNotificationTest() throws ApiException {
+        String webhookId = null;
+        String notificationId = null;
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.deleteNotification(webhookId, notificationId);
+    }
+
+    /**
      * Delete webhook
      *
      * <p>Delete a webhook by its id Endpoint Permission: Owner, Admin, Non-Signing Admin.
