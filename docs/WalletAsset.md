@@ -12,7 +12,7 @@
 |**lockedAmount** | **String** |  |  [optional] |
 |**status** | **ConfigChangeRequestStatus** |  |  [optional] |
 |**address** | **String** |  |  [optional] |
-|**tag** | **String** |  |  [optional] |
+|**tag** | **Boolean** |  |  [optional] |
 |**activationTime** | **String** |  |  [optional] |
 
 

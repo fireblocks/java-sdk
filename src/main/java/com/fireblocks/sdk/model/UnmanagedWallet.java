@@ -28,7 +28,8 @@ import java.util.StringJoiner;
     UnmanagedWallet.JSON_PROPERTY_ID,
     UnmanagedWallet.JSON_PROPERTY_NAME,
     UnmanagedWallet.JSON_PROPERTY_CUSTOMER_REF_ID,
-    UnmanagedWallet.JSON_PROPERTY_ASSETS
+    UnmanagedWallet.JSON_PROPERTY_ASSETS,
+    UnmanagedWallet.JSON_PROPERTY_TEST
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -46,16 +47,21 @@ public class UnmanagedWallet {
     public static final String JSON_PROPERTY_ASSETS = "assets";
     @jakarta.annotation.Nonnull private List<WalletAsset> assets;
 
+    public static final String JSON_PROPERTY_TEST = "test";
+    @jakarta.annotation.Nonnull private Boolean test;
+
     public UnmanagedWallet() {}
 
     @JsonCreator
     public UnmanagedWallet(
             @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
             @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
-            @JsonProperty(value = JSON_PROPERTY_ASSETS, required = true) List<WalletAsset> assets) {
+            @JsonProperty(value = JSON_PROPERTY_ASSETS, required = true) List<WalletAsset> assets,
+            @JsonProperty(value = JSON_PROPERTY_TEST, required = true) Boolean test) {
         this.id = id;
         this.name = name;
         this.assets = assets;
+        this.test = test;
     }
 
     public UnmanagedWallet id(@jakarta.annotation.Nonnull String id) {
@@ -158,6 +164,29 @@ public class UnmanagedWallet {
         this.assets = assets;
     }
 
+    public UnmanagedWallet test(@jakarta.annotation.Nonnull Boolean test) {
+        this.test = test;
+        return this;
+    }
+
+    /**
+     * Get test
+     *
+     * @return test
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_TEST)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Boolean getTest() {
+        return test;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TEST)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTest(@jakarta.annotation.Nonnull Boolean test) {
+        this.test = test;
+    }
+
     /** Return true if this UnmanagedWallet object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -171,12 +200,13 @@ public class UnmanagedWallet {
         return Objects.equals(this.id, unmanagedWallet.id)
                 && Objects.equals(this.name, unmanagedWallet.name)
                 && Objects.equals(this.customerRefId, unmanagedWallet.customerRefId)
-                && Objects.equals(this.assets, unmanagedWallet.assets);
+                && Objects.equals(this.assets, unmanagedWallet.assets)
+                && Objects.equals(this.test, unmanagedWallet.test);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, customerRefId, assets);
+        return Objects.hash(id, name, customerRefId, assets, test);
     }
 
     @Override
@@ -187,6 +217,7 @@ public class UnmanagedWallet {
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    customerRefId: ").append(toIndentedString(customerRefId)).append("\n");
         sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
+        sb.append("    test: ").append(toIndentedString(test)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -283,6 +314,16 @@ public class UnmanagedWallet {
                                                                     containerSuffix))));
                 }
             }
+        }
+
+        // add `test` to the URL query string
+        if (getTest() != null) {
+            joiner.add(
+                    String.format(
+                            "%stest%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getTest()))));
         }
 
         return joiner.toString();
