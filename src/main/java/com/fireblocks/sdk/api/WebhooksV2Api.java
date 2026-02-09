@@ -170,6 +170,69 @@ public class WebhooksV2Api {
         return localVarRequestBuilder;
     }
     /**
+     * Delete notification by id Delete notification by id
+     *
+     * @param webhookId The ID of the webhook to fetch (required)
+     * @param notificationId The ID of the notification to fetch (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Void>> deleteNotification(
+            String webhookId, String notificationId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    deleteNotificationRequestBuilder(webhookId, notificationId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "deleteNotification", localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder deleteNotificationRequestBuilder(
+            String webhookId, String notificationId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("deleteNotification", "webhookId", webhookId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "deleteNotification", "notificationId", notificationId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks/{webhookId}/notifications/{notificationId}"
+                        .replace("{webhookId}", ApiClient.urlEncode(webhookId.toString()))
+                        .replace(
+                                "{notificationId}", ApiClient.urlEncode(notificationId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Delete webhook Delete a webhook by its id Endpoint Permission: Owner, Admin, Non-Signing
      * Admin.
      *

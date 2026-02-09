@@ -48,4 +48,10 @@ class UnmanagedWalletTest {
     void assetsTest() {
         // TODO: test assets
     }
+
+    /** Test the property 'test' */
+    @Test
+    void testTest() {
+        // TODO: test test
+    }
 }

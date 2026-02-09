@@ -1,0 +1,11 @@
+{
+  "output": "CHANGELOG.md",
+  "template": "keepachangelog",
+  "unreleased": false,
+  "commitLimit": 0,
+  "backfillLimit": 3,
+  "hideCredit": true,
+  "replaceText": {
+    "\\[([^\\]]+)\\]\\(https://github.com/[^/]+/[^/]+/compare/[^)]+\\)": "[$1](https://github.com/fireblocks/ts-sdk/releases/tag/$1)"
+  }
+}
