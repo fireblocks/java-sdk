@@ -6,6 +6,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 |------------- | ------------- | -------------|
 | [**getAmlPostScreeningPolicy**](ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy |
 | [**getAmlScreeningPolicy**](ComplianceApi.md#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy |
+| [**getLegalEntityByAddress**](ComplianceApi.md#getLegalEntityByAddress) | **GET** /address_registry/legal_entity | Look up legal entity by address and asset |
 | [**getPostScreeningPolicy**](ComplianceApi.md#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy |
 | [**getScreeningFullDetails**](ComplianceApi.md#getScreeningFullDetails) | **GET** /screening/transaction/{txId} | Provides all the compliance details for the given screened transaction. |
 | [**getScreeningPolicy**](ComplianceApi.md#getScreeningPolicy) | **GET** /screening/travel_rule/screening_policy | Travel Rule - View Screening Policy |
@@ -171,6 +172,94 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Screening policy retrieved successfully. |  -  |
+
+
+## getLegalEntityByAddress
+
+> CompletableFuture<ApiResponse<AddressRegistryLegalEntity>> getLegalEntityByAddress getLegalEntityByAddress(address, asset)
+
+Look up legal entity by address and asset
+
+Returns the legal entity (company name, jurisdiction, companyId) for the given blockchain address and optional asset. Both the requester and the owner of the address must be opted in to the address registry.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String address = "0x742d35cc6634c0532925a3b844bc9e7595f0beb0"; // String | Blockchain address to look up
+        String asset = "ETH"; // String | Asset ID (e.g. ETH, BTC). Optional.
+        try {
+            CompletableFuture<ApiResponse<AddressRegistryLegalEntity>> response = fireblocks.compliance().getLegalEntityByAddress(address, asset);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#getLegalEntityByAddress");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ComplianceApi#getLegalEntityByAddress");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **address** | **String**| Blockchain address to look up | |
+| **asset** | **String**| Asset ID (e.g. ETH, BTC). Optional. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**AddressRegistryLegalEntity**](AddressRegistryLegalEntity.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Legal entity found |  * X-Request-ID -  <br>  |
+| **400** | Bad request – missing or invalid address or asset |  * X-Request-ID -  <br>  |
+| **403** | Forbidden – requester or address owner not opted in to the address registry (error codes 2140, 2141) |  * X-Request-ID -  <br>  |
+| **404** | Address not resolved or entity not found (error code 2142) |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
 ## getPostScreeningPolicy

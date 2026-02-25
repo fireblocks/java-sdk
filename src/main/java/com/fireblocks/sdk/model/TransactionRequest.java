@@ -789,8 +789,8 @@ public class TransactionRequest {
     }
 
     /**
-     * The ID of the travel rule message from any travel rule provider. Used for travel rule linking
-     * functionality to associate transactions with existing travel rule messages.
+     * The ID of the travel rule message from any travel rule provider. Used for travel rule
+     * supporting functionality to associate transactions with existing travel rule messages.
      *
      * @return travelRuleMessageId
      */

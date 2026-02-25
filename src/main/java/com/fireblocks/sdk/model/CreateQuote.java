@@ -114,7 +114,7 @@ public class CreateQuote {
     }
 
     /**
-     * Get baseAssetId
+     * The asset you receive on BUY / give on SELL.
      *
      * @return baseAssetId
      */
@@ -137,7 +137,7 @@ public class CreateQuote {
     }
 
     /**
-     * Get quoteAssetId
+     * The counter asset used to pay/receive.
      *
      * @return quoteAssetId
      */

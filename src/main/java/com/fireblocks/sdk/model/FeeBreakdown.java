@@ -13,256 +13,172 @@
 package com.fireblocks.sdk.model;
 
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.fireblocks.sdk.JSON;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
+import java.util.Objects;
 import java.util.StringJoiner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/** Fee breakdown details for a transaction estimate */
+@JsonPropertyOrder({
+    FeeBreakdown.JSON_PROPERTY_BASE_FEE,
+    FeeBreakdown.JSON_PROPERTY_PRIORITY_FEE,
+    FeeBreakdown.JSON_PROPERTY_RENT,
+    FeeBreakdown.JSON_PROPERTY_TOTAL_FEE
+})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-@JsonDeserialize(using = FeeBreakdown.FeeBreakdownDeserializer.class)
-@JsonSerialize(using = FeeBreakdown.FeeBreakdownSerializer.class)
-public class FeeBreakdown extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(FeeBreakdown.class.getName());
+public class FeeBreakdown {
+    public static final String JSON_PROPERTY_BASE_FEE = "baseFee";
+    @jakarta.annotation.Nullable private String baseFee;
 
-    public static class FeeBreakdownSerializer extends StdSerializer<FeeBreakdown> {
-        public FeeBreakdownSerializer(Class<FeeBreakdown> t) {
-            super(t);
-        }
+    public static final String JSON_PROPERTY_PRIORITY_FEE = "priorityFee";
+    @jakarta.annotation.Nullable private String priorityFee;
 
-        public FeeBreakdownSerializer() {
-            this(null);
-        }
+    public static final String JSON_PROPERTY_RENT = "rent";
+    @jakarta.annotation.Nullable private String rent;
 
-        @Override
-        public void serialize(FeeBreakdown value, JsonGenerator jgen, SerializerProvider provider)
-                throws IOException, JsonProcessingException {
-            jgen.writeObject(value.getActualInstance());
-        }
+    public static final String JSON_PROPERTY_TOTAL_FEE = "totalFee";
+    @jakarta.annotation.Nullable private String totalFee;
+
+    public FeeBreakdown() {}
+
+    public FeeBreakdown baseFee(@jakarta.annotation.Nullable String baseFee) {
+        this.baseFee = baseFee;
+        return this;
     }
 
-    public static class FeeBreakdownDeserializer extends StdDeserializer<FeeBreakdown> {
-        public FeeBreakdownDeserializer() {
-            this(FeeBreakdown.class);
-        }
-
-        public FeeBreakdownDeserializer(Class<?> vc) {
-            super(vc);
-        }
-
-        @Override
-        public FeeBreakdown deserialize(JsonParser jp, DeserializationContext ctxt)
-                throws IOException, JsonProcessingException {
-            JsonNode tree = jp.readValueAsTree();
-            Object deserialized = null;
-            boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
-            int match = 0;
-            JsonToken token = tree.traverse(jp.getCodec()).nextToken();
-            // deserialize FeeBreakdownOneOf
-            try {
-                boolean attemptParsing = true;
-                // ensure that we respect type coercion as set on the client ObjectMapper
-                if (FeeBreakdownOneOf.class.equals(Integer.class)
-                        || FeeBreakdownOneOf.class.equals(Long.class)
-                        || FeeBreakdownOneOf.class.equals(Float.class)
-                        || FeeBreakdownOneOf.class.equals(Double.class)
-                        || FeeBreakdownOneOf.class.equals(Boolean.class)
-                        || FeeBreakdownOneOf.class.equals(String.class)) {
-                    attemptParsing = typeCoercion;
-                    if (!attemptParsing) {
-                        attemptParsing |=
-                                ((FeeBreakdownOneOf.class.equals(Integer.class)
-                                                || FeeBreakdownOneOf.class.equals(Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((FeeBreakdownOneOf.class.equals(Float.class)
-                                                || FeeBreakdownOneOf.class.equals(Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (FeeBreakdownOneOf.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (FeeBreakdownOneOf.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
-                    }
-                }
-                if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec()).readValueAs(FeeBreakdownOneOf.class);
-                    // TODO: there is no validation against JSON schema constraints
-                    // (min, max, enum, pattern...), this does not perform a strict JSON
-                    // validation, which means the 'match' count may be higher than it should be.
-                    match++;
-                    log.log(Level.FINER, "Input data matches schema 'FeeBreakdownOneOf'");
-                }
-            } catch (Exception e) {
-                // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'FeeBreakdownOneOf'", e);
-            }
-
-            // deserialize FeeBreakdownOneOf1
-            try {
-                boolean attemptParsing = true;
-                // ensure that we respect type coercion as set on the client ObjectMapper
-                if (FeeBreakdownOneOf1.class.equals(Integer.class)
-                        || FeeBreakdownOneOf1.class.equals(Long.class)
-                        || FeeBreakdownOneOf1.class.equals(Float.class)
-                        || FeeBreakdownOneOf1.class.equals(Double.class)
-                        || FeeBreakdownOneOf1.class.equals(Boolean.class)
-                        || FeeBreakdownOneOf1.class.equals(String.class)) {
-                    attemptParsing = typeCoercion;
-                    if (!attemptParsing) {
-                        attemptParsing |=
-                                ((FeeBreakdownOneOf1.class.equals(Integer.class)
-                                                || FeeBreakdownOneOf1.class.equals(Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((FeeBreakdownOneOf1.class.equals(Float.class)
-                                                || FeeBreakdownOneOf1.class.equals(Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (FeeBreakdownOneOf1.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (FeeBreakdownOneOf1.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
-                    }
-                }
-                if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec()).readValueAs(FeeBreakdownOneOf1.class);
-                    // TODO: there is no validation against JSON schema constraints
-                    // (min, max, enum, pattern...), this does not perform a strict JSON
-                    // validation, which means the 'match' count may be higher than it should be.
-                    match++;
-                    log.log(Level.FINER, "Input data matches schema 'FeeBreakdownOneOf1'");
-                }
-            } catch (Exception e) {
-                // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'FeeBreakdownOneOf1'", e);
-            }
-
-            if (match == 1) {
-                FeeBreakdown ret = new FeeBreakdown();
-                ret.setActualInstance(deserialized);
-                return ret;
-            }
-            throw new IOException(
-                    String.format(
-                            "Failed deserialization for FeeBreakdown: %d classes match result,"
-                                    + " expected 1",
-                            match));
-        }
-
-        /** Handle deserialization of the 'null' value. */
-        @Override
-        public FeeBreakdown getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-            throw new JsonMappingException(ctxt.getParser(), "FeeBreakdown cannot be null");
-        }
+    /**
+     * Base fee component
+     *
+     * @return baseFee
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_BASE_FEE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getBaseFee() {
+        return baseFee;
     }
 
-    // store a list of schema names defined in oneOf
-    public static final Map<String, Class<?>> schemas = new HashMap<>();
-
-    public FeeBreakdown() {
-        super("oneOf", Boolean.FALSE);
+    @JsonProperty(JSON_PROPERTY_BASE_FEE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBaseFee(@jakarta.annotation.Nullable String baseFee) {
+        this.baseFee = baseFee;
     }
 
-    public FeeBreakdown(FeeBreakdownOneOf o) {
-        super("oneOf", Boolean.FALSE);
-        setActualInstance(o);
+    public FeeBreakdown priorityFee(@jakarta.annotation.Nullable String priorityFee) {
+        this.priorityFee = priorityFee;
+        return this;
     }
 
-    public FeeBreakdown(FeeBreakdownOneOf1 o) {
-        super("oneOf", Boolean.FALSE);
-        setActualInstance(o);
+    /**
+     * Priority fee component
+     *
+     * @return priorityFee
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PRIORITY_FEE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPriorityFee() {
+        return priorityFee;
     }
 
-    static {
-        schemas.put("FeeBreakdownOneOf", FeeBreakdownOneOf.class);
-        schemas.put("FeeBreakdownOneOf1", FeeBreakdownOneOf1.class);
-        JSON.registerDescendants(FeeBreakdown.class, Collections.unmodifiableMap(schemas));
+    @JsonProperty(JSON_PROPERTY_PRIORITY_FEE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPriorityFee(@jakarta.annotation.Nullable String priorityFee) {
+        this.priorityFee = priorityFee;
+    }
+
+    public FeeBreakdown rent(@jakarta.annotation.Nullable String rent) {
+        this.rent = rent;
+        return this;
+    }
+
+    /**
+     * Rent fee for account creation/storage (Solana-specific, optional)
+     *
+     * @return rent
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_RENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRent() {
+        return rent;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRent(@jakarta.annotation.Nullable String rent) {
+        this.rent = rent;
+    }
+
+    public FeeBreakdown totalFee(@jakarta.annotation.Nullable String totalFee) {
+        this.totalFee = totalFee;
+        return this;
+    }
+
+    /**
+     * Total fee amount
+     *
+     * @return totalFee
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TOTAL_FEE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTotalFee() {
+        return totalFee;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TOTAL_FEE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTotalFee(@jakarta.annotation.Nullable String totalFee) {
+        this.totalFee = totalFee;
+    }
+
+    /** Return true if this FeeBreakdown object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        FeeBreakdown feeBreakdown = (FeeBreakdown) o;
+        return Objects.equals(this.baseFee, feeBreakdown.baseFee)
+                && Objects.equals(this.priorityFee, feeBreakdown.priorityFee)
+                && Objects.equals(this.rent, feeBreakdown.rent)
+                && Objects.equals(this.totalFee, feeBreakdown.totalFee);
     }
 
     @Override
-    public Map<String, Class<?>> getSchemas() {
-        return FeeBreakdown.schemas;
+    public int hashCode() {
+        return Objects.hash(baseFee, priorityFee, rent, totalFee);
     }
 
-    /**
-     * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: FeeBreakdownOneOf, FeeBreakdownOneOf1
-     *
-     * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
-     * a composed schema (allOf, anyOf, oneOf).
-     */
     @Override
-    public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(FeeBreakdownOneOf.class, instance, new HashSet<Class<?>>())) {
-            super.setActualInstance(instance);
-            return;
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class FeeBreakdown {\n");
+        sb.append("    baseFee: ").append(toIndentedString(baseFee)).append("\n");
+        sb.append("    priorityFee: ").append(toIndentedString(priorityFee)).append("\n");
+        sb.append("    rent: ").append(toIndentedString(rent)).append("\n");
+        sb.append("    totalFee: ").append(toIndentedString(totalFee)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-
-        if (JSON.isInstanceOf(FeeBreakdownOneOf1.class, instance, new HashSet<Class<?>>())) {
-            super.setActualInstance(instance);
-            return;
-        }
-
-        throw new RuntimeException(
-                "Invalid instance type. Must be FeeBreakdownOneOf, FeeBreakdownOneOf1");
-    }
-
-    /**
-     * Get the actual instance, which can be the following: FeeBreakdownOneOf, FeeBreakdownOneOf1
-     *
-     * @return The actual instance (FeeBreakdownOneOf, FeeBreakdownOneOf1)
-     */
-    @Override
-    public Object getActualInstance() {
-        return super.getActualInstance();
-    }
-
-    /**
-     * Get the actual instance of `FeeBreakdownOneOf`. If the actual instance is not
-     * `FeeBreakdownOneOf`, the ClassCastException will be thrown.
-     *
-     * @return The actual instance of `FeeBreakdownOneOf`
-     * @throws ClassCastException if the instance is not `FeeBreakdownOneOf`
-     */
-    public FeeBreakdownOneOf getFeeBreakdownOneOf() throws ClassCastException {
-        return (FeeBreakdownOneOf) super.getActualInstance();
-    }
-
-    /**
-     * Get the actual instance of `FeeBreakdownOneOf1`. If the actual instance is not
-     * `FeeBreakdownOneOf1`, the ClassCastException will be thrown.
-     *
-     * @return The actual instance of `FeeBreakdownOneOf1`
-     * @throws ClassCastException if the instance is not `FeeBreakdownOneOf1`
-     */
-    public FeeBreakdownOneOf1 getFeeBreakdownOneOf1() throws ClassCastException {
-        return (FeeBreakdownOneOf1) super.getActualInstance();
+        return o.toString().replace("\n", "\n    ");
     }
 
     /**
@@ -297,22 +213,46 @@ public class FeeBreakdown extends AbstractOpenApiSchema {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        if (getActualInstance() instanceof FeeBreakdownOneOf) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((FeeBreakdownOneOf) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_0" + suffix));
-            }
-            return joiner.toString();
+        // add `baseFee` to the URL query string
+        if (getBaseFee() != null) {
+            joiner.add(
+                    String.format(
+                            "%sbaseFee%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getBaseFee()))));
         }
-        if (getActualInstance() instanceof FeeBreakdownOneOf1) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((FeeBreakdownOneOf1) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_1" + suffix));
-            }
-            return joiner.toString();
+
+        // add `priorityFee` to the URL query string
+        if (getPriorityFee() != null) {
+            joiner.add(
+                    String.format(
+                            "%spriorityFee%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getPriorityFee()))));
         }
-        return null;
+
+        // add `rent` to the URL query string
+        if (getRent() != null) {
+            joiner.add(
+                    String.format(
+                            "%srent%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getRent()))));
+        }
+
+        // add `totalFee` to the URL query string
+        if (getTotalFee() != null) {
+            joiner.add(
+                    String.format(
+                            "%stotalFee%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotalFee()))));
+        }
+
+        return joiner.toString();
     }
 }
