@@ -40,6 +40,20 @@ public class BlockchainsAssetsApiTest {
     private final BlockchainsAssetsApi api = new BlockchainsAssetsApi();
 
     /**
+     * Delete Asset by id
+     *
+     * <p>Delete Asset by id
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void deleteAssetTest() throws ApiException {
+        String id = null;
+
+        CompletableFuture<ApiResponse<Void>> response = api.deleteAsset(id);
+    }
+
+    /**
      * Get an asset
      *
      * <p>Returns an asset by ID or legacyID.&lt;/br&gt; **Note**: - We will continue displaying and

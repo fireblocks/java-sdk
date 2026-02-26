@@ -29,7 +29,8 @@ import java.util.StringJoiner;
     UnmanagedWallet.JSON_PROPERTY_NAME,
     UnmanagedWallet.JSON_PROPERTY_CUSTOMER_REF_ID,
     UnmanagedWallet.JSON_PROPERTY_ASSETS,
-    UnmanagedWallet.JSON_PROPERTY_TEST
+    UnmanagedWallet.JSON_PROPERTY_TEST,
+    UnmanagedWallet.JSON_PROPERTY_TEST2
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -50,6 +51,9 @@ public class UnmanagedWallet {
     public static final String JSON_PROPERTY_TEST = "test";
     @jakarta.annotation.Nonnull private Boolean test;
 
+    public static final String JSON_PROPERTY_TEST2 = "test2";
+    @jakarta.annotation.Nonnull private Boolean test2;
+
     public UnmanagedWallet() {}
 
     @JsonCreator
@@ -57,11 +61,13 @@ public class UnmanagedWallet {
             @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
             @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
             @JsonProperty(value = JSON_PROPERTY_ASSETS, required = true) List<WalletAsset> assets,
-            @JsonProperty(value = JSON_PROPERTY_TEST, required = true) Boolean test) {
+            @JsonProperty(value = JSON_PROPERTY_TEST, required = true) Boolean test,
+            @JsonProperty(value = JSON_PROPERTY_TEST2, required = true) Boolean test2) {
         this.id = id;
         this.name = name;
         this.assets = assets;
         this.test = test;
+        this.test2 = test2;
     }
 
     public UnmanagedWallet id(@jakarta.annotation.Nonnull String id) {
@@ -187,6 +193,29 @@ public class UnmanagedWallet {
         this.test = test;
     }
 
+    public UnmanagedWallet test2(@jakarta.annotation.Nonnull Boolean test2) {
+        this.test2 = test2;
+        return this;
+    }
+
+    /**
+     * Get test2
+     *
+     * @return test2
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_TEST2)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Boolean getTest2() {
+        return test2;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TEST2)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTest2(@jakarta.annotation.Nonnull Boolean test2) {
+        this.test2 = test2;
+    }
+
     /** Return true if this UnmanagedWallet object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -201,12 +230,13 @@ public class UnmanagedWallet {
                 && Objects.equals(this.name, unmanagedWallet.name)
                 && Objects.equals(this.customerRefId, unmanagedWallet.customerRefId)
                 && Objects.equals(this.assets, unmanagedWallet.assets)
-                && Objects.equals(this.test, unmanagedWallet.test);
+                && Objects.equals(this.test, unmanagedWallet.test)
+                && Objects.equals(this.test2, unmanagedWallet.test2);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, customerRefId, assets, test);
+        return Objects.hash(id, name, customerRefId, assets, test, test2);
     }
 
     @Override
@@ -218,6 +248,7 @@ public class UnmanagedWallet {
         sb.append("    customerRefId: ").append(toIndentedString(customerRefId)).append("\n");
         sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
         sb.append("    test: ").append(toIndentedString(test)).append("\n");
+        sb.append("    test2: ").append(toIndentedString(test2)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -324,6 +355,16 @@ public class UnmanagedWallet {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getTest()))));
+        }
+
+        // add `test2` to the URL query string
+        if (getTest2() != null) {
+            joiner.add(
+                    String.format(
+                            "%stest2%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getTest2()))));
         }
 
         return joiner.toString();

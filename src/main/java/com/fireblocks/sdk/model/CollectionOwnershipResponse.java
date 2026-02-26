@@ -97,7 +97,11 @@ public class CollectionOwnershipResponse {
 
         APECHAIN(String.valueOf("APECHAIN")),
 
-        APECHAIN_TEST(String.valueOf("APECHAIN_TEST"));
+        APECHAIN_TEST(String.valueOf("APECHAIN_TEST")),
+
+        CRONOS(String.valueOf("CRONOS")),
+
+        CRONOS_TEST(String.valueOf("CRONOS_TEST"));
 
         private String value;
 

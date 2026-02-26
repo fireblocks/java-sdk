@@ -256,7 +256,7 @@ public class NetworkConnectionsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Creates a new Network ID Creates a new Network ID.
+     * Creates a new Network ID Create a new Network ID.
      *
      * @param createNetworkIdRequest (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -336,7 +336,7 @@ public class NetworkConnectionsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Deletes a network connection by ID Deletes an existing network connection specified by its
+     * Delete a network connection by ID Deletes an existing network connection specified by its
      * connection ID.
      *
      * @param connectionId The ID of the network connection to delete (required)
@@ -406,7 +406,7 @@ public class NetworkConnectionsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Deletes specific network ID. Deletes a network by its ID.
+     * Delete specific network ID. Deletes a network by its ID.
      *
      * @param networkId The ID of the network (required)
      * @return CompletableFuture&lt;ApiResponse&lt;DeleteNetworkIdResponse&gt;&gt;
@@ -609,7 +609,7 @@ public class NetworkConnectionsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Returns specific network ID. Returns specific network ID.
+     * Return specific network ID. Returns specific network ID.
      *
      * @param networkId The ID of the network (required)
      * @return CompletableFuture&lt;ApiResponse&lt;NetworkIdResponse&gt;&gt;
@@ -738,7 +738,7 @@ public class NetworkConnectionsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Returns all enabled routing policy asset groups Returns all enabled routing policy asset
+     * Return all enabled routing policy asset groups Returns all enabled routing policy asset
      * groups
      *
      * @return CompletableFuture&lt;ApiResponse&lt;List&lt;String&gt;&gt;&gt;

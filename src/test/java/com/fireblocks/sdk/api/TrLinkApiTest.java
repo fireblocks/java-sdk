@@ -110,8 +110,8 @@ public class TrLinkApiTest {
     /**
      * Create customer
      *
-     * <p>Creates a new customer (legal entity/VASP) for TRLink Travel Rule compliance operations.
-     * The customer represents your organization in the Travel Rule network and contains
+     * <p>Creates a new customer (legal entity/VASP) for TRSupport Travel Rule compliance
+     * operations. The customer represents your organization in the Travel Rule network and contains
      * IVMS101-compliant identity information.
      *
      * @throws ApiException if the Api call fails
@@ -127,9 +127,9 @@ public class TrLinkApiTest {
     /**
      * Create customer integration
      *
-     * <p>Creates a new TRLink integration for a customer. This establishes a connection placeholder
-     * between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials
-     * after creation.
+     * <p>Creates a new TRSupport integration for a customer. This establishes a connection
+     * placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide
+     * credentials after creation.
      *
      * @throws ApiException if the Api call fails
      */
@@ -220,7 +220,7 @@ public class TrLinkApiTest {
     /**
      * Get customer integrations
      *
-     * <p>Retrieves all TRLink integrations for a specific customer. Returns a list of partner
+     * <p>Retrieves all TRSupport integrations for a specific customer. Returns a list of partner
      * integrations configured for Travel Rule compliance.
      *
      * @throws ApiException if the Api call fails
@@ -263,10 +263,11 @@ public class TrLinkApiTest {
     }
 
     /**
-     * List available TRLink partners
+     * List available TRSupport partners
      *
-     * <p>Retrieves a list of all available Travel Rule Link integration partners. Partners provide
-     * Travel Rule compliance services such as VASP discovery, TRM exchange, and PII encryption.
+     * <p>Retrieves a list of all available Travel Rule Support integration partners. Partners
+     * provide Travel Rule compliance services such as VASP discovery, TRM exchange, and PII
+     * encryption.
      *
      * @throws ApiException if the Api call fails
      */
@@ -279,10 +280,11 @@ public class TrLinkApiTest {
     /**
      * Get TRLink policy
      *
-     * <p>Retrieves the complete TRLink policy for the authenticated tenant, including pre-screening
-     * rules, post-screening rules, and missing TRM rules. Pre-screening rules determine whether
-     * transactions should be screened. Post-screening rules determine actions based on screening
-     * results. Missing TRM rules handle cases when screening data is unavailable.
+     * <p>Retrieves the complete TRSupport policy for the authenticated tenant, including
+     * pre-screening rules, post-screening rules, and missing TRM rules. Pre-screening rules
+     * determine whether transactions should be screened. Post-screening rules determine actions
+     * based on screening results. Missing TRM rules handle cases when screening data is
+     * unavailable.
      *
      * @throws ApiException if the Api call fails
      */

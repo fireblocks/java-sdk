@@ -6,6 +6,6 @@
   "backfillLimit": 3,
   "hideCredit": true,
   "replaceText": {
-    "\\[([^\\]]+)\\]\\(https://github.com/[^/]+/[^/]+/compare/[^)]+\\)": "[$1](https://github.com/fireblocks/ts-sdk/releases/tag/$1)"
+    "\\[([^\\]]+)\\]\\(https://github.com/[^/]+/([^/]+)/compare/[^)]+\\)": "[$1](https://github.com/fireblocks/$2/releases/tag/$1)"
   }
 }

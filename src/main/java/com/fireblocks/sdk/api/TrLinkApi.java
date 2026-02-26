@@ -403,9 +403,9 @@ public class TrLinkApi {
         return localVarRequestBuilder;
     }
     /**
-     * Create customer Creates a new customer (legal entity/VASP) for TRLink Travel Rule compliance
-     * operations. The customer represents your organization in the Travel Rule network and contains
-     * IVMS101-compliant identity information.
+     * Create customer Creates a new customer (legal entity/VASP) for TRSupport Travel Rule
+     * compliance operations. The customer represents your organization in the Travel Rule network
+     * and contains IVMS101-compliant identity information.
      *
      * @param trLinkCreateCustomerRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -488,9 +488,9 @@ public class TrLinkApi {
         return localVarRequestBuilder;
     }
     /**
-     * Create customer integration Creates a new TRLink integration for a customer. This establishes
-     * a connection placeholder between a customer and a Travel Rule partner. Use the connect
-     * endpoint to provide credentials after creation.
+     * Create customer integration Creates a new TRSupport integration for a customer. This
+     * establishes a connection placeholder between a customer and a Travel Rule partner. Use the
+     * connect endpoint to provide credentials after creation.
      *
      * @param trLinkCreateIntegrationRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -949,8 +949,8 @@ public class TrLinkApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get customer integrations Retrieves all TRLink integrations for a specific customer. Returns
-     * a list of partner integrations configured for Travel Rule compliance.
+     * Get customer integrations Retrieves all TRSupport integrations for a specific customer.
+     * Returns a list of partner integrations configured for Travel Rule compliance.
      *
      * @param customerId Customer unique identifier (required)
      * @return
@@ -1163,9 +1163,9 @@ public class TrLinkApi {
         return localVarRequestBuilder;
     }
     /**
-     * List available TRLink partners Retrieves a list of all available Travel Rule Link integration
-     * partners. Partners provide Travel Rule compliance services such as VASP discovery, TRM
-     * exchange, and PII encryption.
+     * List available TRSupport partners Retrieves a list of all available Travel Rule Support
+     * integration partners. Partners provide Travel Rule compliance services such as VASP
+     * discovery, TRM exchange, and PII encryption.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;List&lt;TRLinkPartnerResponse&gt;&gt;&gt;
      * @throws ApiException if fails to make API call
@@ -1227,7 +1227,7 @@ public class TrLinkApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get TRLink policy Retrieves the complete TRLink policy for the authenticated tenant,
+     * Get TRLink policy Retrieves the complete TRSupport policy for the authenticated tenant,
      * including pre-screening rules, post-screening rules, and missing TRM rules. Pre-screening
      * rules determine whether transactions should be screened. Post-screening rules determine
      * actions based on screening results. Missing TRM rules handle cases when screening data is

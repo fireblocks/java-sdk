@@ -15,25 +15,11 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for QuotesResponse */
-class QuotesResponseTest {
-    private final QuotesResponse model = new QuotesResponse();
-
-    /** Model tests for QuotesResponse */
+/** Model tests for PersonalIdentificationType */
+class PersonalIdentificationTypeTest {
+    /** Model tests for PersonalIdentificationType */
     @Test
-    void testQuotesResponse() {
-        // TODO: test QuotesResponse
-    }
-
-    /** Test the property 'quotes' */
-    @Test
-    void quotesTest() {
-        // TODO: test quotes
-    }
-
-    /** Test the property 'quoteFailures' */
-    @Test
-    void quoteFailuresTest() {
-        // TODO: test quoteFailures
+    void testPersonalIdentificationType() {
+        // TODO: test PersonalIdentificationType
     }
 }

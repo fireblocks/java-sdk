@@ -72,4 +72,16 @@ class CreateTokenRequestDtoTest {
     void feeLevelTest() {
         // TODO: test feeLevel
     }
+
+    /** Test the property 'txNote' */
+    @Test
+    void txNoteTest() {
+        // TODO: test txNote
+    }
+
+    /** Test the property 'externalId' */
+    @Test
+    void externalIdTest() {
+        // TODO: test externalId
+    }
 }

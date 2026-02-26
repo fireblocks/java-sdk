@@ -31,7 +31,9 @@ import java.util.StringJoiner;
     CreateTokenRequestDto.JSON_PROPERTY_DISPLAY_NAME,
     CreateTokenRequestDto.JSON_PROPERTY_USE_GASLESS,
     CreateTokenRequestDto.JSON_PROPERTY_FEE,
-    CreateTokenRequestDto.JSON_PROPERTY_FEE_LEVEL
+    CreateTokenRequestDto.JSON_PROPERTY_FEE_LEVEL,
+    CreateTokenRequestDto.JSON_PROPERTY_TX_NOTE,
+    CreateTokenRequestDto.JSON_PROPERTY_EXTERNAL_ID
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -97,6 +99,12 @@ public class CreateTokenRequestDto {
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
     @jakarta.annotation.Nullable private FeeLevelEnum feeLevel;
+
+    public static final String JSON_PROPERTY_TX_NOTE = "txNote";
+    @jakarta.annotation.Nullable private String txNote;
+
+    public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
+    @jakarta.annotation.Nullable private String externalId;
 
     public CreateTokenRequestDto() {}
 
@@ -299,6 +307,54 @@ public class CreateTokenRequestDto {
         this.feeLevel = feeLevel;
     }
 
+    public CreateTokenRequestDto txNote(@jakarta.annotation.Nullable String txNote) {
+        this.txNote = txNote;
+        return this;
+    }
+
+    /**
+     * Custom note that describes the transaction at your Fireblocks workspace. This note will be
+     * visible in the Fireblocks UI and in the transaction details and not on the blockchain.
+     *
+     * @return txNote
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TX_NOTE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTxNote() {
+        return txNote;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TX_NOTE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTxNote(@jakarta.annotation.Nullable String txNote) {
+        this.txNote = txNote;
+    }
+
+    public CreateTokenRequestDto externalId(@jakarta.annotation.Nullable String externalId) {
+        this.externalId = externalId;
+        return this;
+    }
+
+    /**
+     * External id that can be used to identify the transaction in your system. The unique
+     * identifier of the transaction outside of Fireblocks with max length of 255 characters
+     *
+     * @return externalId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getExternalId() {
+        return externalId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setExternalId(@jakarta.annotation.Nullable String externalId) {
+        this.externalId = externalId;
+    }
+
     /** Return true if this CreateTokenRequestDto object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -316,7 +372,9 @@ public class CreateTokenRequestDto {
                 && Objects.equals(this.displayName, createTokenRequestDto.displayName)
                 && Objects.equals(this.useGasless, createTokenRequestDto.useGasless)
                 && Objects.equals(this.fee, createTokenRequestDto.fee)
-                && Objects.equals(this.feeLevel, createTokenRequestDto.feeLevel);
+                && Objects.equals(this.feeLevel, createTokenRequestDto.feeLevel)
+                && Objects.equals(this.txNote, createTokenRequestDto.txNote)
+                && Objects.equals(this.externalId, createTokenRequestDto.externalId);
     }
 
     @Override
@@ -329,7 +387,9 @@ public class CreateTokenRequestDto {
                 displayName,
                 useGasless,
                 fee,
-                feeLevel);
+                feeLevel,
+                txNote,
+                externalId);
     }
 
     @Override
@@ -344,6 +404,8 @@ public class CreateTokenRequestDto {
         sb.append("    useGasless: ").append(toIndentedString(useGasless)).append("\n");
         sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
         sb.append("    feeLevel: ").append(toIndentedString(feeLevel)).append("\n");
+        sb.append("    txNote: ").append(toIndentedString(txNote)).append("\n");
+        sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -464,6 +526,26 @@ public class CreateTokenRequestDto {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
+        }
+
+        // add `txNote` to the URL query string
+        if (getTxNote() != null) {
+            joiner.add(
+                    String.format(
+                            "%stxNote%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxNote()))));
+        }
+
+        // add `externalId` to the URL query string
+        if (getExternalId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sexternalId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getExternalId()))));
         }
 
         return joiner.toString();

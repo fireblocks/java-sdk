@@ -174,9 +174,10 @@ paths:
         schema:
           type: string
         style: form
-      - description: "Specifying minAmountThreshold will filter accounts with balances\
-          \ greater than this value, otherwise, it will return all accounts. The amount\
-          \ set in this parameter is the native asset amount and not its USD value."
+      - description: "Specifying minAmountThreshold will filter accounts whose total\
+          \ balance is greater than this value; otherwise, it returns all accounts.\
+          \ The amount set in this parameter represents the native asset amount, not\
+          \ its USD value."
         explode: true
         in: query
         name: minAmountThreshold
@@ -1591,7 +1592,7 @@ paths:
           \ asset_id, manual_signging);"
       x-accepts:
       - application/json
-  /vault/accounts/{vaultAccountId}/{assetId}/max_bip_index_used:
+  /vault/accounts/{vaultAccountId}/{assetId}/max_bip44_index_used:
     get:
       description: Retrieves the maximum BIP44 address index and change address index
         used for a specific asset in a vault account (BIP44 standard).
@@ -6203,7 +6204,7 @@ paths:
               $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
-      summary: Deletes a network connection by ID
+      summary: Delete a network connection by ID
       tags:
       - Network connections
       x-rate-limit-category: write
@@ -6333,7 +6334,7 @@ paths:
       x-accepts:
       - application/json
     post:
-      description: Creates a new Network ID.
+      description: Create a new Network ID.
       operationId: createNetworkId
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -6411,7 +6412,7 @@ paths:
               $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
-      summary: Returns all enabled routing policy asset groups
+      summary: Return all enabled routing policy asset groups
       tags:
       - Network connections
       x-rate-limit-category: query
@@ -6561,7 +6562,7 @@ paths:
           description: Network ID
         default:
           $ref: "#/components/responses/Error"
-      summary: Deletes specific network ID.
+      summary: Delete specific network ID.
       tags:
       - Network connections
       x-rate-limit-category: write
@@ -6613,7 +6614,7 @@ paths:
               $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
-      summary: Returns specific network ID.
+      summary: Return specific network ID.
       tags:
       - Network connections
       x-rate-limit-category: query
@@ -9472,6 +9473,51 @@ paths:
       x-accepts:
       - application/json
   /assets/{id}:
+    delete:
+      description: |
+        Delete Asset by id
+      operationId: deleteAsset
+      parameters:
+      - description: The ID of the asset to delete
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Delete Asset by id
+      tags:
+      - Blockchains & assets
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.blockchainsAssets.deleteAsset(blockchainsAssetsApiDeleteAssetRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.blockchainsAssets().deleteAsset(id);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.blockchains_&_assets.delete_asset(id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.blockchainsAssets.deleteAsset(blockchainsAssetsApiDeleteAssetRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<Void>> response = fireblocks.blockchainsAssets().deleteAsset(id);
+      - lang: Python
+        source: response = fireblocks.blockchains_&_assets.delete_asset(id);
+      x-accepts:
+      - application/json
     get:
       description: |
         Returns an asset by ID or legacyID.</br>
@@ -20265,6 +20311,8 @@ paths:
           - KLAY_KAIA_TEST
           - APECHAIN
           - APECHAIN_TEST
+          - CRONOS
+          - CRONOS_TEST
           type: string
         style: form
       - description: A comma separated list of Vault Account IDs. Up to 100 are allowed
@@ -22923,7 +22971,7 @@ paths:
       - application/json
   /screening/trlink/partners:
     get:
-      description: "Retrieves a list of all available Travel Rule Link integration\
+      description: "Retrieves a list of all available Travel Rule Support integration\
         \ partners. Partners provide Travel Rule compliance services such as VASP\
         \ discovery, TRM exchange, and PII encryption."
       operationId: getTRLinkPartners
@@ -22936,7 +22984,7 @@ paths:
           description: List of partners retrieved successfully
         default:
           $ref: "#/components/responses/Error"
-      summary: List available TRLink partners
+      summary: List available TRSupport partners
       tags:
       - TRLink
       x-rate-limit-category: query
@@ -23007,9 +23055,9 @@ paths:
       x-accepts:
       - application/json
     post:
-      description: Creates a new customer (legal entity/VASP) for TRLink Travel Rule
-        compliance operations. The customer represents your organization in the Travel
-        Rule network and contains IVMS101-compliant identity information.
+      description: Creates a new customer (legal entity/VASP) for TRSupport Travel
+        Rule compliance operations. The customer represents your organization in the
+        Travel Rule network and contains IVMS101-compliant identity information.
       operationId: createTRLinkCustomer
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -23244,7 +23292,7 @@ paths:
       - application/json
   /screening/trlink/customers/{customerId}/integrations:
     get:
-      description: Retrieves all TRLink integrations for a specific customer. Returns
+      description: Retrieves all TRSupport integrations for a specific customer. Returns
         a list of partner integrations configured for Travel Rule compliance.
       operationId: getTRLinkCustomerIntegrations
       parameters:
@@ -23363,7 +23411,7 @@ paths:
       - application/json
   /screening/trlink/customers/integration:
     post:
-      description: Creates a new TRLink integration for a customer. This establishes
+      description: Creates a new TRSupport integration for a customer. This establishes
         a connection placeholder between a customer and a Travel Rule partner. Use
         the connect endpoint to provide credentials after creation.
       operationId: createTRLinkIntegration
@@ -24323,11 +24371,11 @@ paths:
       - application/json
   /screening/trlink/policy:
     get:
-      description: "Retrieves the complete TRLink policy for the authenticated tenant,\
-        \ including pre-screening rules, post-screening rules, and missing TRM rules.\
-        \ Pre-screening rules determine whether transactions should be screened. Post-screening\
-        \ rules determine actions based on screening results. Missing TRM rules handle\
-        \ cases when screening data is unavailable."
+      description: "Retrieves the complete TRSupport policy for the authenticated\
+        \ tenant, including pre-screening rules, post-screening rules, and missing\
+        \ TRM rules. Pre-screening rules determine whether transactions should be\
+        \ screened. Post-screening rules determine actions based on screening results.\
+        \ Missing TRM rules handle cases when screening data is unavailable."
       operationId: getTRLinkPolicy
       responses:
         "200":
@@ -32272,7 +32320,7 @@ components:
         address: address
         balance: balance
         id: id
-        tag: true
+        tag: tag
         activationTime: activationTime
         status: WAITING_FOR_APPROVAL
       properties:
@@ -32287,25 +32335,26 @@ components:
         address:
           type: string
         tag:
-          type: boolean
+          type: string
         activationTime:
           type: string
       type: object
     UnmanagedWallet:
       example:
+        test2: true
         assets:
         - lockedAmount: lockedAmount
           address: address
           balance: balance
           id: id
-          tag: true
+          tag: tag
           activationTime: activationTime
           status: WAITING_FOR_APPROVAL
         - lockedAmount: lockedAmount
           address: address
           balance: balance
           id: id
-          tag: true
+          tag: tag
           activationTime: activationTime
           status: WAITING_FOR_APPROVAL
         test: true
@@ -32325,11 +32374,14 @@ components:
           type: array
         test:
           type: boolean
+        test2:
+          type: boolean
       required:
       - assets
       - id
       - name
       - test
+      - test2
       type: object
     GetInternalWalletsResponse:
       items:
@@ -32352,19 +32404,20 @@ components:
         next: next
         total: 0.8008281904610115
         data:
+          test2: true
           assets:
           - lockedAmount: lockedAmount
             address: address
             balance: balance
             id: id
-            tag: true
+            tag: tag
             activationTime: activationTime
             status: WAITING_FOR_APPROVAL
           - lockedAmount: lockedAmount
             address: address
             balance: balance
             id: id
-            tag: true
+            tag: tag
             activationTime: activationTime
             status: WAITING_FOR_APPROVAL
           test: true
@@ -34726,7 +34779,7 @@ components:
           type: string
         travelRuleMessageId:
           description: The ID of the travel rule message from any travel rule provider.
-            Used for  travel rule linking functionality to associate transactions
+            Used for  travel rule supporting functionality to associate transactions
             with existing  travel rule messages.
           example: trm_12345678-1234-1234-1234-123456789012
           type: string
@@ -37872,7 +37925,7 @@ components:
           type: string
         travelRuleMessageId:
           description: The ID of the travel rule message from any travel rule provider.
-            Used for  travel rule linking functionality to associate transactions
+            Used for  travel rule supporting functionality to associate transactions
             with existing  travel rule messages.
           example: trm_12345678-1234-1234-1234-123456789012
           type: string
@@ -38155,8 +38208,8 @@ components:
           $ref: "#/components/schemas/DestinationTransferPeerPath"
         travelRuleMessageId:
           description: The ID of the travel rule message from any travel rule provider.
-            Used for travel rule linking functionality to associate transactions with
-            existing travel rule messages.
+            Used for travel rule supporting functionality to associate transactions
+            with existing travel rule messages.
           example: trm_12345678-1234-1234-1234-123456789012
           type: string
         customerRefId:
@@ -41955,8 +42008,8 @@ components:
           $ref: "#/components/schemas/TravelRuleCreateTransactionRequest"
         travelRuleMessageId:
           description: The ID of the travel rule message from any travel rule provider.
-            Used for travel rule linking functionality to associate transactions with
-            existing travel rule messages.
+            Used for travel rule supporting functionality to associate transactions
+            with existing travel rule messages.
           example: trm_12345678-1234-1234-1234-123456789012
           type: string
         autoStaking:
@@ -48534,11 +48587,13 @@ components:
       type: object
     CreateTokenRequestDto:
       example:
+        txNote: Token creation transaction for new stablecoin
         assetId: ETH_TEST5
         displayName: displayName
         useGasless: false
         fee: "2000"
         vaultAccountId: "0"
+        externalId: 0192e4f5-924e-7bb9-8e5b-c748270feb38
         feeLevel: MEDIUM
         blockchainId: B7QG017M
         createParams:
@@ -48603,6 +48658,18 @@ components:
           - MEDIUM
           - HIGH
           example: MEDIUM
+          type: string
+        txNote:
+          description: Custom note that describes the transaction at your Fireblocks
+            workspace. This note will be visible in the Fireblocks UI and in the transaction
+            details and not on the blockchain.
+          example: Token creation transaction for new stablecoin
+          type: string
+        externalId:
+          description: External id that can be used to identify the transaction in
+            your system. The unique identifier of the transaction outside of Fireblocks
+            with max length of 255 characters
+          example: 0192e4f5-924e-7bb9-8e5b-c748270feb38
           type: string
       required:
       - createParams
@@ -52482,7 +52549,7 @@ components:
       - type
       type: object
     Side:
-      description: Side of the order
+      description: "BUY: receive base / pay quote; SELL: give base / receive quote."
       enum:
       - BUY
       - SELL
@@ -52513,8 +52580,10 @@ components:
             $ref: "#/components/schemas/CreateQuote_scope_inner"
           type: array
         baseAssetId:
+          description: The asset you receive on BUY / give on SELL.
           type: string
         quoteAssetId:
+          description: The counter asset used to pay/receive.
           type: string
         baseAmount:
           description: The amount to convert from
@@ -52763,6 +52832,23 @@ components:
         oneOf:
         - $ref: "#/components/schemas/CommittedQuoteType"
         - $ref: "#/components/schemas/IndicativeQuoteType"
+    QuoteFailure:
+      properties:
+        providerId:
+          description: Identifier of the provider for which the quote request failed.
+          example: BRIDGE
+          type: string
+        accountId:
+          description: Identifier of the account for which the quote request failed
+            (optional).
+          example: acc_9f4e2d8b1c6a5e73
+          type: string
+        error:
+          $ref: "#/components/schemas/TradingErrorSchema"
+      required:
+      - error
+      - providerId
+      type: object
     QuotesResponse:
       example:
         quotes:
@@ -52791,11 +52877,32 @@ components:
             assetId: USDC
             amountType: FIXED
             amount: "2.50"
+        quoteFailures:
+        - providerId: BRIDGE
+          accountId: acc_9f4e2d8b1c6a5e73
+          error:
+            code: 3107
+            message: This trading pair is not supported by the provider.
+        - providerId: UNISWAP
+          error:
+            code: 3101
+            message: Provider not found.
+            descriptor:
+              providerId: UNISWAP
       properties:
         quotes:
           items:
             $ref: "#/components/schemas/Quote"
           type: array
+        quoteFailures:
+          description: List of partial failures encountered while requesting quotes.
+            Empty when all quote attempts succeed.
+          items:
+            $ref: "#/components/schemas/QuoteFailure"
+          type: array
+      required:
+      - quoteFailures
+      - quotes
       type: object
     OrderStatus:
       enum:
@@ -53139,6 +53246,45 @@ components:
       - streetName
       - subdivision
       type: object
+    PersonalIdentificationType:
+      description: "Type of identification document. Acceptable values are: - 'NIN_SLIP_CARD':\
+        \ National Identification Number (NIN) Slip Card - temporary identification\
+        \ card issued in Nigeria - 'BVN': Bank Verification Number - unique identity\
+        \ number for bank account holders in Nigeria - 'ID_CARD': General national\
+        \ identity card - 'ID_BOOK': Identity book or booklet format identification\
+        \ document - 'NATIONAL_ID': National identity document issued by government\
+        \ authorities - 'ALIEN_CARD': Alien registration card for foreign nationals\
+        \ - 'PASSPORT': International travel document and proof of identity - 'ECOWAS_CARD':\
+        \ Economic Community of West African States identification card - 'RWANDA_CARD':\
+        \ Rwandan national identification card - 'DRIVERS_LICENSE': Driver's license\
+        \ or driving permit - 'RESIDENT_CARD': Resident permit or permanent resident\
+        \ card - 'VOTER_ID': Voter identification card used for electoral registration\
+        \ - 'HEALTH_INSURANCE_ID': Health insurance identification card - 'GHANA_CARD':\
+        \ Ghana Card - national identification card issued in Ghana - 'REFUGEE_ID':\
+        \ Refugee identification document - 'SSNIT': Social Security and National\
+        \ Insurance Trust ID - social security number in Ghana - 'NON_CITIZEN_ID':\
+        \ Identification document for non-citizens or foreign residents - 'NATIONAL_REGISTRATION_CARD':\
+        \ National registration card issued by national registration authority"
+      enum:
+      - NIN_SLIP_CARD
+      - BVN
+      - ID_CARD
+      - ID_BOOK
+      - NATIONAL_ID
+      - ALIEN_CARD
+      - PASSPORT
+      - ECOWAS_CARD
+      - RWANDA_CARD
+      - DRIVERS_LICENSE
+      - RESIDENT_CARD
+      - VOTER_ID
+      - HEALTH_INSURANCE_ID
+      - GHANA_CARD
+      - REFUGEE_ID
+      - SSNIT
+      - NON_CITIZEN_ID
+      - NATIONAL_REGISTRATION_CARD
+      type: string
     PersonalIdentification:
       example:
         externalReferenceId: person_ref_7f3e2d1c4b8a5e9f
@@ -53158,6 +53304,10 @@ components:
           country: US
         email: alexander.johnson@example.com
         phone: "+14155551234"
+        idNumber: "12345678901"
+        idType: PASSPORT
+        additionalIdNumber: BVN987654321
+        additionalIdType: BVN
       properties:
         externalReferenceId:
           type: string
@@ -53180,6 +53330,18 @@ components:
           example: "+14155551234"
           pattern: "^\\+[1-9]\\d{1,14}$"
           type: string
+        idNumber:
+          description: The identification number corresponding to the primary identification
+            document type specified in idType
+          type: string
+        idType:
+          $ref: "#/components/schemas/PersonalIdentificationType"
+        additionalIdNumber:
+          description: The identification number corresponding to the additional identification
+            document type specified in additionalIdType
+          type: string
+        additionalIdType:
+          $ref: "#/components/schemas/PersonalIdentificationType"
       required:
       - dateOfBirth
       - entityType
@@ -54473,6 +54635,8 @@ components:
           - KLAY_KAIA_TEST
           - APECHAIN
           - APECHAIN_TEST
+          - CRONOS
+          - CRONOS_TEST
           type: string
         description:
           type: string
@@ -54638,6 +54802,8 @@ components:
           - KLAY_KAIA_TEST
           - APECHAIN
           - APECHAIN_TEST
+          - CRONOS
+          - CRONOS_TEST
           type: string
         description:
           type: string
@@ -54741,6 +54907,8 @@ components:
           - KLAY_KAIA_TEST
           - APECHAIN
           - APECHAIN_TEST
+          - CRONOS
+          - CRONOS_TEST
           type: string
         contractAddress:
           description: Collection contract standard

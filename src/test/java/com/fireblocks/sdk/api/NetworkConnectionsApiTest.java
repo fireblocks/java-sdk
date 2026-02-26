@@ -88,7 +88,7 @@ public class NetworkConnectionsApiTest {
     /**
      * Creates a new Network ID
      *
-     * <p>Creates a new Network ID.
+     * <p>Create a new Network ID.
      *
      * @throws ApiException if the Api call fails
      */
@@ -101,7 +101,7 @@ public class NetworkConnectionsApiTest {
     }
 
     /**
-     * Deletes a network connection by ID
+     * Delete a network connection by ID
      *
      * <p>Deletes an existing network connection specified by its connection ID.
      *
@@ -115,7 +115,7 @@ public class NetworkConnectionsApiTest {
     }
 
     /**
-     * Deletes specific network ID.
+     * Delete specific network ID.
      *
      * <p>Deletes a network by its ID.
      *
@@ -165,7 +165,7 @@ public class NetworkConnectionsApiTest {
     }
 
     /**
-     * Returns specific network ID.
+     * Return specific network ID.
      *
      * <p>Returns specific network ID.
      *
@@ -190,7 +190,7 @@ public class NetworkConnectionsApiTest {
     }
 
     /**
-     * Returns all enabled routing policy asset groups
+     * Return all enabled routing policy asset groups
      *
      * <p>Returns all enabled routing policy asset groups
      *

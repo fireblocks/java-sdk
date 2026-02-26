@@ -87,6 +87,58 @@ public class BlockchainsAssetsApi {
     }
 
     /**
+     * Delete Asset by id Delete Asset by id
+     *
+     * @param id The ID of the asset to delete (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Void>> deleteAsset(String id) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = deleteAssetRequestBuilder(id);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("deleteAsset", localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder deleteAssetRequestBuilder(String id) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("deleteAsset", "id", id);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/assets/{id}".replace("{id}", ApiClient.urlEncode(id.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Get an asset Returns an asset by ID or legacyID.&lt;/br&gt; **Note**: - We will continue
      * displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully
      * support the new Assets UUID, please use only the legacy ID until further notice.

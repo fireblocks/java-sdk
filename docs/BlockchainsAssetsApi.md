@@ -4,6 +4,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
+| [**deleteAsset**](BlockchainsAssetsApi.md#deleteAsset) | **DELETE** /assets/{id} | Delete Asset by id |
 | [**getAsset**](BlockchainsAssetsApi.md#getAsset) | **GET** /assets/{id} | Get an asset |
 | [**getBlockchain**](BlockchainsAssetsApi.md#getBlockchain) | **GET** /blockchains/{id} | Get a Blockchain by ID |
 | [**getSupportedAssets**](BlockchainsAssetsApi.md#getSupportedAssets) | **GET** /supported_assets | List assets (Legacy) |
@@ -13,6 +14,88 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**setAssetPrice**](BlockchainsAssetsApi.md#setAssetPrice) | **POST** /assets/prices/{id} | Set asset price |
 | [**updateAssetUserMetadata**](BlockchainsAssetsApi.md#updateAssetUserMetadata) | **PATCH** /assets/{id} | Update the user’s metadata for an asset |
 
+
+
+## deleteAsset
+
+> CompletableFuture<ApiResponse<Void>> deleteAsset deleteAsset(id)
+
+Delete Asset by id
+
+Delete Asset by id 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.BlockchainsAssetsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String id = "id_example"; // String | The ID of the asset to delete
+        try {
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.blockchainsAssets().deleteAsset(id);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling BlockchainsAssetsApi#deleteAsset");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling BlockchainsAssetsApi#deleteAsset");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The ID of the asset to delete | |
+
+### Return type
+
+
+CompletableFuture<ApiResponse<Void>>
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | OK |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
 ## getAsset

@@ -567,6 +567,7 @@ docs/PeerType.md
 docs/PersonalEntityTypeEnum.md
 docs/PersonalIdentification.md
 docs/PersonalIdentificationFullName.md
+docs/PersonalIdentificationType.md
 docs/PixAddress.md
 docs/PixDestination.md
 docs/PixPaymentInfo.md
@@ -606,6 +607,7 @@ docs/QuoteExecutionStep.md
 docs/QuoteExecutionTypeDetails.md
 docs/QuoteExecutionWithRequoteRequestDetails.md
 docs/QuoteExecutionWithRequoteResponseDetails.md
+docs/QuoteFailure.md
 docs/QuotePropertiesDetails.md
 docs/QuoteTypeEnum.md
 docs/QuotesResponse.md
@@ -1633,6 +1635,7 @@ src/main/java/com/fireblocks/sdk/model/PeerType.java
 src/main/java/com/fireblocks/sdk/model/PersonalEntityTypeEnum.java
 src/main/java/com/fireblocks/sdk/model/PersonalIdentification.java
 src/main/java/com/fireblocks/sdk/model/PersonalIdentificationFullName.java
+src/main/java/com/fireblocks/sdk/model/PersonalIdentificationType.java
 src/main/java/com/fireblocks/sdk/model/PixAddress.java
 src/main/java/com/fireblocks/sdk/model/PixDestination.java
 src/main/java/com/fireblocks/sdk/model/PixPaymentInfo.java
@@ -1670,6 +1673,7 @@ src/main/java/com/fireblocks/sdk/model/QuoteExecutionStep.java
 src/main/java/com/fireblocks/sdk/model/QuoteExecutionTypeDetails.java
 src/main/java/com/fireblocks/sdk/model/QuoteExecutionWithRequoteRequestDetails.java
 src/main/java/com/fireblocks/sdk/model/QuoteExecutionWithRequoteResponseDetails.java
+src/main/java/com/fireblocks/sdk/model/QuoteFailure.java
 src/main/java/com/fireblocks/sdk/model/QuotePropertiesDetails.java
 src/main/java/com/fireblocks/sdk/model/QuoteTypeEnum.java
 src/main/java/com/fireblocks/sdk/model/QuotesResponse.java
@@ -2658,6 +2662,7 @@ src/test/java/com/fireblocks/sdk/model/PeerTypeTest.java
 src/test/java/com/fireblocks/sdk/model/PersonalEntityTypeEnumTest.java
 src/test/java/com/fireblocks/sdk/model/PersonalIdentificationFullNameTest.java
 src/test/java/com/fireblocks/sdk/model/PersonalIdentificationTest.java
+src/test/java/com/fireblocks/sdk/model/PersonalIdentificationTypeTest.java
 src/test/java/com/fireblocks/sdk/model/PixAddressTest.java
 src/test/java/com/fireblocks/sdk/model/PixDestinationTest.java
 src/test/java/com/fireblocks/sdk/model/PixPaymentInfoTest.java
@@ -2694,6 +2699,7 @@ src/test/java/com/fireblocks/sdk/model/QuoteExecutionStepTest.java
 src/test/java/com/fireblocks/sdk/model/QuoteExecutionTypeDetailsTest.java
 src/test/java/com/fireblocks/sdk/model/QuoteExecutionWithRequoteRequestDetailsTest.java
 src/test/java/com/fireblocks/sdk/model/QuoteExecutionWithRequoteResponseDetailsTest.java
+src/test/java/com/fireblocks/sdk/model/QuoteFailureTest.java
 src/test/java/com/fireblocks/sdk/model/QuotePropertiesDetailsTest.java
 src/test/java/com/fireblocks/sdk/model/QuoteTest.java
 src/test/java/com/fireblocks/sdk/model/QuoteTypeEnumTest.java

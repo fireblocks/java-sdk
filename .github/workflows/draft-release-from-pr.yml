@@ -39,12 +39,12 @@ jobs:
           LAST_TAG=$(gh release list --limit 1 --json tagName -q '.[0].tagName')
 
           if [[ -z "$LAST_TAG" || "$LAST_TAG" == "null" ]]; then
-            echo "No existing release found, starting from v0.1.0"
-            echo "LAST_TAG=v0.1.0" >> $GITHUB_ENV
-          else
-            echo "Found latest release: $LAST_TAG"
-            echo "LAST_TAG=$LAST_TAG" >> $GITHUB_ENV
+            echo "No existing release found. A release tag is required to calculate the next version."
+            exit 1
           fi
+
+          echo "Found latest release: $LAST_TAG"
+          echo "LAST_TAG=$LAST_TAG" >> $GITHUB_ENV
 
       - name: Calculate next version from labels
         run: |
