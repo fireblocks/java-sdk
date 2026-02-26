@@ -57,6 +57,8 @@
 | KLAY_KAIA_TEST | &quot;KLAY_KAIA_TEST&quot; |
 | APECHAIN | &quot;APECHAIN&quot; |
 | APECHAIN_TEST | &quot;APECHAIN_TEST&quot; |
+| CRONOS | &quot;CRONOS&quot; |
+| CRONOS_TEST | &quot;CRONOS_TEST&quot; |
 
 
 

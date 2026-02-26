@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -22,17 +23,32 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /** QuotesResponse */
-@JsonPropertyOrder({QuotesResponse.JSON_PROPERTY_QUOTES})
+@JsonPropertyOrder({
+    QuotesResponse.JSON_PROPERTY_QUOTES,
+    QuotesResponse.JSON_PROPERTY_QUOTE_FAILURES
+})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class QuotesResponse {
     public static final String JSON_PROPERTY_QUOTES = "quotes";
-    @jakarta.annotation.Nullable private List<Quote> quotes;
+    @jakarta.annotation.Nonnull private List<Quote> quotes;
+
+    public static final String JSON_PROPERTY_QUOTE_FAILURES = "quoteFailures";
+    @jakarta.annotation.Nonnull private List<QuoteFailure> quoteFailures;
 
     public QuotesResponse() {}
 
-    public QuotesResponse quotes(@jakarta.annotation.Nullable List<Quote> quotes) {
+    @JsonCreator
+    public QuotesResponse(
+            @JsonProperty(value = JSON_PROPERTY_QUOTES, required = true) List<Quote> quotes,
+            @JsonProperty(value = JSON_PROPERTY_QUOTE_FAILURES, required = true)
+                    List<QuoteFailure> quoteFailures) {
+        this.quotes = quotes;
+        this.quoteFailures = quoteFailures;
+    }
+
+    public QuotesResponse quotes(@jakarta.annotation.Nonnull List<Quote> quotes) {
         this.quotes = quotes;
         return this;
     }
@@ -50,17 +66,50 @@ public class QuotesResponse {
      *
      * @return quotes
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_QUOTES)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public List<Quote> getQuotes() {
         return quotes;
     }
 
     @JsonProperty(JSON_PROPERTY_QUOTES)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setQuotes(@jakarta.annotation.Nullable List<Quote> quotes) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setQuotes(@jakarta.annotation.Nonnull List<Quote> quotes) {
         this.quotes = quotes;
+    }
+
+    public QuotesResponse quoteFailures(
+            @jakarta.annotation.Nonnull List<QuoteFailure> quoteFailures) {
+        this.quoteFailures = quoteFailures;
+        return this;
+    }
+
+    public QuotesResponse addQuoteFailuresItem(QuoteFailure quoteFailuresItem) {
+        if (this.quoteFailures == null) {
+            this.quoteFailures = new ArrayList<>();
+        }
+        this.quoteFailures.add(quoteFailuresItem);
+        return this;
+    }
+
+    /**
+     * List of partial failures encountered while requesting quotes. Empty when all quote attempts
+     * succeed.
+     *
+     * @return quoteFailures
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_QUOTE_FAILURES)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<QuoteFailure> getQuoteFailures() {
+        return quoteFailures;
+    }
+
+    @JsonProperty(JSON_PROPERTY_QUOTE_FAILURES)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setQuoteFailures(@jakarta.annotation.Nonnull List<QuoteFailure> quoteFailures) {
+        this.quoteFailures = quoteFailures;
     }
 
     /** Return true if this QuotesResponse object is equal to o. */
@@ -73,12 +122,13 @@ public class QuotesResponse {
             return false;
         }
         QuotesResponse quotesResponse = (QuotesResponse) o;
-        return Objects.equals(this.quotes, quotesResponse.quotes);
+        return Objects.equals(this.quotes, quotesResponse.quotes)
+                && Objects.equals(this.quoteFailures, quotesResponse.quoteFailures);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(quotes);
+        return Objects.hash(quotes, quoteFailures);
     }
 
     @Override
@@ -86,6 +136,7 @@ public class QuotesResponse {
         StringBuilder sb = new StringBuilder();
         sb.append("class QuotesResponse {\n");
         sb.append("    quotes: ").append(toIndentedString(quotes)).append("\n");
+        sb.append("    quoteFailures: ").append(toIndentedString(quoteFailures)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -143,6 +194,29 @@ public class QuotesResponse {
                                     .toUrlQueryString(
                                             String.format(
                                                     "%squotes%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
+        }
+
+        // add `quoteFailures` to the URL query string
+        if (getQuoteFailures() != null) {
+            for (int i = 0; i < getQuoteFailures().size(); i++) {
+                if (getQuoteFailures().get(i) != null) {
+                    joiner.add(
+                            getQuoteFailures()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%squoteFailures%s%s",
                                                     prefix,
                                                     suffix,
                                                     "".equals(suffix)

@@ -16,7 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Side of the order */
+/** BUY: receive base / pay quote; SELL: give base / receive quote. */
 public enum Side {
     BUY("BUY"),
 

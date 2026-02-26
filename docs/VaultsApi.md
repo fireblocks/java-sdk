@@ -15,7 +15,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getAssetWallets**](VaultsApi.md#getAssetWallets) | **GET** /vault/asset_wallets | Get vault wallets (Paginated) |
 | [**getCreateMultipleDepositAddressesJobStatus**](VaultsApi.md#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get the job status of the bulk deposit address creation |
 | [**getCreateMultipleVaultAccountsJobStatus**](VaultsApi.md#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts |
-| [**getMaxBipIndexUsed**](VaultsApi.md#getMaxBipIndexUsed) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_bip_index_used | Get maximum BIP44 index used |
+| [**getMaxBipIndexUsed**](VaultsApi.md#getMaxBipIndexUsed) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_bip44_index_used | Get maximum BIP44 index used |
 | [**getMaxSpendableAmount**](VaultsApi.md#getMaxSpendableAmount) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount | Get max spendable amount in a transaction |
 | [**getPagedVaultAccounts**](VaultsApi.md#getPagedVaultAccounts) | **GET** /vault/accounts_paged | Get vault accounts (Paginated) |
 | [**getPublicKeyInfo**](VaultsApi.md#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key for a derivation path |
@@ -1195,7 +1195,7 @@ public class Example {
 
         String namePrefix = "namePrefix_example"; // String | 
         String nameSuffix = "nameSuffix_example"; // String | 
-        BigDecimal minAmountThreshold = new BigDecimal("10"); // BigDecimal | Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts. The amount set in this parameter is the native asset amount and not its USD value.
+        BigDecimal minAmountThreshold = new BigDecimal("10"); // BigDecimal | Specifying minAmountThreshold will filter accounts whose total balance is greater than this value; otherwise, it returns all accounts. The amount set in this parameter represents the native asset amount, not its USD value.
         String assetId = "assetId_example"; // String | 
         String orderBy = "ASC"; // String | 
         String before = "before_example"; // String | 
@@ -1234,7 +1234,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **namePrefix** | **String**|  | [optional] |
 | **nameSuffix** | **String**|  | [optional] |
-| **minAmountThreshold** | **BigDecimal**| Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts. The amount set in this parameter is the native asset amount and not its USD value. | [optional] |
+| **minAmountThreshold** | **BigDecimal**| Specifying minAmountThreshold will filter accounts whose total balance is greater than this value; otherwise, it returns all accounts. The amount set in this parameter represents the native asset amount, not its USD value. | [optional] |
 | **assetId** | **String**|  | [optional] |
 | **orderBy** | **String**|  | [optional] [default to DESC] [enum: ASC, DESC] |
 | **before** | **String**|  | [optional] |

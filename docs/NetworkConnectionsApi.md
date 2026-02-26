@@ -7,13 +7,13 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**checkThirdPartyRouting**](NetworkConnectionsApi.md#checkThirdPartyRouting) | **GET** /network_connections/{connectionId}/is_third_party_routing/{assetType} | Retrieve third-party network routing validation |
 | [**createNetworkConnection**](NetworkConnectionsApi.md#createNetworkConnection) | **POST** /network_connections | Create a new network connection |
 | [**createNetworkId**](NetworkConnectionsApi.md#createNetworkId) | **POST** /network_ids | Creates a new Network ID |
-| [**deleteNetworkConnection**](NetworkConnectionsApi.md#deleteNetworkConnection) | **DELETE** /network_connections/{connectionId} | Deletes a network connection by ID |
-| [**deleteNetworkId**](NetworkConnectionsApi.md#deleteNetworkId) | **DELETE** /network_ids/{networkId} | Deletes specific network ID. |
+| [**deleteNetworkConnection**](NetworkConnectionsApi.md#deleteNetworkConnection) | **DELETE** /network_connections/{connectionId} | Delete a network connection by ID |
+| [**deleteNetworkId**](NetworkConnectionsApi.md#deleteNetworkId) | **DELETE** /network_ids/{networkId} | Delete specific network ID. |
 | [**getNetwork**](NetworkConnectionsApi.md#getNetwork) | **GET** /network_connections/{connectionId} | Get a network connection |
 | [**getNetworkConnections**](NetworkConnectionsApi.md#getNetworkConnections) | **GET** /network_connections | List network connections |
-| [**getNetworkId**](NetworkConnectionsApi.md#getNetworkId) | **GET** /network_ids/{networkId} | Returns specific network ID. |
+| [**getNetworkId**](NetworkConnectionsApi.md#getNetworkId) | **GET** /network_ids/{networkId} | Return specific network ID. |
 | [**getNetworkIds**](NetworkConnectionsApi.md#getNetworkIds) | **GET** /network_ids | Get all network IDs |
-| [**getRoutingPolicyAssetGroups**](NetworkConnectionsApi.md#getRoutingPolicyAssetGroups) | **GET** /network_ids/routing_policy_asset_groups | Returns all enabled routing policy asset groups |
+| [**getRoutingPolicyAssetGroups**](NetworkConnectionsApi.md#getRoutingPolicyAssetGroups) | **GET** /network_ids/routing_policy_asset_groups | Return all enabled routing policy asset groups |
 | [**searchNetworkIds**](NetworkConnectionsApi.md#searchNetworkIds) | **GET** /network_ids/search | Get both local IDs and discoverable remote IDs |
 | [**setNetworkIdDiscoverability**](NetworkConnectionsApi.md#setNetworkIdDiscoverability) | **PATCH** /network_ids/{networkId}/set_discoverability | Update network ID&#39;s discoverability. |
 | [**setNetworkIdName**](NetworkConnectionsApi.md#setNetworkIdName) | **PATCH** /network_ids/{networkId}/set_name | Update network ID&#39;s name. |
@@ -198,7 +198,7 @@ No authorization required
 
 Creates a new Network ID
 
-Creates a new Network ID.
+Create a new Network ID.
 
 ### Example
 
@@ -281,7 +281,7 @@ No authorization required
 
 > CompletableFuture<ApiResponse<DeleteNetworkConnectionResponse>> deleteNetworkConnection deleteNetworkConnection(connectionId)
 
-Deletes a network connection by ID
+Delete a network connection by ID
 
 Deletes an existing network connection specified by its connection ID.
 
@@ -364,7 +364,7 @@ No authorization required
 
 > CompletableFuture<ApiResponse<DeleteNetworkIdResponse>> deleteNetworkId deleteNetworkId(networkId)
 
-Deletes specific network ID.
+Delete specific network ID.
 
 Deletes a network by its ID.
 
@@ -609,7 +609,7 @@ No authorization required
 
 > CompletableFuture<ApiResponse<NetworkIdResponse>> getNetworkId getNetworkId(networkId)
 
-Returns specific network ID.
+Return specific network ID.
 
 Returns specific network ID.
 
@@ -771,7 +771,7 @@ No authorization required
 
 > CompletableFuture<ApiResponse<List<String>>> getRoutingPolicyAssetGroups getRoutingPolicyAssetGroups()
 
-Returns all enabled routing policy asset groups
+Return all enabled routing policy asset groups
 
 Returns all enabled routing policy asset groups
 

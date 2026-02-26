@@ -1154,7 +1154,7 @@ public class VaultsApi {
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
         String localVarPath =
-                "/vault/accounts/{vaultAccountId}/{assetId}/max_bip_index_used"
+                "/vault/accounts/{vaultAccountId}/{assetId}/max_bip44_index_used"
                         .replace("{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()))
                         .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
 
@@ -1273,9 +1273,9 @@ public class VaultsApi {
      *
      * @param namePrefix (optional)
      * @param nameSuffix (optional)
-     * @param minAmountThreshold Specifying minAmountThreshold will filter accounts with balances
-     *     greater than this value, otherwise, it will return all accounts. The amount set in this
-     *     parameter is the native asset amount and not its USD value. (optional)
+     * @param minAmountThreshold Specifying minAmountThreshold will filter accounts whose total
+     *     balance is greater than this value; otherwise, it returns all accounts. The amount set in
+     *     this parameter represents the native asset amount, not its USD value. (optional)
      * @param assetId (optional)
      * @param orderBy (optional, default to DESC)
      * @param before (optional)

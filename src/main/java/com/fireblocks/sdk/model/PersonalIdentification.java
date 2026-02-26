@@ -31,7 +31,11 @@ import java.util.StringJoiner;
     PersonalIdentification.JSON_PROPERTY_DATE_OF_BIRTH,
     PersonalIdentification.JSON_PROPERTY_POSTAL_ADDRESS,
     PersonalIdentification.JSON_PROPERTY_EMAIL,
-    PersonalIdentification.JSON_PROPERTY_PHONE
+    PersonalIdentification.JSON_PROPERTY_PHONE,
+    PersonalIdentification.JSON_PROPERTY_ID_NUMBER,
+    PersonalIdentification.JSON_PROPERTY_ID_TYPE,
+    PersonalIdentification.JSON_PROPERTY_ADDITIONAL_ID_NUMBER,
+    PersonalIdentification.JSON_PROPERTY_ADDITIONAL_ID_TYPE
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -61,6 +65,18 @@ public class PersonalIdentification {
 
     public static final String JSON_PROPERTY_PHONE = "phone";
     @jakarta.annotation.Nullable private String phone;
+
+    public static final String JSON_PROPERTY_ID_NUMBER = "idNumber";
+    @jakarta.annotation.Nullable private String idNumber;
+
+    public static final String JSON_PROPERTY_ID_TYPE = "idType";
+    @jakarta.annotation.Nullable private PersonalIdentificationType idType;
+
+    public static final String JSON_PROPERTY_ADDITIONAL_ID_NUMBER = "additionalIdNumber";
+    @jakarta.annotation.Nullable private String additionalIdNumber;
+
+    public static final String JSON_PROPERTY_ADDITIONAL_ID_TYPE = "additionalIdType";
+    @jakarta.annotation.Nullable private PersonalIdentificationType additionalIdType;
 
     public PersonalIdentification() {}
 
@@ -276,6 +292,104 @@ public class PersonalIdentification {
         this.phone = phone;
     }
 
+    public PersonalIdentification idNumber(@jakarta.annotation.Nullable String idNumber) {
+        this.idNumber = idNumber;
+        return this;
+    }
+
+    /**
+     * The identification number corresponding to the primary identification document type specified
+     * in idType
+     *
+     * @return idNumber
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ID_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ID_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIdNumber(@jakarta.annotation.Nullable String idNumber) {
+        this.idNumber = idNumber;
+    }
+
+    public PersonalIdentification idType(
+            @jakarta.annotation.Nullable PersonalIdentificationType idType) {
+        this.idType = idType;
+        return this;
+    }
+
+    /**
+     * Get idType
+     *
+     * @return idType
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ID_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public PersonalIdentificationType getIdType() {
+        return idType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ID_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIdType(@jakarta.annotation.Nullable PersonalIdentificationType idType) {
+        this.idType = idType;
+    }
+
+    public PersonalIdentification additionalIdNumber(
+            @jakarta.annotation.Nullable String additionalIdNumber) {
+        this.additionalIdNumber = additionalIdNumber;
+        return this;
+    }
+
+    /**
+     * The identification number corresponding to the additional identification document type
+     * specified in additionalIdType
+     *
+     * @return additionalIdNumber
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ADDITIONAL_ID_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAdditionalIdNumber() {
+        return additionalIdNumber;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ADDITIONAL_ID_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAdditionalIdNumber(@jakarta.annotation.Nullable String additionalIdNumber) {
+        this.additionalIdNumber = additionalIdNumber;
+    }
+
+    public PersonalIdentification additionalIdType(
+            @jakarta.annotation.Nullable PersonalIdentificationType additionalIdType) {
+        this.additionalIdType = additionalIdType;
+        return this;
+    }
+
+    /**
+     * Get additionalIdType
+     *
+     * @return additionalIdType
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ADDITIONAL_ID_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public PersonalIdentificationType getAdditionalIdType() {
+        return additionalIdType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ADDITIONAL_ID_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAdditionalIdType(
+            @jakarta.annotation.Nullable PersonalIdentificationType additionalIdType) {
+        this.additionalIdType = additionalIdType;
+    }
+
     /** Return true if this PersonalIdentification object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -295,7 +409,12 @@ public class PersonalIdentification {
                 && Objects.equals(this.dateOfBirth, personalIdentification.dateOfBirth)
                 && Objects.equals(this.postalAddress, personalIdentification.postalAddress)
                 && Objects.equals(this.email, personalIdentification.email)
-                && Objects.equals(this.phone, personalIdentification.phone);
+                && Objects.equals(this.phone, personalIdentification.phone)
+                && Objects.equals(this.idNumber, personalIdentification.idNumber)
+                && Objects.equals(this.idType, personalIdentification.idType)
+                && Objects.equals(
+                        this.additionalIdNumber, personalIdentification.additionalIdNumber)
+                && Objects.equals(this.additionalIdType, personalIdentification.additionalIdType);
     }
 
     @Override
@@ -308,7 +427,11 @@ public class PersonalIdentification {
                 dateOfBirth,
                 postalAddress,
                 email,
-                phone);
+                phone,
+                idNumber,
+                idType,
+                additionalIdNumber,
+                additionalIdType);
     }
 
     @Override
@@ -327,6 +450,12 @@ public class PersonalIdentification {
         sb.append("    postalAddress: ").append(toIndentedString(postalAddress)).append("\n");
         sb.append("    email: ").append(toIndentedString(email)).append("\n");
         sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
+        sb.append("    idNumber: ").append(toIndentedString(idNumber)).append("\n");
+        sb.append("    idType: ").append(toIndentedString(idType)).append("\n");
+        sb.append("    additionalIdNumber: ")
+                .append(toIndentedString(additionalIdNumber))
+                .append("\n");
+        sb.append("    additionalIdType: ").append(toIndentedString(additionalIdType)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -444,6 +573,46 @@ public class PersonalIdentification {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getPhone()))));
+        }
+
+        // add `idNumber` to the URL query string
+        if (getIdNumber() != null) {
+            joiner.add(
+                    String.format(
+                            "%sidNumber%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getIdNumber()))));
+        }
+
+        // add `idType` to the URL query string
+        if (getIdType() != null) {
+            joiner.add(
+                    String.format(
+                            "%sidType%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getIdType()))));
+        }
+
+        // add `additionalIdNumber` to the URL query string
+        if (getAdditionalIdNumber() != null) {
+            joiner.add(
+                    String.format(
+                            "%sadditionalIdNumber%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAdditionalIdNumber()))));
+        }
+
+        // add `additionalIdType` to the URL query string
+        if (getAdditionalIdType() != null) {
+            joiner.add(
+                    String.format(
+                            "%sadditionalIdType%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAdditionalIdType()))));
         }
 
         return joiner.toString();

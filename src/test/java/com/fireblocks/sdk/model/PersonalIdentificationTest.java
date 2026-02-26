@@ -72,4 +72,28 @@ class PersonalIdentificationTest {
     void phoneTest() {
         // TODO: test phone
     }
+
+    /** Test the property 'idNumber' */
+    @Test
+    void idNumberTest() {
+        // TODO: test idNumber
+    }
+
+    /** Test the property 'idType' */
+    @Test
+    void idTypeTest() {
+        // TODO: test idType
+    }
+
+    /** Test the property 'additionalIdNumber' */
+    @Test
+    void additionalIdNumberTest() {
+        // TODO: test additionalIdNumber
+    }
+
+    /** Test the property 'additionalIdType' */
+    @Test
+    void additionalIdTypeTest() {
+        // TODO: test additionalIdType
+    }
 }

@@ -15,37 +15,31 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for FeeBreakdownOneOf */
-class FeeBreakdownOneOfTest {
-    private final FeeBreakdownOneOf model = new FeeBreakdownOneOf();
+/** Model tests for QuoteFailure */
+class QuoteFailureTest {
+    private final QuoteFailure model = new QuoteFailure();
 
-    /** Model tests for FeeBreakdownOneOf */
+    /** Model tests for QuoteFailure */
     @Test
-    void testFeeBreakdownOneOf() {
-        // TODO: test FeeBreakdownOneOf
+    void testQuoteFailure() {
+        // TODO: test QuoteFailure
     }
 
-    /** Test the property 'baseFee' */
+    /** Test the property 'providerId' */
     @Test
-    void baseFeeTest() {
-        // TODO: test baseFee
+    void providerIdTest() {
+        // TODO: test providerId
     }
 
-    /** Test the property 'priorityFee' */
+    /** Test the property 'accountId' */
     @Test
-    void priorityFeeTest() {
-        // TODO: test priorityFee
+    void accountIdTest() {
+        // TODO: test accountId
     }
 
-    /** Test the property 'rent' */
+    /** Test the property 'error' */
     @Test
-    void rentTest() {
-        // TODO: test rent
-    }
-
-    /** Test the property 'totalFee' */
-    @Test
-    void totalFeeTest() {
-        // TODO: test totalFee
+    void errorTest() {
+        // TODO: test error
     }
 }

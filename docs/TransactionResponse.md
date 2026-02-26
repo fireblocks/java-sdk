@@ -38,7 +38,7 @@
 |**authorizationInfo** | [**AuthorizationInfo**](AuthorizationInfo.md) |  |  [optional] |
 |**exchangeTxId** | **String** | If the transaction originated from an exchange, this is the ID of this transaction at the exchange. |  [optional] |
 |**customerRefId** | **String** | The ID for AML providers to associate the owner of funds with transactions. |  [optional] |
-|**travelRuleMessageId** | **String** | The ID of the travel rule message from any travel rule provider. Used for  travel rule linking functionality to associate transactions with existing  travel rule messages. |  [optional] |
+|**travelRuleMessageId** | **String** | The ID of the travel rule message from any travel rule provider. Used for  travel rule supporting functionality to associate transactions with existing  travel rule messages. |  [optional] |
 |**amlScreeningResult** | [**AmlScreeningResult**](AmlScreeningResult.md) |  |  [optional] |
 |**complianceResults** | [**ComplianceResults**](ComplianceResults.md) |  |  [optional] |
 |**notBroadcastByFireblocks** | **Boolean** | Indicates the transaction was not broadcast by Fireblocks |  [optional] |

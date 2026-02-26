@@ -15,6 +15,7 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.AddressRegistryLegalEntity;
 import com.fireblocks.sdk.model.AmlVerdictManualRequest;
 import com.fireblocks.sdk.model.AmlVerdictManualResponse;
 import com.fireblocks.sdk.model.ComplianceResultFullPayload;
@@ -57,6 +58,23 @@ public class ComplianceApiTest {
     public void getAmlScreeningPolicyTest() throws ApiException {
         CompletableFuture<ApiResponse<ScreeningProviderRulesConfigurationResponse>> response =
                 api.getAmlScreeningPolicy();
+    }
+
+    /**
+     * Look up legal entity by address and asset
+     *
+     * <p>Returns the legal entity (company name, jurisdiction, companyId) for the given blockchain
+     * address and optional asset. Both the requester and the owner of the address must be opted in
+     * to the address registry.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getLegalEntityByAddressTest() throws ApiException {
+        String address = null;
+        String asset = null;
+        CompletableFuture<ApiResponse<AddressRegistryLegalEntity>> response =
+                api.getLegalEntityByAddress(address, asset);
     }
 
     /**
