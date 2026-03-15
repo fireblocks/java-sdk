@@ -301,4 +301,58 @@ class AdditionalInfoRequestAdditionalInfoTest {
     void beneficiaryRelationshipTest() {
         // TODO: test beneficiaryRelationship
     }
+
+    /** Test the property 'recipientHandleType' */
+    @Test
+    void recipientHandleTypeTest() {
+        // TODO: test recipientHandleType
+    }
+
+    /** Test the property 'recipientHandleValue' */
+    @Test
+    void recipientHandleValueTest() {
+        // TODO: test recipientHandleValue
+    }
+
+    /** Test the property 'message' */
+    @Test
+    void messageTest() {
+        // TODO: test message
+    }
+
+    /** Test the property 'value' */
+    @Test
+    void valueTest() {
+        // TODO: test value
+    }
+
+    /** Test the property 'type' */
+    @Test
+    void typeTest() {
+        // TODO: test type
+    }
+
+    /** Test the property 'bsb' */
+    @Test
+    void bsbTest() {
+        // TODO: test bsb
+    }
+
+    /** Test the property 'sortCode' */
+    @Test
+    void sortCodeTest() {
+        // TODO: test sortCode
+    }
+
+    /** Test the property 'bankAccountCountry' */
+    @Test
+    void bankAccountCountryTest() {
+        // TODO: test bankAccountCountry
+    }
+
+    /** Test the property 'bankAccountHolderName' */
+    @Test
+    void bankAccountHolderNameTest() {
+        // TODO: test bankAccountHolderName
+    }
 }

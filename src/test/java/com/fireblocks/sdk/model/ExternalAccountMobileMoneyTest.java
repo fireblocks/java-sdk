@@ -48,4 +48,10 @@ class ExternalAccountMobileMoneyTest {
     void emailTest() {
         // TODO: test email
     }
+
+    /** Test the property 'successRedirectUrl' */
+    @Test
+    void successRedirectUrlTest() {
+        // TODO: test successRedirectUrl
+    }
 }

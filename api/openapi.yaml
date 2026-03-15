@@ -776,6 +776,14 @@ paths:
         schema:
           type: string
         style: simple
+      - description: Optional immutable blockchain wallet type to store per tenant+vault
+        explode: true
+        in: query
+        name: blockchainWalletType
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -801,11 +809,11 @@ paths:
         - language: java
           code: "CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response\
             \ = fireblocks.vaults().activateAssetForVaultAccount(vaultAccountId, assetId,\
-            \ idempotencyKey);"
+            \ blockchainWalletType, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.vaults.activate_asset_for_vault_account(vault_account_id,\
-            \ asset_id, idempotency_key);"
+            \ asset_id, blockchain_wallet_type, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -814,10 +822,10 @@ paths:
       - lang: Java
         source: "CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response\
           \ = fireblocks.vaults().activateAssetForVaultAccount(vaultAccountId, assetId,\
-          \ idempotencyKey);"
+          \ blockchainWalletType, idempotencyKey);"
       - lang: Python
         source: "response = fireblocks.vaults.activate_asset_for_vault_account(vault_account_id,\
-          \ asset_id, idempotency_key);"
+          \ asset_id, blockchain_wallet_type, idempotency_key);"
       x-accepts:
       - application/json
   /vault/accounts/{vaultAccountId}/set_customer_ref_id:
@@ -1095,6 +1103,14 @@ paths:
         schema:
           type: string
         style: simple
+      - description: Optional immutable blockchain wallet type to store per tenant+vault
+        explode: true
+        in: query
+        name: blockchainWalletType
+        required: false
+        schema:
+          type: string
+        style: form
       requestBody:
         content:
           application/json:
@@ -1133,11 +1149,11 @@ paths:
         - language: java
           code: "CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response\
             \ = fireblocks.vaults().createVaultAccountAsset(vaultAccountId, assetId,\
-            \ createAssetsRequest, idempotencyKey);"
+            \ createAssetsRequest, blockchainWalletType, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.vaults.create_vault_account_asset(vault_account_id,\
-            \ asset_id, create_assets_request, idempotency_key);"
+            \ asset_id, create_assets_request, blockchain_wallet_type, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -1146,10 +1162,10 @@ paths:
       - lang: Java
         source: "CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response\
           \ = fireblocks.vaults().createVaultAccountAsset(vaultAccountId, assetId,\
-          \ createAssetsRequest, idempotencyKey);"
+          \ createAssetsRequest, blockchainWalletType, idempotencyKey);"
       - lang: Python
         source: "response = fireblocks.vaults.create_vault_account_asset(vault_account_id,\
-          \ asset_id, create_assets_request, idempotency_key);"
+          \ asset_id, create_assets_request, blockchain_wallet_type, idempotency_key);"
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -2034,6 +2050,7 @@ paths:
     post:
       description: "Create multiple vault accounts by running an async job.      \n\
         - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported.\n\
+        - These endpoints are currently in beta and might be subject to changes.\n\
         - Limited to a maximum of 10,000 accounts per operation.\n\n**Endpoint Permissions:**\
         \ Admin, Non-Signing Admin, Signer, Approver, Editor.\n"
       operationId: createMultipleAccounts
@@ -4552,6 +4569,47 @@ paths:
             \     \nconst pubKey = await fireblocks.NCW.getPublicKeyInfoByAccountAsset(walletId,\
             \ publicKeyInfoByAccountAssetArgs);\n"
           name: Fireblocks SDK Javascript example
+      x-accepts:
+      - application/json
+  /workspace:
+    get:
+      description: |
+        Returns the workspace ID and name for the authenticated user.
+      operationId: getWorkspace
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Workspace"
+          description: Workspace details
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get workspace
+      tags:
+      - Workspace
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<Workspace>> = fireblocks.workspace.getWorkspace();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Workspace>> response = fireblocks.workspace().getWorkspace();
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.workspace.get_workspace();
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<Workspace>> = fireblocks.workspace.getWorkspace();"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<Workspace>> response = fireblocks.workspace().getWorkspace();
+      - lang: Python
+        source: response = fireblocks.workspace.get_workspace();
       x-accepts:
       - application/json
   /workspace/freeze:
@@ -18871,6 +18929,136 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+  /staking/chains/{chainDescriptor}/consolidate:
+    post:
+      description: |-
+        Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same validator provider and same vault account. On chain, this translates into a consolidation transaction, where the source validator is consolidated into the destination validator. Supported chains: Ethereum (ETH) only.
+        </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+      operationId: consolidate
+      parameters:
+      - description: "Protocol identifier for the staking operation (e.g., ETH)."
+        example: ETH
+        explode: false
+        in: path
+        name: chainDescriptor
+        required: true
+        schema:
+          enum:
+          - ETH
+          - ETH_TEST6
+          - ETH_TEST_HOODI
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MergeStakeAccountsRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MergeStakeAccountsResponse"
+          description: Merge request accepted and created.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Bad request: missing/invalid fields, unsupported amount, or\
+            \ malformed payload."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Forbidden: insufficient permissions, disabled feature, or\
+            \ restricted provider/validator."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Not found: requested resource does not exist (e.g., position,\
+            \ validator, provider, or wallet)."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Consolidate staking positions (ETH validator consolidation)
+      tags:
+      - Staking
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<MergeStakeAccountsResponse>>\
+            \ = fireblocks.staking.consolidate(stakingApiConsolidateRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<MergeStakeAccountsResponse>> response\
+            \ = fireblocks.staking().consolidate(mergeStakeAccountsRequest, chainDescriptor,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.staking.consolidate(merge_stake_accounts_request,\
+            \ chain_descriptor, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<MergeStakeAccountsResponse>>\
+          \ = fireblocks.staking.consolidate(stakingApiConsolidateRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<MergeStakeAccountsResponse>> response\
+          \ = fireblocks.staking().consolidate(mergeStakeAccountsRequest, chainDescriptor,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.staking.consolidate(merge_stake_accounts_request,\
+          \ chain_descriptor, idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
   /staking/positions:
     get:
       description: |-
@@ -30879,6 +31067,23 @@ components:
       - requiredAlgorithms
       - status
       type: object
+    Workspace:
+      example:
+        name: My Workspace
+        id: 123e4567-e89b-12d3-a456-426614174000
+      properties:
+        id:
+          description: The ID of the workspace
+          example: 123e4567-e89b-12d3-a456-426614174000
+          type: string
+        name:
+          description: The name of the workspace
+          example: My Workspace
+          type: string
+      required:
+      - id
+      - name
+      type: object
     ExchangeType:
       description: Exchange account's type
       enum:
@@ -33507,6 +33712,175 @@ components:
       - bankName
       - country
       - rail
+      type: object
+    InteracPaymentInfo:
+      description: Interac e-Transfer payment information for Canadian dollar transfers
+      properties:
+        rail:
+          description: The payment rail type for Interac transfers
+          enum:
+          - INTERAC
+          example: INTERAC
+          type: string
+        addressingSystem:
+          description: The addressing system used for Interac transfers
+          enum:
+          - INTERAC
+          example: INTERAC
+          type: string
+        accountHolderGivenName:
+          description: The given name (first name) of the account holder
+          example: John
+          type: string
+        accountHolderSurname:
+          description: The surname (last name) of the account holder
+          example: Smith
+          type: string
+        country:
+          description: The country for the transfer (ISO 3166-1 alpha-2 code)
+          example: CA
+          type: string
+        recipientHandleType:
+          description: The type of recipient handler being used
+          enum:
+          - EMAIL
+          example: EMAIL
+          type: string
+        recipientHandleValue:
+          description: Email address registered for Interac e-Transfer
+          example: john.smith@email.com
+          type: string
+        message:
+          description: The message to be sent to the recipient
+          example: Please deposit the funds into the account
+          type: string
+      required:
+      - accountHolderGivenName
+      - accountHolderSurname
+      - addressingSystem
+      - country
+      - message
+      - rail
+      - recipientHandleType
+      - recipientHandleValue
+      - securityQuestion
+      type: object
+    PayidPaymentInfo:
+      description: PayID payment information for Australian dollar transfers
+      properties:
+        rail:
+          description: The payment rail type for PayID transfers
+          enum:
+          - PAYID
+          example: PAYID
+          type: string
+        addressingSystem:
+          description: The addressing system used for PayID transfers
+          enum:
+          - PAYID
+          example: PAYID
+          type: string
+        accountHolderGivenName:
+          description: The given name (first name) of the account holder
+          example: John
+          type: string
+        accountHolderSurname:
+          description: The surname (last name) of the account holder
+          example: Williams
+          type: string
+        country:
+          description: The country for the transfer (ISO 3166-1 alpha-2 code)
+          example: AU
+          type: string
+        value:
+          description: "The PayID identifier (email, phone, ABN, or organization ID)"
+          example: john.williams@email.com
+          type: string
+        type:
+          description: The type of PayID being used
+          enum:
+          - EMAIL
+          example: EMAIL
+          type: string
+        bsb:
+          description: "Bank State Branch (BSB) number (6 digits, format XXX-XXX)"
+          example: 123-456
+          type: string
+        accountNumber:
+          description: Australian bank account number
+          example: "12345678"
+          type: string
+      required:
+      - accountHolderGivenName
+      - accountHolderSurname
+      - accountNumber
+      - addressingSystem
+      - country
+      - rail
+      - type
+      - value
+      type: object
+    ChapsPaymentInfo:
+      description: CHAPS payment information for UK pound sterling same-day transfers
+      properties:
+        rail:
+          description: The payment rail type for CHAPS transfers
+          enum:
+          - CHAPS
+          example: CHAPS
+          type: string
+        addressingSystem:
+          description: The addressing system used for CHAPS transfers
+          enum:
+          - CHAPS
+          example: CHAPS
+          type: string
+        accountHolderGivenName:
+          description: The given name (first name) of the account holder
+          example: John
+          type: string
+        accountHolderSurname:
+          description: The surname (last name) of the account holder
+          example: Smith
+          type: string
+        country:
+          description: The country for the transfer (ISO 3166-1 alpha-2 code)
+          example: GB
+          type: string
+        sortCode:
+          description: UK bank sort code (format XX-XX-XX)
+          example: 12-34-56
+          pattern: "^\\d{6}$"
+          type: string
+        accountNumber:
+          description: UK bank account number
+          example: "12345678"
+          pattern: "^\\d{8}$"
+          type: string
+        bankName:
+          description: The name of the bank
+          example: Barclays Bank
+          type: string
+        bankAccountCountry:
+          description: CHAPS bank account holder name
+          example: GB
+          pattern: "^\\d{2}$"
+          type: string
+        bankAccountHolderName:
+          description: CHAPS bank account holder name
+          example: John Smith
+          pattern: "^(?=.{1,140}$)[^\\s]+(\\s+[^\\s]+)*$"
+          type: string
+      required:
+      - accountHolderGivenName
+      - accountHolderSurname
+      - accountNumber
+      - addressingSystem
+      - bankAccountCountry
+      - bankAccountHolderName
+      - country
+      - rail
+      - sortCode
       type: object
     AdditionalInfoRequest:
       description: External wallet request with additional payment information for
@@ -36849,16 +37223,56 @@ components:
           type: array
       type: object
     ExtraParameters:
+      additionalProperties: true
       description: |
         Additional protocol / operation specific key-value parameters:
 
-        For UTXO-based blockchain input selection, add the key `inputsSelection` with the value set the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)
+        For UTXO-based blockchain input selection, add the key `inputsSelection` with the value set to the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)
 
         For `RAW` operations, add the key `rawMessageData` with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)
 
         For `CONTRACT_CALL` operations, add the key `contractCallData` with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions.
-        For **exchange compliance (e.g., Binance) and Travel Rule purposes**, include the key `piiData` containing a **custom JSON structure** with Personally Identifiable Information (PII) relevant to the transaction. This data must be fully **encrypted by the sender** before being submitted to the Fireblocks API. The recommended encryption method is **hybrid encryption** using AES-256-GCM for the payload and RSA-OAEP for key exchange, with the recipient exchange’s public key. [development libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks)
-      properties: {}
+        For **exchange compliance (e.g., Binance) and Travel Rule purposes**, include the key `piiData` containing a **custom JSON structure** with Personally Identifiable Information (PII) relevant to the transaction. This data must be fully **encrypted by the sender** before being submitted to the Fireblocks API. The recommended encryption method is **hybrid encryption** using AES-256-GCM for the payload and RSA-OAEP for key exchange, with the recipient exchange's public key. [development libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks)
+
+        **Note:** `rawMessageData`, `contractCallData`, and `inputsSelection` cannot be used together in the same call.
+      example:
+        piiData:
+          key: ""
+        nodeControls:
+          key: ""
+        contractCallData: contractCallData
+        inputsSelection:
+          key: ""
+        allowBaseAssetAddress: true
+        rawMessageData:
+          key: ""
+        programCallData: programCallData
+      properties:
+        nodeControls:
+          additionalProperties: true
+          nullable: true
+          type: object
+        rawMessageData:
+          additionalProperties: true
+          nullable: true
+          type: object
+        contractCallData:
+          nullable: true
+          type: string
+        programCallData:
+          nullable: true
+          type: string
+        inputsSelection:
+          additionalProperties: true
+          nullable: true
+          type: object
+        allowBaseAssetAddress:
+          nullable: true
+          type: boolean
+        piiData:
+          additionalProperties: true
+          nullable: true
+          type: object
       type: object
     SignedMessage:
       description: A list of signed messages returned for raw signing.
@@ -37097,7 +37511,18 @@ components:
           subType: subType
           id: id
           type: null
-        extraParameters: "{}"
+        extraParameters:
+          piiData:
+            key: ""
+          nodeControls:
+            key: ""
+          contractCallData: contractCallData
+          inputsSelection:
+            key: ""
+          allowBaseAssetAddress: true
+          rawMessageData:
+            key: ""
+          programCallData: programCallData
         replacedTxHash: replacedTxHash
         travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
         externalTxId: externalTxId
@@ -37937,17 +38362,7 @@ components:
           example: "0.00203928"
           type: string
         extraParameters:
-          description: |
-            Additional protocol / operation specific key-value parameters:
-
-            For UTXO-based blockchain input selection, add the key `inputsSelection` with the value set the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)
-
-            For `RAW` operations, add the key `rawMessageData` with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)
-
-            For `CONTRACT_CALL` operations, add the key `contractCallData` with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions.
-            For **exchange compliance (e.g., Binance) and Travel Rule purposes**, include the key `piiData` containing a **custom JSON structure** with Personally Identifiable Information (PII) relevant to the transaction. This data must be fully **encrypted by the sender** before being submitted to the Fireblocks API. The recommended encryption method is **hybrid encryption** using AES-256-GCM for the payload and RSA-OAEP for key exchange, with the recipient exchange’s public key. [development libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks)
-          properties: {}
-          type: object
+          $ref: "#/components/schemas/ExtraParameters"
         signedMessages:
           items:
             $ref: "#/components/schemas/SignedMessage"
@@ -40680,7 +41095,18 @@ components:
           subType: null
           id: id
           type: null
-        extraParameters: "{}"
+        extraParameters:
+          piiData:
+            key: ""
+          nodeControls:
+            key: ""
+          contractCallData: contractCallData
+          inputsSelection:
+            key: ""
+          allowBaseAssetAddress: true
+          rawMessageData:
+            key: ""
+          programCallData: programCallData
         source:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           isCollateral: true
@@ -41971,17 +42397,7 @@ components:
           example: 00000000-0000-0000-0000-000000000000
           type: string
         extraParameters:
-          description: |
-            Additional protocol / operation specific key-value parameters:
-
-            For UTXO-based blockchain input selection, add the key `inputsSelection` with the value set the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)
-
-            For `RAW` operations, add the key `rawMessageData` with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)
-
-            For `CONTRACT_CALL` operations, add the key `contractCallData` with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions.
-            For **exchange compliance (e.g., Binance) and Travel Rule purposes**, include the key `piiData` containing a **custom JSON structure** with Personally Identifiable Information (PII) relevant to the transaction. This data must be fully **encrypted by the sender** before being submitted to the Fireblocks API. The recommended encryption method is **hybrid encryption** using AES-256-GCM for the payload and RSA-OAEP for key exchange, with the recipient exchange’s public key. [development libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks)
-          properties: {}
-          type: object
+          $ref: "#/components/schemas/ExtraParameters"
         customerRefId:
           description: The ID for AML providers to associate the owner of funds with
             transactions.
@@ -43846,7 +44262,18 @@ components:
             subType: null
             id: id
             type: null
-          extraParameters: "{}"
+          extraParameters:
+            piiData:
+              key: ""
+            nodeControls:
+              key: ""
+            contractCallData: contractCallData
+            inputsSelection:
+              key: ""
+            allowBaseAssetAddress: true
+            rawMessageData:
+              key: ""
+            programCallData: programCallData
           source:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             isCollateral: true
@@ -45069,7 +45496,18 @@ components:
             subType: null
             id: id
             type: null
-          extraParameters: "{}"
+          extraParameters:
+            piiData:
+              key: ""
+            nodeControls:
+              key: ""
+            contractCallData: contractCallData
+            inputsSelection:
+              key: ""
+            allowBaseAssetAddress: true
+            rawMessageData:
+              key: ""
+            programCallData: programCallData
           source:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             isCollateral: true
@@ -52363,6 +52801,41 @@ components:
       required:
       - providerId
       type: object
+    TransferRail:
+      description: "Transfer rail: \n* **BLOCKCHAIN** - Transfer over the public blockchain\n\
+        * **INTERNAL** - Internal transfer within the same account (e.g. sub-accounts\
+        \ or same api key)\n* **PEER** - Peer transfer within the same provider network\n\
+        * **SWIFT** - International wire transfer\n* **IBAN** - International Bank\
+        \ Account Number transfer\n* **US_WIRE** - Domestic wire transfer within the\
+        \ United States (e.g. FedWire)\n* **ACH** - Automated Clearing House transfer,\
+        \ typically takes longer but not as expensive as wire transfers\n* **SEPA**\
+        \ - Euro transfers within the SEPA zone\n* **SPEI** - Mexican interbank electronic\
+        \ payment system\n* **PIX** - Brazilian instant payment system\n* **LOCAL_BANK_TRANSFER_AFRICA**\
+        \ - Local bank transfers within Africa\n* **MOBILE_MONEY** - Mobile money\
+        \ transfers (e.g. M-Pesa)\n* **INTERNAL_TRANSFER** - Internal transfer within\
+        \ the same account\n* **INTERAC** - Canadian interbank transfer system\n*\
+        \ **PAYID** - Australian PayID payment system\n* **CHAPS** - The Clearing\
+        \ House Automated Payment System (CHAPS) is a real-time gross settlement payment\
+        \ system used for transactions in the United Kingdom\n"
+      enum:
+      - BLOCKCHAIN
+      - INTERNAL
+      - PEER
+      - SWIFT
+      - IBAN
+      - US_WIRE
+      - ACH
+      - SEPA
+      - SPEI
+      - PIX
+      - LOCAL_BANK_TRANSFER_AFRICA
+      - MOBILE_MONEY
+      - INTERNAL_TRANSFER
+      - INTERAC
+      - PAYID
+      - CHAPS
+      example: BLOCKCHAIN
+      type: string
     DVPSettlementType:
       enum:
       - DVP
@@ -52421,39 +52894,24 @@ components:
         email:
           format: email
           type: string
+        successRedirectUrl:
+          description: "URL to redirect the end user back to after they complete the\
+            \ payment on the bank/mobile provider page (e.g., the merchant checkout\
+            \ page)"
+          type: string
       required:
       - email
       - mobilePhoneNumber
       - provider
       - type
       type: object
-    ExternalAccountLocalBankAfricaType:
-      enum:
-      - LOCAL_BANK_AFRICA_RAIL
-      type: string
-    LocalBankAfricaAccountNumber:
-      example: "1234567890123"
-      pattern: "^\\d{4,17}$"
-      type: string
     ExternalAccountLocalBankAfrica:
       properties:
-        type:
-          $ref: "#/components/schemas/ExternalAccountLocalBankAfricaType"
-        accountNumber:
-          example: "1234567890123"
-          pattern: "^\\d{4,17}$"
+        successRedirectUrl:
+          description: "URL to redirect the end user back to after they complete the\
+            \ payment on the bank/mobile provider page (e.g., the merchant checkout\
+            \ page)"
           type: string
-        bankName:
-          description: Name of the bank
-          type: string
-        bankCode:
-          description: Internal bank identifier
-          type: string
-      required:
-      - accountNumber
-      - bankCode
-      - bankName
-      - type
       type: object
     ExternalAccountSenderInformation:
       description: "Additional data for the external account, depending on the type\
@@ -52598,11 +53056,16 @@ components:
         baseAssetId:
           description: The asset you receive on BUY / give on SELL.
           type: string
+        baseAssetRail:
+          $ref: "#/components/schemas/TransferRail"
         quoteAssetId:
           description: The counter asset used to pay/receive.
           type: string
+        quoteAssetRail:
+          $ref: "#/components/schemas/TransferRail"
         baseAmount:
-          description: The amount to convert from
+          description: Amount in baseAssetId. BUY = base amount to receive; SELL =
+            base amount to sell.
           example: "100.00"
           pattern: ^\d+(\.\d+)?$
           type: string
@@ -53032,33 +53495,6 @@ components:
       required:
       - type
       type: object
-    TransferRail:
-      description: "Transfer rail: \n* **BLOCKCHAIN** - Transfer over the public blockchain\n\
-        * **INTERNAL** - Internal transfer within the same account (e.g. sub-accounts\
-        \ or same api key)\n* **PEER** - Peer transfer within the same provider network\n\
-        * **SWIFT** - International wire transfer\n* **IBAN** - International Bank\
-        \ Account Number transfer\n* **US_WIRE** - Domestic wire transfer within the\
-        \ United States (e.g. FedWire)\n* **ACH** - Automated Clearing House transfer,\
-        \ typically takes longer but not as expensive as wire transfers\n* **SEPA**\
-        \ - Euro transfers within the SEPA zone\n* **SPEI** - Mexican interbank electronic\
-        \ payment system\n* **PIX** - Brazilian instant payment system\n* **LOCAL_BANK_TRANSFER_AFRICA**\
-        \ - Local bank transfers within Africa\n* **MOBILE_MONEY** - Mobile money\
-        \ transfers (e.g. M-Pesa)\n"
-      enum:
-      - BLOCKCHAIN
-      - INTERNAL
-      - PEER
-      - SWIFT
-      - IBAN
-      - US_WIRE
-      - ACH
-      - SEPA
-      - SPEI
-      - PIX
-      - LOCAL_BANK_TRANSFER_AFRICA
-      - MOBILE_MONEY
-      example: BLOCKCHAIN
-      type: string
     ExecutionRequestBaseDetails:
       example:
         side: BUY
@@ -53071,15 +53507,16 @@ components:
         side:
           $ref: "#/components/schemas/Side"
         baseAmount:
-          description: Amount to convert
+          description: Amount in baseAssetId. BUY = base amount to receive; SELL =
+            base amount to sell.
           type: string
         baseAssetId:
-          description: Source asset identifier
+          description: The asset you receive on BUY / give on SELL.
           type: string
         baseAssetRail:
           $ref: "#/components/schemas/TransferRail"
         quoteAssetId:
-          description: Target asset identifier
+          description: Counter asset used to pay/receive
           type: string
         quoteAssetRail:
           $ref: "#/components/schemas/TransferRail"
@@ -54129,6 +54566,8 @@ components:
         keyType: phone
         bankName: Banco do Brasil
         bankCode: "001"
+        qrCode: qr_code_number
+        expirationDate: 2025-01-15T12:00:00Z
       properties:
         accountHolder:
           $ref: "#/components/schemas/AccountHolderDetails"
@@ -54136,15 +54575,23 @@ components:
           type: string
         keyType:
           enum:
-          - cpf
-          - cnpj
-          - email
-          - phone
-          - random
+          - CPF
+          - CNPJ
+          - EMAIL
+          - PHONE
+          - RANDOM
           type: string
         bankName:
           type: string
         bankCode:
+          type: string
+        qrCode:
+          description: The QR code to be used for the transfer
+          example: qr_code_number
+          type: string
+        expirationDate:
+          description: The expiration date of the QR code
+          example: 2025-01-15T12:00:00Z
           type: string
       required:
       - accountHolder
@@ -54177,6 +54624,25 @@ components:
       - address
       - type
       type: object
+    LocalBankAfricaAccountNumber:
+      example: "1234567890123"
+      pattern: "^\\d{4,17}$"
+      type: string
+    PaymentRedirect:
+      description: "URL returned by the provider that the end user will be redirected\
+        \ to in order to complete the payment on the bank/mobile provider page. After\
+        \ completion, the bank/mobile provider redirects the end user back to successRedirectUrl\
+        \ (provided in the RAMP request)"
+      properties:
+        url:
+          description: URL to redirect to
+          example: https://yellowcard.example.com/authorize?token=abc123&transactionId=16b8b2c3-bd61-4745-9c48-3d30c2bc6907
+          type: string
+        expiresAt:
+          description: Expiration date of the redirect
+          example: 2025-01-15T12:00:00Z
+          type: string
+      type: object
     LocalBankTransferAfricaAddress:
       example:
         accountHolder:
@@ -54189,6 +54655,10 @@ components:
         accountNumber: "1234567890123"
         bankName: First Bank of Nigeria
         bankCode: "011"
+        successPaymentInstructionRedirectUrl: https://yellowcard.example.com/authorize?token=abc123&transactionId=16b8b2c3-bd61-4745-9c48-3d30c2bc6907
+        paymentRedirect:
+          url: https://yellowcard.example.com/authorize?token=abc123&transactionId=16b8b2c3-bd61-4745-9c48-3d30c2bc6907
+          expiresAt: 2025-01-15T12:00:00Z
       properties:
         accountHolder:
           $ref: "#/components/schemas/AccountHolderDetails"
@@ -54202,6 +54672,11 @@ components:
         bankCode:
           description: Internal bank identifier
           type: string
+        successPaymentInstructionRedirectUrl:
+          description: The URL to redirect to after the payment instruction is successful
+          type: string
+        paymentRedirect:
+          $ref: "#/components/schemas/PaymentRedirect"
       required:
       - accountHolder
       - accountNumber
@@ -54246,6 +54721,10 @@ components:
         provider: m-pesa
         beneficiaryDocumentId: "12345678"
         beneficiaryRelationship: self
+        successPaymentInstructionRedirectUrl: https://yellowcard.example.com/authorize?token=abc123&transactionId=16b8b2c3-bd61-4745-9c48-3d30c2bc6907
+        paymentRedirect:
+          url: https://yellowcard.example.com/authorize?token=abc123&transactionId=16b8b2c3-bd61-4745-9c48-3d30c2bc6907
+          expiresAt: 2025-01-15T12:00:00Z
       properties:
         accountHolder:
           $ref: "#/components/schemas/AccountHolderDetails"
@@ -54269,6 +54748,11 @@ components:
         beneficiaryRelationship:
           description: Relationship to beneficiary for AML purposes
           type: string
+        successPaymentInstructionRedirectUrl:
+          description: The URL to redirect to after the payment instruction is successful
+          type: string
+        paymentRedirect:
+          $ref: "#/components/schemas/PaymentRedirect"
       required:
       - accountHolder
       - mobilePhoneNumber
@@ -54336,6 +54820,244 @@ components:
       - address
       - type
       type: object
+    ChapsAddress:
+      example:
+        accountHolder:
+          name: John Smith
+          city: London
+          country: GB
+          subdivision: ENG
+          address: 123 Oxford Street
+          postalCode: W1D 1BS
+        sortCode: 12-34-56
+        accountNumber: "12345678"
+        bankName: Barclays Bank
+      properties:
+        accountHolder:
+          $ref: "#/components/schemas/AccountHolderDetails"
+        sortCode:
+          description: UK bank sort code (format XX-XX-XX)
+          example: 12-34-56
+          type: string
+        accountNumber:
+          description: UK bank account number
+          example: "12345678"
+          type: string
+        bankName:
+          description: Name of the bank
+          example: Barclays Bank
+          type: string
+        bankAccountCountry:
+          description: CHAPS bank account holder name
+          example: GB
+          pattern: "^\\d{2}$"
+          type: string
+        bankAccountHolderName:
+          description: CHAPS bank account holder name
+          example: John Smith
+          pattern: "^(?=.{1,140}$)[^\\s]+(\\s+[^\\s]+)*$"
+          type: string
+      required:
+      - accountHolder
+      - accountNumber
+      - bankAccountCountry
+      - bankAccountHolderName
+      - sortCode
+      type: object
+    ChapsDestination:
+      example:
+        type: CHAPS
+        address:
+          accountHolder:
+            name: John Smith
+            city: London
+            country: GB
+            subdivision: ENG
+            address: 123 Oxford Street
+            postalCode: W1D 1BS
+          sortCode: 12-34-56
+          accountNumber: "12345678"
+          bankName: Barclays Bank
+      properties:
+        type:
+          enum:
+          - CHAPS
+          type: string
+        address:
+          $ref: "#/components/schemas/ChapsAddress"
+      required:
+      - address
+      - type
+      type: object
+    RecipientHandle:
+      properties:
+        type:
+          enum:
+          - EMAIL
+          type: string
+        value:
+          description: The value of the recipient handle
+          example: john.smith@email.com
+          type: string
+      required:
+      - type
+      - value
+      type: object
+    InteracAddress:
+      example:
+        accountHolder:
+          name: John Smith
+          city: Toronto
+          country: CA
+          subdivision: "ON"
+          address: 123 Yonge Street
+          postalCode: M5B 1M4
+        recipientHandle:
+          type: EMAIL
+          value: john.smith@email.com
+        message: Please deposit the funds into the account
+        securityQuestion: What is your mother's maiden name?
+        securityAnswer: Jane Smith
+      properties:
+        accountHolder:
+          $ref: "#/components/schemas/AccountHolderDetails"
+        recipientHandle:
+          $ref: "#/components/schemas/RecipientHandle"
+        message:
+          description: The message to be sent to the recipient
+          example: Please deposit the funds into the account
+          type: string
+      required:
+      - accountHolder
+      - recipientHandle
+      type: object
+    InteracDestination:
+      example:
+        type: INTERAC
+        address:
+          accountHolder:
+            name: John Smith
+            city: Toronto
+            country: CA
+            subdivision: "ON"
+            address: 123 Yonge Street
+            postalCode: M5B 1M4
+          email: john.smith@email.com
+          institutionNumber: "001"
+          transitNumber: "12345"
+          accountNumber: "1234567"
+          bankName: Royal Bank of Canada
+      properties:
+        type:
+          enum:
+          - INTERAC
+          type: string
+        address:
+          $ref: "#/components/schemas/InteracAddress"
+      required:
+      - address
+      - type
+      type: object
+    PayidAddress:
+      example:
+        accountHolder:
+          name: John Williams
+          city: Sydney
+          country: AU
+          subdivision: NSW
+          address: 456 George Street
+          postalCode: "2000"
+        value: john.williams@email.com
+        type: EMAIL
+        bsb: 123-456
+        accountNumber: "12345678"
+      properties:
+        accountHolder:
+          $ref: "#/components/schemas/AccountHolderDetails"
+        value:
+          description: "The PayID identifier (email, phone, ABN, or organization ID)"
+          example: john.williams@email.com
+          type: string
+        type:
+          description: The type of PayID being used
+          enum:
+          - EMAIL
+          example: EMAIL
+          type: string
+        bsb:
+          description: "Bank State Branch (BSB) number (6 digits, format XXX-XXX)"
+          example: 123-456
+          type: string
+        accountNumber:
+          description: Australian bank account number
+          example: "12345678"
+          type: string
+      required:
+      - accountHolder
+      - accountNumber
+      - type
+      - value
+      type: object
+    PayidDestination:
+      example:
+        type: PAYID
+        address:
+          accountHolder:
+            name: John Williams
+            city: Sydney
+            country: AU
+            subdivision: NSW
+            address: 456 George Street
+            postalCode: "2000"
+          payId: john.williams@email.com
+          payIdType: email
+          bsb: 123-456
+          accountNumber: "12345678"
+          bankName: Commonwealth Bank
+      properties:
+        type:
+          enum:
+          - PAYID
+          type: string
+        address:
+          $ref: "#/components/schemas/PayidAddress"
+      required:
+      - address
+      - type
+      type: object
+    InternalTransferAddress:
+      example:
+        externalSubAccountId: sub_acc_1234567890
+        accountId: acc_1234567890
+      properties:
+        externalAccountId:
+          description: The provider's identifier for the external account. This enables
+            the user to fund the account externally (outside of Fireblocks) if needed.
+          type: string
+        accountId:
+          description: The Fireblocks account ID where the user should deposit the
+            funds.
+          type: string
+      required:
+      - accountId
+      - externalSubAccountId
+      type: object
+    InternalTransferDestination:
+      example:
+        type: INTERNAL_TRANSFER
+        address:
+          externalSubAccountId: sub_acc_1234567890
+          accountId: acc_1234567890
+      properties:
+        type:
+          enum:
+          - INTERNAL_TRANSFER
+          type: string
+        address:
+          $ref: "#/components/schemas/InternalTransferAddress"
+      required:
+      - type
+      type: object
     FiatDestination:
       oneOf:
       - $ref: "#/components/schemas/IbanDestination"
@@ -54348,6 +55070,10 @@ components:
       - $ref: "#/components/schemas/LocalBankTransferAfricaDestination"
       - $ref: "#/components/schemas/MobileMoneyDestination"
       - $ref: "#/components/schemas/EuropeanSEPADestination"
+      - $ref: "#/components/schemas/ChapsDestination"
+      - $ref: "#/components/schemas/InteracDestination"
+      - $ref: "#/components/schemas/PayidDestination"
+      - $ref: "#/components/schemas/InternalTransferDestination"
     FiatPaymentMetadata:
       properties:
         referenceId:
@@ -70694,6 +71420,9 @@ components:
       - $ref: "#/components/schemas/UsWirePaymentInfo"
       - $ref: "#/components/schemas/MomoPaymentInfo"
       - $ref: "#/components/schemas/LbtPaymentInfo"
+      - $ref: "#/components/schemas/InteracPaymentInfo"
+      - $ref: "#/components/schemas/PayidPaymentInfo"
+      - $ref: "#/components/schemas/ChapsPaymentInfo"
       type: object
     AssetMedia_attributes:
       description: Media attributes

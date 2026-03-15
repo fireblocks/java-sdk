@@ -70,8 +70,10 @@ public class VaultsApiTest {
         String vaultAccountId = null;
         String assetId = null;
         String idempotencyKey = null;
+        String blockchainWalletType = null;
         CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response =
-                api.activateAssetForVaultAccount(vaultAccountId, assetId, idempotencyKey);
+                api.activateAssetForVaultAccount(
+                        vaultAccountId, assetId, idempotencyKey, blockchainWalletType);
     }
 
     /**
@@ -115,8 +117,9 @@ public class VaultsApiTest {
      * Bulk creation of new vault accounts
      *
      * <p>Create multiple vault accounts by running an async job. - The HBAR, TON, SUI, TERRA, ALGO,
-     * and DOT blockchains are not supported. - Limited to a maximum of 10,000 accounts per
-     * operation. **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * and DOT blockchains are not supported. - These endpoints are currently in beta and might be
+     * subject to changes. - Limited to a maximum of 10,000 accounts per operation. **Endpoint
+     * Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -182,9 +185,14 @@ public class VaultsApiTest {
         String assetId = null;
         CreateAssetsRequest createAssetsRequest = null;
         String idempotencyKey = null;
+        String blockchainWalletType = null;
         CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response =
                 api.createVaultAccountAsset(
-                        vaultAccountId, assetId, createAssetsRequest, idempotencyKey);
+                        vaultAccountId,
+                        assetId,
+                        createAssetsRequest,
+                        idempotencyKey,
+                        blockchainWalletType);
     }
 
     /**

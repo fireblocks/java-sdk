@@ -26,7 +26,8 @@ import java.util.StringJoiner;
     ExternalAccountMobileMoney.JSON_PROPERTY_TYPE,
     ExternalAccountMobileMoney.JSON_PROPERTY_MOBILE_PHONE_NUMBER,
     ExternalAccountMobileMoney.JSON_PROPERTY_PROVIDER,
-    ExternalAccountMobileMoney.JSON_PROPERTY_EMAIL
+    ExternalAccountMobileMoney.JSON_PROPERTY_EMAIL,
+    ExternalAccountMobileMoney.JSON_PROPERTY_SUCCESS_REDIRECT_URL
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -43,6 +44,9 @@ public class ExternalAccountMobileMoney {
 
     public static final String JSON_PROPERTY_EMAIL = "email";
     @jakarta.annotation.Nonnull private String email;
+
+    public static final String JSON_PROPERTY_SUCCESS_REDIRECT_URL = "successRedirectUrl";
+    @jakarta.annotation.Nullable private String successRedirectUrl;
 
     public ExternalAccountMobileMoney() {}
 
@@ -157,6 +161,31 @@ public class ExternalAccountMobileMoney {
         this.email = email;
     }
 
+    public ExternalAccountMobileMoney successRedirectUrl(
+            @jakarta.annotation.Nullable String successRedirectUrl) {
+        this.successRedirectUrl = successRedirectUrl;
+        return this;
+    }
+
+    /**
+     * URL to redirect the end user back to after they complete the payment on the bank/mobile
+     * provider page (e.g., the merchant checkout page)
+     *
+     * @return successRedirectUrl
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SUCCESS_REDIRECT_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getSuccessRedirectUrl() {
+        return successRedirectUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SUCCESS_REDIRECT_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSuccessRedirectUrl(@jakarta.annotation.Nullable String successRedirectUrl) {
+        this.successRedirectUrl = successRedirectUrl;
+    }
+
     /** Return true if this ExternalAccountMobileMoney object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -171,12 +200,14 @@ public class ExternalAccountMobileMoney {
                 && Objects.equals(
                         this.mobilePhoneNumber, externalAccountMobileMoney.mobilePhoneNumber)
                 && Objects.equals(this.provider, externalAccountMobileMoney.provider)
-                && Objects.equals(this.email, externalAccountMobileMoney.email);
+                && Objects.equals(this.email, externalAccountMobileMoney.email)
+                && Objects.equals(
+                        this.successRedirectUrl, externalAccountMobileMoney.successRedirectUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, mobilePhoneNumber, provider, email);
+        return Objects.hash(type, mobilePhoneNumber, provider, email, successRedirectUrl);
     }
 
     @Override
@@ -189,6 +220,9 @@ public class ExternalAccountMobileMoney {
                 .append("\n");
         sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
         sb.append("    email: ").append(toIndentedString(email)).append("\n");
+        sb.append("    successRedirectUrl: ")
+                .append(toIndentedString(successRedirectUrl))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -274,6 +308,16 @@ public class ExternalAccountMobileMoney {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getEmail()))));
+        }
+
+        // add `successRedirectUrl` to the URL query string
+        if (getSuccessRedirectUrl() != null) {
+            joiner.add(
+                    String.format(
+                            "%ssuccessRedirectUrl%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getSuccessRedirectUrl()))));
         }
 
         return joiner.toString();

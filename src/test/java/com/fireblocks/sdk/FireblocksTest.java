@@ -710,6 +710,14 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetWorkspaceApi() {
+        setupFireblocks(true, null, null);
+        WorkspaceApi workspace = fireblocks.workspace();
+        Assert.assertNotNull(workspace);
+        Assert.assertSame(workspace, fireblocks.workspace());
+    }
+
+    @Test
     public void testGetWorkspaceStatusBetaApi() {
         setupFireblocks(true, null, null);
         WorkspaceStatusBetaApi workspaceStatusBeta = fireblocks.workspaceStatusBeta();

@@ -54,4 +54,16 @@ class PixAddressTest {
     void bankCodeTest() {
         // TODO: test bankCode
     }
+
+    /** Test the property 'qrCode' */
+    @Test
+    void qrCodeTest() {
+        // TODO: test qrCode
+    }
+
+    /** Test the property 'expirationDate' */
+    @Test
+    void expirationDateTest() {
+        // TODO: test expirationDate
+    }
 }

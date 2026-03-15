@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**type** | [**TypeEnum**](#TypeEnum) |  |  |
-|**address** | [**EuropeanSEPAAddress**](EuropeanSEPAAddress.md) |  |  |
+|**address** | [**InternalTransferAddress**](InternalTransferAddress.md) |  |  |
 |**referenceId** | **String** |  |  [optional] |
 
 
@@ -17,7 +17,7 @@
 
 | Name | Value |
 |---- | -----|
-| EUROPEAN_SEPA | &quot;EUROPEAN_SEPA&quot; |
+| INTERNAL_TRANSFER | &quot;INTERNAL_TRANSFER&quot; |
 
 
 

@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>14.1.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:14.1.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-14.1.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -349,6 +349,7 @@ Class | Method | HTTP request | Description
 *SmartTransferApi* | [**updateTicketTerm**](docs/SmartTransferApi.md#updateTicketTerm) | **PUT** /smart-transfers/{ticketId}/terms/{termId} | Update ticket leg (term)
 *StakingApi* | [**approveTermsOfServiceByProviderId**](docs/StakingApi.md#approveTermsOfServiceByProviderId) | **POST** /staking/providers/{providerId}/approveTermsOfService | Approve provider terms of service
 *StakingApi* | [**claimRewards**](docs/StakingApi.md#claimRewards) | **POST** /staking/chains/{chainDescriptor}/claim_rewards | Claim accrued rewards
+*StakingApi* | [**consolidate**](docs/StakingApi.md#consolidate) | **POST** /staking/chains/{chainDescriptor}/consolidate | Consolidate staking positions (ETH validator consolidation)
 *StakingApi* | [**getAllDelegations**](docs/StakingApi.md#getAllDelegations) | **GET** /staking/positions | List staking positions
 *StakingApi* | [**getChainInfo**](docs/StakingApi.md#getChainInfo) | **GET** /staking/chains/{chainDescriptor}/chainInfo | Get chain-level staking parameters
 *StakingApi* | [**getChains**](docs/StakingApi.md#getChains) | **GET** /staking/chains | List supported staking chains
@@ -499,6 +500,7 @@ Class | Method | HTTP request | Description
 *WebhooksV2Api* | [**resendNotificationsByResourceId**](docs/WebhooksV2Api.md#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id
 *WebhooksV2Api* | [**updateWebhook**](docs/WebhooksV2Api.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
 *WhitelistIpAddressesApi* | [**getWhitelistIpAddresses**](docs/WhitelistIpAddressesApi.md#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | Get whitelisted ip addresses for an API Key
+*WorkspaceApi* | [**getWorkspace**](docs/WorkspaceApi.md#getWorkspace) | **GET** /workspace | Get workspace
 *WorkspaceStatusBetaApi* | [**getWorkspaceStatus**](docs/WorkspaceStatusBetaApi.md#getWorkspaceStatus) | **GET** /management/workspace_status | Returns current workspace status
 
 
@@ -626,6 +628,9 @@ Class | Method | HTTP request | Description
  - [ChainDescriptor](docs/ChainDescriptor.md)
  - [ChainInfoResponse](docs/ChainInfoResponse.md)
  - [ChannelDvnConfigWithConfirmations](docs/ChannelDvnConfigWithConfirmations.md)
+ - [ChapsAddress](docs/ChapsAddress.md)
+ - [ChapsDestination](docs/ChapsDestination.md)
+ - [ChapsPaymentInfo](docs/ChapsPaymentInfo.md)
  - [ClaimRewardsRequest](docs/ClaimRewardsRequest.md)
  - [CollectionBurnRequestDto](docs/CollectionBurnRequestDto.md)
  - [CollectionBurnResponseDto](docs/CollectionBurnResponseDto.md)
@@ -844,13 +849,13 @@ Class | Method | HTTP request | Description
  - [ExecutionTransferOperation](docs/ExecutionTransferOperation.md)
  - [ExternalAccount](docs/ExternalAccount.md)
  - [ExternalAccountLocalBankAfrica](docs/ExternalAccountLocalBankAfrica.md)
- - [ExternalAccountLocalBankAfricaType](docs/ExternalAccountLocalBankAfricaType.md)
  - [ExternalAccountMobileMoney](docs/ExternalAccountMobileMoney.md)
  - [ExternalAccountMobileMoneyProvider](docs/ExternalAccountMobileMoneyProvider.md)
  - [ExternalAccountMobileMoneyType](docs/ExternalAccountMobileMoneyType.md)
  - [ExternalAccountSenderInformation](docs/ExternalAccountSenderInformation.md)
  - [ExternalAccountType](docs/ExternalAccountType.md)
  - [ExternalWalletAsset](docs/ExternalWalletAsset.md)
+ - [ExtraParameters](docs/ExtraParameters.md)
  - [Failure](docs/Failure.md)
  - [FailureReason](docs/FailureReason.md)
  - [Fee](docs/Fee.md)
@@ -912,7 +917,12 @@ Class | Method | HTTP request | Description
  - [InitiatorConfig](docs/InitiatorConfig.md)
  - [InitiatorConfigPattern](docs/InitiatorConfigPattern.md)
  - [InstructionAmount](docs/InstructionAmount.md)
+ - [InteracAddress](docs/InteracAddress.md)
+ - [InteracDestination](docs/InteracDestination.md)
+ - [InteracPaymentInfo](docs/InteracPaymentInfo.md)
  - [InternalReference](docs/InternalReference.md)
+ - [InternalTransferAddress](docs/InternalTransferAddress.md)
+ - [InternalTransferDestination](docs/InternalTransferDestination.md)
  - [InternalTransferResponse](docs/InternalTransferResponse.md)
  - [InvalidParamaterValueError](docs/InvalidParamaterValueError.md)
  - [JobCreated](docs/JobCreated.md)
@@ -1020,11 +1030,15 @@ Class | Method | HTTP request | Description
  - [PayeeAccount](docs/PayeeAccount.md)
  - [PayeeAccountResponse](docs/PayeeAccountResponse.md)
  - [PayeeAccountType](docs/PayeeAccountType.md)
+ - [PayidAddress](docs/PayidAddress.md)
+ - [PayidDestination](docs/PayidDestination.md)
+ - [PayidPaymentInfo](docs/PayidPaymentInfo.md)
  - [PaymentAccount](docs/PaymentAccount.md)
  - [PaymentAccountResponse](docs/PaymentAccountResponse.md)
  - [PaymentAccountType](docs/PaymentAccountType.md)
  - [PaymentInstructions](docs/PaymentInstructions.md)
  - [PaymentInstructionsOneOf](docs/PaymentInstructionsOneOf.md)
+ - [PaymentRedirect](docs/PaymentRedirect.md)
  - [PayoutInitMethod](docs/PayoutInitMethod.md)
  - [PayoutInstruction](docs/PayoutInstruction.md)
  - [PayoutInstructionResponse](docs/PayoutInstructionResponse.md)
@@ -1084,6 +1098,7 @@ Class | Method | HTTP request | Description
  - [ReadAbiFunction](docs/ReadAbiFunction.md)
  - [ReadCallFunctionDto](docs/ReadCallFunctionDto.md)
  - [ReadCallFunctionDtoAbiFunction](docs/ReadCallFunctionDtoAbiFunction.md)
+ - [RecipientHandle](docs/RecipientHandle.md)
  - [RedeemFundsToLinkedDDAResponse](docs/RedeemFundsToLinkedDDAResponse.md)
  - [RegisterNewAssetRequest](docs/RegisterNewAssetRequest.md)
  - [ReissueMultichainTokenRequest](docs/ReissueMultichainTokenRequest.md)
@@ -1475,6 +1490,7 @@ Class | Method | HTTP request | Description
  - [WorkflowConfigStatus](docs/WorkflowConfigStatus.md)
  - [WorkflowConfigurationId](docs/WorkflowConfigurationId.md)
  - [WorkflowExecutionOperation](docs/WorkflowExecutionOperation.md)
+ - [Workspace](docs/Workspace.md)
  - [WriteAbiFunction](docs/WriteAbiFunction.md)
  - [WriteCallFunctionDto](docs/WriteCallFunctionDto.md)
  - [WriteCallFunctionDtoAbiFunction](docs/WriteCallFunctionDtoAbiFunction.md)

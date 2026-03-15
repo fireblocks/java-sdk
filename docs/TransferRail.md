@@ -29,5 +29,13 @@
 
 * `MOBILE_MONEY` (value: `"MOBILE_MONEY"`)
 
+* `INTERNAL_TRANSFER` (value: `"INTERNAL_TRANSFER"`)
+
+* `INTERAC` (value: `"INTERAC"`)
+
+* `PAYID` (value: `"PAYID"`)
+
+* `CHAPS` (value: `"CHAPS"`)
+
 
 

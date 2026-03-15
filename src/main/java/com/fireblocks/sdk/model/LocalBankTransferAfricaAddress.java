@@ -26,7 +26,9 @@ import java.util.StringJoiner;
     LocalBankTransferAfricaAddress.JSON_PROPERTY_ACCOUNT_HOLDER,
     LocalBankTransferAfricaAddress.JSON_PROPERTY_ACCOUNT_NUMBER,
     LocalBankTransferAfricaAddress.JSON_PROPERTY_BANK_NAME,
-    LocalBankTransferAfricaAddress.JSON_PROPERTY_BANK_CODE
+    LocalBankTransferAfricaAddress.JSON_PROPERTY_BANK_CODE,
+    LocalBankTransferAfricaAddress.JSON_PROPERTY_SUCCESS_PAYMENT_INSTRUCTION_REDIRECT_URL,
+    LocalBankTransferAfricaAddress.JSON_PROPERTY_PAYMENT_REDIRECT
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -43,6 +45,13 @@ public class LocalBankTransferAfricaAddress {
 
     public static final String JSON_PROPERTY_BANK_CODE = "bankCode";
     @jakarta.annotation.Nonnull private String bankCode;
+
+    public static final String JSON_PROPERTY_SUCCESS_PAYMENT_INSTRUCTION_REDIRECT_URL =
+            "successPaymentInstructionRedirectUrl";
+    @jakarta.annotation.Nullable private String successPaymentInstructionRedirectUrl;
+
+    public static final String JSON_PROPERTY_PAYMENT_REDIRECT = "paymentRedirect";
+    @jakarta.annotation.Nullable private PaymentRedirect paymentRedirect;
 
     public LocalBankTransferAfricaAddress() {}
 
@@ -154,6 +163,55 @@ public class LocalBankTransferAfricaAddress {
         this.bankCode = bankCode;
     }
 
+    public LocalBankTransferAfricaAddress successPaymentInstructionRedirectUrl(
+            @jakarta.annotation.Nullable String successPaymentInstructionRedirectUrl) {
+        this.successPaymentInstructionRedirectUrl = successPaymentInstructionRedirectUrl;
+        return this;
+    }
+
+    /**
+     * The URL to redirect to after the payment instruction is successful
+     *
+     * @return successPaymentInstructionRedirectUrl
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SUCCESS_PAYMENT_INSTRUCTION_REDIRECT_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getSuccessPaymentInstructionRedirectUrl() {
+        return successPaymentInstructionRedirectUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SUCCESS_PAYMENT_INSTRUCTION_REDIRECT_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSuccessPaymentInstructionRedirectUrl(
+            @jakarta.annotation.Nullable String successPaymentInstructionRedirectUrl) {
+        this.successPaymentInstructionRedirectUrl = successPaymentInstructionRedirectUrl;
+    }
+
+    public LocalBankTransferAfricaAddress paymentRedirect(
+            @jakarta.annotation.Nullable PaymentRedirect paymentRedirect) {
+        this.paymentRedirect = paymentRedirect;
+        return this;
+    }
+
+    /**
+     * Get paymentRedirect
+     *
+     * @return paymentRedirect
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PAYMENT_REDIRECT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public PaymentRedirect getPaymentRedirect() {
+        return paymentRedirect;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PAYMENT_REDIRECT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPaymentRedirect(@jakarta.annotation.Nullable PaymentRedirect paymentRedirect) {
+        this.paymentRedirect = paymentRedirect;
+    }
+
     /** Return true if this LocalBankTransferAfricaAddress object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -168,12 +226,23 @@ public class LocalBankTransferAfricaAddress {
         return Objects.equals(this.accountHolder, localBankTransferAfricaAddress.accountHolder)
                 && Objects.equals(this.accountNumber, localBankTransferAfricaAddress.accountNumber)
                 && Objects.equals(this.bankName, localBankTransferAfricaAddress.bankName)
-                && Objects.equals(this.bankCode, localBankTransferAfricaAddress.bankCode);
+                && Objects.equals(this.bankCode, localBankTransferAfricaAddress.bankCode)
+                && Objects.equals(
+                        this.successPaymentInstructionRedirectUrl,
+                        localBankTransferAfricaAddress.successPaymentInstructionRedirectUrl)
+                && Objects.equals(
+                        this.paymentRedirect, localBankTransferAfricaAddress.paymentRedirect);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountHolder, accountNumber, bankName, bankCode);
+        return Objects.hash(
+                accountHolder,
+                accountNumber,
+                bankName,
+                bankCode,
+                successPaymentInstructionRedirectUrl,
+                paymentRedirect);
     }
 
     @Override
@@ -184,6 +253,10 @@ public class LocalBankTransferAfricaAddress {
         sb.append("    accountNumber: ").append(toIndentedString(accountNumber)).append("\n");
         sb.append("    bankName: ").append(toIndentedString(bankName)).append("\n");
         sb.append("    bankCode: ").append(toIndentedString(bankCode)).append("\n");
+        sb.append("    successPaymentInstructionRedirectUrl: ")
+                .append(toIndentedString(successPaymentInstructionRedirectUrl))
+                .append("\n");
+        sb.append("    paymentRedirect: ").append(toIndentedString(paymentRedirect)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -264,6 +337,23 @@ public class LocalBankTransferAfricaAddress {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getBankCode()))));
+        }
+
+        // add `successPaymentInstructionRedirectUrl` to the URL query string
+        if (getSuccessPaymentInstructionRedirectUrl() != null) {
+            joiner.add(
+                    String.format(
+                            "%ssuccessPaymentInstructionRedirectUrl%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(
+                                            getSuccessPaymentInstructionRedirectUrl()))));
+        }
+
+        // add `paymentRedirect` to the URL query string
+        if (getPaymentRedirect() != null) {
+            joiner.add(getPaymentRedirect().toUrlQueryString(prefix + "paymentRedirect" + suffix));
         }
 
         return joiner.toString();

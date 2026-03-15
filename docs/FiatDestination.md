@@ -4,10 +4,14 @@
 
 ## oneOf schemas
 * [AchDestination](AchDestination.md)
+* [ChapsDestination](ChapsDestination.md)
 * [EuropeanSEPADestination](EuropeanSEPADestination.md)
 * [IbanDestination](IbanDestination.md)
+* [InteracDestination](InteracDestination.md)
+* [InternalTransferDestination](InternalTransferDestination.md)
 * [LocalBankTransferAfricaDestination](LocalBankTransferAfricaDestination.md)
 * [MobileMoneyDestination](MobileMoneyDestination.md)
+* [PayidDestination](PayidDestination.md)
 * [PixDestination](PixDestination.md)
 * [SEPADestination](SEPADestination.md)
 * [SpeiDestination](SpeiDestination.md)
@@ -19,10 +23,14 @@
 // Import classes:
 import com.fireblocks.sdk.model.FiatDestination;
 import com.fireblocks.sdk.model.AchDestination;
+import com.fireblocks.sdk.model.ChapsDestination;
 import com.fireblocks.sdk.model.EuropeanSEPADestination;
 import com.fireblocks.sdk.model.IbanDestination;
+import com.fireblocks.sdk.model.InteracDestination;
+import com.fireblocks.sdk.model.InternalTransferDestination;
 import com.fireblocks.sdk.model.LocalBankTransferAfricaDestination;
 import com.fireblocks.sdk.model.MobileMoneyDestination;
+import com.fireblocks.sdk.model.PayidDestination;
 import com.fireblocks.sdk.model.PixDestination;
 import com.fireblocks.sdk.model.SEPADestination;
 import com.fireblocks.sdk.model.SpeiDestination;
@@ -40,6 +48,13 @@ public class Example {
         // to get back the AchDestination set earlier
         AchDestination testAchDestination = (AchDestination) exampleFiatDestination.getActualInstance();
 
+        // create a new ChapsDestination
+        ChapsDestination exampleChapsDestination = new ChapsDestination();
+        // set FiatDestination to ChapsDestination
+        exampleFiatDestination.setActualInstance(exampleChapsDestination);
+        // to get back the ChapsDestination set earlier
+        ChapsDestination testChapsDestination = (ChapsDestination) exampleFiatDestination.getActualInstance();
+
         // create a new EuropeanSEPADestination
         EuropeanSEPADestination exampleEuropeanSEPADestination = new EuropeanSEPADestination();
         // set FiatDestination to EuropeanSEPADestination
@@ -54,6 +69,20 @@ public class Example {
         // to get back the IbanDestination set earlier
         IbanDestination testIbanDestination = (IbanDestination) exampleFiatDestination.getActualInstance();
 
+        // create a new InteracDestination
+        InteracDestination exampleInteracDestination = new InteracDestination();
+        // set FiatDestination to InteracDestination
+        exampleFiatDestination.setActualInstance(exampleInteracDestination);
+        // to get back the InteracDestination set earlier
+        InteracDestination testInteracDestination = (InteracDestination) exampleFiatDestination.getActualInstance();
+
+        // create a new InternalTransferDestination
+        InternalTransferDestination exampleInternalTransferDestination = new InternalTransferDestination();
+        // set FiatDestination to InternalTransferDestination
+        exampleFiatDestination.setActualInstance(exampleInternalTransferDestination);
+        // to get back the InternalTransferDestination set earlier
+        InternalTransferDestination testInternalTransferDestination = (InternalTransferDestination) exampleFiatDestination.getActualInstance();
+
         // create a new LocalBankTransferAfricaDestination
         LocalBankTransferAfricaDestination exampleLocalBankTransferAfricaDestination = new LocalBankTransferAfricaDestination();
         // set FiatDestination to LocalBankTransferAfricaDestination
@@ -67,6 +96,13 @@ public class Example {
         exampleFiatDestination.setActualInstance(exampleMobileMoneyDestination);
         // to get back the MobileMoneyDestination set earlier
         MobileMoneyDestination testMobileMoneyDestination = (MobileMoneyDestination) exampleFiatDestination.getActualInstance();
+
+        // create a new PayidDestination
+        PayidDestination examplePayidDestination = new PayidDestination();
+        // set FiatDestination to PayidDestination
+        exampleFiatDestination.setActualInstance(examplePayidDestination);
+        // to get back the PayidDestination set earlier
+        PayidDestination testPayidDestination = (PayidDestination) exampleFiatDestination.getActualInstance();
 
         // create a new PixDestination
         PixDestination examplePixDestination = new PixDestination();

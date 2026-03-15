@@ -12,6 +12,8 @@
 |**provider** | [**ProviderEnum**](#ProviderEnum) | Mobile money provider |  |
 |**beneficiaryDocumentId** | **String** | Beneficiary document identification (may be required) |  [optional] |
 |**beneficiaryRelationship** | **String** | Relationship to beneficiary for AML purposes |  [optional] |
+|**successPaymentInstructionRedirectUrl** | **String** | The URL to redirect to after the payment instruction is successful |  [optional] |
+|**paymentRedirect** | [**PaymentRedirect**](PaymentRedirect.md) |  |  [optional] |
 
 
 

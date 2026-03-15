@@ -28,7 +28,9 @@ import java.util.StringJoiner;
     PixAddress.JSON_PROPERTY_PIX_KEY,
     PixAddress.JSON_PROPERTY_KEY_TYPE,
     PixAddress.JSON_PROPERTY_BANK_NAME,
-    PixAddress.JSON_PROPERTY_BANK_CODE
+    PixAddress.JSON_PROPERTY_BANK_CODE,
+    PixAddress.JSON_PROPERTY_QR_CODE,
+    PixAddress.JSON_PROPERTY_EXPIRATION_DATE
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -42,15 +44,15 @@ public class PixAddress {
 
     /** Gets or Sets keyType */
     public enum KeyTypeEnum {
-        CPF(String.valueOf("cpf")),
+        CPF(String.valueOf("CPF")),
 
-        CNPJ(String.valueOf("cnpj")),
+        CNPJ(String.valueOf("CNPJ")),
 
-        EMAIL(String.valueOf("email")),
+        EMAIL(String.valueOf("EMAIL")),
 
-        PHONE(String.valueOf("phone")),
+        PHONE(String.valueOf("PHONE")),
 
-        RANDOM(String.valueOf("random"));
+        RANDOM(String.valueOf("RANDOM"));
 
         private String value;
 
@@ -87,6 +89,12 @@ public class PixAddress {
 
     public static final String JSON_PROPERTY_BANK_CODE = "bankCode";
     @jakarta.annotation.Nullable private String bankCode;
+
+    public static final String JSON_PROPERTY_QR_CODE = "qrCode";
+    @jakarta.annotation.Nullable private String qrCode;
+
+    public static final String JSON_PROPERTY_EXPIRATION_DATE = "expirationDate";
+    @jakarta.annotation.Nullable private String expirationDate;
 
     public PixAddress() {}
 
@@ -217,6 +225,52 @@ public class PixAddress {
         this.bankCode = bankCode;
     }
 
+    public PixAddress qrCode(@jakarta.annotation.Nullable String qrCode) {
+        this.qrCode = qrCode;
+        return this;
+    }
+
+    /**
+     * The QR code to be used for the transfer
+     *
+     * @return qrCode
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_QR_CODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    @JsonProperty(JSON_PROPERTY_QR_CODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setQrCode(@jakarta.annotation.Nullable String qrCode) {
+        this.qrCode = qrCode;
+    }
+
+    public PixAddress expirationDate(@jakarta.annotation.Nullable String expirationDate) {
+        this.expirationDate = expirationDate;
+        return this;
+    }
+
+    /**
+     * The expiration date of the QR code
+     *
+     * @return expirationDate
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_EXPIRATION_DATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EXPIRATION_DATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setExpirationDate(@jakarta.annotation.Nullable String expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
     /** Return true if this PixAddress object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -231,12 +285,15 @@ public class PixAddress {
                 && Objects.equals(this.pixKey, pixAddress.pixKey)
                 && Objects.equals(this.keyType, pixAddress.keyType)
                 && Objects.equals(this.bankName, pixAddress.bankName)
-                && Objects.equals(this.bankCode, pixAddress.bankCode);
+                && Objects.equals(this.bankCode, pixAddress.bankCode)
+                && Objects.equals(this.qrCode, pixAddress.qrCode)
+                && Objects.equals(this.expirationDate, pixAddress.expirationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountHolder, pixKey, keyType, bankName, bankCode);
+        return Objects.hash(
+                accountHolder, pixKey, keyType, bankName, bankCode, qrCode, expirationDate);
     }
 
     @Override
@@ -248,6 +305,8 @@ public class PixAddress {
         sb.append("    keyType: ").append(toIndentedString(keyType)).append("\n");
         sb.append("    bankName: ").append(toIndentedString(bankName)).append("\n");
         sb.append("    bankCode: ").append(toIndentedString(bankCode)).append("\n");
+        sb.append("    qrCode: ").append(toIndentedString(qrCode)).append("\n");
+        sb.append("    expirationDate: ").append(toIndentedString(expirationDate)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -338,6 +397,26 @@ public class PixAddress {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getBankCode()))));
+        }
+
+        // add `qrCode` to the URL query string
+        if (getQrCode() != null) {
+            joiner.add(
+                    String.format(
+                            "%sqrCode%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getQrCode()))));
+        }
+
+        // add `expirationDate` to the URL query string
+        if (getExpirationDate() != null) {
+            joiner.add(
+                    String.format(
+                            "%sexpirationDate%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getExpirationDate()))));
         }
 
         return joiner.toString();

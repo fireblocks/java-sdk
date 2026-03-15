@@ -80,6 +80,7 @@ public class Fireblocks {
     private WebhooksApi webhooks;
     private WebhooksV2Api webhooksV2;
     private WhitelistIpAddressesApi whitelistIpAddresses;
+    private WorkspaceApi workspace;
     private WorkspaceStatusBetaApi workspaceStatusBeta;
 
     public Fireblocks(ConfigurationOptions conf) {
@@ -526,6 +527,13 @@ public class Fireblocks {
             whitelistIpAddresses = new WhitelistIpAddressesApi(apiClient);
         }
         return whitelistIpAddresses;
+    }
+
+    public WorkspaceApi workspace() {
+        if (workspace == null) {
+            workspace = new WorkspaceApi(apiClient);
+        }
+        return workspace;
     }
 
     public WorkspaceStatusBetaApi workspaceStatusBeta() {

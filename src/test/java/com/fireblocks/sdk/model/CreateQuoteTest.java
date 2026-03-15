@@ -37,10 +37,22 @@ class CreateQuoteTest {
         // TODO: test baseAssetId
     }
 
+    /** Test the property 'baseAssetRail' */
+    @Test
+    void baseAssetRailTest() {
+        // TODO: test baseAssetRail
+    }
+
     /** Test the property 'quoteAssetId' */
     @Test
     void quoteAssetIdTest() {
         // TODO: test quoteAssetId
+    }
+
+    /** Test the property 'quoteAssetRail' */
+    @Test
+    void quoteAssetRailTest() {
+        // TODO: test quoteAssetRail
     }
 
     /** Test the property 'baseAmount' */
