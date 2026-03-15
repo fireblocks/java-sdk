@@ -54,4 +54,16 @@ class MobileMoneyAddressTest {
     void beneficiaryRelationshipTest() {
         // TODO: test beneficiaryRelationship
     }
+
+    /** Test the property 'successPaymentInstructionRedirectUrl' */
+    @Test
+    void successPaymentInstructionRedirectUrlTest() {
+        // TODO: test successPaymentInstructionRedirectUrl
+    }
+
+    /** Test the property 'paymentRedirect' */
+    @Test
+    void paymentRedirectTest() {
+        // TODO: test paymentRedirect
+    }
 }

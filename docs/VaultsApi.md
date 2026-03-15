@@ -39,7 +39,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 ## activateAssetForVaultAccount
 
-> CompletableFuture<ApiResponse<CreateVaultAssetResponse>> activateAssetForVaultAccount activateAssetForVaultAccount(vaultAccountId, assetId, idempotencyKey)
+> CompletableFuture<ApiResponse<CreateVaultAssetResponse>> activateAssetForVaultAccount activateAssetForVaultAccount(vaultAccountId, assetId, idempotencyKey, blockchainWalletType)
 
 Activate a wallet in a vault account
 
@@ -71,8 +71,9 @@ public class Example {
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account to return, or 'default' for the default vault account
         String assetId = "assetId_example"; // String | The ID of the asset
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        String blockchainWalletType = "blockchainWalletType_example"; // String | Optional immutable blockchain wallet type to store per tenant+vault
         try {
-            CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response = fireblocks.vaults().activateAssetForVaultAccount(vaultAccountId, assetId, idempotencyKey);
+            CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response = fireblocks.vaults().activateAssetForVaultAccount(vaultAccountId, assetId, idempotencyKey, blockchainWalletType);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -102,6 +103,7 @@ public class Example {
 | **vaultAccountId** | **String**| The ID of the vault account to return, or &#39;default&#39; for the default vault account | |
 | **assetId** | **String**| The ID of the asset | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+| **blockchainWalletType** | **String**| Optional immutable blockchain wallet type to store per tenant+vault | [optional] |
 
 ### Return type
 
@@ -305,7 +307,7 @@ No authorization required
 
 Bulk creation of new vault accounts
 
-Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - Limited to a maximum of 10,000 accounts per operation.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
+Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts per operation.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
 
 ### Example
 
@@ -556,7 +558,7 @@ No authorization required
 
 ## createVaultAccountAsset
 
-> CompletableFuture<ApiResponse<CreateVaultAssetResponse>> createVaultAccountAsset createVaultAccountAsset(vaultAccountId, assetId, createAssetsRequest, idempotencyKey)
+> CompletableFuture<ApiResponse<CreateVaultAssetResponse>> createVaultAccountAsset createVaultAccountAsset(vaultAccountId, assetId, createAssetsRequest, idempotencyKey, blockchainWalletType)
 
 Create a new vault wallet
 
@@ -589,8 +591,9 @@ public class Example {
         String assetId = "assetId_example"; // String | The ID of the asset
         CreateAssetsRequest createAssetsRequest = new CreateAssetsRequest(); // CreateAssetsRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        String blockchainWalletType = "blockchainWalletType_example"; // String | Optional immutable blockchain wallet type to store per tenant+vault
         try {
-            CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response = fireblocks.vaults().createVaultAccountAsset(vaultAccountId, assetId, createAssetsRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response = fireblocks.vaults().createVaultAccountAsset(vaultAccountId, assetId, createAssetsRequest, idempotencyKey, blockchainWalletType);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -621,6 +624,7 @@ public class Example {
 | **assetId** | **String**| The ID of the asset | |
 | **createAssetsRequest** | [**CreateAssetsRequest**](CreateAssetsRequest.md)|  | [optional] |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+| **blockchainWalletType** | **String**| Optional immutable blockchain wallet type to store per tenant+vault | [optional] |
 
 ### Return type
 

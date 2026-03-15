@@ -115,15 +115,21 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @param blockchainWalletType Optional immutable blockchain wallet type to store per
+     *     tenant+vault (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;CreateVaultAssetResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<CreateVaultAssetResponse>> activateAssetForVaultAccount(
-            String vaultAccountId, String assetId, String idempotencyKey) throws ApiException {
+            String vaultAccountId,
+            String assetId,
+            String idempotencyKey,
+            String blockchainWalletType)
+            throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     activateAssetForVaultAccountRequestBuilder(
-                            vaultAccountId, assetId, idempotencyKey);
+                            vaultAccountId, assetId, idempotencyKey, blockchainWalletType);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -159,7 +165,11 @@ public class VaultsApi {
     }
 
     private HttpRequest.Builder activateAssetForVaultAccountRequestBuilder(
-            String vaultAccountId, String assetId, String idempotencyKey) throws ApiException {
+            String vaultAccountId,
+            String assetId,
+            String idempotencyKey,
+            String blockchainWalletType)
+            throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty(
                 "activateAssetForVaultAccount", "vaultAccountId", vaultAccountId);
         ValidationUtils.assertParamExistsAndNotEmpty(
@@ -172,7 +182,24 @@ public class VaultsApi {
                         .replace("{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()))
                         .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
 
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "blockchainWalletType";
+        localVarQueryParams.addAll(
+                ApiClient.parameterToPairs("blockchainWalletType", blockchainWalletType));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
 
         if (idempotencyKey != null) {
             localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
@@ -371,9 +398,9 @@ public class VaultsApi {
     }
     /**
      * Bulk creation of new vault accounts Create multiple vault accounts by running an async job. -
-     * The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - Limited to a
-     * maximum of 10,000 accounts per operation. **Endpoint Permissions:** Admin, Non-Signing Admin,
-     * Signer, Approver, Editor.
+     * The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are
+     * currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts
+     * per operation. **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param createMultipleAccountsRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -651,6 +678,8 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @param blockchainWalletType Optional immutable blockchain wallet type to store per
+     *     tenant+vault (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;CreateVaultAssetResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
@@ -658,12 +687,17 @@ public class VaultsApi {
             String vaultAccountId,
             String assetId,
             CreateAssetsRequest createAssetsRequest,
-            String idempotencyKey)
+            String idempotencyKey,
+            String blockchainWalletType)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createVaultAccountAssetRequestBuilder(
-                            vaultAccountId, assetId, createAssetsRequest, idempotencyKey);
+                            vaultAccountId,
+                            assetId,
+                            createAssetsRequest,
+                            idempotencyKey,
+                            blockchainWalletType);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -701,7 +735,8 @@ public class VaultsApi {
             String vaultAccountId,
             String assetId,
             CreateAssetsRequest createAssetsRequest,
-            String idempotencyKey)
+            String idempotencyKey,
+            String blockchainWalletType)
             throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty(
                 "createVaultAccountAsset", "vaultAccountId", vaultAccountId);
@@ -714,7 +749,24 @@ public class VaultsApi {
                         .replace("{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()))
                         .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
 
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "blockchainWalletType";
+        localVarQueryParams.addAll(
+                ApiClient.parameterToPairs("blockchainWalletType", blockchainWalletType));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
 
         if (idempotencyKey != null) {
             localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());

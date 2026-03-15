@@ -213,7 +213,7 @@ public class TransactionResponse {
     @jakarta.annotation.Nullable private String paidRent;
 
     public static final String JSON_PROPERTY_EXTRA_PARAMETERS = "extraParameters";
-    @jakarta.annotation.Nullable private Object extraParameters;
+    @jakarta.annotation.Nullable private ExtraParameters extraParameters;
 
     public static final String JSON_PROPERTY_SIGNED_MESSAGES = "signedMessages";
     @jakarta.annotation.Nullable private List<SignedMessage> signedMessages;
@@ -1299,46 +1299,26 @@ public class TransactionResponse {
     }
 
     public TransactionResponse extraParameters(
-            @jakarta.annotation.Nullable Object extraParameters) {
+            @jakarta.annotation.Nullable ExtraParameters extraParameters) {
         this.extraParameters = extraParameters;
         return this;
     }
 
     /**
-     * Additional protocol / operation specific key-value parameters: For UTXO-based blockchain
-     * input selection, add the key &#x60;inputsSelection&#x60; with the value set the [input
-     * selection
-     * structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection)
-     * The inputs can be retrieved from the [Retrieve Unspent Inputs
-     * endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)
-     * For &#x60;RAW&#x60; operations, add the key &#x60;rawMessageData&#x60; with the value set to
-     * the [raw message data
-     * structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)
-     * For &#x60;CONTRACT_CALL&#x60; operations, add the key &#x60;contractCallData&#x60; with the
-     * value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The
-     * Fireblocks [development
-     * libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries)
-     * are recommended for building contract call transactions. For **exchange compliance (e.g.,
-     * Binance) and Travel Rule purposes**, include the key &#x60;piiData&#x60; containing a
-     * **custom JSON structure** with Personally Identifiable Information (PII) relevant to the
-     * transaction. This data must be fully **encrypted by the sender** before being submitted to
-     * the Fireblocks API. The recommended encryption method is **hybrid encryption** using
-     * AES-256-GCM for the payload and RSA-OAEP for key exchange, with the recipient exchange’s
-     * public key. [development
-     * libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks)
+     * Get extraParameters
      *
      * @return extraParameters
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_EXTRA_PARAMETERS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Object getExtraParameters() {
+    public ExtraParameters getExtraParameters() {
         return extraParameters;
     }
 
     @JsonProperty(JSON_PROPERTY_EXTRA_PARAMETERS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExtraParameters(@jakarta.annotation.Nullable Object extraParameters) {
+    public void setExtraParameters(@jakarta.annotation.Nullable ExtraParameters extraParameters) {
         this.extraParameters = extraParameters;
     }
 

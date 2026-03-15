@@ -239,6 +239,106 @@ public class StakingApi {
         return localVarRequestBuilder;
     }
     /**
+     * Consolidate staking positions (ETH validator consolidation) Consolidates the source staking
+     * position into the destination, merging the balance into the destination and closing the
+     * source position once complete. Both positions must be from the same validator provider and
+     * same vault account. On chain, this translates into a consolidation transaction, where the
+     * source validator is consolidated into the destination validator. Supported chains: Ethereum
+     * (ETH) only. &lt;/br&gt;Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer,
+     * Approver, Editor.
+     *
+     * @param mergeStakeAccountsRequest (required)
+     * @param chainDescriptor Protocol identifier for the staking operation (e.g., ETH). (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;MergeStakeAccountsResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<MergeStakeAccountsResponse>> consolidate(
+            MergeStakeAccountsRequest mergeStakeAccountsRequest,
+            String chainDescriptor,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    consolidateRequestBuilder(
+                            mergeStakeAccountsRequest, chainDescriptor, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("consolidate", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<MergeStakeAccountsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            MergeStakeAccountsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder consolidateRequestBuilder(
+            MergeStakeAccountsRequest mergeStakeAccountsRequest,
+            String chainDescriptor,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "consolidate", "mergeStakeAccountsRequest", mergeStakeAccountsRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "consolidate", "chainDescriptor", chainDescriptor);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/staking/chains/{chainDescriptor}/consolidate"
+                        .replace(
+                                "{chainDescriptor}",
+                                ApiClient.urlEncode(chainDescriptor.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(mergeStakeAccountsRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * List staking positions Returns all staking positions with core details: amounts, rewards,
      * status, chain, and vault. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer,
      * Approver, Editor.

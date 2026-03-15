@@ -9,10 +9,10 @@
 |------------ | ------------- | ------------- | -------------|
 |**type** | **MarketTypeEnum** |  |  |
 |**side** | **Side** |  |  |
-|**baseAmount** | **String** | Amount to convert |  |
-|**baseAssetId** | **String** | Source asset identifier |  |
+|**baseAmount** | **String** | Amount in baseAssetId. BUY &#x3D; base amount to receive; SELL &#x3D; base amount to sell. |  |
+|**baseAssetId** | **String** | The asset you receive on BUY / give on SELL. |  |
 |**baseAssetRail** | **TransferRail** |  |  [optional] |
-|**quoteAssetId** | **String** | Target asset identifier |  |
+|**quoteAssetId** | **String** | Counter asset used to pay/receive |  |
 |**quoteAssetRail** | **TransferRail** |  |  [optional] |
 
 

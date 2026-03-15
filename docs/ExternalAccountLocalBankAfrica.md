@@ -7,10 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | **ExternalAccountLocalBankAfricaType** |  |  |
-|**accountNumber** | **String** |  |  |
-|**bankName** | **String** | Name of the bank |  |
-|**bankCode** | **String** | Internal bank identifier |  |
+|**successRedirectUrl** | **String** | URL to redirect the end user back to after they complete the payment on the bank/mobile provider page (e.g., the merchant checkout page) |  [optional] |
 
 
 

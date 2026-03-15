@@ -48,4 +48,16 @@ class LocalBankTransferAfricaAddressTest {
     void bankCodeTest() {
         // TODO: test bankCode
     }
+
+    /** Test the property 'successPaymentInstructionRedirectUrl' */
+    @Test
+    void successPaymentInstructionRedirectUrlTest() {
+        // TODO: test successPaymentInstructionRedirectUrl
+    }
+
+    /** Test the property 'paymentRedirect' */
+    @Test
+    void paymentRedirectTest() {
+        // TODO: test paymentRedirect
+    }
 }

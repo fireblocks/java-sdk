@@ -28,7 +28,9 @@ import java.util.StringJoiner;
     MobileMoneyAddress.JSON_PROPERTY_MOBILE_PHONE_NUMBER,
     MobileMoneyAddress.JSON_PROPERTY_PROVIDER,
     MobileMoneyAddress.JSON_PROPERTY_BENEFICIARY_DOCUMENT_ID,
-    MobileMoneyAddress.JSON_PROPERTY_BENEFICIARY_RELATIONSHIP
+    MobileMoneyAddress.JSON_PROPERTY_BENEFICIARY_RELATIONSHIP,
+    MobileMoneyAddress.JSON_PROPERTY_SUCCESS_PAYMENT_INSTRUCTION_REDIRECT_URL,
+    MobileMoneyAddress.JSON_PROPERTY_PAYMENT_REDIRECT
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -87,6 +89,13 @@ public class MobileMoneyAddress {
 
     public static final String JSON_PROPERTY_BENEFICIARY_RELATIONSHIP = "beneficiaryRelationship";
     @jakarta.annotation.Nullable private String beneficiaryRelationship;
+
+    public static final String JSON_PROPERTY_SUCCESS_PAYMENT_INSTRUCTION_REDIRECT_URL =
+            "successPaymentInstructionRedirectUrl";
+    @jakarta.annotation.Nullable private String successPaymentInstructionRedirectUrl;
+
+    public static final String JSON_PROPERTY_PAYMENT_REDIRECT = "paymentRedirect";
+    @jakarta.annotation.Nullable private PaymentRedirect paymentRedirect;
 
     public MobileMoneyAddress() {}
 
@@ -223,6 +232,55 @@ public class MobileMoneyAddress {
         this.beneficiaryRelationship = beneficiaryRelationship;
     }
 
+    public MobileMoneyAddress successPaymentInstructionRedirectUrl(
+            @jakarta.annotation.Nullable String successPaymentInstructionRedirectUrl) {
+        this.successPaymentInstructionRedirectUrl = successPaymentInstructionRedirectUrl;
+        return this;
+    }
+
+    /**
+     * The URL to redirect to after the payment instruction is successful
+     *
+     * @return successPaymentInstructionRedirectUrl
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SUCCESS_PAYMENT_INSTRUCTION_REDIRECT_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getSuccessPaymentInstructionRedirectUrl() {
+        return successPaymentInstructionRedirectUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SUCCESS_PAYMENT_INSTRUCTION_REDIRECT_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSuccessPaymentInstructionRedirectUrl(
+            @jakarta.annotation.Nullable String successPaymentInstructionRedirectUrl) {
+        this.successPaymentInstructionRedirectUrl = successPaymentInstructionRedirectUrl;
+    }
+
+    public MobileMoneyAddress paymentRedirect(
+            @jakarta.annotation.Nullable PaymentRedirect paymentRedirect) {
+        this.paymentRedirect = paymentRedirect;
+        return this;
+    }
+
+    /**
+     * Get paymentRedirect
+     *
+     * @return paymentRedirect
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PAYMENT_REDIRECT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public PaymentRedirect getPaymentRedirect() {
+        return paymentRedirect;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PAYMENT_REDIRECT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPaymentRedirect(@jakarta.annotation.Nullable PaymentRedirect paymentRedirect) {
+        this.paymentRedirect = paymentRedirect;
+    }
+
     /** Return true if this MobileMoneyAddress object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -239,7 +297,11 @@ public class MobileMoneyAddress {
                 && Objects.equals(
                         this.beneficiaryDocumentId, mobileMoneyAddress.beneficiaryDocumentId)
                 && Objects.equals(
-                        this.beneficiaryRelationship, mobileMoneyAddress.beneficiaryRelationship);
+                        this.beneficiaryRelationship, mobileMoneyAddress.beneficiaryRelationship)
+                && Objects.equals(
+                        this.successPaymentInstructionRedirectUrl,
+                        mobileMoneyAddress.successPaymentInstructionRedirectUrl)
+                && Objects.equals(this.paymentRedirect, mobileMoneyAddress.paymentRedirect);
     }
 
     @Override
@@ -249,7 +311,9 @@ public class MobileMoneyAddress {
                 mobilePhoneNumber,
                 provider,
                 beneficiaryDocumentId,
-                beneficiaryRelationship);
+                beneficiaryRelationship,
+                successPaymentInstructionRedirectUrl,
+                paymentRedirect);
     }
 
     @Override
@@ -267,6 +331,10 @@ public class MobileMoneyAddress {
         sb.append("    beneficiaryRelationship: ")
                 .append(toIndentedString(beneficiaryRelationship))
                 .append("\n");
+        sb.append("    successPaymentInstructionRedirectUrl: ")
+                .append(toIndentedString(successPaymentInstructionRedirectUrl))
+                .append("\n");
+        sb.append("    paymentRedirect: ").append(toIndentedString(paymentRedirect)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -359,6 +427,23 @@ public class MobileMoneyAddress {
                             suffix,
                             ApiClient.urlEncode(
                                     ApiClient.valueToString(getBeneficiaryRelationship()))));
+        }
+
+        // add `successPaymentInstructionRedirectUrl` to the URL query string
+        if (getSuccessPaymentInstructionRedirectUrl() != null) {
+            joiner.add(
+                    String.format(
+                            "%ssuccessPaymentInstructionRedirectUrl%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(
+                                            getSuccessPaymentInstructionRedirectUrl()))));
+        }
+
+        // add `paymentRedirect` to the URL query string
+        if (getPaymentRedirect() != null) {
+            joiner.add(getPaymentRedirect().toUrlQueryString(prefix + "paymentRedirect" + suffix));
         }
 
         return joiner.toString();

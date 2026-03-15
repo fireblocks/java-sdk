@@ -125,7 +125,7 @@ public class MarketExecutionRequestDetails {
     }
 
     /**
-     * Amount to convert
+     * Amount in baseAssetId. BUY &#x3D; base amount to receive; SELL &#x3D; base amount to sell.
      *
      * @return baseAmount
      */
@@ -149,7 +149,7 @@ public class MarketExecutionRequestDetails {
     }
 
     /**
-     * Source asset identifier
+     * The asset you receive on BUY / give on SELL.
      *
      * @return baseAssetId
      */
@@ -197,7 +197,7 @@ public class MarketExecutionRequestDetails {
     }
 
     /**
-     * Target asset identifier
+     * Counter asset used to pay/receive
      *
      * @return quoteAssetId
      */

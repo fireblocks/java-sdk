@@ -78,6 +78,27 @@ public class StakingApiTest {
     }
 
     /**
+     * Consolidate staking positions (ETH validator consolidation)
+     *
+     * <p>Consolidates the source staking position into the destination, merging the balance into
+     * the destination and closing the source position once complete. Both positions must be from
+     * the same validator provider and same vault account. On chain, this translates into a
+     * consolidation transaction, where the source validator is consolidated into the destination
+     * validator. Supported chains: Ethereum (ETH) only. &lt;/br&gt;Endpoint Permission: Owner,
+     * Admin, Non-Signing Admin, Signer, Approver, Editor.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void consolidateTest() throws ApiException {
+        MergeStakeAccountsRequest mergeStakeAccountsRequest = null;
+        String chainDescriptor = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<MergeStakeAccountsResponse>> response =
+                api.consolidate(mergeStakeAccountsRequest, chainDescriptor, idempotencyKey);
+    }
+
+    /**
      * List staking positions
      *
      * <p>Returns all staking positions with core details: amounts, rewards, status, chain, and

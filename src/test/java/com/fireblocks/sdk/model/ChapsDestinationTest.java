@@ -15,11 +15,25 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for ExternalAccountLocalBankAfricaType */
-class ExternalAccountLocalBankAfricaTypeTest {
-    /** Model tests for ExternalAccountLocalBankAfricaType */
+/** Model tests for ChapsDestination */
+class ChapsDestinationTest {
+    private final ChapsDestination model = new ChapsDestination();
+
+    /** Model tests for ChapsDestination */
     @Test
-    void testExternalAccountLocalBankAfricaType() {
-        // TODO: test ExternalAccountLocalBankAfricaType
+    void testChapsDestination() {
+        // TODO: test ChapsDestination
+    }
+
+    /** Test the property 'type' */
+    @Test
+    void typeTest() {
+        // TODO: test type
+    }
+
+    /** Test the property 'address' */
+    @Test
+    void addressTest() {
+        // TODO: test address
     }
 }

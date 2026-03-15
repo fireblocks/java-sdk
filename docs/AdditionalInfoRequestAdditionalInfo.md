@@ -7,9 +7,12 @@ Additional payment information based on the payment rail type
 ## oneOf schemas
 * [AbaPaymentInfo](AbaPaymentInfo.md)
 * [AchPaymentInfo](AchPaymentInfo.md)
+* [ChapsPaymentInfo](ChapsPaymentInfo.md)
 * [IbanPaymentInfo](IbanPaymentInfo.md)
+* [InteracPaymentInfo](InteracPaymentInfo.md)
 * [LbtPaymentInfo](LbtPaymentInfo.md)
 * [MomoPaymentInfo](MomoPaymentInfo.md)
+* [PayidPaymentInfo](PayidPaymentInfo.md)
 * [PixPaymentInfo](PixPaymentInfo.md)
 * [SepaPaymentInfo](SepaPaymentInfo.md)
 * [SpeiAdvancedPaymentInfo](SpeiAdvancedPaymentInfo.md)
@@ -22,9 +25,12 @@ Additional payment information based on the payment rail type
 import com.fireblocks.sdk.model.AdditionalInfoRequestAdditionalInfo;
 import com.fireblocks.sdk.model.AbaPaymentInfo;
 import com.fireblocks.sdk.model.AchPaymentInfo;
+import com.fireblocks.sdk.model.ChapsPaymentInfo;
 import com.fireblocks.sdk.model.IbanPaymentInfo;
+import com.fireblocks.sdk.model.InteracPaymentInfo;
 import com.fireblocks.sdk.model.LbtPaymentInfo;
 import com.fireblocks.sdk.model.MomoPaymentInfo;
+import com.fireblocks.sdk.model.PayidPaymentInfo;
 import com.fireblocks.sdk.model.PixPaymentInfo;
 import com.fireblocks.sdk.model.SepaPaymentInfo;
 import com.fireblocks.sdk.model.SpeiAdvancedPaymentInfo;
@@ -49,12 +55,26 @@ public class Example {
         // to get back the AchPaymentInfo set earlier
         AchPaymentInfo testAchPaymentInfo = (AchPaymentInfo) exampleAdditionalInfoRequestAdditionalInfo.getActualInstance();
 
+        // create a new ChapsPaymentInfo
+        ChapsPaymentInfo exampleChapsPaymentInfo = new ChapsPaymentInfo();
+        // set AdditionalInfoRequestAdditionalInfo to ChapsPaymentInfo
+        exampleAdditionalInfoRequestAdditionalInfo.setActualInstance(exampleChapsPaymentInfo);
+        // to get back the ChapsPaymentInfo set earlier
+        ChapsPaymentInfo testChapsPaymentInfo = (ChapsPaymentInfo) exampleAdditionalInfoRequestAdditionalInfo.getActualInstance();
+
         // create a new IbanPaymentInfo
         IbanPaymentInfo exampleIbanPaymentInfo = new IbanPaymentInfo();
         // set AdditionalInfoRequestAdditionalInfo to IbanPaymentInfo
         exampleAdditionalInfoRequestAdditionalInfo.setActualInstance(exampleIbanPaymentInfo);
         // to get back the IbanPaymentInfo set earlier
         IbanPaymentInfo testIbanPaymentInfo = (IbanPaymentInfo) exampleAdditionalInfoRequestAdditionalInfo.getActualInstance();
+
+        // create a new InteracPaymentInfo
+        InteracPaymentInfo exampleInteracPaymentInfo = new InteracPaymentInfo();
+        // set AdditionalInfoRequestAdditionalInfo to InteracPaymentInfo
+        exampleAdditionalInfoRequestAdditionalInfo.setActualInstance(exampleInteracPaymentInfo);
+        // to get back the InteracPaymentInfo set earlier
+        InteracPaymentInfo testInteracPaymentInfo = (InteracPaymentInfo) exampleAdditionalInfoRequestAdditionalInfo.getActualInstance();
 
         // create a new LbtPaymentInfo
         LbtPaymentInfo exampleLbtPaymentInfo = new LbtPaymentInfo();
@@ -69,6 +89,13 @@ public class Example {
         exampleAdditionalInfoRequestAdditionalInfo.setActualInstance(exampleMomoPaymentInfo);
         // to get back the MomoPaymentInfo set earlier
         MomoPaymentInfo testMomoPaymentInfo = (MomoPaymentInfo) exampleAdditionalInfoRequestAdditionalInfo.getActualInstance();
+
+        // create a new PayidPaymentInfo
+        PayidPaymentInfo examplePayidPaymentInfo = new PayidPaymentInfo();
+        // set AdditionalInfoRequestAdditionalInfo to PayidPaymentInfo
+        exampleAdditionalInfoRequestAdditionalInfo.setActualInstance(examplePayidPaymentInfo);
+        // to get back the PayidPaymentInfo set earlier
+        PayidPaymentInfo testPayidPaymentInfo = (PayidPaymentInfo) exampleAdditionalInfoRequestAdditionalInfo.getActualInstance();
 
         // create a new PixPaymentInfo
         PixPaymentInfo examplePixPaymentInfo = new PixPaymentInfo();

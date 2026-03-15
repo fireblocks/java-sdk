@@ -6,6 +6,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 |------------- | ------------- | -------------|
 | [**approveTermsOfServiceByProviderId**](StakingApi.md#approveTermsOfServiceByProviderId) | **POST** /staking/providers/{providerId}/approveTermsOfService | Approve provider terms of service |
 | [**claimRewards**](StakingApi.md#claimRewards) | **POST** /staking/chains/{chainDescriptor}/claim_rewards | Claim accrued rewards |
+| [**consolidate**](StakingApi.md#consolidate) | **POST** /staking/chains/{chainDescriptor}/consolidate | Consolidate staking positions (ETH validator consolidation) |
 | [**getAllDelegations**](StakingApi.md#getAllDelegations) | **GET** /staking/positions | List staking positions |
 | [**getChainInfo**](StakingApi.md#getChainInfo) | **GET** /staking/chains/{chainDescriptor}/chainInfo | Get chain-level staking parameters |
 | [**getChains**](StakingApi.md#getChains) | **GET** /staking/chains | List supported staking chains |
@@ -193,6 +194,98 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Claim-rewards request accepted and created. |  * X-Request-ID -  <br>  |
+| **400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
+| **403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+| **404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+| **429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+| **500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## consolidate
+
+> CompletableFuture<ApiResponse<MergeStakeAccountsResponse>> consolidate consolidate(mergeStakeAccountsRequest, chainDescriptor, idempotencyKey)
+
+Consolidate staking positions (ETH validator consolidation)
+
+Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same validator provider and same vault account. On chain, this translates into a consolidation transaction, where the source validator is consolidated into the destination validator. Supported chains: Ethereum (ETH) only. &lt;/br&gt;Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.StakingApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        MergeStakeAccountsRequest mergeStakeAccountsRequest = new MergeStakeAccountsRequest(); // MergeStakeAccountsRequest | 
+        String chainDescriptor = "ETH"; // String | Protocol identifier for the staking operation (e.g., ETH).
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<MergeStakeAccountsResponse>> response = fireblocks.staking().consolidate(mergeStakeAccountsRequest, chainDescriptor, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling StakingApi#consolidate");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling StakingApi#consolidate");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **mergeStakeAccountsRequest** | [**MergeStakeAccountsRequest**](MergeStakeAccountsRequest.md)|  | |
+| **chainDescriptor** | **String**| Protocol identifier for the staking operation (e.g., ETH). | [enum: ETH, ETH_TEST6, ETH_TEST_HOODI] |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**MergeStakeAccountsResponse**](MergeStakeAccountsResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Merge request accepted and created. |  * X-Request-ID -  <br>  |
 | **400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
 | **403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
 | **404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |

@@ -25,27 +25,9 @@ class ExternalAccountLocalBankAfricaTest {
         // TODO: test ExternalAccountLocalBankAfrica
     }
 
-    /** Test the property 'type' */
+    /** Test the property 'successRedirectUrl' */
     @Test
-    void typeTest() {
-        // TODO: test type
-    }
-
-    /** Test the property 'accountNumber' */
-    @Test
-    void accountNumberTest() {
-        // TODO: test accountNumber
-    }
-
-    /** Test the property 'bankName' */
-    @Test
-    void bankNameTest() {
-        // TODO: test bankName
-    }
-
-    /** Test the property 'bankCode' */
-    @Test
-    void bankCodeTest() {
-        // TODO: test bankCode
+    void successRedirectUrlTest() {
+        // TODO: test successRedirectUrl
     }
 }

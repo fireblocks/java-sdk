@@ -49,21 +49,9 @@ class ExternalAccountSenderInformationTest {
         // TODO: test email
     }
 
-    /** Test the property 'accountNumber' */
+    /** Test the property 'successRedirectUrl' */
     @Test
-    void accountNumberTest() {
-        // TODO: test accountNumber
-    }
-
-    /** Test the property 'bankName' */
-    @Test
-    void bankNameTest() {
-        // TODO: test bankName
-    }
-
-    /** Test the property 'bankCode' */
-    @Test
-    void bankCodeTest() {
-        // TODO: test bankCode
+    void successRedirectUrlTest() {
+        // TODO: test successRedirectUrl
     }
 }

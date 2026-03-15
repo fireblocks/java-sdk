@@ -28,7 +28,9 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
     CreateQuote.JSON_PROPERTY_SCOPE,
     CreateQuote.JSON_PROPERTY_BASE_ASSET_ID,
+    CreateQuote.JSON_PROPERTY_BASE_ASSET_RAIL,
     CreateQuote.JSON_PROPERTY_QUOTE_ASSET_ID,
+    CreateQuote.JSON_PROPERTY_QUOTE_ASSET_RAIL,
     CreateQuote.JSON_PROPERTY_BASE_AMOUNT,
     CreateQuote.JSON_PROPERTY_SLIPPAGE_BPS,
     CreateQuote.JSON_PROPERTY_SETTLEMENT,
@@ -44,8 +46,14 @@ public class CreateQuote {
     public static final String JSON_PROPERTY_BASE_ASSET_ID = "baseAssetId";
     @jakarta.annotation.Nonnull private String baseAssetId;
 
+    public static final String JSON_PROPERTY_BASE_ASSET_RAIL = "baseAssetRail";
+    @jakarta.annotation.Nullable private TransferRail baseAssetRail;
+
     public static final String JSON_PROPERTY_QUOTE_ASSET_ID = "quoteAssetId";
     @jakarta.annotation.Nonnull private String quoteAssetId;
+
+    public static final String JSON_PROPERTY_QUOTE_ASSET_RAIL = "quoteAssetRail";
+    @jakarta.annotation.Nullable private TransferRail quoteAssetRail;
 
     public static final String JSON_PROPERTY_BASE_AMOUNT = "baseAmount";
     @jakarta.annotation.Nonnull private String baseAmount;
@@ -131,6 +139,29 @@ public class CreateQuote {
         this.baseAssetId = baseAssetId;
     }
 
+    public CreateQuote baseAssetRail(@jakarta.annotation.Nullable TransferRail baseAssetRail) {
+        this.baseAssetRail = baseAssetRail;
+        return this;
+    }
+
+    /**
+     * Get baseAssetRail
+     *
+     * @return baseAssetRail
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_BASE_ASSET_RAIL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public TransferRail getBaseAssetRail() {
+        return baseAssetRail;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BASE_ASSET_RAIL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBaseAssetRail(@jakarta.annotation.Nullable TransferRail baseAssetRail) {
+        this.baseAssetRail = baseAssetRail;
+    }
+
     public CreateQuote quoteAssetId(@jakarta.annotation.Nonnull String quoteAssetId) {
         this.quoteAssetId = quoteAssetId;
         return this;
@@ -154,13 +185,36 @@ public class CreateQuote {
         this.quoteAssetId = quoteAssetId;
     }
 
+    public CreateQuote quoteAssetRail(@jakarta.annotation.Nullable TransferRail quoteAssetRail) {
+        this.quoteAssetRail = quoteAssetRail;
+        return this;
+    }
+
+    /**
+     * Get quoteAssetRail
+     *
+     * @return quoteAssetRail
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_QUOTE_ASSET_RAIL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public TransferRail getQuoteAssetRail() {
+        return quoteAssetRail;
+    }
+
+    @JsonProperty(JSON_PROPERTY_QUOTE_ASSET_RAIL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setQuoteAssetRail(@jakarta.annotation.Nullable TransferRail quoteAssetRail) {
+        this.quoteAssetRail = quoteAssetRail;
+    }
+
     public CreateQuote baseAmount(@jakarta.annotation.Nonnull String baseAmount) {
         this.baseAmount = baseAmount;
         return this;
     }
 
     /**
-     * The amount to convert from
+     * Amount in baseAssetId. BUY &#x3D; base amount to receive; SELL &#x3D; base amount to sell.
      *
      * @return baseAmount
      */
@@ -259,7 +313,9 @@ public class CreateQuote {
         CreateQuote createQuote = (CreateQuote) o;
         return Objects.equals(this.scope, createQuote.scope)
                 && Objects.equals(this.baseAssetId, createQuote.baseAssetId)
+                && Objects.equals(this.baseAssetRail, createQuote.baseAssetRail)
                 && Objects.equals(this.quoteAssetId, createQuote.quoteAssetId)
+                && Objects.equals(this.quoteAssetRail, createQuote.quoteAssetRail)
                 && Objects.equals(this.baseAmount, createQuote.baseAmount)
                 && Objects.equals(this.slippageBps, createQuote.slippageBps)
                 && Objects.equals(this.settlement, createQuote.settlement)
@@ -269,7 +325,15 @@ public class CreateQuote {
     @Override
     public int hashCode() {
         return Objects.hash(
-                scope, baseAssetId, quoteAssetId, baseAmount, slippageBps, settlement, side);
+                scope,
+                baseAssetId,
+                baseAssetRail,
+                quoteAssetId,
+                quoteAssetRail,
+                baseAmount,
+                slippageBps,
+                settlement,
+                side);
     }
 
     @Override
@@ -278,7 +342,9 @@ public class CreateQuote {
         sb.append("class CreateQuote {\n");
         sb.append("    scope: ").append(toIndentedString(scope)).append("\n");
         sb.append("    baseAssetId: ").append(toIndentedString(baseAssetId)).append("\n");
+        sb.append("    baseAssetRail: ").append(toIndentedString(baseAssetRail)).append("\n");
         sb.append("    quoteAssetId: ").append(toIndentedString(quoteAssetId)).append("\n");
+        sb.append("    quoteAssetRail: ").append(toIndentedString(quoteAssetRail)).append("\n");
         sb.append("    baseAmount: ").append(toIndentedString(baseAmount)).append("\n");
         sb.append("    slippageBps: ").append(toIndentedString(slippageBps)).append("\n");
         sb.append("    settlement: ").append(toIndentedString(settlement)).append("\n");
@@ -363,6 +429,16 @@ public class CreateQuote {
                             ApiClient.urlEncode(ApiClient.valueToString(getBaseAssetId()))));
         }
 
+        // add `baseAssetRail` to the URL query string
+        if (getBaseAssetRail() != null) {
+            joiner.add(
+                    String.format(
+                            "%sbaseAssetRail%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getBaseAssetRail()))));
+        }
+
         // add `quoteAssetId` to the URL query string
         if (getQuoteAssetId() != null) {
             joiner.add(
@@ -371,6 +447,16 @@ public class CreateQuote {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getQuoteAssetId()))));
+        }
+
+        // add `quoteAssetRail` to the URL query string
+        if (getQuoteAssetRail() != null) {
+            joiner.add(
+                    String.format(
+                            "%squoteAssetRail%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getQuoteAssetRail()))));
         }
 
         // add `baseAmount` to the URL query string

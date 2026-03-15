@@ -42,6 +42,7 @@ jobs:
           echo "finished configuration"
           bump-my-version bump --config-file .bump_version.toml --current-version 0.0.0 --new-version $tag
           echo "bumpversion finished"
+          auto-changelog
           git add .
           git commit -m "release $tag"
           git push

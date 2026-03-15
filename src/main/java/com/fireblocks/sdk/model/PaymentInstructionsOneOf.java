@@ -34,7 +34,7 @@ import java.util.StringJoiner;
 public class PaymentInstructionsOneOf {
     /** Gets or Sets type */
     public enum TypeEnum {
-        EUROPEAN_SEPA(String.valueOf("EUROPEAN_SEPA"));
+        INTERNAL_TRANSFER(String.valueOf("INTERNAL_TRANSFER"));
 
         private String value;
 
@@ -67,7 +67,7 @@ public class PaymentInstructionsOneOf {
     @jakarta.annotation.Nonnull private TypeEnum type;
 
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    @jakarta.annotation.Nonnull private EuropeanSEPAAddress address;
+    @jakarta.annotation.Nonnull private InternalTransferAddress address;
 
     public static final String JSON_PROPERTY_REFERENCE_ID = "referenceId";
     @jakarta.annotation.Nullable private String referenceId;
@@ -78,7 +78,7 @@ public class PaymentInstructionsOneOf {
     public PaymentInstructionsOneOf(
             @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
             @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = true)
-                    EuropeanSEPAAddress address) {
+                    InternalTransferAddress address) {
         this.type = type;
         this.address = address;
     }
@@ -107,7 +107,7 @@ public class PaymentInstructionsOneOf {
     }
 
     public PaymentInstructionsOneOf address(
-            @jakarta.annotation.Nonnull EuropeanSEPAAddress address) {
+            @jakarta.annotation.Nonnull InternalTransferAddress address) {
         this.address = address;
         return this;
     }
@@ -120,13 +120,13 @@ public class PaymentInstructionsOneOf {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public EuropeanSEPAAddress getAddress() {
+    public InternalTransferAddress getAddress() {
         return address;
     }
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAddress(@jakarta.annotation.Nonnull EuropeanSEPAAddress address) {
+    public void setAddress(@jakarta.annotation.Nonnull InternalTransferAddress address) {
         this.address = address;
     }
 

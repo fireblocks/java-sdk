@@ -1,0 +1,37 @@
+name: PR Auto Label
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Label PR by title
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TITLE: ${{ github.event.pull_request.title }}
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          label=""
+
+          if [[ "$TITLE" =~ \(major\) ]]; then
+            label="major"
+          elif [[ "$TITLE" =~ \(minor\) ]]; then
+            label="minor"
+          elif [[ "$TITLE" =~ \(patch\) ]]; then
+            label="patch"
+          fi
+          
+          if [[ -n "$label" ]]; then
+            echo "Found label: $label"
+            gh pr edit "$PR" --repo "$REPO" --add-label "$label"
+          else
+            echo "No label found in title: $TITLE"
+          fi
