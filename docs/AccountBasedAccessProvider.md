@@ -13,7 +13,7 @@
 |**accountBased** | **Boolean** | Indicates whether the provider access model is through accounts or directly |  |
 |**manifest** | [**Manifest**](Manifest.md) |  |  |
 |**connected** | **Boolean** | Whether the provider is currently connected |  |
-|**accounts** | [**List&lt;AccountBase&gt;**](AccountBase.md) |  |  [optional] |
+|**accounts** | [**List&lt;AccountBase&gt;**](AccountBase.md) |  |  |
 
 
 

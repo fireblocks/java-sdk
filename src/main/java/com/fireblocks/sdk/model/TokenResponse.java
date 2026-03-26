@@ -120,7 +120,9 @@ public class TokenResponse {
 
         CRONOS(String.valueOf("CRONOS")),
 
-        CRONOS_TEST(String.valueOf("CRONOS_TEST"));
+        CRONOS_TEST(String.valueOf("CRONOS_TEST")),
+
+        ROBINHOOD_CHAIN_TESTNET_TEST(String.valueOf("ROBINHOOD_CHAIN_TESTNET_TEST"));
 
         private String value;
 

@@ -27,6 +27,7 @@ import com.fireblocks.sdk.model.SplitRequest;
 import com.fireblocks.sdk.model.SplitResponse;
 import com.fireblocks.sdk.model.StakeRequest;
 import com.fireblocks.sdk.model.StakeResponse;
+import com.fireblocks.sdk.model.StakingPositionsPaginatedResponse;
 import com.fireblocks.sdk.model.StakingProvider;
 import com.fireblocks.sdk.model.UnstakeRequest;
 import com.fireblocks.sdk.model.WithdrawRequest;
@@ -82,10 +83,11 @@ public class StakingApiTest {
      *
      * <p>Consolidates the source staking position into the destination, merging the balance into
      * the destination and closing the source position once complete. Both positions must be from
-     * the same validator provider and same vault account. On chain, this translates into a
-     * consolidation transaction, where the source validator is consolidated into the destination
-     * validator. Supported chains: Ethereum (ETH) only. &lt;/br&gt;Endpoint Permission: Owner,
-     * Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * the same funding vaults account (i.e. same withdrawals credentials). On chain, this
+     * translates into a consolidation transaction, where the source validator is consolidated into
+     * the destination validator. Supported chains: Ethereum (ETH) only. &lt;/br&gt;Endpoint
+     * Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This
+     * endpoint is currently in beta and might be subject to changes.
      *
      * @throws ApiException if the Api call fails
      */
@@ -109,8 +111,9 @@ public class StakingApiTest {
     @Test
     public void getAllDelegationsTest() throws ApiException {
         ChainDescriptor chainDescriptor = null;
+        String vaultAccountId = null;
         CompletableFuture<ApiResponse<List<Delegation>>> response =
-                api.getAllDelegations(chainDescriptor);
+                api.getAllDelegations(chainDescriptor, vaultAccountId);
     }
 
     /**
@@ -153,6 +156,27 @@ public class StakingApiTest {
     public void getDelegationByIdTest() throws ApiException {
         String id = null;
         CompletableFuture<ApiResponse<Delegation>> response = api.getDelegationById(id);
+    }
+
+    /**
+     * List staking positions (Paginated)
+     *
+     * <p>Returns staking positions with core details: amounts, rewards, status, chain, and vault.
+     * It supports cursor-based pagination for efficient data retrieval. This endpoint always
+     * returns a paginated response with {data, next} structure. &lt;/br&gt;Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getPositionsTest() throws ApiException {
+        Integer pageSize = null;
+        ChainDescriptor chainDescriptor = null;
+        String vaultAccountId = null;
+        String pageCursor = null;
+        String order = null;
+        CompletableFuture<ApiResponse<StakingPositionsPaginatedResponse>> response =
+                api.getPositions(pageSize, chainDescriptor, vaultAccountId, pageCursor, order);
     }
 
     /**

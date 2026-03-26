@@ -21,13 +21,16 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /** JobCreated */
-@JsonPropertyOrder({JobCreated.JSON_PROPERTY_JOB_ID})
+@JsonPropertyOrder({JobCreated.JSON_PROPERTY_JOB_ID, JobCreated.JSON_PROPERTY_APPROVAL_REQUEST_ID})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class JobCreated {
     public static final String JSON_PROPERTY_JOB_ID = "jobId";
     @jakarta.annotation.Nullable private String jobId;
+
+    public static final String JSON_PROPERTY_APPROVAL_REQUEST_ID = "approvalRequestId";
+    @jakarta.annotation.Nullable private String approvalRequestId;
 
     public JobCreated() {}
 
@@ -54,6 +57,29 @@ public class JobCreated {
         this.jobId = jobId;
     }
 
+    public JobCreated approvalRequestId(@jakarta.annotation.Nullable String approvalRequestId) {
+        this.approvalRequestId = approvalRequestId;
+        return this;
+    }
+
+    /**
+     * Approval request ID. Returned when a tag triggers an approval flow.
+     *
+     * @return approvalRequestId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_APPROVAL_REQUEST_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getApprovalRequestId() {
+        return approvalRequestId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_APPROVAL_REQUEST_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setApprovalRequestId(@jakarta.annotation.Nullable String approvalRequestId) {
+        this.approvalRequestId = approvalRequestId;
+    }
+
     /** Return true if this JobCreated object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -64,12 +90,13 @@ public class JobCreated {
             return false;
         }
         JobCreated jobCreated = (JobCreated) o;
-        return Objects.equals(this.jobId, jobCreated.jobId);
+        return Objects.equals(this.jobId, jobCreated.jobId)
+                && Objects.equals(this.approvalRequestId, jobCreated.approvalRequestId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(jobId);
+        return Objects.hash(jobId, approvalRequestId);
     }
 
     @Override
@@ -77,6 +104,9 @@ public class JobCreated {
         StringBuilder sb = new StringBuilder();
         sb.append("class JobCreated {\n");
         sb.append("    jobId: ").append(toIndentedString(jobId)).append("\n");
+        sb.append("    approvalRequestId: ")
+                .append(toIndentedString(approvalRequestId))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -132,6 +162,16 @@ public class JobCreated {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getJobId()))));
+        }
+
+        // add `approvalRequestId` to the URL query string
+        if (getApprovalRequestId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sapprovalRequestId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getApprovalRequestId()))));
         }
 
         return joiner.toString();

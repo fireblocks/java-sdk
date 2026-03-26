@@ -18932,8 +18932,9 @@ paths:
   /staking/chains/{chainDescriptor}/consolidate:
     post:
       description: |-
-        Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same validator provider and same vault account. On chain, this translates into a consolidation transaction, where the source validator is consolidated into the destination validator. Supported chains: Ethereum (ETH) only.
+        Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same funding vaults account (i.e. same withdrawals credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only.
         </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+        **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: consolidate
       parameters:
       - description: "Protocol identifier for the staking operation (e.g., ETH)."
@@ -19075,6 +19076,17 @@ paths:
         schema:
           $ref: "#/components/schemas/ChainDescriptor"
         style: form
+      - description: Filter positions by vault account ID.
+        explode: true
+        in: query
+        name: vaultAccountId
+        required: false
+        schema:
+          example: "1"
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        style: form
       responses:
         "200":
           content:
@@ -19146,19 +19158,181 @@ paths:
             \ = fireblocks.staking.getAllDelegations(stakingApiGetAllDelegationsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<List<Delegation>>> response = fireblocks.staking().getAllDelegations(chainDescriptor);
+          code: "CompletableFuture<ApiResponse<List<Delegation>>> response = fireblocks.staking().getAllDelegations(chainDescriptor,\
+            \ vaultAccountId);"
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.staking.get_all_delegations(chain_descriptor);
+          code: "response = fireblocks.staking.get_all_delegations(chain_descriptor,\
+            \ vault_account_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<StakingGetAllDelegationsResponse>>\
           \ = fireblocks.staking.getAllDelegations(stakingApiGetAllDelegationsRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<List<Delegation>>> response = fireblocks.staking().getAllDelegations(chainDescriptor);
+        source: "CompletableFuture<ApiResponse<List<Delegation>>> response = fireblocks.staking().getAllDelegations(chainDescriptor,\
+          \ vaultAccountId);"
       - lang: Python
-        source: response = fireblocks.staking.get_all_delegations(chain_descriptor);
+        source: "response = fireblocks.staking.get_all_delegations(chain_descriptor,\
+          \ vault_account_id);"
+      x-accepts:
+      - application/json
+  /staking/positions_paginated:
+    get:
+      description: |-
+        Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure.
+        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+      operationId: getPositions
+      parameters:
+      - description: "Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}).\
+          \ If omitted, positions across all supported chains are returned."
+        explode: true
+        in: query
+        name: chainDescriptor
+        required: false
+        schema:
+          $ref: "#/components/schemas/ChainDescriptor"
+        style: form
+      - description: "Filter positions by Fireblocks vault account ID. If omitted,\
+          \ positions across all vault accounts are returned."
+        example: "10"
+        explode: true
+        in: query
+        name: vaultAccountId
+        required: false
+        schema:
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        style: form
+      - description: "Number of results per page. When provided, the response returns\
+          \ a paginated object with {data, next}. If omitted, all results are returned\
+          \ as an array."
+        explode: true
+        in: query
+        name: pageSize
+        required: true
+        schema:
+          default: 10
+          example: 10
+          format: int32
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Cursor for the next page of results. Use the value from the 'next'
+          field in the previous response.
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          type: string
+        style: form
+      - description: ASC / DESC ordering (default DESC)
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StakingPositionsPaginatedResponse"
+          description: Positions retrieved successfully with pagination.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Bad request: missing/invalid fields, unsupported amount, or\
+            \ malformed payload."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Forbidden: insufficient permissions, disabled feature, or\
+            \ restricted provider/validator."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Not found: requested resource does not exist (e.g., position,\
+            \ validator, provider, or wallet)."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: List staking positions (Paginated)
+      tags:
+      - Staking
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<StakingPositionsPaginatedResponse>>\
+            \ = fireblocks.staking.getPositions(stakingApiGetPositionsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<StakingPositionsPaginatedResponse>>\
+            \ response = fireblocks.staking().getPositions(pageSize, chainDescriptor,\
+            \ vaultAccountId, pageCursor, order);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.staking.get_positions(page_size, chain_descriptor,\
+            \ vault_account_id, page_cursor, order);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<StakingPositionsPaginatedResponse>>\
+          \ = fireblocks.staking.getPositions(stakingApiGetPositionsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<StakingPositionsPaginatedResponse>>\
+          \ response = fireblocks.staking().getPositions(pageSize, chainDescriptor,\
+          \ vaultAccountId, pageCursor, order);"
+      - lang: Python
+        source: "response = fireblocks.staking.get_positions(page_size, chain_descriptor,\
+          \ vault_account_id, page_cursor, order);"
       x-accepts:
       - application/json
   /staking/positions/summary:
@@ -19781,6 +19955,114 @@ paths:
           \ page_cursor);"
       x-accepts:
       - application/json
+  /trading/providers/{providerId}:
+    get:
+      description: |
+        Retrieve detailed information about a specific provider including its full manifest with order/quote requirements.
+
+        **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+
+        **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+        For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+      operationId: getTradingProviderById
+      parameters:
+      - description: The unique identifier of the provider.
+        explode: false
+        in: path
+        name: providerId
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingProviderDetails"
+          description: Provider details
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: Unauthorized. Missing / invalid JWT token in Authorization
+            header.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Forbidden - insufficient permissions, disabled feature, or\
+            \ restricted access."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: Provider not found.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: Rate limit exceeded - slow down and retry later.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get trading provider by ID
+      tags:
+      - Trading (Beta)
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TradingProviderDetails>>\
+            \ = fireblocks.tradingBeta.getTradingProviderById(tradingBetaApiGetTradingProviderByIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<TradingProviderDetails>> response =
+            fireblocks.tradingBeta().getTradingProviderById(providerId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.trading_beta.get_trading_provider_by_id(provider_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<TradingProviderDetails>>\
+          \ = fireblocks.tradingBeta.getTradingProviderById(tradingBetaApiGetTradingProviderByIdRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<TradingProviderDetails>> response =
+          fireblocks.tradingBeta().getTradingProviderById(providerId);
+      - lang: Python
+        source: response = fireblocks.trading_beta.get_trading_provider_by_id(provider_id);
+      x-accepts:
+      - application/json
   /trading/quotes:
     post:
       description: |-
@@ -20399,6 +20681,7 @@ paths:
           - APECHAIN_TEST
           - CRONOS
           - CRONOS_TEST
+          - ROBINHOOD_CHAIN_TESTNET_TEST
           type: string
         style: form
       - description: A comma separated list of Vault Account IDs. Up to 100 are allowed
@@ -20623,6 +20906,7 @@ paths:
           - KLAY_KAIA_TEST
           - APECHAIN
           - APECHAIN_TEST
+          - ROBINHOOD_CHAIN_TESTNET_TEST
           type: string
         style: form
       - description: Vault account filter
@@ -23163,6 +23447,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkPartnersListResponse"
           description: List of partners retrieved successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: List available TRSupport partners
@@ -23205,6 +23492,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkCustomersListResponse"
           description: Customers retrieved successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Get all customers
@@ -23265,6 +23555,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkCustomerResponse"
           description: Customer created successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Create customer
@@ -23319,6 +23612,9 @@ paths:
       responses:
         "204":
           description: Customer deleted successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Delete customer
@@ -23367,6 +23663,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkCustomerResponse"
           description: Customer retrieved successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Get customer by ID
@@ -23436,6 +23735,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkCustomerResponse"
           description: Customer updated successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Update customer
@@ -23494,6 +23796,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkCustomerIntegrationsListResponse"
           description: Customer integrations retrieved successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Get customer integrations
@@ -23556,6 +23861,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkCustomerIntegrationResponse"
           description: Customer integration retrieved successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Get customer integration by ID
@@ -23594,7 +23902,9 @@ paths:
     post:
       description: Creates a new TRSupport integration for a customer. This establishes
         a connection placeholder between a customer and a Travel Rule partner. Use
-        the connect endpoint to provide credentials after creation.
+        the connect endpoint to provide credentials after creation. You may optionally
+        supply `customerIntegrationId` in the request body when your tenant is enabled
+        for client-provided integration ids.
       operationId: createTRLinkIntegration
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -23621,6 +23931,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkCustomerIntegrationResponse"
           description: Customer integration created successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Create customer integration
@@ -23658,8 +23971,11 @@ paths:
       - application/json
   /screening/trlink/customers/integration/{customerIntegrationId}:
     delete:
-      description: Disconnects a customer integration by removing stored credentials.
-        The integration record is deleted and cannot be recovered.
+      description: "Disconnects the integration for the authenticated workspace (tenant):\
+        \ removes stored credentials and deletes this tenant's integration record.\
+        \ The operation is scoped to the caller's tenant; it does not remove partner-side\
+        \ state for other workspaces that reuse the same logical customer integration.\
+        \ The record cannot be recovered after delete."
       operationId: disconnectTRLinkIntegration
       parameters:
       - description: Customer integration unique identifier
@@ -23675,6 +23991,9 @@ paths:
       responses:
         "204":
           description: Customer integration disconnected successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Disconnect customer integration
@@ -23740,6 +24059,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkCustomerIntegrationResponse"
           description: Customer integration connected successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Connect customer integration
@@ -23799,6 +24121,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkPublicKeyResponse"
           description: Public key retrieved successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Get public key for PII encryption
@@ -23865,6 +24190,9 @@ paths:
                 $ref: "#/components/schemas/TRLinkTestConnectionResponse"
           description: Connection test completed (success or failure details in response
             body)
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Test connection
@@ -23940,6 +24268,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkAPIPagedResponse"
           description: VASPs retrieved successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: List VASPs
@@ -24003,6 +24334,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkVaspDto"
           description: VASP retrieved successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Get VASP by ID
@@ -24075,6 +24409,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkAssetsListPagedResponse"
           description: Supported assets retrieved successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: List supported assets
@@ -24140,6 +24477,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkGetSupportedAssetResponse"
           description: Asset retrieved successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Get supported asset by ID
@@ -24213,6 +24553,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkAssessTravelRuleResponse"
           description: Travel rule assessment completed
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Assess Travel Rule requirement
@@ -24288,6 +24631,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkTrmInfoResponse"
           description: TRM created successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Create Travel Rule Message
@@ -24354,6 +24700,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkTrmInfoResponse"
           description: TRM retrieved successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Get TRM by ID
@@ -24433,6 +24782,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkTrmInfoResponse"
           description: Transaction cancellation request accepted
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Cancel Travel Rule Message
@@ -24515,6 +24867,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkTrmInfoResponse"
           description: Transaction redirect request accepted
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Redirect Travel Rule Message
@@ -24565,6 +24920,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkPolicyResponse"
           description: Policy retrieved successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Get TRLink policy
@@ -24632,6 +24990,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkSetTransactionTravelRuleMessageIdResponse"
           description: Travel rule message ID set successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Set transaction travel rule message ID
@@ -24707,6 +25068,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/TRLinkSetDestinationTravelRuleMessageIdResponse"
           description: Destination travel rule message ID set successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Set destination travel rule message ID
@@ -29999,6 +30363,9 @@ components:
         - first va
         - client 65502e71-ecdf-48da-a074-c1753befc7fb
         prefix: "Copied from: "
+        tagIds:
+        - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        - b2c3d4e5-f6a7-8901-bcde-f12345678901
         count: 1000
         baseAssetIds:
         - BTC
@@ -30038,6 +30405,16 @@ components:
             then adding a prefix to the names. If names array is used it'll fail
           example: "Copied from: "
           type: string
+        tagIds:
+          description: Optional list of tag IDs to attach to all created vault accounts
+          example:
+          - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+          - b2c3d4e5-f6a7-8901-bcde-f12345678901
+          items:
+            format: uuid
+            type: string
+          maxItems: 20
+          type: array
       required:
       - baseAssetIds
       - count
@@ -30045,8 +30422,13 @@ components:
     JobCreated:
       example:
         jobId: jobId
+        approvalRequestId: approvalRequestId
       properties:
         jobId:
+          type: string
+        approvalRequestId:
+          description: Approval request ID. Returned when a tag triggers an approval
+            flow.
           type: string
       type: object
     CreateMultipleVaultAccountsJobStatus:
@@ -35293,7 +35675,10 @@ components:
           $ref: "#/components/schemas/RewardInfo"
       type: object
     AmlStatusEnum:
-      description: AML screening status
+      deprecated: true
+      description: |
+        Deprecated: Use screeningStatus instead.
+        AML screening status.
       enum:
       - COMPLETED
       - PENDING
@@ -35319,19 +35704,6 @@ components:
       - ACCEPT
       - REVIEW
       example: PASS
-      type: string
-    ScreeningRiskLevelEnum:
-      description: |
-        Risk level assessment for screening results.
-        Possible values vary by provider and context.
-      enum:
-      - VERY_HIGH
-      - SEVERE
-      - HIGH
-      - MEDIUM
-      - LOW
-      - UNKNOWN
-      example: LOW
       type: string
     AlertLevelEnum:
       description: Alert level severity
@@ -35434,7 +35806,9 @@ components:
           $ref: "#/components/schemas/PolicyVerdictActionEnum"
       type: object
     AmlResult:
+      deprecated: true
       description: |
+        Deprecated: This field is not currently returned in the API response.
         Detailed AML screening result information.
         Contains alerts, risk scores, and other AML-specific data from provider-specific responses.
       example:
@@ -35512,6 +35886,9 @@ components:
       - REJECT
       - ALERT
       - REVIEW
+      - WAIT
+      - FREEZE
+      - CANCEL
       example: ACCEPT
       type: string
     TravelRuleStatusEnum:
@@ -35522,6 +35899,9 @@ components:
       - BYPASSED
       - FAILED
       - FROZEN
+      - REJECTED
+      - CANCELED
+      - BLOCKING_TIME_EXPIRED
       example: COMPLETED
       type: string
     TravelRuleMatchedRule:
@@ -35554,7 +35934,9 @@ components:
           $ref: "#/components/schemas/TravelRuleVerdictEnum"
       type: object
     TravelRuleResult:
+      deprecated: true
       description: |
+        Deprecated: This field is not currently returned in the API response.
         Detailed Travel Rule screening result containing provider-specific data.
         Contains Travel Rule specific information like verified status, rule type, and actions.
       example:
@@ -35648,6 +36030,8 @@ components:
       - SCREEN
       - BYPASS
       - BLOCK
+      - PASS
+      - FREEZE
       example: SCREEN
       type: string
     TravelRulePrescreeningRule:
@@ -35727,6 +36111,19 @@ components:
         action:
           $ref: "#/components/schemas/TravelRuleActionEnum"
       type: object
+    ScreeningProviderResponse:
+      additionalProperties: true
+      description: |
+        Complete response from the screening provider. This is a dynamic object that varies
+        significantly between different providers (Chainalysis, Elliptic, NOTABENE, etc.).
+        Each provider has their own proprietary response format and schema.
+
+        For AML providers: Contains risk scores, alerts, entity information
+        For Travel Rule providers: Contains VASP information, PII data, protocol-specific fields
+
+        The structure is provider-dependent and cannot be standardized as each
+        vendor implements their own proprietary data models and response formats.
+      type: object
     ComplianceScreeningResult:
       description: |
         The result of the AML/Travel Rule screening.
@@ -35794,6 +36191,8 @@ components:
           providerResponse:
             key: ""
         matchedAlert: "{}"
+        providerResponse:
+          key: ""
         timestamp: 1753459111824
         matchedPrescreeningRule:
           sourceId: "0"
@@ -35815,12 +36214,12 @@ components:
           networkProtocol: ETH
         detailsMessage: Travel rule screening completed successfully
         externalId: aml_screening_12345
-        bypassReason: BELOW_THRESHOLD
-        extendedRisk: LOW
+        bypassReason: UNSUPPORTED_ASSET
+        extendedRisk: lowRisk
         customerRefId: customer_ref_789
         customerShortName: ACME Corp
         verdict: PASS
-        risk: LOW
+        risk: lowRisk
         refId: ref_12345
         category: EXCHANGE
         screeningStatus: COMPLETED
@@ -35831,8 +36230,8 @@ components:
         provider:
           description: |
             The AML/Travel Rule provider name.
-            For AML: ELLIPTIC, CHAINALYSIS, SCORECHAIN, MERKLE_SCIENCE, etc.
-            For Travel Rule: NOTABENE, SYGNA, or any TRLink provider name
+            For AML: ELLIPTIC, CHAINALYSIS, etc.
+            For Travel Rule: NOTABENE, SUMSUB, GTR, or any TRLink provider name.
           example: NOTABENE
           type: string
         payload:
@@ -35861,24 +36260,43 @@ components:
         bypassReason:
           description: |
             Reason for bypassing the screening, if applicable.
-            For AML: SANCTIONS_SCREENING_BYPASS, SANCTIONS_RECIPIENT_BYPASS, etc.
-            For Travel Rule: BELOW_THRESHOLD, NO_TRM_AVAILABLE, etc.
-          example: BELOW_THRESHOLD
+            For AML: UNSUPPORTED_ASSET, PASSED_BY_POLICY.
+            For Travel Rule: UNSUPPORTED_ASSET, NO_TRAVEL_RULE_MESSAGE, TRANSACTION_ZERO_AMOUNT.
+          example: UNSUPPORTED_ASSET
           type: string
         status:
           $ref: "#/components/schemas/AmlStatusEnum"
         prevStatus:
           $ref: "#/components/schemas/AmlStatusEnum"
         prevBypassReason:
-          description: Previous bypass reason before the current bypass reason change
+          deprecated: true
+          description: |
+            Deprecated: This field is not currently returned in the API response.
+            Previous bypass reason before the current bypass reason change.
           example: BELOW_THRESHOLD
           type: string
         verdict:
           $ref: "#/components/schemas/ScreeningVerdictEnum"
         risk:
-          $ref: "#/components/schemas/ScreeningRiskLevelEnum"
+          description: |
+            Risk level assessment for screening results.
+            Values vary by provider and are not managed by this service.
+
+            Known values by provider:
+            - Chainalysis: severeRisk, highRisk, mediumRisk, lowRisk, noRiskInfo
+            - Elliptic: noRiskDetected
+
+            Legacy values (SCREAMING_SNAKE_CASE, may appear in old transactions):
+            VERY_HIGH, SEVERE, HIGH, MEDIUM, LOW, NO_RISK_INFO, UNKNOWN
+          example: lowRisk
+          type: string
         extendedRisk:
-          $ref: "#/components/schemas/ScreeningRiskLevelEnum"
+          deprecated: true
+          description: |
+            Deprecated: This field is not currently returned in the API response.
+            Use risk instead.
+          example: lowRisk
+          type: string
         externalId:
           description: External identifier for the screening (provider-specific)
           example: aml_screening_12345
@@ -35888,7 +36306,10 @@ components:
           example: customer_ref_789
           type: string
         refId:
-          description: Internal reference identifier
+          deprecated: true
+          description: |
+            Deprecated: This field is not currently returned in the API response.
+            Internal reference identifier.
           example: ref_12345
           type: string
         category:
@@ -35911,11 +36332,17 @@ components:
           example: memo_12345
           type: string
         destRecordId:
-          description: The destination record identifier used by the screening provider
+          deprecated: true
+          description: |
+            Deprecated: This field is not currently returned in the API response.
+            The destination record identifier used by the screening provider.
           example: record_001
           type: string
         addressResolutionSignature:
-          description: Cryptographic signature for address resolution verification
+          deprecated: true
+          description: |
+            Deprecated: This field is not currently returned in the API response.
+            Cryptographic signature for address resolution verification.
           example: 0x1234567890abcdef
           type: string
         amlResult:
@@ -35957,6 +36384,19 @@ components:
             providers
           example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
           type: string
+        providerResponse:
+          additionalProperties: true
+          description: |
+            Complete response from the screening provider. This is a dynamic object that varies
+            significantly between different providers (Chainalysis, Elliptic, NOTABENE, etc.).
+            Each provider has their own proprietary response format and schema.
+
+            For AML providers: Contains risk scores, alerts, entity information
+            For Travel Rule providers: Contains VASP information, PII data, protocol-specific fields
+
+            The structure is provider-dependent and cannot be standardized as each
+            vendor implements their own proprietary data models and response formats.
+          type: object
       type: object
     ComplianceResultStatusesEnum:
       description: Status of compliance result screening
@@ -36661,6 +37101,8 @@ components:
             providerResponse:
               key: ""
           matchedAlert: "{}"
+          providerResponse:
+            key: ""
           timestamp: 1753459111824
           matchedPrescreeningRule:
             sourceId: "0"
@@ -36682,12 +37124,12 @@ components:
             networkProtocol: ETH
           detailsMessage: Travel rule screening completed successfully
           externalId: aml_screening_12345
-          bypassReason: BELOW_THRESHOLD
-          extendedRisk: LOW
+          bypassReason: UNSUPPORTED_ASSET
+          extendedRisk: lowRisk
           customerRefId: customer_ref_789
           customerShortName: ACME Corp
           verdict: PASS
-          risk: LOW
+          risk: lowRisk
           refId: ref_12345
           category: EXCHANGE
           screeningStatus: COMPLETED
@@ -36977,6 +37419,8 @@ components:
             providerResponse:
               key: ""
           matchedAlert: "{}"
+          providerResponse:
+            key: ""
           timestamp: 1753459111824
           matchedPrescreeningRule:
             sourceId: "0"
@@ -36998,12 +37442,12 @@ components:
             networkProtocol: ETH
           detailsMessage: Travel rule screening completed successfully
           externalId: aml_screening_12345
-          bypassReason: BELOW_THRESHOLD
-          extendedRisk: LOW
+          bypassReason: UNSUPPORTED_ASSET
+          extendedRisk: lowRisk
           customerRefId: customer_ref_789
           customerShortName: ACME Corp
           verdict: PASS
-          risk: LOW
+          risk: lowRisk
           refId: ref_12345
           category: EXCHANGE
           screeningStatus: COMPLETED
@@ -37071,6 +37515,8 @@ components:
             providerResponse:
               key: ""
           matchedAlert: "{}"
+          providerResponse:
+            key: ""
           timestamp: 1753459111824
           matchedPrescreeningRule:
             sourceId: "0"
@@ -37092,12 +37538,12 @@ components:
             networkProtocol: ETH
           detailsMessage: Travel rule screening completed successfully
           externalId: aml_screening_12345
-          bypassReason: BELOW_THRESHOLD
-          extendedRisk: LOW
+          bypassReason: UNSUPPORTED_ASSET
+          extendedRisk: lowRisk
           customerRefId: customer_ref_789
           customerShortName: ACME Corp
           verdict: PASS
-          risk: LOW
+          risk: lowRisk
           refId: ref_12345
           category: EXCHANGE
           screeningStatus: COMPLETED
@@ -37166,6 +37612,8 @@ components:
             providerResponse:
               key: ""
           matchedAlert: "{}"
+          providerResponse:
+            key: ""
           timestamp: 1753459111824
           matchedPrescreeningRule:
             sourceId: "0"
@@ -37187,12 +37635,12 @@ components:
             networkProtocol: ETH
           detailsMessage: Travel rule screening completed successfully
           externalId: aml_screening_12345
-          bypassReason: BELOW_THRESHOLD
-          extendedRisk: LOW
+          bypassReason: UNSUPPORTED_ASSET
+          extendedRisk: lowRisk
           customerRefId: customer_ref_789
           customerShortName: ACME Corp
           verdict: PASS
-          risk: LOW
+          risk: lowRisk
           refId: ref_12345
           category: EXCHANGE
           screeningStatus: COMPLETED
@@ -37650,6 +38098,8 @@ components:
               providerResponse:
                 key: ""
             matchedAlert: "{}"
+            providerResponse:
+              key: ""
             timestamp: 1753459111824
             matchedPrescreeningRule:
               sourceId: "0"
@@ -37671,12 +38121,12 @@ components:
               networkProtocol: ETH
             detailsMessage: Travel rule screening completed successfully
             externalId: aml_screening_12345
-            bypassReason: BELOW_THRESHOLD
-            extendedRisk: LOW
+            bypassReason: UNSUPPORTED_ASSET
+            extendedRisk: lowRisk
             customerRefId: customer_ref_789
             customerShortName: ACME Corp
             verdict: PASS
-            risk: LOW
+            risk: lowRisk
             refId: ref_12345
             category: EXCHANGE
             screeningStatus: COMPLETED
@@ -37966,6 +38416,8 @@ components:
               providerResponse:
                 key: ""
             matchedAlert: "{}"
+            providerResponse:
+              key: ""
             timestamp: 1753459111824
             matchedPrescreeningRule:
               sourceId: "0"
@@ -37987,12 +38439,12 @@ components:
               networkProtocol: ETH
             detailsMessage: Travel rule screening completed successfully
             externalId: aml_screening_12345
-            bypassReason: BELOW_THRESHOLD
-            extendedRisk: LOW
+            bypassReason: UNSUPPORTED_ASSET
+            extendedRisk: lowRisk
             customerRefId: customer_ref_789
             customerShortName: ACME Corp
             verdict: PASS
-            risk: LOW
+            risk: lowRisk
             refId: ref_12345
             category: EXCHANGE
             screeningStatus: COMPLETED
@@ -38060,6 +38512,8 @@ components:
               providerResponse:
                 key: ""
             matchedAlert: "{}"
+            providerResponse:
+              key: ""
             timestamp: 1753459111824
             matchedPrescreeningRule:
               sourceId: "0"
@@ -38081,12 +38535,12 @@ components:
               networkProtocol: ETH
             detailsMessage: Travel rule screening completed successfully
             externalId: aml_screening_12345
-            bypassReason: BELOW_THRESHOLD
-            extendedRisk: LOW
+            bypassReason: UNSUPPORTED_ASSET
+            extendedRisk: lowRisk
             customerRefId: customer_ref_789
             customerShortName: ACME Corp
             verdict: PASS
-            risk: LOW
+            risk: lowRisk
             refId: ref_12345
             category: EXCHANGE
             screeningStatus: COMPLETED
@@ -38155,6 +38609,8 @@ components:
               providerResponse:
                 key: ""
             matchedAlert: "{}"
+            providerResponse:
+              key: ""
             timestamp: 1753459111824
             matchedPrescreeningRule:
               sourceId: "0"
@@ -38176,12 +38632,12 @@ components:
               networkProtocol: ETH
             detailsMessage: Travel rule screening completed successfully
             externalId: aml_screening_12345
-            bypassReason: BELOW_THRESHOLD
-            extendedRisk: LOW
+            bypassReason: UNSUPPORTED_ASSET
+            extendedRisk: lowRisk
             customerRefId: customer_ref_789
             customerShortName: ACME Corp
             verdict: PASS
-            risk: LOW
+            risk: lowRisk
             refId: ref_12345
             category: EXCHANGE
             screeningStatus: COMPLETED
@@ -39787,6 +40243,8 @@ components:
         wallet_provider: Metamask
         confirmed: true
         url: https://example.com/uploaded_image.png
+        did: did:key:z6Mkf12345Zabcdef12345
+        status: verified
       properties:
         type:
           description: "The type of ownership proof. Example values: - `eip-191`:\
@@ -39825,6 +40283,15 @@ components:
             \ types only). Example: `https://example.com/uploaded_image.png`"
           example: https://example.com/uploaded_image.png
           type: string
+        did:
+          description: The Decentralized Identifier (DID) associated with the ownership
+            proof.
+          example: did:key:z6Mkf12345Zabcdef12345
+          type: string
+        status:
+          description: The status of the ownership proof verification.
+          example: verified
+          type: string
         confirmed:
           description: "Whether the user confirmed ownership of the wallet (for `self-declaration`\
             \ proofs). Example: `true`"
@@ -39843,6 +40310,8 @@ components:
           wallet_provider: Metamask
           confirmed: true
           url: https://example.com/uploaded_image.png
+          did: did:key:z6Mkf12345Zabcdef12345
+          status: verified
         isNonCustodial: true
         beneficiaryRef: BEN654321
         originator:
@@ -40974,6 +41443,8 @@ components:
           wallet_provider: Metamask
           confirmed: true
           url: https://example.com/uploaded_image.png
+          did: did:key:z6Mkf12345Zabcdef12345
+          status: verified
         originatorVASPdid: did:ethr:0x44957e75d6ce4a5bf37aae117da86422c848f7c2
         beneficiaryDid: did:key:z6Mkf67890Zghijkl67890
         beneficiaryVASPdid: did:ethr:0x17fe2dd11a2daa7f6c1fdf22532a4763f963aea6
@@ -41165,6 +41636,8 @@ components:
             wallet_provider: Metamask
             confirmed: true
             url: https://example.com/uploaded_image.png
+            did: did:key:z6Mkf12345Zabcdef12345
+            status: verified
           isNonCustodial: true
           beneficiaryRef: BEN654321
           originator:
@@ -42296,6 +42769,8 @@ components:
             wallet_provider: Metamask
             confirmed: true
             url: https://example.com/uploaded_image.png
+            did: did:key:z6Mkf12345Zabcdef12345
+            status: verified
           originatorVASPdid: did:ethr:0x44957e75d6ce4a5bf37aae117da86422c848f7c2
           beneficiaryDid: did:key:z6Mkf67890Zghijkl67890
           beneficiaryVASPdid: did:ethr:0x17fe2dd11a2daa7f6c1fdf22532a4763f963aea6
@@ -44332,6 +44807,8 @@ components:
               wallet_provider: Metamask
               confirmed: true
               url: https://example.com/uploaded_image.png
+              did: did:key:z6Mkf12345Zabcdef12345
+              status: verified
             isNonCustodial: true
             beneficiaryRef: BEN654321
             originator:
@@ -45463,6 +45940,8 @@ components:
               wallet_provider: Metamask
               confirmed: true
               url: https://example.com/uploaded_image.png
+              did: did:key:z6Mkf12345Zabcdef12345
+              status: verified
             originatorVASPdid: did:ethr:0x44957e75d6ce4a5bf37aae117da86422c848f7c2
             beneficiaryDid: did:key:z6Mkf67890Zghijkl67890
             beneficiaryVASPdid: did:ethr:0x17fe2dd11a2daa7f6c1fdf22532a4763f963aea6
@@ -45566,6 +46045,8 @@ components:
               wallet_provider: Metamask
               confirmed: true
               url: https://example.com/uploaded_image.png
+              did: did:key:z6Mkf12345Zabcdef12345
+              status: verified
             isNonCustodial: true
             beneficiaryRef: BEN654321
             originator:
@@ -46697,6 +47178,8 @@ components:
               wallet_provider: Metamask
               confirmed: true
               url: https://example.com/uploaded_image.png
+              did: did:key:z6Mkf12345Zabcdef12345
+              status: verified
             originatorVASPdid: did:ethr:0x44957e75d6ce4a5bf37aae117da86422c848f7c2
             beneficiaryDid: did:key:z6Mkf67890Zghijkl67890
             beneficiaryVASPdid: did:ethr:0x17fe2dd11a2daa7f6c1fdf22532a4763f963aea6
@@ -52430,6 +52913,191 @@ components:
       items:
         $ref: "#/components/schemas/Delegation"
       type: array
+    Position:
+      example:
+        availableActions:
+        - UNSTAKE
+        blockchainPositionInfo:
+          stakeAccountAddress: 3Ru67FyzMTcdENmmRL4Eve4dtPd6AdpuypR21q5EQCdq
+        chainDescriptor: SOL
+        amount: "0.05"
+        inProgress: true
+        inProgressTxId: c80601f4-d7b1-4795-a8ee-b09cdb5b450c
+        validatorAddress: FwR3PbjS5iyqzLiLugrBqKSa5EKZ4vK9SKs7eQXtT59f
+        vaultAccountId: "2"
+        dateUpdated: 2023-07-13T15:55:34.256Z
+        rewardsAmount: "0.000856038"
+        dateCreated: 2023-07-13T15:55:34.256Z
+        providerId: kiln
+        validatorName: FwR3P......tT59f
+        id: b70701f4-d7b1-4795-a8ee-b09cdb5b850a
+        providerName: Kiln
+        status: ACTIVE
+      properties:
+        id:
+          description: The unique identifier of the staking position
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850a
+          type: string
+        vaultAccountId:
+          description: The source vault account to stake from
+          example: "2"
+          type: string
+        validatorName:
+          description: The destination validator address name
+          example: FwR3P......tT59f
+          type: string
+        providerName:
+          description: The destination validator provider name
+          example: Kiln
+          type: string
+        chainDescriptor:
+          description: The protocol identifier (e.g. "ETH"/ "SOL") to use
+          example: SOL
+          type: string
+        amount:
+          description: "Total value of the staking position. For Solana, Lido and\
+            \ Ethereum (compounding validator): includes the original stake plus accumulated\
+            \ rewards. For MATIC, Cosmos and Ethereum (legacy validator): refers to\
+            \ the amount currently staked."
+          example: "0.05"
+          type: string
+        rewardsAmount:
+          description: "The amount staked in the position, measured in the staked\
+            \ asset unit."
+          example: "0.000856038"
+          type: string
+        dateCreated:
+          description: When was the request made (ISO Date).
+          example: 2023-07-13T15:55:34.256Z
+          format: date-time
+          type: string
+        dateUpdated:
+          description: When has the position last changed (ISO Date).
+          example: 2023-07-13T15:55:34.256Z
+          format: date-time
+          type: string
+        status:
+          description: The current status.
+          enum:
+          - CREATING
+          - PENDING
+          - ACTIVATING
+          - ACTIVE
+          - DEACTIVATING
+          - DEACTIVATED
+          - WITHDRAWING
+          - WITHDRAWN
+          - MERGED
+          - CONSOLIDATED
+          - CANCELED
+          - FAILED
+          example: ACTIVE
+          type: string
+        validatorAddress:
+          description: The destination address of the staking transaction.
+          example: FwR3PbjS5iyqzLiLugrBqKSa5EKZ4vK9SKs7eQXtT59f
+          type: string
+        providerId:
+          $ref: "#/components/schemas/StakingProvider"
+        availableActions:
+          description: "An array of available actions that can be performed. for example,\
+            \ actions like \"UNSTAKE\" or \"WITHDRAW\"."
+          example:
+          - UNSTAKE
+          items:
+            enum:
+            - UNSTAKE
+            - WITHDRAW
+            - ADD_TO_STAKE
+            - SPLIT
+            - MERGE
+            - CLAIM_REWARDS
+            - CONSOLIDATE
+            type: string
+          type: array
+        inProgress:
+          description: Indicates whether there is an ongoing action for this position
+            related to this request
+          example: true
+          type: boolean
+        inProgressTxId:
+          description: The transaction ID of the initial stake position request only.
+            Only present when there is an active initial stake transaction.
+          example: c80601f4-d7b1-4795-a8ee-b09cdb5b450c
+          type: string
+        blockchainPositionInfo:
+          $ref: "#/components/schemas/Delegation_blockchainPositionInfo"
+      required:
+      - amount
+      - availableActions
+      - blockchainPositionInfo
+      - chainDescriptor
+      - dateCreated
+      - dateUpdated
+      - id
+      - inProgress
+      - providerId
+      - providerName
+      - rewardsAmount
+      - status
+      - validatorAddress
+      - validatorName
+      - vaultAccountId
+      type: object
+    StakingPositionsPaginatedResponse:
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        data:
+        - availableActions:
+          - UNSTAKE
+          blockchainPositionInfo:
+            stakeAccountAddress: 3Ru67FyzMTcdENmmRL4Eve4dtPd6AdpuypR21q5EQCdq
+          chainDescriptor: SOL
+          amount: "0.05"
+          inProgress: true
+          inProgressTxId: c80601f4-d7b1-4795-a8ee-b09cdb5b450c
+          validatorAddress: FwR3PbjS5iyqzLiLugrBqKSa5EKZ4vK9SKs7eQXtT59f
+          vaultAccountId: "2"
+          dateUpdated: 2023-07-13T15:55:34.256Z
+          rewardsAmount: "0.000856038"
+          dateCreated: 2023-07-13T15:55:34.256Z
+          providerId: kiln
+          validatorName: FwR3P......tT59f
+          id: b70701f4-d7b1-4795-a8ee-b09cdb5b850a
+          providerName: Kiln
+          status: ACTIVE
+        - availableActions:
+          - UNSTAKE
+          blockchainPositionInfo:
+            stakeAccountAddress: 3Ru67FyzMTcdENmmRL4Eve4dtPd6AdpuypR21q5EQCdq
+          chainDescriptor: SOL
+          amount: "0.05"
+          inProgress: true
+          inProgressTxId: c80601f4-d7b1-4795-a8ee-b09cdb5b450c
+          validatorAddress: FwR3PbjS5iyqzLiLugrBqKSa5EKZ4vK9SKs7eQXtT59f
+          vaultAccountId: "2"
+          dateUpdated: 2023-07-13T15:55:34.256Z
+          rewardsAmount: "0.000856038"
+          dateCreated: 2023-07-13T15:55:34.256Z
+          providerId: kiln
+          validatorName: FwR3P......tT59f
+          id: b70701f4-d7b1-4795-a8ee-b09cdb5b850a
+          providerName: Kiln
+          status: ACTIVE
+      properties:
+        data:
+          description: The data of the current page of staking positions
+          items:
+            $ref: "#/components/schemas/Position"
+          type: array
+        next:
+          description: The cursor for the next page
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          nullable: true
+          type: string
+      required:
+      - data
+      type: object
     AmountAndChainDescriptor:
       example:
         chainDescriptor: ETH
@@ -52588,12 +53256,98 @@ components:
       items:
         $ref: "#/components/schemas/Provider"
       type: array
-    BaseProvider:
+    ManifestBase:
+      description: Base manifest schema with common properties
+      properties:
+        supported:
+          description: Indicates whether the endpoint is supported by the provider
+          type: boolean
+      required:
+      - supported
+      type: object
+    SettlementTypeEnum:
+      description: Settlement type supported by the provider
+      enum:
+      - DVP
+      - PREFUNDED
+      type: string
+    ExecutionRequestDetailsType:
+      description: Execution type supported by the provider
+      enum:
+      - QUOTE
+      - MARKET
+      type: string
+    ManifestOrderInfo:
+      description: Defines requirements for the POST /orders endpoint.
+      properties:
+        settlementTypes:
+          description: |
+            Supported settlement types when creating an order.
+            If present - settlement is required. If absent - no need to provide settlement.
+          items:
+            $ref: "#/components/schemas/SettlementTypeEnum"
+          type: array
+        executionTypes:
+          description: Supported execution types when creating an order.
+          items:
+            $ref: "#/components/schemas/ExecutionRequestDetailsType"
+          type: array
+      required:
+      - executionTypes
+      type: object
+    ManifestOrder:
+      allOf:
+      - $ref: "#/components/schemas/ManifestBase"
+      - $ref: "#/components/schemas/ManifestOrderInfo"
+    DVPSettlementType:
+      enum:
+      - DVP
+      type: string
+    ManifestQuoteInfo:
+      description: Defines requirements for the POST /quotes endpoint.
+      properties:
+        settlementTypes:
+          description: |
+            Supported settlement types when requesting a quote.
+            If present - settlement is required. If absent - no need to provide settlement.
+          items:
+            $ref: "#/components/schemas/DVPSettlementType"
+          type: array
+      type: object
+    ManifestQuote:
+      allOf:
+      - $ref: "#/components/schemas/ManifestBase"
+      - $ref: "#/components/schemas/ManifestQuoteInfo"
+    Manifest:
+      description: "The manifest of the provider, describing its supported order,\
+        \ quote, and rate requirements."
       example:
-        id: prov_7b4e2d9f1c8a5e3b
-        name: Global Exchange Partners
-        logo: https://example.com/logos/global-exchange-partners.png
-        accountBased: false
+        order:
+          supported: true
+          executionTypes:
+          - MARKET
+          - QUOTE
+          settlementTypes:
+          - DVP
+        quote:
+          supported: true
+          settlementTypes:
+          - DVP
+        rate:
+          supported: true
+      properties:
+        order:
+          $ref: "#/components/schemas/ManifestOrder"
+        quote:
+          $ref: "#/components/schemas/ManifestQuote"
+        rate:
+          $ref: "#/components/schemas/ManifestBase"
+      required:
+      - order
+      - quote
+      - rate
+      type: object
+    BaseProvider:
       properties:
         id:
           description: Unique identifier for the provider
@@ -52608,43 +53362,13 @@ components:
           description: Indicates whether the provider access model is through accounts
             or directly
           type: boolean
+        manifest:
+          $ref: "#/components/schemas/Manifest"
       required:
       - accountBased
       - id
+      - manifest
       - name
-      type: object
-    AssetTypeEnum:
-      enum:
-      - DIGITAL
-      - FIAT
-      type: string
-    Capability:
-      enum:
-      - WITHDRAWALS
-      - DEPOSITS
-      - TRADING
-      example: TRADING
-      type: string
-    Manifest:
-      example:
-        assetTypes:
-        - DIGITAL
-        - FIAT
-        capabilities:
-        - SPOT_TRADING
-        - LIMIT_ORDERS
-      properties:
-        assetTypes:
-          items:
-            $ref: "#/components/schemas/AssetTypeEnum"
-          type: array
-        capabilities:
-          items:
-            $ref: "#/components/schemas/Capability"
-          type: array
-      required:
-      - assetTypes
-      - capabilities
       type: object
     AccountBase:
       example:
@@ -52661,10 +53385,8 @@ components:
       - id
       - name
       type: object
-    AccountBasedAccessProviderDetails:
+    AccountBasedAccessProviderInfo:
       properties:
-        manifest:
-          $ref: "#/components/schemas/Manifest"
         connected:
           description: Whether the provider is currently connected
           type: boolean
@@ -52673,31 +53395,34 @@ components:
             $ref: "#/components/schemas/AccountBase"
           type: array
       required:
-      - accountBased
+      - accounts
       - connected
-      - manifest
       type: object
     AccountBasedAccessProvider:
       allOf:
       - $ref: "#/components/schemas/BaseProvider"
-      - $ref: "#/components/schemas/AccountBasedAccessProviderDetails"
+      - $ref: "#/components/schemas/AccountBasedAccessProviderInfo"
       example:
-        id: prov_9a2c4e8f7b1d3a6e
-        name: Premium Trading Co
-        logo: https://example.com/logos/premium-trading-co.png
+        id: BRIDGE
+        name: Bridge
+        logo: https://example.com/logos/bridge.png
         accountBased: true
         manifest:
-          assetTypes:
-          - DIGITAL
-          - FIAT
-          capabilities:
-          - SPOT_TRADING
+          order:
+            supported: true
+            executionTypes:
+            - MARKET
+            settlementTypes:
+            - DVP
+          quote:
+            supported: false
+          rate:
+            supported: true
         connected: true
         accounts:
-        - id: acc_5f8e2d9c1a7b4e36
-          name: Trading Account 1
-          description: Primary trading account
-    DirectAccessProviderDetails:
+        - id: acc_5e9a2d1c4b7f3e8a
+          name: Main Trading Account
+    DirectAccessProviderInfo:
       properties:
         approved:
           description: Whether the provider was approved for use
@@ -52708,22 +53433,38 @@ components:
         termsOfServiceUrl:
           description: URL to the terms of service document
           type: string
+        privacyPolicyUrl:
+          description: URL to the privacy policy document
+          type: string
       required:
-      - accountBased
       - hasTermsOfService
       type: object
     DirectAccessProvider:
       allOf:
       - $ref: "#/components/schemas/BaseProvider"
-      - $ref: "#/components/schemas/DirectAccessProviderDetails"
+      - $ref: "#/components/schemas/DirectAccessProviderInfo"
       example:
-        id: prov_2f8e1d9b4c7a5e3f
-        name: DirectTrade Solutions
-        logo: https://example.com/logos/directtrade-solutions.png
+        id: UNISWAP_CLASSIC
+        name: Uniswap Classic
+        logo: https://example.com/logos/uniswap.png
         accountBased: false
+        manifest:
+          order:
+            supported: true
+            executionTypes:
+            - MARKET
+            - QUOTE
+            settlementTypes:
+            - DVP
+          quote:
+            supported: true
+            settlementTypes:
+            - DVP
+          rate:
+            supported: true
         approved: true
         hasTermsOfService: true
-        termsOfServiceUrl: https://directtrade.example.com/terms
+        termsOfServiceUrl: https://uniswap.org/terms
     TradingProvider:
       oneOf:
       - $ref: "#/components/schemas/AccountBasedAccessProvider"
@@ -52731,25 +53472,40 @@ components:
     ProvidersListResponse:
       example:
         data:
-        - id: bridge-provider-001
-          name: Bridge Provider
+        - id: BRIDGE
+          name: Bridge
           logo: https://example.com/logos/bridge.png
           accountBased: true
           manifest:
-            assetTypes:
-            - DIGITAL
-            - FIAT
-            capabilities:
-            - TRADING
-            - WITHDRAWALS
+            order:
+              supported: true
+              executionTypes:
+              - MARKET
+              settlementTypes:
+              - DVP
+            quote:
+              supported: false
+            rate:
+              supported: true
           connected: true
           accounts:
-          - id: acc_9f4e2d8b1c6a5e73
+          - id: acc_5e9a2d1c4b7f3e8a
             name: Main Trading Account
-        - id: uniswap-v3-provider
-          name: Uniswap V3
+        - id: UNISWAP_CLASSIC
+          name: Uniswap Classic
           logo: https://example.com/logos/uniswap.png
           accountBased: false
+          manifest:
+            order:
+              supported: true
+              executionTypes:
+              - MARKET
+              settlementTypes:
+              - PREFUNDED
+            quote:
+              supported: false
+            rate:
+              supported: true
           approved: true
           hasTermsOfService: true
           termsOfServiceUrl: https://uniswap.org/terms
@@ -52786,6 +53542,58 @@ components:
       - code
       - message
       type: object
+    AccountBasedProviderDetails:
+      allOf:
+      - $ref: "#/components/schemas/BaseProvider"
+      - $ref: "#/components/schemas/AccountBasedAccessProviderInfo"
+      example:
+        id: BRIDGE
+        name: Bridge
+        logo: https://example.com/logos/bridge.png
+        accountBased: true
+        manifest:
+          order:
+            supported: true
+            executionTypes:
+            - MARKET
+            settlementTypes:
+            - DVP
+          quote:
+            supported: false
+          rate:
+            supported: true
+        connected: true
+        accounts:
+        - id: acc_5e9a2d1c4b7f3e8a
+          name: Main Trading Account
+    DirectProviderDetails:
+      allOf:
+      - $ref: "#/components/schemas/BaseProvider"
+      - $ref: "#/components/schemas/DirectAccessProviderInfo"
+      example:
+        id: UNISWAP_CLASSIC
+        name: Uniswap Classic
+        logo: https://example.com/logos/uniswap.png
+        accountBased: false
+        manifest:
+          order:
+            supported: true
+            executionTypes:
+            - MARKET
+            settlementTypes:
+            - PREFUNDED
+          quote:
+            supported: false
+          rate:
+            supported: true
+        approved: true
+        hasTermsOfService: true
+        termsOfServiceUrl: https://uniswap.org/terms
+        privacyPolicyUrl: https://uniswap.org/privacy
+    TradingProviderDetails:
+      oneOf:
+      - $ref: "#/components/schemas/AccountBasedProviderDetails"
+      - $ref: "#/components/schemas/DirectProviderDetails"
     ScopeItem:
       additionalProperties: false
       example:
@@ -52835,10 +53643,6 @@ components:
       - PAYID
       - CHAPS
       example: BLOCKCHAIN
-      type: string
-    DVPSettlementType:
-      enum:
-      - DVP
       type: string
     PlatformPeerType:
       enum:
@@ -55379,6 +56183,7 @@ components:
           - APECHAIN_TEST
           - CRONOS
           - CRONOS_TEST
+          - ROBINHOOD_CHAIN_TESTNET_TEST
           type: string
         description:
           type: string
@@ -55546,6 +56351,7 @@ components:
           - APECHAIN_TEST
           - CRONOS
           - CRONOS_TEST
+          - ROBINHOOD_CHAIN_TESTNET_TEST
           type: string
         description:
           type: string
@@ -55651,6 +56457,7 @@ components:
           - APECHAIN_TEST
           - CRONOS
           - CRONOS_TEST
+          - ROBINHOOD_CHAIN_TESTNET_TEST
           type: string
         contractAddress:
           description: Collection contract standard
@@ -57440,6 +58247,8 @@ components:
           wallet_provider: Metamask
           confirmed: true
           url: https://example.com/uploaded_image.png
+          did: did:key:z6Mkf12345Zabcdef12345
+          status: verified
         isNonCustodial: true
         transactionAsset: BTC
         beneficiaryRef: BEN654321
@@ -59191,6 +60000,8 @@ components:
           wallet_provider: Metamask
           confirmed: true
           url: https://example.com/uploaded_image.png
+          did: did:key:z6Mkf12345Zabcdef12345
+          status: verified
         originatorVASPdid: did:ethr:0x44957e75d6ce4a5bf37aae117da86422c848f7c2
         beneficiaryDid: did:key:z6Mkf67890Zghijkl67890
         beneficiaryVASPdid: did:ethr:0x17fe2dd11a2daa7f6c1fdf22532a4763f963aea6
@@ -60284,7 +61095,9 @@ components:
           $ref: "#/components/schemas/PolicyVerdictActionEnum-2"
       type: object
     ScreeningAmlResult:
+      deprecated: true
       description: |
+        Deprecated: This field is not currently returned in the API response.
         Detailed AML screening result information.
         Contains alerts, risk scores, and other AML-specific data from provider-specific responses.
       example:
@@ -60378,7 +61191,9 @@ components:
           $ref: "#/components/schemas/TravelRuleVerdictEnum"
       type: object
     ScreeningTravelRuleResult:
+      deprecated: true
       description: |
+        Deprecated: This field is not currently returned in the API response.
         Detailed Travel Rule screening result containing provider-specific data.
         Contains Travel Rule specific information like verified status, rule type, and actions.
       example:
@@ -60563,6 +61378,8 @@ components:
           providerResponse:
             key: ""
         matchedAlert: "{}"
+        providerResponse:
+          key: ""
         timestamp: 1753459111824
         matchedPrescreeningRule:
           sourceId: "0"
@@ -60584,12 +61401,12 @@ components:
           networkProtocol: ETH
         detailsMessage: Travel rule screening completed successfully
         externalId: aml_screening_12345
-        bypassReason: BELOW_THRESHOLD
-        extendedRisk: LOW
+        bypassReason: UNSUPPORTED_ASSET
+        extendedRisk: lowRisk
         customerRefId: customer_ref_789
         customerShortName: ACME Corp
         verdict: PASS
-        risk: LOW
+        risk: lowRisk
         refId: ref_12345
         category: EXCHANGE
         screeningStatus: COMPLETED
@@ -60601,7 +61418,7 @@ components:
           description: |
             The AML/Travel Rule provider name.
             For AML: ELLIPTIC, CHAINALYSIS, etc.
-            For Travel Rule: NOTABENE, SUMSUB, or any TRLink provider name
+            For Travel Rule: NOTABENE, SUMSUB, GTR, or any TRLink provider name
           example: NOTABENE
           type: string
         payload:
@@ -60630,24 +61447,43 @@ components:
         bypassReason:
           description: |
             Reason for bypassing the screening, if applicable.
-            For AML: SANCTIONS_SCREENING_BYPASS, SANCTIONS_RECIPIENT_BYPASS, etc.
-            For Travel Rule: BELOW_THRESHOLD, NO_TRM_AVAILABLE, etc.
-          example: BELOW_THRESHOLD
+            For AML: UNSUPPORTED_ASSET, PASSED_BY_POLICY.
+            For Travel Rule: UNSUPPORTED_ASSET, NO_TRAVEL_RULE_MESSAGE, TRANSACTION_ZERO_AMOUNT.
+          example: UNSUPPORTED_ASSET
           type: string
         status:
           $ref: "#/components/schemas/AmlStatusEnum"
         prevStatus:
           $ref: "#/components/schemas/AmlStatusEnum"
         prevBypassReason:
-          description: Previous bypass reason before the current bypass reason change
+          deprecated: true
+          description: |
+            Deprecated: This field is not currently returned in the API response.
+            Previous bypass reason before the current bypass reason change.
           example: BELOW_THRESHOLD
           type: string
         verdict:
           $ref: "#/components/schemas/ScreeningVerdictEnum"
         risk:
-          $ref: "#/components/schemas/ScreeningRiskLevelEnum"
+          description: |
+            Risk level assessment for screening results.
+            Values vary by provider and are not managed by this service.
+
+            Known values by provider:
+            - Chainalysis: severeRisk, highRisk, mediumRisk, lowRisk, noRiskInfo
+            - Elliptic: noRiskDetected
+
+            Legacy values (SCREAMING_SNAKE_CASE, may appear in old transactions):
+            VERY_HIGH, SEVERE, HIGH, MEDIUM, LOW, NO_RISK_INFO, UNKNOWN
+          example: lowRisk
+          type: string
         extendedRisk:
-          $ref: "#/components/schemas/ScreeningRiskLevelEnum"
+          deprecated: true
+          description: |
+            Deprecated: This field is not currently returned in the API response.
+            Use risk instead.
+          example: lowRisk
+          type: string
         externalId:
           description: External identifier for the screening (provider-specific)
           example: aml_screening_12345
@@ -60657,7 +61493,10 @@ components:
           example: customer_ref_789
           type: string
         refId:
-          description: Internal reference identifier
+          deprecated: true
+          description: |
+            Deprecated: This field is not currently returned in the API response.
+            Internal reference identifier.
           example: ref_12345
           type: string
         category:
@@ -60680,11 +61519,17 @@ components:
           example: memo_12345
           type: string
         destRecordId:
-          description: The destination record identifier used by the screening provider
+          deprecated: true
+          description: |
+            Deprecated: This field is not currently returned in the API response.
+            The destination record identifier used by the screening provider.
           example: record_001
           type: string
         addressResolutionSignature:
-          description: Cryptographic signature for address resolution verification
+          deprecated: true
+          description: |
+            Deprecated: This field is not currently returned in the API response.
+            Cryptographic signature for address resolution verification.
           example: 0x1234567890abcdef
           type: string
         amlResult:
@@ -60726,6 +61571,19 @@ components:
             providers
           example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
           type: string
+        providerResponse:
+          additionalProperties: true
+          description: |
+            Complete response from the screening provider. This is a dynamic object that varies
+            significantly between different providers (Chainalysis, Elliptic, NOTABENE, etc.).
+            Each provider has their own proprietary response format and schema.
+
+            For AML providers: Contains risk scores, alerts, entity information
+            For Travel Rule providers: Contains VASP information, PII data, protocol-specific fields
+
+            The structure is provider-dependent and cannot be standardized as each
+            vendor implements their own proprietary data models and response formats.
+          type: object
       type: object
     AmlRegistrationResultFullPayload:
       description: The results of the AML address registration.
@@ -61349,6 +62207,8 @@ components:
             providerResponse:
               key: ""
           matchedAlert: "{}"
+          providerResponse:
+            key: ""
           timestamp: 1753459111824
           matchedPrescreeningRule:
             sourceId: "0"
@@ -61370,12 +62230,12 @@ components:
             networkProtocol: ETH
           detailsMessage: Travel rule screening completed successfully
           externalId: aml_screening_12345
-          bypassReason: BELOW_THRESHOLD
-          extendedRisk: LOW
+          bypassReason: UNSUPPORTED_ASSET
+          extendedRisk: lowRisk
           customerRefId: customer_ref_789
           customerShortName: ACME Corp
           verdict: PASS
-          risk: LOW
+          risk: lowRisk
           refId: ref_12345
           category: EXCHANGE
           screeningStatus: COMPLETED
@@ -61665,6 +62525,8 @@ components:
             providerResponse:
               key: ""
           matchedAlert: "{}"
+          providerResponse:
+            key: ""
           timestamp: 1753459111824
           matchedPrescreeningRule:
             sourceId: "0"
@@ -61686,12 +62548,12 @@ components:
             networkProtocol: ETH
           detailsMessage: Travel rule screening completed successfully
           externalId: aml_screening_12345
-          bypassReason: BELOW_THRESHOLD
-          extendedRisk: LOW
+          bypassReason: UNSUPPORTED_ASSET
+          extendedRisk: lowRisk
           customerRefId: customer_ref_789
           customerShortName: ACME Corp
           verdict: PASS
-          risk: LOW
+          risk: lowRisk
           refId: ref_12345
           category: EXCHANGE
           screeningStatus: COMPLETED
@@ -61759,6 +62621,8 @@ components:
             providerResponse:
               key: ""
           matchedAlert: "{}"
+          providerResponse:
+            key: ""
           timestamp: 1753459111824
           matchedPrescreeningRule:
             sourceId: "0"
@@ -61780,12 +62644,12 @@ components:
             networkProtocol: ETH
           detailsMessage: Travel rule screening completed successfully
           externalId: aml_screening_12345
-          bypassReason: BELOW_THRESHOLD
-          extendedRisk: LOW
+          bypassReason: UNSUPPORTED_ASSET
+          extendedRisk: lowRisk
           customerRefId: customer_ref_789
           customerShortName: ACME Corp
           verdict: PASS
-          risk: LOW
+          risk: lowRisk
           refId: ref_12345
           category: EXCHANGE
           screeningStatus: COMPLETED
@@ -61854,6 +62718,8 @@ components:
             providerResponse:
               key: ""
           matchedAlert: "{}"
+          providerResponse:
+            key: ""
           timestamp: 1753459111824
           matchedPrescreeningRule:
             sourceId: "0"
@@ -61875,12 +62741,12 @@ components:
             networkProtocol: ETH
           detailsMessage: Travel rule screening completed successfully
           externalId: aml_screening_12345
-          bypassReason: BELOW_THRESHOLD
-          extendedRisk: LOW
+          bypassReason: UNSUPPORTED_ASSET
+          extendedRisk: lowRisk
           customerRefId: customer_ref_789
           customerShortName: ACME Corp
           verdict: PASS
-          risk: LOW
+          risk: lowRisk
           refId: ref_12345
           category: EXCHANGE
           screeningStatus: COMPLETED
@@ -62436,6 +63302,7 @@ components:
       example:
         partnerIdent: sumsub
         customerId: 550e8400-e29b-41d4-a716-446655440001
+        customerIntegrationId: 660e8400-e29b-41d4-a716-446655440099
       properties:
         customerId:
           description: Customer unique identifier
@@ -62446,6 +63313,16 @@ components:
           description: "Partner identification code (e.g., \"sumsub\", \"notabene\"\
             )"
           example: sumsub
+          type: string
+        customerIntegrationId:
+          description: "Optional. When supplied and permitted for the tenant (feature\
+            \ flag / CSM arrangement), this value is used as the TRLink integration\
+            \ identifier instead of a server-generated UUID. If omitted, the API generates\
+            \ a UUID. If supplied when the tenant is not permitted to set a custom\
+            \ id, the request fails with 400. Contact your CSM if you need a custom\
+            \ integration id."
+          example: 660e8400-e29b-41d4-a716-446655440099
+          format: uuid
           type: string
       required:
       - customerId
@@ -69606,6 +70483,8 @@ components:
       - AUDITOR
       - NCW_ADMIN
       - NCW_SIGNER
+      - SECURITY_ADMIN
+      - SECURITY_AUDITOR
       type: string
     UserEnabled:
       description: Whether the user is enabled

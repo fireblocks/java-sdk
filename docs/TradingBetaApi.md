@@ -8,6 +8,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**createQuote**](TradingBetaApi.md#createQuote) | **POST** /trading/quotes | Create a quote |
 | [**getOrder**](TradingBetaApi.md#getOrder) | **GET** /trading/orders/{orderId} | Get order details |
 | [**getOrders**](TradingBetaApi.md#getOrders) | **GET** /trading/orders | Get orders |
+| [**getTradingProviderById**](TradingBetaApi.md#getTradingProviderById) | **GET** /trading/providers/{providerId} | Get trading provider by ID |
 | [**getTradingProviders**](TradingBetaApi.md#getTradingProviders) | **GET** /trading/providers | Get providers |
 
 
@@ -379,6 +380,94 @@ No authorization required
 | **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 | **403** | Forbidden: insufficient permissions, disabled feature, or restricted access. |  * X-Request-ID -  <br>  |
 | **429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+| **5XX** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getTradingProviderById
+
+> CompletableFuture<ApiResponse<TradingProviderDetails>> getTradingProviderById getTradingProviderById(providerId)
+
+Get trading provider by ID
+
+Retrieve detailed information about a specific provider including its full manifest with order/quote requirements.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TradingBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String providerId = "providerId_example"; // String | The unique identifier of the provider.
+        try {
+            CompletableFuture<ApiResponse<TradingProviderDetails>> response = fireblocks.tradingBeta().getTradingProviderById(providerId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TradingBetaApi#getTradingProviderById");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TradingBetaApi#getTradingProviderById");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **providerId** | **String**| The unique identifier of the provider. | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**TradingProviderDetails**](TradingProviderDetails.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Provider details |  * X-Request-ID -  <br>  |
+| **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
+| **403** | Forbidden - insufficient permissions, disabled feature, or restricted access. |  * X-Request-ID -  <br>  |
+| **404** | Provider not found. |  * X-Request-ID -  <br>  |
+| **429** | Rate limit exceeded - slow down and retry later. |  * X-Request-ID -  <br>  |
 | **5XX** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 

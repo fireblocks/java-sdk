@@ -36,4 +36,10 @@ class TRLinkCreateIntegrationRequestTest {
     void partnerIdentTest() {
         // TODO: test partnerIdent
     }
+
+    /** Test the property 'customerIntegrationId' */
+    @Test
+    void customerIntegrationIdTest() {
+        // TODO: test customerIntegrationId
+    }
 }

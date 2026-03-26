@@ -38,7 +38,11 @@ public enum UserRole {
 
     NCW_ADMIN("NCW_ADMIN"),
 
-    NCW_SIGNER("NCW_SIGNER");
+    NCW_SIGNER("NCW_SIGNER"),
+
+    SECURITY_ADMIN("SECURITY_ADMIN"),
+
+    SECURITY_AUDITOR("SECURITY_AUDITOR");
 
     private String value;
 

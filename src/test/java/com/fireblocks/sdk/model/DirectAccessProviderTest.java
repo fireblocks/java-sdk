@@ -49,6 +49,12 @@ class DirectAccessProviderTest {
         // TODO: test accountBased
     }
 
+    /** Test the property 'manifest' */
+    @Test
+    void manifestTest() {
+        // TODO: test manifest
+    }
+
     /** Test the property 'approved' */
     @Test
     void approvedTest() {
@@ -65,5 +71,11 @@ class DirectAccessProviderTest {
     @Test
     void termsOfServiceUrlTest() {
         // TODO: test termsOfServiceUrl
+    }
+
+    /** Test the property 'privacyPolicyUrl' */
+    @Test
+    void privacyPolicyUrlTest() {
+        // TODO: test privacyPolicyUrl
     }
 }

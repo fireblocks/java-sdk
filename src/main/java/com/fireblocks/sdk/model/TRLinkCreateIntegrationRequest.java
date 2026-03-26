@@ -25,7 +25,8 @@ import java.util.UUID;
 /** TRLinkCreateIntegrationRequest */
 @JsonPropertyOrder({
     TRLinkCreateIntegrationRequest.JSON_PROPERTY_CUSTOMER_ID,
-    TRLinkCreateIntegrationRequest.JSON_PROPERTY_PARTNER_IDENT
+    TRLinkCreateIntegrationRequest.JSON_PROPERTY_PARTNER_IDENT,
+    TRLinkCreateIntegrationRequest.JSON_PROPERTY_CUSTOMER_INTEGRATION_ID
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -36,6 +37,9 @@ public class TRLinkCreateIntegrationRequest {
 
     public static final String JSON_PROPERTY_PARTNER_IDENT = "partnerIdent";
     @jakarta.annotation.Nonnull private String partnerIdent;
+
+    public static final String JSON_PROPERTY_CUSTOMER_INTEGRATION_ID = "customerIntegrationId";
+    @jakarta.annotation.Nullable private UUID customerIntegrationId;
 
     public TRLinkCreateIntegrationRequest() {}
 
@@ -95,6 +99,33 @@ public class TRLinkCreateIntegrationRequest {
         this.partnerIdent = partnerIdent;
     }
 
+    public TRLinkCreateIntegrationRequest customerIntegrationId(
+            @jakarta.annotation.Nullable UUID customerIntegrationId) {
+        this.customerIntegrationId = customerIntegrationId;
+        return this;
+    }
+
+    /**
+     * Optional. When supplied and permitted for the tenant (feature flag / CSM arrangement), this
+     * value is used as the TRLink integration identifier instead of a server-generated UUID. If
+     * omitted, the API generates a UUID. If supplied when the tenant is not permitted to set a
+     * custom id, the request fails with 400. Contact your CSM if you need a custom integration id.
+     *
+     * @return customerIntegrationId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CUSTOMER_INTEGRATION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getCustomerIntegrationId() {
+        return customerIntegrationId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CUSTOMER_INTEGRATION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCustomerIntegrationId(@jakarta.annotation.Nullable UUID customerIntegrationId) {
+        this.customerIntegrationId = customerIntegrationId;
+    }
+
     /** Return true if this TRLinkCreateIntegrationRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -107,12 +138,15 @@ public class TRLinkCreateIntegrationRequest {
         TRLinkCreateIntegrationRequest trLinkCreateIntegrationRequest =
                 (TRLinkCreateIntegrationRequest) o;
         return Objects.equals(this.customerId, trLinkCreateIntegrationRequest.customerId)
-                && Objects.equals(this.partnerIdent, trLinkCreateIntegrationRequest.partnerIdent);
+                && Objects.equals(this.partnerIdent, trLinkCreateIntegrationRequest.partnerIdent)
+                && Objects.equals(
+                        this.customerIntegrationId,
+                        trLinkCreateIntegrationRequest.customerIntegrationId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerId, partnerIdent);
+        return Objects.hash(customerId, partnerIdent, customerIntegrationId);
     }
 
     @Override
@@ -121,6 +155,9 @@ public class TRLinkCreateIntegrationRequest {
         sb.append("class TRLinkCreateIntegrationRequest {\n");
         sb.append("    customerId: ").append(toIndentedString(customerId)).append("\n");
         sb.append("    partnerIdent: ").append(toIndentedString(partnerIdent)).append("\n");
+        sb.append("    customerIntegrationId: ")
+                .append(toIndentedString(customerIntegrationId))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -186,6 +223,17 @@ public class TRLinkCreateIntegrationRequest {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getPartnerIdent()))));
+        }
+
+        // add `customerIntegrationId` to the URL query string
+        if (getCustomerIntegrationId() != null) {
+            joiner.add(
+                    String.format(
+                            "%scustomerIntegrationId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getCustomerIntegrationId()))));
         }
 
         return joiner.toString();

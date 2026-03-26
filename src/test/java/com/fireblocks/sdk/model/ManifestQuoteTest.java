@@ -15,31 +15,25 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for AccountBasedAccessProviderDetails */
-class AccountBasedAccessProviderDetailsTest {
-    private final AccountBasedAccessProviderDetails model = new AccountBasedAccessProviderDetails();
+/** Model tests for ManifestQuote */
+class ManifestQuoteTest {
+    private final ManifestQuote model = new ManifestQuote();
 
-    /** Model tests for AccountBasedAccessProviderDetails */
+    /** Model tests for ManifestQuote */
     @Test
-    void testAccountBasedAccessProviderDetails() {
-        // TODO: test AccountBasedAccessProviderDetails
+    void testManifestQuote() {
+        // TODO: test ManifestQuote
     }
 
-    /** Test the property 'manifest' */
+    /** Test the property 'supported' */
     @Test
-    void manifestTest() {
-        // TODO: test manifest
+    void supportedTest() {
+        // TODO: test supported
     }
 
-    /** Test the property 'connected' */
+    /** Test the property 'settlementTypes' */
     @Test
-    void connectedTest() {
-        // TODO: test connected
-    }
-
-    /** Test the property 'accounts' */
-    @Test
-    void accountsTest() {
-        // TODO: test accounts
+    void settlementTypesTest() {
+        // TODO: test settlementTypes
     }
 }

@@ -56,7 +56,7 @@ public class AccountBasedAccessProvider {
     @jakarta.annotation.Nonnull private Boolean connected;
 
     public static final String JSON_PROPERTY_ACCOUNTS = "accounts";
-    @jakarta.annotation.Nullable private List<AccountBase> accounts;
+    @jakarta.annotation.Nonnull private List<AccountBase> accounts;
 
     public AccountBasedAccessProvider() {}
 
@@ -67,12 +67,15 @@ public class AccountBasedAccessProvider {
             @JsonProperty(value = JSON_PROPERTY_ACCOUNT_BASED, required = true)
                     Boolean accountBased,
             @JsonProperty(value = JSON_PROPERTY_MANIFEST, required = true) Manifest manifest,
-            @JsonProperty(value = JSON_PROPERTY_CONNECTED, required = true) Boolean connected) {
+            @JsonProperty(value = JSON_PROPERTY_CONNECTED, required = true) Boolean connected,
+            @JsonProperty(value = JSON_PROPERTY_ACCOUNTS, required = true)
+                    List<AccountBase> accounts) {
         this.id = id;
         this.name = name;
         this.accountBased = accountBased;
         this.manifest = manifest;
         this.connected = connected;
+        this.accounts = accounts;
     }
 
     public AccountBasedAccessProvider id(@jakarta.annotation.Nonnull String id) {
@@ -215,7 +218,7 @@ public class AccountBasedAccessProvider {
     }
 
     public AccountBasedAccessProvider accounts(
-            @jakarta.annotation.Nullable List<AccountBase> accounts) {
+            @jakarta.annotation.Nonnull List<AccountBase> accounts) {
         this.accounts = accounts;
         return this;
     }
@@ -233,16 +236,16 @@ public class AccountBasedAccessProvider {
      *
      * @return accounts
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ACCOUNTS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public List<AccountBase> getAccounts() {
         return accounts;
     }
 
     @JsonProperty(JSON_PROPERTY_ACCOUNTS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAccounts(@jakarta.annotation.Nullable List<AccountBase> accounts) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAccounts(@jakarta.annotation.Nonnull List<AccountBase> accounts) {
         this.accounts = accounts;
     }
 

@@ -17,96 +17,107 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.ApiClient;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** Manifest */
-@JsonPropertyOrder({Manifest.JSON_PROPERTY_ASSET_TYPES, Manifest.JSON_PROPERTY_CAPABILITIES})
+/** The manifest of the provider, describing its supported order, quote, and rate requirements. */
+@JsonPropertyOrder({
+    Manifest.JSON_PROPERTY_ORDER,
+    Manifest.JSON_PROPERTY_QUOTE,
+    Manifest.JSON_PROPERTY_RATE
+})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class Manifest {
-    public static final String JSON_PROPERTY_ASSET_TYPES = "assetTypes";
-    @jakarta.annotation.Nonnull private List<AssetTypeEnum> assetTypes;
+    public static final String JSON_PROPERTY_ORDER = "order";
+    @jakarta.annotation.Nonnull private ManifestOrder order;
 
-    public static final String JSON_PROPERTY_CAPABILITIES = "capabilities";
-    @jakarta.annotation.Nonnull private List<Capability> capabilities;
+    public static final String JSON_PROPERTY_QUOTE = "quote";
+    @jakarta.annotation.Nonnull private ManifestQuote quote;
+
+    public static final String JSON_PROPERTY_RATE = "rate";
+    @jakarta.annotation.Nonnull private ManifestBase rate;
 
     public Manifest() {}
 
     @JsonCreator
     public Manifest(
-            @JsonProperty(value = JSON_PROPERTY_ASSET_TYPES, required = true)
-                    List<AssetTypeEnum> assetTypes,
-            @JsonProperty(value = JSON_PROPERTY_CAPABILITIES, required = true)
-                    List<Capability> capabilities) {
-        this.assetTypes = assetTypes;
-        this.capabilities = capabilities;
+            @JsonProperty(value = JSON_PROPERTY_ORDER, required = true) ManifestOrder order,
+            @JsonProperty(value = JSON_PROPERTY_QUOTE, required = true) ManifestQuote quote,
+            @JsonProperty(value = JSON_PROPERTY_RATE, required = true) ManifestBase rate) {
+        this.order = order;
+        this.quote = quote;
+        this.rate = rate;
     }
 
-    public Manifest assetTypes(@jakarta.annotation.Nonnull List<AssetTypeEnum> assetTypes) {
-        this.assetTypes = assetTypes;
-        return this;
-    }
-
-    public Manifest addAssetTypesItem(AssetTypeEnum assetTypesItem) {
-        if (this.assetTypes == null) {
-            this.assetTypes = new ArrayList<>();
-        }
-        this.assetTypes.add(assetTypesItem);
+    public Manifest order(@jakarta.annotation.Nonnull ManifestOrder order) {
+        this.order = order;
         return this;
     }
 
     /**
-     * Get assetTypes
+     * Get order
      *
-     * @return assetTypes
+     * @return order
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ASSET_TYPES)
+    @JsonProperty(JSON_PROPERTY_ORDER)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<AssetTypeEnum> getAssetTypes() {
-        return assetTypes;
+    public ManifestOrder getOrder() {
+        return order;
     }
 
-    @JsonProperty(JSON_PROPERTY_ASSET_TYPES)
+    @JsonProperty(JSON_PROPERTY_ORDER)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAssetTypes(@jakarta.annotation.Nonnull List<AssetTypeEnum> assetTypes) {
-        this.assetTypes = assetTypes;
+    public void setOrder(@jakarta.annotation.Nonnull ManifestOrder order) {
+        this.order = order;
     }
 
-    public Manifest capabilities(@jakarta.annotation.Nonnull List<Capability> capabilities) {
-        this.capabilities = capabilities;
-        return this;
-    }
-
-    public Manifest addCapabilitiesItem(Capability capabilitiesItem) {
-        if (this.capabilities == null) {
-            this.capabilities = new ArrayList<>();
-        }
-        this.capabilities.add(capabilitiesItem);
+    public Manifest quote(@jakarta.annotation.Nonnull ManifestQuote quote) {
+        this.quote = quote;
         return this;
     }
 
     /**
-     * Get capabilities
+     * Get quote
      *
-     * @return capabilities
+     * @return quote
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_CAPABILITIES)
+    @JsonProperty(JSON_PROPERTY_QUOTE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<Capability> getCapabilities() {
-        return capabilities;
+    public ManifestQuote getQuote() {
+        return quote;
     }
 
-    @JsonProperty(JSON_PROPERTY_CAPABILITIES)
+    @JsonProperty(JSON_PROPERTY_QUOTE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCapabilities(@jakarta.annotation.Nonnull List<Capability> capabilities) {
-        this.capabilities = capabilities;
+    public void setQuote(@jakarta.annotation.Nonnull ManifestQuote quote) {
+        this.quote = quote;
+    }
+
+    public Manifest rate(@jakarta.annotation.Nonnull ManifestBase rate) {
+        this.rate = rate;
+        return this;
+    }
+
+    /**
+     * Get rate
+     *
+     * @return rate
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_RATE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public ManifestBase getRate() {
+        return rate;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RATE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setRate(@jakarta.annotation.Nonnull ManifestBase rate) {
+        this.rate = rate;
     }
 
     /** Return true if this Manifest object is equal to o. */
@@ -119,21 +130,23 @@ public class Manifest {
             return false;
         }
         Manifest manifest = (Manifest) o;
-        return Objects.equals(this.assetTypes, manifest.assetTypes)
-                && Objects.equals(this.capabilities, manifest.capabilities);
+        return Objects.equals(this.order, manifest.order)
+                && Objects.equals(this.quote, manifest.quote)
+                && Objects.equals(this.rate, manifest.rate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(assetTypes, capabilities);
+        return Objects.hash(order, quote, rate);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class Manifest {\n");
-        sb.append("    assetTypes: ").append(toIndentedString(assetTypes)).append("\n");
-        sb.append("    capabilities: ").append(toIndentedString(capabilities)).append("\n");
+        sb.append("    order: ").append(toIndentedString(order)).append("\n");
+        sb.append("    quote: ").append(toIndentedString(quote)).append("\n");
+        sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -181,42 +194,19 @@ public class Manifest {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `assetTypes` to the URL query string
-        if (getAssetTypes() != null) {
-            for (int i = 0; i < getAssetTypes().size(); i++) {
-                if (getAssetTypes().get(i) != null) {
-                    joiner.add(
-                            String.format(
-                                    "%sassetTypes%s%s=%s",
-                                    prefix,
-                                    suffix,
-                                    "".equals(suffix)
-                                            ? ""
-                                            : String.format(
-                                                    "%s%d%s", containerPrefix, i, containerSuffix),
-                                    ApiClient.urlEncode(
-                                            ApiClient.valueToString(getAssetTypes().get(i)))));
-                }
-            }
+        // add `order` to the URL query string
+        if (getOrder() != null) {
+            joiner.add(getOrder().toUrlQueryString(prefix + "order" + suffix));
         }
 
-        // add `capabilities` to the URL query string
-        if (getCapabilities() != null) {
-            for (int i = 0; i < getCapabilities().size(); i++) {
-                if (getCapabilities().get(i) != null) {
-                    joiner.add(
-                            String.format(
-                                    "%scapabilities%s%s=%s",
-                                    prefix,
-                                    suffix,
-                                    "".equals(suffix)
-                                            ? ""
-                                            : String.format(
-                                                    "%s%d%s", containerPrefix, i, containerSuffix),
-                                    ApiClient.urlEncode(
-                                            ApiClient.valueToString(getCapabilities().get(i)))));
-                }
-            }
+        // add `quote` to the URL query string
+        if (getQuote() != null) {
+            joiner.add(getQuote().toUrlQueryString(prefix + "quote" + suffix));
+        }
+
+        // add `rate` to the URL query string
+        if (getRate() != null) {
+            joiner.add(getRate().toUrlQueryString(prefix + "rate" + suffix));
         }
 
         return joiner.toString();

@@ -32,6 +32,7 @@ import com.fireblocks.sdk.model.SplitRequest;
 import com.fireblocks.sdk.model.SplitResponse;
 import com.fireblocks.sdk.model.StakeRequest;
 import com.fireblocks.sdk.model.StakeResponse;
+import com.fireblocks.sdk.model.StakingPositionsPaginatedResponse;
 import com.fireblocks.sdk.model.StakingProvider;
 import com.fireblocks.sdk.model.UnstakeRequest;
 import com.fireblocks.sdk.model.WithdrawRequest;
@@ -241,11 +242,12 @@ public class StakingApi {
     /**
      * Consolidate staking positions (ETH validator consolidation) Consolidates the source staking
      * position into the destination, merging the balance into the destination and closing the
-     * source position once complete. Both positions must be from the same validator provider and
-     * same vault account. On chain, this translates into a consolidation transaction, where the
-     * source validator is consolidated into the destination validator. Supported chains: Ethereum
-     * (ETH) only. &lt;/br&gt;Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer,
-     * Approver, Editor.
+     * source position once complete. Both positions must be from the same funding vaults account
+     * (i.e. same withdrawals credentials). On chain, this translates into a consolidation
+     * transaction, where the source validator is consolidated into the destination validator.
+     * Supported chains: Ethereum (ETH) only. &lt;/br&gt;Endpoint Permission: Owner, Admin,
+     * Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and
+     * might be subject to changes.
      *
      * @param mergeStakeAccountsRequest (required)
      * @param chainDescriptor Protocol identifier for the staking operation (e.g., ETH). (required)
@@ -346,14 +348,15 @@ public class StakingApi {
      * @param chainDescriptor Protocol identifier to filter positions (e.g.,
      *     ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
      *     (optional)
+     * @param vaultAccountId Filter positions by vault account ID. (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;List&lt;Delegation&gt;&gt;&gt;
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<List<Delegation>>> getAllDelegations(
-            ChainDescriptor chainDescriptor) throws ApiException {
+            ChainDescriptor chainDescriptor, String vaultAccountId) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    getAllDelegationsRequestBuilder(chainDescriptor);
+                    getAllDelegationsRequestBuilder(chainDescriptor, vaultAccountId);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -387,8 +390,8 @@ public class StakingApi {
         }
     }
 
-    private HttpRequest.Builder getAllDelegationsRequestBuilder(ChainDescriptor chainDescriptor)
-            throws ApiException {
+    private HttpRequest.Builder getAllDelegationsRequestBuilder(
+            ChainDescriptor chainDescriptor, String vaultAccountId) throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -399,6 +402,8 @@ public class StakingApi {
         String localVarQueryParameterBaseName;
         localVarQueryParameterBaseName = "chainDescriptor";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("chainDescriptor", chainDescriptor));
+        localVarQueryParameterBaseName = "vaultAccountId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("vaultAccountId", vaultAccountId));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");
@@ -611,6 +616,118 @@ public class StakingApi {
                 "/staking/positions/{id}".replace("{id}", ApiClient.urlEncode(id.toString()));
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * List staking positions (Paginated) Returns staking positions with core details: amounts,
+     * rewards, status, chain, and vault. It supports cursor-based pagination for efficient data
+     * retrieval. This endpoint always returns a paginated response with {data, next} structure.
+     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     *
+     * @param pageSize Number of results per page. When provided, the response returns a paginated
+     *     object with {data, next}. If omitted, all results are returned as an array. (required)
+     * @param chainDescriptor Protocol identifier to filter positions (e.g.,
+     *     ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
+     *     (optional)
+     * @param vaultAccountId Filter positions by Fireblocks vault account ID. If omitted, positions
+     *     across all vault accounts are returned. (optional)
+     * @param pageCursor Cursor for the next page of results. Use the value from the &#39;next&#39;
+     *     field in the previous response. (optional)
+     * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
+     * @return CompletableFuture&lt;ApiResponse&lt;StakingPositionsPaginatedResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<StakingPositionsPaginatedResponse>> getPositions(
+            Integer pageSize,
+            ChainDescriptor chainDescriptor,
+            String vaultAccountId,
+            String pageCursor,
+            String order)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getPositionsRequestBuilder(
+                            pageSize, chainDescriptor, vaultAccountId, pageCursor, order);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getPositions", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<StakingPositionsPaginatedResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            StakingPositionsPaginatedResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getPositionsRequestBuilder(
+            Integer pageSize,
+            ChainDescriptor chainDescriptor,
+            String vaultAccountId,
+            String pageCursor,
+            String order)
+            throws ApiException {
+        ValidationUtils.assertParamExists("getPositions", "pageSize", pageSize);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/staking/positions_paginated";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "chainDescriptor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("chainDescriptor", chainDescriptor));
+        localVarQueryParameterBaseName = "vaultAccountId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("vaultAccountId", vaultAccountId));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
 
         localVarRequestBuilder.header("Accept", "application/json");
 

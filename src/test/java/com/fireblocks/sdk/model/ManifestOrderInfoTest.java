@@ -15,31 +15,25 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for DirectAccessProviderDetails */
-class DirectAccessProviderDetailsTest {
-    private final DirectAccessProviderDetails model = new DirectAccessProviderDetails();
+/** Model tests for ManifestOrderInfo */
+class ManifestOrderInfoTest {
+    private final ManifestOrderInfo model = new ManifestOrderInfo();
 
-    /** Model tests for DirectAccessProviderDetails */
+    /** Model tests for ManifestOrderInfo */
     @Test
-    void testDirectAccessProviderDetails() {
-        // TODO: test DirectAccessProviderDetails
+    void testManifestOrderInfo() {
+        // TODO: test ManifestOrderInfo
     }
 
-    /** Test the property 'approved' */
+    /** Test the property 'settlementTypes' */
     @Test
-    void approvedTest() {
-        // TODO: test approved
+    void settlementTypesTest() {
+        // TODO: test settlementTypes
     }
 
-    /** Test the property 'hasTermsOfService' */
+    /** Test the property 'executionTypes' */
     @Test
-    void hasTermsOfServiceTest() {
-        // TODO: test hasTermsOfService
-    }
-
-    /** Test the property 'termsOfServiceUrl' */
-    @Test
-    void termsOfServiceUrlTest() {
-        // TODO: test termsOfServiceUrl
+    void executionTypesTest() {
+        // TODO: test executionTypes
     }
 }

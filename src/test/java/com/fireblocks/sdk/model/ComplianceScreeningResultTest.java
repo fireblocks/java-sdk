@@ -204,4 +204,10 @@ class ComplianceScreeningResultTest {
     void travelRuleMessageIdTest() {
         // TODO: test travelRuleMessageId
     }
+
+    /** Test the property 'providerResponse' */
+    @Test
+    void providerResponseTest() {
+        // TODO: test providerResponse
+    }
 }

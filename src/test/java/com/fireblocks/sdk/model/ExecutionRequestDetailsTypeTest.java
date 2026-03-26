@@ -15,11 +15,11 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for AssetTypeEnum */
-class AssetTypeEnumTest {
-    /** Model tests for AssetTypeEnum */
+/** Model tests for ExecutionRequestDetailsType */
+class ExecutionRequestDetailsTypeTest {
+    /** Model tests for ExecutionRequestDetailsType */
     @Test
-    void testAssetTypeEnum() {
-        // TODO: test AssetTypeEnum
+    void testExecutionRequestDetailsType() {
+        // TODO: test ExecutionRequestDetailsType
     }
 }

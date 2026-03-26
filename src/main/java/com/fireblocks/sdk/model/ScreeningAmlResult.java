@@ -25,9 +25,13 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * Detailed AML screening result information. Contains alerts, risk scores, and other AML-specific
- * data from provider-specific responses.
+ * Deprecated: This field is not currently returned in the API response. Detailed AML screening
+ * result information. Contains alerts, risk scores, and other AML-specific data from
+ * provider-specific responses.
+ *
+ * @deprecated
  */
+@Deprecated
 @JsonPropertyOrder({
     ScreeningAmlResult.JSON_PROPERTY_ALERTS,
     ScreeningAmlResult.JSON_PROPERTY_PROVIDER_RESPONSE,

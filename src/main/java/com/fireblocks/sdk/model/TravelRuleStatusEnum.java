@@ -26,7 +26,13 @@ public enum TravelRuleStatusEnum {
 
     FAILED("FAILED"),
 
-    FROZEN("FROZEN");
+    FROZEN("FROZEN"),
+
+    REJECTED("REJECTED"),
+
+    CANCELED("CANCELED"),
+
+    BLOCKING_TIME_EXPIRED("BLOCKING_TIME_EXPIRED");
 
     private String value;
 

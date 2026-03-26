@@ -11,5 +11,9 @@
 
 * `BLOCK` (value: `"BLOCK"`)
 
+* `PASS` (value: `"PASS"`)
+
+* `FREEZE` (value: `"FREEZE"`)
+
 
 

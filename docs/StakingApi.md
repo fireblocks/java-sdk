@@ -11,6 +11,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getChainInfo**](StakingApi.md#getChainInfo) | **GET** /staking/chains/{chainDescriptor}/chainInfo | Get chain-level staking parameters |
 | [**getChains**](StakingApi.md#getChains) | **GET** /staking/chains | List supported staking chains |
 | [**getDelegationById**](StakingApi.md#getDelegationById) | **GET** /staking/positions/{id} | Get position details |
+| [**getPositions**](StakingApi.md#getPositions) | **GET** /staking/positions_paginated | List staking positions (Paginated) |
 | [**getProviders**](StakingApi.md#getProviders) | **GET** /staking/providers | List staking providers |
 | [**getSummary**](StakingApi.md#getSummary) | **GET** /staking/positions/summary | Get positions summary |
 | [**getSummaryByVault**](StakingApi.md#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get positions summary by vault |
@@ -208,7 +209,7 @@ No authorization required
 
 Consolidate staking positions (ETH validator consolidation)
 
-Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same validator provider and same vault account. On chain, this translates into a consolidation transaction, where the source validator is consolidated into the destination validator. Supported chains: Ethereum (ETH) only. &lt;/br&gt;Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same funding vaults account (i.e. same withdrawals credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. &lt;/br&gt;Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
 
 ### Example
 
@@ -296,7 +297,7 @@ No authorization required
 
 ## getAllDelegations
 
-> CompletableFuture<ApiResponse<List<Delegation>>> getAllDelegations getAllDelegations(chainDescriptor)
+> CompletableFuture<ApiResponse<List<Delegation>>> getAllDelegations getAllDelegations(chainDescriptor, vaultAccountId)
 
 List staking positions
 
@@ -326,8 +327,9 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         ChainDescriptor chainDescriptor = ChainDescriptor.fromValue("ATOM_COS"); // ChainDescriptor | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
+        String vaultAccountId = "1"; // String | Filter positions by vault account ID.
         try {
-            CompletableFuture<ApiResponse<List<Delegation>>> response = fireblocks.staking().getAllDelegations(chainDescriptor);
+            CompletableFuture<ApiResponse<List<Delegation>>> response = fireblocks.staking().getAllDelegations(chainDescriptor, vaultAccountId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -355,6 +357,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **chainDescriptor** | [**ChainDescriptor**](.md)| Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned. | [optional] [enum: ATOM_COS, AXL, AXL_TEST, CELESTIA, DYDX_DYDX, ETH, ETH_TEST6, ETH_TEST_HOODI, INJ_INJ, MANTRA, MATIC, OSMO, SOL, SOL_TEST, STETH_ETH, STETH_ETH_TEST6_DZFA, STETH_ETH_TEST_HOODI] |
+| **vaultAccountId** | **String**| Filter positions by vault account ID. | [optional] |
 
 ### Return type
 
@@ -633,6 +636,102 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Position retrieved successfully. |  * X-Request-ID -  <br>  |
+| **400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
+| **403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+| **404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+| **429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+| **500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getPositions
+
+> CompletableFuture<ApiResponse<StakingPositionsPaginatedResponse>> getPositions getPositions(pageSize, chainDescriptor, vaultAccountId, pageCursor, order)
+
+List staking positions (Paginated)
+
+Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.StakingApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        Integer pageSize = 10; // Integer | Number of results per page. When provided, the response returns a paginated object with {data, next}. If omitted, all results are returned as an array.
+        ChainDescriptor chainDescriptor = ChainDescriptor.fromValue("ATOM_COS"); // ChainDescriptor | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
+        String vaultAccountId = "10"; // String | Filter positions by Fireblocks vault account ID. If omitted, positions across all vault accounts are returned.
+        String pageCursor = "eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9"; // String | Cursor for the next page of results. Use the value from the 'next' field in the previous response.
+        String order = "ASC"; // String | ASC / DESC ordering (default DESC)
+        try {
+            CompletableFuture<ApiResponse<StakingPositionsPaginatedResponse>> response = fireblocks.staking().getPositions(pageSize, chainDescriptor, vaultAccountId, pageCursor, order);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling StakingApi#getPositions");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling StakingApi#getPositions");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **pageSize** | **Integer**| Number of results per page. When provided, the response returns a paginated object with {data, next}. If omitted, all results are returned as an array. | [default to 10] |
+| **chainDescriptor** | [**ChainDescriptor**](.md)| Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned. | [optional] [enum: ATOM_COS, AXL, AXL_TEST, CELESTIA, DYDX_DYDX, ETH, ETH_TEST6, ETH_TEST_HOODI, INJ_INJ, MANTRA, MATIC, OSMO, SOL, SOL_TEST, STETH_ETH, STETH_ETH_TEST6_DZFA, STETH_ETH_TEST_HOODI] |
+| **vaultAccountId** | **String**| Filter positions by Fireblocks vault account ID. If omitted, positions across all vault accounts are returned. | [optional] |
+| **pageCursor** | **String**| Cursor for the next page of results. Use the value from the &#39;next&#39; field in the previous response. | [optional] |
+| **order** | **String**| ASC / DESC ordering (default DESC) | [optional] [default to DESC] [enum: ASC, DESC] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**StakingPositionsPaginatedResponse**](StakingPositionsPaginatedResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Positions retrieved successfully with pagination. |  * X-Request-ID -  <br>  |
 | **400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
 | **403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
 | **404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |

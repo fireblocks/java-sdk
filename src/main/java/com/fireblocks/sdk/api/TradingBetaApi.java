@@ -27,6 +27,7 @@ import com.fireblocks.sdk.model.OrderDetails;
 import com.fireblocks.sdk.model.OrderStatus;
 import com.fireblocks.sdk.model.ProvidersListResponse;
 import com.fireblocks.sdk.model.QuotesResponse;
+import com.fireblocks.sdk.model.TradingProviderDetails;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -446,6 +447,82 @@ public class TradingBetaApi {
         } else {
             localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
         }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get trading provider by ID Retrieve detailed information about a specific provider including
+     * its full manifest with order/quote requirements. **Note:** These endpoints are currently in
+     * beta and might be subject to changes. If you want to participate and learn more about the
+     * Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email
+     * to CSM@fireblocks.com. **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, Viewer. For detailed information about error codes and troubleshooting,
+     * please refer to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     *
+     * @param providerId The unique identifier of the provider. (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;TradingProviderDetails&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<TradingProviderDetails>> getTradingProviderById(
+            String providerId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getTradingProviderByIdRequestBuilder(providerId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getTradingProviderById", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<TradingProviderDetails>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            TradingProviderDetails>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTradingProviderByIdRequestBuilder(String providerId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getTradingProviderById", "providerId", providerId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/trading/providers/{providerId}"
+                        .replace("{providerId}", ApiClient.urlEncode(providerId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
         localVarRequestBuilder.header("Accept", "application/json");
 

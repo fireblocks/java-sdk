@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>15.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:15.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-15.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -354,6 +354,7 @@ Class | Method | HTTP request | Description
 *StakingApi* | [**getChainInfo**](docs/StakingApi.md#getChainInfo) | **GET** /staking/chains/{chainDescriptor}/chainInfo | Get chain-level staking parameters
 *StakingApi* | [**getChains**](docs/StakingApi.md#getChains) | **GET** /staking/chains | List supported staking chains
 *StakingApi* | [**getDelegationById**](docs/StakingApi.md#getDelegationById) | **GET** /staking/positions/{id} | Get position details
+*StakingApi* | [**getPositions**](docs/StakingApi.md#getPositions) | **GET** /staking/positions_paginated | List staking positions (Paginated)
 *StakingApi* | [**getProviders**](docs/StakingApi.md#getProviders) | **GET** /staking/providers | List staking providers
 *StakingApi* | [**getSummary**](docs/StakingApi.md#getSummary) | **GET** /staking/positions/summary | Get positions summary
 *StakingApi* | [**getSummaryByVault**](docs/StakingApi.md#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get positions summary by vault
@@ -422,6 +423,7 @@ Class | Method | HTTP request | Description
 *TradingBetaApi* | [**createQuote**](docs/TradingBetaApi.md#createQuote) | **POST** /trading/quotes | Create a quote
 *TradingBetaApi* | [**getOrder**](docs/TradingBetaApi.md#getOrder) | **GET** /trading/orders/{orderId} | Get order details
 *TradingBetaApi* | [**getOrders**](docs/TradingBetaApi.md#getOrders) | **GET** /trading/orders | Get orders
+*TradingBetaApi* | [**getTradingProviderById**](docs/TradingBetaApi.md#getTradingProviderById) | **GET** /trading/providers/{providerId} | Get trading provider by ID
 *TradingBetaApi* | [**getTradingProviders**](docs/TradingBetaApi.md#getTradingProviders) | **GET** /trading/providers | Get providers
 *TransactionsApi* | [**cancelTransaction**](docs/TransactionsApi.md#cancelTransaction) | **POST** /transactions/{txId}/cancel | Cancel a transaction
 *TransactionsApi* | [**createTransaction**](docs/TransactionsApi.md#createTransaction) | **POST** /transactions | Create a new transaction
@@ -517,7 +519,8 @@ Class | Method | HTTP request | Description
  - [AccountAccess](docs/AccountAccess.md)
  - [AccountBase](docs/AccountBase.md)
  - [AccountBasedAccessProvider](docs/AccountBasedAccessProvider.md)
- - [AccountBasedAccessProviderDetails](docs/AccountBasedAccessProviderDetails.md)
+ - [AccountBasedAccessProviderInfo](docs/AccountBasedAccessProviderInfo.md)
+ - [AccountBasedProviderDetails](docs/AccountBasedProviderDetails.md)
  - [AccountConfig](docs/AccountConfig.md)
  - [AccountHolderDetails](docs/AccountHolderDetails.md)
  - [AccountIdentifier](docs/AccountIdentifier.md)
@@ -595,7 +598,6 @@ Class | Method | HTTP request | Description
  - [AssetPriceResponse](docs/AssetPriceResponse.md)
  - [AssetResponse](docs/AssetResponse.md)
  - [AssetScope](docs/AssetScope.md)
- - [AssetTypeEnum](docs/AssetTypeEnum.md)
  - [AssetTypeResponse](docs/AssetTypeResponse.md)
  - [AssetTypesConfigInner](docs/AssetTypesConfigInner.md)
  - [AssetWallet](docs/AssetWallet.md)
@@ -624,7 +626,6 @@ Class | Method | HTTP request | Description
  - [CallbackHandler](docs/CallbackHandler.md)
  - [CallbackHandlerRequest](docs/CallbackHandlerRequest.md)
  - [CancelTransactionResponse](docs/CancelTransactionResponse.md)
- - [Capability](docs/Capability.md)
  - [ChainDescriptor](docs/ChainDescriptor.md)
  - [ChainInfoResponse](docs/ChainInfoResponse.md)
  - [ChannelDvnConfigWithConfirmations](docs/ChannelDvnConfigWithConfirmations.md)
@@ -774,7 +775,8 @@ Class | Method | HTTP request | Description
  - [DestinationTransferPeerPathResponse](docs/DestinationTransferPeerPathResponse.md)
  - [DirectAccess](docs/DirectAccess.md)
  - [DirectAccessProvider](docs/DirectAccessProvider.md)
- - [DirectAccessProviderDetails](docs/DirectAccessProviderDetails.md)
+ - [DirectAccessProviderInfo](docs/DirectAccessProviderInfo.md)
+ - [DirectProviderDetails](docs/DirectProviderDetails.md)
  - [DisbursementAmountInstruction](docs/DisbursementAmountInstruction.md)
  - [DisbursementConfigOperation](docs/DisbursementConfigOperation.md)
  - [DisbursementInstruction](docs/DisbursementInstruction.md)
@@ -840,6 +842,7 @@ Class | Method | HTTP request | Description
  - [ExecutionOperationStatus](docs/ExecutionOperationStatus.md)
  - [ExecutionRequestBaseDetails](docs/ExecutionRequestBaseDetails.md)
  - [ExecutionRequestDetails](docs/ExecutionRequestDetails.md)
+ - [ExecutionRequestDetailsType](docs/ExecutionRequestDetailsType.md)
  - [ExecutionResponseBaseDetails](docs/ExecutionResponseBaseDetails.md)
  - [ExecutionResponseDetails](docs/ExecutionResponseDetails.md)
  - [ExecutionScreeningOperation](docs/ExecutionScreeningOperation.md)
@@ -967,6 +970,11 @@ Class | Method | HTTP request | Description
  - [LocalBankTransferAfricaAddress](docs/LocalBankTransferAfricaAddress.md)
  - [LocalBankTransferAfricaDestination](docs/LocalBankTransferAfricaDestination.md)
  - [Manifest](docs/Manifest.md)
+ - [ManifestBase](docs/ManifestBase.md)
+ - [ManifestOrder](docs/ManifestOrder.md)
+ - [ManifestOrderInfo](docs/ManifestOrderInfo.md)
+ - [ManifestQuote](docs/ManifestQuote.md)
+ - [ManifestQuoteInfo](docs/ManifestQuoteInfo.md)
  - [MarketExecutionRequestDetails](docs/MarketExecutionRequestDetails.md)
  - [MarketExecutionResponseDetails](docs/MarketExecutionResponseDetails.md)
  - [MarketRequoteRequestDetails](docs/MarketRequoteRequestDetails.md)
@@ -1073,6 +1081,7 @@ Class | Method | HTTP request | Description
  - [PolicyValidation](docs/PolicyValidation.md)
  - [PolicyVerdictActionEnum](docs/PolicyVerdictActionEnum.md)
  - [PolicyVerdictActionEnum2](docs/PolicyVerdictActionEnum2.md)
+ - [Position](docs/Position.md)
  - [PostalAddress](docs/PostalAddress.md)
  - [PreScreening](docs/PreScreening.md)
  - [PrefundedSettlement](docs/PrefundedSettlement.md)
@@ -1145,7 +1154,6 @@ Class | Method | HTTP request | Description
  - [ScreeningOperationType](docs/ScreeningOperationType.md)
  - [ScreeningPolicyResponse](docs/ScreeningPolicyResponse.md)
  - [ScreeningProviderRulesConfigurationResponse](docs/ScreeningProviderRulesConfigurationResponse.md)
- - [ScreeningRiskLevelEnum](docs/ScreeningRiskLevelEnum.md)
  - [ScreeningTRLinkAmount](docs/ScreeningTRLinkAmount.md)
  - [ScreeningTRLinkMissingTrmDecision](docs/ScreeningTRLinkMissingTrmDecision.md)
  - [ScreeningTRLinkMissingTrmRule](docs/ScreeningTRLinkMissingTrmRule.md)
@@ -1189,6 +1197,7 @@ Class | Method | HTTP request | Description
  - [SettlementRequestBody](docs/SettlementRequestBody.md)
  - [SettlementResponse](docs/SettlementResponse.md)
  - [SettlementSourceAccount](docs/SettlementSourceAccount.md)
+ - [SettlementTypeEnum](docs/SettlementTypeEnum.md)
  - [Side](docs/Side.md)
  - [SignedMessage](docs/SignedMessage.md)
  - [SignedMessageSignature](docs/SignedMessageSignature.md)
@@ -1239,6 +1248,7 @@ Class | Method | HTTP request | Description
  - [StEthBlockchainData](docs/StEthBlockchainData.md)
  - [StakeRequest](docs/StakeRequest.md)
  - [StakeResponse](docs/StakeResponse.md)
+ - [StakingPositionsPaginatedResponse](docs/StakingPositionsPaginatedResponse.md)
  - [StakingProvider](docs/StakingProvider.md)
  - [Status](docs/Status.md)
  - [StellarRippleCreateParamsDto](docs/StellarRippleCreateParamsDto.md)
@@ -1355,6 +1365,7 @@ Class | Method | HTTP request | Description
  - [TradingAccountType](docs/TradingAccountType.md)
  - [TradingErrorSchema](docs/TradingErrorSchema.md)
  - [TradingProvider](docs/TradingProvider.md)
+ - [TradingProviderDetails](docs/TradingProviderDetails.md)
  - [Transaction](docs/Transaction.md)
  - [TransactionDirection](docs/TransactionDirection.md)
  - [TransactionFee](docs/TransactionFee.md)

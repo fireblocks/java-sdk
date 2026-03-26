@@ -48,4 +48,10 @@ class BaseProviderTest {
     void accountBasedTest() {
         // TODO: test accountBased
     }
+
+    /** Test the property 'manifest' */
+    @Test
+    void manifestTest() {
+        // TODO: test manifest
+    }
 }

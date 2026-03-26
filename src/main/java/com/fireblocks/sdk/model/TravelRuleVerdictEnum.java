@@ -24,7 +24,13 @@ public enum TravelRuleVerdictEnum {
 
     ALERT("ALERT"),
 
-    REVIEW("REVIEW");
+    REVIEW("REVIEW"),
+
+    WAIT("WAIT"),
+
+    FREEZE("FREEZE"),
+
+    CANCEL("CANCEL");
 
     private String value;
 

@@ -84,4 +84,10 @@ class TradingProviderTest {
     void termsOfServiceUrlTest() {
         // TODO: test termsOfServiceUrl
     }
+
+    /** Test the property 'privacyPolicyUrl' */
+    @Test
+    void privacyPolicyUrlTest() {
+        // TODO: test privacyPolicyUrl
+    }
 }

@@ -22,7 +22,11 @@ public enum TravelRuleActionEnum {
 
     BYPASS("BYPASS"),
 
-    BLOCK("BLOCK");
+    BLOCK("BLOCK"),
+
+    PASS("PASS"),
+
+    FREEZE("FREEZE");
 
     private String value;
 
