@@ -27,9 +27,11 @@ import java.util.StringJoiner;
     DirectAccessProvider.JSON_PROPERTY_NAME,
     DirectAccessProvider.JSON_PROPERTY_LOGO,
     DirectAccessProvider.JSON_PROPERTY_ACCOUNT_BASED,
+    DirectAccessProvider.JSON_PROPERTY_MANIFEST,
     DirectAccessProvider.JSON_PROPERTY_APPROVED,
     DirectAccessProvider.JSON_PROPERTY_HAS_TERMS_OF_SERVICE,
-    DirectAccessProvider.JSON_PROPERTY_TERMS_OF_SERVICE_URL
+    DirectAccessProvider.JSON_PROPERTY_TERMS_OF_SERVICE_URL,
+    DirectAccessProvider.JSON_PROPERTY_PRIVACY_POLICY_URL
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -47,6 +49,9 @@ public class DirectAccessProvider {
     public static final String JSON_PROPERTY_ACCOUNT_BASED = "accountBased";
     @jakarta.annotation.Nonnull private Boolean accountBased;
 
+    public static final String JSON_PROPERTY_MANIFEST = "manifest";
+    @jakarta.annotation.Nonnull private Manifest manifest;
+
     public static final String JSON_PROPERTY_APPROVED = "approved";
     @jakarta.annotation.Nullable private Boolean approved;
 
@@ -56,6 +61,9 @@ public class DirectAccessProvider {
     public static final String JSON_PROPERTY_TERMS_OF_SERVICE_URL = "termsOfServiceUrl";
     @jakarta.annotation.Nullable private String termsOfServiceUrl;
 
+    public static final String JSON_PROPERTY_PRIVACY_POLICY_URL = "privacyPolicyUrl";
+    @jakarta.annotation.Nullable private String privacyPolicyUrl;
+
     public DirectAccessProvider() {}
 
     @JsonCreator
@@ -64,11 +72,13 @@ public class DirectAccessProvider {
             @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
             @JsonProperty(value = JSON_PROPERTY_ACCOUNT_BASED, required = true)
                     Boolean accountBased,
+            @JsonProperty(value = JSON_PROPERTY_MANIFEST, required = true) Manifest manifest,
             @JsonProperty(value = JSON_PROPERTY_HAS_TERMS_OF_SERVICE, required = true)
                     Boolean hasTermsOfService) {
         this.id = id;
         this.name = name;
         this.accountBased = accountBased;
+        this.manifest = manifest;
         this.hasTermsOfService = hasTermsOfService;
     }
 
@@ -164,6 +174,29 @@ public class DirectAccessProvider {
         this.accountBased = accountBased;
     }
 
+    public DirectAccessProvider manifest(@jakarta.annotation.Nonnull Manifest manifest) {
+        this.manifest = manifest;
+        return this;
+    }
+
+    /**
+     * Get manifest
+     *
+     * @return manifest
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_MANIFEST)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Manifest getManifest() {
+        return manifest;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MANIFEST)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setManifest(@jakarta.annotation.Nonnull Manifest manifest) {
+        this.manifest = manifest;
+    }
+
     public DirectAccessProvider approved(@jakarta.annotation.Nullable Boolean approved) {
         this.approved = approved;
         return this;
@@ -235,6 +268,30 @@ public class DirectAccessProvider {
         this.termsOfServiceUrl = termsOfServiceUrl;
     }
 
+    public DirectAccessProvider privacyPolicyUrl(
+            @jakarta.annotation.Nullable String privacyPolicyUrl) {
+        this.privacyPolicyUrl = privacyPolicyUrl;
+        return this;
+    }
+
+    /**
+     * URL to the privacy policy document
+     *
+     * @return privacyPolicyUrl
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PRIVACY_POLICY_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPrivacyPolicyUrl() {
+        return privacyPolicyUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PRIVACY_POLICY_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPrivacyPolicyUrl(@jakarta.annotation.Nullable String privacyPolicyUrl) {
+        this.privacyPolicyUrl = privacyPolicyUrl;
+    }
+
     /** Return true if this DirectAccessProvider object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -249,15 +306,25 @@ public class DirectAccessProvider {
                 && Objects.equals(this.name, directAccessProvider.name)
                 && Objects.equals(this.logo, directAccessProvider.logo)
                 && Objects.equals(this.accountBased, directAccessProvider.accountBased)
+                && Objects.equals(this.manifest, directAccessProvider.manifest)
                 && Objects.equals(this.approved, directAccessProvider.approved)
                 && Objects.equals(this.hasTermsOfService, directAccessProvider.hasTermsOfService)
-                && Objects.equals(this.termsOfServiceUrl, directAccessProvider.termsOfServiceUrl);
+                && Objects.equals(this.termsOfServiceUrl, directAccessProvider.termsOfServiceUrl)
+                && Objects.equals(this.privacyPolicyUrl, directAccessProvider.privacyPolicyUrl);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                id, name, logo, accountBased, approved, hasTermsOfService, termsOfServiceUrl);
+                id,
+                name,
+                logo,
+                accountBased,
+                manifest,
+                approved,
+                hasTermsOfService,
+                termsOfServiceUrl,
+                privacyPolicyUrl);
     }
 
     @Override
@@ -268,6 +335,7 @@ public class DirectAccessProvider {
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
         sb.append("    accountBased: ").append(toIndentedString(accountBased)).append("\n");
+        sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
         sb.append("    approved: ").append(toIndentedString(approved)).append("\n");
         sb.append("    hasTermsOfService: ")
                 .append(toIndentedString(hasTermsOfService))
@@ -275,6 +343,7 @@ public class DirectAccessProvider {
         sb.append("    termsOfServiceUrl: ")
                 .append(toIndentedString(termsOfServiceUrl))
                 .append("\n");
+        sb.append("    privacyPolicyUrl: ").append(toIndentedString(privacyPolicyUrl)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -360,6 +429,11 @@ public class DirectAccessProvider {
                             ApiClient.urlEncode(ApiClient.valueToString(getAccountBased()))));
         }
 
+        // add `manifest` to the URL query string
+        if (getManifest() != null) {
+            joiner.add(getManifest().toUrlQueryString(prefix + "manifest" + suffix));
+        }
+
         // add `approved` to the URL query string
         if (getApproved() != null) {
             joiner.add(
@@ -388,6 +462,16 @@ public class DirectAccessProvider {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getTermsOfServiceUrl()))));
+        }
+
+        // add `privacyPolicyUrl` to the URL query string
+        if (getPrivacyPolicyUrl() != null) {
+            joiner.add(
+                    String.format(
+                            "%sprivacyPolicyUrl%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getPrivacyPolicyUrl()))));
         }
 
         return joiner.toString();

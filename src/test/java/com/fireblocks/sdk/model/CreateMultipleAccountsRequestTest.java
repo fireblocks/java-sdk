@@ -54,4 +54,10 @@ class CreateMultipleAccountsRequestTest {
     void prefixTest() {
         // TODO: test prefix
     }
+
+    /** Test the property 'tagIds' */
+    @Test
+    void tagIdsTest() {
+        // TODO: test tagIds
+    }
 }

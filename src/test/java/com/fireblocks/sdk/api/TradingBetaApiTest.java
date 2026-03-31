@@ -22,6 +22,7 @@ import com.fireblocks.sdk.model.OrderDetails;
 import com.fireblocks.sdk.model.OrderStatus;
 import com.fireblocks.sdk.model.ProvidersListResponse;
 import com.fireblocks.sdk.model.QuotesResponse;
+import com.fireblocks.sdk.model.TradingProviderDetails;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
@@ -129,6 +130,27 @@ public class TradingBetaApiTest {
                         startTime,
                         endTime,
                         assetConversionType);
+    }
+
+    /**
+     * Get trading provider by ID
+     *
+     * <p>Retrieve detailed information about a specific provider including its full manifest with
+     * order/quote requirements. **Note:** These endpoints are currently in beta and might be
+     * subject to changes. If you want to participate and learn more about the Fireblocks Trading,
+     * please contact your Fireblocks Customer Success Manager or send an email to
+     * CSM@fireblocks.com. **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, Viewer. For detailed information about error codes and troubleshooting,
+     * please refer to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getTradingProviderByIdTest() throws ApiException {
+        String providerId = null;
+        CompletableFuture<ApiResponse<TradingProviderDetails>> response =
+                api.getTradingProviderById(providerId);
     }
 
     /**

@@ -19,7 +19,8 @@ docs/Account.md
 docs/AccountAccess.md
 docs/AccountBase.md
 docs/AccountBasedAccessProvider.md
-docs/AccountBasedAccessProviderDetails.md
+docs/AccountBasedAccessProviderInfo.md
+docs/AccountBasedProviderDetails.md
 docs/AccountConfig.md
 docs/AccountHolderDetails.md
 docs/AccountIdentifier.md
@@ -98,7 +99,6 @@ docs/AssetPriceNotFoundErrorResponse.md
 docs/AssetPriceResponse.md
 docs/AssetResponse.md
 docs/AssetScope.md
-docs/AssetTypeEnum.md
 docs/AssetTypeResponse.md
 docs/AssetTypesConfigInner.md
 docs/AssetWallet.md
@@ -129,7 +129,6 @@ docs/BusinessIdentification.md
 docs/CallbackHandler.md
 docs/CallbackHandlerRequest.md
 docs/CancelTransactionResponse.md
-docs/Capability.md
 docs/ChainDescriptor.md
 docs/ChainInfoResponse.md
 docs/ChannelDvnConfigWithConfirmations.md
@@ -288,7 +287,8 @@ docs/DestinationTransferPeerPath.md
 docs/DestinationTransferPeerPathResponse.md
 docs/DirectAccess.md
 docs/DirectAccessProvider.md
-docs/DirectAccessProviderDetails.md
+docs/DirectAccessProviderInfo.md
+docs/DirectProviderDetails.md
 docs/DisbursementAmountInstruction.md
 docs/DisbursementConfigOperation.md
 docs/DisbursementInstruction.md
@@ -356,6 +356,7 @@ docs/ExecutionDisbursementOperation.md
 docs/ExecutionOperationStatus.md
 docs/ExecutionRequestBaseDetails.md
 docs/ExecutionRequestDetails.md
+docs/ExecutionRequestDetailsType.md
 docs/ExecutionResponseBaseDetails.md
 docs/ExecutionResponseDetails.md
 docs/ExecutionScreeningOperation.md
@@ -489,6 +490,11 @@ docs/ListOwnedTokensResponse.md
 docs/LocalBankTransferAfricaAddress.md
 docs/LocalBankTransferAfricaDestination.md
 docs/Manifest.md
+docs/ManifestBase.md
+docs/ManifestOrder.md
+docs/ManifestOrderInfo.md
+docs/ManifestQuote.md
+docs/ManifestQuoteInfo.md
 docs/MarketExecutionRequestDetails.md
 docs/MarketExecutionResponseDetails.md
 docs/MarketRequoteRequestDetails.md
@@ -603,6 +609,7 @@ docs/PolicyType.md
 docs/PolicyValidation.md
 docs/PolicyVerdictActionEnum.md
 docs/PolicyVerdictActionEnum2.md
+docs/Position.md
 docs/PostalAddress.md
 docs/PreScreening.md
 docs/PrefundedSettlement.md
@@ -676,7 +683,6 @@ docs/ScreeningOperationFailure.md
 docs/ScreeningOperationType.md
 docs/ScreeningPolicyResponse.md
 docs/ScreeningProviderRulesConfigurationResponse.md
-docs/ScreeningRiskLevelEnum.md
 docs/ScreeningTRLinkAmount.md
 docs/ScreeningTRLinkMissingTrmDecision.md
 docs/ScreeningTRLinkMissingTrmRule.md
@@ -720,6 +726,7 @@ docs/Settlement.md
 docs/SettlementRequestBody.md
 docs/SettlementResponse.md
 docs/SettlementSourceAccount.md
+docs/SettlementTypeEnum.md
 docs/Side.md
 docs/SignedMessage.md
 docs/SignedMessageSignature.md
@@ -772,6 +779,7 @@ docs/StEthBlockchainData.md
 docs/StakeRequest.md
 docs/StakeResponse.md
 docs/StakingApi.md
+docs/StakingPositionsPaginatedResponse.md
 docs/StakingProvider.md
 docs/Status.md
 docs/StellarRippleCreateParamsDto.md
@@ -892,6 +900,7 @@ docs/TradingAccountType.md
 docs/TradingBetaApi.md
 docs/TradingErrorSchema.md
 docs/TradingProvider.md
+docs/TradingProviderDetails.md
 docs/Transaction.md
 docs/TransactionDirection.md
 docs/TransactionFee.md
@@ -1129,7 +1138,8 @@ src/main/java/com/fireblocks/sdk/model/Account.java
 src/main/java/com/fireblocks/sdk/model/AccountAccess.java
 src/main/java/com/fireblocks/sdk/model/AccountBase.java
 src/main/java/com/fireblocks/sdk/model/AccountBasedAccessProvider.java
-src/main/java/com/fireblocks/sdk/model/AccountBasedAccessProviderDetails.java
+src/main/java/com/fireblocks/sdk/model/AccountBasedAccessProviderInfo.java
+src/main/java/com/fireblocks/sdk/model/AccountBasedProviderDetails.java
 src/main/java/com/fireblocks/sdk/model/AccountConfig.java
 src/main/java/com/fireblocks/sdk/model/AccountHolderDetails.java
 src/main/java/com/fireblocks/sdk/model/AccountIdentifier.java
@@ -1207,7 +1217,6 @@ src/main/java/com/fireblocks/sdk/model/AssetPriceNotFoundErrorResponse.java
 src/main/java/com/fireblocks/sdk/model/AssetPriceResponse.java
 src/main/java/com/fireblocks/sdk/model/AssetResponse.java
 src/main/java/com/fireblocks/sdk/model/AssetScope.java
-src/main/java/com/fireblocks/sdk/model/AssetTypeEnum.java
 src/main/java/com/fireblocks/sdk/model/AssetTypeResponse.java
 src/main/java/com/fireblocks/sdk/model/AssetTypesConfigInner.java
 src/main/java/com/fireblocks/sdk/model/AssetWallet.java
@@ -1236,7 +1245,6 @@ src/main/java/com/fireblocks/sdk/model/BusinessIdentification.java
 src/main/java/com/fireblocks/sdk/model/CallbackHandler.java
 src/main/java/com/fireblocks/sdk/model/CallbackHandlerRequest.java
 src/main/java/com/fireblocks/sdk/model/CancelTransactionResponse.java
-src/main/java/com/fireblocks/sdk/model/Capability.java
 src/main/java/com/fireblocks/sdk/model/ChainDescriptor.java
 src/main/java/com/fireblocks/sdk/model/ChainInfoResponse.java
 src/main/java/com/fireblocks/sdk/model/ChannelDvnConfigWithConfirmations.java
@@ -1386,7 +1394,8 @@ src/main/java/com/fireblocks/sdk/model/DestinationTransferPeerPath.java
 src/main/java/com/fireblocks/sdk/model/DestinationTransferPeerPathResponse.java
 src/main/java/com/fireblocks/sdk/model/DirectAccess.java
 src/main/java/com/fireblocks/sdk/model/DirectAccessProvider.java
-src/main/java/com/fireblocks/sdk/model/DirectAccessProviderDetails.java
+src/main/java/com/fireblocks/sdk/model/DirectAccessProviderInfo.java
+src/main/java/com/fireblocks/sdk/model/DirectProviderDetails.java
 src/main/java/com/fireblocks/sdk/model/DisbursementAmountInstruction.java
 src/main/java/com/fireblocks/sdk/model/DisbursementConfigOperation.java
 src/main/java/com/fireblocks/sdk/model/DisbursementInstruction.java
@@ -1452,6 +1461,7 @@ src/main/java/com/fireblocks/sdk/model/ExecutionDisbursementOperation.java
 src/main/java/com/fireblocks/sdk/model/ExecutionOperationStatus.java
 src/main/java/com/fireblocks/sdk/model/ExecutionRequestBaseDetails.java
 src/main/java/com/fireblocks/sdk/model/ExecutionRequestDetails.java
+src/main/java/com/fireblocks/sdk/model/ExecutionRequestDetailsType.java
 src/main/java/com/fireblocks/sdk/model/ExecutionResponseBaseDetails.java
 src/main/java/com/fireblocks/sdk/model/ExecutionResponseDetails.java
 src/main/java/com/fireblocks/sdk/model/ExecutionScreeningOperation.java
@@ -1579,6 +1589,11 @@ src/main/java/com/fireblocks/sdk/model/ListOwnedTokensResponse.java
 src/main/java/com/fireblocks/sdk/model/LocalBankTransferAfricaAddress.java
 src/main/java/com/fireblocks/sdk/model/LocalBankTransferAfricaDestination.java
 src/main/java/com/fireblocks/sdk/model/Manifest.java
+src/main/java/com/fireblocks/sdk/model/ManifestBase.java
+src/main/java/com/fireblocks/sdk/model/ManifestOrder.java
+src/main/java/com/fireblocks/sdk/model/ManifestOrderInfo.java
+src/main/java/com/fireblocks/sdk/model/ManifestQuote.java
+src/main/java/com/fireblocks/sdk/model/ManifestQuoteInfo.java
 src/main/java/com/fireblocks/sdk/model/MarketExecutionRequestDetails.java
 src/main/java/com/fireblocks/sdk/model/MarketExecutionResponseDetails.java
 src/main/java/com/fireblocks/sdk/model/MarketRequoteRequestDetails.java
@@ -1685,6 +1700,7 @@ src/main/java/com/fireblocks/sdk/model/PolicyType.java
 src/main/java/com/fireblocks/sdk/model/PolicyValidation.java
 src/main/java/com/fireblocks/sdk/model/PolicyVerdictActionEnum.java
 src/main/java/com/fireblocks/sdk/model/PolicyVerdictActionEnum2.java
+src/main/java/com/fireblocks/sdk/model/Position.java
 src/main/java/com/fireblocks/sdk/model/PostalAddress.java
 src/main/java/com/fireblocks/sdk/model/PreScreening.java
 src/main/java/com/fireblocks/sdk/model/PrefundedSettlement.java
@@ -1757,7 +1773,6 @@ src/main/java/com/fireblocks/sdk/model/ScreeningOperationFailure.java
 src/main/java/com/fireblocks/sdk/model/ScreeningOperationType.java
 src/main/java/com/fireblocks/sdk/model/ScreeningPolicyResponse.java
 src/main/java/com/fireblocks/sdk/model/ScreeningProviderRulesConfigurationResponse.java
-src/main/java/com/fireblocks/sdk/model/ScreeningRiskLevelEnum.java
 src/main/java/com/fireblocks/sdk/model/ScreeningTRLinkAmount.java
 src/main/java/com/fireblocks/sdk/model/ScreeningTRLinkMissingTrmDecision.java
 src/main/java/com/fireblocks/sdk/model/ScreeningTRLinkMissingTrmRule.java
@@ -1801,6 +1816,7 @@ src/main/java/com/fireblocks/sdk/model/Settlement.java
 src/main/java/com/fireblocks/sdk/model/SettlementRequestBody.java
 src/main/java/com/fireblocks/sdk/model/SettlementResponse.java
 src/main/java/com/fireblocks/sdk/model/SettlementSourceAccount.java
+src/main/java/com/fireblocks/sdk/model/SettlementTypeEnum.java
 src/main/java/com/fireblocks/sdk/model/Side.java
 src/main/java/com/fireblocks/sdk/model/SignedMessage.java
 src/main/java/com/fireblocks/sdk/model/SignedMessageSignature.java
@@ -1851,6 +1867,7 @@ src/main/java/com/fireblocks/sdk/model/SplitResponse.java
 src/main/java/com/fireblocks/sdk/model/StEthBlockchainData.java
 src/main/java/com/fireblocks/sdk/model/StakeRequest.java
 src/main/java/com/fireblocks/sdk/model/StakeResponse.java
+src/main/java/com/fireblocks/sdk/model/StakingPositionsPaginatedResponse.java
 src/main/java/com/fireblocks/sdk/model/StakingProvider.java
 src/main/java/com/fireblocks/sdk/model/Status.java
 src/main/java/com/fireblocks/sdk/model/StellarRippleCreateParamsDto.java
@@ -1967,6 +1984,7 @@ src/main/java/com/fireblocks/sdk/model/TotalSupplyPagedResponse.java
 src/main/java/com/fireblocks/sdk/model/TradingAccountType.java
 src/main/java/com/fireblocks/sdk/model/TradingErrorSchema.java
 src/main/java/com/fireblocks/sdk/model/TradingProvider.java
+src/main/java/com/fireblocks/sdk/model/TradingProviderDetails.java
 src/main/java/com/fireblocks/sdk/model/Transaction.java
 src/main/java/com/fireblocks/sdk/model/TransactionDirection.java
 src/main/java/com/fireblocks/sdk/model/TransactionFee.java
@@ -2169,8 +2187,9 @@ src/test/java/com/fireblocks/sdk/model/AccessRegistrySummaryResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AccessTypeTest.java
 src/test/java/com/fireblocks/sdk/model/AccountAccessTest.java
 src/test/java/com/fireblocks/sdk/model/AccountBaseTest.java
-src/test/java/com/fireblocks/sdk/model/AccountBasedAccessProviderDetailsTest.java
+src/test/java/com/fireblocks/sdk/model/AccountBasedAccessProviderInfoTest.java
 src/test/java/com/fireblocks/sdk/model/AccountBasedAccessProviderTest.java
+src/test/java/com/fireblocks/sdk/model/AccountBasedProviderDetailsTest.java
 src/test/java/com/fireblocks/sdk/model/AccountConfigTest.java
 src/test/java/com/fireblocks/sdk/model/AccountHolderDetailsTest.java
 src/test/java/com/fireblocks/sdk/model/AccountIdentifierTest.java
@@ -2249,7 +2268,6 @@ src/test/java/com/fireblocks/sdk/model/AssetPriceResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AssetResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AssetScopeTest.java
 src/test/java/com/fireblocks/sdk/model/AssetTest.java
-src/test/java/com/fireblocks/sdk/model/AssetTypeEnumTest.java
 src/test/java/com/fireblocks/sdk/model/AssetTypeResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AssetTypesConfigInnerTest.java
 src/test/java/com/fireblocks/sdk/model/AssetWalletTest.java
@@ -2278,7 +2296,6 @@ src/test/java/com/fireblocks/sdk/model/BusinessIdentificationTest.java
 src/test/java/com/fireblocks/sdk/model/CallbackHandlerRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CallbackHandlerTest.java
 src/test/java/com/fireblocks/sdk/model/CancelTransactionResponseTest.java
-src/test/java/com/fireblocks/sdk/model/CapabilityTest.java
 src/test/java/com/fireblocks/sdk/model/ChainDescriptorTest.java
 src/test/java/com/fireblocks/sdk/model/ChainInfoResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ChannelDvnConfigWithConfirmationsTest.java
@@ -2426,9 +2443,10 @@ src/test/java/com/fireblocks/sdk/model/DestinationConfigTest.java
 src/test/java/com/fireblocks/sdk/model/DestinationTest.java
 src/test/java/com/fireblocks/sdk/model/DestinationTransferPeerPathResponseTest.java
 src/test/java/com/fireblocks/sdk/model/DestinationTransferPeerPathTest.java
-src/test/java/com/fireblocks/sdk/model/DirectAccessProviderDetailsTest.java
+src/test/java/com/fireblocks/sdk/model/DirectAccessProviderInfoTest.java
 src/test/java/com/fireblocks/sdk/model/DirectAccessProviderTest.java
 src/test/java/com/fireblocks/sdk/model/DirectAccessTest.java
+src/test/java/com/fireblocks/sdk/model/DirectProviderDetailsTest.java
 src/test/java/com/fireblocks/sdk/model/DisbursementAmountInstructionTest.java
 src/test/java/com/fireblocks/sdk/model/DisbursementConfigOperationTest.java
 src/test/java/com/fireblocks/sdk/model/DisbursementInstructionOutputTest.java
@@ -2494,6 +2512,7 @@ src/test/java/com/fireblocks/sdk/model/ExecutionDisbursementOperationTest.java
 src/test/java/com/fireblocks/sdk/model/ExecutionOperationStatusTest.java
 src/test/java/com/fireblocks/sdk/model/ExecutionRequestBaseDetailsTest.java
 src/test/java/com/fireblocks/sdk/model/ExecutionRequestDetailsTest.java
+src/test/java/com/fireblocks/sdk/model/ExecutionRequestDetailsTypeTest.java
 src/test/java/com/fireblocks/sdk/model/ExecutionResponseBaseDetailsTest.java
 src/test/java/com/fireblocks/sdk/model/ExecutionResponseDetailsTest.java
 src/test/java/com/fireblocks/sdk/model/ExecutionScreeningOperationTest.java
@@ -2620,6 +2639,11 @@ src/test/java/com/fireblocks/sdk/model/ListOwnedCollectionsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ListOwnedTokensResponseTest.java
 src/test/java/com/fireblocks/sdk/model/LocalBankTransferAfricaAddressTest.java
 src/test/java/com/fireblocks/sdk/model/LocalBankTransferAfricaDestinationTest.java
+src/test/java/com/fireblocks/sdk/model/ManifestBaseTest.java
+src/test/java/com/fireblocks/sdk/model/ManifestOrderInfoTest.java
+src/test/java/com/fireblocks/sdk/model/ManifestOrderTest.java
+src/test/java/com/fireblocks/sdk/model/ManifestQuoteInfoTest.java
+src/test/java/com/fireblocks/sdk/model/ManifestQuoteTest.java
 src/test/java/com/fireblocks/sdk/model/ManifestTest.java
 src/test/java/com/fireblocks/sdk/model/MarketExecutionRequestDetailsTest.java
 src/test/java/com/fireblocks/sdk/model/MarketExecutionResponseDetailsTest.java
@@ -2727,6 +2751,7 @@ src/test/java/com/fireblocks/sdk/model/PolicyTypeTest.java
 src/test/java/com/fireblocks/sdk/model/PolicyValidationTest.java
 src/test/java/com/fireblocks/sdk/model/PolicyVerdictActionEnum2Test.java
 src/test/java/com/fireblocks/sdk/model/PolicyVerdictActionEnumTest.java
+src/test/java/com/fireblocks/sdk/model/PositionTest.java
 src/test/java/com/fireblocks/sdk/model/PostalAddressTest.java
 src/test/java/com/fireblocks/sdk/model/PreScreeningTest.java
 src/test/java/com/fireblocks/sdk/model/PrefundedSettlementTest.java
@@ -2799,7 +2824,6 @@ src/test/java/com/fireblocks/sdk/model/ScreeningOperationFailureTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningOperationTypeTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningPolicyResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningProviderRulesConfigurationResponseTest.java
-src/test/java/com/fireblocks/sdk/model/ScreeningRiskLevelEnumTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningTRLinkAmountTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningTRLinkMissingTrmDecisionTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningTRLinkMissingTrmRuleTest.java
@@ -2843,6 +2867,7 @@ src/test/java/com/fireblocks/sdk/model/SettlementRequestBodyTest.java
 src/test/java/com/fireblocks/sdk/model/SettlementResponseTest.java
 src/test/java/com/fireblocks/sdk/model/SettlementSourceAccountTest.java
 src/test/java/com/fireblocks/sdk/model/SettlementTest.java
+src/test/java/com/fireblocks/sdk/model/SettlementTypeEnumTest.java
 src/test/java/com/fireblocks/sdk/model/SideTest.java
 src/test/java/com/fireblocks/sdk/model/SignedMessageSignatureTest.java
 src/test/java/com/fireblocks/sdk/model/SignedMessageTest.java
@@ -2893,6 +2918,7 @@ src/test/java/com/fireblocks/sdk/model/SplitResponseTest.java
 src/test/java/com/fireblocks/sdk/model/StEthBlockchainDataTest.java
 src/test/java/com/fireblocks/sdk/model/StakeRequestTest.java
 src/test/java/com/fireblocks/sdk/model/StakeResponseTest.java
+src/test/java/com/fireblocks/sdk/model/StakingPositionsPaginatedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/StakingProviderTest.java
 src/test/java/com/fireblocks/sdk/model/StatusTest.java
 src/test/java/com/fireblocks/sdk/model/StellarRippleCreateParamsDtoTest.java
@@ -3008,6 +3034,7 @@ src/test/java/com/fireblocks/sdk/model/TotalSupplyItemDtoTest.java
 src/test/java/com/fireblocks/sdk/model/TotalSupplyPagedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/TradingAccountTypeTest.java
 src/test/java/com/fireblocks/sdk/model/TradingErrorSchemaTest.java
+src/test/java/com/fireblocks/sdk/model/TradingProviderDetailsTest.java
 src/test/java/com/fireblocks/sdk/model/TradingProviderTest.java
 src/test/java/com/fireblocks/sdk/model/TransactionDirectionTest.java
 src/test/java/com/fireblocks/sdk/model/TransactionFeeTest.java

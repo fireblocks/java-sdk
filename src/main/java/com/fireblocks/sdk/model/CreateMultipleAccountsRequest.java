@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.UUID;
 
 /** CreateMultipleAccountsRequest */
 @JsonPropertyOrder({
@@ -29,7 +30,8 @@ import java.util.StringJoiner;
     CreateMultipleAccountsRequest.JSON_PROPERTY_BASE_ASSET_IDS,
     CreateMultipleAccountsRequest.JSON_PROPERTY_NAMES,
     CreateMultipleAccountsRequest.JSON_PROPERTY_VAULT_ACCOUNT_NAMES_STARTING_INDEX,
-    CreateMultipleAccountsRequest.JSON_PROPERTY_PREFIX
+    CreateMultipleAccountsRequest.JSON_PROPERTY_PREFIX,
+    CreateMultipleAccountsRequest.JSON_PROPERTY_TAG_IDS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -50,6 +52,9 @@ public class CreateMultipleAccountsRequest {
 
     public static final String JSON_PROPERTY_PREFIX = "prefix";
     @jakarta.annotation.Nullable private String prefix;
+
+    public static final String JSON_PROPERTY_TAG_IDS = "tagIds";
+    @jakarta.annotation.Nullable private List<UUID> tagIds;
 
     public CreateMultipleAccountsRequest() {}
 
@@ -198,6 +203,37 @@ public class CreateMultipleAccountsRequest {
         this.prefix = prefix;
     }
 
+    public CreateMultipleAccountsRequest tagIds(@jakarta.annotation.Nullable List<UUID> tagIds) {
+        this.tagIds = tagIds;
+        return this;
+    }
+
+    public CreateMultipleAccountsRequest addTagIdsItem(UUID tagIdsItem) {
+        if (this.tagIds == null) {
+            this.tagIds = new ArrayList<>();
+        }
+        this.tagIds.add(tagIdsItem);
+        return this;
+    }
+
+    /**
+     * Optional list of tag IDs to attach to all created vault accounts
+     *
+     * @return tagIds
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TAG_IDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<UUID> getTagIds() {
+        return tagIds;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TAG_IDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTagIds(@jakarta.annotation.Nullable List<UUID> tagIds) {
+        this.tagIds = tagIds;
+    }
+
     /** Return true if this CreateMultipleAccountsRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -215,12 +251,14 @@ public class CreateMultipleAccountsRequest {
                 && Objects.equals(
                         this.vaultAccountNamesStartingIndex,
                         createMultipleAccountsRequest.vaultAccountNamesStartingIndex)
-                && Objects.equals(this.prefix, createMultipleAccountsRequest.prefix);
+                && Objects.equals(this.prefix, createMultipleAccountsRequest.prefix)
+                && Objects.equals(this.tagIds, createMultipleAccountsRequest.tagIds);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(count, baseAssetIds, names, vaultAccountNamesStartingIndex, prefix);
+        return Objects.hash(
+                count, baseAssetIds, names, vaultAccountNamesStartingIndex, prefix, tagIds);
     }
 
     @Override
@@ -234,6 +272,7 @@ public class CreateMultipleAccountsRequest {
                 .append(toIndentedString(vaultAccountNamesStartingIndex))
                 .append("\n");
         sb.append("    prefix: ").append(toIndentedString(prefix)).append("\n");
+        sb.append("    tagIds: ").append(toIndentedString(tagIds)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -343,6 +382,25 @@ public class CreateMultipleAccountsRequest {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getPrefix()))));
+        }
+
+        // add `tagIds` to the URL query string
+        if (getTagIds() != null) {
+            for (int i = 0; i < getTagIds().size(); i++) {
+                if (getTagIds().get(i) != null) {
+                    joiner.add(
+                            String.format(
+                                    "%stagIds%s%s=%s",
+                                    prefix,
+                                    suffix,
+                                    "".equals(suffix)
+                                            ? ""
+                                            : String.format(
+                                                    "%s%d%s", containerPrefix, i, containerSuffix),
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getTagIds().get(i)))));
+                }
+            }
         }
 
         return joiner.toString();

@@ -28,6 +28,8 @@ import java.util.StringJoiner;
     TravelRuleOwnershipProof.JSON_PROPERTY_ADDRESS,
     TravelRuleOwnershipProof.JSON_PROPERTY_WALLET_PROVIDER,
     TravelRuleOwnershipProof.JSON_PROPERTY_URL,
+    TravelRuleOwnershipProof.JSON_PROPERTY_DID,
+    TravelRuleOwnershipProof.JSON_PROPERTY_STATUS,
     TravelRuleOwnershipProof.JSON_PROPERTY_CONFIRMED
 })
 @jakarta.annotation.Generated(
@@ -51,6 +53,12 @@ public class TravelRuleOwnershipProof {
 
     public static final String JSON_PROPERTY_URL = "url";
     @jakarta.annotation.Nullable private String url;
+
+    public static final String JSON_PROPERTY_DID = "did";
+    @jakarta.annotation.Nullable private String did;
+
+    public static final String JSON_PROPERTY_STATUS = "status";
+    @jakarta.annotation.Nullable private String status;
 
     public static final String JSON_PROPERTY_CONFIRMED = "confirmed";
     @jakarta.annotation.Nullable private Boolean confirmed;
@@ -208,6 +216,52 @@ public class TravelRuleOwnershipProof {
         this.url = url;
     }
 
+    public TravelRuleOwnershipProof did(@jakarta.annotation.Nullable String did) {
+        this.did = did;
+        return this;
+    }
+
+    /**
+     * The Decentralized Identifier (DID) associated with the ownership proof.
+     *
+     * @return did
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_DID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getDid() {
+        return did;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDid(@jakarta.annotation.Nullable String did) {
+        this.did = did;
+    }
+
+    public TravelRuleOwnershipProof status(@jakarta.annotation.Nullable String status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * The status of the ownership proof verification.
+     *
+     * @return status
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getStatus() {
+        return status;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStatus(@jakarta.annotation.Nullable String status) {
+        this.status = status;
+    }
+
     public TravelRuleOwnershipProof confirmed(@jakarta.annotation.Nullable Boolean confirmed) {
         this.confirmed = confirmed;
         return this;
@@ -248,12 +302,15 @@ public class TravelRuleOwnershipProof {
                 && Objects.equals(this.address, travelRuleOwnershipProof.address)
                 && Objects.equals(this.walletProvider, travelRuleOwnershipProof.walletProvider)
                 && Objects.equals(this.url, travelRuleOwnershipProof.url)
+                && Objects.equals(this.did, travelRuleOwnershipProof.did)
+                && Objects.equals(this.status, travelRuleOwnershipProof.status)
                 && Objects.equals(this.confirmed, travelRuleOwnershipProof.confirmed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, proof, attestation, address, walletProvider, url, confirmed);
+        return Objects.hash(
+                type, proof, attestation, address, walletProvider, url, did, status, confirmed);
     }
 
     @Override
@@ -266,6 +323,8 @@ public class TravelRuleOwnershipProof {
         sb.append("    address: ").append(toIndentedString(address)).append("\n");
         sb.append("    walletProvider: ").append(toIndentedString(walletProvider)).append("\n");
         sb.append("    url: ").append(toIndentedString(url)).append("\n");
+        sb.append("    did: ").append(toIndentedString(did)).append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    confirmed: ").append(toIndentedString(confirmed)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -372,6 +431,26 @@ public class TravelRuleOwnershipProof {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getUrl()))));
+        }
+
+        // add `did` to the URL query string
+        if (getDid() != null) {
+            joiner.add(
+                    String.format(
+                            "%sdid%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getDid()))));
+        }
+
+        // add `status` to the URL query string
+        if (getStatus() != null) {
+            joiner.add(
+                    String.format(
+                            "%sstatus%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `confirmed` to the URL query string

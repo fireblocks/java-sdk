@@ -16,23 +16,15 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Risk level assessment for screening results. Possible values vary by provider and context. */
-public enum ScreeningRiskLevelEnum {
-    VERY_HIGH("VERY_HIGH"),
+/** Settlement type supported by the provider */
+public enum SettlementTypeEnum {
+    DVP("DVP"),
 
-    SEVERE("SEVERE"),
-
-    HIGH("HIGH"),
-
-    MEDIUM("MEDIUM"),
-
-    LOW("LOW"),
-
-    UNKNOWN("UNKNOWN");
+    PREFUNDED("PREFUNDED");
 
     private String value;
 
-    ScreeningRiskLevelEnum(String value) {
+    SettlementTypeEnum(String value) {
         this.value = value;
     }
 
@@ -47,8 +39,8 @@ public enum ScreeningRiskLevelEnum {
     }
 
     @JsonCreator
-    public static ScreeningRiskLevelEnum fromValue(String value) {
-        for (ScreeningRiskLevelEnum b : ScreeningRiskLevelEnum.values()) {
+    public static SettlementTypeEnum fromValue(String value) {
+        for (SettlementTypeEnum b : SettlementTypeEnum.values()) {
             if (b.value.equals(value)) {
                 return b;
             }

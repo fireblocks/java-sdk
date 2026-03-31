@@ -15,11 +15,25 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for Capability */
-class CapabilityTest {
-    /** Model tests for Capability */
+/** Model tests for AccountBasedAccessProviderInfo */
+class AccountBasedAccessProviderInfoTest {
+    private final AccountBasedAccessProviderInfo model = new AccountBasedAccessProviderInfo();
+
+    /** Model tests for AccountBasedAccessProviderInfo */
     @Test
-    void testCapability() {
-        // TODO: test Capability
+    void testAccountBasedAccessProviderInfo() {
+        // TODO: test AccountBasedAccessProviderInfo
+    }
+
+    /** Test the property 'connected' */
+    @Test
+    void connectedTest() {
+        // TODO: test connected
+    }
+
+    /** Test the property 'accounts' */
+    @Test
+    void accountsTest() {
+        // TODO: test accounts
     }
 }

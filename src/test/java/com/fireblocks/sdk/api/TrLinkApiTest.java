@@ -129,7 +129,8 @@ public class TrLinkApiTest {
      *
      * <p>Creates a new TRSupport integration for a customer. This establishes a connection
      * placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide
-     * credentials after creation.
+     * credentials after creation. You may optionally supply &#x60;customerIntegrationId&#x60; in
+     * the request body when your tenant is enabled for client-provided integration ids.
      *
      * @throws ApiException if the Api call fails
      */
@@ -175,8 +176,10 @@ public class TrLinkApiTest {
     /**
      * Disconnect customer integration
      *
-     * <p>Disconnects a customer integration by removing stored credentials. The integration record
-     * is deleted and cannot be recovered.
+     * <p>Disconnects the integration for the authenticated workspace (tenant): removes stored
+     * credentials and deletes this tenant&#39;s integration record. The operation is scoped to the
+     * caller&#39;s tenant; it does not remove partner-side state for other workspaces that reuse
+     * the same logical customer integration. The record cannot be recovered after delete.
      *
      * @throws ApiException if the Api call fails
      */

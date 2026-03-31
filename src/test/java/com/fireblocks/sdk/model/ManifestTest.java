@@ -25,15 +25,21 @@ class ManifestTest {
         // TODO: test Manifest
     }
 
-    /** Test the property 'assetTypes' */
+    /** Test the property 'order' */
     @Test
-    void assetTypesTest() {
-        // TODO: test assetTypes
+    void orderTest() {
+        // TODO: test order
     }
 
-    /** Test the property 'capabilities' */
+    /** Test the property 'quote' */
     @Test
-    void capabilitiesTest() {
-        // TODO: test capabilities
+    void quoteTest() {
+        // TODO: test quote
+    }
+
+    /** Test the property 'rate' */
+    @Test
+    void rateTest() {
+        // TODO: test rate
     }
 }

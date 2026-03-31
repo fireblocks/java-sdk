@@ -30,4 +30,10 @@ class JobCreatedTest {
     void jobIdTest() {
         // TODO: test jobId
     }
+
+    /** Test the property 'approvalRequestId' */
+    @Test
+    void approvalRequestIdTest() {
+        // TODO: test approvalRequestId
+    }
 }

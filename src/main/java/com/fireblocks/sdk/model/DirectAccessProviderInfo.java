@@ -21,16 +21,17 @@ import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** DirectAccessProviderDetails */
+/** DirectAccessProviderInfo */
 @JsonPropertyOrder({
-    DirectAccessProviderDetails.JSON_PROPERTY_APPROVED,
-    DirectAccessProviderDetails.JSON_PROPERTY_HAS_TERMS_OF_SERVICE,
-    DirectAccessProviderDetails.JSON_PROPERTY_TERMS_OF_SERVICE_URL
+    DirectAccessProviderInfo.JSON_PROPERTY_APPROVED,
+    DirectAccessProviderInfo.JSON_PROPERTY_HAS_TERMS_OF_SERVICE,
+    DirectAccessProviderInfo.JSON_PROPERTY_TERMS_OF_SERVICE_URL,
+    DirectAccessProviderInfo.JSON_PROPERTY_PRIVACY_POLICY_URL
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class DirectAccessProviderDetails {
+public class DirectAccessProviderInfo {
     public static final String JSON_PROPERTY_APPROVED = "approved";
     @jakarta.annotation.Nullable private Boolean approved;
 
@@ -40,16 +41,19 @@ public class DirectAccessProviderDetails {
     public static final String JSON_PROPERTY_TERMS_OF_SERVICE_URL = "termsOfServiceUrl";
     @jakarta.annotation.Nullable private String termsOfServiceUrl;
 
-    public DirectAccessProviderDetails() {}
+    public static final String JSON_PROPERTY_PRIVACY_POLICY_URL = "privacyPolicyUrl";
+    @jakarta.annotation.Nullable private String privacyPolicyUrl;
+
+    public DirectAccessProviderInfo() {}
 
     @JsonCreator
-    public DirectAccessProviderDetails(
+    public DirectAccessProviderInfo(
             @JsonProperty(value = JSON_PROPERTY_HAS_TERMS_OF_SERVICE, required = true)
                     Boolean hasTermsOfService) {
         this.hasTermsOfService = hasTermsOfService;
     }
 
-    public DirectAccessProviderDetails approved(@jakarta.annotation.Nullable Boolean approved) {
+    public DirectAccessProviderInfo approved(@jakarta.annotation.Nullable Boolean approved) {
         this.approved = approved;
         return this;
     }
@@ -72,7 +76,7 @@ public class DirectAccessProviderDetails {
         this.approved = approved;
     }
 
-    public DirectAccessProviderDetails hasTermsOfService(
+    public DirectAccessProviderInfo hasTermsOfService(
             @jakarta.annotation.Nonnull Boolean hasTermsOfService) {
         this.hasTermsOfService = hasTermsOfService;
         return this;
@@ -96,7 +100,7 @@ public class DirectAccessProviderDetails {
         this.hasTermsOfService = hasTermsOfService;
     }
 
-    public DirectAccessProviderDetails termsOfServiceUrl(
+    public DirectAccessProviderInfo termsOfServiceUrl(
             @jakarta.annotation.Nullable String termsOfServiceUrl) {
         this.termsOfServiceUrl = termsOfServiceUrl;
         return this;
@@ -120,7 +124,31 @@ public class DirectAccessProviderDetails {
         this.termsOfServiceUrl = termsOfServiceUrl;
     }
 
-    /** Return true if this DirectAccessProviderDetails object is equal to o. */
+    public DirectAccessProviderInfo privacyPolicyUrl(
+            @jakarta.annotation.Nullable String privacyPolicyUrl) {
+        this.privacyPolicyUrl = privacyPolicyUrl;
+        return this;
+    }
+
+    /**
+     * URL to the privacy policy document
+     *
+     * @return privacyPolicyUrl
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PRIVACY_POLICY_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPrivacyPolicyUrl() {
+        return privacyPolicyUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PRIVACY_POLICY_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPrivacyPolicyUrl(@jakarta.annotation.Nullable String privacyPolicyUrl) {
+        this.privacyPolicyUrl = privacyPolicyUrl;
+    }
+
+    /** Return true if this DirectAccessProviderInfo object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -129,23 +157,24 @@ public class DirectAccessProviderDetails {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        DirectAccessProviderDetails directAccessProviderDetails = (DirectAccessProviderDetails) o;
-        return Objects.equals(this.approved, directAccessProviderDetails.approved)
+        DirectAccessProviderInfo directAccessProviderInfo = (DirectAccessProviderInfo) o;
+        return Objects.equals(this.approved, directAccessProviderInfo.approved)
                 && Objects.equals(
-                        this.hasTermsOfService, directAccessProviderDetails.hasTermsOfService)
+                        this.hasTermsOfService, directAccessProviderInfo.hasTermsOfService)
                 && Objects.equals(
-                        this.termsOfServiceUrl, directAccessProviderDetails.termsOfServiceUrl);
+                        this.termsOfServiceUrl, directAccessProviderInfo.termsOfServiceUrl)
+                && Objects.equals(this.privacyPolicyUrl, directAccessProviderInfo.privacyPolicyUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(approved, hasTermsOfService, termsOfServiceUrl);
+        return Objects.hash(approved, hasTermsOfService, termsOfServiceUrl, privacyPolicyUrl);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class DirectAccessProviderDetails {\n");
+        sb.append("class DirectAccessProviderInfo {\n");
         sb.append("    approved: ").append(toIndentedString(approved)).append("\n");
         sb.append("    hasTermsOfService: ")
                 .append(toIndentedString(hasTermsOfService))
@@ -153,6 +182,7 @@ public class DirectAccessProviderDetails {
         sb.append("    termsOfServiceUrl: ")
                 .append(toIndentedString(termsOfServiceUrl))
                 .append("\n");
+        sb.append("    privacyPolicyUrl: ").append(toIndentedString(privacyPolicyUrl)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -228,6 +258,16 @@ public class DirectAccessProviderDetails {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getTermsOfServiceUrl()))));
+        }
+
+        // add `privacyPolicyUrl` to the URL query string
+        if (getPrivacyPolicyUrl() != null) {
+            joiner.add(
+                    String.format(
+                            "%sprivacyPolicyUrl%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getPrivacyPolicyUrl()))));
         }
 
         return joiner.toString();

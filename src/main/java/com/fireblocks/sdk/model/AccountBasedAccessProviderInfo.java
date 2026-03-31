@@ -23,61 +23,33 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** AccountBasedAccessProviderDetails */
+/** AccountBasedAccessProviderInfo */
 @JsonPropertyOrder({
-    AccountBasedAccessProviderDetails.JSON_PROPERTY_MANIFEST,
-    AccountBasedAccessProviderDetails.JSON_PROPERTY_CONNECTED,
-    AccountBasedAccessProviderDetails.JSON_PROPERTY_ACCOUNTS
+    AccountBasedAccessProviderInfo.JSON_PROPERTY_CONNECTED,
+    AccountBasedAccessProviderInfo.JSON_PROPERTY_ACCOUNTS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class AccountBasedAccessProviderDetails {
-    public static final String JSON_PROPERTY_MANIFEST = "manifest";
-    @jakarta.annotation.Nonnull private Manifest manifest;
-
+public class AccountBasedAccessProviderInfo {
     public static final String JSON_PROPERTY_CONNECTED = "connected";
     @jakarta.annotation.Nonnull private Boolean connected;
 
     public static final String JSON_PROPERTY_ACCOUNTS = "accounts";
-    @jakarta.annotation.Nullable private List<AccountBase> accounts;
+    @jakarta.annotation.Nonnull private List<AccountBase> accounts;
 
-    public AccountBasedAccessProviderDetails() {}
+    public AccountBasedAccessProviderInfo() {}
 
     @JsonCreator
-    public AccountBasedAccessProviderDetails(
-            @JsonProperty(value = JSON_PROPERTY_MANIFEST, required = true) Manifest manifest,
-            @JsonProperty(value = JSON_PROPERTY_CONNECTED, required = true) Boolean connected) {
-        this.manifest = manifest;
+    public AccountBasedAccessProviderInfo(
+            @JsonProperty(value = JSON_PROPERTY_CONNECTED, required = true) Boolean connected,
+            @JsonProperty(value = JSON_PROPERTY_ACCOUNTS, required = true)
+                    List<AccountBase> accounts) {
         this.connected = connected;
+        this.accounts = accounts;
     }
 
-    public AccountBasedAccessProviderDetails manifest(
-            @jakarta.annotation.Nonnull Manifest manifest) {
-        this.manifest = manifest;
-        return this;
-    }
-
-    /**
-     * Get manifest
-     *
-     * @return manifest
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_MANIFEST)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Manifest getManifest() {
-        return manifest;
-    }
-
-    @JsonProperty(JSON_PROPERTY_MANIFEST)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setManifest(@jakarta.annotation.Nonnull Manifest manifest) {
-        this.manifest = manifest;
-    }
-
-    public AccountBasedAccessProviderDetails connected(
-            @jakarta.annotation.Nonnull Boolean connected) {
+    public AccountBasedAccessProviderInfo connected(@jakarta.annotation.Nonnull Boolean connected) {
         this.connected = connected;
         return this;
     }
@@ -100,13 +72,13 @@ public class AccountBasedAccessProviderDetails {
         this.connected = connected;
     }
 
-    public AccountBasedAccessProviderDetails accounts(
-            @jakarta.annotation.Nullable List<AccountBase> accounts) {
+    public AccountBasedAccessProviderInfo accounts(
+            @jakarta.annotation.Nonnull List<AccountBase> accounts) {
         this.accounts = accounts;
         return this;
     }
 
-    public AccountBasedAccessProviderDetails addAccountsItem(AccountBase accountsItem) {
+    public AccountBasedAccessProviderInfo addAccountsItem(AccountBase accountsItem) {
         if (this.accounts == null) {
             this.accounts = new ArrayList<>();
         }
@@ -119,20 +91,20 @@ public class AccountBasedAccessProviderDetails {
      *
      * @return accounts
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ACCOUNTS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public List<AccountBase> getAccounts() {
         return accounts;
     }
 
     @JsonProperty(JSON_PROPERTY_ACCOUNTS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAccounts(@jakarta.annotation.Nullable List<AccountBase> accounts) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAccounts(@jakarta.annotation.Nonnull List<AccountBase> accounts) {
         this.accounts = accounts;
     }
 
-    /** Return true if this AccountBasedAccessProviderDetails object is equal to o. */
+    /** Return true if this AccountBasedAccessProviderInfo object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -141,23 +113,21 @@ public class AccountBasedAccessProviderDetails {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AccountBasedAccessProviderDetails accountBasedAccessProviderDetails =
-                (AccountBasedAccessProviderDetails) o;
-        return Objects.equals(this.manifest, accountBasedAccessProviderDetails.manifest)
-                && Objects.equals(this.connected, accountBasedAccessProviderDetails.connected)
-                && Objects.equals(this.accounts, accountBasedAccessProviderDetails.accounts);
+        AccountBasedAccessProviderInfo accountBasedAccessProviderInfo =
+                (AccountBasedAccessProviderInfo) o;
+        return Objects.equals(this.connected, accountBasedAccessProviderInfo.connected)
+                && Objects.equals(this.accounts, accountBasedAccessProviderInfo.accounts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(manifest, connected, accounts);
+        return Objects.hash(connected, accounts);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class AccountBasedAccessProviderDetails {\n");
-        sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
+        sb.append("class AccountBasedAccessProviderInfo {\n");
         sb.append("    connected: ").append(toIndentedString(connected)).append("\n");
         sb.append("    accounts: ").append(toIndentedString(accounts)).append("\n");
         sb.append("}");
@@ -206,11 +176,6 @@ public class AccountBasedAccessProviderDetails {
         }
 
         StringJoiner joiner = new StringJoiner("&");
-
-        // add `manifest` to the URL query string
-        if (getManifest() != null) {
-            joiner.add(getManifest().toUrlQueryString(prefix + "manifest" + suffix));
-        }
 
         // add `connected` to the URL query string
         if (getConnected() != null) {

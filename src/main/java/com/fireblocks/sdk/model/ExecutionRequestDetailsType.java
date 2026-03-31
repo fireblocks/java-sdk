@@ -16,15 +16,15 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets AssetTypeEnum */
-public enum AssetTypeEnum {
-    DIGITAL("DIGITAL"),
+/** Execution type supported by the provider */
+public enum ExecutionRequestDetailsType {
+    QUOTE("QUOTE"),
 
-    FIAT("FIAT");
+    MARKET("MARKET");
 
     private String value;
 
-    AssetTypeEnum(String value) {
+    ExecutionRequestDetailsType(String value) {
         this.value = value;
     }
 
@@ -39,8 +39,8 @@ public enum AssetTypeEnum {
     }
 
     @JsonCreator
-    public static AssetTypeEnum fromValue(String value) {
-        for (AssetTypeEnum b : AssetTypeEnum.values()) {
+    public static ExecutionRequestDetailsType fromValue(String value) {
+        for (ExecutionRequestDetailsType b : ExecutionRequestDetailsType.values()) {
             if (b.value.equals(value)) {
                 return b;
             }

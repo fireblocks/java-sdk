@@ -15,11 +15,11 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for ScreeningRiskLevelEnum */
-class ScreeningRiskLevelEnumTest {
-    /** Model tests for ScreeningRiskLevelEnum */
+/** Model tests for SettlementTypeEnum */
+class SettlementTypeEnumTest {
+    /** Model tests for SettlementTypeEnum */
     @Test
-    void testScreeningRiskLevelEnum() {
-        // TODO: test ScreeningRiskLevelEnum
+    void testSettlementTypeEnum() {
+        // TODO: test SettlementTypeEnum
     }
 }
