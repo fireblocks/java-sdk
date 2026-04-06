@@ -13,5 +13,11 @@
 
 * `REVIEW` (value: `"REVIEW"`)
 
+* `WAIT` (value: `"WAIT"`)
+
+* `FREEZE` (value: `"FREEZE"`)
+
+* `CANCEL` (value: `"CANCEL"`)
+
 
 

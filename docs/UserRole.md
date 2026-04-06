@@ -27,5 +27,9 @@
 
 * `NCW_SIGNER` (value: `"NCW_SIGNER"`)
 
+* `SECURITY_ADMIN` (value: `"SECURITY_ADMIN"`)
+
+* `SECURITY_AUDITOR` (value: `"SECURITY_AUDITOR"`)
+
 
 

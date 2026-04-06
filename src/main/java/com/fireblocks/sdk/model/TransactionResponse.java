@@ -495,10 +495,10 @@ public class TransactionResponse {
     }
 
     /**
-     * The ID of the asset to transfer, for &#x60;TRANSFER&#x60;, &#x60;MINT&#x60;,
-     * &#x60;BURN&#x60;, &#x60;ENABLE_ASSET&#x60;,&#x60;STAKE&#x60; ,&#x60;UNSTAKE&#x60; or
-     * &#x60;WITHDRAW&#x60; operations. [See the list of supported assets and their IDs on
-     * Fireblocks.](https://developers.fireblocks.com/reference/get_supported-assets)
+     * The ID of the asset to transfer for &#x60;TRANSFER&#x60;, &#x60;MINT&#x60;, &#x60;BURN&#x60;,
+     * &#x60;ENABLE_ASSET&#x60;, or &#x60;STAKE&#x60; operations. [See the list of supported assets
+     * and their IDs on
+     * Fireblocks](https://developers.fireblocks.com/reference/get_supported-assets).
      *
      * @return assetId
      */

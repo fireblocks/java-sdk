@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -58,7 +60,8 @@ import java.util.StringJoiner;
     ComplianceScreeningResult.JSON_PROPERTY_MATCHED_NO_TRM_SCREENING_RULE,
     ComplianceScreeningResult.JSON_PROPERTY_CUSTOMER_INTEGRATION_ID,
     ComplianceScreeningResult.JSON_PROPERTY_CUSTOMER_SHORT_NAME,
-    ComplianceScreeningResult.JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID
+    ComplianceScreeningResult.JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID,
+    ComplianceScreeningResult.JSON_PROPERTY_PROVIDER_RESPONSE
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -131,10 +134,10 @@ public class ComplianceScreeningResult {
     @jakarta.annotation.Nullable private ScreeningVerdictEnum verdict;
 
     public static final String JSON_PROPERTY_RISK = "risk";
-    @jakarta.annotation.Nullable private ScreeningRiskLevelEnum risk;
+    @jakarta.annotation.Nullable private String risk;
 
     public static final String JSON_PROPERTY_EXTENDED_RISK = "extendedRisk";
-    @jakarta.annotation.Nullable private ScreeningRiskLevelEnum extendedRisk;
+    @jakarta.annotation.Nullable private String extendedRisk;
 
     public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
     @jakarta.annotation.Nullable private String externalId;
@@ -195,6 +198,9 @@ public class ComplianceScreeningResult {
     public static final String JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID = "travelRuleMessageId";
     @jakarta.annotation.Nullable private String travelRuleMessageId;
 
+    public static final String JSON_PROPERTY_PROVIDER_RESPONSE = "providerResponse";
+    @jakarta.annotation.Nullable private Map<String, Object> providerResponse;
+
     public ComplianceScreeningResult() {}
 
     public ComplianceScreeningResult provider(@jakarta.annotation.Nullable String provider) {
@@ -203,8 +209,8 @@ public class ComplianceScreeningResult {
     }
 
     /**
-     * The AML/Travel Rule provider name. For AML: ELLIPTIC, CHAINALYSIS, SCORECHAIN,
-     * MERKLE_SCIENCE, etc. For Travel Rule: NOTABENE, SYGNA, or any TRLink provider name
+     * The AML/Travel Rule provider name. For AML: ELLIPTIC, CHAINALYSIS, etc. For Travel Rule:
+     * NOTABENE, SUMSUB, GTR, or any TRLink provider name.
      *
      * @return provider
      */
@@ -301,8 +307,9 @@ public class ComplianceScreeningResult {
     }
 
     /**
-     * Reason for bypassing the screening, if applicable. For AML: SANCTIONS_SCREENING_BYPASS,
-     * SANCTIONS_RECIPIENT_BYPASS, etc. For Travel Rule: BELOW_THRESHOLD, NO_TRM_AVAILABLE, etc.
+     * Reason for bypassing the screening, if applicable. For AML: UNSUPPORTED_ASSET,
+     * PASSED_BY_POLICY. For Travel Rule: UNSUPPORTED_ASSET, NO_TRAVEL_RULE_MESSAGE,
+     * TRANSACTION_ZERO_AMOUNT.
      *
      * @return bypassReason
      */
@@ -328,7 +335,9 @@ public class ComplianceScreeningResult {
      * Get status
      *
      * @return status
+     * @deprecated
      */
+    @Deprecated
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -352,7 +361,9 @@ public class ComplianceScreeningResult {
      * Get prevStatus
      *
      * @return prevStatus
+     * @deprecated
      */
+    @Deprecated
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_PREV_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -373,10 +384,13 @@ public class ComplianceScreeningResult {
     }
 
     /**
-     * Previous bypass reason before the current bypass reason change
+     * Deprecated: This field is not currently returned in the API response. Previous bypass reason
+     * before the current bypass reason change.
      *
      * @return prevBypassReason
+     * @deprecated
      */
+    @Deprecated
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_PREV_BYPASS_REASON)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -414,51 +428,55 @@ public class ComplianceScreeningResult {
         this.verdict = verdict;
     }
 
-    public ComplianceScreeningResult risk(
-            @jakarta.annotation.Nullable ScreeningRiskLevelEnum risk) {
+    public ComplianceScreeningResult risk(@jakarta.annotation.Nullable String risk) {
         this.risk = risk;
         return this;
     }
 
     /**
-     * Get risk
+     * Risk level assessment for screening results. Values vary by provider and are not managed by
+     * this service. Known values by provider: - Chainalysis: severeRisk, highRisk, mediumRisk,
+     * lowRisk, noRiskInfo - Elliptic: noRiskDetected Legacy values (SCREAMING_SNAKE_CASE, may
+     * appear in old transactions): VERY_HIGH, SEVERE, HIGH, MEDIUM, LOW, NO_RISK_INFO, UNKNOWN
      *
      * @return risk
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_RISK)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ScreeningRiskLevelEnum getRisk() {
+    public String getRisk() {
         return risk;
     }
 
     @JsonProperty(JSON_PROPERTY_RISK)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRisk(@jakarta.annotation.Nullable ScreeningRiskLevelEnum risk) {
+    public void setRisk(@jakarta.annotation.Nullable String risk) {
         this.risk = risk;
     }
 
     public ComplianceScreeningResult extendedRisk(
-            @jakarta.annotation.Nullable ScreeningRiskLevelEnum extendedRisk) {
+            @jakarta.annotation.Nullable String extendedRisk) {
         this.extendedRisk = extendedRisk;
         return this;
     }
 
     /**
-     * Get extendedRisk
+     * Deprecated: This field is not currently returned in the API response. Use risk instead.
      *
      * @return extendedRisk
+     * @deprecated
      */
+    @Deprecated
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_EXTENDED_RISK)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ScreeningRiskLevelEnum getExtendedRisk() {
+    public String getExtendedRisk() {
         return extendedRisk;
     }
 
     @JsonProperty(JSON_PROPERTY_EXTENDED_RISK)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExtendedRisk(@jakarta.annotation.Nullable ScreeningRiskLevelEnum extendedRisk) {
+    public void setExtendedRisk(@jakarta.annotation.Nullable String extendedRisk) {
         this.extendedRisk = extendedRisk;
     }
 
@@ -515,10 +533,13 @@ public class ComplianceScreeningResult {
     }
 
     /**
-     * Internal reference identifier
+     * Deprecated: This field is not currently returned in the API response. Internal reference
+     * identifier.
      *
      * @return refId
+     * @deprecated
      */
+    @Deprecated
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_REF_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -633,10 +654,13 @@ public class ComplianceScreeningResult {
     }
 
     /**
-     * The destination record identifier used by the screening provider
+     * Deprecated: This field is not currently returned in the API response. The destination record
+     * identifier used by the screening provider.
      *
      * @return destRecordId
+     * @deprecated
      */
+    @Deprecated
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_DEST_RECORD_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -657,10 +681,13 @@ public class ComplianceScreeningResult {
     }
 
     /**
-     * Cryptographic signature for address resolution verification
+     * Deprecated: This field is not currently returned in the API response. Cryptographic signature
+     * for address resolution verification.
      *
      * @return addressResolutionSignature
+     * @deprecated
      */
+    @Deprecated
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_ADDRESS_RESOLUTION_SIGNATURE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -684,7 +711,9 @@ public class ComplianceScreeningResult {
      * Get amlResult
      *
      * @return amlResult
+     * @deprecated
      */
+    @Deprecated
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_AML_RESULT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -707,7 +736,9 @@ public class ComplianceScreeningResult {
      * Get result
      *
      * @return result
+     * @deprecated
      */
+    @Deprecated
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_RESULT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -918,6 +949,46 @@ public class ComplianceScreeningResult {
         this.travelRuleMessageId = travelRuleMessageId;
     }
 
+    public ComplianceScreeningResult providerResponse(
+            @jakarta.annotation.Nullable Map<String, Object> providerResponse) {
+        this.providerResponse = providerResponse;
+        return this;
+    }
+
+    public ComplianceScreeningResult putProviderResponseItem(
+            String key, Object providerResponseItem) {
+        if (this.providerResponse == null) {
+            this.providerResponse = new HashMap<>();
+        }
+        this.providerResponse.put(key, providerResponseItem);
+        return this;
+    }
+
+    /**
+     * Complete response from the screening provider. This is a dynamic object that varies
+     * significantly between different providers (Chainalysis, Elliptic, NOTABENE, etc.). Each
+     * provider has their own proprietary response format and schema. For AML providers: Contains
+     * risk scores, alerts, entity information For Travel Rule providers: Contains VASP information,
+     * PII data, protocol-specific fields The structure is provider-dependent and cannot be
+     * standardized as each vendor implements their own proprietary data models and response
+     * formats.
+     *
+     * @return providerResponse
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PROVIDER_RESPONSE)
+    @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+    public Map<String, Object> getProviderResponse() {
+        return providerResponse;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PROVIDER_RESPONSE)
+    @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+    public void setProviderResponse(
+            @jakarta.annotation.Nullable Map<String, Object> providerResponse) {
+        this.providerResponse = providerResponse;
+    }
+
     /** Return true if this ComplianceScreeningResult object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -966,7 +1037,9 @@ public class ComplianceScreeningResult {
                 && Objects.equals(
                         this.customerShortName, complianceScreeningResult.customerShortName)
                 && Objects.equals(
-                        this.travelRuleMessageId, complianceScreeningResult.travelRuleMessageId);
+                        this.travelRuleMessageId, complianceScreeningResult.travelRuleMessageId)
+                && Objects.equals(
+                        this.providerResponse, complianceScreeningResult.providerResponse);
     }
 
     @Override
@@ -1001,7 +1074,8 @@ public class ComplianceScreeningResult {
                 matchedNoTrmScreeningRule,
                 customerIntegrationId,
                 customerShortName,
-                travelRuleMessageId);
+                travelRuleMessageId,
+                providerResponse);
     }
 
     @Override
@@ -1050,6 +1124,7 @@ public class ComplianceScreeningResult {
         sb.append("    travelRuleMessageId: ")
                 .append(toIndentedString(travelRuleMessageId))
                 .append("\n");
+        sb.append("    providerResponse: ").append(toIndentedString(providerResponse)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -1386,6 +1461,24 @@ public class ComplianceScreeningResult {
                             suffix,
                             ApiClient.urlEncode(
                                     ApiClient.valueToString(getTravelRuleMessageId()))));
+        }
+
+        // add `providerResponse` to the URL query string
+        if (getProviderResponse() != null) {
+            for (String _key : getProviderResponse().keySet()) {
+                joiner.add(
+                        String.format(
+                                "%sproviderResponse%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, _key, containerSuffix),
+                                getProviderResponse().get(_key),
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getProviderResponse().get(_key)))));
+            }
         }
 
         return joiner.toString();

@@ -26,7 +26,8 @@ import java.util.StringJoiner;
     BaseProvider.JSON_PROPERTY_ID,
     BaseProvider.JSON_PROPERTY_NAME,
     BaseProvider.JSON_PROPERTY_LOGO,
-    BaseProvider.JSON_PROPERTY_ACCOUNT_BASED
+    BaseProvider.JSON_PROPERTY_ACCOUNT_BASED,
+    BaseProvider.JSON_PROPERTY_MANIFEST
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -44,6 +45,9 @@ public class BaseProvider {
     public static final String JSON_PROPERTY_ACCOUNT_BASED = "accountBased";
     @jakarta.annotation.Nonnull private Boolean accountBased;
 
+    public static final String JSON_PROPERTY_MANIFEST = "manifest";
+    @jakarta.annotation.Nonnull private Manifest manifest;
+
     public BaseProvider() {}
 
     @JsonCreator
@@ -51,10 +55,12 @@ public class BaseProvider {
             @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
             @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
             @JsonProperty(value = JSON_PROPERTY_ACCOUNT_BASED, required = true)
-                    Boolean accountBased) {
+                    Boolean accountBased,
+            @JsonProperty(value = JSON_PROPERTY_MANIFEST, required = true) Manifest manifest) {
         this.id = id;
         this.name = name;
         this.accountBased = accountBased;
+        this.manifest = manifest;
     }
 
     public BaseProvider id(@jakarta.annotation.Nonnull String id) {
@@ -149,6 +155,29 @@ public class BaseProvider {
         this.accountBased = accountBased;
     }
 
+    public BaseProvider manifest(@jakarta.annotation.Nonnull Manifest manifest) {
+        this.manifest = manifest;
+        return this;
+    }
+
+    /**
+     * Get manifest
+     *
+     * @return manifest
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_MANIFEST)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Manifest getManifest() {
+        return manifest;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MANIFEST)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setManifest(@jakarta.annotation.Nonnull Manifest manifest) {
+        this.manifest = manifest;
+    }
+
     /** Return true if this BaseProvider object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -162,12 +191,13 @@ public class BaseProvider {
         return Objects.equals(this.id, baseProvider.id)
                 && Objects.equals(this.name, baseProvider.name)
                 && Objects.equals(this.logo, baseProvider.logo)
-                && Objects.equals(this.accountBased, baseProvider.accountBased);
+                && Objects.equals(this.accountBased, baseProvider.accountBased)
+                && Objects.equals(this.manifest, baseProvider.manifest);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, logo, accountBased);
+        return Objects.hash(id, name, logo, accountBased, manifest);
     }
 
     @Override
@@ -178,6 +208,7 @@ public class BaseProvider {
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
         sb.append("    accountBased: ").append(toIndentedString(accountBased)).append("\n");
+        sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -261,6 +292,11 @@ public class BaseProvider {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getAccountBased()))));
+        }
+
+        // add `manifest` to the URL query string
+        if (getManifest() != null) {
+            joiner.add(getManifest().toUrlQueryString(prefix + "manifest" + suffix));
         }
 
         return joiner.toString();

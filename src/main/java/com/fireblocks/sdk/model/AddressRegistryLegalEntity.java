@@ -18,108 +18,211 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
-import java.util.UUID;
 
-/** Legal entity resolved for an address-registry lookup */
+/** Legal entity details for a blockchain address. */
 @JsonPropertyOrder({
-    AddressRegistryLegalEntity.JSON_PROPERTY_COMPANY_NAME,
-    AddressRegistryLegalEntity.JSON_PROPERTY_COUNTRY_CODE,
-    AddressRegistryLegalEntity.JSON_PROPERTY_COMPANY_ID
+    AddressRegistryLegalEntity.JSON_PROPERTY_VERIFIED,
+    AddressRegistryLegalEntity.JSON_PROPERTY_ENTITY_NAME,
+    AddressRegistryLegalEntity.JSON_PROPERTY_JURISDICTION,
+    AddressRegistryLegalEntity.JSON_PROPERTY_LEI,
+    AddressRegistryLegalEntity.JSON_PROPERTY_TRAVEL_RULE_PROVIDERS,
+    AddressRegistryLegalEntity.JSON_PROPERTY_EMAIL
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class AddressRegistryLegalEntity {
-    public static final String JSON_PROPERTY_COMPANY_NAME = "companyName";
-    @jakarta.annotation.Nonnull private String companyName;
+    public static final String JSON_PROPERTY_VERIFIED = "verified";
+    @jakarta.annotation.Nonnull private Boolean verified;
 
-    public static final String JSON_PROPERTY_COUNTRY_CODE = "countryCode";
-    @jakarta.annotation.Nonnull private String countryCode;
+    public static final String JSON_PROPERTY_ENTITY_NAME = "entityName";
+    @jakarta.annotation.Nonnull private String entityName;
 
-    public static final String JSON_PROPERTY_COMPANY_ID = "companyId";
-    @jakarta.annotation.Nonnull private UUID companyId;
+    public static final String JSON_PROPERTY_JURISDICTION = "jurisdiction";
+    @jakarta.annotation.Nonnull private String jurisdiction;
+
+    public static final String JSON_PROPERTY_LEI = "lei";
+    @jakarta.annotation.Nonnull private String lei;
+
+    public static final String JSON_PROPERTY_TRAVEL_RULE_PROVIDERS = "travelRuleProviders";
+    @jakarta.annotation.Nonnull private List<AddressRegistryTravelRuleProvider> travelRuleProviders;
+
+    public static final String JSON_PROPERTY_EMAIL = "email";
+    @jakarta.annotation.Nonnull private String email;
 
     public AddressRegistryLegalEntity() {}
 
     @JsonCreator
     public AddressRegistryLegalEntity(
-            @JsonProperty(value = JSON_PROPERTY_COMPANY_NAME, required = true) String companyName,
-            @JsonProperty(value = JSON_PROPERTY_COUNTRY_CODE, required = true) String countryCode,
-            @JsonProperty(value = JSON_PROPERTY_COMPANY_ID, required = true) UUID companyId) {
-        this.companyName = companyName;
-        this.countryCode = countryCode;
-        this.companyId = companyId;
+            @JsonProperty(value = JSON_PROPERTY_VERIFIED, required = true) Boolean verified,
+            @JsonProperty(value = JSON_PROPERTY_ENTITY_NAME, required = true) String entityName,
+            @JsonProperty(value = JSON_PROPERTY_JURISDICTION, required = true) String jurisdiction,
+            @JsonProperty(value = JSON_PROPERTY_LEI, required = true) String lei,
+            @JsonProperty(value = JSON_PROPERTY_TRAVEL_RULE_PROVIDERS, required = true)
+                    List<AddressRegistryTravelRuleProvider> travelRuleProviders,
+            @JsonProperty(value = JSON_PROPERTY_EMAIL, required = true) String email) {
+        this.verified = verified;
+        this.entityName = entityName;
+        this.jurisdiction = jurisdiction;
+        this.lei = lei;
+        this.travelRuleProviders = travelRuleProviders;
+        this.email = email;
     }
 
-    public AddressRegistryLegalEntity companyName(@jakarta.annotation.Nonnull String companyName) {
-        this.companyName = companyName;
+    public AddressRegistryLegalEntity verified(@jakarta.annotation.Nonnull Boolean verified) {
+        this.verified = verified;
         return this;
     }
 
     /**
-     * Legal entity / company display name
+     * Whether the entity was resolved from verified public registry data (e.g. LEI sources).
      *
-     * @return companyName
+     * @return verified
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_COMPANY_NAME)
+    @JsonProperty(JSON_PROPERTY_VERIFIED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getCompanyName() {
-        return companyName;
+    public Boolean getVerified() {
+        return verified;
     }
 
-    @JsonProperty(JSON_PROPERTY_COMPANY_NAME)
+    @JsonProperty(JSON_PROPERTY_VERIFIED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCompanyName(@jakarta.annotation.Nonnull String companyName) {
-        this.companyName = companyName;
+    public void setVerified(@jakarta.annotation.Nonnull Boolean verified) {
+        this.verified = verified;
     }
 
-    public AddressRegistryLegalEntity countryCode(@jakarta.annotation.Nonnull String countryCode) {
-        this.countryCode = countryCode;
+    public AddressRegistryLegalEntity entityName(@jakarta.annotation.Nonnull String entityName) {
+        this.entityName = entityName;
         return this;
     }
 
     /**
-     * Jurisdiction country code (e.g. ISO 3166-1 alpha-2)
+     * Legal entity display name.
      *
-     * @return countryCode
+     * @return entityName
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
+    @JsonProperty(JSON_PROPERTY_ENTITY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getCountryCode() {
-        return countryCode;
+    public String getEntityName() {
+        return entityName;
     }
 
-    @JsonProperty(JSON_PROPERTY_COUNTRY_CODE)
+    @JsonProperty(JSON_PROPERTY_ENTITY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCountryCode(@jakarta.annotation.Nonnull String countryCode) {
-        this.countryCode = countryCode;
+    public void setEntityName(@jakarta.annotation.Nonnull String entityName) {
+        this.entityName = entityName;
     }
 
-    public AddressRegistryLegalEntity companyId(@jakarta.annotation.Nonnull UUID companyId) {
-        this.companyId = companyId;
+    public AddressRegistryLegalEntity jurisdiction(
+            @jakarta.annotation.Nonnull String jurisdiction) {
+        this.jurisdiction = jurisdiction;
         return this;
     }
 
     /**
-     * Company identifier for the resolved legal entity (UUID)
+     * Jurisdiction (e.g. ISO 3166-1 alpha-2 country code).
      *
-     * @return companyId
+     * @return jurisdiction
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_COMPANY_ID)
+    @JsonProperty(JSON_PROPERTY_JURISDICTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public UUID getCompanyId() {
-        return companyId;
+    public String getJurisdiction() {
+        return jurisdiction;
     }
 
-    @JsonProperty(JSON_PROPERTY_COMPANY_ID)
+    @JsonProperty(JSON_PROPERTY_JURISDICTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCompanyId(@jakarta.annotation.Nonnull UUID companyId) {
-        this.companyId = companyId;
+    public void setJurisdiction(@jakarta.annotation.Nonnull String jurisdiction) {
+        this.jurisdiction = jurisdiction;
+    }
+
+    public AddressRegistryLegalEntity lei(@jakarta.annotation.Nonnull String lei) {
+        this.lei = lei;
+        return this;
+    }
+
+    /**
+     * Legal Entity Identifier when available; may be empty when unverified.
+     *
+     * @return lei
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_LEI)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getLei() {
+        return lei;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LEI)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setLei(@jakarta.annotation.Nonnull String lei) {
+        this.lei = lei;
+    }
+
+    public AddressRegistryLegalEntity travelRuleProviders(
+            @jakarta.annotation.Nonnull
+                    List<AddressRegistryTravelRuleProvider> travelRuleProviders) {
+        this.travelRuleProviders = travelRuleProviders;
+        return this;
+    }
+
+    public AddressRegistryLegalEntity addTravelRuleProvidersItem(
+            AddressRegistryTravelRuleProvider travelRuleProvidersItem) {
+        if (this.travelRuleProviders == null) {
+            this.travelRuleProviders = new ArrayList<>();
+        }
+        this.travelRuleProviders.add(travelRuleProvidersItem);
+        return this;
+    }
+
+    /**
+     * Get travelRuleProviders
+     *
+     * @return travelRuleProviders
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_PROVIDERS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<AddressRegistryTravelRuleProvider> getTravelRuleProviders() {
+        return travelRuleProviders;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_PROVIDERS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTravelRuleProviders(
+            @jakarta.annotation.Nonnull
+                    List<AddressRegistryTravelRuleProvider> travelRuleProviders) {
+        this.travelRuleProviders = travelRuleProviders;
+    }
+
+    public AddressRegistryLegalEntity email(@jakarta.annotation.Nonnull String email) {
+        this.email = email;
+        return this;
+    }
+
+    /**
+     * Travel Rule contact email when available.
+     *
+     * @return email
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_EMAIL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getEmail() {
+        return email;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EMAIL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setEmail(@jakarta.annotation.Nonnull String email) {
+        this.email = email;
     }
 
     /** Return true if this AddressRegistryLegalEntity object is equal to o. */
@@ -132,23 +235,32 @@ public class AddressRegistryLegalEntity {
             return false;
         }
         AddressRegistryLegalEntity addressRegistryLegalEntity = (AddressRegistryLegalEntity) o;
-        return Objects.equals(this.companyName, addressRegistryLegalEntity.companyName)
-                && Objects.equals(this.countryCode, addressRegistryLegalEntity.countryCode)
-                && Objects.equals(this.companyId, addressRegistryLegalEntity.companyId);
+        return Objects.equals(this.verified, addressRegistryLegalEntity.verified)
+                && Objects.equals(this.entityName, addressRegistryLegalEntity.entityName)
+                && Objects.equals(this.jurisdiction, addressRegistryLegalEntity.jurisdiction)
+                && Objects.equals(this.lei, addressRegistryLegalEntity.lei)
+                && Objects.equals(
+                        this.travelRuleProviders, addressRegistryLegalEntity.travelRuleProviders)
+                && Objects.equals(this.email, addressRegistryLegalEntity.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(companyName, countryCode, companyId);
+        return Objects.hash(verified, entityName, jurisdiction, lei, travelRuleProviders, email);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class AddressRegistryLegalEntity {\n");
-        sb.append("    companyName: ").append(toIndentedString(companyName)).append("\n");
-        sb.append("    countryCode: ").append(toIndentedString(countryCode)).append("\n");
-        sb.append("    companyId: ").append(toIndentedString(companyId)).append("\n");
+        sb.append("    verified: ").append(toIndentedString(verified)).append("\n");
+        sb.append("    entityName: ").append(toIndentedString(entityName)).append("\n");
+        sb.append("    jurisdiction: ").append(toIndentedString(jurisdiction)).append("\n");
+        sb.append("    lei: ").append(toIndentedString(lei)).append("\n");
+        sb.append("    travelRuleProviders: ")
+                .append(toIndentedString(travelRuleProviders))
+                .append("\n");
+        sb.append("    email: ").append(toIndentedString(email)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -196,34 +308,74 @@ public class AddressRegistryLegalEntity {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `companyName` to the URL query string
-        if (getCompanyName() != null) {
+        // add `verified` to the URL query string
+        if (getVerified() != null) {
             joiner.add(
                     String.format(
-                            "%scompanyName%s=%s",
+                            "%sverified%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getCompanyName()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVerified()))));
         }
 
-        // add `countryCode` to the URL query string
-        if (getCountryCode() != null) {
+        // add `entityName` to the URL query string
+        if (getEntityName() != null) {
             joiner.add(
                     String.format(
-                            "%scountryCode%s=%s",
+                            "%sentityName%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getCountryCode()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEntityName()))));
         }
 
-        // add `companyId` to the URL query string
-        if (getCompanyId() != null) {
+        // add `jurisdiction` to the URL query string
+        if (getJurisdiction() != null) {
             joiner.add(
                     String.format(
-                            "%scompanyId%s=%s",
+                            "%sjurisdiction%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getCompanyId()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getJurisdiction()))));
+        }
+
+        // add `lei` to the URL query string
+        if (getLei() != null) {
+            joiner.add(
+                    String.format(
+                            "%slei%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getLei()))));
+        }
+
+        // add `travelRuleProviders` to the URL query string
+        if (getTravelRuleProviders() != null) {
+            for (int i = 0; i < getTravelRuleProviders().size(); i++) {
+                if (getTravelRuleProviders().get(i) != null) {
+                    joiner.add(
+                            String.format(
+                                    "%stravelRuleProviders%s%s=%s",
+                                    prefix,
+                                    suffix,
+                                    "".equals(suffix)
+                                            ? ""
+                                            : String.format(
+                                                    "%s%d%s", containerPrefix, i, containerSuffix),
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(
+                                                    getTravelRuleProviders().get(i)))));
+                }
+            }
+        }
+
+        // add `email` to the URL query string
+        if (getEmail() != null) {
+            joiner.add(
+                    String.format(
+                            "%semail%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getEmail()))));
         }
 
         return joiner.toString();
