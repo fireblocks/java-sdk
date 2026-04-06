@@ -25,21 +25,39 @@ class AddressRegistryLegalEntityTest {
         // TODO: test AddressRegistryLegalEntity
     }
 
-    /** Test the property 'companyName' */
+    /** Test the property 'verified' */
     @Test
-    void companyNameTest() {
-        // TODO: test companyName
+    void verifiedTest() {
+        // TODO: test verified
     }
 
-    /** Test the property 'countryCode' */
+    /** Test the property 'entityName' */
     @Test
-    void countryCodeTest() {
-        // TODO: test countryCode
+    void entityNameTest() {
+        // TODO: test entityName
     }
 
-    /** Test the property 'companyId' */
+    /** Test the property 'jurisdiction' */
     @Test
-    void companyIdTest() {
-        // TODO: test companyId
+    void jurisdictionTest() {
+        // TODO: test jurisdiction
+    }
+
+    /** Test the property 'lei' */
+    @Test
+    void leiTest() {
+        // TODO: test lei
+    }
+
+    /** Test the property 'travelRuleProviders' */
+    @Test
+    void travelRuleProvidersTest() {
+        // TODO: test travelRuleProviders
+    }
+
+    /** Test the property 'email' */
+    @Test
+    void emailTest() {
+        // TODO: test email
     }
 }

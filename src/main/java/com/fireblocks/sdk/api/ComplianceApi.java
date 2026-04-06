@@ -20,15 +20,31 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
+import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsRequest;
+import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsResponse;
+import com.fireblocks.sdk.model.AddressRegistryGetVaultOptOutResponse;
 import com.fireblocks.sdk.model.AddressRegistryLegalEntity;
+import com.fireblocks.sdk.model.AddressRegistryLegalEntityLegacy;
+import com.fireblocks.sdk.model.AddressRegistryListVaultOptOutsResponse;
+import com.fireblocks.sdk.model.AddressRegistryRemoveAllVaultOptOutsResponse;
+import com.fireblocks.sdk.model.AddressRegistryRemoveVaultOptOutResponse;
+import com.fireblocks.sdk.model.AddressRegistryTenantRegistryResponse;
+import com.fireblocks.sdk.model.AddressRegistryVaultListOrder;
 import com.fireblocks.sdk.model.AmlVerdictManualRequest;
 import com.fireblocks.sdk.model.AmlVerdictManualResponse;
+import com.fireblocks.sdk.model.AssignVaultsToLegalEntityRequest;
+import com.fireblocks.sdk.model.AssignVaultsToLegalEntityResponse;
 import com.fireblocks.sdk.model.ComplianceResultFullPayload;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
+import com.fireblocks.sdk.model.LegalEntityRegistration;
+import com.fireblocks.sdk.model.ListLegalEntitiesResponse;
+import com.fireblocks.sdk.model.ListVaultsForRegistrationResponse;
+import com.fireblocks.sdk.model.RegisterLegalEntityRequest;
 import com.fireblocks.sdk.model.ScreeningConfigurationsRequest;
 import com.fireblocks.sdk.model.ScreeningPolicyResponse;
 import com.fireblocks.sdk.model.ScreeningProviderRulesConfigurationResponse;
 import com.fireblocks.sdk.model.ScreeningUpdateConfigurations;
+import com.fireblocks.sdk.model.UpdateLegalEntityRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -39,6 +55,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -82,6 +99,335 @@ public class ComplianceApi {
         return operationId + " call failed with: " + statusCode + " - " + body;
     }
 
+    /**
+     * Add vault accounts to the address registry opt-out list Adds one or more vault account ids to
+     * the workspace opt-out list for the address registry.
+     *
+     * @param addressRegistryAddVaultOptOutsRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryAddVaultOptOutsResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AddressRegistryAddVaultOptOutsResponse>>
+            addAddressRegistryVaultOptOuts(
+                    AddressRegistryAddVaultOptOutsRequest addressRegistryAddVaultOptOutsRequest,
+                    String idempotencyKey)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    addAddressRegistryVaultOptOutsRequestBuilder(
+                            addressRegistryAddVaultOptOutsRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "addAddressRegistryVaultOptOuts",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<AddressRegistryAddVaultOptOutsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressRegistryAddVaultOptOutsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder addAddressRegistryVaultOptOutsRequestBuilder(
+            AddressRegistryAddVaultOptOutsRequest addressRegistryAddVaultOptOutsRequest,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "addAddressRegistryVaultOptOuts",
+                "addressRegistryAddVaultOptOutsRequest",
+                addressRegistryAddVaultOptOutsRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/address_registry/vaults";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(addressRegistryAddVaultOptOutsRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Assign vault accounts to a legal entity Assigns one or more vault accounts to a specific
+     * legal entity registration. Explicitly mapped vault accounts take precedence over the
+     * workspace default legal entity. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     *
+     * @param assignVaultsToLegalEntityRequest (required)
+     * @param legalEntityId The unique ID of the legal entity registration (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;AssignVaultsToLegalEntityResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AssignVaultsToLegalEntityResponse>>
+            assignVaultsToLegalEntity(
+                    AssignVaultsToLegalEntityRequest assignVaultsToLegalEntityRequest,
+                    UUID legalEntityId,
+                    String idempotencyKey)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    assignVaultsToLegalEntityRequestBuilder(
+                            assignVaultsToLegalEntityRequest, legalEntityId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "assignVaultsToLegalEntity", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<AssignVaultsToLegalEntityResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AssignVaultsToLegalEntityResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder assignVaultsToLegalEntityRequestBuilder(
+            AssignVaultsToLegalEntityRequest assignVaultsToLegalEntityRequest,
+            UUID legalEntityId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "assignVaultsToLegalEntity",
+                "assignVaultsToLegalEntityRequest",
+                assignVaultsToLegalEntityRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "assignVaultsToLegalEntity", "legalEntityId", legalEntityId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/legal_entities/{legalEntityId}/vaults"
+                        .replace("{legalEntityId}", ApiClient.urlEncode(legalEntityId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(assignVaultsToLegalEntityRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get address registry participation status for the authenticated workspace Returns whether the
+     * workspace is &#x60;OPTED_IN&#x60; or &#x60;OPTED_OUT&#x60; of the address registry.
+     *
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryTenantRegistryResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AddressRegistryTenantRegistryResponse>>
+            getAddressRegistryTenantParticipationStatus() throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getAddressRegistryTenantParticipationStatusRequestBuilder();
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getAddressRegistryTenantParticipationStatus",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<AddressRegistryTenantRegistryResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressRegistryTenantRegistryResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getAddressRegistryTenantParticipationStatusRequestBuilder()
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/address_registry/tenant";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get whether a vault account is opted out of the address registry Returns whether this vault
+     * account is on the workspace opt-out list (&#x60;optedOut&#x60; true or false). List, add, and
+     * clear-all are available on &#x60;/v1/address_registry/vaults&#x60;; this path reads or
+     * removes one vault.
+     *
+     * @param vaultAccountId Vault account id (non-negative integer). (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryGetVaultOptOutResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AddressRegistryGetVaultOptOutResponse>>
+            getAddressRegistryVaultOptOut(Integer vaultAccountId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getAddressRegistryVaultOptOutRequestBuilder(vaultAccountId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getAddressRegistryVaultOptOut",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<AddressRegistryGetVaultOptOutResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressRegistryGetVaultOptOutResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getAddressRegistryVaultOptOutRequestBuilder(Integer vaultAccountId)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "getAddressRegistryVaultOptOut", "vaultAccountId", vaultAccountId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/address_registry/vaults/{vaultAccountId}"
+                        .replace(
+                                "{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
     /**
      * AML - View Post-Screening Policy Get the post-screening policy for AML.
      *
@@ -209,16 +555,91 @@ public class ComplianceApi {
         return localVarRequestBuilder;
     }
     /**
-     * Look up legal entity by address and asset Returns the legal entity (company name,
-     * jurisdiction, companyId) for the given blockchain address and optional asset. Both the
-     * requester and the owner of the address must be opted in to the address registry.
+     * Get a legal entity Returns details of a specific legal entity registration, including GLEIF
+     * data when available. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, Viewer.
      *
-     * @param address Blockchain address to look up (required)
-     * @param asset Asset ID (e.g. ETH, BTC). Optional. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryLegalEntity&gt;&gt;
+     * @param legalEntityId The unique ID of the legal entity registration (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;LegalEntityRegistration&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<AddressRegistryLegalEntity>> getLegalEntityByAddress(
+    public CompletableFuture<ApiResponse<LegalEntityRegistration>> getLegalEntity(
+            UUID legalEntityId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getLegalEntityRequestBuilder(legalEntityId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getLegalEntity", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<LegalEntityRegistration>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            LegalEntityRegistration>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getLegalEntityRequestBuilder(UUID legalEntityId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getLegalEntity", "legalEntityId", legalEntityId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/legal_entities/{legalEntityId}"
+                        .replace("{legalEntityId}", ApiClient.urlEncode(legalEntityId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * [Deprecated] Look up legal entity by address (query parameter) **Deprecated** — use &#x60;GET
+     * /v1/address_registry/legal_entities/{address}&#x60; instead. Here &#x60;address&#x60; is a
+     * **query** parameter; the replacement uses a path segment. The response includes only
+     * &#x60;companyName&#x60;, &#x60;countryCode&#x60;, and &#x60;companyId&#x60;. The replacement
+     * returns additional fields documented on that operation. Optional **&#x60;asset&#x60;** is
+     * supported here only (not on the replacement path).
+     *
+     * @param address Blockchain address to look up (required)
+     * @param asset Optional asset identifier (this deprecated operation only). (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryLegalEntityLegacy&gt;&gt;
+     * @throws ApiException if fails to make API call
+     * @deprecated
+     */
+    @Deprecated
+    public CompletableFuture<ApiResponse<AddressRegistryLegalEntityLegacy>> getLegalEntityByAddress(
             String address, String asset) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
@@ -238,7 +659,7 @@ public class ComplianceApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<AddressRegistryLegalEntity>(
+                                            new ApiResponse<AddressRegistryLegalEntityLegacy>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -246,7 +667,7 @@ public class ComplianceApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            AddressRegistryLegalEntity>() {})));
+                                                                            AddressRegistryLegalEntityLegacy>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -283,6 +704,80 @@ public class ComplianceApi {
         } else {
             localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
         }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Look up legal entity by blockchain address Returns legal entity information for the given
+     * blockchain address. URL-encode &#x60;{address}&#x60; when required. Prefer this operation
+     * over the deprecated &#x60;GET /v1/address_registry/legal_entity?address&#x3D;…&#x60;, which
+     * returns only &#x60;companyName&#x60;, &#x60;countryCode&#x60;, and &#x60;companyId&#x60;.
+     * This operation adds verification status, LEI, Travel Rule providers, and contact email (see
+     * response properties).
+     *
+     * @param address Blockchain address to look up (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryLegalEntity&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AddressRegistryLegalEntity>> getLegalEntityForAddress(
+            String address) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getLegalEntityForAddressRequestBuilder(address);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getLegalEntityForAddress", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<AddressRegistryLegalEntity>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressRegistryLegalEntity>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getLegalEntityForAddressRequestBuilder(String address)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getLegalEntityForAddress", "address", address);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/address_registry/legal_entities/{address}"
+                        .replace("{address}", ApiClient.urlEncode(address.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
         localVarRequestBuilder.header("Accept", "application/json");
 
@@ -482,6 +977,668 @@ public class ComplianceApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * List vault-level address registry opt-outs (paginated) Lists vault accounts that are opted
+     * out of the address registry for this workspace. Pagination uses &#x60;next&#x60; and
+     * &#x60;prev&#x60; cursors from the response. If &#x60;pageSize&#x60; is omitted, **50** items
+     * are returned per page; allowed range is **1–100** per request.
+     *
+     * @param pageCursor Opaque cursor from a previous response (&#x60;next&#x60; or
+     *     &#x60;prev&#x60;). Omit for the first page. (optional)
+     * @param pageSize Page size. Default **50** if omitted; must be between **1** and **100**.
+     *     (optional, default to 50)
+     * @param order Sort direction by vault account id. Omit for ascending; use the enum value for
+     *     descending. (optional, default to VAULT_OPT_OUT_LIST_ORDER_ASC)
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryListVaultOptOutsResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AddressRegistryListVaultOptOutsResponse>>
+            listAddressRegistryVaultOptOuts(
+                    String pageCursor, Integer pageSize, AddressRegistryVaultListOrder order)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    listAddressRegistryVaultOptOutsRequestBuilder(pageCursor, pageSize, order);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "listAddressRegistryVaultOptOuts",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<
+                                                    AddressRegistryListVaultOptOutsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressRegistryListVaultOptOutsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder listAddressRegistryVaultOptOutsRequestBuilder(
+            String pageCursor, Integer pageSize, AddressRegistryVaultListOrder order)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/address_registry/vaults";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * List legal entities (Paginated) Returns legal entity registrations for the workspace with
+     * cursor-based pagination. If query parameter vaultAccountId is used it returns the legal
+     * entity registration associated with a specific vault account. If no explicit mapping exists
+     * for the vault, the workspace default legal entity is returned. Returns an empty response if
+     * neither a vault mapping nor a default legal entity is configured. &lt;/br&gt;Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     *
+     * @param vaultAccountId The ID of the vault account. When provided, returns the legal entity
+     *     associated with that vault account and pagination parameters are ignored. (optional)
+     * @param pageCursor Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a
+     *     previous response. Ignored when &#x60;vaultAccountId&#x60; is provided. (optional)
+     * @param pageSize Maximum number of registrations to return. Ignored when
+     *     &#x60;vaultAccountId&#x60; is provided. (optional, default to 50)
+     * @param sortBy Field to sort results by. Ignored when &#x60;vaultAccountId&#x60; is provided.
+     *     (optional)
+     * @param order Sort order. Ignored when &#x60;vaultAccountId&#x60; is provided. (optional,
+     *     default to DESC)
+     * @return CompletableFuture&lt;ApiResponse&lt;ListLegalEntitiesResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ListLegalEntitiesResponse>> listLegalEntities(
+            String vaultAccountId, String pageCursor, Integer pageSize, String sortBy, String order)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    listLegalEntitiesRequestBuilder(
+                            vaultAccountId, pageCursor, pageSize, sortBy, order);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("listLegalEntities", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ListLegalEntitiesResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ListLegalEntitiesResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder listLegalEntitiesRequestBuilder(
+            String vaultAccountId, String pageCursor, Integer pageSize, String sortBy, String order)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/legal_entities";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "vaultAccountId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("vaultAccountId", vaultAccountId));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "sortBy";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sortBy", sortBy));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * List vault accounts for a legal entity (Paginated) Returns vault account IDs explicitly
+     * assigned to a specific legal entity registration, with cursor-based pagination.
+     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     *
+     * @param legalEntityId The unique ID of the legal entity registration (required)
+     * @param pageCursor Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a
+     *     previous response (optional)
+     * @param pageSize Maximum number of registrations to return (optional, default to 50)
+     * @return CompletableFuture&lt;ApiResponse&lt;ListVaultsForRegistrationResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ListVaultsForRegistrationResponse>>
+            listVaultsForLegalEntity(UUID legalEntityId, String pageCursor, Integer pageSize)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    listVaultsForLegalEntityRequestBuilder(legalEntityId, pageCursor, pageSize);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "listVaultsForLegalEntity", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ListVaultsForRegistrationResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ListVaultsForRegistrationResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder listVaultsForLegalEntityRequestBuilder(
+            UUID legalEntityId, String pageCursor, Integer pageSize) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "listVaultsForLegalEntity", "legalEntityId", legalEntityId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/legal_entities/{legalEntityId}/vaults"
+                        .replace("{legalEntityId}", ApiClient.urlEncode(legalEntityId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Opt the workspace in to the address registry Opts the workspace in. No request body. Response
+     * uses the same JSON shape as GET; status is OPTED_IN.
+     *
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryTenantRegistryResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AddressRegistryTenantRegistryResponse>>
+            optInAddressRegistryTenant(String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    optInAddressRegistryTenantRequestBuilder(idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "optInAddressRegistryTenant",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<AddressRegistryTenantRegistryResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressRegistryTenantRegistryResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder optInAddressRegistryTenantRequestBuilder(String idempotencyKey)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/address_registry/tenant";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Opt the workspace out of the address registry Opts the workspace out. No request body.
+     * Response uses the same JSON shape as GET; status is OPTED_OUT.
+     *
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryTenantRegistryResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AddressRegistryTenantRegistryResponse>>
+            optOutAddressRegistryTenant() throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    optOutAddressRegistryTenantRequestBuilder();
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "optOutAddressRegistryTenant",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<AddressRegistryTenantRegistryResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressRegistryTenantRegistryResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder optOutAddressRegistryTenantRequestBuilder() throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/address_registry/tenant";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Register a new legal entity Registers a new legal entity for the workspace using its LEI
+     * (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each
+     * workspace can register multiple legal entities. &lt;/br&gt;Endpoint Permission: Admin,
+     * Non-Signing Admin.
+     *
+     * @param registerLegalEntityRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;LegalEntityRegistration&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<LegalEntityRegistration>> registerLegalEntity(
+            RegisterLegalEntityRequest registerLegalEntityRequest, String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    registerLegalEntityRequestBuilder(registerLegalEntityRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "registerLegalEntity", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<LegalEntityRegistration>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            LegalEntityRegistration>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder registerLegalEntityRequestBuilder(
+            RegisterLegalEntityRequest registerLegalEntityRequest, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "registerLegalEntity", "registerLegalEntityRequest", registerLegalEntityRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/legal_entities";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(registerLegalEntityRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Remove a single vault account from the address registry opt-out list Removes this vault
+     * account id from the workspace opt-out list if it is present; otherwise the call still
+     * succeeds. Response body matches GET (&#x60;optedOut&#x60; is &#x60;false&#x60; after
+     * success). To clear the whole list, use &#x60;DELETE /v1/address_registry/vaults&#x60;.
+     *
+     * @param vaultAccountId Vault account id (non-negative integer). (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryRemoveVaultOptOutResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AddressRegistryRemoveVaultOptOutResponse>>
+            removeAddressRegistryVaultOptOut(Integer vaultAccountId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    removeAddressRegistryVaultOptOutRequestBuilder(vaultAccountId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "removeAddressRegistryVaultOptOut",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<
+                                                    AddressRegistryRemoveVaultOptOutResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressRegistryRemoveVaultOptOutResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder removeAddressRegistryVaultOptOutRequestBuilder(
+            Integer vaultAccountId) throws ApiException {
+        ValidationUtils.assertParamExists(
+                "removeAddressRegistryVaultOptOut", "vaultAccountId", vaultAccountId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/address_registry/vaults/{vaultAccountId}"
+                        .replace(
+                                "{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Remove all vault-level address registry opt-outs for the workspace Removes all vault accounts
+     * from the workspace opt-out list.
+     *
+     * @return
+     *     CompletableFuture&lt;ApiResponse&lt;AddressRegistryRemoveAllVaultOptOutsResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AddressRegistryRemoveAllVaultOptOutsResponse>>
+            removeAllAddressRegistryVaultOptOuts() throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    removeAllAddressRegistryVaultOptOutsRequestBuilder();
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "removeAllAddressRegistryVaultOptOuts",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<
+                                                    AddressRegistryRemoveAllVaultOptOutsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressRegistryRemoveAllVaultOptOutsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder removeAllAddressRegistryVaultOptOutsRequestBuilder()
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/address_registry/vaults";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }
@@ -717,6 +1874,101 @@ public class ComplianceApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Update legal entity Updates the status of a legal entity registration. Setting isDefault to
+     * true marks the registration as the workspace default, which is applied to vault accounts that
+     * have no explicit legal entity mapping. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
+     * Admin.
+     *
+     * @param updateLegalEntityRequest (required)
+     * @param legalEntityId The unique ID of the legal entity registration (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;LegalEntityRegistration&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<LegalEntityRegistration>> updateLegalEntity(
+            UpdateLegalEntityRequest updateLegalEntityRequest,
+            UUID legalEntityId,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    updateLegalEntityRequestBuilder(
+                            updateLegalEntityRequest, legalEntityId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("updateLegalEntity", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<LegalEntityRegistration>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            LegalEntityRegistration>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder updateLegalEntityRequestBuilder(
+            UpdateLegalEntityRequest updateLegalEntityRequest,
+            UUID legalEntityId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "updateLegalEntity", "updateLegalEntityRequest", updateLegalEntityRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateLegalEntity", "legalEntityId", legalEntityId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/legal_entities/{legalEntityId}"
+                        .replace("{legalEntityId}", ApiClient.urlEncode(legalEntityId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(updateLegalEntityRequest);
+            localVarRequestBuilder.method(
+                    "PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

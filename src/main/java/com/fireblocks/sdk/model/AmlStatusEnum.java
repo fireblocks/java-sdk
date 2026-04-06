@@ -16,7 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** AML screening status */
+/** Deprecated: Use screeningStatus instead. AML screening status. */
 public enum AmlStatusEnum {
     COMPLETED("COMPLETED"),
 

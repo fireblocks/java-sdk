@@ -37,21 +37,15 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * automatically created when adding assets on these blockchains at a vault account. *
  * &#x60;STAKE&#x60; - Assign assets to a staking pool managed by a staking validator. Supported for
  * Stellar and EVM-based blockchains. This transaction is automatically created when performing
- * staking operations. * &#x60;UNSTAKE&#x60; - Remove assets from a staking pool managed by a
- * staking validator. Supported for Stellar and EVM-based blockchains. This transaction is
- * automatically created when performing staking operations. * &#x60;WITHDRAW&#x60; - Transfer
- * assets from a dedicated staking vault account to another address. Supported for Stellar and
- * EVM-based blockchains. This transaction is automatically created when performing staking
- * operations. **Note:** Fireblocks will rename this type from &#x60;WITHDRAW&#x60; to a different
- * type name soon. There will be a 7-day notice regarding the new type name. *
- * &#x60;SUPPLY_TO_COMPOUND&#x60; - Deprecated since April 1st, 2023. Older transactions may have
+ * staking operations. * &#x60;SUPPLY_TO_COMPOUND&#x60; - Deprecated since April 1st, 2023. Older
+ * transactions may have this as their operation, in case users in the workspace have used the
+ * direct integration between Fireblocks and the Compound DeFI protocol. *
+ * &#x60;REDEEM_FROM_COMPOUND&#x60; - Deprecated since April 1st, 2023. Older transactions may have
  * this as their operation, in case users in the workspace have used the direct integration between
- * Fireblocks and the Compound DeFI protocol. * &#x60;REDEEM_FROM_COMPOUND&#x60; - Deprecated since
- * April 1st, 2023. Older transactions may have this as their operation, in case users in the
- * workspace have used the direct integration between Fireblocks and the Compound DeFI protocol. *
- * &#x60;PROGRAM_CALL&#x60; - In Solana refers to invoking on-chain programs (smart contracts) to
- * execute transactions and interact with the blockchain. * &#x60;APPROVE&#x60; - Enables the
- * approve function for a smart contract or wallet to withdraw from a designated wallet. [Learn
+ * Fireblocks and the Compound DeFI protocol. * &#x60;PROGRAM_CALL&#x60; - In Solana refers to
+ * invoking on-chain programs (smart contracts) to execute transactions and interact with the
+ * blockchain. * &#x60;APPROVE&#x60; - Enables the approve function for a smart contract or wallet
+ * to withdraw from a designated wallet. [Learn
  * more](https://support.fireblocks.io/hc/en-us/articles/4404616097426-Amount-Cap-for-Approve-transactions).
  */
 public enum GetTransactionOperation {
@@ -70,10 +64,6 @@ public enum GetTransactionOperation {
     ENABLE_ASSET("ENABLE_ASSET"),
 
     STAKE("STAKE"),
-
-    UNSTAKE("UNSTAKE"),
-
-    WITHDRAW("WITHDRAW"),
 
     REDEEM_FROM_COMPOUND("REDEEM_FROM_COMPOUND"),
 

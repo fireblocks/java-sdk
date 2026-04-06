@@ -29,9 +29,8 @@ import java.util.StringJoiner;
  * selection, add the key &#x60;inputsSelection&#x60; with the value set to the [input selection
  * structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The
  * inputs can be retrieved from the [Retrieve Unspent Inputs
- * endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)
- * For &#x60;RAW&#x60; operations, add the key &#x60;rawMessageData&#x60; with the value set to the
- * [raw message data
+ * endpoint.](https://developers.fireblocks.com/reference/getunspentinputs) For &#x60;RAW&#x60;
+ * operations, add the key &#x60;rawMessageData&#x60; with the value set to the [raw message data
  * structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata) For
  * &#x60;CONTRACT_CALL&#x60; operations, add the key &#x60;contractCallData&#x60; with the value set
  * to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks

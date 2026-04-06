@@ -15,15 +15,32 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsRequest;
+import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsResponse;
+import com.fireblocks.sdk.model.AddressRegistryGetVaultOptOutResponse;
 import com.fireblocks.sdk.model.AddressRegistryLegalEntity;
+import com.fireblocks.sdk.model.AddressRegistryLegalEntityLegacy;
+import com.fireblocks.sdk.model.AddressRegistryListVaultOptOutsResponse;
+import com.fireblocks.sdk.model.AddressRegistryRemoveAllVaultOptOutsResponse;
+import com.fireblocks.sdk.model.AddressRegistryRemoveVaultOptOutResponse;
+import com.fireblocks.sdk.model.AddressRegistryTenantRegistryResponse;
+import com.fireblocks.sdk.model.AddressRegistryVaultListOrder;
 import com.fireblocks.sdk.model.AmlVerdictManualRequest;
 import com.fireblocks.sdk.model.AmlVerdictManualResponse;
+import com.fireblocks.sdk.model.AssignVaultsToLegalEntityRequest;
+import com.fireblocks.sdk.model.AssignVaultsToLegalEntityResponse;
 import com.fireblocks.sdk.model.ComplianceResultFullPayload;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
+import com.fireblocks.sdk.model.LegalEntityRegistration;
+import com.fireblocks.sdk.model.ListLegalEntitiesResponse;
+import com.fireblocks.sdk.model.ListVaultsForRegistrationResponse;
+import com.fireblocks.sdk.model.RegisterLegalEntityRequest;
 import com.fireblocks.sdk.model.ScreeningConfigurationsRequest;
 import com.fireblocks.sdk.model.ScreeningPolicyResponse;
 import com.fireblocks.sdk.model.ScreeningProviderRulesConfigurationResponse;
 import com.fireblocks.sdk.model.ScreeningUpdateConfigurations;
+import com.fireblocks.sdk.model.UpdateLegalEntityRequest;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -33,6 +50,71 @@ import org.junit.Test;
 public class ComplianceApiTest {
 
     private final ComplianceApi api = new ComplianceApi();
+
+    /**
+     * Add vault accounts to the address registry opt-out list
+     *
+     * <p>Adds one or more vault account ids to the workspace opt-out list for the address registry.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void addAddressRegistryVaultOptOutsTest() throws ApiException {
+        AddressRegistryAddVaultOptOutsRequest addressRegistryAddVaultOptOutsRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<AddressRegistryAddVaultOptOutsResponse>> response =
+                api.addAddressRegistryVaultOptOuts(
+                        addressRegistryAddVaultOptOutsRequest, idempotencyKey);
+    }
+
+    /**
+     * Assign vault accounts to a legal entity
+     *
+     * <p>Assigns one or more vault accounts to a specific legal entity registration. Explicitly
+     * mapped vault accounts take precedence over the workspace default legal entity.
+     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void assignVaultsToLegalEntityTest() throws ApiException {
+        AssignVaultsToLegalEntityRequest assignVaultsToLegalEntityRequest = null;
+        UUID legalEntityId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<AssignVaultsToLegalEntityResponse>> response =
+                api.assignVaultsToLegalEntity(
+                        assignVaultsToLegalEntityRequest, legalEntityId, idempotencyKey);
+    }
+
+    /**
+     * Get address registry participation status for the authenticated workspace
+     *
+     * <p>Returns whether the workspace is &#x60;OPTED_IN&#x60; or &#x60;OPTED_OUT&#x60; of the
+     * address registry.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getAddressRegistryTenantParticipationStatusTest() throws ApiException {
+        CompletableFuture<ApiResponse<AddressRegistryTenantRegistryResponse>> response =
+                api.getAddressRegistryTenantParticipationStatus();
+    }
+
+    /**
+     * Get whether a vault account is opted out of the address registry
+     *
+     * <p>Returns whether this vault account is on the workspace opt-out list (&#x60;optedOut&#x60;
+     * true or false). List, add, and clear-all are available on
+     * &#x60;/v1/address_registry/vaults&#x60;; this path reads or removes one vault.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getAddressRegistryVaultOptOutTest() throws ApiException {
+        Integer vaultAccountId = null;
+        CompletableFuture<ApiResponse<AddressRegistryGetVaultOptOutResponse>> response =
+                api.getAddressRegistryVaultOptOut(vaultAccountId);
+    }
 
     /**
      * AML - View Post-Screening Policy
@@ -61,11 +143,30 @@ public class ComplianceApiTest {
     }
 
     /**
-     * Look up legal entity by address and asset
+     * Get a legal entity
      *
-     * <p>Returns the legal entity (company name, jurisdiction, companyId) for the given blockchain
-     * address and optional asset. Both the requester and the owner of the address must be opted in
-     * to the address registry.
+     * <p>Returns details of a specific legal entity registration, including GLEIF data when
+     * available. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
+     * Editor, Viewer.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getLegalEntityTest() throws ApiException {
+        UUID legalEntityId = null;
+        CompletableFuture<ApiResponse<LegalEntityRegistration>> response =
+                api.getLegalEntity(legalEntityId);
+    }
+
+    /**
+     * [Deprecated] Look up legal entity by address (query parameter)
+     *
+     * <p>**Deprecated** — use &#x60;GET /v1/address_registry/legal_entities/{address}&#x60;
+     * instead. Here &#x60;address&#x60; is a **query** parameter; the replacement uses a path
+     * segment. The response includes only &#x60;companyName&#x60;, &#x60;countryCode&#x60;, and
+     * &#x60;companyId&#x60;. The replacement returns additional fields documented on that
+     * operation. Optional **&#x60;asset&#x60;** is supported here only (not on the replacement
+     * path).
      *
      * @throws ApiException if the Api call fails
      */
@@ -73,8 +174,27 @@ public class ComplianceApiTest {
     public void getLegalEntityByAddressTest() throws ApiException {
         String address = null;
         String asset = null;
-        CompletableFuture<ApiResponse<AddressRegistryLegalEntity>> response =
+        CompletableFuture<ApiResponse<AddressRegistryLegalEntityLegacy>> response =
                 api.getLegalEntityByAddress(address, asset);
+    }
+
+    /**
+     * Look up legal entity by blockchain address
+     *
+     * <p>Returns legal entity information for the given blockchain address. URL-encode
+     * &#x60;{address}&#x60; when required. Prefer this operation over the deprecated &#x60;GET
+     * /v1/address_registry/legal_entity?address&#x3D;…&#x60;, which returns only
+     * &#x60;companyName&#x60;, &#x60;countryCode&#x60;, and &#x60;companyId&#x60;. This operation
+     * adds verification status, LEI, Travel Rule providers, and contact email (see response
+     * properties).
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getLegalEntityForAddressTest() throws ApiException {
+        String address = null;
+        CompletableFuture<ApiResponse<AddressRegistryLegalEntity>> response =
+                api.getLegalEntityForAddress(address);
     }
 
     /**
@@ -115,6 +235,141 @@ public class ComplianceApiTest {
     public void getScreeningPolicyTest() throws ApiException {
         CompletableFuture<ApiResponse<ScreeningProviderRulesConfigurationResponse>> response =
                 api.getScreeningPolicy();
+    }
+
+    /**
+     * List vault-level address registry opt-outs (paginated)
+     *
+     * <p>Lists vault accounts that are opted out of the address registry for this workspace.
+     * Pagination uses &#x60;next&#x60; and &#x60;prev&#x60; cursors from the response. If
+     * &#x60;pageSize&#x60; is omitted, **50** items are returned per page; allowed range is
+     * **1–100** per request.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void listAddressRegistryVaultOptOutsTest() throws ApiException {
+        String pageCursor = null;
+        Integer pageSize = null;
+        AddressRegistryVaultListOrder order = null;
+        CompletableFuture<ApiResponse<AddressRegistryListVaultOptOutsResponse>> response =
+                api.listAddressRegistryVaultOptOuts(pageCursor, pageSize, order);
+    }
+
+    /**
+     * List legal entities (Paginated)
+     *
+     * <p>Returns legal entity registrations for the workspace with cursor-based pagination. If
+     * query parameter vaultAccountId is used it returns the legal entity registration associated
+     * with a specific vault account. If no explicit mapping exists for the vault, the workspace
+     * default legal entity is returned. Returns an empty response if neither a vault mapping nor a
+     * default legal entity is configured. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor, Viewer.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void listLegalEntitiesTest() throws ApiException {
+        String vaultAccountId = null;
+        String pageCursor = null;
+        Integer pageSize = null;
+        String sortBy = null;
+        String order = null;
+        CompletableFuture<ApiResponse<ListLegalEntitiesResponse>> response =
+                api.listLegalEntities(vaultAccountId, pageCursor, pageSize, sortBy, order);
+    }
+
+    /**
+     * List vault accounts for a legal entity (Paginated)
+     *
+     * <p>Returns vault account IDs explicitly assigned to a specific legal entity registration,
+     * with cursor-based pagination. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor, Viewer.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void listVaultsForLegalEntityTest() throws ApiException {
+        UUID legalEntityId = null;
+        String pageCursor = null;
+        Integer pageSize = null;
+        CompletableFuture<ApiResponse<ListVaultsForRegistrationResponse>> response =
+                api.listVaultsForLegalEntity(legalEntityId, pageCursor, pageSize);
+    }
+
+    /**
+     * Opt the workspace in to the address registry
+     *
+     * <p>Opts the workspace in. No request body. Response uses the same JSON shape as GET; status
+     * is OPTED_IN.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void optInAddressRegistryTenantTest() throws ApiException {
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<AddressRegistryTenantRegistryResponse>> response =
+                api.optInAddressRegistryTenant(idempotencyKey);
+    }
+
+    /**
+     * Opt the workspace out of the address registry
+     *
+     * <p>Opts the workspace out. No request body. Response uses the same JSON shape as GET; status
+     * is OPTED_OUT.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void optOutAddressRegistryTenantTest() throws ApiException {
+        CompletableFuture<ApiResponse<AddressRegistryTenantRegistryResponse>> response =
+                api.optOutAddressRegistryTenant();
+    }
+
+    /**
+     * Register a new legal entity
+     *
+     * <p>Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier)
+     * code. The LEI is validated against the GLEIF registry. Each workspace can register multiple
+     * legal entities. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void registerLegalEntityTest() throws ApiException {
+        RegisterLegalEntityRequest registerLegalEntityRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<LegalEntityRegistration>> response =
+                api.registerLegalEntity(registerLegalEntityRequest, idempotencyKey);
+    }
+
+    /**
+     * Remove a single vault account from the address registry opt-out list
+     *
+     * <p>Removes this vault account id from the workspace opt-out list if it is present; otherwise
+     * the call still succeeds. Response body matches GET (&#x60;optedOut&#x60; is &#x60;false&#x60;
+     * after success). To clear the whole list, use &#x60;DELETE /v1/address_registry/vaults&#x60;.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void removeAddressRegistryVaultOptOutTest() throws ApiException {
+        Integer vaultAccountId = null;
+        CompletableFuture<ApiResponse<AddressRegistryRemoveVaultOptOutResponse>> response =
+                api.removeAddressRegistryVaultOptOut(vaultAccountId);
+    }
+
+    /**
+     * Remove all vault-level address registry opt-outs for the workspace
+     *
+     * <p>Removes all vault accounts from the workspace opt-out list.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void removeAllAddressRegistryVaultOptOutsTest() throws ApiException {
+        CompletableFuture<ApiResponse<AddressRegistryRemoveAllVaultOptOutsResponse>> response =
+                api.removeAllAddressRegistryVaultOptOuts();
     }
 
     /**
@@ -162,6 +417,24 @@ public class ComplianceApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response =
                 api.updateAmlScreeningConfiguration(idempotencyKey);
+    }
+
+    /**
+     * Update legal entity
+     *
+     * <p>Updates the status of a legal entity registration. Setting isDefault to true marks the
+     * registration as the workspace default, which is applied to vault accounts that have no
+     * explicit legal entity mapping. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void updateLegalEntityTest() throws ApiException {
+        UpdateLegalEntityRequest updateLegalEntityRequest = null;
+        UUID legalEntityId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<LegalEntityRegistration>> response =
+                api.updateLegalEntity(updateLegalEntityRequest, legalEntityId, idempotencyKey);
     }
 
     /**

@@ -61,6 +61,18 @@ class TravelRuleOwnershipProofTest {
         // TODO: test url
     }
 
+    /** Test the property 'did' */
+    @Test
+    void didTest() {
+        // TODO: test did
+    }
+
+    /** Test the property 'status' */
+    @Test
+    void statusTest() {
+        // TODO: test status
+    }
+
     /** Test the property 'confirmed' */
     @Test
     void confirmedTest() {

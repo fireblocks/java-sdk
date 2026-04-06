@@ -21,11 +21,17 @@ import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** InteracAddress */
+/**
+ * When true, funds are deposited directly into the recipient&#39;s bank account without a security
+ * question. When false, a security question and answer are required to complete the transfer
+ */
 @JsonPropertyOrder({
     InteracAddress.JSON_PROPERTY_ACCOUNT_HOLDER,
     InteracAddress.JSON_PROPERTY_RECIPIENT_HANDLE,
-    InteracAddress.JSON_PROPERTY_MESSAGE
+    InteracAddress.JSON_PROPERTY_MESSAGE,
+    InteracAddress.JSON_PROPERTY_AUTO_DEPOSIT,
+    InteracAddress.JSON_PROPERTY_SECURITY_QUESTION,
+    InteracAddress.JSON_PROPERTY_SECURITY_ANSWER
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -40,6 +46,15 @@ public class InteracAddress {
     public static final String JSON_PROPERTY_MESSAGE = "message";
     @jakarta.annotation.Nullable private String message;
 
+    public static final String JSON_PROPERTY_AUTO_DEPOSIT = "autoDeposit";
+    @jakarta.annotation.Nonnull private Boolean autoDeposit;
+
+    public static final String JSON_PROPERTY_SECURITY_QUESTION = "securityQuestion";
+    @jakarta.annotation.Nullable private String securityQuestion;
+
+    public static final String JSON_PROPERTY_SECURITY_ANSWER = "securityAnswer";
+    @jakarta.annotation.Nullable private String securityAnswer;
+
     public InteracAddress() {}
 
     @JsonCreator
@@ -47,9 +62,12 @@ public class InteracAddress {
             @JsonProperty(value = JSON_PROPERTY_ACCOUNT_HOLDER, required = true)
                     AccountHolderDetails accountHolder,
             @JsonProperty(value = JSON_PROPERTY_RECIPIENT_HANDLE, required = true)
-                    RecipientHandle recipientHandle) {
+                    RecipientHandle recipientHandle,
+            @JsonProperty(value = JSON_PROPERTY_AUTO_DEPOSIT, required = true)
+                    Boolean autoDeposit) {
         this.accountHolder = accountHolder;
         this.recipientHandle = recipientHandle;
+        this.autoDeposit = autoDeposit;
     }
 
     public InteracAddress accountHolder(
@@ -123,6 +141,75 @@ public class InteracAddress {
         this.message = message;
     }
 
+    public InteracAddress autoDeposit(@jakarta.annotation.Nonnull Boolean autoDeposit) {
+        this.autoDeposit = autoDeposit;
+        return this;
+    }
+
+    /**
+     * Whether to automatically deposit the funds into the account
+     *
+     * @return autoDeposit
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_AUTO_DEPOSIT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Boolean getAutoDeposit() {
+        return autoDeposit;
+    }
+
+    @JsonProperty(JSON_PROPERTY_AUTO_DEPOSIT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAutoDeposit(@jakarta.annotation.Nonnull Boolean autoDeposit) {
+        this.autoDeposit = autoDeposit;
+    }
+
+    public InteracAddress securityQuestion(@jakarta.annotation.Nullable String securityQuestion) {
+        this.securityQuestion = securityQuestion;
+        return this;
+    }
+
+    /**
+     * The security question to be used for the security answer
+     *
+     * @return securityQuestion
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SECURITY_QUESTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getSecurityQuestion() {
+        return securityQuestion;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SECURITY_QUESTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSecurityQuestion(@jakarta.annotation.Nullable String securityQuestion) {
+        this.securityQuestion = securityQuestion;
+    }
+
+    public InteracAddress securityAnswer(@jakarta.annotation.Nullable String securityAnswer) {
+        this.securityAnswer = securityAnswer;
+        return this;
+    }
+
+    /**
+     * The security answer to be used for the security question
+     *
+     * @return securityAnswer
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SECURITY_ANSWER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getSecurityAnswer() {
+        return securityAnswer;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SECURITY_ANSWER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSecurityAnswer(@jakarta.annotation.Nullable String securityAnswer) {
+        this.securityAnswer = securityAnswer;
+    }
+
     /** Return true if this InteracAddress object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -135,12 +222,21 @@ public class InteracAddress {
         InteracAddress interacAddress = (InteracAddress) o;
         return Objects.equals(this.accountHolder, interacAddress.accountHolder)
                 && Objects.equals(this.recipientHandle, interacAddress.recipientHandle)
-                && Objects.equals(this.message, interacAddress.message);
+                && Objects.equals(this.message, interacAddress.message)
+                && Objects.equals(this.autoDeposit, interacAddress.autoDeposit)
+                && Objects.equals(this.securityQuestion, interacAddress.securityQuestion)
+                && Objects.equals(this.securityAnswer, interacAddress.securityAnswer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountHolder, recipientHandle, message);
+        return Objects.hash(
+                accountHolder,
+                recipientHandle,
+                message,
+                autoDeposit,
+                securityQuestion,
+                securityAnswer);
     }
 
     @Override
@@ -150,6 +246,9 @@ public class InteracAddress {
         sb.append("    accountHolder: ").append(toIndentedString(accountHolder)).append("\n");
         sb.append("    recipientHandle: ").append(toIndentedString(recipientHandle)).append("\n");
         sb.append("    message: ").append(toIndentedString(message)).append("\n");
+        sb.append("    autoDeposit: ").append(toIndentedString(autoDeposit)).append("\n");
+        sb.append("    securityQuestion: ").append(toIndentedString(securityQuestion)).append("\n");
+        sb.append("    securityAnswer: ").append(toIndentedString(securityAnswer)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -215,6 +314,36 @@ public class InteracAddress {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getMessage()))));
+        }
+
+        // add `autoDeposit` to the URL query string
+        if (getAutoDeposit() != null) {
+            joiner.add(
+                    String.format(
+                            "%sautoDeposit%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAutoDeposit()))));
+        }
+
+        // add `securityQuestion` to the URL query string
+        if (getSecurityQuestion() != null) {
+            joiner.add(
+                    String.format(
+                            "%ssecurityQuestion%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getSecurityQuestion()))));
+        }
+
+        // add `securityAnswer` to the URL query string
+        if (getSecurityAnswer() != null) {
+            joiner.add(
+                    String.format(
+                            "%ssecurityAnswer%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getSecurityAnswer()))));
         }
 
         return joiner.toString();

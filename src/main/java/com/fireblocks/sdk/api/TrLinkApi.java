@@ -490,7 +490,9 @@ public class TrLinkApi {
     /**
      * Create customer integration Creates a new TRSupport integration for a customer. This
      * establishes a connection placeholder between a customer and a Travel Rule partner. Use the
-     * connect endpoint to provide credentials after creation.
+     * connect endpoint to provide credentials after creation. You may optionally supply
+     * &#x60;customerIntegrationId&#x60; in the request body when your tenant is enabled for
+     * client-provided integration ids.
      *
      * @param trLinkCreateIntegrationRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -733,8 +735,11 @@ public class TrLinkApi {
         return localVarRequestBuilder;
     }
     /**
-     * Disconnect customer integration Disconnects a customer integration by removing stored
-     * credentials. The integration record is deleted and cannot be recovered.
+     * Disconnect customer integration Disconnects the integration for the authenticated workspace
+     * (tenant): removes stored credentials and deletes this tenant&#39;s integration record. The
+     * operation is scoped to the caller&#39;s tenant; it does not remove partner-side state for
+     * other workspaces that reuse the same logical customer integration. The record cannot be
+     * recovered after delete.
      *
      * @param customerIntegrationId Customer integration unique identifier (required)
      * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;

@@ -42,4 +42,22 @@ class InteracAddressTest {
     void messageTest() {
         // TODO: test message
     }
+
+    /** Test the property 'autoDeposit' */
+    @Test
+    void autoDepositTest() {
+        // TODO: test autoDeposit
+    }
+
+    /** Test the property 'securityQuestion' */
+    @Test
+    void securityQuestionTest() {
+        // TODO: test securityQuestion
+    }
+
+    /** Test the property 'securityAnswer' */
+    @Test
+    void securityAnswerTest() {
+        // TODO: test securityAnswer
+    }
 }
