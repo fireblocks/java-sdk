@@ -23,7 +23,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** AccountBasedAccessProvider */
+/**
+ * Provider integrated via Fireblocks connected accounts (&#x60;accountBased&#x60; is
+ * &#x60;true&#x60;).
+ */
 @JsonPropertyOrder({
     AccountBasedAccessProvider.JSON_PROPERTY_ID,
     AccountBasedAccessProvider.JSON_PROPERTY_NAME,
@@ -200,7 +203,7 @@ public class AccountBasedAccessProvider {
     }
 
     /**
-     * Whether the provider is currently connected
+     * Whether the provider is currently connected.
      *
      * @return connected
      */

@@ -27,8 +27,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
     ListVaultsForRegistrationResponse.JSON_PROPERTY_TOTAL,
     ListVaultsForRegistrationResponse.JSON_PROPERTY_DATA,
-    ListVaultsForRegistrationResponse.JSON_PROPERTY_NEXT,
-    ListVaultsForRegistrationResponse.JSON_PROPERTY_PREV
+    ListVaultsForRegistrationResponse.JSON_PROPERTY_NEXT
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -42,9 +41,6 @@ public class ListVaultsForRegistrationResponse {
 
     public static final String JSON_PROPERTY_NEXT = "next";
     @jakarta.annotation.Nullable private String next;
-
-    public static final String JSON_PROPERTY_PREV = "prev";
-    @jakarta.annotation.Nullable private String prev;
 
     public ListVaultsForRegistrationResponse() {}
 
@@ -131,29 +127,6 @@ public class ListVaultsForRegistrationResponse {
         this.next = next;
     }
 
-    public ListVaultsForRegistrationResponse prev(@jakarta.annotation.Nullable String prev) {
-        this.prev = prev;
-        return this;
-    }
-
-    /**
-     * Cursor to pass as &#x60;pageCursor&#x60; to retrieve the previous page
-     *
-     * @return prev
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PREV)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getPrev() {
-        return prev;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PREV)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPrev(@jakarta.annotation.Nullable String prev) {
-        this.prev = prev;
-    }
-
     /** Return true if this ListVaultsForRegistrationResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -167,13 +140,12 @@ public class ListVaultsForRegistrationResponse {
                 (ListVaultsForRegistrationResponse) o;
         return Objects.equals(this.total, listVaultsForRegistrationResponse.total)
                 && Objects.equals(this.data, listVaultsForRegistrationResponse.data)
-                && Objects.equals(this.next, listVaultsForRegistrationResponse.next)
-                && Objects.equals(this.prev, listVaultsForRegistrationResponse.prev);
+                && Objects.equals(this.next, listVaultsForRegistrationResponse.next);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(total, data, next, prev);
+        return Objects.hash(total, data, next);
     }
 
     @Override
@@ -183,7 +155,6 @@ public class ListVaultsForRegistrationResponse {
         sb.append("    total: ").append(toIndentedString(total)).append("\n");
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
         sb.append("    next: ").append(toIndentedString(next)).append("\n");
-        sb.append("    prev: ").append(toIndentedString(prev)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -265,16 +236,6 @@ public class ListVaultsForRegistrationResponse {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getNext()))));
-        }
-
-        // add `prev` to the URL query string
-        if (getPrev() != null) {
-            joiner.add(
-                    String.format(
-                            "%sprev%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getPrev()))));
         }
 
         return joiner.toString();

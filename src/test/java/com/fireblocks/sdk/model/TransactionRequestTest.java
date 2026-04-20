@@ -151,6 +151,12 @@ class TransactionRequestTest {
         // TODO: test extraParameters
     }
 
+    /** Test the property 'utxoSelectionParams' */
+    @Test
+    void utxoSelectionParamsTest() {
+        // TODO: test utxoSelectionParams
+    }
+
     /** Test the property 'customerRefId' */
     @Test
     void customerRefIdTest() {

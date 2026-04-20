@@ -87,7 +87,7 @@ public class TRLinkPostScreeningRule2 {
     @jakarta.annotation.Nullable private String baseAsset;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    @jakarta.annotation.Nullable private TRLinkAmount2 amount;
+    @jakarta.annotation.Nullable private ScreeningPolicyAmount amount;
 
     public static final String JSON_PROPERTY_NETWORK_PROTOCOL = "networkProtocol";
     @jakarta.annotation.Nullable private String networkProtocol;
@@ -404,7 +404,8 @@ public class TRLinkPostScreeningRule2 {
         this.baseAsset = baseAsset;
     }
 
-    public TRLinkPostScreeningRule2 amount(@jakarta.annotation.Nullable TRLinkAmount2 amount) {
+    public TRLinkPostScreeningRule2 amount(
+            @jakarta.annotation.Nullable ScreeningPolicyAmount amount) {
         this.amount = amount;
         return this;
     }
@@ -417,13 +418,13 @@ public class TRLinkPostScreeningRule2 {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TRLinkAmount2 getAmount() {
+    public ScreeningPolicyAmount getAmount() {
         return amount;
     }
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(@jakarta.annotation.Nullable TRLinkAmount2 amount) {
+    public void setAmount(@jakarta.annotation.Nullable ScreeningPolicyAmount amount) {
         this.amount = amount;
     }
 

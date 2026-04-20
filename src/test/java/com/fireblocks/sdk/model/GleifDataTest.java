@@ -37,6 +37,12 @@ class GleifDataTest {
         // TODO: test legalName
     }
 
+    /** Test the property 'legalNameLanguage' */
+    @Test
+    void legalNameLanguageTest() {
+        // TODO: test legalNameLanguage
+    }
+
     /** Test the property 'otherNames' */
     @Test
     void otherNamesTest() {

@@ -80,7 +80,9 @@ public enum TransferPeerPathSubType {
 
     EXTERNAL("External"),
 
-    INTERNAL("Internal");
+    INTERNAL("Internal"),
+
+    VIRTUAL_ACCOUNT("VIRTUAL_ACCOUNT");
 
     private String value;
 

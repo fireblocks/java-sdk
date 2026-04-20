@@ -20,6 +20,8 @@ import com.fireblocks.sdk.model.NotificationAttemptsPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationStatus;
 import com.fireblocks.sdk.model.NotificationWithData;
+import com.fireblocks.sdk.model.ResendByQueryRequest;
+import com.fireblocks.sdk.model.ResendByQueryResponse;
 import com.fireblocks.sdk.model.ResendFailedNotificationsJobStatusResponse;
 import com.fireblocks.sdk.model.ResendFailedNotificationsRequest;
 import com.fireblocks.sdk.model.ResendFailedNotificationsResponse;
@@ -153,6 +155,21 @@ public class WebhooksV2ApiTest {
     }
 
     /**
+     * Get resend by query job status
+     *
+     * <p>Get the status of a resend by query job
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getResendByQueryJobStatusTest() throws ApiException {
+        String webhookId = null;
+        String jobId = null;
+        CompletableFuture<ApiResponse<ResendFailedNotificationsJobStatusResponse>> response =
+                api.getResendByQueryJobStatus(webhookId, jobId);
+    }
+
+    /**
      * Get resend job status
      *
      * <p>Get the status of a resend job
@@ -230,6 +247,23 @@ public class WebhooksV2ApiTest {
 
         CompletableFuture<ApiResponse<Void>> response =
                 api.resendNotificationById(webhookId, notificationId, idempotencyKey);
+    }
+
+    /**
+     * Resend notifications by query
+     *
+     * <p>Resend notifications matching the given query filters (statuses, events, time range,
+     * resource ID) Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void resendNotificationsByQueryTest() throws ApiException {
+        ResendByQueryRequest resendByQueryRequest = null;
+        String webhookId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<ResendByQueryResponse>> response =
+                api.resendNotificationsByQuery(resendByQueryRequest, webhookId, idempotencyKey);
     }
 
     /**

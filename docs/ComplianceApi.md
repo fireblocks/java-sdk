@@ -4,14 +4,17 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
+| [**activateByorkConfig**](ComplianceApi.md#activateByorkConfig) | **POST** /screening/byork/config/activate | Activate BYORK Light |
 | [**addAddressRegistryVaultOptOuts**](ComplianceApi.md#addAddressRegistryVaultOptOuts) | **POST** /address_registry/vaults | Add vault accounts to the address registry opt-out list |
 | [**assignVaultsToLegalEntity**](ComplianceApi.md#assignVaultsToLegalEntity) | **POST** /legal_entities/{legalEntityId}/vaults | Assign vault accounts to a legal entity |
+| [**deactivateByorkConfig**](ComplianceApi.md#deactivateByorkConfig) | **POST** /screening/byork/config/deactivate | Deactivate BYORK Light |
 | [**getAddressRegistryTenantParticipationStatus**](ComplianceApi.md#getAddressRegistryTenantParticipationStatus) | **GET** /address_registry/tenant | Get address registry participation status for the authenticated workspace |
 | [**getAddressRegistryVaultOptOut**](ComplianceApi.md#getAddressRegistryVaultOptOut) | **GET** /address_registry/vaults/{vaultAccountId} | Get whether a vault account is opted out of the address registry |
 | [**getAmlPostScreeningPolicy**](ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy |
 | [**getAmlScreeningPolicy**](ComplianceApi.md#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy |
+| [**getByorkConfig**](ComplianceApi.md#getByorkConfig) | **GET** /screening/byork/config | Get BYORK Light configuration |
+| [**getByorkVerdict**](ComplianceApi.md#getByorkVerdict) | **GET** /screening/byork/verdict | Get BYORK Light verdict |
 | [**getLegalEntity**](ComplianceApi.md#getLegalEntity) | **GET** /legal_entities/{legalEntityId} | Get a legal entity |
-| [**getLegalEntityByAddress**](ComplianceApi.md#getLegalEntityByAddress) | **GET** /address_registry/legal_entity | [Deprecated] Look up legal entity by address (query parameter) |
 | [**getLegalEntityForAddress**](ComplianceApi.md#getLegalEntityForAddress) | **GET** /address_registry/legal_entities/{address} | Look up legal entity by blockchain address |
 | [**getPostScreeningPolicy**](ComplianceApi.md#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy |
 | [**getScreeningFullDetails**](ComplianceApi.md#getScreeningFullDetails) | **GET** /screening/transaction/{txId} | Provides all the compliance details for the given screened transaction. |
@@ -25,12 +28,98 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**removeAddressRegistryVaultOptOut**](ComplianceApi.md#removeAddressRegistryVaultOptOut) | **DELETE** /address_registry/vaults/{vaultAccountId} | Remove a single vault account from the address registry opt-out list |
 | [**removeAllAddressRegistryVaultOptOuts**](ComplianceApi.md#removeAllAddressRegistryVaultOptOuts) | **DELETE** /address_registry/vaults | Remove all vault-level address registry opt-outs for the workspace |
 | [**retryRejectedTransactionBypassScreeningChecks**](ComplianceApi.md#retryRejectedTransactionBypassScreeningChecks) | **POST** /screening/transaction/{txId}/bypass_screening_policy | Calling the \&quot;Bypass Screening Policy\&quot; API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check |
-| [**setAmlVerdict**](ComplianceApi.md#setAmlVerdict) | **POST** /screening/aml/verdict/manual | Set AML Verdict for Manual Screening Verdict. |
+| [**setAmlVerdict**](ComplianceApi.md#setAmlVerdict) | **POST** /screening/aml/verdict/manual | Set AML Verdict (BYORK Super Light) |
+| [**setByorkTimeouts**](ComplianceApi.md#setByorkTimeouts) | **PUT** /screening/byork/config/timeouts | Set BYORK Light timeouts |
+| [**setByorkVerdict**](ComplianceApi.md#setByorkVerdict) | **POST** /screening/byork/verdict | Set BYORK Light verdict |
 | [**updateAmlScreeningConfiguration**](ComplianceApi.md#updateAmlScreeningConfiguration) | **PUT** /screening/aml/policy_configuration | Update AML Configuration |
 | [**updateLegalEntity**](ComplianceApi.md#updateLegalEntity) | **PUT** /legal_entities/{legalEntityId} | Update legal entity |
 | [**updateScreeningConfiguration**](ComplianceApi.md#updateScreeningConfiguration) | **PUT** /screening/configurations | Tenant - Screening Configuration |
 | [**updateTravelRuleConfig**](ComplianceApi.md#updateTravelRuleConfig) | **PUT** /screening/travel_rule/policy_configuration | Update Travel Rule Configuration |
 
+
+
+## activateByorkConfig
+
+> CompletableFuture<ApiResponse<ByorkConfigResponse>> activateByorkConfig activateByorkConfig(idempotencyKey)
+
+Activate BYORK Light
+
+Activates BYORK Light for the authenticated tenant (sets config.active to true). Once activated, BYORK screening applies to matching transactions. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<ByorkConfigResponse>> response = fireblocks.compliance().activateByorkConfig(idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#activateByorkConfig");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ComplianceApi#activateByorkConfig");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**ByorkConfigResponse**](ByorkConfigResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | BYORK configuration activated. |  * X-Request-ID -  <br>  |
+| **400** | BYORK Light not enabled for tenant. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
 ## addAddressRegistryVaultOptOuts
@@ -204,6 +293,90 @@ No authorization required
 |-------------|-------------|------------------|
 | **201** | Vault accounts assigned successfully |  * X-Request-ID -  <br>  |
 | **404** | Legal entity registration not found |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## deactivateByorkConfig
+
+> CompletableFuture<ApiResponse<ByorkConfigResponse>> deactivateByorkConfig deactivateByorkConfig(idempotencyKey)
+
+Deactivate BYORK Light
+
+Deactivates BYORK Light for the authenticated tenant (sets config.active to false). Once deactivated, BYORK screening no longer applies until activated again. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<ByorkConfigResponse>> response = fireblocks.compliance().deactivateByorkConfig(idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#deactivateByorkConfig");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ComplianceApi#deactivateByorkConfig");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**ByorkConfigResponse**](ByorkConfigResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | BYORK configuration deactivated. |  * X-Request-ID -  <br>  |
+| **400** | BYORK Light not enabled for tenant. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -526,6 +699,172 @@ No authorization required
 | **200** | Screening policy retrieved successfully. |  -  |
 
 
+## getByorkConfig
+
+> CompletableFuture<ApiResponse<ByorkConfigResponse>> getByorkConfig getByorkConfig()
+
+Get BYORK Light configuration
+
+Retrieves BYORK Light configuration for the authenticated tenant (timeouts, active flag, allowed timeout ranges). Returns default config when none exists. Requires BYORK Light to be enabled for the tenant.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        try {
+            CompletableFuture<ApiResponse<ByorkConfigResponse>> response = fireblocks.compliance().getByorkConfig();
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#getByorkConfig");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ComplianceApi#getByorkConfig");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+CompletableFuture<ApiResponse<[**ByorkConfigResponse**](ByorkConfigResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | BYORK configuration (or default). |  * X-Request-ID -  <br>  |
+| **400** | BYORK Light not enabled for tenant. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getByorkVerdict
+
+> CompletableFuture<ApiResponse<GetByorkVerdictResponse>> getByorkVerdict getByorkVerdict(txId)
+
+Get BYORK Light verdict
+
+Returns the current BYORK verdict and status for a transaction. Status can be PRE_ACCEPTED, PENDING, RECEIVED (verdict is final but processing not yet complete), or COMPLETED. Requires BYORK Light to be enabled for the tenant. Returns 404 if no BYORK verdict is found for the transaction.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String txId = "550e8400-e29b-41d4-a716-446655440000"; // String | Transaction ID
+        try {
+            CompletableFuture<ApiResponse<GetByorkVerdictResponse>> response = fireblocks.compliance().getByorkVerdict(txId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#getByorkVerdict");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ComplianceApi#getByorkVerdict");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **txId** | **String**| Transaction ID | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**GetByorkVerdictResponse**](GetByorkVerdictResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Current verdict and status. |  * X-Request-ID -  <br>  |
+| **400** | BYORK Light not enabled for tenant or txId missing. |  * X-Request-ID -  <br>  |
+| **404** | No BYORK verdict found for this transaction. |  * X-Request-ID -  <br>  |
+| **500** | Internal server error. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getLegalEntity
 
 > CompletableFuture<ApiResponse<LegalEntityRegistration>> getLegalEntity getLegalEntity(legalEntityId)
@@ -610,101 +949,13 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## getLegalEntityByAddress
-
-> CompletableFuture<ApiResponse<AddressRegistryLegalEntityLegacy>> getLegalEntityByAddress getLegalEntityByAddress(address, asset)
-
-[Deprecated] Look up legal entity by address (query parameter)
-
-**Deprecated** — use &#x60;GET /v1/address_registry/legal_entities/{address}&#x60; instead. Here &#x60;address&#x60; is a **query** parameter; the replacement uses a path segment. The response includes only &#x60;companyName&#x60;, &#x60;countryCode&#x60;, and &#x60;companyId&#x60;. The replacement returns additional fields documented on that operation. Optional **&#x60;asset&#x60;** is supported here only (not on the replacement path).
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.ComplianceApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        String address = "0x742d35cc6634c0532925a3b844bc9e7595f0beb0"; // String | Blockchain address to look up
-        String asset = "ETH"; // String | Optional asset identifier (this deprecated operation only).
-        try {
-            CompletableFuture<ApiResponse<AddressRegistryLegalEntityLegacy>> response = fireblocks.compliance().getLegalEntityByAddress(address, asset);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-            System.out.println("Response body: " + response.get().getData());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling ComplianceApi#getLegalEntityByAddress");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ComplianceApi#getLegalEntityByAddress");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **address** | **String**| Blockchain address to look up | |
-| **asset** | **String**| Optional asset identifier (this deprecated operation only). | [optional] |
-
-### Return type
-
-CompletableFuture<ApiResponse<[**AddressRegistryLegalEntityLegacy**](AddressRegistryLegalEntityLegacy.md)>>
-
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Legal entity found |  * X-Request-ID -  <br>  |
-| **400** | Bad request – missing or invalid address |  * X-Request-ID -  <br>  |
-| **403** | Forbidden – the authenticated workspace is not opted in to the address registry (error code 2140) |  * X-Request-ID -  <br>  |
-| **404** | Not found (error code 2142) — unresolved address, no legal entity for a resolved address, or the same not-found outcome in other cases. |  * X-Request-ID -  <br>  |
-| **0** | Error Response |  * X-Request-ID -  <br>  |
-
-
 ## getLegalEntityForAddress
 
 > CompletableFuture<ApiResponse<AddressRegistryLegalEntity>> getLegalEntityForAddress getLegalEntityForAddress(address)
 
 Look up legal entity by blockchain address
 
-Returns legal entity information for the given blockchain address. URL-encode &#x60;{address}&#x60; when required. Prefer this operation over the deprecated &#x60;GET /v1/address_registry/legal_entity?address&#x3D;…&#x60;, which returns only &#x60;companyName&#x60;, &#x60;countryCode&#x60;, and &#x60;companyId&#x60;. This operation adds verification status, LEI, Travel Rule providers, and contact email (see response properties).
+Returns legal entity information for the given blockchain address (verification status, LEI, Travel Rule providers, contact email, and related fields — see response schema). URL-encode &#x60;{address}&#x60; when required.
 
 ### Example
 
@@ -778,8 +1029,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Legal entity found |  * X-Request-ID -  <br>  |
-| **400** | Bad request – missing or invalid address |  * X-Request-ID -  <br>  |
-| **403** | Forbidden – the authenticated workspace is not opted in to the address registry (error code 2140) |  * X-Request-ID -  <br>  |
+| **400** | Bad request — either request validation (path &#x60;{address}&#x60; empty or whitespace-only after trim, e.g. encoded spaces only; numeric code 4100), or the authenticated workspace is not opted in to the address registry (numeric code 2140). The &#x60;message&#x60; field describes the failure; use &#x60;code&#x60; to distinguish. |  * X-Request-ID -  <br>  |
 | **404** | Not found (error code 2142) — unresolved address, no legal entity for a resolved address, or the same not-found outcome in other cases. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
@@ -1113,7 +1363,7 @@ No authorization required
 
 ## listLegalEntities
 
-> CompletableFuture<ApiResponse<ListLegalEntitiesResponse>> listLegalEntities listLegalEntities(vaultAccountId, pageCursor, pageSize, sortBy, order)
+> CompletableFuture<ApiResponse<ListLegalEntitiesResponse>> listLegalEntities listLegalEntities(vaultAccountId, pageCursor, pageSize)
 
 List legal entities (Paginated)
 
@@ -1145,10 +1395,8 @@ public class Example {
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account. When provided, returns the legal entity associated with that vault account and pagination parameters are ignored.
         String pageCursor = "pageCursor_example"; // String | Cursor string returned in `next` or `prev` of a previous response. Ignored when `vaultAccountId` is provided.
         Integer pageSize = 50; // Integer | Maximum number of registrations to return. Ignored when `vaultAccountId` is provided.
-        String sortBy = "createdAt"; // String | Field to sort results by. Ignored when `vaultAccountId` is provided.
-        String order = "ASC"; // String | Sort order. Ignored when `vaultAccountId` is provided.
         try {
-            CompletableFuture<ApiResponse<ListLegalEntitiesResponse>> response = fireblocks.compliance().listLegalEntities(vaultAccountId, pageCursor, pageSize, sortBy, order);
+            CompletableFuture<ApiResponse<ListLegalEntitiesResponse>> response = fireblocks.compliance().listLegalEntities(vaultAccountId, pageCursor, pageSize);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1178,8 +1426,6 @@ public class Example {
 | **vaultAccountId** | **String**| The ID of the vault account. When provided, returns the legal entity associated with that vault account and pagination parameters are ignored. | [optional] |
 | **pageCursor** | **String**| Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a previous response. Ignored when &#x60;vaultAccountId&#x60; is provided. | [optional] |
 | **pageSize** | **Integer**| Maximum number of registrations to return. Ignored when &#x60;vaultAccountId&#x60; is provided. | [optional] [default to 50] |
-| **sortBy** | **String**| Field to sort results by. Ignored when &#x60;vaultAccountId&#x60; is provided. | [optional] [enum: createdAt, updatedAt] |
-| **order** | **String**| Sort order. Ignored when &#x60;vaultAccountId&#x60; is provided. | [optional] [default to DESC] [enum: ASC, DESC] |
 
 ### Return type
 
@@ -1793,9 +2039,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<AmlVerdictManualResponse>> setAmlVerdict setAmlVerdict(amlVerdictManualRequest, idempotencyKey)
 
-Set AML Verdict for Manual Screening Verdict.
+Set AML Verdict (BYORK Super Light)
 
-Set AML verdict for incoming transactions when Manual Screening Verdict feature is enabled.
+Set AML verdict for incoming transactions when **BYORK Super Light** (Manual Screening Verdict) is enabled. This endpoint is for Super Light only. For **BYORK Light**, use POST /screening/byork/verdict instead. When Super Light is retired, this endpoint will be deprecated; use the BYORK Light verdict API for new integrations.
 
 ### Example
 
@@ -1873,6 +2119,181 @@ No authorization required
 | **200** | AML verdict set successfully. |  -  |
 | **400** | Feature not enabled for tenant. |  * X-Request-ID -  <br>  |
 | **425** | Too Early - transaction not yet in pending screening. |  * X-Request-ID -  <br>  |
+| **500** | Internal server error. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## setByorkTimeouts
+
+> CompletableFuture<ApiResponse<ByorkConfigResponse>> setByorkTimeouts setByorkTimeouts(byorkSetTimeoutsRequest, idempotencyKey)
+
+Set BYORK Light timeouts
+
+Updates timeout values for BYORK wait-for-response (incoming and/or outgoing). At least one of incomingTimeoutSeconds or outgoingTimeoutSeconds is required. Values must be within the ranges returned in GET config (timeoutRangeIncoming for incomingTimeoutSeconds, timeoutRangeOutgoing for outgoingTimeoutSeconds). Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        ByorkSetTimeoutsRequest byorkSetTimeoutsRequest = new ByorkSetTimeoutsRequest(); // ByorkSetTimeoutsRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<ByorkConfigResponse>> response = fireblocks.compliance().setByorkTimeouts(byorkSetTimeoutsRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#setByorkTimeouts");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ComplianceApi#setByorkTimeouts");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **byorkSetTimeoutsRequest** | [**ByorkSetTimeoutsRequest**](ByorkSetTimeoutsRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**ByorkConfigResponse**](ByorkConfigResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Timeouts updated. |  * X-Request-ID -  <br>  |
+| **400** | BYORK Light not enabled, or timeout value out of range, or missing both timeouts. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## setByorkVerdict
+
+> CompletableFuture<ApiResponse<ByorkVerdictResponse>> setByorkVerdict setByorkVerdict(byorkVerdictRequest, idempotencyKey)
+
+Set BYORK Light verdict
+
+Submit verdict (ACCEPT or REJECT) for a transaction in the BYORK Light flow. If the transaction is awaiting your decision, the verdict is applied immediately (response status COMPLETED). If processing has not yet reached that point, the verdict is stored and applied when it does (response status PRE_ACCEPTED). Requires BYORK Light to be enabled for the tenant.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        ByorkVerdictRequest byorkVerdictRequest = new ByorkVerdictRequest(); // ByorkVerdictRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<ByorkVerdictResponse>> response = fireblocks.compliance().setByorkVerdict(byorkVerdictRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#setByorkVerdict");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ComplianceApi#setByorkVerdict");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **byorkVerdictRequest** | [**ByorkVerdictRequest**](ByorkVerdictRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**ByorkVerdictResponse**](ByorkVerdictResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Verdict applied (COMPLETED) or pre-accepted (PRE_ACCEPTED). |  * X-Request-ID -  <br>  |
+| **400** | BYORK Light not enabled for tenant or invalid verdict. |  * X-Request-ID -  <br>  |
+| **409** | BYORK decision already final, screening already completed, or state inconsistent. |  * X-Request-ID -  <br>  |
+| **425** | Too Early - transaction not found (screening not started yet). |  * X-Request-ID -  <br>  |
 | **500** | Internal server error. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 

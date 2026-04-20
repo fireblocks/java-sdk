@@ -69,5 +69,7 @@
 
 * `INTERNAL` (value: `"Internal"`)
 
+* `VIRTUAL_ACCOUNT` (value: `"VIRTUAL_ACCOUNT"`)
+
 
 

@@ -2,6 +2,7 @@
 
 # AccountBasedAccessProvider
 
+Provider integrated via Fireblocks connected accounts (`accountBased` is `true`).
 
 ## Properties
 
@@ -12,7 +13,7 @@
 |**logo** | **String** | URL to the logo image of the provider |  [optional] |
 |**accountBased** | **Boolean** | Indicates whether the provider access model is through accounts or directly |  |
 |**manifest** | [**Manifest**](Manifest.md) |  |  |
-|**connected** | **Boolean** | Whether the provider is currently connected |  |
+|**connected** | **Boolean** | Whether the provider is currently connected. |  |
 |**accounts** | [**List&lt;AccountBase&gt;**](AccountBase.md) |  |  |
 
 

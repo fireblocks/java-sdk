@@ -10,11 +10,13 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getNotification**](WebhooksV2Api.md#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id |
 | [**getNotificationAttempts**](WebhooksV2Api.md#getNotificationAttempts) | **GET** /webhooks/{webhookId}/notifications/{notificationId}/attempts | Get notification attempts |
 | [**getNotifications**](WebhooksV2Api.md#getNotifications) | **GET** /webhooks/{webhookId}/notifications | Get all notifications by webhook id |
+| [**getResendByQueryJobStatus**](WebhooksV2Api.md#getResendByQueryJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_by_query/jobs/{jobId} | Get resend by query job status |
 | [**getResendJobStatus**](WebhooksV2Api.md#getResendJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_failed/jobs/{jobId} | Get resend job status |
 | [**getWebhook**](WebhooksV2Api.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id |
 | [**getWebhooks**](WebhooksV2Api.md#getWebhooks) | **GET** /webhooks | Get all webhooks |
 | [**resendFailedNotifications**](WebhooksV2Api.md#resendFailedNotifications) | **POST** /webhooks/{webhookId}/notifications/resend_failed | Resend failed notifications |
 | [**resendNotificationById**](WebhooksV2Api.md#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id |
+| [**resendNotificationsByQuery**](WebhooksV2Api.md#resendNotificationsByQuery) | **POST** /webhooks/{webhookId}/notifications/resend_by_query | Resend notifications by query |
 | [**resendNotificationsByResourceId**](WebhooksV2Api.md#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id |
 | [**updateWebhook**](WebhooksV2Api.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook |
 
@@ -550,6 +552,91 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getResendByQueryJobStatus
+
+> CompletableFuture<ApiResponse<ResendFailedNotificationsJobStatusResponse>> getResendByQueryJobStatus getResendByQueryJobStatus(webhookId, jobId)
+
+Get resend by query job status
+
+Get the status of a resend by query job 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WebhooksV2Api;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String webhookId = "webhookId_example"; // String | The ID of the webhook
+        String jobId = "jobId_example"; // String | The ID of the resend job
+        try {
+            CompletableFuture<ApiResponse<ResendFailedNotificationsJobStatusResponse>> response = fireblocks.webhooksV2().getResendByQueryJobStatus(webhookId, jobId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WebhooksV2Api#getResendByQueryJobStatus");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling WebhooksV2Api#getResendByQueryJobStatus");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **webhookId** | **String**| The ID of the webhook | |
+| **jobId** | **String**| The ID of the resend job | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**ResendFailedNotificationsJobStatusResponse**](ResendFailedNotificationsJobStatusResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Job status |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getResendJobStatus
 
 > CompletableFuture<ApiResponse<ResendFailedNotificationsJobStatusResponse>> getResendJobStatus getResendJobStatus(webhookId, jobId)
@@ -976,6 +1063,94 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Resend notification request was accepted and is being processed |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## resendNotificationsByQuery
+
+> CompletableFuture<ApiResponse<ResendByQueryResponse>> resendNotificationsByQuery resendNotificationsByQuery(resendByQueryRequest, webhookId, idempotencyKey)
+
+Resend notifications by query
+
+Resend notifications matching the given query filters (statuses, events, time range, resource ID)  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WebhooksV2Api;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        ResendByQueryRequest resendByQueryRequest = new ResendByQueryRequest(); // ResendByQueryRequest | 
+        String webhookId = "webhookId_example"; // String | The ID of the webhook
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<ResendByQueryResponse>> response = fireblocks.webhooksV2().resendNotificationsByQuery(resendByQueryRequest, webhookId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WebhooksV2Api#resendNotificationsByQuery");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling WebhooksV2Api#resendNotificationsByQuery");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **resendByQueryRequest** | [**ResendByQueryRequest**](ResendByQueryRequest.md)|  | |
+| **webhookId** | **String**| The ID of the webhook | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**ResendByQueryResponse**](ResendByQueryResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | No matching notifications to resend |  * X-Request-ID -  <br>  |
+| **202** | Resend notifications request was accepted and is being processed |  * X-Request-ID -  <br>  * Location -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

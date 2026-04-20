@@ -48,6 +48,7 @@ public class Fireblocks {
     private ContractsApi contracts;
     private CosignersBetaApi cosignersBeta;
     private DeployedContractsApi deployedContracts;
+    private EarnBetaApi earnBeta;
     private EmbeddedWalletsApi embeddedWallets;
     private ExchangeAccountsApi exchangeAccounts;
     private ExternalWalletsApi externalWallets;
@@ -75,6 +76,7 @@ public class Fireblocks {
     private TravelRuleApi travelRule;
     private UserGroupsBetaApi userGroupsBeta;
     private UsersApi users;
+    private UtxoManagementBetaApi utxoManagementBeta;
     private VaultsApi vaults;
     private Web3ConnectionsApi web3Connections;
     private WebhooksApi webhooks;
@@ -305,6 +307,13 @@ public class Fireblocks {
         return deployedContracts;
     }
 
+    public EarnBetaApi earnBeta() {
+        if (earnBeta == null) {
+            earnBeta = new EarnBetaApi(apiClient);
+        }
+        return earnBeta;
+    }
+
     public EmbeddedWalletsApi embeddedWallets() {
         if (embeddedWallets == null) {
             embeddedWallets = new EmbeddedWalletsApi(apiClient);
@@ -492,6 +501,13 @@ public class Fireblocks {
             users = new UsersApi(apiClient);
         }
         return users;
+    }
+
+    public UtxoManagementBetaApi utxoManagementBeta() {
+        if (utxoManagementBeta == null) {
+            utxoManagementBeta = new UtxoManagementBetaApi(apiClient);
+        }
+        return utxoManagementBeta;
     }
 
     public VaultsApi vaults() {

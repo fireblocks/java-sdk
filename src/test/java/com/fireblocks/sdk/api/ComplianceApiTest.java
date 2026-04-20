@@ -19,7 +19,6 @@ import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsRequest;
 import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsResponse;
 import com.fireblocks.sdk.model.AddressRegistryGetVaultOptOutResponse;
 import com.fireblocks.sdk.model.AddressRegistryLegalEntity;
-import com.fireblocks.sdk.model.AddressRegistryLegalEntityLegacy;
 import com.fireblocks.sdk.model.AddressRegistryListVaultOptOutsResponse;
 import com.fireblocks.sdk.model.AddressRegistryRemoveAllVaultOptOutsResponse;
 import com.fireblocks.sdk.model.AddressRegistryRemoveVaultOptOutResponse;
@@ -29,8 +28,13 @@ import com.fireblocks.sdk.model.AmlVerdictManualRequest;
 import com.fireblocks.sdk.model.AmlVerdictManualResponse;
 import com.fireblocks.sdk.model.AssignVaultsToLegalEntityRequest;
 import com.fireblocks.sdk.model.AssignVaultsToLegalEntityResponse;
+import com.fireblocks.sdk.model.ByorkConfigResponse;
+import com.fireblocks.sdk.model.ByorkSetTimeoutsRequest;
+import com.fireblocks.sdk.model.ByorkVerdictRequest;
+import com.fireblocks.sdk.model.ByorkVerdictResponse;
 import com.fireblocks.sdk.model.ComplianceResultFullPayload;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
+import com.fireblocks.sdk.model.GetByorkVerdictResponse;
 import com.fireblocks.sdk.model.LegalEntityRegistration;
 import com.fireblocks.sdk.model.ListLegalEntitiesResponse;
 import com.fireblocks.sdk.model.ListVaultsForRegistrationResponse;
@@ -50,6 +54,22 @@ import org.junit.Test;
 public class ComplianceApiTest {
 
     private final ComplianceApi api = new ComplianceApi();
+
+    /**
+     * Activate BYORK Light
+     *
+     * <p>Activates BYORK Light for the authenticated tenant (sets config.active to true). Once
+     * activated, BYORK screening applies to matching transactions. Requires BYORK Light to be
+     * enabled for the tenant (contact your CSM to enable).
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void activateByorkConfigTest() throws ApiException {
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<ByorkConfigResponse>> response =
+                api.activateByorkConfig(idempotencyKey);
+    }
 
     /**
      * Add vault accounts to the address registry opt-out list
@@ -84,6 +104,22 @@ public class ComplianceApiTest {
         CompletableFuture<ApiResponse<AssignVaultsToLegalEntityResponse>> response =
                 api.assignVaultsToLegalEntity(
                         assignVaultsToLegalEntityRequest, legalEntityId, idempotencyKey);
+    }
+
+    /**
+     * Deactivate BYORK Light
+     *
+     * <p>Deactivates BYORK Light for the authenticated tenant (sets config.active to false). Once
+     * deactivated, BYORK screening no longer applies until activated again. Requires BYORK Light to
+     * be enabled for the tenant (contact your CSM to enable).
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void deactivateByorkConfigTest() throws ApiException {
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<ByorkConfigResponse>> response =
+                api.deactivateByorkConfig(idempotencyKey);
     }
 
     /**
@@ -143,6 +179,37 @@ public class ComplianceApiTest {
     }
 
     /**
+     * Get BYORK Light configuration
+     *
+     * <p>Retrieves BYORK Light configuration for the authenticated tenant (timeouts, active flag,
+     * allowed timeout ranges). Returns default config when none exists. Requires BYORK Light to be
+     * enabled for the tenant.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getByorkConfigTest() throws ApiException {
+        CompletableFuture<ApiResponse<ByorkConfigResponse>> response = api.getByorkConfig();
+    }
+
+    /**
+     * Get BYORK Light verdict
+     *
+     * <p>Returns the current BYORK verdict and status for a transaction. Status can be
+     * PRE_ACCEPTED, PENDING, RECEIVED (verdict is final but processing not yet complete), or
+     * COMPLETED. Requires BYORK Light to be enabled for the tenant. Returns 404 if no BYORK verdict
+     * is found for the transaction.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getByorkVerdictTest() throws ApiException {
+        String txId = null;
+        CompletableFuture<ApiResponse<GetByorkVerdictResponse>> response =
+                api.getByorkVerdict(txId);
+    }
+
+    /**
      * Get a legal entity
      *
      * <p>Returns details of a specific legal entity registration, including GLEIF data when
@@ -159,34 +226,11 @@ public class ComplianceApiTest {
     }
 
     /**
-     * [Deprecated] Look up legal entity by address (query parameter)
-     *
-     * <p>**Deprecated** — use &#x60;GET /v1/address_registry/legal_entities/{address}&#x60;
-     * instead. Here &#x60;address&#x60; is a **query** parameter; the replacement uses a path
-     * segment. The response includes only &#x60;companyName&#x60;, &#x60;countryCode&#x60;, and
-     * &#x60;companyId&#x60;. The replacement returns additional fields documented on that
-     * operation. Optional **&#x60;asset&#x60;** is supported here only (not on the replacement
-     * path).
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void getLegalEntityByAddressTest() throws ApiException {
-        String address = null;
-        String asset = null;
-        CompletableFuture<ApiResponse<AddressRegistryLegalEntityLegacy>> response =
-                api.getLegalEntityByAddress(address, asset);
-    }
-
-    /**
      * Look up legal entity by blockchain address
      *
-     * <p>Returns legal entity information for the given blockchain address. URL-encode
-     * &#x60;{address}&#x60; when required. Prefer this operation over the deprecated &#x60;GET
-     * /v1/address_registry/legal_entity?address&#x3D;…&#x60;, which returns only
-     * &#x60;companyName&#x60;, &#x60;countryCode&#x60;, and &#x60;companyId&#x60;. This operation
-     * adds verification status, LEI, Travel Rule providers, and contact email (see response
-     * properties).
+     * <p>Returns legal entity information for the given blockchain address (verification status,
+     * LEI, Travel Rule providers, contact email, and related fields — see response schema).
+     * URL-encode &#x60;{address}&#x60; when required.
      *
      * @throws ApiException if the Api call fails
      */
@@ -273,10 +317,8 @@ public class ComplianceApiTest {
         String vaultAccountId = null;
         String pageCursor = null;
         Integer pageSize = null;
-        String sortBy = null;
-        String order = null;
         CompletableFuture<ApiResponse<ListLegalEntitiesResponse>> response =
-                api.listLegalEntities(vaultAccountId, pageCursor, pageSize, sortBy, order);
+                api.listLegalEntities(vaultAccountId, pageCursor, pageSize);
     }
 
     /**
@@ -390,10 +432,12 @@ public class ComplianceApiTest {
     }
 
     /**
-     * Set AML Verdict for Manual Screening Verdict.
+     * Set AML Verdict (BYORK Super Light)
      *
-     * <p>Set AML verdict for incoming transactions when Manual Screening Verdict feature is
-     * enabled.
+     * <p>Set AML verdict for incoming transactions when **BYORK Super Light** (Manual Screening
+     * Verdict) is enabled. This endpoint is for Super Light only. For **BYORK Light**, use POST
+     * /screening/byork/verdict instead. When Super Light is retired, this endpoint will be
+     * deprecated; use the BYORK Light verdict API for new integrations.
      *
      * @throws ApiException if the Api call fails
      */
@@ -403,6 +447,44 @@ public class ComplianceApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<AmlVerdictManualResponse>> response =
                 api.setAmlVerdict(amlVerdictManualRequest, idempotencyKey);
+    }
+
+    /**
+     * Set BYORK Light timeouts
+     *
+     * <p>Updates timeout values for BYORK wait-for-response (incoming and/or outgoing). At least
+     * one of incomingTimeoutSeconds or outgoingTimeoutSeconds is required. Values must be within
+     * the ranges returned in GET config (timeoutRangeIncoming for incomingTimeoutSeconds,
+     * timeoutRangeOutgoing for outgoingTimeoutSeconds). Requires BYORK Light to be enabled for the
+     * tenant (contact your CSM to enable).
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void setByorkTimeoutsTest() throws ApiException {
+        ByorkSetTimeoutsRequest byorkSetTimeoutsRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<ByorkConfigResponse>> response =
+                api.setByorkTimeouts(byorkSetTimeoutsRequest, idempotencyKey);
+    }
+
+    /**
+     * Set BYORK Light verdict
+     *
+     * <p>Submit verdict (ACCEPT or REJECT) for a transaction in the BYORK Light flow. If the
+     * transaction is awaiting your decision, the verdict is applied immediately (response status
+     * COMPLETED). If processing has not yet reached that point, the verdict is stored and applied
+     * when it does (response status PRE_ACCEPTED). Requires BYORK Light to be enabled for the
+     * tenant.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void setByorkVerdictTest() throws ApiException {
+        ByorkVerdictRequest byorkVerdictRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<ByorkVerdictResponse>> response =
+                api.setByorkVerdict(byorkVerdictRequest, idempotencyKey);
     }
 
     /**

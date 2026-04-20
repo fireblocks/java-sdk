@@ -27,8 +27,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
     ListLegalEntitiesResponse.JSON_PROPERTY_TOTAL,
     ListLegalEntitiesResponse.JSON_PROPERTY_DATA,
-    ListLegalEntitiesResponse.JSON_PROPERTY_NEXT,
-    ListLegalEntitiesResponse.JSON_PROPERTY_PREV
+    ListLegalEntitiesResponse.JSON_PROPERTY_NEXT
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -42,9 +41,6 @@ public class ListLegalEntitiesResponse {
 
     public static final String JSON_PROPERTY_NEXT = "next";
     @jakarta.annotation.Nullable private String next;
-
-    public static final String JSON_PROPERTY_PREV = "prev";
-    @jakarta.annotation.Nullable private String prev;
 
     public ListLegalEntitiesResponse() {}
 
@@ -133,29 +129,6 @@ public class ListLegalEntitiesResponse {
         this.next = next;
     }
 
-    public ListLegalEntitiesResponse prev(@jakarta.annotation.Nullable String prev) {
-        this.prev = prev;
-        return this;
-    }
-
-    /**
-     * Cursor to pass as &#x60;pageCursor&#x60; to retrieve the previous page
-     *
-     * @return prev
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PREV)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getPrev() {
-        return prev;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PREV)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPrev(@jakarta.annotation.Nullable String prev) {
-        this.prev = prev;
-    }
-
     /** Return true if this ListLegalEntitiesResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -168,13 +141,12 @@ public class ListLegalEntitiesResponse {
         ListLegalEntitiesResponse listLegalEntitiesResponse = (ListLegalEntitiesResponse) o;
         return Objects.equals(this.total, listLegalEntitiesResponse.total)
                 && Objects.equals(this.data, listLegalEntitiesResponse.data)
-                && Objects.equals(this.next, listLegalEntitiesResponse.next)
-                && Objects.equals(this.prev, listLegalEntitiesResponse.prev);
+                && Objects.equals(this.next, listLegalEntitiesResponse.next);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(total, data, next, prev);
+        return Objects.hash(total, data, next);
     }
 
     @Override
@@ -184,7 +156,6 @@ public class ListLegalEntitiesResponse {
         sb.append("    total: ").append(toIndentedString(total)).append("\n");
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
         sb.append("    next: ").append(toIndentedString(next)).append("\n");
-        sb.append("    prev: ").append(toIndentedString(prev)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -273,16 +244,6 @@ public class ListLegalEntitiesResponse {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getNext()))));
-        }
-
-        // add `prev` to the URL query string
-        if (getPrev() != null) {
-            joiner.add(
-                    String.format(
-                            "%sprev%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getPrev()))));
         }
 
         return joiner.toString();

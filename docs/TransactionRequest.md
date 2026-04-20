@@ -28,6 +28,7 @@
 |**networkFee** | [**TransactionRequestNetworkFee**](TransactionRequestNetworkFee.md) |  |  [optional] |
 |**replaceTxByHash** | **String** | For EVM-based blockchains only. In case a transaction is stuck, specify the hash of the stuck transaction to replace it by this transaction with a higher fee, or to replace it with this transaction with a zero fee and drop it from the blockchain. |  [optional] |
 |**extraParameters** | **ExtraParameters** |  |  [optional] |
+|**utxoSelectionParams** | [**UtxoSelectionParams**](UtxoSelectionParams.md) |  |  [optional] |
 |**customerRefId** | **String** | The ID for AML providers to associate the owner of funds with transactions. |  [optional] |
 |**travelRuleMessage** | [**TravelRuleCreateTransactionRequest**](TravelRuleCreateTransactionRequest.md) |  |  [optional] |
 |**travelRuleMessageId** | **String** | The ID of the travel rule message from any travel rule provider. Used for travel rule supporting functionality to associate transactions with existing travel rule messages. |  [optional] |

@@ -386,11 +386,11 @@ No authorization required
 
 ## getTradingProviderById
 
-> CompletableFuture<ApiResponse<TradingProviderDetails>> getTradingProviderById getTradingProviderById(providerId)
+> CompletableFuture<ApiResponse<TradingProvider>> getTradingProviderById getTradingProviderById(providerId)
 
 Get trading provider by ID
 
-Retrieve detailed information about a specific provider including its full manifest with order/quote requirements.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+Retrieve a single provider by ID.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
 
 ### Example
 
@@ -417,7 +417,7 @@ public class Example {
 
         String providerId = "providerId_example"; // String | The unique identifier of the provider.
         try {
-            CompletableFuture<ApiResponse<TradingProviderDetails>> response = fireblocks.tradingBeta().getTradingProviderById(providerId);
+            CompletableFuture<ApiResponse<TradingProvider>> response = fireblocks.tradingBeta().getTradingProviderById(providerId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -448,7 +448,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**TradingProviderDetails**](TradingProviderDetails.md)>>
+CompletableFuture<ApiResponse<[**TradingProvider**](TradingProvider.md)>>
 
 
 ### Authorization
@@ -463,7 +463,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Provider details |  * X-Request-ID -  <br>  |
+| **200** | Single provider details. |  * X-Request-ID -  <br>  |
 | **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 | **403** | Forbidden - insufficient permissions, disabled feature, or restricted access. |  * X-Request-ID -  <br>  |
 | **404** | Provider not found. |  * X-Request-ID -  <br>  |

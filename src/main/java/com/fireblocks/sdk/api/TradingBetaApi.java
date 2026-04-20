@@ -27,7 +27,7 @@ import com.fireblocks.sdk.model.OrderDetails;
 import com.fireblocks.sdk.model.OrderStatus;
 import com.fireblocks.sdk.model.ProvidersListResponse;
 import com.fireblocks.sdk.model.QuotesResponse;
-import com.fireblocks.sdk.model.TradingProviderDetails;
+import com.fireblocks.sdk.model.TradingProvider;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -460,21 +460,20 @@ public class TradingBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get trading provider by ID Retrieve detailed information about a specific provider including
-     * its full manifest with order/quote requirements. **Note:** These endpoints are currently in
-     * beta and might be subject to changes. If you want to participate and learn more about the
-     * Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email
-     * to CSM@fireblocks.com. **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer,
-     * Approver, Editor, Viewer. For detailed information about error codes and troubleshooting,
-     * please refer to our [API Error Codes
+     * Get trading provider by ID Retrieve a single provider by ID. **Note:** These endpoints are
+     * currently in beta and might be subject to changes. If you want to participate and learn more
+     * about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send
+     * an email to CSM@fireblocks.com. **Endpoint Permission:** Owner, Admin, Non-Signing Admin,
+     * Signer, Approver, Editor, Viewer. For detailed information about error codes and
+     * troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      *
      * @param providerId The unique identifier of the provider. (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TradingProviderDetails&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;TradingProvider&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<TradingProviderDetails>> getTradingProviderById(
-            String providerId) throws ApiException {
+    public CompletableFuture<ApiResponse<TradingProvider>> getTradingProviderById(String providerId)
+            throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTradingProviderByIdRequestBuilder(providerId);
@@ -493,7 +492,7 @@ public class TradingBetaApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<TradingProviderDetails>(
+                                            new ApiResponse<TradingProvider>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -501,7 +500,7 @@ public class TradingBetaApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            TradingProviderDetails>() {})));
+                                                                            TradingProvider>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }

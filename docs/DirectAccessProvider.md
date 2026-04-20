@@ -2,6 +2,7 @@
 
 # DirectAccessProvider
 
+Provider used without per-account linking (`accountBased` is `false`).
 
 ## Properties
 

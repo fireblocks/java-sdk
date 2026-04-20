@@ -21,7 +21,7 @@ import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** DirectAccessProvider */
+/** Provider used without per-account linking (&#x60;accountBased&#x60; is &#x60;false&#x60;). */
 @JsonPropertyOrder({
     DirectAccessProvider.JSON_PROPERTY_ID,
     DirectAccessProvider.JSON_PROPERTY_NAME,
