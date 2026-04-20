@@ -42,10 +42,4 @@ class ListLegalEntitiesResponseTest {
     void nextTest() {
         // TODO: test next
     }
-
-    /** Test the property 'prev' */
-    @Test
-    void prevTest() {
-        // TODO: test prev
-    }
 }

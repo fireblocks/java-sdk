@@ -20,9 +20,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum TRLinkAssetFormat {
     FIREBLOCKS("fireblocks"),
 
-    COINMARKETCAP("coinmarketcap"),
-
-    SLIP44("slip44");
+    COINMARKETCAP("coinmarketcap");
 
     private String value;
 

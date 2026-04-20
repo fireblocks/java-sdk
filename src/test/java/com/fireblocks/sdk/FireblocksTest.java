@@ -454,6 +454,14 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetEarnBetaApi() {
+        setupFireblocks(true, null, null);
+        EarnBetaApi earnBeta = fireblocks.earnBeta();
+        Assert.assertNotNull(earnBeta);
+        Assert.assertSame(earnBeta, fireblocks.earnBeta());
+    }
+
+    @Test
     public void testGetEmbeddedWalletsApi() {
         setupFireblocks(true, null, null);
         EmbeddedWalletsApi embeddedWallets = fireblocks.embeddedWallets();
@@ -667,6 +675,14 @@ public class FireblocksTest {
         UsersApi users = fireblocks.users();
         Assert.assertNotNull(users);
         Assert.assertSame(users, fireblocks.users());
+    }
+
+    @Test
+    public void testGetUtxoManagementBetaApi() {
+        setupFireblocks(true, null, null);
+        UtxoManagementBetaApi utxoManagementBeta = fireblocks.utxoManagementBeta();
+        Assert.assertNotNull(utxoManagementBeta);
+        Assert.assertSame(utxoManagementBeta, fireblocks.utxoManagementBeta());
     }
 
     @Test

@@ -13937,6 +13937,161 @@ paths:
           \ job_id);"
       x-accepts:
       - application/json
+  /webhooks/{webhookId}/notifications/resend_by_query:
+    post:
+      description: |
+        Resend notifications matching the given query filters (statuses, events, time range, resource ID)
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer.
+      operationId: resendNotificationsByQuery
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the webhook
+        explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResendByQueryRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResendByQueryResponse"
+          description: No matching notifications to resend
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResendByQueryResponse"
+          description: Resend notifications request was accepted and is being processed
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+            Location:
+              $ref: "#/components/headers/Location"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Resend notifications by query
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: high_compute
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ResendByQueryResponse>>\
+            \ = fireblocks.webhooksV2.resendNotificationsByQuery(webhooksV2ApiResendNotificationsByQueryRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ResendByQueryResponse>> response =\
+            \ fireblocks.webhooksV2().resendNotificationsByQuery(resendByQueryRequest,\
+            \ webhookId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2.resend_notifications_by_query(resend_by_query_request,\
+            \ webhook_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ResendByQueryResponse>>\
+          \ = fireblocks.webhooksV2.resendNotificationsByQuery(webhooksV2ApiResendNotificationsByQueryRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ResendByQueryResponse>> response =\
+          \ fireblocks.webhooksV2().resendNotificationsByQuery(resendByQueryRequest,\
+          \ webhookId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2.resend_notifications_by_query(resend_by_query_request,\
+          \ webhook_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /webhooks/{webhookId}/notifications/resend_by_query/jobs/{jobId}:
+    get:
+      description: |
+        Get the status of a resend by query job
+      operationId: getResendByQueryJobStatus
+      parameters:
+      - description: The ID of the webhook
+        explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the resend job
+        explode: false
+        in: path
+        name: jobId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResendFailedNotificationsJobStatusResponse"
+          description: Job status
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get resend by query job status
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ResendFailedNotificationsJobStatusResponse>>\
+            \ = fireblocks.webhooksV2.getResendByQueryJobStatus(webhooksV2ApiGetResendByQueryJobStatusRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ResendFailedNotificationsJobStatusResponse>>\
+            \ response = fireblocks.webhooksV2().getResendByQueryJobStatus(webhookId,\
+            \ jobId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2.get_resend_by_query_job_status(webhook_id,\
+            \ job_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ResendFailedNotificationsJobStatusResponse>>\
+          \ = fireblocks.webhooksV2.getResendByQueryJobStatus(webhooksV2ApiGetResendByQueryJobStatusRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ResendFailedNotificationsJobStatusResponse>>\
+          \ response = fireblocks.webhooksV2().getResendByQueryJobStatus(webhookId,\
+          \ jobId);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2.get_resend_by_query_job_status(webhook_id,\
+          \ job_id);"
+      x-accepts:
+      - application/json
   /tokenization/templates:
     get:
       description: |-
@@ -19844,6 +19999,867 @@ paths:
           \ idempotency_key);"
       x-accepts:
       - application/json
+  /earn/actions:
+    get:
+      description: |
+        Returns a paginated list of lending actions (deposits and withdrawals) for the authenticated tenant.
+
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+      operationId: getEarnActions
+      parameters:
+      - description: Cursor for the next or previous page of results.
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Number of items per page (default 100, max 100)."
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 100
+          format: int32
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Field to sort results by.
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          enum:
+          - createdAt
+          - updatedAt
+          type: string
+        style: form
+      - description: Sort order (ASC or DESC).
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetActionsResponse"
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Forbidden: insufficient permissions, disabled feature, or\
+            \ restricted access."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Not found: requested resource does not exist."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: List earn lending actions
+      tags:
+      - Earn (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetActionsResponse>> =\
+            \ fireblocks.earnBeta.getEarnActions(earnBetaApiGetEarnActionsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<GetActionsResponse>> response = fireblocks.earnBeta().getEarnActions(pageCursor,\
+            \ pageSize, sortBy, order);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.earn_beta.get_earn_actions(page_cursor, page_size,\
+            \ sort_by, order);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetActionsResponse>> =\
+          \ fireblocks.earnBeta.getEarnActions(earnBetaApiGetEarnActionsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<GetActionsResponse>> response = fireblocks.earnBeta().getEarnActions(pageCursor,\
+          \ pageSize, sortBy, order);"
+      - lang: Python
+        source: "response = fireblocks.earn_beta.get_earn_actions(page_cursor, page_size,\
+          \ sort_by, order);"
+      x-accepts:
+      - application/json
+    post:
+      description: |
+        Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal from an earn
+        vault/market. Specify the operation with `action` in the request body (`DEPOSIT` or `WITHDRAW`).
+
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+      operationId: createEarnAction
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEarnActionRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateEarnActionResponse"
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Bad request: missing/invalid fields, unsupported amount, or\
+            \ malformed payload."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Forbidden: insufficient permissions, disabled feature, or\
+            \ restricted provider."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Not found: requested resource does not exist (e.g., opportunity,\
+            \ provider, or wallet)."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Create and execute a lending action (deposit or withdraw)
+      tags:
+      - Earn (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateEarnActionResponse>>\
+            \ = fireblocks.earnBeta.createEarnAction(earnBetaApiCreateEarnActionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CreateEarnActionResponse>> response\
+            \ = fireblocks.earnBeta().createEarnAction(createEarnActionRequest, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.earn_beta.create_earn_action(create_earn_action_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CreateEarnActionResponse>>\
+          \ = fireblocks.earnBeta.createEarnAction(earnBetaApiCreateEarnActionRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<CreateEarnActionResponse>> response\
+          \ = fireblocks.earnBeta().createEarnAction(createEarnActionRequest, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.earn_beta.create_earn_action(create_earn_action_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /earn/actions/{id}:
+    get:
+      description: |
+        Returns one lending action by its action sequence id (tenant-scoped).
+
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+      operationId: getEarnAction
+      parameters:
+      - description: Action sequence id (UUID).
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetActionResponse"
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Forbidden: insufficient permissions, disabled feature, or\
+            \ restricted access."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Not found: action does not exist or is not visible for this\
+            \ tenant."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get a single earn lending action
+      tags:
+      - Earn (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetActionResponse>> =\
+            \ fireblocks.earnBeta.getEarnAction(earnBetaApiGetEarnActionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetActionResponse>> response = fireblocks.earnBeta().getEarnAction(id);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.earn_beta.get_earn_action(id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetActionResponse>> =\
+          \ fireblocks.earnBeta.getEarnAction(earnBetaApiGetEarnActionRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<GetActionResponse>> response = fireblocks.earnBeta().getEarnAction(id);
+      - lang: Python
+        source: response = fireblocks.earn_beta.get_earn_action(id);
+      x-accepts:
+      - application/json
+  /earn/opportunities:
+    get:
+      description: |
+        Get list of earn opportunities (vaults).
+
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+      operationId: getEarnOpportunities
+      parameters:
+      - description: Cursor for the next or previous page of results.
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Number of items per page.
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 100
+          format: int32
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Field to sort results by.
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Sort order (ASC or DESC).
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetOpportunitiesResponse"
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Forbidden: insufficient permissions, disabled feature, or\
+            \ restricted access."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Not found: requested resource does not exist."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get list of earn opportunities
+      tags:
+      - Earn (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetOpportunitiesResponse>>\
+            \ = fireblocks.earnBeta.getEarnOpportunities(earnBetaApiGetEarnOpportunitiesRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<GetOpportunitiesResponse>> response\
+            \ = fireblocks.earnBeta().getEarnOpportunities(pageCursor, pageSize, sortBy,\
+            \ order);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.earn_beta.get_earn_opportunities(page_cursor,\
+            \ page_size, sort_by, order);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetOpportunitiesResponse>>\
+          \ = fireblocks.earnBeta.getEarnOpportunities(earnBetaApiGetEarnOpportunitiesRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<GetOpportunitiesResponse>> response\
+          \ = fireblocks.earnBeta().getEarnOpportunities(pageCursor, pageSize, sortBy,\
+          \ order);"
+      - lang: Python
+        source: "response = fireblocks.earn_beta.get_earn_opportunities(page_cursor,\
+          \ page_size, sort_by, order);"
+      x-accepts:
+      - application/json
+  /earn/positions:
+    get:
+      description: "Get list of earn positions for accounts tracked for this workspace.\
+        \ \nOptional query parameters filter by chain, provider, and pagination.\n\
+        \n**Note:** This endpoint is currently in beta and might be subject to changes.\n"
+      operationId: getEarnPositions
+      parameters:
+      - explode: true
+        in: query
+        name: chainId
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: providerId
+        required: false
+        schema:
+          enum:
+          - MORPHO
+          - AAVE
+          type: string
+        style: form
+      - description: Cursor for the next or previous page of results.
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Number of items per page.
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 100
+          format: int32
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Field to sort results by.
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Sort order (ASC or DESC).
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetPositionsResponse"
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Forbidden: insufficient permissions, disabled feature, or\
+            \ restricted access."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Not found: requested resource does not exist."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get list of earn positions
+      tags:
+      - Earn (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetPositionsResponse>>\
+            \ = fireblocks.earnBeta.getEarnPositions(earnBetaApiGetEarnPositionsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<GetPositionsResponse>> response = fireblocks.earnBeta().getEarnPositions(chainId,\
+            \ providerId, pageCursor, pageSize, sortBy, order);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.earn_beta.get_earn_positions(chain_id, provider_id,\
+            \ page_cursor, page_size, sort_by, order);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetPositionsResponse>>\
+          \ = fireblocks.earnBeta.getEarnPositions(earnBetaApiGetEarnPositionsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<GetPositionsResponse>> response = fireblocks.earnBeta().getEarnPositions(chainId,\
+          \ providerId, pageCursor, pageSize, sortBy, order);"
+      - lang: Python
+        source: "response = fireblocks.earn_beta.get_earn_positions(chain_id, provider_id,\
+          \ page_cursor, page_size, sort_by, order);"
+      x-accepts:
+      - application/json
+  /earn/providers:
+    get:
+      description: |
+        Get list of earn providers.
+
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+      operationId: getEarnProviders
+      parameters:
+      - description: Cursor for the next or previous page of results.
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Number of items per page.
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 100
+          format: int32
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Field to sort results by.
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Sort order (ASC or DESC).
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetProvidersResponse"
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Forbidden: insufficient permissions, disabled feature, or\
+            \ restricted access."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Not found: requested resource does not exist."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get list of earn providers
+      tags:
+      - Earn (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetProvidersResponse>>\
+            \ = fireblocks.earnBeta.getEarnProviders(earnBetaApiGetEarnProvidersRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<GetProvidersResponse>> response = fireblocks.earnBeta().getEarnProviders(pageCursor,\
+            \ pageSize, sortBy, order);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.earn_beta.get_earn_providers(page_cursor, page_size,\
+            \ sort_by, order);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetProvidersResponse>>\
+          \ = fireblocks.earnBeta.getEarnProviders(earnBetaApiGetEarnProvidersRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<GetProvidersResponse>> response = fireblocks.earnBeta().getEarnProviders(pageCursor,\
+          \ pageSize, sortBy, order);"
+      - lang: Python
+        source: "response = fireblocks.earn_beta.get_earn_providers(page_cursor, page_size,\
+          \ sort_by, order);"
+      x-accepts:
+      - application/json
+  /earn/providers/{providerId}/approve_terms_of_service:
+    post:
+      description: |
+        Approves the lending provider's terms of service for this workspace. When
+        `isTermsApprovalRequired` is true on the provider (see list providers),
+        call this once before creating or executing earn actions with that provider.
+        After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.
+
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+      operationId: approveTermsOfService
+      parameters:
+      - description: Stable protocol identifier for the earn provider (`MORPHO` or
+          `AAVE`).
+        explode: false
+        in: path
+        name: providerId
+        required: true
+        schema:
+          enum:
+          - MORPHO
+          - AAVE
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Terms of service accepted.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Bad request: missing/invalid fields, unsupported amount, or\
+            \ malformed payload."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Forbidden: insufficient permissions, disabled feature, or\
+            \ restricted provider/validator."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Not found: requested resource does not exist (e.g., position,\
+            \ validator, provider, or wallet)."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Approve earn provider terms of service
+      tags:
+      - Earn (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.earnBeta.approveTermsOfService(earnBetaApiApproveTermsOfServiceRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.earnBeta().approveTermsOfService(providerId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.earn_beta.approve_terms_of_service(provider_id,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.earnBeta.approveTermsOfService(earnBetaApiApproveTermsOfServiceRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.earnBeta().approveTermsOfService(providerId,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.earn_beta.approve_terms_of_service(provider_id,\
+          \ idempotency_key);"
+      x-accepts:
+      - application/json
   /trading/providers:
     get:
       description: |
@@ -19958,7 +20974,7 @@ paths:
   /trading/providers/{providerId}:
     get:
       description: |
-        Retrieve detailed information about a specific provider including its full manifest with order/quote requirements.
+        Retrieve a single provider by ID.
 
         **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
 
@@ -19981,8 +20997,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TradingProviderDetails"
-          description: Provider details
+                $ref: "#/components/schemas/TradingProvider"
+          description: Single provider details.
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -20042,23 +21058,19 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<TradingProviderDetails>>\
-            \ = fireblocks.tradingBeta.getTradingProviderById(tradingBetaApiGetTradingProviderByIdRequest);"
+          code: "const response: Promise<FireblocksResponse<TradingProvider>> = fireblocks.tradingBeta.getTradingProviderById(tradingBetaApiGetTradingProviderByIdRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<TradingProviderDetails>> response =
-            fireblocks.tradingBeta().getTradingProviderById(providerId);
+          code: CompletableFuture<ApiResponse<TradingProvider>> response = fireblocks.tradingBeta().getTradingProviderById(providerId);
           name: Fireblocks SDK Java example
         - language: python
           code: response = fireblocks.trading_beta.get_trading_provider_by_id(provider_id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<TradingProviderDetails>>\
-          \ = fireblocks.tradingBeta.getTradingProviderById(tradingBetaApiGetTradingProviderByIdRequest);"
+        source: "const response: Promise<FireblocksResponse<TradingProvider>> = fireblocks.tradingBeta.getTradingProviderById(tradingBetaApiGetTradingProviderByIdRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<TradingProviderDetails>> response =
-          fireblocks.tradingBeta().getTradingProviderById(providerId);
+        source: CompletableFuture<ApiResponse<TradingProvider>> response = fireblocks.tradingBeta().getTradingProviderById(providerId);
       - lang: Python
         source: response = fireblocks.trading_beta.get_trading_provider_by_id(provider_id);
       x-accepts:
@@ -22077,112 +23089,11 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
-  /address_registry/legal_entity:
-    get:
-      deprecated: true
-      description: |-
-        **Deprecated** — use `GET /v1/address_registry/legal_entities/{address}` instead.
-        Here `address` is a **query** parameter; the replacement uses a path segment.
-        The response includes only `companyName`, `countryCode`, and `companyId`. The replacement returns additional fields documented on that operation.
-        Optional **`asset`** is supported here only (not on the replacement path).
-      operationId: getLegalEntityByAddress
-      parameters:
-      - description: Blockchain address to look up
-        explode: true
-        in: query
-        name: address
-        required: true
-        schema:
-          example: 0x742d35cc6634c0532925a3b844bc9e7595f0beb0
-          type: string
-        style: form
-      - description: Optional asset identifier (this deprecated operation only).
-        explode: true
-        in: query
-        name: asset
-        required: false
-        schema:
-          example: ETH
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AddressRegistryLegalEntityLegacy"
-          description: Legal entity found
-          headers:
-            X-Request-ID:
-              $ref: "#/components/headers/X-Request-ID"
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AddressRegistryError"
-          description: Bad request – missing or invalid address
-          headers:
-            X-Request-ID:
-              $ref: "#/components/headers/X-Request-ID"
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AddressRegistryError"
-          description: Forbidden – the authenticated workspace is not opted in to
-            the address registry (error code 2140)
-          headers:
-            X-Request-ID:
-              $ref: "#/components/headers/X-Request-ID"
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AddressRegistryError"
-          description: "Not found (error code 2142) — unresolved address, no legal\
-            \ entity for a resolved address, or the same not-found outcome in other\
-            \ cases."
-          headers:
-            X-Request-ID:
-              $ref: "#/components/headers/X-Request-ID"
-        default:
-          $ref: "#/components/responses/Error"
-      summary: "[Deprecated] Look up legal entity by address (query parameter)"
-      tags:
-      - Compliance
-      x-rate-limit-category: high_compute
-      x-readme:
-        code-samples:
-        - language: typescript
-          code: "const response: Promise<FireblocksResponse<AddressRegistryLegalEntityLegacy>>\
-            \ = fireblocks.compliance.getLegalEntityByAddress(complianceApiGetLegalEntityByAddressRequest);"
-          name: Fireblocks SDK TypeScript example
-        - language: java
-          code: "CompletableFuture<ApiResponse<AddressRegistryLegalEntityLegacy>>\
-            \ response = fireblocks.compliance().getLegalEntityByAddress(address,\
-            \ asset);"
-          name: Fireblocks SDK Java example
-        - language: python
-          code: "response = fireblocks.compliance.get_legal_entity_by_address(address,\
-            \ asset);"
-          name: Fireblocks SDK Python example
-      x-codeSamples:
-      - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<AddressRegistryLegalEntityLegacy>>\
-          \ = fireblocks.compliance.getLegalEntityByAddress(complianceApiGetLegalEntityByAddressRequest);"
-      - lang: Java
-        source: "CompletableFuture<ApiResponse<AddressRegistryLegalEntityLegacy>>\
-          \ response = fireblocks.compliance().getLegalEntityByAddress(address, asset);"
-      - lang: Python
-        source: "response = fireblocks.compliance.get_legal_entity_by_address(address,\
-          \ asset);"
-      x-accepts:
-      - application/json
   /address_registry/legal_entities/{address}:
     get:
-      description: |-
-        Returns legal entity information for the given blockchain address. URL-encode `{address}` when required.
-        Prefer this operation over the deprecated `GET /v1/address_registry/legal_entity?address=…`, which returns only `companyName`, `countryCode`, and `companyId`. This operation adds verification status, LEI, Travel Rule providers, and contact email (see response properties).
+      description: "Returns legal entity information for the given blockchain address\
+        \ (verification status, LEI, Travel Rule providers, contact email, and related\
+        \ fields — see response schema). URL-encode `{address}` when required."
       operationId: getLegalEntityForAddress
       parameters:
       - description: Blockchain address to look up
@@ -22209,17 +23120,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AddressRegistryError"
-          description: Bad request – missing or invalid address
-          headers:
-            X-Request-ID:
-              $ref: "#/components/headers/X-Request-ID"
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AddressRegistryError"
-          description: Forbidden – the authenticated workspace is not opted in to
-            the address registry (error code 2140)
+          description: "Bad request — either request validation (path `{address}`\
+            \ empty or whitespace-only after trim, e.g. encoded spaces only; numeric\
+            \ code 4100), or the authenticated workspace is not opted in to the address\
+            \ registry (numeric code 2140). The `message` field describes the failure;\
+            \ use `code` to distinguish."
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -23932,8 +24837,11 @@ paths:
       - application/json
   /screening/aml/verdict/manual:
     post:
-      description: Set AML verdict for incoming transactions when Manual Screening
-        Verdict feature is enabled.
+      description: "Set AML verdict for incoming transactions when **BYORK Super Light**\
+        \ (Manual Screening Verdict) is enabled. This endpoint is for Super Light\
+        \ only. For **BYORK Light**, use POST /screening/byork/verdict instead. When\
+        \ Super Light is retired, this endpoint will be deprecated; use the BYORK\
+        \ Light verdict API for new integrations."
       operationId: setAmlVerdict
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -23989,7 +24897,7 @@ paths:
               $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
-      summary: Set AML Verdict for Manual Screening Verdict.
+      summary: Set AML Verdict (BYORK Super Light)
       tags:
       - Compliance
       x-rate-limit-category: write
@@ -24016,6 +24924,458 @@ paths:
           \ = fireblocks.compliance().setAmlVerdict(amlVerdictManualRequest, idempotencyKey);"
       - lang: Python
         source: "response = fireblocks.compliance.set_aml_verdict(aml_verdict_manual_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /screening/byork/verdict:
+    get:
+      description: "Returns the current BYORK verdict and status for a transaction.\
+        \ Status can be PRE_ACCEPTED, PENDING, RECEIVED (verdict is final but processing\
+        \ not yet complete), or COMPLETED. Requires BYORK Light to be enabled for\
+        \ the tenant. Returns 404 if no BYORK verdict is found for the transaction."
+      operationId: getByorkVerdict
+      parameters:
+      - description: Transaction ID
+        explode: true
+        in: query
+        name: txId
+        required: true
+        schema:
+          example: 550e8400-e29b-41d4-a716-446655440000
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetByorkVerdictResponse"
+          description: Current verdict and status.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: BYORK Light not enabled for tenant or txId missing.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: No BYORK verdict found for this transaction.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Internal server error.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get BYORK Light verdict
+      tags:
+      - Compliance
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetByorkVerdictResponse>>\
+            \ = fireblocks.compliance.getByorkVerdict(complianceApiGetByorkVerdictRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetByorkVerdictResponse>> response =
+            fireblocks.compliance().getByorkVerdict(txId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.compliance.get_byork_verdict(tx_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetByorkVerdictResponse>>\
+          \ = fireblocks.compliance.getByorkVerdict(complianceApiGetByorkVerdictRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<GetByorkVerdictResponse>> response =
+          fireblocks.compliance().getByorkVerdict(txId);
+      - lang: Python
+        source: response = fireblocks.compliance.get_byork_verdict(tx_id);
+      x-accepts:
+      - application/json
+    post:
+      description: "Submit verdict (ACCEPT or REJECT) for a transaction in the BYORK\
+        \ Light flow. If the transaction is awaiting your decision, the verdict is\
+        \ applied immediately (response status COMPLETED). If processing has not yet\
+        \ reached that point, the verdict is stored and applied when it does (response\
+        \ status PRE_ACCEPTED). Requires BYORK Light to be enabled for the tenant."
+      operationId: setByorkVerdict
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ByorkVerdictRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ByorkVerdictResponse"
+          description: Verdict applied (COMPLETED) or pre-accepted (PRE_ACCEPTED).
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: BYORK Light not enabled for tenant or invalid verdict.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "BYORK decision already final, screening already completed,\
+            \ or state inconsistent."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "425":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Too Early - transaction not found (screening not started yet).
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Internal server error.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Set BYORK Light verdict
+      tags:
+      - Compliance
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ByorkVerdictResponse>>\
+            \ = fireblocks.compliance.setByorkVerdict(complianceApiSetByorkVerdictRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ByorkVerdictResponse>> response = fireblocks.compliance().setByorkVerdict(byorkVerdictRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.compliance.set_byork_verdict(byork_verdict_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ByorkVerdictResponse>>\
+          \ = fireblocks.compliance.setByorkVerdict(complianceApiSetByorkVerdictRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ByorkVerdictResponse>> response = fireblocks.compliance().setByorkVerdict(byorkVerdictRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.compliance.set_byork_verdict(byork_verdict_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /screening/byork/config:
+    get:
+      description: "Retrieves BYORK Light configuration for the authenticated tenant\
+        \ (timeouts, active flag, allowed timeout ranges). Returns default config\
+        \ when none exists. Requires BYORK Light to be enabled for the tenant."
+      operationId: getByorkConfig
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ByorkConfigResponse"
+          description: BYORK configuration (or default).
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: BYORK Light not enabled for tenant.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get BYORK Light configuration
+      tags:
+      - Compliance
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ByorkConfigResponse>>\
+            \ = fireblocks.compliance.getByorkConfig();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ByorkConfigResponse>> response = fireblocks.compliance().getByorkConfig();
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.compliance.get_byork_config();
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ByorkConfigResponse>>\
+          \ = fireblocks.compliance.getByorkConfig();"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<ByorkConfigResponse>> response = fireblocks.compliance().getByorkConfig();
+      - lang: Python
+        source: response = fireblocks.compliance.get_byork_config();
+      x-accepts:
+      - application/json
+  /screening/byork/config/activate:
+    post:
+      description: "Activates BYORK Light for the authenticated tenant (sets config.active\
+        \ to true). Once activated, BYORK screening applies to matching transactions.\
+        \ Requires BYORK Light to be enabled for the tenant (contact your CSM to enable)."
+      operationId: activateByorkConfig
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ByorkConfigResponse"
+          description: BYORK configuration activated.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: BYORK Light not enabled for tenant.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Activate BYORK Light
+      tags:
+      - Compliance
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ByorkConfigResponse>>\
+            \ = fireblocks.compliance.activateByorkConfig(complianceApiActivateByorkConfigRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ByorkConfigResponse>> response = fireblocks.compliance().activateByorkConfig(idempotencyKey);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.compliance.activate_byork_config(idempotency_key);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ByorkConfigResponse>>\
+          \ = fireblocks.compliance.activateByorkConfig(complianceApiActivateByorkConfigRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<ByorkConfigResponse>> response = fireblocks.compliance().activateByorkConfig(idempotencyKey);
+      - lang: Python
+        source: response = fireblocks.compliance.activate_byork_config(idempotency_key);
+      x-accepts:
+      - application/json
+  /screening/byork/config/deactivate:
+    post:
+      description: "Deactivates BYORK Light for the authenticated tenant (sets config.active\
+        \ to false). Once deactivated, BYORK screening no longer applies until activated\
+        \ again. Requires BYORK Light to be enabled for the tenant (contact your CSM\
+        \ to enable)."
+      operationId: deactivateByorkConfig
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ByorkConfigResponse"
+          description: BYORK configuration deactivated.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: BYORK Light not enabled for tenant.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Deactivate BYORK Light
+      tags:
+      - Compliance
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ByorkConfigResponse>>\
+            \ = fireblocks.compliance.deactivateByorkConfig(complianceApiDeactivateByorkConfigRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ByorkConfigResponse>> response = fireblocks.compliance().deactivateByorkConfig(idempotencyKey);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.compliance.deactivate_byork_config(idempotency_key);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ByorkConfigResponse>>\
+          \ = fireblocks.compliance.deactivateByorkConfig(complianceApiDeactivateByorkConfigRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<ByorkConfigResponse>> response = fireblocks.compliance().deactivateByorkConfig(idempotencyKey);
+      - lang: Python
+        source: response = fireblocks.compliance.deactivate_byork_config(idempotency_key);
+      x-accepts:
+      - application/json
+  /screening/byork/config/timeouts:
+    put:
+      description: "Updates timeout values for BYORK wait-for-response (incoming and/or\
+        \ outgoing). At least one of incomingTimeoutSeconds or outgoingTimeoutSeconds\
+        \ is required. Values must be within the ranges returned in GET config (timeoutRangeIncoming\
+        \ for incomingTimeoutSeconds, timeoutRangeOutgoing for outgoingTimeoutSeconds).\
+        \ Requires BYORK Light to be enabled for the tenant (contact your CSM to enable)."
+      operationId: setByorkTimeouts
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ByorkSetTimeoutsRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ByorkConfigResponse"
+          description: Timeouts updated.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "BYORK Light not enabled, or timeout value out of range, or\
+            \ missing both timeouts."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Set BYORK Light timeouts
+      tags:
+      - Compliance
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ByorkConfigResponse>>\
+            \ = fireblocks.compliance.setByorkTimeouts(complianceApiSetByorkTimeoutsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ByorkConfigResponse>> response = fireblocks.compliance().setByorkTimeouts(byorkSetTimeoutsRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.compliance.set_byork_timeouts(byork_set_timeouts_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ByorkConfigResponse>>\
+          \ = fireblocks.compliance.setByorkTimeouts(complianceApiSetByorkTimeoutsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ByorkConfigResponse>> response = fireblocks.compliance().setByorkTimeouts(byorkSetTimeoutsRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.compliance.set_byork_timeouts(byork_set_timeouts_request,\
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -29813,6 +31173,313 @@ paths:
           \ api_key_id, request_id);"
       x-accepts:
       - application/json
+  /utxo_management/{vaultAccountId}/{assetId}/unspent_outputs:
+    get:
+      description: |-
+        Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more.
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+      operationId: getUtxos
+      parameters:
+      - description: The ID of the vault account
+        explode: false
+        in: path
+        name: vaultAccountId
+        required: true
+        schema:
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        style: simple
+      - description: The ID of the asset
+        explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+          x-fb-entity: asset
+        style: simple
+      - description: Cursor for the next page of results
+        example: MjAyNS0wNy0wOSAxMDo1MzoxMy40NTI=:NA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Number of results per page (max 250, default 50)"
+        example: 50
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 50
+          maximum: 250
+          minimum: 1
+          type: integer
+        style: form
+      - description: Field to sort by
+        example: AMOUNT
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          enum:
+          - AMOUNT
+          - CONFIRMATIONS
+          type: string
+        style: form
+      - description: Sort order
+        example: ASC
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      - description: Only return UTXOs that have ALL of these labels (AND logic).
+        example:
+        - cold-storage
+        explode: true
+        in: query
+        name: includeAllLabels
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Return UTXOs that have ANY of these labels (OR logic).
+        example:
+        - vip
+        - high-value
+        explode: true
+        in: query
+        name: includeAnyLabels
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Exclude UTXOs that have ANY of these labels.
+        example:
+        - deprecated
+        explode: true
+        in: query
+        name: excludeAnyLabels
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Filter by UTXO statuses to include.
+        example:
+        - AVAILABLE
+        - PENDING
+        explode: true
+        in: query
+        name: includeStatuses
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Filter by address
+        example: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+        explode: true
+        in: query
+        name: address
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Minimum amount filter
+        example: "0.001"
+        explode: true
+        in: query
+        name: minAmount
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Maximum amount filter
+        example: "1.0"
+        explode: true
+        in: query
+        name: maxAmount
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Include change outputs
+        example: true
+        explode: true
+        in: query
+        name: useChange
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Include coinbase outputs
+        example: true
+        explode: true
+        in: query
+        name: useCoinbase
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListUtxosResponse"
+          description: A paginated list of UTXOs
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: List unspent outputs (UTXOs)
+      tags:
+      - UTXO Management (Beta)
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ListUtxosResponse>> =\
+            \ fireblocks.uTXOManagementBeta.getUtxos(uTXOManagementBetaApiGetUtxosRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ListUtxosResponse>> response = fireblocks.uTXOManagementBeta().getUtxos(vaultAccountId,\
+            \ assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels,\
+            \ excludeAnyLabels, includeStatuses, address, minAmount, maxAmount, useChange,\
+            \ useCoinbase);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.u_t_x_o_management_beta.get_utxos(vault_account_id,\
+            \ asset_id, page_cursor, page_size, sort, order, include_all_labels, include_any_labels,\
+            \ exclude_any_labels, include_statuses, address, min_amount, max_amount,\
+            \ use_change, use_coinbase);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ListUtxosResponse>> =\
+          \ fireblocks.uTXOManagementBeta.getUtxos(uTXOManagementBetaApiGetUtxosRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ListUtxosResponse>> response = fireblocks.uTXOManagementBeta().getUtxos(vaultAccountId,\
+          \ assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels,\
+          \ excludeAnyLabels, includeStatuses, address, minAmount, maxAmount, useChange,\
+          \ useCoinbase);"
+      - lang: Python
+        source: "response = fireblocks.u_t_x_o_management_beta.get_utxos(vault_account_id,\
+          \ asset_id, page_cursor, page_size, sort, order, include_all_labels, include_any_labels,\
+          \ exclude_any_labels, include_statuses, address, min_amount, max_amount,\
+          \ use_change, use_coinbase);"
+      x-accepts:
+      - application/json
+  /utxo_management/{vaultAccountId}/{assetId}/labels:
+    patch:
+      description: |-
+        Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs.
+        Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set.
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+      operationId: updateUtxoLabels
+      parameters:
+      - description: The ID of the vault account
+        explode: false
+        in: path
+        name: vaultAccountId
+        required: true
+        schema:
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        style: simple
+      - description: The ID of the asset
+        explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+          x-fb-entity: asset
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AttachDetachUtxoLabelsRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttachDetachUtxoLabelsResponse"
+          description: UTXOs with updated labels
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Attach or detach labels to/from UTXOs
+      tags:
+      - UTXO Management (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AttachDetachUtxoLabelsResponse>>\
+            \ = fireblocks.uTXOManagementBeta.updateUtxoLabels(uTXOManagementBetaApiUpdateUtxoLabelsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<AttachDetachUtxoLabelsResponse>> response\
+            \ = fireblocks.uTXOManagementBeta().updateUtxoLabels(attachDetachUtxoLabelsRequest,\
+            \ vaultAccountId, assetId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.u_t_x_o_management_beta.update_utxo_labels(attach_detach_utxo_labels_request,\
+            \ vault_account_id, asset_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<AttachDetachUtxoLabelsResponse>>\
+          \ = fireblocks.uTXOManagementBeta.updateUtxoLabels(uTXOManagementBetaApiUpdateUtxoLabelsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<AttachDetachUtxoLabelsResponse>> response\
+          \ = fireblocks.uTXOManagementBeta().updateUtxoLabels(attachDetachUtxoLabelsRequest,\
+          \ vaultAccountId, assetId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.u_t_x_o_management_beta.update_utxo_labels(attach_detach_utxo_labels_request,\
+          \ vault_account_id, asset_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
   /legal_entities:
     get:
       description: |-
@@ -29854,29 +31521,6 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: Field to sort results by. Ignored when `vaultAccountId` is provided.
-        explode: true
-        in: query
-        name: sortBy
-        required: false
-        schema:
-          enum:
-          - createdAt
-          - updatedAt
-          type: string
-        style: form
-      - description: Sort order. Ignored when `vaultAccountId` is provided.
-        explode: true
-        in: query
-        name: order
-        required: false
-        schema:
-          default: DESC
-          enum:
-          - ASC
-          - DESC
-          type: string
-        style: form
       responses:
         "200":
           content:
@@ -29903,11 +31547,11 @@ paths:
         - language: java
           code: "CompletableFuture<ApiResponse<ListLegalEntitiesResponse>> response\
             \ = fireblocks.compliance().listLegalEntities(vaultAccountId, pageCursor,\
-            \ pageSize, sortBy, order);"
+            \ pageSize);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.compliance.list_legal_entities(vault_account_id,\
-            \ page_cursor, page_size, sort_by, order);"
+            \ page_cursor, page_size);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -29916,10 +31560,10 @@ paths:
       - lang: Java
         source: "CompletableFuture<ApiResponse<ListLegalEntitiesResponse>> response\
           \ = fireblocks.compliance().listLegalEntities(vaultAccountId, pageCursor,\
-          \ pageSize, sortBy, order);"
+          \ pageSize);"
       - lang: Python
         source: "response = fireblocks.compliance.list_legal_entities(vault_account_id,\
-          \ page_cursor, page_size, sort_by, order);"
+          \ page_cursor, page_size);"
       x-accepts:
       - application/json
     post:
@@ -36454,6 +38098,7 @@ components:
       enum:
       - VAULT_ACCOUNT
       - EXCHANGE_ACCOUNT
+      - CONNECTED_ACCOUNT
       - INTERNAL_WALLET
       - EXTERNAL_WALLET
       - CONTRACT
@@ -40093,6 +41738,7 @@ components:
       - POLONIEX
       - External
       - Internal
+      - VIRTUAL_ACCOUNT
       type: string
     SourceTransferPeerPath:
       description: The source of the transaction.
@@ -40198,6 +41844,148 @@ components:
             transactions.
           example: abcdef
           type: string
+      type: object
+    UtxoSelectionFilters:
+      description: |
+        Narrow the UTXO candidate pool. All specified filters are AND-ed together. This feature is currently in beta and might be subject to changes.
+      example:
+        minAmount: "0.001"
+        includeAnyLabels:
+        - vip
+        - high-value
+        address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+        includeAllLabels:
+        - cold-storage
+        useCoinbase: true
+        useChange: true
+        excludeAnyLabels:
+        - deprecated
+        maxAmount: "9.999"
+      properties:
+        includeAllLabels:
+          description: Only include UTXOs that have ALL of these labels.
+          example:
+          - cold-storage
+          items:
+            type: string
+          type: array
+        includeAnyLabels:
+          description: Only include UTXOs that have at least one of these labels.
+          example:
+          - vip
+          - high-value
+          items:
+            type: string
+          type: array
+        excludeAnyLabels:
+          description: Exclude UTXOs that have any of these labels.
+          example:
+          - deprecated
+          items:
+            type: string
+          type: array
+        address:
+          description: Only include UTXOs from this specific address.
+          example: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+          type: string
+        minAmount:
+          description: "Minimum UTXO amount in the asset's base unit (e.g., BTC)."
+          example: "0.001"
+          type: string
+        maxAmount:
+          description: "Maximum UTXO amount in the asset's base unit (e.g., BTC)."
+          example: "9.999"
+          type: string
+        useChange:
+          description: Set to false to exclude change UTXOs. Default is true.
+          example: true
+          type: boolean
+        useCoinbase:
+          description: Set to false to exclude coinbase UTXOs. Default is true.
+          example: true
+          type: boolean
+      type: object
+    UtxoInput:
+      example:
+        txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+        vout: 0
+      properties:
+        txHash:
+          example: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          type: string
+        vout:
+          example: 0
+          type: integer
+      required:
+      - txHash
+      - vout
+      type: object
+    UtxoInputSelection:
+      description: |
+        Explicitly control which UTXOs to include or exclude. This feature is currently in beta and might be subject to changes.
+      example:
+        inputsToExclude:
+        - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          vout: 0
+        - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          vout: 0
+        fillFeeForSelectedInputs: true
+        inputsToSpend:
+        - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          vout: 0
+        - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          vout: 0
+      properties:
+        inputsToSpend:
+          description: Force-include specific UTXOs by txHash and vout.
+          items:
+            $ref: "#/components/schemas/UtxoInput"
+          type: array
+        inputsToExclude:
+          description: Exclude specific UTXOs from selection.
+          items:
+            $ref: "#/components/schemas/UtxoInput"
+          type: array
+        fillFeeForSelectedInputs:
+          description: |
+            When true and inputsToSpend is provided, automatically add more UTXOs to cover the transaction fee. Requires inputsToSpend.
+          example: true
+          type: boolean
+      type: object
+    UtxoSelectionParams:
+      description: |
+        For UTXO-based blockchains only. Controls which UTXOs are used for automatic selection. Cannot be used together with extraParameters.inputsSelection. This feature is currently in beta and might be subject to changes.
+      example:
+        inputSelection:
+          inputsToExclude:
+          - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+            vout: 0
+          - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+            vout: 0
+          fillFeeForSelectedInputs: true
+          inputsToSpend:
+          - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+            vout: 0
+          - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+            vout: 0
+        filters:
+          minAmount: "0.001"
+          includeAnyLabels:
+          - vip
+          - high-value
+          address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+          includeAllLabels:
+          - cold-storage
+          useCoinbase: true
+          useChange: true
+          excludeAnyLabels:
+          - deprecated
+          maxAmount: "9.999"
+      properties:
+        filters:
+          $ref: "#/components/schemas/UtxoSelectionFilters"
+        inputSelection:
+          $ref: "#/components/schemas/UtxoInputSelection"
       type: object
     TravelRuleTransactionBlockchainInfo:
       description: Information about the blockchain transaction.
@@ -43907,6 +45695,32 @@ components:
         autoStaking: true
         operation: TRANSFER
         replaceTxByHash: 00000000-0000-0000-0000-000000000000
+        utxoSelectionParams:
+          inputSelection:
+            inputsToExclude:
+            - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+              vout: 0
+            - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+              vout: 0
+            fillFeeForSelectedInputs: true
+            inputsToSpend:
+            - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+              vout: 0
+            - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+              vout: 0
+          filters:
+            minAmount: "0.001"
+            includeAnyLabels:
+            - vip
+            - high-value
+            address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+            includeAllLabels:
+            - cold-storage
+            useCoinbase: true
+            useChange: true
+            excludeAnyLabels:
+            - deprecated
+            maxAmount: "9.999"
       properties:
         operation:
           $ref: "#/components/schemas/TransactionOperation"
@@ -44000,6 +45814,8 @@ components:
           type: string
         extraParameters:
           $ref: "#/components/schemas/ExtraParameters"
+        utxoSelectionParams:
+          $ref: "#/components/schemas/UtxoSelectionParams"
         customerRefId:
           description: The ID for AML providers to associate the owner of funds with
             transactions.
@@ -47078,6 +48894,32 @@ components:
           autoStaking: true
           operation: TRANSFER
           replaceTxByHash: 00000000-0000-0000-0000-000000000000
+          utxoSelectionParams:
+            inputSelection:
+              inputsToExclude:
+              - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+                vout: 0
+              - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+                vout: 0
+              fillFeeForSelectedInputs: true
+              inputsToSpend:
+              - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+                vout: 0
+              - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+                vout: 0
+            filters:
+              minAmount: "0.001"
+              includeAnyLabels:
+              - vip
+              - high-value
+              address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+              includeAllLabels:
+              - cold-storage
+              useCoinbase: true
+              useChange: true
+              excludeAnyLabels:
+              - deprecated
+              maxAmount: "9.999"
       properties:
         transactionRequest:
           $ref: "#/components/schemas/TransactionRequest"
@@ -48316,6 +50158,32 @@ components:
           autoStaking: true
           operation: TRANSFER
           replaceTxByHash: 00000000-0000-0000-0000-000000000000
+          utxoSelectionParams:
+            inputSelection:
+              inputsToExclude:
+              - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+                vout: 0
+              - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+                vout: 0
+              fillFeeForSelectedInputs: true
+              inputsToSpend:
+              - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+                vout: 0
+              - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+                vout: 0
+            filters:
+              minAmount: "0.001"
+              includeAnyLabels:
+              - vip
+              - high-value
+              address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+              includeAllLabels:
+              - cold-storage
+              useCoinbase: true
+              useChange: true
+              excludeAnyLabels:
+              - deprecated
+              maxAmount: "9.999"
         isDstCollateral: true
       properties:
         transactionRequest:
@@ -48959,6 +50827,65 @@ components:
       - processed
       - status
       - total
+      type: object
+    ResendByQueryRequest:
+      example:
+        resourceId: 123e4567-e89b-12d3-a456-426614174000
+        statuses:
+        - ON_HOLD
+        - IN_PROGRESS
+        startTime: 1625097600000
+        endTime: 1625184000000
+        events:
+        - transaction.created
+        - transaction.status.updated
+      properties:
+        statuses:
+          description: |
+            (optional) List of notification statuses to resend
+                - Default if missing: `["FAILED", "ON_HOLD"]`
+          example:
+          - ON_HOLD
+          - IN_PROGRESS
+          items:
+            $ref: "#/components/schemas/NotificationStatus"
+          type: array
+        startTime:
+          description: |
+            (optional) Start time for the resend window in milliseconds since epoch, within the last 72 hours - Default if missing means 24 hours before the current time in milliseconds since epoch - Maximum value is current time in milliseconds since epoch - Minimum value is 72 hours before the current time in milliseconds since epoch
+          example: 1625097600000
+          type: number
+        endTime:
+          description: |
+            (optional) End time for the resend window in milliseconds since epoch, within the last 72 hours - Default if missing means current time in milliseconds since epoch - Requires startTime to be provided - Must be after startTime - Time window between startTime and endTime must not exceed 24 hours
+          example: 1625184000000
+          type: number
+        events:
+          description: |
+            (optional) Event types to resend, default is all event types
+                - Default if missing means all events will be included
+                - Empty array means all events will be included
+          example:
+          - transaction.created
+          - transaction.status.updated
+          items:
+            $ref: "#/components/schemas/WebhookEvent"
+          type: array
+        resourceId:
+          description: |
+            (optional) Resource ID to filter notifications by
+          example: 123e4567-e89b-12d3-a456-426614174000
+          type: string
+      type: object
+    ResendByQueryResponse:
+      example:
+        total: 10
+      properties:
+        total:
+          description: The total number of notifications that are scheduled to be
+            resent.
+          example: 10
+          type: number
       type: object
     AuditorData:
       properties:
@@ -54383,6 +56310,738 @@ components:
       items:
         $ref: "#/components/schemas/Provider"
       type: array
+    ActionRecord:
+      description: One row in the lending action execution sequence.
+      example:
+        actionType: APPROVE
+        errorMessage: errorMessage
+        txId: tx_abc123def456
+        txHash: 0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b
+        status: COMPLETED
+        updatedAt: 2025-03-20T08:30:00Z
+      properties:
+        actionType:
+          description: Kind of step in the lending sequence.
+          enum:
+          - APPROVE
+          - DEPOSIT
+          - WITHDRAW
+          example: APPROVE
+          type: string
+        status:
+          description: Step lifecycle status.
+          enum:
+          - NOT_STARTED
+          - PROCESSING
+          - PENDING_SIGNATURE
+          - BROADCASTING
+          - CONFIRMING
+          - COMPLETED
+          - FAILED
+          - CANCELED
+          example: COMPLETED
+          type: string
+        txId:
+          description: Fireblocks transaction id when applicable (unset when NOT_STARTED).
+          example: tx_abc123def456
+          type: string
+        txHash:
+          description: On-chain transaction hash when applicable (unset when NOT_STARTED).
+          example: 0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b
+          type: string
+        errorMessage:
+          description: Error detail when the step failed.
+          type: string
+        updatedAt:
+          description: Last update time (ISO-8601); may be empty when status is NOT_STARTED.
+          example: 2025-03-20T08:30:00Z
+          type: string
+      required:
+      - actionType
+      - status
+      - updatedAt
+      type: object
+    GetActionResponse:
+      description: Single lending action (intent plus per-step execution rows).
+      example:
+        actionType: DEPOSIT
+        createdAt: 2025-01-15T10:00:00Z
+        opportunityId: morpho-usdc-vault-1
+        amount: "1500.5"
+        positionId: 770e8400-e29b-41d4-a716-446655440002
+        records:
+        - actionType: APPROVE
+          errorMessage: errorMessage
+          txId: tx_abc123def456
+          txHash: 0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b
+          status: COMPLETED
+          updatedAt: 2025-03-20T08:30:00Z
+        - actionType: APPROVE
+          errorMessage: errorMessage
+          txId: tx_abc123def456
+          txHash: 0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b
+          status: COMPLETED
+          updatedAt: 2025-03-20T08:30:00Z
+        - actionType: APPROVE
+          errorMessage: errorMessage
+          txId: tx_abc123def456
+          txHash: 0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b
+          status: COMPLETED
+          updatedAt: 2025-03-20T08:30:00Z
+        - actionType: APPROVE
+          errorMessage: errorMessage
+          txId: tx_abc123def456
+          txHash: 0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b
+          status: COMPLETED
+          updatedAt: 2025-03-20T08:30:00Z
+        providerId: MORPHO
+        id: 660e8400-e29b-41d4-a716-446655440001
+        status: IN_PROGRESS
+        updatedAt: 2025-03-20T08:30:00Z
+      properties:
+        id:
+          description: Action sequence id (UUID).
+          example: 660e8400-e29b-41d4-a716-446655440001
+          type: string
+        status:
+          description: "Intent status (e.g. CREATED, IN_PROGRESS, COMPLETED)."
+          example: IN_PROGRESS
+          type: string
+        providerId:
+          description: Lending protocol identifier.
+          enum:
+          - MORPHO
+          - AAVE
+          example: MORPHO
+          type: string
+        actionType:
+          description: Whether this action is a deposit or withdraw flow.
+          enum:
+          - DEPOSIT
+          - WITHDRAW
+          example: DEPOSIT
+          type: string
+        opportunityId:
+          description: Target lending opportunity identifier.
+          example: morpho-usdc-vault-1
+          type: string
+        positionId:
+          description: Position id in the system when applicable.
+          example: 770e8400-e29b-41d4-a716-446655440002
+          type: string
+        amount:
+          description: Human-readable amount for the action.
+          example: "1500.5"
+          type: string
+        createdAt:
+          description: Creation time (ISO-8601).
+          example: 2025-01-15T10:00:00Z
+          type: string
+        updatedAt:
+          description: Last update time (ISO-8601).
+          example: 2025-03-20T08:30:00Z
+          type: string
+        records:
+          description: Ordered execution steps for this action.
+          items:
+            $ref: "#/components/schemas/ActionRecord"
+          maxItems: 4
+          minItems: 1
+          type: array
+      required:
+      - actionType
+      - amount
+      - createdAt
+      - id
+      - opportunityId
+      - providerId
+      - records
+      - status
+      - updatedAt
+      type: object
+    GetActionsResponse:
+      example:
+        next: ""
+        total: 1
+        data:
+        - id: 660e8400-e29b-41d4-a716-446655440001
+          status: IN_PROGRESS
+          providerId: MORPHO
+          actionType: DEPOSIT
+          opportunityId: morpho-usdc-vault-1
+          amount: "1500.5"
+          createdAt: 2025-01-15T10:00:00Z
+          updatedAt: 2025-03-20T08:30:00Z
+          records:
+          - actionType: APPROVE
+            status: COMPLETED
+            txId: tx_abc123
+            txHash: 0xabc...
+            updatedAt: 2025-03-20T08:29:00Z
+        prev: ""
+      properties:
+        data:
+          description: Page of lending actions for this query.
+          example:
+          - id: 660e8400-e29b-41d4-a716-446655440001
+            status: IN_PROGRESS
+            providerId: MORPHO
+            actionType: DEPOSIT
+            opportunityId: morpho-usdc-vault-1
+            amount: "1500.5"
+            createdAt: 2025-01-15T10:00:00Z
+            updatedAt: 2025-03-20T08:30:00Z
+            records:
+            - actionType: APPROVE
+              status: COMPLETED
+              txId: tx_abc123
+              txHash: 0xabc...
+              updatedAt: 2025-03-20T08:29:00Z
+          items:
+            $ref: "#/components/schemas/GetActionResponse"
+          type: array
+        next:
+          description: Opaque cursor for the next page; empty when there is no next
+            page.
+          example: ""
+          type: string
+        prev:
+          description: Opaque cursor for the previous page; empty when there is no
+            previous page.
+          example: ""
+          type: string
+        total:
+          description: Total number of items matching the query.
+          example: 1
+          format: int32
+          type: integer
+      required:
+      - data
+      - total
+      type: object
+    CreateEarnActionRequest:
+      example:
+        opportunityId: morpho-usdc-vault-1
+        amount: "1000.0"
+        action: DEPOSIT
+        vaultAccountId: "12345"
+      properties:
+        action:
+          description: Whether to deposit into or withdraw from the lending opportunity.
+          enum:
+          - DEPOSIT
+          - WITHDRAW
+          example: DEPOSIT
+          type: string
+        opportunityId:
+          description: Identifier of the vault or market (lending opportunity).
+          example: morpho-usdc-vault-1
+          type: string
+        vaultAccountId:
+          description: Fireblocks vault account that will execute the action.
+          example: "12345"
+          type: string
+        amount:
+          description: Human-readable token amount (e.g. "1.6") or the keyword "max"
+            for the full position or available balance.
+          example: "1000.0"
+          type: string
+      required:
+      - action
+      - amount
+      - opportunityId
+      - vaultAccountId
+      type: object
+    CreateEarnActionResponse:
+      example:
+        id: 550e8400-e29b-41d4-a716-446655440000
+        status: CREATED
+      properties:
+        id:
+          description: ActionIntent UUID for tracking the lending action workflow.
+          example: 550e8400-e29b-41d4-a716-446655440000
+          type: string
+        status:
+          description: "Lifecycle status (e.g. CREATED, IN_PROGRESS, COMPLETED)."
+          enum:
+          - CREATED
+          - IN_PROGRESS
+          - COMPLETED
+          - CANCELED
+          - FAILED
+          example: CREATED
+          type: string
+      required:
+      - id
+      - status
+      type: object
+    EarnAsset:
+      properties:
+        address:
+          description: Contract address of the token on-chain.
+          example: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
+          type: string
+        symbol:
+          description: Human-readable ticker (e.g. USDC).
+          example: USDC
+          type: string
+        decimals:
+          description: Token decimals used when interpreting on-chain amounts.
+          example: 6
+          format: int32
+          type: integer
+        assetId:
+          description: "Fireblocks legacy asset identifier (e.g. USDC_ETH, PYUSD)."
+          example: USDC_ETH
+          type: string
+      type: object
+    Apy:
+      properties:
+        native:
+          description: "APY in native format (before fees), as a percentage (e.g.\
+            \ 4.25 means 4.25%, not 0.0425)."
+          example: 4.25
+          format: double
+          type: number
+        gross:
+          description: "Gross APY before fees, as a percentage (e.g. 4.25 means 4.25%,\
+            \ not 0.0425)."
+          example: 4.4
+          format: double
+          type: number
+        net:
+          description: "Net APY after fees, as a percentage (e.g. 4.25 means 4.25%,\
+            \ not 0.0425)."
+          example: 4.05
+          format: double
+          type: number
+      type: object
+    Exposure:
+      properties:
+        assetAddress:
+          description: On-chain address of the exposure asset.
+          example: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2
+          type: string
+        symbol:
+          description: Ticker for the exposure asset.
+          example: WETH
+          type: string
+        amount:
+          description: Human-readable decimal string (raw on-chain value scaled by
+            10^decimals).
+          example: "125.5"
+          type: string
+      type: object
+    Opportunity:
+      properties:
+        id:
+          description: Unique opportunity identifier.
+          example: opp-usdc-eth-001
+          type: string
+        providerId:
+          description: Lending protocol (`MORPHO` or `AAVE`).
+          enum:
+          - MORPHO
+          - AAVE
+          example: MORPHO
+          type: string
+        type:
+          description: Opportunity kind — vault or market.
+          enum:
+          - VAULT
+          - MARKET
+          example: VAULT
+          type: string
+        chainId:
+          description: Chain identifier as a string (e.g. "1" for Ethereum mainnet).
+          example: "1"
+          type: string
+        address:
+          description: Primary contract address for the vault or market.
+          example: 0x1234567890123456789012345678901234567890
+          type: string
+        name:
+          description: Display name of the opportunity.
+          example: USDC Core
+          type: string
+        symbol:
+          description: Symbol or share token ticker for the position asset.
+          example: mUSDC
+          type: string
+        principalAsset:
+          allOf:
+          - $ref: "#/components/schemas/EarnAsset"
+          description: Underlying token the user deposits (principal).
+        positionAsset:
+          allOf:
+          - $ref: "#/components/schemas/EarnAsset"
+          description: Token representing the user’s position in the protocol (e.g.
+            vault share).
+        totalAssets:
+          description: Human-readable total value locked / assets in the opportunity.
+          example: "50000000.0"
+          type: string
+        liquidity:
+          description: Human-readable available liquidity.
+          example: "1200000.0"
+          type: string
+        apy:
+          allOf:
+          - $ref: "#/components/schemas/Apy"
+          description: APY breakdown; values are percentages (e.g. 4.25 means 4.25%).
+        performanceFee:
+          description: Performance fee as a human-readable decimal string.
+          example: "0.10"
+          type: string
+        managementFee:
+          description: Management fee as a human-readable decimal string.
+          example: "0.01"
+          type: string
+        exposure:
+          description: Optional per-asset exposure breakdown.
+          example: []
+          items:
+            $ref: "#/components/schemas/Exposure"
+          maxItems: 10
+          minItems: 0
+          type: array
+      type: object
+    GetOpportunitiesResponse:
+      example:
+        next: ""
+        total: 1
+        data:
+        - id: opp-usdc-eth-001
+          providerId: MORPHO
+          type: VAULT
+          chainId: "1"
+          address: 0x1234567890123456789012345678901234567890
+          name: USDC Core
+          symbol: mUSDC
+          principalAsset:
+            address: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
+            symbol: USDC
+            decimals: 6
+            assetId: USDC_ETH
+          positionAsset:
+            address: 0xabcdefabcdefabcdefabcdefabcdefabcdefabcd
+            symbol: mUSDC
+            decimals: 18
+            assetId: MORPHO_USDC_VAULT_ETH
+          totalAssets: "50000000.0"
+          liquidity: "1200000.0"
+          apy:
+            native: 4.25
+            gross: 4.4
+            net: 4.05
+          performanceFee: "0.10"
+          exposure: []
+          managementFee: "0.01"
+        prev: ""
+      properties:
+        data:
+          description: Page of lending opportunities for this query.
+          example:
+          - id: opp-usdc-eth-001
+            providerId: MORPHO
+            type: VAULT
+            chainId: "1"
+            address: 0x1234567890123456789012345678901234567890
+            name: USDC Core
+            symbol: mUSDC
+            principalAsset:
+              address: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
+              symbol: USDC
+              decimals: 6
+              assetId: USDC_ETH
+            positionAsset:
+              address: 0xabcdefabcdefabcdefabcdefabcdefabcdefabcd
+              symbol: mUSDC
+              decimals: 18
+              assetId: MORPHO_USDC_VAULT_ETH
+            totalAssets: "50000000.0"
+            liquidity: "1200000.0"
+            apy:
+              native: 4.25
+              gross: 4.4
+              net: 4.05
+            performanceFee: "0.10"
+            exposure: []
+            managementFee: "0.01"
+          items:
+            $ref: "#/components/schemas/Opportunity"
+          type: array
+        next:
+          description: Opaque cursor for the next page; empty when there is no next
+            page.
+          example: ""
+          type: string
+        prev:
+          description: Opaque cursor for the previous page; empty when there is no
+            previous page.
+          example: ""
+          type: string
+        total:
+          description: Total number of items matching the query.
+          example: 1
+          format: int32
+          type: integer
+      required:
+      - data
+      - total
+      type: object
+    Position-2:
+      properties:
+        id:
+          description: Position UUID.
+          example: 660e8400-e29b-41d4-a716-446655440001
+          type: string
+        status:
+          description: Lifecycle status of the position.
+          enum:
+          - ACTIVE
+          - INACTIVE
+          example: ACTIVE
+          type: string
+        inFlight:
+          description: True while an action is in progress for this position.
+          example: false
+          type: boolean
+        positionType:
+          description: Whether the position is lend- or borrow-side.
+          enum:
+          - LEND
+          - BORROW
+          example: LEND
+          type: string
+        vaultAccountId:
+          description: Fireblocks vault account holding the position.
+          example: "12345"
+          type: string
+        opportunityId:
+          description: Opportunity / vault or market identifier.
+          example: morpho-usdc-vault-1
+          type: string
+        chainId:
+          description: Chain identifier as a string (e.g. "1").
+          example: "1"
+          type: string
+        providerId:
+          description: Lending protocol.
+          enum:
+          - MORPHO
+          - AAVE
+          example: MORPHO
+          type: string
+        origin:
+          description: Whether the position was opened natively in Fireblocks or imported
+            externally.
+          enum:
+          - NATIVE
+          - EXTERNAL
+          example: NATIVE
+          type: string
+        principalAssetId:
+          description: Fireblocks asset id for the principal (underlying) asset.
+          example: USDC_ETH
+          type: string
+        positionAssetId:
+          description: Fireblocks asset id for the position / share token.
+          example: MORPHO_USDC_VAULT_ETH
+          type: string
+        principalBalance:
+          description: Human-readable principal balance.
+          example: "10000.00"
+          type: string
+        positionBalance:
+          description: Human-readable position token balance.
+          example: "9950.5"
+          type: string
+        createdAt:
+          description: Creation time (ISO-8601).
+          example: 2025-01-15T10:00:00Z
+          type: string
+        updatedAt:
+          description: Last update time (ISO-8601).
+          example: 2025-03-20T08:30:00Z
+          type: string
+        lastSyncedAt:
+          description: Last successful on-chain sync time (ISO-8601).
+          example: 2025-03-20T08:29:55Z
+          type: string
+        availableActions:
+          description: Actions the API allows next for this position.
+          example:
+          - DEPOSIT
+          - WITHDRAW
+          items:
+            enum:
+            - DEPOSIT
+            - WITHDRAW
+            type: string
+          type: array
+      type: object
+    GetPositionsResponse:
+      example:
+        next: ""
+        total: 1
+        data:
+        - id: 660e8400-e29b-41d4-a716-446655440001
+          status: ACTIVE
+          inFlight: false
+          positionType: LEND
+          vaultAccountId: "12345"
+          opportunityId: morpho-usdc-vault-1
+          chainId: "1"
+          providerId: MORPHO
+          origin: NATIVE
+          principalAssetId: USDC_ETH
+          positionAssetId: MORPHO_USDC_VAULT_ETH
+          principalBalance: "10000.00"
+          positionBalance: "9950.5"
+          createdAt: 2025-01-15T10:00:00Z
+          updatedAt: 2025-03-20T08:30:00Z
+          lastSyncedAt: 2025-03-20T08:29:55Z
+          availableActions:
+          - DEPOSIT
+          - WITHDRAW
+        prev: ""
+      properties:
+        data:
+          description: Page of user lending positions for this query.
+          example:
+          - id: 660e8400-e29b-41d4-a716-446655440001
+            status: ACTIVE
+            inFlight: false
+            positionType: LEND
+            vaultAccountId: "12345"
+            opportunityId: morpho-usdc-vault-1
+            chainId: "1"
+            providerId: MORPHO
+            origin: NATIVE
+            principalAssetId: USDC_ETH
+            positionAssetId: MORPHO_USDC_VAULT_ETH
+            principalBalance: "10000.00"
+            positionBalance: "9950.5"
+            createdAt: 2025-01-15T10:00:00Z
+            updatedAt: 2025-03-20T08:30:00Z
+            lastSyncedAt: 2025-03-20T08:29:55Z
+            availableActions:
+            - DEPOSIT
+            - WITHDRAW
+          items:
+            $ref: "#/components/schemas/Position-2"
+          type: array
+        next:
+          description: Opaque cursor for the next page; empty when there is no next
+            page.
+          example: ""
+          type: string
+        prev:
+          description: Opaque cursor for the previous page; empty when there is no
+            previous page.
+          example: ""
+          type: string
+        total:
+          description: Total number of items matching the query.
+          example: 1
+          format: int32
+          type: integer
+      required:
+      - data
+      - total
+      type: object
+    EarnProvider:
+      properties:
+        providerId:
+          description: Stable protocol identifier (`MORPHO` or `AAVE`).
+          enum:
+          - MORPHO
+          - AAVE
+          example: AAVE
+          type: string
+        displayName:
+          description: Human-readable protocol name for UI.
+          example: Aave
+          type: string
+        logoUrl:
+          description: URL for the provider logo asset.
+          example: https://cdn.example.com/aave.svg
+          type: string
+        supportedChainIds:
+          description: EVM chain IDs where this provider is supported.
+          example:
+          - 1
+          - 42161
+          items:
+            format: int32
+            type: integer
+          maxItems: 10
+          minItems: 0
+          type: array
+        isTermsApprovalRequired:
+          description: Whether the user must accept terms before using this provider.
+          example: false
+          type: boolean
+        termsOfServiceUrl:
+          description: "URL to the provider terms of service, when applicable."
+          example: https://aave.com/terms
+          type: string
+        isTermsOfServiceApproved:
+          description: Whether terms have been approved for this workspace / context.
+          example: true
+          type: boolean
+      type: object
+    GetProvidersResponse:
+      example:
+        next: ""
+        total: 1
+        data:
+        - providerId: MORPHO
+          displayName: Morpho
+          logoUrl: https://cdn.example.com/morpho.svg
+          supportedChainIds:
+          - 1
+          - 8453
+          isTermsApprovalRequired: true
+          termsOfServiceUrl: https://example.com/morpho/tos
+          isTermsOfServiceApproved: false
+        prev: ""
+      properties:
+        data:
+          description: Page of integrated lending providers.
+          example:
+          - providerId: MORPHO
+            displayName: Morpho
+            logoUrl: https://cdn.example.com/morpho.svg
+            supportedChainIds:
+            - 1
+            - 8453
+            isTermsApprovalRequired: true
+            termsOfServiceUrl: https://example.com/morpho/tos
+            isTermsOfServiceApproved: false
+          items:
+            $ref: "#/components/schemas/EarnProvider"
+          type: array
+        next:
+          description: Opaque cursor for the next page; empty when there is no next
+            page.
+          example: ""
+          type: string
+        prev:
+          description: Opaque cursor for the previous page; empty when there is no
+            previous page.
+          example: ""
+          type: string
+        total:
+          description: Total number of items matching the query.
+          example: 1
+          format: int32
+          type: integer
+      required:
+      - data
+      - total
+      type: object
     ManifestBase:
       description: Base manifest schema with common properties
       properties:
@@ -54445,6 +57104,517 @@ components:
       allOf:
       - $ref: "#/components/schemas/ManifestBase"
       - $ref: "#/components/schemas/ManifestQuoteInfo"
+    ParticipantsIdentificationSupportedEndpoint:
+      description: |
+        Trading API endpoint category where `participantsIdentification` may be required when this policy is present.
+        Corresponds to manifest `order`, `quote`, and `rate`: ORDER, QUOTE, and RATE respectively.
+      enum:
+      - ORDER
+      - QUOTE
+      - RATE
+      type: string
+    ParticipantsIdentificationJsonSchema:
+      description: "A JSON Schema (draft-07) in string format that validates the ParticipantsIdentification\
+        \ object on requests where\nthe provider manifest lists that endpoint in `participantsIdentificationPolicy.supportedEndpoints`\
+        \ (e.g. POST /orders).\nDefines which fields from originator and/or beneficiary\
+        \ are required.\n\nThe schema uses oneOf to discriminate between INDIVIDUAL\
+        \ (PersonalIdentification) \nand BUSINESS (BusinessIdentification) entity\
+        \ types for each participant.\n\nFor INDIVIDUAL: fullName, dateOfBirth, postalAddress,\
+        \ email, phone, idNumber, idType, etc.\nFor BUSINESS: businessName, registrationNumber,\
+        \ postalAddress, email, phone, etc.\n\nIf you constrain `idType` or `additionalIdType`\
+        \ with a JSON Schema `enum`, use the same values as\n`PersonalIdentificationType`\
+        \ (authoritative list in that schema). The example below mirrors that enum.\n\
+        \nThe string content is expected to be valid JSON (application/json).\n"
+      example: |
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": ["originator"],
+          "properties": {
+            "originator": {
+              "type": "object",
+              "required": ["entityType"],
+              "oneOf": [
+                {
+                  "properties": {
+                    "entityType": { "const": "INDIVIDUAL" },
+                    "fullName": {
+                      "type": "object",
+                      "required": ["firstName", "lastName"],
+                      "properties": {
+                        "firstName": { "type": "string" },
+                        "lastName": { "type": "string" },
+                        "middleName": { "type": "string" }
+                      }
+                    },
+                    "dateOfBirth": { "type": "string", "format": "date" },
+                    "email": { "type": "string", "format": "email" },
+                    "phone": { "type": "string", "pattern": "^\\+[1-9]\\d{1,14}$" },
+                    "postalAddress": {
+                      "type": "object",
+                      "required": ["city", "country"],
+                      "properties": {
+                        "streetLine1": { "type": "string" },
+                        "streetLine2": { "type": "string" },
+                        "city": { "type": "string" },
+                        "region": { "type": "string" },
+                        "postalCode": { "type": "string" },
+                        "country": { "type": "string" }
+                      }
+                    },
+                    "idNumber": { "type": "string" },
+                    "idType": { "type": "string", "enum": ["NIN_SLIP_CARD", "BVN", "ID_CARD", "ID_BOOK", "NATIONAL_ID", "ALIEN_CARD", "PASSPORT", "ECOWAS_CARD", "RWANDA_CARD", "DRIVERS_LICENSE", "RESIDENT_CARD", "VOTER_ID", "HEALTH_INSURANCE_ID", "GHANA_CARD", "REFUGEE_ID", "SSNIT", "NON_CITIZEN_ID", "NATIONAL_REGISTRATION_CARD"] }
+                  },
+                  "required": ["entityType", "fullName", "email", "postalAddress"]
+                },
+                {
+                  "properties": {
+                    "entityType": { "const": "BUSINESS" },
+                    "businessName": { "type": "string" },
+                    "registrationNumber": { "type": "string" },
+                    "email": { "type": "string", "format": "email" },
+                    "phone": { "type": "string", "pattern": "^\\+[1-9]\\d{1,14}$" },
+                    "postalAddress": {
+                      "type": "object",
+                      "required": ["city", "country"],
+                      "properties": {
+                        "streetLine1": { "type": "string" },
+                        "streetLine2": { "type": "string" },
+                        "city": { "type": "string" },
+                        "region": { "type": "string" },
+                        "postalCode": { "type": "string" },
+                        "country": { "type": "string" }
+                      }
+                    }
+                  },
+                  "required": ["entityType", "businessName", "postalAddress"]
+                }
+              ]
+            },
+            "beneficiary": {
+              "type": "object",
+              "required": ["entityType"],
+              "oneOf": [
+                {
+                  "properties": {
+                    "entityType": { "const": "INDIVIDUAL" },
+                    "fullName": {
+                      "type": "object",
+                      "required": ["firstName", "lastName"],
+                      "properties": {
+                        "firstName": { "type": "string" },
+                        "lastName": { "type": "string" }
+                      }
+                    }
+                  },
+                  "required": ["entityType", "fullName"]
+                },
+                {
+                  "properties": {
+                    "entityType": { "const": "BUSINESS" },
+                    "businessName": { "type": "string" }
+                  },
+                  "required": ["entityType", "businessName"]
+                }
+              ]
+            }
+          }
+        }
+      type: string
+    TransferRail:
+      description: "Transfer rail: \n* **BLOCKCHAIN** - Transfer over the public blockchain\n\
+        * **INTERNAL** - Internal transfer within the same account (e.g. sub-accounts\
+        \ or same api key)\n* **SWIFT** - International wire transfer\n* **IBAN**\
+        \ - International Bank Account Number transfer\n* **US_WIRE** - Domestic wire\
+        \ transfer within the United States (e.g. FedWire)\n* **ACH** - Automated\
+        \ Clearing House transfer, typically takes longer but not as expensive as\
+        \ wire transfers\n* **SEPA** - Euro transfers within the SEPA zone\n* **SPEI**\
+        \ - Mexican interbank electronic payment system\n* **PIX** - Brazilian instant\
+        \ payment system\n* **LBT** - Local bank transfers within Africa\n* **MOMO**\
+        \ - Mobile money transfers (e.g. M-Pesa)\n* **CHAPS** - The Clearing House\
+        \ Automated Payment System (CHAPS) is a real-time gross settlement payment\
+        \ system used for transactions in the United Kingdom\n* **PAYID** - PayID\
+        \ payment identifier system (Australia)\n* **INTERAC** - Interac electronic\
+        \ funds transfer (Canada)\n* **INTERNAL_TRANSFER** - Internal transfer between\
+        \ accounts\n"
+      enum:
+      - BLOCKCHAIN
+      - INTERNAL
+      - SWIFT
+      - IBAN
+      - US_WIRE
+      - ACH
+      - SEPA
+      - SPEI
+      - PIX
+      - LBT
+      - MOMO
+      - CHAPS
+      - PAYID
+      - INTERAC
+      - INTERNAL_TRANSFER
+      example: BLOCKCHAIN
+      type: string
+    FlowDirection:
+      description: The direction of asset conversion in an order.
+      enum:
+      - FIAT_TO_CRYPTO
+      - CRYPTO_TO_FIAT
+      - CRYPTO_TO_CRYPTO
+      - FIAT_TO_FIAT
+      type: string
+    IdentificationPolicyOverride:
+      description: |
+        Override scoped by one or more dimensions. More dimensions = higher priority.
+        Equal priority ties are broken by array order.
+
+        **Validation:** At least one of `asset`, `rail`, or `flowDirection` will be present.
+
+        Priority (highest to lowest):
+        1. asset + rail + flowDirection
+        2. asset + rail
+        2. asset + flowDirection
+        2. rail + flowDirection
+        3. asset only
+        3. rail only
+        3. flowDirection only
+        4. defaultSchema (no override matched)
+      properties:
+        asset:
+          description: Fireblocks asset ID (fiat or crypto).
+          type: string
+        rail:
+          $ref: "#/components/schemas/TransferRail"
+        flowDirection:
+          $ref: "#/components/schemas/FlowDirection"
+        schema:
+          description: "A JSON Schema (draft-07) in string format that validates the\
+            \ ParticipantsIdentification object on requests where\nthe provider manifest\
+            \ lists that endpoint in `participantsIdentificationPolicy.supportedEndpoints`\
+            \ (e.g. POST /orders).\nDefines which fields from originator and/or beneficiary\
+            \ are required.\n\nThe schema uses oneOf to discriminate between INDIVIDUAL\
+            \ (PersonalIdentification) \nand BUSINESS (BusinessIdentification) entity\
+            \ types for each participant.\n\nFor INDIVIDUAL: fullName, dateOfBirth,\
+            \ postalAddress, email, phone, idNumber, idType, etc.\nFor BUSINESS: businessName,\
+            \ registrationNumber, postalAddress, email, phone, etc.\n\nIf you constrain\
+            \ `idType` or `additionalIdType` with a JSON Schema `enum`, use the same\
+            \ values as\n`PersonalIdentificationType` (authoritative list in that\
+            \ schema). The example below mirrors that enum.\n\nThe string content\
+            \ is expected to be valid JSON (application/json).\n"
+          example: |
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "type": "object",
+              "required": ["originator"],
+              "properties": {
+                "originator": {
+                  "type": "object",
+                  "required": ["entityType"],
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "entityType": { "const": "INDIVIDUAL" },
+                        "fullName": {
+                          "type": "object",
+                          "required": ["firstName", "lastName"],
+                          "properties": {
+                            "firstName": { "type": "string" },
+                            "lastName": { "type": "string" },
+                            "middleName": { "type": "string" }
+                          }
+                        },
+                        "dateOfBirth": { "type": "string", "format": "date" },
+                        "email": { "type": "string", "format": "email" },
+                        "phone": { "type": "string", "pattern": "^\\+[1-9]\\d{1,14}$" },
+                        "postalAddress": {
+                          "type": "object",
+                          "required": ["city", "country"],
+                          "properties": {
+                            "streetLine1": { "type": "string" },
+                            "streetLine2": { "type": "string" },
+                            "city": { "type": "string" },
+                            "region": { "type": "string" },
+                            "postalCode": { "type": "string" },
+                            "country": { "type": "string" }
+                          }
+                        },
+                        "idNumber": { "type": "string" },
+                        "idType": { "type": "string", "enum": ["NIN_SLIP_CARD", "BVN", "ID_CARD", "ID_BOOK", "NATIONAL_ID", "ALIEN_CARD", "PASSPORT", "ECOWAS_CARD", "RWANDA_CARD", "DRIVERS_LICENSE", "RESIDENT_CARD", "VOTER_ID", "HEALTH_INSURANCE_ID", "GHANA_CARD", "REFUGEE_ID", "SSNIT", "NON_CITIZEN_ID", "NATIONAL_REGISTRATION_CARD"] }
+                      },
+                      "required": ["entityType", "fullName", "email", "postalAddress"]
+                    },
+                    {
+                      "properties": {
+                        "entityType": { "const": "BUSINESS" },
+                        "businessName": { "type": "string" },
+                        "registrationNumber": { "type": "string" },
+                        "email": { "type": "string", "format": "email" },
+                        "phone": { "type": "string", "pattern": "^\\+[1-9]\\d{1,14}$" },
+                        "postalAddress": {
+                          "type": "object",
+                          "required": ["city", "country"],
+                          "properties": {
+                            "streetLine1": { "type": "string" },
+                            "streetLine2": { "type": "string" },
+                            "city": { "type": "string" },
+                            "region": { "type": "string" },
+                            "postalCode": { "type": "string" },
+                            "country": { "type": "string" }
+                          }
+                        }
+                      },
+                      "required": ["entityType", "businessName", "postalAddress"]
+                    }
+                  ]
+                },
+                "beneficiary": {
+                  "type": "object",
+                  "required": ["entityType"],
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "entityType": { "const": "INDIVIDUAL" },
+                        "fullName": {
+                          "type": "object",
+                          "required": ["firstName", "lastName"],
+                          "properties": {
+                            "firstName": { "type": "string" },
+                            "lastName": { "type": "string" }
+                          }
+                        }
+                      },
+                      "required": ["entityType", "fullName"]
+                    },
+                    {
+                      "properties": {
+                        "entityType": { "const": "BUSINESS" },
+                        "businessName": { "type": "string" }
+                      },
+                      "required": ["entityType", "businessName"]
+                    }
+                  ]
+                }
+              }
+            }
+          type: string
+      required:
+      - schema
+      type: object
+    ParticipantsIdentificationPolicy:
+      description: |
+        When present on a provider manifest, specifies KYC/AML identification requirements as JSON Schemas and which flows in
+        `supportedEndpoints` may require `participantsIdentification`.
+
+        Only endpoints listed in `supportedEndpoints` are in scope for this policy. `defaultSchema` is the baseline; `overrides`
+        refine it by `asset`, `rail`, and/or `flowDirection` (see priority below). The most specific matching override applies its
+        `schema` for that request context: it may fully replace `defaultSchema`, or partially override it—when the override
+        `schema` is not provided as a complete standalone definition, fields and rules omitted there continue to follow
+        `defaultSchema`. If this object is omitted from the manifest, the provider imposes no PII requirements through this policy.
+        FirstParty participants are always exempt.
+
+        Resolution: from overrides that match the request context, choose the most specific (most dimensions matched); break ties
+        by earlier position in the `overrides` array; if none match, use `defaultSchema`.
+
+        Priority (highest precedence first):
+        1. asset + rail + flowDirection
+        2. Any two dimensions: asset+rail, asset+flowDirection, rail+flowDirection
+        3. Any single dimension: asset, rail, or flowDirection
+        4. defaultSchema (no override matches)
+      example:
+        supportedEndpoints:
+        - ORDER
+        - QUOTE
+        defaultSchema: "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"\
+          type\":\"object\",\"required\":[\"originator\",\"beneficiary\"],\"properties\"\
+          :{\"originator\":{\"type\":\"object\",\"required\":[\"entityType\"],\"oneOf\"\
+          :[{\"properties\":{\"entityType\":{\"const\":\"INDIVIDUAL\"},\"fullName\"\
+          :{\"type\":\"object\",\"required\":[\"firstName\",\"lastName\"],\"properties\"\
+          :{\"firstName\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"\
+          }}},\"email\":{\"type\":\"string\",\"format\":\"email\"}},\"required\":[\"\
+          entityType\",\"fullName\",\"email\"]},{\"properties\":{\"entityType\":{\"\
+          const\":\"BUSINESS\"},\"businessName\":{\"type\":\"string\"},\"email\":{\"\
+          type\":\"string\",\"format\":\"email\"}},\"required\":[\"entityType\",\"\
+          businessName\",\"email\"]}]},\"beneficiary\":{\"type\":\"object\",\"required\"\
+          :[\"entityType\"],\"oneOf\":[{\"properties\":{\"entityType\":{\"const\"\
+          :\"INDIVIDUAL\"},\"fullName\":{\"type\":\"object\",\"required\":[\"firstName\"\
+          ,\"lastName\"],\"properties\":{\"firstName\":{\"type\":\"string\"},\"lastName\"\
+          :{\"type\":\"string\"}}}},\"required\":[\"entityType\",\"fullName\"]},{\"\
+          properties\":{\"entityType\":{\"const\":\"BUSINESS\"},\"businessName\":{\"\
+          type\":\"string\"}},\"required\":[\"entityType\",\"businessName\"]}]}}}"
+        overrides:
+        - asset: NGN
+          schema: "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\"\
+            :\"object\",\"required\":[\"originator\",\"beneficiary\"],\"properties\"\
+            :{\"originator\":{\"type\":\"object\",\"required\":[\"entityType\"],\"\
+            oneOf\":[{\"properties\":{\"entityType\":{\"const\":\"INDIVIDUAL\"},\"\
+            fullName\":{\"type\":\"object\",\"required\":[\"firstName\",\"lastName\"\
+            ],\"properties\":{\"firstName\":{\"type\":\"string\"},\"lastName\":{\"\
+            type\":\"string\"}}},\"email\":{\"type\":\"string\",\"format\":\"email\"\
+            },\"idNumber\":{\"type\":\"string\"},\"idType\":{\"type\":\"string\",\"\
+            enum\":[\"NIN_SLIP_CARD\"]},\"additionalIdNumber\":{\"type\":\"string\"\
+            },\"additionalIdType\":{\"type\":\"string\",\"enum\":[\"BVN\"]}},\"required\"\
+            :[\"entityType\",\"fullName\",\"email\",\"idNumber\",\"additionalIdNumber\"\
+            ]},{\"properties\":{\"entityType\":{\"const\":\"BUSINESS\"},\"businessName\"\
+            :{\"type\":\"string\"},\"email\":{\"type\":\"string\",\"format\":\"email\"\
+            },\"registrationNumber\":{\"type\":\"string\"}},\"required\":[\"entityType\"\
+            ,\"businessName\",\"email\",\"registrationNumber\"]}]},\"beneficiary\"\
+            :{\"type\":\"object\",\"required\":[\"entityType\"],\"oneOf\":[{\"properties\"\
+            :{\"entityType\":{\"const\":\"INDIVIDUAL\"},\"fullName\":{\"type\":\"\
+            object\",\"required\":[\"firstName\",\"lastName\"],\"properties\":{\"\
+            firstName\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"}}}},\"\
+            required\":[\"entityType\",\"fullName\"]},{\"properties\":{\"entityType\"\
+            :{\"const\":\"BUSINESS\"},\"businessName\":{\"type\":\"string\"}},\"required\"\
+            :[\"entityType\",\"businessName\"]}]}}}"
+        - rail: MOMO
+          schema: "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\"\
+            :\"object\",\"required\":[\"originator\"],\"properties\":{\"originator\"\
+            :{\"type\":\"object\",\"required\":[\"entityType\"],\"oneOf\":[{\"properties\"\
+            :{\"entityType\":{\"const\":\"INDIVIDUAL\"},\"fullName\":{\"type\":\"\
+            object\",\"required\":[\"firstName\"],\"properties\":{\"firstName\":{\"\
+            type\":\"string\"}}},\"phone\":{\"type\":\"string\"}},\"required\":[\"\
+            entityType\",\"fullName\",\"phone\"]}]}}}"
+        - asset: NGN
+          rail: MOMO
+          schema: "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\"\
+            :\"object\",\"required\":[\"originator\"],\"properties\":{\"originator\"\
+            :{\"type\":\"object\",\"required\":[\"entityType\"],\"oneOf\":[{\"properties\"\
+            :{\"entityType\":{\"const\":\"INDIVIDUAL\"},\"fullName\":{\"type\":\"\
+            object\",\"required\":[\"firstName\"],\"properties\":{\"firstName\":{\"\
+            type\":\"string\"}}},\"phone\":{\"type\":\"string\"},\"idNumber\":{\"\
+            type\":\"string\"},\"idType\":{\"type\":\"string\",\"enum\":[\"NIN_SLIP_CARD\"\
+            ]}},\"required\":[\"entityType\",\"fullName\",\"phone\",\"idNumber\"]}]}}}"
+      properties:
+        supportedEndpoints:
+          description: |
+            API endpoints in scope for this participants identification policy. Values `ORDER`, `QUOTE`, and `RATE` correspond to
+            manifest `order`, `quote`, and `rate` flows. Client requests to those endpoints may need to include
+            `participantsIdentification` when the resolved schema requires it.
+          items:
+            $ref: "#/components/schemas/ParticipantsIdentificationSupportedEndpoint"
+          minItems: 1
+          type: array
+          uniqueItems: true
+        defaultSchema:
+          description: "A JSON Schema (draft-07) in string format that validates the\
+            \ ParticipantsIdentification object on requests where\nthe provider manifest\
+            \ lists that endpoint in `participantsIdentificationPolicy.supportedEndpoints`\
+            \ (e.g. POST /orders).\nDefines which fields from originator and/or beneficiary\
+            \ are required.\n\nThe schema uses oneOf to discriminate between INDIVIDUAL\
+            \ (PersonalIdentification) \nand BUSINESS (BusinessIdentification) entity\
+            \ types for each participant.\n\nFor INDIVIDUAL: fullName, dateOfBirth,\
+            \ postalAddress, email, phone, idNumber, idType, etc.\nFor BUSINESS: businessName,\
+            \ registrationNumber, postalAddress, email, phone, etc.\n\nIf you constrain\
+            \ `idType` or `additionalIdType` with a JSON Schema `enum`, use the same\
+            \ values as\n`PersonalIdentificationType` (authoritative list in that\
+            \ schema). The example below mirrors that enum.\n\nThe string content\
+            \ is expected to be valid JSON (application/json).\n"
+          example: |
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "type": "object",
+              "required": ["originator"],
+              "properties": {
+                "originator": {
+                  "type": "object",
+                  "required": ["entityType"],
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "entityType": { "const": "INDIVIDUAL" },
+                        "fullName": {
+                          "type": "object",
+                          "required": ["firstName", "lastName"],
+                          "properties": {
+                            "firstName": { "type": "string" },
+                            "lastName": { "type": "string" },
+                            "middleName": { "type": "string" }
+                          }
+                        },
+                        "dateOfBirth": { "type": "string", "format": "date" },
+                        "email": { "type": "string", "format": "email" },
+                        "phone": { "type": "string", "pattern": "^\\+[1-9]\\d{1,14}$" },
+                        "postalAddress": {
+                          "type": "object",
+                          "required": ["city", "country"],
+                          "properties": {
+                            "streetLine1": { "type": "string" },
+                            "streetLine2": { "type": "string" },
+                            "city": { "type": "string" },
+                            "region": { "type": "string" },
+                            "postalCode": { "type": "string" },
+                            "country": { "type": "string" }
+                          }
+                        },
+                        "idNumber": { "type": "string" },
+                        "idType": { "type": "string", "enum": ["NIN_SLIP_CARD", "BVN", "ID_CARD", "ID_BOOK", "NATIONAL_ID", "ALIEN_CARD", "PASSPORT", "ECOWAS_CARD", "RWANDA_CARD", "DRIVERS_LICENSE", "RESIDENT_CARD", "VOTER_ID", "HEALTH_INSURANCE_ID", "GHANA_CARD", "REFUGEE_ID", "SSNIT", "NON_CITIZEN_ID", "NATIONAL_REGISTRATION_CARD"] }
+                      },
+                      "required": ["entityType", "fullName", "email", "postalAddress"]
+                    },
+                    {
+                      "properties": {
+                        "entityType": { "const": "BUSINESS" },
+                        "businessName": { "type": "string" },
+                        "registrationNumber": { "type": "string" },
+                        "email": { "type": "string", "format": "email" },
+                        "phone": { "type": "string", "pattern": "^\\+[1-9]\\d{1,14}$" },
+                        "postalAddress": {
+                          "type": "object",
+                          "required": ["city", "country"],
+                          "properties": {
+                            "streetLine1": { "type": "string" },
+                            "streetLine2": { "type": "string" },
+                            "city": { "type": "string" },
+                            "region": { "type": "string" },
+                            "postalCode": { "type": "string" },
+                            "country": { "type": "string" }
+                          }
+                        }
+                      },
+                      "required": ["entityType", "businessName", "postalAddress"]
+                    }
+                  ]
+                },
+                "beneficiary": {
+                  "type": "object",
+                  "required": ["entityType"],
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "entityType": { "const": "INDIVIDUAL" },
+                        "fullName": {
+                          "type": "object",
+                          "required": ["firstName", "lastName"],
+                          "properties": {
+                            "firstName": { "type": "string" },
+                            "lastName": { "type": "string" }
+                          }
+                        }
+                      },
+                      "required": ["entityType", "fullName"]
+                    },
+                    {
+                      "properties": {
+                        "entityType": { "const": "BUSINESS" },
+                        "businessName": { "type": "string" }
+                      },
+                      "required": ["entityType", "businessName"]
+                    }
+                  ]
+                }
+              }
+            }
+          type: string
+        overrides:
+          description: |
+            Contextual overrides scoped by asset, rail, and/or flowDirection. Most specific match wins; ties broken by array order. Replaces the default partially.
+            Each override MUST include at least one of `asset`, `rail`, or `flowDirection` (not `schema` alone); see IdentificationPolicyOverride.
+          items:
+            $ref: "#/components/schemas/IdentificationPolicyOverride"
+          type: array
+      required:
+      - defaultSchema
+      - supportedEndpoints
+      type: object
     Manifest:
       description: "The manifest of the provider, describing its supported order,\
         \ quote, and rate requirements."
@@ -54462,6 +57632,28 @@ components:
           - DVP
         rate:
           supported: true
+        participantsIdentificationPolicy:
+          supportedEndpoints:
+          - ORDER
+          - QUOTE
+          defaultSchema: "{\"$schema\":\"http://json-schema.org/draft-07/schema#\"\
+            ,\"type\":\"object\",\"required\":[\"originator\",\"beneficiary\"],\"\
+            properties\":{\"originator\":{\"type\":\"object\",\"required\":[\"entityType\"\
+            ],\"oneOf\":[{\"properties\":{\"entityType\":{\"const\":\"INDIVIDUAL\"\
+            },\"fullName\":{\"type\":\"object\",\"required\":[\"firstName\",\"lastName\"\
+            ],\"properties\":{\"firstName\":{\"type\":\"string\"},\"lastName\":{\"\
+            type\":\"string\"}}},\"email\":{\"type\":\"string\",\"format\":\"email\"\
+            }},\"required\":[\"entityType\",\"fullName\",\"email\"]},{\"properties\"\
+            :{\"entityType\":{\"const\":\"BUSINESS\"},\"businessName\":{\"type\":\"\
+            string\"},\"email\":{\"type\":\"string\",\"format\":\"email\"}},\"required\"\
+            :[\"entityType\",\"businessName\",\"email\"]}]},\"beneficiary\":{\"type\"\
+            :\"object\",\"required\":[\"entityType\"],\"oneOf\":[{\"properties\":{\"\
+            entityType\":{\"const\":\"INDIVIDUAL\"},\"fullName\":{\"type\":\"object\"\
+            ,\"required\":[\"firstName\",\"lastName\"],\"properties\":{\"firstName\"\
+            :{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"}}}},\"required\"\
+            :[\"entityType\",\"fullName\"]},{\"properties\":{\"entityType\":{\"const\"\
+            :\"BUSINESS\"},\"businessName\":{\"type\":\"string\"}},\"required\":[\"\
+            entityType\",\"businessName\"]}]}}}"
       properties:
         order:
           $ref: "#/components/schemas/ManifestOrder"
@@ -54469,6 +57661,8 @@ components:
           $ref: "#/components/schemas/ManifestQuote"
         rate:
           $ref: "#/components/schemas/ManifestBase"
+        participantsIdentificationPolicy:
+          $ref: "#/components/schemas/ParticipantsIdentificationPolicy"
       required:
       - order
       - quote
@@ -54515,7 +57709,7 @@ components:
     AccountBasedAccessProviderInfo:
       properties:
         connected:
-          description: Whether the provider is currently connected
+          description: Whether the provider is currently connected.
           type: boolean
         accounts:
           items:
@@ -54529,6 +57723,8 @@ components:
       allOf:
       - $ref: "#/components/schemas/BaseProvider"
       - $ref: "#/components/schemas/AccountBasedAccessProviderInfo"
+      description: Provider integrated via Fireblocks connected accounts (`accountBased`
+        is `true`).
       example:
         id: BRIDGE
         name: Bridge
@@ -54570,6 +57766,7 @@ components:
       allOf:
       - $ref: "#/components/schemas/BaseProvider"
       - $ref: "#/components/schemas/DirectAccessProviderInfo"
+      description: Provider used without per-account linking (`accountBased` is `false`).
       example:
         id: UNISWAP_CLASSIC
         name: Uniswap Classic
@@ -54669,58 +57866,6 @@ components:
       - code
       - message
       type: object
-    AccountBasedProviderDetails:
-      allOf:
-      - $ref: "#/components/schemas/BaseProvider"
-      - $ref: "#/components/schemas/AccountBasedAccessProviderInfo"
-      example:
-        id: BRIDGE
-        name: Bridge
-        logo: https://example.com/logos/bridge.png
-        accountBased: true
-        manifest:
-          order:
-            supported: true
-            executionTypes:
-            - MARKET
-            settlementTypes:
-            - DVP
-          quote:
-            supported: false
-          rate:
-            supported: true
-        connected: true
-        accounts:
-        - id: acc_5e9a2d1c4b7f3e8a
-          name: Main Trading Account
-    DirectProviderDetails:
-      allOf:
-      - $ref: "#/components/schemas/BaseProvider"
-      - $ref: "#/components/schemas/DirectAccessProviderInfo"
-      example:
-        id: UNISWAP_CLASSIC
-        name: Uniswap Classic
-        logo: https://example.com/logos/uniswap.png
-        accountBased: false
-        manifest:
-          order:
-            supported: true
-            executionTypes:
-            - MARKET
-            settlementTypes:
-            - PREFUNDED
-          quote:
-            supported: false
-          rate:
-            supported: true
-        approved: true
-        hasTermsOfService: true
-        termsOfServiceUrl: https://uniswap.org/terms
-        privacyPolicyUrl: https://uniswap.org/privacy
-    TradingProviderDetails:
-      oneOf:
-      - $ref: "#/components/schemas/AccountBasedProviderDetails"
-      - $ref: "#/components/schemas/DirectProviderDetails"
     ScopeItem:
       additionalProperties: false
       example:
@@ -54736,41 +57881,6 @@ components:
       required:
       - providerId
       type: object
-    TransferRail:
-      description: "Transfer rail: \n* **BLOCKCHAIN** - Transfer over the public blockchain\n\
-        * **INTERNAL** - Internal transfer within the same account (e.g. sub-accounts\
-        \ or same api key)\n* **PEER** - Peer transfer within the same provider network\n\
-        * **SWIFT** - International wire transfer\n* **IBAN** - International Bank\
-        \ Account Number transfer\n* **US_WIRE** - Domestic wire transfer within the\
-        \ United States (e.g. FedWire)\n* **ACH** - Automated Clearing House transfer,\
-        \ typically takes longer but not as expensive as wire transfers\n* **SEPA**\
-        \ - Euro transfers within the SEPA zone\n* **SPEI** - Mexican interbank electronic\
-        \ payment system\n* **PIX** - Brazilian instant payment system\n* **LOCAL_BANK_TRANSFER_AFRICA**\
-        \ - Local bank transfers within Africa\n* **MOBILE_MONEY** - Mobile money\
-        \ transfers (e.g. M-Pesa)\n* **INTERNAL_TRANSFER** - Internal transfer within\
-        \ the same account\n* **INTERAC** - Canadian interbank transfer system\n*\
-        \ **PAYID** - Australian PayID payment system\n* **CHAPS** - The Clearing\
-        \ House Automated Payment System (CHAPS) is a real-time gross settlement payment\
-        \ system used for transactions in the United Kingdom\n"
-      enum:
-      - BLOCKCHAIN
-      - INTERNAL
-      - PEER
-      - SWIFT
-      - IBAN
-      - US_WIRE
-      - ACH
-      - SEPA
-      - SPEI
-      - PIX
-      - LOCAL_BANK_TRANSFER_AFRICA
-      - MOBILE_MONEY
-      - INTERNAL_TRANSFER
-      - INTERAC
-      - PAYID
-      - CHAPS
-      example: BLOCKCHAIN
-      type: string
     PlatformPeerType:
       enum:
       - VAULT_ACCOUNT
@@ -57051,6 +60161,14 @@ components:
       - TRANSACTION_CANCELLED
       - TRANSACTION_REJECTED
       - TRANSACTION_BLOCKED
+      - PROVIDER_INTERNAL_ERROR
+      - UNSUPPORTED_SOURCE_ASSET
+      - UNSUPPORTED_DESTINATION_ASSET
+      - AMOUNT_BELOW_MINIMUM
+      - PII_MISSING
+      - EXTERNAL_SOURCE_NOT_SUPPORTED
+      - UNSUPPORTED_REGION
+      - DESTINATION_NOT_WHITELISTED
       type: string
     Failure:
       properties:
@@ -57968,51 +61086,6 @@ components:
       required:
       - approve
       type: object
-    AddressRegistryLegalEntityLegacy:
-      description: "Narrow legacy response for deprecated `GET /v1/address_registry/legal_entity?address=…\
-        `. Use `GET /v1/address_registry/legal_entities/{address}` for the full field\
-        \ set."
-      example:
-        companyId: 550e8400-e29b-41d4-a716-446655440000
-        countryCode: US
-        companyName: ACME Corporation
-      properties:
-        companyName:
-          description: Legal entity / company display name
-          example: ACME Corporation
-          type: string
-        countryCode:
-          description: Jurisdiction country code (e.g. ISO 3166-1 alpha-2)
-          example: US
-          type: string
-        companyId:
-          description: Company identifier for the resolved legal entity (UUID)
-          example: 550e8400-e29b-41d4-a716-446655440000
-          format: uuid
-          type: string
-      required:
-      - companyId
-      - companyName
-      - countryCode
-      type: object
-    AddressRegistryError:
-      description: Error body for address registry operations (4xx and 5xx).
-      example:
-        code: 2140
-        message: Address registry opt-in required for this workspace.
-      properties:
-        code:
-          description: |
-            Application error code when present. Typical values include **2140** (403 — workspace not opted in to the address registry) and **2142** (404 — not found). Other codes may appear, including on server errors.
-          example: 2140
-          type: integer
-        message:
-          description: Human-readable error message
-          example: Address registry opt-in required for this workspace.
-          type: string
-      required:
-      - message
-      type: object
     AddressRegistryTravelRuleProvider:
       description: Travel Rule provider identifier (string enum value).
       enum:
@@ -58069,6 +61142,24 @@ components:
       - lei
       - travelRuleProviders
       - verified
+      type: object
+    AddressRegistryError:
+      description: Error body for address registry operations (4xx and 5xx).
+      example:
+        code: 2140
+        message: Address registry opt-in required for this workspace.
+      properties:
+        code:
+          description: |
+            Application error code when present. For HTTP 400 on legal-entity lookup, distinguish: 4100 — request validation (e.g. missing, empty, or whitespace-only `address` after trim); 2140 — workspace not opted in to the address registry (`AR_OPT_IN_REQUIRED`). 2142 — not found (404). Other codes may appear, including on server errors.
+          example: 2140
+          type: integer
+        message:
+          description: Human-readable error message
+          example: Address registry opt-in required for this workspace.
+          type: string
+      required:
+      - message
       type: object
     AddressRegistryTenantRegistryResponse:
       description: "Workspace participation in the address registry. Same shape for\
@@ -64167,6 +67258,152 @@ components:
       - message
       - success
       type: object
+    ByorkVerdictResponseStatusEnum:
+      description: |
+        PRE_ACCEPTED - Verdict stored and will be applied when processing reaches the point where your decision is needed. COMPLETED - Verdict final and processing complete. PENDING - Transaction in BYORK flow; no final verdict yet (awaiting decision or processing). RECEIVED - Verdict final and stored; processing not yet complete.
+      enum:
+      - PRE_ACCEPTED
+      - COMPLETED
+      - PENDING
+      - RECEIVED
+      example: COMPLETED
+      type: string
+    ByorkVerdictEnum:
+      description: |
+        ACCEPT/REJECT - Final or pre-accepted verdict. WAIT - When status is PENDING (transaction awaiting decision).
+      enum:
+      - ACCEPT
+      - REJECT
+      - WAIT
+      example: ACCEPT
+      type: string
+    GetByorkVerdictResponse:
+      description: Response for GET BYORK verdict (current verdict/status for a transaction).
+      example:
+        verdict: ACCEPT
+        status: COMPLETED
+      properties:
+        status:
+          $ref: "#/components/schemas/ByorkVerdictResponseStatusEnum"
+        verdict:
+          $ref: "#/components/schemas/ByorkVerdictEnum"
+      required:
+      - status
+      - verdict
+      type: object
+    ByorkSetVerdictEnum:
+      description: Verdict to apply (ACCEPT or REJECT).
+      enum:
+      - ACCEPT
+      - REJECT
+      example: ACCEPT
+      type: string
+    ByorkVerdictRequest:
+      example:
+        verdict: ACCEPT
+        txId: 550e8400-e29b-41d4-a716-446655440000
+      properties:
+        txId:
+          description: Transaction ID to set the verdict for
+          example: 550e8400-e29b-41d4-a716-446655440000
+          type: string
+        verdict:
+          $ref: "#/components/schemas/ByorkSetVerdictEnum"
+      required:
+      - txId
+      - verdict
+      type: object
+    ByorkVerdictResponse:
+      example:
+        message: Verdict ACCEPT applied
+        status: COMPLETED
+      properties:
+        status:
+          $ref: "#/components/schemas/ByorkVerdictResponseStatusEnum"
+        message:
+          description: Human-readable message
+          example: Verdict ACCEPT applied
+          type: string
+      required:
+      - message
+      - status
+      type: object
+    ByorkTimeoutRange:
+      description: Allowed range for timeout values (seconds). Use when calling PUT
+        config/timeouts.
+      example:
+        minSeconds: 10
+        maxSeconds: 604800
+      properties:
+        minSeconds:
+          example: 10
+          type: integer
+        maxSeconds:
+          example: 604800
+          type: integer
+      type: object
+    ByorkConfigResponse:
+      description: "BYORK Light configuration for the tenant: wait-for-response timeouts,\
+        \ active flag, provider, last update time, and allowed timeout ranges for\
+        \ validation."
+      example:
+        incomingTimeoutSeconds: 86400
+        provider: BYORK_LITE
+        lastUpdate: 2026-01-29T12:00:00Z
+        timeoutRangeOutgoing:
+          minSeconds: 10
+          maxSeconds: 604800
+        timeoutRangeIncoming:
+          minSeconds: 10
+          maxSeconds: 604800
+        active: true
+        outgoingTimeoutSeconds: 3600
+      properties:
+        incomingTimeoutSeconds:
+          description: Timeout in seconds for incoming BYORK wait-for-response
+          example: 86400
+          type: integer
+        outgoingTimeoutSeconds:
+          description: Timeout in seconds for outgoing BYORK wait-for-response
+          example: 3600
+          type: integer
+        active:
+          description: Whether BYORK Light is active for the tenant
+          example: true
+          type: boolean
+        provider:
+          description: Provider identifier
+          example: BYORK_LITE
+          type: string
+        lastUpdate:
+          description: Last update timestamp of the configuration
+          example: 2026-01-29T12:00:00Z
+          format: date-time
+          type: string
+        timeoutRangeIncoming:
+          $ref: "#/components/schemas/ByorkTimeoutRange"
+        timeoutRangeOutgoing:
+          $ref: "#/components/schemas/ByorkTimeoutRange"
+      type: object
+    ByorkSetTimeoutsRequest:
+      description: "Request body for setting BYORK timeout values. At least one of\
+        \ incomingTimeoutSeconds or outgoingTimeoutSeconds is required. Allowed range\
+        \ per direction is returned in GET config (timeoutRangeIncoming, timeoutRangeOutgoing)."
+      example:
+        incomingTimeoutSeconds: 86400
+        outgoingTimeoutSeconds: 3600
+      properties:
+        incomingTimeoutSeconds:
+          description: Timeout in seconds for incoming BYORK wait-for-response. Allowed
+            range in GET config (timeoutRangeIncoming).
+          example: 86400
+          type: integer
+        outgoingTimeoutSeconds:
+          description: Timeout in seconds for outgoing BYORK wait-for-response. Allowed
+            range in GET config (timeoutRangeOutgoing).
+          example: 3600
+          type: integer
+      type: object
     TRLinkPartnerResponse:
       example:
         baseUrl: https://api.notabene.id
@@ -65523,7 +68760,6 @@ components:
       enum:
       - fireblocks
       - coinmarketcap
-      - slip44
       example: fireblocks
       type: string
     TRLinkAssetData:
@@ -65805,11 +69041,8 @@ components:
       required:
       - subsidiaryVaspId
       type: object
-    TRLinkAmountRange:
+    ScreeningPolicyAmountRange:
       description: Minimum and maximum amount range specification
-      example:
-        min: "1000"
-        max: "100000"
       properties:
         min:
           description: Minimum amount (inclusive)
@@ -65822,13 +69055,15 @@ components:
           nullable: true
           type: string
       type: object
-    TRLinkCurrency:
+    ScreeningPolicyCurrency:
       enum:
       - USD
       - NATIVE
+      example: USD
       type: string
-    TRLinkAmount-2:
-      description: Amount specification with range and currency type
+    ScreeningPolicyAmount:
+      description: "Amount specification with range and currency type (screening policy\
+        \ rules – BYORK, TRLink, etc.)"
       example:
         range:
           min: "1000"
@@ -65836,9 +69071,9 @@ components:
         currency: USD
       properties:
         range:
-          $ref: "#/components/schemas/TRLinkAmountRange"
+          $ref: "#/components/schemas/ScreeningPolicyAmountRange"
         currency:
-          $ref: "#/components/schemas/TRLinkCurrency"
+          $ref: "#/components/schemas/ScreeningPolicyCurrency"
       required:
       - currency
       - range
@@ -65927,7 +69162,7 @@ components:
           nullable: true
           type: string
         amount:
-          $ref: "#/components/schemas/TRLinkAmount-2"
+          $ref: "#/components/schemas/ScreeningPolicyAmount"
         networkProtocol:
           description: Network protocol identifier
           example: BITCOIN
@@ -66044,7 +69279,7 @@ components:
           nullable: true
           type: string
         amount:
-          $ref: "#/components/schemas/TRLinkAmount-2"
+          $ref: "#/components/schemas/ScreeningPolicyAmount"
         networkProtocol:
           description: Network protocol identifier
           example: ETHEREUM
@@ -66177,7 +69412,7 @@ components:
           nullable: true
           type: string
         amount:
-          $ref: "#/components/schemas/TRLinkAmount-2"
+          $ref: "#/components/schemas/ScreeningPolicyAmount"
         networkProtocol:
           description: Network protocol identifier
           example: BITCOIN
@@ -73523,6 +76758,311 @@ components:
       - status
       - type
       type: object
+    UtxoInput-2:
+      example:
+        index: 0
+        txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+      properties:
+        txHash:
+          description: The transaction hash
+          example: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          type: string
+        index:
+          description: The output index (vout)
+          example: 0
+          type: integer
+      type: object
+    UtxoOutput:
+      example:
+        fbTxId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+        amount: "0.00150000"
+        address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+        isCoinbase: false
+        createdByHash: 000000000000000000024bead8df69990852c202db0e0097c1a12ea637d7e96d
+        confirmations: 6
+        labels:
+        - cold-storage
+        - vip
+        utxoId: "123456"
+        input:
+          index: 0
+          txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+        createdAt: 2025-01-16T15:45:00Z
+        createdByHeight: 800100
+        isChange: false
+        status: AVAILABLE
+        spentByFbTxId:
+        - b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+        updatedAt: 2025-01-16T15:45:00Z
+      properties:
+        input:
+          $ref: "#/components/schemas/UtxoInput-2"
+        utxoId:
+          description: The unique UTXO identifier
+          example: "123456"
+          type: string
+        address:
+          description: The address holding this UTXO
+          example: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+          type: string
+        amount:
+          description: The UTXO amount in the asset's native unit
+          example: "0.00150000"
+          type: string
+        confirmations:
+          description: Number of confirmations
+          example: 6
+          type: integer
+        status:
+          description: The UTXO status
+          enum:
+          - PENDING
+          - AVAILABLE
+          - FROZEN
+          - SELECTED
+          example: AVAILABLE
+          type: string
+        isChange:
+          description: Whether this is a change output
+          example: false
+          type: boolean
+        isCoinbase:
+          description: Whether this is a coinbase output
+          example: false
+          type: boolean
+        fbTxId:
+          description: The Fireblocks transaction ID that created this UTXO
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          type: string
+        createdByHash:
+          description: The on-chain block hash where this UTXO was created
+          example: 000000000000000000024bead8df69990852c202db0e0097c1a12ea637d7e96d
+          type: string
+        spentByFbTxId:
+          description: Fireblocks transaction IDs that selected/spent this UTXO
+          example:
+          - b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          items:
+            type: string
+          type: array
+        createdByHeight:
+          description: The block height at which this UTXO was created
+          example: 800100
+          type: integer
+        createdAt:
+          description: The timestamp when this UTXO was created
+          example: 2025-01-16T15:45:00Z
+          format: date-time
+          type: string
+        updatedAt:
+          description: The timestamp when this UTXO was last updated
+          example: 2025-01-16T15:45:00Z
+          format: date-time
+          type: string
+        labels:
+          description: Labels attached to this UTXO
+          example:
+          - cold-storage
+          - vip
+          items:
+            type: string
+          type: array
+      required:
+      - address
+      - amount
+      - input
+      - status
+      - utxoId
+      type: object
+    ListUtxosResponse:
+      example:
+        next: MjAyNS0wNy0wOSAxMDo1MzoxMy40NTI=:NA==
+        data:
+        - fbTxId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          amount: "0.00150000"
+          address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+          isCoinbase: false
+          createdByHash: 000000000000000000024bead8df69990852c202db0e0097c1a12ea637d7e96d
+          confirmations: 6
+          labels:
+          - cold-storage
+          - vip
+          utxoId: "123456"
+          input:
+            index: 0
+            txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          createdAt: 2025-01-16T15:45:00Z
+          createdByHeight: 800100
+          isChange: false
+          status: AVAILABLE
+          spentByFbTxId:
+          - b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          updatedAt: 2025-01-16T15:45:00Z
+        - fbTxId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          amount: "0.00150000"
+          address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+          isCoinbase: false
+          createdByHash: 000000000000000000024bead8df69990852c202db0e0097c1a12ea637d7e96d
+          confirmations: 6
+          labels:
+          - cold-storage
+          - vip
+          utxoId: "123456"
+          input:
+            index: 0
+            txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          createdAt: 2025-01-16T15:45:00Z
+          createdByHeight: 800100
+          isChange: false
+          status: AVAILABLE
+          spentByFbTxId:
+          - b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          updatedAt: 2025-01-16T15:45:00Z
+      properties:
+        data:
+          description: List of UTXOs
+          items:
+            $ref: "#/components/schemas/UtxoOutput"
+          type: array
+        next:
+          description: Cursor to the next page
+          example: MjAyNS0wNy0wOSAxMDo1MzoxMy40NTI=:NA==
+          nullable: true
+          type: string
+      required:
+      - data
+      type: object
+    UtxoIdentifier:
+      description: |-
+        Identifies a UTXO by either a Fireblocks transaction ID (targets all outputs of that transaction)
+        or a specific on-chain UTXO (txHash + vout). Exactly one of these two forms must be provided.
+      example:
+        txId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+        txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+        vout: 0
+      properties:
+        txId:
+          description: Fireblocks transaction ID
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          type: string
+        txHash:
+          description: On-chain transaction hash
+          example: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          type: string
+        vout:
+          description: Output index
+          example: 0
+          type: integer
+      type: object
+    AttachDetachUtxoLabelsRequest:
+      example:
+        labelsToAttach:
+        - cold-storage
+        - vip
+        utxoIdentifiers:
+        - txId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          vout: 0
+        - txId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          vout: 0
+        - txId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          vout: 0
+        - txId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          vout: 0
+        - txId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          vout: 0
+        labelsToDetach:
+        - deprecated
+      properties:
+        utxoIdentifiers:
+          description: List of UTXO identifiers to apply label changes to
+          items:
+            $ref: "#/components/schemas/UtxoIdentifier"
+          maxItems: 200
+          minItems: 1
+          type: array
+        labelsToAttach:
+          description: Labels to attach to the specified UTXOs. At least one of labelsToAttach
+            or labelsToDetach must be provided.
+          example:
+          - cold-storage
+          - vip
+          items:
+            maxLength: 30
+            pattern: "^[a-z0-9][a-z0-9_-]*$"
+            type: string
+          maxItems: 5
+          minItems: 1
+          type: array
+        labelsToDetach:
+          description: Labels to detach from the specified UTXOs. At least one of
+            labelsToAttach or labelsToDetach must be provided.
+          example:
+          - deprecated
+          items:
+            maxLength: 30
+            pattern: "^[a-z0-9][a-z0-9_-]*$"
+            type: string
+          maxItems: 5
+          minItems: 1
+          type: array
+      required:
+      - utxoIdentifiers
+      type: object
+    AttachDetachUtxoLabelsResponse:
+      example:
+        utxos:
+        - fbTxId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          amount: "0.00150000"
+          address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+          isCoinbase: false
+          createdByHash: 000000000000000000024bead8df69990852c202db0e0097c1a12ea637d7e96d
+          confirmations: 6
+          labels:
+          - cold-storage
+          - vip
+          utxoId: "123456"
+          input:
+            index: 0
+            txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          createdAt: 2025-01-16T15:45:00Z
+          createdByHeight: 800100
+          isChange: false
+          status: AVAILABLE
+          spentByFbTxId:
+          - b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          updatedAt: 2025-01-16T15:45:00Z
+        - fbTxId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          amount: "0.00150000"
+          address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+          isCoinbase: false
+          createdByHash: 000000000000000000024bead8df69990852c202db0e0097c1a12ea637d7e96d
+          confirmations: 6
+          labels:
+          - cold-storage
+          - vip
+          utxoId: "123456"
+          input:
+            index: 0
+            txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          createdAt: 2025-01-16T15:45:00Z
+          createdByHeight: 800100
+          isChange: false
+          status: AVAILABLE
+          spentByFbTxId:
+          - b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          updatedAt: 2025-01-16T15:45:00Z
+      properties:
+        utxos:
+          description: Modified UTXOs with updated labels
+          items:
+            $ref: "#/components/schemas/UtxoOutput"
+          type: array
+      type: object
     LeiStatus:
       description: Approval status of a legal entity registration
       enum:
@@ -73545,6 +77085,20 @@ components:
       - TWENTY_ONE_ANALYTICS
       - VERIFY_VASP
       type: string
+    GleifOtherLegalEntityName:
+      properties:
+        name:
+          description: Alternative name of the legal entity
+          example: ExCorp
+          type: string
+        language:
+          description: Two-letter ISO 639-1 language code
+          example: en
+          type: string
+      required:
+      - language
+      - name
+      type: object
     GleifData:
       description: GLEIF (Global Legal Entity Identifier Foundation) data for a legal
         entity
@@ -73552,8 +77106,11 @@ components:
         legalName: Example Corporation Ltd.
         lei: 529900HNOAA1KXQJUQ27
         otherNames:
-        - ExCorp
-        - Example Corp
+        - name: ExCorp
+          language: en
+        - name: Example Corp
+          language: en
+        legalNameLanguage: en
         legalAddressRegion: NY
         nextRenewalDate: 2025-12-31T00:00:00Z
         legalAddressCountry: US
@@ -73566,13 +77123,21 @@ components:
           description: Official legal name of the entity
           example: Example Corporation Ltd.
           type: string
+        legalNameLanguage:
+          description: Two-letter ISO 639-1 language code
+          example: en
+          maxLength: 2
+          minLength: 2
+          type: string
         otherNames:
           description: Alternative names for the entity
           example:
-          - ExCorp
-          - Example Corp
+          - name: ExCorp
+            language: en
+          - name: Example Corp
+            language: en
           items:
-            type: string
+            $ref: "#/components/schemas/GleifOtherLegalEntityName"
           maxItems: 20
           minItems: 0
           type: array
@@ -73601,8 +77166,11 @@ components:
           legalName: Example Corporation Ltd.
           lei: 529900HNOAA1KXQJUQ27
           otherNames:
-          - ExCorp
-          - Example Corp
+          - name: ExCorp
+            language: en
+          - name: Example Corp
+            language: en
+          legalNameLanguage: en
           legalAddressRegion: NY
           nextRenewalDate: 2025-12-31T00:00:00Z
           legalAddressCountry: US
@@ -73675,8 +77243,11 @@ components:
             legalName: Example Corporation Ltd.
             lei: 529900HNOAA1KXQJUQ27
             otherNames:
-            - ExCorp
-            - Example Corp
+            - name: ExCorp
+              language: en
+            - name: Example Corp
+              language: en
+            legalNameLanguage: en
             legalAddressRegion: NY
             nextRenewalDate: 2025-12-31T00:00:00Z
             legalAddressCountry: US
@@ -73693,8 +77264,11 @@ components:
             legalName: Example Corporation Ltd.
             lei: 529900HNOAA1KXQJUQ27
             otherNames:
-            - ExCorp
-            - Example Corp
+            - name: ExCorp
+              language: en
+            - name: Example Corp
+              language: en
+            legalNameLanguage: en
             legalAddressRegion: NY
             nextRenewalDate: 2025-12-31T00:00:00Z
             legalAddressCountry: US
@@ -73707,7 +77281,6 @@ components:
           - MY_OWN
           status: PENDING
           updatedAt: "1700000000000"
-        prev: eyJpZCI6IjEyMCJ9
       properties:
         total:
           description: Total number of legal entity registrations (optional)
@@ -73721,10 +77294,6 @@ components:
         next:
           description: Cursor to pass as `pageCursor` to retrieve the next page
           example: eyJpZCI6IjEyMyJ9
-          type: string
-        prev:
-          description: Cursor to pass as `pageCursor` to retrieve the previous page
-          example: eyJpZCI6IjEyMCJ9
           type: string
       required:
       - data
@@ -73777,7 +77346,6 @@ components:
         - "23"
         - "12"
         - "1"
-        prev: eyJpZCI6IjEyMCJ9
       properties:
         total:
           description: Total number of legal entity registrations (optional)
@@ -73795,10 +77363,6 @@ components:
         next:
           description: Cursor to pass as `pageCursor` to retrieve the next page
           example: eyJpZCI6IjEyMyJ9
-          type: string
-        prev:
-          description: Cursor to pass as `pageCursor` to retrieve the previous page
-          example: eyJpZCI6IjEyMCJ9
           type: string
       required:
       - data

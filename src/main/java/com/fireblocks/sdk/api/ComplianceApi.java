@@ -24,7 +24,6 @@ import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsRequest;
 import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsResponse;
 import com.fireblocks.sdk.model.AddressRegistryGetVaultOptOutResponse;
 import com.fireblocks.sdk.model.AddressRegistryLegalEntity;
-import com.fireblocks.sdk.model.AddressRegistryLegalEntityLegacy;
 import com.fireblocks.sdk.model.AddressRegistryListVaultOptOutsResponse;
 import com.fireblocks.sdk.model.AddressRegistryRemoveAllVaultOptOutsResponse;
 import com.fireblocks.sdk.model.AddressRegistryRemoveVaultOptOutResponse;
@@ -34,8 +33,13 @@ import com.fireblocks.sdk.model.AmlVerdictManualRequest;
 import com.fireblocks.sdk.model.AmlVerdictManualResponse;
 import com.fireblocks.sdk.model.AssignVaultsToLegalEntityRequest;
 import com.fireblocks.sdk.model.AssignVaultsToLegalEntityResponse;
+import com.fireblocks.sdk.model.ByorkConfigResponse;
+import com.fireblocks.sdk.model.ByorkSetTimeoutsRequest;
+import com.fireblocks.sdk.model.ByorkVerdictRequest;
+import com.fireblocks.sdk.model.ByorkVerdictResponse;
 import com.fireblocks.sdk.model.ComplianceResultFullPayload;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
+import com.fireblocks.sdk.model.GetByorkVerdictResponse;
 import com.fireblocks.sdk.model.LegalEntityRegistration;
 import com.fireblocks.sdk.model.ListLegalEntitiesResponse;
 import com.fireblocks.sdk.model.ListVaultsForRegistrationResponse;
@@ -99,6 +103,78 @@ public class ComplianceApi {
         return operationId + " call failed with: " + statusCode + " - " + body;
     }
 
+    /**
+     * Activate BYORK Light Activates BYORK Light for the authenticated tenant (sets config.active
+     * to true). Once activated, BYORK screening applies to matching transactions. Requires BYORK
+     * Light to be enabled for the tenant (contact your CSM to enable).
+     *
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;ByorkConfigResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ByorkConfigResponse>> activateByorkConfig(
+            String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    activateByorkConfigRequestBuilder(idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "activateByorkConfig", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ByorkConfigResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ByorkConfigResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder activateByorkConfigRequestBuilder(String idempotencyKey)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/screening/byork/config/activate";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
     /**
      * Add vault accounts to the address registry opt-out list Adds one or more vault account ids to
      * the workspace opt-out list for the address registry.
@@ -280,6 +356,78 @@ public class ComplianceApi {
         } catch (IOException e) {
             throw new ApiException(e);
         }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Deactivate BYORK Light Deactivates BYORK Light for the authenticated tenant (sets
+     * config.active to false). Once deactivated, BYORK screening no longer applies until activated
+     * again. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+     *
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;ByorkConfigResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ByorkConfigResponse>> deactivateByorkConfig(
+            String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    deactivateByorkConfigRequestBuilder(idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "deactivateByorkConfig", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ByorkConfigResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ByorkConfigResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder deactivateByorkConfigRequestBuilder(String idempotencyKey)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/screening/byork/config/deactivate";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }
@@ -555,6 +703,151 @@ public class ComplianceApi {
         return localVarRequestBuilder;
     }
     /**
+     * Get BYORK Light configuration Retrieves BYORK Light configuration for the authenticated
+     * tenant (timeouts, active flag, allowed timeout ranges). Returns default config when none
+     * exists. Requires BYORK Light to be enabled for the tenant.
+     *
+     * @return CompletableFuture&lt;ApiResponse&lt;ByorkConfigResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ByorkConfigResponse>> getByorkConfig()
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = getByorkConfigRequestBuilder();
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getByorkConfig", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ByorkConfigResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ByorkConfigResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getByorkConfigRequestBuilder() throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/screening/byork/config";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get BYORK Light verdict Returns the current BYORK verdict and status for a transaction.
+     * Status can be PRE_ACCEPTED, PENDING, RECEIVED (verdict is final but processing not yet
+     * complete), or COMPLETED. Requires BYORK Light to be enabled for the tenant. Returns 404 if no
+     * BYORK verdict is found for the transaction.
+     *
+     * @param txId Transaction ID (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;GetByorkVerdictResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<GetByorkVerdictResponse>> getByorkVerdict(String txId)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = getByorkVerdictRequestBuilder(txId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getByorkVerdict", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<GetByorkVerdictResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            GetByorkVerdictResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getByorkVerdictRequestBuilder(String txId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getByorkVerdict", "txId", txId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/screening/byork/verdict";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "txId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("txId", txId));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Get a legal entity Returns details of a specific legal entity registration, including GLEIF
      * data when available. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer,
      * Approver, Editor, Viewer.
@@ -625,104 +918,9 @@ public class ComplianceApi {
         return localVarRequestBuilder;
     }
     /**
-     * [Deprecated] Look up legal entity by address (query parameter) **Deprecated** — use &#x60;GET
-     * /v1/address_registry/legal_entities/{address}&#x60; instead. Here &#x60;address&#x60; is a
-     * **query** parameter; the replacement uses a path segment. The response includes only
-     * &#x60;companyName&#x60;, &#x60;countryCode&#x60;, and &#x60;companyId&#x60;. The replacement
-     * returns additional fields documented on that operation. Optional **&#x60;asset&#x60;** is
-     * supported here only (not on the replacement path).
-     *
-     * @param address Blockchain address to look up (required)
-     * @param asset Optional asset identifier (this deprecated operation only). (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryLegalEntityLegacy&gt;&gt;
-     * @throws ApiException if fails to make API call
-     * @deprecated
-     */
-    @Deprecated
-    public CompletableFuture<ApiResponse<AddressRegistryLegalEntityLegacy>> getLegalEntityByAddress(
-            String address, String asset) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    getLegalEntityByAddressRequestBuilder(address, asset);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "getLegalEntityByAddress", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<AddressRegistryLegalEntityLegacy>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            AddressRegistryLegalEntityLegacy>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getLegalEntityByAddressRequestBuilder(String address, String asset)
-            throws ApiException {
-        ValidationUtils.assertParamExistsAndNotEmpty("getLegalEntityByAddress", "address", address);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/address_registry/legal_entity";
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-        String localVarQueryParameterBaseName;
-        localVarQueryParameterBaseName = "address";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("address", address));
-        localVarQueryParameterBaseName = "asset";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("asset", asset));
-
-        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
-            StringJoiner queryJoiner = new StringJoiner("&");
-            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
-            if (localVarQueryStringJoiner.length() != 0) {
-                queryJoiner.add(localVarQueryStringJoiner.toString());
-            }
-            localVarRequestBuilder.uri(
-                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
-        } else {
-            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-        }
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
      * Look up legal entity by blockchain address Returns legal entity information for the given
-     * blockchain address. URL-encode &#x60;{address}&#x60; when required. Prefer this operation
-     * over the deprecated &#x60;GET /v1/address_registry/legal_entity?address&#x3D;…&#x60;, which
-     * returns only &#x60;companyName&#x60;, &#x60;countryCode&#x60;, and &#x60;companyId&#x60;.
-     * This operation adds verification status, LEI, Travel Rule providers, and contact email (see
-     * response properties).
+     * blockchain address (verification status, LEI, Travel Rule providers, contact email, and
+     * related fields — see response schema). URL-encode &#x60;{address}&#x60; when required.
      *
      * @param address Blockchain address to look up (required)
      * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryLegalEntity&gt;&gt;
@@ -1097,20 +1295,14 @@ public class ComplianceApi {
      *     previous response. Ignored when &#x60;vaultAccountId&#x60; is provided. (optional)
      * @param pageSize Maximum number of registrations to return. Ignored when
      *     &#x60;vaultAccountId&#x60; is provided. (optional, default to 50)
-     * @param sortBy Field to sort results by. Ignored when &#x60;vaultAccountId&#x60; is provided.
-     *     (optional)
-     * @param order Sort order. Ignored when &#x60;vaultAccountId&#x60; is provided. (optional,
-     *     default to DESC)
      * @return CompletableFuture&lt;ApiResponse&lt;ListLegalEntitiesResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<ListLegalEntitiesResponse>> listLegalEntities(
-            String vaultAccountId, String pageCursor, Integer pageSize, String sortBy, String order)
-            throws ApiException {
+            String vaultAccountId, String pageCursor, Integer pageSize) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    listLegalEntitiesRequestBuilder(
-                            vaultAccountId, pageCursor, pageSize, sortBy, order);
+                    listLegalEntitiesRequestBuilder(vaultAccountId, pageCursor, pageSize);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -1144,8 +1336,7 @@ public class ComplianceApi {
     }
 
     private HttpRequest.Builder listLegalEntitiesRequestBuilder(
-            String vaultAccountId, String pageCursor, Integer pageSize, String sortBy, String order)
-            throws ApiException {
+            String vaultAccountId, String pageCursor, Integer pageSize) throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1160,10 +1351,6 @@ public class ComplianceApi {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
         localVarQueryParameterBaseName = "pageSize";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
-        localVarQueryParameterBaseName = "sortBy";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("sortBy", sortBy));
-        localVarQueryParameterBaseName = "order";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");
@@ -1728,8 +1915,10 @@ public class ComplianceApi {
         return localVarRequestBuilder;
     }
     /**
-     * Set AML Verdict for Manual Screening Verdict. Set AML verdict for incoming transactions when
-     * Manual Screening Verdict feature is enabled.
+     * Set AML Verdict (BYORK Super Light) Set AML verdict for incoming transactions when **BYORK
+     * Super Light** (Manual Screening Verdict) is enabled. This endpoint is for Super Light only.
+     * For **BYORK Light**, use POST /screening/byork/verdict instead. When Super Light is retired,
+     * this endpoint will be deprecated; use the BYORK Light verdict API for new integrations.
      *
      * @param amlVerdictManualRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -1797,6 +1986,175 @@ public class ComplianceApi {
         try {
             byte[] localVarPostBody =
                     memberVarObjectMapper.writeValueAsBytes(amlVerdictManualRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Set BYORK Light timeouts Updates timeout values for BYORK wait-for-response (incoming and/or
+     * outgoing). At least one of incomingTimeoutSeconds or outgoingTimeoutSeconds is required.
+     * Values must be within the ranges returned in GET config (timeoutRangeIncoming for
+     * incomingTimeoutSeconds, timeoutRangeOutgoing for outgoingTimeoutSeconds). Requires BYORK
+     * Light to be enabled for the tenant (contact your CSM to enable).
+     *
+     * @param byorkSetTimeoutsRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;ByorkConfigResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ByorkConfigResponse>> setByorkTimeouts(
+            ByorkSetTimeoutsRequest byorkSetTimeoutsRequest, String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    setByorkTimeoutsRequestBuilder(byorkSetTimeoutsRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("setByorkTimeouts", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ByorkConfigResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ByorkConfigResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder setByorkTimeoutsRequestBuilder(
+            ByorkSetTimeoutsRequest byorkSetTimeoutsRequest, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "setByorkTimeouts", "byorkSetTimeoutsRequest", byorkSetTimeoutsRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/screening/byork/config/timeouts";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(byorkSetTimeoutsRequest);
+            localVarRequestBuilder.method(
+                    "PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Set BYORK Light verdict Submit verdict (ACCEPT or REJECT) for a transaction in the BYORK
+     * Light flow. If the transaction is awaiting your decision, the verdict is applied immediately
+     * (response status COMPLETED). If processing has not yet reached that point, the verdict is
+     * stored and applied when it does (response status PRE_ACCEPTED). Requires BYORK Light to be
+     * enabled for the tenant.
+     *
+     * @param byorkVerdictRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;ByorkVerdictResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ByorkVerdictResponse>> setByorkVerdict(
+            ByorkVerdictRequest byorkVerdictRequest, String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    setByorkVerdictRequestBuilder(byorkVerdictRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("setByorkVerdict", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ByorkVerdictResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ByorkVerdictResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder setByorkVerdictRequestBuilder(
+            ByorkVerdictRequest byorkVerdictRequest, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExists(
+                "setByorkVerdict", "byorkVerdictRequest", byorkVerdictRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/screening/byork/verdict";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(byorkVerdictRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {

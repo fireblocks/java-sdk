@@ -20,7 +20,7 @@ Post-screening rule that determines the verdict based on screening results
 |**destId** | **String** | Destination identifier |  [optional] |
 |**asset** | **String** | Asset or cryptocurrency type |  [optional] |
 |**baseAsset** | **String** | Base asset for derivatives |  [optional] |
-|**amount** | [**TRLinkAmount2**](TRLinkAmount2.md) |  |  [optional] |
+|**amount** | [**ScreeningPolicyAmount**](ScreeningPolicyAmount.md) |  |  [optional] |
 |**networkProtocol** | **String** | Network protocol identifier |  [optional] |
 |**operation** | **String** | Operation type |  [optional] |
 |**description** | **String** | Rule description |  [optional] |

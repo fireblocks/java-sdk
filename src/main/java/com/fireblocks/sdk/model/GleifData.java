@@ -28,6 +28,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
     GleifData.JSON_PROPERTY_LEI,
     GleifData.JSON_PROPERTY_LEGAL_NAME,
+    GleifData.JSON_PROPERTY_LEGAL_NAME_LANGUAGE,
     GleifData.JSON_PROPERTY_OTHER_NAMES,
     GleifData.JSON_PROPERTY_LEGAL_ADDRESS_REGION,
     GleifData.JSON_PROPERTY_LEGAL_ADDRESS_COUNTRY,
@@ -43,8 +44,11 @@ public class GleifData {
     public static final String JSON_PROPERTY_LEGAL_NAME = "legalName";
     @jakarta.annotation.Nonnull private String legalName;
 
+    public static final String JSON_PROPERTY_LEGAL_NAME_LANGUAGE = "legalNameLanguage";
+    @jakarta.annotation.Nullable private String legalNameLanguage;
+
     public static final String JSON_PROPERTY_OTHER_NAMES = "otherNames";
-    @jakarta.annotation.Nullable private List<String> otherNames;
+    @jakarta.annotation.Nullable private List<GleifOtherLegalEntityName> otherNames;
 
     public static final String JSON_PROPERTY_LEGAL_ADDRESS_REGION = "legalAddressRegion";
     @jakarta.annotation.Nullable private String legalAddressRegion;
@@ -114,12 +118,36 @@ public class GleifData {
         this.legalName = legalName;
     }
 
-    public GleifData otherNames(@jakarta.annotation.Nullable List<String> otherNames) {
+    public GleifData legalNameLanguage(@jakarta.annotation.Nullable String legalNameLanguage) {
+        this.legalNameLanguage = legalNameLanguage;
+        return this;
+    }
+
+    /**
+     * Two-letter ISO 639-1 language code
+     *
+     * @return legalNameLanguage
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_LEGAL_NAME_LANGUAGE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getLegalNameLanguage() {
+        return legalNameLanguage;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LEGAL_NAME_LANGUAGE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setLegalNameLanguage(@jakarta.annotation.Nullable String legalNameLanguage) {
+        this.legalNameLanguage = legalNameLanguage;
+    }
+
+    public GleifData otherNames(
+            @jakarta.annotation.Nullable List<GleifOtherLegalEntityName> otherNames) {
         this.otherNames = otherNames;
         return this;
     }
 
-    public GleifData addOtherNamesItem(String otherNamesItem) {
+    public GleifData addOtherNamesItem(GleifOtherLegalEntityName otherNamesItem) {
         if (this.otherNames == null) {
             this.otherNames = new ArrayList<>();
         }
@@ -135,13 +163,14 @@ public class GleifData {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_OTHER_NAMES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<String> getOtherNames() {
+    public List<GleifOtherLegalEntityName> getOtherNames() {
         return otherNames;
     }
 
     @JsonProperty(JSON_PROPERTY_OTHER_NAMES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOtherNames(@jakarta.annotation.Nullable List<String> otherNames) {
+    public void setOtherNames(
+            @jakarta.annotation.Nullable List<GleifOtherLegalEntityName> otherNames) {
         this.otherNames = otherNames;
     }
 
@@ -226,6 +255,7 @@ public class GleifData {
         GleifData gleifData = (GleifData) o;
         return Objects.equals(this.lei, gleifData.lei)
                 && Objects.equals(this.legalName, gleifData.legalName)
+                && Objects.equals(this.legalNameLanguage, gleifData.legalNameLanguage)
                 && Objects.equals(this.otherNames, gleifData.otherNames)
                 && Objects.equals(this.legalAddressRegion, gleifData.legalAddressRegion)
                 && Objects.equals(this.legalAddressCountry, gleifData.legalAddressCountry)
@@ -237,6 +267,7 @@ public class GleifData {
         return Objects.hash(
                 lei,
                 legalName,
+                legalNameLanguage,
                 otherNames,
                 legalAddressRegion,
                 legalAddressCountry,
@@ -249,6 +280,9 @@ public class GleifData {
         sb.append("class GleifData {\n");
         sb.append("    lei: ").append(toIndentedString(lei)).append("\n");
         sb.append("    legalName: ").append(toIndentedString(legalName)).append("\n");
+        sb.append("    legalNameLanguage: ")
+                .append(toIndentedString(legalNameLanguage))
+                .append("\n");
         sb.append("    otherNames: ").append(toIndentedString(otherNames)).append("\n");
         sb.append("    legalAddressRegion: ")
                 .append(toIndentedString(legalAddressRegion))
@@ -324,20 +358,36 @@ public class GleifData {
                             ApiClient.urlEncode(ApiClient.valueToString(getLegalName()))));
         }
 
+        // add `legalNameLanguage` to the URL query string
+        if (getLegalNameLanguage() != null) {
+            joiner.add(
+                    String.format(
+                            "%slegalNameLanguage%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getLegalNameLanguage()))));
+        }
+
         // add `otherNames` to the URL query string
         if (getOtherNames() != null) {
             for (int i = 0; i < getOtherNames().size(); i++) {
-                joiner.add(
-                        String.format(
-                                "%sotherNames%s%s=%s",
-                                prefix,
-                                suffix,
-                                "".equals(suffix)
-                                        ? ""
-                                        : String.format(
-                                                "%s%d%s", containerPrefix, i, containerSuffix),
-                                ApiClient.urlEncode(
-                                        ApiClient.valueToString(getOtherNames().get(i)))));
+                if (getOtherNames().get(i) != null) {
+                    joiner.add(
+                            getOtherNames()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%sotherNames%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
             }
         }
 

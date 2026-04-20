@@ -47,6 +47,7 @@ import java.util.StringJoiner;
     TransactionRequest.JSON_PROPERTY_NETWORK_FEE,
     TransactionRequest.JSON_PROPERTY_REPLACE_TX_BY_HASH,
     TransactionRequest.JSON_PROPERTY_EXTRA_PARAMETERS,
+    TransactionRequest.JSON_PROPERTY_UTXO_SELECTION_PARAMS,
     TransactionRequest.JSON_PROPERTY_CUSTOMER_REF_ID,
     TransactionRequest.JSON_PROPERTY_TRAVEL_RULE_MESSAGE,
     TransactionRequest.JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID,
@@ -161,6 +162,9 @@ public class TransactionRequest {
 
     public static final String JSON_PROPERTY_EXTRA_PARAMETERS = "extraParameters";
     @jakarta.annotation.Nullable private ExtraParameters extraParameters;
+
+    public static final String JSON_PROPERTY_UTXO_SELECTION_PARAMS = "utxoSelectionParams";
+    @jakarta.annotation.Nullable private UtxoSelectionParams utxoSelectionParams;
 
     public static final String JSON_PROPERTY_CUSTOMER_REF_ID = "customerRefId";
     @jakarta.annotation.Nullable private String customerRefId;
@@ -715,6 +719,31 @@ public class TransactionRequest {
         this.extraParameters = extraParameters;
     }
 
+    public TransactionRequest utxoSelectionParams(
+            @jakarta.annotation.Nullable UtxoSelectionParams utxoSelectionParams) {
+        this.utxoSelectionParams = utxoSelectionParams;
+        return this;
+    }
+
+    /**
+     * Get utxoSelectionParams
+     *
+     * @return utxoSelectionParams
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_UTXO_SELECTION_PARAMS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UtxoSelectionParams getUtxoSelectionParams() {
+        return utxoSelectionParams;
+    }
+
+    @JsonProperty(JSON_PROPERTY_UTXO_SELECTION_PARAMS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUtxoSelectionParams(
+            @jakarta.annotation.Nullable UtxoSelectionParams utxoSelectionParams) {
+        this.utxoSelectionParams = utxoSelectionParams;
+    }
+
     public TransactionRequest customerRefId(@jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
         return this;
@@ -921,6 +950,7 @@ public class TransactionRequest {
                 && Objects.equals(this.networkFee, transactionRequest.networkFee)
                 && Objects.equals(this.replaceTxByHash, transactionRequest.replaceTxByHash)
                 && Objects.equals(this.extraParameters, transactionRequest.extraParameters)
+                && Objects.equals(this.utxoSelectionParams, transactionRequest.utxoSelectionParams)
                 && Objects.equals(this.customerRefId, transactionRequest.customerRefId)
                 && Objects.equals(this.travelRuleMessage, transactionRequest.travelRuleMessage)
                 && Objects.equals(this.travelRuleMessageId, transactionRequest.travelRuleMessageId)
@@ -954,6 +984,7 @@ public class TransactionRequest {
                 networkFee,
                 replaceTxByHash,
                 extraParameters,
+                utxoSelectionParams,
                 customerRefId,
                 travelRuleMessage,
                 travelRuleMessageId,
@@ -990,6 +1021,9 @@ public class TransactionRequest {
         sb.append("    networkFee: ").append(toIndentedString(networkFee)).append("\n");
         sb.append("    replaceTxByHash: ").append(toIndentedString(replaceTxByHash)).append("\n");
         sb.append("    extraParameters: ").append(toIndentedString(extraParameters)).append("\n");
+        sb.append("    utxoSelectionParams: ")
+                .append(toIndentedString(utxoSelectionParams))
+                .append("\n");
         sb.append("    customerRefId: ").append(toIndentedString(customerRefId)).append("\n");
         sb.append("    travelRuleMessage: ")
                 .append(toIndentedString(travelRuleMessage))
@@ -1229,6 +1263,13 @@ public class TransactionRequest {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getExtraParameters()))));
+        }
+
+        // add `utxoSelectionParams` to the URL query string
+        if (getUtxoSelectionParams() != null) {
+            joiner.add(
+                    getUtxoSelectionParams()
+                            .toUrlQueryString(prefix + "utxoSelectionParams" + suffix));
         }
 
         // add `customerRefId` to the URL query string

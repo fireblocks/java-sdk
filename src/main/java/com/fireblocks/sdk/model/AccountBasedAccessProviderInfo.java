@@ -55,7 +55,7 @@ public class AccountBasedAccessProviderInfo {
     }
 
     /**
-     * Whether the provider is currently connected
+     * Whether the provider is currently connected.
      *
      * @return connected
      */

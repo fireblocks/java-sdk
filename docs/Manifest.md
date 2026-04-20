@@ -11,6 +11,7 @@ The manifest of the provider, describing its supported order, quote, and rate re
 |**order** | [**ManifestOrder**](ManifestOrder.md) |  |  |
 |**quote** | [**ManifestQuote**](ManifestQuote.md) |  |  |
 |**rate** | [**ManifestBase**](ManifestBase.md) |  |  |
+|**participantsIdentificationPolicy** | [**ParticipantsIdentificationPolicy**](ParticipantsIdentificationPolicy.md) |  |  [optional] |
 
 
 
