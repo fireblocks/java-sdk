@@ -38,6 +38,9 @@ import com.fireblocks.sdk.model.ByorkSetTimeoutsRequest;
 import com.fireblocks.sdk.model.ByorkVerdictRequest;
 import com.fireblocks.sdk.model.ByorkVerdictResponse;
 import com.fireblocks.sdk.model.ComplianceResultFullPayload;
+import com.fireblocks.sdk.model.CounterpartyGroup;
+import com.fireblocks.sdk.model.CounterpartyGroupsPaginatedResponse;
+import com.fireblocks.sdk.model.CreateCounterpartyGroupRequest;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
 import com.fireblocks.sdk.model.GetByorkVerdictResponse;
 import com.fireblocks.sdk.model.LegalEntityRegistration;
@@ -48,6 +51,7 @@ import com.fireblocks.sdk.model.ScreeningConfigurationsRequest;
 import com.fireblocks.sdk.model.ScreeningPolicyResponse;
 import com.fireblocks.sdk.model.ScreeningProviderRulesConfigurationResponse;
 import com.fireblocks.sdk.model.ScreeningUpdateConfigurations;
+import com.fireblocks.sdk.model.UpdateCounterpartyGroupRequest;
 import com.fireblocks.sdk.model.UpdateLegalEntityRequest;
 import java.io.IOException;
 import java.io.InputStream;
@@ -269,7 +273,7 @@ public class ComplianceApi {
     /**
      * Assign vault accounts to a legal entity Assigns one or more vault accounts to a specific
      * legal entity registration. Explicitly mapped vault accounts take precedence over the
-     * workspace default legal entity. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * workspace default legal entity. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param assignVaultsToLegalEntityRequest (required)
      * @param legalEntityId The unique ID of the legal entity registration (required)
@@ -365,6 +369,93 @@ public class ComplianceApi {
         return localVarRequestBuilder;
     }
     /**
+     * Create a counterparty group Creates a new counterparty group. **Endpoint Permissions:**
+     * Admin, Non-Signing Admin.
+     *
+     * @param createCounterpartyGroupRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;CounterpartyGroup&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<CounterpartyGroup>> createCounterpartyGroup(
+            CreateCounterpartyGroupRequest createCounterpartyGroupRequest, String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    createCounterpartyGroupRequestBuilder(
+                            createCounterpartyGroupRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "createCounterpartyGroup", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<CounterpartyGroup>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            CounterpartyGroup>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder createCounterpartyGroupRequestBuilder(
+            CreateCounterpartyGroupRequest createCounterpartyGroupRequest, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "createCounterpartyGroup",
+                "createCounterpartyGroupRequest",
+                createCounterpartyGroupRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/counterparty_groups";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(createCounterpartyGroupRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Deactivate BYORK Light Deactivates BYORK Light for the authenticated tenant (sets
      * config.active to false). Once deactivated, BYORK screening no longer applies until activated
      * again. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
@@ -428,6 +519,66 @@ public class ComplianceApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Delete a counterparty group Permanently deletes a counterparty group. **Endpoint
+     * Permissions:** Admin, Non-Signing Admin.
+     *
+     * @param groupId The unique identifier of the counterparty group (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Void>> deleteCounterpartyGroup(UUID groupId)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    deleteCounterpartyGroupRequestBuilder(groupId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "deleteCounterpartyGroup", localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder deleteCounterpartyGroupRequestBuilder(UUID groupId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "deleteCounterpartyGroup", "groupId", groupId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/counterparty_groups/{groupId}"
+                        .replace("{groupId}", ApiClient.urlEncode(groupId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }
@@ -848,9 +999,79 @@ public class ComplianceApi {
         return localVarRequestBuilder;
     }
     /**
+     * Get a counterparty group Returns the details of a specific counterparty group. **Endpoint
+     * Permissions:** Admin, Non-Signing Admin, Viewer.
+     *
+     * @param groupId The unique identifier of the counterparty group (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;CounterpartyGroup&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<CounterpartyGroup>> getCounterpartyGroup(UUID groupId)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getCounterpartyGroupRequestBuilder(groupId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getCounterpartyGroup", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<CounterpartyGroup>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            CounterpartyGroup>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getCounterpartyGroupRequestBuilder(UUID groupId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getCounterpartyGroup", "groupId", groupId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/counterparty_groups/{groupId}"
+                        .replace("{groupId}", ApiClient.urlEncode(groupId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Get a legal entity Returns details of a specific legal entity registration, including GLEIF
-     * data when available. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer,
-     * Approver, Editor, Viewer.
+     * data when available. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
+     * Viewer.
      *
      * @param legalEntityId The unique ID of the legal entity registration (required)
      * @return CompletableFuture&lt;ApiResponse&lt;LegalEntityRegistration&gt;&gt;
@@ -1282,12 +1503,97 @@ public class ComplianceApi {
         return localVarRequestBuilder;
     }
     /**
+     * List counterparty groups Returns a paginated list of counterparty groups. **Endpoint
+     * Permissions:** Admin, Non-Signing Admin, Viewer.
+     *
+     * @param pageCursor Cursor of the required page (optional)
+     * @param pageSize Maximum number of items in the page (optional, default to 50)
+     * @return CompletableFuture&lt;ApiResponse&lt;CounterpartyGroupsPaginatedResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<CounterpartyGroupsPaginatedResponse>>
+            listCounterpartyGroups(String pageCursor, Integer pageSize) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    listCounterpartyGroupsRequestBuilder(pageCursor, pageSize);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "listCounterpartyGroups", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<CounterpartyGroupsPaginatedResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            CounterpartyGroupsPaginatedResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder listCounterpartyGroupsRequestBuilder(
+            String pageCursor, Integer pageSize) throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/counterparty_groups";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * List legal entities (Paginated) Returns legal entity registrations for the workspace with
      * cursor-based pagination. If query parameter vaultAccountId is used it returns the legal
      * entity registration associated with a specific vault account. If no explicit mapping exists
      * for the vault, the workspace default legal entity is returned. Returns an empty response if
-     * neither a vault mapping nor a default legal entity is configured. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * neither a vault mapping nor a default legal entity is configured. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @param vaultAccountId The ID of the vault account. When provided, returns the legal entity
      *     associated with that vault account and pagination parameters are ignored. (optional)
@@ -1377,8 +1683,8 @@ public class ComplianceApi {
     }
     /**
      * List vault accounts for a legal entity (Paginated) Returns vault account IDs explicitly
-     * assigned to a specific legal entity registration, with cursor-based pagination.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * assigned to a specific legal entity registration, with cursor-based pagination. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @param legalEntityId The unique ID of the legal entity registration (required)
      * @param pageCursor Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a
@@ -1608,8 +1914,8 @@ public class ComplianceApi {
     /**
      * Register a new legal entity Registers a new legal entity for the workspace using its LEI
      * (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each
-     * workspace can register multiple legal entities. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin.
+     * workspace can register multiple legal entities. Endpoint Permission: Admin, Non-Signing
+     * Admin.
      *
      * @param registerLegalEntityRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -2241,10 +2547,105 @@ public class ComplianceApi {
         return localVarRequestBuilder;
     }
     /**
+     * Update a counterparty group Updates an existing counterparty group. **Endpoint Permissions:**
+     * Admin, Non-Signing Admin.
+     *
+     * @param updateCounterpartyGroupRequest (required)
+     * @param groupId The unique identifier of the counterparty group (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;CounterpartyGroup&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<CounterpartyGroup>> updateCounterpartyGroup(
+            UpdateCounterpartyGroupRequest updateCounterpartyGroupRequest,
+            UUID groupId,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    updateCounterpartyGroupRequestBuilder(
+                            updateCounterpartyGroupRequest, groupId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "updateCounterpartyGroup", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<CounterpartyGroup>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            CounterpartyGroup>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder updateCounterpartyGroupRequestBuilder(
+            UpdateCounterpartyGroupRequest updateCounterpartyGroupRequest,
+            UUID groupId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "updateCounterpartyGroup",
+                "updateCounterpartyGroupRequest",
+                updateCounterpartyGroupRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateCounterpartyGroup", "groupId", groupId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/counterparty_groups/{groupId}"
+                        .replace("{groupId}", ApiClient.urlEncode(groupId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(updateCounterpartyGroupRequest);
+            localVarRequestBuilder.method(
+                    "PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Update legal entity Updates the status of a legal entity registration. Setting isDefault to
      * true marks the registration as the workspace default, which is applied to vault accounts that
-     * have no explicit legal entity mapping. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin.
+     * have no explicit legal entity mapping. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param updateLegalEntityRequest (required)
      * @param legalEntityId The unique ID of the legal entity registration (required)

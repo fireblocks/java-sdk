@@ -26,11 +26,15 @@ import com.fireblocks.sdk.model.TRLinkCreateIntegrationRequest;
 import com.fireblocks.sdk.model.TRLinkCreateTrmRequest;
 import com.fireblocks.sdk.model.TRLinkCustomerIntegrationResponse;
 import com.fireblocks.sdk.model.TRLinkCustomerResponse;
+import com.fireblocks.sdk.model.TRLinkGetRequiredActionsResponse;
 import com.fireblocks.sdk.model.TRLinkGetSupportedAssetResponse;
+import com.fireblocks.sdk.model.TRLinkManualDecisionRequest;
+import com.fireblocks.sdk.model.TRLinkManualDecisionResponse;
 import com.fireblocks.sdk.model.TRLinkPartnerResponse;
 import com.fireblocks.sdk.model.TRLinkPolicyResponse;
 import com.fireblocks.sdk.model.TRLinkPublicKeyResponse;
 import com.fireblocks.sdk.model.TRLinkRedirectTrmRequest;
+import com.fireblocks.sdk.model.TRLinkResolveActionRequest;
 import com.fireblocks.sdk.model.TRLinkSetDestinationTravelRuleMessageIdRequest;
 import com.fireblocks.sdk.model.TRLinkSetDestinationTravelRuleMessageIdResponse;
 import com.fireblocks.sdk.model.TRLinkSetTransactionTravelRuleMessageIdRequest;
@@ -140,6 +144,25 @@ public class TrLinkApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<TRLinkCustomerIntegrationResponse>> response =
                 api.createTRLinkIntegration(trLinkCreateIntegrationRequest, idempotencyKey);
+    }
+
+    /**
+     * Manual decision for missing TRM
+     *
+     * <p>Accept or reject destinations stuck in NoTRM step without waiting for TRP webhook or
+     * policy timeout.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void createTRLinkManualDecisionTest() throws ApiException {
+        TRLinkManualDecisionRequest trLinkManualDecisionRequest = null;
+        UUID customerIntegrationId = null;
+        UUID txId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<TRLinkManualDecisionResponse>> response =
+                api.createTRLinkManualDecision(
+                        trLinkManualDecisionRequest, customerIntegrationId, txId, idempotencyKey);
     }
 
     /**
@@ -329,6 +352,22 @@ public class TrLinkApiTest {
     }
 
     /**
+     * Get required actions for a TRM
+     *
+     * <p>Retrieves the list of required actions (e.g., PII fields) needed to process the Travel
+     * Rule Message.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getTRLinkTrmRequiredActionsTest() throws ApiException {
+        UUID customerIntegrationId = null;
+        String trmId = null;
+        CompletableFuture<ApiResponse<TRLinkGetRequiredActionsResponse>> response =
+                api.getTRLinkTrmRequiredActions(customerIntegrationId, trmId);
+    }
+
+    /**
      * Get VASP by ID
      *
      * <p>Retrieves detailed information about a specific VASP by its unique identifier. Returns
@@ -396,6 +435,25 @@ public class TrLinkApiTest {
         CompletableFuture<ApiResponse<TRLinkTrmInfoResponse>> response =
                 api.redirectTRLinkTrm(
                         trLinkRedirectTrmRequest, customerIntegrationId, trmId, idempotencyKey);
+    }
+
+    /**
+     * Resolve action for a TRM
+     *
+     * <p>Submits required data (e.g., beneficiary PII) to resolve a pending Travel Rule Message
+     * action.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void resolveActionTRLinkTrmTest() throws ApiException {
+        TRLinkResolveActionRequest trLinkResolveActionRequest = null;
+        UUID customerIntegrationId = null;
+        String trmId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<TRLinkTrmInfoResponse>> response =
+                api.resolveActionTRLinkTrm(
+                        trLinkResolveActionRequest, customerIntegrationId, trmId, idempotencyKey);
     }
 
     /**

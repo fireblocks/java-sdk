@@ -76,12 +76,12 @@ public class PolicyEditorBetaApi {
 
     /**
      * Get the active policy and its validation Legacy Endpoint – Returns the active policy and its
-     * validation. &lt;/br&gt; **Note:** - This endpoint will remain available for the foreseeable
-     * future and is not deprecated.&lt;/br&gt; - The &#x60;getActivePolicy&#x60; endpoint under
-     * policy/paths provides policy type-specific operations and improved functionality.&lt;/br&gt;
-     * - These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; If you
-     * want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks
-     * Customer Success Manager or send an email to CSM@fireblocks.com.
+     * validation. **Note:** - This endpoint will remain available for the foreseeable future and is
+     * not deprecated. - The &#x60;getActivePolicy&#x60; endpoint under policy/paths provides policy
+     * type-specific operations and improved functionality. - These endpoints are currently in beta
+     * and might be subject to changes. If you want to participate and learn more about the
+     * Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to
+     * CSM@fireblocks.com.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;LegacyPolicyAndValidationResponse&gt;&gt;
      * @throws ApiException if fails to make API call
@@ -143,13 +143,12 @@ public class PolicyEditorBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get the active draft Legacy Endpoint – Returns the active draft and its validation.
-     * &lt;/br&gt; **Note:** - This endpoint will remain available for the foreseeable future and is
-     * not deprecated.&lt;/br&gt; - The &#x60;getDraft&#x60; endpoint under policy/paths provides
-     * policy type-specific operations and improved functionality.&lt;/br&gt; - These endpoints are
-     * currently in beta and might be subject to changes.&lt;/br&gt; If you want to participate and
-     * learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager
-     * or send an email to CSM@fireblocks.com.
+     * Get the active draft Legacy Endpoint – Returns the active draft and its validation. **Note:**
+     * - This endpoint will remain available for the foreseeable future and is not deprecated. - The
+     * &#x60;getDraft&#x60; endpoint under policy/paths provides policy type-specific operations and
+     * improved functionality. - These endpoints are currently in beta and might be subject to
+     * changes. If you want to participate and learn more about the Fireblocks TAP, please contact
+     * your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;LegacyDraftReviewAndValidationResponse&gt;&gt;
      * @throws ApiException if fails to make API call
@@ -211,13 +210,12 @@ public class PolicyEditorBetaApi {
     }
     /**
      * Send publish request for a certain draft id Legacy Endpoint – Send publish request of certain
-     * draft id and returns the response. &lt;/br&gt; **Note:** - This endpoint will remain
-     * available for the foreseeable future and is not deprecated.&lt;/br&gt; - The
-     * &#x60;publishDraft&#x60; endpoint under policy/paths provides improved functionality and
-     * better performance.&lt;/br&gt; - These endpoints are currently in beta and might be subject
-     * to changes.&lt;/br&gt; If you want to participate and learn more about the Fireblocks TAP,
-     * please contact your Fireblocks Customer Success Manager or send an email to
-     * CSM@fireblocks.com.
+     * draft id and returns the response. **Note:** - This endpoint will remain available for the
+     * foreseeable future and is not deprecated. - The &#x60;publishDraft&#x60; endpoint under
+     * policy/paths provides improved functionality and better performance. - These endpoints are
+     * currently in beta and might be subject to changes. If you want to participate and learn more
+     * about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an
+     * email to CSM@fireblocks.com.
      *
      * @param legacyPublishDraftRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -301,9 +299,9 @@ public class PolicyEditorBetaApi {
     }
     /**
      * Send publish request for a set of policy rules Send publish request of set of policy rules
-     * and returns the response. &lt;/br&gt; **Note:** These endpoints are currently in beta and
-     * might be subject to changes. If you want to participate and learn more about the Fireblocks
-     * TAP, please contact your Fireblocks Customer Success Manager or send an email to
+     * and returns the response. **Note:** These endpoints are currently in beta and might be
+     * subject to changes. If you want to participate and learn more about the Fireblocks TAP,
+     * please contact your Fireblocks Customer Success Manager or send an email to
      * CSM@fireblocks.com.
      *
      * @param legacyPolicyRules (required)
@@ -385,12 +383,12 @@ public class PolicyEditorBetaApi {
     }
     /**
      * Update the draft with a new set of rules Legacy Endpoint – Update the draft and return its
-     * validation. &lt;/br&gt; **Note:** - This endpoint will remain available for the foreseeable
-     * future and is not deprecated.&lt;/br&gt; - The &#x60;updateDraft&#x60; endpoint under
-     * policy/paths provides policy type-specific operations and improved functionality.&lt;/br&gt;
-     * - These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; If you
-     * want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks
-     * Customer Success Manager or send an email to CSM@fireblocks.com.
+     * validation. **Note:** - This endpoint will remain available for the foreseeable future and is
+     * not deprecated. - The &#x60;updateDraft&#x60; endpoint under policy/paths provides policy
+     * type-specific operations and improved functionality. - These endpoints are currently in beta
+     * and might be subject to changes. If you want to participate and learn more about the
+     * Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to
+     * CSM@fireblocks.com.
      *
      * @param legacyPolicyRules (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple

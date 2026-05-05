@@ -74,7 +74,7 @@ public class GasStationsApi {
 
     /**
      * Get gas station settings by asset Returns gas station settings and balances for a requested
-     * asset. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * asset. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param assetId The ID of the asset (required)
      * @return CompletableFuture&lt;ApiResponse&lt;GasStationPropertiesResponse&gt;&gt;
@@ -142,8 +142,8 @@ public class GasStationsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get gas station settings Returns gas station settings and ETH balance. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Get gas station settings Returns gas station settings and ETH balance. Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;GasStationPropertiesResponse&gt;&gt;
      * @throws ApiException if fails to make API call
@@ -206,8 +206,8 @@ public class GasStationsApi {
     /**
      * Edit gas station settings Configures gas station settings for ETH. Learn more about the
      * Fireblocks Gas Station in the following
-     * [guide](https://developers.fireblocks.com/docs/work-with-gas-station). &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param gasStationConfiguration (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -297,8 +297,8 @@ public class GasStationsApi {
     /**
      * Edit gas station settings for an asset Configures gas station settings for a requested asset.
      * Learn more about the Fireblocks Gas Station in the following
-     * [guide](https://developers.fireblocks.com/docs/work-with-gas-station). &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param gasStationConfiguration (required)
      * @param assetId The ID of the asset (required)

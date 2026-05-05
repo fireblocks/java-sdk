@@ -78,4 +78,10 @@ class CreateQuoteTest {
     void sideTest() {
         // TODO: test side
     }
+
+    /** Test the property 'participantsIdentification' */
+    @Test
+    void participantsIdentificationTest() {
+        // TODO: test participantsIdentification
+    }
 }

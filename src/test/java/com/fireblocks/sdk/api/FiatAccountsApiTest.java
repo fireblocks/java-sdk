@@ -49,7 +49,7 @@ public class FiatAccountsApiTest {
     /**
      * Find a specific fiat account
      *
-     * <p>Returns a fiat account by ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * <p>Returns a fiat account by ID. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -62,7 +62,7 @@ public class FiatAccountsApiTest {
     /**
      * List fiat accounts
      *
-     * <p>Returns all fiat accounts. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * <p>Returns all fiat accounts. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */

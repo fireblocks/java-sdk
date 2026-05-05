@@ -5,6 +5,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**activateAssetForVaultAccount**](VaultsApi.md#activateAssetForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/activate | Activate a wallet in a vault account |
+| [**activateCircleGatewayWalletBeta**](VaultsApi.md#activateCircleGatewayWalletBeta) | **POST** /vault/accounts/{vaultAccountId}/circle_gateway/activate | Activate a Circle Gateway wallet |
 | [**attachOrDetachTagsFromVaultAccounts**](VaultsApi.md#attachOrDetachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags | Attach or detach tags from vault accounts |
 | [**createLegacyAddress**](VaultsApi.md#createLegacyAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy | Convert a segwit address to legacy format |
 | [**createMultipleAccounts**](VaultsApi.md#createMultipleAccounts) | **POST** /vault/accounts/bulk | Bulk creation of new vault accounts |
@@ -12,7 +13,9 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**createVaultAccount**](VaultsApi.md#createVaultAccount) | **POST** /vault/accounts | Create a new vault account |
 | [**createVaultAccountAsset**](VaultsApi.md#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new vault wallet |
 | [**createVaultAccountAssetAddress**](VaultsApi.md#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address |
+| [**deactivateCircleGatewayWalletBeta**](VaultsApi.md#deactivateCircleGatewayWalletBeta) | **POST** /vault/accounts/{vaultAccountId}/circle_gateway/deactivate | Deactivate a Circle Gateway wallet |
 | [**getAssetWallets**](VaultsApi.md#getAssetWallets) | **GET** /vault/asset_wallets | Get vault wallets (Paginated) |
+| [**getCircleGatewayWalletInfoBeta**](VaultsApi.md#getCircleGatewayWalletInfoBeta) | **GET** /vault/accounts/{vaultAccountId}/circle_gateway | Get Circle Gateway wallet info |
 | [**getCreateMultipleDepositAddressesJobStatus**](VaultsApi.md#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get the job status of the bulk deposit address creation |
 | [**getCreateMultipleVaultAccountsJobStatus**](VaultsApi.md#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts |
 | [**getMaxBipIndexUsed**](VaultsApi.md#getMaxBipIndexUsed) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_bip44_index_used | Get maximum BIP44 index used |
@@ -43,7 +46,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Activate a wallet in a vault account
 
-Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -123,6 +126,91 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## activateCircleGatewayWalletBeta
+
+> CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>> activateCircleGatewayWalletBeta activateCircleGatewayWalletBeta(vaultAccountId, idempotencyKey)
+
+Activate a Circle Gateway wallet
+
+Activates the Circle Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.VaultsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>> response = fireblocks.vaults().activateCircleGatewayWalletBeta(vaultAccountId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling VaultsApi#activateCircleGatewayWalletBeta");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VaultsApi#activateCircleGatewayWalletBeta");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **vaultAccountId** | **String**| The ID of the vault account | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**CircleGatewayWalletStatusResponse**](CircleGatewayWalletStatusResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Circle Gateway wallet activated successfully |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -218,7 +306,7 @@ No authorization required
 
 Convert a segwit address to legacy format
 
-Converts an existing segwit address to the legacy format. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Converts an existing segwit address to the legacy format. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -477,7 +565,7 @@ No authorization required
 
 Create a new vault account
 
-Creates a new vault account with the requested name. **Note: ** Vault account names should consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Creates a new vault account with the requested name. **Note: ** Vault account names should consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -562,7 +650,7 @@ No authorization required
 
 Create a new vault wallet
 
-Creates a wallet for a specific asset in a vault account. Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Creates a wallet for a specific asset in a vault account. Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -653,7 +741,7 @@ No authorization required
 
 Create new asset deposit address
 
-Creates a new deposit address for an asset of a vault account. Should be used for UTXO or Tag/Memo based assets ONLY.  Requests with account based assets will fail.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+Creates a new deposit address for an asset of a vault account. Should be used for UTXO or Tag/Memo based assets ONLY.  Requests with account based assets will fail.  Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -736,13 +824,98 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## deactivateCircleGatewayWalletBeta
+
+> CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>> deactivateCircleGatewayWalletBeta deactivateCircleGatewayWalletBeta(vaultAccountId, idempotencyKey)
+
+Deactivate a Circle Gateway wallet
+
+Deactivates the Circle Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.VaultsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>> response = fireblocks.vaults().deactivateCircleGatewayWalletBeta(vaultAccountId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling VaultsApi#deactivateCircleGatewayWalletBeta");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VaultsApi#deactivateCircleGatewayWalletBeta");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **vaultAccountId** | **String**| The ID of the vault account | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**CircleGatewayWalletStatusResponse**](CircleGatewayWalletStatusResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Circle Gateway wallet deactivated successfully |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getAssetWallets
 
 > CompletableFuture<ApiResponse<PaginatedAssetWalletResponse>> getAssetWallets getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit)
 
 Get vault wallets (Paginated)
 
-Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -826,6 +999,89 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | A PaginatedAssetWalletResponse object |  * X-Request-ID -  <br>  |
+
+
+## getCircleGatewayWalletInfoBeta
+
+> CompletableFuture<ApiResponse<CircleGatewayWalletInfoResponse>> getCircleGatewayWalletInfoBeta getCircleGatewayWalletInfoBeta(vaultAccountId)
+
+Get Circle Gateway wallet info
+
+Returns the Circle Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.VaultsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
+        try {
+            CompletableFuture<ApiResponse<CircleGatewayWalletInfoResponse>> response = fireblocks.vaults().getCircleGatewayWalletInfoBeta(vaultAccountId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling VaultsApi#getCircleGatewayWalletInfoBeta");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VaultsApi#getCircleGatewayWalletInfoBeta");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **vaultAccountId** | **String**| The ID of the vault account | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**CircleGatewayWalletInfoResponse**](CircleGatewayWalletInfoResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Circle Gateway wallet information |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
 ## getCreateMultipleDepositAddressesJobStatus
@@ -1172,7 +1428,7 @@ No authorization required
 
 Get vault accounts (Paginated)
 
-Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1274,7 +1530,7 @@ No authorization required
 
 Get the public key for a derivation path
 
-Gets the public key information based on derivation path and signing algorithm. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+Gets the public key information based on derivation path and signing algorithm. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -1361,7 +1617,7 @@ No authorization required
 
 Get an asset&#39;s public key
 
-Get the public key information for a specific asset in a vault account. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+Get the public key information for a specific asset in a vault account. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -1452,7 +1708,7 @@ No authorization required
 
 Get UTXO unspent inputs information
 
-Returns unspent inputs information of an UTXO asset in a vault account.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns unspent inputs information of an UTXO asset in a vault account.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1537,7 +1793,7 @@ No authorization required
 
 Get a vault account by ID
 
-Get a vault account by its unique ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Get a vault account by its unique ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1620,7 +1876,7 @@ No authorization required
 
 Get the asset balance for a vault account
 
-Returns a specific vault wallet balance information for a specific asset.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,   Viewer.
+Returns a specific vault wallet balance information for a specific asset.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,   Viewer.
 
 ### Example
 
@@ -1705,7 +1961,7 @@ No authorization required
 
 Get addresses (Paginated)
 
-Returns a paginated response of the addresses for a given vault account and asset. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns a paginated response of the addresses for a given vault account and asset. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1796,7 +2052,7 @@ No authorization required
 
 Get asset balance for chosen assets
 
-Gets the assets amount summary for all accounts or filtered accounts.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Gets the assets amount summary for all accounts or filtered accounts.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1881,7 +2137,7 @@ No authorization required
 
 Get vault balance by an asset
 
-Get the total balance of an asset across all the vault accounts.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Get the total balance of an asset across all the vault accounts.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1964,7 +2220,7 @@ No authorization required
 
 Hide a vault account in the console
 
-Hides the requested vault account from the web console view. This operation is required when creating thousands of vault accounts to serve your end-users. Used for preventing the web console to be swamped with too much vault accounts. Learn more in the following [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts). NOTE: Hiding the vault account from the web console will also hide all the related transactions to/from this vault. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Hides the requested vault account from the web console view. This operation is required when creating thousands of vault accounts to serve your end-users. Used for preventing the web console to be swamped with too much vault accounts. Learn more in the following [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts). NOTE: Hiding the vault account from the web console will also hide all the related transactions to/from this vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -2049,7 +2305,7 @@ No authorization required
 
 Assign AML customer reference ID
 
-Sets an AML/KYT customer reference ID for a specific address. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+Sets an AML/KYT customer reference ID for a specific address. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -2140,7 +2396,7 @@ No authorization required
 
 Set auto fueling to on or off
 
-Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with &#39;autoFuel&#x3D;true&#39; are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with &#39;autoFuel&#x3D;true&#39; are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -2227,7 +2483,7 @@ No authorization required
 
 Set an AML/KYT ID for a vault account
 
-Assigns an AML/KYT customer reference ID for the vault account. Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+Assigns an AML/KYT customer reference ID for the vault account. Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies). Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -2314,7 +2570,7 @@ No authorization required
 
 Unhide a vault account in the console
 
-Makes a hidden vault account visible in web console view. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Makes a hidden vault account visible in web console view. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -2399,7 +2655,7 @@ No authorization required
 
 Rename a vault account
 
-Renames the requested vault account. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+Renames the requested vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 
@@ -2486,7 +2742,7 @@ No authorization required
 
 Update address description
 
-Updates the description of an existing address of an asset in a vault account. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Updates the description of an existing address of an asset in a vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -2577,7 +2833,7 @@ No authorization required
 
 Refresh asset balance data
 
-Updates the balance of a specific asset in a vault account.  This API endpoint is subject to a strict rate limit. Should be used by clients in very specific scenarios.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Updates the balance of a specific asset in a vault account.  This API endpoint is subject to a strict rate limit. Should be used by clients in very specific scenarios.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

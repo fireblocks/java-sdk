@@ -81,8 +81,8 @@ public class ConnectedAccountsBetaApi {
     }
 
     /**
-     * Disconnect connected account Disconnect a connected account by ID. &lt;/br&gt; **Note**: -
-     * This endpoint is currently in beta and might be subject to changes.
+     * Disconnect connected account Disconnect a connected account by ID. **Note**: - This endpoint
+     * is currently in beta and might be subject to changes.
      *
      * @param accountId The ID of the account to disconnect. (required)
      * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;

@@ -99,7 +99,7 @@ public class ContractTemplatesApiTest {
      * List all contract templates
      *
      * <p>Return minimal representation of all the contract templates available for the workspace.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */

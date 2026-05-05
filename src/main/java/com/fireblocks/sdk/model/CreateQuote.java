@@ -34,7 +34,8 @@ import java.util.StringJoiner;
     CreateQuote.JSON_PROPERTY_BASE_AMOUNT,
     CreateQuote.JSON_PROPERTY_SLIPPAGE_BPS,
     CreateQuote.JSON_PROPERTY_SETTLEMENT,
-    CreateQuote.JSON_PROPERTY_SIDE
+    CreateQuote.JSON_PROPERTY_SIDE,
+    CreateQuote.JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -66,6 +67,10 @@ public class CreateQuote {
 
     public static final String JSON_PROPERTY_SIDE = "side";
     @jakarta.annotation.Nonnull private Side side;
+
+    public static final String JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION =
+            "participantsIdentification";
+    @jakarta.annotation.Nullable private ParticipantsIdentification participantsIdentification;
 
     public CreateQuote() {}
 
@@ -301,6 +306,31 @@ public class CreateQuote {
         this.side = side;
     }
 
+    public CreateQuote participantsIdentification(
+            @jakarta.annotation.Nullable ParticipantsIdentification participantsIdentification) {
+        this.participantsIdentification = participantsIdentification;
+        return this;
+    }
+
+    /**
+     * Get participantsIdentification
+     *
+     * @return participantsIdentification
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ParticipantsIdentification getParticipantsIdentification() {
+        return participantsIdentification;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setParticipantsIdentification(
+            @jakarta.annotation.Nullable ParticipantsIdentification participantsIdentification) {
+        this.participantsIdentification = participantsIdentification;
+    }
+
     /** Return true if this CreateQuote object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -319,7 +349,9 @@ public class CreateQuote {
                 && Objects.equals(this.baseAmount, createQuote.baseAmount)
                 && Objects.equals(this.slippageBps, createQuote.slippageBps)
                 && Objects.equals(this.settlement, createQuote.settlement)
-                && Objects.equals(this.side, createQuote.side);
+                && Objects.equals(this.side, createQuote.side)
+                && Objects.equals(
+                        this.participantsIdentification, createQuote.participantsIdentification);
     }
 
     @Override
@@ -333,7 +365,8 @@ public class CreateQuote {
                 baseAmount,
                 slippageBps,
                 settlement,
-                side);
+                side,
+                participantsIdentification);
     }
 
     @Override
@@ -349,6 +382,9 @@ public class CreateQuote {
         sb.append("    slippageBps: ").append(toIndentedString(slippageBps)).append("\n");
         sb.append("    settlement: ").append(toIndentedString(settlement)).append("\n");
         sb.append("    side: ").append(toIndentedString(side)).append("\n");
+        sb.append("    participantsIdentification: ")
+                .append(toIndentedString(participantsIdentification))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -492,6 +528,13 @@ public class CreateQuote {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getSide()))));
+        }
+
+        // add `participantsIdentification` to the URL query string
+        if (getParticipantsIdentification() != null) {
+            joiner.add(
+                    getParticipantsIdentification()
+                            .toUrlQueryString(prefix + "participantsIdentification" + suffix));
         }
 
         return joiner.toString();

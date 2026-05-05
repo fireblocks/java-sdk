@@ -38,9 +38,21 @@ class CreateMultipleVaultAccountsJobStatusTest {
         // TODO: test vaultAccounts
     }
 
+    /** Test the property 'tagIds' */
+    @Test
+    void tagIdsTest() {
+        // TODO: test tagIds
+    }
+
     /** Test the property 'errorMessage' */
     @Test
     void errorMessageTest() {
         // TODO: test errorMessage
+    }
+
+    /** Test the property 'approvalRequestId' */
+    @Test
+    void approvalRequestIdTest() {
+        // TODO: test approvalRequestId
     }
 }

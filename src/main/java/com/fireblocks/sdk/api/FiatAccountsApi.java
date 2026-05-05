@@ -159,8 +159,8 @@ public class FiatAccountsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Find a specific fiat account Returns a fiat account by ID. &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin.
+     * Find a specific fiat account Returns a fiat account by ID. Endpoint Permission: Admin,
+     * Non-Signing Admin.
      *
      * @param accountId The ID of the fiat account to return (required)
      * @return CompletableFuture&lt;ApiResponse&lt;FiatAccount&gt;&gt;
@@ -225,8 +225,7 @@ public class FiatAccountsApi {
         return localVarRequestBuilder;
     }
     /**
-     * List fiat accounts Returns all fiat accounts. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin.
+     * List fiat accounts Returns all fiat accounts. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;List&lt;FiatAccount&gt;&gt;&gt;
      * @throws ApiException if fails to make API call

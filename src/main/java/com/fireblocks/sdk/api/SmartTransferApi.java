@@ -190,8 +190,8 @@ public class SmartTransferApi {
         return localVarRequestBuilder;
     }
     /**
-     * Cancel Ticket Cancel Smart Transfer ticket. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor.
+     * Cancel Ticket Cancel Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor.
      *
      * @param ticketId (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -352,8 +352,8 @@ public class SmartTransferApi {
     /**
      * Create leg (term) Creates new smart transfer ticket term (when the ticket status is DRAFT).
      * Learn more about Fireblocks Smart Transfers in the following
-     * [guide](https://developers.fireblocks.com/docs/execute-smart-transfers). &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * [guide](https://developers.fireblocks.com/docs/execute-smart-transfers). Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param smartTransferCreateTicketTerm (required)
      * @param ticketId (required)
@@ -444,8 +444,8 @@ public class SmartTransferApi {
         return localVarRequestBuilder;
     }
     /**
-     * Search Ticket by ID Find Smart Transfer ticket by id. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Search Ticket by ID Find Smart Transfer ticket by id. Endpoint Permission: Admin, Non-Signing
+     * Admin, Signer, Approver, Editor, Viewer.
      *
      * @param ticketId (required)
      * @return CompletableFuture&lt;ApiResponse&lt;SmartTransferTicketResponse&gt;&gt;
@@ -511,7 +511,7 @@ public class SmartTransferApi {
     }
     /**
      * Get Smart Transfer ticket term Find a specific term of a specific Smart Transfer ticket.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @param ticketId (required)
      * @param termId (required)
@@ -583,7 +583,7 @@ public class SmartTransferApi {
     }
     /**
      * Fund ticket manually Manually fulfill ticket, in case when all terms (legs) are funded
-     * manually. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * manually. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param ticketId (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -748,8 +748,8 @@ public class SmartTransferApi {
     }
     /**
      * Define funding source Set funding source for ticket term (in case of ASYNC tickets, this will
-     * execute transfer immediately). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin,
-     * Signer, Approver, Editor.
+     * execute transfer immediately). Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor.
      *
      * @param smartTransferFundTerm (required)
      * @param ticketId (required)
@@ -907,8 +907,8 @@ public class SmartTransferApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get user group Get Smart Transfer user groups. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Get user group Get Smart Transfer user groups. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor, Viewer.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;SmartTransferUserGroupsResponse&gt;&gt;
      * @throws ApiException if fails to make API call
@@ -971,8 +971,8 @@ public class SmartTransferApi {
         return localVarRequestBuilder;
     }
     /**
-     * Manually add term transaction Manually set ticket term transaction. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Manually add term transaction Manually set ticket term transaction. Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param smartTransferManuallyFundTerm (required)
      * @param ticketId (required)
@@ -1286,8 +1286,8 @@ public class SmartTransferApi {
         return localVarRequestBuilder;
     }
     /**
-     * Add external ref. ID Set external id Smart Transfer ticket. &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Add external ref. ID Set external id Smart Transfer ticket. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param smartTransferSetTicketExternalId (required)
      * @param ticketId (required)
@@ -1380,8 +1380,8 @@ public class SmartTransferApi {
         return localVarRequestBuilder;
     }
     /**
-     * Set expiration Set expiration date on Smart Transfer ticket. &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Set expiration Set expiration date on Smart Transfer ticket. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param smartTransferSetTicketExpiration (required)
      * @param ticketId (required)
@@ -1476,8 +1476,7 @@ public class SmartTransferApi {
     }
     /**
      * Set user group Set Smart Transfers user group to receive email notifications for Smart
-     * Transfers. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
-     * Editor.
+     * Transfers. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param smartTransferSetUserGroups (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -1560,8 +1559,8 @@ public class SmartTransferApi {
     }
     /**
      * Submit ticket Submit Smart Transfer ticket - change status into ready for approval if auto
-     * approval is not turned on, or OPEN if auto approval is on. &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * approval is not turned on, or OPEN if auto approval is on. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param smartTransferSubmitTicket (required)
      * @param ticketId (required)

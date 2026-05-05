@@ -154,9 +154,11 @@ public class WithdrawRequest {
     }
 
     /**
-     * Amount of tokens to withdraw. Only supported for Cosmos chains to enable partial withdrawals.
-     * For other chains, this field is ignored and the entire available amount will be withdrawn. If
-     * not provided, the entire available amount will be withdrawn.
+     * Amount of tokens to withdraw. Only supported for ETH compounding validators (EIP-7251/Pectra)
+     * and Cosmos chains to enable partial withdrawals. For ETH compounding validators, the
+     * remaining balance must be at least 32 ETH after withdrawal. For other chains, this field is
+     * ignored and the entire available amount will be withdrawn. If not provided, the entire
+     * available amount will be withdrawn.
      *
      * @return amount
      */

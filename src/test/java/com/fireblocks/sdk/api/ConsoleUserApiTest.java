@@ -33,7 +33,7 @@ public class ConsoleUserApiTest {
      * <p>Create console users in your workspace - Please note that this endpoint is available only
      * for API keys with Admin/Non Signing Admin permissions. Learn more about Fireblocks Users
      * management in the following [guide](https://developers.fireblocks.com/docs/manage-users).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -50,7 +50,7 @@ public class ConsoleUserApiTest {
      * Get console users
      *
      * <p>Get console users for your workspace. - Please note that this endpoint is available only
-     * for API keys with Admin/Non Signing Admin permissions. &lt;/br&gt;Endpoint Permission: Admin,
+     * for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin,
      * Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails

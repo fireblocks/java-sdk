@@ -172,7 +172,7 @@ public class WebhooksApi {
     /**
      * Resend failed webhooks Resends all failed webhook notifications. Learn more about Fireblocks
      * Webhooks in the following [guide](https://developers.fireblocks.com/docs/configure-webhooks).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the

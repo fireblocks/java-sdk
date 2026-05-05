@@ -75,8 +75,8 @@ public class AuditLogsApi {
 
     /**
      * Get audit logs Get Audit logs for the last Day/Week. - Please note that this endpoint is
-     * available only for API keys with Admin/Non Signing Admin permissions. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin.
+     * available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission:
+     * Admin, Non-Signing Admin.
      *
      * @param timePeriod The last time period to fetch audit logs (optional)
      * @param cursor The next id to start fetch audit logs from (optional)

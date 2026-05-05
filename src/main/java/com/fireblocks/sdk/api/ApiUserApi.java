@@ -73,7 +73,7 @@ public class ApiUserApi {
     /**
      * Create API Key Create a new API key in your workspace. Learn more about Fireblocks API Keys
      * management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param createAPIUser (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -141,8 +141,8 @@ public class ApiUserApi {
     }
     /**
      * Get API Keys List all API keys in your workspace. - Please note that this endpoint is
-     * available only for API keys with Admin/Non Signing Admin permissions. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin.
+     * available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission:
+     * Admin, Non-Signing Admin.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;GetAPIUsersResponse&gt;&gt;
      * @throws ApiException if fails to make API call

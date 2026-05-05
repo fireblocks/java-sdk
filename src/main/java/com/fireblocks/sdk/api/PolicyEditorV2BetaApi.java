@@ -167,8 +167,8 @@ public class PolicyEditorV2BetaApi {
     }
     /**
      * Get the active draft by policy type Returns the active draft and its validation for a
-     * specific policy type. &lt;/br&gt; **Note:** These endpoints are currently in beta and might
-     * be subject to changes.
+     * specific policy type. **Note:** These endpoints are currently in beta and might be subject to
+     * changes.
      *
      * @param policyType The policy type(s) to retrieve. Can be a single type or multiple types by
      *     repeating the parameter (e.g., ?policyType&#x3D;TRANSFER&amp;policyType&#x3D;MINT).
@@ -250,10 +250,9 @@ public class PolicyEditorV2BetaApi {
     }
     /**
      * Send publish request for a certain draft id Send publish request of certain draft id and
-     * returns the response. &lt;/br&gt; **Note:** These endpoints are currently in beta and might
-     * be subject to changes. If you want to participate and learn more about the Fireblocks Policy
-     * Editor, please contact your Fireblocks Customer Success Manager or send an email to
-     * CSM@fireblocks.com.
+     * returns the response. **Note:** These endpoints are currently in beta and might be subject to
+     * changes. If you want to participate and learn more about the Fireblocks Policy Editor, please
+     * contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
      *
      * @param publishDraftRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -333,8 +332,8 @@ public class PolicyEditorV2BetaApi {
     }
     /**
      * Update the draft with a new set of rules by policy types Update the draft and return its
-     * validation for specific policy types. &lt;/br&gt; **Note:** These endpoints are currently in
-     * beta and might be subject to changes.
+     * validation for specific policy types. **Note:** These endpoints are currently in beta and
+     * might be subject to changes.
      *
      * @param updateDraftRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple

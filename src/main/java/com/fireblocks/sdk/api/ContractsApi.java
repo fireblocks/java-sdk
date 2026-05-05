@@ -75,8 +75,8 @@ public class ContractsApi {
     }
 
     /**
-     * Add an asset to a whitelisted contract Adds an asset to a whitelisted contract.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Add an asset to a whitelisted contract Adds an asset to a whitelisted contract. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param contractId The ID of the contract (required)
      * @param assetId The ID of the asset to add (required)
@@ -170,8 +170,8 @@ public class ContractsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Add a contract Adds a contract to the workspace whitelist. &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Add a contract Adds a contract to the workspace whitelist. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param createContractRequest (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -251,8 +251,8 @@ public class ContractsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Delete a contract Deletes a contract by ID. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor.
+     * Delete a contract Deletes a contract by ID. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor.
      *
      * @param contractId The ID of the contract to delete (required)
      * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
@@ -309,7 +309,7 @@ public class ContractsApi {
     }
     /**
      * Delete an asset from a whitelisted contract Deletes a whitelisted contract asset by ID.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param contractId The ID of the contract (required)
      * @param assetId The ID of the asset to delete (required)
@@ -372,7 +372,7 @@ public class ContractsApi {
     }
     /**
      * Find a Specific Whitelisted Contract Returns a whitelisted contract by Fireblocks Contract
-     * ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param contractId The ID of the contract to return (required)
      * @return CompletableFuture&lt;ApiResponse&lt;UnmanagedWallet&gt;&gt;
@@ -438,7 +438,7 @@ public class ContractsApi {
     }
     /**
      * Find a whitelisted contract&#39;s asset Returns a whitelisted contract&#39;s asset by ID.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param contractId The ID of the contract (required)
      * @param assetId The ID of the asset to return (required)
@@ -508,8 +508,8 @@ public class ContractsApi {
         return localVarRequestBuilder;
     }
     /**
-     * List Whitelisted Contracts Gets a list of whitelisted contracts. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * List Whitelisted Contracts Gets a list of whitelisted contracts. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;List&lt;UnmanagedWallet&gt;&gt;&gt;
      * @throws ApiException if fails to make API call

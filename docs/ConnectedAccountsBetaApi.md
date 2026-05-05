@@ -20,7 +20,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Disconnect connected account
 
-Disconnect a connected account by ID. &lt;/br&gt; **Note**: - This endpoint is currently in beta and might be subject to changes. 
+Disconnect a connected account by ID.  **Note**: - This endpoint is currently in beta and might be subject to changes. 
 
 ### Example
 

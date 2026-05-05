@@ -64,7 +64,7 @@ public class StakingApiTest {
      * Claim accrued rewards
      *
      * <p>Claims available staking rewards for the specified chain and vault. Supported chains:
-     * Solana and Polygon (Matic). Behavior depends on protocol reward distribution.
+     * Solana and Polygon (POL/Matic). Behavior depends on protocol reward distribution.
      *
      * @throws ApiException if the Api call fails
      */
@@ -83,11 +83,11 @@ public class StakingApiTest {
      *
      * <p>Consolidates the source staking position into the destination, merging the balance into
      * the destination and closing the source position once complete. Both positions must be from
-     * the same funding vaults account (i.e. same withdrawals credentials). On chain, this
-     * translates into a consolidation transaction, where the source validator is consolidated into
-     * the destination validator. Supported chains: Ethereum (ETH) only. &lt;/br&gt;Endpoint
-     * Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This
-     * endpoint is currently in beta and might be subject to changes.
+     * the same vault account (i.e. same withdrawal credentials). On chain, this translates into a
+     * consolidation transaction, where the source validator is consolidated into the destination
+     * validator. Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin,
+     * Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and
+     * might be subject to changes.
      *
      * @throws ApiException if the Api call fails
      */
@@ -104,7 +104,7 @@ public class StakingApiTest {
      * List staking positions
      *
      * <p>Returns all staking positions with core details: amounts, rewards, status, chain, and
-     * vault. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -135,7 +135,7 @@ public class StakingApiTest {
      * List supported staking chains
      *
      * <p>Returns an alphabetical list of blockchains supported for staking by the current workspace
-     * context. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * context. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -163,8 +163,8 @@ public class StakingApiTest {
      *
      * <p>Returns staking positions with core details: amounts, rewards, status, chain, and vault.
      * It supports cursor-based pagination for efficient data retrieval. This endpoint always
-     * returns a paginated response with {data, next} structure. &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * returns a paginated response with {data, next} structure. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -183,7 +183,7 @@ public class StakingApiTest {
      * List staking providers
      *
      * <p>Returns all available staking providers with metadata such as name, ID, and supported
-     * chains. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * chains. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -223,8 +223,8 @@ public class StakingApiTest {
      *
      * <p>Merges the source stake account into the destination, consolidating the balance into the
      * destination and closing the source account once complete. Both accounts must be from the same
-     * validator provider and of same vault account.. Supported chains: Solana (SOL).
-     * &lt;/br&gt;Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * validator provider and of same vault account.. Supported chains: Solana (SOL). Endpoint
+     * Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -263,7 +263,8 @@ public class StakingApiTest {
      * validator: creates a new position regardless of existing delegations. For Cosmos chains and
      * Ethereum liquid staking (Lido): automatically add to existing positions for the same
      * validator provider and same vault account if one exists, otherwise create a new position. For
-     * Solana and Polygon: always create new positions regardless of existing delegations.
+     * Solana and Polygon (MATIC/POL): always create new positions regardless of existing
+     * delegations.
      *
      * @throws ApiException if the Api call fails
      */
@@ -298,7 +299,10 @@ public class StakingApiTest {
      *
      * <p>Withdraws funds that have completed the unbonding period. Typically requires the position
      * to be deactivated first (unstake → unbond → withdraw). Amount and timing vary by chain
-     * protocol.
+     * protocol. Partial withdrawal is supported for ETH compounding validators (EIP-7251/Pectra)
+     * and Cosmos chains via the optional &#39;amount&#39; field. For ETH compounding validators,
+     * the remaining balance must be at least 32 ETH after the withdrawal. For all other chains,
+     * omitting &#39;amount&#39; withdraws the entire available balance.
      *
      * @throws ApiException if the Api call fails
      */

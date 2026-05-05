@@ -74,8 +74,8 @@ public class ConsoleUserApi {
      * Create console user Create console users in your workspace - Please note that this endpoint
      * is available only for API keys with Admin/Non Signing Admin permissions. Learn more about
      * Fireblocks Users management in the following
-     * [guide](https://developers.fireblocks.com/docs/manage-users). &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin.
+     * [guide](https://developers.fireblocks.com/docs/manage-users). Endpoint Permission: Admin,
+     * Non-Signing Admin.
      *
      * @param createConsoleUser (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -143,8 +143,8 @@ public class ConsoleUserApi {
     }
     /**
      * Get console users Get console users for your workspace. - Please note that this endpoint is
-     * available only for API keys with Admin/Non Signing Admin permissions. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin.
+     * available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission:
+     * Admin, Non-Signing Admin.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;GetConsoleUsersResponse&gt;&gt;
      * @throws ApiException if fails to make API call

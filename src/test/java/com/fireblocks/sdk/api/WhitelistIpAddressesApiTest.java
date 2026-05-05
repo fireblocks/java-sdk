@@ -30,8 +30,8 @@ public class WhitelistIpAddressesApiTest {
      * Get whitelisted ip addresses for an API Key
      *
      * <p>Get a list of the whitelisted IP addresses for a specific API Key - Please note that this
-     * endpoint is available only for API keys with Admin/Non Signing Admin permissions.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint
+     * Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */

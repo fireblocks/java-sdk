@@ -57,7 +57,7 @@ public class CreateMultipleDepositAddressesJobStatus {
     }
 
     /**
-     * Get status
+     * Status of the job. Possible values - Success, In Progress, Failed
      *
      * @return status
      */

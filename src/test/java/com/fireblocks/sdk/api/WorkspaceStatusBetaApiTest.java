@@ -31,8 +31,8 @@ public class WorkspaceStatusBetaApiTest {
      *
      * <p>Returns current workspace status (Beta). **Note**: - This endpoint is now in Beta,
      * disabled for general availability at this time. - Please note that this endpoint is available
-     * only for API keys with Admin/Non Signing Admin permissions. &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin.
+     * only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin,
+     * Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */

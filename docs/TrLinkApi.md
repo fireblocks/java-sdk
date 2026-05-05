@@ -9,6 +9,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**connectTRLinkIntegration**](TrLinkApi.md#connectTRLinkIntegration) | **PUT** /screening/trlink/customers/integration/{customerIntegrationId} | Connect customer integration |
 | [**createTRLinkCustomer**](TrLinkApi.md#createTRLinkCustomer) | **POST** /screening/trlink/customers | Create customer |
 | [**createTRLinkIntegration**](TrLinkApi.md#createTRLinkIntegration) | **POST** /screening/trlink/customers/integration | Create customer integration |
+| [**createTRLinkManualDecision**](TrLinkApi.md#createTRLinkManualDecision) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/transactions/{txId}/manual_decision | Manual decision for missing TRM |
 | [**createTRLinkTrm**](TrLinkApi.md#createTRLinkTrm) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/trm | Create Travel Rule Message |
 | [**deleteTRLinkCustomer**](TrLinkApi.md#deleteTRLinkCustomer) | **DELETE** /screening/trlink/customers/{customerId} | Delete customer |
 | [**disconnectTRLinkIntegration**](TrLinkApi.md#disconnectTRLinkIntegration) | **DELETE** /screening/trlink/customers/integration/{customerIntegrationId} | Disconnect customer integration |
@@ -21,10 +22,12 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getTRLinkPolicy**](TrLinkApi.md#getTRLinkPolicy) | **GET** /screening/trlink/policy | Get TRLink policy |
 | [**getTRLinkSupportedAsset**](TrLinkApi.md#getTRLinkSupportedAsset) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/assets/{assetId} | Get supported asset by ID |
 | [**getTRLinkTrmById**](TrLinkApi.md#getTRLinkTrmById) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId} | Get TRM by ID |
+| [**getTRLinkTrmRequiredActions**](TrLinkApi.md#getTRLinkTrmRequiredActions) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/required_actions | Get required actions for a TRM |
 | [**getTRLinkVaspById**](TrLinkApi.md#getTRLinkVaspById) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/vasps/{vaspId} | Get VASP by ID |
 | [**listTRLinkSupportedAssets**](TrLinkApi.md#listTRLinkSupportedAssets) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/assets | List supported assets |
 | [**listTRLinkVasps**](TrLinkApi.md#listTRLinkVasps) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/vasps | List VASPs |
 | [**redirectTRLinkTrm**](TrLinkApi.md#redirectTRLinkTrm) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/redirect | Redirect Travel Rule Message |
+| [**resolveActionTRLinkTrm**](TrLinkApi.md#resolveActionTRLinkTrm) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/resolve_action | Resolve action for a TRM |
 | [**setTRLinkDestinationTravelRuleMessageId**](TrLinkApi.md#setTRLinkDestinationTravelRuleMessageId) | **POST** /screening/trlink/transaction/{txId}/destination/travel_rule_message_id | Set destination travel rule message ID |
 | [**setTRLinkTransactionTravelRuleMessageId**](TrLinkApi.md#setTRLinkTransactionTravelRuleMessageId) | **POST** /screening/trlink/transaction/{txId}/travel_rule_message_id | Set transaction travel rule message ID |
 | [**testTRLinkIntegrationConnection**](TrLinkApi.md#testTRLinkIntegrationConnection) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/test_connection | Test connection |
@@ -462,6 +465,95 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Customer integration created successfully |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## createTRLinkManualDecision
+
+> CompletableFuture<ApiResponse<TRLinkManualDecisionResponse>> createTRLinkManualDecision createTRLinkManualDecision(trLinkManualDecisionRequest, customerIntegrationId, txId, idempotencyKey)
+
+Manual decision for missing TRM
+
+Accept or reject destinations stuck in NoTRM step without waiting for TRP webhook or policy timeout.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TrLinkApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        TRLinkManualDecisionRequest trLinkManualDecisionRequest = new TRLinkManualDecisionRequest(); // TRLinkManualDecisionRequest | 
+        UUID customerIntegrationId = UUID.fromString("3fa85f64-5717-4562-b3fc-2c963f66afa6"); // UUID | Customer integration unique identifier
+        UUID txId = UUID.fromString("b70701f4-d7b1-4795-a8ee-b09cdb5b850e"); // UUID | Fireblocks transaction unique identifier
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<TRLinkManualDecisionResponse>> response = fireblocks.trLink().createTRLinkManualDecision(trLinkManualDecisionRequest, customerIntegrationId, txId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TrLinkApi#createTRLinkManualDecision");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TrLinkApi#createTRLinkManualDecision");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **trLinkManualDecisionRequest** | [**TRLinkManualDecisionRequest**](TRLinkManualDecisionRequest.md)|  | |
+| **customerIntegrationId** | **UUID**| Customer integration unique identifier | |
+| **txId** | **UUID**| Fireblocks transaction unique identifier | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**TRLinkManualDecisionResponse**](TRLinkManualDecisionResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Decision applied successfully |  -  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -1457,6 +1549,91 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getTRLinkTrmRequiredActions
+
+> CompletableFuture<ApiResponse<TRLinkGetRequiredActionsResponse>> getTRLinkTrmRequiredActions getTRLinkTrmRequiredActions(customerIntegrationId, trmId)
+
+Get required actions for a TRM
+
+Retrieves the list of required actions (e.g., PII fields) needed to process the Travel Rule Message.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TrLinkApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID customerIntegrationId = UUID.randomUUID(); // UUID | Customer integration unique identifier
+        String trmId = "trmId_example"; // String | Travel Rule Message unique identifier
+        try {
+            CompletableFuture<ApiResponse<TRLinkGetRequiredActionsResponse>> response = fireblocks.trLink().getTRLinkTrmRequiredActions(customerIntegrationId, trmId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TrLinkApi#getTRLinkTrmRequiredActions");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TrLinkApi#getTRLinkTrmRequiredActions");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **customerIntegrationId** | **UUID**| Customer integration unique identifier | |
+| **trmId** | **String**| Travel Rule Message unique identifier | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**TRLinkGetRequiredActionsResponse**](TRLinkGetRequiredActionsResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Required actions retrieved successfully |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getTRLinkVaspById
 
 > CompletableFuture<ApiResponse<TRLinkVaspDto>> getTRLinkVaspById getTRLinkVaspById(customerIntegrationId, vaspId)
@@ -1802,6 +1979,95 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Transaction redirect request accepted |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## resolveActionTRLinkTrm
+
+> CompletableFuture<ApiResponse<TRLinkTrmInfoResponse>> resolveActionTRLinkTrm resolveActionTRLinkTrm(trLinkResolveActionRequest, customerIntegrationId, trmId, idempotencyKey)
+
+Resolve action for a TRM
+
+Submits required data (e.g., beneficiary PII) to resolve a pending Travel Rule Message action.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TrLinkApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        TRLinkResolveActionRequest trLinkResolveActionRequest = new TRLinkResolveActionRequest(); // TRLinkResolveActionRequest | 
+        UUID customerIntegrationId = UUID.randomUUID(); // UUID | Customer integration unique identifier
+        String trmId = "trmId_example"; // String | Travel Rule Message unique identifier
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<TRLinkTrmInfoResponse>> response = fireblocks.trLink().resolveActionTRLinkTrm(trLinkResolveActionRequest, customerIntegrationId, trmId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TrLinkApi#resolveActionTRLinkTrm");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TrLinkApi#resolveActionTRLinkTrm");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **trLinkResolveActionRequest** | [**TRLinkResolveActionRequest**](TRLinkResolveActionRequest.md)|  | |
+| **customerIntegrationId** | **UUID**| Customer integration unique identifier | |
+| **trmId** | **String**| Travel Rule Message unique identifier | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**TRLinkTrmInfoResponse**](TRLinkTrmInfoResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Action resolved successfully |  -  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

@@ -15,7 +15,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Create API Key
 
-Create a new API key in your workspace. Learn more about Fireblocks API Keys management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+Create a new API key in your workspace. Learn more about Fireblocks API Keys management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys). Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -103,7 +103,7 @@ No authorization required
 
 Get API Keys
 
-List all API keys in your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+List all API keys in your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

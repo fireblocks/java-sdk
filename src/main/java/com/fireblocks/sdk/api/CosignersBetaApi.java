@@ -89,7 +89,7 @@ public class CosignersBetaApi {
 
     /**
      * Add cosigner Add a new cosigner. The cosigner will be pending pairing until the API key is
-     * manually paired &lt;/br&gt;Endpoint Permission: Admin and Non-Signing Admin.
+     * manually paired Endpoint Permission: Admin and Non-Signing Admin.
      *
      * @param addCosignerRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -168,7 +168,7 @@ public class CosignersBetaApi {
     }
     /**
      * Get API key Get an API key by ID. **Note:** These endpoints are currently in beta and might
-     * be subject to changes. &lt;/br&gt;Endpoint Permission: Admin and Non-Signing Admin.
+     * be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
      *
      * @param cosignerId The unique identifier of the cosigner (required)
      * @param apiKeyId The unique identifier of the API key (required)
@@ -240,8 +240,8 @@ public class CosignersBetaApi {
     }
     /**
      * Get all API keys Get all cosigner paired API keys (paginated). **Note:** These endpoints are
-     * currently in beta and might be subject to changes. &lt;/br&gt;Endpoint Permission: Admin and
-     * Non-Signing Admin.
+     * currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing
+     * Admin.
      *
      * @param cosignerId The unique identifier of the cosigner (required)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
@@ -335,7 +335,7 @@ public class CosignersBetaApi {
     }
     /**
      * Get cosigner Get a cosigner by ID. **Note:** These endpoints are currently in beta and might
-     * be subject to changes. &lt;/br&gt;Endpoint Permission: Admin and Non-Signing Admin.
+     * be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
      *
      * @param cosignerId The unique identifier of the cosigner (required)
      * @return CompletableFuture&lt;ApiResponse&lt;Cosigner&gt;&gt;
@@ -402,8 +402,8 @@ public class CosignersBetaApi {
     }
     /**
      * Get all cosigners Get all workspace cosigners (paginated). **Note:** These endpoints are
-     * currently in beta and might be subject to changes. &lt;/br&gt;Endpoint Permission: Admin and
-     * Non-Signing Admin.
+     * currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing
+     * Admin.
      *
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
      * @param pageCursor Cursor of the required page (optional)
@@ -489,8 +489,8 @@ public class CosignersBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get request status Get the status of an asynchronous request &lt;/br&gt;Endpoint Permission:
-     * Admin and Non-Signing Admin.
+     * Get request status Get the status of an asynchronous request Endpoint Permission: Admin and
+     * Non-Signing Admin.
      *
      * @param cosignerId The unique identifier of the cosigner (required)
      * @param apiKeyId The unique identifier of the API key (required)
@@ -564,8 +564,7 @@ public class CosignersBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Pair API key Pair an API key to a cosigner &lt;/br&gt;Endpoint Permission: Admin and
-     * Non-Signing Admin.
+     * Pair API key Pair an API key to a cosigner Endpoint Permission: Admin and Non-Signing Admin.
      *
      * @param pairApiKeyRequest (required)
      * @param cosignerId The unique identifier of the cosigner (required)
@@ -661,7 +660,7 @@ public class CosignersBetaApi {
     }
     /**
      * Rename cosigner Rename a cosigner by ID. **Note:** These endpoints are currently in beta and
-     * might be subject to changes. &lt;/br&gt;Endpoint Permission: Admin and Non-Signing Admin.
+     * might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
      *
      * @param renameCosigner (required)
      * @param cosignerId The unique identifier of the cosigner (required)
@@ -738,8 +737,8 @@ public class CosignersBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Unpair API key Unpair an API key from a cosigner &lt;/br&gt;Endpoint Permission: Admin and
-     * Non-Signing Admin.
+     * Unpair API key Unpair an API key from a cosigner Endpoint Permission: Admin and Non-Signing
+     * Admin.
      *
      * @param cosignerId The unique identifier of the cosigner (required)
      * @param apiKeyId The unique identifier of the API key (required)
@@ -810,7 +809,7 @@ public class CosignersBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Update API key callback handler Update the callback handler of an API key &lt;/br&gt;Endpoint
+     * Update API key callback handler Update the callback handler of an API key Endpoint
      * Permission: Admin and Non-Signing Admin.
      *
      * @param updateCallbackHandlerRequest (required)

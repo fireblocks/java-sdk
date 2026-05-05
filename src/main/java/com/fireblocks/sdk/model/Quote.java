@@ -43,6 +43,7 @@ import java.util.StringJoiner;
     Quote.JSON_PROPERTY_GENERAL_FEES,
     Quote.JSON_PROPERTY_SIDE,
     Quote.JSON_PROPERTY_EXPIRES_AT,
+    Quote.JSON_PROPERTY_ORDER_CREATION_REQUIREMENTS,
     Quote.JSON_PROPERTY_TYPE
 })
 @jakarta.annotation.Generated(
@@ -94,6 +95,10 @@ public class Quote {
 
     public static final String JSON_PROPERTY_EXPIRES_AT = "expiresAt";
     @jakarta.annotation.Nonnull private String expiresAt;
+
+    public static final String JSON_PROPERTY_ORDER_CREATION_REQUIREMENTS =
+            "orderCreationRequirements";
+    @jakarta.annotation.Nullable private String orderCreationRequirements;
 
     public static final String JSON_PROPERTY_TYPE = "type";
     @jakarta.annotation.Nonnull private IndicativeQuoteEnum type;
@@ -417,6 +422,34 @@ public class Quote {
         this.expiresAt = expiresAt;
     }
 
+    public Quote orderCreationRequirements(
+            @jakarta.annotation.Nullable String orderCreationRequirements) {
+        this.orderCreationRequirements = orderCreationRequirements;
+        return this;
+    }
+
+    /**
+     * A JSON Schema Draft-7 document in string format describing the fields required when creating
+     * an order for this quote. The schema mirrors the structure of
+     * CreateOrderRequest.participantsIdentification json schema, so clients can validate their
+     * order payload before sending.
+     *
+     * @return orderCreationRequirements
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ORDER_CREATION_REQUIREMENTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getOrderCreationRequirements() {
+        return orderCreationRequirements;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ORDER_CREATION_REQUIREMENTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOrderCreationRequirements(
+            @jakarta.annotation.Nullable String orderCreationRequirements) {
+        this.orderCreationRequirements = orderCreationRequirements;
+    }
+
     public Quote type(@jakarta.annotation.Nonnull IndicativeQuoteEnum type) {
         this.type = type;
         return this;
@@ -462,6 +495,7 @@ public class Quote {
                 && Objects.equals(this.generalFees, quote.generalFees)
                 && Objects.equals(this.side, quote.side)
                 && Objects.equals(this.expiresAt, quote.expiresAt)
+                && Objects.equals(this.orderCreationRequirements, quote.orderCreationRequirements)
                 && Objects.equals(this.type, quote.type);
     }
 
@@ -480,6 +514,7 @@ public class Quote {
                 generalFees,
                 side,
                 expiresAt,
+                orderCreationRequirements,
                 type);
     }
 
@@ -499,6 +534,9 @@ public class Quote {
         sb.append("    generalFees: ").append(toIndentedString(generalFees)).append("\n");
         sb.append("    side: ").append(toIndentedString(side)).append("\n");
         sb.append("    expiresAt: ").append(toIndentedString(expiresAt)).append("\n");
+        sb.append("    orderCreationRequirements: ")
+                .append(toIndentedString(orderCreationRequirements))
+                .append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -684,6 +722,17 @@ public class Quote {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getExpiresAt()))));
+        }
+
+        // add `orderCreationRequirements` to the URL query string
+        if (getOrderCreationRequirements() != null) {
+            joiner.add(
+                    String.format(
+                            "%sorderCreationRequirements%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getOrderCreationRequirements()))));
         }
 
         // add `type` to the URL query string

@@ -401,8 +401,8 @@ public class ContractTemplatesApi {
     }
     /**
      * List all contract templates Return minimal representation of all the contract templates
-     * available for the workspace. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin,
-     * Signer, Approver, Editor, Viewer.
+     * available for the workspace. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
+     * Editor, Viewer.
      *
      * @param limit Items per page (max 100) (optional, default to 100)
      * @param offset Paging offset (optional, default to 0)

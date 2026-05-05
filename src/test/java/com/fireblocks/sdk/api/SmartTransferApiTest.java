@@ -66,8 +66,8 @@ public class SmartTransferApiTest {
     /**
      * Cancel Ticket
      *
-     * <p>Cancel Smart Transfer ticket. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin,
-     * Signer, Approver, Editor.
+     * <p>Cancel Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -103,8 +103,8 @@ public class SmartTransferApiTest {
      *
      * <p>Creates new smart transfer ticket term (when the ticket status is DRAFT). Learn more about
      * Fireblocks Smart Transfers in the following
-     * [guide](https://developers.fireblocks.com/docs/execute-smart-transfers). &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * [guide](https://developers.fireblocks.com/docs/execute-smart-transfers). Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -120,8 +120,8 @@ public class SmartTransferApiTest {
     /**
      * Search Ticket by ID
      *
-     * <p>Find Smart Transfer ticket by id. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver, Editor, Viewer.
+     * <p>Find Smart Transfer ticket by id. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -135,8 +135,8 @@ public class SmartTransferApiTest {
     /**
      * Get Smart Transfer ticket term
      *
-     * <p>Find a specific term of a specific Smart Transfer ticket. &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * <p>Find a specific term of a specific Smart Transfer ticket. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -151,8 +151,8 @@ public class SmartTransferApiTest {
     /**
      * Fund ticket manually
      *
-     * <p>Manually fulfill ticket, in case when all terms (legs) are funded manually.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * <p>Manually fulfill ticket, in case when all terms (legs) are funded manually. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -184,8 +184,7 @@ public class SmartTransferApiTest {
      * Define funding source
      *
      * <p>Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer
-     * immediately). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
-     * Editor.
+     * immediately). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -215,8 +214,8 @@ public class SmartTransferApiTest {
     /**
      * Get user group
      *
-     * <p>Get Smart Transfer user groups. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin,
-     * Signer, Approver, Editor, Viewer.
+     * <p>Get Smart Transfer user groups. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -229,8 +228,8 @@ public class SmartTransferApiTest {
     /**
      * Manually add term transaction
      *
-     * <p>Manually set ticket term transaction. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver, Editor.
+     * <p>Manually set ticket term transaction. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -302,8 +301,8 @@ public class SmartTransferApiTest {
     /**
      * Add external ref. ID
      *
-     * <p>Set external id Smart Transfer ticket. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver, Editor.
+     * <p>Set external id Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -319,8 +318,8 @@ public class SmartTransferApiTest {
     /**
      * Set expiration
      *
-     * <p>Set expiration date on Smart Transfer ticket. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor.
+     * <p>Set expiration date on Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing
+     * Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -337,7 +336,7 @@ public class SmartTransferApiTest {
      * Set user group
      *
      * <p>Set Smart Transfers user group to receive email notifications for Smart Transfers.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -353,8 +352,8 @@ public class SmartTransferApiTest {
      * Submit ticket
      *
      * <p>Submit Smart Transfer ticket - change status into ready for approval if auto approval is
-     * not turned on, or OPEN if auto approval is on. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor.
+     * not turned on, or OPEN if auto approval is on. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */

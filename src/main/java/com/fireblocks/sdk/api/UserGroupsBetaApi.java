@@ -77,7 +77,7 @@ public class UserGroupsBetaApi {
 
     /**
      * Create user group Create a new user group. Users with the Viewer role cannot be added to
-     * groups. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * groups. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param userGroupCreateRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -159,9 +159,9 @@ public class UserGroupsBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Delete user group Delete a user group by ID.&lt;/br&gt; **Note**: - This endpoint is now in
-     * Beta, disabled for general availability at this time. - Please note that this endpoint is
-     * available only for API keys with Admin permissions.
+     * Delete user group Delete a user group by ID. **Note**: - This endpoint is now in Beta,
+     * disabled for general availability at this time. - Please note that this endpoint is available
+     * only for API keys with Admin permissions.
      *
      * @param groupId The ID of the user group (required)
      * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
@@ -216,9 +216,9 @@ public class UserGroupsBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get user group Get a user group by ID.&lt;/br&gt; **Note**: - This endpoint is now in Beta,
-     * disabled for general availability at this time. - Please note that this endpoint is available
-     * only for API keys with Admin permissions.
+     * Get user group Get a user group by ID. **Note**: - This endpoint is now in Beta, disabled for
+     * general availability at this time. - Please note that this endpoint is available only for API
+     * keys with Admin permissions.
      *
      * @param groupId The ID of the user group (required)
      * @return CompletableFuture&lt;ApiResponse&lt;UserGroupResponse&gt;&gt;
@@ -284,8 +284,8 @@ public class UserGroupsBetaApi {
     }
     /**
      * List user groups Get all user groups in your workspace - Please note that this endpoint is
-     * available only for API keys with Admin/Non Signing Admin permissions. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin.
+     * available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission:
+     * Admin, Non-Signing Admin.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;List&lt;UserGroupResponse&gt;&gt;&gt;
      * @throws ApiException if fails to make API call
@@ -347,9 +347,9 @@ public class UserGroupsBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Update user group Update a user group by ID.&lt;/br&gt; **Note**: - This endpoint is now in
-     * Beta, disabled for general availability at this time. - Please note that this endpoint is
-     * available only for API keys with Admin permissions.
+     * Update user group Update a user group by ID. **Note**: - This endpoint is now in Beta,
+     * disabled for general availability at this time. - Please note that this endpoint is available
+     * only for API keys with Admin permissions.
      *
      * @param userGroupUpdateRequest (required)
      * @param groupId The ID of the user group (required)

@@ -87,9 +87,9 @@ public class BlockchainsAssetsApi {
     }
 
     /**
-     * Get an asset Returns an asset by ID or legacyID.&lt;/br&gt; **Note**: - We will continue
-     * displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully
-     * support the new Assets UUID, please use only the legacy ID until further notice.
+     * Get an asset Returns an asset by ID or legacyID. **Note**: - We will continue displaying and
+     * supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new
+     * Assets UUID, please use only the legacy ID until further notice.
      *
      * @param id The ID or legacyId of the asset (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -428,7 +428,7 @@ public class BlockchainsAssetsApi {
         return localVarRequestBuilder;
     }
     /**
-     * List blockchains Returns all blockchains supported by Fireblocks.&lt;/br&gt;
+     * List blockchains Returns all blockchains supported by Fireblocks.
      *
      * @param protocol Blockchain protocol (optional)
      * @param deprecated Is blockchain deprecated (optional)

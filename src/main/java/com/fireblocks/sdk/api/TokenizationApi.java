@@ -192,8 +192,8 @@ public class TokenizationApi {
         return localVarRequestBuilder;
     }
     /**
-     * Create a new collection Create a new collection and link it as a token. &lt;/br&gt;Endpoint
-     * Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
+     * Create a new collection Create a new collection and link it as a token. Endpoint Permission:
+     * Owner, Admin, Non-Signing Admin, Signer, and Editor.
      *
      * @param collectionDeployRequestDto (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -841,8 +841,8 @@ public class TokenizationApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get collections Get collections (paginated). &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Get collections Get collections (paginated). Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor, Viewer.
      *
      * @param pageCursor Page cursor to get the next page, for example -
      *     \&quot;MjAyMy0xMi0xMyAyMDozNjowOC4zMDI&#x3D;:MTEwMA&#x3D;&#x3D;\&quot; (optional)
@@ -1152,8 +1152,8 @@ public class TokenizationApi {
      * blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created
      * token directly to the workspace without deploying a contract. Returns the token link with
      * status \&quot;PENDING\&quot; until the token is deployed or \&quot;SUCCESS\&quot; if no
-     * deployment is needed. &lt;/br&gt;Endpoint Permission: Owner, Admin, Non-Signing Admin,
-     * Signer, and Editor.
+     * deployment is needed. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and
+     * Editor.
      *
      * @param createTokenRequestDto (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple

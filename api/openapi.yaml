@@ -20,7 +20,7 @@ paths:
       deprecated: true
       description: |-
         DEPRECATED - Please use `/vault/accounts_paged` endpoint instead.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getVaultAccounts
       parameters:
       - explode: true
@@ -84,7 +84,7 @@ paths:
         Creates a new vault account with the requested name.
         **Note: ** Vault account names should consist of ASCII characters only.
         Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account).
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: createVaultAccount
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -157,7 +157,7 @@ paths:
     get:
       description: |-
         Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getPagedVaultAccounts
       parameters:
       - explode: true
@@ -323,7 +323,7 @@ paths:
     get:
       description: |-
         Get a vault account by its unique ID.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getVaultAccount
       parameters:
       - description: The ID of the vault account
@@ -381,7 +381,7 @@ paths:
     put:
       description: |-
         Renames the requested vault account.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
       operationId: updateVaultAccount
       parameters:
       - description: The ID of the vault account to edit
@@ -468,8 +468,8 @@ paths:
     get:
       description: "Get all vault wallets of the vault accounts in your workspace.\
         \ \nA vault wallet is an asset in a vault account. \n\nThis method allows\
-        \ fast traversal of all account balances.\n</br>Endpoint Permission: Admin,\
-        \ Non-Signing Admin, Signer, Approver, Editor, Viewer."
+        \ fast traversal of all account balances.\nEndpoint Permission: Admin, Non-Signing\
+        \ Admin, Signer, Approver, Editor, Viewer."
       operationId: getAssetWallets
       parameters:
       - description: "When specified, only vault wallets with total balance greater\
@@ -589,7 +589,7 @@ paths:
         Used for preventing the web console to be swamped with too much vault accounts.
         Learn more in the following [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts).
         NOTE: Hiding the vault account from the web console will also hide all the related transactions to/from this vault.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: hideVaultAccount
       parameters:
       - description: The vault account to hide
@@ -665,7 +665,7 @@ paths:
     post:
       description: |-
         Makes a hidden vault account visible in web console view.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: unhideVaultAccount
       parameters:
       - description: The vault account to unhide
@@ -741,7 +741,7 @@ paths:
     post:
       description: "Initiates activation for a wallet in a vault account. \nActivation\
         \ is required for tokens that need an on-chain transaction for creation (XLM\
-        \ tokens, SOL tokens etc).\n</br>Endpoint Permission: Admin, Non-Signing Admin,\
+        \ tokens, SOL tokens etc).\nEndpoint Permission: Admin, Non-Signing Admin,\
         \ Signer, Approver, Editor."
       operationId: activateAssetForVaultAccount
       parameters:
@@ -832,7 +832,7 @@ paths:
     post:
       description: "Assigns an AML/KYT customer reference ID for the vault account.\
         \ Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies).\
-        \ </br>Endpoint Permission: Admin, Non-Signing Admin."
+        \ Endpoint Permission: Admin, Non-Signing Admin."
       operationId: setVaultAccountCustomerRefId
       parameters:
       - description: The vault account ID
@@ -919,7 +919,7 @@ paths:
         Toggles the auto fueling property of the vault account to enabled or disabled.
         Vault Accounts with 'autoFuel=true' are monitored and auto fueled by the Fireblocks Gas Station.
         Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station).
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: setVaultAccountAutoFuel
       parameters:
       - description: The vault account ID
@@ -992,12 +992,220 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+  /vault/accounts/{vaultAccountId}/circle_gateway:
+    get:
+      description: |-
+        Returns the Circle Gateway wallet information associated with the given vault account.
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+      operationId: getCircleGatewayWalletInfoBeta
+      parameters:
+      - description: The ID of the vault account
+        explode: false
+        in: path
+        name: vaultAccountId
+        required: true
+        schema:
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CircleGatewayWalletInfoResponse"
+          description: Circle Gateway wallet information
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get Circle Gateway wallet info
+      tags:
+      - Vaults
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CircleGatewayWalletInfoResponse>>\
+            \ = fireblocks.vaults.getCircleGatewayWalletInfoBeta(vaultsApiGetCircleGatewayWalletInfoBetaRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<CircleGatewayWalletInfoResponse>> response
+            = fireblocks.vaults().getCircleGatewayWalletInfoBeta(vaultAccountId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.vaults.get_circle_gateway_wallet_info_beta(vault_account_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CircleGatewayWalletInfoResponse>>\
+          \ = fireblocks.vaults.getCircleGatewayWalletInfoBeta(vaultsApiGetCircleGatewayWalletInfoBetaRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<CircleGatewayWalletInfoResponse>> response
+          = fireblocks.vaults().getCircleGatewayWalletInfoBeta(vaultAccountId);
+      - lang: Python
+        source: response = fireblocks.vaults.get_circle_gateway_wallet_info_beta(vault_account_id);
+      x-accepts:
+      - application/json
+  /vault/accounts/{vaultAccountId}/circle_gateway/activate:
+    post:
+      description: |-
+        Activates the Circle Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.
+
+         **Note:** This endpoint is currently in beta and might be subject to changes.
+
+        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+      operationId: activateCircleGatewayWalletBeta
+      parameters:
+      - description: The ID of the vault account
+        explode: false
+        in: path
+        name: vaultAccountId
+        required: true
+        schema:
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CircleGatewayWalletStatusResponse"
+          description: Circle Gateway wallet activated successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Activate a Circle Gateway wallet
+      tags:
+      - Vaults
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CircleGatewayWalletStatusResponse>>\
+            \ = fireblocks.vaults.activateCircleGatewayWalletBeta(vaultsApiActivateCircleGatewayWalletBetaRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>>\
+            \ response = fireblocks.vaults().activateCircleGatewayWalletBeta(vaultAccountId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.vaults.activate_circle_gateway_wallet_beta(vault_account_id,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CircleGatewayWalletStatusResponse>>\
+          \ = fireblocks.vaults.activateCircleGatewayWalletBeta(vaultsApiActivateCircleGatewayWalletBetaRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>>\
+          \ response = fireblocks.vaults().activateCircleGatewayWalletBeta(vaultAccountId,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.vaults.activate_circle_gateway_wallet_beta(vault_account_id,\
+          \ idempotency_key);"
+      x-accepts:
+      - application/json
+  /vault/accounts/{vaultAccountId}/circle_gateway/deactivate:
+    post:
+      description: |-
+        Deactivates the Circle Gateway wallet associated with the given vault account.
+
+         **Note:** This endpoint is currently in beta and might be subject to changes.
+
+        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+      operationId: deactivateCircleGatewayWalletBeta
+      parameters:
+      - description: The ID of the vault account
+        explode: false
+        in: path
+        name: vaultAccountId
+        required: true
+        schema:
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CircleGatewayWalletStatusResponse"
+          description: Circle Gateway wallet deactivated successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Deactivate a Circle Gateway wallet
+      tags:
+      - Vaults
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CircleGatewayWalletStatusResponse>>\
+            \ = fireblocks.vaults.deactivateCircleGatewayWalletBeta(vaultsApiDeactivateCircleGatewayWalletBetaRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>>\
+            \ response = fireblocks.vaults().deactivateCircleGatewayWalletBeta(vaultAccountId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.vaults.deactivate_circle_gateway_wallet_beta(vault_account_id,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CircleGatewayWalletStatusResponse>>\
+          \ = fireblocks.vaults.deactivateCircleGatewayWalletBeta(vaultsApiDeactivateCircleGatewayWalletBetaRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>>\
+          \ response = fireblocks.vaults().deactivateCircleGatewayWalletBeta(vaultAccountId,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.vaults.deactivate_circle_gateway_wallet_beta(vault_account_id,\
+          \ idempotency_key);"
+      x-accepts:
+      - application/json
   /vault/accounts/{vaultAccountId}/{assetId}:
     get:
       description: |-
         Returns a specific vault wallet balance information for a specific asset.
 
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
           Viewer.
       operationId: getVaultAccountAsset
       parameters:
@@ -1069,7 +1277,7 @@ paths:
       description: |-
         Creates a wallet for a specific asset in a vault account.
         Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet).
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: createVaultAccountAsset
       parameters:
       - description: "The ID of the vault account to return, or 'default' for the\
@@ -1177,7 +1385,7 @@ paths:
         This API endpoint is subject to a strict rate limit.
         Should be used by clients in very specific scenarios.
 
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: updateVaultAccountAssetBalance
       parameters:
       - description: The ID of the vault account to return
@@ -1268,7 +1476,7 @@ paths:
         - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: "This endpoint is unavailable.
         - Please use the GET /v1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list.
 
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getVaultAccountAssetAddresses
       parameters:
       - description: The ID of the vault account to return
@@ -1326,7 +1534,7 @@ paths:
 
         Requests with account based assets will fail.
 
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: createVaultAccountAssetAddress
       parameters:
       - description: The ID of the vault account to return
@@ -1422,7 +1630,7 @@ paths:
     get:
       description: |-
         Returns a paginated response of the addresses for a given vault account and asset.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getVaultAccountAssetAddressesPaginated
       parameters:
       - description: The ID of the vault account to return
@@ -1679,7 +1887,7 @@ paths:
     put:
       description: |-
         Updates the description of an existing address of an asset in a vault account.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: updateVaultAccountAssetAddress
       parameters:
       - description: The ID of the vault account
@@ -1782,7 +1990,7 @@ paths:
     post:
       description: |-
         Sets an AML/KYT customer reference ID for a specific address.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: setCustomerRefIdForAddress
       parameters:
       - description: The ID of the vault account
@@ -1885,7 +2093,7 @@ paths:
     post:
       description: |-
         Converts an existing segwit address to the legacy format.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: createLegacyAddress
       parameters:
       - description: The ID of the vault account
@@ -1975,7 +2183,7 @@ paths:
       description: |-
         Returns unspent inputs information of an UTXO asset in a vault account.
 
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getUnspentInputs
       parameters:
       - description: The ID of the vault account
@@ -2391,7 +2599,7 @@ paths:
     get:
       description: |-
         Gets the public key information based on derivation path and signing algorithm.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: getPublicKeyInfo
       parameters:
       - explode: true
@@ -2469,7 +2677,7 @@ paths:
     get:
       description: |-
         Get the public key information for a specific asset in a vault account.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: getPublicKeyInfoForAddress
       parameters:
       - explode: false
@@ -2565,7 +2773,7 @@ paths:
       description: |-
         Gets the assets amount summary for all accounts or filtered accounts.
 
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getVaultAssets
       parameters:
       - explode: true
@@ -2637,7 +2845,7 @@ paths:
       description: |-
         Get the total balance of an asset across all the vault accounts.
 
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getVaultBalanceByAsset
       parameters:
       - explode: false
@@ -4619,8 +4827,8 @@ paths:
         \ such as when you have a security breach.\nTo unfreeze a workspace, the workspace\
         \ Owner must submit a request to Fireblocks Support.\n**NOTE:** \n- This operation\
         \ can only be performed by the workspace Admins - Your workspace continues\
-        \ to receive incoming transfers during this time.\n</br>Endpoint Permission:\
-        \ Admin, Non-Signing Admin."
+        \ to receive incoming transfers during this time.\nEndpoint Permission: Admin,\
+        \ Non-Signing Admin."
       operationId: freezeWorkspace
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -4654,7 +4862,7 @@ paths:
       deprecated: true
       description: |-
         DEPRECATED - Please use the `/exchange_accounts/paged` endpoint.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: getExchangeAccounts
       responses:
         "200":
@@ -4756,7 +4964,7 @@ paths:
   /exchange_accounts/paged:
     get:
       description: "Returns a list of the connected exchange accounts in your workspace.\
-        \ </br>Endpoint Permission: Admin, Non-Signing Admin."
+        \ Endpoint Permission: Admin, Non-Signing Admin."
       operationId: getPagedExchangeAccounts
       parameters:
       - explode: true
@@ -4838,7 +5046,7 @@ paths:
     get:
       description: |-
         Returns an exchange account by ID.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: getExchangeAccount
       parameters:
       - description: The ID of the exchange account to return
@@ -4896,7 +5104,7 @@ paths:
       description: |-
         Transfers funds between trading accounts under the same exchange account.
         Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers).
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: internalTransfer
       parameters:
       - description: The ID of the exchange account to return
@@ -4973,7 +5181,7 @@ paths:
       description: |-
         Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
         Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers).
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: convertAssets
       parameters:
       - description: "The ID of the exchange account. Please make sure the exchange\
@@ -5050,7 +5258,7 @@ paths:
     get:
       description: |-
         Returns an asset for an exchange account.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: getExchangeAccountAsset
       parameters:
       - description: The ID of the exchange account to return
@@ -5165,7 +5373,7 @@ paths:
     get:
       description: |-
         Returns all fiat accounts.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: getFiatAccounts
       responses:
         "200":
@@ -5215,7 +5423,7 @@ paths:
     get:
       description: |-
         Returns a fiat account by ID.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: getFiatAccount
       parameters:
       - description: The ID of the fiat account to return
@@ -5511,7 +5719,8 @@ paths:
   /connected_accounts/{accountId}:
     delete:
       description: |
-        Disconnect a connected account by ID. </br>
+        Disconnect a connected account by ID.
+
         **Note**:
         - This endpoint is currently in beta and might be subject to changes.
       operationId: disconnectConnectedAccount
@@ -5959,6 +6168,350 @@ paths:
       - lang: Python
         source: "response = fireblocks.connected_accounts_beta.get_connected_account_trading_pairs(account_id,\
           \ page_size, page_cursor);"
+      x-accepts:
+      - application/json
+  /counterparty_groups:
+    get:
+      description: |
+        Returns a paginated list of counterparty groups.
+
+        **Endpoint Permissions:** Admin, Non-Signing Admin, Viewer.
+      operationId: listCounterpartyGroups
+      parameters:
+      - description: Cursor of the required page
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Maximum number of items in the page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 50
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CounterpartyGroupsPaginatedResponse"
+          description: A paginated list of counterparty groups
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: List counterparty groups
+      tags:
+      - Compliance
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CounterpartyGroupsPaginatedResponse>>\
+            \ = fireblocks.compliance.listCounterpartyGroups(complianceApiListCounterpartyGroupsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CounterpartyGroupsPaginatedResponse>>\
+            \ response = fireblocks.compliance().listCounterpartyGroups(pageCursor,\
+            \ pageSize);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.compliance.list_counterparty_groups(page_cursor,\
+            \ page_size);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CounterpartyGroupsPaginatedResponse>>\
+          \ = fireblocks.compliance.listCounterpartyGroups(complianceApiListCounterpartyGroupsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<CounterpartyGroupsPaginatedResponse>>\
+          \ response = fireblocks.compliance().listCounterpartyGroups(pageCursor,\
+          \ pageSize);"
+      - lang: Python
+        source: "response = fireblocks.compliance.list_counterparty_groups(page_cursor,\
+          \ page_size);"
+      x-accepts:
+      - application/json
+    post:
+      description: |
+        Creates a new counterparty group.
+
+        **Endpoint Permissions:** Admin, Non-Signing Admin.
+      operationId: createCounterpartyGroup
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCounterpartyGroupRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CounterpartyGroup"
+          description: Counterparty group created successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Create a counterparty group
+      tags:
+      - Compliance
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CounterpartyGroup>> =\
+            \ fireblocks.compliance.createCounterpartyGroup(complianceApiCreateCounterpartyGroupRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CounterpartyGroup>> response = fireblocks.compliance().createCounterpartyGroup(createCounterpartyGroupRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.compliance.create_counterparty_group(create_counterparty_group_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CounterpartyGroup>> =\
+          \ fireblocks.compliance.createCounterpartyGroup(complianceApiCreateCounterpartyGroupRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<CounterpartyGroup>> response = fireblocks.compliance().createCounterpartyGroup(createCounterpartyGroupRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.compliance.create_counterparty_group(create_counterparty_group_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /counterparty_groups/{groupId}:
+    delete:
+      description: |
+        Permanently deletes a counterparty group.
+
+        **Endpoint Permissions:** Admin, Non-Signing Admin.
+      operationId: deleteCounterpartyGroup
+      parameters:
+      - description: The unique identifier of the counterparty group
+        explode: false
+        in: path
+        name: groupId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Counterparty group deleted successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Counterparty group not found
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Delete a counterparty group
+      tags:
+      - Compliance
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.compliance.deleteCounterpartyGroup(complianceApiDeleteCounterpartyGroupRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.compliance().deleteCounterpartyGroup(groupId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.compliance.delete_counterparty_group(group_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.compliance.deleteCounterpartyGroup(complianceApiDeleteCounterpartyGroupRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<Void>> response = fireblocks.compliance().deleteCounterpartyGroup(groupId);
+      - lang: Python
+        source: response = fireblocks.compliance.delete_counterparty_group(group_id);
+      x-accepts:
+      - application/json
+    get:
+      description: |
+        Returns the details of a specific counterparty group.
+
+        **Endpoint Permissions:** Admin, Non-Signing Admin, Viewer.
+      operationId: getCounterpartyGroup
+      parameters:
+      - description: The unique identifier of the counterparty group
+        explode: false
+        in: path
+        name: groupId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CounterpartyGroup"
+          description: A counterparty group object
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Counterparty group not found
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get a counterparty group
+      tags:
+      - Compliance
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CounterpartyGroup>> =\
+            \ fireblocks.compliance.getCounterpartyGroup(complianceApiGetCounterpartyGroupRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<CounterpartyGroup>> response = fireblocks.compliance().getCounterpartyGroup(groupId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.compliance.get_counterparty_group(group_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CounterpartyGroup>> =\
+          \ fireblocks.compliance.getCounterpartyGroup(complianceApiGetCounterpartyGroupRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<CounterpartyGroup>> response = fireblocks.compliance().getCounterpartyGroup(groupId);
+      - lang: Python
+        source: response = fireblocks.compliance.get_counterparty_group(group_id);
+      x-accepts:
+      - application/json
+    patch:
+      description: |
+        Updates an existing counterparty group.
+
+        **Endpoint Permissions:** Admin, Non-Signing Admin.
+      operationId: updateCounterpartyGroup
+      parameters:
+      - description: The unique identifier of the counterparty group
+        explode: false
+        in: path
+        name: groupId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCounterpartyGroupRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CounterpartyGroup"
+          description: Counterparty group updated successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Counterparty group not found
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Update a counterparty group
+      tags:
+      - Compliance
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CounterpartyGroup>> =\
+            \ fireblocks.compliance.updateCounterpartyGroup(complianceApiUpdateCounterpartyGroupRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CounterpartyGroup>> response = fireblocks.compliance().updateCounterpartyGroup(updateCounterpartyGroupRequest,\
+            \ groupId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.compliance.update_counterparty_group(update_counterparty_group_request,\
+            \ group_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CounterpartyGroup>> =\
+          \ fireblocks.compliance.updateCounterpartyGroup(complianceApiUpdateCounterpartyGroupRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<CounterpartyGroup>> response = fireblocks.compliance().updateCounterpartyGroup(updateCounterpartyGroupRequest,\
+          \ groupId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.compliance.update_counterparty_group(update_counterparty_group_request,\
+          \ group_id, idempotency_key);"
+      x-content-type: application/json
       x-accepts:
       - application/json
   /network_connections:
@@ -8261,7 +8814,7 @@ paths:
 
         - You cannot see the balance of the external wallet.
         - You cannot initiate transactions from an external wallet as the source via Fireblocks.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getExternalWallets
       responses:
         "200":
@@ -8315,7 +8868,7 @@ paths:
 
         - You cannot see the balance of the external wallet.
         - You cannot initiate transactions from an external wallet as the source via Fireblocks.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: createExternalWallet
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -8385,7 +8938,7 @@ paths:
   /external_wallets/{walletId}:
     delete:
       description: "Deletes an external wallet by ID. External Wallet is a whitelisted\
-        \ address of a wallet that belongs to your users/counterparties. </br>Endpoint\
+        \ address of a wallet that belongs to your users/counterparties. Endpoint\
         \ Permission: Admin, Non-Signing Admin, Signer, Approver, Editor."
       operationId: deleteExternalWallet
       parameters:
@@ -8437,7 +8990,7 @@ paths:
       - application/json
     get:
       description: "Returns an external wallet by ID. External Wallet is a whitelisted\
-        \ address of a wallet that belongs to your users/counterparties. </br>Endpoint\
+        \ address of a wallet that belongs to your users/counterparties. Endpoint\
         \ Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer."
       operationId: getExternalWallet
       parameters:
@@ -8495,8 +9048,8 @@ paths:
     post:
       description: "Sets an AML/KYT customer reference ID for the specific external\
         \ wallet. External Wallet is a whitelisted address of a wallet that belongs\
-        \ to your users/counterparties. </br>Endpoint Permission: Admin, Non-Signing\
-        \ Admin, Signer, Approver, Editor."
+        \ to your users/counterparties. Endpoint Permission: Admin, Non-Signing Admin,\
+        \ Signer, Approver, Editor."
       operationId: setExternalWalletCustomerRefId
       parameters:
       - description: The wallet ID
@@ -8571,8 +9124,8 @@ paths:
       - application/json
   /external_wallets/{walletId}/{assetId}:
     delete:
-      description: "Deletes an external wallet asset by ID. </br>Endpoint Permission:\
-        \ Admin, Non-Signing Admin, Signer, Approver, Editor."
+      description: "Deletes an external wallet asset by ID. Endpoint Permission: Admin,\
+        \ Non-Signing Admin, Signer, Approver, Editor."
       operationId: removeAssetFromExternalWallet
       parameters:
       - description: The ID of the wallet
@@ -8638,7 +9191,7 @@ paths:
     get:
       description: "Returns an external wallet by wallet ID and asset ID. External\
         \ Wallet is a whitelisted address of a wallet that belongs to your users/counterparties.\
-        \ </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,\
+        \ Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,\
         \ Viewer."
       operationId: getExternalWalletAsset
       parameters:
@@ -8710,7 +9263,7 @@ paths:
       x-accepts:
       - application/json
     post:
-      description: "Adds an asset to an existing external wallet. </br>Endpoint Permission:\
+      description: "Adds an asset to an existing external wallet. Endpoint Permission:\
         \ Admin, Non-Signing Admin, Signer, Approver, Editor."
       operationId: addAssetToExternalWallet
       parameters:
@@ -8800,8 +9353,8 @@ paths:
       - application/json
   /contracts:
     get:
-      description: "Gets a list of whitelisted contracts. </br>Endpoint Permission:\
-        \ Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer."
+      description: "Gets a list of whitelisted contracts. Endpoint Permission: Admin,\
+        \ Non-Signing Admin, Signer, Approver, Editor, Viewer."
       operationId: getContracts
       responses:
         "200":
@@ -8842,7 +9395,7 @@ paths:
       x-accepts:
       - application/json
     post:
-      description: "Adds a contract to the workspace whitelist. </br>Endpoint Permission:\
+      description: "Adds a contract to the workspace whitelist. Endpoint Permission:\
         \ Admin, Non-Signing Admin, Signer, Approver, Editor."
       operationId: createContract
       parameters:
@@ -8905,7 +9458,7 @@ paths:
       - application/json
   /contracts/{contractId}:
     delete:
-      description: "Deletes a contract by ID. </br>Endpoint Permission: Admin, Non-Signing\
+      description: "Deletes a contract by ID. Endpoint Permission: Admin, Non-Signing\
         \ Admin, Signer, Approver, Editor."
       operationId: deleteContract
       parameters:
@@ -8950,7 +9503,7 @@ paths:
       x-accepts:
       - application/json
     get:
-      description: "Returns a whitelisted contract by Fireblocks Contract ID. </br>Endpoint\
+      description: "Returns a whitelisted contract by Fireblocks Contract ID. Endpoint\
         \ Permission: Admin, Non-Signing Admin, Signer, Approver, Editor."
       operationId: getContract
       parameters:
@@ -9000,7 +9553,7 @@ paths:
       - application/json
   /contracts/{contractId}/{assetId}:
     delete:
-      description: "Deletes a whitelisted contract asset by ID. </br>Endpoint Permission:\
+      description: "Deletes a whitelisted contract asset by ID. Endpoint Permission:\
         \ Admin, Non-Signing Admin, Signer, Approver, Editor."
       operationId: deleteContractAsset
       parameters:
@@ -9058,7 +9611,7 @@ paths:
       x-accepts:
       - application/json
     get:
-      description: "Returns a whitelisted contract's asset by ID. </br>Endpoint Permission:\
+      description: "Returns a whitelisted contract's asset by ID. Endpoint Permission:\
         \ Admin, Non-Signing Admin, Signer, Approver, Editor."
       operationId: getContractAsset
       parameters:
@@ -9120,7 +9673,7 @@ paths:
       x-accepts:
       - application/json
     post:
-      description: "Adds an asset to a whitelisted contract. </br>Endpoint Permission:\
+      description: "Adds an asset to a whitelisted contract. Endpoint Permission:\
         \ Admin, Non-Signing Admin, Signer, Approver, Editor."
       operationId: addContractAsset
       parameters:
@@ -9533,7 +10086,7 @@ paths:
   /assets/{id}:
     get:
       description: |
-        Returns an asset by ID or legacyID.</br>
+        Returns an asset by ID or legacyID.
 
         **Note**:
 
@@ -9806,7 +10359,7 @@ paths:
   /blockchains:
     get:
       description: |
-        Returns all blockchains supported by Fireblocks.</br>
+        Returns all blockchains supported by Fireblocks.
       operationId: listBlockchains
       parameters:
       - description: Blockchain protocol
@@ -10330,11 +10883,10 @@ paths:
       description: |-
         Estimates the transaction fee for a specific transaction request.
         This endpoint simulates a transaction which means that the system will expect to have the requested asset and balance in the specified wallet.
-
-
         **Note**: Supports all Fireblocks assets except ZCash (ZEC).
+        The PROGRAM_CALL operation is not supported by this endpoint — fee estimation for Solana program calls is not available.
         Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee).
-        </br>Endpoint Permission: Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Signer, Approver, Editor.
       operationId: estimateTransactionFee
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -10410,7 +10962,7 @@ paths:
     get:
       description: |-
         Get a specific transaction data by Fireblocks Transaction ID
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getTransaction
       parameters:
       - description: The ID of the transaction to return
@@ -10472,7 +11024,7 @@ paths:
     get:
       description: |-
         Returns transaction by external transaction ID.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getTransactionByExternalId
       parameters:
       - description: The external ID of the transaction to return
@@ -10532,7 +11084,7 @@ paths:
     post:
       description: |-
         Overrides the required number of confirmations for transaction completion Fireblocks Transaction ID.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: setTransactionConfirmationThreshold
       parameters:
       - description: The ID of the transaction
@@ -10614,7 +11166,7 @@ paths:
     post:
       description: |-
         Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: dropTransaction
       parameters:
       - description: The ID of the transaction
@@ -10708,7 +11260,7 @@ paths:
         Cancels a transaction by Fireblocks Transaction ID.
 
         Can be used only for transactions that did not get to the BROADCASTING state.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: cancelTransaction
       parameters:
       - description: The ID of the transaction to cancel
@@ -10795,7 +11347,7 @@ paths:
       description: "Freezes a transaction by ID.\n\nUsually used for AML integrations\
         \ when the incoming funds should be quarantined.\nFor account based assets\
         \ - the entire amount of the transaction is frozen \nFor UTXO based assets\
-        \ - all UTXOs of the specified transaction are frozen\n</br>Endpoint Permission:\
+        \ - all UTXOs of the specified transaction are frozen\nEndpoint Permission:\
         \ Admin, Non-Signing Admin."
       operationId: freezeTransaction
       parameters:
@@ -10880,7 +11432,7 @@ paths:
     post:
       description: |-
         Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available again.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: unfreezeTransaction
       parameters:
       - description: The ID of the transaction to unfreeze
@@ -10964,7 +11516,7 @@ paths:
     get:
       description: |-
         Checks if an address is valid and active (for XRP, DOT, XLM, and EOS).
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: validateAddress
       parameters:
       - description: The asset of the address
@@ -11034,7 +11586,7 @@ paths:
     post:
       description: |-
         Overrides the required number of confirmations for transaction completion by transaction hash.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: setConfirmationThresholdByTransactionHash
       parameters:
       - description: The TxHash
@@ -11127,7 +11679,7 @@ paths:
             - For other assets, the response will contain the `networkFee` parameter.
 
         Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee).
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: estimateNetworkFee
       parameters:
       - description: The asset for which to estimate the fee
@@ -11188,18 +11740,33 @@ paths:
   /payments/payout:
     post:
       description: |
-        **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. </br>
-        </br>These endpoints are currently in beta and might be subject to changes.</br>
-        </br>If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. </br>
-        </br> <b u>Create a payout instruction set.</b> </u></br>
-        A payout instruction set is a set of instructions for distributing payments from a single payment account to a list of payee accounts. </br>
-        The instruction set defines: </br>
-        <ul>
-        <li>the payment account and its account type (vault, exchange, or fiat). </li>
-        <li>the account type (vault account, exchange account, whitelisted address, network connection, fiat account, or merchant account), the amount, and the asset of payment for each payee account.</li>
-        </ul>
-        Learn more about Fireblocks Payments - Payouts in the following [guide](https://developers.fireblocks.com/docs/create-payouts).
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        **Note:** The reference content in this section documents the Payments
+        Engine endpoint. The Payments Engine endpoints include APIs available only
+        for customers with Payments Engine enabled on their accounts.
+
+        These endpoints are currently in beta and might be subject to
+        changes.
+
+        If you want to learn more about Fireblocks Payments Engine, please
+        contact your Fireblocks Customer Success Manager or email
+        CSM@fireblocks.com.
+
+        **Create a payout instruction set.**
+
+        A payout instruction set is a set of instructions for distributing payments
+        from a single payment account to a list of payee accounts.
+
+        The instruction set defines:
+
+        - the payment account and its account type (vault, exchange, or fiat).
+        - the account type (vault account, exchange account, whitelisted address,
+          network connection, fiat account, or merchant account), the amount, and the
+          asset of payment for each payee account.
+
+        Learn more about Fireblocks Payments - Payouts in the following
+        [guide](https://developers.fireblocks.com/docs/create-payouts).
+
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: createPayout
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -11325,13 +11892,27 @@ paths:
   /payments/payout/{payoutId}/actions/execute:
     post:
       description: |
-        **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. </br>
-        </br>These endpoints are currently in beta and might be subject to changes.</br>
-        </br>If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. </br>
-        </br><b u>Execute a payout instruction set.</b> </u> </br>
-        </br>The instruction set will be verified and executed.</br>
-        <b><u>Source locking</br></b> </u>
-        If you are executing a payout instruction set from a payment account with an already active payout the active payout will complete before the new payout instruction set can be executed. </br>
+        **Note:** The reference content in this section documents the Payments
+        Engine endpoint. The Payments Engine endpoints include APIs available only
+        for customers with Payments Engine enabled on their accounts.
+
+        These endpoints are currently in beta and might be subject to
+        changes.
+
+        If you want to learn more about Fireblocks Payments Engine, please
+        contact your Fireblocks Customer Success Manager or email
+        CSM@fireblocks.com.
+
+        **Execute a payout instruction set.**
+
+        The instruction set will be verified and executed.
+
+        **Source locking**
+
+        If you are executing a payout instruction set from a payment account with an
+        already active payout the active payout will complete before the new payout
+        instruction set can be executed.
+
         You cannot execute the same payout instruction set more than once.
       operationId: executePayoutAction
       parameters:
@@ -11416,11 +11997,13 @@ paths:
       - application/json
   /payments/payout/{payoutId}:
     get:
-      description: |
-        **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. </br>
-        </br>These endpoints are currently in beta and might be subject to changes.</br>
-        </br>If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. </br>
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+      description: "**Note:** The reference content in this section documents the\
+        \ Payments Engine endpoint. The Payments Engine endpoints include APIs available\
+        \ only for customers with Payments Engine enabled on their accounts. \nThese\
+        \ endpoints are currently in beta and might be subject to changes.\nIf you\
+        \ want to learn more about Fireblocks Payments Engine, please contact your\
+        \ Fireblocks Customer Success Manager or email CSM@fireblocks.com. \nEndpoint\
+        \ Permission: Admin, Non-Signing Admin.\n"
       operationId: getPayout
       parameters:
       - description: the payout id received from the creation of the payout instruction
@@ -11807,7 +12390,7 @@ paths:
     get:
       description: |-
         Returns gas station settings and ETH balance.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: getGasStationInfo
       responses:
         "200":
@@ -11859,7 +12442,7 @@ paths:
     get:
       description: |-
         Returns gas station settings and balances for a requested asset.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: getGasStationByAssetId
       parameters:
       - description: The ID of the asset
@@ -11922,7 +12505,7 @@ paths:
       description: |-
         Configures gas station settings for ETH.
         Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station).
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: updateGasStationConfiguration
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -12000,7 +12583,7 @@ paths:
       description: |-
         Configures gas station settings for a requested asset.
         Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station).
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: updateGasStationConfigurationByAssetId
       parameters:
       - description: The ID of the asset
@@ -12080,7 +12663,7 @@ paths:
         Get all user groups in your workspace
 
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: getUserGroups
       responses:
         "200":
@@ -12125,7 +12708,7 @@ paths:
     post:
       description: |-
         Create a new user group. Users with the Viewer role cannot be added to groups.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: createUserGroup
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -12193,7 +12776,7 @@ paths:
   /management/user_groups/{groupId}:
     delete:
       description: |
-        Delete a user group by ID.</br>
+        Delete a user group by ID.
 
         **Note**:
         - This endpoint is now in Beta, disabled for general availability at this time.
@@ -12242,7 +12825,7 @@ paths:
       - application/json
     get:
       description: |
-        Get a user group by ID.</br>
+        Get a user group by ID.
 
         **Note**:
         - This endpoint is now in Beta, disabled for general availability at this time.
@@ -12297,7 +12880,7 @@ paths:
       - application/json
     put:
       description: |
-        Update a user group by ID.</br>
+        Update a user group by ID.
 
         **Note**:
         - This endpoint is now in Beta, disabled for general availability at this time.
@@ -12429,7 +13012,7 @@ paths:
         Get Audit logs for the last Day/Week.
 
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: getAuditLogs
       parameters:
       - description: The last time period to fetch audit logs
@@ -12496,7 +13079,7 @@ paths:
       description: |-
         Add collateral and create deposit request.
         Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange).
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: addOffExchange
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -12561,7 +13144,7 @@ paths:
       description: |-
         Remove collateral, create withdraw request.
         Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange).
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: removeOffExchange
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -12627,7 +13210,7 @@ paths:
       description: |-
         Create settlement for a trader.
         Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange).
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: settleOffExchangeTrades
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -12691,7 +13274,7 @@ paths:
       description: |-
         Get settlements transactions from exchange.
         Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange).
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: getOffExchangeSettlementTransactions
       parameters:
       - explode: true
@@ -12741,7 +13324,7 @@ paths:
       description: |-
         Returns a collateral account by mainExchangeAccountId.
         Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange).
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: getOffExchangeCollateralAccounts
       parameters:
       - description: The id of the main exchange account for which the requested collateral
@@ -12796,7 +13379,7 @@ paths:
 
         Learn more about Fireblocks Webhooks in the following [guide](https://developers.fireblocks.com/docs/configure-webhooks).
 
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: resendWebhooks
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -14096,7 +14679,7 @@ paths:
     get:
       description: |-
         Return minimal representation of all the contract templates available for the workspace.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getContractTemplates
       parameters:
       - description: Items per page (max 100)
@@ -15118,7 +15701,7 @@ paths:
     post:
       description: |-
         Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status "PENDING" until the token is deployed or "SUCCESS" if no deployment is needed.
-        </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
       operationId: issueNewToken
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -16349,7 +16932,7 @@ paths:
     get:
       description: |-
         Get collections (paginated).
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getLinkedCollections
       parameters:
       - description: "Page cursor to get the next page, for example - \"MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==\""
@@ -16425,7 +17008,7 @@ paths:
     post:
       description: |-
         Create a new collection and link it as a token.
-        </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
       operationId: createNewCollection
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -16790,7 +17373,7 @@ paths:
     get:
       description: |-
         Return deployed contract's ABI by blockchain native asset id and contract address.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
       operationId: getDeployedContractAbi
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -17055,7 +17638,7 @@ paths:
     get:
       description: "Retrieve the transaction receipt by blockchain native asset ID\
         \ and transaction hash\n> **Note** > This functionality is exclusively available\
-        \ for EVM (Ethereum Virtual Machine) compatible chains. \n</br>Endpoint Permission:\
+        \ for EVM (Ethereum Virtual Machine) compatible chains. \nEndpoint Permission:\
         \ Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer."
       operationId: getTransactionReceipt
       parameters:
@@ -18166,7 +18749,7 @@ paths:
     get:
       description: |-
         Returns an alphabetical list of blockchains supported for staking by the current workspace context.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: getChains
       responses:
         "200":
@@ -18355,8 +18938,8 @@ paths:
         \ regardless of existing delegations. For Cosmos chains and Ethereum liquid\
         \ staking (Lido): automatically add to existing positions for the same validator\
         \ provider and same vault account if one exists, otherwise create a new position.\
-        \ For Solana and Polygon: always create new positions regardless of existing\
-        \ delegations."
+        \ For Solana and Polygon (MATIC/POL): always create new positions regardless\
+        \ of existing delegations."
       operationId: stake
       parameters:
       - description: "Protocol identifier for the stake staking operation (e.g., ATOM_COS/AXL/CELESTIA)."
@@ -18591,9 +19174,10 @@ paths:
       - application/json
   /staking/chains/{chainDescriptor}/withdraw:
     post:
-      description: Withdraws funds that have completed the unbonding period. Typically
-        requires the position to be deactivated first (unstake → unbond → withdraw).
-        Amount and timing vary by chain protocol.
+      description: |-
+        Withdraws funds that have completed the unbonding period. Typically requires the position to be deactivated first (unstake → unbond → withdraw). Amount and timing vary by chain protocol.
+
+        Partial withdrawal is supported for ETH compounding validators (EIP-7251/Pectra) and Cosmos chains via the optional 'amount' field. For ETH compounding validators, the remaining balance must be at least 32 ETH after the withdrawal. For all other chains, omitting 'amount' withdraws the entire available balance.
       operationId: withdraw
       parameters:
       - description: "Protocol identifier for the withdraw staking operation (e.g.,\
@@ -18710,12 +19294,12 @@ paths:
   /staking/chains/{chainDescriptor}/claim_rewards:
     post:
       description: "Claims available staking rewards for the specified chain and vault.\
-        \ Supported chains: Solana and Polygon (Matic). Behavior depends on protocol\
+        \ Supported chains: Solana and Polygon (POL/Matic). Behavior depends on protocol\
         \ reward distribution."
       operationId: claimRewards
       parameters:
       - description: "Protocol identifier for the claim rewards staking operation\
-          \ (e.g., MATIC/SOL)."
+          \ (e.g., POL/MATIC/SOL)."
         example: SOL
         explode: false
         in: path
@@ -18726,6 +19310,8 @@ paths:
           - SOL
           - SOL_TEST
           - MATIC
+          - POL
+          - POL_TEST
           type: string
         style: simple
       - description: "A unique identifier for the request. If the request is sent\
@@ -18959,7 +19545,7 @@ paths:
     post:
       description: |-
         Merges the source stake account into the destination, consolidating the balance into the destination and closing the source account once complete. Both accounts must be from the same validator provider and of same vault account.. Supported chains: Solana (SOL).
-        </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: mergeStakeAccounts
       parameters:
       - description: "Protocol identifier for the merge staking operation (e.g., SOL)."
@@ -19087,8 +19673,8 @@ paths:
   /staking/chains/{chainDescriptor}/consolidate:
     post:
       description: |-
-        Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same funding vaults account (i.e. same withdrawals credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only.
-        </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only.
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
         **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: consolidate
       parameters:
@@ -19219,10 +19805,10 @@ paths:
     get:
       description: |-
         Returns all staking positions with core details: amounts, rewards, status, chain, and vault.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: getAllDelegations
       parameters:
-      - description: "Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}).\
+      - description: "Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA).\
           \ If omitted, positions across all supported chains are returned."
         explode: true
         in: query
@@ -19336,10 +19922,10 @@ paths:
     get:
       description: |-
         Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: getPositions
       parameters:
-      - description: "Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}).\
+      - description: "Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA).\
           \ If omitted, positions across all supported chains are returned."
         explode: true
         in: query
@@ -19812,7 +20398,7 @@ paths:
     get:
       description: |-
         Returns all available staking providers with metadata such as name, ID, and supported chains.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: getProviders
       responses:
         "200":
@@ -21887,7 +22473,7 @@ paths:
         Updates all tokens and balances per blockchain and vault account.
         Learn more about Fireblocks NFT management in the following [guide](https://developers.fireblocks.com/reference/deploy-an-nft-collection).
 
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: updateOwnershipTokens
       parameters:
       - description: Blockchain descriptor filter
@@ -23672,7 +24258,7 @@ paths:
         Checks what beneficiary VASP details are required by your jurisdiction and the beneficiary's jurisdiction.
         Learn more about Fireblocks Travel Rule management in the following [guide](https://developers.fireblocks.com/docs/define-travel-rule-policies).
 
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: validateTravelRuleTransaction
       parameters:
       - description: |-
@@ -26851,6 +27437,237 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+  /screening/trlink/customers/integration/{customerIntegrationId}/transactions/{txId}/manual_decision:
+    post:
+      description: Accept or reject destinations stuck in NoTRM step without waiting
+        for TRP webhook or policy timeout.
+      operationId: createTRLinkManualDecision
+      parameters:
+      - description: Customer integration unique identifier
+        example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        explode: false
+        in: path
+        name: customerIntegrationId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Fireblocks transaction unique identifier
+        example: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+        explode: false
+        in: path
+        name: txId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TRLinkManualDecisionRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TRLinkManualDecisionResponse"
+          description: Decision applied successfully
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Manual decision for missing TRM
+      tags:
+      - TRLink
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TRLinkManualDecisionResponse>>\
+            \ = fireblocks.tRLink.createTRLinkManualDecision(tRLinkApiCreateTRLinkManualDecisionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TRLinkManualDecisionResponse>> response\
+            \ = fireblocks.tRLink().createTRLinkManualDecision(tRLinkManualDecisionRequest,\
+            \ customerIntegrationId, txId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.t_r_link.create_t_r_link_manual_decision(t_r_link_manual_decision_request,\
+            \ customer_integration_id, tx_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<TRLinkManualDecisionResponse>>\
+          \ = fireblocks.tRLink.createTRLinkManualDecision(tRLinkApiCreateTRLinkManualDecisionRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<TRLinkManualDecisionResponse>> response\
+          \ = fireblocks.tRLink().createTRLinkManualDecision(tRLinkManualDecisionRequest,\
+          \ customerIntegrationId, txId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.t_r_link.create_t_r_link_manual_decision(t_r_link_manual_decision_request,\
+          \ customer_integration_id, tx_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/required_actions:
+    get:
+      description: "Retrieves the list of required actions (e.g., PII fields) needed\
+        \ to process the Travel Rule Message."
+      operationId: getTRLinkTrmRequiredActions
+      parameters:
+      - description: Customer integration unique identifier
+        explode: false
+        in: path
+        name: customerIntegrationId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Travel Rule Message unique identifier
+        explode: false
+        in: path
+        name: trmId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TRLinkGetRequiredActionsResponse"
+          description: Required actions retrieved successfully
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get required actions for a TRM
+      tags:
+      - TRLink
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TRLinkGetRequiredActionsResponse>>\
+            \ = fireblocks.tRLink.getTRLinkTrmRequiredActions(tRLinkApiGetTRLinkTrmRequiredActionsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TRLinkGetRequiredActionsResponse>>\
+            \ response = fireblocks.tRLink().getTRLinkTrmRequiredActions(customerIntegrationId,\
+            \ trmId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.t_r_link.get_t_r_link_trm_required_actions(customer_integration_id,\
+            \ trm_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<TRLinkGetRequiredActionsResponse>>\
+          \ = fireblocks.tRLink.getTRLinkTrmRequiredActions(tRLinkApiGetTRLinkTrmRequiredActionsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<TRLinkGetRequiredActionsResponse>>\
+          \ response = fireblocks.tRLink().getTRLinkTrmRequiredActions(customerIntegrationId,\
+          \ trmId);"
+      - lang: Python
+        source: "response = fireblocks.t_r_link.get_t_r_link_trm_required_actions(customer_integration_id,\
+          \ trm_id);"
+      x-accepts:
+      - application/json
+  /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/resolve_action:
+    post:
+      description: "Submits required data (e.g., beneficiary PII) to resolve a pending\
+        \ Travel Rule Message action."
+      operationId: resolveActionTRLinkTrm
+      parameters:
+      - description: Customer integration unique identifier
+        explode: false
+        in: path
+        name: customerIntegrationId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Travel Rule Message unique identifier
+        explode: false
+        in: path
+        name: trmId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TRLinkResolveActionRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TRLinkTrmInfoResponse"
+          description: Action resolved successfully
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Resolve action for a TRM
+      tags:
+      - TRLink
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TRLinkTrmInfoResponse>>\
+            \ = fireblocks.tRLink.resolveActionTRLinkTrm(tRLinkApiResolveActionTRLinkTrmRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TRLinkTrmInfoResponse>> response =\
+            \ fireblocks.tRLink().resolveActionTRLinkTrm(tRLinkResolveActionRequest,\
+            \ customerIntegrationId, trmId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.t_r_link.resolve_action_t_r_link_trm(t_r_link_resolve_action_request,\
+            \ customer_integration_id, trm_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<TRLinkTrmInfoResponse>>\
+          \ = fireblocks.tRLink.resolveActionTRLinkTrm(tRLinkApiResolveActionTRLinkTrmRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<TRLinkTrmInfoResponse>> response =\
+          \ fireblocks.tRLink().resolveActionTRLinkTrm(tRLinkResolveActionRequest,\
+          \ customerIntegrationId, trmId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.t_r_link.resolve_action_t_r_link_trm(t_r_link_resolve_action_request,\
+          \ customer_integration_id, trm_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
   /screening/trlink/policy:
     get:
       description: "Retrieves the complete TRSupport policy for the authenticated\
@@ -27169,7 +27986,7 @@ paths:
         - This endpoint is now in Beta, disabled for general availability at this time.
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
 
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: getWorkspaceStatus
       responses:
         "200":
@@ -27211,12 +28028,12 @@ paths:
   /tap/active_policy:
     get:
       description: "Legacy Endpoint – Returns the active policy and its validation.\
-        \ </br>\n**Note:** \n- This endpoint will remain available for the foreseeable\
-        \ future and is not deprecated.</br> - The `getActivePolicy` endpoint under\
-        \ policy/paths provides policy type-specific operations and improved functionality.</br>\
-        \ - These endpoints are currently in beta and might be subject to changes.</br>\n\
-        If you want to participate and learn more about the Fireblocks TAP, please\
-        \ contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.\n"
+        \ \n**Note:** \n- This endpoint will remain available for the foreseeable\
+        \ future and is not deprecated. - The `getActivePolicy` endpoint under policy/paths\
+        \ provides policy type-specific operations and improved functionality. - These\
+        \ endpoints are currently in beta and might be subject to changes.\nIf you\
+        \ want to participate and learn more about the Fireblocks TAP, please contact\
+        \ your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.\n"
       operationId: getActivePolicyLegacy
       responses:
         "200":
@@ -27267,12 +28084,12 @@ paths:
   /tap/draft:
     get:
       description: "Legacy Endpoint – Returns the active draft and its validation.\
-        \ </br>\n**Note:** \n- This endpoint will remain available for the foreseeable\
-        \ future and is not deprecated.</br> - The `getDraft` endpoint under policy/paths\
-        \ provides policy type-specific operations and improved functionality.</br>\
-        \ - These endpoints are currently in beta and might be subject to changes.</br>\n\
-        If you want to participate and learn more about the Fireblocks TAP, please\
-        \ contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.\n"
+        \ \n**Note:** \n- This endpoint will remain available for the foreseeable\
+        \ future and is not deprecated. - The `getDraft` endpoint under policy/paths\
+        \ provides policy type-specific operations and improved functionality. - These\
+        \ endpoints are currently in beta and might be subject to changes.\nIf you\
+        \ want to participate and learn more about the Fireblocks TAP, please contact\
+        \ your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.\n"
       operationId: getDraftLegacy
       responses:
         "200":
@@ -27322,10 +28139,10 @@ paths:
       - application/json
     post:
       description: "Legacy Endpoint – Send publish request of certain draft id and\
-        \ returns the response. </br>\n**Note:** \n- This endpoint will remain available\
-        \ for the foreseeable future and is not deprecated.</br> - The `publishDraft`\
-        \ endpoint under policy/paths provides improved functionality and better performance.</br>\
-        \ - These endpoints are currently in beta and might be subject to changes.</br>\n\
+        \ returns the response. \n**Note:** \n- This endpoint will remain available\
+        \ for the foreseeable future and is not deprecated. - The `publishDraft` endpoint\
+        \ under policy/paths provides improved functionality and better performance.\
+        \ - These endpoints are currently in beta and might be subject to changes.\n\
         If you want to participate and learn more about the Fireblocks TAP, please\
         \ contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.\n"
       operationId: publishDraftLegacy
@@ -27398,12 +28215,12 @@ paths:
       - application/json
     put:
       description: "Legacy Endpoint – Update the draft and return its validation.\
-        \ </br>\n**Note:** \n- This endpoint will remain available for the foreseeable\
-        \ future and is not deprecated.</br> - The `updateDraft` endpoint under policy/paths\
-        \ provides policy type-specific operations and improved functionality.</br>\
-        \ - These endpoints are currently in beta and might be subject to changes.</br>\n\
-        If you want to participate and learn more about the Fireblocks TAP, please\
-        \ contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.\n"
+        \ \n**Note:** \n- This endpoint will remain available for the foreseeable\
+        \ future and is not deprecated. - The `updateDraft` endpoint under policy/paths\
+        \ provides policy type-specific operations and improved functionality. - These\
+        \ endpoints are currently in beta and might be subject to changes.\nIf you\
+        \ want to participate and learn more about the Fireblocks TAP, please contact\
+        \ your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.\n"
       operationId: updateDraftLegacy
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -27476,10 +28293,11 @@ paths:
       - application/json
   /tap/publish:
     post:
-      description: |
-        Send publish request of set of policy rules and returns the response. </br>
-        **Note:** These endpoints are currently in beta and might be subject to changes.
-        If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+      description: "Send publish request of set of policy rules and returns the response.\
+        \ \n**Note:** These endpoints are currently in beta and might be subject to\
+        \ changes.\nIf you want to participate and learn more about the Fireblocks\
+        \ TAP, please contact your Fireblocks Customer Success Manager or send an\
+        \ email to CSM@fireblocks.com.\n"
       operationId: publishPolicyRules
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -27616,9 +28434,9 @@ paths:
       - application/json
   /policy/draft:
     get:
-      description: |
-        Returns the active draft and its validation for a specific policy type. </br>
-        **Note:** These endpoints are currently in beta and might be subject to changes.
+      description: "Returns the active draft and its validation for a specific policy\
+        \ type. \n**Note:** These endpoints are currently in beta and might be subject\
+        \ to changes.\n"
       operationId: getDraft
       parameters:
       - description: "The policy type(s) to retrieve. Can be a single type or multiple\
@@ -27678,10 +28496,11 @@ paths:
       x-accepts:
       - application/json
     post:
-      description: |
-        Send publish request of certain draft id and returns the response. </br>
-        **Note:** These endpoints are currently in beta and might be subject to changes.
-        If you want to participate and learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+      description: "Send publish request of certain draft id and returns the response.\
+        \ \n**Note:** These endpoints are currently in beta and might be subject to\
+        \ changes.\nIf you want to participate and learn more about the Fireblocks\
+        \ Policy Editor, please contact your Fireblocks Customer Success Manager or\
+        \ send an email to CSM@fireblocks.com.\n"
       operationId: publishDraft
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -27747,9 +28566,9 @@ paths:
       x-accepts:
       - application/json
     put:
-      description: |
-        Update the draft and return its validation for specific policy types. </br>
-        **Note:** These endpoints are currently in beta and might be subject to changes.
+      description: "Update the draft and return its validation for specific policy\
+        \ types. \n**Note:** These endpoints are currently in beta and might be subject\
+        \ to changes.\n"
       operationId: updateDraft
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -27823,7 +28642,7 @@ paths:
       description: |-
         Get console users for your workspace.
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: getConsoleUsers
       responses:
         "200":
@@ -27904,7 +28723,7 @@ paths:
         Create console users in your workspace
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
         Learn more about Fireblocks Users management in the following [guide](https://developers.fireblocks.com/docs/manage-users).
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: createConsoleUser
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -28006,7 +28825,7 @@ paths:
       description: |-
         List all API keys in your workspace.
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: getApiUsers
       responses:
         "200":
@@ -28084,7 +28903,7 @@ paths:
       description: |-
         Create a new API key in your workspace.
         Learn more about Fireblocks API Keys management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys).
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: createApiUser
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -28186,7 +29005,7 @@ paths:
       description: |-
         Resets mobile device for given console user, that user will need to do mobile onboarding again.
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: resetDevice
       parameters:
       - description: The ID of the console user
@@ -28281,7 +29100,7 @@ paths:
       description: |-
         Get a list of the whitelisted IP addresses for a specific API Key
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: getWhitelistIpAddresses
       parameters:
       - description: The ID of the api user
@@ -28633,7 +29452,7 @@ paths:
       - application/json
   /smart-transfers/{ticketId}:
     get:
-      description: "Find Smart Transfer ticket by id. </br>Endpoint Permission: Admin,\
+      description: "Find Smart Transfer ticket by id. Endpoint Permission: Admin,\
         \ Non-Signing Admin, Signer, Approver, Editor, Viewer."
       operationId: findTicketById
       parameters:
@@ -28693,7 +29512,7 @@ paths:
       - application/json
   /smart-transfers/{ticketId}/expires-in:
     put:
-      description: "Set expiration date on Smart Transfer ticket. </br>Endpoint Permission:\
+      description: "Set expiration date on Smart Transfer ticket. Endpoint Permission:\
         \ Admin, Non-Signing Admin, Signer, Approver, Editor."
       operationId: setTicketExpiration
       parameters:
@@ -28781,8 +29600,8 @@ paths:
       - application/json
   /smart-transfers/{ticketId}/external-id:
     put:
-      description: "Set external id Smart Transfer ticket. </br>Endpoint Permission:\
-        \ Admin, Non-Signing Admin, Signer, Approver, Editor."
+      description: "Set external id Smart Transfer ticket. Endpoint Permission: Admin,\
+        \ Non-Signing Admin, Signer, Approver, Editor."
       operationId: setExternalRefId
       parameters:
       - explode: false
@@ -28870,7 +29689,7 @@ paths:
   /smart-transfers/{ticketId}/submit:
     put:
       description: "Submit Smart Transfer ticket - change status into ready for approval\
-        \ if auto approval is not turned on, or OPEN if auto approval is on. </br>Endpoint\
+        \ if auto approval is not turned on, or OPEN if auto approval is on. Endpoint\
         \ Permission: Admin, Non-Signing Admin, Signer, Approver, Editor."
       operationId: submitTicket
       parameters:
@@ -28959,7 +29778,7 @@ paths:
   /smart-transfers/{ticketId}/fulfill:
     put:
       description: "Manually fulfill ticket, in case when all terms (legs) are funded\
-        \ manually. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,\
+        \ manually. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,\
         \ Editor."
       operationId: fulfillTicket
       parameters:
@@ -29124,8 +29943,8 @@ paths:
       - application/json
   /smart-transfers/{ticketId}/cancel:
     put:
-      description: "Cancel Smart Transfer ticket. </br>Endpoint Permission: Admin,\
-        \ Non-Signing Admin, Signer, Approver, Editor."
+      description: "Cancel Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing\
+        \ Admin, Signer, Approver, Editor."
       operationId: cancelTicket
       parameters:
       - explode: false
@@ -29204,7 +30023,7 @@ paths:
       description: "Creates new smart transfer ticket term (when the ticket status\
         \ is DRAFT). Learn more about Fireblocks Smart Transfers in the following\
         \ [guide](https://developers.fireblocks.com/docs/execute-smart-transfers).\
-        \ </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor."
+        \ Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor."
       operationId: createTicketTerm
       parameters:
       - explode: false
@@ -29346,7 +30165,7 @@ paths:
       x-accepts:
       - application/json
     get:
-      description: "Find a specific term of a specific Smart Transfer ticket. </br>Endpoint\
+      description: "Find a specific term of a specific Smart Transfer ticket. Endpoint\
         \ Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer."
       operationId: findTicketTermById
       parameters:
@@ -29503,8 +30322,8 @@ paths:
   /smart-transfers/{ticketId}/terms/{termId}/fund:
     put:
       description: "Set funding source for ticket term (in case of ASYNC tickets,\
-        \ this will execute transfer immediately). </br>Endpoint Permission: Admin,\
-        \ Non-Signing Admin, Signer, Approver, Editor."
+        \ this will execute transfer immediately). Endpoint Permission: Admin, Non-Signing\
+        \ Admin, Signer, Approver, Editor."
       operationId: fundTicketTerm
       parameters:
       - explode: false
@@ -29695,7 +30514,7 @@ paths:
     put:
       description: |-
         Manually set ticket term transaction.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: manuallyFundTicketTerm
       parameters:
       - explode: false
@@ -29791,7 +30610,7 @@ paths:
     get:
       description: |-
         Get Smart Transfer user groups.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getSmartTransferUserGroups
       parameters: []
       responses:
@@ -29844,7 +30663,7 @@ paths:
     post:
       description: |-
         Set Smart Transfers user group to receive email notifications for Smart Transfers.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: setUserGroups
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -30446,7 +31265,7 @@ paths:
       description: |-
         Get all workspace cosigners (paginated).
         **Note:** These endpoints are currently in beta and might be subject to changes.
-        </br>Endpoint Permission: Admin and Non-Signing Admin.
+        Endpoint Permission: Admin and Non-Signing Admin.
       operationId: getCosigners
       parameters:
       - description: ASC / DESC ordering (default DESC)
@@ -30527,7 +31346,7 @@ paths:
     post:
       description: |-
         Add a new cosigner. The cosigner will be pending pairing until the API key is manually paired
-        </br>Endpoint Permission: Admin and Non-Signing Admin.
+        Endpoint Permission: Admin and Non-Signing Admin.
       operationId: addCosigner
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -30595,7 +31414,7 @@ paths:
       description: |-
         Get a cosigner by ID.
         **Note:** These endpoints are currently in beta and might be subject to changes.
-        </br>Endpoint Permission: Admin and Non-Signing Admin.
+        Endpoint Permission: Admin and Non-Signing Admin.
       operationId: getCosigner
       parameters:
       - description: The unique identifier of the cosigner
@@ -30648,7 +31467,7 @@ paths:
       description: |-
         Rename a cosigner by ID.
         **Note:** These endpoints are currently in beta and might be subject to changes.
-        </br>Endpoint Permission: Admin and Non-Signing Admin.
+        Endpoint Permission: Admin and Non-Signing Admin.
       operationId: renameCosigner
       parameters:
       - description: The unique identifier of the cosigner
@@ -30713,7 +31532,7 @@ paths:
       description: |-
         Get all cosigner paired API keys (paginated).
         **Note:** These endpoints are currently in beta and might be subject to changes.
-        </br>Endpoint Permission: Admin and Non-Signing Admin.
+        Endpoint Permission: Admin and Non-Signing Admin.
       operationId: getApiKeys
       parameters:
       - description: The unique identifier of the cosigner
@@ -30807,7 +31626,7 @@ paths:
     delete:
       description: |-
         Unpair an API key from a cosigner
-        </br>Endpoint Permission: Admin and Non-Signing Admin.
+        Endpoint Permission: Admin and Non-Signing Admin.
       operationId: unpairApiKey
       parameters:
       - description: The unique identifier of the cosigner
@@ -30875,7 +31694,7 @@ paths:
       description: |-
         Get an API key by ID.
         **Note:** These endpoints are currently in beta and might be subject to changes.
-        </br>Endpoint Permission: Admin and Non-Signing Admin.
+        Endpoint Permission: Admin and Non-Signing Admin.
       operationId: getApiKey
       parameters:
       - description: The unique identifier of the cosigner
@@ -30938,7 +31757,7 @@ paths:
     patch:
       description: |-
         Update the callback handler of an API key
-        </br>Endpoint Permission: Admin and Non-Signing Admin.
+        Endpoint Permission: Admin and Non-Signing Admin.
       operationId: updateCallbackHandler
       parameters:
       - description: The unique identifier of the cosigner
@@ -31016,7 +31835,7 @@ paths:
     put:
       description: |-
         Pair an API key to a cosigner
-        </br>Endpoint Permission: Admin and Non-Signing Admin.
+        Endpoint Permission: Admin and Non-Signing Admin.
       operationId: pairApiKey
       parameters:
       - description: The unique identifier of the cosigner
@@ -31104,7 +31923,7 @@ paths:
     get:
       description: |-
         Get the status of an asynchronous request
-        </br>Endpoint Permission: Admin and Non-Signing Admin.
+        Endpoint Permission: Admin and Non-Signing Admin.
       operationId: getRequestStatus
       parameters:
       - description: The unique identifier of the cosigner
@@ -31178,7 +31997,7 @@ paths:
       description: |-
         Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more.
         **Note:** These endpoints are currently in beta and might be subject to changes.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getUtxos
       parameters:
       - description: The ID of the vault account
@@ -31396,7 +32215,7 @@ paths:
         Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs.
         Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set.
         **Note:** These endpoints are currently in beta and might be subject to changes.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: updateUtxoLabels
       parameters:
       - description: The ID of the vault account
@@ -31485,7 +32304,7 @@ paths:
       description: |-
         Returns legal entity registrations for the workspace with cursor-based pagination.
         If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: listLegalEntities
       parameters:
       - description: "The ID of the vault account. When provided, returns the legal\
@@ -31569,7 +32388,7 @@ paths:
     post:
       description: |-
         Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: registerLegalEntity
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -31675,7 +32494,7 @@ paths:
     get:
       description: |-
         Returns details of a specific legal entity registration, including GLEIF data when available.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getLegalEntity
       parameters:
       - description: The unique ID of the legal entity registration
@@ -31739,7 +32558,7 @@ paths:
     put:
       description: |-
         Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: updateLegalEntity
       parameters:
       - description: The unique ID of the legal entity registration
@@ -31835,7 +32654,7 @@ paths:
     get:
       description: |-
         Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: listVaultsForLegalEntity
       parameters:
       - description: The unique ID of the legal entity registration
@@ -31922,7 +32741,7 @@ paths:
     post:
       description: |-
         Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity.
-        </br>Endpoint Permission: Admin, Non-Signing Admin.
+        Endpoint Permission: Admin, Non-Signing Admin.
       operationId: assignVaultsToLegalEntity
       parameters:
       - description: The unique ID of the legal entity registration
@@ -32612,21 +33431,20 @@ components:
           type: boolean
         vaultType:
           default: MPC
-          description: "Type of vault account. The default type will be set to MPC.<br/>\
-            \  If the workspace does not support the selected type, it will return\
-            \ an error."
+          description: |
+            Type of vault account. The default type will be set to MPC.
+            If the workspace does not support the selected type, it will return an error.
           enum:
           - MPC
           - KEY_LINK
           type: string
         autoAssign:
           default: false
-          description: "Applicable only when the vault account type is KEY_LINK. For\
-            \ MPC, this parameter will be ignored.<br/> If set to true and there are\
-            \ available keys, random keys will be assigned to the newly created vault\
-            \ account.<br/> If set to true and there are no available keys to be assigned,\
-            \ it will return an error.<br/> If set to false, the vault account will\
-            \ be created without any keys."
+          description: |
+            Applicable only when the vault account type is KEY_LINK. For MPC, this parameter will be ignored.
+            If set to true and there are available keys, random keys will be assigned to the newly created vault account.
+            If set to true and there are no available keys to be assigned, it will return an error.
+            If set to false, the vault account will be created without any keys.
           type: boolean
       type: object
     VaultAccountsPagedResponse:
@@ -32937,6 +33755,68 @@ components:
           description: Auto Fuel
           type: boolean
       type: object
+    CircleGatewayWalletInfoResponse:
+      example:
+        walletId: b68a9e08-b59c-4ff9-893f-52d4f78c21e6
+        symbol: USDC
+        assetIds:
+        - USDC
+        type: CIRCLEGATEWAY
+        status: ACTIVATED
+      properties:
+        walletId:
+          description: The Circle Gateway wallet identifier
+          example: b68a9e08-b59c-4ff9-893f-52d4f78c21e6
+          type: string
+        type:
+          description: The Circle Gateway provider identifier
+          example: CIRCLEGATEWAY
+          type: string
+        status:
+          description: Current activation status of the Circle Gateway wallet
+          enum:
+          - ACTIVATED
+          - DEACTIVATED
+          example: ACTIVATED
+          type: string
+        symbol:
+          description: The token symbol supported by this wallet (e.g. USDC)
+          example: USDC
+          type: string
+        assetIds:
+          description: Fireblocks asset IDs available for this wallet
+          example:
+          - USDC
+          items:
+            type: string
+          type: array
+      required:
+      - assetIds
+      - status
+      - symbol
+      - type
+      - walletId
+      type: object
+    CircleGatewayWalletStatusResponse:
+      example:
+        walletId: b68a9e08-b59c-4ff9-893f-52d4f78c21e6
+        status: ACTIVATED
+      properties:
+        walletId:
+          description: The Circle Gateway wallet identifier
+          example: b68a9e08-b59c-4ff9-893f-52d4f78c21e6
+          type: string
+        status:
+          description: Current activation status of the Circle Gateway wallet
+          enum:
+          - ACTIVATED
+          - DEACTIVATED
+          example: ACTIVATED
+          type: string
+      required:
+      - status
+      - walletId
+      type: object
     CreateAssetsRequest:
       example:
         eosAccountName: eosAccountName
@@ -33211,6 +34091,10 @@ components:
       type: object
     CreateMultipleVaultAccountsJobStatus:
       example:
+        approvalRequestId: "12345"
+        tagIds:
+        - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        - b2c3d4e5-f6a7-8901-bcde-f12345678901
         vaultAccounts:
           "0":
             BTC_TEST: bcrt1qs0zzqytuw49w2jqkmfhzgdh2lylzde2uw4zncz
@@ -33219,6 +34103,8 @@ components:
         status: Success
       properties:
         status:
+          description: "Status of the job. Possible values - Success, In Progress,\
+            \ Failed, Pending Approval, Cancelled"
           example: Success
           type: string
         vaultAccounts:
@@ -33233,8 +34119,23 @@ components:
               BTC_TEST: bcrt1qs0zzqytuw49w2jqkmfhzgdh2lylzde2uw4zncz
               ETH_TEST: 0x460395Edb2338023c6f137259C6e20B6C37dDE95
           type: object
+        tagIds:
+          description: List of tag IDs successfully attached to each of the created
+            vault accounts
+          example:
+          - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+          - b2c3d4e5-f6a7-8901-bcde-f12345678901
+          items:
+            format: uuid
+            type: string
+          type: array
         errorMessage:
           example: Asset not supported
+          type: string
+        approvalRequestId:
+          description: Approval request ID if the job has protected tags to attach
+            to the vault accounts
+          example: "12345"
           type: string
       required:
       - status
@@ -33498,6 +34399,8 @@ components:
         status: Success
       properties:
         status:
+          description: "Status of the job. Possible values - Success, In Progress,\
+            \ Failed"
           example: Success
           type: string
         addresses:
@@ -35327,6 +36230,166 @@ components:
       required:
       - data
       type: object
+    CounterpartyGroup:
+      description: A counterparty group used to classify counterparties for compliance
+        and routing purposes
+      example:
+        createdAt: 2024-01-15T10:30:00Z
+        groupId: 44fcead0-7053-4831-a53a-df7fb90d440f
+        name: APAC Financial Partners
+        description: Group for all APAC-based financial institution counterparties
+        jurisdictionCodes:
+        - US
+        - SG
+        isActive: true
+        updatedAt: 2024-01-15T10:30:00Z
+      properties:
+        groupId:
+          description: Unique identifier of the counterparty group
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        name:
+          description: Human-readable name of the group
+          example: APAC Financial Partners
+          minLength: 1
+          type: string
+        description:
+          description: Optional description of the group
+          example: Group for all APAC-based financial institution counterparties
+          type: string
+        jurisdictionCodes:
+          description: List of jurisdiction codes associated with the group
+          example:
+          - US
+          - SG
+          items:
+            type: string
+          type: array
+        isActive:
+          description: Whether the counterparty group is currently active
+          example: true
+          type: boolean
+        createdAt:
+          description: ISO 8601 timestamp when the group was created
+          example: 2024-01-15T10:30:00Z
+          format: date-time
+          type: string
+        updatedAt:
+          description: ISO 8601 timestamp when the group was last updated
+          example: 2024-01-15T10:30:00Z
+          format: date-time
+          type: string
+      required:
+      - createdAt
+      - groupId
+      - isActive
+      - name
+      - updatedAt
+      type: object
+    CounterpartyGroupsPaginatedResponse:
+      description: Paginated list of counterparty groups
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        total: 42
+        data:
+        - createdAt: 2024-01-15T10:30:00Z
+          groupId: 44fcead0-7053-4831-a53a-df7fb90d440f
+          name: APAC Financial Partners
+          description: Group for all APAC-based financial institution counterparties
+          jurisdictionCodes:
+          - US
+          - SG
+          isActive: true
+          updatedAt: 2024-01-15T10:30:00Z
+        - createdAt: 2024-01-15T10:30:00Z
+          groupId: 44fcead0-7053-4831-a53a-df7fb90d440f
+          name: APAC Financial Partners
+          description: Group for all APAC-based financial institution counterparties
+          jurisdictionCodes:
+          - US
+          - SG
+          isActive: true
+          updatedAt: 2024-01-15T10:30:00Z
+      properties:
+        data:
+          description: The counterparty groups in the current page
+          items:
+            $ref: "#/components/schemas/CounterpartyGroup"
+          type: array
+        total:
+          description: Total number of counterparty groups
+          example: 42
+          type: integer
+        next:
+          description: Cursor for the next page
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          type: string
+      required:
+      - data
+      type: object
+    CreateCounterpartyGroupRequest:
+      description: Request body for creating a new counterparty group
+      example:
+        name: APAC Financial Partners
+        jurisdictionCodes:
+        - US
+        - SG
+        description: Group for all APAC-based financial institution counterparties
+      properties:
+        name:
+          description: Human-readable name of the group
+          example: APAC Financial Partners
+          minLength: 1
+          type: string
+        jurisdictionCodes:
+          description: List of jurisdiction codes to associate with the group
+          example:
+          - US
+          - SG
+          items:
+            type: string
+          type: array
+        description:
+          description: Optional description of the group
+          example: Group for all APAC-based financial institution counterparties
+          type: string
+      required:
+      - jurisdictionCodes
+      - name
+      type: object
+    UpdateCounterpartyGroupRequest:
+      description: Request body for updating an existing counterparty group
+      example:
+        name: APAC Financial Partners
+        description: Group for all APAC-based financial institution counterparties
+        jurisdictionCodes:
+        - US
+        - SG
+        isActive: true
+      properties:
+        name:
+          description: Updated human-readable name of the group
+          example: APAC Financial Partners
+          minLength: 1
+          type: string
+        description:
+          description: Updated description of the group
+          example: Group for all APAC-based financial institution counterparties
+          type: string
+        jurisdictionCodes:
+          description: Updated list of jurisdiction codes for the group
+          example:
+          - US
+          - SG
+          items:
+            type: string
+          type: array
+        isActive:
+          description: Whether the counterparty group should be active
+          example: true
+          type: boolean
+      type: object
     NetworkChannel:
       deprecated: true
       description: Deprecated in the only used reference - NetworkConnectionResponse
@@ -36803,7 +37866,13 @@ components:
           - AIRTEL
           - MTN
           - TIGO
+          - WAVE
           example: MTN
+          type: string
+        email:
+          description: The email address of the account holder
+          example: john.doe@example.com
+          format: email
           type: string
         beneficiaryDocumentId:
           description: The document ID of the beneficiary
@@ -36818,6 +37887,7 @@ components:
       - accountHolderSurname
       - addressingSystem
       - country
+      - email
       - mobilePhoneNumber
       - provider
       - rail
@@ -46459,12 +47529,21 @@ components:
         status:
           $ref: "#/components/schemas/PayoutStatus"
         reasonOfFailure:
-          description: "<ul> \n<li> INSUFFICIENT_BALANCE</li>\n<li> SOURCE_TRANSLATION</li>\n\
-            <li> SOURCE_NOT_UNIQUE</li>\n<li> SOURCE_NOT_FOUND</li>\n<li> SOURCE_TYPE_NOT_SUPPORTED</li>\n\
-            <li> EMPTY_SOURCE</li>\n<li> DESTINATION_TRANSLATION</li>\n<li> DESTINATION_NOT_UNIQUE</li>\n\
-            <li> DESTINATION_NOT_FOUND</li>\n<li> EMPTY_DESTINATION</li>\n<li> PARSING\
-            \ </li>\n<li> UNKNOWN</li>\n<li> FIREBLOCKS_CLIENT</li>\n<li> TRANSACTION_SUBMISSION</li>\n\
-            </ul>\n"
+          description: |
+            - INSUFFICIENT_BALANCE
+            - SOURCE_TRANSLATION
+            - SOURCE_NOT_UNIQUE
+            - SOURCE_NOT_FOUND
+            - SOURCE_TYPE_NOT_SUPPORTED
+            - EMPTY_SOURCE
+            - DESTINATION_TRANSLATION
+            - DESTINATION_NOT_UNIQUE
+            - DESTINATION_NOT_FOUND
+            - EMPTY_DESTINATION
+            - PARSING
+            - UNKNOWN
+            - FIREBLOCKS_CLIENT
+            - TRANSACTION_SUBMISSION
           type: string
         initMethod:
           $ref: "#/components/schemas/PayoutInitMethod"
@@ -55377,6 +56456,8 @@ components:
       - MANTRA
       - MATIC
       - OSMO
+      - POL
+      - POL_TEST
       - SOL
       - SOL_TEST
       - STETH_ETH
@@ -55614,10 +56695,12 @@ components:
           example: "withdraw request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d #ETH"
           type: string
         amount:
-          description: "Amount of tokens to withdraw. Only supported for Cosmos chains\
-            \ to enable partial withdrawals. For other chains, this field is ignored\
-            \ and the entire available amount will be withdrawn. If not provided,\
-            \ the entire available amount will be withdrawn."
+          description: "Amount of tokens to withdraw. Only supported for ETH compounding\
+            \ validators (EIP-7251/Pectra) and Cosmos chains to enable partial withdrawals.\
+            \ For ETH compounding validators, the remaining balance must be at least\
+            \ 32 ETH after withdrawal. For other chains, this field is ignored and\
+            \ the entire available amount will be withdrawn. If not provided, the\
+            \ entire available amount will be withdrawn."
           example: "7"
           type: string
       required:
@@ -58069,6 +59152,256 @@ components:
       - BUY
       - SELL
       type: string
+    PersonalEntityTypeEnum:
+      enum:
+      - INDIVIDUAL
+      type: string
+    ParticipantRelationshipType:
+      enum:
+      - FirstParty
+      - SecondParty
+      - ThirdParty
+      example: FirstParty
+      type: string
+    PostalAddress:
+      example:
+        streetName: Fifth Avenue
+        buildingNumber: "350"
+        postalCode: "10118"
+        city: New York
+        subdivision: NY
+        district: Manhattan
+        country: US
+      properties:
+        streetName:
+          type: string
+        buildingNumber:
+          type: string
+        postalCode:
+          type: string
+        city:
+          type: string
+        subdivision:
+          type: string
+        district:
+          type: string
+        country:
+          type: string
+      required:
+      - buildingNumber
+      - city
+      - country
+      - district
+      - postalCode
+      - streetName
+      - subdivision
+      type: object
+    PersonalIdentificationType:
+      description: "Type of identification document. Acceptable values are: - 'NIN_SLIP_CARD':\
+        \ National Identification Number (NIN) Slip Card - temporary identification\
+        \ card issued in Nigeria - 'BVN': Bank Verification Number - unique identity\
+        \ number for bank account holders in Nigeria - 'ID_CARD': General national\
+        \ identity card - 'ID_BOOK': Identity book or booklet format identification\
+        \ document - 'NATIONAL_ID': National identity document issued by government\
+        \ authorities - 'ALIEN_CARD': Alien registration card for foreign nationals\
+        \ - 'PASSPORT': International travel document and proof of identity - 'ECOWAS_CARD':\
+        \ Economic Community of West African States identification card - 'RWANDA_CARD':\
+        \ Rwandan national identification card - 'DRIVERS_LICENSE': Driver's license\
+        \ or driving permit - 'RESIDENT_CARD': Resident permit or permanent resident\
+        \ card - 'VOTER_ID': Voter identification card used for electoral registration\
+        \ - 'HEALTH_INSURANCE_ID': Health insurance identification card - 'GHANA_CARD':\
+        \ Ghana Card - national identification card issued in Ghana - 'REFUGEE_ID':\
+        \ Refugee identification document - 'SSNIT': Social Security and National\
+        \ Insurance Trust ID - social security number in Ghana - 'NON_CITIZEN_ID':\
+        \ Identification document for non-citizens or foreign residents - 'NATIONAL_REGISTRATION_CARD':\
+        \ National registration card issued by national registration authority"
+      enum:
+      - NIN_SLIP_CARD
+      - BVN
+      - ID_CARD
+      - ID_BOOK
+      - NATIONAL_ID
+      - ALIEN_CARD
+      - PASSPORT
+      - ECOWAS_CARD
+      - RWANDA_CARD
+      - DRIVERS_LICENSE
+      - RESIDENT_CARD
+      - VOTER_ID
+      - HEALTH_INSURANCE_ID
+      - GHANA_CARD
+      - REFUGEE_ID
+      - SSNIT
+      - NON_CITIZEN_ID
+      - NATIONAL_REGISTRATION_CARD
+      type: string
+    PersonalIdentification:
+      example:
+        externalReferenceId: person_ref_7f3e2d1c4b8a5e9f
+        entityType: INDIVIDUAL
+        participantRelationshipType: FirstParty
+        fullName:
+          firstName: Alexander
+          lastName: Johnson
+        dateOfBirth: 1985-03-15
+        postalAddress:
+          streetName: Oak Street
+          buildingNumber: "742"
+          postalCode: "90210"
+          city: Beverly Hills
+          subdivision: CA
+          district: Los Angeles County
+          country: US
+        email: alexander.johnson@example.com
+        phone: "+14155551234"
+        idNumber: "12345678901"
+        idType: PASSPORT
+        additionalIdNumber: BVN987654321
+        additionalIdType: BVN
+      properties:
+        externalReferenceId:
+          type: string
+        entityType:
+          $ref: "#/components/schemas/PersonalEntityTypeEnum"
+        participantRelationshipType:
+          $ref: "#/components/schemas/ParticipantRelationshipType"
+        fullName:
+          $ref: "#/components/schemas/PersonalIdentification_fullName"
+        dateOfBirth:
+          format: date
+          type: string
+        postalAddress:
+          $ref: "#/components/schemas/PostalAddress"
+        email:
+          format: email
+          type: string
+        phone:
+          description: Mobile phone number in E.164 format
+          example: "+14155551234"
+          pattern: "^\\+[1-9]\\d{1,14}$"
+          type: string
+        idNumber:
+          description: The identification number corresponding to the primary identification
+            document type specified in idType
+          type: string
+        idType:
+          $ref: "#/components/schemas/PersonalIdentificationType"
+        additionalIdNumber:
+          description: The identification number corresponding to the additional identification
+            document type specified in additionalIdType
+          type: string
+        additionalIdType:
+          $ref: "#/components/schemas/PersonalIdentificationType"
+      required:
+      - dateOfBirth
+      - entityType
+      - externalReferenceId
+      - fullName
+      - participantRelationshipType
+      - postalAddress
+      type: object
+    BusinessEntityTypeEnum:
+      enum:
+      - BUSINESS
+      type: string
+    BusinessIdentification:
+      example:
+        externalReferenceId: bus_ref_9f3e2d1c4b8a7e5f
+        entityType: BUSINESS
+        participantRelationshipType: COUNTERPARTY
+        businessName: TechCorp Solutions LLC
+        registrationNumber: TC-2023-001547
+        email: techcorp@example.com
+        phone: "+14155551234"
+        postalAddress:
+          streetAddress: 789 Innovation Drive
+          city: San Francisco
+          state: CA
+          postalCode: "94105"
+          country: US
+      properties:
+        externalReferenceId:
+          type: string
+        entityType:
+          $ref: "#/components/schemas/BusinessEntityTypeEnum"
+        participantRelationshipType:
+          $ref: "#/components/schemas/ParticipantRelationshipType"
+        businessName:
+          type: string
+        registrationNumber:
+          type: string
+        postalAddress:
+          $ref: "#/components/schemas/PostalAddress"
+        email:
+          format: email
+          type: string
+        phone:
+          description: Mobile phone number in E.164 format
+          example: "+14155551234"
+          pattern: "^\\+[1-9]\\d{1,14}$"
+          type: string
+      required:
+      - businessName
+      - entityType
+      - externalReferenceId
+      - participantRelationshipType
+      - postalAddress
+      - registrationNumber
+      type: object
+    Identification:
+      discriminator:
+        mapping:
+          INDIVIDUAL: "#/components/schemas/PersonalIdentification"
+          BUSINESS: "#/components/schemas/BusinessIdentification"
+        propertyName: entityType
+      oneOf:
+      - $ref: "#/components/schemas/PersonalIdentification"
+      - $ref: "#/components/schemas/BusinessIdentification"
+    ParticipantsIdentification:
+      description: KYC/AML participant identification
+      example:
+        originator:
+          externalReferenceId: user_123456
+          entityType: INDIVIDUAL
+          participantRelationshipType: FirstParty
+          fullName:
+            firstName: John
+            lastName: Smith
+          dateOfBirth: 1985-03-15
+          email: john.smith@example.com
+          phone: "+14155551234"
+          postalAddress:
+            streetName: Main Street
+            buildingNumber: "123"
+            postalCode: "10001"
+            city: New York
+            subdivision: NY
+            district: Manhattan
+            country: US
+        beneficiary:
+          externalReferenceId: user_789012
+          entityType: INDIVIDUAL
+          participantRelationshipType: ThirdParty
+          fullName:
+            firstName: Alice
+            lastName: Johnson
+          dateOfBirth: 1990-07-22
+          email: alice.johnson@example.com
+          phone: "+14155551234"
+          postalAddress:
+            streetName: Broadway
+            buildingNumber: "456"
+            postalCode: "10002"
+            city: New York
+            subdivision: NY
+            district: Manhattan
+            country: US
+      properties:
+        originator:
+          $ref: "#/components/schemas/Identification"
+        beneficiary:
+          $ref: "#/components/schemas/Identification"
+      type: object
     CreateQuote:
       example:
         scope:
@@ -58121,6 +59454,8 @@ components:
           $ref: "#/components/schemas/DVPSettlement"
         side:
           $ref: "#/components/schemas/Side"
+        participantsIdentification:
+          $ref: "#/components/schemas/ParticipantsIdentification"
       required:
       - baseAmount
       - baseAssetId
@@ -58302,6 +59637,10 @@ components:
           $ref: "#/components/schemas/Side"
         expiresAt:
           description: The expiration time of the quote in ISO format.
+          type: string
+        orderCreationRequirements:
+          description: |
+            A JSON Schema Draft-7 document in string format describing the fields required when creating an order for this quote. The schema mirrors the structure of CreateOrderRequest.participantsIdentification json schema, so clients can validate their order payload before sending.
           type: string
       required:
       - baseAmount
@@ -58696,256 +60035,6 @@ components:
       oneOf:
       - $ref: "#/components/schemas/PrefundedSettlement"
       - $ref: "#/components/schemas/DVPSettlement"
-    PersonalEntityTypeEnum:
-      enum:
-      - INDIVIDUAL
-      type: string
-    ParticipantRelationshipType:
-      enum:
-      - FirstParty
-      - SecondParty
-      - ThirdParty
-      example: FirstParty
-      type: string
-    PostalAddress:
-      example:
-        streetName: Fifth Avenue
-        buildingNumber: "350"
-        postalCode: "10118"
-        city: New York
-        subdivision: NY
-        district: Manhattan
-        country: US
-      properties:
-        streetName:
-          type: string
-        buildingNumber:
-          type: string
-        postalCode:
-          type: string
-        city:
-          type: string
-        subdivision:
-          type: string
-        district:
-          type: string
-        country:
-          type: string
-      required:
-      - buildingNumber
-      - city
-      - country
-      - district
-      - postalCode
-      - streetName
-      - subdivision
-      type: object
-    PersonalIdentificationType:
-      description: "Type of identification document. Acceptable values are: - 'NIN_SLIP_CARD':\
-        \ National Identification Number (NIN) Slip Card - temporary identification\
-        \ card issued in Nigeria - 'BVN': Bank Verification Number - unique identity\
-        \ number for bank account holders in Nigeria - 'ID_CARD': General national\
-        \ identity card - 'ID_BOOK': Identity book or booklet format identification\
-        \ document - 'NATIONAL_ID': National identity document issued by government\
-        \ authorities - 'ALIEN_CARD': Alien registration card for foreign nationals\
-        \ - 'PASSPORT': International travel document and proof of identity - 'ECOWAS_CARD':\
-        \ Economic Community of West African States identification card - 'RWANDA_CARD':\
-        \ Rwandan national identification card - 'DRIVERS_LICENSE': Driver's license\
-        \ or driving permit - 'RESIDENT_CARD': Resident permit or permanent resident\
-        \ card - 'VOTER_ID': Voter identification card used for electoral registration\
-        \ - 'HEALTH_INSURANCE_ID': Health insurance identification card - 'GHANA_CARD':\
-        \ Ghana Card - national identification card issued in Ghana - 'REFUGEE_ID':\
-        \ Refugee identification document - 'SSNIT': Social Security and National\
-        \ Insurance Trust ID - social security number in Ghana - 'NON_CITIZEN_ID':\
-        \ Identification document for non-citizens or foreign residents - 'NATIONAL_REGISTRATION_CARD':\
-        \ National registration card issued by national registration authority"
-      enum:
-      - NIN_SLIP_CARD
-      - BVN
-      - ID_CARD
-      - ID_BOOK
-      - NATIONAL_ID
-      - ALIEN_CARD
-      - PASSPORT
-      - ECOWAS_CARD
-      - RWANDA_CARD
-      - DRIVERS_LICENSE
-      - RESIDENT_CARD
-      - VOTER_ID
-      - HEALTH_INSURANCE_ID
-      - GHANA_CARD
-      - REFUGEE_ID
-      - SSNIT
-      - NON_CITIZEN_ID
-      - NATIONAL_REGISTRATION_CARD
-      type: string
-    PersonalIdentification:
-      example:
-        externalReferenceId: person_ref_7f3e2d1c4b8a5e9f
-        entityType: INDIVIDUAL
-        participantRelationshipType: FirstParty
-        fullName:
-          firstName: Alexander
-          lastName: Johnson
-        dateOfBirth: 1985-03-15
-        postalAddress:
-          streetName: Oak Street
-          buildingNumber: "742"
-          postalCode: "90210"
-          city: Beverly Hills
-          subdivision: CA
-          district: Los Angeles County
-          country: US
-        email: alexander.johnson@example.com
-        phone: "+14155551234"
-        idNumber: "12345678901"
-        idType: PASSPORT
-        additionalIdNumber: BVN987654321
-        additionalIdType: BVN
-      properties:
-        externalReferenceId:
-          type: string
-        entityType:
-          $ref: "#/components/schemas/PersonalEntityTypeEnum"
-        participantRelationshipType:
-          $ref: "#/components/schemas/ParticipantRelationshipType"
-        fullName:
-          $ref: "#/components/schemas/PersonalIdentification_fullName"
-        dateOfBirth:
-          format: date
-          type: string
-        postalAddress:
-          $ref: "#/components/schemas/PostalAddress"
-        email:
-          format: email
-          type: string
-        phone:
-          description: Mobile phone number in E.164 format
-          example: "+14155551234"
-          pattern: "^\\+[1-9]\\d{1,14}$"
-          type: string
-        idNumber:
-          description: The identification number corresponding to the primary identification
-            document type specified in idType
-          type: string
-        idType:
-          $ref: "#/components/schemas/PersonalIdentificationType"
-        additionalIdNumber:
-          description: The identification number corresponding to the additional identification
-            document type specified in additionalIdType
-          type: string
-        additionalIdType:
-          $ref: "#/components/schemas/PersonalIdentificationType"
-      required:
-      - dateOfBirth
-      - entityType
-      - externalReferenceId
-      - fullName
-      - participantRelationshipType
-      - postalAddress
-      type: object
-    BusinessEntityTypeEnum:
-      enum:
-      - BUSINESS
-      type: string
-    BusinessIdentification:
-      example:
-        externalReferenceId: bus_ref_9f3e2d1c4b8a7e5f
-        entityType: BUSINESS
-        participantRelationshipType: COUNTERPARTY
-        businessName: TechCorp Solutions LLC
-        registrationNumber: TC-2023-001547
-        email: techcorp@example.com
-        phone: "+14155551234"
-        postalAddress:
-          streetAddress: 789 Innovation Drive
-          city: San Francisco
-          state: CA
-          postalCode: "94105"
-          country: US
-      properties:
-        externalReferenceId:
-          type: string
-        entityType:
-          $ref: "#/components/schemas/BusinessEntityTypeEnum"
-        participantRelationshipType:
-          $ref: "#/components/schemas/ParticipantRelationshipType"
-        businessName:
-          type: string
-        registrationNumber:
-          type: string
-        postalAddress:
-          $ref: "#/components/schemas/PostalAddress"
-        email:
-          format: email
-          type: string
-        phone:
-          description: Mobile phone number in E.164 format
-          example: "+14155551234"
-          pattern: "^\\+[1-9]\\d{1,14}$"
-          type: string
-      required:
-      - businessName
-      - entityType
-      - externalReferenceId
-      - participantRelationshipType
-      - postalAddress
-      - registrationNumber
-      type: object
-    Identification:
-      discriminator:
-        mapping:
-          INDIVIDUAL: "#/components/schemas/PersonalIdentification"
-          BUSINESS: "#/components/schemas/BusinessIdentification"
-        propertyName: entityType
-      oneOf:
-      - $ref: "#/components/schemas/PersonalIdentification"
-      - $ref: "#/components/schemas/BusinessIdentification"
-    ParticipantsIdentification:
-      description: KYC/AML participant identification
-      example:
-        originator:
-          externalReferenceId: user_123456
-          entityType: INDIVIDUAL
-          participantRelationshipType: FirstParty
-          fullName:
-            firstName: John
-            lastName: Smith
-          dateOfBirth: 1985-03-15
-          email: john.smith@example.com
-          phone: "+14155551234"
-          postalAddress:
-            streetName: Main Street
-            buildingNumber: "123"
-            postalCode: "10001"
-            city: New York
-            subdivision: NY
-            district: Manhattan
-            country: US
-        beneficiary:
-          externalReferenceId: user_789012
-          entityType: INDIVIDUAL
-          participantRelationshipType: ThirdParty
-          fullName:
-            firstName: Alice
-            lastName: Johnson
-          dateOfBirth: 1990-07-22
-          email: alice.johnson@example.com
-          phone: "+14155551234"
-          postalAddress:
-            streetName: Broadway
-            buildingNumber: "456"
-            postalCode: "10002"
-            city: New York
-            subdivision: NY
-            district: Manhattan
-            country: US
-      properties:
-        originator:
-          $ref: "#/components/schemas/Identification"
-        beneficiary:
-          $ref: "#/components/schemas/Identification"
-      type: object
     CreateOrderRequest:
       example:
         via:
@@ -69041,6 +70130,428 @@ components:
       required:
       - subsidiaryVaspId
       type: object
+    TRLinkManualDecisionAction:
+      description: Decision action for destinations in NoTRM status
+      enum:
+      - ACCEPT
+      - REJECT
+      example: ACCEPT
+      type: string
+    TRLinkManualDecisionRequest:
+      description: Request to manually accept or reject destinations stuck in NoTRM
+        status
+      example:
+        reason: Internal KYC approved
+        action: ACCEPT
+      properties:
+        action:
+          $ref: "#/components/schemas/TRLinkManualDecisionAction"
+        reason:
+          description: Optional reason for the manual decision (e.g. 'Internal KYC
+            approved'). Do not include PII.
+          example: Internal KYC approved
+          maxLength: 500
+          type: string
+      required:
+      - action
+      type: object
+    TRLinkManualDecisionSource:
+      description: Source of the manual decision
+      enum:
+      - MANUAL
+      - POLICY
+      example: MANUAL
+      type: string
+    TRLinkManualDecisionDestinationDetail:
+      description: Per-destination result of the manual decision
+      example:
+        destinationScreeningId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        applied: true
+        skipReason: skipReason
+      properties:
+        destinationScreeningId:
+          description: Destination screening record ID
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          type: string
+        applied:
+          description: Whether the decision was applied to this destination
+          example: true
+          type: boolean
+        skipReason:
+          description: Reason if the destination was skipped
+          nullable: true
+          type: string
+          example: null
+      required:
+      - applied
+      - destinationScreeningId
+      type: object
+    TRLinkManualDecisionResponse:
+      description: Response containing the result of the manual decision
+      example:
+        destinationsSkipped: 0
+        destinationsAffected: 2
+        action: ACCEPT
+        txId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+        details:
+        - destinationScreeningId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          applied: true
+          skipReason: skipReason
+        - destinationScreeningId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          applied: true
+          skipReason: skipReason
+        - destinationScreeningId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          applied: true
+          skipReason: skipReason
+        - destinationScreeningId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          applied: true
+          skipReason: skipReason
+        - destinationScreeningId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          applied: true
+          skipReason: skipReason
+        source: MANUAL
+      properties:
+        action:
+          $ref: "#/components/schemas/TRLinkManualDecisionAction"
+        source:
+          $ref: "#/components/schemas/TRLinkManualDecisionSource"
+        txId:
+          description: Transaction ID
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          type: string
+        destinationsAffected:
+          description: Number of destinations where the decision was applied
+          example: 2
+          type: integer
+        destinationsSkipped:
+          description: Number of destinations that were skipped
+          example: 0
+          type: integer
+        details:
+          description: Per-destination details
+          items:
+            $ref: "#/components/schemas/TRLinkManualDecisionDestinationDetail"
+          maxItems: 100
+          minItems: 0
+          type: array
+      required:
+      - action
+      - destinationsAffected
+      - destinationsSkipped
+      - details
+      - source
+      - txId
+      type: object
+    TRLinkRequiredField:
+      description: An IVMS101 field requirement with its type and path
+      example:
+        path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+        type: naturalPerson
+      properties:
+        type:
+          description: The person type for this field
+          example: naturalPerson
+          type: string
+        path:
+          description: IVMS101 field path
+          example: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+          type: string
+      required:
+      - path
+      - type
+      type: object
+    TRLinkRequiredActionData:
+      description: |
+        Data describing what fields are required to resolve the action.
+        The structure varies by action type and is defined by the TRP provider.
+
+        For UPLOAD_BENEFICIARY_PII action type:
+        Contains beneficiaryRequiredFields and/or originatorRequiredFields
+        listing the IVMS101 field paths that must be provided.
+      example:
+        originatorRequiredFields:
+        - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+          type: naturalPerson
+        - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+          type: naturalPerson
+        - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+          type: naturalPerson
+        - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+          type: naturalPerson
+        - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+          type: naturalPerson
+        beneficiaryRequiredFields:
+        - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+          type: naturalPerson
+        - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+          type: naturalPerson
+        - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+          type: naturalPerson
+        - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+          type: naturalPerson
+        - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+          type: naturalPerson
+      nullable: true
+      properties:
+        beneficiaryRequiredFields:
+          description: List of required beneficiary IVMS101 fields
+          items:
+            $ref: "#/components/schemas/TRLinkRequiredField"
+          maxItems: 30
+          minItems: 0
+          type: array
+        originatorRequiredFields:
+          description: List of required originator IVMS101 fields
+          items:
+            $ref: "#/components/schemas/TRLinkRequiredField"
+          maxItems: 30
+          minItems: 0
+          type: array
+      type: object
+    TRLinkRequiredAction:
+      description: A required action for processing the TRM
+      example:
+        data:
+          originatorRequiredFields:
+          - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+            type: naturalPerson
+          - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+            type: naturalPerson
+          - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+            type: naturalPerson
+          - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+            type: naturalPerson
+          - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+            type: naturalPerson
+          beneficiaryRequiredFields:
+          - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+            type: naturalPerson
+          - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+            type: naturalPerson
+          - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+            type: naturalPerson
+          - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+            type: naturalPerson
+          - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+            type: naturalPerson
+        description: Provide beneficiary PII fields to process the TR message
+        type: UPLOAD_BENEFICIARY_PII
+      properties:
+        type:
+          description: "The action type identifier as defined by the Travel Rule provider.\
+            \ Values are provider-specific and may vary across different TRP implementations,\
+            \ so this field is intentionally not restricted to a fixed set of values."
+          example: UPLOAD_BENEFICIARY_PII
+          type: string
+        description:
+          description: Human-readable description of the action
+          example: Provide beneficiary PII fields to process the TR message
+          nullable: true
+          type: string
+        data:
+          $ref: "#/components/schemas/TRLinkRequiredActionData"
+      required:
+      - type
+      type: object
+    TRLinkGetRequiredActionsResponse:
+      description: Response containing the list of required actions for a TRM
+      example:
+        actions:
+        - data:
+            originatorRequiredFields:
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            beneficiaryRequiredFields:
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+          description: Provide beneficiary PII fields to process the TR message
+          type: UPLOAD_BENEFICIARY_PII
+        - data:
+            originatorRequiredFields:
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            beneficiaryRequiredFields:
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+          description: Provide beneficiary PII fields to process the TR message
+          type: UPLOAD_BENEFICIARY_PII
+        - data:
+            originatorRequiredFields:
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            beneficiaryRequiredFields:
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+          description: Provide beneficiary PII fields to process the TR message
+          type: UPLOAD_BENEFICIARY_PII
+        - data:
+            originatorRequiredFields:
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            beneficiaryRequiredFields:
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+          description: Provide beneficiary PII fields to process the TR message
+          type: UPLOAD_BENEFICIARY_PII
+        - data:
+            originatorRequiredFields:
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            beneficiaryRequiredFields:
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+            - path: "Beneficiary.beneficiaryPerson[].naturalPerson.name.nameIdentifier[].primaryIdentifier"
+              type: naturalPerson
+          description: Provide beneficiary PII fields to process the TR message
+          type: UPLOAD_BENEFICIARY_PII
+      properties:
+        actions:
+          description: List of required actions for the TRM
+          items:
+            $ref: "#/components/schemas/TRLinkRequiredAction"
+          maxItems: 10
+          minItems: 0
+          type: array
+      required:
+      - actions
+      type: object
+    TRLinkBeneficiaryPii:
+      description: Beneficiary PII data in IVMS101 format
+      example:
+        ivms101:
+          data: aGVsbG8gd29ybGQgdGhpcyBpcyBlbmNyeXB0ZWQgZGF0YQ==
+          filledFields:
+          - "Beneficiary.beneficiaryPersons[].legalPerson.name.nameIdentifier"
+          - "Beneficiary.beneficiaryPersons[].naturalPerson.name.nameIdentifier"
+          version: IVMS101.2023
+      properties:
+        ivms101:
+          $ref: "#/components/schemas/TRLinkIvms"
+      required:
+      - ivms101
+      type: object
+    TRLinkResolveActionData:
+      description: |
+        Data to submit when resolving an action.
+        The structure varies by action type and is validated by the TRP provider.
+
+        For UPLOAD_BENEFICIARY_PII action type:
+        Contains beneficiaryPii with IVMS101-encoded PII data.
+      example:
+        beneficiaryPii:
+          ivms101:
+            data: aGVsbG8gd29ybGQgdGhpcyBpcyBlbmNyeXB0ZWQgZGF0YQ==
+            filledFields:
+            - "Beneficiary.beneficiaryPersons[].legalPerson.name.nameIdentifier"
+            - "Beneficiary.beneficiaryPersons[].naturalPerson.name.nameIdentifier"
+            version: IVMS101.2023
+      nullable: true
+      properties:
+        beneficiaryPii:
+          $ref: "#/components/schemas/TRLinkBeneficiaryPii"
+      type: object
+    TRLinkResolveActionRequest:
+      description: Request to resolve a pending TRM action
+      example:
+        data:
+          beneficiaryPii:
+            ivms101:
+              data: aGVsbG8gd29ybGQgdGhpcyBpcyBlbmNyeXB0ZWQgZGF0YQ==
+              filledFields:
+              - "Beneficiary.beneficiaryPersons[].legalPerson.name.nameIdentifier"
+              - "Beneficiary.beneficiaryPersons[].naturalPerson.name.nameIdentifier"
+              version: IVMS101.2023
+        type: UPLOAD_BENEFICIARY_PII
+      properties:
+        type:
+          description: The action type identifier as defined by the Travel Rule provider.
+            Must match one of the types returned by the get required actions endpoint.
+            Values are provider-specific and may vary across different TRP implementations.
+          example: UPLOAD_BENEFICIARY_PII
+          type: string
+        data:
+          $ref: "#/components/schemas/TRLinkResolveActionData"
+      required:
+      - type
+      type: object
     ScreeningPolicyAmountRange:
       description: Minimum and maximum amount range specification
       properties:
@@ -69325,6 +70836,7 @@ components:
       - action
       type: object
     TRLinkMissingTrmAction-2:
+      description: TRLink missing TRM action
       enum:
       - WAIT
       - REJECT
@@ -77810,6 +79322,16 @@ components:
       - $ref: "#/components/schemas/SolanaBlockchainData"
       - $ref: "#/components/schemas/EthereumBlockchainData"
       - $ref: "#/components/schemas/StEthBlockchainData"
+    PersonalIdentification_fullName:
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+      required:
+      - firstName
+      - lastName
+      type: object
     CreateQuote_scope_inner:
       oneOf:
       - $ref: "#/components/schemas/ScopeItem"
@@ -77822,16 +79344,6 @@ components:
       oneOf:
       - $ref: "#/components/schemas/MarketRequoteRequestDetails"
       - $ref: "#/components/schemas/RetryRequoteRequestDetails"
-    PersonalIdentification_fullName:
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-      required:
-      - firstName
-      - lastName
-      type: object
     PaymentInstructions_oneOf:
       allOf:
       - $ref: "#/components/schemas/FiatDestination"

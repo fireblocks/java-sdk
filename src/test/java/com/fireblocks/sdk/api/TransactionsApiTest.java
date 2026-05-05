@@ -44,8 +44,8 @@ public class TransactionsApiTest {
      * Cancel a transaction
      *
      * <p>Cancels a transaction by Fireblocks Transaction ID. Can be used only for transactions that
-     * did not get to the BROADCASTING state. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver, Editor.
+     * did not get to the BROADCASTING state. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -82,7 +82,7 @@ public class TransactionsApiTest {
      * Drop ETH (EVM) transaction by ID
      *
      * <p>Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -113,7 +113,7 @@ public class TransactionsApiTest {
      * the response will contain the transaction fee. - For other assets, the response will contain
      * the &#x60;networkFee&#x60; parameter. Learn more about Fireblocks Fee Management in the
      * following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -129,10 +129,11 @@ public class TransactionsApiTest {
      *
      * <p>Estimates the transaction fee for a specific transaction request. This endpoint simulates
      * a transaction which means that the system will expect to have the requested asset and balance
-     * in the specified wallet. **Note**: Supports all Fireblocks assets except ZCash (ZEC). Learn
-     * more about Fireblocks Fee Management in the following
-     * [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee).
-     * &lt;/br&gt;Endpoint Permission: Admin, Signer, Approver, Editor.
+     * in the specified wallet. **Note**: Supports all Fireblocks assets except ZCash (ZEC). The
+     * PROGRAM_CALL operation is not supported by this endpoint — fee estimation for Solana program
+     * calls is not available. Learn more about Fireblocks Fee Management in the following
+     * [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint
+     * Permission: Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -149,8 +150,8 @@ public class TransactionsApiTest {
      *
      * <p>Freezes a transaction by ID. Usually used for AML integrations when the incoming funds
      * should be quarantined. For account based assets - the entire amount of the transaction is
-     * frozen For UTXO based assets - all UTXOs of the specified transaction are frozen
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * frozen For UTXO based assets - all UTXOs of the specified transaction are frozen Endpoint
+     * Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -166,8 +167,8 @@ public class TransactionsApiTest {
     /**
      * Get a specific transaction by Fireblocks transaction ID
      *
-     * <p>Get a specific transaction data by Fireblocks Transaction ID &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * <p>Get a specific transaction data by Fireblocks Transaction ID Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -180,8 +181,8 @@ public class TransactionsApiTest {
     /**
      * Get a specific transaction by external transaction ID
      *
-     * <p>Returns transaction by external transaction ID. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * <p>Returns transaction by external transaction ID. Endpoint Permission: Admin, Non-Signing
+     * Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -242,7 +243,7 @@ public class TransactionsApiTest {
      * Set confirmation threshold by transaction hash
      *
      * <p>Overrides the required number of confirmations for transaction completion by transaction
-     * hash. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * hash. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -260,8 +261,7 @@ public class TransactionsApiTest {
      * Set confirmation threshold by Fireblocks Transaction ID
      *
      * <p>Overrides the required number of confirmations for transaction completion Fireblocks
-     * Transaction ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
-     * Editor.
+     * Transaction ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -279,7 +279,7 @@ public class TransactionsApiTest {
      * Unfreeze a transaction
      *
      * <p>Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available
-     * again. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * again. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -295,7 +295,7 @@ public class TransactionsApiTest {
     /**
      * Validate destination address
      *
-     * <p>Checks if an address is valid and active (for XRP, DOT, XLM, and EOS). &lt;/br&gt;Endpoint
+     * <p>Checks if an address is valid and active (for XRP, DOT, XLM, and EOS). Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails

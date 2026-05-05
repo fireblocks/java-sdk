@@ -35,8 +35,8 @@ public class ConnectedAccountsBetaApiTest {
     /**
      * Disconnect connected account
      *
-     * <p>Disconnect a connected account by ID. &lt;/br&gt; **Note**: - This endpoint is currently
-     * in beta and might be subject to changes.
+     * <p>Disconnect a connected account by ID. **Note**: - This endpoint is currently in beta and
+     * might be subject to changes.
      *
      * @throws ApiException if the Api call fails
      */

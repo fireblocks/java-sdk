@@ -34,8 +34,8 @@ public class UserGroupsBetaApiTest {
     /**
      * Create user group
      *
-     * <p>Create a new user group. Users with the Viewer role cannot be added to groups.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * <p>Create a new user group. Users with the Viewer role cannot be added to groups. Endpoint
+     * Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -50,9 +50,9 @@ public class UserGroupsBetaApiTest {
     /**
      * Delete user group
      *
-     * <p>Delete a user group by ID.&lt;/br&gt; **Note**: - This endpoint is now in Beta, disabled
-     * for general availability at this time. - Please note that this endpoint is available only for
-     * API keys with Admin permissions.
+     * <p>Delete a user group by ID. **Note**: - This endpoint is now in Beta, disabled for general
+     * availability at this time. - Please note that this endpoint is available only for API keys
+     * with Admin permissions.
      *
      * @throws ApiException if the Api call fails
      */
@@ -66,9 +66,9 @@ public class UserGroupsBetaApiTest {
     /**
      * Get user group
      *
-     * <p>Get a user group by ID.&lt;/br&gt; **Note**: - This endpoint is now in Beta, disabled for
-     * general availability at this time. - Please note that this endpoint is available only for API
-     * keys with Admin permissions.
+     * <p>Get a user group by ID. **Note**: - This endpoint is now in Beta, disabled for general
+     * availability at this time. - Please note that this endpoint is available only for API keys
+     * with Admin permissions.
      *
      * @throws ApiException if the Api call fails
      */
@@ -82,7 +82,7 @@ public class UserGroupsBetaApiTest {
      * List user groups
      *
      * <p>Get all user groups in your workspace - Please note that this endpoint is available only
-     * for API keys with Admin/Non Signing Admin permissions. &lt;/br&gt;Endpoint Permission: Admin,
+     * for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin,
      * Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
@@ -95,9 +95,9 @@ public class UserGroupsBetaApiTest {
     /**
      * Update user group
      *
-     * <p>Update a user group by ID.&lt;/br&gt; **Note**: - This endpoint is now in Beta, disabled
-     * for general availability at this time. - Please note that this endpoint is available only for
-     * API keys with Admin permissions.
+     * <p>Update a user group by ID. **Note**: - This endpoint is now in Beta, disabled for general
+     * availability at this time. - Please note that this endpoint is available only for API keys
+     * with Admin permissions.
      *
      * @throws ApiException if the Api call fails
      */

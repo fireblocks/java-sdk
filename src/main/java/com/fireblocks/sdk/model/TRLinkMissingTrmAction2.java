@@ -16,7 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets TRLinkMissingTrmAction-2 */
+/** TRLink missing TRM action */
 public enum TRLinkMissingTrmAction2 {
     WAIT("WAIT"),
 

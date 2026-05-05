@@ -34,8 +34,8 @@ public class ExternalWalletsApiTest {
     /**
      * Add an asset to an external wallet.
      *
-     * <p>Adds an asset to an existing external wallet. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor.
+     * <p>Adds an asset to an existing external wallet. Endpoint Permission: Admin, Non-Signing
+     * Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -56,8 +56,8 @@ public class ExternalWalletsApiTest {
      * <p>Creates a new external wallet with the requested name. External Wallet is a whitelisted
      * address of a wallet that belongs to your users/counterparties. - You cannot see the balance
      * of the external wallet. - You cannot initiate transactions from an external wallet as the
-     * source via Fireblocks. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer,
-     * Approver, Editor.
+     * source via Fireblocks. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
+     * Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -73,8 +73,8 @@ public class ExternalWalletsApiTest {
      * Delete an external wallet
      *
      * <p>Deletes an external wallet by ID. External Wallet is a whitelisted address of a wallet
-     * that belongs to your users/counterparties. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver, Editor.
+     * that belongs to your users/counterparties. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -89,8 +89,8 @@ public class ExternalWalletsApiTest {
      * Find an external wallet
      *
      * <p>Returns an external wallet by ID. External Wallet is a whitelisted address of a wallet
-     * that belongs to your users/counterparties. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver, Editor, Viewer.
+     * that belongs to your users/counterparties. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -104,8 +104,8 @@ public class ExternalWalletsApiTest {
      * Get an asset from an external wallet
      *
      * <p>Returns an external wallet by wallet ID and asset ID. External Wallet is a whitelisted
-     * address of a wallet that belongs to your users/counterparties. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * address of a wallet that belongs to your users/counterparties. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -123,8 +123,8 @@ public class ExternalWalletsApiTest {
      * <p>Gets a list of external wallets under the workspace. External Wallet is a whitelisted
      * address of a wallet that belongs to your users/counterparties. - You cannot see the balance
      * of the external wallet. - You cannot initiate transactions from an external wallet as the
-     * source via Fireblocks. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer,
-     * Approver, Editor, Viewer.
+     * source via Fireblocks. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
+     * Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -136,8 +136,8 @@ public class ExternalWalletsApiTest {
     /**
      * Delete an asset from an external wallet
      *
-     * <p>Deletes an external wallet asset by ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver, Editor.
+     * <p>Deletes an external wallet asset by ID. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -154,8 +154,8 @@ public class ExternalWalletsApiTest {
      * Set an AML customer reference ID for an external wallet
      *
      * <p>Sets an AML/KYT customer reference ID for the specific external wallet. External Wallet is
-     * a whitelisted address of a wallet that belongs to your users/counterparties.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * a whitelisted address of a wallet that belongs to your users/counterparties. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */

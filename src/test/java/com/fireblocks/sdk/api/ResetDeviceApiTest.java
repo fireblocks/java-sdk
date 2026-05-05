@@ -30,7 +30,7 @@ public class ResetDeviceApiTest {
      *
      * <p>Resets mobile device for given console user, that user will need to do mobile onboarding
      * again. - Please note that this endpoint is available only for API keys with Admin/Non Signing
-     * Admin permissions. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */

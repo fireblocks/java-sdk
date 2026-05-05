@@ -159,12 +159,12 @@ public class StakingApi {
     }
     /**
      * Claim accrued rewards Claims available staking rewards for the specified chain and vault.
-     * Supported chains: Solana and Polygon (Matic). Behavior depends on protocol reward
+     * Supported chains: Solana and Polygon (POL/Matic). Behavior depends on protocol reward
      * distribution.
      *
      * @param claimRewardsRequest (required)
      * @param chainDescriptor Protocol identifier for the claim rewards staking operation (e.g.,
-     *     MATIC/SOL). (required)
+     *     POL/MATIC/SOL). (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
@@ -242,12 +242,11 @@ public class StakingApi {
     /**
      * Consolidate staking positions (ETH validator consolidation) Consolidates the source staking
      * position into the destination, merging the balance into the destination and closing the
-     * source position once complete. Both positions must be from the same funding vaults account
-     * (i.e. same withdrawals credentials). On chain, this translates into a consolidation
-     * transaction, where the source validator is consolidated into the destination validator.
-     * Supported chains: Ethereum (ETH) only. &lt;/br&gt;Endpoint Permission: Owner, Admin,
-     * Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and
-     * might be subject to changes.
+     * source position once complete. Both positions must be from the same vault account (i.e. same
+     * withdrawal credentials). On chain, this translates into a consolidation transaction, where
+     * the source validator is consolidated into the destination validator. Supported chains:
+     * Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver,
+     * Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
      *
      * @param mergeStakeAccountsRequest (required)
      * @param chainDescriptor Protocol identifier for the staking operation (e.g., ETH). (required)
@@ -342,12 +341,11 @@ public class StakingApi {
     }
     /**
      * List staking positions Returns all staking positions with core details: amounts, rewards,
-     * status, chain, and vault. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer,
-     * Approver, Editor.
+     * status, chain, and vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
+     * Editor.
      *
-     * @param chainDescriptor Protocol identifier to filter positions (e.g.,
-     *     ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
-     *     (optional)
+     * @param chainDescriptor Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA).
+     *     If omitted, positions across all supported chains are returned. (optional)
      * @param vaultAccountId Filter positions by vault account ID. (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;List&lt;Delegation&gt;&gt;&gt;
      * @throws ApiException if fails to make API call
@@ -502,8 +500,8 @@ public class StakingApi {
     }
     /**
      * List supported staking chains Returns an alphabetical list of blockchains supported for
-     * staking by the current workspace context. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver, Editor.
+     * staking by the current workspace context. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;List&lt;ChainDescriptor&gt;&gt;&gt;
      * @throws ApiException if fails to make API call
@@ -632,13 +630,12 @@ public class StakingApi {
      * List staking positions (Paginated) Returns staking positions with core details: amounts,
      * rewards, status, chain, and vault. It supports cursor-based pagination for efficient data
      * retrieval. This endpoint always returns a paginated response with {data, next} structure.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param pageSize Number of results per page. When provided, the response returns a paginated
      *     object with {data, next}. If omitted, all results are returned as an array. (required)
-     * @param chainDescriptor Protocol identifier to filter positions (e.g.,
-     *     ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
-     *     (optional)
+     * @param chainDescriptor Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA).
+     *     If omitted, positions across all supported chains are returned. (optional)
      * @param vaultAccountId Filter positions by Fireblocks vault account ID. If omitted, positions
      *     across all vault accounts are returned. (optional)
      * @param pageCursor Cursor for the next page of results. Use the value from the &#39;next&#39;
@@ -742,8 +739,8 @@ public class StakingApi {
     }
     /**
      * List staking providers Returns all available staking providers with metadata such as name,
-     * ID, and supported chains. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer,
-     * Approver, Editor.
+     * ID, and supported chains. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
+     * Editor.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;List&lt;Provider&gt;&gt;&gt;
      * @throws ApiException if fails to make API call
@@ -931,8 +928,7 @@ public class StakingApi {
      * Merge staking positions Merges the source stake account into the destination, consolidating
      * the balance into the destination and closing the source account once complete. Both accounts
      * must be from the same validator provider and of same vault account.. Supported chains: Solana
-     * (SOL). &lt;/br&gt;Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver,
-     * Editor.
+     * (SOL). Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param mergeStakeAccountsRequest (required)
      * @param chainDescriptor Protocol identifier for the merge staking operation (e.g., SOL).
@@ -1122,8 +1118,8 @@ public class StakingApi {
      * position. For Ethereum legacy validator: creates a new position regardless of existing
      * delegations. For Cosmos chains and Ethereum liquid staking (Lido): automatically add to
      * existing positions for the same validator provider and same vault account if one exists,
-     * otherwise create a new position. For Solana and Polygon: always create new positions
-     * regardless of existing delegations.
+     * otherwise create a new position. For Solana and Polygon (MATIC/POL): always create new
+     * positions regardless of existing delegations.
      *
      * @param stakeRequest (required)
      * @param chainDescriptor Protocol identifier for the stake staking operation (e.g.,
@@ -1289,7 +1285,10 @@ public class StakingApi {
     /**
      * Withdraw staked funds Withdraws funds that have completed the unbonding period. Typically
      * requires the position to be deactivated first (unstake → unbond → withdraw). Amount and
-     * timing vary by chain protocol.
+     * timing vary by chain protocol. Partial withdrawal is supported for ETH compounding validators
+     * (EIP-7251/Pectra) and Cosmos chains via the optional &#39;amount&#39; field. For ETH
+     * compounding validators, the remaining balance must be at least 32 ETH after the withdrawal.
+     * For all other chains, omitting &#39;amount&#39; withdraws the entire available balance.
      *
      * @param withdrawRequest (required)
      * @param chainDescriptor Protocol identifier for the withdraw staking operation (e.g.,
