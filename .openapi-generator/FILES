@@ -159,6 +159,8 @@ docs/ChannelDvnConfigWithConfirmations.md
 docs/ChapsAddress.md
 docs/ChapsDestination.md
 docs/ChapsPaymentInfo.md
+docs/CircleGatewayWalletInfoResponse.md
+docs/CircleGatewayWalletStatusResponse.md
 docs/ClaimRewardsRequest.md
 docs/CollectionBurnRequestDto.md
 docs/CollectionBurnResponseDto.md
@@ -245,6 +247,8 @@ docs/ConvertAssetsResponse.md
 docs/Cosigner.md
 docs/CosignersBetaApi.md
 docs/CosignersPaginatedResponse.md
+docs/CounterpartyGroup.md
+docs/CounterpartyGroupsPaginatedResponse.md
 docs/CreateAPIUser.md
 docs/CreateAddressRequest.md
 docs/CreateAddressResponse.md
@@ -255,6 +259,7 @@ docs/CreateConnectionResponse.md
 docs/CreateConsoleUser.md
 docs/CreateContractRequest.md
 docs/CreateConversionConfigOperationRequest.md
+docs/CreateCounterpartyGroupRequest.md
 docs/CreateDisbursementConfigOperationRequest.md
 docs/CreateEarnActionRequest.md
 docs/CreateEarnActionResponse.md
@@ -851,6 +856,7 @@ docs/TRLinkAsset.md
 docs/TRLinkAssetData.md
 docs/TRLinkAssetFormat.md
 docs/TRLinkAssetsListPagedResponse.md
+docs/TRLinkBeneficiaryPii.md
 docs/TRLinkCancelTrmRequest.md
 docs/TRLinkConnectIntegrationRequest.md
 docs/TRLinkCreateCustomerRequest.md
@@ -862,10 +868,16 @@ docs/TRLinkDestinationTransferPeerPath.md
 docs/TRLinkDiscoverableStatus.md
 docs/TRLinkFiatValue.md
 docs/TRLinkGeographicAddressRequest.md
+docs/TRLinkGetRequiredActionsResponse.md
 docs/TRLinkGetSupportedAssetResponse.md
 docs/TRLinkIvms.md
 docs/TRLinkIvmsResponse.md
 docs/TRLinkJwkPublicKey.md
+docs/TRLinkManualDecisionAction.md
+docs/TRLinkManualDecisionDestinationDetail.md
+docs/TRLinkManualDecisionRequest.md
+docs/TRLinkManualDecisionResponse.md
+docs/TRLinkManualDecisionSource.md
 docs/TRLinkMissingTrmAction.md
 docs/TRLinkMissingTrmAction2.md
 docs/TRLinkMissingTrmActionEnum.md
@@ -895,6 +907,11 @@ docs/TRLinkRegistrationResult.md
 docs/TRLinkRegistrationResultFullPayload.md
 docs/TRLinkRegistrationStatus.md
 docs/TRLinkRegistrationStatusEnum.md
+docs/TRLinkRequiredAction.md
+docs/TRLinkRequiredActionData.md
+docs/TRLinkRequiredField.md
+docs/TRLinkResolveActionData.md
+docs/TRLinkResolveActionRequest.md
 docs/TRLinkResult.md
 docs/TRLinkResultFullPayload.md
 docs/TRLinkRuleBase.md
@@ -1046,6 +1063,7 @@ docs/UnstakeRequest.md
 docs/UpdateAssetUserMetadataRequest.md
 docs/UpdateCallbackHandlerRequest.md
 docs/UpdateCallbackHandlerResponse.md
+docs/UpdateCounterpartyGroupRequest.md
 docs/UpdateDraftRequest.md
 docs/UpdateLegalEntityRequest.md
 docs/UpdateTagRequest.md
@@ -1337,6 +1355,8 @@ src/main/java/com/fireblocks/sdk/model/ChannelDvnConfigWithConfirmations.java
 src/main/java/com/fireblocks/sdk/model/ChapsAddress.java
 src/main/java/com/fireblocks/sdk/model/ChapsDestination.java
 src/main/java/com/fireblocks/sdk/model/ChapsPaymentInfo.java
+src/main/java/com/fireblocks/sdk/model/CircleGatewayWalletInfoResponse.java
+src/main/java/com/fireblocks/sdk/model/CircleGatewayWalletStatusResponse.java
 src/main/java/com/fireblocks/sdk/model/ClaimRewardsRequest.java
 src/main/java/com/fireblocks/sdk/model/CollectionBurnRequestDto.java
 src/main/java/com/fireblocks/sdk/model/CollectionBurnResponseDto.java
@@ -1415,6 +1435,8 @@ src/main/java/com/fireblocks/sdk/model/ConvertAssetsRequest.java
 src/main/java/com/fireblocks/sdk/model/ConvertAssetsResponse.java
 src/main/java/com/fireblocks/sdk/model/Cosigner.java
 src/main/java/com/fireblocks/sdk/model/CosignersPaginatedResponse.java
+src/main/java/com/fireblocks/sdk/model/CounterpartyGroup.java
+src/main/java/com/fireblocks/sdk/model/CounterpartyGroupsPaginatedResponse.java
 src/main/java/com/fireblocks/sdk/model/CreateAPIUser.java
 src/main/java/com/fireblocks/sdk/model/CreateAddressRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateAddressResponse.java
@@ -1425,6 +1447,7 @@ src/main/java/com/fireblocks/sdk/model/CreateConnectionResponse.java
 src/main/java/com/fireblocks/sdk/model/CreateConsoleUser.java
 src/main/java/com/fireblocks/sdk/model/CreateContractRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateConversionConfigOperationRequest.java
+src/main/java/com/fireblocks/sdk/model/CreateCounterpartyGroupRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateDisbursementConfigOperationRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateEarnActionRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateEarnActionResponse.java
@@ -2000,6 +2023,7 @@ src/main/java/com/fireblocks/sdk/model/TRLinkAsset.java
 src/main/java/com/fireblocks/sdk/model/TRLinkAssetData.java
 src/main/java/com/fireblocks/sdk/model/TRLinkAssetFormat.java
 src/main/java/com/fireblocks/sdk/model/TRLinkAssetsListPagedResponse.java
+src/main/java/com/fireblocks/sdk/model/TRLinkBeneficiaryPii.java
 src/main/java/com/fireblocks/sdk/model/TRLinkCancelTrmRequest.java
 src/main/java/com/fireblocks/sdk/model/TRLinkConnectIntegrationRequest.java
 src/main/java/com/fireblocks/sdk/model/TRLinkCreateCustomerRequest.java
@@ -2011,10 +2035,16 @@ src/main/java/com/fireblocks/sdk/model/TRLinkDestinationTransferPeerPath.java
 src/main/java/com/fireblocks/sdk/model/TRLinkDiscoverableStatus.java
 src/main/java/com/fireblocks/sdk/model/TRLinkFiatValue.java
 src/main/java/com/fireblocks/sdk/model/TRLinkGeographicAddressRequest.java
+src/main/java/com/fireblocks/sdk/model/TRLinkGetRequiredActionsResponse.java
 src/main/java/com/fireblocks/sdk/model/TRLinkGetSupportedAssetResponse.java
 src/main/java/com/fireblocks/sdk/model/TRLinkIvms.java
 src/main/java/com/fireblocks/sdk/model/TRLinkIvmsResponse.java
 src/main/java/com/fireblocks/sdk/model/TRLinkJwkPublicKey.java
+src/main/java/com/fireblocks/sdk/model/TRLinkManualDecisionAction.java
+src/main/java/com/fireblocks/sdk/model/TRLinkManualDecisionDestinationDetail.java
+src/main/java/com/fireblocks/sdk/model/TRLinkManualDecisionRequest.java
+src/main/java/com/fireblocks/sdk/model/TRLinkManualDecisionResponse.java
+src/main/java/com/fireblocks/sdk/model/TRLinkManualDecisionSource.java
 src/main/java/com/fireblocks/sdk/model/TRLinkMissingTrmAction.java
 src/main/java/com/fireblocks/sdk/model/TRLinkMissingTrmAction2.java
 src/main/java/com/fireblocks/sdk/model/TRLinkMissingTrmActionEnum.java
@@ -2044,6 +2074,11 @@ src/main/java/com/fireblocks/sdk/model/TRLinkRegistrationResult.java
 src/main/java/com/fireblocks/sdk/model/TRLinkRegistrationResultFullPayload.java
 src/main/java/com/fireblocks/sdk/model/TRLinkRegistrationStatus.java
 src/main/java/com/fireblocks/sdk/model/TRLinkRegistrationStatusEnum.java
+src/main/java/com/fireblocks/sdk/model/TRLinkRequiredAction.java
+src/main/java/com/fireblocks/sdk/model/TRLinkRequiredActionData.java
+src/main/java/com/fireblocks/sdk/model/TRLinkRequiredField.java
+src/main/java/com/fireblocks/sdk/model/TRLinkResolveActionData.java
+src/main/java/com/fireblocks/sdk/model/TRLinkResolveActionRequest.java
 src/main/java/com/fireblocks/sdk/model/TRLinkResult.java
 src/main/java/com/fireblocks/sdk/model/TRLinkResultFullPayload.java
 src/main/java/com/fireblocks/sdk/model/TRLinkRuleBase.java
@@ -2189,6 +2224,7 @@ src/main/java/com/fireblocks/sdk/model/UnstakeRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateAssetUserMetadataRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateCallbackHandlerRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateCallbackHandlerResponse.java
+src/main/java/com/fireblocks/sdk/model/UpdateCounterpartyGroupRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateDraftRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateLegalEntityRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateTagRequest.java
@@ -2448,6 +2484,8 @@ src/test/java/com/fireblocks/sdk/model/ChannelDvnConfigWithConfirmationsTest.jav
 src/test/java/com/fireblocks/sdk/model/ChapsAddressTest.java
 src/test/java/com/fireblocks/sdk/model/ChapsDestinationTest.java
 src/test/java/com/fireblocks/sdk/model/ChapsPaymentInfoTest.java
+src/test/java/com/fireblocks/sdk/model/CircleGatewayWalletInfoResponseTest.java
+src/test/java/com/fireblocks/sdk/model/CircleGatewayWalletStatusResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ClaimRewardsRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CollectionBurnRequestDtoTest.java
 src/test/java/com/fireblocks/sdk/model/CollectionBurnResponseDtoTest.java
@@ -2526,6 +2564,8 @@ src/test/java/com/fireblocks/sdk/model/ConvertAssetsRequestTest.java
 src/test/java/com/fireblocks/sdk/model/ConvertAssetsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/CosignerTest.java
 src/test/java/com/fireblocks/sdk/model/CosignersPaginatedResponseTest.java
+src/test/java/com/fireblocks/sdk/model/CounterpartyGroupTest.java
+src/test/java/com/fireblocks/sdk/model/CounterpartyGroupsPaginatedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/CreateAPIUserTest.java
 src/test/java/com/fireblocks/sdk/model/CreateAddressRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateAddressResponseTest.java
@@ -2536,6 +2576,7 @@ src/test/java/com/fireblocks/sdk/model/CreateConnectionResponseTest.java
 src/test/java/com/fireblocks/sdk/model/CreateConsoleUserTest.java
 src/test/java/com/fireblocks/sdk/model/CreateContractRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateConversionConfigOperationRequestTest.java
+src/test/java/com/fireblocks/sdk/model/CreateCounterpartyGroupRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateDisbursementConfigOperationRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateEarnActionRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateEarnActionResponseTest.java
@@ -3111,6 +3152,7 @@ src/test/java/com/fireblocks/sdk/model/TRLinkAssetDataTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkAssetFormatTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkAssetTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkAssetsListPagedResponseTest.java
+src/test/java/com/fireblocks/sdk/model/TRLinkBeneficiaryPiiTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkCancelTrmRequestTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkConnectIntegrationRequestTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkCreateCustomerRequestTest.java
@@ -3122,10 +3164,16 @@ src/test/java/com/fireblocks/sdk/model/TRLinkDestinationTransferPeerPathTest.jav
 src/test/java/com/fireblocks/sdk/model/TRLinkDiscoverableStatusTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkFiatValueTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkGeographicAddressRequestTest.java
+src/test/java/com/fireblocks/sdk/model/TRLinkGetRequiredActionsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkGetSupportedAssetResponseTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkIvmsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkIvmsTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkJwkPublicKeyTest.java
+src/test/java/com/fireblocks/sdk/model/TRLinkManualDecisionActionTest.java
+src/test/java/com/fireblocks/sdk/model/TRLinkManualDecisionDestinationDetailTest.java
+src/test/java/com/fireblocks/sdk/model/TRLinkManualDecisionRequestTest.java
+src/test/java/com/fireblocks/sdk/model/TRLinkManualDecisionResponseTest.java
+src/test/java/com/fireblocks/sdk/model/TRLinkManualDecisionSourceTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkMissingTrmAction2Test.java
 src/test/java/com/fireblocks/sdk/model/TRLinkMissingTrmActionEnumTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkMissingTrmActionTest.java
@@ -3155,6 +3203,11 @@ src/test/java/com/fireblocks/sdk/model/TRLinkRegistrationResultFullPayloadTest.j
 src/test/java/com/fireblocks/sdk/model/TRLinkRegistrationResultTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkRegistrationStatusEnumTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkRegistrationStatusTest.java
+src/test/java/com/fireblocks/sdk/model/TRLinkRequiredActionDataTest.java
+src/test/java/com/fireblocks/sdk/model/TRLinkRequiredActionTest.java
+src/test/java/com/fireblocks/sdk/model/TRLinkRequiredFieldTest.java
+src/test/java/com/fireblocks/sdk/model/TRLinkResolveActionDataTest.java
+src/test/java/com/fireblocks/sdk/model/TRLinkResolveActionRequestTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkResultFullPayloadTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkResultTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkRuleBaseTest.java
@@ -3300,6 +3353,7 @@ src/test/java/com/fireblocks/sdk/model/UnstakeRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateAssetUserMetadataRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateCallbackHandlerRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateCallbackHandlerResponseTest.java
+src/test/java/com/fireblocks/sdk/model/UpdateCounterpartyGroupRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateDraftRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateLegalEntityRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateTagRequestTest.java

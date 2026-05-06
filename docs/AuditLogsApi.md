@@ -14,7 +14,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Get audit logs
 
-Get Audit logs for the last Day/Week.  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+Get Audit logs for the last Day/Week.  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

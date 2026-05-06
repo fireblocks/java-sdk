@@ -42,6 +42,10 @@ public enum ChainDescriptor {
 
     OSMO("OSMO"),
 
+    POL("POL"),
+
+    POL_TEST("POL_TEST"),
+
     SOL("SOL"),
 
     SOL_TEST("SOL_TEST"),

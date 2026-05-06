@@ -15,6 +15,8 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.CircleGatewayWalletInfoResponse;
+import com.fireblocks.sdk.model.CircleGatewayWalletStatusResponse;
 import com.fireblocks.sdk.model.CreateAddressRequest;
 import com.fireblocks.sdk.model.CreateAddressResponse;
 import com.fireblocks.sdk.model.CreateAssetsRequest;
@@ -60,8 +62,8 @@ public class VaultsApiTest {
      * Activate a wallet in a vault account
      *
      * <p>Initiates activation for a wallet in a vault account. Activation is required for tokens
-     * that need an on-chain transaction for creation (XLM tokens, SOL tokens etc).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -74,6 +76,24 @@ public class VaultsApiTest {
         CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response =
                 api.activateAssetForVaultAccount(
                         vaultAccountId, assetId, idempotencyKey, blockchainWalletType);
+    }
+
+    /**
+     * Activate a Circle Gateway wallet
+     *
+     * <p>Activates the Circle Gateway wallet associated with the given vault account. If the wallet
+     * does not yet exist it is created in an activated state. **Note:** This endpoint is currently
+     * in beta and might be subject to changes. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
+     * Admin, Signer, Approver.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void activateCircleGatewayWalletBetaTest() throws ApiException {
+        String vaultAccountId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>> response =
+                api.activateCircleGatewayWalletBeta(vaultAccountId, idempotencyKey);
     }
 
     /**
@@ -98,8 +118,8 @@ public class VaultsApiTest {
     /**
      * Convert a segwit address to legacy format
      *
-     * <p>Converts an existing segwit address to the legacy format. &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * <p>Converts an existing segwit address to the legacy format. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -156,8 +176,8 @@ public class VaultsApiTest {
      *
      * <p>Creates a new vault account with the requested name. **Note: ** Vault account names should
      * consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following
-     * [guide](https://developers.fireblocks.com/reference/create-vault-account).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * [guide](https://developers.fireblocks.com/reference/create-vault-account). Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -174,7 +194,7 @@ public class VaultsApiTest {
      *
      * <p>Creates a wallet for a specific asset in a vault account. Learn more about Fireblocks
      * Vault Wallets in the following
-     * [guide](https://developers.fireblocks.com/reference/create-vault-wallet). &lt;/br&gt;Endpoint
+     * [guide](https://developers.fireblocks.com/reference/create-vault-wallet). Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
@@ -199,7 +219,7 @@ public class VaultsApiTest {
      * Create new asset deposit address
      *
      * <p>Creates a new deposit address for an asset of a vault account. Should be used for UTXO or
-     * Tag/Memo based assets ONLY. Requests with account based assets will fail. &lt;/br&gt;Endpoint
+     * Tag/Memo based assets ONLY. Requests with account based assets will fail. Endpoint
      * Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
@@ -216,11 +236,28 @@ public class VaultsApiTest {
     }
 
     /**
+     * Deactivate a Circle Gateway wallet
+     *
+     * <p>Deactivates the Circle Gateway wallet associated with the given vault account. **Note:**
+     * This endpoint is currently in beta and might be subject to changes. &lt;/br&gt;Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void deactivateCircleGatewayWalletBetaTest() throws ApiException {
+        String vaultAccountId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>> response =
+                api.deactivateCircleGatewayWalletBeta(vaultAccountId, idempotencyKey);
+    }
+
+    /**
      * Get vault wallets (Paginated)
      *
      * <p>Get all vault wallets of the vault accounts in your workspace. A vault wallet is an asset
-     * in a vault account. This method allows fast traversal of all account balances.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * in a vault account. This method allows fast traversal of all account balances. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -234,6 +271,22 @@ public class VaultsApiTest {
         BigDecimal limit = null;
         CompletableFuture<ApiResponse<PaginatedAssetWalletResponse>> response =
                 api.getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit);
+    }
+
+    /**
+     * Get Circle Gateway wallet info
+     *
+     * <p>Returns the Circle Gateway wallet information associated with the given vault account.
+     * **Note:** This endpoint is currently in beta and might be subject to changes.
+     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getCircleGatewayWalletInfoBetaTest() throws ApiException {
+        String vaultAccountId = null;
+        CompletableFuture<ApiResponse<CircleGatewayWalletInfoResponse>> response =
+                api.getCircleGatewayWalletInfoBeta(vaultAccountId);
     }
 
     /**
@@ -305,8 +358,8 @@ public class VaultsApiTest {
      * Get vault accounts (Paginated)
      *
      * <p>Gets all vault accounts in your workspace. This endpoint returns a limited amount of
-     * results with a quick response time. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin,
-     * Signer, Approver, Editor, Viewer.
+     * results with a quick response time. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -341,8 +394,8 @@ public class VaultsApiTest {
     /**
      * Get the public key for a derivation path
      *
-     * <p>Gets the public key information based on derivation path and signing algorithm.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * <p>Gets the public key information based on derivation path and signing algorithm. Endpoint
+     * Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -358,8 +411,8 @@ public class VaultsApiTest {
     /**
      * Get an asset&#39;s public key
      *
-     * <p>Get the public key information for a specific asset in a vault account.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * <p>Get the public key information for a specific asset in a vault account. Endpoint
+     * Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -378,8 +431,8 @@ public class VaultsApiTest {
     /**
      * Get UTXO unspent inputs information
      *
-     * <p>Returns unspent inputs information of an UTXO asset in a vault account.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * <p>Returns unspent inputs information of an UTXO asset in a vault account. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -394,8 +447,8 @@ public class VaultsApiTest {
     /**
      * Get a vault account by ID
      *
-     * <p>Get a vault account by its unique ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver, Editor, Viewer.
+     * <p>Get a vault account by its unique ID. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -408,8 +461,8 @@ public class VaultsApiTest {
     /**
      * Get the asset balance for a vault account
      *
-     * <p>Returns a specific vault wallet balance information for a specific asset.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * <p>Returns a specific vault wallet balance information for a specific asset. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -425,7 +478,7 @@ public class VaultsApiTest {
      * Get addresses (Paginated)
      *
      * <p>Returns a paginated response of the addresses for a given vault account and asset.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -444,8 +497,8 @@ public class VaultsApiTest {
     /**
      * Get asset balance for chosen assets
      *
-     * <p>Gets the assets amount summary for all accounts or filtered accounts. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * <p>Gets the assets amount summary for all accounts or filtered accounts. Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -460,8 +513,8 @@ public class VaultsApiTest {
     /**
      * Get vault balance by an asset
      *
-     * <p>Get the total balance of an asset across all the vault accounts. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * <p>Get the total balance of an asset across all the vault accounts. Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -479,8 +532,8 @@ public class VaultsApiTest {
      * web console to be swamped with too much vault accounts. Learn more in the following
      * [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts).
      * NOTE: Hiding the vault account from the web console will also hide all the related
-     * transactions to/from this vault. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin,
-     * Signer, Approver, Editor.
+     * transactions to/from this vault. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -495,8 +548,8 @@ public class VaultsApiTest {
     /**
      * Assign AML customer reference ID
      *
-     * <p>Sets an AML/KYT customer reference ID for a specific address. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin.
+     * <p>Sets an AML/KYT customer reference ID for a specific address. Endpoint Permission: Admin,
+     * Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -522,8 +575,8 @@ public class VaultsApiTest {
      * <p>Toggles the auto fueling property of the vault account to enabled or disabled. Vault
      * Accounts with &#39;autoFuel&#x3D;true&#39; are monitored and auto fueled by the Fireblocks
      * Gas Station. Learn more about the Fireblocks Gas Station in the following
-     * [guide](https://developers.fireblocks.com/docs/work-with-gas-station). &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -541,8 +594,8 @@ public class VaultsApiTest {
      *
      * <p>Assigns an AML/KYT customer reference ID for the vault account. Learn more about
      * Fireblocks AML management in the following
-     * [guide](https://developers.fireblocks.com/docs/define-aml-policies). &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin.
+     * [guide](https://developers.fireblocks.com/docs/define-aml-policies). Endpoint Permission:
+     * Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -559,8 +612,8 @@ public class VaultsApiTest {
     /**
      * Unhide a vault account in the console
      *
-     * <p>Makes a hidden vault account visible in web console view. &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * <p>Makes a hidden vault account visible in web console view. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -575,8 +628,8 @@ public class VaultsApiTest {
     /**
      * Rename a vault account
      *
-     * <p>Renames the requested vault account. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver.
+     * <p>Renames the requested vault account. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver.
      *
      * @throws ApiException if the Api call fails
      */
@@ -592,8 +645,8 @@ public class VaultsApiTest {
     /**
      * Update address description
      *
-     * <p>Updates the description of an existing address of an asset in a vault account.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * <p>Updates the description of an existing address of an asset in a vault account. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -617,8 +670,8 @@ public class VaultsApiTest {
      * Refresh asset balance data
      *
      * <p>Updates the balance of a specific asset in a vault account. This API endpoint is subject
-     * to a strict rate limit. Should be used by clients in very specific scenarios.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * to a strict rate limit. Should be used by clients in very specific scenarios. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */

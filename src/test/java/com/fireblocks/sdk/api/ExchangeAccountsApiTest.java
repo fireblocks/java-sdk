@@ -64,7 +64,7 @@ public class ExchangeAccountsApiTest {
      * (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions. Learn more about
      * Fireblocks Exchange Connectivity in the following
      * [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -80,8 +80,7 @@ public class ExchangeAccountsApiTest {
     /**
      * Get a specific exchange account
      *
-     * <p>Returns an exchange account by ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin.
+     * <p>Returns an exchange account by ID. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -95,8 +94,7 @@ public class ExchangeAccountsApiTest {
     /**
      * Get an asset for an exchange account
      *
-     * <p>Returns an asset for an exchange account. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin.
+     * <p>Returns an asset for an exchange account. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -124,8 +122,8 @@ public class ExchangeAccountsApiTest {
     /**
      * List connected exchange accounts
      *
-     * <p>Returns a list of the connected exchange accounts in your workspace. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin.
+     * <p>Returns a list of the connected exchange accounts in your workspace. Endpoint Permission:
+     * Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -144,7 +142,7 @@ public class ExchangeAccountsApiTest {
      * <p>Transfers funds between trading accounts under the same exchange account. Learn more about
      * Fireblocks Exchange Connectivity in the following
      * [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */

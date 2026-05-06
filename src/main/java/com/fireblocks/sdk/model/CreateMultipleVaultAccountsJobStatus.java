@@ -18,16 +18,21 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.UUID;
 
 /** CreateMultipleVaultAccountsJobStatus */
 @JsonPropertyOrder({
     CreateMultipleVaultAccountsJobStatus.JSON_PROPERTY_STATUS,
     CreateMultipleVaultAccountsJobStatus.JSON_PROPERTY_VAULT_ACCOUNTS,
-    CreateMultipleVaultAccountsJobStatus.JSON_PROPERTY_ERROR_MESSAGE
+    CreateMultipleVaultAccountsJobStatus.JSON_PROPERTY_TAG_IDS,
+    CreateMultipleVaultAccountsJobStatus.JSON_PROPERTY_ERROR_MESSAGE,
+    CreateMultipleVaultAccountsJobStatus.JSON_PROPERTY_APPROVAL_REQUEST_ID
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -39,8 +44,14 @@ public class CreateMultipleVaultAccountsJobStatus {
     public static final String JSON_PROPERTY_VAULT_ACCOUNTS = "vaultAccounts";
     @jakarta.annotation.Nullable private Map<String, Map<String, String>> vaultAccounts;
 
+    public static final String JSON_PROPERTY_TAG_IDS = "tagIds";
+    @jakarta.annotation.Nullable private List<UUID> tagIds;
+
     public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
     @jakarta.annotation.Nullable private String errorMessage;
+
+    public static final String JSON_PROPERTY_APPROVAL_REQUEST_ID = "approvalRequestId";
+    @jakarta.annotation.Nullable private String approvalRequestId;
 
     public CreateMultipleVaultAccountsJobStatus() {}
 
@@ -56,7 +67,8 @@ public class CreateMultipleVaultAccountsJobStatus {
     }
 
     /**
-     * Get status
+     * Status of the job. Possible values - Success, In Progress, Failed, Pending Approval,
+     * Cancelled
      *
      * @return status
      */
@@ -107,6 +119,38 @@ public class CreateMultipleVaultAccountsJobStatus {
         this.vaultAccounts = vaultAccounts;
     }
 
+    public CreateMultipleVaultAccountsJobStatus tagIds(
+            @jakarta.annotation.Nullable List<UUID> tagIds) {
+        this.tagIds = tagIds;
+        return this;
+    }
+
+    public CreateMultipleVaultAccountsJobStatus addTagIdsItem(UUID tagIdsItem) {
+        if (this.tagIds == null) {
+            this.tagIds = new ArrayList<>();
+        }
+        this.tagIds.add(tagIdsItem);
+        return this;
+    }
+
+    /**
+     * List of tag IDs successfully attached to each of the created vault accounts
+     *
+     * @return tagIds
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TAG_IDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<UUID> getTagIds() {
+        return tagIds;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TAG_IDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTagIds(@jakarta.annotation.Nullable List<UUID> tagIds) {
+        this.tagIds = tagIds;
+    }
+
     public CreateMultipleVaultAccountsJobStatus errorMessage(
             @jakarta.annotation.Nullable String errorMessage) {
         this.errorMessage = errorMessage;
@@ -131,6 +175,30 @@ public class CreateMultipleVaultAccountsJobStatus {
         this.errorMessage = errorMessage;
     }
 
+    public CreateMultipleVaultAccountsJobStatus approvalRequestId(
+            @jakarta.annotation.Nullable String approvalRequestId) {
+        this.approvalRequestId = approvalRequestId;
+        return this;
+    }
+
+    /**
+     * Approval request ID if the job has protected tags to attach to the vault accounts
+     *
+     * @return approvalRequestId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_APPROVAL_REQUEST_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getApprovalRequestId() {
+        return approvalRequestId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_APPROVAL_REQUEST_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setApprovalRequestId(@jakarta.annotation.Nullable String approvalRequestId) {
+        this.approvalRequestId = approvalRequestId;
+    }
+
     /** Return true if this CreateMultipleVaultAccountsJobStatus object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -145,13 +213,17 @@ public class CreateMultipleVaultAccountsJobStatus {
         return Objects.equals(this.status, createMultipleVaultAccountsJobStatus.status)
                 && Objects.equals(
                         this.vaultAccounts, createMultipleVaultAccountsJobStatus.vaultAccounts)
+                && Objects.equals(this.tagIds, createMultipleVaultAccountsJobStatus.tagIds)
                 && Objects.equals(
-                        this.errorMessage, createMultipleVaultAccountsJobStatus.errorMessage);
+                        this.errorMessage, createMultipleVaultAccountsJobStatus.errorMessage)
+                && Objects.equals(
+                        this.approvalRequestId,
+                        createMultipleVaultAccountsJobStatus.approvalRequestId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(status, vaultAccounts, errorMessage);
+        return Objects.hash(status, vaultAccounts, tagIds, errorMessage, approvalRequestId);
     }
 
     @Override
@@ -160,7 +232,11 @@ public class CreateMultipleVaultAccountsJobStatus {
         sb.append("class CreateMultipleVaultAccountsJobStatus {\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    vaultAccounts: ").append(toIndentedString(vaultAccounts)).append("\n");
+        sb.append("    tagIds: ").append(toIndentedString(tagIds)).append("\n");
         sb.append("    errorMessage: ").append(toIndentedString(errorMessage)).append("\n");
+        sb.append("    approvalRequestId: ")
+                .append(toIndentedString(approvalRequestId))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -236,6 +312,25 @@ public class CreateMultipleVaultAccountsJobStatus {
             }
         }
 
+        // add `tagIds` to the URL query string
+        if (getTagIds() != null) {
+            for (int i = 0; i < getTagIds().size(); i++) {
+                if (getTagIds().get(i) != null) {
+                    joiner.add(
+                            String.format(
+                                    "%stagIds%s%s=%s",
+                                    prefix,
+                                    suffix,
+                                    "".equals(suffix)
+                                            ? ""
+                                            : String.format(
+                                                    "%s%d%s", containerPrefix, i, containerSuffix),
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getTagIds().get(i)))));
+                }
+            }
+        }
+
         // add `errorMessage` to the URL query string
         if (getErrorMessage() != null) {
             joiner.add(
@@ -244,6 +339,16 @@ public class CreateMultipleVaultAccountsJobStatus {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getErrorMessage()))));
+        }
+
+        // add `approvalRequestId` to the URL query string
+        if (getApprovalRequestId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sapprovalRequestId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getApprovalRequestId()))));
         }
 
         return joiner.toString();

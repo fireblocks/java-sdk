@@ -18,7 +18,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Add Collateral
 
-Add collateral and create deposit request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Add collateral and create deposit request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -103,7 +103,7 @@ No authorization required
 
 Find a specific collateral exchange account
 
-Returns a collateral account by mainExchangeAccountId. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns a collateral account by mainExchangeAccountId. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -186,7 +186,7 @@ No authorization required
 
 Get Settlements Transactions
 
-Get settlements transactions from exchange. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Get settlements transactions from exchange. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -269,7 +269,7 @@ No authorization required
 
 Remove Collateral
 
-Remove collateral, create withdraw request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Remove collateral, create withdraw request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -354,7 +354,7 @@ No authorization required
 
 Create Settlement for a Trader
 
-Create settlement for a trader. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Create settlement for a trader. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

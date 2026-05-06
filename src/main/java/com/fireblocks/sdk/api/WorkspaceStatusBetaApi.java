@@ -73,7 +73,7 @@ public class WorkspaceStatusBetaApi {
      * Returns current workspace status Returns current workspace status (Beta). **Note**: - This
      * endpoint is now in Beta, disabled for general availability at this time. - Please note that
      * this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;GetWorkspaceStatusResponse&gt;&gt;
      * @throws ApiException if fails to make API call

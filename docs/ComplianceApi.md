@@ -7,19 +7,23 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**activateByorkConfig**](ComplianceApi.md#activateByorkConfig) | **POST** /screening/byork/config/activate | Activate BYORK Light |
 | [**addAddressRegistryVaultOptOuts**](ComplianceApi.md#addAddressRegistryVaultOptOuts) | **POST** /address_registry/vaults | Add vault accounts to the address registry opt-out list |
 | [**assignVaultsToLegalEntity**](ComplianceApi.md#assignVaultsToLegalEntity) | **POST** /legal_entities/{legalEntityId}/vaults | Assign vault accounts to a legal entity |
+| [**createCounterpartyGroup**](ComplianceApi.md#createCounterpartyGroup) | **POST** /counterparty_groups | Create a counterparty group |
 | [**deactivateByorkConfig**](ComplianceApi.md#deactivateByorkConfig) | **POST** /screening/byork/config/deactivate | Deactivate BYORK Light |
+| [**deleteCounterpartyGroup**](ComplianceApi.md#deleteCounterpartyGroup) | **DELETE** /counterparty_groups/{groupId} | Delete a counterparty group |
 | [**getAddressRegistryTenantParticipationStatus**](ComplianceApi.md#getAddressRegistryTenantParticipationStatus) | **GET** /address_registry/tenant | Get address registry participation status for the authenticated workspace |
 | [**getAddressRegistryVaultOptOut**](ComplianceApi.md#getAddressRegistryVaultOptOut) | **GET** /address_registry/vaults/{vaultAccountId} | Get whether a vault account is opted out of the address registry |
 | [**getAmlPostScreeningPolicy**](ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy |
 | [**getAmlScreeningPolicy**](ComplianceApi.md#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy |
 | [**getByorkConfig**](ComplianceApi.md#getByorkConfig) | **GET** /screening/byork/config | Get BYORK Light configuration |
 | [**getByorkVerdict**](ComplianceApi.md#getByorkVerdict) | **GET** /screening/byork/verdict | Get BYORK Light verdict |
+| [**getCounterpartyGroup**](ComplianceApi.md#getCounterpartyGroup) | **GET** /counterparty_groups/{groupId} | Get a counterparty group |
 | [**getLegalEntity**](ComplianceApi.md#getLegalEntity) | **GET** /legal_entities/{legalEntityId} | Get a legal entity |
 | [**getLegalEntityForAddress**](ComplianceApi.md#getLegalEntityForAddress) | **GET** /address_registry/legal_entities/{address} | Look up legal entity by blockchain address |
 | [**getPostScreeningPolicy**](ComplianceApi.md#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy |
 | [**getScreeningFullDetails**](ComplianceApi.md#getScreeningFullDetails) | **GET** /screening/transaction/{txId} | Provides all the compliance details for the given screened transaction. |
 | [**getScreeningPolicy**](ComplianceApi.md#getScreeningPolicy) | **GET** /screening/travel_rule/screening_policy | Travel Rule - View Screening Policy |
 | [**listAddressRegistryVaultOptOuts**](ComplianceApi.md#listAddressRegistryVaultOptOuts) | **GET** /address_registry/vaults | List vault-level address registry opt-outs (paginated) |
+| [**listCounterpartyGroups**](ComplianceApi.md#listCounterpartyGroups) | **GET** /counterparty_groups | List counterparty groups |
 | [**listLegalEntities**](ComplianceApi.md#listLegalEntities) | **GET** /legal_entities | List legal entities (Paginated) |
 | [**listVaultsForLegalEntity**](ComplianceApi.md#listVaultsForLegalEntity) | **GET** /legal_entities/{legalEntityId}/vaults | List vault accounts for a legal entity (Paginated) |
 | [**optInAddressRegistryTenant**](ComplianceApi.md#optInAddressRegistryTenant) | **POST** /address_registry/tenant | Opt the workspace in to the address registry |
@@ -32,6 +36,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**setByorkTimeouts**](ComplianceApi.md#setByorkTimeouts) | **PUT** /screening/byork/config/timeouts | Set BYORK Light timeouts |
 | [**setByorkVerdict**](ComplianceApi.md#setByorkVerdict) | **POST** /screening/byork/verdict | Set BYORK Light verdict |
 | [**updateAmlScreeningConfiguration**](ComplianceApi.md#updateAmlScreeningConfiguration) | **PUT** /screening/aml/policy_configuration | Update AML Configuration |
+| [**updateCounterpartyGroup**](ComplianceApi.md#updateCounterpartyGroup) | **PATCH** /counterparty_groups/{groupId} | Update a counterparty group |
 | [**updateLegalEntity**](ComplianceApi.md#updateLegalEntity) | **PUT** /legal_entities/{legalEntityId} | Update legal entity |
 | [**updateScreeningConfiguration**](ComplianceApi.md#updateScreeningConfiguration) | **PUT** /screening/configurations | Tenant - Screening Configuration |
 | [**updateTravelRuleConfig**](ComplianceApi.md#updateTravelRuleConfig) | **PUT** /screening/travel_rule/policy_configuration | Update Travel Rule Configuration |
@@ -214,7 +219,7 @@ No authorization required
 
 Assign vault accounts to a legal entity
 
-Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -293,6 +298,91 @@ No authorization required
 |-------------|-------------|------------------|
 | **201** | Vault accounts assigned successfully |  * X-Request-ID -  <br>  |
 | **404** | Legal entity registration not found |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## createCounterpartyGroup
+
+> CompletableFuture<ApiResponse<CounterpartyGroup>> createCounterpartyGroup createCounterpartyGroup(createCounterpartyGroupRequest, idempotencyKey)
+
+Create a counterparty group
+
+Creates a new counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        CreateCounterpartyGroupRequest createCounterpartyGroupRequest = new CreateCounterpartyGroupRequest(); // CreateCounterpartyGroupRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<CounterpartyGroup>> response = fireblocks.compliance().createCounterpartyGroup(createCounterpartyGroupRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#createCounterpartyGroup");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ComplianceApi#createCounterpartyGroup");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **createCounterpartyGroupRequest** | [**CreateCounterpartyGroupRequest**](CreateCounterpartyGroupRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**CounterpartyGroup**](CounterpartyGroup.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Counterparty group created successfully |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -377,6 +467,89 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | BYORK configuration deactivated. |  * X-Request-ID -  <br>  |
 | **400** | BYORK Light not enabled for tenant. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## deleteCounterpartyGroup
+
+> CompletableFuture<ApiResponse<Void>> deleteCounterpartyGroup deleteCounterpartyGroup(groupId)
+
+Delete a counterparty group
+
+Permanently deletes a counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID groupId = UUID.randomUUID(); // UUID | The unique identifier of the counterparty group
+        try {
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.compliance().deleteCounterpartyGroup(groupId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#deleteCounterpartyGroup");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ComplianceApi#deleteCounterpartyGroup");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **groupId** | **UUID**| The unique identifier of the counterparty group | |
+
+### Return type
+
+
+CompletableFuture<ApiResponse<Void>>
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | Counterparty group deleted successfully |  * X-Request-ID -  <br>  |
+| **404** | Counterparty group not found |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -865,13 +1038,97 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getCounterpartyGroup
+
+> CompletableFuture<ApiResponse<CounterpartyGroup>> getCounterpartyGroup getCounterpartyGroup(groupId)
+
+Get a counterparty group
+
+Returns the details of a specific counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin, Viewer. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID groupId = UUID.randomUUID(); // UUID | The unique identifier of the counterparty group
+        try {
+            CompletableFuture<ApiResponse<CounterpartyGroup>> response = fireblocks.compliance().getCounterpartyGroup(groupId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#getCounterpartyGroup");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ComplianceApi#getCounterpartyGroup");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **groupId** | **UUID**| The unique identifier of the counterparty group | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**CounterpartyGroup**](CounterpartyGroup.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A counterparty group object |  * X-Request-ID -  <br>  |
+| **404** | Counterparty group not found |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getLegalEntity
 
 > CompletableFuture<ApiResponse<LegalEntityRegistration>> getLegalEntity getLegalEntity(legalEntityId)
 
 Get a legal entity
 
-Returns details of a specific legal entity registration, including GLEIF data when available. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns details of a specific legal entity registration, including GLEIF data when available. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1361,13 +1618,98 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## listCounterpartyGroups
+
+> CompletableFuture<ApiResponse<CounterpartyGroupsPaginatedResponse>> listCounterpartyGroups listCounterpartyGroups(pageCursor, pageSize)
+
+List counterparty groups
+
+Returns a paginated list of counterparty groups.  **Endpoint Permissions:** Admin, Non-Signing Admin, Viewer. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String pageCursor = "pageCursor_example"; // String | Cursor of the required page
+        Integer pageSize = 50; // Integer | Maximum number of items in the page
+        try {
+            CompletableFuture<ApiResponse<CounterpartyGroupsPaginatedResponse>> response = fireblocks.compliance().listCounterpartyGroups(pageCursor, pageSize);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#listCounterpartyGroups");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ComplianceApi#listCounterpartyGroups");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **pageCursor** | **String**| Cursor of the required page | [optional] |
+| **pageSize** | **Integer**| Maximum number of items in the page | [optional] [default to 50] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**CounterpartyGroupsPaginatedResponse**](CounterpartyGroupsPaginatedResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A paginated list of counterparty groups |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## listLegalEntities
 
 > CompletableFuture<ApiResponse<ListLegalEntitiesResponse>> listLegalEntities listLegalEntities(vaultAccountId, pageCursor, pageSize)
 
 List legal entities (Paginated)
 
-Returns legal entity registrations for the workspace with cursor-based pagination. If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns legal entity registrations for the workspace with cursor-based pagination. If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1454,7 +1796,7 @@ No authorization required
 
 List vault accounts for a legal entity (Paginated)
 
-Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1704,7 +2046,7 @@ No authorization required
 
 Register a new legal entity
 
-Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -2380,13 +2722,101 @@ No authorization required
 | **200** | Configuration updated successfully. |  -  |
 
 
+## updateCounterpartyGroup
+
+> CompletableFuture<ApiResponse<CounterpartyGroup>> updateCounterpartyGroup updateCounterpartyGroup(updateCounterpartyGroupRequest, groupId, idempotencyKey)
+
+Update a counterparty group
+
+Updates an existing counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UpdateCounterpartyGroupRequest updateCounterpartyGroupRequest = new UpdateCounterpartyGroupRequest(); // UpdateCounterpartyGroupRequest | 
+        UUID groupId = UUID.randomUUID(); // UUID | The unique identifier of the counterparty group
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<CounterpartyGroup>> response = fireblocks.compliance().updateCounterpartyGroup(updateCounterpartyGroupRequest, groupId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#updateCounterpartyGroup");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ComplianceApi#updateCounterpartyGroup");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **updateCounterpartyGroupRequest** | [**UpdateCounterpartyGroupRequest**](UpdateCounterpartyGroupRequest.md)|  | |
+| **groupId** | **UUID**| The unique identifier of the counterparty group | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**CounterpartyGroup**](CounterpartyGroup.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Counterparty group updated successfully |  * X-Request-ID -  <br>  |
+| **404** | Counterparty group not found |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## updateLegalEntity
 
 > CompletableFuture<ApiResponse<LegalEntityRegistration>> updateLegalEntity updateLegalEntity(updateLegalEntityRequest, legalEntityId, idempotencyKey)
 
 Update legal entity
 
-Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

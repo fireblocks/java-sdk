@@ -33,6 +33,9 @@ import com.fireblocks.sdk.model.ByorkSetTimeoutsRequest;
 import com.fireblocks.sdk.model.ByorkVerdictRequest;
 import com.fireblocks.sdk.model.ByorkVerdictResponse;
 import com.fireblocks.sdk.model.ComplianceResultFullPayload;
+import com.fireblocks.sdk.model.CounterpartyGroup;
+import com.fireblocks.sdk.model.CounterpartyGroupsPaginatedResponse;
+import com.fireblocks.sdk.model.CreateCounterpartyGroupRequest;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
 import com.fireblocks.sdk.model.GetByorkVerdictResponse;
 import com.fireblocks.sdk.model.LegalEntityRegistration;
@@ -43,6 +46,7 @@ import com.fireblocks.sdk.model.ScreeningConfigurationsRequest;
 import com.fireblocks.sdk.model.ScreeningPolicyResponse;
 import com.fireblocks.sdk.model.ScreeningProviderRulesConfigurationResponse;
 import com.fireblocks.sdk.model.ScreeningUpdateConfigurations;
+import com.fireblocks.sdk.model.UpdateCounterpartyGroupRequest;
 import com.fireblocks.sdk.model.UpdateLegalEntityRequest;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -91,8 +95,8 @@ public class ComplianceApiTest {
      * Assign vault accounts to a legal entity
      *
      * <p>Assigns one or more vault accounts to a specific legal entity registration. Explicitly
-     * mapped vault accounts take precedence over the workspace default legal entity.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * mapped vault accounts take precedence over the workspace default legal entity. Endpoint
+     * Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -104,6 +108,21 @@ public class ComplianceApiTest {
         CompletableFuture<ApiResponse<AssignVaultsToLegalEntityResponse>> response =
                 api.assignVaultsToLegalEntity(
                         assignVaultsToLegalEntityRequest, legalEntityId, idempotencyKey);
+    }
+
+    /**
+     * Create a counterparty group
+     *
+     * <p>Creates a new counterparty group. **Endpoint Permissions:** Admin, Non-Signing Admin.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void createCounterpartyGroupTest() throws ApiException {
+        CreateCounterpartyGroupRequest createCounterpartyGroupRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<CounterpartyGroup>> response =
+                api.createCounterpartyGroup(createCounterpartyGroupRequest, idempotencyKey);
     }
 
     /**
@@ -120,6 +139,21 @@ public class ComplianceApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ByorkConfigResponse>> response =
                 api.deactivateByorkConfig(idempotencyKey);
+    }
+
+    /**
+     * Delete a counterparty group
+     *
+     * <p>Permanently deletes a counterparty group. **Endpoint Permissions:** Admin, Non-Signing
+     * Admin.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void deleteCounterpartyGroupTest() throws ApiException {
+        UUID groupId = null;
+
+        CompletableFuture<ApiResponse<Void>> response = api.deleteCounterpartyGroup(groupId);
     }
 
     /**
@@ -210,11 +244,25 @@ public class ComplianceApiTest {
     }
 
     /**
+     * Get a counterparty group
+     *
+     * <p>Returns the details of a specific counterparty group. **Endpoint Permissions:** Admin,
+     * Non-Signing Admin, Viewer.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getCounterpartyGroupTest() throws ApiException {
+        UUID groupId = null;
+        CompletableFuture<ApiResponse<CounterpartyGroup>> response =
+                api.getCounterpartyGroup(groupId);
+    }
+
+    /**
      * Get a legal entity
      *
      * <p>Returns details of a specific legal entity registration, including GLEIF data when
-     * available. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
-     * Editor, Viewer.
+     * available. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -301,14 +349,30 @@ public class ComplianceApiTest {
     }
 
     /**
+     * List counterparty groups
+     *
+     * <p>Returns a paginated list of counterparty groups. **Endpoint Permissions:** Admin,
+     * Non-Signing Admin, Viewer.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void listCounterpartyGroupsTest() throws ApiException {
+        String pageCursor = null;
+        Integer pageSize = null;
+        CompletableFuture<ApiResponse<CounterpartyGroupsPaginatedResponse>> response =
+                api.listCounterpartyGroups(pageCursor, pageSize);
+    }
+
+    /**
      * List legal entities (Paginated)
      *
      * <p>Returns legal entity registrations for the workspace with cursor-based pagination. If
      * query parameter vaultAccountId is used it returns the legal entity registration associated
      * with a specific vault account. If no explicit mapping exists for the vault, the workspace
      * default legal entity is returned. Returns an empty response if neither a vault mapping nor a
-     * default legal entity is configured. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin,
-     * Signer, Approver, Editor, Viewer.
+     * default legal entity is configured. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -325,8 +389,8 @@ public class ComplianceApiTest {
      * List vault accounts for a legal entity (Paginated)
      *
      * <p>Returns vault account IDs explicitly assigned to a specific legal entity registration,
-     * with cursor-based pagination. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin,
-     * Signer, Approver, Editor, Viewer.
+     * with cursor-based pagination. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -373,7 +437,7 @@ public class ComplianceApiTest {
      *
      * <p>Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier)
      * code. The LEI is validated against the GLEIF registry. Each workspace can register multiple
-     * legal entities. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * legal entities. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -502,11 +566,29 @@ public class ComplianceApiTest {
     }
 
     /**
+     * Update a counterparty group
+     *
+     * <p>Updates an existing counterparty group. **Endpoint Permissions:** Admin, Non-Signing
+     * Admin.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void updateCounterpartyGroupTest() throws ApiException {
+        UpdateCounterpartyGroupRequest updateCounterpartyGroupRequest = null;
+        UUID groupId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<CounterpartyGroup>> response =
+                api.updateCounterpartyGroup(
+                        updateCounterpartyGroupRequest, groupId, idempotencyKey);
+    }
+
+    /**
      * Update legal entity
      *
      * <p>Updates the status of a legal entity registration. Setting isDefault to true marks the
      * registration as the workspace default, which is applied to vault accounts that have no
-     * explicit legal entity mapping. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * explicit legal entity mapping. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */

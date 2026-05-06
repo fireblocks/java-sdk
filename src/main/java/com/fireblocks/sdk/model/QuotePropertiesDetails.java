@@ -37,7 +37,8 @@ import java.util.StringJoiner;
     QuotePropertiesDetails.JSON_PROPERTY_EXECUTION_STEPS,
     QuotePropertiesDetails.JSON_PROPERTY_GENERAL_FEES,
     QuotePropertiesDetails.JSON_PROPERTY_SIDE,
-    QuotePropertiesDetails.JSON_PROPERTY_EXPIRES_AT
+    QuotePropertiesDetails.JSON_PROPERTY_EXPIRES_AT,
+    QuotePropertiesDetails.JSON_PROPERTY_ORDER_CREATION_REQUIREMENTS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -78,6 +79,10 @@ public class QuotePropertiesDetails {
 
     public static final String JSON_PROPERTY_EXPIRES_AT = "expiresAt";
     @jakarta.annotation.Nonnull private String expiresAt;
+
+    public static final String JSON_PROPERTY_ORDER_CREATION_REQUIREMENTS =
+            "orderCreationRequirements";
+    @jakarta.annotation.Nullable private String orderCreationRequirements;
 
     public QuotePropertiesDetails() {}
 
@@ -397,6 +402,34 @@ public class QuotePropertiesDetails {
         this.expiresAt = expiresAt;
     }
 
+    public QuotePropertiesDetails orderCreationRequirements(
+            @jakarta.annotation.Nullable String orderCreationRequirements) {
+        this.orderCreationRequirements = orderCreationRequirements;
+        return this;
+    }
+
+    /**
+     * A JSON Schema Draft-7 document in string format describing the fields required when creating
+     * an order for this quote. The schema mirrors the structure of
+     * CreateOrderRequest.participantsIdentification json schema, so clients can validate their
+     * order payload before sending.
+     *
+     * @return orderCreationRequirements
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ORDER_CREATION_REQUIREMENTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getOrderCreationRequirements() {
+        return orderCreationRequirements;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ORDER_CREATION_REQUIREMENTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOrderCreationRequirements(
+            @jakarta.annotation.Nullable String orderCreationRequirements) {
+        this.orderCreationRequirements = orderCreationRequirements;
+    }
+
     /** Return true if this QuotePropertiesDetails object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -418,7 +451,10 @@ public class QuotePropertiesDetails {
                 && Objects.equals(this.executionSteps, quotePropertiesDetails.executionSteps)
                 && Objects.equals(this.generalFees, quotePropertiesDetails.generalFees)
                 && Objects.equals(this.side, quotePropertiesDetails.side)
-                && Objects.equals(this.expiresAt, quotePropertiesDetails.expiresAt);
+                && Objects.equals(this.expiresAt, quotePropertiesDetails.expiresAt)
+                && Objects.equals(
+                        this.orderCreationRequirements,
+                        quotePropertiesDetails.orderCreationRequirements);
     }
 
     @Override
@@ -435,7 +471,8 @@ public class QuotePropertiesDetails {
                 executionSteps,
                 generalFees,
                 side,
-                expiresAt);
+                expiresAt,
+                orderCreationRequirements);
     }
 
     @Override
@@ -454,6 +491,9 @@ public class QuotePropertiesDetails {
         sb.append("    generalFees: ").append(toIndentedString(generalFees)).append("\n");
         sb.append("    side: ").append(toIndentedString(side)).append("\n");
         sb.append("    expiresAt: ").append(toIndentedString(expiresAt)).append("\n");
+        sb.append("    orderCreationRequirements: ")
+                .append(toIndentedString(orderCreationRequirements))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -638,6 +678,17 @@ public class QuotePropertiesDetails {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getExpiresAt()))));
+        }
+
+        // add `orderCreationRequirements` to the URL query string
+        if (getOrderCreationRequirements() != null) {
+            joiner.add(
+                    String.format(
+                            "%sorderCreationRequirements%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getOrderCreationRequirements()))));
         }
 
         return joiner.toString();

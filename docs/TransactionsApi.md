@@ -26,7 +26,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Cancel a transaction
 
-Cancels a transaction by Fireblocks Transaction ID.  Can be used only for transactions that did not get to the BROADCASTING state. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Cancels a transaction by Fireblocks Transaction ID.  Can be used only for transactions that did not get to the BROADCASTING state. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -200,7 +200,7 @@ No authorization required
 
 Drop ETH (EVM) transaction by ID
 
-Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -289,7 +289,7 @@ No authorization required
 
 Estimate the required fee for an asset
 
-Gets the estimated required fee for an asset. Fireblocks fetches, calculates and caches the result every 30 seconds. Customers should query this API while taking the caching interval into consideration. Notes: - The &#x60;networkFee&#x60; parameter is the &#x60;gasPrice&#x60; with a given delta added, multiplied by the gasLimit plus the delta. - The estimation provided depends on the asset type.     - For UTXO-based assets, the response contains the &#x60;feePerByte&#x60; parameter     - For ETH-based and all EVM based assets, the response will contain &#x60;gasPrice&#x60; parameter. This is calculated by adding the &#x60;baseFee&#x60; to the &#x60;actualPriority&#x60; based on the latest 12 blocks. The response for ETH-based  contains the &#x60;baseFee&#x60;, &#x60;gasPrice&#x60;, and &#x60;priorityFee&#x60; parameters.     - For ADA-based assets, the response will contain the parameter &#x60;networkFee&#x60; and &#x60;feePerByte&#x60; parameters.     - For XRP and XLM, the response will contain the transaction fee.     - For other assets, the response will contain the &#x60;networkFee&#x60; parameter.  Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Gets the estimated required fee for an asset. Fireblocks fetches, calculates and caches the result every 30 seconds. Customers should query this API while taking the caching interval into consideration. Notes: - The &#x60;networkFee&#x60; parameter is the &#x60;gasPrice&#x60; with a given delta added, multiplied by the gasLimit plus the delta. - The estimation provided depends on the asset type.     - For UTXO-based assets, the response contains the &#x60;feePerByte&#x60; parameter     - For ETH-based and all EVM based assets, the response will contain &#x60;gasPrice&#x60; parameter. This is calculated by adding the &#x60;baseFee&#x60; to the &#x60;actualPriority&#x60; based on the latest 12 blocks. The response for ETH-based  contains the &#x60;baseFee&#x60;, &#x60;gasPrice&#x60;, and &#x60;priorityFee&#x60; parameters.     - For ADA-based assets, the response will contain the parameter &#x60;networkFee&#x60; and &#x60;feePerByte&#x60; parameters.     - For XRP and XLM, the response will contain the transaction fee.     - For other assets, the response will contain the &#x60;networkFee&#x60; parameter.  Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -372,7 +372,7 @@ No authorization required
 
 Estimate transaction fee
 
-Estimates the transaction fee for a specific transaction request. This endpoint simulates a transaction which means that the system will expect to have the requested asset and balance in the specified wallet.   **Note**: Supports all Fireblocks assets except ZCash (ZEC). Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). &lt;/br&gt;Endpoint Permission: Admin, Signer, Approver, Editor.
+Estimates the transaction fee for a specific transaction request. This endpoint simulates a transaction which means that the system will expect to have the requested asset and balance in the specified wallet. **Note**: Supports all Fireblocks assets except ZCash (ZEC). The PROGRAM_CALL operation is not supported by this endpoint — fee estimation for Solana program calls is not available. Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint Permission: Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -457,7 +457,7 @@ No authorization required
 
 Freeze a transaction
 
-Freezes a transaction by ID.  Usually used for AML integrations when the incoming funds should be quarantined. For account based assets - the entire amount of the transaction is frozen  For UTXO based assets - all UTXOs of the specified transaction are frozen &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+Freezes a transaction by ID.  Usually used for AML integrations when the incoming funds should be quarantined. For account based assets - the entire amount of the transaction is frozen  For UTXO based assets - all UTXOs of the specified transaction are frozen Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -543,7 +543,7 @@ No authorization required
 
 Get a specific transaction by Fireblocks transaction ID
 
-Get a specific transaction data by Fireblocks Transaction ID &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Get a specific transaction data by Fireblocks Transaction ID Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -627,7 +627,7 @@ No authorization required
 
 Get a specific transaction by external transaction ID
 
-Returns transaction by external transaction ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns transaction by external transaction ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -823,7 +823,7 @@ No authorization required
 
 Set confirmation threshold by transaction hash
 
-Overrides the required number of confirmations for transaction completion by transaction hash. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Overrides the required number of confirmations for transaction completion by transaction hash. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -910,7 +910,7 @@ No authorization required
 
 Set confirmation threshold by Fireblocks Transaction ID
 
-Overrides the required number of confirmations for transaction completion Fireblocks Transaction ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Overrides the required number of confirmations for transaction completion Fireblocks Transaction ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -997,7 +997,7 @@ No authorization required
 
 Unfreeze a transaction
 
-Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available again. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available again. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -1083,7 +1083,7 @@ No authorization required
 
 Validate destination address
 
-Checks if an address is valid and active (for XRP, DOT, XLM, and EOS). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Checks if an address is valid and active (for XRP, DOT, XLM, and EOS). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

@@ -76,8 +76,8 @@ public class TokenizationApiTest {
     /**
      * Create a new collection
      *
-     * <p>Create a new collection and link it as a token. &lt;/br&gt;Endpoint Permission: Owner,
-     * Admin, Non-Signing Admin, Signer, and Editor.
+     * <p>Create a new collection and link it as a token. Endpoint Permission: Owner, Admin,
+     * Non-Signing Admin, Signer, and Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -200,8 +200,8 @@ public class TokenizationApiTest {
     /**
      * Get collections
      *
-     * <p>Get collections (paginated). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin,
-     * Signer, Approver, Editor, Viewer.
+     * <p>Get collections (paginated). Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -263,8 +263,7 @@ public class TokenizationApiTest {
      * links the token to the workspace. For Stellar/Ripple, it links a newly created token directly
      * to the workspace without deploying a contract. Returns the token link with status
      * \&quot;PENDING\&quot; until the token is deployed or \&quot;SUCCESS\&quot; if no deployment
-     * is needed. &lt;/br&gt;Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and
-     * Editor.
+     * is needed. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
      *
      * @throws ApiException if the Api call fails
      */

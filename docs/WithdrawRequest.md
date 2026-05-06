@@ -11,7 +11,7 @@
 |**fee** | **String** | Represents the fee for a transaction, which can be specified as a percentage value. Only one of fee/feeLevel is required. |  [optional] |
 |**feeLevel** | **FeeLevel** |  |  [optional] |
 |**txNote** | **String** | The note to associate with the transactions. |  [optional] |
-|**amount** | **String** | Amount of tokens to withdraw. Only supported for Cosmos chains to enable partial withdrawals. For other chains, this field is ignored and the entire available amount will be withdrawn. If not provided, the entire available amount will be withdrawn. |  [optional] |
+|**amount** | **String** | Amount of tokens to withdraw. Only supported for ETH compounding validators (EIP-7251/Pectra) and Cosmos chains to enable partial withdrawals. For ETH compounding validators, the remaining balance must be at least 32 ETH after withdrawal. For other chains, this field is ignored and the entire available amount will be withdrawn. If not provided, the entire available amount will be withdrawn. |  [optional] |
 
 
 

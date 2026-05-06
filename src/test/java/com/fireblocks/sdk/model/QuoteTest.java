@@ -97,6 +97,12 @@ class QuoteTest {
         // TODO: test expiresAt
     }
 
+    /** Test the property 'orderCreationRequirements' */
+    @Test
+    void orderCreationRequirementsTest() {
+        // TODO: test orderCreationRequirements
+    }
+
     /** Test the property 'type' */
     @Test
     void typeTest() {

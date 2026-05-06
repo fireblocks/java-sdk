@@ -76,8 +76,8 @@ public class ExternalWalletsApi {
     }
 
     /**
-     * Add an asset to an external wallet. Adds an asset to an existing external wallet.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Add an asset to an external wallet. Adds an asset to an existing external wallet. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param walletId The ID of the wallet (required)
      * @param assetId The ID of the asset to add (required)
@@ -177,8 +177,8 @@ public class ExternalWalletsApi {
      * Create an external wallet Creates a new external wallet with the requested name. External
      * Wallet is a whitelisted address of a wallet that belongs to your users/counterparties. - You
      * cannot see the balance of the external wallet. - You cannot initiate transactions from an
-     * external wallet as the source via Fireblocks. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor.
+     * external wallet as the source via Fireblocks. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor.
      *
      * @param createWalletRequest (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -257,8 +257,8 @@ public class ExternalWalletsApi {
     }
     /**
      * Delete an external wallet Deletes an external wallet by ID. External Wallet is a whitelisted
-     * address of a wallet that belongs to your users/counterparties. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * address of a wallet that belongs to your users/counterparties. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param walletId The ID of the wallet to delete (required)
      * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
@@ -317,8 +317,8 @@ public class ExternalWalletsApi {
     }
     /**
      * Find an external wallet Returns an external wallet by ID. External Wallet is a whitelisted
-     * address of a wallet that belongs to your users/counterparties. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * address of a wallet that belongs to your users/counterparties. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @param walletId The ID of the wallet to return (required)
      * @return CompletableFuture&lt;ApiResponse&lt;UnmanagedWallet&gt;&gt;
@@ -386,8 +386,8 @@ public class ExternalWalletsApi {
     /**
      * Get an asset from an external wallet Returns an external wallet by wallet ID and asset ID.
      * External Wallet is a whitelisted address of a wallet that belongs to your
-     * users/counterparties. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer,
-     * Approver, Editor, Viewer.
+     * users/counterparties. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
+     * Editor, Viewer.
      *
      * @param walletId The ID of the wallet (required)
      * @param assetId The ID of the asset to return (required)
@@ -462,8 +462,8 @@ public class ExternalWalletsApi {
      * List external wallets Gets a list of external wallets under the workspace. External Wallet is
      * a whitelisted address of a wallet that belongs to your users/counterparties. - You cannot see
      * the balance of the external wallet. - You cannot initiate transactions from an external
-     * wallet as the source via Fireblocks. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver, Editor, Viewer.
+     * wallet as the source via Fireblocks. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, Viewer.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;List&lt;UnmanagedWallet&gt;&gt;&gt;
      * @throws ApiException if fails to make API call
@@ -526,8 +526,8 @@ public class ExternalWalletsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Delete an asset from an external wallet Deletes an external wallet asset by ID.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Delete an asset from an external wallet Deletes an external wallet asset by ID. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param walletId The ID of the wallet (required)
      * @param assetId The ID of the asset to delete (required)
@@ -593,8 +593,8 @@ public class ExternalWalletsApi {
     /**
      * Set an AML customer reference ID for an external wallet Sets an AML/KYT customer reference ID
      * for the specific external wallet. External Wallet is a whitelisted address of a wallet that
-     * belongs to your users/counterparties. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver, Editor.
+     * belongs to your users/counterparties. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor.
      *
      * @param setCustomerRefIdRequest (required)
      * @param walletId The wallet ID (required)

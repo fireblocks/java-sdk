@@ -265,8 +265,8 @@ public class ContractInteractionsApi {
     }
     /**
      * Return deployed contract&#39;s ABI Return deployed contract&#39;s ABI by blockchain native
-     * asset id and contract address. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin,
-     * Signer, Approver, Editor, and Viewer.
+     * asset id and contract address. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, and Viewer.
      *
      * @param contractAddress The contract&#39;s onchain address (required)
      * @param baseAssetId The blockchain base assetId (required)
@@ -350,8 +350,8 @@ public class ContractInteractionsApi {
     /**
      * Get transaction receipt Retrieve the transaction receipt by blockchain native asset ID and
      * transaction hash &gt; **Note** &gt; This functionality is exclusively available for EVM
-     * (Ethereum Virtual Machine) compatible chains. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor, and Viewer.
+     * (Ethereum Virtual Machine) compatible chains. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor, and Viewer.
      *
      * @param baseAssetId The blockchain base assetId (required)
      * @param txHash The transaction hash (required)

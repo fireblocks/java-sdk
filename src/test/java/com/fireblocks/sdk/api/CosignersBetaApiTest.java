@@ -43,7 +43,7 @@ public class CosignersBetaApiTest {
      * Add cosigner
      *
      * <p>Add a new cosigner. The cosigner will be pending pairing until the API key is manually
-     * paired &lt;/br&gt;Endpoint Permission: Admin and Non-Signing Admin.
+     * paired Endpoint Permission: Admin and Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -59,7 +59,7 @@ public class CosignersBetaApiTest {
      * Get API key
      *
      * <p>Get an API key by ID. **Note:** These endpoints are currently in beta and might be subject
-     * to changes. &lt;/br&gt;Endpoint Permission: Admin and Non-Signing Admin.
+     * to changes. Endpoint Permission: Admin and Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -74,8 +74,7 @@ public class CosignersBetaApiTest {
      * Get all API keys
      *
      * <p>Get all cosigner paired API keys (paginated). **Note:** These endpoints are currently in
-     * beta and might be subject to changes. &lt;/br&gt;Endpoint Permission: Admin and Non-Signing
-     * Admin.
+     * beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -93,7 +92,7 @@ public class CosignersBetaApiTest {
      * Get cosigner
      *
      * <p>Get a cosigner by ID. **Note:** These endpoints are currently in beta and might be subject
-     * to changes. &lt;/br&gt;Endpoint Permission: Admin and Non-Signing Admin.
+     * to changes. Endpoint Permission: Admin and Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -107,7 +106,7 @@ public class CosignersBetaApiTest {
      * Get all cosigners
      *
      * <p>Get all workspace cosigners (paginated). **Note:** These endpoints are currently in beta
-     * and might be subject to changes. &lt;/br&gt;Endpoint Permission: Admin and Non-Signing Admin.
+     * and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -123,8 +122,8 @@ public class CosignersBetaApiTest {
     /**
      * Get request status
      *
-     * <p>Get the status of an asynchronous request &lt;/br&gt;Endpoint Permission: Admin and
-     * Non-Signing Admin.
+     * <p>Get the status of an asynchronous request Endpoint Permission: Admin and Non-Signing
+     * Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -140,7 +139,7 @@ public class CosignersBetaApiTest {
     /**
      * Pair API key
      *
-     * <p>Pair an API key to a cosigner &lt;/br&gt;Endpoint Permission: Admin and Non-Signing Admin.
+     * <p>Pair an API key to a cosigner Endpoint Permission: Admin and Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -158,7 +157,7 @@ public class CosignersBetaApiTest {
      * Rename cosigner
      *
      * <p>Rename a cosigner by ID. **Note:** These endpoints are currently in beta and might be
-     * subject to changes. &lt;/br&gt;Endpoint Permission: Admin and Non-Signing Admin.
+     * subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -173,8 +172,7 @@ public class CosignersBetaApiTest {
     /**
      * Unpair API key
      *
-     * <p>Unpair an API key from a cosigner &lt;/br&gt;Endpoint Permission: Admin and Non-Signing
-     * Admin.
+     * <p>Unpair an API key from a cosigner Endpoint Permission: Admin and Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -188,8 +186,8 @@ public class CosignersBetaApiTest {
     /**
      * Update API key callback handler
      *
-     * <p>Update the callback handler of an API key &lt;/br&gt;Endpoint Permission: Admin and
-     * Non-Signing Admin.
+     * <p>Update the callback handler of an API key Endpoint Permission: Admin and Non-Signing
+     * Admin.
      *
      * @throws ApiException if the Api call fails
      */

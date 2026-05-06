@@ -747,8 +747,8 @@ public class NftsApi {
     /**
      * Refresh vault account tokens Updates all tokens and balances per blockchain and vault
      * account. Learn more about Fireblocks NFT management in the following
-     * [guide](https://developers.fireblocks.com/reference/deploy-an-nft-collection).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * [guide](https://developers.fireblocks.com/reference/deploy-an-nft-collection). Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param blockchainDescriptor Blockchain descriptor filter (required)
      * @param vaultAccountId Vault account filter (required)

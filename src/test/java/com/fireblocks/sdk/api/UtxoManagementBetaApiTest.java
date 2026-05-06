@@ -34,8 +34,8 @@ public class UtxoManagementBetaApiTest {
      *
      * <p>Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in
      * a vault account, with optional filters for labels, statuses, amounts, and more. **Note:**
-     * These endpoints are currently in beta and might be subject to changes. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * These endpoints are currently in beta and might be subject to changes. Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -82,8 +82,7 @@ public class UtxoManagementBetaApiTest {
      * organizing and filtering UTXOs. Labels are applied additively — &#x60;labelsToAttach&#x60;
      * adds to the existing label set and &#x60;labelsToDetach&#x60; removes from it. Neither
      * operation replaces the full set. **Note:** These endpoints are currently in beta and might be
-     * subject to changes. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer,
-     * Approver, Editor.
+     * subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */

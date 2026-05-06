@@ -42,9 +42,9 @@ public class BlockchainsAssetsApiTest {
     /**
      * Get an asset
      *
-     * <p>Returns an asset by ID or legacyID.&lt;/br&gt; **Note**: - We will continue displaying and
-     * supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new
-     * Assets UUID, please use only the legacy ID until further notice.
+     * <p>Returns an asset by ID or legacyID. **Note**: - We will continue displaying and supporting
+     * the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID,
+     * please use only the legacy ID until further notice.
      *
      * @throws ApiException if the Api call fails
      */
@@ -122,7 +122,7 @@ public class BlockchainsAssetsApiTest {
     /**
      * List blockchains
      *
-     * <p>Returns all blockchains supported by Fireblocks.&lt;/br&gt;
+     * <p>Returns all blockchains supported by Fireblocks.
      *
      * @throws ApiException if the Api call fails
      */

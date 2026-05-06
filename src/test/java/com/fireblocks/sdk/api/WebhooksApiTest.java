@@ -52,8 +52,8 @@ public class WebhooksApiTest {
      * Resend failed webhooks
      *
      * <p>Resends all failed webhook notifications. Learn more about Fireblocks Webhooks in the
-     * following [guide](https://developers.fireblocks.com/docs/configure-webhooks).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * following [guide](https://developers.fireblocks.com/docs/configure-webhooks). Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */

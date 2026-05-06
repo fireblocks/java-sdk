@@ -70,8 +70,7 @@ public class ResetDeviceApi {
     /**
      * Resets device Resets mobile device for given console user, that user will need to do mobile
      * onboarding again. - Please note that this endpoint is available only for API keys with
-     * Admin/Non Signing Admin permissions. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin.
+     * Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param id The ID of the console user (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple

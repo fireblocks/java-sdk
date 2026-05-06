@@ -89,8 +89,8 @@ public class TransactionsApi {
 
     /**
      * Cancel a transaction Cancels a transaction by Fireblocks Transaction ID. Can be used only for
-     * transactions that did not get to the BROADCASTING state. &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * transactions that did not get to the BROADCASTING state. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param txId The ID of the transaction to cancel (required)
      * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
@@ -258,8 +258,8 @@ public class TransactionsApi {
     }
     /**
      * Drop ETH (EVM) transaction by ID Drops a stuck ETH (EVM) transaction and creates a
-     * replacement transaction with 0 amount. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver, Editor.
+     * replacement transaction with 0 amount. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor.
      *
      * @param txId The ID of the transaction (required)
      * @param dropTransactionRequest (optional)
@@ -368,8 +368,8 @@ public class TransactionsApi {
      * &#x60;feePerByte&#x60; parameters. - For XRP and XLM, the response will contain the
      * transaction fee. - For other assets, the response will contain the &#x60;networkFee&#x60;
      * parameter. Learn more about Fireblocks Fee Management in the following
-     * [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param assetId The asset for which to estimate the fee (required)
      * @return CompletableFuture&lt;ApiResponse&lt;EstimatedNetworkFeeResponse&gt;&gt;
@@ -453,9 +453,11 @@ public class TransactionsApi {
      * Estimate transaction fee Estimates the transaction fee for a specific transaction request.
      * This endpoint simulates a transaction which means that the system will expect to have the
      * requested asset and balance in the specified wallet. **Note**: Supports all Fireblocks assets
-     * except ZCash (ZEC). Learn more about Fireblocks Fee Management in the following
-     * [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee).
-     * &lt;/br&gt;Endpoint Permission: Admin, Signer, Approver, Editor.
+     * except ZCash (ZEC). The PROGRAM_CALL operation is not supported by this endpoint — fee
+     * estimation for Solana program calls is not available. Learn more about Fireblocks Fee
+     * Management in the following
+     * [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint
+     * Permission: Admin, Signer, Approver, Editor.
      *
      * @param transactionRequest (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -536,7 +538,7 @@ public class TransactionsApi {
      * Freeze a transaction Freezes a transaction by ID. Usually used for AML integrations when the
      * incoming funds should be quarantined. For account based assets - the entire amount of the
      * transaction is frozen For UTXO based assets - all UTXOs of the specified transaction are
-     * frozen &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * frozen Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param txId The ID of the transaction to freeze (required)
      * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
@@ -615,8 +617,8 @@ public class TransactionsApi {
     }
     /**
      * Get a specific transaction by Fireblocks transaction ID Get a specific transaction data by
-     * Fireblocks Transaction ID &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer,
-     * Approver, Editor, Viewer.
+     * Fireblocks Transaction ID Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
+     * Editor, Viewer.
      *
      * @param txId The ID of the transaction to return (required)
      * @return CompletableFuture&lt;ApiResponse&lt;TransactionResponse&gt;&gt;
@@ -681,8 +683,8 @@ public class TransactionsApi {
     }
     /**
      * Get a specific transaction by external transaction ID Returns transaction by external
-     * transaction ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
-     * Editor, Viewer.
+     * transaction ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
+     * Viewer.
      *
      * @param externalTxId The external ID of the transaction to return (required)
      * @return CompletableFuture&lt;ApiResponse&lt;TransactionResponse&gt;&gt;
@@ -941,8 +943,8 @@ public class TransactionsApi {
     }
     /**
      * Set confirmation threshold by transaction hash Overrides the required number of confirmations
-     * for transaction completion by transaction hash. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor.
+     * for transaction completion by transaction hash. Endpoint Permission: Admin, Non-Signing
+     * Admin, Signer, Approver, Editor.
      *
      * @param txHash The TxHash (required)
      * @param setConfirmationsThresholdRequest (optional)
@@ -1036,8 +1038,8 @@ public class TransactionsApi {
     }
     /**
      * Set confirmation threshold by Fireblocks Transaction ID Overrides the required number of
-     * confirmations for transaction completion Fireblocks Transaction ID. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * confirmations for transaction completion Fireblocks Transaction ID. Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param txId The ID of the transaction (required)
      * @param setConfirmationsThresholdRequest (optional)
@@ -1131,7 +1133,7 @@ public class TransactionsApi {
     }
     /**
      * Unfreeze a transaction Unfreezes a transaction by Fireblocks Transaction ID and makes the
-     * transaction available again. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * transaction available again. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param txId The ID of the transaction to unfreeze (required)
      * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
@@ -1211,7 +1213,7 @@ public class TransactionsApi {
     }
     /**
      * Validate destination address Checks if an address is valid and active (for XRP, DOT, XLM, and
-     * EOS). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * EOS). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param assetId The asset of the address (required)
      * @param address The address to validate (required)

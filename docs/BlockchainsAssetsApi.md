@@ -21,7 +21,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Get an asset
 
-Returns an asset by ID or legacyID.&lt;/br&gt;  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
+Returns an asset by ID or legacyID.  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
 
 ### Example
 
@@ -372,7 +372,7 @@ No authorization required
 
 List blockchains
 
-Returns all blockchains supported by Fireblocks.&lt;/br&gt; 
+Returns all blockchains supported by Fireblocks. 
 
 ### Example
 

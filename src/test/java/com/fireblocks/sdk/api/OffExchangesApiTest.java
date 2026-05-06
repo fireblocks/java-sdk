@@ -36,8 +36,8 @@ public class OffExchangesApiTest {
      * Add Collateral
      *
      * <p>Add collateral and create deposit request. Learn more about Fireblocks Off Exchange in the
-     * following [guide](https://developers.fireblocks.com/docs/off-exchange). &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -54,7 +54,7 @@ public class OffExchangesApiTest {
      *
      * <p>Returns a collateral account by mainExchangeAccountId. Learn more about Fireblocks Off
      * Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -69,8 +69,8 @@ public class OffExchangesApiTest {
      * Get Settlements Transactions
      *
      * <p>Get settlements transactions from exchange. Learn more about Fireblocks Off Exchange in
-     * the following [guide](https://developers.fireblocks.com/docs/off-exchange).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -85,8 +85,8 @@ public class OffExchangesApiTest {
      * Remove Collateral
      *
      * <p>Remove collateral, create withdraw request. Learn more about Fireblocks Off Exchange in
-     * the following [guide](https://developers.fireblocks.com/docs/off-exchange).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -102,8 +102,8 @@ public class OffExchangesApiTest {
      * Create Settlement for a Trader
      *
      * <p>Create settlement for a trader. Learn more about Fireblocks Off Exchange in the following
-     * [guide](https://developers.fireblocks.com/docs/off-exchange). &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */

@@ -31,8 +31,8 @@ public class ApiUserApiTest {
      * Create API Key
      *
      * <p>Create a new API key in your workspace. Learn more about Fireblocks API Keys management in
-     * the following [guide](https://developers.fireblocks.com/docs/manage-api-keys).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * the following [guide](https://developers.fireblocks.com/docs/manage-api-keys). Endpoint
+     * Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -49,7 +49,7 @@ public class ApiUserApiTest {
      * Get API Keys
      *
      * <p>List all API keys in your workspace. - Please note that this endpoint is available only
-     * for API keys with Admin/Non Signing Admin permissions. &lt;/br&gt;Endpoint Permission: Admin,
+     * for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin,
      * Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails

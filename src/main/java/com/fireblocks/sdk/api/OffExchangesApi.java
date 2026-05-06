@@ -83,7 +83,7 @@ public class OffExchangesApi {
     /**
      * Add Collateral Add collateral and create deposit request. Learn more about Fireblocks Off
      * Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param addCollateralRequestBody (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -165,8 +165,8 @@ public class OffExchangesApi {
     /**
      * Find a specific collateral exchange account Returns a collateral account by
      * mainExchangeAccountId. Learn more about Fireblocks Off Exchange in the following
-     * [guide](https://developers.fireblocks.com/docs/off-exchange). &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param mainExchangeAccountId The id of the main exchange account for which the requested
      *     collateral account is associated with (required)
@@ -241,8 +241,8 @@ public class OffExchangesApi {
     /**
      * Get Settlements Transactions Get settlements transactions from exchange. Learn more about
      * Fireblocks Off Exchange in the following
-     * [guide](https://developers.fireblocks.com/docs/off-exchange). &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param mainExchangeAccountId (required)
      * @return CompletableFuture&lt;ApiResponse&lt;ExchangeSettlementTransactionsResponse&gt;&gt;
@@ -331,7 +331,7 @@ public class OffExchangesApi {
     /**
      * Remove Collateral Remove collateral, create withdraw request. Learn more about Fireblocks Off
      * Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param removeCollateralRequestBody (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -413,7 +413,7 @@ public class OffExchangesApi {
     /**
      * Create Settlement for a Trader Create settlement for a trader. Learn more about Fireblocks
      * Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param settlementRequestBody (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple

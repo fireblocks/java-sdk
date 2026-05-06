@@ -178,7 +178,7 @@ public class ExchangeAccountsApi {
      * destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported
      * conversions. Learn more about Fireblocks Exchange Connectivity in the following
      * [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param exchangeAccountId The ID of the exchange account. Please make sure the exchange
      *     supports conversions. To find the ID of your exchange account, use GET/exchange_accounts.
@@ -271,8 +271,8 @@ public class ExchangeAccountsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get a specific exchange account Returns an exchange account by ID. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin.
+     * Get a specific exchange account Returns an exchange account by ID. Endpoint Permission:
+     * Admin, Non-Signing Admin.
      *
      * @param exchangeAccountId The ID of the exchange account to return (required)
      * @return CompletableFuture&lt;ApiResponse&lt;ExchangeAccount&gt;&gt;
@@ -343,8 +343,8 @@ public class ExchangeAccountsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get an asset for an exchange account Returns an asset for an exchange account.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * Get an asset for an exchange account Returns an asset for an exchange account. Endpoint
+     * Permission: Admin, Non-Signing Admin.
      *
      * @param exchangeAccountId The ID of the exchange account to return (required)
      * @param assetId The ID of the asset to return (required)
@@ -486,7 +486,7 @@ public class ExchangeAccountsApi {
     }
     /**
      * List connected exchange accounts Returns a list of the connected exchange accounts in your
-     * workspace. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * workspace. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param limit number of exchanges per page (required)
      * @param before (optional)
@@ -578,7 +578,7 @@ public class ExchangeAccountsApi {
      * Internal transfer for exchange accounts Transfers funds between trading accounts under the
      * same exchange account. Learn more about Fireblocks Exchange Connectivity in the following
      * [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param exchangeAccountId The ID of the exchange account to return (required)
      * @param createInternalTransferRequest (optional)

@@ -31,8 +31,8 @@ public class GasStationsApiTest {
     /**
      * Get gas station settings by asset
      *
-     * <p>Returns gas station settings and balances for a requested asset. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * <p>Returns gas station settings and balances for a requested asset. Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -46,8 +46,8 @@ public class GasStationsApiTest {
     /**
      * Get gas station settings
      *
-     * <p>Returns gas station settings and ETH balance. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor.
+     * <p>Returns gas station settings and ETH balance. Endpoint Permission: Admin, Non-Signing
+     * Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -61,8 +61,8 @@ public class GasStationsApiTest {
      * Edit gas station settings
      *
      * <p>Configures gas station settings for ETH. Learn more about the Fireblocks Gas Station in
-     * the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -79,8 +79,8 @@ public class GasStationsApiTest {
      *
      * <p>Configures gas station settings for a requested asset. Learn more about the Fireblocks Gas
      * Station in the following
-     * [guide](https://developers.fireblocks.com/docs/work-with-gas-station). &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */

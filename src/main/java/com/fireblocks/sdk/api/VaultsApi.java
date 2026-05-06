@@ -20,6 +20,8 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
+import com.fireblocks.sdk.model.CircleGatewayWalletInfoResponse;
+import com.fireblocks.sdk.model.CircleGatewayWalletStatusResponse;
 import com.fireblocks.sdk.model.CreateAddressRequest;
 import com.fireblocks.sdk.model.CreateAddressResponse;
 import com.fireblocks.sdk.model.CreateAssetsRequest;
@@ -106,8 +108,7 @@ public class VaultsApi {
     /**
      * Activate a wallet in a vault account Initiates activation for a wallet in a vault account.
      * Activation is required for tokens that need an on-chain transaction for creation (XLM tokens,
-     * SOL tokens etc). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
-     * Editor.
+     * SOL tokens etc). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param vaultAccountId The ID of the vault account to return, or &#39;default&#39; for the
      *     default vault account (required)
@@ -200,6 +201,87 @@ public class VaultsApi {
         } else {
             localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
         }
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Activate a Circle Gateway wallet Activates the Circle Gateway wallet associated with the
+     * given vault account. If the wallet does not yet exist it is created in an activated state.
+     * **Note:** This endpoint is currently in beta and might be subject to changes.
+     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     *
+     * @param vaultAccountId The ID of the vault account (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;CircleGatewayWalletStatusResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>>
+            activateCircleGatewayWalletBeta(String vaultAccountId, String idempotencyKey)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    activateCircleGatewayWalletBetaRequestBuilder(vaultAccountId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "activateCircleGatewayWalletBeta",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<CircleGatewayWalletStatusResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            CircleGatewayWalletStatusResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder activateCircleGatewayWalletBetaRequestBuilder(
+            String vaultAccountId, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "activateCircleGatewayWalletBeta", "vaultAccountId", vaultAccountId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/vault/accounts/{vaultAccountId}/circle_gateway/activate"
+                        .replace(
+                                "{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
         if (idempotencyKey != null) {
             localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
@@ -313,7 +395,7 @@ public class VaultsApi {
     }
     /**
      * Convert a segwit address to legacy format Converts an existing segwit address to the legacy
-     * format. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * format. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param vaultAccountId The ID of the vault account (required)
      * @param assetId The ID of the asset (required)
@@ -582,8 +664,8 @@ public class VaultsApi {
      * Create a new vault account Creates a new vault account with the requested name. **Note: **
      * Vault account names should consist of ASCII characters only. Learn more about Fireblocks
      * Vault Accounts in the following
-     * [guide](https://developers.fireblocks.com/reference/create-vault-account).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * [guide](https://developers.fireblocks.com/reference/create-vault-account). Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param createVaultAccountRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -668,7 +750,7 @@ public class VaultsApi {
     /**
      * Create a new vault wallet Creates a wallet for a specific asset in a vault account. Learn
      * more about Fireblocks Vault Wallets in the following
-     * [guide](https://developers.fireblocks.com/reference/create-vault-wallet). &lt;/br&gt;Endpoint
+     * [guide](https://developers.fireblocks.com/reference/create-vault-wallet). Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param vaultAccountId The ID of the vault account to return, or &#39;default&#39; for the
@@ -792,7 +874,7 @@ public class VaultsApi {
     /**
      * Create new asset deposit address Creates a new deposit address for an asset of a vault
      * account. Should be used for UTXO or Tag/Memo based assets ONLY. Requests with account based
-     * assets will fail. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * assets will fail. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param vaultAccountId The ID of the vault account to return (required)
      * @param assetId The ID of the asset (required)
@@ -889,10 +971,90 @@ public class VaultsApi {
         return localVarRequestBuilder;
     }
     /**
+     * Deactivate a Circle Gateway wallet Deactivates the Circle Gateway wallet associated with the
+     * given vault account. **Note:** This endpoint is currently in beta and might be subject to
+     * changes. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     *
+     * @param vaultAccountId The ID of the vault account (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;CircleGatewayWalletStatusResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>>
+            deactivateCircleGatewayWalletBeta(String vaultAccountId, String idempotencyKey)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    deactivateCircleGatewayWalletBetaRequestBuilder(vaultAccountId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "deactivateCircleGatewayWalletBeta",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<CircleGatewayWalletStatusResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            CircleGatewayWalletStatusResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder deactivateCircleGatewayWalletBetaRequestBuilder(
+            String vaultAccountId, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "deactivateCircleGatewayWalletBeta", "vaultAccountId", vaultAccountId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/vault/accounts/{vaultAccountId}/circle_gateway/deactivate"
+                        .replace(
+                                "{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Get vault wallets (Paginated) Get all vault wallets of the vault accounts in your workspace.
      * A vault wallet is an asset in a vault account. This method allows fast traversal of all
-     * account balances. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
-     * Editor, Viewer.
+     * account balances. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
+     * Viewer.
      *
      * @param totalAmountLargerThan When specified, only vault wallets with total balance greater
      *     than this amount are returned. (optional)
@@ -993,6 +1155,80 @@ public class VaultsApi {
         } else {
             localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
         }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get Circle Gateway wallet info Returns the Circle Gateway wallet information associated with
+     * the given vault account. **Note:** This endpoint is currently in beta and might be subject to
+     * changes. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
+     * Viewer.
+     *
+     * @param vaultAccountId The ID of the vault account (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;CircleGatewayWalletInfoResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<CircleGatewayWalletInfoResponse>>
+            getCircleGatewayWalletInfoBeta(String vaultAccountId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getCircleGatewayWalletInfoBetaRequestBuilder(vaultAccountId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getCircleGatewayWalletInfoBeta",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<CircleGatewayWalletInfoResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            CircleGatewayWalletInfoResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getCircleGatewayWalletInfoBetaRequestBuilder(String vaultAccountId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getCircleGatewayWalletInfoBeta", "vaultAccountId", vaultAccountId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/vault/accounts/{vaultAccountId}/circle_gateway"
+                        .replace(
+                                "{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
         localVarRequestBuilder.header("Accept", "application/json");
 
@@ -1320,8 +1556,8 @@ public class VaultsApi {
     }
     /**
      * Get vault accounts (Paginated) Gets all vault accounts in your workspace. This endpoint
-     * returns a limited amount of results with a quick response time. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * returns a limited amount of results with a quick response time. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @param namePrefix (optional)
      * @param nameSuffix (optional)
@@ -1473,7 +1709,7 @@ public class VaultsApi {
     }
     /**
      * Get the public key for a derivation path Gets the public key information based on derivation
-     * path and signing algorithm. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * path and signing algorithm. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param derivationPath (required)
      * @param algorithm (required)
@@ -1563,7 +1799,7 @@ public class VaultsApi {
     }
     /**
      * Get an asset&#39;s public key Get the public key information for a specific asset in a vault
-     * account. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * account. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param vaultAccountId (required)
      * @param assetId (required)
@@ -1673,8 +1909,8 @@ public class VaultsApi {
     }
     /**
      * Get UTXO unspent inputs information Returns unspent inputs information of an UTXO asset in a
-     * vault account. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
-     * Editor, Viewer.
+     * vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
+     * Viewer.
      *
      * @param vaultAccountId The ID of the vault account (required)
      * @param assetId The ID of the asset (required)
@@ -1746,8 +1982,8 @@ public class VaultsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get a vault account by ID Get a vault account by its unique ID. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Get a vault account by ID Get a vault account by its unique ID. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @param vaultAccountId The ID of the vault account (required)
      * @return CompletableFuture&lt;ApiResponse&lt;VaultAccount&gt;&gt;
@@ -1817,8 +2053,8 @@ public class VaultsApi {
     }
     /**
      * Get the asset balance for a vault account Returns a specific vault wallet balance information
-     * for a specific asset. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer,
-     * Approver, Editor, Viewer.
+     * for a specific asset. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
+     * Editor, Viewer.
      *
      * @param vaultAccountId The ID of the vault account to return (required)
      * @param assetId The ID of the asset (required)
@@ -1891,8 +2127,8 @@ public class VaultsApi {
     }
     /**
      * Get addresses (Paginated) Returns a paginated response of the addresses for a given vault
-     * account and asset. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer,
-     * Approver, Editor, Viewer.
+     * account and asset. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
+     * Viewer.
      *
      * @param vaultAccountId The ID of the vault account to return (required)
      * @param assetId The ID of the asset (required)
@@ -1998,8 +2234,8 @@ public class VaultsApi {
     }
     /**
      * Get asset balance for chosen assets Gets the assets amount summary for all accounts or
-     * filtered accounts. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer,
-     * Approver, Editor, Viewer.
+     * filtered accounts. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
+     * Viewer.
      *
      * @param accountNamePrefix (optional)
      * @param accountNameSuffix (optional)
@@ -2086,8 +2322,7 @@ public class VaultsApi {
     }
     /**
      * Get vault balance by an asset Get the total balance of an asset across all the vault
-     * accounts. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
-     * Viewer.
+     * accounts. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @param assetId (required)
      * @return CompletableFuture&lt;ApiResponse&lt;VaultAsset&gt;&gt;
@@ -2161,8 +2396,8 @@ public class VaultsApi {
      * Learn more in the following
      * [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts).
      * NOTE: Hiding the vault account from the web console will also hide all the related
-     * transactions to/from this vault. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin,
-     * Signer, Approver, Editor.
+     * transactions to/from this vault. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor.
      *
      * @param vaultAccountId The vault account to hide (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -2238,7 +2473,7 @@ public class VaultsApi {
     }
     /**
      * Assign AML customer reference ID Sets an AML/KYT customer reference ID for a specific
-     * address. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
+     * address. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param setCustomerRefIdForAddressRequest (required)
      * @param vaultAccountId The ID of the vault account (required)
@@ -2354,8 +2589,8 @@ public class VaultsApi {
      * Set auto fueling to on or off Toggles the auto fueling property of the vault account to
      * enabled or disabled. Vault Accounts with &#39;autoFuel&#x3D;true&#39; are monitored and auto
      * fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the
-     * following [guide](https://developers.fireblocks.com/docs/work-with-gas-station).
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param setAutoFuelRequest (required)
      * @param vaultAccountId The vault account ID (required)
@@ -2446,8 +2681,8 @@ public class VaultsApi {
     /**
      * Set an AML/KYT ID for a vault account Assigns an AML/KYT customer reference ID for the vault
      * account. Learn more about Fireblocks AML management in the following
-     * [guide](https://developers.fireblocks.com/docs/define-aml-policies). &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin.
+     * [guide](https://developers.fireblocks.com/docs/define-aml-policies). Endpoint Permission:
+     * Admin, Non-Signing Admin.
      *
      * @param setCustomerRefIdRequest (required)
      * @param vaultAccountId The vault account ID (required)
@@ -2543,7 +2778,7 @@ public class VaultsApi {
     }
     /**
      * Unhide a vault account in the console Makes a hidden vault account visible in web console
-     * view. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * view. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param vaultAccountId The vault account to unhide (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -2619,8 +2854,8 @@ public class VaultsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Rename a vault account Renames the requested vault account. &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver.
+     * Rename a vault account Renames the requested vault account. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver.
      *
      * @param updateVaultAccountRequest (required)
      * @param vaultAccountId The ID of the vault account to edit (required)
@@ -2715,8 +2950,7 @@ public class VaultsApi {
     }
     /**
      * Update address description Updates the description of an existing address of an asset in a
-     * vault account. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
-     * Editor.
+     * vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param vaultAccountId The ID of the vault account (required)
      * @param assetId The ID of the asset (required)
@@ -2827,8 +3061,7 @@ public class VaultsApi {
     /**
      * Refresh asset balance data Updates the balance of a specific asset in a vault account. This
      * API endpoint is subject to a strict rate limit. Should be used by clients in very specific
-     * scenarios. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
-     * Editor.
+     * scenarios. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param vaultAccountId The ID of the vault account to return (required)
      * @param assetId The ID of the asset (required)

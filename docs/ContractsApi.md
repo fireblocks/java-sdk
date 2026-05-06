@@ -20,7 +20,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Add an asset to a whitelisted contract
 
-Adds an asset to a whitelisted contract. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Adds an asset to a whitelisted contract. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -109,7 +109,7 @@ No authorization required
 
 Add a contract
 
-Adds a contract to the workspace whitelist. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Adds a contract to the workspace whitelist. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -194,7 +194,7 @@ No authorization required
 
 Delete a contract
 
-Deletes a contract by ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Deletes a contract by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -276,7 +276,7 @@ No authorization required
 
 Delete an asset from a whitelisted contract
 
-Deletes a whitelisted contract asset by ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Deletes a whitelisted contract asset by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -360,7 +360,7 @@ No authorization required
 
 Find a Specific Whitelisted Contract
 
-Returns a whitelisted contract by Fireblocks Contract ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns a whitelisted contract by Fireblocks Contract ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -443,7 +443,7 @@ No authorization required
 
 Find a whitelisted contract&#39;s asset
 
-Returns a whitelisted contract&#39;s asset by ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns a whitelisted contract&#39;s asset by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -528,7 +528,7 @@ No authorization required
 
 List Whitelisted Contracts
 
-Gets a list of whitelisted contracts. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Gets a list of whitelisted contracts. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 

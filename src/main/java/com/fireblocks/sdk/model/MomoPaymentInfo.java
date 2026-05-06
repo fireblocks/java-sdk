@@ -31,6 +31,7 @@ import java.util.StringJoiner;
     MomoPaymentInfo.JSON_PROPERTY_COUNTRY,
     MomoPaymentInfo.JSON_PROPERTY_MOBILE_PHONE_NUMBER,
     MomoPaymentInfo.JSON_PROPERTY_PROVIDER,
+    MomoPaymentInfo.JSON_PROPERTY_EMAIL,
     MomoPaymentInfo.JSON_PROPERTY_BENEFICIARY_DOCUMENT_ID,
     MomoPaymentInfo.JSON_PROPERTY_BENEFICIARY_RELATIONSHIP
 })
@@ -126,7 +127,9 @@ public class MomoPaymentInfo {
 
         MTN(String.valueOf("MTN")),
 
-        TIGO(String.valueOf("TIGO"));
+        TIGO(String.valueOf("TIGO")),
+
+        WAVE(String.valueOf("WAVE"));
 
         private String value;
 
@@ -158,6 +161,9 @@ public class MomoPaymentInfo {
     public static final String JSON_PROPERTY_PROVIDER = "provider";
     @jakarta.annotation.Nonnull private ProviderEnum provider;
 
+    public static final String JSON_PROPERTY_EMAIL = "email";
+    @jakarta.annotation.Nonnull private String email;
+
     public static final String JSON_PROPERTY_BENEFICIARY_DOCUMENT_ID = "beneficiaryDocumentId";
     @jakarta.annotation.Nullable private String beneficiaryDocumentId;
 
@@ -178,7 +184,8 @@ public class MomoPaymentInfo {
             @JsonProperty(value = JSON_PROPERTY_COUNTRY, required = true) String country,
             @JsonProperty(value = JSON_PROPERTY_MOBILE_PHONE_NUMBER, required = true)
                     String mobilePhoneNumber,
-            @JsonProperty(value = JSON_PROPERTY_PROVIDER, required = true) ProviderEnum provider) {
+            @JsonProperty(value = JSON_PROPERTY_PROVIDER, required = true) ProviderEnum provider,
+            @JsonProperty(value = JSON_PROPERTY_EMAIL, required = true) String email) {
         this.rail = rail;
         this.addressingSystem = addressingSystem;
         this.accountHolderGivenName = accountHolderGivenName;
@@ -186,6 +193,7 @@ public class MomoPaymentInfo {
         this.country = country;
         this.mobilePhoneNumber = mobilePhoneNumber;
         this.provider = provider;
+        this.email = email;
     }
 
     public MomoPaymentInfo rail(@jakarta.annotation.Nonnull RailEnum rail) {
@@ -354,6 +362,29 @@ public class MomoPaymentInfo {
         this.provider = provider;
     }
 
+    public MomoPaymentInfo email(@jakarta.annotation.Nonnull String email) {
+        this.email = email;
+        return this;
+    }
+
+    /**
+     * The email address of the account holder
+     *
+     * @return email
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_EMAIL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getEmail() {
+        return email;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EMAIL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setEmail(@jakarta.annotation.Nonnull String email) {
+        this.email = email;
+    }
+
     public MomoPaymentInfo beneficiaryDocumentId(
             @jakarta.annotation.Nullable String beneficiaryDocumentId) {
         this.beneficiaryDocumentId = beneficiaryDocumentId;
@@ -422,6 +453,7 @@ public class MomoPaymentInfo {
                 && Objects.equals(this.country, momoPaymentInfo.country)
                 && Objects.equals(this.mobilePhoneNumber, momoPaymentInfo.mobilePhoneNumber)
                 && Objects.equals(this.provider, momoPaymentInfo.provider)
+                && Objects.equals(this.email, momoPaymentInfo.email)
                 && Objects.equals(this.beneficiaryDocumentId, momoPaymentInfo.beneficiaryDocumentId)
                 && Objects.equals(
                         this.beneficiaryRelationship, momoPaymentInfo.beneficiaryRelationship);
@@ -437,6 +469,7 @@ public class MomoPaymentInfo {
                 country,
                 mobilePhoneNumber,
                 provider,
+                email,
                 beneficiaryDocumentId,
                 beneficiaryRelationship);
     }
@@ -458,6 +491,7 @@ public class MomoPaymentInfo {
                 .append(toIndentedString(mobilePhoneNumber))
                 .append("\n");
         sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
+        sb.append("    email: ").append(toIndentedString(email)).append("\n");
         sb.append("    beneficiaryDocumentId: ")
                 .append(toIndentedString(beneficiaryDocumentId))
                 .append("\n");
@@ -581,6 +615,16 @@ public class MomoPaymentInfo {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getProvider()))));
+        }
+
+        // add `email` to the URL query string
+        if (getEmail() != null) {
+            joiner.add(
+                    String.format(
+                            "%semail%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getEmail()))));
         }
 
         // add `beneficiaryDocumentId` to the URL query string

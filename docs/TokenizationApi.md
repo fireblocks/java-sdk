@@ -124,7 +124,7 @@ No authorization required
 
 Create a new collection
 
-Create a new collection and link it as a token. &lt;/br&gt;Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
+Create a new collection and link it as a token. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
 
 ### Example
 
@@ -813,7 +813,7 @@ No authorization required
 
 Get collections
 
-Get collections (paginated). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Get collections (paginated). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1149,7 +1149,7 @@ No authorization required
 
 Issue a new token
 
-Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \&quot;PENDING\&quot; until the token is deployed or \&quot;SUCCESS\&quot; if no deployment is needed. &lt;/br&gt;Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
+Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \&quot;PENDING\&quot; until the token is deployed or \&quot;SUCCESS\&quot; if no deployment is needed. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
 
 ### Example
 

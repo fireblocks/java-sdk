@@ -100,7 +100,7 @@ No authorization required
 
 Get the active draft by policy type
 
-Returns the active draft and its validation for a specific policy type. &lt;/br&gt; **Note:** These endpoints are currently in beta and might be subject to changes. 
+Returns the active draft and its validation for a specific policy type.  **Note:** These endpoints are currently in beta and might be subject to changes. 
 
 ### Example
 
@@ -183,7 +183,7 @@ No authorization required
 
 Send publish request for a certain draft id
 
-Send publish request of certain draft id and returns the response. &lt;/br&gt; **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+Send publish request of certain draft id and returns the response.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
 
 ### Example
 
@@ -268,7 +268,7 @@ No authorization required
 
 Update the draft with a new set of rules by policy types
 
-Update the draft and return its validation for specific policy types. &lt;/br&gt; **Note:** These endpoints are currently in beta and might be subject to changes. 
+Update the draft and return its validation for specific policy types.  **Note:** These endpoints are currently in beta and might be subject to changes. 
 
 ### Example
 

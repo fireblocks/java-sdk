@@ -31,11 +31,15 @@ import com.fireblocks.sdk.model.TRLinkCreateIntegrationRequest;
 import com.fireblocks.sdk.model.TRLinkCreateTrmRequest;
 import com.fireblocks.sdk.model.TRLinkCustomerIntegrationResponse;
 import com.fireblocks.sdk.model.TRLinkCustomerResponse;
+import com.fireblocks.sdk.model.TRLinkGetRequiredActionsResponse;
 import com.fireblocks.sdk.model.TRLinkGetSupportedAssetResponse;
+import com.fireblocks.sdk.model.TRLinkManualDecisionRequest;
+import com.fireblocks.sdk.model.TRLinkManualDecisionResponse;
 import com.fireblocks.sdk.model.TRLinkPartnerResponse;
 import com.fireblocks.sdk.model.TRLinkPolicyResponse;
 import com.fireblocks.sdk.model.TRLinkPublicKeyResponse;
 import com.fireblocks.sdk.model.TRLinkRedirectTrmRequest;
+import com.fireblocks.sdk.model.TRLinkResolveActionRequest;
 import com.fireblocks.sdk.model.TRLinkSetDestinationTravelRuleMessageIdRequest;
 import com.fireblocks.sdk.model.TRLinkSetDestinationTravelRuleMessageIdResponse;
 import com.fireblocks.sdk.model.TRLinkSetTransactionTravelRuleMessageIdRequest;
@@ -566,6 +570,116 @@ public class TrLinkApi {
         try {
             byte[] localVarPostBody =
                     memberVarObjectMapper.writeValueAsBytes(trLinkCreateIntegrationRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Manual decision for missing TRM Accept or reject destinations stuck in NoTRM step without
+     * waiting for TRP webhook or policy timeout.
+     *
+     * @param trLinkManualDecisionRequest (required)
+     * @param customerIntegrationId Customer integration unique identifier (required)
+     * @param txId Fireblocks transaction unique identifier (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkManualDecisionResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<TRLinkManualDecisionResponse>> createTRLinkManualDecision(
+            TRLinkManualDecisionRequest trLinkManualDecisionRequest,
+            UUID customerIntegrationId,
+            UUID txId,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    createTRLinkManualDecisionRequestBuilder(
+                            trLinkManualDecisionRequest,
+                            customerIntegrationId,
+                            txId,
+                            idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "createTRLinkManualDecision",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<TRLinkManualDecisionResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            TRLinkManualDecisionResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder createTRLinkManualDecisionRequestBuilder(
+            TRLinkManualDecisionRequest trLinkManualDecisionRequest,
+            UUID customerIntegrationId,
+            UUID txId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "createTRLinkManualDecision",
+                "trLinkManualDecisionRequest",
+                trLinkManualDecisionRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "createTRLinkManualDecision",
+                "customerIntegrationId",
+                customerIntegrationId.toString());
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "createTRLinkManualDecision", "txId", txId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/screening/trlink/customers/integration/{customerIntegrationId}/transactions/{txId}/manual_decision"
+                        .replace(
+                                "{customerIntegrationId}",
+                                ApiClient.urlEncode(customerIntegrationId.toString()))
+                        .replace("{txId}", ApiClient.urlEncode(txId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(trLinkManualDecisionRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {
@@ -1450,6 +1564,85 @@ public class TrLinkApi {
         return localVarRequestBuilder;
     }
     /**
+     * Get required actions for a TRM Retrieves the list of required actions (e.g., PII fields)
+     * needed to process the Travel Rule Message.
+     *
+     * @param customerIntegrationId Customer integration unique identifier (required)
+     * @param trmId Travel Rule Message unique identifier (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkGetRequiredActionsResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<TRLinkGetRequiredActionsResponse>>
+            getTRLinkTrmRequiredActions(UUID customerIntegrationId, String trmId)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getTRLinkTrmRequiredActionsRequestBuilder(customerIntegrationId, trmId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getTRLinkTrmRequiredActions",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<TRLinkGetRequiredActionsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            TRLinkGetRequiredActionsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTRLinkTrmRequiredActionsRequestBuilder(
+            UUID customerIntegrationId, String trmId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getTRLinkTrmRequiredActions",
+                "customerIntegrationId",
+                customerIntegrationId.toString());
+        ValidationUtils.assertParamExistsAndNotEmpty("getTRLinkTrmRequiredActions", "trmId", trmId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/required_actions"
+                        .replace(
+                                "{customerIntegrationId}",
+                                ApiClient.urlEncode(customerIntegrationId.toString()))
+                        .replace("{trmId}", ApiClient.urlEncode(trmId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Get VASP by ID Retrieves detailed information about a specific VASP by its unique identifier.
      * Returns VASP details including public key if available.
      *
@@ -1797,6 +1990,112 @@ public class TrLinkApi {
         try {
             byte[] localVarPostBody =
                     memberVarObjectMapper.writeValueAsBytes(trLinkRedirectTrmRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Resolve action for a TRM Submits required data (e.g., beneficiary PII) to resolve a pending
+     * Travel Rule Message action.
+     *
+     * @param trLinkResolveActionRequest (required)
+     * @param customerIntegrationId Customer integration unique identifier (required)
+     * @param trmId Travel Rule Message unique identifier (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkTrmInfoResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<TRLinkTrmInfoResponse>> resolveActionTRLinkTrm(
+            TRLinkResolveActionRequest trLinkResolveActionRequest,
+            UUID customerIntegrationId,
+            String trmId,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    resolveActionTRLinkTrmRequestBuilder(
+                            trLinkResolveActionRequest,
+                            customerIntegrationId,
+                            trmId,
+                            idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "resolveActionTRLinkTrm", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<TRLinkTrmInfoResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            TRLinkTrmInfoResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder resolveActionTRLinkTrmRequestBuilder(
+            TRLinkResolveActionRequest trLinkResolveActionRequest,
+            UUID customerIntegrationId,
+            String trmId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "resolveActionTRLinkTrm", "trLinkResolveActionRequest", trLinkResolveActionRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "resolveActionTRLinkTrm",
+                "customerIntegrationId",
+                customerIntegrationId.toString());
+        ValidationUtils.assertParamExistsAndNotEmpty("resolveActionTRLinkTrm", "trmId", trmId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/resolve_action"
+                        .replace(
+                                "{customerIntegrationId}",
+                                ApiClient.urlEncode(customerIntegrationId.toString()))
+                        .replace("{trmId}", ApiClient.urlEncode(trmId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(trLinkResolveActionRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {

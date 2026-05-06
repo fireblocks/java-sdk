@@ -290,6 +290,12 @@ class AdditionalInfoRequestAdditionalInfoTest {
         // TODO: test provider
     }
 
+    /** Test the property 'email' */
+    @Test
+    void emailTest() {
+        // TODO: test email
+    }
+
     /** Test the property 'beneficiaryDocumentId' */
     @Test
     void beneficiaryDocumentIdTest() {

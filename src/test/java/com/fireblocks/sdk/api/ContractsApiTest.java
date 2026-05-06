@@ -33,8 +33,8 @@ public class ContractsApiTest {
     /**
      * Add an asset to a whitelisted contract
      *
-     * <p>Adds an asset to a whitelisted contract. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor.
+     * <p>Adds an asset to a whitelisted contract. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -51,8 +51,8 @@ public class ContractsApiTest {
     /**
      * Add a contract
      *
-     * <p>Adds a contract to the workspace whitelist. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor.
+     * <p>Adds a contract to the workspace whitelist. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -67,8 +67,8 @@ public class ContractsApiTest {
     /**
      * Delete a contract
      *
-     * <p>Deletes a contract by ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin,
-     * Signer, Approver, Editor.
+     * <p>Deletes a contract by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
+     * Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -82,8 +82,8 @@ public class ContractsApiTest {
     /**
      * Delete an asset from a whitelisted contract
      *
-     * <p>Deletes a whitelisted contract asset by ID. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor.
+     * <p>Deletes a whitelisted contract asset by ID. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -99,8 +99,8 @@ public class ContractsApiTest {
     /**
      * Find a Specific Whitelisted Contract
      *
-     * <p>Returns a whitelisted contract by Fireblocks Contract ID. &lt;/br&gt;Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * <p>Returns a whitelisted contract by Fireblocks Contract ID. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -113,8 +113,8 @@ public class ContractsApiTest {
     /**
      * Find a whitelisted contract&#39;s asset
      *
-     * <p>Returns a whitelisted contract&#39;s asset by ID. &lt;/br&gt;Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor.
+     * <p>Returns a whitelisted contract&#39;s asset by ID. Endpoint Permission: Admin, Non-Signing
+     * Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -129,8 +129,8 @@ public class ContractsApiTest {
     /**
      * List Whitelisted Contracts
      *
-     * <p>Gets a list of whitelisted contracts. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver, Editor, Viewer.
+     * <p>Gets a list of whitelisted contracts. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */

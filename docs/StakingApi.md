@@ -118,7 +118,7 @@ No authorization required
 
 Claim accrued rewards
 
-Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (Matic). Behavior depends on protocol reward distribution.
+Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (POL/Matic). Behavior depends on protocol reward distribution.
 
 ### Example
 
@@ -144,7 +144,7 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         ClaimRewardsRequest claimRewardsRequest = new ClaimRewardsRequest(); // ClaimRewardsRequest | 
-        String chainDescriptor = "SOL"; // String | Protocol identifier for the claim rewards staking operation (e.g., MATIC/SOL).
+        String chainDescriptor = "SOL"; // String | Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL).
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
             CompletableFuture<ApiResponse<Void>> response = fireblocks.staking().claimRewards(claimRewardsRequest, chainDescriptor, idempotencyKey);
@@ -174,7 +174,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **claimRewardsRequest** | [**ClaimRewardsRequest**](ClaimRewardsRequest.md)|  | |
-| **chainDescriptor** | **String**| Protocol identifier for the claim rewards staking operation (e.g., MATIC/SOL). | [enum: SOL, SOL_TEST, MATIC] |
+| **chainDescriptor** | **String**| Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL). | [enum: SOL, SOL_TEST, MATIC, POL, POL_TEST] |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
@@ -209,7 +209,7 @@ No authorization required
 
 Consolidate staking positions (ETH validator consolidation)
 
-Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same funding vaults account (i.e. same withdrawals credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. &lt;/br&gt;Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
+Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
 
 ### Example
 
@@ -301,7 +301,7 @@ No authorization required
 
 List staking positions
 
-Returns all staking positions with core details: amounts, rewards, status, chain, and vault. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns all staking positions with core details: amounts, rewards, status, chain, and vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -326,7 +326,7 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        ChainDescriptor chainDescriptor = ChainDescriptor.fromValue("ATOM_COS"); // ChainDescriptor | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
+        ChainDescriptor chainDescriptor = ChainDescriptor.fromValue("ATOM_COS"); // ChainDescriptor | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned.
         String vaultAccountId = "1"; // String | Filter positions by vault account ID.
         try {
             CompletableFuture<ApiResponse<List<Delegation>>> response = fireblocks.staking().getAllDelegations(chainDescriptor, vaultAccountId);
@@ -356,7 +356,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **chainDescriptor** | [**ChainDescriptor**](.md)| Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned. | [optional] [enum: ATOM_COS, AXL, AXL_TEST, CELESTIA, DYDX_DYDX, ETH, ETH_TEST6, ETH_TEST_HOODI, INJ_INJ, MANTRA, MATIC, OSMO, SOL, SOL_TEST, STETH_ETH, STETH_ETH_TEST6_DZFA, STETH_ETH_TEST_HOODI] |
+| **chainDescriptor** | [**ChainDescriptor**](.md)| Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned. | [optional] [enum: ATOM_COS, AXL, AXL_TEST, CELESTIA, DYDX_DYDX, ETH, ETH_TEST6, ETH_TEST_HOODI, INJ_INJ, MANTRA, MATIC, OSMO, POL, POL_TEST, SOL, SOL_TEST, STETH_ETH, STETH_ETH_TEST6_DZFA, STETH_ETH_TEST_HOODI] |
 | **vaultAccountId** | **String**| Filter positions by vault account ID. | [optional] |
 
 ### Return type
@@ -445,7 +445,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **chainDescriptor** | [**ChainDescriptor**](.md)| Protocol identifier for the chain info staking operation (e.g., ETH/MATIC/SOL). | [enum: ATOM_COS, AXL, AXL_TEST, CELESTIA, DYDX_DYDX, ETH, ETH_TEST6, ETH_TEST_HOODI, INJ_INJ, MANTRA, MATIC, OSMO, SOL, SOL_TEST, STETH_ETH, STETH_ETH_TEST6_DZFA, STETH_ETH_TEST_HOODI] |
+| **chainDescriptor** | [**ChainDescriptor**](.md)| Protocol identifier for the chain info staking operation (e.g., ETH/MATIC/SOL). | [enum: ATOM_COS, AXL, AXL_TEST, CELESTIA, DYDX_DYDX, ETH, ETH_TEST6, ETH_TEST_HOODI, INJ_INJ, MANTRA, MATIC, OSMO, POL, POL_TEST, SOL, SOL_TEST, STETH_ETH, STETH_ETH_TEST6_DZFA, STETH_ETH_TEST_HOODI] |
 
 ### Return type
 
@@ -479,7 +479,7 @@ No authorization required
 
 List supported staking chains
 
-Returns an alphabetical list of blockchains supported for staking by the current workspace context. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns an alphabetical list of blockchains supported for staking by the current workspace context. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -650,7 +650,7 @@ No authorization required
 
 List staking positions (Paginated)
 
-Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -676,7 +676,7 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         Integer pageSize = 10; // Integer | Number of results per page. When provided, the response returns a paginated object with {data, next}. If omitted, all results are returned as an array.
-        ChainDescriptor chainDescriptor = ChainDescriptor.fromValue("ATOM_COS"); // ChainDescriptor | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
+        ChainDescriptor chainDescriptor = ChainDescriptor.fromValue("ATOM_COS"); // ChainDescriptor | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned.
         String vaultAccountId = "10"; // String | Filter positions by Fireblocks vault account ID. If omitted, positions across all vault accounts are returned.
         String pageCursor = "eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9"; // String | Cursor for the next page of results. Use the value from the 'next' field in the previous response.
         String order = "ASC"; // String | ASC / DESC ordering (default DESC)
@@ -709,7 +709,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **pageSize** | **Integer**| Number of results per page. When provided, the response returns a paginated object with {data, next}. If omitted, all results are returned as an array. | [default to 10] |
-| **chainDescriptor** | [**ChainDescriptor**](.md)| Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned. | [optional] [enum: ATOM_COS, AXL, AXL_TEST, CELESTIA, DYDX_DYDX, ETH, ETH_TEST6, ETH_TEST_HOODI, INJ_INJ, MANTRA, MATIC, OSMO, SOL, SOL_TEST, STETH_ETH, STETH_ETH_TEST6_DZFA, STETH_ETH_TEST_HOODI] |
+| **chainDescriptor** | [**ChainDescriptor**](.md)| Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned. | [optional] [enum: ATOM_COS, AXL, AXL_TEST, CELESTIA, DYDX_DYDX, ETH, ETH_TEST6, ETH_TEST_HOODI, INJ_INJ, MANTRA, MATIC, OSMO, POL, POL_TEST, SOL, SOL_TEST, STETH_ETH, STETH_ETH_TEST6_DZFA, STETH_ETH_TEST_HOODI] |
 | **vaultAccountId** | **String**| Filter positions by Fireblocks vault account ID. If omitted, positions across all vault accounts are returned. | [optional] |
 | **pageCursor** | **String**| Cursor for the next page of results. Use the value from the &#39;next&#39; field in the previous response. | [optional] |
 | **order** | **String**| ASC / DESC ordering (default DESC) | [optional] [default to DESC] [enum: ASC, DESC] |
@@ -746,7 +746,7 @@ No authorization required
 
 List staking providers
 
-Returns all available staking providers with metadata such as name, ID, and supported chains. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns all available staking providers with metadata such as name, ID, and supported chains. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -995,7 +995,7 @@ No authorization required
 
 Merge staking positions
 
-Merges the source stake account into the destination, consolidating the balance into the destination and closing the source account once complete. Both accounts must be from the same validator provider and of same vault account.. Supported chains: Solana (SOL). &lt;/br&gt;Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+Merges the source stake account into the destination, consolidating the balance into the destination and closing the source account once complete. Both accounts must be from the same validator provider and of same vault account.. Supported chains: Solana (SOL). Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -1179,7 +1179,7 @@ No authorization required
 
 Initiate or add to existing stake
 
-Creates a new staking position and returns its unique ID. For Ethereum compounding validator (EIP-7251): when the &#39;id&#39; of an existing compounding validator position is provided, adds to that position; otherwise creates a new position. For Ethereum legacy validator: creates a new position regardless of existing delegations. For Cosmos chains and Ethereum liquid staking (Lido): automatically add to existing positions for the same validator provider and same vault account if one exists, otherwise create a new position. For Solana and Polygon: always create new positions regardless of existing delegations.
+Creates a new staking position and returns its unique ID. For Ethereum compounding validator (EIP-7251): when the &#39;id&#39; of an existing compounding validator position is provided, adds to that position; otherwise creates a new position. For Ethereum legacy validator: creates a new position regardless of existing delegations. For Cosmos chains and Ethereum liquid staking (Lido): automatically add to existing positions for the same validator provider and same vault account if one exists, otherwise create a new position. For Solana and Polygon (MATIC/POL): always create new positions regardless of existing delegations.
 
 ### Example
 
@@ -1236,7 +1236,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **stakeRequest** | [**StakeRequest**](StakeRequest.md)|  | |
-| **chainDescriptor** | [**ChainDescriptor**](.md)| Protocol identifier for the stake staking operation (e.g., ATOM_COS/AXL/CELESTIA). | [enum: ATOM_COS, AXL, AXL_TEST, CELESTIA, DYDX_DYDX, ETH, ETH_TEST6, ETH_TEST_HOODI, INJ_INJ, MANTRA, MATIC, OSMO, SOL, SOL_TEST, STETH_ETH, STETH_ETH_TEST6_DZFA, STETH_ETH_TEST_HOODI] |
+| **chainDescriptor** | [**ChainDescriptor**](.md)| Protocol identifier for the stake staking operation (e.g., ATOM_COS/AXL/CELESTIA). | [enum: ATOM_COS, AXL, AXL_TEST, CELESTIA, DYDX_DYDX, ETH, ETH_TEST6, ETH_TEST_HOODI, INJ_INJ, MANTRA, MATIC, OSMO, POL, POL_TEST, SOL, SOL_TEST, STETH_ETH, STETH_ETH_TEST6_DZFA, STETH_ETH_TEST_HOODI] |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
@@ -1327,7 +1327,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **unstakeRequest** | [**UnstakeRequest**](UnstakeRequest.md)|  | |
-| **chainDescriptor** | [**ChainDescriptor**](.md)| Protocol identifier for the unstake staking operation (e.g., SOL/SOL_TEST/MATIC). | [enum: ATOM_COS, AXL, AXL_TEST, CELESTIA, DYDX_DYDX, ETH, ETH_TEST6, ETH_TEST_HOODI, INJ_INJ, MANTRA, MATIC, OSMO, SOL, SOL_TEST, STETH_ETH, STETH_ETH_TEST6_DZFA, STETH_ETH_TEST_HOODI] |
+| **chainDescriptor** | [**ChainDescriptor**](.md)| Protocol identifier for the unstake staking operation (e.g., SOL/SOL_TEST/MATIC). | [enum: ATOM_COS, AXL, AXL_TEST, CELESTIA, DYDX_DYDX, ETH, ETH_TEST6, ETH_TEST_HOODI, INJ_INJ, MANTRA, MATIC, OSMO, POL, POL_TEST, SOL, SOL_TEST, STETH_ETH, STETH_ETH_TEST6_DZFA, STETH_ETH_TEST_HOODI] |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
@@ -1362,7 +1362,7 @@ No authorization required
 
 Withdraw staked funds
 
-Withdraws funds that have completed the unbonding period. Typically requires the position to be deactivated first (unstake → unbond → withdraw). Amount and timing vary by chain protocol.
+Withdraws funds that have completed the unbonding period. Typically requires the position to be deactivated first (unstake → unbond → withdraw). Amount and timing vary by chain protocol.  Partial withdrawal is supported for ETH compounding validators (EIP-7251/Pectra) and Cosmos chains via the optional &#39;amount&#39; field. For ETH compounding validators, the remaining balance must be at least 32 ETH after the withdrawal. For all other chains, omitting &#39;amount&#39; withdraws the entire available balance.
 
 ### Example
 
@@ -1418,7 +1418,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **withdrawRequest** | [**WithdrawRequest**](WithdrawRequest.md)|  | |
-| **chainDescriptor** | [**ChainDescriptor**](.md)| Protocol identifier for the withdraw staking operation (e.g., ATOM_COS/ETH/STETH_ETH). | [enum: ATOM_COS, AXL, AXL_TEST, CELESTIA, DYDX_DYDX, ETH, ETH_TEST6, ETH_TEST_HOODI, INJ_INJ, MANTRA, MATIC, OSMO, SOL, SOL_TEST, STETH_ETH, STETH_ETH_TEST6_DZFA, STETH_ETH_TEST_HOODI] |
+| **chainDescriptor** | [**ChainDescriptor**](.md)| Protocol identifier for the withdraw staking operation (e.g., ATOM_COS/ETH/STETH_ETH). | [enum: ATOM_COS, AXL, AXL_TEST, CELESTIA, DYDX_DYDX, ETH, ETH_TEST6, ETH_TEST_HOODI, INJ_INJ, MANTRA, MATIC, OSMO, POL, POL_TEST, SOL, SOL_TEST, STETH_ETH, STETH_ETH_TEST6_DZFA, STETH_ETH_TEST_HOODI] |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type

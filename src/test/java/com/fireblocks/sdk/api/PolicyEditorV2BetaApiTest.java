@@ -51,8 +51,8 @@ public class PolicyEditorV2BetaApiTest {
     /**
      * Get the active draft by policy type
      *
-     * <p>Returns the active draft and its validation for a specific policy type. &lt;/br&gt;
-     * **Note:** These endpoints are currently in beta and might be subject to changes.
+     * <p>Returns the active draft and its validation for a specific policy type. **Note:** These
+     * endpoints are currently in beta and might be subject to changes.
      *
      * @throws ApiException if the Api call fails
      */
@@ -66,10 +66,10 @@ public class PolicyEditorV2BetaApiTest {
     /**
      * Send publish request for a certain draft id
      *
-     * <p>Send publish request of certain draft id and returns the response. &lt;/br&gt; **Note:**
-     * These endpoints are currently in beta and might be subject to changes. If you want to
-     * participate and learn more about the Fireblocks Policy Editor, please contact your Fireblocks
-     * Customer Success Manager or send an email to CSM@fireblocks.com.
+     * <p>Send publish request of certain draft id and returns the response. **Note:** These
+     * endpoints are currently in beta and might be subject to changes. If you want to participate
+     * and learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer
+     * Success Manager or send an email to CSM@fireblocks.com.
      *
      * @throws ApiException if the Api call fails
      */
@@ -84,8 +84,8 @@ public class PolicyEditorV2BetaApiTest {
     /**
      * Update the draft with a new set of rules by policy types
      *
-     * <p>Update the draft and return its validation for specific policy types. &lt;/br&gt;
-     * **Note:** These endpoints are currently in beta and might be subject to changes.
+     * <p>Update the draft and return its validation for specific policy types. **Note:** These
+     * endpoints are currently in beta and might be subject to changes.
      *
      * @throws ApiException if the Api call fails
      */

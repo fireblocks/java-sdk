@@ -15,6 +15,7 @@ Mobile Money (MOMO) payment information for African mobile payment services
 |**country** | **String** | The country for the transfer (ISO 3166-1 alpha-2 code) |  |
 |**mobilePhoneNumber** | **String** | The mobile phone number associated with the mobile money account |  |
 |**provider** | [**ProviderEnum**](#ProviderEnum) | The mobile money service provider |  |
+|**email** | **String** | The email address of the account holder |  |
 |**beneficiaryDocumentId** | **String** | The document ID of the beneficiary |  [optional] |
 |**beneficiaryRelationship** | **String** | The relationship between sender and beneficiary |  [optional] |
 
@@ -44,6 +45,7 @@ Mobile Money (MOMO) payment information for African mobile payment services
 | AIRTEL | &quot;AIRTEL&quot; |
 | MTN | &quot;MTN&quot; |
 | TIGO | &quot;TIGO&quot; |
+| WAVE | &quot;WAVE&quot; |
 
 
 
