@@ -5,7 +5,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**activateAssetForVaultAccount**](VaultsApi.md#activateAssetForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/activate | Activate a wallet in a vault account |
-| [**activateCircleGatewayWalletBeta**](VaultsApi.md#activateCircleGatewayWalletBeta) | **POST** /vault/accounts/{vaultAccountId}/circle_gateway/activate | Activate a Circle Gateway wallet |
+| [**activateUsdcGatewayWalletBeta**](VaultsApi.md#activateUsdcGatewayWalletBeta) | **POST** /vault/accounts/{vaultAccountId}/usdc_gateway/activate | Activate a USDC Gateway wallet |
 | [**attachOrDetachTagsFromVaultAccounts**](VaultsApi.md#attachOrDetachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags | Attach or detach tags from vault accounts |
 | [**createLegacyAddress**](VaultsApi.md#createLegacyAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy | Convert a segwit address to legacy format |
 | [**createMultipleAccounts**](VaultsApi.md#createMultipleAccounts) | **POST** /vault/accounts/bulk | Bulk creation of new vault accounts |
@@ -13,9 +13,8 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**createVaultAccount**](VaultsApi.md#createVaultAccount) | **POST** /vault/accounts | Create a new vault account |
 | [**createVaultAccountAsset**](VaultsApi.md#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new vault wallet |
 | [**createVaultAccountAssetAddress**](VaultsApi.md#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address |
-| [**deactivateCircleGatewayWalletBeta**](VaultsApi.md#deactivateCircleGatewayWalletBeta) | **POST** /vault/accounts/{vaultAccountId}/circle_gateway/deactivate | Deactivate a Circle Gateway wallet |
+| [**deactivateUsdcGatewayWalletBeta**](VaultsApi.md#deactivateUsdcGatewayWalletBeta) | **POST** /vault/accounts/{vaultAccountId}/usdc_gateway/deactivate | Deactivate a USDC Gateway wallet |
 | [**getAssetWallets**](VaultsApi.md#getAssetWallets) | **GET** /vault/asset_wallets | Get vault wallets (Paginated) |
-| [**getCircleGatewayWalletInfoBeta**](VaultsApi.md#getCircleGatewayWalletInfoBeta) | **GET** /vault/accounts/{vaultAccountId}/circle_gateway | Get Circle Gateway wallet info |
 | [**getCreateMultipleDepositAddressesJobStatus**](VaultsApi.md#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get the job status of the bulk deposit address creation |
 | [**getCreateMultipleVaultAccountsJobStatus**](VaultsApi.md#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts |
 | [**getMaxBipIndexUsed**](VaultsApi.md#getMaxBipIndexUsed) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_bip44_index_used | Get maximum BIP44 index used |
@@ -24,12 +23,14 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getPublicKeyInfo**](VaultsApi.md#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key for a derivation path |
 | [**getPublicKeyInfoForAddress**](VaultsApi.md#getPublicKeyInfoForAddress) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/{change}/{addressIndex}/public_key_info | Get an asset&#39;s public key |
 | [**getUnspentInputs**](VaultsApi.md#getUnspentInputs) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs | Get UTXO unspent inputs information |
+| [**getUsdcGatewayWalletInfoBeta**](VaultsApi.md#getUsdcGatewayWalletInfoBeta) | **GET** /vault/accounts/{vaultAccountId}/usdc_gateway | Get USDC Gateway wallet info |
 | [**getVaultAccount**](VaultsApi.md#getVaultAccount) | **GET** /vault/accounts/{vaultAccountId} | Get a vault account by ID |
 | [**getVaultAccountAsset**](VaultsApi.md#getVaultAccountAsset) | **GET** /vault/accounts/{vaultAccountId}/{assetId} | Get the asset balance for a vault account |
 | [**getVaultAccountAssetAddressesPaginated**](VaultsApi.md#getVaultAccountAssetAddressesPaginated) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated | Get addresses (Paginated) |
 | [**getVaultAssets**](VaultsApi.md#getVaultAssets) | **GET** /vault/assets | Get asset balance for chosen assets |
 | [**getVaultBalanceByAsset**](VaultsApi.md#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by an asset |
 | [**hideVaultAccount**](VaultsApi.md#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console |
+| [**lookupVaultByAddress**](VaultsApi.md#lookupVaultByAddress) | **GET** /vault/lookup_by_address | Look up a vault account by blockchain address |
 | [**setCustomerRefIdForAddress**](VaultsApi.md#setCustomerRefIdForAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id | Assign AML customer reference ID |
 | [**setVaultAccountAutoFuel**](VaultsApi.md#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Set auto fueling to on or off |
 | [**setVaultAccountCustomerRefId**](VaultsApi.md#setVaultAccountCustomerRefId) | **POST** /vault/accounts/{vaultAccountId}/set_customer_ref_id | Set an AML/KYT ID for a vault account |
@@ -129,13 +130,13 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## activateCircleGatewayWalletBeta
+## activateUsdcGatewayWalletBeta
 
-> CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>> activateCircleGatewayWalletBeta activateCircleGatewayWalletBeta(vaultAccountId, idempotencyKey)
+> CompletableFuture<ApiResponse<UsdcGatewayWalletStatusResponse>> activateUsdcGatewayWalletBeta activateUsdcGatewayWalletBeta(vaultAccountId, idempotencyKey)
 
-Activate a Circle Gateway wallet
+Activate a USDC Gateway wallet
 
-Activates the Circle Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 
@@ -163,19 +164,19 @@ public class Example {
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>> response = fireblocks.vaults().activateCircleGatewayWalletBeta(vaultAccountId, idempotencyKey);
+            CompletableFuture<ApiResponse<UsdcGatewayWalletStatusResponse>> response = fireblocks.vaults().activateUsdcGatewayWalletBeta(vaultAccountId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling VaultsApi#activateCircleGatewayWalletBeta");
+            System.err.println("Exception when calling VaultsApi#activateUsdcGatewayWalletBeta");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
         } catch (ApiException e) {
-            System.err.println("Exception when calling VaultsApi#activateCircleGatewayWalletBeta");
+            System.err.println("Exception when calling VaultsApi#activateUsdcGatewayWalletBeta");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Response headers: " + e.getResponseHeaders());
             System.err.println("Reason: " + e.getResponseBody());
@@ -195,7 +196,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**CircleGatewayWalletStatusResponse**](CircleGatewayWalletStatusResponse.md)>>
+CompletableFuture<ApiResponse<[**UsdcGatewayWalletStatusResponse**](UsdcGatewayWalletStatusResponse.md)>>
 
 
 ### Authorization
@@ -210,7 +211,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Circle Gateway wallet activated successfully |  * X-Request-ID -  <br>  |
+| **200** | USDC Gateway wallet activated successfully |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -824,13 +825,13 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## deactivateCircleGatewayWalletBeta
+## deactivateUsdcGatewayWalletBeta
 
-> CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>> deactivateCircleGatewayWalletBeta deactivateCircleGatewayWalletBeta(vaultAccountId, idempotencyKey)
+> CompletableFuture<ApiResponse<UsdcGatewayWalletStatusResponse>> deactivateUsdcGatewayWalletBeta deactivateUsdcGatewayWalletBeta(vaultAccountId, idempotencyKey)
 
-Deactivate a Circle Gateway wallet
+Deactivate a USDC Gateway wallet
 
-Deactivates the Circle Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+Deactivates the USDC Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 
@@ -858,19 +859,19 @@ public class Example {
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>> response = fireblocks.vaults().deactivateCircleGatewayWalletBeta(vaultAccountId, idempotencyKey);
+            CompletableFuture<ApiResponse<UsdcGatewayWalletStatusResponse>> response = fireblocks.vaults().deactivateUsdcGatewayWalletBeta(vaultAccountId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling VaultsApi#deactivateCircleGatewayWalletBeta");
+            System.err.println("Exception when calling VaultsApi#deactivateUsdcGatewayWalletBeta");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
         } catch (ApiException e) {
-            System.err.println("Exception when calling VaultsApi#deactivateCircleGatewayWalletBeta");
+            System.err.println("Exception when calling VaultsApi#deactivateUsdcGatewayWalletBeta");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Response headers: " + e.getResponseHeaders());
             System.err.println("Reason: " + e.getResponseBody());
@@ -890,7 +891,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**CircleGatewayWalletStatusResponse**](CircleGatewayWalletStatusResponse.md)>>
+CompletableFuture<ApiResponse<[**UsdcGatewayWalletStatusResponse**](UsdcGatewayWalletStatusResponse.md)>>
 
 
 ### Authorization
@@ -905,7 +906,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Circle Gateway wallet deactivated successfully |  * X-Request-ID -  <br>  |
+| **200** | USDC Gateway wallet deactivated successfully |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -999,89 +1000,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | A PaginatedAssetWalletResponse object |  * X-Request-ID -  <br>  |
-
-
-## getCircleGatewayWalletInfoBeta
-
-> CompletableFuture<ApiResponse<CircleGatewayWalletInfoResponse>> getCircleGatewayWalletInfoBeta getCircleGatewayWalletInfoBeta(vaultAccountId)
-
-Get Circle Gateway wallet info
-
-Returns the Circle Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.VaultsApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
-        try {
-            CompletableFuture<ApiResponse<CircleGatewayWalletInfoResponse>> response = fireblocks.vaults().getCircleGatewayWalletInfoBeta(vaultAccountId);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-            System.out.println("Response body: " + response.get().getData());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling VaultsApi#getCircleGatewayWalletInfoBeta");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling VaultsApi#getCircleGatewayWalletInfoBeta");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **vaultAccountId** | **String**| The ID of the vault account | |
-
-### Return type
-
-CompletableFuture<ApiResponse<[**CircleGatewayWalletInfoResponse**](CircleGatewayWalletInfoResponse.md)>>
-
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Circle Gateway wallet information |  * X-Request-ID -  <br>  |
-| **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
 ## getCreateMultipleDepositAddressesJobStatus
@@ -1787,6 +1705,89 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getUsdcGatewayWalletInfoBeta
+
+> CompletableFuture<ApiResponse<UsdcGatewayWalletInfoResponse>> getUsdcGatewayWalletInfoBeta getUsdcGatewayWalletInfoBeta(vaultAccountId)
+
+Get USDC Gateway wallet info
+
+Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.VaultsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
+        try {
+            CompletableFuture<ApiResponse<UsdcGatewayWalletInfoResponse>> response = fireblocks.vaults().getUsdcGatewayWalletInfoBeta(vaultAccountId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling VaultsApi#getUsdcGatewayWalletInfoBeta");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VaultsApi#getUsdcGatewayWalletInfoBeta");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **vaultAccountId** | **String**| The ID of the vault account | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**UsdcGatewayWalletInfoResponse**](UsdcGatewayWalletInfoResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | USDC Gateway wallet information |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getVaultAccount
 
 > CompletableFuture<ApiResponse<VaultAccount>> getVaultAccount getVaultAccount(vaultAccountId)
@@ -2296,6 +2297,92 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | OK |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## lookupVaultByAddress
+
+> CompletableFuture<ApiResponse<AddressReverseLookupResponse>> lookupVaultByAddress lookupVaultByAddress(address)
+
+Look up a vault account by blockchain address
+
+Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. **Note:** This endpoint is currently in beta and might be subject to changes. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.VaultsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String address = "address_example"; // String | The blockchain address to resolve.
+        try {
+            CompletableFuture<ApiResponse<AddressReverseLookupResponse>> response = fireblocks.vaults().lookupVaultByAddress(address);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling VaultsApi#lookupVaultByAddress");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VaultsApi#lookupVaultByAddress");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **address** | **String**| The blockchain address to resolve. | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**AddressReverseLookupResponse**](AddressReverseLookupResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Vault account that owns the address, with associated blockchains. |  * X-Request-ID -  <br>  |
+| **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
+| **403** | Feature is not enabled for the workspace. |  * X-Request-ID -  <br>  |
+| **404** | Vault account not found for the supplied address |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

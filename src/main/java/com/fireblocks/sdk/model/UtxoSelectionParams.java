@@ -13,9 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -25,6 +28,7 @@ import java.util.StringJoiner;
  * be subject to changes.
  */
 @JsonPropertyOrder({
+    UtxoSelectionParams.JSON_PROPERTY_SELECTION_STRATEGY,
     UtxoSelectionParams.JSON_PROPERTY_FILTERS,
     UtxoSelectionParams.JSON_PROPERTY_INPUT_SELECTION
 })
@@ -32,6 +36,42 @@ import java.util.StringJoiner;
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class UtxoSelectionParams {
+    /** Optional override for the UTXO selection strategy configured at the vault/tenant level. */
+    public enum SelectionStrategyEnum {
+        AMOUNT_ASC(String.valueOf("AMOUNT_ASC")),
+
+        AMOUNT_DESC(String.valueOf("AMOUNT_DESC"));
+
+        private String value;
+
+        SelectionStrategyEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static SelectionStrategyEnum fromValue(String value) {
+            for (SelectionStrategyEnum b : SelectionStrategyEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    public static final String JSON_PROPERTY_SELECTION_STRATEGY = "selectionStrategy";
+    @jakarta.annotation.Nullable private SelectionStrategyEnum selectionStrategy;
+
     public static final String JSON_PROPERTY_FILTERS = "filters";
     @jakarta.annotation.Nullable private UtxoSelectionFilters filters;
 
@@ -39,6 +79,31 @@ public class UtxoSelectionParams {
     @jakarta.annotation.Nullable private UtxoInputSelection inputSelection;
 
     public UtxoSelectionParams() {}
+
+    public UtxoSelectionParams selectionStrategy(
+            @jakarta.annotation.Nullable SelectionStrategyEnum selectionStrategy) {
+        this.selectionStrategy = selectionStrategy;
+        return this;
+    }
+
+    /**
+     * Optional override for the UTXO selection strategy configured at the vault/tenant level.
+     *
+     * @return selectionStrategy
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SELECTION_STRATEGY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public SelectionStrategyEnum getSelectionStrategy() {
+        return selectionStrategy;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SELECTION_STRATEGY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSelectionStrategy(
+            @jakarta.annotation.Nullable SelectionStrategyEnum selectionStrategy) {
+        this.selectionStrategy = selectionStrategy;
+    }
 
     public UtxoSelectionParams filters(@jakarta.annotation.Nullable UtxoSelectionFilters filters) {
         this.filters = filters;
@@ -97,19 +162,23 @@ public class UtxoSelectionParams {
             return false;
         }
         UtxoSelectionParams utxoSelectionParams = (UtxoSelectionParams) o;
-        return Objects.equals(this.filters, utxoSelectionParams.filters)
+        return Objects.equals(this.selectionStrategy, utxoSelectionParams.selectionStrategy)
+                && Objects.equals(this.filters, utxoSelectionParams.filters)
                 && Objects.equals(this.inputSelection, utxoSelectionParams.inputSelection);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(filters, inputSelection);
+        return Objects.hash(selectionStrategy, filters, inputSelection);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class UtxoSelectionParams {\n");
+        sb.append("    selectionStrategy: ")
+                .append(toIndentedString(selectionStrategy))
+                .append("\n");
         sb.append("    filters: ").append(toIndentedString(filters)).append("\n");
         sb.append("    inputSelection: ").append(toIndentedString(inputSelection)).append("\n");
         sb.append("}");
@@ -158,6 +227,16 @@ public class UtxoSelectionParams {
         }
 
         StringJoiner joiner = new StringJoiner("&");
+
+        // add `selectionStrategy` to the URL query string
+        if (getSelectionStrategy() != null) {
+            joiner.add(
+                    String.format(
+                            "%sselectionStrategy%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getSelectionStrategy()))));
+        }
 
         // add `filters` to the URL query string
         if (getFilters() != null) {

@@ -54,8 +54,6 @@ public class UtxoManagementBetaApiTest {
         String address = null;
         String minAmount = null;
         String maxAmount = null;
-        Boolean useChange = null;
-        Boolean useCoinbase = null;
         CompletableFuture<ApiResponse<ListUtxosResponse>> response =
                 api.getUtxos(
                         vaultAccountId,
@@ -70,9 +68,7 @@ public class UtxoManagementBetaApiTest {
                         includeStatuses,
                         address,
                         minAmount,
-                        maxAmount,
-                        useChange,
-                        useCoinbase);
+                        maxAmount);
     }
 
     /**

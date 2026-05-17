@@ -11,6 +11,7 @@
 |**executionRequestDetails** | [**ExecutionRequestDetails**](ExecutionRequestDetails.md) |  |  |
 |**settlement** | [**Settlement**](Settlement.md) |  |  |
 |**participantsIdentification** | [**ParticipantsIdentification**](ParticipantsIdentification.md) |  |  [optional] |
+|**sourceOfFunds** | [**SourceOfFunds**](SourceOfFunds.md) |  |  [optional] |
 |**customerInternalReferenceId** | **String** | Internal reference ID for the customer |  [optional] |
 |**note** | **String** | Optional note for the order |  [optional] |
 

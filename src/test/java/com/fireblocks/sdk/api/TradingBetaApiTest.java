@@ -15,13 +15,17 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.CreateOffersRequest;
 import com.fireblocks.sdk.model.CreateOrderRequest;
 import com.fireblocks.sdk.model.CreateQuote;
 import com.fireblocks.sdk.model.GetOrdersResponse;
+import com.fireblocks.sdk.model.OffersResponse;
 import com.fireblocks.sdk.model.OrderDetails;
 import com.fireblocks.sdk.model.OrderStatus;
 import com.fireblocks.sdk.model.ProvidersListResponse;
 import com.fireblocks.sdk.model.QuotesResponse;
+import com.fireblocks.sdk.model.RatesRequest;
+import com.fireblocks.sdk.model.RatesResponse;
 import com.fireblocks.sdk.model.TradingProvider;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -74,6 +78,52 @@ public class TradingBetaApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<QuotesResponse>> response =
                 api.createQuote(createQuote, idempotencyKey);
+    }
+
+    /**
+     * Get all offers
+     *
+     * <p>Retrieve all available offers across the workspace for a given asset pair. Always operates
+     * in open scope — no provider or account selection required. Returns a mix of indicative rates
+     * and committed quotes as applicable per provider. If no slippageBps is provided, it defaults
+     * to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.
+     * Note: These endpoints are currently in beta and might be subject to changes. If you want to
+     * participate and learn more about the Fireblocks Trading, please contact your Fireblocks
+     * Customer Success Manager or send an email to CSM@fireblocks.com. Endpoint Permission: Owner,
+     * Admin, Non-Signing Admin, Signer, Editor. For detailed information about error codes and
+     * troubleshooting, please refer to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void fetchAllOffersTest() throws ApiException {
+        CreateOffersRequest createOffersRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<OffersResponse>> response =
+                api.fetchAllOffers(createOffersRequest, idempotencyKey);
+    }
+
+    /**
+     * Get rates
+     *
+     * <p>Retrieve indicative exchange rate from specified providers for a given asset pair. Rates
+     * are non-executable price signals intended for discovery and display purposes. Note: These
+     * endpoints are currently in beta and might be subject to changes. If you want to participate
+     * and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success
+     * Manager or send an email to CSM@fireblocks.com. Endpoint Permission: Owner, Admin,
+     * Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed information about error
+     * codes and troubleshooting, please refer to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void fetchRatesTest() throws ApiException {
+        RatesRequest ratesRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<RatesResponse>> response =
+                api.fetchRates(ratesRequest, idempotencyKey);
     }
 
     /**

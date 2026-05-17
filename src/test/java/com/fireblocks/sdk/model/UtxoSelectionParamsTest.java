@@ -25,6 +25,12 @@ class UtxoSelectionParamsTest {
         // TODO: test UtxoSelectionParams
     }
 
+    /** Test the property 'selectionStrategy' */
+    @Test
+    void selectionStrategyTest() {
+        // TODO: test selectionStrategy
+    }
+
     /** Test the property 'filters' */
     @Test
     void filtersTest() {

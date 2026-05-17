@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | **QuoteTypeEnum** |  |  |
+|**type** | **QuoteExecutionTypeEnum** |  |  |
 |**quoteId** | **String** | Quote ID for quote orders |  |
 |**reQuote** | [**ReQuoteDetailsReQuote**](ReQuoteDetailsReQuote.md) |  |  [optional] |
 

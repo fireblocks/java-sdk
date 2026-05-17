@@ -32,7 +32,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class QuoteExecutionWithRequoteRequestDetails {
     public static final String JSON_PROPERTY_TYPE = "type";
-    @jakarta.annotation.Nonnull private QuoteTypeEnum type;
+    @jakarta.annotation.Nonnull private QuoteExecutionTypeEnum type;
 
     public static final String JSON_PROPERTY_QUOTE_ID = "quoteId";
     @jakarta.annotation.Nonnull private String quoteId;
@@ -44,14 +44,14 @@ public class QuoteExecutionWithRequoteRequestDetails {
 
     @JsonCreator
     public QuoteExecutionWithRequoteRequestDetails(
-            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) QuoteTypeEnum type,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) QuoteExecutionTypeEnum type,
             @JsonProperty(value = JSON_PROPERTY_QUOTE_ID, required = true) String quoteId) {
         this.type = type;
         this.quoteId = quoteId;
     }
 
     public QuoteExecutionWithRequoteRequestDetails type(
-            @jakarta.annotation.Nonnull QuoteTypeEnum type) {
+            @jakarta.annotation.Nonnull QuoteExecutionTypeEnum type) {
         this.type = type;
         return this;
     }
@@ -64,13 +64,13 @@ public class QuoteExecutionWithRequoteRequestDetails {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public QuoteTypeEnum getType() {
+    public QuoteExecutionTypeEnum getType() {
         return type;
     }
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(@jakarta.annotation.Nonnull QuoteTypeEnum type) {
+    public void setType(@jakarta.annotation.Nonnull QuoteExecutionTypeEnum type) {
         this.type = type;
     }
 

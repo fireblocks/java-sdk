@@ -992,13 +992,13 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
-  /vault/accounts/{vaultAccountId}/circle_gateway:
+  /vault/accounts/{vaultAccountId}/usdc_gateway:
     get:
       description: |-
-        Returns the Circle Gateway wallet information associated with the given vault account.
+        Returns the USDC Gateway wallet information associated with the given vault account.
         **Note:** This endpoint is currently in beta and might be subject to changes.
         </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-      operationId: getCircleGatewayWalletInfoBeta
+      operationId: getUsdcGatewayWalletInfoBeta
       parameters:
       - description: The ID of the vault account
         explode: false
@@ -1015,50 +1015,50 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CircleGatewayWalletInfoResponse"
-          description: Circle Gateway wallet information
+                $ref: "#/components/schemas/UsdcGatewayWalletInfoResponse"
+          description: USDC Gateway wallet information
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
-      summary: Get Circle Gateway wallet info
+      summary: Get USDC Gateway wallet info
       tags:
       - Vaults
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<CircleGatewayWalletInfoResponse>>\
-            \ = fireblocks.vaults.getCircleGatewayWalletInfoBeta(vaultsApiGetCircleGatewayWalletInfoBetaRequest);"
+          code: "const response: Promise<FireblocksResponse<UsdcGatewayWalletInfoResponse>>\
+            \ = fireblocks.vaults.getUsdcGatewayWalletInfoBeta(vaultsApiGetUsdcGatewayWalletInfoBetaRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<CircleGatewayWalletInfoResponse>> response
-            = fireblocks.vaults().getCircleGatewayWalletInfoBeta(vaultAccountId);
+          code: CompletableFuture<ApiResponse<UsdcGatewayWalletInfoResponse>> response
+            = fireblocks.vaults().getUsdcGatewayWalletInfoBeta(vaultAccountId);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.vaults.get_circle_gateway_wallet_info_beta(vault_account_id);
+          code: response = fireblocks.vaults.get_usdc_gateway_wallet_info_beta(vault_account_id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<CircleGatewayWalletInfoResponse>>\
-          \ = fireblocks.vaults.getCircleGatewayWalletInfoBeta(vaultsApiGetCircleGatewayWalletInfoBetaRequest);"
+        source: "const response: Promise<FireblocksResponse<UsdcGatewayWalletInfoResponse>>\
+          \ = fireblocks.vaults.getUsdcGatewayWalletInfoBeta(vaultsApiGetUsdcGatewayWalletInfoBetaRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<CircleGatewayWalletInfoResponse>> response
-          = fireblocks.vaults().getCircleGatewayWalletInfoBeta(vaultAccountId);
+        source: CompletableFuture<ApiResponse<UsdcGatewayWalletInfoResponse>> response
+          = fireblocks.vaults().getUsdcGatewayWalletInfoBeta(vaultAccountId);
       - lang: Python
-        source: response = fireblocks.vaults.get_circle_gateway_wallet_info_beta(vault_account_id);
+        source: response = fireblocks.vaults.get_usdc_gateway_wallet_info_beta(vault_account_id);
       x-accepts:
       - application/json
-  /vault/accounts/{vaultAccountId}/circle_gateway/activate:
+  /vault/accounts/{vaultAccountId}/usdc_gateway/activate:
     post:
       description: |-
-        Activates the Circle Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.
+        Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.
 
          **Note:** This endpoint is currently in beta and might be subject to changes.
 
         </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
-      operationId: activateCircleGatewayWalletBeta
+      operationId: activateUsdcGatewayWalletBeta
       parameters:
       - description: The ID of the vault account
         explode: false
@@ -1086,54 +1086,53 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CircleGatewayWalletStatusResponse"
-          description: Circle Gateway wallet activated successfully
+                $ref: "#/components/schemas/UsdcGatewayWalletStatusResponse"
+          description: USDC Gateway wallet activated successfully
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
-      summary: Activate a Circle Gateway wallet
+      summary: Activate a USDC Gateway wallet
       tags:
       - Vaults
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<CircleGatewayWalletStatusResponse>>\
-            \ = fireblocks.vaults.activateCircleGatewayWalletBeta(vaultsApiActivateCircleGatewayWalletBetaRequest);"
+          code: "const response: Promise<FireblocksResponse<UsdcGatewayWalletStatusResponse>>\
+            \ = fireblocks.vaults.activateUsdcGatewayWalletBeta(vaultsApiActivateUsdcGatewayWalletBetaRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>>\
-            \ response = fireblocks.vaults().activateCircleGatewayWalletBeta(vaultAccountId,\
+          code: "CompletableFuture<ApiResponse<UsdcGatewayWalletStatusResponse>> response\
+            \ = fireblocks.vaults().activateUsdcGatewayWalletBeta(vaultAccountId,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.vaults.activate_circle_gateway_wallet_beta(vault_account_id,\
+          code: "response = fireblocks.vaults.activate_usdc_gateway_wallet_beta(vault_account_id,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<CircleGatewayWalletStatusResponse>>\
-          \ = fireblocks.vaults.activateCircleGatewayWalletBeta(vaultsApiActivateCircleGatewayWalletBetaRequest);"
+        source: "const response: Promise<FireblocksResponse<UsdcGatewayWalletStatusResponse>>\
+          \ = fireblocks.vaults.activateUsdcGatewayWalletBeta(vaultsApiActivateUsdcGatewayWalletBetaRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>>\
-          \ response = fireblocks.vaults().activateCircleGatewayWalletBeta(vaultAccountId,\
-          \ idempotencyKey);"
+        source: "CompletableFuture<ApiResponse<UsdcGatewayWalletStatusResponse>> response\
+          \ = fireblocks.vaults().activateUsdcGatewayWalletBeta(vaultAccountId, idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.vaults.activate_circle_gateway_wallet_beta(vault_account_id,\
+        source: "response = fireblocks.vaults.activate_usdc_gateway_wallet_beta(vault_account_id,\
           \ idempotency_key);"
       x-accepts:
       - application/json
-  /vault/accounts/{vaultAccountId}/circle_gateway/deactivate:
+  /vault/accounts/{vaultAccountId}/usdc_gateway/deactivate:
     post:
       description: |-
-        Deactivates the Circle Gateway wallet associated with the given vault account.
+        Deactivates the USDC Gateway wallet associated with the given vault account.
 
          **Note:** This endpoint is currently in beta and might be subject to changes.
 
         </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
-      operationId: deactivateCircleGatewayWalletBeta
+      operationId: deactivateUsdcGatewayWalletBeta
       parameters:
       - description: The ID of the vault account
         explode: false
@@ -1161,42 +1160,42 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CircleGatewayWalletStatusResponse"
-          description: Circle Gateway wallet deactivated successfully
+                $ref: "#/components/schemas/UsdcGatewayWalletStatusResponse"
+          description: USDC Gateway wallet deactivated successfully
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
-      summary: Deactivate a Circle Gateway wallet
+      summary: Deactivate a USDC Gateway wallet
       tags:
       - Vaults
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<CircleGatewayWalletStatusResponse>>\
-            \ = fireblocks.vaults.deactivateCircleGatewayWalletBeta(vaultsApiDeactivateCircleGatewayWalletBetaRequest);"
+          code: "const response: Promise<FireblocksResponse<UsdcGatewayWalletStatusResponse>>\
+            \ = fireblocks.vaults.deactivateUsdcGatewayWalletBeta(vaultsApiDeactivateUsdcGatewayWalletBetaRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>>\
-            \ response = fireblocks.vaults().deactivateCircleGatewayWalletBeta(vaultAccountId,\
+          code: "CompletableFuture<ApiResponse<UsdcGatewayWalletStatusResponse>> response\
+            \ = fireblocks.vaults().deactivateUsdcGatewayWalletBeta(vaultAccountId,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.vaults.deactivate_circle_gateway_wallet_beta(vault_account_id,\
+          code: "response = fireblocks.vaults.deactivate_usdc_gateway_wallet_beta(vault_account_id,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<CircleGatewayWalletStatusResponse>>\
-          \ = fireblocks.vaults.deactivateCircleGatewayWalletBeta(vaultsApiDeactivateCircleGatewayWalletBetaRequest);"
+        source: "const response: Promise<FireblocksResponse<UsdcGatewayWalletStatusResponse>>\
+          \ = fireblocks.vaults.deactivateUsdcGatewayWalletBeta(vaultsApiDeactivateUsdcGatewayWalletBetaRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>>\
-          \ response = fireblocks.vaults().deactivateCircleGatewayWalletBeta(vaultAccountId,\
+        source: "CompletableFuture<ApiResponse<UsdcGatewayWalletStatusResponse>> response\
+          \ = fireblocks.vaults().deactivateUsdcGatewayWalletBeta(vaultAccountId,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.vaults.deactivate_circle_gateway_wallet_beta(vault_account_id,\
+        source: "response = fireblocks.vaults.deactivate_usdc_gateway_wallet_beta(vault_account_id,\
           \ idempotency_key);"
       x-accepts:
       - application/json
@@ -2898,6 +2897,81 @@ paths:
         source: response = fireblocks.vaults.get_vault_balance_by_asset(asset_id);
       x-accepts:
       - application/json
+  /vault/lookup_by_address:
+    get:
+      description: |
+        Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address.
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+      operationId: lookupVaultByAddress
+      parameters:
+      - description: The blockchain address to resolve.
+        explode: true
+        in: query
+        name: address
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressReverseLookupResponse"
+          description: "Vault account that owns the address, with associated blockchains."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "401":
+          description: Unauthorized. Missing / invalid JWT token in Authorization
+            header.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          description: Feature is not enabled for the workspace.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Vault account not found for the supplied address
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Look up a vault account by blockchain address
+      tags:
+      - Vaults
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AddressReverseLookupResponse>>\
+            \ = fireblocks.vaults.lookupVaultByAddress(vaultsApiLookupVaultByAddressRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<AddressReverseLookupResponse>> response
+            = fireblocks.vaults().lookupVaultByAddress(address);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.vaults.lookup_vault_by_address(address);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<AddressReverseLookupResponse>>\
+          \ = fireblocks.vaults.lookupVaultByAddress(vaultsApiLookupVaultByAddressRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<AddressReverseLookupResponse>> response
+          = fireblocks.vaults().lookupVaultByAddress(address);
+      - lang: Python
+        source: response = fireblocks.vaults.lookup_vault_by_address(address);
+      x-accepts:
+      - application/json
   /ncw/wallets/supported_assets:
     get:
       description: Get all the available supported assets for the Non-Custodial Wallet
@@ -3722,7 +3796,7 @@ paths:
       summary: Refresh asset balance
       tags:
       - Embedded Wallets
-      x-rate-limit-category: write
+      x-rate-limit-category: async
       x-readme:
         code-samples:
         - language: typescript
@@ -21661,6 +21735,125 @@ paths:
         source: response = fireblocks.trading_beta.get_trading_provider_by_id(provider_id);
       x-accepts:
       - application/json
+  /trading/rates:
+    post:
+      description: |-
+        Retrieve indicative exchange rate from specified providers for a given asset pair.
+        Rates are non-executable price signals intended for discovery and display purposes.
+
+        Note: These endpoints are currently in beta and might be subject to changes.
+
+        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+        For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+      operationId: fetchRates
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RatesRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RatesResponse"
+          description: Rate response
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Bad request: invalid input parameters, malformed request body,\
+            \ or validation failure."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: Unauthorized. Missing / invalid JWT token in Authorization
+            header.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Forbidden: insufficient permissions, disabled feature, or\
+            \ restricted access."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get rates
+      tags:
+      - Trading (Beta)
+      x-rate-limit-category: external_query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<RatesResponse>> = fireblocks.tradingBeta.fetchRates(tradingBetaApiFetchRatesRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<RatesResponse>> response = fireblocks.tradingBeta().fetchRates(ratesRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.trading_beta.fetch_rates(rates_request, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<RatesResponse>> = fireblocks.tradingBeta.fetchRates(tradingBetaApiFetchRatesRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<RatesResponse>> response = fireblocks.tradingBeta().fetchRates(ratesRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.trading_beta.fetch_rates(rates_request, idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
   /trading/quotes:
     post:
       description: |-
@@ -21776,6 +21969,131 @@ paths:
           \ idempotencyKey);"
       - lang: Python
         source: "response = fireblocks.trading_beta.create_quote(create_quote, idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /trading/offers:
+    post:
+      description: |-
+        Retrieve all available offers across the workspace for a given asset pair.
+        Always operates in open scope — no provider or account selection required.
+        Returns a mix of indicative rates and committed quotes as applicable per provider.
+
+        If no slippageBps is provided, it defaults to 50 bps (0.5%).
+        Slippage and settlement configuration do not affect the returned rate.
+
+        Note: These endpoints are currently in beta and might be subject to changes.
+
+        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
+
+        For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+      operationId: fetchAllOffers
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOffersRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OffersResponse"
+          description: Offers response
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Bad request: invalid input parameters, malformed request body,\
+            \ or validation failure."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: Unauthorized. Missing / invalid JWT token in Authorization
+            header.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Forbidden: insufficient permissions, disabled feature, or\
+            \ restricted access."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get all offers
+      tags:
+      - Trading (Beta)
+      x-rate-limit-category: external_query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<OffersResponse>> = fireblocks.tradingBeta.fetchAllOffers(tradingBetaApiFetchAllOffersRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<OffersResponse>> response = fireblocks.tradingBeta().fetchAllOffers(createOffersRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.trading_beta.fetch_all_offers(create_offers_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<OffersResponse>> = fireblocks.tradingBeta.fetchAllOffers(tradingBetaApiFetchAllOffersRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<OffersResponse>> response = fireblocks.tradingBeta().fetchAllOffers(createOffersRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.trading_beta.fetch_all_offers(create_offers_request,\
+          \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -25297,8 +25615,9 @@ paths:
       - application/json
   /screening/transaction/{txId}/bypass_screening_policy:
     post:
-      description: This endpoint is restricted to Admin API users and is only applicable
-        to outgoing transactions.
+      description: "Triggers a new transaction, with the API user as the initiator,\
+        \ bypassing the screening policy checks. This endpoint is restricted to Admin\
+        \ API users and is only applicable to outgoing transactions."
       operationId: retryRejectedTransactionBypassScreeningChecks
       parameters:
       - description: The transaction id that was rejected by screening checks
@@ -25333,9 +25652,7 @@ paths:
               $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
-      summary: "Calling the \"Bypass Screening Policy\" API endpoint triggers a new\
-        \ transaction, with the API user as the initiator, bypassing the screening\
-        \ policy check"
+      summary: Bypass Screening Policy
       tags:
       - Compliance
       x-rate-limit-category: write
@@ -25964,6 +26281,136 @@ paths:
         source: "response = fireblocks.compliance.set_byork_timeouts(byork_set_timeouts_request,\
           \ idempotency_key);"
       x-content-type: application/json
+      x-accepts:
+      - application/json
+  /screening/ars/config/activate:
+    post:
+      description: "Activates ARS (Address Registry Screening) for the authenticated\
+        \ tenant (sets config.active to true). Once activated, ARS screening applies\
+        \ to matching transactions."
+      operationId: activateArsConfig
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArsConfigResponse"
+          description: ARS configuration activated.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Tenant not opted-in for address registry.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Activate ARS (Address Registry Screening)
+      tags:
+      - Compliance
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ArsConfigResponse>> =\
+            \ fireblocks.compliance.activateArsConfig(complianceApiActivateArsConfigRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ArsConfigResponse>> response = fireblocks.compliance().activateArsConfig(idempotencyKey);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.compliance.activate_ars_config(idempotency_key);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ArsConfigResponse>> =\
+          \ fireblocks.compliance.activateArsConfig(complianceApiActivateArsConfigRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<ArsConfigResponse>> response = fireblocks.compliance().activateArsConfig(idempotencyKey);
+      - lang: Python
+        source: response = fireblocks.compliance.activate_ars_config(idempotency_key);
+      x-accepts:
+      - application/json
+  /screening/ars/config/deactivate:
+    post:
+      description: "Deactivates ARS (Address Registry Screening) for the authenticated\
+        \ tenant (sets config.active to false). Once deactivated, ARS screening no\
+        \ longer applies until activated again."
+      operationId: deactivateArsConfig
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArsConfigResponse"
+          description: ARS configuration deactivated.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Tenant not opted-in for address registry.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Deactivate ARS (Address Registry Screening)
+      tags:
+      - Compliance
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ArsConfigResponse>> =\
+            \ fireblocks.compliance.deactivateArsConfig(complianceApiDeactivateArsConfigRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ArsConfigResponse>> response = fireblocks.compliance().deactivateArsConfig(idempotencyKey);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.compliance.deactivate_ars_config(idempotency_key);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ArsConfigResponse>> =\
+          \ fireblocks.compliance.deactivateArsConfig(complianceApiDeactivateArsConfigRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<ArsConfigResponse>> response = fireblocks.compliance().deactivateArsConfig(idempotencyKey);
+      - lang: Python
+        source: response = fireblocks.compliance.deactivate_ars_config(idempotency_key);
       x-accepts:
       - application/json
   /screening/trlink/partners:
@@ -32141,24 +32588,6 @@ paths:
         schema:
           type: string
         style: form
-      - description: Include change outputs
-        example: true
-        explode: true
-        in: query
-        name: useChange
-        required: false
-        schema:
-          type: boolean
-        style: form
-      - description: Include coinbase outputs
-        example: true
-        explode: true
-        in: query
-        name: useCoinbase
-        required: false
-        schema:
-          type: boolean
-        style: form
       responses:
         "200":
           content:
@@ -32184,14 +32613,12 @@ paths:
         - language: java
           code: "CompletableFuture<ApiResponse<ListUtxosResponse>> response = fireblocks.uTXOManagementBeta().getUtxos(vaultAccountId,\
             \ assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels,\
-            \ excludeAnyLabels, includeStatuses, address, minAmount, maxAmount, useChange,\
-            \ useCoinbase);"
+            \ excludeAnyLabels, includeStatuses, address, minAmount, maxAmount);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.u_t_x_o_management_beta.get_utxos(vault_account_id,\
             \ asset_id, page_cursor, page_size, sort, order, include_all_labels, include_any_labels,\
-            \ exclude_any_labels, include_statuses, address, min_amount, max_amount,\
-            \ use_change, use_coinbase);"
+            \ exclude_any_labels, include_statuses, address, min_amount, max_amount);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -32200,13 +32627,11 @@ paths:
       - lang: Java
         source: "CompletableFuture<ApiResponse<ListUtxosResponse>> response = fireblocks.uTXOManagementBeta().getUtxos(vaultAccountId,\
           \ assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels,\
-          \ excludeAnyLabels, includeStatuses, address, minAmount, maxAmount, useChange,\
-          \ useCoinbase);"
+          \ excludeAnyLabels, includeStatuses, address, minAmount, maxAmount);"
       - lang: Python
         source: "response = fireblocks.u_t_x_o_management_beta.get_utxos(vault_account_id,\
           \ asset_id, page_cursor, page_size, sort, order, include_all_labels, include_any_labels,\
-          \ exclude_any_labels, include_statuses, address, min_amount, max_amount,\
-          \ use_change, use_coinbase);"
+          \ exclude_any_labels, include_statuses, address, min_amount, max_amount);"
       x-accepts:
       - application/json
   /utxo_management/{vaultAccountId}/{assetId}/labels:
@@ -32821,6 +33246,144 @@ paths:
       - lang: Python
         source: "response = fireblocks.compliance.assign_vaults_to_legal_entity(assign_vaults_to_legal_entity_request,\
           \ legal_entity_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /genie/sessions:
+    post:
+      description: |
+        Starts a new conversation with Genie, the Fireblocks AI assistant. Returns a `sessionId` — pass it when sending messages, and reuse it across calls to keep one continuous conversation.
+
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+      operationId: createGenieSession
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenieCreateSessionResponse"
+          description: Session created
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Create a Genie session
+      tags:
+      - Genie (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GenieCreateSessionResponse>>\
+            \ = fireblocks.genieBeta.createGenieSession(genieBetaApiCreateGenieSessionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GenieCreateSessionResponse>> response
+            = fireblocks.genieBeta().createGenieSession(idempotencyKey);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.genie_beta.create_genie_session(idempotency_key);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GenieCreateSessionResponse>>\
+          \ = fireblocks.genieBeta.createGenieSession(genieBetaApiCreateGenieSessionRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<GenieCreateSessionResponse>> response
+          = fireblocks.genieBeta().createGenieSession(idempotencyKey);
+      - lang: Python
+        source: response = fireblocks.genie_beta.create_genie_session(idempotency_key);
+      x-accepts:
+      - application/json
+  /genie/sessions/{sessionId}/messages:
+    post:
+      description: |
+        Sends a question to Genie and returns a single answer. Reuse the `sessionId` from the original session on follow-up messages to continue the conversation with prior context.
+
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+      operationId: sendGenieMessage
+      parameters:
+      - description: The Genie session ID returned from `POST /genie/sessions`.
+        explode: false
+        in: path
+        name: sessionId
+        required: true
+        schema:
+          example: 7c1b2e1c-1c2a-4f3a-9c2d-2e0a8a1f8e1a
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenieSendMessageRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenieChatMessage"
+          description: Genie response
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Send a message to a Genie session
+      tags:
+      - Genie (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GenieSendMessageResponse>>\
+            \ = fireblocks.genieBeta.sendGenieMessage(genieBetaApiSendGenieMessageRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<GenieSendMessageResponse>> response\
+            \ = fireblocks.genieBeta().sendGenieMessage(genieSendMessageRequest, sessionId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.genie_beta.send_genie_message(genie_send_message_request,\
+            \ session_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GenieSendMessageResponse>>\
+          \ = fireblocks.genieBeta.sendGenieMessage(genieBetaApiSendGenieMessageRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<GenieSendMessageResponse>> response\
+          \ = fireblocks.genieBeta().sendGenieMessage(genieSendMessageRequest, sessionId,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.genie_beta.send_genie_message(genie_send_message_request,\
+          \ session_id, idempotency_key);"
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -33755,7 +34318,7 @@ components:
           description: Auto Fuel
           type: boolean
       type: object
-    CircleGatewayWalletInfoResponse:
+    UsdcGatewayWalletInfoResponse:
       example:
         walletId: b68a9e08-b59c-4ff9-893f-52d4f78c21e6
         symbol: USDC
@@ -33765,15 +34328,15 @@ components:
         status: ACTIVATED
       properties:
         walletId:
-          description: The Circle Gateway wallet identifier
+          description: The USDC Gateway wallet identifier
           example: b68a9e08-b59c-4ff9-893f-52d4f78c21e6
           type: string
         type:
-          description: The Circle Gateway provider identifier
+          description: The USDC Gateway provider identifier
           example: CIRCLEGATEWAY
           type: string
         status:
-          description: Current activation status of the Circle Gateway wallet
+          description: Current activation status of the USDC Gateway wallet
           enum:
           - ACTIVATED
           - DEACTIVATED
@@ -33797,17 +34360,17 @@ components:
       - type
       - walletId
       type: object
-    CircleGatewayWalletStatusResponse:
+    UsdcGatewayWalletStatusResponse:
       example:
         walletId: b68a9e08-b59c-4ff9-893f-52d4f78c21e6
         status: ACTIVATED
       properties:
         walletId:
-          description: The Circle Gateway wallet identifier
+          description: The USDC Gateway wallet identifier
           example: b68a9e08-b59c-4ff9-893f-52d4f78c21e6
           type: string
         status:
-          description: Current activation status of the Circle Gateway wallet
+          description: Current activation status of the USDC Gateway wallet
           enum:
           - ACTIVATED
           - DEACTIVATED
@@ -34455,6 +35018,45 @@ components:
       items:
         $ref: "#/components/schemas/VaultAsset"
       type: array
+    AddressReverseLookupResponse:
+      description: Reverse-lookup result mapping a blockchain address to its owning
+        vault account.
+      example:
+        address: address
+        blockchains:
+        - ETH
+        - MATIC
+        vaultAccountId: "0"
+        type: VAULT_ACCOUNT
+      properties:
+        address:
+          description: The queried blockchain address.
+          type: string
+        type:
+          description: Source type of the resolved address.
+          enum:
+          - VAULT_ACCOUNT
+          example: VAULT_ACCOUNT
+          type: string
+        vaultAccountId:
+          description: Vault account ID that owns the address.
+          example: "0"
+          type: string
+        blockchains:
+          description: Blockchain assets associated with this address in the vault
+            account.
+          example:
+          - ETH
+          - MATIC
+          items:
+            type: string
+          type: array
+      required:
+      - address
+      - blockchains
+      - type
+      - vaultAccountId
+      type: object
     EmbeddedWalletAssetResponse:
       example:
         coinType: 0
@@ -42926,8 +43528,6 @@ components:
         address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
         includeAllLabels:
         - cold-storage
-        useCoinbase: true
-        useChange: true
         excludeAnyLabels:
         - deprecated
         maxAmount: "9.999"
@@ -42966,14 +43566,6 @@ components:
           description: "Maximum UTXO amount in the asset's base unit (e.g., BTC)."
           example: "9.999"
           type: string
-        useChange:
-          description: Set to false to exclude change UTXOs. Default is true.
-          example: true
-          type: boolean
-        useCoinbase:
-          description: Set to false to exclude coinbase UTXOs. Default is true.
-          example: true
-          type: boolean
       type: object
     UtxoInput:
       example:
@@ -43026,6 +43618,7 @@ components:
       description: |
         For UTXO-based blockchains only. Controls which UTXOs are used for automatic selection. Cannot be used together with extraParameters.inputsSelection. This feature is currently in beta and might be subject to changes.
       example:
+        selectionStrategy: AMOUNT_ASC
         inputSelection:
           inputsToExclude:
           - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
@@ -43046,12 +43639,17 @@ components:
           address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
           includeAllLabels:
           - cold-storage
-          useCoinbase: true
-          useChange: true
           excludeAnyLabels:
           - deprecated
           maxAmount: "9.999"
       properties:
+        selectionStrategy:
+          description: |
+            Optional override for the UTXO selection strategy configured at the vault/tenant level.
+          enum:
+          - AMOUNT_ASC
+          - AMOUNT_DESC
+          type: string
         filters:
           $ref: "#/components/schemas/UtxoSelectionFilters"
         inputSelection:
@@ -46766,6 +47364,7 @@ components:
         operation: TRANSFER
         replaceTxByHash: 00000000-0000-0000-0000-000000000000
         utxoSelectionParams:
+          selectionStrategy: AMOUNT_ASC
           inputSelection:
             inputsToExclude:
             - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
@@ -46786,8 +47385,6 @@ components:
             address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
             includeAllLabels:
             - cold-storage
-            useCoinbase: true
-            useChange: true
             excludeAnyLabels:
             - deprecated
             maxAmount: "9.999"
@@ -49974,6 +50571,7 @@ components:
           operation: TRANSFER
           replaceTxByHash: 00000000-0000-0000-0000-000000000000
           utxoSelectionParams:
+            selectionStrategy: AMOUNT_ASC
             inputSelection:
               inputsToExclude:
               - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
@@ -49994,8 +50592,6 @@ components:
               address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
               includeAllLabels:
               - cold-storage
-              useCoinbase: true
-              useChange: true
               excludeAnyLabels:
               - deprecated
               maxAmount: "9.999"
@@ -51238,6 +51834,7 @@ components:
           operation: TRANSFER
           replaceTxByHash: 00000000-0000-0000-0000-000000000000
           utxoSelectionParams:
+            selectionStrategy: AMOUNT_ASC
             inputSelection:
               inputsToExclude:
               - txHash: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
@@ -51258,8 +51855,6 @@ components:
               address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
               includeAllLabels:
               - cold-storage
-              useCoinbase: true
-              useChange: true
               excludeAnyLabels:
               - deprecated
               maxAmount: "9.999"
@@ -58964,6 +59559,190 @@ components:
       required:
       - providerId
       type: object
+    RatesRequest:
+      example:
+        baseAssetId: BTC
+        scope:
+        - providerId: prov_8c3f1a4b2d6e9f7c
+          accountId: acc_5e9a2d1c4b7f3e8a
+        - providerId: prov_8c3f1a4b2d6e9f7c
+          accountId: acc_5e9a2d1c4b7f3e8a
+        quoteAssetId: USD
+      properties:
+        scope:
+          description: One or more providers/accounts to request rates from. At least
+            one scope item is required.
+          items:
+            $ref: "#/components/schemas/ScopeItem"
+          minItems: 1
+          type: array
+        baseAssetId:
+          description: The source asset identifier.
+          example: BTC
+          type: string
+        quoteAssetId:
+          description: The target asset identifier.
+          example: USD
+          type: string
+      required:
+      - baseAssetId
+      - quoteAssetId
+      - scope
+      type: object
+    AccountAccess:
+      example:
+        type: PROVIDER_ACCOUNT
+        providerId: bridge-provider-001
+        accountId: acc_9f4e2d8b1c6a5e73
+      properties:
+        type:
+          description: Indicates this uses account-based access
+          enum:
+          - PROVIDER_ACCOUNT
+          type: string
+        providerId:
+          description: The ID of the provider
+          type: string
+        accountId:
+          description: The ID of the account
+          type: string
+      required:
+      - accountId
+      - type
+      type: object
+    DirectAccess:
+      example:
+        type: PROVIDER
+        providerId: uniswap-v3-provider
+      properties:
+        type:
+          description: Indicates this uses direct provider access
+          enum:
+          - PROVIDER
+          type: string
+        providerId:
+          description: The ID of the provider
+          type: string
+      required:
+      - providerId
+      - type
+      type: object
+    AccessType:
+      discriminator:
+        mapping:
+          PROVIDER_ACCOUNT: "#/components/schemas/AccountAccess"
+          PROVIDER: "#/components/schemas/DirectAccess"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/AccountAccess"
+      - $ref: "#/components/schemas/DirectAccess"
+    Rate:
+      example:
+        baseAssetId: baseAssetId
+        baseAssetRail: BLOCKCHAIN
+        rate: "1.2345"
+        quoteAssetRail: BLOCKCHAIN
+        quoteAssetId: quoteAssetId
+        via:
+          type: PROVIDER_ACCOUNT
+          providerId: bridge-provider-001
+          accountId: acc_9f4e2d8b1c6a5e73
+      properties:
+        via:
+          $ref: "#/components/schemas/AccessType"
+        baseAssetId:
+          description: The source asset identifier
+          type: string
+        baseAssetRail:
+          $ref: "#/components/schemas/TransferRail"
+        quoteAssetId:
+          description: The target asset identifier
+          type: string
+        quoteAssetRail:
+          $ref: "#/components/schemas/TransferRail"
+        rate:
+          description: "The indicative exchange rate — the number of units of the\
+            \ quote asset that equal 1 unit of the base asset. For example, if base\
+            \ is BTC and quote is USD, a rate of 75000 means 1 BTC = 75,000 USD."
+          example: "1.2345"
+          pattern: ^\d+(\.\d+)?$
+          type: string
+      required:
+      - baseAssetId
+      - quoteAssetId
+      - rate
+      - via
+      type: object
+    ScopeItemFailure:
+      example:
+        accountId: acc_9f4e2d8b1c6a5e73
+        providerId: BRIDGE
+        error:
+          code: 900
+          message: "Invalid base amount: must be greater than 0"
+      properties:
+        providerId:
+          description: Identifier of the provider for which the request failed.
+          example: BRIDGE
+          type: string
+        accountId:
+          description: Identifier of the account for which the request failed (optional).
+          example: acc_9f4e2d8b1c6a5e73
+          type: string
+        error:
+          $ref: "#/components/schemas/TradingErrorSchema"
+      required:
+      - error
+      - providerId
+      type: object
+    RatesResponse:
+      example:
+        rates:
+        - baseAssetId: baseAssetId
+          baseAssetRail: BLOCKCHAIN
+          rate: "1.2345"
+          quoteAssetRail: BLOCKCHAIN
+          quoteAssetId: quoteAssetId
+          via:
+            type: PROVIDER_ACCOUNT
+            providerId: bridge-provider-001
+            accountId: acc_9f4e2d8b1c6a5e73
+        - baseAssetId: baseAssetId
+          baseAssetRail: BLOCKCHAIN
+          rate: "1.2345"
+          quoteAssetRail: BLOCKCHAIN
+          quoteAssetId: quoteAssetId
+          via:
+            type: PROVIDER_ACCOUNT
+            providerId: bridge-provider-001
+            accountId: acc_9f4e2d8b1c6a5e73
+        errors:
+        - accountId: acc_9f4e2d8b1c6a5e73
+          providerId: BRIDGE
+          error:
+            code: 900
+            message: "Invalid base amount: must be greater than 0"
+        - accountId: acc_9f4e2d8b1c6a5e73
+          providerId: BRIDGE
+          error:
+            code: 900
+            message: "Invalid base amount: must be greater than 0"
+      properties:
+        rates:
+          description: List of indicative rates returned for the requested asset pair.
+          items:
+            $ref: "#/components/schemas/Rate"
+          type: array
+        errors:
+          description: Partial failures encountered while requesting rates. Empty
+            when all rate requests succeed.
+          items:
+            $ref: "#/components/schemas/ScopeItemFailure"
+          type: array
+      required:
+      - errors
+      - rates
+      type: object
     PlatformPeerType:
       enum:
       - VAULT_ACCOUNT
@@ -59463,53 +60242,6 @@ components:
       - scope
       - side
       type: object
-    AccountAccess:
-      example:
-        type: PROVIDER_ACCOUNT
-        providerId: bridge-provider-001
-        accountId: acc_9f4e2d8b1c6a5e73
-      properties:
-        type:
-          description: Indicates this uses account-based access
-          enum:
-          - PROVIDER_ACCOUNT
-          type: string
-        providerId:
-          description: The ID of the provider
-          type: string
-        accountId:
-          description: The ID of the account
-          type: string
-      required:
-      - accountId
-      - type
-      type: object
-    DirectAccess:
-      example:
-        type: PROVIDER
-        providerId: uniswap-v3-provider
-      properties:
-        type:
-          description: Indicates this uses direct provider access
-          enum:
-          - PROVIDER
-          type: string
-        providerId:
-          description: The ID of the provider
-          type: string
-      required:
-      - providerId
-      - type
-      type: object
-    AccessType:
-      discriminator:
-        mapping:
-          PROVIDER_ACCOUNT: "#/components/schemas/AccountAccess"
-          PROVIDER: "#/components/schemas/DirectAccess"
-        propertyName: type
-      oneOf:
-      - $ref: "#/components/schemas/AccountAccess"
-      - $ref: "#/components/schemas/DirectAccess"
     ExecutionStepType:
       enum:
       - APPROVE
@@ -59607,40 +60339,73 @@ components:
       required:
       - type
       type: object
-    QuotePropertiesDetails:
+    Quote:
+      description: A committed executable quote for a trading pair.
       properties:
         via:
           $ref: "#/components/schemas/AccessType"
         id:
+          description: The unique identifier of the quote.
+          example: quote_8f2e4d1a9c5b7e3f
           type: string
         quoteAssetId:
+          description: The target asset identifier.
+          example: USD
           type: string
+        quoteAssetRail:
+          $ref: "#/components/schemas/TransferRail"
         baseAssetId:
+          description: The source asset identifier.
+          example: BTC
           type: string
+        baseAssetRail:
+          $ref: "#/components/schemas/TransferRail"
         baseAmount:
+          description: The amount of the base asset.
+          example: "1000.00"
           type: string
         quoteAmount:
+          description: The amount of the quote asset.
+          example: "0.02458"
           type: string
         priceImpact:
+          description: The estimated price impact as a decimal fraction.
+          example: 0.005
           type: number
         quoteMinAmount:
+          description: The minimum guaranteed amount of the quote asset.
+          example: "0.02450"
           type: string
+        isSlippageApplied:
+          default: false
+          description: Indicates if slippage was applied to the quote.
+          type: boolean
         executionSteps:
+          description: Ordered list of execution steps for the quote.
           items:
             $ref: "#/components/schemas/QuoteExecutionStep"
           type: array
         generalFees:
+          description: General fees associated with the quote.
           items:
             $ref: "#/components/schemas/Fee"
           type: array
         side:
           $ref: "#/components/schemas/Side"
         expiresAt:
-          description: The expiration time of the quote in ISO format.
+          description: The expiration time of the quote in ISO 8601 format.
+          example: 2024-01-15T10:35:00.000Z
           type: string
         orderCreationRequirements:
           description: |
-            A JSON Schema Draft-7 document in string format describing the fields required when creating an order for this quote. The schema mirrors the structure of CreateOrderRequest.participantsIdentification json schema, so clients can validate their order payload before sending.
+            A JSON Schema Draft-7 document in string format describing the fields required when creating an order so clients can validate their order payload before sending.
+          type: string
+        type:
+          description: The type of the quote.
+          enum:
+          - COMMITTED
+          - INDICATIVE
+          example: COMMITTED
           type: string
       required:
       - baseAmount
@@ -59650,63 +60415,8 @@ components:
       - quoteAmount
       - quoteAssetId
       - side
+      - type
       - via
-      type: object
-    CommittedQuoteEnum:
-      description: Indicates this is a committed quote
-      enum:
-      - COMMITTED
-      type: string
-    CommittedQuoteType:
-      example:
-        type: COMMITTED
-      properties:
-        type:
-          $ref: "#/components/schemas/CommittedQuoteEnum"
-      required:
-      - type
-      type: object
-    IndicativeQuoteEnum:
-      description: Indicates this is an indicative quote
-      enum:
-      - INDICATIVE
-      type: string
-    IndicativeQuoteType:
-      example:
-        type: INDICATIVE
-      properties:
-        type:
-          $ref: "#/components/schemas/IndicativeQuoteEnum"
-      required:
-      - type
-      type: object
-    Quote:
-      allOf:
-      - $ref: "#/components/schemas/QuotePropertiesDetails"
-      - discriminator:
-          mapping:
-            COMMITTED: "#/components/schemas/CommittedQuoteType"
-            INDICATIVE: "#/components/schemas/IndicativeQuoteType"
-          propertyName: type
-        oneOf:
-        - $ref: "#/components/schemas/CommittedQuoteType"
-        - $ref: "#/components/schemas/IndicativeQuoteType"
-    QuoteFailure:
-      properties:
-        providerId:
-          description: Identifier of the provider for which the quote request failed.
-          example: BRIDGE
-          type: string
-        accountId:
-          description: Identifier of the account for which the quote request failed
-            (optional).
-          example: acc_9f4e2d8b1c6a5e73
-          type: string
-        error:
-          $ref: "#/components/schemas/TradingErrorSchema"
-      required:
-      - error
-      - providerId
       type: object
     QuotesResponse:
       example:
@@ -59757,11 +60467,163 @@ components:
           description: List of partial failures encountered while requesting quotes.
             Empty when all quote attempts succeed.
           items:
-            $ref: "#/components/schemas/QuoteFailure"
+            $ref: "#/components/schemas/ScopeItemFailure"
           type: array
       required:
       - quoteFailures
       - quotes
+      type: object
+    CreateOffersRequest:
+      example:
+        baseAssetId: BTC
+        slippageBps: 801
+        side: BUY
+        baseAssetRail: BLOCKCHAIN
+        quoteAssetRail: BLOCKCHAIN
+        quoteAssetId: USD
+        baseAmount: "100.00"
+        settlement:
+          type: DVP
+          sourceAccount:
+            type: VAULT_ACCOUNT
+            id: vault_acc_3f7e1d9b2c5a8e4f
+          destinationAccount:
+            type: VAULT_ACCOUNT
+            id: vault_acc_7b2e5d8f1c4a9e3b
+      properties:
+        baseAssetId:
+          description: The source asset identifier.
+          example: BTC
+          type: string
+        baseAssetRail:
+          $ref: "#/components/schemas/TransferRail"
+        quoteAssetId:
+          description: The target asset identifier.
+          example: USD
+          type: string
+        quoteAssetRail:
+          $ref: "#/components/schemas/TransferRail"
+        baseAmount:
+          description: The amount to get offers for
+          example: "100.00"
+          pattern: ^\d+(\.\d+)?$
+          type: string
+        slippageBps:
+          default: 50
+          description: "Slippage tolerance in basis points (bps) for defi quotes -\
+            \ 1 is 0.01% and 10000 is 100%. If not set, defaults to 50 bps (0.5%)."
+          maximum: 10000
+          minimum: 1
+          type: integer
+        settlement:
+          $ref: "#/components/schemas/DVPSettlement"
+        side:
+          $ref: "#/components/schemas/Side"
+      required:
+      - baseAmount
+      - baseAssetId
+      - quoteAssetId
+      - side
+      type: object
+    RateOfferType:
+      properties:
+        offerType:
+          description: The type of offer — RATE for indicative pricing.
+          enum:
+          - RATE
+          example: RATE
+          type: string
+      required:
+      - offerType
+      type: object
+    RateOffer:
+      allOf:
+      - $ref: "#/components/schemas/Rate"
+      - $ref: "#/components/schemas/RateOfferType"
+      example:
+        baseAssetId: baseAssetId
+        offerType: RATE
+        baseAssetRail: BLOCKCHAIN
+        rate: "1.2345"
+        quoteAssetRail: BLOCKCHAIN
+        quoteAssetId: quoteAssetId
+        via:
+          type: PROVIDER_ACCOUNT
+          providerId: bridge-provider-001
+          accountId: acc_9f4e2d8b1c6a5e73
+    QuoteOfferType:
+      properties:
+        offerType:
+          description: The type of offer — QUOTE for executable committed quotes.
+          enum:
+          - QUOTE
+          example: QUOTE
+          type: string
+      required:
+      - offerType
+      type: object
+    QuoteOffer:
+      allOf:
+      - $ref: "#/components/schemas/Quote"
+      - $ref: "#/components/schemas/QuoteOfferType"
+    Offer:
+      discriminator:
+        mapping:
+          RATE: "#/components/schemas/RateOffer"
+          QUOTE: "#/components/schemas/QuoteOffer"
+        propertyName: offerType
+      oneOf:
+      - $ref: "#/components/schemas/RateOffer"
+      - $ref: "#/components/schemas/QuoteOffer"
+    OffersResponse:
+      example:
+        offers:
+        - baseAssetId: baseAssetId
+          offerType: RATE
+          baseAssetRail: BLOCKCHAIN
+          rate: "1.2345"
+          quoteAssetRail: BLOCKCHAIN
+          quoteAssetId: quoteAssetId
+          via:
+            type: PROVIDER_ACCOUNT
+            providerId: bridge-provider-001
+            accountId: acc_9f4e2d8b1c6a5e73
+        - baseAssetId: baseAssetId
+          offerType: RATE
+          baseAssetRail: BLOCKCHAIN
+          rate: "1.2345"
+          quoteAssetRail: BLOCKCHAIN
+          quoteAssetId: quoteAssetId
+          via:
+            type: PROVIDER_ACCOUNT
+            providerId: bridge-provider-001
+            accountId: acc_9f4e2d8b1c6a5e73
+        errors:
+        - accountId: acc_9f4e2d8b1c6a5e73
+          providerId: BRIDGE
+          error:
+            code: 900
+            message: "Invalid base amount: must be greater than 0"
+        - accountId: acc_9f4e2d8b1c6a5e73
+          providerId: BRIDGE
+          error:
+            code: 900
+            message: "Invalid base amount: must be greater than 0"
+      properties:
+        offers:
+          description: List of offers returned for the requested asset pair.
+          items:
+            $ref: "#/components/schemas/Offer"
+          type: array
+        errors:
+          description: Partial failures encountered while requesting offers. Empty
+            when all offer requests succeed.
+          items:
+            $ref: "#/components/schemas/ScopeItemFailure"
+          type: array
+      required:
+      - errors
+      - offers
       type: object
     OrderStatus:
       enum:
@@ -59916,7 +60778,7 @@ components:
         quoteAssetId: BTC
         side: BUY
         baseAmount: "1000.00"
-    QuoteTypeEnum:
+    QuoteExecutionTypeEnum:
       description: Order type for quote orders
       enum:
       - QUOTE
@@ -59927,7 +60789,7 @@ components:
         quoteId: quote_8f2e4d1a9c5b7e3f
       properties:
         type:
-          $ref: "#/components/schemas/QuoteTypeEnum"
+          $ref: "#/components/schemas/QuoteExecutionTypeEnum"
         quoteId:
           description: Quote ID for quote orders
           type: string
@@ -60035,6 +60897,50 @@ components:
       oneOf:
       - $ref: "#/components/schemas/PrefundedSettlement"
       - $ref: "#/components/schemas/DVPSettlement"
+    ReasonForPaymentEnum:
+      description: |
+        The reason or purpose of the payment. Used by providers (e.g. CPN) that require a categorical reason for cross-border payment compliance and reporting. Optional at the API level; runtime enforcement is handled by the calling service against the provider's requirements.
+      enum:
+      - INVOICE_PAYMENT
+      - SERVICES_PAYMENT
+      - SOFTWARE_PAYMENT
+      - IMPORTED_GOODS_PAYMENT
+      - TRAVEL_SERVICES
+      - TRANSFER_TO_OWN_ACCOUNT
+      - LOAN_REPAYMENT
+      - PAYROLL
+      - PROPERTY_RENTAL
+      - INFORMATION_SERVICE_CHARGES
+      - ADVERTISING_AND_PUBLIC_RELATIONS
+      - INTELLECTUAL_PROPERTY_FEES
+      - FINANCIAL_SERVICE_FEES
+      - ADVISORY_AND_TECHNICAL_FEES
+      - REPRESENTATIVE_OFFICE_EXPENSES
+      - TAX_PAYMENT
+      - GOODS_TRANSPORTATION_FEES
+      - CONSTRUCTION_EXPENSES
+      - INSURANCE_PREMIUM
+      - GENERAL_GOODS_TRADE
+      - INSURANCE_CLAIMS_PAYMENT
+      - FAMILY_REMITTANCE
+      - EDUCATION_EXPENSES
+      - MEDICAL_TREATMENT
+      - DONATIONS
+      - MUTUAL_FUND_INVESTMENT
+      - CURRENCY_EXCHANGE
+      - ADVANCE_GOODS_PAYMENT
+      - MERCHANT_SETTLEMENT
+      - REPATRIATION_FUND_SETTLEMENT
+      type: string
+    SourceOfFunds:
+      description: |
+        Information about the source and purpose of the funds being transacted. Used by providers that require additional context for compliance and reporting (e.g. CPN cross-border payments).
+      example:
+        reasonForPayment: INVOICE_PAYMENT
+      properties:
+        reasonForPayment:
+          $ref: "#/components/schemas/ReasonForPaymentEnum"
+      type: object
     CreateOrderRequest:
       example:
         via:
@@ -60055,6 +60961,8 @@ components:
           destinationAccount:
             type: VAULT_ACCOUNT
             id: vault_acc_7b2e5d8f1c4a9e3b
+        sourceOfFunds:
+          reasonForPayment: INVOICE_PAYMENT
         customerInternalReferenceId: order_ref_2024_001
         note: Monthly investment order
       properties:
@@ -60066,6 +60974,8 @@ components:
           $ref: "#/components/schemas/Settlement"
         participantsIdentification:
           $ref: "#/components/schemas/ParticipantsIdentification"
+        sourceOfFunds:
+          $ref: "#/components/schemas/SourceOfFunds"
         customerInternalReferenceId:
           description: Internal reference ID for the customer
           type: string
@@ -60217,7 +61127,7 @@ components:
     QuoteExecutionTypeDetails:
       properties:
         type:
-          $ref: "#/components/schemas/QuoteTypeEnum"
+          $ref: "#/components/schemas/QuoteExecutionTypeEnum"
         quoteId:
           description: Quote ID for quote orders
           type: string
@@ -68493,6 +69403,23 @@ components:
           example: 3600
           type: integer
       type: object
+    ArsConfigResponse:
+      description: "ARS (Address Registry Screening) configuration for the tenant:\
+        \ active flag and last update time."
+      example:
+        lastUpdate: 2026-01-29T12:00:00Z
+        active: true
+      properties:
+        active:
+          description: Whether ARS is active for the tenant
+          example: true
+          type: boolean
+        lastUpdate:
+          description: Last update timestamp of the configuration
+          example: 2026-01-29T12:00:00Z
+          format: date-time
+          type: string
+      type: object
     TRLinkPartnerResponse:
       example:
         baseUrl: https://api.notabene.id
@@ -68637,18 +69564,17 @@ components:
       type: object
     TRLinkCustomerResponse:
       example:
-        vaults:
-        - 0
-        - 1
-        - 2
         dateOfIncorporation: 2015-03-15
         discoverable: discoverable
         fullLegalName: Acme Corporation Ltd.
         lastUpdate: 2025-01-24T08:45:00Z
-        tenantId: 550e8400-e29b-41d4-a716-446655440003
-        trPrimaryPurpose: Virtual asset service provider
-        nationalIdentification: "{\"nationalIdentifierType\":\"LEIXG\",\"nationalIdentifier\"\
-          :\"5493001KJTIIGC8Y1R12\",\"countryOfIssue\":\"US\"}"
+        vaults:
+        - 0
+        - 1
+        - 2
+        trPrimaryPurpose: trlink
+        nationalIdentification: "{\"nationalIdentifier\":\"EXAMPLELEI1234567890\"\
+          ,\"nationalIdentifierType\":\"LEIX\",\"countryOfIssue\":\"US\"}"
         id: 550e8400-e29b-41d4-a716-446655440001
         geographicAddress:
           country: US
@@ -68671,11 +69597,6 @@ components:
           example: 550e8400-e29b-41d4-a716-446655440001
           format: uuid
           type: string
-        tenantId:
-          description: Fireblocks tenant ID
-          example: 550e8400-e29b-41d4-a716-446655440003
-          format: uuid
-          type: string
         discoverable:
           $ref: "#/components/schemas/TRLinkDiscoverableStatus"
         shortName:
@@ -68693,9 +69614,13 @@ components:
           example: US
           type: string
         nationalIdentification:
-          description: National identification (serialized as string)
-          example: "{\"nationalIdentifierType\":\"LEIXG\",\"nationalIdentifier\":\"\
-            5493001KJTIIGC8Y1R12\",\"countryOfIssue\":\"US\"}"
+          description: "National identification, returned exactly as stored: a compact,\
+            \ whitespace-free JSON-encoded string with these optional keys (in this\
+            \ order): `nationalIdentifier`, `nationalIdentifierType` (e.g. `LEIX`\
+            \ for an LEI), `countryOfIssue` (ISO 3166-1 alpha-2), `registrationAuthority`.\
+            \ Maximum length is 240 characters."
+          example: "{\"nationalIdentifier\":\"EXAMPLELEI1234567890\",\"nationalIdentifierType\"\
+            :\"LEIX\",\"countryOfIssue\":\"US\"}"
           nullable: true
           type: string
         dateOfIncorporation:
@@ -68715,9 +69640,10 @@ components:
           nullable: true
           type: array
         trPrimaryPurpose:
-          description: Primary purpose for Travel Rule compliance
-          example: Virtual asset service provider
-          nullable: true
+          description: "Primary Travel Rule role for this customer; determines how\
+            \ the customer's Travel Rule messages are routed. Valid values: `notabene`,\
+            \ `trlink`."
+          example: trlink
           type: string
         createDate:
           description: Timestamp when the customer was created (ISO 8601 format)
@@ -68737,7 +69663,7 @@ components:
       - id
       - lastUpdate
       - shortName
-      - tenantId
+      - trPrimaryPurpose
       type: object
     TRLinkCustomersListResponse:
       items:
@@ -68752,9 +69678,9 @@ components:
         - 0
         - 1
         - 2
-        trPrimaryPurpose: Virtual asset service provider
-        nationalIdentification: "{\"nationalIdentifierType\":\"LEIXG\",\"nationalIdentifier\"\
-          :\"5493001KJTIIGC8Y1R12\",\"countryOfIssue\":\"US\"}"
+        trPrimaryPurpose: trlink
+        nationalIdentification: "{\"nationalIdentifier\":\"EXAMPLELEI1234567890\"\
+          ,\"nationalIdentifierType\":\"LEIX\",\"countryOfIssue\":\"US\"}"
         geographicAddress:
           country: US
           streetName: Main Street
@@ -68789,9 +69715,18 @@ components:
           nullable: true
           type: string
         nationalIdentification:
-          description: National identification as JSON string
-          example: "{\"nationalIdentifierType\":\"LEIXG\",\"nationalIdentifier\":\"\
-            5493001KJTIIGC8Y1R12\",\"countryOfIssue\":\"US\"}"
+          description: "National identification, sent as a JSON-encoded string. The\
+            \ server normalizes input into a compact JSON with these optional keys:\
+            \ `nationalIdentifier`, `nationalIdentifierType` (e.g. `LEIX` for an LEI),\
+            \ `countryOfIssue` (ISO 3166-1 alpha-2), `registrationAuthority`. If the\
+            \ input is not a JSON object, it is wrapped as `{\"nationalIdentifier\"\
+            :\"<value>\"}`; if the value matches the LEI format, `nationalIdentifierType`\
+            \ is set to `LEIX` automatically and `countryOfIssue` defaults to this\
+            \ request's `countryOfRegistration` if not provided. The compacted JSON\
+            \ must be 240 characters or fewer. On read, the value is returned exactly\
+            \ as stored."
+          example: "{\"nationalIdentifier\":\"EXAMPLELEI1234567890\",\"nationalIdentifierType\"\
+            :\"LEIX\",\"countryOfIssue\":\"US\"}"
           nullable: true
           type: string
         dateOfIncorporation:
@@ -68811,9 +69746,11 @@ components:
           nullable: true
           type: array
         trPrimaryPurpose:
-          description: Primary purpose for Travel Rule compliance (enum value)
-          example: Virtual asset service provider
-          nullable: true
+          default: trlink
+          description: "Primary Travel Rule role for this customer; determines how\
+            \ the customer's Travel Rule messages are routed. Valid values: `notabene`,\
+            \ `trlink`."
+          example: trlink
           type: string
       required:
       - shortName
@@ -68828,9 +69765,9 @@ components:
         - 1
         - 2
         - 3
-        trPrimaryPurpose: "Updated: Virtual asset service provider and exchange"
-        nationalIdentification: "{\"nationalIdentifierType\":\"LEIXG\",\"nationalIdentifier\"\
-          :\"5493001KJTIIGC8Y1R12\",\"countryOfIssue\":\"US\"}"
+        trPrimaryPurpose: trlink
+        nationalIdentification: "{\"nationalIdentifier\":\"EXAMPLELEI1234567890\"\
+          ,\"nationalIdentifierType\":\"LEIX\",\"countryOfIssue\":\"US\"}"
         geographicAddress:
           country: US
           streetName: Main Street
@@ -68849,9 +69786,8 @@ components:
         discoverable:
           $ref: "#/components/schemas/TRLinkDiscoverableStatus"
         shortName:
-          description: Short display name
+          description: Short display name (required)
           example: Acme Corporation
-          nullable: true
           type: string
         fullLegalName:
           description: Full legal entity name
@@ -68866,9 +69802,19 @@ components:
           nullable: true
           type: string
         nationalIdentification:
-          description: National identification as JSON string
-          example: "{\"nationalIdentifierType\":\"LEIXG\",\"nationalIdentifier\":\"\
-            5493001KJTIIGC8Y1R12\",\"countryOfIssue\":\"US\"}"
+          description: "National identification, sent as a JSON-encoded string. The\
+            \ server normalizes input into a compact JSON with these optional keys:\
+            \ `nationalIdentifier`, `nationalIdentifierType` (e.g. `LEIX` for an LEI),\
+            \ `countryOfIssue` (ISO 3166-1 alpha-2), `registrationAuthority`. If the\
+            \ input is not a JSON object, it is wrapped as `{\"nationalIdentifier\"\
+            :\"<value>\"}`; if the value matches the LEI format, `nationalIdentifierType`\
+            \ is set to `LEIX` automatically and `countryOfIssue` defaults to this\
+            \ request's `countryOfRegistration` if not provided. The compacted JSON\
+            \ must be 240 characters or fewer. Omitting this field leaves the stored\
+            \ value unchanged; setting it to `null` clears it. On read, the value\
+            \ is returned exactly as stored."
+          example: "{\"nationalIdentifier\":\"EXAMPLELEI1234567890\",\"nationalIdentifierType\"\
+            :\"LEIX\",\"countryOfIssue\":\"US\"}"
           nullable: true
           type: string
         dateOfIncorporation:
@@ -68889,10 +69835,13 @@ components:
           nullable: true
           type: array
         trPrimaryPurpose:
-          description: Primary purpose for Travel Rule compliance
-          example: "Updated: Virtual asset service provider and exchange"
-          nullable: true
+          description: "Primary Travel Rule role for this customer; determines how\
+            \ the customer's Travel Rule messages are routed. Valid values: `notabene`,\
+            \ `trlink`. Omit the field to leave the stored value unchanged."
+          example: trlink
           type: string
+      required:
+      - shortName
       type: object
     TRLinkCustomerIntegrationResponse:
       example:
@@ -68910,18 +69859,17 @@ components:
         customerIntegrationId: 123e4567-e89b-12d3-a456-426614174000
         createDate: 2025-01-20T10:30:00Z
         customer:
-          vaults:
-          - 0
-          - 1
-          - 2
           dateOfIncorporation: 2015-03-15
           discoverable: discoverable
           fullLegalName: Acme Corporation Ltd.
           lastUpdate: 2025-01-24T08:45:00Z
-          tenantId: 550e8400-e29b-41d4-a716-446655440003
-          trPrimaryPurpose: Virtual asset service provider
-          nationalIdentification: "{\"nationalIdentifierType\":\"LEIXG\",\"nationalIdentifier\"\
-            :\"5493001KJTIIGC8Y1R12\",\"countryOfIssue\":\"US\"}"
+          vaults:
+          - 0
+          - 1
+          - 2
+          trPrimaryPurpose: trlink
+          nationalIdentification: "{\"nationalIdentifier\":\"EXAMPLELEI1234567890\"\
+            ,\"nationalIdentifierType\":\"LEIX\",\"countryOfIssue\":\"US\"}"
           id: 550e8400-e29b-41d4-a716-446655440001
           geographicAddress:
             country: US
@@ -78505,7 +79453,6 @@ components:
           - vip
           items:
             maxLength: 30
-            pattern: "^[a-z0-9][a-z0-9_-]*$"
             type: string
           maxItems: 5
           minItems: 1
@@ -78517,7 +79464,6 @@ components:
           - deprecated
           items:
             maxLength: 30
-            pattern: "^[a-z0-9][a-z0-9_-]*$"
             type: string
           maxItems: 5
           minItems: 1
@@ -78911,6 +79857,77 @@ components:
           type: integer
       required:
       - assignedCount
+      type: object
+    GenieCreateSessionResponse:
+      example:
+        createdAt: 1735603200000
+        id: 7c1b2e1c-1c2a-4f3a-9c2d-2e0a8a1f8e1a
+        title: Vault balance overview
+      properties:
+        id:
+          description: The unique identifier of the newly created Genie session. Use
+            this when sending messages in the conversation.
+          example: 7c1b2e1c-1c2a-4f3a-9c2d-2e0a8a1f8e1a
+          type: string
+        createdAt:
+          description: Session creation timestamp in epoch milliseconds.
+          example: 1735603200000
+          format: int64
+          type: integer
+        title:
+          description: Session title. May be empty until the first message has been
+            processed.
+          example: Vault balance overview
+          type: string
+      required:
+      - id
+      type: object
+    GenieSendMessageRequest:
+      example:
+        content: What is the latest balance on my BTC vault?
+      properties:
+        content:
+          description: The natural-language question or instruction to send to Genie.
+          example: What is the latest balance on my BTC vault?
+          type: string
+      required:
+      - content
+      type: object
+    GenieChatMessage:
+      example:
+        createdAt: 1735603200000
+        role: ASSISTANT
+        id: 0a237534-399f-4487-a869-72567b71511a
+        sessionId: 7c1b2e1c-1c2a-4f3a-9c2d-2e0a8a1f8e1a
+        content: The latest balance on the BTC vault is 0.4231 BTC.
+      properties:
+        id:
+          description: The unique identifier of the message.
+          example: 0a237534-399f-4487-a869-72567b71511a
+          type: string
+        sessionId:
+          description: The Genie session this message belongs to.
+          example: 7c1b2e1c-1c2a-4f3a-9c2d-2e0a8a1f8e1a
+          type: string
+        role:
+          description: "Who produced the message — `USER` for the customer-supplied\
+            \ query, `ASSISTANT` for the Genie response."
+          example: ASSISTANT
+          type: string
+        content:
+          description: The natural-language body of the message.
+          example: The latest balance on the BTC vault is 0.4231 BTC.
+          type: string
+        createdAt:
+          description: Message creation timestamp in epoch milliseconds.
+          example: 1735603200000
+          format: int64
+          type: integer
+      required:
+      - content
+      - id
+      - role
+      - sessionId
       type: object
     get_filter_parameter:
       properties:

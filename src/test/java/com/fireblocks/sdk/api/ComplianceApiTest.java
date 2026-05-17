@@ -26,6 +26,7 @@ import com.fireblocks.sdk.model.AddressRegistryTenantRegistryResponse;
 import com.fireblocks.sdk.model.AddressRegistryVaultListOrder;
 import com.fireblocks.sdk.model.AmlVerdictManualRequest;
 import com.fireblocks.sdk.model.AmlVerdictManualResponse;
+import com.fireblocks.sdk.model.ArsConfigResponse;
 import com.fireblocks.sdk.model.AssignVaultsToLegalEntityRequest;
 import com.fireblocks.sdk.model.AssignVaultsToLegalEntityResponse;
 import com.fireblocks.sdk.model.ByorkConfigResponse;
@@ -58,6 +59,21 @@ import org.junit.Test;
 public class ComplianceApiTest {
 
     private final ComplianceApi api = new ComplianceApi();
+
+    /**
+     * Activate ARS (Address Registry Screening)
+     *
+     * <p>Activates ARS (Address Registry Screening) for the authenticated tenant (sets
+     * config.active to true). Once activated, ARS screening applies to matching transactions.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void activateArsConfigTest() throws ApiException {
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<ArsConfigResponse>> response =
+                api.activateArsConfig(idempotencyKey);
+    }
 
     /**
      * Activate BYORK Light
@@ -123,6 +139,22 @@ public class ComplianceApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<CounterpartyGroup>> response =
                 api.createCounterpartyGroup(createCounterpartyGroupRequest, idempotencyKey);
+    }
+
+    /**
+     * Deactivate ARS (Address Registry Screening)
+     *
+     * <p>Deactivates ARS (Address Registry Screening) for the authenticated tenant (sets
+     * config.active to false). Once deactivated, ARS screening no longer applies until activated
+     * again.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void deactivateArsConfigTest() throws ApiException {
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<ArsConfigResponse>> response =
+                api.deactivateArsConfig(idempotencyKey);
     }
 
     /**
@@ -479,11 +511,11 @@ public class ComplianceApiTest {
     }
 
     /**
-     * Calling the \&quot;Bypass Screening Policy\&quot; API endpoint triggers a new transaction,
-     * with the API user as the initiator, bypassing the screening policy check
+     * Bypass Screening Policy
      *
-     * <p>This endpoint is restricted to Admin API users and is only applicable to outgoing
-     * transactions.
+     * <p>Triggers a new transaction, with the API user as the initiator, bypassing the screening
+     * policy checks. This endpoint is restricted to Admin API users and is only applicable to
+     * outgoing transactions.
      *
      * @throws ApiException if the Api call fails
      */
