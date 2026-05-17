@@ -20,13 +20,17 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
+import com.fireblocks.sdk.model.CreateOffersRequest;
 import com.fireblocks.sdk.model.CreateOrderRequest;
 import com.fireblocks.sdk.model.CreateQuote;
 import com.fireblocks.sdk.model.GetOrdersResponse;
+import com.fireblocks.sdk.model.OffersResponse;
 import com.fireblocks.sdk.model.OrderDetails;
 import com.fireblocks.sdk.model.OrderStatus;
 import com.fireblocks.sdk.model.ProvidersListResponse;
 import com.fireblocks.sdk.model.QuotesResponse;
+import com.fireblocks.sdk.model.RatesRequest;
+import com.fireblocks.sdk.model.RatesResponse;
 import com.fireblocks.sdk.model.TradingProvider;
 import java.io.IOException;
 import java.io.InputStream;
@@ -236,6 +240,179 @@ public class TradingBetaApi {
 
         try {
             byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createQuote);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get all offers Retrieve all available offers across the workspace for a given asset pair.
+     * Always operates in open scope — no provider or account selection required. Returns a mix of
+     * indicative rates and committed quotes as applicable per provider. If no slippageBps is
+     * provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect
+     * the returned rate. Note: These endpoints are currently in beta and might be subject to
+     * changes. If you want to participate and learn more about the Fireblocks Trading, please
+     * contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+     * Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor. For detailed
+     * information about error codes and troubleshooting, please refer to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     *
+     * @param createOffersRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;OffersResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<OffersResponse>> fetchAllOffers(
+            CreateOffersRequest createOffersRequest, String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    fetchAllOffersRequestBuilder(createOffersRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("fetchAllOffers", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<OffersResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            OffersResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder fetchAllOffersRequestBuilder(
+            CreateOffersRequest createOffersRequest, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExists(
+                "fetchAllOffers", "createOffersRequest", createOffersRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/trading/offers";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createOffersRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get rates Retrieve indicative exchange rate from specified providers for a given asset pair.
+     * Rates are non-executable price signals intended for discovery and display purposes. Note:
+     * These endpoints are currently in beta and might be subject to changes. If you want to
+     * participate and learn more about the Fireblocks Trading, please contact your Fireblocks
+     * Customer Success Manager or send an email to CSM@fireblocks.com. Endpoint Permission: Owner,
+     * Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed information about
+     * error codes and troubleshooting, please refer to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     *
+     * @param ratesRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;RatesResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<RatesResponse>> fetchRates(
+            RatesRequest ratesRequest, String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    fetchRatesRequestBuilder(ratesRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("fetchRates", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<RatesResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            RatesResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder fetchRatesRequestBuilder(
+            RatesRequest ratesRequest, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExists("fetchRates", "ratesRequest", ratesRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/trading/rates";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(ratesRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {

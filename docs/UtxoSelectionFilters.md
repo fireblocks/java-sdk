@@ -14,8 +14,6 @@ Narrow the UTXO candidate pool. All specified filters are AND-ed together. This 
 |**address** | **String** | Only include UTXOs from this specific address. |  [optional] |
 |**minAmount** | **String** | Minimum UTXO amount in the asset&#39;s base unit (e.g., BTC). |  [optional] |
 |**maxAmount** | **String** | Maximum UTXO amount in the asset&#39;s base unit (e.g., BTC). |  [optional] |
-|**useChange** | **Boolean** | Set to false to exclude change UTXOs. Default is true. |  [optional] |
-|**useCoinbase** | **Boolean** | Set to false to exclude coinbase UTXOs. Default is true. |  [optional] |
 
 
 

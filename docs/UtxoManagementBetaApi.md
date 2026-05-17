@@ -11,7 +11,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 ## getUtxos
 
-> CompletableFuture<ApiResponse<ListUtxosResponse>> getUtxos getUtxos(vaultAccountId, assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels, excludeAnyLabels, includeStatuses, address, minAmount, maxAmount, useChange, useCoinbase)
+> CompletableFuture<ApiResponse<ListUtxosResponse>> getUtxos getUtxos(vaultAccountId, assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels, excludeAnyLabels, includeStatuses, address, minAmount, maxAmount)
 
 List unspent outputs (UTXOs)
 
@@ -53,10 +53,8 @@ public class Example {
         String address = "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"; // String | Filter by address
         String minAmount = "0.001"; // String | Minimum amount filter
         String maxAmount = "1.0"; // String | Maximum amount filter
-        Boolean useChange = true; // Boolean | Include change outputs
-        Boolean useCoinbase = true; // Boolean | Include coinbase outputs
         try {
-            CompletableFuture<ApiResponse<ListUtxosResponse>> response = fireblocks.utxoManagementBeta().getUtxos(vaultAccountId, assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels, excludeAnyLabels, includeStatuses, address, minAmount, maxAmount, useChange, useCoinbase);
+            CompletableFuture<ApiResponse<ListUtxosResponse>> response = fireblocks.utxoManagementBeta().getUtxos(vaultAccountId, assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels, excludeAnyLabels, includeStatuses, address, minAmount, maxAmount);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -96,8 +94,6 @@ public class Example {
 | **address** | **String**| Filter by address | [optional] |
 | **minAmount** | **String**| Minimum amount filter | [optional] |
 | **maxAmount** | **String**| Maximum amount filter | [optional] |
-| **useChange** | **Boolean**| Include change outputs | [optional] |
-| **useCoinbase** | **Boolean**| Include coinbase outputs | [optional] |
 
 ### Return type
 

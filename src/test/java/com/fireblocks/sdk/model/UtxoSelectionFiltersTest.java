@@ -60,16 +60,4 @@ class UtxoSelectionFiltersTest {
     void maxAmountTest() {
         // TODO: test maxAmount
     }
-
-    /** Test the property 'useChange' */
-    @Test
-    void useChangeTest() {
-        // TODO: test useChange
-    }
-
-    /** Test the property 'useCoinbase' */
-    @Test
-    void useCoinbaseTest() {
-        // TODO: test useCoinbase
-    }
 }

@@ -43,10 +43,22 @@ class QuoteTest {
         // TODO: test quoteAssetId
     }
 
+    /** Test the property 'quoteAssetRail' */
+    @Test
+    void quoteAssetRailTest() {
+        // TODO: test quoteAssetRail
+    }
+
     /** Test the property 'baseAssetId' */
     @Test
     void baseAssetIdTest() {
         // TODO: test baseAssetId
+    }
+
+    /** Test the property 'baseAssetRail' */
+    @Test
+    void baseAssetRailTest() {
+        // TODO: test baseAssetRail
     }
 
     /** Test the property 'baseAmount' */
@@ -71,6 +83,12 @@ class QuoteTest {
     @Test
     void quoteMinAmountTest() {
         // TODO: test quoteMinAmount
+    }
+
+    /** Test the property 'isSlippageApplied' */
+    @Test
+    void isSlippageAppliedTest() {
+        // TODO: test isSlippageApplied
     }
 
     /** Test the property 'executionSteps' */

@@ -31,6 +31,7 @@ import com.fireblocks.sdk.model.AddressRegistryTenantRegistryResponse;
 import com.fireblocks.sdk.model.AddressRegistryVaultListOrder;
 import com.fireblocks.sdk.model.AmlVerdictManualRequest;
 import com.fireblocks.sdk.model.AmlVerdictManualResponse;
+import com.fireblocks.sdk.model.ArsConfigResponse;
 import com.fireblocks.sdk.model.AssignVaultsToLegalEntityRequest;
 import com.fireblocks.sdk.model.AssignVaultsToLegalEntityResponse;
 import com.fireblocks.sdk.model.ByorkConfigResponse;
@@ -107,6 +108,77 @@ public class ComplianceApi {
         return operationId + " call failed with: " + statusCode + " - " + body;
     }
 
+    /**
+     * Activate ARS (Address Registry Screening) Activates ARS (Address Registry Screening) for the
+     * authenticated tenant (sets config.active to true). Once activated, ARS screening applies to
+     * matching transactions.
+     *
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;ArsConfigResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ArsConfigResponse>> activateArsConfig(
+            String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    activateArsConfigRequestBuilder(idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("activateArsConfig", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ArsConfigResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ArsConfigResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder activateArsConfigRequestBuilder(String idempotencyKey)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/screening/ars/config/activate";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
     /**
      * Activate BYORK Light Activates BYORK Light for the authenticated tenant (sets config.active
      * to true). Once activated, BYORK screening applies to matching transactions. Requires BYORK
@@ -447,6 +519,78 @@ public class ComplianceApi {
         } catch (IOException e) {
             throw new ApiException(e);
         }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Deactivate ARS (Address Registry Screening) Deactivates ARS (Address Registry Screening) for
+     * the authenticated tenant (sets config.active to false). Once deactivated, ARS screening no
+     * longer applies until activated again.
+     *
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;ArsConfigResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ArsConfigResponse>> deactivateArsConfig(
+            String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    deactivateArsConfigRequestBuilder(idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "deactivateArsConfig", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ArsConfigResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ArsConfigResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder deactivateArsConfigRequestBuilder(String idempotencyKey)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/screening/ars/config/deactivate";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }
@@ -2141,9 +2285,9 @@ public class ComplianceApi {
         return localVarRequestBuilder;
     }
     /**
-     * Calling the \&quot;Bypass Screening Policy\&quot; API endpoint triggers a new transaction,
-     * with the API user as the initiator, bypassing the screening policy check This endpoint is
-     * restricted to Admin API users and is only applicable to outgoing transactions.
+     * Bypass Screening Policy Triggers a new transaction, with the API user as the initiator,
+     * bypassing the screening policy checks. This endpoint is restricted to Admin API users and is
+     * only applicable to outgoing transactions.
      *
      * @param txId The transaction id that was rejected by screening checks (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple

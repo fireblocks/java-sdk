@@ -54,6 +54,7 @@ public class Fireblocks {
     private ExternalWalletsApi externalWallets;
     private FiatAccountsApi fiatAccounts;
     private GasStationsApi gasStations;
+    private GenieBetaApi genieBeta;
     private InternalWalletsApi internalWallets;
     private KeyLinkBetaApi keyLinkBeta;
     private KeysBetaApi keysBeta;
@@ -347,6 +348,13 @@ public class Fireblocks {
             gasStations = new GasStationsApi(apiClient);
         }
         return gasStations;
+    }
+
+    public GenieBetaApi genieBeta() {
+        if (genieBeta == null) {
+            genieBeta = new GenieBetaApi(apiClient);
+        }
+        return genieBeta;
     }
 
     public InternalWalletsApi internalWallets() {

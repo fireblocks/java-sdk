@@ -96,8 +96,6 @@ public class UtxoManagementBetaApi {
      * @param address Filter by address (optional)
      * @param minAmount Minimum amount filter (optional)
      * @param maxAmount Maximum amount filter (optional)
-     * @param useChange Include change outputs (optional)
-     * @param useCoinbase Include coinbase outputs (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;ListUtxosResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
@@ -114,9 +112,7 @@ public class UtxoManagementBetaApi {
             List<String> includeStatuses,
             String address,
             String minAmount,
-            String maxAmount,
-            Boolean useChange,
-            Boolean useCoinbase)
+            String maxAmount)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
@@ -133,9 +129,7 @@ public class UtxoManagementBetaApi {
                             includeStatuses,
                             address,
                             minAmount,
-                            maxAmount,
-                            useChange,
-                            useCoinbase);
+                            maxAmount);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -181,9 +175,7 @@ public class UtxoManagementBetaApi {
             List<String> includeStatuses,
             String address,
             String minAmount,
-            String maxAmount,
-            Boolean useChange,
-            Boolean useCoinbase)
+            String maxAmount)
             throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty("getUtxos", "vaultAccountId", vaultAccountId);
         ValidationUtils.assertParamExistsAndNotEmpty("getUtxos", "assetId", assetId);
@@ -224,10 +216,6 @@ public class UtxoManagementBetaApi {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("minAmount", minAmount));
         localVarQueryParameterBaseName = "maxAmount";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("maxAmount", maxAmount));
-        localVarQueryParameterBaseName = "useChange";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("useChange", useChange));
-        localVarQueryParameterBaseName = "useCoinbase";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("useCoinbase", useCoinbase));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");

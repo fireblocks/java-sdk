@@ -502,6 +502,14 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetGenieBetaApi() {
+        setupFireblocks(true, null, null);
+        GenieBetaApi genieBeta = fireblocks.genieBeta();
+        Assert.assertNotNull(genieBeta);
+        Assert.assertSame(genieBeta, fireblocks.genieBeta());
+    }
+
+    @Test
     public void testGetInternalWalletsApi() {
         setupFireblocks(true, null, null);
         InternalWalletsApi internalWallets = fireblocks.internalWallets();

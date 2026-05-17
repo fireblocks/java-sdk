@@ -35,7 +35,7 @@ public class QuotesResponse {
     @jakarta.annotation.Nonnull private List<Quote> quotes;
 
     public static final String JSON_PROPERTY_QUOTE_FAILURES = "quoteFailures";
-    @jakarta.annotation.Nonnull private List<QuoteFailure> quoteFailures;
+    @jakarta.annotation.Nonnull private List<ScopeItemFailure> quoteFailures;
 
     public QuotesResponse() {}
 
@@ -43,7 +43,7 @@ public class QuotesResponse {
     public QuotesResponse(
             @JsonProperty(value = JSON_PROPERTY_QUOTES, required = true) List<Quote> quotes,
             @JsonProperty(value = JSON_PROPERTY_QUOTE_FAILURES, required = true)
-                    List<QuoteFailure> quoteFailures) {
+                    List<ScopeItemFailure> quoteFailures) {
         this.quotes = quotes;
         this.quoteFailures = quoteFailures;
     }
@@ -80,12 +80,12 @@ public class QuotesResponse {
     }
 
     public QuotesResponse quoteFailures(
-            @jakarta.annotation.Nonnull List<QuoteFailure> quoteFailures) {
+            @jakarta.annotation.Nonnull List<ScopeItemFailure> quoteFailures) {
         this.quoteFailures = quoteFailures;
         return this;
     }
 
-    public QuotesResponse addQuoteFailuresItem(QuoteFailure quoteFailuresItem) {
+    public QuotesResponse addQuoteFailuresItem(ScopeItemFailure quoteFailuresItem) {
         if (this.quoteFailures == null) {
             this.quoteFailures = new ArrayList<>();
         }
@@ -102,13 +102,13 @@ public class QuotesResponse {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_QUOTE_FAILURES)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<QuoteFailure> getQuoteFailures() {
+    public List<ScopeItemFailure> getQuoteFailures() {
         return quoteFailures;
     }
 
     @JsonProperty(JSON_PROPERTY_QUOTE_FAILURES)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setQuoteFailures(@jakarta.annotation.Nonnull List<QuoteFailure> quoteFailures) {
+    public void setQuoteFailures(@jakarta.annotation.Nonnull List<ScopeItemFailure> quoteFailures) {
         this.quoteFailures = quoteFailures;
     }
 

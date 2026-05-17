@@ -32,9 +32,7 @@ import java.util.StringJoiner;
     UtxoSelectionFilters.JSON_PROPERTY_EXCLUDE_ANY_LABELS,
     UtxoSelectionFilters.JSON_PROPERTY_ADDRESS,
     UtxoSelectionFilters.JSON_PROPERTY_MIN_AMOUNT,
-    UtxoSelectionFilters.JSON_PROPERTY_MAX_AMOUNT,
-    UtxoSelectionFilters.JSON_PROPERTY_USE_CHANGE,
-    UtxoSelectionFilters.JSON_PROPERTY_USE_COINBASE
+    UtxoSelectionFilters.JSON_PROPERTY_MAX_AMOUNT
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -57,12 +55,6 @@ public class UtxoSelectionFilters {
 
     public static final String JSON_PROPERTY_MAX_AMOUNT = "maxAmount";
     @jakarta.annotation.Nullable private String maxAmount;
-
-    public static final String JSON_PROPERTY_USE_CHANGE = "useChange";
-    @jakarta.annotation.Nullable private Boolean useChange;
-
-    public static final String JSON_PROPERTY_USE_COINBASE = "useCoinbase";
-    @jakarta.annotation.Nullable private Boolean useCoinbase;
 
     public UtxoSelectionFilters() {}
 
@@ -231,52 +223,6 @@ public class UtxoSelectionFilters {
         this.maxAmount = maxAmount;
     }
 
-    public UtxoSelectionFilters useChange(@jakarta.annotation.Nullable Boolean useChange) {
-        this.useChange = useChange;
-        return this;
-    }
-
-    /**
-     * Set to false to exclude change UTXOs. Default is true.
-     *
-     * @return useChange
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_USE_CHANGE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getUseChange() {
-        return useChange;
-    }
-
-    @JsonProperty(JSON_PROPERTY_USE_CHANGE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUseChange(@jakarta.annotation.Nullable Boolean useChange) {
-        this.useChange = useChange;
-    }
-
-    public UtxoSelectionFilters useCoinbase(@jakarta.annotation.Nullable Boolean useCoinbase) {
-        this.useCoinbase = useCoinbase;
-        return this;
-    }
-
-    /**
-     * Set to false to exclude coinbase UTXOs. Default is true.
-     *
-     * @return useCoinbase
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_USE_COINBASE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getUseCoinbase() {
-        return useCoinbase;
-    }
-
-    @JsonProperty(JSON_PROPERTY_USE_COINBASE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUseCoinbase(@jakarta.annotation.Nullable Boolean useCoinbase) {
-        this.useCoinbase = useCoinbase;
-    }
-
     /** Return true if this UtxoSelectionFilters object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -292,9 +238,7 @@ public class UtxoSelectionFilters {
                 && Objects.equals(this.excludeAnyLabels, utxoSelectionFilters.excludeAnyLabels)
                 && Objects.equals(this.address, utxoSelectionFilters.address)
                 && Objects.equals(this.minAmount, utxoSelectionFilters.minAmount)
-                && Objects.equals(this.maxAmount, utxoSelectionFilters.maxAmount)
-                && Objects.equals(this.useChange, utxoSelectionFilters.useChange)
-                && Objects.equals(this.useCoinbase, utxoSelectionFilters.useCoinbase);
+                && Objects.equals(this.maxAmount, utxoSelectionFilters.maxAmount);
     }
 
     @Override
@@ -305,9 +249,7 @@ public class UtxoSelectionFilters {
                 excludeAnyLabels,
                 address,
                 minAmount,
-                maxAmount,
-                useChange,
-                useCoinbase);
+                maxAmount);
     }
 
     @Override
@@ -320,8 +262,6 @@ public class UtxoSelectionFilters {
         sb.append("    address: ").append(toIndentedString(address)).append("\n");
         sb.append("    minAmount: ").append(toIndentedString(minAmount)).append("\n");
         sb.append("    maxAmount: ").append(toIndentedString(maxAmount)).append("\n");
-        sb.append("    useChange: ").append(toIndentedString(useChange)).append("\n");
-        sb.append("    useCoinbase: ").append(toIndentedString(useCoinbase)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -448,26 +388,6 @@ public class UtxoSelectionFilters {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getMaxAmount()))));
-        }
-
-        // add `useChange` to the URL query string
-        if (getUseChange() != null) {
-            joiner.add(
-                    String.format(
-                            "%suseChange%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getUseChange()))));
-        }
-
-        // add `useCoinbase` to the URL query string
-        if (getUseCoinbase() != null) {
-            joiner.add(
-                    String.format(
-                            "%suseCoinbase%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getUseCoinbase()))));
         }
 
         return joiner.toString();

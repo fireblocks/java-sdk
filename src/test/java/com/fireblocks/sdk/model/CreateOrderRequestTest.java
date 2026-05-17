@@ -49,6 +49,12 @@ class CreateOrderRequestTest {
         // TODO: test participantsIdentification
     }
 
+    /** Test the property 'sourceOfFunds' */
+    @Test
+    void sourceOfFundsTest() {
+        // TODO: test sourceOfFunds
+    }
+
     /** Test the property 'customerInternalReferenceId' */
     @Test
     void customerInternalReferenceIdTest() {

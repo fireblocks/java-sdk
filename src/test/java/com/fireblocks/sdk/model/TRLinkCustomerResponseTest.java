@@ -31,12 +31,6 @@ class TRLinkCustomerResponseTest {
         // TODO: test id
     }
 
-    /** Test the property 'tenantId' */
-    @Test
-    void tenantIdTest() {
-        // TODO: test tenantId
-    }
-
     /** Test the property 'discoverable' */
     @Test
     void discoverableTest() {

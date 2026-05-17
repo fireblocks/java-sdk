@@ -29,7 +29,6 @@ import java.util.UUID;
 /** TRLinkCustomerResponse */
 @JsonPropertyOrder({
     TRLinkCustomerResponse.JSON_PROPERTY_ID,
-    TRLinkCustomerResponse.JSON_PROPERTY_TENANT_ID,
     TRLinkCustomerResponse.JSON_PROPERTY_DISCOVERABLE,
     TRLinkCustomerResponse.JSON_PROPERTY_SHORT_NAME,
     TRLinkCustomerResponse.JSON_PROPERTY_FULL_LEGAL_NAME,
@@ -48,9 +47,6 @@ import java.util.UUID;
 public class TRLinkCustomerResponse {
     public static final String JSON_PROPERTY_ID = "id";
     @jakarta.annotation.Nonnull private UUID id;
-
-    public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-    @jakarta.annotation.Nonnull private UUID tenantId;
 
     public static final String JSON_PROPERTY_DISCOVERABLE = "discoverable";
     @jakarta.annotation.Nullable private TRLinkDiscoverableStatus discoverable;
@@ -77,7 +73,7 @@ public class TRLinkCustomerResponse {
     @jakarta.annotation.Nullable private List<Integer> vaults;
 
     public static final String JSON_PROPERTY_TR_PRIMARY_PURPOSE = "trPrimaryPurpose";
-    @jakarta.annotation.Nullable private String trPrimaryPurpose;
+    @jakarta.annotation.Nonnull private String trPrimaryPurpose;
 
     public static final String JSON_PROPERTY_CREATE_DATE = "createDate";
     @jakarta.annotation.Nonnull private OffsetDateTime createDate;
@@ -90,7 +86,6 @@ public class TRLinkCustomerResponse {
     @JsonCreator
     public TRLinkCustomerResponse(
             @JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id,
-            @JsonProperty(value = JSON_PROPERTY_TENANT_ID, required = true) UUID tenantId,
             @JsonProperty(value = JSON_PROPERTY_DISCOVERABLE, required = true)
                     TRLinkDiscoverableStatus discoverable,
             @JsonProperty(value = JSON_PROPERTY_SHORT_NAME, required = true) String shortName,
@@ -98,16 +93,18 @@ public class TRLinkCustomerResponse {
                     String fullLegalName,
             @JsonProperty(value = JSON_PROPERTY_COUNTRY_OF_REGISTRATION, required = true)
                     String countryOfRegistration,
+            @JsonProperty(value = JSON_PROPERTY_TR_PRIMARY_PURPOSE, required = true)
+                    String trPrimaryPurpose,
             @JsonProperty(value = JSON_PROPERTY_CREATE_DATE, required = true)
                     OffsetDateTime createDate,
             @JsonProperty(value = JSON_PROPERTY_LAST_UPDATE, required = true)
                     OffsetDateTime lastUpdate) {
         this.id = id;
-        this.tenantId = tenantId;
         this.discoverable = discoverable;
         this.shortName = shortName;
         this.fullLegalName = fullLegalName;
         this.countryOfRegistration = countryOfRegistration;
+        this.trPrimaryPurpose = trPrimaryPurpose;
         this.createDate = createDate;
         this.lastUpdate = lastUpdate;
     }
@@ -133,29 +130,6 @@ public class TRLinkCustomerResponse {
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setId(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
-    }
-
-    public TRLinkCustomerResponse tenantId(@jakarta.annotation.Nonnull UUID tenantId) {
-        this.tenantId = tenantId;
-        return this;
-    }
-
-    /**
-     * Fireblocks tenant ID
-     *
-     * @return tenantId
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_TENANT_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public UUID getTenantId() {
-        return tenantId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TENANT_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTenantId(@jakarta.annotation.Nonnull UUID tenantId) {
-        this.tenantId = tenantId;
     }
 
     public TRLinkCustomerResponse discoverable(
@@ -285,7 +259,11 @@ public class TRLinkCustomerResponse {
     }
 
     /**
-     * National identification (serialized as string)
+     * National identification, returned exactly as stored: a compact, whitespace-free JSON-encoded
+     * string with these optional keys (in this order): &#x60;nationalIdentifier&#x60;,
+     * &#x60;nationalIdentifierType&#x60; (e.g. &#x60;LEIX&#x60; for an LEI),
+     * &#x60;countryOfIssue&#x60; (ISO 3166-1 alpha-2), &#x60;registrationAuthority&#x60;. Maximum
+     * length is 240 characters.
      *
      * @return nationalIdentification
      */
@@ -359,26 +337,27 @@ public class TRLinkCustomerResponse {
     }
 
     public TRLinkCustomerResponse trPrimaryPurpose(
-            @jakarta.annotation.Nullable String trPrimaryPurpose) {
+            @jakarta.annotation.Nonnull String trPrimaryPurpose) {
         this.trPrimaryPurpose = trPrimaryPurpose;
         return this;
     }
 
     /**
-     * Primary purpose for Travel Rule compliance
+     * Primary Travel Rule role for this customer; determines how the customer&#39;s Travel Rule
+     * messages are routed. Valid values: &#x60;notabene&#x60;, &#x60;trlink&#x60;.
      *
      * @return trPrimaryPurpose
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_TR_PRIMARY_PURPOSE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getTrPrimaryPurpose() {
         return trPrimaryPurpose;
     }
 
     @JsonProperty(JSON_PROPERTY_TR_PRIMARY_PURPOSE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTrPrimaryPurpose(@jakarta.annotation.Nullable String trPrimaryPurpose) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTrPrimaryPurpose(@jakarta.annotation.Nonnull String trPrimaryPurpose) {
         this.trPrimaryPurpose = trPrimaryPurpose;
     }
 
@@ -441,7 +420,6 @@ public class TRLinkCustomerResponse {
         }
         TRLinkCustomerResponse trLinkCustomerResponse = (TRLinkCustomerResponse) o;
         return Objects.equals(this.id, trLinkCustomerResponse.id)
-                && Objects.equals(this.tenantId, trLinkCustomerResponse.tenantId)
                 && Objects.equals(this.discoverable, trLinkCustomerResponse.discoverable)
                 && Objects.equals(this.shortName, trLinkCustomerResponse.shortName)
                 && Objects.equals(this.fullLegalName, trLinkCustomerResponse.fullLegalName)
@@ -462,7 +440,6 @@ public class TRLinkCustomerResponse {
     public int hashCode() {
         return Objects.hash(
                 id,
-                tenantId,
                 discoverable,
                 shortName,
                 fullLegalName,
@@ -481,7 +458,6 @@ public class TRLinkCustomerResponse {
         StringBuilder sb = new StringBuilder();
         sb.append("class TRLinkCustomerResponse {\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
-        sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
         sb.append("    discoverable: ").append(toIndentedString(discoverable)).append("\n");
         sb.append("    shortName: ").append(toIndentedString(shortName)).append("\n");
         sb.append("    fullLegalName: ").append(toIndentedString(fullLegalName)).append("\n");
@@ -554,16 +530,6 @@ public class TRLinkCustomerResponse {
                     String.format(
                             "%sid%s=%s",
                             prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
-        }
-
-        // add `tenantId` to the URL query string
-        if (getTenantId() != null) {
-            joiner.add(
-                    String.format(
-                            "%stenantId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getTenantId()))));
         }
 
         // add `discoverable` to the URL query string

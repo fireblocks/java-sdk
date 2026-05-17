@@ -20,8 +20,7 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
-import com.fireblocks.sdk.model.CircleGatewayWalletInfoResponse;
-import com.fireblocks.sdk.model.CircleGatewayWalletStatusResponse;
+import com.fireblocks.sdk.model.AddressReverseLookupResponse;
 import com.fireblocks.sdk.model.CreateAddressRequest;
 import com.fireblocks.sdk.model.CreateAddressResponse;
 import com.fireblocks.sdk.model.CreateAssetsRequest;
@@ -44,6 +43,8 @@ import com.fireblocks.sdk.model.SetCustomerRefIdRequest;
 import com.fireblocks.sdk.model.UnspentInputsResponse;
 import com.fireblocks.sdk.model.UpdateVaultAccountAssetAddressRequest;
 import com.fireblocks.sdk.model.UpdateVaultAccountRequest;
+import com.fireblocks.sdk.model.UsdcGatewayWalletInfoResponse;
+import com.fireblocks.sdk.model.UsdcGatewayWalletStatusResponse;
 import com.fireblocks.sdk.model.VaultAccount;
 import com.fireblocks.sdk.model.VaultAccountsPagedResponse;
 import com.fireblocks.sdk.model.VaultAccountsTagAttachmentOperationsRequest;
@@ -217,8 +218,8 @@ public class VaultsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Activate a Circle Gateway wallet Activates the Circle Gateway wallet associated with the
-     * given vault account. If the wallet does not yet exist it is created in an activated state.
+     * Activate a USDC Gateway wallet Activates the USDC Gateway wallet associated with the given
+     * vault account. If the wallet does not yet exist it is created in an activated state.
      * **Note:** This endpoint is currently in beta and might be subject to changes.
      * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
      *
@@ -226,15 +227,15 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CircleGatewayWalletStatusResponse&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;UsdcGatewayWalletStatusResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>>
-            activateCircleGatewayWalletBeta(String vaultAccountId, String idempotencyKey)
+    public CompletableFuture<ApiResponse<UsdcGatewayWalletStatusResponse>>
+            activateUsdcGatewayWalletBeta(String vaultAccountId, String idempotencyKey)
                     throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    activateCircleGatewayWalletBetaRequestBuilder(vaultAccountId, idempotencyKey);
+                    activateUsdcGatewayWalletBetaRequestBuilder(vaultAccountId, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -245,13 +246,13 @@ public class VaultsApi {
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
-                                                    "activateCircleGatewayWalletBeta",
+                                                    "activateUsdcGatewayWalletBeta",
                                                     localVarResponse));
                                 }
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<CircleGatewayWalletStatusResponse>(
+                                            new ApiResponse<UsdcGatewayWalletStatusResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -259,7 +260,7 @@ public class VaultsApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            CircleGatewayWalletStatusResponse>() {})));
+                                                                            UsdcGatewayWalletStatusResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -269,15 +270,15 @@ public class VaultsApi {
         }
     }
 
-    private HttpRequest.Builder activateCircleGatewayWalletBetaRequestBuilder(
+    private HttpRequest.Builder activateUsdcGatewayWalletBetaRequestBuilder(
             String vaultAccountId, String idempotencyKey) throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty(
-                "activateCircleGatewayWalletBeta", "vaultAccountId", vaultAccountId);
+                "activateUsdcGatewayWalletBeta", "vaultAccountId", vaultAccountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
         String localVarPath =
-                "/vault/accounts/{vaultAccountId}/circle_gateway/activate"
+                "/vault/accounts/{vaultAccountId}/usdc_gateway/activate"
                         .replace(
                                 "{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()));
 
@@ -971,7 +972,7 @@ public class VaultsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Deactivate a Circle Gateway wallet Deactivates the Circle Gateway wallet associated with the
+     * Deactivate a USDC Gateway wallet Deactivates the USDC Gateway wallet associated with the
      * given vault account. **Note:** This endpoint is currently in beta and might be subject to
      * changes. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
      *
@@ -979,15 +980,15 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CircleGatewayWalletStatusResponse&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;UsdcGatewayWalletStatusResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>>
-            deactivateCircleGatewayWalletBeta(String vaultAccountId, String idempotencyKey)
+    public CompletableFuture<ApiResponse<UsdcGatewayWalletStatusResponse>>
+            deactivateUsdcGatewayWalletBeta(String vaultAccountId, String idempotencyKey)
                     throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    deactivateCircleGatewayWalletBetaRequestBuilder(vaultAccountId, idempotencyKey);
+                    deactivateUsdcGatewayWalletBetaRequestBuilder(vaultAccountId, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -998,13 +999,13 @@ public class VaultsApi {
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
-                                                    "deactivateCircleGatewayWalletBeta",
+                                                    "deactivateUsdcGatewayWalletBeta",
                                                     localVarResponse));
                                 }
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<CircleGatewayWalletStatusResponse>(
+                                            new ApiResponse<UsdcGatewayWalletStatusResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -1012,7 +1013,7 @@ public class VaultsApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            CircleGatewayWalletStatusResponse>() {})));
+                                                                            UsdcGatewayWalletStatusResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -1022,15 +1023,15 @@ public class VaultsApi {
         }
     }
 
-    private HttpRequest.Builder deactivateCircleGatewayWalletBetaRequestBuilder(
+    private HttpRequest.Builder deactivateUsdcGatewayWalletBetaRequestBuilder(
             String vaultAccountId, String idempotencyKey) throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty(
-                "deactivateCircleGatewayWalletBeta", "vaultAccountId", vaultAccountId);
+                "deactivateUsdcGatewayWalletBeta", "vaultAccountId", vaultAccountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
         String localVarPath =
-                "/vault/accounts/{vaultAccountId}/circle_gateway/deactivate"
+                "/vault/accounts/{vaultAccountId}/usdc_gateway/deactivate"
                         .replace(
                                 "{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()));
 
@@ -1155,80 +1156,6 @@ public class VaultsApi {
         } else {
             localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
         }
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Get Circle Gateway wallet info Returns the Circle Gateway wallet information associated with
-     * the given vault account. **Note:** This endpoint is currently in beta and might be subject to
-     * changes. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
-     * Viewer.
-     *
-     * @param vaultAccountId The ID of the vault account (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;CircleGatewayWalletInfoResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<CircleGatewayWalletInfoResponse>>
-            getCircleGatewayWalletInfoBeta(String vaultAccountId) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    getCircleGatewayWalletInfoBetaRequestBuilder(vaultAccountId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "getCircleGatewayWalletInfoBeta",
-                                                    localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<CircleGatewayWalletInfoResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            CircleGatewayWalletInfoResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getCircleGatewayWalletInfoBetaRequestBuilder(String vaultAccountId)
-            throws ApiException {
-        ValidationUtils.assertParamExistsAndNotEmpty(
-                "getCircleGatewayWalletInfoBeta", "vaultAccountId", vaultAccountId);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/vault/accounts/{vaultAccountId}/circle_gateway"
-                        .replace(
-                                "{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
         localVarRequestBuilder.header("Accept", "application/json");
 
@@ -1982,6 +1909,80 @@ public class VaultsApi {
         return localVarRequestBuilder;
     }
     /**
+     * Get USDC Gateway wallet info Returns the USDC Gateway wallet information associated with the
+     * given vault account. **Note:** This endpoint is currently in beta and might be subject to
+     * changes. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
+     * Viewer.
+     *
+     * @param vaultAccountId The ID of the vault account (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;UsdcGatewayWalletInfoResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<UsdcGatewayWalletInfoResponse>>
+            getUsdcGatewayWalletInfoBeta(String vaultAccountId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getUsdcGatewayWalletInfoBetaRequestBuilder(vaultAccountId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getUsdcGatewayWalletInfoBeta",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<UsdcGatewayWalletInfoResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            UsdcGatewayWalletInfoResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getUsdcGatewayWalletInfoBetaRequestBuilder(String vaultAccountId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getUsdcGatewayWalletInfoBeta", "vaultAccountId", vaultAccountId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/vault/accounts/{vaultAccountId}/usdc_gateway"
+                        .replace(
+                                "{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Get a vault account by ID Get a vault account by its unique ID. Endpoint Permission: Admin,
      * Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
@@ -2463,6 +2464,90 @@ public class VaultsApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Look up a vault account by blockchain address Resolves a blockchain address to the vault
+     * account that owns it. Returns the vault account ID and the blockchains associated with the
+     * address. **Note:** This endpoint is currently in beta and might be subject to changes.
+     *
+     * @param address The blockchain address to resolve. (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressReverseLookupResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AddressReverseLookupResponse>> lookupVaultByAddress(
+            String address) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    lookupVaultByAddressRequestBuilder(address);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "lookupVaultByAddress", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<AddressReverseLookupResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressReverseLookupResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder lookupVaultByAddressRequestBuilder(String address)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("lookupVaultByAddress", "address", address);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/vault/lookup_by_address";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "address";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("address", address));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

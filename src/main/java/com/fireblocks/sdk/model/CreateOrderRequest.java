@@ -27,6 +27,7 @@ import java.util.StringJoiner;
     CreateOrderRequest.JSON_PROPERTY_EXECUTION_REQUEST_DETAILS,
     CreateOrderRequest.JSON_PROPERTY_SETTLEMENT,
     CreateOrderRequest.JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION,
+    CreateOrderRequest.JSON_PROPERTY_SOURCE_OF_FUNDS,
     CreateOrderRequest.JSON_PROPERTY_CUSTOMER_INTERNAL_REFERENCE_ID,
     CreateOrderRequest.JSON_PROPERTY_NOTE
 })
@@ -46,6 +47,9 @@ public class CreateOrderRequest {
     public static final String JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION =
             "participantsIdentification";
     @jakarta.annotation.Nullable private ParticipantsIdentification participantsIdentification;
+
+    public static final String JSON_PROPERTY_SOURCE_OF_FUNDS = "sourceOfFunds";
+    @jakarta.annotation.Nullable private SourceOfFunds sourceOfFunds;
 
     public static final String JSON_PROPERTY_CUSTOMER_INTERNAL_REFERENCE_ID =
             "customerInternalReferenceId";
@@ -164,6 +168,30 @@ public class CreateOrderRequest {
         this.participantsIdentification = participantsIdentification;
     }
 
+    public CreateOrderRequest sourceOfFunds(
+            @jakarta.annotation.Nullable SourceOfFunds sourceOfFunds) {
+        this.sourceOfFunds = sourceOfFunds;
+        return this;
+    }
+
+    /**
+     * Get sourceOfFunds
+     *
+     * @return sourceOfFunds
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SOURCE_OF_FUNDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public SourceOfFunds getSourceOfFunds() {
+        return sourceOfFunds;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SOURCE_OF_FUNDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSourceOfFunds(@jakarta.annotation.Nullable SourceOfFunds sourceOfFunds) {
+        this.sourceOfFunds = sourceOfFunds;
+    }
+
     public CreateOrderRequest customerInternalReferenceId(
             @jakarta.annotation.Nullable String customerInternalReferenceId) {
         this.customerInternalReferenceId = customerInternalReferenceId;
@@ -229,6 +257,7 @@ public class CreateOrderRequest {
                 && Objects.equals(
                         this.participantsIdentification,
                         createOrderRequest.participantsIdentification)
+                && Objects.equals(this.sourceOfFunds, createOrderRequest.sourceOfFunds)
                 && Objects.equals(
                         this.customerInternalReferenceId,
                         createOrderRequest.customerInternalReferenceId)
@@ -242,6 +271,7 @@ public class CreateOrderRequest {
                 executionRequestDetails,
                 settlement,
                 participantsIdentification,
+                sourceOfFunds,
                 customerInternalReferenceId,
                 note);
     }
@@ -258,6 +288,7 @@ public class CreateOrderRequest {
         sb.append("    participantsIdentification: ")
                 .append(toIndentedString(participantsIdentification))
                 .append("\n");
+        sb.append("    sourceOfFunds: ").append(toIndentedString(sourceOfFunds)).append("\n");
         sb.append("    customerInternalReferenceId: ")
                 .append(toIndentedString(customerInternalReferenceId))
                 .append("\n");
@@ -331,6 +362,11 @@ public class CreateOrderRequest {
             joiner.add(
                     getParticipantsIdentification()
                             .toUrlQueryString(prefix + "participantsIdentification" + suffix));
+        }
+
+        // add `sourceOfFunds` to the URL query string
+        if (getSourceOfFunds() != null) {
+            joiner.add(getSourceOfFunds().toUrlQueryString(prefix + "sourceOfFunds" + suffix));
         }
 
         // add `customerInternalReferenceId` to the URL query string

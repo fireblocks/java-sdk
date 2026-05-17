@@ -15,8 +15,7 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.model.CircleGatewayWalletInfoResponse;
-import com.fireblocks.sdk.model.CircleGatewayWalletStatusResponse;
+import com.fireblocks.sdk.model.AddressReverseLookupResponse;
 import com.fireblocks.sdk.model.CreateAddressRequest;
 import com.fireblocks.sdk.model.CreateAddressResponse;
 import com.fireblocks.sdk.model.CreateAssetsRequest;
@@ -39,6 +38,8 @@ import com.fireblocks.sdk.model.SetCustomerRefIdRequest;
 import com.fireblocks.sdk.model.UnspentInputsResponse;
 import com.fireblocks.sdk.model.UpdateVaultAccountAssetAddressRequest;
 import com.fireblocks.sdk.model.UpdateVaultAccountRequest;
+import com.fireblocks.sdk.model.UsdcGatewayWalletInfoResponse;
+import com.fireblocks.sdk.model.UsdcGatewayWalletStatusResponse;
 import com.fireblocks.sdk.model.VaultAccount;
 import com.fireblocks.sdk.model.VaultAccountsPagedResponse;
 import com.fireblocks.sdk.model.VaultAccountsTagAttachmentOperationsRequest;
@@ -79,9 +80,9 @@ public class VaultsApiTest {
     }
 
     /**
-     * Activate a Circle Gateway wallet
+     * Activate a USDC Gateway wallet
      *
-     * <p>Activates the Circle Gateway wallet associated with the given vault account. If the wallet
+     * <p>Activates the USDC Gateway wallet associated with the given vault account. If the wallet
      * does not yet exist it is created in an activated state. **Note:** This endpoint is currently
      * in beta and might be subject to changes. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
      * Admin, Signer, Approver.
@@ -89,11 +90,11 @@ public class VaultsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void activateCircleGatewayWalletBetaTest() throws ApiException {
+    public void activateUsdcGatewayWalletBetaTest() throws ApiException {
         String vaultAccountId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>> response =
-                api.activateCircleGatewayWalletBeta(vaultAccountId, idempotencyKey);
+        CompletableFuture<ApiResponse<UsdcGatewayWalletStatusResponse>> response =
+                api.activateUsdcGatewayWalletBeta(vaultAccountId, idempotencyKey);
     }
 
     /**
@@ -236,20 +237,20 @@ public class VaultsApiTest {
     }
 
     /**
-     * Deactivate a Circle Gateway wallet
+     * Deactivate a USDC Gateway wallet
      *
-     * <p>Deactivates the Circle Gateway wallet associated with the given vault account. **Note:**
+     * <p>Deactivates the USDC Gateway wallet associated with the given vault account. **Note:**
      * This endpoint is currently in beta and might be subject to changes. &lt;/br&gt;Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver.
      *
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void deactivateCircleGatewayWalletBetaTest() throws ApiException {
+    public void deactivateUsdcGatewayWalletBetaTest() throws ApiException {
         String vaultAccountId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<CircleGatewayWalletStatusResponse>> response =
-                api.deactivateCircleGatewayWalletBeta(vaultAccountId, idempotencyKey);
+        CompletableFuture<ApiResponse<UsdcGatewayWalletStatusResponse>> response =
+                api.deactivateUsdcGatewayWalletBeta(vaultAccountId, idempotencyKey);
     }
 
     /**
@@ -271,22 +272,6 @@ public class VaultsApiTest {
         BigDecimal limit = null;
         CompletableFuture<ApiResponse<PaginatedAssetWalletResponse>> response =
                 api.getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit);
-    }
-
-    /**
-     * Get Circle Gateway wallet info
-     *
-     * <p>Returns the Circle Gateway wallet information associated with the given vault account.
-     * **Note:** This endpoint is currently in beta and might be subject to changes.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void getCircleGatewayWalletInfoBetaTest() throws ApiException {
-        String vaultAccountId = null;
-        CompletableFuture<ApiResponse<CircleGatewayWalletInfoResponse>> response =
-                api.getCircleGatewayWalletInfoBeta(vaultAccountId);
     }
 
     /**
@@ -445,6 +430,22 @@ public class VaultsApiTest {
     }
 
     /**
+     * Get USDC Gateway wallet info
+     *
+     * <p>Returns the USDC Gateway wallet information associated with the given vault account.
+     * **Note:** This endpoint is currently in beta and might be subject to changes.
+     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getUsdcGatewayWalletInfoBetaTest() throws ApiException {
+        String vaultAccountId = null;
+        CompletableFuture<ApiResponse<UsdcGatewayWalletInfoResponse>> response =
+                api.getUsdcGatewayWalletInfoBeta(vaultAccountId);
+    }
+
+    /**
      * Get a vault account by ID
      *
      * <p>Get a vault account by its unique ID. Endpoint Permission: Admin, Non-Signing Admin,
@@ -543,6 +544,22 @@ public class VaultsApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<VaultActionStatus>> response =
                 api.hideVaultAccount(vaultAccountId, idempotencyKey);
+    }
+
+    /**
+     * Look up a vault account by blockchain address
+     *
+     * <p>Resolves a blockchain address to the vault account that owns it. Returns the vault account
+     * ID and the blockchains associated with the address. **Note:** This endpoint is currently in
+     * beta and might be subject to changes.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void lookupVaultByAddressTest() throws ApiException {
+        String address = null;
+        CompletableFuture<ApiResponse<AddressReverseLookupResponse>> response =
+                api.lookupVaultByAddress(address);
     }
 
     /**

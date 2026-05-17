@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -43,7 +44,7 @@ public class TRLinkUpdateCustomerRequest {
     @jakarta.annotation.Nullable private TRLinkDiscoverableStatus discoverable;
 
     public static final String JSON_PROPERTY_SHORT_NAME = "shortName";
-    @jakarta.annotation.Nullable private String shortName;
+    @jakarta.annotation.Nonnull private String shortName;
 
     public static final String JSON_PROPERTY_FULL_LEGAL_NAME = "fullLegalName";
     @jakarta.annotation.Nullable private String fullLegalName;
@@ -67,6 +68,12 @@ public class TRLinkUpdateCustomerRequest {
     @jakarta.annotation.Nullable private String trPrimaryPurpose;
 
     public TRLinkUpdateCustomerRequest() {}
+
+    @JsonCreator
+    public TRLinkUpdateCustomerRequest(
+            @JsonProperty(value = JSON_PROPERTY_SHORT_NAME, required = true) String shortName) {
+        this.shortName = shortName;
+    }
 
     public TRLinkUpdateCustomerRequest discoverable(
             @jakarta.annotation.Nullable TRLinkDiscoverableStatus discoverable) {
@@ -93,26 +100,26 @@ public class TRLinkUpdateCustomerRequest {
         this.discoverable = discoverable;
     }
 
-    public TRLinkUpdateCustomerRequest shortName(@jakarta.annotation.Nullable String shortName) {
+    public TRLinkUpdateCustomerRequest shortName(@jakarta.annotation.Nonnull String shortName) {
         this.shortName = shortName;
         return this;
     }
 
     /**
-     * Short display name
+     * Short display name (required)
      *
      * @return shortName
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_SHORT_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getShortName() {
         return shortName;
     }
 
     @JsonProperty(JSON_PROPERTY_SHORT_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setShortName(@jakarta.annotation.Nullable String shortName) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setShortName(@jakarta.annotation.Nonnull String shortName) {
         this.shortName = shortName;
     }
 
@@ -197,7 +204,17 @@ public class TRLinkUpdateCustomerRequest {
     }
 
     /**
-     * National identification as JSON string
+     * National identification, sent as a JSON-encoded string. The server normalizes input into a
+     * compact JSON with these optional keys: &#x60;nationalIdentifier&#x60;,
+     * &#x60;nationalIdentifierType&#x60; (e.g. &#x60;LEIX&#x60; for an LEI),
+     * &#x60;countryOfIssue&#x60; (ISO 3166-1 alpha-2), &#x60;registrationAuthority&#x60;. If the
+     * input is not a JSON object, it is wrapped as
+     * &#x60;{\&quot;nationalIdentifier\&quot;:\&quot;&lt;value&gt;\&quot;}&#x60;; if the value
+     * matches the LEI format, &#x60;nationalIdentifierType&#x60; is set to &#x60;LEIX&#x60;
+     * automatically and &#x60;countryOfIssue&#x60; defaults to this request&#39;s
+     * &#x60;countryOfRegistration&#x60; if not provided. The compacted JSON must be 240 characters
+     * or fewer. Omitting this field leaves the stored value unchanged; setting it to
+     * &#x60;null&#x60; clears it. On read, the value is returned exactly as stored.
      *
      * @return nationalIdentification
      */
@@ -277,7 +294,9 @@ public class TRLinkUpdateCustomerRequest {
     }
 
     /**
-     * Primary purpose for Travel Rule compliance
+     * Primary Travel Rule role for this customer; determines how the customer&#39;s Travel Rule
+     * messages are routed. Valid values: &#x60;notabene&#x60;, &#x60;trlink&#x60;. Omit the field
+     * to leave the stored value unchanged.
      *
      * @return trPrimaryPurpose
      */
