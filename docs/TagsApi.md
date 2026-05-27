@@ -435,7 +435,7 @@ No authorization required
 
 ## getTags
 
-> CompletableFuture<ApiResponse<TagsPagedResponse>> getTags getTags(pageCursor, pageSize, label, tagIds, includePendingApprovalsInfo, isProtected)
+> CompletableFuture<ApiResponse<TagsPagedResponse>> getTags getTags(pageCursor, pageSize, label, tagIds, includePendingApprovalsInfo, isProtected, type)
 
 Get list of tags
 
@@ -470,8 +470,9 @@ public class Example {
         List<UUID> tagIds = Arrays.asList(); // List<UUID> | List of tag IDs to filter by.
         Boolean includePendingApprovalsInfo = false; // Boolean | Whether to include pending approval requests info.
         Boolean isProtected = true; // Boolean | 
+        List<TagType> type = Arrays.asList(); // List<TagType> | Filter by tag type
         try {
-            CompletableFuture<ApiResponse<TagsPagedResponse>> response = fireblocks.tags().getTags(pageCursor, pageSize, label, tagIds, includePendingApprovalsInfo, isProtected);
+            CompletableFuture<ApiResponse<TagsPagedResponse>> response = fireblocks.tags().getTags(pageCursor, pageSize, label, tagIds, includePendingApprovalsInfo, isProtected, type);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -504,6 +505,7 @@ public class Example {
 | **tagIds** | [**List&lt;UUID&gt;**](UUID.md)| List of tag IDs to filter by. | [optional] |
 | **includePendingApprovalsInfo** | **Boolean**| Whether to include pending approval requests info. | [optional] [default to false] |
 | **isProtected** | **Boolean**|  | [optional] |
+| **type** | [**List&lt;TagType&gt;**](TagType.md)| Filter by tag type | [optional] |
 
 ### Return type
 

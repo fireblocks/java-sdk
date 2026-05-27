@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -26,8 +25,8 @@ import java.util.StringJoiner;
 /** GetAuditLogsResponse */
 @JsonPropertyOrder({
     GetAuditLogsResponse.JSON_PROPERTY_DATA,
-    GetAuditLogsResponse.JSON_PROPERTY_CURSOR,
-    GetAuditLogsResponse.JSON_PROPERTY_TOTAL
+    GetAuditLogsResponse.JSON_PROPERTY_NEXT,
+    GetAuditLogsResponse.JSON_PROPERTY_CURSOR
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -36,11 +35,11 @@ public class GetAuditLogsResponse {
     public static final String JSON_PROPERTY_DATA = "data";
     @jakarta.annotation.Nullable private List<AuditLogData> data;
 
+    public static final String JSON_PROPERTY_NEXT = "next";
+    @jakarta.annotation.Nullable private String next;
+
     public static final String JSON_PROPERTY_CURSOR = "cursor";
     @jakarta.annotation.Nullable private String cursor;
-
-    public static final String JSON_PROPERTY_TOTAL = "total";
-    @jakarta.annotation.Nullable private BigDecimal total;
 
     public GetAuditLogsResponse() {}
 
@@ -75,16 +74,41 @@ public class GetAuditLogsResponse {
         this.data = data;
     }
 
+    public GetAuditLogsResponse next(@jakarta.annotation.Nullable String next) {
+        this.next = next;
+        return this;
+    }
+
+    /**
+     * Cursor to pass as pageCursor in the next request. Null when no further pages exist.
+     *
+     * @return next
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_NEXT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getNext() {
+        return next;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NEXT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setNext(@jakarta.annotation.Nullable String next) {
+        this.next = next;
+    }
+
     public GetAuditLogsResponse cursor(@jakarta.annotation.Nullable String cursor) {
         this.cursor = cursor;
         return this;
     }
 
     /**
-     * The next id to start fetch audit logs from
+     * Deprecated. Use next instead.
      *
      * @return cursor
+     * @deprecated
      */
+    @Deprecated
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_CURSOR)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -98,29 +122,6 @@ public class GetAuditLogsResponse {
         this.cursor = cursor;
     }
 
-    public GetAuditLogsResponse total(@jakarta.annotation.Nullable BigDecimal total) {
-        this.total = total;
-        return this;
-    }
-
-    /**
-     * The total number of audit logs
-     *
-     * @return total
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TOTAL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TOTAL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotal(@jakarta.annotation.Nullable BigDecimal total) {
-        this.total = total;
-    }
-
     /** Return true if this GetAuditLogsResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -132,13 +133,13 @@ public class GetAuditLogsResponse {
         }
         GetAuditLogsResponse getAuditLogsResponse = (GetAuditLogsResponse) o;
         return Objects.equals(this.data, getAuditLogsResponse.data)
-                && Objects.equals(this.cursor, getAuditLogsResponse.cursor)
-                && Objects.equals(this.total, getAuditLogsResponse.total);
+                && Objects.equals(this.next, getAuditLogsResponse.next)
+                && Objects.equals(this.cursor, getAuditLogsResponse.cursor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(data, cursor, total);
+        return Objects.hash(data, next, cursor);
     }
 
     @Override
@@ -146,8 +147,8 @@ public class GetAuditLogsResponse {
         StringBuilder sb = new StringBuilder();
         sb.append("class GetAuditLogsResponse {\n");
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
+        sb.append("    next: ").append(toIndentedString(next)).append("\n");
         sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
-        sb.append("    total: ").append(toIndentedString(total)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -218,6 +219,16 @@ public class GetAuditLogsResponse {
             }
         }
 
+        // add `next` to the URL query string
+        if (getNext() != null) {
+            joiner.add(
+                    String.format(
+                            "%snext%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getNext()))));
+        }
+
         // add `cursor` to the URL query string
         if (getCursor() != null) {
             joiner.add(
@@ -226,16 +237,6 @@ public class GetAuditLogsResponse {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getCursor()))));
-        }
-
-        // add `total` to the URL query string
-        if (getTotal() != null) {
-            joiner.add(
-                    String.format(
-                            "%stotal%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getTotal()))));
         }
 
         return joiner.toString();

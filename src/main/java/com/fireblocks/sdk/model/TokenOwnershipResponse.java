@@ -142,7 +142,9 @@ public class TokenOwnershipResponse {
 
         CRONOS_TEST(String.valueOf("CRONOS_TEST")),
 
-        ROBINHOOD_CHAIN_TESTNET_TEST(String.valueOf("ROBINHOOD_CHAIN_TESTNET_TEST"));
+        ROBINHOOD_CHAIN_TESTNET_TEST(String.valueOf("ROBINHOOD_CHAIN_TESTNET_TEST")),
+
+        ARB(String.valueOf("ARB"));
 
         private String value;
 

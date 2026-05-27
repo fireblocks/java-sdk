@@ -1671,7 +1671,7 @@ public class Example {
 | **xEndUserWalletId** | **UUID**| Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | |
 | **walletId** | **String**| The ID of the Non-Custodial wallet | |
 | **derivationPath** | **String**| An array of integers (passed as JSON stringified array) representing the full BIP44 derivation path of the requested public key.  The first element must always be 44.  | |
-| **algorithm** | **String**| Elliptic Curve | [enum: MPC_ECDSA_SECP256K1, MPC_ECDSA_SECP256R1, MPC_EDDSA_ED25519] |
+| **algorithm** | **String**| Elliptic Curve | [enum: MPC_ECDSA_SECP256K1, MPC_EDDSA_ED25519] |
 | **compressed** | **Boolean**| Compressed/Uncompressed public key format | [optional] |
 
 ### Return type

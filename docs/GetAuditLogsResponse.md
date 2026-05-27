@@ -8,8 +8,8 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**data** | [**List&lt;AuditLogData&gt;**](AuditLogData.md) |  |  [optional] |
-|**cursor** | **String** | The next id to start fetch audit logs from |  [optional] |
-|**total** | **BigDecimal** | The total number of audit logs |  [optional] |
+|**next** | **String** | Cursor to pass as pageCursor in the next request. Null when no further pages exist. |  [optional] |
+|**cursor** | **String** | Deprecated. Use next instead. |  [optional] |
 
 
 

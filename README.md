@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>19.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:19.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-19.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -1365,6 +1365,7 @@ Class | Method | HTTP request | Description
  - [StEthBlockchainData](docs/StEthBlockchainData.md)
  - [StakeRequest](docs/StakeRequest.md)
  - [StakeResponse](docs/StakeResponse.md)
+ - [StakingErrorSchema](docs/StakingErrorSchema.md)
  - [StakingPositionsPaginatedResponse](docs/StakingPositionsPaginatedResponse.md)
  - [StakingProvider](docs/StakingProvider.md)
  - [Status](docs/Status.md)
@@ -1466,6 +1467,7 @@ Class | Method | HTTP request | Description
  - [TRLinkVerdictEnum](docs/TRLinkVerdictEnum.md)
  - [Tag](docs/Tag.md)
  - [TagAttachmentOperationAction](docs/TagAttachmentOperationAction.md)
+ - [TagType](docs/TagType.md)
  - [TagsPagedResponse](docs/TagsPagedResponse.md)
  - [TemplatesPaginatedResponse](docs/TemplatesPaginatedResponse.md)
  - [ThirdPartyRouting](docs/ThirdPartyRouting.md)
@@ -1593,6 +1595,7 @@ Class | Method | HTTP request | Description
  - [UpdateVaultAccountRequest](docs/UpdateVaultAccountRequest.md)
  - [UpdateWebhookRequest](docs/UpdateWebhookRequest.md)
  - [UsWirePaymentInfo](docs/UsWirePaymentInfo.md)
+ - [UsdcGatewayWalletAsset](docs/UsdcGatewayWalletAsset.md)
  - [UsdcGatewayWalletInfoResponse](docs/UsdcGatewayWalletInfoResponse.md)
  - [UsdcGatewayWalletStatusResponse](docs/UsdcGatewayWalletStatusResponse.md)
  - [UserGroupCreateRequest](docs/UserGroupCreateRequest.md)

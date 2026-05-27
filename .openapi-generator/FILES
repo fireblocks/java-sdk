@@ -849,6 +849,7 @@ docs/StEthBlockchainData.md
 docs/StakeRequest.md
 docs/StakeResponse.md
 docs/StakingApi.md
+docs/StakingErrorSchema.md
 docs/StakingPositionsPaginatedResponse.md
 docs/StakingProvider.md
 docs/Status.md
@@ -950,6 +951,7 @@ docs/TRLinkVerdict.md
 docs/TRLinkVerdictEnum.md
 docs/Tag.md
 docs/TagAttachmentOperationAction.md
+docs/TagType.md
 docs/TagsApi.md
 docs/TagsPagedResponse.md
 docs/TemplatesPaginatedResponse.md
@@ -1083,6 +1085,7 @@ docs/UpdateVaultAccountAssetAddressRequest.md
 docs/UpdateVaultAccountRequest.md
 docs/UpdateWebhookRequest.md
 docs/UsWirePaymentInfo.md
+docs/UsdcGatewayWalletAsset.md
 docs/UsdcGatewayWalletInfoResponse.md
 docs/UsdcGatewayWalletStatusResponse.md
 docs/UserGroupCreateRequest.md
@@ -2029,6 +2032,7 @@ src/main/java/com/fireblocks/sdk/model/SplitResponse.java
 src/main/java/com/fireblocks/sdk/model/StEthBlockchainData.java
 src/main/java/com/fireblocks/sdk/model/StakeRequest.java
 src/main/java/com/fireblocks/sdk/model/StakeResponse.java
+src/main/java/com/fireblocks/sdk/model/StakingErrorSchema.java
 src/main/java/com/fireblocks/sdk/model/StakingPositionsPaginatedResponse.java
 src/main/java/com/fireblocks/sdk/model/StakingProvider.java
 src/main/java/com/fireblocks/sdk/model/Status.java
@@ -2130,6 +2134,7 @@ src/main/java/com/fireblocks/sdk/model/TRLinkVerdict.java
 src/main/java/com/fireblocks/sdk/model/TRLinkVerdictEnum.java
 src/main/java/com/fireblocks/sdk/model/Tag.java
 src/main/java/com/fireblocks/sdk/model/TagAttachmentOperationAction.java
+src/main/java/com/fireblocks/sdk/model/TagType.java
 src/main/java/com/fireblocks/sdk/model/TagsPagedResponse.java
 src/main/java/com/fireblocks/sdk/model/TemplatesPaginatedResponse.java
 src/main/java/com/fireblocks/sdk/model/ThirdPartyRouting.java
@@ -2257,6 +2262,7 @@ src/main/java/com/fireblocks/sdk/model/UpdateVaultAccountAssetAddressRequest.jav
 src/main/java/com/fireblocks/sdk/model/UpdateVaultAccountRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateWebhookRequest.java
 src/main/java/com/fireblocks/sdk/model/UsWirePaymentInfo.java
+src/main/java/com/fireblocks/sdk/model/UsdcGatewayWalletAsset.java
 src/main/java/com/fireblocks/sdk/model/UsdcGatewayWalletInfoResponse.java
 src/main/java/com/fireblocks/sdk/model/UsdcGatewayWalletStatusResponse.java
 src/main/java/com/fireblocks/sdk/model/UserGroupCreateRequest.java
@@ -3171,6 +3177,7 @@ src/test/java/com/fireblocks/sdk/model/SplitResponseTest.java
 src/test/java/com/fireblocks/sdk/model/StEthBlockchainDataTest.java
 src/test/java/com/fireblocks/sdk/model/StakeRequestTest.java
 src/test/java/com/fireblocks/sdk/model/StakeResponseTest.java
+src/test/java/com/fireblocks/sdk/model/StakingErrorSchemaTest.java
 src/test/java/com/fireblocks/sdk/model/StakingPositionsPaginatedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/StakingProviderTest.java
 src/test/java/com/fireblocks/sdk/model/StatusTest.java
@@ -3272,6 +3279,7 @@ src/test/java/com/fireblocks/sdk/model/TRLinkVerdictEnumTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkVerdictTest.java
 src/test/java/com/fireblocks/sdk/model/TagAttachmentOperationActionTest.java
 src/test/java/com/fireblocks/sdk/model/TagTest.java
+src/test/java/com/fireblocks/sdk/model/TagTypeTest.java
 src/test/java/com/fireblocks/sdk/model/TagsPagedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/TemplatesPaginatedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ThirdPartyRoutingTest.java
@@ -3399,6 +3407,7 @@ src/test/java/com/fireblocks/sdk/model/UpdateVaultAccountAssetAddressRequestTest
 src/test/java/com/fireblocks/sdk/model/UpdateVaultAccountRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateWebhookRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UsWirePaymentInfoTest.java
+src/test/java/com/fireblocks/sdk/model/UsdcGatewayWalletAssetTest.java
 src/test/java/com/fireblocks/sdk/model/UsdcGatewayWalletInfoResponseTest.java
 src/test/java/com/fireblocks/sdk/model/UsdcGatewayWalletStatusResponseTest.java
 src/test/java/com/fireblocks/sdk/model/UserGroupCreateRequestTest.java

@@ -26,7 +26,8 @@ import java.util.StringJoiner;
     CreateTagRequest.JSON_PROPERTY_LABEL,
     CreateTagRequest.JSON_PROPERTY_DESCRIPTION,
     CreateTagRequest.JSON_PROPERTY_COLOR,
-    CreateTagRequest.JSON_PROPERTY_IS_PROTECTED
+    CreateTagRequest.JSON_PROPERTY_IS_PROTECTED,
+    CreateTagRequest.JSON_PROPERTY_TYPE
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -43,6 +44,9 @@ public class CreateTagRequest {
 
     public static final String JSON_PROPERTY_IS_PROTECTED = "isProtected";
     @jakarta.annotation.Nullable private Boolean isProtected = false;
+
+    public static final String JSON_PROPERTY_TYPE = "type";
+    @jakarta.annotation.Nullable private TagType type;
 
     public CreateTagRequest() {}
 
@@ -144,6 +148,29 @@ public class CreateTagRequest {
         this.isProtected = isProtected;
     }
 
+    public CreateTagRequest type(@jakarta.annotation.Nullable TagType type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return type
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public TagType getType() {
+        return type;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setType(@jakarta.annotation.Nullable TagType type) {
+        this.type = type;
+    }
+
     /** Return true if this CreateTagRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -157,12 +184,13 @@ public class CreateTagRequest {
         return Objects.equals(this.label, createTagRequest.label)
                 && Objects.equals(this.description, createTagRequest.description)
                 && Objects.equals(this.color, createTagRequest.color)
-                && Objects.equals(this.isProtected, createTagRequest.isProtected);
+                && Objects.equals(this.isProtected, createTagRequest.isProtected)
+                && Objects.equals(this.type, createTagRequest.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(label, description, color, isProtected);
+        return Objects.hash(label, description, color, isProtected, type);
     }
 
     @Override
@@ -173,6 +201,7 @@ public class CreateTagRequest {
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    color: ").append(toIndentedString(color)).append("\n");
         sb.append("    isProtected: ").append(toIndentedString(isProtected)).append("\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -258,6 +287,16 @@ public class CreateTagRequest {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getIsProtected()))));
+        }
+
+        // add `type` to the URL query string
+        if (getType() != null) {
+            joiner.add(
+                    String.format(
+                            "%stype%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         return joiner.toString();

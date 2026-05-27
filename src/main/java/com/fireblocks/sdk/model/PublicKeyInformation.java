@@ -38,8 +38,6 @@ public class PublicKeyInformation {
     public enum AlgorithmEnum {
         MPC_ECDSA_SECP256_K1(String.valueOf("MPC_ECDSA_SECP256K1")),
 
-        MPC_ECDSA_SECP256_R1(String.valueOf("MPC_ECDSA_SECP256R1")),
-
         MPC_EDDSA_ED25519(String.valueOf("MPC_EDDSA_ED25519"));
 
         private String value;

@@ -48,4 +48,10 @@ class CreateTagRequestTest {
     void isProtectedTest() {
         // TODO: test isProtected
     }
+
+    /** Test the property 'type' */
+    @Test
+    void typeTest() {
+        // TODO: test type
+    }
 }

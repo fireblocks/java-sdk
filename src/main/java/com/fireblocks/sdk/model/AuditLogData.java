@@ -29,6 +29,7 @@ import java.util.StringJoiner;
     AuditLogData.JSON_PROPERTY_USER,
     AuditLogData.JSON_PROPERTY_SUBJECT,
     AuditLogData.JSON_PROPERTY_EVENT,
+    AuditLogData.JSON_PROPERTY_CATEGORY,
     AuditLogData.JSON_PROPERTY_TENANT_ID,
     AuditLogData.JSON_PROPERTY_USER_ID
 })
@@ -53,6 +54,9 @@ public class AuditLogData {
 
     public static final String JSON_PROPERTY_EVENT = "event";
     @jakarta.annotation.Nullable private String event;
+
+    public static final String JSON_PROPERTY_CATEGORY = "category";
+    @jakarta.annotation.Nullable private String category;
 
     public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
     @jakarta.annotation.Nullable private String tenantId;
@@ -200,6 +204,29 @@ public class AuditLogData {
         this.event = event;
     }
 
+    public AuditLogData category(@jakarta.annotation.Nullable String category) {
+        this.category = category;
+        return this;
+    }
+
+    /**
+     * The category of the audit event
+     *
+     * @return category
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CATEGORY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCategory() {
+        return category;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CATEGORY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCategory(@jakarta.annotation.Nullable String category) {
+        this.category = category;
+    }
+
     public AuditLogData tenantId(@jakarta.annotation.Nullable String tenantId) {
         this.tenantId = tenantId;
         return this;
@@ -262,13 +289,15 @@ public class AuditLogData {
                 && Objects.equals(this.user, auditLogData.user)
                 && Objects.equals(this.subject, auditLogData.subject)
                 && Objects.equals(this.event, auditLogData.event)
+                && Objects.equals(this.category, auditLogData.category)
                 && Objects.equals(this.tenantId, auditLogData.tenantId)
                 && Objects.equals(this.userId, auditLogData.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, timestamp, createdAt, user, subject, event, tenantId, userId);
+        return Objects.hash(
+                id, timestamp, createdAt, user, subject, event, category, tenantId, userId);
     }
 
     @Override
@@ -281,6 +310,7 @@ public class AuditLogData {
         sb.append("    user: ").append(toIndentedString(user)).append("\n");
         sb.append("    subject: ").append(toIndentedString(subject)).append("\n");
         sb.append("    event: ").append(toIndentedString(event)).append("\n");
+        sb.append("    category: ").append(toIndentedString(category)).append("\n");
         sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
         sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
         sb.append("}");
@@ -386,6 +416,16 @@ public class AuditLogData {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getEvent()))));
+        }
+
+        // add `category` to the URL query string
+        if (getCategory() != null) {
+            joiner.add(
+                    String.format(
+                            "%scategory%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getCategory()))));
         }
 
         // add `tenantId` to the URL query string
