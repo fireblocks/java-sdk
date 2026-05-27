@@ -15,31 +15,31 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for GetAuditLogsResponse */
-class GetAuditLogsResponseTest {
-    private final GetAuditLogsResponse model = new GetAuditLogsResponse();
+/** Model tests for StakingErrorSchema */
+class StakingErrorSchemaTest {
+    private final StakingErrorSchema model = new StakingErrorSchema();
 
-    /** Model tests for GetAuditLogsResponse */
+    /** Model tests for StakingErrorSchema */
     @Test
-    void testGetAuditLogsResponse() {
-        // TODO: test GetAuditLogsResponse
+    void testStakingErrorSchema() {
+        // TODO: test StakingErrorSchema
     }
 
-    /** Test the property 'data' */
+    /** Test the property 'message' */
     @Test
-    void dataTest() {
-        // TODO: test data
+    void messageTest() {
+        // TODO: test message
     }
 
-    /** Test the property 'next' */
+    /** Test the property 'code' */
     @Test
-    void nextTest() {
-        // TODO: test next
+    void codeTest() {
+        // TODO: test code
     }
 
-    /** Test the property 'cursor' */
+    /** Test the property 'descriptor' */
     @Test
-    void cursorTest() {
-        // TODO: test cursor
+    void descriptorTest() {
+        // TODO: test descriptor
     }
 }

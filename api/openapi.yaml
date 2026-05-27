@@ -4569,7 +4569,6 @@ paths:
         schema:
           enum:
           - MPC_ECDSA_SECP256K1
-          - MPC_ECDSA_SECP256R1
           - MPC_EDDSA_ED25519
           example: MPC_EDDSA_ED25519
           type: string
@@ -12600,7 +12599,7 @@ paths:
               $ref: "#/components/schemas/GasStationConfiguration"
         required: true
       responses:
-        "201":
+        "200":
           content:
             application/json:
               schema:
@@ -12687,7 +12686,7 @@ paths:
               $ref: "#/components/schemas/GasStationConfiguration"
         required: true
       responses:
-        "201":
+        "200":
           content:
             application/json:
               schema:
@@ -13083,13 +13082,37 @@ paths:
   /management/audit_logs:
     get:
       description: |-
-        Get Audit logs for the last Day/Week.
+        Retrieve audit log events for the workspace with optional filtering, date range, sorting, and cursor-based pagination.
 
-        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
-        Endpoint Permission: Admin, Non-Signing Admin.
+        Filters within the same field are combined as OR (e.g. category=Administration&category=Security returns events in either category). Filters across different fields are combined as AND.
+
+        **Deprecated parameters:** `timePeriod` and `cursor` remain functional for backward compatibility but new integrations should use `startTime`/`endTime` and `pageCursor` instead.
+
+        Endpoint Permission: Admin, Non-Signing Admin, Auditor, Security Admin, Security Auditor.
       operationId: getAuditLogs
       parameters:
-      - description: The last time period to fetch audit logs
+      - description: Start of date range as epoch time in milliseconds. Takes precedence
+          over timePeriod when provided. Must be no more than 1 year before the current
+          time.
+        explode: true
+        in: query
+        name: startTime
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: End of date range as epoch time in milliseconds. Must be after
+          startTime. Defaults to now when omitted.
+        explode: true
+        in: query
+        name: endTime
+        required: false
+        schema:
+          type: integer
+        style: form
+      - deprecated: true
+        description: Deprecated. Use startTime/endTime instead. Ignored when startTime
+          is provided. Defaults to DAY when neither timePeriod nor startTime is supplied.
         explode: true
         in: query
         name: timePeriod
@@ -13100,7 +13123,91 @@ paths:
           - WEEK
           type: string
         style: form
-      - description: The next id to start fetch audit logs from
+      - description: Filter by event category. Repeat the parameter for multiple values
+          (OR logic within field).
+        explode: true
+        in: query
+        name: category
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Filter by event subject. Repeat the parameter for multiple values.
+        explode: true
+        in: query
+        name: subject
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Filter by event type. Repeat the parameter for multiple values.
+        explode: true
+        in: query
+        name: event
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Filter by user name. Repeat the parameter for multiple values.
+        explode: true
+        in: query
+        name: user
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Filter by user ID. Repeat the parameter for multiple values.
+        explode: true
+        in: query
+        name: userId
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Sort direction. Defaults to DESC.
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      - description: Number of results per page. Maximum 500. Defaults to 200.
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 200
+          maximum: 500
+          minimum: 1
+          type: integer
+        style: form
+      - description: Cursor returned from the previous response to fetch the next
+          page.
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - deprecated: true
+        description: Deprecated. Use pageCursor instead.
         explode: true
         in: query
         name: cursor
@@ -13114,10 +13221,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GetAuditLogsResponse"
-          description: Audit logs from requested time period
+          description: Audit log events matching the requested filters and date range
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
+        "400":
+          $ref: "#/components/responses/Error"
+        "403":
+          $ref: "#/components/responses/Error"
         default:
           $ref: "#/components/responses/Error"
       summary: Get audit logs
@@ -13131,21 +13242,27 @@ paths:
             \ = fireblocks.auditLogs.getAuditLogs(auditLogsApiGetAuditLogsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<GetAuditLogsResponse>> response = fireblocks.auditLogs().getAuditLogs(timePeriod,\
-            \ cursor);"
+          code: "CompletableFuture<ApiResponse<GetAuditLogsResponse>> response = fireblocks.auditLogs().getAuditLogs(startTime,\
+            \ endTime, timePeriod, category, subject, event, user, userId, order,\
+            \ pageSize, pageCursor, cursor);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.audit_logs.get_audit_logs(time_period, cursor);"
+          code: "response = fireblocks.audit_logs.get_audit_logs(start_time, end_time,\
+            \ time_period, category, subject, event, user, user_id, order, page_size,\
+            \ page_cursor, cursor);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<GetAuditLogsResponse>>\
           \ = fireblocks.auditLogs.getAuditLogs(auditLogsApiGetAuditLogsRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<GetAuditLogsResponse>> response = fireblocks.auditLogs().getAuditLogs(timePeriod,\
-          \ cursor);"
+        source: "CompletableFuture<ApiResponse<GetAuditLogsResponse>> response = fireblocks.auditLogs().getAuditLogs(startTime,\
+          \ endTime, timePeriod, category, subject, event, user, userId, order, pageSize,\
+          \ pageCursor, cursor);"
       - lang: Python
-        source: "response = fireblocks.audit_logs.get_audit_logs(time_period, cursor);"
+        source: "response = fireblocks.audit_logs.get_audit_logs(start_time, end_time,\
+          \ time_period, category, subject, event, user, user_id, order, page_size,\
+          \ page_cursor, cursor);"
       x-accepts:
       - application/json
   /off_exchange/add:
@@ -18839,7 +18956,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Forbidden: insufficient permissions, disabled feature, or\
             \ restricted provider/validator."
           headers:
@@ -18849,7 +18966,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Not found: requested resource does not exist (e.g., position,\
             \ validator, provider, or wallet)."
           headers:
@@ -18859,7 +18976,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Rate limit exceeded: slow down and retry later."
           headers:
             X-Request-ID:
@@ -18868,7 +18985,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: Internal error while processing the request.
           headers:
             X-Request-ID:
@@ -18931,7 +19048,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Bad request: missing/invalid fields, unsupported amount, or\
             \ malformed payload."
           headers:
@@ -18941,7 +19058,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Forbidden: insufficient permissions, disabled feature, or\
             \ restricted provider/validator."
           headers:
@@ -18951,7 +19068,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Not found: requested resource does not exist (e.g., position,\
             \ validator, provider, or wallet)."
           headers:
@@ -18961,7 +19078,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Rate limit exceeded: slow down and retry later."
           headers:
             X-Request-ID:
@@ -18970,7 +19087,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: Internal error while processing the request.
           headers:
             X-Request-ID:
@@ -19055,7 +19172,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Bad request: missing/invalid fields, unsupported amount, or\
             \ malformed payload."
           headers:
@@ -19065,7 +19182,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Forbidden: insufficient permissions, disabled feature, or\
             \ restricted provider/validator."
           headers:
@@ -19075,7 +19192,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Not found: requested resource does not exist (e.g., position,\
             \ validator, provider, or wallet)."
           headers:
@@ -19085,7 +19202,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Rate limit exceeded: slow down and retry later."
           headers:
             X-Request-ID:
@@ -19094,7 +19211,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: Internal error while processing the request.
           headers:
             X-Request-ID:
@@ -19171,7 +19288,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Bad request: missing/invalid fields, unsupported amount, or\
             \ malformed payload."
           headers:
@@ -19181,7 +19298,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Forbidden: insufficient permissions, disabled feature, or\
             \ restricted provider/validator."
           headers:
@@ -19191,7 +19308,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Not found: requested resource does not exist (e.g., position,\
             \ validator, provider, or wallet)."
           headers:
@@ -19201,7 +19318,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Rate limit exceeded: slow down and retry later."
           headers:
             X-Request-ID:
@@ -19210,7 +19327,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: Internal error while processing the request.
           headers:
             X-Request-ID:
@@ -19290,7 +19407,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Bad request: missing/invalid fields, unsupported amount, or\
             \ malformed payload."
           headers:
@@ -19300,7 +19417,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Forbidden: insufficient permissions, disabled feature, or\
             \ restricted provider/validator."
           headers:
@@ -19310,7 +19427,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Not found: requested resource does not exist (e.g., position,\
             \ validator, provider, or wallet)."
           headers:
@@ -19320,7 +19437,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Rate limit exceeded: slow down and retry later."
           headers:
             X-Request-ID:
@@ -19329,7 +19446,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: Internal error while processing the request.
           headers:
             X-Request-ID:
@@ -19415,7 +19532,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Bad request: missing/invalid fields, unsupported amount, or\
             \ malformed payload."
           headers:
@@ -19425,7 +19542,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Forbidden: insufficient permissions, disabled feature, or\
             \ restricted provider/validator."
           headers:
@@ -19435,7 +19552,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Not found: requested resource does not exist (e.g., position,\
             \ validator, provider, or wallet)."
           headers:
@@ -19445,7 +19562,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Rate limit exceeded: slow down and retry later."
           headers:
             X-Request-ID:
@@ -19454,7 +19571,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: Internal error while processing the request.
           headers:
             X-Request-ID:
@@ -19540,7 +19657,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Bad request: missing/invalid fields, unsupported amount, or\
             \ malformed payload."
           headers:
@@ -19550,7 +19667,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Forbidden: insufficient permissions, disabled feature, or\
             \ restricted provider/validator."
           headers:
@@ -19560,7 +19677,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Not found: requested resource does not exist (e.g., position,\
             \ validator, provider, or wallet)."
           headers:
@@ -19570,7 +19687,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Rate limit exceeded: slow down and retry later."
           headers:
             X-Request-ID:
@@ -19579,7 +19696,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: Internal error while processing the request.
           headers:
             X-Request-ID:
@@ -19665,7 +19782,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Bad request: missing/invalid fields, unsupported amount, or\
             \ malformed payload."
           headers:
@@ -19675,7 +19792,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Forbidden: insufficient permissions, disabled feature, or\
             \ restricted provider/validator."
           headers:
@@ -19685,7 +19802,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Not found: requested resource does not exist (e.g., position,\
             \ validator, provider, or wallet)."
           headers:
@@ -19695,7 +19812,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Rate limit exceeded: slow down and retry later."
           headers:
             X-Request-ID:
@@ -19704,7 +19821,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: Internal error while processing the request.
           headers:
             X-Request-ID:
@@ -19796,7 +19913,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Bad request: missing/invalid fields, unsupported amount, or\
             \ malformed payload."
           headers:
@@ -19806,7 +19923,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Forbidden: insufficient permissions, disabled feature, or\
             \ restricted provider/validator."
           headers:
@@ -19816,7 +19933,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Not found: requested resource does not exist (e.g., position,\
             \ validator, provider, or wallet)."
           headers:
@@ -19826,7 +19943,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Rate limit exceeded: slow down and retry later."
           headers:
             X-Request-ID:
@@ -19835,7 +19952,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: Internal error while processing the request.
           headers:
             X-Request-ID:
@@ -19916,7 +20033,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Bad request: missing/invalid fields, unsupported amount, or\
             \ malformed payload."
           headers:
@@ -19926,7 +20043,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Forbidden: insufficient permissions, disabled feature, or\
             \ restricted provider/validator."
           headers:
@@ -19936,7 +20053,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Not found: requested resource does not exist (e.g., position,\
             \ validator, provider, or wallet)."
           headers:
@@ -19946,7 +20063,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Rate limit exceeded: slow down and retry later."
           headers:
             X-Request-ID:
@@ -19955,7 +20072,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: Internal error while processing the request.
           headers:
             X-Request-ID:
@@ -20072,7 +20189,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Bad request: missing/invalid fields, unsupported amount, or\
             \ malformed payload."
           headers:
@@ -20082,7 +20199,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Forbidden: insufficient permissions, disabled feature, or\
             \ restricted provider/validator."
           headers:
@@ -20092,7 +20209,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Not found: requested resource does not exist (e.g., position,\
             \ validator, provider, or wallet)."
           headers:
@@ -20102,7 +20219,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Rate limit exceeded: slow down and retry later."
           headers:
             X-Request-ID:
@@ -20111,7 +20228,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: Internal error while processing the request.
           headers:
             X-Request-ID:
@@ -20190,7 +20307,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Forbidden: insufficient permissions, disabled feature, or\
             \ restricted provider/validator."
           headers:
@@ -20200,7 +20317,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Not found: requested resource does not exist (e.g., position,\
             \ validator, provider, or wallet)."
           headers:
@@ -20210,7 +20327,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Rate limit exceeded: slow down and retry later."
           headers:
             X-Request-ID:
@@ -20219,7 +20336,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: Internal error while processing the request.
           headers:
             X-Request-ID:
@@ -20306,7 +20423,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Forbidden: insufficient permissions, disabled feature, or\
             \ restricted provider/validator."
           headers:
@@ -20316,7 +20433,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Not found: requested resource does not exist (e.g., position,\
             \ validator, provider, or wallet)."
           headers:
@@ -20326,7 +20443,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Rate limit exceeded: slow down and retry later."
           headers:
             X-Request-ID:
@@ -20335,7 +20452,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: Internal error while processing the request.
           headers:
             X-Request-ID:
@@ -20398,7 +20515,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Bad request: missing/invalid fields, unsupported amount, or\
             \ malformed payload."
           headers:
@@ -20408,7 +20525,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Forbidden: insufficient permissions, disabled feature, or\
             \ restricted provider/validator."
           headers:
@@ -20418,7 +20535,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Not found: requested resource does not exist (e.g., position,\
             \ validator, provider, or wallet)."
           headers:
@@ -20428,7 +20545,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Rate limit exceeded: slow down and retry later."
           headers:
             X-Request-ID:
@@ -20437,7 +20554,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: Internal error while processing the request.
           headers:
             X-Request-ID:
@@ -20488,7 +20605,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Forbidden: insufficient permissions, disabled feature, or\
             \ restricted provider/validator."
           headers:
@@ -20498,7 +20615,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Not found: requested resource does not exist (e.g., position,\
             \ validator, provider, or wallet)."
           headers:
@@ -20508,7 +20625,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Rate limit exceeded: slow down and retry later."
           headers:
             X-Request-ID:
@@ -20517,7 +20634,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: Internal error while processing the request.
           headers:
             X-Request-ID:
@@ -20585,7 +20702,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Bad request: missing/invalid fields, unsupported amount, or\
             \ malformed payload."
           headers:
@@ -20595,7 +20712,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Forbidden: insufficient permissions, disabled feature, or\
             \ restricted provider/validator."
           headers:
@@ -20605,7 +20722,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Not found: requested resource does not exist (e.g., position,\
             \ validator, provider, or wallet)."
           headers:
@@ -20615,7 +20732,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: "Rate limit exceeded: slow down and retry later."
           headers:
             X-Request-ID:
@@ -20624,7 +20741,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorSchema"
+                $ref: "#/components/schemas/StakingErrorSchema"
           description: Internal error while processing the request.
           headers:
             X-Request-ID:
@@ -22598,6 +22715,7 @@ paths:
           - CRONOS
           - CRONOS_TEST
           - ROBINHOOD_CHAIN_TESTNET_TEST
+          - ARB
           type: string
         style: form
       - description: A comma separated list of Vault Account IDs. Up to 100 are allowed
@@ -31291,6 +31409,16 @@ paths:
         schema:
           type: boolean
         style: form
+      - description: Filter by tag type
+        explode: true
+        in: query
+        name: type
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/TagType"
+          type: array
+        style: form
       responses:
         "200":
           content:
@@ -31313,11 +31441,11 @@ paths:
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<TagsPagedResponse>> response = fireblocks.tags().getTags(pageCursor,\
-            \ pageSize, label, tagIds, includePendingApprovalsInfo, isProtected);"
+            \ pageSize, label, tagIds, includePendingApprovalsInfo, isProtected, type);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.tags.get_tags(page_cursor, page_size, label,\
-            \ tag_ids, include_pending_approvals_info, is_protected);"
+            \ tag_ids, include_pending_approvals_info, is_protected, type);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -31325,10 +31453,10 @@ paths:
           \ fireblocks.tags.getTags(tagsApiGetTagsRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<TagsPagedResponse>> response = fireblocks.tags().getTags(pageCursor,\
-          \ pageSize, label, tagIds, includePendingApprovalsInfo, isProtected);"
+          \ pageSize, label, tagIds, includePendingApprovalsInfo, isProtected, type);"
       - lang: Python
         source: "response = fireblocks.tags.get_tags(page_cursor, page_size, label,\
-          \ tag_ids, include_pending_approvals_info, is_protected);"
+          \ tag_ids, include_pending_approvals_info, is_protected, type);"
       x-accepts:
       - application/json
     post:
@@ -33800,6 +33928,11 @@ components:
         rewardsInfo:
           $ref: "#/components/schemas/RewardsInfo"
       type: object
+    TagType:
+      description: "The tag type, indicating the domain that owns the tag"
+      enum:
+      - WALLET_POOL
+      type: string
     ApprovalRequest:
       description: Approval request details
       example:
@@ -33841,6 +33974,7 @@ components:
         description: Tag for VIP customers
         id: df4c0987-30da-4976-8dcf-bc2dd41ae331
         label: VIP
+        type: WALLET_POOL
         pendingApprovalRequest:
           id: "12345"
           state: PENDING
@@ -33872,6 +34006,8 @@ components:
           description: The date and time the tag was last updated
           example: 1717084800000
           type: number
+        type:
+          $ref: "#/components/schemas/TagType"
         pendingApprovalRequest:
           $ref: "#/components/schemas/ApprovalRequest"
       required:
@@ -33930,6 +34066,7 @@ components:
           description: Tag for VIP customers
           id: df4c0987-30da-4976-8dcf-bc2dd41ae331
           label: VIP
+          type: WALLET_POOL
           pendingApprovalRequest:
             id: "12345"
             state: PENDING
@@ -33940,6 +34077,7 @@ components:
           description: Tag for VIP customers
           id: df4c0987-30da-4976-8dcf-bc2dd41ae331
           label: VIP
+          type: WALLET_POOL
           pendingApprovalRequest:
             id: "12345"
             state: PENDING
@@ -34065,6 +34203,7 @@ components:
             description: Tag for VIP customers
             id: df4c0987-30da-4976-8dcf-bc2dd41ae331
             label: VIP
+            type: WALLET_POOL
             pendingApprovalRequest:
               id: "12345"
               state: PENDING
@@ -34075,6 +34214,7 @@ components:
             description: Tag for VIP customers
             id: df4c0987-30da-4976-8dcf-bc2dd41ae331
             label: VIP
+            type: WALLET_POOL
             pendingApprovalRequest:
               id: "12345"
               state: PENDING
@@ -34128,6 +34268,7 @@ components:
             description: Tag for VIP customers
             id: df4c0987-30da-4976-8dcf-bc2dd41ae331
             label: VIP
+            type: WALLET_POOL
             pendingApprovalRequest:
               id: "12345"
               state: PENDING
@@ -34138,6 +34279,7 @@ components:
             description: Tag for VIP customers
             id: df4c0987-30da-4976-8dcf-bc2dd41ae331
             label: VIP
+            type: WALLET_POOL
             pendingApprovalRequest:
               id: "12345"
               state: PENDING
@@ -34318,12 +34460,41 @@ components:
           description: Auto Fuel
           type: boolean
       type: object
+    UsdcGatewayWalletAsset:
+      properties:
+        id:
+          description: Fireblocks asset ID
+          example: USDC
+          type: string
+        balance:
+          description: Asset balance
+          example: "100"
+          type: string
+        chain:
+          description: Blockchain name
+          example: Ethereum
+          type: string
+        network:
+          description: Network name
+          example: Mainnet
+          type: string
+      required:
+      - balance
+      - chain
+      - id
+      - network
+      type: object
     UsdcGatewayWalletInfoResponse:
       example:
         walletId: b68a9e08-b59c-4ff9-893f-52d4f78c21e6
         symbol: USDC
-        assetIds:
-        - USDC
+        assets:
+        - id: USDC
+          balance: "100"
+          chain: Ethereum
+          network: Mainnet
+        totalBalance: "150"
+        virtualAssetId: 0e7e2ab4-544e-40aa-a7d2-93b6f6a1516e
         type: CIRCLEGATEWAY
         status: ACTIVATED
       properties:
@@ -34346,18 +34517,31 @@ components:
           description: The token symbol supported by this wallet (e.g. USDC)
           example: USDC
           type: string
-        assetIds:
-          description: Fireblocks asset IDs available for this wallet
+        totalBalance:
+          description: Aggregate USDC balance across all assets
+          example: "150"
+          type: string
+        assets:
+          description: Per-chain USDC asset balances
           example:
-          - USDC
+          - id: USDC
+            balance: "100"
+            chain: Ethereum
+            network: Mainnet
           items:
-            type: string
+            $ref: "#/components/schemas/UsdcGatewayWalletAsset"
           type: array
+        virtualAssetId:
+          description: The id of the virtual asset
+          example: 0e7e2ab4-544e-40aa-a7d2-93b6f6a1516e
+          type: string
       required:
-      - assetIds
+      - assets
       - status
       - symbol
+      - totalBalance
       - type
+      - virtualAssetId
       - walletId
       type: object
     UsdcGatewayWalletStatusResponse:
@@ -34995,7 +35179,6 @@ components:
           description: Elliptic Curve
           enum:
           - MPC_ECDSA_SECP256K1
-          - MPC_ECDSA_SECP256R1
           - MPC_EDDSA_ED25519
           type: string
         derivationPath:
@@ -35809,6 +35992,8 @@ components:
         credit: credit
       properties:
         id:
+          deprecated: true
+          description: Deprecated. Use assetId or assetLegacyId instead.
           type: string
         balance:
           type: string
@@ -35821,19 +36006,22 @@ components:
         credit:
           type: string
         assetId:
-          description: The id of the asset
+          description: The Fireblocks asset id. Present only when Fireblocks can identify
+            the exchange asset.
           example: 2306088f-97ed-4293-8d28-8ab627f272d7
           type: string
         providerSymbol:
-          description: The provider symbol of the asset
+          description: The symbol used by the exchange provider to identify the asset.
           example: BTC
           type: string
         assetSymbol:
-          description: The asset symbol of the asset
+          description: The Fireblocks asset symbol. Present only when Fireblocks can
+            identify the exchange asset.
           example: BTC
           type: string
         assetLegacyId:
-          description: The asset legacy id of the asset
+          description: The Fireblocks legacy asset id. Present only when Fireblocks
+            can identify the exchange asset.
           example: BTC
           type: string
       type: object
@@ -49271,6 +49459,7 @@ components:
         tenantId: tenantId
         id: id
         event: event
+        category: Administration
         user: user
         userId: userId
         timestamp: 0.8008281904610115
@@ -49293,6 +49482,10 @@ components:
         event:
           description: The event that was performed
           type: string
+        category:
+          description: The category of the audit event
+          example: Administration
+          type: string
         tenantId:
           description: The tenant ID of the audit log
           type: string
@@ -49306,14 +49499,15 @@ components:
       type: array
     GetAuditLogsResponse:
       example:
+        next: eyJpZCI6IjEyMzQ1NiJ9
         cursor: cursor
-        total: 1.4658129805029452
         data:
         - createdAt: 6.027456183070403
           subject: subject
           tenantId: tenantId
           id: id
           event: event
+          category: Administration
           user: user
           userId: userId
           timestamp: 0.8008281904610115
@@ -49322,6 +49516,7 @@ components:
           tenantId: tenantId
           id: id
           event: event
+          category: Administration
           user: user
           userId: userId
           timestamp: 0.8008281904610115
@@ -49330,13 +49525,17 @@ components:
           items:
             $ref: "#/components/schemas/AuditLogData"
           type: array
-        cursor:
-          description: The next id to start fetch audit logs from
+        next:
+          description: Cursor to pass as pageCursor in the next request. Null when
+            no further pages exist.
+          example: eyJpZCI6IjEyMzQ1NiJ9
           nullable: true
           type: string
-        total:
-          description: The total number of audit logs
-          type: number
+        cursor:
+          deprecated: true
+          description: Deprecated. Use next instead.
+          nullable: true
+          type: string
       type: object
     AddCollateralRequestBody:
       example:
@@ -57070,6 +57269,28 @@ components:
       items:
         $ref: "#/components/schemas/ChainDescriptor"
       type: array
+    StakingErrorSchema:
+      example:
+        code: 3310
+        descriptor: "{\"positionId\":\"abc-123\"}"
+        message: "Couldn't find position with id: abc-123"
+      properties:
+        message:
+          description: Human-readable error message.
+          example: "Couldn't find position with id: abc-123"
+          type: string
+        code:
+          description: Numeric error code identifying the type of error.
+          example: 3310
+          type: number
+        descriptor:
+          description: Additional structured context about the error.
+          example: "{\"positionId\":\"abc-123\"}"
+          type: string
+      required:
+      - code
+      - message
+      type: object
     AdditionalInfo:
       description: Additional information related to the blockchain. This may include
         extra details about the blockchain network.
@@ -62445,6 +62666,7 @@ components:
           - CRONOS
           - CRONOS_TEST
           - ROBINHOOD_CHAIN_TESTNET_TEST
+          - ARB
           type: string
         description:
           type: string
@@ -62613,6 +62835,7 @@ components:
           - CRONOS
           - CRONOS_TEST
           - ROBINHOOD_CHAIN_TESTNET_TEST
+          - ARB
           type: string
         description:
           type: string
@@ -62719,6 +62942,7 @@ components:
           - CRONOS
           - CRONOS_TEST
           - ROBINHOOD_CHAIN_TESTNET_TEST
+          - ARB
           type: string
         contractAddress:
           description: Collection contract standard
@@ -78769,6 +78993,7 @@ components:
           description: Tag for VIP customers
           id: df4c0987-30da-4976-8dcf-bc2dd41ae331
           label: VIP
+          type: WALLET_POOL
           pendingApprovalRequest:
             id: "12345"
             state: PENDING
@@ -78779,6 +79004,7 @@ components:
           description: Tag for VIP customers
           id: df4c0987-30da-4976-8dcf-bc2dd41ae331
           label: VIP
+          type: WALLET_POOL
           pendingApprovalRequest:
             id: "12345"
             state: PENDING
@@ -78804,6 +79030,7 @@ components:
         color: "#FF5733"
         description: Tag for VIP customers
         label: VIP
+        type: WALLET_POOL
       properties:
         label:
           description: The tag label
@@ -78824,11 +79051,14 @@ components:
           default: false
           description: Indication if the tag is protected tag
           type: boolean
+        type:
+          $ref: "#/components/schemas/TagType"
       required:
       - label
       type: object
     UpdateTagRequest:
       example:
+        color: "#FF5733"
         description: Tag for VIP customers
         label: VIP
       properties:
@@ -78839,6 +79069,10 @@ components:
         description:
           description: Description for the tag
           example: Tag for VIP customers
+          type: string
+        color:
+          description: The tag color in hex format
+          example: "#FF5733"
           type: string
       type: object
     VersionSummary:

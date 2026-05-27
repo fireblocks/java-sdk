@@ -31,6 +31,7 @@ import java.util.UUID;
     Tag.JSON_PROPERTY_COLOR,
     Tag.JSON_PROPERTY_IS_PROTECTED,
     Tag.JSON_PROPERTY_UPDATED_AT,
+    Tag.JSON_PROPERTY_TYPE,
     Tag.JSON_PROPERTY_PENDING_APPROVAL_REQUEST
 })
 @jakarta.annotation.Generated(
@@ -54,6 +55,9 @@ public class Tag {
 
     public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
     @jakarta.annotation.Nonnull private BigDecimal updatedAt;
+
+    public static final String JSON_PROPERTY_TYPE = "type";
+    @jakarta.annotation.Nullable private TagType type;
 
     public static final String JSON_PROPERTY_PENDING_APPROVAL_REQUEST = "pendingApprovalRequest";
     @jakarta.annotation.Nullable private ApprovalRequest pendingApprovalRequest;
@@ -210,6 +214,29 @@ public class Tag {
         this.updatedAt = updatedAt;
     }
 
+    public Tag type(@jakarta.annotation.Nullable TagType type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return type
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public TagType getType() {
+        return type;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setType(@jakarta.annotation.Nullable TagType type) {
+        this.type = type;
+    }
+
     public Tag pendingApprovalRequest(
             @jakarta.annotation.Nullable ApprovalRequest pendingApprovalRequest) {
         this.pendingApprovalRequest = pendingApprovalRequest;
@@ -251,13 +278,21 @@ public class Tag {
                 && Objects.equals(this.color, tag.color)
                 && Objects.equals(this.isProtected, tag.isProtected)
                 && Objects.equals(this.updatedAt, tag.updatedAt)
+                && Objects.equals(this.type, tag.type)
                 && Objects.equals(this.pendingApprovalRequest, tag.pendingApprovalRequest);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                id, label, description, color, isProtected, updatedAt, pendingApprovalRequest);
+                id,
+                label,
+                description,
+                color,
+                isProtected,
+                updatedAt,
+                type,
+                pendingApprovalRequest);
     }
 
     @Override
@@ -270,6 +305,7 @@ public class Tag {
         sb.append("    color: ").append(toIndentedString(color)).append("\n");
         sb.append("    isProtected: ").append(toIndentedString(isProtected)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    pendingApprovalRequest: ")
                 .append(toIndentedString(pendingApprovalRequest))
                 .append("\n");
@@ -376,6 +412,16 @@ public class Tag {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getUpdatedAt()))));
+        }
+
+        // add `type` to the URL query string
+        if (getType() != null) {
+            joiner.add(
+                    String.format(
+                            "%stype%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `pendingApprovalRequest` to the URL query string

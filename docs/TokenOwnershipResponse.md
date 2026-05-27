@@ -60,6 +60,7 @@
 | CRONOS | &quot;CRONOS&quot; |
 | CRONOS_TEST | &quot;CRONOS_TEST&quot; |
 | ROBINHOOD_CHAIN_TESTNET_TEST | &quot;ROBINHOOD_CHAIN_TESTNET_TEST&quot; |
+| ARB | &quot;ARB&quot; |
 
 
 

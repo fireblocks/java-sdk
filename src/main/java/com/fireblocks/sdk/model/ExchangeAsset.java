@@ -75,10 +75,12 @@ public class ExchangeAsset {
     }
 
     /**
-     * Get id
+     * Deprecated. Use assetId or assetLegacyId instead.
      *
      * @return id
+     * @deprecated
      */
+    @Deprecated
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -213,7 +215,7 @@ public class ExchangeAsset {
     }
 
     /**
-     * The id of the asset
+     * The Fireblocks asset id. Present only when Fireblocks can identify the exchange asset.
      *
      * @return assetId
      */
@@ -236,7 +238,7 @@ public class ExchangeAsset {
     }
 
     /**
-     * The provider symbol of the asset
+     * The symbol used by the exchange provider to identify the asset.
      *
      * @return providerSymbol
      */
@@ -259,7 +261,7 @@ public class ExchangeAsset {
     }
 
     /**
-     * The asset symbol of the asset
+     * The Fireblocks asset symbol. Present only when Fireblocks can identify the exchange asset.
      *
      * @return assetSymbol
      */
@@ -282,7 +284,7 @@ public class ExchangeAsset {
     }
 
     /**
-     * The asset legacy id of the asset
+     * The Fireblocks legacy asset id. Present only when Fireblocks can identify the exchange asset.
      *
      * @return assetLegacyId
      */

@@ -254,7 +254,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **201** | OK |  * X-Request-ID -  <br>  |
+| **200** | OK |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -341,6 +341,6 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **201** | OK |  * X-Request-ID -  <br>  |
+| **200** | OK |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 

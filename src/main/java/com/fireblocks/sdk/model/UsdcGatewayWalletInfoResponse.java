@@ -30,7 +30,9 @@ import java.util.StringJoiner;
     UsdcGatewayWalletInfoResponse.JSON_PROPERTY_TYPE,
     UsdcGatewayWalletInfoResponse.JSON_PROPERTY_STATUS,
     UsdcGatewayWalletInfoResponse.JSON_PROPERTY_SYMBOL,
-    UsdcGatewayWalletInfoResponse.JSON_PROPERTY_ASSET_IDS
+    UsdcGatewayWalletInfoResponse.JSON_PROPERTY_TOTAL_BALANCE,
+    UsdcGatewayWalletInfoResponse.JSON_PROPERTY_ASSETS,
+    UsdcGatewayWalletInfoResponse.JSON_PROPERTY_VIRTUAL_ASSET_ID
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -81,8 +83,14 @@ public class UsdcGatewayWalletInfoResponse {
     public static final String JSON_PROPERTY_SYMBOL = "symbol";
     @jakarta.annotation.Nonnull private String symbol;
 
-    public static final String JSON_PROPERTY_ASSET_IDS = "assetIds";
-    @jakarta.annotation.Nonnull private List<String> assetIds;
+    public static final String JSON_PROPERTY_TOTAL_BALANCE = "totalBalance";
+    @jakarta.annotation.Nonnull private String totalBalance;
+
+    public static final String JSON_PROPERTY_ASSETS = "assets";
+    @jakarta.annotation.Nonnull private List<UsdcGatewayWalletAsset> assets;
+
+    public static final String JSON_PROPERTY_VIRTUAL_ASSET_ID = "virtualAssetId";
+    @jakarta.annotation.Nonnull private String virtualAssetId;
 
     public UsdcGatewayWalletInfoResponse() {}
 
@@ -92,12 +100,18 @@ public class UsdcGatewayWalletInfoResponse {
             @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) String type,
             @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status,
             @JsonProperty(value = JSON_PROPERTY_SYMBOL, required = true) String symbol,
-            @JsonProperty(value = JSON_PROPERTY_ASSET_IDS, required = true) List<String> assetIds) {
+            @JsonProperty(value = JSON_PROPERTY_TOTAL_BALANCE, required = true) String totalBalance,
+            @JsonProperty(value = JSON_PROPERTY_ASSETS, required = true)
+                    List<UsdcGatewayWalletAsset> assets,
+            @JsonProperty(value = JSON_PROPERTY_VIRTUAL_ASSET_ID, required = true)
+                    String virtualAssetId) {
         this.walletId = walletId;
         this.type = type;
         this.status = status;
         this.symbol = symbol;
-        this.assetIds = assetIds;
+        this.totalBalance = totalBalance;
+        this.assets = assets;
+        this.virtualAssetId = virtualAssetId;
     }
 
     public UsdcGatewayWalletInfoResponse walletId(@jakarta.annotation.Nonnull String walletId) {
@@ -192,36 +206,84 @@ public class UsdcGatewayWalletInfoResponse {
         this.symbol = symbol;
     }
 
-    public UsdcGatewayWalletInfoResponse assetIds(
-            @jakarta.annotation.Nonnull List<String> assetIds) {
-        this.assetIds = assetIds;
-        return this;
-    }
-
-    public UsdcGatewayWalletInfoResponse addAssetIdsItem(String assetIdsItem) {
-        if (this.assetIds == null) {
-            this.assetIds = new ArrayList<>();
-        }
-        this.assetIds.add(assetIdsItem);
+    public UsdcGatewayWalletInfoResponse totalBalance(
+            @jakarta.annotation.Nonnull String totalBalance) {
+        this.totalBalance = totalBalance;
         return this;
     }
 
     /**
-     * Fireblocks asset IDs available for this wallet
+     * Aggregate USDC balance across all assets
      *
-     * @return assetIds
+     * @return totalBalance
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ASSET_IDS)
+    @JsonProperty(JSON_PROPERTY_TOTAL_BALANCE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<String> getAssetIds() {
-        return assetIds;
+    public String getTotalBalance() {
+        return totalBalance;
     }
 
-    @JsonProperty(JSON_PROPERTY_ASSET_IDS)
+    @JsonProperty(JSON_PROPERTY_TOTAL_BALANCE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAssetIds(@jakarta.annotation.Nonnull List<String> assetIds) {
-        this.assetIds = assetIds;
+    public void setTotalBalance(@jakarta.annotation.Nonnull String totalBalance) {
+        this.totalBalance = totalBalance;
+    }
+
+    public UsdcGatewayWalletInfoResponse assets(
+            @jakarta.annotation.Nonnull List<UsdcGatewayWalletAsset> assets) {
+        this.assets = assets;
+        return this;
+    }
+
+    public UsdcGatewayWalletInfoResponse addAssetsItem(UsdcGatewayWalletAsset assetsItem) {
+        if (this.assets == null) {
+            this.assets = new ArrayList<>();
+        }
+        this.assets.add(assetsItem);
+        return this;
+    }
+
+    /**
+     * Per-chain USDC asset balances
+     *
+     * @return assets
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_ASSETS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<UsdcGatewayWalletAsset> getAssets() {
+        return assets;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ASSETS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAssets(@jakarta.annotation.Nonnull List<UsdcGatewayWalletAsset> assets) {
+        this.assets = assets;
+    }
+
+    public UsdcGatewayWalletInfoResponse virtualAssetId(
+            @jakarta.annotation.Nonnull String virtualAssetId) {
+        this.virtualAssetId = virtualAssetId;
+        return this;
+    }
+
+    /**
+     * The id of the virtual asset
+     *
+     * @return virtualAssetId
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_VIRTUAL_ASSET_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getVirtualAssetId() {
+        return virtualAssetId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VIRTUAL_ASSET_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setVirtualAssetId(@jakarta.annotation.Nonnull String virtualAssetId) {
+        this.virtualAssetId = virtualAssetId;
     }
 
     /** Return true if this UsdcGatewayWalletInfoResponse object is equal to o. */
@@ -239,12 +301,15 @@ public class UsdcGatewayWalletInfoResponse {
                 && Objects.equals(this.type, usdcGatewayWalletInfoResponse.type)
                 && Objects.equals(this.status, usdcGatewayWalletInfoResponse.status)
                 && Objects.equals(this.symbol, usdcGatewayWalletInfoResponse.symbol)
-                && Objects.equals(this.assetIds, usdcGatewayWalletInfoResponse.assetIds);
+                && Objects.equals(this.totalBalance, usdcGatewayWalletInfoResponse.totalBalance)
+                && Objects.equals(this.assets, usdcGatewayWalletInfoResponse.assets)
+                && Objects.equals(
+                        this.virtualAssetId, usdcGatewayWalletInfoResponse.virtualAssetId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(walletId, type, status, symbol, assetIds);
+        return Objects.hash(walletId, type, status, symbol, totalBalance, assets, virtualAssetId);
     }
 
     @Override
@@ -255,7 +320,9 @@ public class UsdcGatewayWalletInfoResponse {
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
-        sb.append("    assetIds: ").append(toIndentedString(assetIds)).append("\n");
+        sb.append("    totalBalance: ").append(toIndentedString(totalBalance)).append("\n");
+        sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
+        sb.append("    virtualAssetId: ").append(toIndentedString(virtualAssetId)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -343,21 +410,47 @@ public class UsdcGatewayWalletInfoResponse {
                             ApiClient.urlEncode(ApiClient.valueToString(getSymbol()))));
         }
 
-        // add `assetIds` to the URL query string
-        if (getAssetIds() != null) {
-            for (int i = 0; i < getAssetIds().size(); i++) {
-                joiner.add(
-                        String.format(
-                                "%sassetIds%s%s=%s",
-                                prefix,
-                                suffix,
-                                "".equals(suffix)
-                                        ? ""
-                                        : String.format(
-                                                "%s%d%s", containerPrefix, i, containerSuffix),
-                                ApiClient.urlEncode(
-                                        ApiClient.valueToString(getAssetIds().get(i)))));
+        // add `totalBalance` to the URL query string
+        if (getTotalBalance() != null) {
+            joiner.add(
+                    String.format(
+                            "%stotalBalance%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotalBalance()))));
+        }
+
+        // add `assets` to the URL query string
+        if (getAssets() != null) {
+            for (int i = 0; i < getAssets().size(); i++) {
+                if (getAssets().get(i) != null) {
+                    joiner.add(
+                            getAssets()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%sassets%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
             }
+        }
+
+        // add `virtualAssetId` to the URL query string
+        if (getVirtualAssetId() != null) {
+            joiner.add(
+                    String.format(
+                            "%svirtualAssetId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getVirtualAssetId()))));
         }
 
         return joiner.toString();

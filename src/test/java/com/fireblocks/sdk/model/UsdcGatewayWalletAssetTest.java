@@ -15,31 +15,37 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for GetAuditLogsResponse */
-class GetAuditLogsResponseTest {
-    private final GetAuditLogsResponse model = new GetAuditLogsResponse();
+/** Model tests for UsdcGatewayWalletAsset */
+class UsdcGatewayWalletAssetTest {
+    private final UsdcGatewayWalletAsset model = new UsdcGatewayWalletAsset();
 
-    /** Model tests for GetAuditLogsResponse */
+    /** Model tests for UsdcGatewayWalletAsset */
     @Test
-    void testGetAuditLogsResponse() {
-        // TODO: test GetAuditLogsResponse
+    void testUsdcGatewayWalletAsset() {
+        // TODO: test UsdcGatewayWalletAsset
     }
 
-    /** Test the property 'data' */
+    /** Test the property 'id' */
     @Test
-    void dataTest() {
-        // TODO: test data
+    void idTest() {
+        // TODO: test id
     }
 
-    /** Test the property 'next' */
+    /** Test the property 'balance' */
     @Test
-    void nextTest() {
-        // TODO: test next
+    void balanceTest() {
+        // TODO: test balance
     }
 
-    /** Test the property 'cursor' */
+    /** Test the property 'chain' */
     @Test
-    void cursorTest() {
-        // TODO: test cursor
+    void chainTest() {
+        // TODO: test chain
+    }
+
+    /** Test the property 'network' */
+    @Test
+    void networkTest() {
+        // TODO: test network
     }
 }

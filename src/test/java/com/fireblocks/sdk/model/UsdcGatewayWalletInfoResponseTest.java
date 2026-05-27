@@ -49,9 +49,21 @@ class UsdcGatewayWalletInfoResponseTest {
         // TODO: test symbol
     }
 
-    /** Test the property 'assetIds' */
+    /** Test the property 'totalBalance' */
     @Test
-    void assetIdsTest() {
-        // TODO: test assetIds
+    void totalBalanceTest() {
+        // TODO: test totalBalance
+    }
+
+    /** Test the property 'assets' */
+    @Test
+    void assetsTest() {
+        // TODO: test assets
+    }
+
+    /** Test the property 'virtualAssetId' */
+    @Test
+    void virtualAssetIdTest() {
+        // TODO: test virtualAssetId
     }
 }

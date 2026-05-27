@@ -18,6 +18,7 @@ import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ApprovalRequest;
 import com.fireblocks.sdk.model.CreateTagRequest;
 import com.fireblocks.sdk.model.Tag;
+import com.fireblocks.sdk.model.TagType;
 import com.fireblocks.sdk.model.TagsPagedResponse;
 import com.fireblocks.sdk.model.UpdateTagRequest;
 import java.math.BigDecimal;
@@ -123,6 +124,7 @@ public class TagsApiTest {
         List<UUID> tagIds = null;
         Boolean includePendingApprovalsInfo = null;
         Boolean isProtected = null;
+        List<TagType> type = null;
         CompletableFuture<ApiResponse<TagsPagedResponse>> response =
                 api.getTags(
                         pageCursor,
@@ -130,7 +132,8 @@ public class TagsApiTest {
                         label,
                         tagIds,
                         includePendingApprovalsInfo,
-                        isProtected);
+                        isProtected,
+                        type);
     }
 
     /**

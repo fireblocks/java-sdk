@@ -16,6 +16,7 @@ package com.fireblocks.sdk.api;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.GetAuditLogsResponse;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -29,17 +30,44 @@ public class AuditLogsApiTest {
     /**
      * Get audit logs
      *
-     * <p>Get Audit logs for the last Day/Week. - Please note that this endpoint is available only
-     * for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin,
-     * Non-Signing Admin.
+     * <p>Retrieve audit log events for the workspace with optional filtering, date range, sorting,
+     * and cursor-based pagination. Filters within the same field are combined as OR (e.g.
+     * category&#x3D;Administration&amp;category&#x3D;Security returns events in either category).
+     * Filters across different fields are combined as AND. **Deprecated parameters:**
+     * &#x60;timePeriod&#x60; and &#x60;cursor&#x60; remain functional for backward compatibility
+     * but new integrations should use &#x60;startTime&#x60;/&#x60;endTime&#x60; and
+     * &#x60;pageCursor&#x60; instead. Endpoint Permission: Admin, Non-Signing Admin, Auditor,
+     * Security Admin, Security Auditor.
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void getAuditLogsTest() throws ApiException {
+        Integer startTime = null;
+        Integer endTime = null;
         String timePeriod = null;
+        List<String> category = null;
+        List<String> subject = null;
+        List<String> event = null;
+        List<String> user = null;
+        List<String> userId = null;
+        String order = null;
+        Integer pageSize = null;
+        String pageCursor = null;
         String cursor = null;
         CompletableFuture<ApiResponse<GetAuditLogsResponse>> response =
-                api.getAuditLogs(timePeriod, cursor);
+                api.getAuditLogs(
+                        startTime,
+                        endTime,
+                        timePeriod,
+                        category,
+                        subject,
+                        event,
+                        user,
+                        userId,
+                        order,
+                        pageSize,
+                        pageCursor,
+                        cursor);
     }
 }

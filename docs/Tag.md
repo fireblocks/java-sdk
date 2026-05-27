@@ -13,6 +13,7 @@
 |**color** | **String** | The tag color in hex format |  [optional] |
 |**isProtected** | **Boolean** | Indication if the tag is a protected tag |  |
 |**updatedAt** | **BigDecimal** | The date and time the tag was last updated |  |
+|**type** | **TagType** |  |  [optional] |
 |**pendingApprovalRequest** | [**ApprovalRequest**](ApprovalRequest.md) |  |  [optional] |
 
 

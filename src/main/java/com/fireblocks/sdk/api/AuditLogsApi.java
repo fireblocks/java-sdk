@@ -74,20 +74,65 @@ public class AuditLogsApi {
     }
 
     /**
-     * Get audit logs Get Audit logs for the last Day/Week. - Please note that this endpoint is
-     * available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission:
-     * Admin, Non-Signing Admin.
+     * Get audit logs Retrieve audit log events for the workspace with optional filtering, date
+     * range, sorting, and cursor-based pagination. Filters within the same field are combined as OR
+     * (e.g. category&#x3D;Administration&amp;category&#x3D;Security returns events in either
+     * category). Filters across different fields are combined as AND. **Deprecated parameters:**
+     * &#x60;timePeriod&#x60; and &#x60;cursor&#x60; remain functional for backward compatibility
+     * but new integrations should use &#x60;startTime&#x60;/&#x60;endTime&#x60; and
+     * &#x60;pageCursor&#x60; instead. Endpoint Permission: Admin, Non-Signing Admin, Auditor,
+     * Security Admin, Security Auditor.
      *
-     * @param timePeriod The last time period to fetch audit logs (optional)
-     * @param cursor The next id to start fetch audit logs from (optional)
+     * @param startTime Start of date range as epoch time in milliseconds. Takes precedence over
+     *     timePeriod when provided. Must be no more than 1 year before the current time. (optional)
+     * @param endTime End of date range as epoch time in milliseconds. Must be after startTime.
+     *     Defaults to now when omitted. (optional)
+     * @param timePeriod Deprecated. Use startTime/endTime instead. Ignored when startTime is
+     *     provided. Defaults to DAY when neither timePeriod nor startTime is supplied. (optional)
+     * @param category Filter by event category. Repeat the parameter for multiple values (OR logic
+     *     within field). (optional
+     * @param subject Filter by event subject. Repeat the parameter for multiple values. (optional
+     * @param event Filter by event type. Repeat the parameter for multiple values. (optional
+     * @param user Filter by user name. Repeat the parameter for multiple values. (optional
+     * @param userId Filter by user ID. Repeat the parameter for multiple values. (optional
+     * @param order Sort direction. Defaults to DESC. (optional, default to DESC)
+     * @param pageSize Number of results per page. Maximum 500. Defaults to 200. (optional, default
+     *     to 200)
+     * @param pageCursor Cursor returned from the previous response to fetch the next page.
+     *     (optional)
+     * @param cursor Deprecated. Use pageCursor instead. (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;GetAuditLogsResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<GetAuditLogsResponse>> getAuditLogs(
-            String timePeriod, String cursor) throws ApiException {
+            Integer startTime,
+            Integer endTime,
+            String timePeriod,
+            List<String> category,
+            List<String> subject,
+            List<String> event,
+            List<String> user,
+            List<String> userId,
+            String order,
+            Integer pageSize,
+            String pageCursor,
+            String cursor)
+            throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    getAuditLogsRequestBuilder(timePeriod, cursor);
+                    getAuditLogsRequestBuilder(
+                            startTime,
+                            endTime,
+                            timePeriod,
+                            category,
+                            subject,
+                            event,
+                            user,
+                            userId,
+                            order,
+                            pageSize,
+                            pageCursor,
+                            cursor);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -120,7 +165,19 @@ public class AuditLogsApi {
         }
     }
 
-    private HttpRequest.Builder getAuditLogsRequestBuilder(String timePeriod, String cursor)
+    private HttpRequest.Builder getAuditLogsRequestBuilder(
+            Integer startTime,
+            Integer endTime,
+            String timePeriod,
+            List<String> category,
+            List<String> subject,
+            List<String> event,
+            List<String> user,
+            List<String> userId,
+            String order,
+            Integer pageSize,
+            String pageCursor,
+            String cursor)
             throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -130,8 +187,28 @@ public class AuditLogsApi {
         List<Pair> localVarQueryParams = new ArrayList<>();
         StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
         String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "startTime";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("startTime", startTime));
+        localVarQueryParameterBaseName = "endTime";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("endTime", endTime));
         localVarQueryParameterBaseName = "timePeriod";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("timePeriod", timePeriod));
+        localVarQueryParameterBaseName = "category";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "category", category));
+        localVarQueryParameterBaseName = "subject";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "subject", subject));
+        localVarQueryParameterBaseName = "event";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "event", event));
+        localVarQueryParameterBaseName = "user";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "user", user));
+        localVarQueryParameterBaseName = "userId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "userId", userId));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
         localVarQueryParameterBaseName = "cursor";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("cursor", cursor));
 

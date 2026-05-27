@@ -61,6 +61,12 @@ class AuditLogDataTest {
         // TODO: test event
     }
 
+    /** Test the property 'category' */
+    @Test
+    void categoryTest() {
+        // TODO: test category
+    }
+
     /** Test the property 'tenantId' */
     @Test
     void tenantIdTest() {

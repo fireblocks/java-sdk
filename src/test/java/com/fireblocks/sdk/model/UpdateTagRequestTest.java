@@ -36,4 +36,10 @@ class UpdateTagRequestTest {
     void descriptionTest() {
         // TODO: test description
     }
+
+    /** Test the property 'color' */
+    @Test
+    void colorTest() {
+        // TODO: test color
+    }
 }

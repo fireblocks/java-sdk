@@ -23,7 +23,8 @@ import java.util.StringJoiner;
 /** UpdateTagRequest */
 @JsonPropertyOrder({
     UpdateTagRequest.JSON_PROPERTY_LABEL,
-    UpdateTagRequest.JSON_PROPERTY_DESCRIPTION
+    UpdateTagRequest.JSON_PROPERTY_DESCRIPTION,
+    UpdateTagRequest.JSON_PROPERTY_COLOR
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -34,6 +35,9 @@ public class UpdateTagRequest {
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
     @jakarta.annotation.Nullable private String description;
+
+    public static final String JSON_PROPERTY_COLOR = "color";
+    @jakarta.annotation.Nullable private String color;
 
     public UpdateTagRequest() {}
 
@@ -83,6 +87,29 @@ public class UpdateTagRequest {
         this.description = description;
     }
 
+    public UpdateTagRequest color(@jakarta.annotation.Nullable String color) {
+        this.color = color;
+        return this;
+    }
+
+    /**
+     * The tag color in hex format
+     *
+     * @return color
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_COLOR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getColor() {
+        return color;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COLOR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setColor(@jakarta.annotation.Nullable String color) {
+        this.color = color;
+    }
+
     /** Return true if this UpdateTagRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -94,12 +121,13 @@ public class UpdateTagRequest {
         }
         UpdateTagRequest updateTagRequest = (UpdateTagRequest) o;
         return Objects.equals(this.label, updateTagRequest.label)
-                && Objects.equals(this.description, updateTagRequest.description);
+                && Objects.equals(this.description, updateTagRequest.description)
+                && Objects.equals(this.color, updateTagRequest.color);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(label, description);
+        return Objects.hash(label, description, color);
     }
 
     @Override
@@ -108,6 +136,7 @@ public class UpdateTagRequest {
         sb.append("class UpdateTagRequest {\n");
         sb.append("    label: ").append(toIndentedString(label)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
+        sb.append("    color: ").append(toIndentedString(color)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -173,6 +202,16 @@ public class UpdateTagRequest {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
+        }
+
+        // add `color` to the URL query string
+        if (getColor() != null) {
+            joiner.add(
+                    String.format(
+                            "%scolor%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getColor()))));
         }
 
         return joiner.toString();

@@ -23,6 +23,7 @@ import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.ApprovalRequest;
 import com.fireblocks.sdk.model.CreateTagRequest;
 import com.fireblocks.sdk.model.Tag;
+import com.fireblocks.sdk.model.TagType;
 import com.fireblocks.sdk.model.TagsPagedResponse;
 import com.fireblocks.sdk.model.UpdateTagRequest;
 import java.io.IOException;
@@ -416,6 +417,7 @@ public class TagsApi {
      * @param includePendingApprovalsInfo Whether to include pending approval requests info.
      *     (optional, default to false)
      * @param isProtected (optional)
+     * @param type Filter by tag type (optional
      * @return CompletableFuture&lt;ApiResponse&lt;TagsPagedResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
@@ -425,7 +427,8 @@ public class TagsApi {
             String label,
             List<UUID> tagIds,
             Boolean includePendingApprovalsInfo,
-            Boolean isProtected)
+            Boolean isProtected,
+            List<TagType> type)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
@@ -435,7 +438,8 @@ public class TagsApi {
                             label,
                             tagIds,
                             includePendingApprovalsInfo,
-                            isProtected);
+                            isProtected,
+                            type);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -474,7 +478,8 @@ public class TagsApi {
             String label,
             List<UUID> tagIds,
             Boolean includePendingApprovalsInfo,
-            Boolean isProtected)
+            Boolean isProtected,
+            List<TagType> type)
             throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -498,6 +503,8 @@ public class TagsApi {
                         "includePendingApprovalsInfo", includePendingApprovalsInfo));
         localVarQueryParameterBaseName = "isProtected";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("isProtected", isProtected));
+        localVarQueryParameterBaseName = "type";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "type", type));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");

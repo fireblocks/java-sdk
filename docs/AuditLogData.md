@@ -13,6 +13,7 @@
 |**user** | **String** | The user who performed the action |  [optional] |
 |**subject** | **String** | The subject of the action |  [optional] |
 |**event** | **String** | The event that was performed |  [optional] |
+|**category** | **String** | The category of the audit event |  [optional] |
 |**tenantId** | **String** | The tenant ID of the audit log |  [optional] |
 |**userId** | **String** | The user ID of the audit log |  [optional] |
 

@@ -61,6 +61,12 @@ class TagTest {
         // TODO: test updatedAt
     }
 
+    /** Test the property 'type' */
+    @Test
+    void typeTest() {
+        // TODO: test type
+    }
+
     /** Test the property 'pendingApprovalRequest' */
     @Test
     void pendingApprovalRequestTest() {
