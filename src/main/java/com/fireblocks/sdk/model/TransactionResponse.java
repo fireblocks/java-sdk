@@ -52,6 +52,7 @@ import java.util.StringJoiner;
     TransactionResponse.JSON_PROPERTY_NETWORK_RECORDS,
     TransactionResponse.JSON_PROPERTY_CREATED_AT,
     TransactionResponse.JSON_PROPERTY_LAST_UPDATED,
+    TransactionResponse.JSON_PROPERTY_EXPIRES_AT,
     TransactionResponse.JSON_PROPERTY_CREATED_BY,
     TransactionResponse.JSON_PROPERTY_SIGNED_BY,
     TransactionResponse.JSON_PROPERTY_REJECTED_BY,
@@ -168,6 +169,9 @@ public class TransactionResponse {
 
     public static final String JSON_PROPERTY_LAST_UPDATED = "lastUpdated";
     @jakarta.annotation.Nullable private BigDecimal lastUpdated;
+
+    public static final String JSON_PROPERTY_EXPIRES_AT = "expiresAt";
+    @jakarta.annotation.Nullable private BigDecimal expiresAt;
 
     public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
     @jakarta.annotation.Nullable private String createdBy;
@@ -954,6 +958,30 @@ public class TransactionResponse {
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setLastUpdated(@jakarta.annotation.Nullable BigDecimal lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public TransactionResponse expiresAt(@jakarta.annotation.Nullable BigDecimal expiresAt) {
+        this.expiresAt = expiresAt;
+        return this;
+    }
+
+    /**
+     * The transaction’s expiration date and time, in unix timestamp. Only returned for transactions
+     * that have an expiration set.
+     *
+     * @return expiresAt
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_EXPIRES_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public BigDecimal getExpiresAt() {
+        return expiresAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EXPIRES_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setExpiresAt(@jakarta.annotation.Nullable BigDecimal expiresAt) {
+        this.expiresAt = expiresAt;
     }
 
     public TransactionResponse createdBy(@jakarta.annotation.Nullable String createdBy) {
@@ -1848,6 +1876,7 @@ public class TransactionResponse {
                 && Objects.equals(this.networkRecords, transactionResponse.networkRecords)
                 && Objects.equals(this.createdAt, transactionResponse.createdAt)
                 && Objects.equals(this.lastUpdated, transactionResponse.lastUpdated)
+                && Objects.equals(this.expiresAt, transactionResponse.expiresAt)
                 && Objects.equals(this.createdBy, transactionResponse.createdBy)
                 && Objects.equals(this.signedBy, transactionResponse.signedBy)
                 && Objects.equals(this.rejectedBy, transactionResponse.rejectedBy)
@@ -1913,6 +1942,7 @@ public class TransactionResponse {
                 networkRecords,
                 createdAt,
                 lastUpdated,
+                expiresAt,
                 createdBy,
                 signedBy,
                 rejectedBy,
@@ -1986,6 +2016,7 @@ public class TransactionResponse {
         sb.append("    networkRecords: ").append(toIndentedString(networkRecords)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    lastUpdated: ").append(toIndentedString(lastUpdated)).append("\n");
+        sb.append("    expiresAt: ").append(toIndentedString(expiresAt)).append("\n");
         sb.append("    createdBy: ").append(toIndentedString(createdBy)).append("\n");
         sb.append("    signedBy: ").append(toIndentedString(signedBy)).append("\n");
         sb.append("    rejectedBy: ").append(toIndentedString(rejectedBy)).append("\n");
@@ -2329,6 +2360,16 @@ public class TransactionResponse {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getLastUpdated()))));
+        }
+
+        // add `expiresAt` to the URL query string
+        if (getExpiresAt() != null) {
+            joiner.add(
+                    String.format(
+                            "%sexpiresAt%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getExpiresAt()))));
         }
 
         // add `createdBy` to the URL query string

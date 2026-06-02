@@ -81,25 +81,24 @@ public class EarnBetaApi {
     }
 
     /**
-     * Approve earn provider terms of service Approves the lending provider&#39;s terms of service
-     * for this workspace. When &#x60;isTermsApprovalRequired&#x60; is true on the provider (see
-     * list providers), call this once before creating or executing earn actions with that provider.
-     * After success, &#x60;GET /earn/providers&#x60; reflects &#x60;isTermsOfServiceApproved&#x60;.
-     * **Note:** This endpoint is currently in beta and might be subject to changes.
+     * Approve earn provider terms of service Approves earn provider terms of service for this
+     * workspace (one-time per tenant). When &#x60;isTermsApprovalRequired&#x60; is true on a
+     * provider (see list providers), call this once before creating or executing earn actions with
+     * providers that require it. After success, &#x60;GET /earn/providers&#x60; reflects
+     * &#x60;isTermsOfServiceApproved&#x60;. **Note:** This endpoint is currently in beta and might
+     * be subject to changes.
      *
-     * @param providerId Stable protocol identifier for the earn provider (&#x60;MORPHO&#x60; or
-     *     &#x60;AAVE&#x60;). (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<Void>> approveTermsOfService(
-            String providerId, String idempotencyKey) throws ApiException {
+    public CompletableFuture<ApiResponse<Void>> approveTermsOfService(String idempotencyKey)
+            throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    approveTermsOfServiceRequestBuilder(providerId, idempotencyKey);
+                    approveTermsOfServiceRequestBuilder(idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -123,16 +122,12 @@ public class EarnBetaApi {
         }
     }
 
-    private HttpRequest.Builder approveTermsOfServiceRequestBuilder(
-            String providerId, String idempotencyKey) throws ApiException {
-        ValidationUtils.assertParamExistsAndNotEmpty(
-                "approveTermsOfService", "providerId", providerId);
+    private HttpRequest.Builder approveTermsOfServiceRequestBuilder(String idempotencyKey)
+            throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        String localVarPath =
-                "/earn/providers/{providerId}/approve_terms_of_service"
-                        .replace("{providerId}", ApiClient.urlEncode(providerId.toString()));
+        String localVarPath = "/earn/providers/approve_terms_of_service";
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 

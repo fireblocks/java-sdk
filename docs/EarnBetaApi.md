@@ -4,7 +4,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**approveTermsOfService**](EarnBetaApi.md#approveTermsOfService) | **POST** /earn/providers/{providerId}/approve_terms_of_service | Approve earn provider terms of service |
+| [**approveTermsOfService**](EarnBetaApi.md#approveTermsOfService) | **POST** /earn/providers/approve_terms_of_service | Approve earn provider terms of service |
 | [**createEarnAction**](EarnBetaApi.md#createEarnAction) | **POST** /earn/actions | Create and execute a lending action (deposit or withdraw) |
 | [**getEarnAction**](EarnBetaApi.md#getEarnAction) | **GET** /earn/actions/{id} | Get a single earn lending action |
 | [**getEarnActions**](EarnBetaApi.md#getEarnActions) | **GET** /earn/actions | List earn lending actions |
@@ -16,11 +16,11 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 ## approveTermsOfService
 
-> CompletableFuture<ApiResponse<Void>> approveTermsOfService approveTermsOfService(providerId, idempotencyKey)
+> CompletableFuture<ApiResponse<Void>> approveTermsOfService approveTermsOfService(idempotencyKey)
 
 Approve earn provider terms of service
 
-Approves the lending provider&#39;s terms of service for this workspace. When &#x60;isTermsApprovalRequired&#x60; is true on the provider (see list providers), call this once before creating or executing earn actions with that provider. After success, &#x60;GET /earn/providers&#x60; reflects &#x60;isTermsOfServiceApproved&#x60;.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Approves earn provider terms of service for this workspace (one-time per tenant). When &#x60;isTermsApprovalRequired&#x60; is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, &#x60;GET /earn/providers&#x60; reflects &#x60;isTermsOfServiceApproved&#x60;.  **Note:** This endpoint is currently in beta and might be subject to changes. 
 
 ### Example
 
@@ -45,10 +45,9 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        String providerId = "MORPHO"; // String | Stable protocol identifier for the earn provider (`MORPHO` or `AAVE`).
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = fireblocks.earnBeta().approveTermsOfService(providerId, idempotencyKey);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.earnBeta().approveTermsOfService(idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
@@ -74,7 +73,6 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **providerId** | **String**| Stable protocol identifier for the earn provider (&#x60;MORPHO&#x60; or &#x60;AAVE&#x60;). | [enum: MORPHO, AAVE] |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type

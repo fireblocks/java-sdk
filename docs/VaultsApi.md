@@ -136,7 +136,7 @@ No authorization required
 
 Activate a USDC Gateway wallet
 
-Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 
@@ -831,7 +831,7 @@ No authorization required
 
 Deactivate a USDC Gateway wallet
 
-Deactivates the USDC Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+Deactivates the USDC Gateway wallet associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 
@@ -1711,7 +1711,7 @@ No authorization required
 
 Get USDC Gateway wallet info
 
-Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 

@@ -35,21 +35,19 @@ public class EarnBetaApiTest {
     /**
      * Approve earn provider terms of service
      *
-     * <p>Approves the lending provider&#39;s terms of service for this workspace. When
-     * &#x60;isTermsApprovalRequired&#x60; is true on the provider (see list providers), call this
-     * once before creating or executing earn actions with that provider. After success, &#x60;GET
-     * /earn/providers&#x60; reflects &#x60;isTermsOfServiceApproved&#x60;. **Note:** This endpoint
-     * is currently in beta and might be subject to changes.
+     * <p>Approves earn provider terms of service for this workspace (one-time per tenant). When
+     * &#x60;isTermsApprovalRequired&#x60; is true on a provider (see list providers), call this
+     * once before creating or executing earn actions with providers that require it. After success,
+     * &#x60;GET /earn/providers&#x60; reflects &#x60;isTermsOfServiceApproved&#x60;. **Note:** This
+     * endpoint is currently in beta and might be subject to changes.
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void approveTermsOfServiceTest() throws ApiException {
-        String providerId = null;
         String idempotencyKey = null;
 
-        CompletableFuture<ApiResponse<Void>> response =
-                api.approveTermsOfService(providerId, idempotencyKey);
+        CompletableFuture<ApiResponse<Void>> response = api.approveTermsOfService(idempotencyKey);
     }
 
     /**

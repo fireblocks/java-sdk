@@ -175,6 +175,12 @@ class TransactionResponseTest {
         // TODO: test lastUpdated
     }
 
+    /** Test the property 'expiresAt' */
+    @Test
+    void expiresAtTest() {
+        // TODO: test expiresAt
+    }
+
     /** Test the property 'createdBy' */
     @Test
     void createdByTest() {
