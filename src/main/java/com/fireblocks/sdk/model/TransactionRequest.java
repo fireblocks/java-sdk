@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.ApiClient;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -54,7 +55,8 @@ import java.util.StringJoiner;
     TransactionRequest.JSON_PROPERTY_AUTO_STAKING,
     TransactionRequest.JSON_PROPERTY_NETWORK_STAKING,
     TransactionRequest.JSON_PROPERTY_CPU_STAKING,
-    TransactionRequest.JSON_PROPERTY_USE_GASLESS
+    TransactionRequest.JSON_PROPERTY_USE_GASLESS,
+    TransactionRequest.JSON_PROPERTY_EXPIRES_AFTER_SECONDS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -186,6 +188,9 @@ public class TransactionRequest {
 
     public static final String JSON_PROPERTY_USE_GASLESS = "useGasless";
     @jakarta.annotation.Nullable private Boolean useGasless;
+
+    public static final String JSON_PROPERTY_EXPIRES_AFTER_SECONDS = "expiresAfterSeconds";
+    @jakarta.annotation.Nullable private BigDecimal expiresAfterSeconds;
 
     public TransactionRequest() {}
 
@@ -919,6 +924,33 @@ public class TransactionRequest {
         this.useGasless = useGasless;
     }
 
+    public TransactionRequest expiresAfterSeconds(
+            @jakarta.annotation.Nullable BigDecimal expiresAfterSeconds) {
+        this.expiresAfterSeconds = expiresAfterSeconds;
+        return this;
+    }
+
+    /**
+     * The number of seconds the transaction is valid for before it expires. After the specified
+     * duration, the transaction will expire if it has not been broadcasted. minimum: 600 maximum:
+     * 86400
+     *
+     * @return expiresAfterSeconds
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_EXPIRES_AFTER_SECONDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public BigDecimal getExpiresAfterSeconds() {
+        return expiresAfterSeconds;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EXPIRES_AFTER_SECONDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setExpiresAfterSeconds(
+            @jakarta.annotation.Nullable BigDecimal expiresAfterSeconds) {
+        this.expiresAfterSeconds = expiresAfterSeconds;
+    }
+
     /** Return true if this TransactionRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -957,7 +989,8 @@ public class TransactionRequest {
                 && Objects.equals(this.autoStaking, transactionRequest.autoStaking)
                 && Objects.equals(this.networkStaking, transactionRequest.networkStaking)
                 && Objects.equals(this.cpuStaking, transactionRequest.cpuStaking)
-                && Objects.equals(this.useGasless, transactionRequest.useGasless);
+                && Objects.equals(this.useGasless, transactionRequest.useGasless)
+                && Objects.equals(this.expiresAfterSeconds, transactionRequest.expiresAfterSeconds);
     }
 
     @Override
@@ -991,7 +1024,8 @@ public class TransactionRequest {
                 autoStaking,
                 networkStaking,
                 cpuStaking,
-                useGasless);
+                useGasless,
+                expiresAfterSeconds);
     }
 
     @Override
@@ -1035,6 +1069,9 @@ public class TransactionRequest {
         sb.append("    networkStaking: ").append(toIndentedString(networkStaking)).append("\n");
         sb.append("    cpuStaking: ").append(toIndentedString(cpuStaking)).append("\n");
         sb.append("    useGasless: ").append(toIndentedString(useGasless)).append("\n");
+        sb.append("    expiresAfterSeconds: ")
+                .append(toIndentedString(expiresAfterSeconds))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -1327,6 +1364,17 @@ public class TransactionRequest {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getUseGasless()))));
+        }
+
+        // add `expiresAfterSeconds` to the URL query string
+        if (getExpiresAfterSeconds() != null) {
+            joiner.add(
+                    String.format(
+                            "%sexpiresAfterSeconds%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getExpiresAfterSeconds()))));
         }
 
         return joiner.toString();

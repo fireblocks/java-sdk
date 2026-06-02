@@ -45,6 +45,8 @@ public enum WebhookEvent {
 
     VAULT_ACCOUNT_ASSET_BALANCE_UPDATED("vault_account.asset.balance_updated"),
 
+    VAULT_ACCOUNT_NFT_BALANCE_UPDATED("vault_account.nft.balance_updated"),
+
     EMBEDDED_WALLET_STATUS_UPDATED("embedded_wallet.status.updated"),
 
     EMBEDDED_WALLET_CREATED("embedded_wallet.created"),
@@ -65,7 +67,57 @@ public enum WebhookEvent {
 
     CONNECTION_REQUEST_WAITING_PEER_APPROVAL("connection.request.waiting_peer_approval"),
 
-    CONNECTION_REQUEST_REJECTED_BY_PEER("connection.request.rejected_by_peer");
+    CONNECTION_REQUEST_REJECTED_BY_PEER("connection.request.rejected_by_peer"),
+
+    EXCHANGE_ACCOUNT_CONNECTED("exchange_account.connected"),
+
+    FIAT_ACCOUNT_CONNECTED("fiat_account.connected"),
+
+    CONNECTED_ACCOUNT_CONNECTED("connected_account.connected"),
+
+    TICKET_CREATED("ticket.created"),
+
+    TICKET_SUBMITTED("ticket.submitted"),
+
+    TICKET_EXPIRED("ticket.expired"),
+
+    TICKET_CANCELED("ticket.canceled"),
+
+    TICKET_FULFILLED("ticket.fulfilled"),
+
+    TICKET_COUNTERPARTY_ADDED("ticket.counterparty.added"),
+
+    TICKET_COUNTERPARTY_EXTERNAL_ID_SET("ticket.counterparty_external_id.set"),
+
+    TICKET_NOTE_ADDED("ticket.note.added"),
+
+    TICKET_EXPIRES_AT_SET("ticket.expires_at.set"),
+
+    TICKET_EXPIRES_IN_SET("ticket.expires_in.set"),
+
+    TICKET_TERM_ADDED("ticket.term.added"),
+
+    TICKET_TERM_UPDATED("ticket.term.updated"),
+
+    TICKET_TERM_DELETED("ticket.term.deleted"),
+
+    TICKET_TERM_FUNDED("ticket.term.funded"),
+
+    TICKET_TERM_MANUALLY_FUNDED("ticket.term.manually_funded"),
+
+    TICKET_TERM_FUNDING_CANCELED("ticket.term.funding_canceled"),
+
+    TICKET_TERM_FUNDING_FAILED("ticket.term.funding_failed"),
+
+    TICKET_TERM_FUNDING_COMPLETED("ticket.term.funding_completed"),
+
+    TICKET_TERM_TRANSACTION_STATUS_CHANGED("ticket.term.transaction_status_changed"),
+
+    SETTLEMENT_CREATED("settlement.created"),
+
+    ORDER_UPDATED("order.updated"),
+
+    AUTOMATION_EXECUTION_UPDATE("automation_execution.update");
 
     private String value;
 

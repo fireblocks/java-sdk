@@ -997,7 +997,7 @@ paths:
       description: |-
         Returns the USDC Gateway wallet information associated with the given vault account.
         **Note:** This endpoint is currently in beta and might be subject to changes.
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getUsdcGatewayWalletInfoBeta
       parameters:
       - description: The ID of the vault account
@@ -1054,10 +1054,8 @@ paths:
     post:
       description: |-
         Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.
-
-         **Note:** This endpoint is currently in beta and might be subject to changes.
-
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
       operationId: activateUsdcGatewayWalletBeta
       parameters:
       - description: The ID of the vault account
@@ -1128,10 +1126,8 @@ paths:
     post:
       description: |-
         Deactivates the USDC Gateway wallet associated with the given vault account.
-
-         **Note:** This endpoint is currently in beta and might be subject to changes.
-
-        </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
       operationId: deactivateUsdcGatewayWalletBeta
       parameters:
       - description: The ID of the vault account
@@ -21519,29 +21515,17 @@ paths:
           \ sort_by, order);"
       x-accepts:
       - application/json
-  /earn/providers/{providerId}/approve_terms_of_service:
+  /earn/providers/approve_terms_of_service:
     post:
       description: |
-        Approves the lending provider's terms of service for this workspace. When
-        `isTermsApprovalRequired` is true on the provider (see list providers),
-        call this once before creating or executing earn actions with that provider.
+        Approves earn provider terms of service for this workspace (one-time per tenant).
+        When `isTermsApprovalRequired` is true on a provider (see list providers),
+        call this once before creating or executing earn actions with providers that require it.
         After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.
 
         **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: approveTermsOfService
       parameters:
-      - description: Stable protocol identifier for the earn provider (`MORPHO` or
-          `AAVE`).
-        explode: false
-        in: path
-        name: providerId
-        required: true
-        schema:
-          enum:
-          - MORPHO
-          - AAVE
-          type: string
-        style: simple
       - description: "A unique identifier for the request. If the request is sent\
           \ multiple times with the same idempotency key, the server will return the\
           \ same response as the first request. The idempotency key is valid for 24\
@@ -21619,22 +21603,18 @@ paths:
           code: "const response: Promise<FireblocksResponse<void>> = fireblocks.earnBeta.approveTermsOfService(earnBetaApiApproveTermsOfServiceRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.earnBeta().approveTermsOfService(providerId,\
-            \ idempotencyKey);"
+          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.earnBeta().approveTermsOfService(idempotencyKey);
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.earn_beta.approve_terms_of_service(provider_id,\
-            \ idempotency_key);"
+          code: response = fireblocks.earn_beta.approve_terms_of_service(idempotency_key);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<void>> = fireblocks.earnBeta.approveTermsOfService(earnBetaApiApproveTermsOfServiceRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.earnBeta().approveTermsOfService(providerId,\
-          \ idempotencyKey);"
+        source: CompletableFuture<ApiResponse<Void>> response = fireblocks.earnBeta().approveTermsOfService(idempotencyKey);
       - lang: Python
-        source: "response = fireblocks.earn_beta.approve_terms_of_service(provider_id,\
-          \ idempotency_key);"
+        source: response = fireblocks.earn_beta.approve_terms_of_service(idempotency_key);
       x-accepts:
       - application/json
   /trading/providers:
@@ -42662,6 +42642,7 @@ components:
         amount: 2.027123023002322
         sourceAddress: sourceAddress
         netAmount: 4.145608029883936
+        expiresAt: 1735689600000
         systemMessages:
         - type: WARN
           message: Slow transaction processing. Outgoing transactions might be stuck.
@@ -43396,6 +43377,11 @@ components:
           type: number
         lastUpdated:
           description: "The transaction’s last update date and time, in unix timestamp."
+          type: number
+        expiresAt:
+          description: "The transaction’s expiration date and time, in unix timestamp.\
+            \ Only returned for transactions that have an expiration set."
+          example: 1735689600000
           type: number
         createdBy:
           description: User ID of the initiator of the transaction.
@@ -46396,6 +46382,7 @@ components:
           customerRefId: abcdef
           travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
         useGasless: true
+        expiresAfterSeconds: 3600
         travelRuleMessage:
           originatorRef: ORG123456
           travelRuleBehaviorRef: TRB987654
@@ -47695,6 +47682,14 @@ components:
         useGasless:
           description: '- Override the default gasless configuration by sending true\false'
           type: boolean
+        expiresAfterSeconds:
+          description: "The number of seconds the transaction is valid for before\
+            \ it expires. After the specified duration, the transaction will expire\
+            \ if it has not been broadcasted."
+          example: 3600
+          maximum: 86400
+          minimum: 600
+          type: number
       type: object
     CreateTransactionResponse:
       example:
@@ -49614,6 +49609,7 @@ components:
             customerRefId: abcdef
             travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
           useGasless: true
+          expiresAfterSeconds: 3600
           travelRuleMessage:
             originatorRef: ORG123456
             travelRuleBehaviorRef: TRB987654
@@ -50877,6 +50873,7 @@ components:
             customerRefId: abcdef
             travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
           useGasless: true
+          expiresAfterSeconds: 3600
           travelRuleMessage:
             originatorRef: ORG123456
             travelRuleBehaviorRef: TRB987654
@@ -52223,6 +52220,7 @@ components:
       - vault_account.created
       - vault_account.asset.added
       - vault_account.asset.balance_updated
+      - vault_account.nft.balance_updated
       - embedded_wallet.status.updated
       - embedded_wallet.created
       - embedded_wallet.asset.balance_updated
@@ -52234,6 +52232,31 @@ components:
       - connection.removed
       - connection.request.waiting_peer_approval
       - connection.request.rejected_by_peer
+      - exchange_account.connected
+      - fiat_account.connected
+      - connected_account.connected
+      - ticket.created
+      - ticket.submitted
+      - ticket.expired
+      - ticket.canceled
+      - ticket.fulfilled
+      - ticket.counterparty.added
+      - ticket.counterparty_external_id.set
+      - ticket.note.added
+      - ticket.expires_at.set
+      - ticket.expires_in.set
+      - ticket.term.added
+      - ticket.term.updated
+      - ticket.term.deleted
+      - ticket.term.funded
+      - ticket.term.manually_funded
+      - ticket.term.funding_canceled
+      - ticket.term.funding_failed
+      - ticket.term.funding_completed
+      - ticket.term.transaction_status_changed
+      - settlement.created
+      - order.updated
+      - automation_execution.update
       type: string
     Webhook:
       example:

@@ -84,8 +84,8 @@ public class VaultsApiTest {
      *
      * <p>Activates the USDC Gateway wallet associated with the given vault account. If the wallet
      * does not yet exist it is created in an activated state. **Note:** This endpoint is currently
-     * in beta and might be subject to changes. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver.
+     * in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin,
+     * Signer, Approver.
      *
      * @throws ApiException if the Api call fails
      */
@@ -240,8 +240,8 @@ public class VaultsApiTest {
      * Deactivate a USDC Gateway wallet
      *
      * <p>Deactivates the USDC Gateway wallet associated with the given vault account. **Note:**
-     * This endpoint is currently in beta and might be subject to changes. &lt;/br&gt;Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * This endpoint is currently in beta and might be subject to changes. Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver.
      *
      * @throws ApiException if the Api call fails
      */
@@ -433,8 +433,8 @@ public class VaultsApiTest {
      * Get USDC Gateway wallet info
      *
      * <p>Returns the USDC Gateway wallet information associated with the given vault account.
-     * **Note:** This endpoint is currently in beta and might be subject to changes.
-     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
