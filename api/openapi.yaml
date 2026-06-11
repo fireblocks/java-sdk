@@ -6239,6 +6239,294 @@ paths:
           \ page_size, page_cursor);"
       x-accepts:
       - application/json
+  /connected_accounts/{accountId}/allowlist:
+    get:
+      description: |
+        Retrieves the address allowlist for a specified connected account.
+
+        **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only.
+      operationId: getConnectedAccountAllowlist
+      parameters:
+      - description: The connected account identifier
+        explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Filter by allowlist entry status
+        explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          $ref: "#/components/schemas/AllowlistEntryStatus"
+        style: form
+      - description: |
+          Filter by Fireblocks asset ID.
+
+          See [List assets](https://developers.fireblocks.com/reference/listassets) for the canonical list of Fireblocks asset IDs.
+        explode: true
+        in: query
+        name: assetId
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: |
+          Filter by Fireblocks network ID.
+
+          See [List blockchains](https://developers.fireblocks.com/reference/listblockchains) for the canonical list of Fireblocks blockchain identifiers.
+        explode: true
+        in: query
+        name: networkId
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by specific address
+        explode: true
+        in: query
+        name: address
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Pagination cursor for next page
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Maximum number of entries to return
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - description: Field to sort results by.
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          default: addedAt
+          enum:
+          - addedAt
+          - lastSyncedAt
+          type: string
+        style: form
+      - description: Sort order (ASC or DESC).
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllowlistResponse"
+          description: Allowlist entries response
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectedAccountErrorResponse"
+          description: Connected account not found
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get allowlist for connected account
+      tags:
+      - Connected Accounts (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AllowlistResponse>> =\
+            \ fireblocks.connectedAccountsBeta.getConnectedAccountAllowlist(connectedAccountsBetaApiGetConnectedAccountAllowlistRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<AllowlistResponse>> response = fireblocks.connectedAccountsBeta().getConnectedAccountAllowlist(accountId,\
+            \ status, assetId, networkId, address, pageCursor, pageSize, sortBy, order);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.connected_accounts_beta.get_connected_account_allowlist(account_id,\
+            \ status, asset_id, network_id, address, page_cursor, page_size, sort_by,\
+            \ order);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<AllowlistResponse>> =\
+          \ fireblocks.connectedAccountsBeta.getConnectedAccountAllowlist(connectedAccountsBetaApiGetConnectedAccountAllowlistRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<AllowlistResponse>> response = fireblocks.connectedAccountsBeta().getConnectedAccountAllowlist(accountId,\
+          \ status, assetId, networkId, address, pageCursor, pageSize, sortBy, order);"
+      - lang: Python
+        source: "response = fireblocks.connected_accounts_beta.get_connected_account_allowlist(account_id,\
+          \ status, asset_id, network_id, address, page_cursor, page_size, sort_by,\
+          \ order);"
+      x-accepts:
+      - application/json
+  /connected_accounts/{accountId}/allowlist/sync:
+    post:
+      description: |
+        Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.
+
+        **Rate limit:** 1 request per minute per connected account.
+
+        **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only.
+      operationId: syncConnectedAccountAllowlist
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The connected account identifier
+        explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "202":
+          description: Sync request accepted and processing
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Sync allowlist for connected account
+      tags:
+      - Connected Accounts (Beta)
+      x-rate-limit-category: async
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.connectedAccountsBeta.syncConnectedAccountAllowlist(connectedAccountsBetaApiSyncConnectedAccountAllowlistRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.connectedAccountsBeta().syncConnectedAccountAllowlist(accountId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.connected_accounts_beta.sync_connected_account_allowlist(account_id,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.connectedAccountsBeta.syncConnectedAccountAllowlist(connectedAccountsBetaApiSyncConnectedAccountAllowlistRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.connectedAccountsBeta().syncConnectedAccountAllowlist(accountId,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.connected_accounts_beta.sync_connected_account_allowlist(account_id,\
+          \ idempotency_key);"
+      x-accepts:
+      - application/json
+  /connected_accounts/{accountId}/allowlist/{allowlistId}:
+    get:
+      description: |
+        Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.
+
+        **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only.
+      operationId: getConnectedAccountAllowlistEntry
+      parameters:
+      - description: The connected account identifier
+        explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The Fireblocks allowlist entry identifier
+        explode: false
+        in: path
+        name: allowlistId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllowlistEntry"
+          description: Allowlist entry response
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectedAccountErrorResponse"
+          description: Connected account or allowlist entry not found
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get a single allowlist entry for a connected account
+      tags:
+      - Connected Accounts (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AllowlistEntry>> = fireblocks.connectedAccountsBeta.getConnectedAccountAllowlistEntry(connectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<AllowlistEntry>> response = fireblocks.connectedAccountsBeta().getConnectedAccountAllowlistEntry(accountId,\
+            \ allowlistId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.connected_accounts_beta.get_connected_account_allowlist_entry(account_id,\
+            \ allowlist_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<AllowlistEntry>> = fireblocks.connectedAccountsBeta.getConnectedAccountAllowlistEntry(connectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<AllowlistEntry>> response = fireblocks.connectedAccountsBeta().getConnectedAccountAllowlistEntry(accountId,\
+          \ allowlistId);"
+      - lang: Python
+        source: "response = fireblocks.connected_accounts_beta.get_connected_account_allowlist_entry(account_id,\
+          \ allowlist_id);"
+      x-accepts:
+      - application/json
   /counterparty_groups:
     get:
       description: |
@@ -10728,6 +11016,7 @@ paths:
           - UNKNOWN
           - GAS_STATION
           - END_USER_WALLET
+          - WALLET_POOL
           type: string
         style: form
       - description: The source ID of the transaction
@@ -13860,6 +14149,51 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+  /webhooks/mtls/csr:
+    get:
+      description: |
+        Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.
+      operationId: getMtlsCsr
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookMtlsCsrResponse"
+          description: The mTLS CSR PEM
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get mTLS CSR
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<WebhookMtlsCsrResponse>>\
+            \ = fireblocks.webhooksV2.getMtlsCsr();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<WebhookMtlsCsrResponse>> response =
+            fireblocks.webhooksV2().getMtlsCsr();
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.webhooks_v2.get_mtls_csr();
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<WebhookMtlsCsrResponse>>\
+          \ = fireblocks.webhooksV2.getMtlsCsr();"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<WebhookMtlsCsrResponse>> response =
+          fireblocks.webhooksV2().getMtlsCsr();
+      - lang: Python
+        source: response = fireblocks.webhooks_v2.get_mtls_csr();
+      x-accepts:
+      - application/json
   /webhooks/{webhookId}:
     delete:
       description: |
@@ -16186,6 +16520,1011 @@ paths:
         source: response = fireblocks.tokenization.get_linked_token(id);
       x-accepts:
       - application/json
+  /tokenization/access_registries/{id}/addresses:
+    get:
+      description: Returns the currently active addresses in the access registry (added
+        but not removed).
+      operationId: getTokenAccessRegistryAddresses
+      parameters:
+      - description: The token link id
+        example: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Page cursor to get the next page
+        example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Number of items per page (max 100), requesting more than 100\
+          \ will return 100 items"
+        example: 10
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Sorting field (enum).
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          default: dateAdded
+          enum:
+          - dateAdded
+          - address
+          type: string
+        style: form
+      - description: ASC / DESC ordering (default DESC)
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessRegistryCurrentStateResponse"
+          description: Access registry addresses retrieved successfully
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get current state of addresses in an access registry
+      tags:
+      - Tokenization
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AccessRegistryCurrentStateResponse>>\
+            \ = fireblocks.tokenization.getTokenAccessRegistryAddresses(tokenizationApiGetTokenAccessRegistryAddressesRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<AccessRegistryCurrentStateResponse>>\
+            \ response = fireblocks.tokenization().getTokenAccessRegistryAddresses(id,\
+            \ pageCursor, pageSize, sortBy, order);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.get_token_access_registry_addresses(id,\
+            \ page_cursor, page_size, sort_by, order);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<AccessRegistryCurrentStateResponse>>\
+          \ = fireblocks.tokenization.getTokenAccessRegistryAddresses(tokenizationApiGetTokenAccessRegistryAddressesRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<AccessRegistryCurrentStateResponse>>\
+          \ response = fireblocks.tokenization().getTokenAccessRegistryAddresses(id,\
+          \ pageCursor, pageSize, sortBy, order);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.get_token_access_registry_addresses(id,\
+          \ page_cursor, page_size, sort_by, order);"
+      x-accepts:
+      - application/json
+  /tokenization/access_registries/{id}/summary:
+    get:
+      description: Returns a summary of the current state of the access registry.
+      operationId: getTokenAccessRegistrySummary
+      parameters:
+      - description: The token link id
+        example: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessRegistrySummaryResponse"
+          description: Access registry summary retrieved successfully
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get summary of an access registry
+      tags:
+      - Tokenization
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AccessRegistrySummaryResponse>>\
+            \ = fireblocks.tokenization.getTokenAccessRegistrySummary(tokenizationApiGetTokenAccessRegistrySummaryRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<AccessRegistrySummaryResponse>> response
+            = fireblocks.tokenization().getTokenAccessRegistrySummary(id);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.tokenization.get_token_access_registry_summary(id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<AccessRegistrySummaryResponse>>\
+          \ = fireblocks.tokenization.getTokenAccessRegistrySummary(tokenizationApiGetTokenAccessRegistrySummaryRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<AccessRegistrySummaryResponse>> response
+          = fireblocks.tokenization().getTokenAccessRegistrySummary(id);
+      - lang: Python
+        source: response = fireblocks.tokenization.get_token_access_registry_summary(id);
+      x-accepts:
+      - application/json
+  /tokenization/tokens/{id}/summary:
+    get:
+      description: Returns the total number of unique holders and the total supply
+        for the token contract.
+      operationId: getTokenContractSummary
+      parameters:
+      - description: The token link id
+        example: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenContractSummaryResponse"
+          description: Successfully retrieved the summary for the token contract
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundException"
+          description: Token not found
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get onchain summary for a token
+      tags:
+      - Tokenization
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TokenContractSummaryResponse>>\
+            \ = fireblocks.tokenization.getTokenContractSummary(tokenizationApiGetTokenContractSummaryRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<TokenContractSummaryResponse>> response
+            = fireblocks.tokenization().getTokenContractSummary(id);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.tokenization.get_token_contract_summary(id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<TokenContractSummaryResponse>>\
+          \ = fireblocks.tokenization.getTokenContractSummary(tokenizationApiGetTokenContractSummaryRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<TokenContractSummaryResponse>> response
+          = fireblocks.tokenization().getTokenContractSummary(id);
+      - lang: Python
+        source: response = fireblocks.tokenization.get_token_contract_summary(id);
+      x-accepts:
+      - application/json
+  /tokenization/tokens/{id}/total_supply:
+    get:
+      description: Returns paginated total supply history for the token contract with
+        optional time-range filtering and binning.
+      operationId: getTokenTotalSupply
+      parameters:
+      - description: The token link id
+        example: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Start date of the time range in ISO 8601 format
+        example: 2025-01-16T15:45:00Z
+        explode: true
+        in: query
+        name: startDate
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: End date of the time range in ISO 8601 format
+        example: 2025-01-16T15:45:00Z
+        explode: true
+        in: query
+        name: endDate
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Time interval for grouping data
+        example: DAY
+        explode: true
+        in: query
+        name: interval
+        required: false
+        schema:
+          default: DAY
+          enum:
+          - HOUR
+          - DAY
+          - WEEK
+          - MONTH
+          type: string
+        style: form
+      - description: Page cursor to get the next page
+        example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Number of items per page (max 100), requesting more than 100\
+          \ will return 100 items"
+        example: 10
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Sorting field (enum). Sorting only supported by 'blockTimestamp'
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          default: blockTimestamp
+          enum:
+          - blockTimestamp
+          type: string
+        style: form
+      - description: ASC / DESC ordering (default DESC)
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TotalSupplyPagedResponse"
+          description: Successfully retrieved the token total supply history
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundException"
+          description: Token not found
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get historical total supply for a token
+      tags:
+      - Tokenization
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TotalSupplyPagedResponse>>\
+            \ = fireblocks.tokenization.getTokenTotalSupply(tokenizationApiGetTokenTotalSupplyRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TotalSupplyPagedResponse>> response\
+            \ = fireblocks.tokenization().getTokenTotalSupply(id, startDate, endDate,\
+            \ interval, pageCursor, pageSize, sortBy, order);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.get_token_total_supply(id, start_date,\
+            \ end_date, interval, page_cursor, page_size, sort_by, order);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<TotalSupplyPagedResponse>>\
+          \ = fireblocks.tokenization.getTokenTotalSupply(tokenizationApiGetTokenTotalSupplyRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<TotalSupplyPagedResponse>> response\
+          \ = fireblocks.tokenization().getTokenTotalSupply(id, startDate, endDate,\
+          \ interval, pageCursor, pageSize, sortBy, order);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.get_token_total_supply(id, start_date,\
+          \ end_date, interval, page_cursor, page_size, sort_by, order);"
+      x-accepts:
+      - application/json
+  /tokenization/tokens/{id}/balances:
+    get:
+      description: Returns the latest balance for each unique address holding this
+        token.
+      operationId: getTokenBalances
+      parameters:
+      - description: The token link id
+        example: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Page cursor to get the next page
+        example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Number of items per page (max 100), requesting more than 100\
+          \ will return 100 items"
+        example: 10
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Sorting field for balances
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          default: blockTimestamp
+          enum:
+          - accountAddress
+          - blockTimestamp
+          type: string
+        style: form
+      - description: ASC / DESC ordering (default DESC)
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressBalancePagedResponse"
+          description: Successfully retrieved the latest balances for the token
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundException"
+          description: Token not found
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get latest balances for all holders of a token
+      tags:
+      - Tokenization
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AddressBalancePagedResponse>>\
+            \ = fireblocks.tokenization.getTokenBalances(tokenizationApiGetTokenBalancesRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<AddressBalancePagedResponse>> response\
+            \ = fireblocks.tokenization().getTokenBalances(id, pageCursor, pageSize,\
+            \ sortBy, order);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.get_token_balances(id, page_cursor,\
+            \ page_size, sort_by, order);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<AddressBalancePagedResponse>>\
+          \ = fireblocks.tokenization.getTokenBalances(tokenizationApiGetTokenBalancesRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<AddressBalancePagedResponse>> response\
+          \ = fireblocks.tokenization().getTokenBalances(id, pageCursor, pageSize,\
+          \ sortBy, order);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.get_token_balances(id, page_cursor,\
+          \ page_size, sort_by, order);"
+      x-accepts:
+      - application/json
+  /tokenization/tokens/{id}/balances/{accountAddress}:
+    get:
+      description: Returns the latest token balance for the specified account address.
+      operationId: getTokenBalanceForAccount
+      parameters:
+      - description: The token link id
+        example: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The account address to get balance history for
+        explode: false
+        in: path
+        name: accountAddress
+        required: true
+        schema:
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressBalanceItemDto"
+          description: Successfully retrieved the balance for the account
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundException"
+          description: Token not found
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get the latest balance for a specific account
+      tags:
+      - Tokenization
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AddressBalanceItemDto>>\
+            \ = fireblocks.tokenization.getTokenBalanceForAccount(tokenizationApiGetTokenBalanceForAccountRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<AddressBalanceItemDto>> response =\
+            \ fireblocks.tokenization().getTokenBalanceForAccount(id, accountAddress);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.get_token_balance_for_account(id,\
+            \ account_address);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<AddressBalanceItemDto>>\
+          \ = fireblocks.tokenization.getTokenBalanceForAccount(tokenizationApiGetTokenBalanceForAccountRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<AddressBalanceItemDto>> response =\
+          \ fireblocks.tokenization().getTokenBalanceForAccount(id, accountAddress);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.get_token_balance_for_account(id,\
+          \ account_address);"
+      x-accepts:
+      - application/json
+  /tokenization/tokens/{id}/balances/{accountAddress}/history:
+    get:
+      description: Returns paginated balance history for the specified account address
+        with optional time-range filtering.
+      operationId: getTokenBalanceHistory
+      parameters:
+      - description: The token link id
+        example: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The account address to get balance history for
+        explode: false
+        in: path
+        name: accountAddress
+        required: true
+        schema:
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+        style: simple
+      - description: Start date of the time range in ISO 8601 format
+        example: 2025-01-16T15:45:00Z
+        explode: true
+        in: query
+        name: startDate
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: End date of the time range in ISO 8601 format
+        example: 2025-01-16T15:45:00Z
+        explode: true
+        in: query
+        name: endDate
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Time interval for grouping data
+        example: DAY
+        explode: true
+        in: query
+        name: interval
+        required: false
+        schema:
+          default: DAY
+          enum:
+          - HOUR
+          - DAY
+          - WEEK
+          - MONTH
+          type: string
+        style: form
+      - description: Page cursor to get the next page
+        example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Number of items per page (max 100), requesting more than 100\
+          \ will return 100 items"
+        example: 10
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Sorting field (enum). Sorting only supported by 'blockTimestamp'
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          default: blockTimestamp
+          enum:
+          - blockTimestamp
+          type: string
+        style: form
+      - description: ASC / DESC ordering (default DESC)
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BalanceHistoryPagedResponse"
+          description: Successfully retrieved the balance history
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundException"
+          description: Token not found
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get balance history for a specific account
+      tags:
+      - Tokenization
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<BalanceHistoryPagedResponse>>\
+            \ = fireblocks.tokenization.getTokenBalanceHistory(tokenizationApiGetTokenBalanceHistoryRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<BalanceHistoryPagedResponse>> response\
+            \ = fireblocks.tokenization().getTokenBalanceHistory(id, accountAddress,\
+            \ startDate, endDate, interval, pageCursor, pageSize, sortBy, order);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.get_token_balance_history(id,\
+            \ account_address, start_date, end_date, interval, page_cursor, page_size,\
+            \ sort_by, order);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<BalanceHistoryPagedResponse>>\
+          \ = fireblocks.tokenization.getTokenBalanceHistory(tokenizationApiGetTokenBalanceHistoryRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<BalanceHistoryPagedResponse>> response\
+          \ = fireblocks.tokenization().getTokenBalanceHistory(id, accountAddress,\
+          \ startDate, endDate, interval, pageCursor, pageSize, sortBy, order);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.get_token_balance_history(id,\
+          \ account_address, start_date, end_date, interval, page_cursor, page_size,\
+          \ sort_by, order);"
+      x-accepts:
+      - application/json
+  /tokenization/tokens/{id}/transfers:
+    get:
+      description: "Returns a paginated list of ERC20 transfer events for the token\
+        \ contract, optionally filtered by date range."
+      operationId: getTokenTransfers
+      parameters:
+      - description: The token link id
+        example: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Start date of the time range in ISO 8601 format
+        example: 2025-01-16T15:45:00Z
+        explode: true
+        in: query
+        name: startDate
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: End date of the time range in ISO 8601 format
+        example: 2025-01-16T15:45:00Z
+        explode: true
+        in: query
+        name: endDate
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Page cursor to get the next page
+        example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Number of items per page (max 100), requesting more than 100\
+          \ will return 100 items"
+        example: 10
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Sorting field for transfers
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          default: blockTimeStamp
+          enum:
+          - blockTimeStamp
+          type: string
+        style: form
+      - description: ASC / DESC ordering (default DESC)
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      - description: Filter transfers by sender address
+        explode: true
+        in: query
+        name: sender
+        required: false
+        schema:
+          example: 0xabcdef1234567890abcdef1234567890abcdef12
+          type: string
+        style: form
+      - description: Filter transfers by receiver address
+        explode: true
+        in: query
+        name: receiver
+        required: false
+        schema:
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OnchainTransfersPagedResponse"
+          description: Onchain transfers fetched successfully
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundException"
+          description: Token not found
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get onchain transfers for a token
+      tags:
+      - Tokenization
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<OnchainTransfersPagedResponse>>\
+            \ = fireblocks.tokenization.getTokenTransfers(tokenizationApiGetTokenTransfersRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<OnchainTransfersPagedResponse>> response\
+            \ = fireblocks.tokenization().getTokenTransfers(id, startDate, endDate,\
+            \ pageCursor, pageSize, sortBy, order, sender, receiver);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.get_token_transfers(id, start_date,\
+            \ end_date, page_cursor, page_size, sort_by, order, sender, receiver);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<OnchainTransfersPagedResponse>>\
+          \ = fireblocks.tokenization.getTokenTransfers(tokenizationApiGetTokenTransfersRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<OnchainTransfersPagedResponse>> response\
+          \ = fireblocks.tokenization().getTokenTransfers(id, startDate, endDate,\
+          \ pageCursor, pageSize, sortBy, order, sender, receiver);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.get_token_transfers(id, start_date,\
+          \ end_date, page_cursor, page_size, sort_by, order, sender, receiver);"
+      x-accepts:
+      - application/json
+  /tokenization/tokens/{id}/transactions:
+    get:
+      description: "Returns a paginated list of onchain transactions for the token\
+        \ contract, optionally filtered by date range."
+      operationId: getTokenTransactions
+      parameters:
+      - description: The token link id
+        example: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Start date of the time range in ISO 8601 format
+        example: 2025-01-16T15:45:00Z
+        explode: true
+        in: query
+        name: startDate
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: End date of the time range in ISO 8601 format
+        example: 2025-01-16T15:45:00Z
+        explode: true
+        in: query
+        name: endDate
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Page cursor to get the next page
+        example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Number of items per page (max 100), requesting more than 100\
+          \ will return 100 items"
+        example: 10
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Sorting field (enum).
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          default: blockTimestamp
+          enum:
+          - blockTimestamp
+          - blockNumber
+          - transactionHash
+          type: string
+        style: form
+      - description: ASC / DESC ordering (default DESC)
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OnchainTransactionsPagedResponse"
+          description: Onchain transactions fetched successfully
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundException"
+          description: Token not found
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get onchain transactions for a token
+      tags:
+      - Tokenization
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<OnchainTransactionsPagedResponse>>\
+            \ = fireblocks.tokenization.getTokenTransactions(tokenizationApiGetTokenTransactionsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<OnchainTransactionsPagedResponse>>\
+            \ response = fireblocks.tokenization().getTokenTransactions(id, startDate,\
+            \ endDate, pageCursor, pageSize, sortBy, order);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.get_token_transactions(id, start_date,\
+            \ end_date, page_cursor, page_size, sort_by, order);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<OnchainTransactionsPagedResponse>>\
+          \ = fireblocks.tokenization.getTokenTransactions(tokenizationApiGetTokenTransactionsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<OnchainTransactionsPagedResponse>>\
+          \ response = fireblocks.tokenization().getTokenTransactions(id, startDate,\
+          \ endDate, pageCursor, pageSize, sortBy, order);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.get_token_transactions(id, start_date,\
+          \ end_date, page_cursor, page_size, sort_by, order);"
+      x-accepts:
+      - application/json
+  /tokenization/tokens/{id}/rbac:
+    get:
+      description: Returns a list of currently active roles for the token contract.
+      operationId: getTokenRbac
+      parameters:
+      - description: The token link id
+        example: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActiveRolesResponse"
+          description: Successfully retrieved the list of active roles
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundException"
+          description: Token not found
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get active RBAC roles for a token
+      tags:
+      - Tokenization
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ActiveRolesResponse>>\
+            \ = fireblocks.tokenization.getTokenRbac(tokenizationApiGetTokenRbacRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ActiveRolesResponse>> response = fireblocks.tokenization().getTokenRbac(id);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.tokenization.get_token_rbac(id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ActiveRolesResponse>>\
+          \ = fireblocks.tokenization.getTokenRbac(tokenizationApiGetTokenRbacRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<ActiveRolesResponse>> response = fireblocks.tokenization().getTokenRbac(id);
+      - lang: Python
+        source: response = fireblocks.tokenization.get_token_rbac(id);
+      x-accepts:
+      - application/json
   /tokenization/multichain/deterministic_address:
     post:
       description: Get a deterministic address for contract deployment. The address
@@ -18105,7 +19444,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ActiveRolesResponse"
+                $ref: "#/components/schemas/ActiveRolesResponse-2"
           description: Successfully retrieved the list of active roles
         default:
           $ref: "#/components/responses/Error"
@@ -18214,7 +19553,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AccessRegistryCurrentStateResponse"
+                $ref: "#/components/schemas/AccessRegistryCurrentStateResponse-2"
           description: Access registry current state retrieved successfully
         default:
           $ref: "#/components/responses/Error"
@@ -18408,7 +19747,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OnchainTransactionsPagedResponse"
+                $ref: "#/components/schemas/OnchainTransactionsPagedResponse-2"
           description: Onchain transactions fetched successfully
         default:
           $ref: "#/components/responses/Error"
@@ -18554,7 +19893,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TotalSupplyPagedResponse"
+                $ref: "#/components/schemas/TotalSupplyPagedResponse-2"
           description: Successfully retrieved the contract total supply history
         default:
           $ref: "#/components/responses/Error"
@@ -18709,7 +20048,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BalanceHistoryPagedResponse"
+                $ref: "#/components/schemas/BalanceHistoryPagedResponse-2"
           description: Successfully retrieved the contract balance history
         default:
           $ref: "#/components/responses/Error"
@@ -18895,7 +20234,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AddressBalancePagedResponse"
+                $ref: "#/components/schemas/AddressBalancePagedResponse-2"
           description: Successfully retrieved the latest balances for the contract
         default:
           $ref: "#/components/responses/Error"
@@ -20579,6 +21918,151 @@ paths:
         source: CompletableFuture<ApiResponse<Delegation>> response = fireblocks.staking().getDelegationById(id);
       - lang: Python
         source: response = fireblocks.staking.get_delegation_by_id(id);
+      x-accepts:
+      - application/json
+  /staking/positions/{id}/related_transactions:
+    get:
+      description: Returns enriched transaction history for a staking position with
+        cursor-based pagination. Includes in-flight transactions with status pending.
+        The in-flight transaction is always returned first; completed and failed history
+        is ordered by the order parameter.
+      operationId: getPositionRelatedTransactions
+      parameters:
+      - description: Unique identifier of the staking position.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Number of results per page (minimum: 1, maximum: 100)."
+        explode: true
+        in: query
+        name: pageSize
+        required: true
+        schema:
+          example: 10
+          format: int32
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Cursor for the next page of results. Use the value from the 'next'
+          field in the previous response.
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          type: string
+        style: form
+      - description: ASC / DESC ordering for completed/failed history (default DESC).
+          The in-flight transaction is always returned first.
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StakingPositionRelatedTransactionsPaginatedResponse"
+          description: Paginated list of related transactions for the position returned
+            successfully.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StakingErrorSchema"
+          description: "Bad request: missing/invalid fields, unsupported amount, or\
+            \ malformed payload."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StakingErrorSchema"
+          description: "Forbidden: insufficient permissions, disabled feature, or\
+            \ restricted provider/validator."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StakingErrorSchema"
+          description: "Not found: requested resource does not exist (e.g., position,\
+            \ validator, provider, or wallet)."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StakingErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StakingErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: List related transactions for a position
+      tags:
+      - Staking
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<StakingPositionRelatedTransactionsPaginatedResponse>>\
+            \ = fireblocks.staking.getPositionRelatedTransactions(stakingApiGetPositionRelatedTransactionsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<StakingPositionRelatedTransactionsPaginatedResponse>>\
+            \ response = fireblocks.staking().getPositionRelatedTransactions(id, pageSize,\
+            \ pageCursor, order);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.staking.get_position_related_transactions(id,\
+            \ page_size, page_cursor, order);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<StakingPositionRelatedTransactionsPaginatedResponse>>\
+          \ = fireblocks.staking.getPositionRelatedTransactions(stakingApiGetPositionRelatedTransactionsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<StakingPositionRelatedTransactionsPaginatedResponse>>\
+          \ response = fireblocks.staking().getPositionRelatedTransactions(id, pageSize,\
+          \ pageCursor, order);"
+      - lang: Python
+        source: "response = fireblocks.staking.get_position_related_transactions(id,\
+          \ page_size, page_cursor, order);"
       x-accepts:
       - application/json
   /staking/providers:
@@ -22602,6 +24086,430 @@ paths:
         source: CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.tradingBeta().getOrder(orderId);
       - lang: Python
         source: response = fireblocks.trading_beta.get_order(order_id);
+      x-accepts:
+      - application/json
+  /trading/orders/{orderId}/requirement:
+    get:
+      description: |-
+        Fetch order requirement details for an order that is in `AWAITING_INFORMATION` status.
+
+        The response includes `requirementId` and `dueBy` metadata, a
+        `requiredData` JSON Schema (Draft-7) describing the shape of the `data` object expected on
+        `POST /trading/orders/{orderId}/requirement/data`, and `requiredFiles` descriptors for any files the
+        provider requires (uploaded via `POST /trading/orders/{orderId}/requirement/file`).
+
+        Note: These endpoints are currently in beta and might be subject to changes.
+
+        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+        For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+      operationId: getOrderRequirements
+      parameters:
+      - description: The ID of the order for which the order requirement is issued.
+        explode: false
+        in: path
+        name: orderId
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderRequirementDetails"
+          description: Order requirement details
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: Unauthorized. Missing / invalid JWT token in Authorization
+            header.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Forbidden: insufficient permissions, disabled feature, or\
+            \ restricted access."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Not found: the order does not exist."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Conflict: the order exists but does not have an active order\
+            \ requirement (e.g., the order is not in `AWAITING_INFORMATION`)."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get order requirement details for an order
+      tags:
+      - Trading (Beta)
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<OrderRequirementDetails>>\
+            \ = fireblocks.tradingBeta.getOrderRequirements(tradingBetaApiGetOrderRequirementsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<OrderRequirementDetails>> response =
+            fireblocks.tradingBeta().getOrderRequirements(orderId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.trading_beta.get_order_requirements(order_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<OrderRequirementDetails>>\
+          \ = fireblocks.tradingBeta.getOrderRequirements(tradingBetaApiGetOrderRequirementsRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<OrderRequirementDetails>> response =
+          fireblocks.tradingBeta().getOrderRequirements(orderId);
+      - lang: Python
+        source: response = fireblocks.trading_beta.get_order_requirements(order_id);
+      x-accepts:
+      - application/json
+  /trading/orders/{orderId}/requirement/data:
+    post:
+      description: |-
+        Submit the user's textual response to an order requirement on an order that is in `AWAITING_INFORMATION` status.
+
+        The request body carries `data` — a free-form object conforming to the `requiredData` JSON Schema
+        returned by the GET endpoint. Any required files are uploaded separately via
+        `POST /trading/orders/{orderId}/requirement/file`.
+
+        Note: These endpoints are currently in beta and might be subject to changes.
+
+        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
+
+        For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+      operationId: submitOrderRequirements
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the order to submit the order requirement response
+          for.
+        explode: false
+        in: path
+        name: orderId
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubmitOrderRequirementRequest"
+        required: true
+      responses:
+        "202":
+          description: Order requirement submission accepted for processing.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Bad request: invalid input parameters, malformed request body,\
+            \ or validation failure."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: Unauthorized. Missing / invalid JWT token in Authorization
+            header.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Forbidden: insufficient permissions, disabled feature, or\
+            \ restricted access."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Not found: the order does not exist."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Conflict: the order exists but does not have an active order\
+            \ requirement (e.g., the order is not in `AWAITING_INFORMATION`)."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Submit a response to an order requirement
+      tags:
+      - Trading (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.tradingBeta.submitOrderRequirements(tradingBetaApiSubmitOrderRequirementsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.tradingBeta().submitOrderRequirements(submitOrderRequirementRequest,\
+            \ orderId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.trading_beta.submit_order_requirements(submit_order_requirement_request,\
+            \ order_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.tradingBeta.submitOrderRequirements(tradingBetaApiSubmitOrderRequirementsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.tradingBeta().submitOrderRequirements(submitOrderRequirementRequest,\
+          \ orderId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.trading_beta.submit_order_requirements(submit_order_requirement_request,\
+          \ order_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /trading/orders/{orderId}/requirement/file:
+    post:
+      description: |-
+        Upload a single file (multipart/form-data) in response to an order requirement on an order that is in
+        `AWAITING_INFORMATION` status. Call this endpoint once per required file.
+
+        Send `fileKey` (matching a `fileKey` from `requiredFiles` on the GET response) and the binary `file`. Its type
+        must be one of the supported file formats. Fireblocks encrypts each file and uploads it individually to the
+        underlying provider. The textual response is submitted separately via
+        `POST /trading/orders/{orderId}/requirement/data`.
+
+        Note: These endpoints are currently in beta and might be subject to changes.
+
+        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
+
+        For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+      operationId: uploadOrderRequirementFile
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the order to upload the order requirement file for.
+        explode: false
+        in: path
+        name: orderId
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/OrderRequirementFileUpload"
+        required: true
+      responses:
+        "202":
+          description: File accepted for processing.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Bad request: unsupported file type, missing fileKey, malformed\
+            \ request, or validation failure."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: Unauthorized. Missing / invalid JWT token in Authorization
+            header.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Forbidden: insufficient permissions, disabled feature, or\
+            \ restricted access."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Not found: the order does not exist."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Conflict: the order exists but does not have an active order\
+            \ requirement (e.g., the order is not in `AWAITING_INFORMATION`)."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Upload a file for an order requirement
+      tags:
+      - Trading (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.tradingBeta.uploadOrderRequirementFile(tradingBetaApiUploadOrderRequirementFileRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.tradingBeta().uploadOrderRequirementFile(orderId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.trading_beta.upload_order_requirement_file(order_id,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.tradingBeta.uploadOrderRequirementFile(tradingBetaApiUploadOrderRequirementFileRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.tradingBeta().uploadOrderRequirementFile(orderId,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.trading_beta.upload_order_requirement_file(order_id,\
+          \ idempotency_key);"
+      x-content-type: multipart/form-data
       x-accepts:
       - application/json
   /admin_quorum:
@@ -33558,6 +35466,115 @@ components:
         format: uuid
         type: string
       style: simple
+    TokenPageCursor:
+      description: Page cursor to get the next page
+      example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+      explode: true
+      in: query
+      name: pageCursor
+      required: false
+      schema:
+        type: string
+      style: form
+    TokenPageSize:
+      description: "Number of items per page (max 100), requesting more than 100 will\
+        \ return 100 items"
+      example: 10
+      explode: true
+      in: query
+      name: pageSize
+      required: false
+      schema:
+        maximum: 100
+        minimum: 1
+        type: integer
+      style: form
+    TokenOrder:
+      description: ASC / DESC ordering (default DESC)
+      explode: true
+      in: query
+      name: order
+      required: false
+      schema:
+        default: DESC
+        enum:
+        - ASC
+        - DESC
+        type: string
+      style: form
+    TokenStartDate:
+      description: Start date of the time range in ISO 8601 format
+      example: 2025-01-16T15:45:00Z
+      explode: true
+      in: query
+      name: startDate
+      required: false
+      schema:
+        format: date-time
+        type: string
+      style: form
+    TokenEndDate:
+      description: End date of the time range in ISO 8601 format
+      example: 2025-01-16T15:45:00Z
+      explode: true
+      in: query
+      name: endDate
+      required: false
+      schema:
+        format: date-time
+        type: string
+      style: form
+    TokenInterval:
+      description: Time interval for grouping data
+      example: DAY
+      explode: true
+      in: query
+      name: interval
+      required: false
+      schema:
+        default: DAY
+        enum:
+        - HOUR
+        - DAY
+        - WEEK
+        - MONTH
+        type: string
+      style: form
+    TokenSortByTimestamp:
+      description: Sorting field (enum). Sorting only supported by 'blockTimestamp'
+      explode: true
+      in: query
+      name: sortBy
+      required: false
+      schema:
+        default: blockTimestamp
+        enum:
+        - blockTimestamp
+        type: string
+      style: form
+    TokenBalancesSortBy:
+      description: Sorting field for balances
+      explode: true
+      in: query
+      name: sortBy
+      required: false
+      schema:
+        default: blockTimestamp
+        enum:
+        - accountAddress
+        - blockTimestamp
+        type: string
+      style: form
+    TokenAccountAddress:
+      description: The account address to get balance history for
+      explode: false
+      in: path
+      name: accountAddress
+      required: true
+      schema:
+        example: 0x1234567890abcdef1234567890abcdef12345678
+        type: string
+      style: simple
     BaseAssetId:
       description: The blockchain base assetId
       example: ETH_TEST3
@@ -36620,6 +38637,13 @@ components:
       - assetTypes
       - capabilities
       type: object
+    ConnectedAccountType:
+      enum:
+      - EXCHANGE
+      - FIAT
+      - CONNECTED_ACCOUNT
+      example: CONNECTED_ACCOUNT
+      type: string
     ConnectedAccount:
       properties:
         id:
@@ -36644,7 +38668,18 @@ components:
           description: "The ID of the parent main account, if this is a sub account."
           example: acc-parent-001
           type: string
+        apiKey:
+          description: The API key identifier used to connect this account.
+          example: rk_live_abc123
+          type: string
+        providerAccountName:
+          description: The account name provided by the provider.
+          example: Main Account
+          type: string
+        accountType:
+          $ref: "#/components/schemas/ConnectedAccountType"
       required:
+      - accountType
       - id
       - manifest
       - name
@@ -36670,6 +38705,7 @@ components:
             capabilities:
             - DEPOSITS
             - WITHDRAWALS
+          accountType: CONNECTED_ACCOUNT
         - id: acc-654321
           name: Secondary Account
           providerId: BRIDGE
@@ -36682,6 +38718,7 @@ components:
             assetTypes: []
             capabilities:
             - WITHDRAWALS
+          accountType: CONNECTED_ACCOUNT
       properties:
         data:
           description: List of connected accounts matching the query.
@@ -36699,6 +38736,7 @@ components:
               capabilities:
               - DEPOSITS
               - WITHDRAWALS
+            accountType: CONNECTED_ACCOUNT
           - id: acc-654321
             name: Secondary Account
             providerId: BRIDGE
@@ -36711,6 +38749,7 @@ components:
               assetTypes: []
               capabilities:
               - WITHDRAWALS
+            accountType: CONNECTED_ACCOUNT
           items:
             $ref: "#/components/schemas/ConnectedAccount"
           type: array
@@ -36741,6 +38780,7 @@ components:
       - $ref: "#/components/schemas/ConnectedAccount"
       - $ref: "#/components/schemas/ConnectedSingleAccount"
       example:
+        apiKey: rk_live_abc123
         totalBalance:
           amount: "1201.15"
           denominatedAssetId: ea6c3cb7-355a-4ee3-82ff-267c69970214
@@ -36750,8 +38790,10 @@ components:
           assetTypes: []
           capabilities:
           - WITHDRAWALS
+        accountType: CONNECTED_ACCOUNT
         name: Main Venue Account
         id: acc-123456
+        providerAccountName: Main Account
         parentId: acc-parent-001
         subAccountsIds:
         - acc-sub-001
@@ -36999,6 +39041,207 @@ components:
           example: null
       required:
       - data
+      type: object
+    AllowlistEntryStatus:
+      description: |
+        Current status of the allowlist entry.
+          - `ACTIVE` — Entry is approved and usable.
+          - `PENDING_PROVIDER_COOLDOWN` — Entry was recently added or modified and is in the provider-enforced cooldown window before becoming active.
+          - `PENDING_PROVIDER_REVIEW` — Entry is awaiting provider-side review.
+          - `PENDING_APPROVAL` — Entry is awaiting customer/admin approval on the Fireblocks side.
+          - `REJECTED` — Entry was rejected at submission time and will not become active.
+          - `REMOVED` — Entry was deactivated after previously being active. May still appear in results for audit purposes.
+      enum:
+      - ACTIVE
+      - PENDING_PROVIDER_COOLDOWN
+      - PENDING_PROVIDER_REVIEW
+      - PENDING_APPROVAL
+      - REJECTED
+      - REMOVED
+      example: ACTIVE
+      type: string
+    AllowlistEntryProviderMetadata:
+      additionalProperties:
+        description: Provider-defined value. May be any JSON type.
+      description: |
+        Provider-specific pass-through data for this address. Treat as an opaque blob: the shape, set of keys, and value types vary by provider, by entry, and over time. Keys may be added, renamed, or removed without notice as providers evolve their integrations or as new providers are added. The example below illustrates one possible shape and is not a contract — do not program against specific keys.
+      example:
+        coinbase_exchange_id: "1234567890"
+      nullable: true
+      type: object
+    AllowlistEntry:
+      example:
+        providerReferenceId: CB-SAMPLE-001
+        addedAt: 2024-01-15T10:30:00Z
+        address: 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
+        assets:
+        - BTC
+        - ETH
+        providerMetadata:
+          coinbase_exchange_id: "1234567890"
+        id: 550e8400-e29b-41d4-a716-446655440000
+        label: Coinbase Hot Wallet
+        addressIdentifier: addressIdentifier
+        networks:
+        - ETHEREUM
+        - POLYGON
+        status: ACTIVE
+      properties:
+        id:
+          description: Unique identifier for the allowlist entry
+          example: 550e8400-e29b-41d4-a716-446655440000
+          format: uuid
+          type: string
+        address:
+          description: The blockchain address
+          example: 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
+          type: string
+        assets:
+          description: |
+            Assets approved for this address.
+
+            Each value is either a Fireblocks asset ID (when the provider's asset maps to a Fireblocks-supported asset) or the raw provider asset symbol (when no mapping exists). Treat values as opaque strings.
+
+            Possible combinations:
+              - One or more specific asset values (e.g., `["BTC", "ETH"]`)
+
+            See [List assets](https://developers.fireblocks.com/reference/listassets) for the canonical list of Fireblocks asset IDs.
+          example:
+          - BTC
+          - ETH
+          items:
+            type: string
+          type: array
+        networks:
+          description: |
+            Networks approved for this address.
+
+            Each value is either a Fireblocks network ID (when the provider's network maps to a Fireblocks-supported blockchain) or the raw provider blockchain identifier (when no mapping exists). Treat values as opaque strings.
+
+            Possible combinations:
+              - One or more specific network values (e.g., `["ETHEREUM", "POLYGON"]`)
+
+            See [List blockchains](https://developers.fireblocks.com/reference/listblockchains) for the canonical list of Fireblocks blockchain identifiers.
+          example:
+          - ETHEREUM
+          - POLYGON
+          items:
+            type: string
+          type: array
+        label:
+          description: Human-readable label for the address
+          example: Coinbase Hot Wallet
+          nullable: true
+          type: string
+        addressIdentifier:
+          description: "Additional identifier (e.g., memo, destination tag)"
+          nullable: true
+          type: string
+          example: null
+        status:
+          $ref: "#/components/schemas/AllowlistEntryStatus"
+        addedAt:
+          description: ISO 8601 timestamp when entry was added
+          example: 2024-01-15T10:30:00Z
+          format: date-time
+          type: string
+        providerReferenceId:
+          description: Provider's internal reference ID
+          example: CB-SAMPLE-001
+          nullable: true
+          type: string
+        providerMetadata:
+          additionalProperties:
+            description: Provider-defined value. May be any JSON type.
+          description: |
+            Provider-specific pass-through data for this address. Treat as an opaque blob: the shape, set of keys, and value types vary by provider, by entry, and over time. Keys may be added, renamed, or removed without notice as providers evolve their integrations or as new providers are added. The example below illustrates one possible shape and is not a contract — do not program against specific keys.
+          example:
+            coinbase_exchange_id: "1234567890"
+          nullable: true
+          type: object
+      required:
+      - addedAt
+      - address
+      - assets
+      - id
+      - networks
+      - status
+      type: object
+    AllowlistMetadata:
+      description: Allowlist-specific metadata
+      example:
+        lastSyncedAt: 2026-05-01T15:30:00Z
+        syncStatus: SUCCESS
+      properties:
+        lastSyncedAt:
+          description: ISO 8601 timestamp of last sync with provider
+          example: 2026-05-01T15:30:00Z
+          format: date-time
+          type: string
+        syncStatus:
+          description: Status of last sync operation
+          enum:
+          - SUCCESS
+          - FAILED
+          - IN_PROGRESS
+          - NEVER_SYNCED
+          example: SUCCESS
+          type: string
+      type: object
+    AllowlistResponse:
+      example:
+        next: eyJsYXN0SWQiOiJlbnRyeS0wMDQifQ==
+        metadata:
+          lastSyncedAt: 2026-05-01T15:30:00Z
+          syncStatus: SUCCESS
+        total: 42
+        data:
+        - id: 550e8400-e29b-41d4-a716-446655440000
+          address: 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
+          assets:
+          - BTC
+          - ETH
+          networks:
+          - ETHEREUM
+          - POLYGON
+          label: Coinbase Hot Wallet
+          addressIdentifier: null
+          status: ACTIVE
+          addedAt: 2024-01-15T10:30:00Z
+          providerReferenceId: CB-SAMPLE-001
+      properties:
+        data:
+          description: Array of allowlist entries
+          example:
+          - id: 550e8400-e29b-41d4-a716-446655440000
+            address: 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
+            assets:
+            - BTC
+            - ETH
+            networks:
+            - ETHEREUM
+            - POLYGON
+            label: Coinbase Hot Wallet
+            addressIdentifier: null
+            status: ACTIVE
+            addedAt: 2024-01-15T10:30:00Z
+            providerReferenceId: CB-SAMPLE-001
+          items:
+            $ref: "#/components/schemas/AllowlistEntry"
+          type: array
+        metadata:
+          $ref: "#/components/schemas/AllowlistMetadata"
+        total:
+          description: Total number of allowlist entries
+          example: 42
+          type: integer
+        next:
+          description: "Cursor for the next page of results, if available"
+          example: eyJsYXN0SWQiOiJlbnRyeS0wMDQifQ==
+          type: string
+      required:
+      - data
+      - total
       type: object
     CounterpartyGroup:
       description: A counterparty group used to classify counterparties for compliance
@@ -39952,6 +42195,7 @@ components:
       - PROGRAM_CALL
       - MULTI_DESTINATION
       - OEC_PARTNER
+      - WALLET_POOL
       type: string
     SourceTransferPeerPathResponse:
       description: Source of the transaction.
@@ -40606,6 +42850,7 @@ components:
       - END_USER_WALLET
       - PROGRAM_CALL
       - MULTI_DESTINATION
+      - WALLET_POOL
       example: VAULT_ACCOUNT
       type: string
     TransferPeerSubTypeEnum:
@@ -46307,11 +48552,26 @@ components:
       - beneficiary
       - originator
       type: object
+    TransactionConfigurations:
+      example:
+        expiresAfterSeconds: 3600
+      properties:
+        expiresAfterSeconds:
+          description: "The number of seconds the transaction is valid for before\
+            \ it expires. After the specified duration, the transaction will expire\
+            \ if it has not been broadcasted."
+          example: 3600
+          maximum: 86400
+          minimum: 300
+          type: number
+      type: object
     TransactionRequest:
       example:
         note: Ticket 123
         priorityFee: "2"
         networkFee: TransactionRequest_networkFee
+        configurations:
+          expiresAfterSeconds: 3600
         fee: TransactionRequest_fee
         destination:
           oneTimeAddress:
@@ -46382,7 +48642,6 @@ components:
           customerRefId: abcdef
           travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
         useGasless: true
-        expiresAfterSeconds: 3600
         travelRuleMessage:
           originatorRef: ORG123456
           travelRuleBehaviorRef: TRB987654
@@ -47682,14 +49941,8 @@ components:
         useGasless:
           description: '- Override the default gasless configuration by sending true\false'
           type: boolean
-        expiresAfterSeconds:
-          description: "The number of seconds the transaction is valid for before\
-            \ it expires. After the specified duration, the transaction will expire\
-            \ if it has not been broadcasted."
-          example: 3600
-          maximum: 86400
-          minimum: 600
-          type: number
+        configurations:
+          $ref: "#/components/schemas/TransactionConfigurations"
       type: object
     CreateTransactionResponse:
       example:
@@ -49539,6 +51792,8 @@ components:
           note: Ticket 123
           priorityFee: "2"
           networkFee: TransactionRequest_networkFee
+          configurations:
+            expiresAfterSeconds: 3600
           fee: TransactionRequest_fee
           destination:
             oneTimeAddress:
@@ -49609,7 +51864,6 @@ components:
             customerRefId: abcdef
             travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
           useGasless: true
-          expiresAfterSeconds: 3600
           travelRuleMessage:
             originatorRef: ORG123456
             travelRuleBehaviorRef: TRB987654
@@ -50803,6 +53057,8 @@ components:
           note: Ticket 123
           priorityFee: "2"
           networkFee: TransactionRequest_networkFee
+          configurations:
+            expiresAfterSeconds: 3600
           fee: TransactionRequest_fee
           destination:
             oneTimeAddress:
@@ -50873,7 +53129,6 @@ components:
             customerRefId: abcdef
             travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
           useGasless: true
-          expiresAfterSeconds: 3600
           travelRuleMessage:
             originatorRef: ORG123456
             travelRuleBehaviorRef: TRB987654
@@ -52258,11 +54513,38 @@ components:
       - order.updated
       - automation_execution.update
       type: string
+    WebhookMtls:
+      description: "mTLS configuration for the webhook. On responses, present only\
+        \ when a signed client certificate is set. On requests, provide a signed client\
+        \ certificate to enable mTLS, or null to remove it."
+      example:
+        clientSignedCert: |-
+          -----BEGIN CERTIFICATE-----
+          ...
+          -----END CERTIFICATE-----
+      nullable: true
+      properties:
+        clientSignedCert:
+          description: Signed client certificate PEM used for mTLS when delivering
+            notifications.
+          example: |-
+            -----BEGIN CERTIFICATE-----
+            ...
+            -----END CERTIFICATE-----
+          type: string
+      required:
+      - clientSignedCert
+      type: object
     Webhook:
       example:
         createdAt: 1625126400000
         description: This webhook is used for transactions notifications
         id: 123e4567-e89b-12d3-a456-426614174000
+        mtls:
+          clientSignedCert: |-
+            -----BEGIN CERTIFICATE-----
+            ...
+            -----END CERTIFICATE-----
         url: https://example.com/webhook
         events:
         - transaction.created
@@ -52312,6 +54594,8 @@ components:
           example: 1625126400000
           format: int64
           type: integer
+        mtls:
+          $ref: "#/components/schemas/WebhookMtls"
       required:
       - createdAt
       - events
@@ -52327,6 +54611,11 @@ components:
         - createdAt: 1625126400000
           description: This webhook is used for transactions notifications
           id: 123e4567-e89b-12d3-a456-426614174000
+          mtls:
+            clientSignedCert: |-
+              -----BEGIN CERTIFICATE-----
+              ...
+              -----END CERTIFICATE-----
           url: https://example.com/webhook
           events:
           - transaction.created
@@ -52336,6 +54625,11 @@ components:
         - createdAt: 1625126400000
           description: This webhook is used for transactions notifications
           id: 123e4567-e89b-12d3-a456-426614174000
+          mtls:
+            clientSignedCert: |-
+              -----BEGIN CERTIFICATE-----
+              ...
+              -----END CERTIFICATE-----
           url: https://example.com/webhook
           events:
           - transaction.created
@@ -52359,6 +54653,11 @@ components:
     CreateWebhookRequest:
       example:
         description: This webhook is used for transactions notifications
+        mtls:
+          clientSignedCert: |-
+            -----BEGIN CERTIFICATE-----
+            ...
+            -----END CERTIFICATE-----
         url: https://example.com/webhook
         events:
         - transaction.created
@@ -52390,13 +54689,38 @@ components:
             \ receive notifications."
           example: false
           type: boolean
+        mtls:
+          $ref: "#/components/schemas/WebhookMtls"
       required:
       - events
       - url
       type: object
+    WebhookMtlsCsrResponse:
+      description: mTLS Certificate Signing Request response
+      example:
+        csr: |-
+          -----BEGIN CERTIFICATE REQUEST-----
+          ...
+          -----END CERTIFICATE REQUEST-----
+      properties:
+        csr:
+          description: The Fireblocks PEM-encoded Certificate Signing Request (CSR).
+          example: |-
+            -----BEGIN CERTIFICATE REQUEST-----
+            ...
+            -----END CERTIFICATE REQUEST-----
+          type: string
+      required:
+      - csr
+      type: object
     UpdateWebhookRequest:
       example:
         description: This webhook is used for transactions notifications
+        mtls:
+          clientSignedCert: |-
+            -----BEGIN CERTIFICATE-----
+            ...
+            -----END CERTIFICATE-----
         url: https://example.com/webhook
         events:
         - transaction.created
@@ -52427,6 +54751,8 @@ components:
           description: The status of the webhook
           example: false
           type: boolean
+        mtls:
+          $ref: "#/components/schemas/WebhookMtls"
       type: object
     WebhookMetric:
       example:
@@ -54666,6 +56992,667 @@ components:
           example: Not Found
           type: string
       type: object
+    AccessRegistryAddressItem:
+      example:
+        address: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+        dateAdded: 2024-07-01T00:00:00Z
+      properties:
+        address:
+          description: The address that was added to the access registry
+          example: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+          type: string
+        dateAdded:
+          description: The date when the address was added to the access registry
+          example: 2024-07-01T00:00:00Z
+          format: date-time
+          type: string
+      required:
+      - address
+      - dateAdded
+      type: object
+    AccessRegistryCurrentStateResponse:
+      example:
+        next: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        total: 150
+        data:
+        - address: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+          dateAdded: 2024-07-01T00:00:00.000Z
+        prev: dGhpcyBpcyBhIHByZXZpb3VzIGN1bcnNvcg==
+      properties:
+        data:
+          description: Array of active addresses in the access registry
+          example:
+          - address: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+            dateAdded: 2024-07-01T00:00:00.000Z
+          items:
+            $ref: "#/components/schemas/AccessRegistryAddressItem"
+          type: array
+        next:
+          description: Cursor for next page
+          example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+          type: string
+        prev:
+          description: Cursor for previous page
+          example: dGhpcyBpcyBhIHByZXZpb3VzIGN1bcnNvcg==
+          type: string
+        total:
+          description: Total count of active addresses in the access registry
+          example: 150
+          type: number
+      required:
+      - data
+      type: object
+    AccessRegistrySummaryResponse:
+      example:
+        totalActiveAddresses: 42
+      properties:
+        totalActiveAddresses:
+          description: The total number of active addresses in the access registry
+          example: 42
+          type: number
+      required:
+      - totalActiveAddresses
+      type: object
+    TokenContractSummaryResponse:
+      example:
+        baseAssetId: ETH
+        totalSupply: "1000000000000000000000"
+        contractAddress: 0x1234567890123456789012345678901234567890
+        totalAddresses: 150
+      properties:
+        baseAssetId:
+          description: The base asset ID
+          example: ETH
+          type: string
+        contractAddress:
+          description: The contract address
+          example: 0x1234567890123456789012345678901234567890
+          type: string
+        totalAddresses:
+          description: Total number of addresses with balances
+          example: 150
+          type: number
+        totalSupply:
+          description: The total supply of the token
+          example: "1000000000000000000000"
+          type: string
+      required:
+      - baseAssetId
+      - contractAddress
+      - totalAddresses
+      - totalSupply
+      type: object
+    TotalSupplyItemDto:
+      example:
+        totalSupply: "1000000000000000000000"
+        timestamp: 2024-01-01T23:59:59.999Z
+      properties:
+        timestamp:
+          description: Timestamp of the data point
+          example: 2024-01-01T23:59:59.999Z
+          format: date-time
+          type: string
+        totalSupply:
+          description: Total supply at the given timestamp
+          example: "1000000000000000000000"
+          type: string
+      required:
+      - timestamp
+      - totalSupply
+      type: object
+    TotalSupplyPagedResponse:
+      example:
+        next: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        total: 150
+        data:
+        - timestamp: 2024-01-01T23:59:59.999Z
+          totalSupply: "1000000000000000000000"
+        prev: dGhpcyBpcyBhIHByZXZpb3VzIGN1cnNvcg==
+      properties:
+        data:
+          description: Array of total supply data points
+          example:
+          - timestamp: 2024-01-01T23:59:59.999Z
+            totalSupply: "1000000000000000000000"
+          items:
+            $ref: "#/components/schemas/TotalSupplyItemDto"
+          type: array
+        next:
+          description: Cursor for next page
+          example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+          type: string
+        prev:
+          description: Cursor for previous page
+          example: dGhpcyBpcyBhIHByZXZpb3VzIGN1cnNvcg==
+          type: string
+        total:
+          description: Total count of items
+          example: 150
+          type: number
+      required:
+      - data
+      type: object
+    AddressBalanceItemDto:
+      example:
+        lastUpdated: 2023-12-01T12:00:00Z
+        balance: "1000000000000000000"
+        accountAddress: 0x1234567890123456789012345678901234567890
+      properties:
+        accountAddress:
+          description: The account address
+          example: 0x1234567890123456789012345678901234567890
+          type: string
+        balance:
+          description: The current balance of the account
+          example: "1000000000000000000"
+          type: string
+        lastUpdated:
+          description: The timestamp when this balance was last updated
+          example: 2023-12-01T12:00:00Z
+          format: date-time
+          type: string
+      required:
+      - accountAddress
+      - balance
+      - lastUpdated
+      type: object
+    AddressBalancePagedResponse:
+      example:
+        next: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        total: 150
+        data:
+        - accountAddress: 0x1234567890123456789012345678901234567890
+          balance: "1000000000000000000"
+          lastUpdated: 2023-12-01T12:00:00.000Z
+        prev: dGhpcyBpcyBhIHByZXZpb3VzIGN1cnNvcg==
+      properties:
+        data:
+          description: Array of address balance data
+          example:
+          - accountAddress: 0x1234567890123456789012345678901234567890
+            balance: "1000000000000000000"
+            lastUpdated: 2023-12-01T12:00:00.000Z
+          items:
+            $ref: "#/components/schemas/AddressBalanceItemDto"
+          type: array
+        next:
+          description: Cursor for next page
+          example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+          type: string
+        prev:
+          description: Cursor for previous page (reserved for future support)
+          example: dGhpcyBpcyBhIHByZXZpb3VzIGN1cnNvcg==
+          type: string
+        total:
+          description: Total count of items
+          example: 150
+          type: number
+      required:
+      - data
+      type: object
+    BalanceHistoryItemDto:
+      example:
+        balance: "1000000000000000000000"
+        timestamp: 2024-01-01T23:59:59.999Z
+      properties:
+        timestamp:
+          description: Timestamp of the data point
+          example: 2024-01-01T23:59:59.999Z
+          format: date-time
+          type: string
+        balance:
+          description: Balance at the given timestamp
+          example: "1000000000000000000000"
+          type: string
+      required:
+      - balance
+      - timestamp
+      type: object
+    BalanceHistoryPagedResponse:
+      example:
+        next: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        total: 150
+        data:
+        - timestamp: 2024-01-01T23:59:59.999Z
+          balance: "1000000000000000000000"
+        prev: dGhpcyBpcyBhIHByZXZpb3VzIGN1cnNvcg==
+      properties:
+        data:
+          description: Array of balance history data points
+          example:
+          - timestamp: 2024-01-01T23:59:59.999Z
+            balance: "1000000000000000000000"
+          items:
+            $ref: "#/components/schemas/BalanceHistoryItemDto"
+          type: array
+        next:
+          description: Cursor for next page
+          example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+          type: string
+        prev:
+          description: Cursor for previous page
+          example: dGhpcyBpcyBhIHByZXZpb3VzIGN1cnNvcg==
+          type: string
+        total:
+          description: Total count of items
+          example: 150
+          type: number
+      required:
+      - data
+      type: object
+    OnchainTransferEvent:
+      properties:
+        id:
+          description: Unique identifier for the transfer event
+          example: 550e8400-e29b-41d4-a716-446655440000
+          format: uuid
+          type: string
+        transactionHash:
+          description: Hash of the transaction containing this transfer
+          example: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+          type: string
+        logIndex:
+          description: Index of the log within the transaction
+          example: "0"
+          type: string
+        contractAddress:
+          description: Address of the token contract
+          example: 0x1234567890123456789012345678901234567890
+          type: string
+        fromAddress:
+          description: Address that sent the tokens
+          example: 0xabcdef1234567890abcdef1234567890abcdef12
+          type: string
+        toAddress:
+          description: Address that received the tokens
+          example: 0x1234567890123456789012345678901234567890
+          type: string
+        value:
+          description: Amount of tokens transferred (in smallest unit)
+          example: "1000000000000000000"
+          type: string
+        chainId:
+          description: Chain ID of the blockchain
+          example: 1
+          type: integer
+        baseAssetId:
+          description: The blockchain base asset identifier
+          example: ETH_TEST3
+          type: string
+        blockNumber:
+          description: Block number containing this transfer
+          example: 12345678
+          type: integer
+        blockHash:
+          description: Hash of the block containing this transfer
+          example: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+          type: string
+        blockTimestamp:
+          description: Timestamp when the block was mined
+          example: 2025-01-16T15:45:00Z
+          format: date-time
+          type: string
+        eventName:
+          description: Name of the event (typically "Transfer")
+          example: Transfer
+          type: string
+      required:
+      - baseAssetId
+      - blockHash
+      - blockNumber
+      - blockTimestamp
+      - chainId
+      - contractAddress
+      - eventName
+      - fromAddress
+      - id
+      - logIndex
+      - toAddress
+      - transactionHash
+      - value
+      type: object
+    OnchainTransfersPagedResponse:
+      example:
+        next: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        total: 150
+        data:
+        - id: 550e8400-e29b-41d4-a716-446655440000
+          transactionHash: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+          logIndex: "0"
+          contractAddress: 0x1234567890123456789012345678901234567890
+          fromAddress: 0xabcdef1234567890abcdef1234567890abcdef12
+          toAddress: 0x1234567890123456789012345678901234567890
+          value: "1000000000000000000"
+          chainId: 1
+          baseAssetId: ETH_TEST3
+          blockNumber: 12345678
+          blockHash: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+          blockTimestamp: 2025-01-16T15:45:00Z
+          eventName: Transfer
+        prev: dGhpcyBpcyBhIHByZXZpb3VzIGN1cnNvcg==
+      properties:
+        data:
+          description: Array of ERC20 transfer events
+          example:
+          - id: 550e8400-e29b-41d4-a716-446655440000
+            transactionHash: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+            logIndex: "0"
+            contractAddress: 0x1234567890123456789012345678901234567890
+            fromAddress: 0xabcdef1234567890abcdef1234567890abcdef12
+            toAddress: 0x1234567890123456789012345678901234567890
+            value: "1000000000000000000"
+            chainId: 1
+            baseAssetId: ETH_TEST3
+            blockNumber: 12345678
+            blockHash: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+            blockTimestamp: 2025-01-16T15:45:00Z
+            eventName: Transfer
+          items:
+            $ref: "#/components/schemas/OnchainTransferEvent"
+          type: array
+        next:
+          description: Cursor for next page
+          example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+          type: string
+        prev:
+          description: Cursor for previous page
+          example: dGhpcyBpcyBhIHByZXZpb3VzIGN1cnNvcg==
+          type: string
+        total:
+          description: Total count of items
+          example: 150
+          type: number
+      required:
+      - data
+      type: object
+    DecodedLog:
+      description: Decoded event log from a blockchain transaction. Note - Additional
+        dynamic properties may be present beyond the required ones.
+      example:
+        blockHash: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+        address: 0x1234567890123456789012345678901234567890
+        logIndex: "0"
+        blockNumber: "12345678"
+        transactionHash: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+      properties:
+        address:
+          description: Contract address that emitted the log
+          example: 0x1234567890123456789012345678901234567890
+          type: string
+        blockHash:
+          description: Hash of the block containing this log
+          example: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+          type: string
+        blockNumber:
+          description: Block number containing this log
+          example: "12345678"
+          type: string
+        transactionHash:
+          description: Hash of the transaction that generated this log
+          example: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+          type: string
+        logIndex:
+          description: Index of the log in the transaction
+          example: "0"
+          type: string
+      required:
+      - address
+      - blockHash
+      - blockNumber
+      - logIndex
+      - transactionHash
+      type: object
+    OnchainTransaction:
+      example:
+        blockHash: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+        contractAddress: 0x1234567890123456789012345678901234567890
+        transactionIndex: "0"
+        type: "2"
+        toAddress: 0x1234567890123456789012345678901234567890
+        transactionHash: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+        baseAssetId: ETH_TEST3
+        gasUsed: "21000"
+        decodedLogs:
+          blockHash: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+          address: 0x1234567890123456789012345678901234567890
+          logIndex: "0"
+          blockNumber: "12345678"
+          transactionHash: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+        chainId: 1
+        blockNumber: 12345678
+        cumulativeGasUsed: "21000"
+        blockTimestamp: 2025-01-16T15:45:00Z
+        fromAddress: 0xabcdef1234567890abcdef1234567890abcdef12
+        id: 550e8400-e29b-41d4-a716-446655440000
+        effectiveGasPrice: "20000000000"
+        status: "1"
+      properties:
+        id:
+          description: Unique identifier for the transaction
+          example: 550e8400-e29b-41d4-a716-446655440000
+          format: uuid
+          type: string
+        baseAssetId:
+          description: The blockchain base asset identifier
+          example: ETH_TEST3
+          type: string
+        blockHash:
+          description: Hash of the block containing this transaction
+          example: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+          type: string
+        blockNumber:
+          description: Block number containing this transaction
+          example: 12345678
+          type: integer
+        blockTimestamp:
+          description: Timestamp when the block was mined
+          example: 2025-01-16T15:45:00Z
+          format: date-time
+          type: string
+        chainId:
+          description: Chain ID of the blockchain
+          example: 1
+          type: integer
+        contractAddress:
+          description: Contract address if this is a contract transaction
+          example: 0x1234567890123456789012345678901234567890
+          nullable: true
+          type: string
+        cumulativeGasUsed:
+          description: Cumulative gas used in the block up to this transaction
+          example: "21000"
+          type: string
+        decodedLogs:
+          $ref: "#/components/schemas/DecodedLog"
+        effectiveGasPrice:
+          description: Effective gas price paid for the transaction
+          example: "20000000000"
+          type: string
+        fromAddress:
+          description: Address that initiated the transaction
+          example: 0xabcdef1234567890abcdef1234567890abcdef12
+          type: string
+        gasUsed:
+          description: Amount of gas used by this transaction
+          example: "21000"
+          type: string
+        status:
+          description: Transaction status
+          example: "1"
+          type: string
+        toAddress:
+          description: Address that received the transaction
+          example: 0x1234567890123456789012345678901234567890
+          nullable: true
+          type: string
+        transactionHash:
+          description: Hash of the transaction
+          example: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+          type: string
+        transactionIndex:
+          description: Index of the transaction in the block
+          example: "0"
+          type: string
+        type:
+          description: Transaction type
+          example: "2"
+          type: string
+      required:
+      - baseAssetId
+      - blockHash
+      - blockNumber
+      - blockTimestamp
+      - chainId
+      - cumulativeGasUsed
+      - effectiveGasPrice
+      - fromAddress
+      - gasUsed
+      - id
+      - status
+      - transactionHash
+      - transactionIndex
+      - type
+      type: object
+    OnchainTransactionsPagedResponse:
+      example:
+        next: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        total: 150
+        data:
+        - id: 550e8400-e29b-41d4-a716-446655440000
+          baseAssetId: ETH_TEST3
+          blockHash: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+          blockNumber: 12345678
+          blockTimestamp: 2025-01-16T15:45:00Z
+          chainId: 1
+          contractAddress: 0x1234567890123456789012345678901234567890
+          cumulativeGasUsed: "21000"
+          effectiveGasPrice: "20000000000"
+          fromAddress: 0xabcdef1234567890abcdef1234567890abcdef12
+          gasUsed: "21000"
+          status: "1"
+          toAddress: 0x1234567890123456789012345678901234567890
+          transactionHash: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+          transactionIndex: "0"
+          type: "2"
+        prev: dGhpcyBpcyBhIHByZXZpb3VzIGN1cnNvcg==
+      properties:
+        data:
+          description: Array of onchain transactions
+          example:
+          - id: 550e8400-e29b-41d4-a716-446655440000
+            baseAssetId: ETH_TEST3
+            blockHash: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+            blockNumber: 12345678
+            blockTimestamp: 2025-01-16T15:45:00Z
+            chainId: 1
+            contractAddress: 0x1234567890123456789012345678901234567890
+            cumulativeGasUsed: "21000"
+            effectiveGasPrice: "20000000000"
+            fromAddress: 0xabcdef1234567890abcdef1234567890abcdef12
+            gasUsed: "21000"
+            status: "1"
+            toAddress: 0x1234567890123456789012345678901234567890
+            transactionHash: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+            transactionIndex: "0"
+            type: "2"
+          items:
+            $ref: "#/components/schemas/OnchainTransaction"
+          type: array
+        next:
+          description: Cursor for next page
+          example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+          type: string
+        prev:
+          description: Cursor for previous page
+          example: dGhpcyBpcyBhIHByZXZpb3VzIGN1cnNvcg==
+          type: string
+        total:
+          description: Total count of items
+          example: 150
+          type: number
+      required:
+      - data
+      type: object
+    RoleGrantee:
+      properties:
+        accountAddress:
+          description: The address of the account that has been granted the role
+          example: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+          type: string
+        dateOfGrant:
+          description: The date when the role was granted to this account
+          example: 2024-07-01T00:00:00Z
+          format: date-time
+          type: string
+      required:
+      - accountAddress
+      - dateOfGrant
+      type: object
+    RoleDetails:
+      properties:
+        roleHash:
+          description: The role hash identifier
+          example: 0x0000000000000000000000000000000000000000000000000000000000000000
+          type: string
+        description:
+          description: Human-readable description of the role
+          example: DEFAULT_ADMIN_ROLE
+          type: string
+        accounts:
+          description: List of accounts that have been granted this role
+          example:
+          - accountAddress: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+            dateOfGrant: 2024-07-01T00:00:00.000Z
+          items:
+            $ref: "#/components/schemas/RoleGrantee"
+          type: array
+      required:
+      - accounts
+      - description
+      - roleHash
+      type: object
+    ActiveRolesMap:
+      additionalProperties:
+        $ref: "#/components/schemas/RoleDetails"
+      description: "Active RBAC roles on the contract, keyed by role name (e.g. DEFAULT_ADMIN_ROLE,\
+        \ MINTER_ROLE). Each entry contains the on-chain role hash, a human-readable\
+        \ description, and the list of accounts currently granted that role."
+      example:
+        DEFAULT_ADMIN_ROLE:
+          roleHash: 0x0000000000000000000000000000000000000000000000000000000000000000
+          description: DEFAULT_ADMIN_ROLE
+          accounts:
+          - accountAddress: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+            dateOfGrant: 2024-07-01T00:00:00.000Z
+      type: object
+    ActiveRolesResponse:
+      example:
+        activeRoles:
+          DEFAULT_ADMIN_ROLE:
+            roleHash: 0x0000000000000000000000000000000000000000000000000000000000000000
+            description: DEFAULT_ADMIN_ROLE
+            accounts:
+            - accountAddress: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+              dateOfGrant: 2024-07-01T00:00:00.000Z
+      properties:
+        activeRoles:
+          additionalProperties:
+            $ref: "#/components/schemas/RoleDetails"
+          description: "Active RBAC roles on the contract, keyed by role name (e.g.\
+            \ DEFAULT_ADMIN_ROLE, MINTER_ROLE). Each entry contains the on-chain role\
+            \ hash, a human-readable description, and the list of accounts currently\
+            \ granted that role."
+          example:
+            DEFAULT_ADMIN_ROLE:
+              roleHash: 0x0000000000000000000000000000000000000000000000000000000000000000
+              description: DEFAULT_ADMIN_ROLE
+              accounts:
+              - accountAddress: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+                dateOfGrant: 2024-07-01T00:00:00.000Z
+          type: object
+      required:
+      - activeRoles
+      type: object
     GetDeployableAddressRequest:
       description: Request body for calculating deterministic address
       example:
@@ -56755,22 +59742,7 @@ components:
       required:
       - contractAddress
       type: object
-    RoleGrantee:
-      properties:
-        accountAddress:
-          description: The address of the account that has been granted the role
-          example: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
-          type: string
-        dateOfGrant:
-          description: The date when the role was granted to this account
-          example: 2024-07-01T00:00:00Z
-          format: date-time
-          type: string
-      required:
-      - accountAddress
-      - dateOfGrant
-      type: object
-    RoleDetails:
+    RoleDetails-2:
       properties:
         roleHash:
           description: The role hash identifier
@@ -56790,30 +59762,12 @@ components:
       - description
       - roleHash
       type: object
-    ActiveRolesResponse:
+    ActiveRolesResponse-2:
       additionalProperties:
-        $ref: "#/components/schemas/RoleDetails"
+        $ref: "#/components/schemas/RoleDetails-2"
       description: A map of role names to their details
       type: object
-    AccessRegistryAddressItem:
-      example:
-        address: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
-        dateAdded: 2024-07-01T00:00:00Z
-      properties:
-        address:
-          description: The address that was added to the access registry
-          example: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
-          type: string
-        dateAdded:
-          description: The date when the address was added to the access registry
-          example: 2024-07-01T00:00:00Z
-          format: date-time
-          type: string
-      required:
-      - address
-      - dateAdded
-      type: object
-    AccessRegistryCurrentStateResponse:
+    AccessRegistryCurrentStateResponse-2:
       example:
         next: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
         total: 150
@@ -56844,166 +59798,7 @@ components:
       required:
       - data
       type: object
-    AccessRegistrySummaryResponse:
-      example:
-        totalActiveAddresses: 42
-      properties:
-        totalActiveAddresses:
-          description: The total number of active addresses in the access registry
-          example: 42
-          type: number
-      required:
-      - totalActiveAddresses
-      type: object
-    DecodedLog:
-      description: Decoded event log from a blockchain transaction. Note - Additional
-        dynamic properties may be present beyond the required ones.
-      example:
-        blockHash: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
-        address: 0x1234567890123456789012345678901234567890
-        logIndex: "0"
-        blockNumber: "12345678"
-        transactionHash: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
-      properties:
-        address:
-          description: Contract address that emitted the log
-          example: 0x1234567890123456789012345678901234567890
-          type: string
-        blockHash:
-          description: Hash of the block containing this log
-          example: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
-          type: string
-        blockNumber:
-          description: Block number containing this log
-          example: "12345678"
-          type: string
-        transactionHash:
-          description: Hash of the transaction that generated this log
-          example: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
-          type: string
-        logIndex:
-          description: Index of the log in the transaction
-          example: "0"
-          type: string
-      required:
-      - address
-      - blockHash
-      - blockNumber
-      - logIndex
-      - transactionHash
-      type: object
-    OnchainTransaction:
-      example:
-        blockHash: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
-        contractAddress: 0x1234567890123456789012345678901234567890
-        transactionIndex: "0"
-        type: "2"
-        toAddress: 0x1234567890123456789012345678901234567890
-        transactionHash: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
-        baseAssetId: ETH_TEST3
-        gasUsed: "21000"
-        decodedLogs:
-          blockHash: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
-          address: 0x1234567890123456789012345678901234567890
-          logIndex: "0"
-          blockNumber: "12345678"
-          transactionHash: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
-        chainId: 1
-        blockNumber: 12345678
-        cumulativeGasUsed: "21000"
-        blockTimestamp: 2025-01-16T15:45:00Z
-        fromAddress: 0xabcdef1234567890abcdef1234567890abcdef12
-        id: 550e8400-e29b-41d4-a716-446655440000
-        effectiveGasPrice: "20000000000"
-        status: "1"
-      properties:
-        id:
-          description: Unique identifier for the transaction
-          example: 550e8400-e29b-41d4-a716-446655440000
-          format: uuid
-          type: string
-        baseAssetId:
-          description: The blockchain base asset identifier
-          example: ETH_TEST3
-          type: string
-        blockHash:
-          description: Hash of the block containing this transaction
-          example: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
-          type: string
-        blockNumber:
-          description: Block number containing this transaction
-          example: 12345678
-          type: integer
-        blockTimestamp:
-          description: Timestamp when the block was mined
-          example: 2025-01-16T15:45:00Z
-          format: date-time
-          type: string
-        chainId:
-          description: Chain ID of the blockchain
-          example: 1
-          type: integer
-        contractAddress:
-          description: Contract address if this is a contract transaction
-          example: 0x1234567890123456789012345678901234567890
-          nullable: true
-          type: string
-        cumulativeGasUsed:
-          description: Cumulative gas used in the block up to this transaction
-          example: "21000"
-          type: string
-        decodedLogs:
-          $ref: "#/components/schemas/DecodedLog"
-        effectiveGasPrice:
-          description: Effective gas price paid for the transaction
-          example: "20000000000"
-          type: string
-        fromAddress:
-          description: Address that initiated the transaction
-          example: 0xabcdef1234567890abcdef1234567890abcdef12
-          type: string
-        gasUsed:
-          description: Amount of gas used by this transaction
-          example: "21000"
-          type: string
-        status:
-          description: Transaction status
-          example: "1"
-          type: string
-        toAddress:
-          description: Address that received the transaction
-          example: 0x1234567890123456789012345678901234567890
-          nullable: true
-          type: string
-        transactionHash:
-          description: Hash of the transaction
-          example: 0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
-          type: string
-        transactionIndex:
-          description: Index of the transaction in the block
-          example: "0"
-          type: string
-        type:
-          description: Transaction type
-          example: "2"
-          type: string
-      required:
-      - baseAssetId
-      - blockHash
-      - blockNumber
-      - blockTimestamp
-      - chainId
-      - cumulativeGasUsed
-      - effectiveGasPrice
-      - fromAddress
-      - gasUsed
-      - id
-      - status
-      - transactionHash
-      - transactionIndex
-      - type
-      type: object
-    OnchainTransactionsPagedResponse:
+    OnchainTransactionsPagedResponse-2:
       example:
         next: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
         total: 150
@@ -57074,25 +59869,7 @@ components:
       required:
       - data
       type: object
-    TotalSupplyItemDto:
-      example:
-        totalSupply: "1000000000000000000000"
-        timestamp: 2024-01-01T23:59:59.999Z
-      properties:
-        timestamp:
-          description: Timestamp of the data point
-          example: 2024-01-01T23:59:59.999Z
-          format: date-time
-          type: string
-        totalSupply:
-          description: Total supply at the given timestamp
-          example: "1000000000000000000000"
-          type: string
-      required:
-      - timestamp
-      - totalSupply
-      type: object
-    TotalSupplyPagedResponse:
+    TotalSupplyPagedResponse-2:
       example:
         next: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
         total: 150
@@ -57123,25 +59900,7 @@ components:
       required:
       - data
       type: object
-    BalanceHistoryItemDto:
-      example:
-        balance: "1000000000000000000000"
-        timestamp: 2024-01-01T23:59:59.999Z
-      properties:
-        timestamp:
-          description: Timestamp of the data point
-          example: 2024-01-01T23:59:59.999Z
-          format: date-time
-          type: string
-        balance:
-          description: Balance at the given timestamp
-          example: "1000000000000000000000"
-          type: string
-      required:
-      - balance
-      - timestamp
-      type: object
-    BalanceHistoryPagedResponse:
+    BalanceHistoryPagedResponse-2:
       example:
         next: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
         total: 150
@@ -57172,60 +59931,7 @@ components:
       required:
       - data
       type: object
-    TokenContractSummaryResponse:
-      example:
-        baseAssetId: ETH
-        totalSupply: "1000000000000000000000"
-        contractAddress: 0x1234567890123456789012345678901234567890
-        totalAddresses: 150
-      properties:
-        baseAssetId:
-          description: The base asset ID
-          example: ETH
-          type: string
-        contractAddress:
-          description: The contract address
-          example: 0x1234567890123456789012345678901234567890
-          type: string
-        totalAddresses:
-          description: Total number of addresses with balances
-          example: 150
-          type: number
-        totalSupply:
-          description: The total supply of the token
-          example: "1000000000000000000000"
-          type: string
-      required:
-      - baseAssetId
-      - contractAddress
-      - totalAddresses
-      - totalSupply
-      type: object
-    AddressBalanceItemDto:
-      example:
-        lastUpdated: 2023-12-01T12:00:00Z
-        balance: "1000000000000000000"
-        accountAddress: 0x1234567890123456789012345678901234567890
-      properties:
-        accountAddress:
-          description: The account address
-          example: 0x1234567890123456789012345678901234567890
-          type: string
-        balance:
-          description: The current balance of the account
-          example: "1000000000000000000"
-          type: string
-        lastUpdated:
-          description: The timestamp when this balance was last updated
-          example: 2023-12-01T12:00:00Z
-          format: date-time
-          type: string
-      required:
-      - accountAddress
-      - balance
-      - lastUpdated
-      type: object
-    AddressBalancePagedResponse:
+    AddressBalancePagedResponse-2:
       example:
         next: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
         total: 150
@@ -58148,6 +60854,95 @@ components:
     StakingGetSummaryByVaultResponse:
       additionalProperties:
         $ref: "#/components/schemas/DelegationSummary"
+      type: object
+    PositionRelatedTransaction:
+      properties:
+        txId:
+          description: The transaction ID.
+          example: b70601f4-d7b1-4795-a8ee-b09cdb4r850d
+          type: string
+        txHash:
+          description: On-chain transaction hash. Absent while the transaction is
+            pending.
+          example: 0xabc123...
+          type: string
+        stakingOperation:
+          description: "Staking operation type. One of APPROVE, STAKE, UNSTAKE, WITHDRAW,\
+            \ CLAIM_REWARDS, SPLIT, CONSOLIDATE, MERGE, TRANSFER, AUTHORIZE, ADD_TO_STAKE.\
+            \ Absent on legacy persisted rows."
+          enum:
+          - APPROVE
+          - STAKE
+          - UNSTAKE
+          - WITHDRAW
+          - CLAIM_REWARDS
+          - SPLIT
+          - CONSOLIDATE
+          - MERGE
+          - TRANSFER
+          - AUTHORIZE
+          - ADD_TO_STAKE
+          example: STAKE
+          type: string
+        timestamp:
+          description: ISO timestamp when the transaction was initiated (send time).
+          example: 2024-01-15T10:30:00Z
+          format: date-time
+          type: string
+        status:
+          description: Transaction outcome.
+          enum:
+          - PENDING
+          - COMPLETED
+          - FAILED
+          example: COMPLETED
+          type: string
+        amount:
+          description: Portion of position amount this transaction moved (native units).
+            Absent on legacy rows.
+          example: "32"
+          type: string
+        txNote:
+          description: User-provided note from the transfer request. Omitted when
+            not set.
+          example: stake request of 32ETH created on 02.04.23
+          type: string
+      required:
+      - status
+      - timestamp
+      - txId
+      type: object
+    StakingPositionRelatedTransactionsPaginatedResponse:
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        data:
+        - txId: b70601f4-d7b1-4795-a8ee-b09cdb4r850d
+          txHash: 0xabc123...
+          stakingOperation: STAKE
+          timestamp: 2024-01-15T10:30:00.000Z
+          status: COMPLETED
+          amount: "32"
+      properties:
+        data:
+          description: The related transactions for the current page.
+          example:
+          - txId: b70601f4-d7b1-4795-a8ee-b09cdb4r850d
+            txHash: 0xabc123...
+            stakingOperation: STAKE
+            timestamp: 2024-01-15T10:30:00.000Z
+            status: COMPLETED
+            amount: "32"
+          items:
+            $ref: "#/components/schemas/PositionRelatedTransaction"
+          type: array
+        next:
+          description: Cursor for the next page. Use this value in the pageCursor
+            parameter to fetch the next page. Null if no more pages.
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          nullable: true
+          type: string
+      required:
+      - data
       type: object
     Validator:
       properties:
@@ -60258,6 +63053,20 @@ components:
       - NON_CITIZEN_ID
       - NATIONAL_REGISTRATION_CARD
       type: string
+    PersonalIdentificationDocument:
+      properties:
+        id:
+          description: The identification document number.
+          example: "12345678901"
+          type: string
+        type:
+          $ref: "#/components/schemas/PersonalIdentificationType"
+        expirationDate:
+          description: The expiration date of the identification document.
+          example: 2030-03-15
+          format: date
+          type: string
+      type: object
     PersonalIdentification:
       example:
         externalReferenceId: person_ref_7f3e2d1c4b8a5e9f
@@ -60281,6 +63090,11 @@ components:
         idType: PASSPORT
         additionalIdNumber: BVN987654321
         additionalIdType: BVN
+        nationality: US
+        identificationDocuments:
+        - id: "12345678901"
+          type: PASSPORT
+          expirationDate: 2030-03-15
       properties:
         externalReferenceId:
           type: string
@@ -60304,17 +63118,39 @@ components:
           pattern: "^\\+[1-9]\\d{1,14}$"
           type: string
         idNumber:
-          description: The identification number corresponding to the primary identification
-            document type specified in idType
+          deprecated: true
+          description: Deprecated. Use identificationDocuments instead.
           type: string
         idType:
-          $ref: "#/components/schemas/PersonalIdentificationType"
+          allOf:
+          - $ref: "#/components/schemas/PersonalIdentificationType"
+          deprecated: true
+          description: Deprecated. Use identificationDocuments instead.
+          example: PASSPORT
         additionalIdNumber:
-          description: The identification number corresponding to the additional identification
-            document type specified in additionalIdType
+          deprecated: true
+          description: Deprecated. Use identificationDocuments instead.
           type: string
         additionalIdType:
-          $ref: "#/components/schemas/PersonalIdentificationType"
+          allOf:
+          - $ref: "#/components/schemas/PersonalIdentificationType"
+          deprecated: true
+          description: Deprecated. Use identificationDocuments instead.
+          example: BVN
+        nationality:
+          description: The ISO-3166 Alpha-2 country code representing the individual's
+            nationality.
+          example: US
+          type: string
+        identificationDocuments:
+          description: List of identification documents for the individual.
+          example:
+          - id: "12345678901"
+            type: PASSPORT
+            expirationDate: 2030-03-15
+          items:
+            $ref: "#/components/schemas/PersonalIdentificationDocument"
+          type: array
       required:
       - dateOfBirth
       - entityType
@@ -60342,6 +63178,8 @@ components:
           state: CA
           postalCode: "94105"
           country: US
+        dateOfRegistration: 2020-06-15
+        countryOfRegistration: US
       properties:
         externalReferenceId:
           type: string
@@ -60362,6 +63200,15 @@ components:
           description: Mobile phone number in E.164 format
           example: "+14155551234"
           pattern: "^\\+[1-9]\\d{1,14}$"
+          type: string
+        dateOfRegistration:
+          description: The date the business was registered.
+          example: 2020-06-15
+          format: date
+          type: string
+        countryOfRegistration:
+          description: The ISO-3166 Alpha-2 country code where the business is registered.
+          example: US
           type: string
       required:
       - businessName
@@ -60640,7 +63487,7 @@ components:
           description: The expiration time of the quote in ISO 8601 format.
           example: 2024-01-15T10:35:00.000Z
           type: string
-        orderCreationRequirements:
+        requiredParticipantsIdentificationOnOrder:
           description: |
             A JSON Schema Draft-7 document in string format describing the fields required when creating an order so clients can validate their order payload before sending.
           type: string
@@ -60873,6 +63720,7 @@ components:
       enum:
       - CREATED
       - AWAITING_PAYMENT
+      - AWAITING_INFORMATION
       - PENDING_USER_ACTION
       - PROCESSING
       - CANCELED
@@ -62521,6 +65369,200 @@ components:
       - settlement
       - status
       - via
+      type: object
+    OrderRequirementSubmissionJsonSchema:
+      description: |
+        A JSON Schema (Draft-7) in string format describing the shape of the `data` object expected on the corresponding POST /trading/orders/{orderId}/requirement/data request. The schema is the contract: the client builds the `data` payload to match it, and SDKs can validate before sending. The string content is expected to be valid JSON (application/json).
+      example: |
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": ["sourceOfFunds", "purposeOfPayment"],
+          "properties": {
+            "sourceOfFunds": {
+              "type": "string",
+              "enum": ["SALARY", "SAVINGS", "INVESTMENT_RETURNS", "BUSINESS_INCOME", "OTHER"]
+            },
+            "purposeOfPayment": {
+              "type": "string",
+              "enum": ["BUSINESS_EXPENSES", "PERSONAL_EXPENSES", "INVESTMENT", "OTHER"]
+            }
+          }
+        }
+      type: string
+    OrderRequirementAllowedFileType:
+      description: Supported file formats for order requirement file uploads.
+      enum:
+      - PDF
+      - JPEG
+      - PNG
+      - HEIC
+      - HEIF
+      - DOC
+      - DOCX
+      - XLS
+      - XLSX
+      - CSV
+      example: PDF
+      type: string
+    OrderRequirementFile:
+      description: A file the provider requires as part of the order requirement response.
+      example:
+        fileKey: identity_document
+        description: A clear photo or scan of the account holder's government-issued
+          ID.
+        allowedFileTypes:
+        - PDF
+        - JPEG
+        - PNG
+      properties:
+        fileKey:
+          description: Stable identifier for this required file. Used to correlate
+            uploads on submission.
+          example: identity_document
+          type: string
+        description:
+          description: Human-readable description of what the file should contain.
+          example: A clear photo or scan of the account holder's government-issued
+            ID.
+          type: string
+        allowedFileTypes:
+          description: File formats the provider accepts for this entry.
+          example:
+          - PDF
+          - JPEG
+          - PNG
+          items:
+            $ref: "#/components/schemas/OrderRequirementAllowedFileType"
+          type: array
+      required:
+      - allowedFileTypes
+      - description
+      - fileKey
+      type: object
+    OrderRequirementDetails:
+      description: "Order requirement details for an order that is awaiting compliance\
+        \ requirements. Returned by GET /trading/orders/{orderId}/requirement."
+      example:
+        requiredFiles:
+        - fileKey: identity_document
+          description: A clear photo or scan of the account holder's government-issued
+            ID.
+          allowedFileTypes:
+          - PDF
+          - JPEG
+          - PNG
+        requirementId: info_7c1f9b2e4a6d
+        dueBy: 2024-01-15T10:35:00Z
+        requiredData: |
+          {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": ["sourceOfFunds", "purposeOfPayment"],
+            "properties": {
+              "sourceOfFunds": {
+                "type": "string",
+                "enum": ["SALARY", "SAVINGS", "INVESTMENT_RETURNS", "BUSINESS_INCOME", "OTHER"]
+              },
+              "purposeOfPayment": {
+                "type": "string",
+                "enum": ["BUSINESS_EXPENSES", "PERSONAL_EXPENSES", "INVESTMENT", "OTHER"]
+              }
+            }
+          }
+      properties:
+        requirementId:
+          description: Unique identifier of the order requirement request as issued
+            by the provider.
+          example: info_7c1f9b2e4a6d
+          type: string
+        dueBy:
+          description: ISO-8601 timestamp indicating when the order requirement submission
+            is due.
+          example: 2024-01-15T10:35:00Z
+          format: date-time
+          type: string
+        requiredData:
+          description: |
+            A JSON Schema (Draft-7) in string format describing the shape of the `data` object expected on the corresponding POST /trading/orders/{orderId}/requirement/data request. The schema is the contract: the client builds the `data` payload to match it, and SDKs can validate before sending. The string content is expected to be valid JSON (application/json).
+          example: |
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "type": "object",
+              "required": ["sourceOfFunds", "purposeOfPayment"],
+              "properties": {
+                "sourceOfFunds": {
+                  "type": "string",
+                  "enum": ["SALARY", "SAVINGS", "INVESTMENT_RETURNS", "BUSINESS_INCOME", "OTHER"]
+                },
+                "purposeOfPayment": {
+                  "type": "string",
+                  "enum": ["BUSINESS_EXPENSES", "PERSONAL_EXPENSES", "INVESTMENT", "OTHER"]
+                }
+              }
+            }
+          type: string
+        requiredFiles:
+          description: Descriptors for files the provider requires as part of the
+            order requirement response. Empty when no files are required. Each entry's
+            `fileKey` is used to correlate uploads on the corresponding upload request.
+          example:
+          - fileKey: identity_document
+            description: A clear photo or scan of the account holder's government-issued
+              ID.
+            allowedFileTypes:
+            - PDF
+            - JPEG
+            - PNG
+          items:
+            $ref: "#/components/schemas/OrderRequirementFile"
+          type: array
+      required:
+      - requiredData
+      - requiredFiles
+      - requirementId
+      type: object
+    SubmitOrderRequirementRequest:
+      description: "Body of POST /trading/orders/{orderId}/requirement/data. Carries\
+        \ the textual response (`data`). Any required files are uploaded separately\
+        \ via POST /trading/orders/{orderId}/requirement/file."
+      example:
+        data:
+          fullName: Jane Doe
+          nationality: US
+      properties:
+        data:
+          additionalProperties: true
+          description: Free-form object that MUST conform to the `requiredData` JSON
+            Schema returned by the GET endpoint. Carries text/select fields.
+          example:
+            fullName: Jane Doe
+            nationality: US
+          type: object
+      required:
+      - data
+      type: object
+    OrderRequirementFileUpload:
+      description: "Multipart body of POST /trading/orders/{orderId}/requirement/file.\
+        \ Uploads a single file as part of an order requirement response. Fireblocks\
+        \ encrypts and uploads each file individually to the underlying provider."
+      properties:
+        fileKey:
+          description: Identifier of the required file this upload satisfies. Must
+            match a `fileKey` from `requiredFiles` on the GET response.
+          example: identity_document
+          type: string
+        file:
+          description: The binary file content. The file's type must be one of the
+            supported OrderRequirementAllowedFileType values; the file name and type
+            are derived from the uploaded part.
+          example: !!binary |-
+            PGJpbmFyeSBmaWxlIGNvbnRlbnQ+
+          format: binary
+          type: string
+      required:
+      - file
+      - fileKey
       type: object
     SetAdminQuorumThresholdRequest:
       properties:
@@ -67926,6 +70968,25 @@ components:
         matchedRule:
           $ref: "#/components/schemas/ScreeningTravelRuleMatchedRule"
       type: object
+    TransferPeerTypeEnum-2:
+      description: Transfer peer type (source or destination)
+      enum:
+      - VAULT_ACCOUNT
+      - EXCHANGE_ACCOUNT
+      - INTERNAL_WALLET
+      - EXTERNAL_WALLET
+      - CONTRACT
+      - NETWORK_CONNECTION
+      - FIAT_ACCOUNT
+      - COMPOUND
+      - GAS_STATION
+      - ONE_TIME_ADDRESS
+      - UNKNOWN
+      - END_USER_WALLET
+      - PROGRAM_CALL
+      - MULTI_DESTINATION
+      example: VAULT_ACCOUNT
+      type: string
     ScreeningTravelRulePrescreeningRule:
       description: |
         Matched prescreening rule details.
@@ -67955,15 +71016,15 @@ components:
           example: MANUAL
           type: string
         sourceType:
-          $ref: "#/components/schemas/TransferPeerTypeEnum"
+          $ref: "#/components/schemas/TransferPeerTypeEnum-2"
         sourceSubType:
           $ref: "#/components/schemas/TransferPeerSubTypeEnum"
         destType:
-          $ref: "#/components/schemas/TransferPeerTypeEnum"
+          $ref: "#/components/schemas/TransferPeerTypeEnum-2"
         destSubType:
           $ref: "#/components/schemas/TransferPeerSubTypeEnum"
         transferPeerType:
-          $ref: "#/components/schemas/TransferPeerTypeEnum"
+          $ref: "#/components/schemas/TransferPeerTypeEnum-2"
         transferPeerSubType:
           $ref: "#/components/schemas/TransferPeerSubTypeEnum"
         destAddress:
@@ -68330,7 +71391,7 @@ components:
         direction:
           $ref: "#/components/schemas/TravelRuleDirectionEnum"
         sourceType:
-          $ref: "#/components/schemas/TransferPeerTypeEnum"
+          $ref: "#/components/schemas/TransferPeerTypeEnum-2"
         sourceSubType:
           $ref: "#/components/schemas/TransferPeerSubTypeEnum"
         sourceAddress:
@@ -68338,7 +71399,7 @@ components:
           example: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
           type: string
         destType:
-          $ref: "#/components/schemas/TransferPeerTypeEnum"
+          $ref: "#/components/schemas/TransferPeerTypeEnum-2"
         destSubType:
           $ref: "#/components/schemas/TransferPeerSubTypeEnum"
         destAddress:

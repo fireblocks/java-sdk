@@ -15,7 +15,13 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.AccessRegistryCurrentStateResponse;
+import com.fireblocks.sdk.model.AccessRegistrySummaryResponse;
+import com.fireblocks.sdk.model.ActiveRolesResponse;
 import com.fireblocks.sdk.model.AdapterProcessingResult;
+import com.fireblocks.sdk.model.AddressBalanceItemDto;
+import com.fireblocks.sdk.model.AddressBalancePagedResponse;
+import com.fireblocks.sdk.model.BalanceHistoryPagedResponse;
 import com.fireblocks.sdk.model.CollectionBurnRequestDto;
 import com.fireblocks.sdk.model.CollectionBurnResponseDto;
 import com.fireblocks.sdk.model.CollectionDeployRequestDto;
@@ -31,6 +37,8 @@ import com.fireblocks.sdk.model.GetLayerZeroDvnConfigResponse;
 import com.fireblocks.sdk.model.GetLayerZeroPeersResponse;
 import com.fireblocks.sdk.model.GetLinkedCollectionsPaginatedResponse;
 import com.fireblocks.sdk.model.LinkedTokensCount;
+import com.fireblocks.sdk.model.OnchainTransactionsPagedResponse;
+import com.fireblocks.sdk.model.OnchainTransfersPagedResponse;
 import com.fireblocks.sdk.model.ReissueMultichainTokenRequest;
 import com.fireblocks.sdk.model.RemoveLayerZeroAdaptersRequest;
 import com.fireblocks.sdk.model.RemoveLayerZeroAdaptersResponse;
@@ -40,11 +48,14 @@ import com.fireblocks.sdk.model.SetLayerZeroDvnConfigRequest;
 import com.fireblocks.sdk.model.SetLayerZeroDvnConfigResponse;
 import com.fireblocks.sdk.model.SetLayerZeroPeersRequest;
 import com.fireblocks.sdk.model.SetLayerZeroPeersResponse;
+import com.fireblocks.sdk.model.TokenContractSummaryResponse;
 import com.fireblocks.sdk.model.TokenLinkDto;
 import com.fireblocks.sdk.model.TokenLinkRequestDto;
 import com.fireblocks.sdk.model.TokensPaginatedResponse;
+import com.fireblocks.sdk.model.TotalSupplyPagedResponse;
 import com.fireblocks.sdk.model.ValidateLayerZeroChannelResponse;
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -253,6 +264,207 @@ public class TokenizationApiTest {
     @Test
     public void getLinkedTokensCountTest() throws ApiException {
         CompletableFuture<ApiResponse<LinkedTokensCount>> response = api.getLinkedTokensCount();
+    }
+
+    /**
+     * Get current state of addresses in an access registry
+     *
+     * <p>Returns the currently active addresses in the access registry (added but not removed).
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getTokenAccessRegistryAddressesTest() throws ApiException {
+        String id = null;
+        String pageCursor = null;
+        Integer pageSize = null;
+        String sortBy = null;
+        String order = null;
+        CompletableFuture<ApiResponse<AccessRegistryCurrentStateResponse>> response =
+                api.getTokenAccessRegistryAddresses(id, pageCursor, pageSize, sortBy, order);
+    }
+
+    /**
+     * Get summary of an access registry
+     *
+     * <p>Returns a summary of the current state of the access registry.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getTokenAccessRegistrySummaryTest() throws ApiException {
+        String id = null;
+        CompletableFuture<ApiResponse<AccessRegistrySummaryResponse>> response =
+                api.getTokenAccessRegistrySummary(id);
+    }
+
+    /**
+     * Get the latest balance for a specific account
+     *
+     * <p>Returns the latest token balance for the specified account address.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getTokenBalanceForAccountTest() throws ApiException {
+        String id = null;
+        String accountAddress = null;
+        CompletableFuture<ApiResponse<AddressBalanceItemDto>> response =
+                api.getTokenBalanceForAccount(id, accountAddress);
+    }
+
+    /**
+     * Get balance history for a specific account
+     *
+     * <p>Returns paginated balance history for the specified account address with optional
+     * time-range filtering.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getTokenBalanceHistoryTest() throws ApiException {
+        String id = null;
+        String accountAddress = null;
+        OffsetDateTime startDate = null;
+        OffsetDateTime endDate = null;
+        String interval = null;
+        String pageCursor = null;
+        Integer pageSize = null;
+        String sortBy = null;
+        String order = null;
+        CompletableFuture<ApiResponse<BalanceHistoryPagedResponse>> response =
+                api.getTokenBalanceHistory(
+                        id,
+                        accountAddress,
+                        startDate,
+                        endDate,
+                        interval,
+                        pageCursor,
+                        pageSize,
+                        sortBy,
+                        order);
+    }
+
+    /**
+     * Get latest balances for all holders of a token
+     *
+     * <p>Returns the latest balance for each unique address holding this token.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getTokenBalancesTest() throws ApiException {
+        String id = null;
+        String pageCursor = null;
+        Integer pageSize = null;
+        String sortBy = null;
+        String order = null;
+        CompletableFuture<ApiResponse<AddressBalancePagedResponse>> response =
+                api.getTokenBalances(id, pageCursor, pageSize, sortBy, order);
+    }
+
+    /**
+     * Get onchain summary for a token
+     *
+     * <p>Returns the total number of unique holders and the total supply for the token contract.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getTokenContractSummaryTest() throws ApiException {
+        String id = null;
+        CompletableFuture<ApiResponse<TokenContractSummaryResponse>> response =
+                api.getTokenContractSummary(id);
+    }
+
+    /**
+     * Get active RBAC roles for a token
+     *
+     * <p>Returns a list of currently active roles for the token contract.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getTokenRbacTest() throws ApiException {
+        String id = null;
+        CompletableFuture<ApiResponse<ActiveRolesResponse>> response = api.getTokenRbac(id);
+    }
+
+    /**
+     * Get historical total supply for a token
+     *
+     * <p>Returns paginated total supply history for the token contract with optional time-range
+     * filtering and binning.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getTokenTotalSupplyTest() throws ApiException {
+        String id = null;
+        OffsetDateTime startDate = null;
+        OffsetDateTime endDate = null;
+        String interval = null;
+        String pageCursor = null;
+        Integer pageSize = null;
+        String sortBy = null;
+        String order = null;
+        CompletableFuture<ApiResponse<TotalSupplyPagedResponse>> response =
+                api.getTokenTotalSupply(
+                        id, startDate, endDate, interval, pageCursor, pageSize, sortBy, order);
+    }
+
+    /**
+     * Get onchain transactions for a token
+     *
+     * <p>Returns a paginated list of onchain transactions for the token contract, optionally
+     * filtered by date range.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getTokenTransactionsTest() throws ApiException {
+        String id = null;
+        OffsetDateTime startDate = null;
+        OffsetDateTime endDate = null;
+        String pageCursor = null;
+        Integer pageSize = null;
+        String sortBy = null;
+        String order = null;
+        CompletableFuture<ApiResponse<OnchainTransactionsPagedResponse>> response =
+                api.getTokenTransactions(
+                        id, startDate, endDate, pageCursor, pageSize, sortBy, order);
+    }
+
+    /**
+     * Get onchain transfers for a token
+     *
+     * <p>Returns a paginated list of ERC20 transfer events for the token contract, optionally
+     * filtered by date range.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getTokenTransfersTest() throws ApiException {
+        String id = null;
+        OffsetDateTime startDate = null;
+        OffsetDateTime endDate = null;
+        String pageCursor = null;
+        Integer pageSize = null;
+        String sortBy = null;
+        String order = null;
+        String sender = null;
+        String receiver = null;
+        CompletableFuture<ApiResponse<OnchainTransfersPagedResponse>> response =
+                api.getTokenTransfers(
+                        id,
+                        startDate,
+                        endDate,
+                        pageCursor,
+                        pageSize,
+                        sortBy,
+                        order,
+                        sender,
+                        receiver);
     }
 
     /**

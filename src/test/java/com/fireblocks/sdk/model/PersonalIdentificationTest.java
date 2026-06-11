@@ -96,4 +96,16 @@ class PersonalIdentificationTest {
     void additionalIdTypeTest() {
         // TODO: test additionalIdType
     }
+
+    /** Test the property 'nationality' */
+    @Test
+    void nationalityTest() {
+        // TODO: test nationality
+    }
+
+    /** Test the property 'identificationDocuments' */
+    @Test
+    void identificationDocumentsTest() {
+        // TODO: test identificationDocuments
+    }
 }

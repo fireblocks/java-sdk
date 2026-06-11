@@ -11,6 +11,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getChainInfo**](StakingApi.md#getChainInfo) | **GET** /staking/chains/{chainDescriptor}/chainInfo | Get chain-level staking parameters |
 | [**getChains**](StakingApi.md#getChains) | **GET** /staking/chains | List supported staking chains |
 | [**getDelegationById**](StakingApi.md#getDelegationById) | **GET** /staking/positions/{id} | Get position details |
+| [**getPositionRelatedTransactions**](StakingApi.md#getPositionRelatedTransactions) | **GET** /staking/positions/{id}/related_transactions | List related transactions for a position |
 | [**getPositions**](StakingApi.md#getPositions) | **GET** /staking/positions_paginated | List staking positions (Paginated) |
 | [**getProviders**](StakingApi.md#getProviders) | **GET** /staking/providers | List staking providers |
 | [**getSummary**](StakingApi.md#getSummary) | **GET** /staking/positions/summary | Get positions summary |
@@ -636,6 +637,100 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Position retrieved successfully. |  * X-Request-ID -  <br>  |
+| **400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
+| **403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+| **404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+| **429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+| **500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getPositionRelatedTransactions
+
+> CompletableFuture<ApiResponse<StakingPositionRelatedTransactionsPaginatedResponse>> getPositionRelatedTransactions getPositionRelatedTransactions(id, pageSize, pageCursor, order)
+
+List related transactions for a position
+
+Returns enriched transaction history for a staking position with cursor-based pagination. Includes in-flight transactions with status pending. The in-flight transaction is always returned first; completed and failed history is ordered by the order parameter.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.StakingApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String id = "id_example"; // String | Unique identifier of the staking position.
+        Integer pageSize = 10; // Integer | Number of results per page (minimum: 1, maximum: 100).
+        String pageCursor = "eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9"; // String | Cursor for the next page of results. Use the value from the 'next' field in the previous response.
+        String order = "ASC"; // String | ASC / DESC ordering for completed/failed history (default DESC). The in-flight transaction is always returned first.
+        try {
+            CompletableFuture<ApiResponse<StakingPositionRelatedTransactionsPaginatedResponse>> response = fireblocks.staking().getPositionRelatedTransactions(id, pageSize, pageCursor, order);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling StakingApi#getPositionRelatedTransactions");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling StakingApi#getPositionRelatedTransactions");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| Unique identifier of the staking position. | |
+| **pageSize** | **Integer**| Number of results per page (minimum: 1, maximum: 100). | |
+| **pageCursor** | **String**| Cursor for the next page of results. Use the value from the &#39;next&#39; field in the previous response. | [optional] |
+| **order** | **String**| ASC / DESC ordering for completed/failed history (default DESC). The in-flight transaction is always returned first. | [optional] [default to DESC] [enum: ASC, DESC] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**StakingPositionRelatedTransactionsPaginatedResponse**](StakingPositionRelatedTransactionsPaginatedResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Paginated list of related transactions for the position returned successfully. |  * X-Request-ID -  <br>  |
 | **400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
 | **403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
 | **404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |

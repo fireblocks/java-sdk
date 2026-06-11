@@ -30,6 +30,7 @@ import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
 import com.fireblocks.sdk.model.WebhookEvent;
 import com.fireblocks.sdk.model.WebhookMetric;
+import com.fireblocks.sdk.model.WebhookMtlsCsrResponse;
 import com.fireblocks.sdk.model.WebhookPaginatedResponse;
 import java.math.BigDecimal;
 import java.util.List;
@@ -86,6 +87,19 @@ public class WebhooksV2ApiTest {
         String metricName = null;
         CompletableFuture<ApiResponse<WebhookMetric>> response =
                 api.getMetrics(webhookId, metricName);
+    }
+
+    /**
+     * Get mTLS CSR
+     *
+     * <p>Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use to
+     * generate their signed client certificate.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getMtlsCsrTest() throws ApiException {
+        CompletableFuture<ApiResponse<WebhookMtlsCsrResponse>> response = api.getMtlsCsr();
     }
 
     /**

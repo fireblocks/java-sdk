@@ -48,4 +48,10 @@ class CreateWebhookRequestTest {
     void enabledTest() {
         // TODO: test enabled
     }
+
+    /** Test the property 'mtls' */
+    @Test
+    void mtlsTest() {
+        // TODO: test mtls
+    }
 }

@@ -9,9 +9,12 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**fetchAllOffers**](TradingBetaApi.md#fetchAllOffers) | **POST** /trading/offers | Get all offers |
 | [**fetchRates**](TradingBetaApi.md#fetchRates) | **POST** /trading/rates | Get rates |
 | [**getOrder**](TradingBetaApi.md#getOrder) | **GET** /trading/orders/{orderId} | Get order details |
+| [**getOrderRequirements**](TradingBetaApi.md#getOrderRequirements) | **GET** /trading/orders/{orderId}/requirement | Get order requirement details for an order |
 | [**getOrders**](TradingBetaApi.md#getOrders) | **GET** /trading/orders | Get orders |
 | [**getTradingProviderById**](TradingBetaApi.md#getTradingProviderById) | **GET** /trading/providers/{providerId} | Get trading provider by ID |
 | [**getTradingProviders**](TradingBetaApi.md#getTradingProviders) | **GET** /trading/providers | Get providers |
+| [**submitOrderRequirements**](TradingBetaApi.md#submitOrderRequirements) | **POST** /trading/orders/{orderId}/requirement/data | Submit a response to an order requirement |
+| [**uploadOrderRequirementFile**](TradingBetaApi.md#uploadOrderRequirementFile) | **POST** /trading/orders/{orderId}/requirement/file | Upload a file for an order requirement |
 
 
 
@@ -463,6 +466,95 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getOrderRequirements
+
+> CompletableFuture<ApiResponse<OrderRequirementDetails>> getOrderRequirements getOrderRequirements(orderId)
+
+Get order requirement details for an order
+
+Fetch order requirement details for an order that is in &#x60;AWAITING_INFORMATION&#x60; status.  The response includes &#x60;requirementId&#x60; and &#x60;dueBy&#x60; metadata, a &#x60;requiredData&#x60; JSON Schema (Draft-7) describing the shape of the &#x60;data&#x60; object expected on &#x60;POST /trading/orders/{orderId}/requirement/data&#x60;, and &#x60;requiredFiles&#x60; descriptors for any files the provider requires (uploaded via &#x60;POST /trading/orders/{orderId}/requirement/file&#x60;).  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TradingBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String orderId = "orderId_example"; // String | The ID of the order for which the order requirement is issued.
+        try {
+            CompletableFuture<ApiResponse<OrderRequirementDetails>> response = fireblocks.tradingBeta().getOrderRequirements(orderId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TradingBetaApi#getOrderRequirements");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TradingBetaApi#getOrderRequirements");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **orderId** | **String**| The ID of the order for which the order requirement is issued. | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**OrderRequirementDetails**](OrderRequirementDetails.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Order requirement details |  * X-Request-ID -  <br>  |
+| **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
+| **403** | Forbidden: insufficient permissions, disabled feature, or restricted access. |  * X-Request-ID -  <br>  |
+| **404** | Not found: the order does not exist. |  * X-Request-ID -  <br>  |
+| **409** | Conflict: the order exists but does not have an active order requirement (e.g., the order is not in &#x60;AWAITING_INFORMATION&#x60;). |  * X-Request-ID -  <br>  |
+| **429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+| **5XX** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getOrders
 
 > CompletableFuture<ApiResponse<GetOrdersResponse>> getOrders getOrders(pageSize, pageCursor, order, accountId, providerId, statuses, startTime, endTime, assetConversionType)
@@ -738,6 +830,194 @@ No authorization required
 | **200** | Providers response |  * X-Request-ID -  <br>  |
 | **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 | **403** | Forbidden: insufficient permissions, disabled feature, or restricted access. |  * X-Request-ID -  <br>  |
+| **429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+| **5XX** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## submitOrderRequirements
+
+> CompletableFuture<ApiResponse<Void>> submitOrderRequirements submitOrderRequirements(submitOrderRequirementRequest, orderId, idempotencyKey)
+
+Submit a response to an order requirement
+
+Submit the user&#39;s textual response to an order requirement on an order that is in &#x60;AWAITING_INFORMATION&#x60; status.  The request body carries &#x60;data&#x60; — a free-form object conforming to the &#x60;requiredData&#x60; JSON Schema returned by the GET endpoint. Any required files are uploaded separately via &#x60;POST /trading/orders/{orderId}/requirement/file&#x60;.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TradingBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        SubmitOrderRequirementRequest submitOrderRequirementRequest = new SubmitOrderRequirementRequest(); // SubmitOrderRequirementRequest | 
+        String orderId = "orderId_example"; // String | The ID of the order to submit the order requirement response for.
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.tradingBeta().submitOrderRequirements(submitOrderRequirementRequest, orderId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TradingBetaApi#submitOrderRequirements");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TradingBetaApi#submitOrderRequirements");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **submitOrderRequirementRequest** | [**SubmitOrderRequirementRequest**](SubmitOrderRequirementRequest.md)|  | |
+| **orderId** | **String**| The ID of the order to submit the order requirement response for. | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+
+CompletableFuture<ApiResponse<Void>>
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Order requirement submission accepted for processing. |  * X-Request-ID -  <br>  |
+| **400** | Bad request: invalid input parameters, malformed request body, or validation failure. |  * X-Request-ID -  <br>  |
+| **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
+| **403** | Forbidden: insufficient permissions, disabled feature, or restricted access. |  * X-Request-ID -  <br>  |
+| **404** | Not found: the order does not exist. |  * X-Request-ID -  <br>  |
+| **409** | Conflict: the order exists but does not have an active order requirement (e.g., the order is not in &#x60;AWAITING_INFORMATION&#x60;). |  * X-Request-ID -  <br>  |
+| **429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+| **5XX** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## uploadOrderRequirementFile
+
+> CompletableFuture<ApiResponse<Void>> uploadOrderRequirementFile uploadOrderRequirementFile(fileKey, _file, orderId, idempotencyKey)
+
+Upload a file for an order requirement
+
+Upload a single file (multipart/form-data) in response to an order requirement on an order that is in &#x60;AWAITING_INFORMATION&#x60; status. Call this endpoint once per required file.  Send &#x60;fileKey&#x60; (matching a &#x60;fileKey&#x60; from &#x60;requiredFiles&#x60; on the GET response) and the binary &#x60;file&#x60;. Its type must be one of the supported file formats. Fireblocks encrypts each file and uploads it individually to the underlying provider. The textual response is submitted separately via &#x60;POST /trading/orders/{orderId}/requirement/data&#x60;.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TradingBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String fileKey = "fileKey_example"; // String | Identifier of the required file this upload satisfies. Must match a `fileKey` from `requiredFiles` on the GET response.
+        File _file = new File("/path/to/file"); // File | The binary file content. The file's type must be one of the supported OrderRequirementAllowedFileType values; the file name and type are derived from the uploaded part.
+        String orderId = "orderId_example"; // String | The ID of the order to upload the order requirement file for.
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.tradingBeta().uploadOrderRequirementFile(fileKey, _file, orderId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TradingBetaApi#uploadOrderRequirementFile");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TradingBetaApi#uploadOrderRequirementFile");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **fileKey** | **String**| Identifier of the required file this upload satisfies. Must match a &#x60;fileKey&#x60; from &#x60;requiredFiles&#x60; on the GET response. | |
+| **_file** | **File**| The binary file content. The file&#39;s type must be one of the supported OrderRequirementAllowedFileType values; the file name and type are derived from the uploaded part. | |
+| **orderId** | **String**| The ID of the order to upload the order requirement file for. | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+
+CompletableFuture<ApiResponse<Void>>
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | File accepted for processing. |  * X-Request-ID -  <br>  |
+| **400** | Bad request: unsupported file type, missing fileKey, malformed request, or validation failure. |  * X-Request-ID -  <br>  |
+| **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
+| **403** | Forbidden: insufficient permissions, disabled feature, or restricted access. |  * X-Request-ID -  <br>  |
+| **404** | Not found: the order does not exist. |  * X-Request-ID -  <br>  |
+| **409** | Conflict: the order exists but does not have an active order requirement (e.g., the order is not in &#x60;AWAITING_INFORMATION&#x60;). |  * X-Request-ID -  <br>  |
 | **429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
 | **5XX** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |

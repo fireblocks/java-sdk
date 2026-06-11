@@ -19,6 +19,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -35,7 +37,9 @@ import java.util.StringJoiner;
     PersonalIdentification.JSON_PROPERTY_ID_NUMBER,
     PersonalIdentification.JSON_PROPERTY_ID_TYPE,
     PersonalIdentification.JSON_PROPERTY_ADDITIONAL_ID_NUMBER,
-    PersonalIdentification.JSON_PROPERTY_ADDITIONAL_ID_TYPE
+    PersonalIdentification.JSON_PROPERTY_ADDITIONAL_ID_TYPE,
+    PersonalIdentification.JSON_PROPERTY_NATIONALITY,
+    PersonalIdentification.JSON_PROPERTY_IDENTIFICATION_DOCUMENTS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -77,6 +81,14 @@ public class PersonalIdentification {
 
     public static final String JSON_PROPERTY_ADDITIONAL_ID_TYPE = "additionalIdType";
     @jakarta.annotation.Nullable private PersonalIdentificationType additionalIdType;
+
+    public static final String JSON_PROPERTY_NATIONALITY = "nationality";
+    @jakarta.annotation.Nullable private String nationality;
+
+    public static final String JSON_PROPERTY_IDENTIFICATION_DOCUMENTS = "identificationDocuments";
+
+    @jakarta.annotation.Nullable
+    private List<PersonalIdentificationDocument> identificationDocuments;
 
     public PersonalIdentification() {}
 
@@ -298,11 +310,12 @@ public class PersonalIdentification {
     }
 
     /**
-     * The identification number corresponding to the primary identification document type specified
-     * in idType
+     * Deprecated. Use identificationDocuments instead.
      *
      * @return idNumber
+     * @deprecated
      */
+    @Deprecated
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_ID_NUMBER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -323,10 +336,12 @@ public class PersonalIdentification {
     }
 
     /**
-     * Get idType
+     * Deprecated. Use identificationDocuments instead.
      *
      * @return idType
+     * @deprecated
      */
+    @Deprecated
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_ID_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -347,11 +362,12 @@ public class PersonalIdentification {
     }
 
     /**
-     * The identification number corresponding to the additional identification document type
-     * specified in additionalIdType
+     * Deprecated. Use identificationDocuments instead.
      *
      * @return additionalIdNumber
+     * @deprecated
      */
+    @Deprecated
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_ADDITIONAL_ID_NUMBER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -372,10 +388,12 @@ public class PersonalIdentification {
     }
 
     /**
-     * Get additionalIdType
+     * Deprecated. Use identificationDocuments instead.
      *
      * @return additionalIdType
+     * @deprecated
      */
+    @Deprecated
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_ADDITIONAL_ID_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -388,6 +406,65 @@ public class PersonalIdentification {
     public void setAdditionalIdType(
             @jakarta.annotation.Nullable PersonalIdentificationType additionalIdType) {
         this.additionalIdType = additionalIdType;
+    }
+
+    public PersonalIdentification nationality(@jakarta.annotation.Nullable String nationality) {
+        this.nationality = nationality;
+        return this;
+    }
+
+    /**
+     * The ISO-3166 Alpha-2 country code representing the individual&#39;s nationality.
+     *
+     * @return nationality
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_NATIONALITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getNationality() {
+        return nationality;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NATIONALITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setNationality(@jakarta.annotation.Nullable String nationality) {
+        this.nationality = nationality;
+    }
+
+    public PersonalIdentification identificationDocuments(
+            @jakarta.annotation.Nullable
+                    List<PersonalIdentificationDocument> identificationDocuments) {
+        this.identificationDocuments = identificationDocuments;
+        return this;
+    }
+
+    public PersonalIdentification addIdentificationDocumentsItem(
+            PersonalIdentificationDocument identificationDocumentsItem) {
+        if (this.identificationDocuments == null) {
+            this.identificationDocuments = new ArrayList<>();
+        }
+        this.identificationDocuments.add(identificationDocumentsItem);
+        return this;
+    }
+
+    /**
+     * List of identification documents for the individual.
+     *
+     * @return identificationDocuments
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_IDENTIFICATION_DOCUMENTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<PersonalIdentificationDocument> getIdentificationDocuments() {
+        return identificationDocuments;
+    }
+
+    @JsonProperty(JSON_PROPERTY_IDENTIFICATION_DOCUMENTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIdentificationDocuments(
+            @jakarta.annotation.Nullable
+                    List<PersonalIdentificationDocument> identificationDocuments) {
+        this.identificationDocuments = identificationDocuments;
     }
 
     /** Return true if this PersonalIdentification object is equal to o. */
@@ -414,7 +491,11 @@ public class PersonalIdentification {
                 && Objects.equals(this.idType, personalIdentification.idType)
                 && Objects.equals(
                         this.additionalIdNumber, personalIdentification.additionalIdNumber)
-                && Objects.equals(this.additionalIdType, personalIdentification.additionalIdType);
+                && Objects.equals(this.additionalIdType, personalIdentification.additionalIdType)
+                && Objects.equals(this.nationality, personalIdentification.nationality)
+                && Objects.equals(
+                        this.identificationDocuments,
+                        personalIdentification.identificationDocuments);
     }
 
     @Override
@@ -431,7 +512,9 @@ public class PersonalIdentification {
                 idNumber,
                 idType,
                 additionalIdNumber,
-                additionalIdType);
+                additionalIdType,
+                nationality,
+                identificationDocuments);
     }
 
     @Override
@@ -456,6 +539,10 @@ public class PersonalIdentification {
                 .append(toIndentedString(additionalIdNumber))
                 .append("\n");
         sb.append("    additionalIdType: ").append(toIndentedString(additionalIdType)).append("\n");
+        sb.append("    nationality: ").append(toIndentedString(nationality)).append("\n");
+        sb.append("    identificationDocuments: ")
+                .append(toIndentedString(identificationDocuments))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -613,6 +700,39 @@ public class PersonalIdentification {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getAdditionalIdType()))));
+        }
+
+        // add `nationality` to the URL query string
+        if (getNationality() != null) {
+            joiner.add(
+                    String.format(
+                            "%snationality%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getNationality()))));
+        }
+
+        // add `identificationDocuments` to the URL query string
+        if (getIdentificationDocuments() != null) {
+            for (int i = 0; i < getIdentificationDocuments().size(); i++) {
+                if (getIdentificationDocuments().get(i) != null) {
+                    joiner.add(
+                            getIdentificationDocuments()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%sidentificationDocuments%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
         }
 
         return joiner.toString();

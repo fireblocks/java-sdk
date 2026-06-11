@@ -66,4 +66,22 @@ class ConnectedAccountTest {
     void parentIdTest() {
         // TODO: test parentId
     }
+
+    /** Test the property 'apiKey' */
+    @Test
+    void apiKeyTest() {
+        // TODO: test apiKey
+    }
+
+    /** Test the property 'providerAccountName' */
+    @Test
+    void providerAccountNameTest() {
+        // TODO: test providerAccountName
+    }
+
+    /** Test the property 'accountType' */
+    @Test
+    void accountTypeTest() {
+        // TODO: test accountType
+    }
 }

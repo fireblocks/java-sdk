@@ -52,19 +52,19 @@ public class ScreeningTravelRulePrescreeningRule {
     @jakarta.annotation.Nullable private String bypassReason;
 
     public static final String JSON_PROPERTY_SOURCE_TYPE = "sourceType";
-    @jakarta.annotation.Nullable private TransferPeerTypeEnum sourceType;
+    @jakarta.annotation.Nullable private TransferPeerTypeEnum2 sourceType;
 
     public static final String JSON_PROPERTY_SOURCE_SUB_TYPE = "sourceSubType";
     @jakarta.annotation.Nullable private TransferPeerSubTypeEnum sourceSubType;
 
     public static final String JSON_PROPERTY_DEST_TYPE = "destType";
-    @jakarta.annotation.Nullable private TransferPeerTypeEnum destType;
+    @jakarta.annotation.Nullable private TransferPeerTypeEnum2 destType;
 
     public static final String JSON_PROPERTY_DEST_SUB_TYPE = "destSubType";
     @jakarta.annotation.Nullable private TransferPeerSubTypeEnum destSubType;
 
     public static final String JSON_PROPERTY_TRANSFER_PEER_TYPE = "transferPeerType";
-    @jakarta.annotation.Nullable private TransferPeerTypeEnum transferPeerType;
+    @jakarta.annotation.Nullable private TransferPeerTypeEnum2 transferPeerType;
 
     public static final String JSON_PROPERTY_TRANSFER_PEER_SUB_TYPE = "transferPeerSubType";
     @jakarta.annotation.Nullable private TransferPeerSubTypeEnum transferPeerSubType;
@@ -126,7 +126,7 @@ public class ScreeningTravelRulePrescreeningRule {
     }
 
     public ScreeningTravelRulePrescreeningRule sourceType(
-            @jakarta.annotation.Nullable TransferPeerTypeEnum sourceType) {
+            @jakarta.annotation.Nullable TransferPeerTypeEnum2 sourceType) {
         this.sourceType = sourceType;
         return this;
     }
@@ -139,13 +139,13 @@ public class ScreeningTravelRulePrescreeningRule {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_SOURCE_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TransferPeerTypeEnum getSourceType() {
+    public TransferPeerTypeEnum2 getSourceType() {
         return sourceType;
     }
 
     @JsonProperty(JSON_PROPERTY_SOURCE_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSourceType(@jakarta.annotation.Nullable TransferPeerTypeEnum sourceType) {
+    public void setSourceType(@jakarta.annotation.Nullable TransferPeerTypeEnum2 sourceType) {
         this.sourceType = sourceType;
     }
 
@@ -175,7 +175,7 @@ public class ScreeningTravelRulePrescreeningRule {
     }
 
     public ScreeningTravelRulePrescreeningRule destType(
-            @jakarta.annotation.Nullable TransferPeerTypeEnum destType) {
+            @jakarta.annotation.Nullable TransferPeerTypeEnum2 destType) {
         this.destType = destType;
         return this;
     }
@@ -188,13 +188,13 @@ public class ScreeningTravelRulePrescreeningRule {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_DEST_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TransferPeerTypeEnum getDestType() {
+    public TransferPeerTypeEnum2 getDestType() {
         return destType;
     }
 
     @JsonProperty(JSON_PROPERTY_DEST_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestType(@jakarta.annotation.Nullable TransferPeerTypeEnum destType) {
+    public void setDestType(@jakarta.annotation.Nullable TransferPeerTypeEnum2 destType) {
         this.destType = destType;
     }
 
@@ -223,7 +223,7 @@ public class ScreeningTravelRulePrescreeningRule {
     }
 
     public ScreeningTravelRulePrescreeningRule transferPeerType(
-            @jakarta.annotation.Nullable TransferPeerTypeEnum transferPeerType) {
+            @jakarta.annotation.Nullable TransferPeerTypeEnum2 transferPeerType) {
         this.transferPeerType = transferPeerType;
         return this;
     }
@@ -236,14 +236,14 @@ public class ScreeningTravelRulePrescreeningRule {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_TRANSFER_PEER_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TransferPeerTypeEnum getTransferPeerType() {
+    public TransferPeerTypeEnum2 getTransferPeerType() {
         return transferPeerType;
     }
 
     @JsonProperty(JSON_PROPERTY_TRANSFER_PEER_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setTransferPeerType(
-            @jakarta.annotation.Nullable TransferPeerTypeEnum transferPeerType) {
+            @jakarta.annotation.Nullable TransferPeerTypeEnum2 transferPeerType) {
         this.transferPeerType = transferPeerType;
     }
 

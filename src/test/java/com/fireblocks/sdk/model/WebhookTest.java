@@ -66,4 +66,10 @@ class WebhookTest {
     void updatedAtTest() {
         // TODO: test updatedAt
     }
+
+    /** Test the property 'mtls' */
+    @Test
+    void mtlsTest() {
+        // TODO: test mtls
+    }
 }

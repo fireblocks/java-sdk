@@ -17,7 +17,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 ## getAccessRegistryCurrentState
 
-> CompletableFuture<ApiResponse<AccessRegistryCurrentStateResponse>> getAccessRegistryCurrentState getAccessRegistryCurrentState(baseAssetId, accessRegistryAddress, pageCursor, pageSize, sortBy, order)
+> CompletableFuture<ApiResponse<AccessRegistryCurrentStateResponse2>> getAccessRegistryCurrentState getAccessRegistryCurrentState(baseAssetId, accessRegistryAddress, pageCursor, pageSize, sortBy, order)
 
 Get the current state of addresses in an access registry
 
@@ -53,7 +53,7 @@ public class Example {
         String sortBy = "dateAdded"; // String | Sorting field (enum).
         String order = "ASC"; // String | ASC / DESC ordering (default DESC)
         try {
-            CompletableFuture<ApiResponse<AccessRegistryCurrentStateResponse>> response = fireblocks.onchainData().getAccessRegistryCurrentState(baseAssetId, accessRegistryAddress, pageCursor, pageSize, sortBy, order);
+            CompletableFuture<ApiResponse<AccessRegistryCurrentStateResponse2>> response = fireblocks.onchainData().getAccessRegistryCurrentState(baseAssetId, accessRegistryAddress, pageCursor, pageSize, sortBy, order);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -89,7 +89,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**AccessRegistryCurrentStateResponse**](AccessRegistryCurrentStateResponse.md)>>
+CompletableFuture<ApiResponse<[**AccessRegistryCurrentStateResponse2**](AccessRegistryCurrentStateResponse2.md)>>
 
 
 ### Authorization
@@ -195,7 +195,7 @@ No authorization required
 
 ## getActiveRolesForContract
 
-> CompletableFuture<ApiResponse<Map<String, RoleDetails>>> getActiveRolesForContract getActiveRolesForContract(baseAssetId, contractAddress)
+> CompletableFuture<ApiResponse<Map<String, RoleDetails2>>> getActiveRolesForContract getActiveRolesForContract(baseAssetId, contractAddress)
 
 List of active roles for a given contract address and base asset ID
 
@@ -227,7 +227,7 @@ public class Example {
         String baseAssetId = "ETH_TEST3"; // String | The blockchain base assetId
         String contractAddress = "0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66"; // String | The contract address
         try {
-            CompletableFuture<ApiResponse<Map<String, RoleDetails>>> response = fireblocks.onchainData().getActiveRolesForContract(baseAssetId, contractAddress);
+            CompletableFuture<ApiResponse<Map<String, RoleDetails2>>> response = fireblocks.onchainData().getActiveRolesForContract(baseAssetId, contractAddress);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -259,7 +259,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**Map&lt;String, RoleDetails&gt;**](RoleDetails.md)>>
+CompletableFuture<ApiResponse<[**Map&lt;String, RoleDetails2&gt;**](RoleDetails2.md)>>
 
 
 ### Authorization
@@ -280,7 +280,7 @@ No authorization required
 
 ## getContractBalanceHistory
 
-> CompletableFuture<ApiResponse<BalanceHistoryPagedResponse>> getContractBalanceHistory getContractBalanceHistory(baseAssetId, contractAddress, accountAddress, startDate, endDate, interval, pageCursor, pageSize, sortBy, order)
+> CompletableFuture<ApiResponse<BalanceHistoryPagedResponse2>> getContractBalanceHistory getContractBalanceHistory(baseAssetId, contractAddress, accountAddress, startDate, endDate, interval, pageCursor, pageSize, sortBy, order)
 
 Get historical balance data for a specific account in a contract
 
@@ -320,7 +320,7 @@ public class Example {
         String sortBy = "blockTimestamp"; // String | Sorting field (enum). Sorting only supported by 'blockTimestamp'
         String order = "ASC"; // String | ASC / DESC ordering (default DESC)
         try {
-            CompletableFuture<ApiResponse<BalanceHistoryPagedResponse>> response = fireblocks.onchainData().getContractBalanceHistory(baseAssetId, contractAddress, accountAddress, startDate, endDate, interval, pageCursor, pageSize, sortBy, order);
+            CompletableFuture<ApiResponse<BalanceHistoryPagedResponse2>> response = fireblocks.onchainData().getContractBalanceHistory(baseAssetId, contractAddress, accountAddress, startDate, endDate, interval, pageCursor, pageSize, sortBy, order);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -360,7 +360,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**BalanceHistoryPagedResponse**](BalanceHistoryPagedResponse.md)>>
+CompletableFuture<ApiResponse<[**BalanceHistoryPagedResponse2**](BalanceHistoryPagedResponse2.md)>>
 
 
 ### Authorization
@@ -466,7 +466,7 @@ No authorization required
 
 ## getContractTotalSupply
 
-> CompletableFuture<ApiResponse<TotalSupplyPagedResponse>> getContractTotalSupply getContractTotalSupply(baseAssetId, contractAddress, startDate, endDate, interval, pageCursor, pageSize, sortBy, order)
+> CompletableFuture<ApiResponse<TotalSupplyPagedResponse2>> getContractTotalSupply getContractTotalSupply(baseAssetId, contractAddress, startDate, endDate, interval, pageCursor, pageSize, sortBy, order)
 
 Get historical total supply data for a contract
 
@@ -505,7 +505,7 @@ public class Example {
         String sortBy = "blockTimestamp"; // String | Sorting field (enum). Sorting only supported by 'blockTimestamp'
         String order = "ASC"; // String | ASC / DESC ordering (default DESC)
         try {
-            CompletableFuture<ApiResponse<TotalSupplyPagedResponse>> response = fireblocks.onchainData().getContractTotalSupply(baseAssetId, contractAddress, startDate, endDate, interval, pageCursor, pageSize, sortBy, order);
+            CompletableFuture<ApiResponse<TotalSupplyPagedResponse2>> response = fireblocks.onchainData().getContractTotalSupply(baseAssetId, contractAddress, startDate, endDate, interval, pageCursor, pageSize, sortBy, order);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -544,7 +544,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**TotalSupplyPagedResponse**](TotalSupplyPagedResponse.md)>>
+CompletableFuture<ApiResponse<[**TotalSupplyPagedResponse2**](TotalSupplyPagedResponse2.md)>>
 
 
 ### Authorization
@@ -565,7 +565,7 @@ No authorization required
 
 ## getLatestBalancesForContract
 
-> CompletableFuture<ApiResponse<AddressBalancePagedResponse>> getLatestBalancesForContract getLatestBalancesForContract(baseAssetId, contractAddress, accountAddress, pageCursor, pageSize, sortBy, order)
+> CompletableFuture<ApiResponse<AddressBalancePagedResponse2>> getLatestBalancesForContract getLatestBalancesForContract(baseAssetId, contractAddress, accountAddress, pageCursor, pageSize, sortBy, order)
 
 Get latest balances for all addresses holding tokens from a contract
 
@@ -602,7 +602,7 @@ public class Example {
         String sortBy = "accountAddress"; // String | Sorting field for balances
         String order = "ASC"; // String | ASC / DESC ordering (default DESC)
         try {
-            CompletableFuture<ApiResponse<AddressBalancePagedResponse>> response = fireblocks.onchainData().getLatestBalancesForContract(baseAssetId, contractAddress, accountAddress, pageCursor, pageSize, sortBy, order);
+            CompletableFuture<ApiResponse<AddressBalancePagedResponse2>> response = fireblocks.onchainData().getLatestBalancesForContract(baseAssetId, contractAddress, accountAddress, pageCursor, pageSize, sortBy, order);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -639,7 +639,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**AddressBalancePagedResponse**](AddressBalancePagedResponse.md)>>
+CompletableFuture<ApiResponse<[**AddressBalancePagedResponse2**](AddressBalancePagedResponse2.md)>>
 
 
 ### Authorization
@@ -660,7 +660,7 @@ No authorization required
 
 ## getOnchainTransactions
 
-> CompletableFuture<ApiResponse<OnchainTransactionsPagedResponse>> getOnchainTransactions getOnchainTransactions(baseAssetId, contractAddress, startDate, endDate, pageCursor, pageSize, sortBy, order)
+> CompletableFuture<ApiResponse<OnchainTransactionsPagedResponse2>> getOnchainTransactions getOnchainTransactions(baseAssetId, contractAddress, startDate, endDate, pageCursor, pageSize, sortBy, order)
 
 Fetch onchain transactions for a contract
 
@@ -698,7 +698,7 @@ public class Example {
         String sortBy = "blockTimestamp"; // String | Sorting field (enum).
         String order = "ASC"; // String | ASC / DESC ordering (default DESC)
         try {
-            CompletableFuture<ApiResponse<OnchainTransactionsPagedResponse>> response = fireblocks.onchainData().getOnchainTransactions(baseAssetId, contractAddress, startDate, endDate, pageCursor, pageSize, sortBy, order);
+            CompletableFuture<ApiResponse<OnchainTransactionsPagedResponse2>> response = fireblocks.onchainData().getOnchainTransactions(baseAssetId, contractAddress, startDate, endDate, pageCursor, pageSize, sortBy, order);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -736,7 +736,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**OnchainTransactionsPagedResponse**](OnchainTransactionsPagedResponse.md)>>
+CompletableFuture<ApiResponse<[**OnchainTransactionsPagedResponse2**](OnchainTransactionsPagedResponse2.md)>>
 
 
 ### Authorization

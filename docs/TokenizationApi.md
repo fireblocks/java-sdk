@@ -17,6 +17,16 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getLinkedToken**](TokenizationApi.md#getLinkedToken) | **GET** /tokenization/tokens/{id} | Return a linked token |
 | [**getLinkedTokens**](TokenizationApi.md#getLinkedTokens) | **GET** /tokenization/tokens | List all linked tokens |
 | [**getLinkedTokensCount**](TokenizationApi.md#getLinkedTokensCount) | **GET** /tokenization/tokens/count | Get the total count of linked tokens |
+| [**getTokenAccessRegistryAddresses**](TokenizationApi.md#getTokenAccessRegistryAddresses) | **GET** /tokenization/access_registries/{id}/addresses | Get current state of addresses in an access registry |
+| [**getTokenAccessRegistrySummary**](TokenizationApi.md#getTokenAccessRegistrySummary) | **GET** /tokenization/access_registries/{id}/summary | Get summary of an access registry |
+| [**getTokenBalanceForAccount**](TokenizationApi.md#getTokenBalanceForAccount) | **GET** /tokenization/tokens/{id}/balances/{accountAddress} | Get the latest balance for a specific account |
+| [**getTokenBalanceHistory**](TokenizationApi.md#getTokenBalanceHistory) | **GET** /tokenization/tokens/{id}/balances/{accountAddress}/history | Get balance history for a specific account |
+| [**getTokenBalances**](TokenizationApi.md#getTokenBalances) | **GET** /tokenization/tokens/{id}/balances | Get latest balances for all holders of a token |
+| [**getTokenContractSummary**](TokenizationApi.md#getTokenContractSummary) | **GET** /tokenization/tokens/{id}/summary | Get onchain summary for a token |
+| [**getTokenRbac**](TokenizationApi.md#getTokenRbac) | **GET** /tokenization/tokens/{id}/rbac | Get active RBAC roles for a token |
+| [**getTokenTotalSupply**](TokenizationApi.md#getTokenTotalSupply) | **GET** /tokenization/tokens/{id}/total_supply | Get historical total supply for a token |
+| [**getTokenTransactions**](TokenizationApi.md#getTokenTransactions) | **GET** /tokenization/tokens/{id}/transactions | Get onchain transactions for a token |
+| [**getTokenTransfers**](TokenizationApi.md#getTokenTransfers) | **GET** /tokenization/tokens/{id}/transfers | Get onchain transfers for a token |
 | [**issueNewToken**](TokenizationApi.md#issueNewToken) | **POST** /tokenization/tokens | Issue a new token |
 | [**issueTokenMultiChain**](TokenizationApi.md#issueTokenMultiChain) | **POST** /tokenization/multichain/tokens | Issue a token on one or more blockchains |
 | [**link**](TokenizationApi.md#link) | **POST** /tokenization/tokens/link | Link a contract |
@@ -1140,6 +1150,920 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Count fetched successfully |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getTokenAccessRegistryAddresses
+
+> CompletableFuture<ApiResponse<AccessRegistryCurrentStateResponse>> getTokenAccessRegistryAddresses getTokenAccessRegistryAddresses(id, pageCursor, pageSize, sortBy, order)
+
+Get current state of addresses in an access registry
+
+Returns the currently active addresses in the access registry (added but not removed).
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String id = "fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb"; // String | The token link id
+        String pageCursor = "MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA=="; // String | Page cursor to get the next page
+        Integer pageSize = 10; // Integer | Number of items per page (max 100), requesting more than 100 will return 100 items
+        String sortBy = "dateAdded"; // String | Sorting field (enum).
+        String order = "ASC"; // String | ASC / DESC ordering (default DESC)
+        try {
+            CompletableFuture<ApiResponse<AccessRegistryCurrentStateResponse>> response = fireblocks.tokenization().getTokenAccessRegistryAddresses(id, pageCursor, pageSize, sortBy, order);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#getTokenAccessRegistryAddresses");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#getTokenAccessRegistryAddresses");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The token link id | |
+| **pageCursor** | **String**| Page cursor to get the next page | [optional] |
+| **pageSize** | **Integer**| Number of items per page (max 100), requesting more than 100 will return 100 items | [optional] |
+| **sortBy** | **String**| Sorting field (enum). | [optional] [default to dateAdded] [enum: dateAdded, address] |
+| **order** | **String**| ASC / DESC ordering (default DESC) | [optional] [default to DESC] [enum: ASC, DESC] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**AccessRegistryCurrentStateResponse**](AccessRegistryCurrentStateResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Access registry addresses retrieved successfully |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getTokenAccessRegistrySummary
+
+> CompletableFuture<ApiResponse<AccessRegistrySummaryResponse>> getTokenAccessRegistrySummary getTokenAccessRegistrySummary(id)
+
+Get summary of an access registry
+
+Returns a summary of the current state of the access registry.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String id = "fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb"; // String | The token link id
+        try {
+            CompletableFuture<ApiResponse<AccessRegistrySummaryResponse>> response = fireblocks.tokenization().getTokenAccessRegistrySummary(id);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#getTokenAccessRegistrySummary");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#getTokenAccessRegistrySummary");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The token link id | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**AccessRegistrySummaryResponse**](AccessRegistrySummaryResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Access registry summary retrieved successfully |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getTokenBalanceForAccount
+
+> CompletableFuture<ApiResponse<AddressBalanceItemDto>> getTokenBalanceForAccount getTokenBalanceForAccount(id, accountAddress)
+
+Get the latest balance for a specific account
+
+Returns the latest token balance for the specified account address.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String id = "fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb"; // String | The token link id
+        String accountAddress = "0x1234567890abcdef1234567890abcdef12345678"; // String | The account address to get balance history for
+        try {
+            CompletableFuture<ApiResponse<AddressBalanceItemDto>> response = fireblocks.tokenization().getTokenBalanceForAccount(id, accountAddress);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#getTokenBalanceForAccount");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#getTokenBalanceForAccount");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The token link id | |
+| **accountAddress** | **String**| The account address to get balance history for | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**AddressBalanceItemDto**](AddressBalanceItemDto.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successfully retrieved the balance for the account |  -  |
+| **404** | Token not found |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getTokenBalanceHistory
+
+> CompletableFuture<ApiResponse<BalanceHistoryPagedResponse>> getTokenBalanceHistory getTokenBalanceHistory(id, accountAddress, startDate, endDate, interval, pageCursor, pageSize, sortBy, order)
+
+Get balance history for a specific account
+
+Returns paginated balance history for the specified account address with optional time-range filtering.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String id = "fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb"; // String | The token link id
+        String accountAddress = "0x1234567890abcdef1234567890abcdef12345678"; // String | The account address to get balance history for
+        OffsetDateTime startDate = OffsetDateTime.parse("2025-01-16T15:45:00Z"); // OffsetDateTime | Start date of the time range in ISO 8601 format
+        OffsetDateTime endDate = OffsetDateTime.parse("2025-01-16T15:45:00Z"); // OffsetDateTime | End date of the time range in ISO 8601 format
+        String interval = "HOUR"; // String | Time interval for grouping data
+        String pageCursor = "MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA=="; // String | Page cursor to get the next page
+        Integer pageSize = 10; // Integer | Number of items per page (max 100), requesting more than 100 will return 100 items
+        String sortBy = "blockTimestamp"; // String | Sorting field (enum). Sorting only supported by 'blockTimestamp'
+        String order = "ASC"; // String | ASC / DESC ordering (default DESC)
+        try {
+            CompletableFuture<ApiResponse<BalanceHistoryPagedResponse>> response = fireblocks.tokenization().getTokenBalanceHistory(id, accountAddress, startDate, endDate, interval, pageCursor, pageSize, sortBy, order);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#getTokenBalanceHistory");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#getTokenBalanceHistory");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The token link id | |
+| **accountAddress** | **String**| The account address to get balance history for | |
+| **startDate** | **OffsetDateTime**| Start date of the time range in ISO 8601 format | [optional] |
+| **endDate** | **OffsetDateTime**| End date of the time range in ISO 8601 format | [optional] |
+| **interval** | **String**| Time interval for grouping data | [optional] [default to DAY] [enum: HOUR, DAY, WEEK, MONTH] |
+| **pageCursor** | **String**| Page cursor to get the next page | [optional] |
+| **pageSize** | **Integer**| Number of items per page (max 100), requesting more than 100 will return 100 items | [optional] |
+| **sortBy** | **String**| Sorting field (enum). Sorting only supported by &#39;blockTimestamp&#39; | [optional] [default to blockTimestamp] [enum: blockTimestamp] |
+| **order** | **String**| ASC / DESC ordering (default DESC) | [optional] [default to DESC] [enum: ASC, DESC] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**BalanceHistoryPagedResponse**](BalanceHistoryPagedResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successfully retrieved the balance history |  -  |
+| **404** | Token not found |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getTokenBalances
+
+> CompletableFuture<ApiResponse<AddressBalancePagedResponse>> getTokenBalances getTokenBalances(id, pageCursor, pageSize, sortBy, order)
+
+Get latest balances for all holders of a token
+
+Returns the latest balance for each unique address holding this token.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String id = "fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb"; // String | The token link id
+        String pageCursor = "MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA=="; // String | Page cursor to get the next page
+        Integer pageSize = 10; // Integer | Number of items per page (max 100), requesting more than 100 will return 100 items
+        String sortBy = "accountAddress"; // String | Sorting field for balances
+        String order = "ASC"; // String | ASC / DESC ordering (default DESC)
+        try {
+            CompletableFuture<ApiResponse<AddressBalancePagedResponse>> response = fireblocks.tokenization().getTokenBalances(id, pageCursor, pageSize, sortBy, order);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#getTokenBalances");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#getTokenBalances");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The token link id | |
+| **pageCursor** | **String**| Page cursor to get the next page | [optional] |
+| **pageSize** | **Integer**| Number of items per page (max 100), requesting more than 100 will return 100 items | [optional] |
+| **sortBy** | **String**| Sorting field for balances | [optional] [default to blockTimestamp] [enum: accountAddress, blockTimestamp] |
+| **order** | **String**| ASC / DESC ordering (default DESC) | [optional] [default to DESC] [enum: ASC, DESC] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**AddressBalancePagedResponse**](AddressBalancePagedResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successfully retrieved the latest balances for the token |  -  |
+| **404** | Token not found |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getTokenContractSummary
+
+> CompletableFuture<ApiResponse<TokenContractSummaryResponse>> getTokenContractSummary getTokenContractSummary(id)
+
+Get onchain summary for a token
+
+Returns the total number of unique holders and the total supply for the token contract.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String id = "fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb"; // String | The token link id
+        try {
+            CompletableFuture<ApiResponse<TokenContractSummaryResponse>> response = fireblocks.tokenization().getTokenContractSummary(id);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#getTokenContractSummary");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#getTokenContractSummary");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The token link id | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**TokenContractSummaryResponse**](TokenContractSummaryResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successfully retrieved the summary for the token contract |  -  |
+| **404** | Token not found |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getTokenRbac
+
+> CompletableFuture<ApiResponse<ActiveRolesResponse>> getTokenRbac getTokenRbac(id)
+
+Get active RBAC roles for a token
+
+Returns a list of currently active roles for the token contract.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String id = "fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb"; // String | The token link id
+        try {
+            CompletableFuture<ApiResponse<ActiveRolesResponse>> response = fireblocks.tokenization().getTokenRbac(id);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#getTokenRbac");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#getTokenRbac");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The token link id | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**ActiveRolesResponse**](ActiveRolesResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successfully retrieved the list of active roles |  -  |
+| **404** | Token not found |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getTokenTotalSupply
+
+> CompletableFuture<ApiResponse<TotalSupplyPagedResponse>> getTokenTotalSupply getTokenTotalSupply(id, startDate, endDate, interval, pageCursor, pageSize, sortBy, order)
+
+Get historical total supply for a token
+
+Returns paginated total supply history for the token contract with optional time-range filtering and binning.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String id = "fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb"; // String | The token link id
+        OffsetDateTime startDate = OffsetDateTime.parse("2025-01-16T15:45:00Z"); // OffsetDateTime | Start date of the time range in ISO 8601 format
+        OffsetDateTime endDate = OffsetDateTime.parse("2025-01-16T15:45:00Z"); // OffsetDateTime | End date of the time range in ISO 8601 format
+        String interval = "HOUR"; // String | Time interval for grouping data
+        String pageCursor = "MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA=="; // String | Page cursor to get the next page
+        Integer pageSize = 10; // Integer | Number of items per page (max 100), requesting more than 100 will return 100 items
+        String sortBy = "blockTimestamp"; // String | Sorting field (enum). Sorting only supported by 'blockTimestamp'
+        String order = "ASC"; // String | ASC / DESC ordering (default DESC)
+        try {
+            CompletableFuture<ApiResponse<TotalSupplyPagedResponse>> response = fireblocks.tokenization().getTokenTotalSupply(id, startDate, endDate, interval, pageCursor, pageSize, sortBy, order);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#getTokenTotalSupply");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#getTokenTotalSupply");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The token link id | |
+| **startDate** | **OffsetDateTime**| Start date of the time range in ISO 8601 format | [optional] |
+| **endDate** | **OffsetDateTime**| End date of the time range in ISO 8601 format | [optional] |
+| **interval** | **String**| Time interval for grouping data | [optional] [default to DAY] [enum: HOUR, DAY, WEEK, MONTH] |
+| **pageCursor** | **String**| Page cursor to get the next page | [optional] |
+| **pageSize** | **Integer**| Number of items per page (max 100), requesting more than 100 will return 100 items | [optional] |
+| **sortBy** | **String**| Sorting field (enum). Sorting only supported by &#39;blockTimestamp&#39; | [optional] [default to blockTimestamp] [enum: blockTimestamp] |
+| **order** | **String**| ASC / DESC ordering (default DESC) | [optional] [default to DESC] [enum: ASC, DESC] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**TotalSupplyPagedResponse**](TotalSupplyPagedResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successfully retrieved the token total supply history |  -  |
+| **404** | Token not found |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getTokenTransactions
+
+> CompletableFuture<ApiResponse<OnchainTransactionsPagedResponse>> getTokenTransactions getTokenTransactions(id, startDate, endDate, pageCursor, pageSize, sortBy, order)
+
+Get onchain transactions for a token
+
+Returns a paginated list of onchain transactions for the token contract, optionally filtered by date range.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String id = "fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb"; // String | The token link id
+        OffsetDateTime startDate = OffsetDateTime.parse("2025-01-16T15:45:00Z"); // OffsetDateTime | Start date of the time range in ISO 8601 format
+        OffsetDateTime endDate = OffsetDateTime.parse("2025-01-16T15:45:00Z"); // OffsetDateTime | End date of the time range in ISO 8601 format
+        String pageCursor = "MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA=="; // String | Page cursor to get the next page
+        Integer pageSize = 10; // Integer | Number of items per page (max 100), requesting more than 100 will return 100 items
+        String sortBy = "blockTimestamp"; // String | Sorting field (enum).
+        String order = "ASC"; // String | ASC / DESC ordering (default DESC)
+        try {
+            CompletableFuture<ApiResponse<OnchainTransactionsPagedResponse>> response = fireblocks.tokenization().getTokenTransactions(id, startDate, endDate, pageCursor, pageSize, sortBy, order);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#getTokenTransactions");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#getTokenTransactions");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The token link id | |
+| **startDate** | **OffsetDateTime**| Start date of the time range in ISO 8601 format | [optional] |
+| **endDate** | **OffsetDateTime**| End date of the time range in ISO 8601 format | [optional] |
+| **pageCursor** | **String**| Page cursor to get the next page | [optional] |
+| **pageSize** | **Integer**| Number of items per page (max 100), requesting more than 100 will return 100 items | [optional] |
+| **sortBy** | **String**| Sorting field (enum). | [optional] [default to blockTimestamp] [enum: blockTimestamp, blockNumber, transactionHash] |
+| **order** | **String**| ASC / DESC ordering (default DESC) | [optional] [default to DESC] [enum: ASC, DESC] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**OnchainTransactionsPagedResponse**](OnchainTransactionsPagedResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Onchain transactions fetched successfully |  -  |
+| **404** | Token not found |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getTokenTransfers
+
+> CompletableFuture<ApiResponse<OnchainTransfersPagedResponse>> getTokenTransfers getTokenTransfers(id, startDate, endDate, pageCursor, pageSize, sortBy, order, sender, receiver)
+
+Get onchain transfers for a token
+
+Returns a paginated list of ERC20 transfer events for the token contract, optionally filtered by date range.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String id = "fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb"; // String | The token link id
+        OffsetDateTime startDate = OffsetDateTime.parse("2025-01-16T15:45:00Z"); // OffsetDateTime | Start date of the time range in ISO 8601 format
+        OffsetDateTime endDate = OffsetDateTime.parse("2025-01-16T15:45:00Z"); // OffsetDateTime | End date of the time range in ISO 8601 format
+        String pageCursor = "MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA=="; // String | Page cursor to get the next page
+        Integer pageSize = 10; // Integer | Number of items per page (max 100), requesting more than 100 will return 100 items
+        String sortBy = "blockTimeStamp"; // String | Sorting field for transfers
+        String order = "ASC"; // String | ASC / DESC ordering (default DESC)
+        String sender = "0xabcdef1234567890abcdef1234567890abcdef12"; // String | Filter transfers by sender address
+        String receiver = "0x1234567890abcdef1234567890abcdef12345678"; // String | Filter transfers by receiver address
+        try {
+            CompletableFuture<ApiResponse<OnchainTransfersPagedResponse>> response = fireblocks.tokenization().getTokenTransfers(id, startDate, endDate, pageCursor, pageSize, sortBy, order, sender, receiver);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#getTokenTransfers");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#getTokenTransfers");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The token link id | |
+| **startDate** | **OffsetDateTime**| Start date of the time range in ISO 8601 format | [optional] |
+| **endDate** | **OffsetDateTime**| End date of the time range in ISO 8601 format | [optional] |
+| **pageCursor** | **String**| Page cursor to get the next page | [optional] |
+| **pageSize** | **Integer**| Number of items per page (max 100), requesting more than 100 will return 100 items | [optional] |
+| **sortBy** | **String**| Sorting field for transfers | [optional] [default to blockTimeStamp] [enum: blockTimeStamp] |
+| **order** | **String**| ASC / DESC ordering (default DESC) | [optional] [default to DESC] [enum: ASC, DESC] |
+| **sender** | **String**| Filter transfers by sender address | [optional] |
+| **receiver** | **String**| Filter transfers by receiver address | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**OnchainTransfersPagedResponse**](OnchainTransfersPagedResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Onchain transfers fetched successfully |  -  |
+| **404** | Token not found |  -  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

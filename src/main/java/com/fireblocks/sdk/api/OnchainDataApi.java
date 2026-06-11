@@ -20,14 +20,14 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
-import com.fireblocks.sdk.model.AccessRegistryCurrentStateResponse;
+import com.fireblocks.sdk.model.AccessRegistryCurrentStateResponse2;
 import com.fireblocks.sdk.model.AccessRegistrySummaryResponse;
-import com.fireblocks.sdk.model.AddressBalancePagedResponse;
-import com.fireblocks.sdk.model.BalanceHistoryPagedResponse;
-import com.fireblocks.sdk.model.OnchainTransactionsPagedResponse;
-import com.fireblocks.sdk.model.RoleDetails;
+import com.fireblocks.sdk.model.AddressBalancePagedResponse2;
+import com.fireblocks.sdk.model.BalanceHistoryPagedResponse2;
+import com.fireblocks.sdk.model.OnchainTransactionsPagedResponse2;
+import com.fireblocks.sdk.model.RoleDetails2;
 import com.fireblocks.sdk.model.TokenContractSummaryResponse;
-import com.fireblocks.sdk.model.TotalSupplyPagedResponse;
+import com.fireblocks.sdk.model.TotalSupplyPagedResponse2;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -95,10 +95,10 @@ public class OnchainDataApi {
      *     items (optional)
      * @param sortBy Sorting field (enum). (optional, default to dateAdded)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;AccessRegistryCurrentStateResponse&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;AccessRegistryCurrentStateResponse2&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<AccessRegistryCurrentStateResponse>>
+    public CompletableFuture<ApiResponse<AccessRegistryCurrentStateResponse2>>
             getAccessRegistryCurrentState(
                     String baseAssetId,
                     String accessRegistryAddress,
@@ -132,7 +132,7 @@ public class OnchainDataApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<AccessRegistryCurrentStateResponse>(
+                                            new ApiResponse<AccessRegistryCurrentStateResponse2>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -140,7 +140,7 @@ public class OnchainDataApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            AccessRegistryCurrentStateResponse>() {})));
+                                                                            AccessRegistryCurrentStateResponse2>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -289,10 +289,10 @@ public class OnchainDataApi {
      *
      * @param baseAssetId The blockchain base assetId (required)
      * @param contractAddress The contract address (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Map&lt;String, RoleDetails&gt;&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;Map&lt;String, RoleDetails2&gt;&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<Map<String, RoleDetails>>> getActiveRolesForContract(
+    public CompletableFuture<ApiResponse<Map<String, RoleDetails2>>> getActiveRolesForContract(
             String baseAssetId, String contractAddress) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
@@ -312,7 +312,7 @@ public class OnchainDataApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<Map<String, RoleDetails>>(
+                                            new ApiResponse<Map<String, RoleDetails2>>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -322,7 +322,7 @@ public class OnchainDataApi {
                                                                     new TypeReference<
                                                                             Map<
                                                                                     String,
-                                                                                    RoleDetails>>() {})));
+                                                                                    RoleDetails2>>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -378,10 +378,10 @@ public class OnchainDataApi {
      * @param sortBy Sorting field (enum). Sorting only supported by &#39;blockTimestamp&#39;
      *     (optional, default to blockTimestamp)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;BalanceHistoryPagedResponse&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;BalanceHistoryPagedResponse2&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<BalanceHistoryPagedResponse>> getContractBalanceHistory(
+    public CompletableFuture<ApiResponse<BalanceHistoryPagedResponse2>> getContractBalanceHistory(
             String baseAssetId,
             String contractAddress,
             String accountAddress,
@@ -421,7 +421,7 @@ public class OnchainDataApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<BalanceHistoryPagedResponse>(
+                                            new ApiResponse<BalanceHistoryPagedResponse2>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -429,7 +429,7 @@ public class OnchainDataApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            BalanceHistoryPagedResponse>() {})));
+                                                                            BalanceHistoryPagedResponse2>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -602,10 +602,10 @@ public class OnchainDataApi {
      * @param sortBy Sorting field (enum). Sorting only supported by &#39;blockTimestamp&#39;
      *     (optional, default to blockTimestamp)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;TotalSupplyPagedResponse&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;TotalSupplyPagedResponse2&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<TotalSupplyPagedResponse>> getContractTotalSupply(
+    public CompletableFuture<ApiResponse<TotalSupplyPagedResponse2>> getContractTotalSupply(
             String baseAssetId,
             String contractAddress,
             OffsetDateTime startDate,
@@ -643,7 +643,7 @@ public class OnchainDataApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<TotalSupplyPagedResponse>(
+                                            new ApiResponse<TotalSupplyPagedResponse2>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -651,7 +651,7 @@ public class OnchainDataApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            TotalSupplyPagedResponse>() {})));
+                                                                            TotalSupplyPagedResponse2>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -741,18 +741,19 @@ public class OnchainDataApi {
      *     items (optional)
      * @param sortBy Sorting field for balances (optional, default to blockTimestamp)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;AddressBalancePagedResponse&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressBalancePagedResponse2&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<AddressBalancePagedResponse>> getLatestBalancesForContract(
-            String baseAssetId,
-            String contractAddress,
-            String accountAddress,
-            String pageCursor,
-            Integer pageSize,
-            String sortBy,
-            String order)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<AddressBalancePagedResponse2>>
+            getLatestBalancesForContract(
+                    String baseAssetId,
+                    String contractAddress,
+                    String accountAddress,
+                    String pageCursor,
+                    Integer pageSize,
+                    String sortBy,
+                    String order)
+                    throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getLatestBalancesForContractRequestBuilder(
@@ -779,7 +780,7 @@ public class OnchainDataApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<AddressBalancePagedResponse>(
+                                            new ApiResponse<AddressBalancePagedResponse2>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -787,7 +788,7 @@ public class OnchainDataApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            AddressBalancePagedResponse>() {})));
+                                                                            AddressBalancePagedResponse2>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -870,10 +871,10 @@ public class OnchainDataApi {
      *     items (optional)
      * @param sortBy Sorting field (enum). (optional, default to blockTimestamp)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;OnchainTransactionsPagedResponse&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;OnchainTransactionsPagedResponse2&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<OnchainTransactionsPagedResponse>> getOnchainTransactions(
+    public CompletableFuture<ApiResponse<OnchainTransactionsPagedResponse2>> getOnchainTransactions(
             String baseAssetId,
             String contractAddress,
             OffsetDateTime startDate,
@@ -909,7 +910,7 @@ public class OnchainDataApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<OnchainTransactionsPagedResponse>(
+                                            new ApiResponse<OnchainTransactionsPagedResponse2>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -917,7 +918,7 @@ public class OnchainDataApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            OnchainTransactionsPagedResponse>() {})));
+                                                                            OnchainTransactionsPagedResponse2>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }

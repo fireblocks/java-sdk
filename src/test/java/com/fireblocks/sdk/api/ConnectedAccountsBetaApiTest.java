@@ -15,6 +15,9 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.AllowlistEntry;
+import com.fireblocks.sdk.model.AllowlistEntryStatus;
+import com.fireblocks.sdk.model.AllowlistResponse;
 import com.fireblocks.sdk.model.ConnectedAccountBalancesResponse;
 import com.fireblocks.sdk.model.ConnectedAccountRateResponse;
 import com.fireblocks.sdk.model.ConnectedAccountTradingPairsResponse;
@@ -60,6 +63,56 @@ public class ConnectedAccountsBetaApiTest {
         String accountId = null;
         CompletableFuture<ApiResponse<ConnectedSingleAccountResponse>> response =
                 api.getConnectedAccount(accountId);
+    }
+
+    /**
+     * Get allowlist for connected account
+     *
+     * <p>Retrieves the address allowlist for a specified connected account. **Note:** This endpoint
+     * is currently in beta and might be subject to changes. Currently supports CoinbaseExchange
+     * accounts only.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getConnectedAccountAllowlistTest() throws ApiException {
+        String accountId = null;
+        AllowlistEntryStatus status = null;
+        String assetId = null;
+        String networkId = null;
+        String address = null;
+        String pageCursor = null;
+        Integer pageSize = null;
+        String sortBy = null;
+        String order = null;
+        CompletableFuture<ApiResponse<AllowlistResponse>> response =
+                api.getConnectedAccountAllowlist(
+                        accountId,
+                        status,
+                        assetId,
+                        networkId,
+                        address,
+                        pageCursor,
+                        pageSize,
+                        sortBy,
+                        order);
+    }
+
+    /**
+     * Get a single allowlist entry for a connected account
+     *
+     * <p>Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected
+     * account. **Note:** This endpoint is currently in beta and might be subject to changes.
+     * Currently supports CoinbaseExchange accounts only.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getConnectedAccountAllowlistEntryTest() throws ApiException {
+        String accountId = null;
+        String allowlistId = null;
+        CompletableFuture<ApiResponse<AllowlistEntry>> response =
+                api.getConnectedAccountAllowlistEntry(accountId, allowlistId);
     }
 
     /**
@@ -148,5 +201,24 @@ public class ConnectedAccountsBetaApiTest {
         CompletableFuture<ApiResponse<RenameConnectedAccountResponse>> response =
                 api.renameConnectedAccount(
                         renameConnectedAccountRequest, accountId, idempotencyKey);
+    }
+
+    /**
+     * Sync allowlist for connected account
+     *
+     * <p>Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data
+     * immediately. **Rate limit:** 1 request per minute per connected account. **Note:** This
+     * endpoint is currently in beta and might be subject to changes. Currently supports
+     * CoinbaseExchange accounts only.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void syncConnectedAccountAllowlistTest() throws ApiException {
+        String accountId = null;
+        String idempotencyKey = null;
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.syncConnectedAccountAllowlist(accountId, idempotencyKey);
     }
 }

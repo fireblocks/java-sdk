@@ -42,7 +42,7 @@ import java.util.StringJoiner;
     QuoteOffer.JSON_PROPERTY_GENERAL_FEES,
     QuoteOffer.JSON_PROPERTY_SIDE,
     QuoteOffer.JSON_PROPERTY_EXPIRES_AT,
-    QuoteOffer.JSON_PROPERTY_ORDER_CREATION_REQUIREMENTS,
+    QuoteOffer.JSON_PROPERTY_REQUIRED_PARTICIPANTS_IDENTIFICATION_ON_ORDER,
     QuoteOffer.JSON_PROPERTY_TYPE,
     QuoteOffer.JSON_PROPERTY_OFFER_TYPE
 })
@@ -95,9 +95,9 @@ public class QuoteOffer {
     public static final String JSON_PROPERTY_EXPIRES_AT = "expiresAt";
     @jakarta.annotation.Nonnull private String expiresAt;
 
-    public static final String JSON_PROPERTY_ORDER_CREATION_REQUIREMENTS =
-            "orderCreationRequirements";
-    @jakarta.annotation.Nullable private String orderCreationRequirements;
+    public static final String JSON_PROPERTY_REQUIRED_PARTICIPANTS_IDENTIFICATION_ON_ORDER =
+            "requiredParticipantsIdentificationOnOrder";
+    @jakarta.annotation.Nullable private String requiredParticipantsIdentificationOnOrder;
 
     /** The type of the quote. */
     public enum TypeEnum {
@@ -560,9 +560,9 @@ public class QuoteOffer {
         this.expiresAt = expiresAt;
     }
 
-    public QuoteOffer orderCreationRequirements(
-            @jakarta.annotation.Nullable String orderCreationRequirements) {
-        this.orderCreationRequirements = orderCreationRequirements;
+    public QuoteOffer requiredParticipantsIdentificationOnOrder(
+            @jakarta.annotation.Nullable String requiredParticipantsIdentificationOnOrder) {
+        this.requiredParticipantsIdentificationOnOrder = requiredParticipantsIdentificationOnOrder;
         return this;
     }
 
@@ -570,20 +570,20 @@ public class QuoteOffer {
      * A JSON Schema Draft-7 document in string format describing the fields required when creating
      * an order so clients can validate their order payload before sending.
      *
-     * @return orderCreationRequirements
+     * @return requiredParticipantsIdentificationOnOrder
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ORDER_CREATION_REQUIREMENTS)
+    @JsonProperty(JSON_PROPERTY_REQUIRED_PARTICIPANTS_IDENTIFICATION_ON_ORDER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getOrderCreationRequirements() {
-        return orderCreationRequirements;
+    public String getRequiredParticipantsIdentificationOnOrder() {
+        return requiredParticipantsIdentificationOnOrder;
     }
 
-    @JsonProperty(JSON_PROPERTY_ORDER_CREATION_REQUIREMENTS)
+    @JsonProperty(JSON_PROPERTY_REQUIRED_PARTICIPANTS_IDENTIFICATION_ON_ORDER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOrderCreationRequirements(
-            @jakarta.annotation.Nullable String orderCreationRequirements) {
-        this.orderCreationRequirements = orderCreationRequirements;
+    public void setRequiredParticipantsIdentificationOnOrder(
+            @jakarta.annotation.Nullable String requiredParticipantsIdentificationOnOrder) {
+        this.requiredParticipantsIdentificationOnOrder = requiredParticipantsIdentificationOnOrder;
     }
 
     public QuoteOffer type(@jakarta.annotation.Nonnull TypeEnum type) {
@@ -658,7 +658,8 @@ public class QuoteOffer {
                 && Objects.equals(this.side, quoteOffer.side)
                 && Objects.equals(this.expiresAt, quoteOffer.expiresAt)
                 && Objects.equals(
-                        this.orderCreationRequirements, quoteOffer.orderCreationRequirements)
+                        this.requiredParticipantsIdentificationOnOrder,
+                        quoteOffer.requiredParticipantsIdentificationOnOrder)
                 && Objects.equals(this.type, quoteOffer.type)
                 && Objects.equals(this.offerType, quoteOffer.offerType);
     }
@@ -681,7 +682,7 @@ public class QuoteOffer {
                 generalFees,
                 side,
                 expiresAt,
-                orderCreationRequirements,
+                requiredParticipantsIdentificationOnOrder,
                 type,
                 offerType);
     }
@@ -707,8 +708,8 @@ public class QuoteOffer {
         sb.append("    generalFees: ").append(toIndentedString(generalFees)).append("\n");
         sb.append("    side: ").append(toIndentedString(side)).append("\n");
         sb.append("    expiresAt: ").append(toIndentedString(expiresAt)).append("\n");
-        sb.append("    orderCreationRequirements: ")
-                .append(toIndentedString(orderCreationRequirements))
+        sb.append("    requiredParticipantsIdentificationOnOrder: ")
+                .append(toIndentedString(requiredParticipantsIdentificationOnOrder))
                 .append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    offerType: ").append(toIndentedString(offerType)).append("\n");
@@ -928,15 +929,16 @@ public class QuoteOffer {
                             ApiClient.urlEncode(ApiClient.valueToString(getExpiresAt()))));
         }
 
-        // add `orderCreationRequirements` to the URL query string
-        if (getOrderCreationRequirements() != null) {
+        // add `requiredParticipantsIdentificationOnOrder` to the URL query string
+        if (getRequiredParticipantsIdentificationOnOrder() != null) {
             joiner.add(
                     String.format(
-                            "%sorderCreationRequirements%s=%s",
+                            "%srequiredParticipantsIdentificationOnOrder%s=%s",
                             prefix,
                             suffix,
                             ApiClient.urlEncode(
-                                    ApiClient.valueToString(getOrderCreationRequirements()))));
+                                    ApiClient.valueToString(
+                                            getRequiredParticipantsIdentificationOnOrder()))));
         }
 
         // add `type` to the URL query string

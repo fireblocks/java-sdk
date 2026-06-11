@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>20.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:20.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-20.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -194,11 +194,14 @@ Class | Method | HTTP request | Description
 *ComplianceScreeningConfigurationApi* | [**getScreeningConfiguration**](docs/ComplianceScreeningConfigurationApi.md#getScreeningConfiguration) | **GET** /screening/travel_rule/policy_configuration | Get Travel Rule Screening Policy Configuration
 *ConnectedAccountsBetaApi* | [**disconnectConnectedAccount**](docs/ConnectedAccountsBetaApi.md#disconnectConnectedAccount) | **DELETE** /connected_accounts/{accountId} | Disconnect connected account
 *ConnectedAccountsBetaApi* | [**getConnectedAccount**](docs/ConnectedAccountsBetaApi.md#getConnectedAccount) | **GET** /connected_accounts/{accountId} | Get connected account
+*ConnectedAccountsBetaApi* | [**getConnectedAccountAllowlist**](docs/ConnectedAccountsBetaApi.md#getConnectedAccountAllowlist) | **GET** /connected_accounts/{accountId}/allowlist | Get allowlist for connected account
+*ConnectedAccountsBetaApi* | [**getConnectedAccountAllowlistEntry**](docs/ConnectedAccountsBetaApi.md#getConnectedAccountAllowlistEntry) | **GET** /connected_accounts/{accountId}/allowlist/{allowlistId} | Get a single allowlist entry for a connected account
 *ConnectedAccountsBetaApi* | [**getConnectedAccountBalances**](docs/ConnectedAccountsBetaApi.md#getConnectedAccountBalances) | **GET** /connected_accounts/{accountId}/balances | Get balances for an account
 *ConnectedAccountsBetaApi* | [**getConnectedAccountRates**](docs/ConnectedAccountsBetaApi.md#getConnectedAccountRates) | **GET** /connected_accounts/{accountId}/rates | Get exchange rates for an account
 *ConnectedAccountsBetaApi* | [**getConnectedAccountTradingPairs**](docs/ConnectedAccountsBetaApi.md#getConnectedAccountTradingPairs) | **GET** /connected_accounts/{accountId}/manifest/capabilities/trading/pairs | Get supported trading pairs for an account
 *ConnectedAccountsBetaApi* | [**getConnectedAccounts**](docs/ConnectedAccountsBetaApi.md#getConnectedAccounts) | **GET** /connected_accounts | Get connected accounts
 *ConnectedAccountsBetaApi* | [**renameConnectedAccount**](docs/ConnectedAccountsBetaApi.md#renameConnectedAccount) | **POST** /connected_accounts/{accountId}/rename | Rename Connected Account
+*ConnectedAccountsBetaApi* | [**syncConnectedAccountAllowlist**](docs/ConnectedAccountsBetaApi.md#syncConnectedAccountAllowlist) | **POST** /connected_accounts/{accountId}/allowlist/sync | Sync allowlist for connected account
 *ConsoleUserApi* | [**createConsoleUser**](docs/ConsoleUserApi.md#createConsoleUser) | **POST** /management/users | Create console user
 *ConsoleUserApi* | [**getConsoleUsers**](docs/ConsoleUserApi.md#getConsoleUsers) | **GET** /management/users | Get console users
 *ContractInteractionsApi* | [**decodeContractData**](docs/ContractInteractionsApi.md#decodeContractData) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/decode | Decode a function call data, error, or event log
@@ -390,6 +393,7 @@ Class | Method | HTTP request | Description
 *StakingApi* | [**getChainInfo**](docs/StakingApi.md#getChainInfo) | **GET** /staking/chains/{chainDescriptor}/chainInfo | Get chain-level staking parameters
 *StakingApi* | [**getChains**](docs/StakingApi.md#getChains) | **GET** /staking/chains | List supported staking chains
 *StakingApi* | [**getDelegationById**](docs/StakingApi.md#getDelegationById) | **GET** /staking/positions/{id} | Get position details
+*StakingApi* | [**getPositionRelatedTransactions**](docs/StakingApi.md#getPositionRelatedTransactions) | **GET** /staking/positions/{id}/related_transactions | List related transactions for a position
 *StakingApi* | [**getPositions**](docs/StakingApi.md#getPositions) | **GET** /staking/positions_paginated | List staking positions (Paginated)
 *StakingApi* | [**getProviders**](docs/StakingApi.md#getProviders) | **GET** /staking/providers | List staking providers
 *StakingApi* | [**getSummary**](docs/StakingApi.md#getSummary) | **GET** /staking/positions/summary | Get positions summary
@@ -419,6 +423,16 @@ Class | Method | HTTP request | Description
 *TokenizationApi* | [**getLinkedToken**](docs/TokenizationApi.md#getLinkedToken) | **GET** /tokenization/tokens/{id} | Return a linked token
 *TokenizationApi* | [**getLinkedTokens**](docs/TokenizationApi.md#getLinkedTokens) | **GET** /tokenization/tokens | List all linked tokens
 *TokenizationApi* | [**getLinkedTokensCount**](docs/TokenizationApi.md#getLinkedTokensCount) | **GET** /tokenization/tokens/count | Get the total count of linked tokens
+*TokenizationApi* | [**getTokenAccessRegistryAddresses**](docs/TokenizationApi.md#getTokenAccessRegistryAddresses) | **GET** /tokenization/access_registries/{id}/addresses | Get current state of addresses in an access registry
+*TokenizationApi* | [**getTokenAccessRegistrySummary**](docs/TokenizationApi.md#getTokenAccessRegistrySummary) | **GET** /tokenization/access_registries/{id}/summary | Get summary of an access registry
+*TokenizationApi* | [**getTokenBalanceForAccount**](docs/TokenizationApi.md#getTokenBalanceForAccount) | **GET** /tokenization/tokens/{id}/balances/{accountAddress} | Get the latest balance for a specific account
+*TokenizationApi* | [**getTokenBalanceHistory**](docs/TokenizationApi.md#getTokenBalanceHistory) | **GET** /tokenization/tokens/{id}/balances/{accountAddress}/history | Get balance history for a specific account
+*TokenizationApi* | [**getTokenBalances**](docs/TokenizationApi.md#getTokenBalances) | **GET** /tokenization/tokens/{id}/balances | Get latest balances for all holders of a token
+*TokenizationApi* | [**getTokenContractSummary**](docs/TokenizationApi.md#getTokenContractSummary) | **GET** /tokenization/tokens/{id}/summary | Get onchain summary for a token
+*TokenizationApi* | [**getTokenRbac**](docs/TokenizationApi.md#getTokenRbac) | **GET** /tokenization/tokens/{id}/rbac | Get active RBAC roles for a token
+*TokenizationApi* | [**getTokenTotalSupply**](docs/TokenizationApi.md#getTokenTotalSupply) | **GET** /tokenization/tokens/{id}/total_supply | Get historical total supply for a token
+*TokenizationApi* | [**getTokenTransactions**](docs/TokenizationApi.md#getTokenTransactions) | **GET** /tokenization/tokens/{id}/transactions | Get onchain transactions for a token
+*TokenizationApi* | [**getTokenTransfers**](docs/TokenizationApi.md#getTokenTransfers) | **GET** /tokenization/tokens/{id}/transfers | Get onchain transfers for a token
 *TokenizationApi* | [**issueNewToken**](docs/TokenizationApi.md#issueNewToken) | **POST** /tokenization/tokens | Issue a new token
 *TokenizationApi* | [**issueTokenMultiChain**](docs/TokenizationApi.md#issueTokenMultiChain) | **POST** /tokenization/multichain/tokens | Issue a token on one or more blockchains
 *TokenizationApi* | [**link**](docs/TokenizationApi.md#link) | **POST** /tokenization/tokens/link | Link a contract
@@ -463,9 +477,12 @@ Class | Method | HTTP request | Description
 *TradingBetaApi* | [**fetchAllOffers**](docs/TradingBetaApi.md#fetchAllOffers) | **POST** /trading/offers | Get all offers
 *TradingBetaApi* | [**fetchRates**](docs/TradingBetaApi.md#fetchRates) | **POST** /trading/rates | Get rates
 *TradingBetaApi* | [**getOrder**](docs/TradingBetaApi.md#getOrder) | **GET** /trading/orders/{orderId} | Get order details
+*TradingBetaApi* | [**getOrderRequirements**](docs/TradingBetaApi.md#getOrderRequirements) | **GET** /trading/orders/{orderId}/requirement | Get order requirement details for an order
 *TradingBetaApi* | [**getOrders**](docs/TradingBetaApi.md#getOrders) | **GET** /trading/orders | Get orders
 *TradingBetaApi* | [**getTradingProviderById**](docs/TradingBetaApi.md#getTradingProviderById) | **GET** /trading/providers/{providerId} | Get trading provider by ID
 *TradingBetaApi* | [**getTradingProviders**](docs/TradingBetaApi.md#getTradingProviders) | **GET** /trading/providers | Get providers
+*TradingBetaApi* | [**submitOrderRequirements**](docs/TradingBetaApi.md#submitOrderRequirements) | **POST** /trading/orders/{orderId}/requirement/data | Submit a response to an order requirement
+*TradingBetaApi* | [**uploadOrderRequirementFile**](docs/TradingBetaApi.md#uploadOrderRequirementFile) | **POST** /trading/orders/{orderId}/requirement/file | Upload a file for an order requirement
 *TransactionsApi* | [**cancelTransaction**](docs/TransactionsApi.md#cancelTransaction) | **POST** /transactions/{txId}/cancel | Cancel a transaction
 *TransactionsApi* | [**createTransaction**](docs/TransactionsApi.md#createTransaction) | **POST** /transactions | Create a new transaction
 *TransactionsApi* | [**dropTransaction**](docs/TransactionsApi.md#dropTransaction) | **POST** /transactions/{txId}/drop | Drop ETH (EVM) transaction by ID
@@ -538,6 +555,7 @@ Class | Method | HTTP request | Description
 *WebhooksV2Api* | [**createWebhook**](docs/WebhooksV2Api.md#createWebhook) | **POST** /webhooks | Create a new webhook
 *WebhooksV2Api* | [**deleteWebhook**](docs/WebhooksV2Api.md#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook
 *WebhooksV2Api* | [**getMetrics**](docs/WebhooksV2Api.md#getMetrics) | **GET** /webhooks/{webhookId}/metrics/{metricName} | Get webhook metrics
+*WebhooksV2Api* | [**getMtlsCsr**](docs/WebhooksV2Api.md#getMtlsCsr) | **GET** /webhooks/mtls/csr | Get mTLS CSR
 *WebhooksV2Api* | [**getNotification**](docs/WebhooksV2Api.md#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id
 *WebhooksV2Api* | [**getNotificationAttempts**](docs/WebhooksV2Api.md#getNotificationAttempts) | **GET** /webhooks/{webhookId}/notifications/{notificationId}/attempts | Get notification attempts
 *WebhooksV2Api* | [**getNotifications**](docs/WebhooksV2Api.md#getNotifications) | **GET** /webhooks/{webhookId}/notifications | Get all notifications by webhook id
@@ -562,6 +580,7 @@ Class | Method | HTTP request | Description
  - [AbiFunction](docs/AbiFunction.md)
  - [AccessRegistryAddressItem](docs/AccessRegistryAddressItem.md)
  - [AccessRegistryCurrentStateResponse](docs/AccessRegistryCurrentStateResponse.md)
+ - [AccessRegistryCurrentStateResponse2](docs/AccessRegistryCurrentStateResponse2.md)
  - [AccessRegistrySummaryResponse](docs/AccessRegistrySummaryResponse.md)
  - [AccessType](docs/AccessType.md)
  - [Account](docs/Account.md)
@@ -580,6 +599,7 @@ Class | Method | HTTP request | Description
  - [AchDestination](docs/AchDestination.md)
  - [AchPaymentInfo](docs/AchPaymentInfo.md)
  - [ActionRecord](docs/ActionRecord.md)
+ - [ActiveRolesResponse](docs/ActiveRolesResponse.md)
  - [AdapterProcessingResult](docs/AdapterProcessingResult.md)
  - [AddAbiRequestDto](docs/AddAbiRequestDto.md)
  - [AddAssetToExternalWalletRequest](docs/AddAssetToExternalWalletRequest.md)
@@ -594,6 +614,7 @@ Class | Method | HTTP request | Description
  - [AdditionalInfoRequestAdditionalInfo](docs/AdditionalInfoRequestAdditionalInfo.md)
  - [AddressBalanceItemDto](docs/AddressBalanceItemDto.md)
  - [AddressBalancePagedResponse](docs/AddressBalancePagedResponse.md)
+ - [AddressBalancePagedResponse2](docs/AddressBalancePagedResponse2.md)
  - [AddressNotAvailableError](docs/AddressNotAvailableError.md)
  - [AddressRegistryAddVaultOptOutsRequest](docs/AddressRegistryAddVaultOptOutsRequest.md)
  - [AddressRegistryAddVaultOptOutsRequestVaultAccountIdsInner](docs/AddressRegistryAddVaultOptOutsRequestVaultAccountIdsInner.md)
@@ -611,6 +632,10 @@ Class | Method | HTTP request | Description
  - [AddressReverseLookupResponse](docs/AddressReverseLookupResponse.md)
  - [AlertExposureTypeEnum](docs/AlertExposureTypeEnum.md)
  - [AlertLevelEnum](docs/AlertLevelEnum.md)
+ - [AllowlistEntry](docs/AllowlistEntry.md)
+ - [AllowlistEntryStatus](docs/AllowlistEntryStatus.md)
+ - [AllowlistMetadata](docs/AllowlistMetadata.md)
+ - [AllowlistResponse](docs/AllowlistResponse.md)
  - [AmlAlert](docs/AmlAlert.md)
  - [AmlMatchedRule](docs/AmlMatchedRule.md)
  - [AmlRegistrationResult](docs/AmlRegistrationResult.md)
@@ -674,6 +699,7 @@ Class | Method | HTTP request | Description
  - [AuthorizationInfo](docs/AuthorizationInfo.md)
  - [BalanceHistoryItemDto](docs/BalanceHistoryItemDto.md)
  - [BalanceHistoryPagedResponse](docs/BalanceHistoryPagedResponse.md)
+ - [BalanceHistoryPagedResponse2](docs/BalanceHistoryPagedResponse2.md)
  - [BankAddress](docs/BankAddress.md)
  - [BaseProvider](docs/BaseProvider.md)
  - [BasicAddressRequest](docs/BasicAddressRequest.md)
@@ -744,6 +770,7 @@ Class | Method | HTTP request | Description
  - [ConnectedAccountTradingPair](docs/ConnectedAccountTradingPair.md)
  - [ConnectedAccountTradingPairSupportedType](docs/ConnectedAccountTradingPairSupportedType.md)
  - [ConnectedAccountTradingPairsResponse](docs/ConnectedAccountTradingPairsResponse.md)
+ - [ConnectedAccountType](docs/ConnectedAccountType.md)
  - [ConnectedAccountsResponse](docs/ConnectedAccountsResponse.md)
  - [ConnectedSingleAccount](docs/ConnectedSingleAccount.md)
  - [ConnectedSingleAccountResponse](docs/ConnectedSingleAccountResponse.md)
@@ -1112,6 +1139,9 @@ Class | Method | HTTP request | Description
  - [OffersResponse](docs/OffersResponse.md)
  - [OnchainTransaction](docs/OnchainTransaction.md)
  - [OnchainTransactionsPagedResponse](docs/OnchainTransactionsPagedResponse.md)
+ - [OnchainTransactionsPagedResponse2](docs/OnchainTransactionsPagedResponse2.md)
+ - [OnchainTransferEvent](docs/OnchainTransferEvent.md)
+ - [OnchainTransfersPagedResponse](docs/OnchainTransfersPagedResponse.md)
  - [OneTimeAddress](docs/OneTimeAddress.md)
  - [OneTimeAddressAccount](docs/OneTimeAddressAccount.md)
  - [OneTimeAddressPeerType](docs/OneTimeAddressPeerType.md)
@@ -1120,6 +1150,9 @@ Class | Method | HTTP request | Description
  - [Opportunity](docs/Opportunity.md)
  - [OrderDetails](docs/OrderDetails.md)
  - [OrderExecutionStep](docs/OrderExecutionStep.md)
+ - [OrderRequirementAllowedFileType](docs/OrderRequirementAllowedFileType.md)
+ - [OrderRequirementDetails](docs/OrderRequirementDetails.md)
+ - [OrderRequirementFile](docs/OrderRequirementFile.md)
  - [OrderSide](docs/OrderSide.md)
  - [OrderStatus](docs/OrderStatus.md)
  - [OrderSummary](docs/OrderSummary.md)
@@ -1160,6 +1193,7 @@ Class | Method | HTTP request | Description
  - [PeerType](docs/PeerType.md)
  - [PersonalEntityTypeEnum](docs/PersonalEntityTypeEnum.md)
  - [PersonalIdentification](docs/PersonalIdentification.md)
+ - [PersonalIdentificationDocument](docs/PersonalIdentificationDocument.md)
  - [PersonalIdentificationFullName](docs/PersonalIdentificationFullName.md)
  - [PersonalIdentificationType](docs/PersonalIdentificationType.md)
  - [PixAddress](docs/PixAddress.md)
@@ -1185,6 +1219,7 @@ Class | Method | HTTP request | Description
  - [PolicyVerdictActionEnum2](docs/PolicyVerdictActionEnum2.md)
  - [Position](docs/Position.md)
  - [Position2](docs/Position2.md)
+ - [PositionRelatedTransaction](docs/PositionRelatedTransaction.md)
  - [PostalAddress](docs/PostalAddress.md)
  - [PreScreening](docs/PreScreening.md)
  - [PrefundedSettlement](docs/PrefundedSettlement.md)
@@ -1248,6 +1283,7 @@ Class | Method | HTTP request | Description
  - [RewardInfo](docs/RewardInfo.md)
  - [RewardsInfo](docs/RewardsInfo.md)
  - [RoleDetails](docs/RoleDetails.md)
+ - [RoleDetails2](docs/RoleDetails2.md)
  - [RoleGrantee](docs/RoleGrantee.md)
  - [SEPAAddress](docs/SEPAAddress.md)
  - [SEPADestination](docs/SEPADestination.md)
@@ -1366,10 +1402,12 @@ Class | Method | HTTP request | Description
  - [StakeRequest](docs/StakeRequest.md)
  - [StakeResponse](docs/StakeResponse.md)
  - [StakingErrorSchema](docs/StakingErrorSchema.md)
+ - [StakingPositionRelatedTransactionsPaginatedResponse](docs/StakingPositionRelatedTransactionsPaginatedResponse.md)
  - [StakingPositionsPaginatedResponse](docs/StakingPositionsPaginatedResponse.md)
  - [StakingProvider](docs/StakingProvider.md)
  - [Status](docs/Status.md)
  - [StellarRippleCreateParamsDto](docs/StellarRippleCreateParamsDto.md)
+ - [SubmitOrderRequirementRequest](docs/SubmitOrderRequirementRequest.md)
  - [SupportedBlockChainsResponse](docs/SupportedBlockChainsResponse.md)
  - [SupportedBlockchain](docs/SupportedBlockchain.md)
  - [SwiftAddress](docs/SwiftAddress.md)
@@ -1490,10 +1528,12 @@ Class | Method | HTTP request | Description
  - [TokensPaginatedResponse](docs/TokensPaginatedResponse.md)
  - [TotalSupplyItemDto](docs/TotalSupplyItemDto.md)
  - [TotalSupplyPagedResponse](docs/TotalSupplyPagedResponse.md)
+ - [TotalSupplyPagedResponse2](docs/TotalSupplyPagedResponse2.md)
  - [TradingAccountType](docs/TradingAccountType.md)
  - [TradingErrorSchema](docs/TradingErrorSchema.md)
  - [TradingProvider](docs/TradingProvider.md)
  - [Transaction](docs/Transaction.md)
+ - [TransactionConfigurations](docs/TransactionConfigurations.md)
  - [TransactionDirection](docs/TransactionDirection.md)
  - [TransactionFee](docs/TransactionFee.md)
  - [TransactionOperation](docs/TransactionOperation.md)
@@ -1526,6 +1566,7 @@ Class | Method | HTTP request | Description
  - [TransferPeerPathType](docs/TransferPeerPathType.md)
  - [TransferPeerSubTypeEnum](docs/TransferPeerSubTypeEnum.md)
  - [TransferPeerTypeEnum](docs/TransferPeerTypeEnum.md)
+ - [TransferPeerTypeEnum2](docs/TransferPeerTypeEnum2.md)
  - [TransferRail](docs/TransferRail.md)
  - [TransferReceipt](docs/TransferReceipt.md)
  - [TransferValidationFailure](docs/TransferValidationFailure.md)
@@ -1636,6 +1677,8 @@ Class | Method | HTTP request | Description
  - [Webhook](docs/Webhook.md)
  - [WebhookEvent](docs/WebhookEvent.md)
  - [WebhookMetric](docs/WebhookMetric.md)
+ - [WebhookMtls](docs/WebhookMtls.md)
+ - [WebhookMtlsCsrResponse](docs/WebhookMtlsCsrResponse.md)
  - [WebhookPaginatedResponse](docs/WebhookPaginatedResponse.md)
  - [WithdrawRequest](docs/WithdrawRequest.md)
  - [WorkflowConfigStatus](docs/WorkflowConfigStatus.md)

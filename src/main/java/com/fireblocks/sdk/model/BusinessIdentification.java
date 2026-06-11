@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,7 +31,9 @@ import java.util.StringJoiner;
     BusinessIdentification.JSON_PROPERTY_REGISTRATION_NUMBER,
     BusinessIdentification.JSON_PROPERTY_POSTAL_ADDRESS,
     BusinessIdentification.JSON_PROPERTY_EMAIL,
-    BusinessIdentification.JSON_PROPERTY_PHONE
+    BusinessIdentification.JSON_PROPERTY_PHONE,
+    BusinessIdentification.JSON_PROPERTY_DATE_OF_REGISTRATION,
+    BusinessIdentification.JSON_PROPERTY_COUNTRY_OF_REGISTRATION
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -60,6 +63,12 @@ public class BusinessIdentification {
 
     public static final String JSON_PROPERTY_PHONE = "phone";
     @jakarta.annotation.Nullable private String phone;
+
+    public static final String JSON_PROPERTY_DATE_OF_REGISTRATION = "dateOfRegistration";
+    @jakarta.annotation.Nullable private LocalDate dateOfRegistration;
+
+    public static final String JSON_PROPERTY_COUNTRY_OF_REGISTRATION = "countryOfRegistration";
+    @jakarta.annotation.Nullable private String countryOfRegistration;
 
     public BusinessIdentification() {}
 
@@ -274,6 +283,55 @@ public class BusinessIdentification {
         this.phone = phone;
     }
 
+    public BusinessIdentification dateOfRegistration(
+            @jakarta.annotation.Nullable LocalDate dateOfRegistration) {
+        this.dateOfRegistration = dateOfRegistration;
+        return this;
+    }
+
+    /**
+     * The date the business was registered.
+     *
+     * @return dateOfRegistration
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_DATE_OF_REGISTRATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public LocalDate getDateOfRegistration() {
+        return dateOfRegistration;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DATE_OF_REGISTRATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDateOfRegistration(@jakarta.annotation.Nullable LocalDate dateOfRegistration) {
+        this.dateOfRegistration = dateOfRegistration;
+    }
+
+    public BusinessIdentification countryOfRegistration(
+            @jakarta.annotation.Nullable String countryOfRegistration) {
+        this.countryOfRegistration = countryOfRegistration;
+        return this;
+    }
+
+    /**
+     * The ISO-3166 Alpha-2 country code where the business is registered.
+     *
+     * @return countryOfRegistration
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_COUNTRY_OF_REGISTRATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCountryOfRegistration() {
+        return countryOfRegistration;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COUNTRY_OF_REGISTRATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCountryOfRegistration(
+            @jakarta.annotation.Nullable String countryOfRegistration) {
+        this.countryOfRegistration = countryOfRegistration;
+    }
+
     /** Return true if this BusinessIdentification object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -294,7 +352,11 @@ public class BusinessIdentification {
                         this.registrationNumber, businessIdentification.registrationNumber)
                 && Objects.equals(this.postalAddress, businessIdentification.postalAddress)
                 && Objects.equals(this.email, businessIdentification.email)
-                && Objects.equals(this.phone, businessIdentification.phone);
+                && Objects.equals(this.phone, businessIdentification.phone)
+                && Objects.equals(
+                        this.dateOfRegistration, businessIdentification.dateOfRegistration)
+                && Objects.equals(
+                        this.countryOfRegistration, businessIdentification.countryOfRegistration);
     }
 
     @Override
@@ -307,7 +369,9 @@ public class BusinessIdentification {
                 registrationNumber,
                 postalAddress,
                 email,
-                phone);
+                phone,
+                dateOfRegistration,
+                countryOfRegistration);
     }
 
     @Override
@@ -328,6 +392,12 @@ public class BusinessIdentification {
         sb.append("    postalAddress: ").append(toIndentedString(postalAddress)).append("\n");
         sb.append("    email: ").append(toIndentedString(email)).append("\n");
         sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
+        sb.append("    dateOfRegistration: ")
+                .append(toIndentedString(dateOfRegistration))
+                .append("\n");
+        sb.append("    countryOfRegistration: ")
+                .append(toIndentedString(countryOfRegistration))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -450,6 +520,27 @@ public class BusinessIdentification {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getPhone()))));
+        }
+
+        // add `dateOfRegistration` to the URL query string
+        if (getDateOfRegistration() != null) {
+            joiner.add(
+                    String.format(
+                            "%sdateOfRegistration%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getDateOfRegistration()))));
+        }
+
+        // add `countryOfRegistration` to the URL query string
+        if (getCountryOfRegistration() != null) {
+            joiner.add(
+                    String.format(
+                            "%scountryOfRegistration%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getCountryOfRegistration()))));
         }
 
         return joiner.toString();

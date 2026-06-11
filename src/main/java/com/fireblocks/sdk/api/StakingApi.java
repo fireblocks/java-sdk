@@ -32,6 +32,7 @@ import com.fireblocks.sdk.model.SplitRequest;
 import com.fireblocks.sdk.model.SplitResponse;
 import com.fireblocks.sdk.model.StakeRequest;
 import com.fireblocks.sdk.model.StakeResponse;
+import com.fireblocks.sdk.model.StakingPositionRelatedTransactionsPaginatedResponse;
 import com.fireblocks.sdk.model.StakingPositionsPaginatedResponse;
 import com.fireblocks.sdk.model.StakingProvider;
 import com.fireblocks.sdk.model.UnstakeRequest;
@@ -614,6 +615,108 @@ public class StakingApi {
                 "/staking/positions/{id}".replace("{id}", ApiClient.urlEncode(id.toString()));
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * List related transactions for a position Returns enriched transaction history for a staking
+     * position with cursor-based pagination. Includes in-flight transactions with status pending.
+     * The in-flight transaction is always returned first; completed and failed history is ordered
+     * by the order parameter.
+     *
+     * @param id Unique identifier of the staking position. (required)
+     * @param pageSize Number of results per page (minimum: 1, maximum: 100). (required)
+     * @param pageCursor Cursor for the next page of results. Use the value from the &#39;next&#39;
+     *     field in the previous response. (optional)
+     * @param order ASC / DESC ordering for completed/failed history (default DESC). The in-flight
+     *     transaction is always returned first. (optional, default to DESC)
+     * @return
+     *     CompletableFuture&lt;ApiResponse&lt;StakingPositionRelatedTransactionsPaginatedResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<StakingPositionRelatedTransactionsPaginatedResponse>>
+            getPositionRelatedTransactions(
+                    String id, Integer pageSize, String pageCursor, String order)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getPositionRelatedTransactionsRequestBuilder(id, pageSize, pageCursor, order);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getPositionRelatedTransactions",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<
+                                                    StakingPositionRelatedTransactionsPaginatedResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            StakingPositionRelatedTransactionsPaginatedResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getPositionRelatedTransactionsRequestBuilder(
+            String id, Integer pageSize, String pageCursor, String order) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getPositionRelatedTransactions", "id", id);
+        ValidationUtils.assertParamExists("getPositionRelatedTransactions", "pageSize", pageSize);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/staking/positions/{id}/related_transactions"
+                        .replace("{id}", ApiClient.urlEncode(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
 
         localVarRequestBuilder.header("Accept", "application/json");
 

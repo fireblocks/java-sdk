@@ -42,7 +42,7 @@ import java.util.StringJoiner;
     Quote.JSON_PROPERTY_GENERAL_FEES,
     Quote.JSON_PROPERTY_SIDE,
     Quote.JSON_PROPERTY_EXPIRES_AT,
-    Quote.JSON_PROPERTY_ORDER_CREATION_REQUIREMENTS,
+    Quote.JSON_PROPERTY_REQUIRED_PARTICIPANTS_IDENTIFICATION_ON_ORDER,
     Quote.JSON_PROPERTY_TYPE
 })
 @jakarta.annotation.Generated(
@@ -94,9 +94,9 @@ public class Quote {
     public static final String JSON_PROPERTY_EXPIRES_AT = "expiresAt";
     @jakarta.annotation.Nonnull private String expiresAt;
 
-    public static final String JSON_PROPERTY_ORDER_CREATION_REQUIREMENTS =
-            "orderCreationRequirements";
-    @jakarta.annotation.Nullable private String orderCreationRequirements;
+    public static final String JSON_PROPERTY_REQUIRED_PARTICIPANTS_IDENTIFICATION_ON_ORDER =
+            "requiredParticipantsIdentificationOnOrder";
+    @jakarta.annotation.Nullable private String requiredParticipantsIdentificationOnOrder;
 
     /** The type of the quote. */
     public enum TypeEnum {
@@ -522,9 +522,9 @@ public class Quote {
         this.expiresAt = expiresAt;
     }
 
-    public Quote orderCreationRequirements(
-            @jakarta.annotation.Nullable String orderCreationRequirements) {
-        this.orderCreationRequirements = orderCreationRequirements;
+    public Quote requiredParticipantsIdentificationOnOrder(
+            @jakarta.annotation.Nullable String requiredParticipantsIdentificationOnOrder) {
+        this.requiredParticipantsIdentificationOnOrder = requiredParticipantsIdentificationOnOrder;
         return this;
     }
 
@@ -532,20 +532,20 @@ public class Quote {
      * A JSON Schema Draft-7 document in string format describing the fields required when creating
      * an order so clients can validate their order payload before sending.
      *
-     * @return orderCreationRequirements
+     * @return requiredParticipantsIdentificationOnOrder
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ORDER_CREATION_REQUIREMENTS)
+    @JsonProperty(JSON_PROPERTY_REQUIRED_PARTICIPANTS_IDENTIFICATION_ON_ORDER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getOrderCreationRequirements() {
-        return orderCreationRequirements;
+    public String getRequiredParticipantsIdentificationOnOrder() {
+        return requiredParticipantsIdentificationOnOrder;
     }
 
-    @JsonProperty(JSON_PROPERTY_ORDER_CREATION_REQUIREMENTS)
+    @JsonProperty(JSON_PROPERTY_REQUIRED_PARTICIPANTS_IDENTIFICATION_ON_ORDER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOrderCreationRequirements(
-            @jakarta.annotation.Nullable String orderCreationRequirements) {
-        this.orderCreationRequirements = orderCreationRequirements;
+    public void setRequiredParticipantsIdentificationOnOrder(
+            @jakarta.annotation.Nullable String requiredParticipantsIdentificationOnOrder) {
+        this.requiredParticipantsIdentificationOnOrder = requiredParticipantsIdentificationOnOrder;
     }
 
     public Quote type(@jakarta.annotation.Nonnull TypeEnum type) {
@@ -596,7 +596,9 @@ public class Quote {
                 && Objects.equals(this.generalFees, quote.generalFees)
                 && Objects.equals(this.side, quote.side)
                 && Objects.equals(this.expiresAt, quote.expiresAt)
-                && Objects.equals(this.orderCreationRequirements, quote.orderCreationRequirements)
+                && Objects.equals(
+                        this.requiredParticipantsIdentificationOnOrder,
+                        quote.requiredParticipantsIdentificationOnOrder)
                 && Objects.equals(this.type, quote.type);
     }
 
@@ -618,7 +620,7 @@ public class Quote {
                 generalFees,
                 side,
                 expiresAt,
-                orderCreationRequirements,
+                requiredParticipantsIdentificationOnOrder,
                 type);
     }
 
@@ -643,8 +645,8 @@ public class Quote {
         sb.append("    generalFees: ").append(toIndentedString(generalFees)).append("\n");
         sb.append("    side: ").append(toIndentedString(side)).append("\n");
         sb.append("    expiresAt: ").append(toIndentedString(expiresAt)).append("\n");
-        sb.append("    orderCreationRequirements: ")
-                .append(toIndentedString(orderCreationRequirements))
+        sb.append("    requiredParticipantsIdentificationOnOrder: ")
+                .append(toIndentedString(requiredParticipantsIdentificationOnOrder))
                 .append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("}");
@@ -863,15 +865,16 @@ public class Quote {
                             ApiClient.urlEncode(ApiClient.valueToString(getExpiresAt()))));
         }
 
-        // add `orderCreationRequirements` to the URL query string
-        if (getOrderCreationRequirements() != null) {
+        // add `requiredParticipantsIdentificationOnOrder` to the URL query string
+        if (getRequiredParticipantsIdentificationOnOrder() != null) {
             joiner.add(
                     String.format(
-                            "%sorderCreationRequirements%s=%s",
+                            "%srequiredParticipantsIdentificationOnOrder%s=%s",
                             prefix,
                             suffix,
                             ApiClient.urlEncode(
-                                    ApiClient.valueToString(getOrderCreationRequirements()))));
+                                    ApiClient.valueToString(
+                                            getRequiredParticipantsIdentificationOnOrder()))));
         }
 
         // add `type` to the URL query string

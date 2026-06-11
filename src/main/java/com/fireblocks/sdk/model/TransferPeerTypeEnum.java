@@ -44,7 +44,9 @@ public enum TransferPeerTypeEnum {
 
     PROGRAM_CALL("PROGRAM_CALL"),
 
-    MULTI_DESTINATION("MULTI_DESTINATION");
+    MULTI_DESTINATION("MULTI_DESTINATION"),
+
+    WALLET_POOL("WALLET_POOL");
 
     private String value;
 

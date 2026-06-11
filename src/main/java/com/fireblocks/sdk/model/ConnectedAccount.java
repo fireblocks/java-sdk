@@ -29,7 +29,10 @@ import java.util.StringJoiner;
     ConnectedAccount.JSON_PROPERTY_STATUS,
     ConnectedAccount.JSON_PROPERTY_TOTAL_BALANCE,
     ConnectedAccount.JSON_PROPERTY_MANIFEST,
-    ConnectedAccount.JSON_PROPERTY_PARENT_ID
+    ConnectedAccount.JSON_PROPERTY_PARENT_ID,
+    ConnectedAccount.JSON_PROPERTY_API_KEY,
+    ConnectedAccount.JSON_PROPERTY_PROVIDER_ACCOUNT_NAME,
+    ConnectedAccount.JSON_PROPERTY_ACCOUNT_TYPE
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -56,6 +59,15 @@ public class ConnectedAccount {
     public static final String JSON_PROPERTY_PARENT_ID = "parentId";
     @jakarta.annotation.Nullable private String parentId;
 
+    public static final String JSON_PROPERTY_API_KEY = "apiKey";
+    @jakarta.annotation.Nullable private String apiKey;
+
+    public static final String JSON_PROPERTY_PROVIDER_ACCOUNT_NAME = "providerAccountName";
+    @jakarta.annotation.Nullable private String providerAccountName;
+
+    public static final String JSON_PROPERTY_ACCOUNT_TYPE = "accountType";
+    @jakarta.annotation.Nonnull private ConnectedAccountType accountType;
+
     public ConnectedAccount() {}
 
     @JsonCreator
@@ -68,13 +80,16 @@ public class ConnectedAccount {
             @JsonProperty(value = JSON_PROPERTY_TOTAL_BALANCE, required = true)
                     ConnectedAccountTotalBalance totalBalance,
             @JsonProperty(value = JSON_PROPERTY_MANIFEST, required = true)
-                    ConnectedAccountManifest manifest) {
+                    ConnectedAccountManifest manifest,
+            @JsonProperty(value = JSON_PROPERTY_ACCOUNT_TYPE, required = true)
+                    ConnectedAccountType accountType) {
         this.id = id;
         this.name = name;
         this.providerId = providerId;
         this.status = status;
         this.totalBalance = totalBalance;
         this.manifest = manifest;
+        this.accountType = accountType;
     }
 
     public ConnectedAccount id(@jakarta.annotation.Nonnull String id) {
@@ -242,6 +257,77 @@ public class ConnectedAccount {
         this.parentId = parentId;
     }
 
+    public ConnectedAccount apiKey(@jakarta.annotation.Nullable String apiKey) {
+        this.apiKey = apiKey;
+        return this;
+    }
+
+    /**
+     * The API key identifier used to connect this account.
+     *
+     * @return apiKey
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_API_KEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    @JsonProperty(JSON_PROPERTY_API_KEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setApiKey(@jakarta.annotation.Nullable String apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    public ConnectedAccount providerAccountName(
+            @jakarta.annotation.Nullable String providerAccountName) {
+        this.providerAccountName = providerAccountName;
+        return this;
+    }
+
+    /**
+     * The account name provided by the provider.
+     *
+     * @return providerAccountName
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PROVIDER_ACCOUNT_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getProviderAccountName() {
+        return providerAccountName;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PROVIDER_ACCOUNT_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setProviderAccountName(@jakarta.annotation.Nullable String providerAccountName) {
+        this.providerAccountName = providerAccountName;
+    }
+
+    public ConnectedAccount accountType(
+            @jakarta.annotation.Nonnull ConnectedAccountType accountType) {
+        this.accountType = accountType;
+        return this;
+    }
+
+    /**
+     * Get accountType
+     *
+     * @return accountType
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_ACCOUNT_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public ConnectedAccountType getAccountType() {
+        return accountType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ACCOUNT_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAccountType(@jakarta.annotation.Nonnull ConnectedAccountType accountType) {
+        this.accountType = accountType;
+    }
+
     /** Return true if this ConnectedAccount object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -258,12 +344,25 @@ public class ConnectedAccount {
                 && Objects.equals(this.status, connectedAccount.status)
                 && Objects.equals(this.totalBalance, connectedAccount.totalBalance)
                 && Objects.equals(this.manifest, connectedAccount.manifest)
-                && Objects.equals(this.parentId, connectedAccount.parentId);
+                && Objects.equals(this.parentId, connectedAccount.parentId)
+                && Objects.equals(this.apiKey, connectedAccount.apiKey)
+                && Objects.equals(this.providerAccountName, connectedAccount.providerAccountName)
+                && Objects.equals(this.accountType, connectedAccount.accountType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, providerId, status, totalBalance, manifest, parentId);
+        return Objects.hash(
+                id,
+                name,
+                providerId,
+                status,
+                totalBalance,
+                manifest,
+                parentId,
+                apiKey,
+                providerAccountName,
+                accountType);
     }
 
     @Override
@@ -277,6 +376,11 @@ public class ConnectedAccount {
         sb.append("    totalBalance: ").append(toIndentedString(totalBalance)).append("\n");
         sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
         sb.append("    parentId: ").append(toIndentedString(parentId)).append("\n");
+        sb.append("    apiKey: ").append(toIndentedString(apiKey)).append("\n");
+        sb.append("    providerAccountName: ")
+                .append(toIndentedString(providerAccountName))
+                .append("\n");
+        sb.append("    accountType: ").append(toIndentedString(accountType)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -380,6 +484,37 @@ public class ConnectedAccount {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getParentId()))));
+        }
+
+        // add `apiKey` to the URL query string
+        if (getApiKey() != null) {
+            joiner.add(
+                    String.format(
+                            "%sapiKey%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getApiKey()))));
+        }
+
+        // add `providerAccountName` to the URL query string
+        if (getProviderAccountName() != null) {
+            joiner.add(
+                    String.format(
+                            "%sproviderAccountName%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getProviderAccountName()))));
+        }
+
+        // add `accountType` to the URL query string
+        if (getAccountType() != null) {
+            joiner.add(
+                    String.format(
+                            "%saccountType%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAccountType()))));
         }
 
         return joiner.toString();

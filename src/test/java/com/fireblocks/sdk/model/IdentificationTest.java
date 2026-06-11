@@ -97,6 +97,18 @@ class IdentificationTest {
         // TODO: test additionalIdType
     }
 
+    /** Test the property 'nationality' */
+    @Test
+    void nationalityTest() {
+        // TODO: test nationality
+    }
+
+    /** Test the property 'identificationDocuments' */
+    @Test
+    void identificationDocumentsTest() {
+        // TODO: test identificationDocuments
+    }
+
     /** Test the property 'businessName' */
     @Test
     void businessNameTest() {
@@ -107,5 +119,17 @@ class IdentificationTest {
     @Test
     void registrationNumberTest() {
         // TODO: test registrationNumber
+    }
+
+    /** Test the property 'dateOfRegistration' */
+    @Test
+    void dateOfRegistrationTest() {
+        // TODO: test dateOfRegistration
+    }
+
+    /** Test the property 'countryOfRegistration' */
+    @Test
+    void countryOfRegistrationTest() {
+        // TODO: test countryOfRegistration
     }
 }

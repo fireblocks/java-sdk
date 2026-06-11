@@ -72,4 +72,16 @@ class BusinessIdentificationTest {
     void phoneTest() {
         // TODO: test phone
     }
+
+    /** Test the property 'dateOfRegistration' */
+    @Test
+    void dateOfRegistrationTest() {
+        // TODO: test dateOfRegistration
+    }
+
+    /** Test the property 'countryOfRegistration' */
+    @Test
+    void countryOfRegistrationTest() {
+        // TODO: test countryOfRegistration
+    }
 }

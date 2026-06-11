@@ -19,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.ApiClient;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -56,7 +55,7 @@ import java.util.StringJoiner;
     TransactionRequest.JSON_PROPERTY_NETWORK_STAKING,
     TransactionRequest.JSON_PROPERTY_CPU_STAKING,
     TransactionRequest.JSON_PROPERTY_USE_GASLESS,
-    TransactionRequest.JSON_PROPERTY_EXPIRES_AFTER_SECONDS
+    TransactionRequest.JSON_PROPERTY_CONFIGURATIONS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -189,8 +188,8 @@ public class TransactionRequest {
     public static final String JSON_PROPERTY_USE_GASLESS = "useGasless";
     @jakarta.annotation.Nullable private Boolean useGasless;
 
-    public static final String JSON_PROPERTY_EXPIRES_AFTER_SECONDS = "expiresAfterSeconds";
-    @jakarta.annotation.Nullable private BigDecimal expiresAfterSeconds;
+    public static final String JSON_PROPERTY_CONFIGURATIONS = "configurations";
+    @jakarta.annotation.Nullable private TransactionConfigurations configurations;
 
     public TransactionRequest() {}
 
@@ -924,31 +923,29 @@ public class TransactionRequest {
         this.useGasless = useGasless;
     }
 
-    public TransactionRequest expiresAfterSeconds(
-            @jakarta.annotation.Nullable BigDecimal expiresAfterSeconds) {
-        this.expiresAfterSeconds = expiresAfterSeconds;
+    public TransactionRequest configurations(
+            @jakarta.annotation.Nullable TransactionConfigurations configurations) {
+        this.configurations = configurations;
         return this;
     }
 
     /**
-     * The number of seconds the transaction is valid for before it expires. After the specified
-     * duration, the transaction will expire if it has not been broadcasted. minimum: 600 maximum:
-     * 86400
+     * Get configurations
      *
-     * @return expiresAfterSeconds
+     * @return configurations
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_EXPIRES_AFTER_SECONDS)
+    @JsonProperty(JSON_PROPERTY_CONFIGURATIONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getExpiresAfterSeconds() {
-        return expiresAfterSeconds;
+    public TransactionConfigurations getConfigurations() {
+        return configurations;
     }
 
-    @JsonProperty(JSON_PROPERTY_EXPIRES_AFTER_SECONDS)
+    @JsonProperty(JSON_PROPERTY_CONFIGURATIONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExpiresAfterSeconds(
-            @jakarta.annotation.Nullable BigDecimal expiresAfterSeconds) {
-        this.expiresAfterSeconds = expiresAfterSeconds;
+    public void setConfigurations(
+            @jakarta.annotation.Nullable TransactionConfigurations configurations) {
+        this.configurations = configurations;
     }
 
     /** Return true if this TransactionRequest object is equal to o. */
@@ -990,7 +987,7 @@ public class TransactionRequest {
                 && Objects.equals(this.networkStaking, transactionRequest.networkStaking)
                 && Objects.equals(this.cpuStaking, transactionRequest.cpuStaking)
                 && Objects.equals(this.useGasless, transactionRequest.useGasless)
-                && Objects.equals(this.expiresAfterSeconds, transactionRequest.expiresAfterSeconds);
+                && Objects.equals(this.configurations, transactionRequest.configurations);
     }
 
     @Override
@@ -1025,7 +1022,7 @@ public class TransactionRequest {
                 networkStaking,
                 cpuStaking,
                 useGasless,
-                expiresAfterSeconds);
+                configurations);
     }
 
     @Override
@@ -1069,9 +1066,7 @@ public class TransactionRequest {
         sb.append("    networkStaking: ").append(toIndentedString(networkStaking)).append("\n");
         sb.append("    cpuStaking: ").append(toIndentedString(cpuStaking)).append("\n");
         sb.append("    useGasless: ").append(toIndentedString(useGasless)).append("\n");
-        sb.append("    expiresAfterSeconds: ")
-                .append(toIndentedString(expiresAfterSeconds))
-                .append("\n");
+        sb.append("    configurations: ").append(toIndentedString(configurations)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -1366,15 +1361,9 @@ public class TransactionRequest {
                             ApiClient.urlEncode(ApiClient.valueToString(getUseGasless()))));
         }
 
-        // add `expiresAfterSeconds` to the URL query string
-        if (getExpiresAfterSeconds() != null) {
-            joiner.add(
-                    String.format(
-                            "%sexpiresAfterSeconds%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(
-                                    ApiClient.valueToString(getExpiresAfterSeconds()))));
+        // add `configurations` to the URL query string
+        if (getConfigurations() != null) {
+            joiner.add(getConfigurations().toUrlQueryString(prefix + "configurations" + suffix));
         }
 
         return joiner.toString();

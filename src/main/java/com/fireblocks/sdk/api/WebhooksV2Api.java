@@ -35,6 +35,7 @@ import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
 import com.fireblocks.sdk.model.WebhookEvent;
 import com.fireblocks.sdk.model.WebhookMetric;
+import com.fireblocks.sdk.model.WebhookMtlsCsrResponse;
 import com.fireblocks.sdk.model.WebhookPaginatedResponse;
 import java.io.IOException;
 import java.io.InputStream;
@@ -295,6 +296,67 @@ public class WebhooksV2Api {
                 "/webhooks/{webhookId}/metrics/{metricName}"
                         .replace("{webhookId}", ApiClient.urlEncode(webhookId.toString()))
                         .replace("{metricName}", ApiClient.urlEncode(metricName.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get mTLS CSR Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use
+     * to generate their signed client certificate.
+     *
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookMtlsCsrResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<WebhookMtlsCsrResponse>> getMtlsCsr() throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = getMtlsCsrRequestBuilder();
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getMtlsCsr", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<WebhookMtlsCsrResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            WebhookMtlsCsrResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getMtlsCsrRequestBuilder() throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/webhooks/mtls/csr";
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
