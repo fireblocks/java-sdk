@@ -10,10 +10,10 @@ TRLink pre-screening rule definition
 |------------ | ------------- | ------------- | -------------|
 |**customerId** | **String** | Reference to TRLinkCustomer.id |  [optional] |
 |**direction** | **TravelRuleDirectionEnum** |  |  [optional] |
-|**sourceType** | **TransferPeerTypeEnum** |  |  [optional] |
+|**sourceType** | **TransferPeerTypeEnum2** |  |  [optional] |
 |**sourceSubType** | **TransferPeerSubTypeEnum** |  |  [optional] |
 |**sourceAddress** | **String** | Source address |  [optional] |
-|**destType** | **TransferPeerTypeEnum** |  |  [optional] |
+|**destType** | **TransferPeerTypeEnum2** |  |  [optional] |
 |**destSubType** | **TransferPeerSubTypeEnum** |  |  [optional] |
 |**destAddress** | **String** | Destination address |  [optional] |
 |**sourceId** | **String** | Source ID |  [optional] |

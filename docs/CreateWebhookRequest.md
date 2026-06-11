@@ -11,6 +11,7 @@
 |**description** | **String** | description of the webhook. should not contain special characters. |  [optional] |
 |**events** | **List&lt;WebhookEvent&gt;** | event types the webhook will subscribe to |  |
 |**enabled** | **Boolean** | The status of the webhook. If false, the webhook will not receive notifications. |  [optional] |
+|**mtls** | [**WebhookMtls**](WebhookMtls.md) |  |  [optional] |
 
 
 

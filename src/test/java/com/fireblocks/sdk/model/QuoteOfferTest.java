@@ -115,10 +115,10 @@ class QuoteOfferTest {
         // TODO: test expiresAt
     }
 
-    /** Test the property 'orderCreationRequirements' */
+    /** Test the property 'requiredParticipantsIdentificationOnOrder' */
     @Test
-    void orderCreationRequirementsTest() {
-        // TODO: test orderCreationRequirements
+    void requiredParticipantsIdentificationOnOrderTest() {
+        // TODO: test requiredParticipantsIdentificationOnOrder
     }
 
     /** Test the property 'type' */

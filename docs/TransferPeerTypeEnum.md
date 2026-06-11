@@ -33,5 +33,7 @@
 
 * `MULTI_DESTINATION` (value: `"MULTI_DESTINATION"`)
 
+* `WALLET_POOL` (value: `"WALLET_POOL"`)
+
 
 

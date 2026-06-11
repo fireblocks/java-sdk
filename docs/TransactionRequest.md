@@ -36,7 +36,7 @@
 |**networkStaking** | [**TransactionRequestNetworkStaking**](TransactionRequestNetworkStaking.md) |  |  [optional] |
 |**cpuStaking** | [**TransactionRequestNetworkStaking**](TransactionRequestNetworkStaking.md) |  |  [optional] |
 |**useGasless** | **Boolean** | - Override the default gasless configuration by sending true\\false |  [optional] |
-|**expiresAfterSeconds** | **BigDecimal** | The number of seconds the transaction is valid for before it expires. After the specified duration, the transaction will expire if it has not been broadcasted. |  [optional] |
+|**configurations** | [**TransactionConfigurations**](TransactionConfigurations.md) |  |  [optional] |
 
 
 

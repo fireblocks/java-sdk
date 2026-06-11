@@ -33,7 +33,8 @@ import java.util.UUID;
     Webhook.JSON_PROPERTY_EVENTS,
     Webhook.JSON_PROPERTY_STATUS,
     Webhook.JSON_PROPERTY_CREATED_AT,
-    Webhook.JSON_PROPERTY_UPDATED_AT
+    Webhook.JSON_PROPERTY_UPDATED_AT,
+    Webhook.JSON_PROPERTY_MTLS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -94,6 +95,9 @@ public class Webhook {
 
     public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
     @jakarta.annotation.Nonnull private Long updatedAt;
+
+    public static final String JSON_PROPERTY_MTLS = "mtls";
+    @jakarta.annotation.Nullable private WebhookMtls mtls;
 
     public Webhook() {}
 
@@ -282,6 +286,29 @@ public class Webhook {
         this.updatedAt = updatedAt;
     }
 
+    public Webhook mtls(@jakarta.annotation.Nullable WebhookMtls mtls) {
+        this.mtls = mtls;
+        return this;
+    }
+
+    /**
+     * Get mtls
+     *
+     * @return mtls
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_MTLS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public WebhookMtls getMtls() {
+        return mtls;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MTLS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMtls(@jakarta.annotation.Nullable WebhookMtls mtls) {
+        this.mtls = mtls;
+    }
+
     /** Return true if this Webhook object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -298,12 +325,13 @@ public class Webhook {
                 && Objects.equals(this.events, webhook.events)
                 && Objects.equals(this.status, webhook.status)
                 && Objects.equals(this.createdAt, webhook.createdAt)
-                && Objects.equals(this.updatedAt, webhook.updatedAt);
+                && Objects.equals(this.updatedAt, webhook.updatedAt)
+                && Objects.equals(this.mtls, webhook.mtls);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, url, description, events, status, createdAt, updatedAt);
+        return Objects.hash(id, url, description, events, status, createdAt, updatedAt, mtls);
     }
 
     @Override
@@ -317,6 +345,7 @@ public class Webhook {
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+        sb.append("    mtls: ").append(toIndentedString(mtls)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -439,6 +468,11 @@ public class Webhook {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getUpdatedAt()))));
+        }
+
+        // add `mtls` to the URL query string
+        if (getMtls() != null) {
+            joiner.add(getMtls().toUrlQueryString(prefix + "mtls" + suffix));
         }
 
         return joiner.toString();

@@ -14,6 +14,9 @@
 |**totalBalance** | [**ConnectedAccountTotalBalance**](ConnectedAccountTotalBalance.md) |  |  |
 |**manifest** | [**ConnectedAccountManifest**](ConnectedAccountManifest.md) |  |  |
 |**parentId** | **String** | The ID of the parent main account, if this is a sub account. |  [optional] |
+|**apiKey** | **String** | The API key identifier used to connect this account. |  [optional] |
+|**providerAccountName** | **String** | The account name provided by the provider. |  [optional] |
+|**accountType** | **ConnectedAccountType** |  |  |
 |**subAccountsIds** | **List&lt;String&gt;** | IDs of sub-accounts associated with this connected account. |  [optional] |
 
 

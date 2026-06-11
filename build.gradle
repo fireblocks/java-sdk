@@ -3,7 +3,7 @@ apply plugin: 'eclipse'
 apply plugin: 'com.diffplug.spotless'
 
 group = 'com.fireblocks.sdk'
-version = '20.0.0'
+version = '0.0.0'
 
 buildscript {
     repositories {
@@ -70,6 +70,7 @@ ext {
     jakarta_annotation_version = "2.1.1"
     beanvalidation_version = "3.0.2"
     junit_version = "5.10.2"
+    httpmime_version = "4.5.13"
 }
 
 dependencies {
@@ -80,6 +81,7 @@ dependencies {
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version"
     implementation "org.openapitools:jackson-databind-nullable:0.2.1"
     implementation "jakarta.annotation:jakarta.annotation-api:$jakarta_annotation_version"
+    implementation "org.apache.httpcomponents:httpmime:$httpmime_version"
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_version"
 }
 

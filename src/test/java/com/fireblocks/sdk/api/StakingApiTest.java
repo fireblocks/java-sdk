@@ -27,6 +27,7 @@ import com.fireblocks.sdk.model.SplitRequest;
 import com.fireblocks.sdk.model.SplitResponse;
 import com.fireblocks.sdk.model.StakeRequest;
 import com.fireblocks.sdk.model.StakeResponse;
+import com.fireblocks.sdk.model.StakingPositionRelatedTransactionsPaginatedResponse;
 import com.fireblocks.sdk.model.StakingPositionsPaginatedResponse;
 import com.fireblocks.sdk.model.StakingProvider;
 import com.fireblocks.sdk.model.UnstakeRequest;
@@ -156,6 +157,25 @@ public class StakingApiTest {
     public void getDelegationByIdTest() throws ApiException {
         String id = null;
         CompletableFuture<ApiResponse<Delegation>> response = api.getDelegationById(id);
+    }
+
+    /**
+     * List related transactions for a position
+     *
+     * <p>Returns enriched transaction history for a staking position with cursor-based pagination.
+     * Includes in-flight transactions with status pending. The in-flight transaction is always
+     * returned first; completed and failed history is ordered by the order parameter.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getPositionRelatedTransactionsTest() throws ApiException {
+        String id = null;
+        Integer pageSize = null;
+        String pageCursor = null;
+        String order = null;
+        CompletableFuture<ApiResponse<StakingPositionRelatedTransactionsPaginatedResponse>>
+                response = api.getPositionRelatedTransactions(id, pageSize, pageCursor, order);
     }
 
     /**

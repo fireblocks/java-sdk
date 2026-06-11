@@ -21,12 +21,15 @@ import com.fireblocks.sdk.model.CreateQuote;
 import com.fireblocks.sdk.model.GetOrdersResponse;
 import com.fireblocks.sdk.model.OffersResponse;
 import com.fireblocks.sdk.model.OrderDetails;
+import com.fireblocks.sdk.model.OrderRequirementDetails;
 import com.fireblocks.sdk.model.OrderStatus;
 import com.fireblocks.sdk.model.ProvidersListResponse;
 import com.fireblocks.sdk.model.QuotesResponse;
 import com.fireblocks.sdk.model.RatesRequest;
 import com.fireblocks.sdk.model.RatesResponse;
+import com.fireblocks.sdk.model.SubmitOrderRequirementRequest;
 import com.fireblocks.sdk.model.TradingProvider;
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
@@ -146,6 +149,31 @@ public class TradingBetaApiTest {
     }
 
     /**
+     * Get order requirement details for an order
+     *
+     * <p>Fetch order requirement details for an order that is in &#x60;AWAITING_INFORMATION&#x60;
+     * status. The response includes &#x60;requirementId&#x60; and &#x60;dueBy&#x60; metadata, a
+     * &#x60;requiredData&#x60; JSON Schema (Draft-7) describing the shape of the &#x60;data&#x60;
+     * object expected on &#x60;POST /trading/orders/{orderId}/requirement/data&#x60;, and
+     * &#x60;requiredFiles&#x60; descriptors for any files the provider requires (uploaded via
+     * &#x60;POST /trading/orders/{orderId}/requirement/file&#x60;). Note: These endpoints are
+     * currently in beta and might be subject to changes. If you want to participate and learn more
+     * about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send
+     * an email to CSM@fireblocks.com. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, Viewer. For detailed information about error codes and troubleshooting,
+     * please refer to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getOrderRequirementsTest() throws ApiException {
+        String orderId = null;
+        CompletableFuture<ApiResponse<OrderRequirementDetails>> response =
+                api.getOrderRequirements(orderId);
+    }
+
+    /**
      * Get orders
      *
      * <p>Retrieve a paginated list of orders with optional filtering by account, provider, status,
@@ -221,5 +249,60 @@ public class TradingBetaApiTest {
         String pageCursor = null;
         CompletableFuture<ApiResponse<ProvidersListResponse>> response =
                 api.getTradingProviders(pageSize, pageCursor);
+    }
+
+    /**
+     * Submit a response to an order requirement
+     *
+     * <p>Submit the user&#39;s textual response to an order requirement on an order that is in
+     * &#x60;AWAITING_INFORMATION&#x60; status. The request body carries &#x60;data&#x60; — a
+     * free-form object conforming to the &#x60;requiredData&#x60; JSON Schema returned by the GET
+     * endpoint. Any required files are uploaded separately via &#x60;POST
+     * /trading/orders/{orderId}/requirement/file&#x60;. Note: These endpoints are currently in beta
+     * and might be subject to changes. If you want to participate and learn more about the
+     * Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email
+     * to CSM@fireblocks.com. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
+     * For detailed information about error codes and troubleshooting, please refer to our [API
+     * Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void submitOrderRequirementsTest() throws ApiException {
+        SubmitOrderRequirementRequest submitOrderRequirementRequest = null;
+        String orderId = null;
+        String idempotencyKey = null;
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.submitOrderRequirements(submitOrderRequirementRequest, orderId, idempotencyKey);
+    }
+
+    /**
+     * Upload a file for an order requirement
+     *
+     * <p>Upload a single file (multipart/form-data) in response to an order requirement on an order
+     * that is in &#x60;AWAITING_INFORMATION&#x60; status. Call this endpoint once per required
+     * file. Send &#x60;fileKey&#x60; (matching a &#x60;fileKey&#x60; from &#x60;requiredFiles&#x60;
+     * on the GET response) and the binary &#x60;file&#x60;. Its type must be one of the supported
+     * file formats. Fireblocks encrypts each file and uploads it individually to the underlying
+     * provider. The textual response is submitted separately via &#x60;POST
+     * /trading/orders/{orderId}/requirement/data&#x60;. Note: These endpoints are currently in beta
+     * and might be subject to changes. If you want to participate and learn more about the
+     * Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email
+     * to CSM@fireblocks.com. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
+     * For detailed information about error codes and troubleshooting, please refer to our [API
+     * Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void uploadOrderRequirementFileTest() throws ApiException {
+        String fileKey = null;
+        File _file = null;
+        String orderId = null;
+        String idempotencyKey = null;
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.uploadOrderRequirementFile(fileKey, _file, orderId, idempotencyKey);
     }
 }

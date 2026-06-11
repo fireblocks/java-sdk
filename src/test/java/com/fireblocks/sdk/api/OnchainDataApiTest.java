@@ -15,14 +15,14 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.model.AccessRegistryCurrentStateResponse;
+import com.fireblocks.sdk.model.AccessRegistryCurrentStateResponse2;
 import com.fireblocks.sdk.model.AccessRegistrySummaryResponse;
-import com.fireblocks.sdk.model.AddressBalancePagedResponse;
-import com.fireblocks.sdk.model.BalanceHistoryPagedResponse;
-import com.fireblocks.sdk.model.OnchainTransactionsPagedResponse;
-import com.fireblocks.sdk.model.RoleDetails;
+import com.fireblocks.sdk.model.AddressBalancePagedResponse2;
+import com.fireblocks.sdk.model.BalanceHistoryPagedResponse2;
+import com.fireblocks.sdk.model.OnchainTransactionsPagedResponse2;
+import com.fireblocks.sdk.model.RoleDetails2;
 import com.fireblocks.sdk.model.TokenContractSummaryResponse;
-import com.fireblocks.sdk.model.TotalSupplyPagedResponse;
+import com.fireblocks.sdk.model.TotalSupplyPagedResponse2;
 import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -51,7 +51,7 @@ public class OnchainDataApiTest {
         Integer pageSize = null;
         String sortBy = null;
         String order = null;
-        CompletableFuture<ApiResponse<AccessRegistryCurrentStateResponse>> response =
+        CompletableFuture<ApiResponse<AccessRegistryCurrentStateResponse2>> response =
                 api.getAccessRegistryCurrentState(
                         baseAssetId, accessRegistryAddress, pageCursor, pageSize, sortBy, order);
     }
@@ -84,7 +84,7 @@ public class OnchainDataApiTest {
     public void getActiveRolesForContractTest() throws ApiException {
         String baseAssetId = null;
         String contractAddress = null;
-        CompletableFuture<ApiResponse<Map<String, RoleDetails>>> response =
+        CompletableFuture<ApiResponse<Map<String, RoleDetails2>>> response =
                 api.getActiveRolesForContract(baseAssetId, contractAddress);
     }
 
@@ -108,7 +108,7 @@ public class OnchainDataApiTest {
         Integer pageSize = null;
         String sortBy = null;
         String order = null;
-        CompletableFuture<ApiResponse<BalanceHistoryPagedResponse>> response =
+        CompletableFuture<ApiResponse<BalanceHistoryPagedResponse2>> response =
                 api.getContractBalanceHistory(
                         baseAssetId,
                         contractAddress,
@@ -157,7 +157,7 @@ public class OnchainDataApiTest {
         Integer pageSize = null;
         String sortBy = null;
         String order = null;
-        CompletableFuture<ApiResponse<TotalSupplyPagedResponse>> response =
+        CompletableFuture<ApiResponse<TotalSupplyPagedResponse2>> response =
                 api.getContractTotalSupply(
                         baseAssetId,
                         contractAddress,
@@ -187,7 +187,7 @@ public class OnchainDataApiTest {
         Integer pageSize = null;
         String sortBy = null;
         String order = null;
-        CompletableFuture<ApiResponse<AddressBalancePagedResponse>> response =
+        CompletableFuture<ApiResponse<AddressBalancePagedResponse2>> response =
                 api.getLatestBalancesForContract(
                         baseAssetId,
                         contractAddress,
@@ -216,7 +216,7 @@ public class OnchainDataApiTest {
         Integer pageSize = null;
         String sortBy = null;
         String order = null;
-        CompletableFuture<ApiResponse<OnchainTransactionsPagedResponse>> response =
+        CompletableFuture<ApiResponse<OnchainTransactionsPagedResponse2>> response =
                 api.getOnchainTransactions(
                         baseAssetId,
                         contractAddress,

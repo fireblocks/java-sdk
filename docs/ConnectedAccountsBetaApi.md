@@ -6,11 +6,14 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 |------------- | ------------- | -------------|
 | [**disconnectConnectedAccount**](ConnectedAccountsBetaApi.md#disconnectConnectedAccount) | **DELETE** /connected_accounts/{accountId} | Disconnect connected account |
 | [**getConnectedAccount**](ConnectedAccountsBetaApi.md#getConnectedAccount) | **GET** /connected_accounts/{accountId} | Get connected account |
+| [**getConnectedAccountAllowlist**](ConnectedAccountsBetaApi.md#getConnectedAccountAllowlist) | **GET** /connected_accounts/{accountId}/allowlist | Get allowlist for connected account |
+| [**getConnectedAccountAllowlistEntry**](ConnectedAccountsBetaApi.md#getConnectedAccountAllowlistEntry) | **GET** /connected_accounts/{accountId}/allowlist/{allowlistId} | Get a single allowlist entry for a connected account |
 | [**getConnectedAccountBalances**](ConnectedAccountsBetaApi.md#getConnectedAccountBalances) | **GET** /connected_accounts/{accountId}/balances | Get balances for an account |
 | [**getConnectedAccountRates**](ConnectedAccountsBetaApi.md#getConnectedAccountRates) | **GET** /connected_accounts/{accountId}/rates | Get exchange rates for an account |
 | [**getConnectedAccountTradingPairs**](ConnectedAccountsBetaApi.md#getConnectedAccountTradingPairs) | **GET** /connected_accounts/{accountId}/manifest/capabilities/trading/pairs | Get supported trading pairs for an account |
 | [**getConnectedAccounts**](ConnectedAccountsBetaApi.md#getConnectedAccounts) | **GET** /connected_accounts | Get connected accounts |
 | [**renameConnectedAccount**](ConnectedAccountsBetaApi.md#renameConnectedAccount) | **POST** /connected_accounts/{accountId}/rename | Rename Connected Account |
+| [**syncConnectedAccountAllowlist**](ConnectedAccountsBetaApi.md#syncConnectedAccountAllowlist) | **POST** /connected_accounts/{accountId}/allowlist/sync | Sync allowlist for connected account |
 
 
 
@@ -176,6 +179,192 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Account response |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getConnectedAccountAllowlist
+
+> CompletableFuture<ApiResponse<AllowlistResponse>> getConnectedAccountAllowlist getConnectedAccountAllowlist(accountId, status, assetId, networkId, address, pageCursor, pageSize, sortBy, order)
+
+Get allowlist for connected account
+
+Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ConnectedAccountsBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String accountId = "accountId_example"; // String | The connected account identifier
+        AllowlistEntryStatus status = AllowlistEntryStatus.fromValue("ACTIVE"); // AllowlistEntryStatus | Filter by allowlist entry status
+        String assetId = "assetId_example"; // String | Filter by Fireblocks asset ID.  See [List assets](https://developers.fireblocks.com/reference/listassets) for the canonical list of Fireblocks asset IDs. 
+        String networkId = "networkId_example"; // String | Filter by Fireblocks network ID.  See [List blockchains](https://developers.fireblocks.com/reference/listblockchains) for the canonical list of Fireblocks blockchain identifiers. 
+        String address = "address_example"; // String | Filter by specific address
+        String pageCursor = "pageCursor_example"; // String | Pagination cursor for next page
+        Integer pageSize = 56; // Integer | Maximum number of entries to return
+        String sortBy = "addedAt"; // String | Field to sort results by.
+        String order = "ASC"; // String | Sort order (ASC or DESC).
+        try {
+            CompletableFuture<ApiResponse<AllowlistResponse>> response = fireblocks.connectedAccountsBeta().getConnectedAccountAllowlist(accountId, status, assetId, networkId, address, pageCursor, pageSize, sortBy, order);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ConnectedAccountsBetaApi#getConnectedAccountAllowlist");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConnectedAccountsBetaApi#getConnectedAccountAllowlist");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **accountId** | **String**| The connected account identifier | |
+| **status** | [**AllowlistEntryStatus**](.md)| Filter by allowlist entry status | [optional] [enum: ACTIVE, PENDING_PROVIDER_COOLDOWN, PENDING_PROVIDER_REVIEW, PENDING_APPROVAL, REJECTED, REMOVED] |
+| **assetId** | **String**| Filter by Fireblocks asset ID.  See [List assets](https://developers.fireblocks.com/reference/listassets) for the canonical list of Fireblocks asset IDs.  | [optional] |
+| **networkId** | **String**| Filter by Fireblocks network ID.  See [List blockchains](https://developers.fireblocks.com/reference/listblockchains) for the canonical list of Fireblocks blockchain identifiers.  | [optional] |
+| **address** | **String**| Filter by specific address | [optional] |
+| **pageCursor** | **String**| Pagination cursor for next page | [optional] |
+| **pageSize** | **Integer**| Maximum number of entries to return | [optional] |
+| **sortBy** | **String**| Field to sort results by. | [optional] [default to addedAt] [enum: addedAt, lastSyncedAt] |
+| **order** | **String**| Sort order (ASC or DESC). | [optional] [default to DESC] [enum: ASC, DESC] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**AllowlistResponse**](AllowlistResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Allowlist entries response |  * X-Request-ID -  <br>  |
+| **404** | Connected account not found |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getConnectedAccountAllowlistEntry
+
+> CompletableFuture<ApiResponse<AllowlistEntry>> getConnectedAccountAllowlistEntry getConnectedAccountAllowlistEntry(accountId, allowlistId)
+
+Get a single allowlist entry for a connected account
+
+Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ConnectedAccountsBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String accountId = "accountId_example"; // String | The connected account identifier
+        String allowlistId = "allowlistId_example"; // String | The Fireblocks allowlist entry identifier
+        try {
+            CompletableFuture<ApiResponse<AllowlistEntry>> response = fireblocks.connectedAccountsBeta().getConnectedAccountAllowlistEntry(accountId, allowlistId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ConnectedAccountsBetaApi#getConnectedAccountAllowlistEntry");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConnectedAccountsBetaApi#getConnectedAccountAllowlistEntry");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **accountId** | **String**| The connected account identifier | |
+| **allowlistId** | **String**| The Fireblocks allowlist entry identifier | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**AllowlistEntry**](AllowlistEntry.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Allowlist entry response |  * X-Request-ID -  <br>  |
+| **404** | Connected account or allowlist entry not found |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -616,5 +805,89 @@ No authorization required
 | **403** | Failed to rename connected account. |  -  |
 | **404** | Connected account not found |  -  |
 | **409** | Conflict. Account name is already in use by another account. |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## syncConnectedAccountAllowlist
+
+> CompletableFuture<ApiResponse<Void>> syncConnectedAccountAllowlist syncConnectedAccountAllowlist(accountId, idempotencyKey)
+
+Sync allowlist for connected account
+
+Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ConnectedAccountsBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String accountId = "accountId_example"; // String | The connected account identifier
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.connectedAccountsBeta().syncConnectedAccountAllowlist(accountId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ConnectedAccountsBetaApi#syncConnectedAccountAllowlist");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConnectedAccountsBetaApi#syncConnectedAccountAllowlist");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **accountId** | **String**| The connected account identifier | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+
+CompletableFuture<ApiResponse<Void>>
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Sync request accepted and processing |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 

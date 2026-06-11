@@ -32,6 +32,9 @@ import java.util.StringJoiner;
     ConnectedSingleAccountResponse.JSON_PROPERTY_TOTAL_BALANCE,
     ConnectedSingleAccountResponse.JSON_PROPERTY_MANIFEST,
     ConnectedSingleAccountResponse.JSON_PROPERTY_PARENT_ID,
+    ConnectedSingleAccountResponse.JSON_PROPERTY_API_KEY,
+    ConnectedSingleAccountResponse.JSON_PROPERTY_PROVIDER_ACCOUNT_NAME,
+    ConnectedSingleAccountResponse.JSON_PROPERTY_ACCOUNT_TYPE,
     ConnectedSingleAccountResponse.JSON_PROPERTY_SUB_ACCOUNTS_IDS
 })
 @jakarta.annotation.Generated(
@@ -59,6 +62,15 @@ public class ConnectedSingleAccountResponse {
     public static final String JSON_PROPERTY_PARENT_ID = "parentId";
     @jakarta.annotation.Nullable private String parentId;
 
+    public static final String JSON_PROPERTY_API_KEY = "apiKey";
+    @jakarta.annotation.Nullable private String apiKey;
+
+    public static final String JSON_PROPERTY_PROVIDER_ACCOUNT_NAME = "providerAccountName";
+    @jakarta.annotation.Nullable private String providerAccountName;
+
+    public static final String JSON_PROPERTY_ACCOUNT_TYPE = "accountType";
+    @jakarta.annotation.Nonnull private ConnectedAccountType accountType;
+
     public static final String JSON_PROPERTY_SUB_ACCOUNTS_IDS = "subAccountsIds";
     @jakarta.annotation.Nullable private List<String> subAccountsIds;
 
@@ -74,13 +86,16 @@ public class ConnectedSingleAccountResponse {
             @JsonProperty(value = JSON_PROPERTY_TOTAL_BALANCE, required = true)
                     ConnectedAccountTotalBalance totalBalance,
             @JsonProperty(value = JSON_PROPERTY_MANIFEST, required = true)
-                    ConnectedAccountManifest manifest) {
+                    ConnectedAccountManifest manifest,
+            @JsonProperty(value = JSON_PROPERTY_ACCOUNT_TYPE, required = true)
+                    ConnectedAccountType accountType) {
         this.id = id;
         this.name = name;
         this.providerId = providerId;
         this.status = status;
         this.totalBalance = totalBalance;
         this.manifest = manifest;
+        this.accountType = accountType;
     }
 
     public ConnectedSingleAccountResponse id(@jakarta.annotation.Nonnull String id) {
@@ -249,6 +264,77 @@ public class ConnectedSingleAccountResponse {
         this.parentId = parentId;
     }
 
+    public ConnectedSingleAccountResponse apiKey(@jakarta.annotation.Nullable String apiKey) {
+        this.apiKey = apiKey;
+        return this;
+    }
+
+    /**
+     * The API key identifier used to connect this account.
+     *
+     * @return apiKey
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_API_KEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    @JsonProperty(JSON_PROPERTY_API_KEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setApiKey(@jakarta.annotation.Nullable String apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    public ConnectedSingleAccountResponse providerAccountName(
+            @jakarta.annotation.Nullable String providerAccountName) {
+        this.providerAccountName = providerAccountName;
+        return this;
+    }
+
+    /**
+     * The account name provided by the provider.
+     *
+     * @return providerAccountName
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PROVIDER_ACCOUNT_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getProviderAccountName() {
+        return providerAccountName;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PROVIDER_ACCOUNT_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setProviderAccountName(@jakarta.annotation.Nullable String providerAccountName) {
+        this.providerAccountName = providerAccountName;
+    }
+
+    public ConnectedSingleAccountResponse accountType(
+            @jakarta.annotation.Nonnull ConnectedAccountType accountType) {
+        this.accountType = accountType;
+        return this;
+    }
+
+    /**
+     * Get accountType
+     *
+     * @return accountType
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_ACCOUNT_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public ConnectedAccountType getAccountType() {
+        return accountType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ACCOUNT_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAccountType(@jakarta.annotation.Nonnull ConnectedAccountType accountType) {
+        this.accountType = accountType;
+    }
+
     public ConnectedSingleAccountResponse subAccountsIds(
             @jakarta.annotation.Nullable List<String> subAccountsIds) {
         this.subAccountsIds = subAccountsIds;
@@ -299,6 +385,11 @@ public class ConnectedSingleAccountResponse {
                 && Objects.equals(this.totalBalance, connectedSingleAccountResponse.totalBalance)
                 && Objects.equals(this.manifest, connectedSingleAccountResponse.manifest)
                 && Objects.equals(this.parentId, connectedSingleAccountResponse.parentId)
+                && Objects.equals(this.apiKey, connectedSingleAccountResponse.apiKey)
+                && Objects.equals(
+                        this.providerAccountName,
+                        connectedSingleAccountResponse.providerAccountName)
+                && Objects.equals(this.accountType, connectedSingleAccountResponse.accountType)
                 && Objects.equals(
                         this.subAccountsIds, connectedSingleAccountResponse.subAccountsIds);
     }
@@ -306,7 +397,17 @@ public class ConnectedSingleAccountResponse {
     @Override
     public int hashCode() {
         return Objects.hash(
-                id, name, providerId, status, totalBalance, manifest, parentId, subAccountsIds);
+                id,
+                name,
+                providerId,
+                status,
+                totalBalance,
+                manifest,
+                parentId,
+                apiKey,
+                providerAccountName,
+                accountType,
+                subAccountsIds);
     }
 
     @Override
@@ -320,6 +421,11 @@ public class ConnectedSingleAccountResponse {
         sb.append("    totalBalance: ").append(toIndentedString(totalBalance)).append("\n");
         sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
         sb.append("    parentId: ").append(toIndentedString(parentId)).append("\n");
+        sb.append("    apiKey: ").append(toIndentedString(apiKey)).append("\n");
+        sb.append("    providerAccountName: ")
+                .append(toIndentedString(providerAccountName))
+                .append("\n");
+        sb.append("    accountType: ").append(toIndentedString(accountType)).append("\n");
         sb.append("    subAccountsIds: ").append(toIndentedString(subAccountsIds)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -424,6 +530,37 @@ public class ConnectedSingleAccountResponse {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getParentId()))));
+        }
+
+        // add `apiKey` to the URL query string
+        if (getApiKey() != null) {
+            joiner.add(
+                    String.format(
+                            "%sapiKey%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getApiKey()))));
+        }
+
+        // add `providerAccountName` to the URL query string
+        if (getProviderAccountName() != null) {
+            joiner.add(
+                    String.format(
+                            "%sproviderAccountName%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getProviderAccountName()))));
+        }
+
+        // add `accountType` to the URL query string
+        if (getAccountType() != null) {
+            joiner.add(
+                    String.format(
+                            "%saccountType%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAccountType()))));
         }
 
         // add `subAccountsIds` to the URL query string

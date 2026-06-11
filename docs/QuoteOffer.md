@@ -22,7 +22,7 @@
 |**generalFees** | [**List&lt;Fee&gt;**](Fee.md) | General fees associated with the quote. |  [optional] |
 |**side** | **Side** |  |  |
 |**expiresAt** | **String** | The expiration time of the quote in ISO 8601 format. |  |
-|**orderCreationRequirements** | **String** | A JSON Schema Draft-7 document in string format describing the fields required when creating an order so clients can validate their order payload before sending.  |  [optional] |
+|**requiredParticipantsIdentificationOnOrder** | **String** | A JSON Schema Draft-7 document in string format describing the fields required when creating an order so clients can validate their order payload before sending.  |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) | The type of the quote. |  |
 |**offerType** | [**OfferTypeEnum**](#OfferTypeEnum) | The type of offer — QUOTE for executable committed quotes. |  |
 

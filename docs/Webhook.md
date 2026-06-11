@@ -14,6 +14,7 @@
 |**status** | [**StatusEnum**](#StatusEnum) | The status of the webhook |  |
 |**createdAt** | **Long** | The date and time the webhook was created in milliseconds |  |
 |**updatedAt** | **Long** | The date and time the webhook was last updated in milliseconds |  |
+|**mtls** | [**WebhookMtls**](WebhookMtls.md) |  |  [optional] |
 
 
 

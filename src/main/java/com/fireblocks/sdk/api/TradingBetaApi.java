@@ -26,24 +26,34 @@ import com.fireblocks.sdk.model.CreateQuote;
 import com.fireblocks.sdk.model.GetOrdersResponse;
 import com.fireblocks.sdk.model.OffersResponse;
 import com.fireblocks.sdk.model.OrderDetails;
+import com.fireblocks.sdk.model.OrderRequirementDetails;
 import com.fireblocks.sdk.model.OrderStatus;
 import com.fireblocks.sdk.model.ProvidersListResponse;
 import com.fireblocks.sdk.model.QuotesResponse;
 import com.fireblocks.sdk.model.RatesRequest;
 import com.fireblocks.sdk.model.RatesResponse;
+import com.fireblocks.sdk.model.SubmitOrderRequirementRequest;
 import com.fireblocks.sdk.model.TradingProvider;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.channels.Channels;
+import java.nio.channels.Pipe;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+import org.apache.http.HttpEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -498,6 +508,86 @@ public class TradingBetaApi {
         return localVarRequestBuilder;
     }
     /**
+     * Get order requirement details for an order Fetch order requirement details for an order that
+     * is in &#x60;AWAITING_INFORMATION&#x60; status. The response includes
+     * &#x60;requirementId&#x60; and &#x60;dueBy&#x60; metadata, a &#x60;requiredData&#x60; JSON
+     * Schema (Draft-7) describing the shape of the &#x60;data&#x60; object expected on &#x60;POST
+     * /trading/orders/{orderId}/requirement/data&#x60;, and &#x60;requiredFiles&#x60; descriptors
+     * for any files the provider requires (uploaded via &#x60;POST
+     * /trading/orders/{orderId}/requirement/file&#x60;). Note: These endpoints are currently in
+     * beta and might be subject to changes. If you want to participate and learn more about the
+     * Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email
+     * to CSM@fireblocks.com. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, Viewer. For detailed information about error codes and troubleshooting,
+     * please refer to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     *
+     * @param orderId The ID of the order for which the order requirement is issued. (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;OrderRequirementDetails&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<OrderRequirementDetails>> getOrderRequirements(
+            String orderId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getOrderRequirementsRequestBuilder(orderId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getOrderRequirements", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<OrderRequirementDetails>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            OrderRequirementDetails>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getOrderRequirementsRequestBuilder(String orderId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getOrderRequirements", "orderId", orderId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/trading/orders/{orderId}/requirement"
+                        .replace("{orderId}", ApiClient.urlEncode(orderId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Get orders Retrieve a paginated list of orders with optional filtering by account, provider,
      * status, and time range. Note:These endpoints are currently in beta and might be subject to
      * changes. If you want to participate and learn more about the Fireblocks Trading, please
@@ -794,6 +884,226 @@ public class TradingBetaApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Submit a response to an order requirement Submit the user&#39;s textual response to an order
+     * requirement on an order that is in &#x60;AWAITING_INFORMATION&#x60; status. The request body
+     * carries &#x60;data&#x60; — a free-form object conforming to the &#x60;requiredData&#x60; JSON
+     * Schema returned by the GET endpoint. Any required files are uploaded separately via
+     * &#x60;POST /trading/orders/{orderId}/requirement/file&#x60;. Note: These endpoints are
+     * currently in beta and might be subject to changes. If you want to participate and learn more
+     * about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send
+     * an email to CSM@fireblocks.com. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer,
+     * Editor. For detailed information about error codes and troubleshooting, please refer to our
+     * [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     *
+     * @param submitOrderRequirementRequest (required)
+     * @param orderId The ID of the order to submit the order requirement response for. (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Void>> submitOrderRequirements(
+            SubmitOrderRequirementRequest submitOrderRequirementRequest,
+            String orderId,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    submitOrderRequirementsRequestBuilder(
+                            submitOrderRequirementRequest, orderId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "submitOrderRequirements", localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder submitOrderRequirementsRequestBuilder(
+            SubmitOrderRequirementRequest submitOrderRequirementRequest,
+            String orderId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "submitOrderRequirements",
+                "submitOrderRequirementRequest",
+                submitOrderRequirementRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty("submitOrderRequirements", "orderId", orderId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/trading/orders/{orderId}/requirement/data"
+                        .replace("{orderId}", ApiClient.urlEncode(orderId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(submitOrderRequirementRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Upload a file for an order requirement Upload a single file (multipart/form-data) in response
+     * to an order requirement on an order that is in &#x60;AWAITING_INFORMATION&#x60; status. Call
+     * this endpoint once per required file. Send &#x60;fileKey&#x60; (matching a
+     * &#x60;fileKey&#x60; from &#x60;requiredFiles&#x60; on the GET response) and the binary
+     * &#x60;file&#x60;. Its type must be one of the supported file formats. Fireblocks encrypts
+     * each file and uploads it individually to the underlying provider. The textual response is
+     * submitted separately via &#x60;POST /trading/orders/{orderId}/requirement/data&#x60;. Note:
+     * These endpoints are currently in beta and might be subject to changes. If you want to
+     * participate and learn more about the Fireblocks Trading, please contact your Fireblocks
+     * Customer Success Manager or send an email to CSM@fireblocks.com. Endpoint Permission: Owner,
+     * Admin, Non-Signing Admin, Signer, Editor. For detailed information about error codes and
+     * troubleshooting, please refer to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     *
+     * @param fileKey Identifier of the required file this upload satisfies. Must match a
+     *     &#x60;fileKey&#x60; from &#x60;requiredFiles&#x60; on the GET response. (required)
+     * @param _file The binary file content. The file&#39;s type must be one of the supported
+     *     OrderRequirementAllowedFileType values; the file name and type are derived from the
+     *     uploaded part. (required)
+     * @param orderId The ID of the order to upload the order requirement file for. (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Void>> uploadOrderRequirementFile(
+            String fileKey, File _file, String orderId, String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    uploadOrderRequirementFileRequestBuilder(
+                            fileKey, _file, orderId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "uploadOrderRequirementFile",
+                                                    localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder uploadOrderRequirementFileRequestBuilder(
+            String fileKey, File _file, String orderId, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "uploadOrderRequirementFile", "fileKey", fileKey);
+        ValidationUtils.assertParamExists("uploadOrderRequirementFile", "_file", _file);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "uploadOrderRequirementFile", "orderId", orderId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/trading/orders/{orderId}/requirement/file"
+                        .replace("{orderId}", ApiClient.urlEncode(orderId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        MultipartEntityBuilder multiPartBuilder = MultipartEntityBuilder.create();
+        boolean hasFiles = false;
+        multiPartBuilder.addTextBody("fileKey", fileKey.toString());
+        multiPartBuilder.addBinaryBody("file", _file);
+        hasFiles = true;
+        HttpEntity entity = multiPartBuilder.build();
+        HttpRequest.BodyPublisher formDataPublisher;
+        if (hasFiles) {
+            Pipe pipe;
+            try {
+                pipe = Pipe.open();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            new Thread(
+                            () -> {
+                                try (OutputStream outputStream =
+                                        Channels.newOutputStream(pipe.sink())) {
+                                    entity.writeTo(outputStream);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            })
+                    .start();
+            formDataPublisher =
+                    HttpRequest.BodyPublishers.ofInputStream(
+                            () -> Channels.newInputStream(pipe.source()));
+        } else {
+            ByteArrayOutputStream formOutputStream = new ByteArrayOutputStream();
+            try {
+                entity.writeTo(formOutputStream);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            formDataPublisher =
+                    HttpRequest.BodyPublishers.ofInputStream(
+                            () -> new ByteArrayInputStream(formOutputStream.toByteArray()));
+        }
+        localVarRequestBuilder
+                .header("Content-Type", entity.getContentType().getValue())
+                .method("POST", formDataPublisher);
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

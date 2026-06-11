@@ -53,7 +53,7 @@ public class ScreeningTRLinkPrescreeningRule {
     @jakarta.annotation.Nullable private TravelRuleDirectionEnum direction;
 
     public static final String JSON_PROPERTY_SOURCE_TYPE = "sourceType";
-    @jakarta.annotation.Nullable private TransferPeerTypeEnum sourceType;
+    @jakarta.annotation.Nullable private TransferPeerTypeEnum2 sourceType;
 
     public static final String JSON_PROPERTY_SOURCE_SUB_TYPE = "sourceSubType";
     @jakarta.annotation.Nullable private TransferPeerSubTypeEnum sourceSubType;
@@ -62,7 +62,7 @@ public class ScreeningTRLinkPrescreeningRule {
     @jakarta.annotation.Nullable private String sourceAddress;
 
     public static final String JSON_PROPERTY_DEST_TYPE = "destType";
-    @jakarta.annotation.Nullable private TransferPeerTypeEnum destType;
+    @jakarta.annotation.Nullable private TransferPeerTypeEnum2 destType;
 
     public static final String JSON_PROPERTY_DEST_SUB_TYPE = "destSubType";
     @jakarta.annotation.Nullable private TransferPeerSubTypeEnum destSubType;
@@ -158,7 +158,7 @@ public class ScreeningTRLinkPrescreeningRule {
     }
 
     public ScreeningTRLinkPrescreeningRule sourceType(
-            @jakarta.annotation.Nullable TransferPeerTypeEnum sourceType) {
+            @jakarta.annotation.Nullable TransferPeerTypeEnum2 sourceType) {
         this.sourceType = sourceType;
         return this;
     }
@@ -171,13 +171,13 @@ public class ScreeningTRLinkPrescreeningRule {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_SOURCE_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TransferPeerTypeEnum getSourceType() {
+    public TransferPeerTypeEnum2 getSourceType() {
         return sourceType;
     }
 
     @JsonProperty(JSON_PROPERTY_SOURCE_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSourceType(@jakarta.annotation.Nullable TransferPeerTypeEnum sourceType) {
+    public void setSourceType(@jakarta.annotation.Nullable TransferPeerTypeEnum2 sourceType) {
         this.sourceType = sourceType;
     }
 
@@ -231,7 +231,7 @@ public class ScreeningTRLinkPrescreeningRule {
     }
 
     public ScreeningTRLinkPrescreeningRule destType(
-            @jakarta.annotation.Nullable TransferPeerTypeEnum destType) {
+            @jakarta.annotation.Nullable TransferPeerTypeEnum2 destType) {
         this.destType = destType;
         return this;
     }
@@ -244,13 +244,13 @@ public class ScreeningTRLinkPrescreeningRule {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_DEST_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TransferPeerTypeEnum getDestType() {
+    public TransferPeerTypeEnum2 getDestType() {
         return destType;
     }
 
     @JsonProperty(JSON_PROPERTY_DEST_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestType(@jakarta.annotation.Nullable TransferPeerTypeEnum destType) {
+    public void setDestType(@jakarta.annotation.Nullable TransferPeerTypeEnum2 destType) {
         this.destType = destType;
     }
 

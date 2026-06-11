@@ -48,7 +48,9 @@ public enum TransferPeerPathType {
 
     MULTI_DESTINATION("MULTI_DESTINATION"),
 
-    OEC_PARTNER("OEC_PARTNER");
+    OEC_PARTNER("OEC_PARTNER"),
+
+    WALLET_POOL("WALLET_POOL");
 
     private String value;
 

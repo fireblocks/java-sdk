@@ -9,11 +9,11 @@ Matched prescreening rule details. Prescreening rules are evaluated before the m
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**bypassReason** | **String** | Reason for bypass if prescreening rule triggered a bypass |  [optional] |
-|**sourceType** | **TransferPeerTypeEnum** |  |  [optional] |
+|**sourceType** | **TransferPeerTypeEnum2** |  |  [optional] |
 |**sourceSubType** | **TransferPeerSubTypeEnum** |  |  [optional] |
-|**destType** | **TransferPeerTypeEnum** |  |  [optional] |
+|**destType** | **TransferPeerTypeEnum2** |  |  [optional] |
 |**destSubType** | **TransferPeerSubTypeEnum** |  |  [optional] |
-|**transferPeerType** | **TransferPeerTypeEnum** |  |  [optional] |
+|**transferPeerType** | **TransferPeerTypeEnum2** |  |  [optional] |
 |**transferPeerSubType** | **TransferPeerSubTypeEnum** |  |  [optional] |
 |**destAddress** | **String** | Destination address |  [optional] |
 |**sourceId** | **String** | Source ID |  [optional] |

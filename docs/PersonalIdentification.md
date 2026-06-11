@@ -15,10 +15,12 @@
 |**postalAddress** | [**PostalAddress**](PostalAddress.md) |  |  |
 |**email** | **String** |  |  [optional] |
 |**phone** | **String** | Mobile phone number in E.164 format |  [optional] |
-|**idNumber** | **String** | The identification number corresponding to the primary identification document type specified in idType |  [optional] |
-|**idType** | **PersonalIdentificationType** |  |  [optional] |
-|**additionalIdNumber** | **String** | The identification number corresponding to the additional identification document type specified in additionalIdType |  [optional] |
-|**additionalIdType** | **PersonalIdentificationType** |  |  [optional] |
+|**idNumber** | **String** | Deprecated. Use identificationDocuments instead. |  [optional] |
+|**idType** | **PersonalIdentificationType** | Deprecated. Use identificationDocuments instead. |  [optional] |
+|**additionalIdNumber** | **String** | Deprecated. Use identificationDocuments instead. |  [optional] |
+|**additionalIdType** | **PersonalIdentificationType** | Deprecated. Use identificationDocuments instead. |  [optional] |
+|**nationality** | **String** | The ISO-3166 Alpha-2 country code representing the individual&#39;s nationality. |  [optional] |
+|**identificationDocuments** | [**List&lt;PersonalIdentificationDocument&gt;**](PersonalIdentificationDocument.md) | List of identification documents for the individual. |  [optional] |
 
 
 

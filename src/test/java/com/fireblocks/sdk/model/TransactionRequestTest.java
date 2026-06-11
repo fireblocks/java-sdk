@@ -199,9 +199,9 @@ class TransactionRequestTest {
         // TODO: test useGasless
     }
 
-    /** Test the property 'expiresAfterSeconds' */
+    /** Test the property 'configurations' */
     @Test
-    void expiresAfterSecondsTest() {
-        // TODO: test expiresAfterSeconds
+    void configurationsTest() {
+        // TODO: test configurations
     }
 }

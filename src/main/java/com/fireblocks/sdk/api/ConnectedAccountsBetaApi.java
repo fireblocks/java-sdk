@@ -20,6 +20,9 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
+import com.fireblocks.sdk.model.AllowlistEntry;
+import com.fireblocks.sdk.model.AllowlistEntryStatus;
+import com.fireblocks.sdk.model.AllowlistResponse;
 import com.fireblocks.sdk.model.ConnectedAccountBalancesResponse;
 import com.fireblocks.sdk.model.ConnectedAccountRateResponse;
 import com.fireblocks.sdk.model.ConnectedAccountTradingPairsResponse;
@@ -196,6 +199,224 @@ public class ConnectedAccountsBetaApi {
         String localVarPath =
                 "/connected_accounts/{accountId}"
                         .replace("{accountId}", ApiClient.urlEncode(accountId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get allowlist for connected account Retrieves the address allowlist for a specified connected
+     * account. **Note:** This endpoint is currently in beta and might be subject to changes.
+     * Currently supports CoinbaseExchange accounts only.
+     *
+     * @param accountId The connected account identifier (required)
+     * @param status Filter by allowlist entry status (optional)
+     * @param assetId Filter by Fireblocks asset ID. See [List
+     *     assets](https://developers.fireblocks.com/reference/listassets) for the canonical list of
+     *     Fireblocks asset IDs. (optional)
+     * @param networkId Filter by Fireblocks network ID. See [List
+     *     blockchains](https://developers.fireblocks.com/reference/listblockchains) for the
+     *     canonical list of Fireblocks blockchain identifiers. (optional)
+     * @param address Filter by specific address (optional)
+     * @param pageCursor Pagination cursor for next page (optional)
+     * @param pageSize Maximum number of entries to return (optional)
+     * @param sortBy Field to sort results by. (optional, default to addedAt)
+     * @param order Sort order (ASC or DESC). (optional, default to DESC)
+     * @return CompletableFuture&lt;ApiResponse&lt;AllowlistResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AllowlistResponse>> getConnectedAccountAllowlist(
+            String accountId,
+            AllowlistEntryStatus status,
+            String assetId,
+            String networkId,
+            String address,
+            String pageCursor,
+            Integer pageSize,
+            String sortBy,
+            String order)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getConnectedAccountAllowlistRequestBuilder(
+                            accountId,
+                            status,
+                            assetId,
+                            networkId,
+                            address,
+                            pageCursor,
+                            pageSize,
+                            sortBy,
+                            order);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getConnectedAccountAllowlist",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<AllowlistResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AllowlistResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getConnectedAccountAllowlistRequestBuilder(
+            String accountId,
+            AllowlistEntryStatus status,
+            String assetId,
+            String networkId,
+            String address,
+            String pageCursor,
+            Integer pageSize,
+            String sortBy,
+            String order)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getConnectedAccountAllowlist", "accountId", accountId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/connected_accounts/{accountId}/allowlist"
+                        .replace("{accountId}", ApiClient.urlEncode(accountId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "status";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("status", status));
+        localVarQueryParameterBaseName = "assetId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("assetId", assetId));
+        localVarQueryParameterBaseName = "networkId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("networkId", networkId));
+        localVarQueryParameterBaseName = "address";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("address", address));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "sortBy";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sortBy", sortBy));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get a single allowlist entry for a connected account Retrieves a single allowlist entry by
+     * its Fireblocks identifier for a specified connected account. **Note:** This endpoint is
+     * currently in beta and might be subject to changes. Currently supports CoinbaseExchange
+     * accounts only.
+     *
+     * @param accountId The connected account identifier (required)
+     * @param allowlistId The Fireblocks allowlist entry identifier (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;AllowlistEntry&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AllowlistEntry>> getConnectedAccountAllowlistEntry(
+            String accountId, String allowlistId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getConnectedAccountAllowlistEntryRequestBuilder(accountId, allowlistId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getConnectedAccountAllowlistEntry",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<AllowlistEntry>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AllowlistEntry>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getConnectedAccountAllowlistEntryRequestBuilder(
+            String accountId, String allowlistId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getConnectedAccountAllowlistEntry", "accountId", accountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getConnectedAccountAllowlistEntry", "allowlistId", allowlistId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/connected_accounts/{accountId}/allowlist/{allowlistId}"
+                        .replace("{accountId}", ApiClient.urlEncode(accountId.toString()))
+                        .replace("{allowlistId}", ApiClient.urlEncode(allowlistId.toString()));
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
@@ -669,6 +890,75 @@ public class ConnectedAccountsBetaApi {
         } catch (IOException e) {
             throw new ApiException(e);
         }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Sync allowlist for connected account Triggers an on-demand sync from the exchange, bypassing
+     * the cache and fetching live data immediately. **Rate limit:** 1 request per minute per
+     * connected account. **Note:** This endpoint is currently in beta and might be subject to
+     * changes. Currently supports CoinbaseExchange accounts only.
+     *
+     * @param accountId The connected account identifier (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Void>> syncConnectedAccountAllowlist(
+            String accountId, String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    syncConnectedAccountAllowlistRequestBuilder(accountId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "syncConnectedAccountAllowlist",
+                                                    localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder syncConnectedAccountAllowlistRequestBuilder(
+            String accountId, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "syncConnectedAccountAllowlist", "accountId", accountId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/connected_accounts/{accountId}/allowlist/sync"
+                        .replace("{accountId}", ApiClient.urlEncode(accountId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

@@ -28,7 +28,8 @@ import java.util.StringJoiner;
     CreateWebhookRequest.JSON_PROPERTY_URL,
     CreateWebhookRequest.JSON_PROPERTY_DESCRIPTION,
     CreateWebhookRequest.JSON_PROPERTY_EVENTS,
-    CreateWebhookRequest.JSON_PROPERTY_ENABLED
+    CreateWebhookRequest.JSON_PROPERTY_ENABLED,
+    CreateWebhookRequest.JSON_PROPERTY_MTLS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -45,6 +46,9 @@ public class CreateWebhookRequest {
 
     public static final String JSON_PROPERTY_ENABLED = "enabled";
     @jakarta.annotation.Nullable private Boolean enabled = true;
+
+    public static final String JSON_PROPERTY_MTLS = "mtls";
+    @jakarta.annotation.Nullable private WebhookMtls mtls;
 
     public CreateWebhookRequest() {}
 
@@ -157,6 +161,29 @@ public class CreateWebhookRequest {
         this.enabled = enabled;
     }
 
+    public CreateWebhookRequest mtls(@jakarta.annotation.Nullable WebhookMtls mtls) {
+        this.mtls = mtls;
+        return this;
+    }
+
+    /**
+     * Get mtls
+     *
+     * @return mtls
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_MTLS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public WebhookMtls getMtls() {
+        return mtls;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MTLS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMtls(@jakarta.annotation.Nullable WebhookMtls mtls) {
+        this.mtls = mtls;
+    }
+
     /** Return true if this CreateWebhookRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -170,12 +197,13 @@ public class CreateWebhookRequest {
         return Objects.equals(this.url, createWebhookRequest.url)
                 && Objects.equals(this.description, createWebhookRequest.description)
                 && Objects.equals(this.events, createWebhookRequest.events)
-                && Objects.equals(this.enabled, createWebhookRequest.enabled);
+                && Objects.equals(this.enabled, createWebhookRequest.enabled)
+                && Objects.equals(this.mtls, createWebhookRequest.mtls);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(url, description, events, enabled);
+        return Objects.hash(url, description, events, enabled, mtls);
     }
 
     @Override
@@ -186,6 +214,7 @@ public class CreateWebhookRequest {
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    events: ").append(toIndentedString(events)).append("\n");
         sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
+        sb.append("    mtls: ").append(toIndentedString(mtls)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -280,6 +309,11 @@ public class CreateWebhookRequest {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getEnabled()))));
+        }
+
+        // add `mtls` to the URL query string
+        if (getMtls() != null) {
+            joiner.add(getMtls().toUrlQueryString(prefix + "mtls" + suffix));
         }
 
         return joiner.toString();

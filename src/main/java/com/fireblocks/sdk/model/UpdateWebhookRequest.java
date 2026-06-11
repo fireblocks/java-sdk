@@ -27,7 +27,8 @@ import java.util.StringJoiner;
     UpdateWebhookRequest.JSON_PROPERTY_URL,
     UpdateWebhookRequest.JSON_PROPERTY_DESCRIPTION,
     UpdateWebhookRequest.JSON_PROPERTY_EVENTS,
-    UpdateWebhookRequest.JSON_PROPERTY_ENABLED
+    UpdateWebhookRequest.JSON_PROPERTY_ENABLED,
+    UpdateWebhookRequest.JSON_PROPERTY_MTLS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -44,6 +45,9 @@ public class UpdateWebhookRequest {
 
     public static final String JSON_PROPERTY_ENABLED = "enabled";
     @jakarta.annotation.Nullable private Boolean enabled;
+
+    public static final String JSON_PROPERTY_MTLS = "mtls";
+    @jakarta.annotation.Nullable private WebhookMtls mtls;
 
     public UpdateWebhookRequest() {}
 
@@ -147,6 +151,29 @@ public class UpdateWebhookRequest {
         this.enabled = enabled;
     }
 
+    public UpdateWebhookRequest mtls(@jakarta.annotation.Nullable WebhookMtls mtls) {
+        this.mtls = mtls;
+        return this;
+    }
+
+    /**
+     * Get mtls
+     *
+     * @return mtls
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_MTLS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public WebhookMtls getMtls() {
+        return mtls;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MTLS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMtls(@jakarta.annotation.Nullable WebhookMtls mtls) {
+        this.mtls = mtls;
+    }
+
     /** Return true if this UpdateWebhookRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -160,12 +187,13 @@ public class UpdateWebhookRequest {
         return Objects.equals(this.url, updateWebhookRequest.url)
                 && Objects.equals(this.description, updateWebhookRequest.description)
                 && Objects.equals(this.events, updateWebhookRequest.events)
-                && Objects.equals(this.enabled, updateWebhookRequest.enabled);
+                && Objects.equals(this.enabled, updateWebhookRequest.enabled)
+                && Objects.equals(this.mtls, updateWebhookRequest.mtls);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(url, description, events, enabled);
+        return Objects.hash(url, description, events, enabled, mtls);
     }
 
     @Override
@@ -176,6 +204,7 @@ public class UpdateWebhookRequest {
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    events: ").append(toIndentedString(events)).append("\n");
         sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
+        sb.append("    mtls: ").append(toIndentedString(mtls)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -270,6 +299,11 @@ public class UpdateWebhookRequest {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getEnabled()))));
+        }
+
+        // add `mtls` to the URL query string
+        if (getMtls() != null) {
+            joiner.add(getMtls().toUrlQueryString(prefix + "mtls" + suffix));
         }
 
         return joiner.toString();

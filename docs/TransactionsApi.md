@@ -787,7 +787,7 @@ public class Example {
 | **orderBy** | **String**| The field to order the results by.  **Note:** Ordering by a field that is not &#x60;createdAt&#x60; may result in transactions that receive updates as you request the next or previous pages of results, resulting in missing those transactions.  | [optional] [enum: createdAt, lastUpdated] |
 | **sort** | **String**| The direction to order the results by | [optional] [enum: ASC, DESC] |
 | **limit** | **Integer**| Limits the number of results. If not provided, a limit of 200 will be used. The maximum allowed limit is 500 | [optional] [default to 200] |
-| **sourceType** | **String**| The source type of the transaction | [optional] [enum: VAULT_ACCOUNT, EXCHANGE_ACCOUNT, INTERNAL_WALLET, EXTERNAL_WALLET, CONTRACT, FIAT_ACCOUNT, NETWORK_CONNECTION, COMPOUND, UNKNOWN, GAS_STATION, END_USER_WALLET] |
+| **sourceType** | **String**| The source type of the transaction | [optional] [enum: VAULT_ACCOUNT, EXCHANGE_ACCOUNT, INTERNAL_WALLET, EXTERNAL_WALLET, CONTRACT, FIAT_ACCOUNT, NETWORK_CONNECTION, COMPOUND, UNKNOWN, GAS_STATION, END_USER_WALLET, WALLET_POOL] |
 | **sourceId** | **String**| The source ID of the transaction | [optional] |
 | **destType** | **String**| The destination type of the transaction | [optional] [enum: VAULT_ACCOUNT, EXCHANGE_ACCOUNT, INTERNAL_WALLET, EXTERNAL_WALLET, CONTRACT, FIAT_ACCOUNT, NETWORK_CONNECTION, COMPOUND, ONE_TIME_ADDRESS, END_USER_WALLET] |
 | **destId** | **String**| The destination ID of the transaction | [optional] |

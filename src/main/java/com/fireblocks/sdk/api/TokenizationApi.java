@@ -20,7 +20,13 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
+import com.fireblocks.sdk.model.AccessRegistryCurrentStateResponse;
+import com.fireblocks.sdk.model.AccessRegistrySummaryResponse;
+import com.fireblocks.sdk.model.ActiveRolesResponse;
 import com.fireblocks.sdk.model.AdapterProcessingResult;
+import com.fireblocks.sdk.model.AddressBalanceItemDto;
+import com.fireblocks.sdk.model.AddressBalancePagedResponse;
+import com.fireblocks.sdk.model.BalanceHistoryPagedResponse;
 import com.fireblocks.sdk.model.CollectionBurnRequestDto;
 import com.fireblocks.sdk.model.CollectionBurnResponseDto;
 import com.fireblocks.sdk.model.CollectionDeployRequestDto;
@@ -36,6 +42,8 @@ import com.fireblocks.sdk.model.GetLayerZeroDvnConfigResponse;
 import com.fireblocks.sdk.model.GetLayerZeroPeersResponse;
 import com.fireblocks.sdk.model.GetLinkedCollectionsPaginatedResponse;
 import com.fireblocks.sdk.model.LinkedTokensCount;
+import com.fireblocks.sdk.model.OnchainTransactionsPagedResponse;
+import com.fireblocks.sdk.model.OnchainTransfersPagedResponse;
 import com.fireblocks.sdk.model.ReissueMultichainTokenRequest;
 import com.fireblocks.sdk.model.RemoveLayerZeroAdaptersRequest;
 import com.fireblocks.sdk.model.RemoveLayerZeroAdaptersResponse;
@@ -45,9 +53,11 @@ import com.fireblocks.sdk.model.SetLayerZeroDvnConfigRequest;
 import com.fireblocks.sdk.model.SetLayerZeroDvnConfigResponse;
 import com.fireblocks.sdk.model.SetLayerZeroPeersRequest;
 import com.fireblocks.sdk.model.SetLayerZeroPeersResponse;
+import com.fireblocks.sdk.model.TokenContractSummaryResponse;
 import com.fireblocks.sdk.model.TokenLinkDto;
 import com.fireblocks.sdk.model.TokenLinkRequestDto;
 import com.fireblocks.sdk.model.TokensPaginatedResponse;
+import com.fireblocks.sdk.model.TotalSupplyPagedResponse;
 import com.fireblocks.sdk.model.ValidateLayerZeroChannelResponse;
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,6 +67,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
@@ -1134,6 +1145,994 @@ public class TokenizationApi {
         String localVarPath = "/tokenization/tokens/count";
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get current state of addresses in an access registry Returns the currently active addresses
+     * in the access registry (added but not removed).
+     *
+     * @param id The token link id (required)
+     * @param pageCursor Page cursor to get the next page (optional)
+     * @param pageSize Number of items per page (max 100), requesting more than 100 will return 100
+     *     items (optional)
+     * @param sortBy Sorting field (enum). (optional, default to dateAdded)
+     * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
+     * @return CompletableFuture&lt;ApiResponse&lt;AccessRegistryCurrentStateResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AccessRegistryCurrentStateResponse>>
+            getTokenAccessRegistryAddresses(
+                    String id, String pageCursor, Integer pageSize, String sortBy, String order)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getTokenAccessRegistryAddressesRequestBuilder(
+                            id, pageCursor, pageSize, sortBy, order);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getTokenAccessRegistryAddresses",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<AccessRegistryCurrentStateResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AccessRegistryCurrentStateResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTokenAccessRegistryAddressesRequestBuilder(
+            String id, String pageCursor, Integer pageSize, String sortBy, String order)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getTokenAccessRegistryAddresses", "id", id);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/tokenization/access_registries/{id}/addresses"
+                        .replace("{id}", ApiClient.urlEncode(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "sortBy";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sortBy", sortBy));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get summary of an access registry Returns a summary of the current state of the access
+     * registry.
+     *
+     * @param id The token link id (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;AccessRegistrySummaryResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AccessRegistrySummaryResponse>>
+            getTokenAccessRegistrySummary(String id) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getTokenAccessRegistrySummaryRequestBuilder(id);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getTokenAccessRegistrySummary",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<AccessRegistrySummaryResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AccessRegistrySummaryResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTokenAccessRegistrySummaryRequestBuilder(String id)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getTokenAccessRegistrySummary", "id", id);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/tokenization/access_registries/{id}/summary"
+                        .replace("{id}", ApiClient.urlEncode(id.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get the latest balance for a specific account Returns the latest token balance for the
+     * specified account address.
+     *
+     * @param id The token link id (required)
+     * @param accountAddress The account address to get balance history for (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressBalanceItemDto&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AddressBalanceItemDto>> getTokenBalanceForAccount(
+            String id, String accountAddress) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getTokenBalanceForAccountRequestBuilder(id, accountAddress);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getTokenBalanceForAccount", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<AddressBalanceItemDto>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressBalanceItemDto>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTokenBalanceForAccountRequestBuilder(
+            String id, String accountAddress) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getTokenBalanceForAccount", "id", id);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getTokenBalanceForAccount", "accountAddress", accountAddress);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/tokenization/tokens/{id}/balances/{accountAddress}"
+                        .replace("{id}", ApiClient.urlEncode(id.toString()))
+                        .replace(
+                                "{accountAddress}", ApiClient.urlEncode(accountAddress.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get balance history for a specific account Returns paginated balance history for the
+     * specified account address with optional time-range filtering.
+     *
+     * @param id The token link id (required)
+     * @param accountAddress The account address to get balance history for (required)
+     * @param startDate Start date of the time range in ISO 8601 format (optional)
+     * @param endDate End date of the time range in ISO 8601 format (optional)
+     * @param interval Time interval for grouping data (optional, default to DAY)
+     * @param pageCursor Page cursor to get the next page (optional)
+     * @param pageSize Number of items per page (max 100), requesting more than 100 will return 100
+     *     items (optional)
+     * @param sortBy Sorting field (enum). Sorting only supported by &#39;blockTimestamp&#39;
+     *     (optional, default to blockTimestamp)
+     * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
+     * @return CompletableFuture&lt;ApiResponse&lt;BalanceHistoryPagedResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<BalanceHistoryPagedResponse>> getTokenBalanceHistory(
+            String id,
+            String accountAddress,
+            OffsetDateTime startDate,
+            OffsetDateTime endDate,
+            String interval,
+            String pageCursor,
+            Integer pageSize,
+            String sortBy,
+            String order)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getTokenBalanceHistoryRequestBuilder(
+                            id,
+                            accountAddress,
+                            startDate,
+                            endDate,
+                            interval,
+                            pageCursor,
+                            pageSize,
+                            sortBy,
+                            order);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getTokenBalanceHistory", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<BalanceHistoryPagedResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            BalanceHistoryPagedResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTokenBalanceHistoryRequestBuilder(
+            String id,
+            String accountAddress,
+            OffsetDateTime startDate,
+            OffsetDateTime endDate,
+            String interval,
+            String pageCursor,
+            Integer pageSize,
+            String sortBy,
+            String order)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getTokenBalanceHistory", "id", id);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getTokenBalanceHistory", "accountAddress", accountAddress);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/tokenization/tokens/{id}/balances/{accountAddress}/history"
+                        .replace("{id}", ApiClient.urlEncode(id.toString()))
+                        .replace(
+                                "{accountAddress}", ApiClient.urlEncode(accountAddress.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "startDate";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("startDate", startDate));
+        localVarQueryParameterBaseName = "endDate";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("endDate", endDate));
+        localVarQueryParameterBaseName = "interval";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("interval", interval));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "sortBy";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sortBy", sortBy));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get latest balances for all holders of a token Returns the latest balance for each unique
+     * address holding this token.
+     *
+     * @param id The token link id (required)
+     * @param pageCursor Page cursor to get the next page (optional)
+     * @param pageSize Number of items per page (max 100), requesting more than 100 will return 100
+     *     items (optional)
+     * @param sortBy Sorting field for balances (optional, default to blockTimestamp)
+     * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressBalancePagedResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AddressBalancePagedResponse>> getTokenBalances(
+            String id, String pageCursor, Integer pageSize, String sortBy, String order)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getTokenBalancesRequestBuilder(id, pageCursor, pageSize, sortBy, order);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getTokenBalances", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<AddressBalancePagedResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressBalancePagedResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTokenBalancesRequestBuilder(
+            String id, String pageCursor, Integer pageSize, String sortBy, String order)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getTokenBalances", "id", id);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/tokenization/tokens/{id}/balances"
+                        .replace("{id}", ApiClient.urlEncode(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "sortBy";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sortBy", sortBy));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get onchain summary for a token Returns the total number of unique holders and the total
+     * supply for the token contract.
+     *
+     * @param id The token link id (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;TokenContractSummaryResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<TokenContractSummaryResponse>> getTokenContractSummary(
+            String id) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = getTokenContractSummaryRequestBuilder(id);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getTokenContractSummary", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<TokenContractSummaryResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            TokenContractSummaryResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTokenContractSummaryRequestBuilder(String id)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getTokenContractSummary", "id", id);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/tokenization/tokens/{id}/summary"
+                        .replace("{id}", ApiClient.urlEncode(id.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get active RBAC roles for a token Returns a list of currently active roles for the token
+     * contract.
+     *
+     * @param id The token link id (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;ActiveRolesResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ActiveRolesResponse>> getTokenRbac(String id)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = getTokenRbacRequestBuilder(id);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getTokenRbac", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ActiveRolesResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ActiveRolesResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTokenRbacRequestBuilder(String id) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getTokenRbac", "id", id);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/tokenization/tokens/{id}/rbac"
+                        .replace("{id}", ApiClient.urlEncode(id.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get historical total supply for a token Returns paginated total supply history for the token
+     * contract with optional time-range filtering and binning.
+     *
+     * @param id The token link id (required)
+     * @param startDate Start date of the time range in ISO 8601 format (optional)
+     * @param endDate End date of the time range in ISO 8601 format (optional)
+     * @param interval Time interval for grouping data (optional, default to DAY)
+     * @param pageCursor Page cursor to get the next page (optional)
+     * @param pageSize Number of items per page (max 100), requesting more than 100 will return 100
+     *     items (optional)
+     * @param sortBy Sorting field (enum). Sorting only supported by &#39;blockTimestamp&#39;
+     *     (optional, default to blockTimestamp)
+     * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
+     * @return CompletableFuture&lt;ApiResponse&lt;TotalSupplyPagedResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<TotalSupplyPagedResponse>> getTokenTotalSupply(
+            String id,
+            OffsetDateTime startDate,
+            OffsetDateTime endDate,
+            String interval,
+            String pageCursor,
+            Integer pageSize,
+            String sortBy,
+            String order)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getTokenTotalSupplyRequestBuilder(
+                            id, startDate, endDate, interval, pageCursor, pageSize, sortBy, order);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getTokenTotalSupply", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<TotalSupplyPagedResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            TotalSupplyPagedResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTokenTotalSupplyRequestBuilder(
+            String id,
+            OffsetDateTime startDate,
+            OffsetDateTime endDate,
+            String interval,
+            String pageCursor,
+            Integer pageSize,
+            String sortBy,
+            String order)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getTokenTotalSupply", "id", id);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/tokenization/tokens/{id}/total_supply"
+                        .replace("{id}", ApiClient.urlEncode(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "startDate";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("startDate", startDate));
+        localVarQueryParameterBaseName = "endDate";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("endDate", endDate));
+        localVarQueryParameterBaseName = "interval";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("interval", interval));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "sortBy";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sortBy", sortBy));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get onchain transactions for a token Returns a paginated list of onchain transactions for the
+     * token contract, optionally filtered by date range.
+     *
+     * @param id The token link id (required)
+     * @param startDate Start date of the time range in ISO 8601 format (optional)
+     * @param endDate End date of the time range in ISO 8601 format (optional)
+     * @param pageCursor Page cursor to get the next page (optional)
+     * @param pageSize Number of items per page (max 100), requesting more than 100 will return 100
+     *     items (optional)
+     * @param sortBy Sorting field (enum). (optional, default to blockTimestamp)
+     * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
+     * @return CompletableFuture&lt;ApiResponse&lt;OnchainTransactionsPagedResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<OnchainTransactionsPagedResponse>> getTokenTransactions(
+            String id,
+            OffsetDateTime startDate,
+            OffsetDateTime endDate,
+            String pageCursor,
+            Integer pageSize,
+            String sortBy,
+            String order)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getTokenTransactionsRequestBuilder(
+                            id, startDate, endDate, pageCursor, pageSize, sortBy, order);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getTokenTransactions", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<OnchainTransactionsPagedResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            OnchainTransactionsPagedResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTokenTransactionsRequestBuilder(
+            String id,
+            OffsetDateTime startDate,
+            OffsetDateTime endDate,
+            String pageCursor,
+            Integer pageSize,
+            String sortBy,
+            String order)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getTokenTransactions", "id", id);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/tokenization/tokens/{id}/transactions"
+                        .replace("{id}", ApiClient.urlEncode(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "startDate";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("startDate", startDate));
+        localVarQueryParameterBaseName = "endDate";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("endDate", endDate));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "sortBy";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sortBy", sortBy));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get onchain transfers for a token Returns a paginated list of ERC20 transfer events for the
+     * token contract, optionally filtered by date range.
+     *
+     * @param id The token link id (required)
+     * @param startDate Start date of the time range in ISO 8601 format (optional)
+     * @param endDate End date of the time range in ISO 8601 format (optional)
+     * @param pageCursor Page cursor to get the next page (optional)
+     * @param pageSize Number of items per page (max 100), requesting more than 100 will return 100
+     *     items (optional)
+     * @param sortBy Sorting field for transfers (optional, default to blockTimeStamp)
+     * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
+     * @param sender Filter transfers by sender address (optional)
+     * @param receiver Filter transfers by receiver address (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;OnchainTransfersPagedResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<OnchainTransfersPagedResponse>> getTokenTransfers(
+            String id,
+            OffsetDateTime startDate,
+            OffsetDateTime endDate,
+            String pageCursor,
+            Integer pageSize,
+            String sortBy,
+            String order,
+            String sender,
+            String receiver)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getTokenTransfersRequestBuilder(
+                            id,
+                            startDate,
+                            endDate,
+                            pageCursor,
+                            pageSize,
+                            sortBy,
+                            order,
+                            sender,
+                            receiver);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getTokenTransfers", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<OnchainTransfersPagedResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            OnchainTransfersPagedResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTokenTransfersRequestBuilder(
+            String id,
+            OffsetDateTime startDate,
+            OffsetDateTime endDate,
+            String pageCursor,
+            Integer pageSize,
+            String sortBy,
+            String order,
+            String sender,
+            String receiver)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getTokenTransfers", "id", id);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/tokenization/tokens/{id}/transfers"
+                        .replace("{id}", ApiClient.urlEncode(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "startDate";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("startDate", startDate));
+        localVarQueryParameterBaseName = "endDate";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("endDate", endDate));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "sortBy";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sortBy", sortBy));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+        localVarQueryParameterBaseName = "sender";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sender", sender));
+        localVarQueryParameterBaseName = "receiver";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("receiver", receiver));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
 
         localVarRequestBuilder.header("Accept", "application/json");
 
