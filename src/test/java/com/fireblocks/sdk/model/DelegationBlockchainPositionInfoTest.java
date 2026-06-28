@@ -37,6 +37,12 @@ class DelegationBlockchainPositionInfoTest {
         // TODO: test stakeAccountDerivationChangeValue
     }
 
+    /** Test the property 'rewardsBreakdown' */
+    @Test
+    void rewardsBreakdownTest() {
+        // TODO: test rewardsBreakdown
+    }
+
     /** Test the property 'isCompoundingValidator' */
     @Test
     void isCompoundingValidatorTest() {

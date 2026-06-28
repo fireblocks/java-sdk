@@ -27,6 +27,8 @@ import java.util.StringJoiner;
 /** Single lending action (intent plus per-step execution rows). */
 @JsonPropertyOrder({
     GetActionResponse.JSON_PROPERTY_ID,
+    GetActionResponse.JSON_PROPERTY_VAULT_ACCOUNT_ID,
+    GetActionResponse.JSON_PROPERTY_USER_ID,
     GetActionResponse.JSON_PROPERTY_STATUS,
     GetActionResponse.JSON_PROPERTY_PROVIDER_ID,
     GetActionResponse.JSON_PROPERTY_ACTION_TYPE,
@@ -43,6 +45,12 @@ import java.util.StringJoiner;
 public class GetActionResponse {
     public static final String JSON_PROPERTY_ID = "id";
     @jakarta.annotation.Nonnull private String id;
+
+    public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
+    @jakarta.annotation.Nonnull private String vaultAccountId;
+
+    public static final String JSON_PROPERTY_USER_ID = "userId";
+    @jakarta.annotation.Nonnull private String userId;
 
     public static final String JSON_PROPERTY_STATUS = "status";
     @jakarta.annotation.Nonnull private String status;
@@ -142,6 +150,9 @@ public class GetActionResponse {
     @JsonCreator
     public GetActionResponse(
             @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    String vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_USER_ID, required = true) String userId,
             @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) String status,
             @JsonProperty(value = JSON_PROPERTY_PROVIDER_ID, required = true)
                     ProviderIdEnum providerId,
@@ -155,6 +166,8 @@ public class GetActionResponse {
             @JsonProperty(value = JSON_PROPERTY_RECORDS, required = true)
                     List<ActionRecord> records) {
         this.id = id;
+        this.vaultAccountId = vaultAccountId;
+        this.userId = userId;
         this.status = status;
         this.providerId = providerId;
         this.actionType = actionType;
@@ -186,6 +199,52 @@ public class GetActionResponse {
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
+    }
+
+    public GetActionResponse vaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
+        this.vaultAccountId = vaultAccountId;
+        return this;
+    }
+
+    /**
+     * Fireblocks vault account that executed the action.
+     *
+     * @return vaultAccountId
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getVaultAccountId() {
+        return vaultAccountId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
+        this.vaultAccountId = vaultAccountId;
+    }
+
+    public GetActionResponse userId(@jakarta.annotation.Nonnull String userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    /**
+     * User who initiated the action.
+     *
+     * @return userId
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_USER_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getUserId() {
+        return userId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_USER_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setUserId(@jakarta.annotation.Nonnull String userId) {
+        this.userId = userId;
     }
 
     public GetActionResponse status(@jakarta.annotation.Nonnull String status) {
@@ -414,6 +473,8 @@ public class GetActionResponse {
         }
         GetActionResponse getActionResponse = (GetActionResponse) o;
         return Objects.equals(this.id, getActionResponse.id)
+                && Objects.equals(this.vaultAccountId, getActionResponse.vaultAccountId)
+                && Objects.equals(this.userId, getActionResponse.userId)
                 && Objects.equals(this.status, getActionResponse.status)
                 && Objects.equals(this.providerId, getActionResponse.providerId)
                 && Objects.equals(this.actionType, getActionResponse.actionType)
@@ -429,6 +490,8 @@ public class GetActionResponse {
     public int hashCode() {
         return Objects.hash(
                 id,
+                vaultAccountId,
+                userId,
                 status,
                 providerId,
                 actionType,
@@ -445,6 +508,8 @@ public class GetActionResponse {
         StringBuilder sb = new StringBuilder();
         sb.append("class GetActionResponse {\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
+        sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    providerId: ").append(toIndentedString(providerId)).append("\n");
         sb.append("    actionType: ").append(toIndentedString(actionType)).append("\n");
@@ -507,6 +572,26 @@ public class GetActionResponse {
                     String.format(
                             "%sid%s=%s",
                             prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
+        }
+
+        // add `vaultAccountId` to the URL query string
+        if (getVaultAccountId() != null) {
+            joiner.add(
+                    String.format(
+                            "%svaultAccountId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
+        }
+
+        // add `userId` to the URL query string
+        if (getUserId() != null) {
+            joiner.add(
+                    String.format(
+                            "%suserId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getUserId()))));
         }
 
         // add `status` to the URL query string

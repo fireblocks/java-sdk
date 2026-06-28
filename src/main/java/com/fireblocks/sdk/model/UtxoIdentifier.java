@@ -22,12 +22,12 @@ import java.util.StringJoiner;
 
 /**
  * Identifies a UTXO by either a Fireblocks transaction ID (targets all outputs of that transaction)
- * or a specific on-chain UTXO (txHash + vout). Exactly one of these two forms must be provided.
+ * or a specific on-chain UTXO (txHash + index). Exactly one of these two forms must be provided.
  */
 @JsonPropertyOrder({
     UtxoIdentifier.JSON_PROPERTY_TX_ID,
     UtxoIdentifier.JSON_PROPERTY_TX_HASH,
-    UtxoIdentifier.JSON_PROPERTY_VOUT
+    UtxoIdentifier.JSON_PROPERTY_INDEX
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -39,8 +39,8 @@ public class UtxoIdentifier {
     public static final String JSON_PROPERTY_TX_HASH = "txHash";
     @jakarta.annotation.Nullable private String txHash;
 
-    public static final String JSON_PROPERTY_VOUT = "vout";
-    @jakarta.annotation.Nullable private Integer vout;
+    public static final String JSON_PROPERTY_INDEX = "index";
+    @jakarta.annotation.Nullable private Integer index;
 
     public UtxoIdentifier() {}
 
@@ -90,27 +90,27 @@ public class UtxoIdentifier {
         this.txHash = txHash;
     }
 
-    public UtxoIdentifier vout(@jakarta.annotation.Nullable Integer vout) {
-        this.vout = vout;
+    public UtxoIdentifier index(@jakarta.annotation.Nullable Integer index) {
+        this.index = index;
         return this;
     }
 
     /**
-     * Output index
+     * Output index (vout)
      *
-     * @return vout
+     * @return index
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_VOUT)
+    @JsonProperty(JSON_PROPERTY_INDEX)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Integer getVout() {
-        return vout;
+    public Integer getIndex() {
+        return index;
     }
 
-    @JsonProperty(JSON_PROPERTY_VOUT)
+    @JsonProperty(JSON_PROPERTY_INDEX)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVout(@jakarta.annotation.Nullable Integer vout) {
-        this.vout = vout;
+    public void setIndex(@jakarta.annotation.Nullable Integer index) {
+        this.index = index;
     }
 
     /** Return true if this UtxoIdentifier object is equal to o. */
@@ -125,12 +125,12 @@ public class UtxoIdentifier {
         UtxoIdentifier utxoIdentifier = (UtxoIdentifier) o;
         return Objects.equals(this.txId, utxoIdentifier.txId)
                 && Objects.equals(this.txHash, utxoIdentifier.txHash)
-                && Objects.equals(this.vout, utxoIdentifier.vout);
+                && Objects.equals(this.index, utxoIdentifier.index);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(txId, txHash, vout);
+        return Objects.hash(txId, txHash, index);
     }
 
     @Override
@@ -139,7 +139,7 @@ public class UtxoIdentifier {
         sb.append("class UtxoIdentifier {\n");
         sb.append("    txId: ").append(toIndentedString(txId)).append("\n");
         sb.append("    txHash: ").append(toIndentedString(txHash)).append("\n");
-        sb.append("    vout: ").append(toIndentedString(vout)).append("\n");
+        sb.append("    index: ").append(toIndentedString(index)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -207,14 +207,14 @@ public class UtxoIdentifier {
                             ApiClient.urlEncode(ApiClient.valueToString(getTxHash()))));
         }
 
-        // add `vout` to the URL query string
-        if (getVout() != null) {
+        // add `index` to the URL query string
+        if (getIndex() != null) {
             joiner.add(
                     String.format(
-                            "%svout%s=%s",
+                            "%sindex%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getVout()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIndex()))));
         }
 
         return joiner.toString();

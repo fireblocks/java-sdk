@@ -15,7 +15,7 @@ PayID payment information for Australian dollar transfers
 |**country** | **String** | The country for the transfer (ISO 3166-1 alpha-2 code) |  |
 |**value** | **String** | The PayID identifier (email, phone, ABN, or organization ID) |  |
 |**type** | [**TypeEnum**](#TypeEnum) | The type of PayID being used |  |
-|**bsb** | **String** | Bank State Branch (BSB) number (6 digits, format XXX-XXX) |  [optional] |
+|**bsb** | **String** | Bank State Branch (BSB) number (6 digits, format XXX-XXX) |  |
 |**accountNumber** | **String** | Australian bank account number |  |
 
 

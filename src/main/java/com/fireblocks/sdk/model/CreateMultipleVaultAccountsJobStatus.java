@@ -67,8 +67,7 @@ public class CreateMultipleVaultAccountsJobStatus {
     }
 
     /**
-     * Status of the job. Possible values - Success, In Progress, Failed, Pending Approval,
-     * Cancelled
+     * Status of the job. Possible values - Success, In Progress, Error, Pending Approval, Canceled
      *
      * @return status
      */
@@ -101,7 +100,7 @@ public class CreateMultipleVaultAccountsJobStatus {
     }
 
     /**
-     * Mapping between VaultAccountId to a mapping of asset to address
+     * Mapping between VaultAccountId to a mapping of asset to address, and the vault account name
      *
      * @return vaultAccounts
      */

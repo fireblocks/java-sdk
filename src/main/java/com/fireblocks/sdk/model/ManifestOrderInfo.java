@@ -26,7 +26,8 @@ import java.util.StringJoiner;
 /** Defines requirements for the POST /orders endpoint. */
 @JsonPropertyOrder({
     ManifestOrderInfo.JSON_PROPERTY_SETTLEMENT_TYPES,
-    ManifestOrderInfo.JSON_PROPERTY_EXECUTION_TYPES
+    ManifestOrderInfo.JSON_PROPERTY_EXECUTION_TYPES,
+    ManifestOrderInfo.JSON_PROPERTY_REQUIRES_REASON_FOR_PAYMENT
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -37,6 +38,10 @@ public class ManifestOrderInfo {
 
     public static final String JSON_PROPERTY_EXECUTION_TYPES = "executionTypes";
     @jakarta.annotation.Nonnull private List<ExecutionRequestDetailsType> executionTypes;
+
+    public static final String JSON_PROPERTY_REQUIRES_REASON_FOR_PAYMENT =
+            "requiresReasonForPayment";
+    @jakarta.annotation.Nullable private Boolean requiresReasonForPayment;
 
     public ManifestOrderInfo() {}
 
@@ -114,6 +119,33 @@ public class ManifestOrderInfo {
         this.executionTypes = executionTypes;
     }
 
+    public ManifestOrderInfo requiresReasonForPayment(
+            @jakarta.annotation.Nullable Boolean requiresReasonForPayment) {
+        this.requiresReasonForPayment = requiresReasonForPayment;
+        return this;
+    }
+
+    /**
+     * Information about the source and purpose of the funds being transacted. Used by providers
+     * that require additional context for compliance and reporting. Provide this field when the
+     * provider manifest indicates it is required.
+     *
+     * @return requiresReasonForPayment
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_REQUIRES_REASON_FOR_PAYMENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getRequiresReasonForPayment() {
+        return requiresReasonForPayment;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REQUIRES_REASON_FOR_PAYMENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRequiresReasonForPayment(
+            @jakarta.annotation.Nullable Boolean requiresReasonForPayment) {
+        this.requiresReasonForPayment = requiresReasonForPayment;
+    }
+
     /** Return true if this ManifestOrderInfo object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -125,12 +157,14 @@ public class ManifestOrderInfo {
         }
         ManifestOrderInfo manifestOrderInfo = (ManifestOrderInfo) o;
         return Objects.equals(this.settlementTypes, manifestOrderInfo.settlementTypes)
-                && Objects.equals(this.executionTypes, manifestOrderInfo.executionTypes);
+                && Objects.equals(this.executionTypes, manifestOrderInfo.executionTypes)
+                && Objects.equals(
+                        this.requiresReasonForPayment, manifestOrderInfo.requiresReasonForPayment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(settlementTypes, executionTypes);
+        return Objects.hash(settlementTypes, executionTypes, requiresReasonForPayment);
     }
 
     @Override
@@ -139,6 +173,9 @@ public class ManifestOrderInfo {
         sb.append("class ManifestOrderInfo {\n");
         sb.append("    settlementTypes: ").append(toIndentedString(settlementTypes)).append("\n");
         sb.append("    executionTypes: ").append(toIndentedString(executionTypes)).append("\n");
+        sb.append("    requiresReasonForPayment: ")
+                .append(toIndentedString(requiresReasonForPayment))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -222,6 +259,17 @@ public class ManifestOrderInfo {
                                             ApiClient.valueToString(getExecutionTypes().get(i)))));
                 }
             }
+        }
+
+        // add `requiresReasonForPayment` to the URL query string
+        if (getRequiresReasonForPayment() != null) {
+            joiner.add(
+                    String.format(
+                            "%srequiresReasonForPayment%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getRequiresReasonForPayment()))));
         }
 
         return joiner.toString();

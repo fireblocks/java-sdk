@@ -22,7 +22,8 @@ import java.util.StringJoiner;
 
 /**
  * Information about the source and purpose of the funds being transacted. Used by providers that
- * require additional context for compliance and reporting (e.g. CPN cross-border payments).
+ * require additional context for compliance and reporting. Provide this field when the provider
+ * manifest indicates it is required.
  */
 @JsonPropertyOrder({SourceOfFunds.JSON_PROPERTY_REASON_FOR_PAYMENT})
 @jakarta.annotation.Generated(

@@ -42,14 +42,15 @@ import java.util.StringJoiner;
     Position2.JSON_PROPERTY_CREATED_AT,
     Position2.JSON_PROPERTY_UPDATED_AT,
     Position2.JSON_PROPERTY_LAST_SYNCED_AT,
-    Position2.JSON_PROPERTY_AVAILABLE_ACTIONS
+    Position2.JSON_PROPERTY_AVAILABLE_ACTIONS,
+    Position2.JSON_PROPERTY_YIELD
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class Position2 {
     public static final String JSON_PROPERTY_ID = "id";
-    @jakarta.annotation.Nullable private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     /** Lifecycle status of the position. */
     public enum StatusEnum {
@@ -85,10 +86,10 @@ public class Position2 {
     }
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    @jakarta.annotation.Nullable private StatusEnum status;
+    @jakarta.annotation.Nonnull private StatusEnum status;
 
     public static final String JSON_PROPERTY_IN_FLIGHT = "inFlight";
-    @jakarta.annotation.Nullable private Boolean inFlight;
+    @jakarta.annotation.Nonnull private Boolean inFlight;
 
     /** Whether the position is lend- or borrow-side. */
     public enum PositionTypeEnum {
@@ -124,16 +125,16 @@ public class Position2 {
     }
 
     public static final String JSON_PROPERTY_POSITION_TYPE = "positionType";
-    @jakarta.annotation.Nullable private PositionTypeEnum positionType;
+    @jakarta.annotation.Nonnull private PositionTypeEnum positionType;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    @jakarta.annotation.Nullable private String vaultAccountId;
+    @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_OPPORTUNITY_ID = "opportunityId";
-    @jakarta.annotation.Nullable private String opportunityId;
+    @jakarta.annotation.Nonnull private String opportunityId;
 
     public static final String JSON_PROPERTY_CHAIN_ID = "chainId";
-    @jakarta.annotation.Nullable private String chainId;
+    @jakarta.annotation.Nonnull private String chainId;
 
     /** Lending protocol. */
     public enum ProviderIdEnum {
@@ -169,7 +170,7 @@ public class Position2 {
     }
 
     public static final String JSON_PROPERTY_PROVIDER_ID = "providerId";
-    @jakarta.annotation.Nullable private ProviderIdEnum providerId;
+    @jakarta.annotation.Nonnull private ProviderIdEnum providerId;
 
     /** Whether the position was opened natively in Fireblocks or imported externally. */
     public enum OriginEnum {
@@ -205,25 +206,25 @@ public class Position2 {
     }
 
     public static final String JSON_PROPERTY_ORIGIN = "origin";
-    @jakarta.annotation.Nullable private OriginEnum origin;
+    @jakarta.annotation.Nonnull private OriginEnum origin;
 
     public static final String JSON_PROPERTY_PRINCIPAL_ASSET_ID = "principalAssetId";
-    @jakarta.annotation.Nullable private String principalAssetId;
+    @jakarta.annotation.Nonnull private String principalAssetId;
 
     public static final String JSON_PROPERTY_POSITION_ASSET_ID = "positionAssetId";
-    @jakarta.annotation.Nullable private String positionAssetId;
+    @jakarta.annotation.Nonnull private String positionAssetId;
 
     public static final String JSON_PROPERTY_PRINCIPAL_BALANCE = "principalBalance";
-    @jakarta.annotation.Nullable private String principalBalance;
+    @jakarta.annotation.Nonnull private String principalBalance;
 
     public static final String JSON_PROPERTY_POSITION_BALANCE = "positionBalance";
-    @jakarta.annotation.Nullable private String positionBalance;
+    @jakarta.annotation.Nonnull private String positionBalance;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-    @jakarta.annotation.Nullable private String createdAt;
+    @jakarta.annotation.Nonnull private String createdAt;
 
     public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
-    @jakarta.annotation.Nullable private String updatedAt;
+    @jakarta.annotation.Nonnull private String updatedAt;
 
     public static final String JSON_PROPERTY_LAST_SYNCED_AT = "lastSyncedAt";
     @jakarta.annotation.Nullable private String lastSyncedAt;
@@ -262,11 +263,59 @@ public class Position2 {
     }
 
     public static final String JSON_PROPERTY_AVAILABLE_ACTIONS = "availableActions";
-    @jakarta.annotation.Nullable private List<AvailableActionsEnum> availableActions;
+    @jakarta.annotation.Nonnull private List<AvailableActionsEnum> availableActions;
+
+    public static final String JSON_PROPERTY_YIELD = "yield";
+    @jakarta.annotation.Nullable private String yield;
 
     public Position2() {}
 
-    public Position2 id(@jakarta.annotation.Nullable String id) {
+    @JsonCreator
+    public Position2(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status,
+            @JsonProperty(value = JSON_PROPERTY_IN_FLIGHT, required = true) Boolean inFlight,
+            @JsonProperty(value = JSON_PROPERTY_POSITION_TYPE, required = true)
+                    PositionTypeEnum positionType,
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    String vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_OPPORTUNITY_ID, required = true)
+                    String opportunityId,
+            @JsonProperty(value = JSON_PROPERTY_CHAIN_ID, required = true) String chainId,
+            @JsonProperty(value = JSON_PROPERTY_PROVIDER_ID, required = true)
+                    ProviderIdEnum providerId,
+            @JsonProperty(value = JSON_PROPERTY_ORIGIN, required = true) OriginEnum origin,
+            @JsonProperty(value = JSON_PROPERTY_PRINCIPAL_ASSET_ID, required = true)
+                    String principalAssetId,
+            @JsonProperty(value = JSON_PROPERTY_POSITION_ASSET_ID, required = true)
+                    String positionAssetId,
+            @JsonProperty(value = JSON_PROPERTY_PRINCIPAL_BALANCE, required = true)
+                    String principalBalance,
+            @JsonProperty(value = JSON_PROPERTY_POSITION_BALANCE, required = true)
+                    String positionBalance,
+            @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = true) String createdAt,
+            @JsonProperty(value = JSON_PROPERTY_UPDATED_AT, required = true) String updatedAt,
+            @JsonProperty(value = JSON_PROPERTY_AVAILABLE_ACTIONS, required = true)
+                    List<AvailableActionsEnum> availableActions) {
+        this.id = id;
+        this.status = status;
+        this.inFlight = inFlight;
+        this.positionType = positionType;
+        this.vaultAccountId = vaultAccountId;
+        this.opportunityId = opportunityId;
+        this.chainId = chainId;
+        this.providerId = providerId;
+        this.origin = origin;
+        this.principalAssetId = principalAssetId;
+        this.positionAssetId = positionAssetId;
+        this.principalBalance = principalBalance;
+        this.positionBalance = positionBalance;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.availableActions = availableActions;
+    }
+
+    public Position2 id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -276,20 +325,20 @@ public class Position2 {
      *
      * @return id
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getId() {
         return id;
     }
 
     @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(@jakarta.annotation.Nullable String id) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public Position2 status(@jakarta.annotation.Nullable StatusEnum status) {
+    public Position2 status(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -299,20 +348,20 @@ public class Position2 {
      *
      * @return status
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_STATUS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public StatusEnum getStatus() {
         return status;
     }
 
     @JsonProperty(JSON_PROPERTY_STATUS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(@jakarta.annotation.Nullable StatusEnum status) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
     }
 
-    public Position2 inFlight(@jakarta.annotation.Nullable Boolean inFlight) {
+    public Position2 inFlight(@jakarta.annotation.Nonnull Boolean inFlight) {
         this.inFlight = inFlight;
         return this;
     }
@@ -322,20 +371,20 @@ public class Position2 {
      *
      * @return inFlight
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_IN_FLIGHT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public Boolean getInFlight() {
         return inFlight;
     }
 
     @JsonProperty(JSON_PROPERTY_IN_FLIGHT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setInFlight(@jakarta.annotation.Nullable Boolean inFlight) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setInFlight(@jakarta.annotation.Nonnull Boolean inFlight) {
         this.inFlight = inFlight;
     }
 
-    public Position2 positionType(@jakarta.annotation.Nullable PositionTypeEnum positionType) {
+    public Position2 positionType(@jakarta.annotation.Nonnull PositionTypeEnum positionType) {
         this.positionType = positionType;
         return this;
     }
@@ -345,20 +394,20 @@ public class Position2 {
      *
      * @return positionType
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_POSITION_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public PositionTypeEnum getPositionType() {
         return positionType;
     }
 
     @JsonProperty(JSON_PROPERTY_POSITION_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPositionType(@jakarta.annotation.Nullable PositionTypeEnum positionType) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPositionType(@jakarta.annotation.Nonnull PositionTypeEnum positionType) {
         this.positionType = positionType;
     }
 
-    public Position2 vaultAccountId(@jakarta.annotation.Nullable String vaultAccountId) {
+    public Position2 vaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -368,20 +417,20 @@ public class Position2 {
      *
      * @return vaultAccountId
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getVaultAccountId() {
         return vaultAccountId;
     }
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVaultAccountId(@jakarta.annotation.Nullable String vaultAccountId) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public Position2 opportunityId(@jakarta.annotation.Nullable String opportunityId) {
+    public Position2 opportunityId(@jakarta.annotation.Nonnull String opportunityId) {
         this.opportunityId = opportunityId;
         return this;
     }
@@ -391,20 +440,20 @@ public class Position2 {
      *
      * @return opportunityId
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_OPPORTUNITY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getOpportunityId() {
         return opportunityId;
     }
 
     @JsonProperty(JSON_PROPERTY_OPPORTUNITY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOpportunityId(@jakarta.annotation.Nullable String opportunityId) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setOpportunityId(@jakarta.annotation.Nonnull String opportunityId) {
         this.opportunityId = opportunityId;
     }
 
-    public Position2 chainId(@jakarta.annotation.Nullable String chainId) {
+    public Position2 chainId(@jakarta.annotation.Nonnull String chainId) {
         this.chainId = chainId;
         return this;
     }
@@ -414,20 +463,20 @@ public class Position2 {
      *
      * @return chainId
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_CHAIN_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getChainId() {
         return chainId;
     }
 
     @JsonProperty(JSON_PROPERTY_CHAIN_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setChainId(@jakarta.annotation.Nullable String chainId) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setChainId(@jakarta.annotation.Nonnull String chainId) {
         this.chainId = chainId;
     }
 
-    public Position2 providerId(@jakarta.annotation.Nullable ProviderIdEnum providerId) {
+    public Position2 providerId(@jakarta.annotation.Nonnull ProviderIdEnum providerId) {
         this.providerId = providerId;
         return this;
     }
@@ -437,20 +486,20 @@ public class Position2 {
      *
      * @return providerId
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_PROVIDER_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public ProviderIdEnum getProviderId() {
         return providerId;
     }
 
     @JsonProperty(JSON_PROPERTY_PROVIDER_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setProviderId(@jakarta.annotation.Nullable ProviderIdEnum providerId) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setProviderId(@jakarta.annotation.Nonnull ProviderIdEnum providerId) {
         this.providerId = providerId;
     }
 
-    public Position2 origin(@jakarta.annotation.Nullable OriginEnum origin) {
+    public Position2 origin(@jakarta.annotation.Nonnull OriginEnum origin) {
         this.origin = origin;
         return this;
     }
@@ -460,20 +509,20 @@ public class Position2 {
      *
      * @return origin
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ORIGIN)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public OriginEnum getOrigin() {
         return origin;
     }
 
     @JsonProperty(JSON_PROPERTY_ORIGIN)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOrigin(@jakarta.annotation.Nullable OriginEnum origin) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setOrigin(@jakarta.annotation.Nonnull OriginEnum origin) {
         this.origin = origin;
     }
 
-    public Position2 principalAssetId(@jakarta.annotation.Nullable String principalAssetId) {
+    public Position2 principalAssetId(@jakarta.annotation.Nonnull String principalAssetId) {
         this.principalAssetId = principalAssetId;
         return this;
     }
@@ -483,20 +532,20 @@ public class Position2 {
      *
      * @return principalAssetId
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_PRINCIPAL_ASSET_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getPrincipalAssetId() {
         return principalAssetId;
     }
 
     @JsonProperty(JSON_PROPERTY_PRINCIPAL_ASSET_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPrincipalAssetId(@jakarta.annotation.Nullable String principalAssetId) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPrincipalAssetId(@jakarta.annotation.Nonnull String principalAssetId) {
         this.principalAssetId = principalAssetId;
     }
 
-    public Position2 positionAssetId(@jakarta.annotation.Nullable String positionAssetId) {
+    public Position2 positionAssetId(@jakarta.annotation.Nonnull String positionAssetId) {
         this.positionAssetId = positionAssetId;
         return this;
     }
@@ -506,20 +555,20 @@ public class Position2 {
      *
      * @return positionAssetId
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_POSITION_ASSET_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getPositionAssetId() {
         return positionAssetId;
     }
 
     @JsonProperty(JSON_PROPERTY_POSITION_ASSET_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPositionAssetId(@jakarta.annotation.Nullable String positionAssetId) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPositionAssetId(@jakarta.annotation.Nonnull String positionAssetId) {
         this.positionAssetId = positionAssetId;
     }
 
-    public Position2 principalBalance(@jakarta.annotation.Nullable String principalBalance) {
+    public Position2 principalBalance(@jakarta.annotation.Nonnull String principalBalance) {
         this.principalBalance = principalBalance;
         return this;
     }
@@ -529,20 +578,20 @@ public class Position2 {
      *
      * @return principalBalance
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_PRINCIPAL_BALANCE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getPrincipalBalance() {
         return principalBalance;
     }
 
     @JsonProperty(JSON_PROPERTY_PRINCIPAL_BALANCE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPrincipalBalance(@jakarta.annotation.Nullable String principalBalance) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPrincipalBalance(@jakarta.annotation.Nonnull String principalBalance) {
         this.principalBalance = principalBalance;
     }
 
-    public Position2 positionBalance(@jakarta.annotation.Nullable String positionBalance) {
+    public Position2 positionBalance(@jakarta.annotation.Nonnull String positionBalance) {
         this.positionBalance = positionBalance;
         return this;
     }
@@ -552,20 +601,20 @@ public class Position2 {
      *
      * @return positionBalance
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_POSITION_BALANCE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getPositionBalance() {
         return positionBalance;
     }
 
     @JsonProperty(JSON_PROPERTY_POSITION_BALANCE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPositionBalance(@jakarta.annotation.Nullable String positionBalance) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPositionBalance(@jakarta.annotation.Nonnull String positionBalance) {
         this.positionBalance = positionBalance;
     }
 
-    public Position2 createdAt(@jakarta.annotation.Nullable String createdAt) {
+    public Position2 createdAt(@jakarta.annotation.Nonnull String createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -575,20 +624,20 @@ public class Position2 {
      *
      * @return createdAt
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getCreatedAt() {
         return createdAt;
     }
 
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCreatedAt(@jakarta.annotation.Nullable String createdAt) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCreatedAt(@jakarta.annotation.Nonnull String createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Position2 updatedAt(@jakarta.annotation.Nullable String updatedAt) {
+    public Position2 updatedAt(@jakarta.annotation.Nonnull String updatedAt) {
         this.updatedAt = updatedAt;
         return this;
     }
@@ -598,16 +647,16 @@ public class Position2 {
      *
      * @return updatedAt
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getUpdatedAt() {
         return updatedAt;
     }
 
     @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUpdatedAt(@jakarta.annotation.Nullable String updatedAt) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setUpdatedAt(@jakarta.annotation.Nonnull String updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -635,7 +684,7 @@ public class Position2 {
     }
 
     public Position2 availableActions(
-            @jakarta.annotation.Nullable List<AvailableActionsEnum> availableActions) {
+            @jakarta.annotation.Nonnull List<AvailableActionsEnum> availableActions) {
         this.availableActions = availableActions;
         return this;
     }
@@ -653,18 +702,41 @@ public class Position2 {
      *
      * @return availableActions
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_AVAILABLE_ACTIONS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public List<AvailableActionsEnum> getAvailableActions() {
         return availableActions;
     }
 
     @JsonProperty(JSON_PROPERTY_AVAILABLE_ACTIONS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setAvailableActions(
-            @jakarta.annotation.Nullable List<AvailableActionsEnum> availableActions) {
+            @jakarta.annotation.Nonnull List<AvailableActionsEnum> availableActions) {
         this.availableActions = availableActions;
+    }
+
+    public Position2 yield(@jakarta.annotation.Nullable String yield) {
+        this.yield = yield;
+        return this;
+    }
+
+    /**
+     * Accrued yield in principal token units (decimal string). Only present for Morpho positions.
+     *
+     * @return yield
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_YIELD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getYield() {
+        return yield;
+    }
+
+    @JsonProperty(JSON_PROPERTY_YIELD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setYield(@jakarta.annotation.Nullable String yield) {
+        this.yield = yield;
     }
 
     /** Return true if this Position-2 object is equal to o. */
@@ -693,7 +765,8 @@ public class Position2 {
                 && Objects.equals(this.createdAt, position2.createdAt)
                 && Objects.equals(this.updatedAt, position2.updatedAt)
                 && Objects.equals(this.lastSyncedAt, position2.lastSyncedAt)
-                && Objects.equals(this.availableActions, position2.availableActions);
+                && Objects.equals(this.availableActions, position2.availableActions)
+                && Objects.equals(this.yield, position2.yield);
     }
 
     @Override
@@ -715,7 +788,8 @@ public class Position2 {
                 createdAt,
                 updatedAt,
                 lastSyncedAt,
-                availableActions);
+                availableActions,
+                yield);
     }
 
     @Override
@@ -739,6 +813,7 @@ public class Position2 {
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
         sb.append("    lastSyncedAt: ").append(toIndentedString(lastSyncedAt)).append("\n");
         sb.append("    availableActions: ").append(toIndentedString(availableActions)).append("\n");
+        sb.append("    yield: ").append(toIndentedString(yield)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -959,6 +1034,16 @@ public class Position2 {
                                 ApiClient.urlEncode(
                                         ApiClient.valueToString(getAvailableActions().get(i)))));
             }
+        }
+
+        // add `yield` to the URL query string
+        if (getYield() != null) {
+            joiner.add(
+                    String.format(
+                            "%syield%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getYield()))));
         }
 
         return joiner.toString();

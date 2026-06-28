@@ -109,6 +109,12 @@ class OpportunityTest {
         // TODO: test managementFee
     }
 
+    /** Test the property 'exposureType' */
+    @Test
+    void exposureTypeTest() {
+        // TODO: test exposureType
+    }
+
     /** Test the property 'exposure' */
     @Test
     void exposureTest() {

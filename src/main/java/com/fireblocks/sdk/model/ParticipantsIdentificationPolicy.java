@@ -17,35 +17,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.StringJoiner;
 
 /**
  * When present on a provider manifest, specifies KYC/AML identification requirements as JSON
- * Schemas and which flows in &#x60;supportedEndpoints&#x60; may require
- * &#x60;participantsIdentification&#x60;. Only endpoints listed in &#x60;supportedEndpoints&#x60;
- * are in scope for this policy. &#x60;defaultSchema&#x60; is the baseline; &#x60;overrides&#x60;
- * refine it by &#x60;asset&#x60;, &#x60;rail&#x60;, and/or &#x60;flowDirection&#x60; (see priority
- * below). The most specific matching override applies its &#x60;schema&#x60; for that request
- * context: it may fully replace &#x60;defaultSchema&#x60;, or partially override it—when the
- * override &#x60;schema&#x60; is not provided as a complete standalone definition, fields and rules
- * omitted there continue to follow &#x60;defaultSchema&#x60;. If this object is omitted from the
- * manifest, the provider imposes no PII requirements through this policy. FirstParty participants
- * are always exempt. Resolution: from overrides that match the request context, choose the most
- * specific (most dimensions matched); break ties by earlier position in the &#x60;overrides&#x60;
- * array; if none match, use &#x60;defaultSchema&#x60;. Priority (highest precedence first): 1.
- * asset + rail + flowDirection 2. Any two dimensions: asset+rail, asset+flowDirection,
- * rail+flowDirection 3. Any single dimension: asset, rail, or flowDirection 4. defaultSchema (no
- * override matches)
+ * Schemas. &#x60;defaultSchema&#x60; is the baseline; &#x60;overrides&#x60; refine it by
+ * &#x60;asset&#x60;, &#x60;rail&#x60;, and/or &#x60;flowDirection&#x60; (see priority below). The
+ * most specific matching override applies its &#x60;schema&#x60; for that request context: it may
+ * fully replace &#x60;defaultSchema&#x60;, or partially override it—when the override
+ * &#x60;schema&#x60; is not provided as a complete standalone definition, fields and rules omitted
+ * there continue to follow &#x60;defaultSchema&#x60;. If this object is omitted from the manifest,
+ * the provider imposes no PII requirements through this policy. FirstParty participants are always
+ * exempt. Resolution: from overrides that match the request context, choose the most specific (most
+ * dimensions matched); break ties by earlier position in the &#x60;overrides&#x60; array; if none
+ * match, use &#x60;defaultSchema&#x60;. Priority (highest precedence first): 1. asset + rail +
+ * flowDirection 2. Any two dimensions: asset+rail, asset+flowDirection, rail+flowDirection 3. Any
+ * single dimension: asset, rail, or flowDirection 4. defaultSchema (no override matches)
  */
 @JsonPropertyOrder({
-    ParticipantsIdentificationPolicy.JSON_PROPERTY_SUPPORTED_ENDPOINTS,
     ParticipantsIdentificationPolicy.JSON_PROPERTY_DEFAULT_SCHEMA,
     ParticipantsIdentificationPolicy.JSON_PROPERTY_OVERRIDES
 })
@@ -53,11 +46,6 @@ import java.util.StringJoiner;
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class ParticipantsIdentificationPolicy {
-    public static final String JSON_PROPERTY_SUPPORTED_ENDPOINTS = "supportedEndpoints";
-
-    @jakarta.annotation.Nonnull
-    private Set<ParticipantsIdentificationSupportedEndpoint> supportedEndpoints;
-
     public static final String JSON_PROPERTY_DEFAULT_SCHEMA = "defaultSchema";
     @jakarta.annotation.Nonnull private String defaultSchema;
 
@@ -68,52 +56,9 @@ public class ParticipantsIdentificationPolicy {
 
     @JsonCreator
     public ParticipantsIdentificationPolicy(
-            @JsonProperty(value = JSON_PROPERTY_SUPPORTED_ENDPOINTS, required = true)
-                    Set<ParticipantsIdentificationSupportedEndpoint> supportedEndpoints,
             @JsonProperty(value = JSON_PROPERTY_DEFAULT_SCHEMA, required = true)
                     String defaultSchema) {
-        this.supportedEndpoints = supportedEndpoints;
         this.defaultSchema = defaultSchema;
-    }
-
-    public ParticipantsIdentificationPolicy supportedEndpoints(
-            @jakarta.annotation.Nonnull
-                    Set<ParticipantsIdentificationSupportedEndpoint> supportedEndpoints) {
-        this.supportedEndpoints = supportedEndpoints;
-        return this;
-    }
-
-    public ParticipantsIdentificationPolicy addSupportedEndpointsItem(
-            ParticipantsIdentificationSupportedEndpoint supportedEndpointsItem) {
-        if (this.supportedEndpoints == null) {
-            this.supportedEndpoints = new LinkedHashSet<>();
-        }
-        this.supportedEndpoints.add(supportedEndpointsItem);
-        return this;
-    }
-
-    /**
-     * API endpoints in scope for this participants identification policy. Values &#x60;ORDER&#x60;,
-     * &#x60;QUOTE&#x60;, and &#x60;RATE&#x60; correspond to manifest &#x60;order&#x60;,
-     * &#x60;quote&#x60;, and &#x60;rate&#x60; flows. Client requests to those endpoints may need to
-     * include &#x60;participantsIdentification&#x60; when the resolved schema requires it.
-     *
-     * @return supportedEndpoints
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_SUPPORTED_ENDPOINTS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Set<ParticipantsIdentificationSupportedEndpoint> getSupportedEndpoints() {
-        return supportedEndpoints;
-    }
-
-    @JsonDeserialize(as = LinkedHashSet.class)
-    @JsonProperty(JSON_PROPERTY_SUPPORTED_ENDPOINTS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSupportedEndpoints(
-            @jakarta.annotation.Nonnull
-                    Set<ParticipantsIdentificationSupportedEndpoint> supportedEndpoints) {
-        this.supportedEndpoints = supportedEndpoints;
     }
 
     public ParticipantsIdentificationPolicy defaultSchema(
@@ -124,8 +69,8 @@ public class ParticipantsIdentificationPolicy {
 
     /**
      * A JSON Schema (draft-07) in string format that validates the ParticipantsIdentification
-     * object on requests where the provider manifest lists that endpoint in
-     * &#x60;participantsIdentificationPolicy.supportedEndpoints&#x60; (e.g. POST /orders). Defines
+     * object on requests where the provider manifest declares a
+     * &#x60;participantsIdentificationPolicy&#x60; for that endpoint (e.g. POST /orders). Defines
      * which fields from originator and/or beneficiary are required. The schema uses oneOf to
      * discriminate between INDIVIDUAL (PersonalIdentification) and BUSINESS
      * (BusinessIdentification) entity types for each participant. For INDIVIDUAL: fullName,
@@ -198,26 +143,19 @@ public class ParticipantsIdentificationPolicy {
         }
         ParticipantsIdentificationPolicy participantsIdentificationPolicy =
                 (ParticipantsIdentificationPolicy) o;
-        return Objects.equals(
-                        this.supportedEndpoints,
-                        participantsIdentificationPolicy.supportedEndpoints)
-                && Objects.equals(
-                        this.defaultSchema, participantsIdentificationPolicy.defaultSchema)
+        return Objects.equals(this.defaultSchema, participantsIdentificationPolicy.defaultSchema)
                 && Objects.equals(this.overrides, participantsIdentificationPolicy.overrides);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(supportedEndpoints, defaultSchema, overrides);
+        return Objects.hash(defaultSchema, overrides);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class ParticipantsIdentificationPolicy {\n");
-        sb.append("    supportedEndpoints: ")
-                .append(toIndentedString(supportedEndpoints))
-                .append("\n");
         sb.append("    defaultSchema: ").append(toIndentedString(defaultSchema)).append("\n");
         sb.append("    overrides: ").append(toIndentedString(overrides)).append("\n");
         sb.append("}");
@@ -266,26 +204,6 @@ public class ParticipantsIdentificationPolicy {
         }
 
         StringJoiner joiner = new StringJoiner("&");
-
-        // add `supportedEndpoints` to the URL query string
-        if (getSupportedEndpoints() != null) {
-            int i = 0;
-            for (ParticipantsIdentificationSupportedEndpoint _item : getSupportedEndpoints()) {
-                if (_item != null) {
-                    joiner.add(
-                            String.format(
-                                    "%ssupportedEndpoints%s%s=%s",
-                                    prefix,
-                                    suffix,
-                                    "".equals(suffix)
-                                            ? ""
-                                            : String.format(
-                                                    "%s%d%s", containerPrefix, i, containerSuffix),
-                                    ApiClient.urlEncode(ApiClient.valueToString(_item))));
-                }
-                i++;
-            }
-        }
 
         // add `defaultSchema` to the URL query string
         if (getDefaultSchema() != null) {

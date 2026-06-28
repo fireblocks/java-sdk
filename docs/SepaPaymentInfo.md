@@ -13,6 +13,8 @@ SEPA payment information for European Single Euro Payments Area transfers
 |**accountHolderGivenName** | **String** | The given name (first name) of the account holder |  |
 |**accountHolderSurname** | **String** | The surname (last name) of the account holder |  |
 |**accountHolderCountry** | **String** | The country where the account holder resides (ISO 3166-1 alpha-2 code) |  [optional] |
+|**accountHolderPostalCode** | **String** | The postal code of the account holder&#39;s address |  [optional] |
+|**accountHolderCity** | **String** | The city where the account holder resides |  [optional] |
 |**accountHolderAddress** | **String** | The address of the account holder |  [optional] |
 |**iban** | **String** | The International Bank Account Number (IBAN) |  |
 |**country** | **String** | The country for the transfer (ISO 3166-1 alpha-2 code) |  |

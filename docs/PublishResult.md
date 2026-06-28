@@ -11,7 +11,7 @@ Response object of the publish policy operation
 |**status** | **PolicyStatus** |  |  |
 |**rules** | [**List&lt;PolicyRule&gt;**](PolicyRule.md) |  |  |
 |**checkResult** | [**PolicyCheckResult**](PolicyCheckResult.md) |  |  |
-|**metadata** | [**PolicyMetadata**](PolicyMetadata.md) |  |  |
+|**metadata** | [**Map&lt;String, PolicyMetadataEntry&gt;**](PolicyMetadataEntry.md) | Policy metadata keyed by policy type |  |
 
 
 

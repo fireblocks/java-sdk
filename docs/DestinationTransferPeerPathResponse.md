@@ -14,6 +14,7 @@ Destination of the transaction.  **Note:** In case the transaction is sent to mu
 |**name** | **String** | The name of the peer. |  [optional] |
 |**walletId** | **UUID** |  |  [optional] |
 |**tradingAccount** | **String** | If this transaction is an exchange internal transfer, this field will be populated with the type of that trading account. |  [optional] |
+|**tags** | [**List&lt;TransactionTag&gt;**](TransactionTag.md) | Tags associated with the transaction&#39;s destination. |  [optional] |
 
 
 

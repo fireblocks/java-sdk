@@ -23,6 +23,8 @@ import java.util.StringJoiner;
 
 /** ConnectedAccountErrorResponse */
 @JsonPropertyOrder({
+    ConnectedAccountErrorResponse.JSON_PROPERTY_MESSAGE,
+    ConnectedAccountErrorResponse.JSON_PROPERTY_CODE,
     ConnectedAccountErrorResponse.JSON_PROPERTY_ERROR_MESSAGE,
     ConnectedAccountErrorResponse.JSON_PROPERTY_ERROR_CODE
 })
@@ -30,24 +32,76 @@ import java.util.StringJoiner;
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class ConnectedAccountErrorResponse {
+    public static final String JSON_PROPERTY_MESSAGE = "message";
+    @jakarta.annotation.Nonnull private String message;
+
+    public static final String JSON_PROPERTY_CODE = "code";
+    @jakarta.annotation.Nonnull private Integer code;
+
     public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
-    @jakarta.annotation.Nonnull private String errorMessage;
+    @jakarta.annotation.Nullable private String errorMessage;
 
     public static final String JSON_PROPERTY_ERROR_CODE = "errorCode";
-    @jakarta.annotation.Nonnull private String errorCode;
+    @jakarta.annotation.Nullable private String errorCode;
 
     public ConnectedAccountErrorResponse() {}
 
     @JsonCreator
     public ConnectedAccountErrorResponse(
-            @JsonProperty(value = JSON_PROPERTY_ERROR_MESSAGE, required = true) String errorMessage,
-            @JsonProperty(value = JSON_PROPERTY_ERROR_CODE, required = true) String errorCode) {
-        this.errorMessage = errorMessage;
-        this.errorCode = errorCode;
+            @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = true) String message,
+            @JsonProperty(value = JSON_PROPERTY_CODE, required = true) Integer code) {
+        this.message = message;
+        this.code = code;
+    }
+
+    public ConnectedAccountErrorResponse message(@jakarta.annotation.Nonnull String message) {
+        this.message = message;
+        return this;
+    }
+
+    /**
+     * Error message describing what went wrong.
+     *
+     * @return message
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_MESSAGE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getMessage() {
+        return message;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MESSAGE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setMessage(@jakarta.annotation.Nonnull String message) {
+        this.message = message;
+    }
+
+    public ConnectedAccountErrorResponse code(@jakarta.annotation.Nonnull Integer code) {
+        this.code = code;
+        return this;
+    }
+
+    /**
+     * Numeric error code identifying the type of error.
+     *
+     * @return code
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_CODE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Integer getCode() {
+        return code;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CODE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCode(@jakarta.annotation.Nonnull Integer code) {
+        this.code = code;
     }
 
     public ConnectedAccountErrorResponse errorMessage(
-            @jakarta.annotation.Nonnull String errorMessage) {
+            @jakarta.annotation.Nullable String errorMessage) {
         this.errorMessage = errorMessage;
         return this;
     }
@@ -57,20 +111,20 @@ public class ConnectedAccountErrorResponse {
      *
      * @return errorMessage
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public String getErrorMessage() {
         return errorMessage;
     }
 
     @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setErrorMessage(@jakarta.annotation.Nonnull String errorMessage) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setErrorMessage(@jakarta.annotation.Nullable String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
-    public ConnectedAccountErrorResponse errorCode(@jakarta.annotation.Nonnull String errorCode) {
+    public ConnectedAccountErrorResponse errorCode(@jakarta.annotation.Nullable String errorCode) {
         this.errorCode = errorCode;
         return this;
     }
@@ -80,16 +134,16 @@ public class ConnectedAccountErrorResponse {
      *
      * @return errorCode
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_ERROR_CODE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public String getErrorCode() {
         return errorCode;
     }
 
     @JsonProperty(JSON_PROPERTY_ERROR_CODE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setErrorCode(@jakarta.annotation.Nonnull String errorCode) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setErrorCode(@jakarta.annotation.Nullable String errorCode) {
         this.errorCode = errorCode;
     }
 
@@ -104,19 +158,23 @@ public class ConnectedAccountErrorResponse {
         }
         ConnectedAccountErrorResponse connectedAccountErrorResponse =
                 (ConnectedAccountErrorResponse) o;
-        return Objects.equals(this.errorMessage, connectedAccountErrorResponse.errorMessage)
+        return Objects.equals(this.message, connectedAccountErrorResponse.message)
+                && Objects.equals(this.code, connectedAccountErrorResponse.code)
+                && Objects.equals(this.errorMessage, connectedAccountErrorResponse.errorMessage)
                 && Objects.equals(this.errorCode, connectedAccountErrorResponse.errorCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(errorMessage, errorCode);
+        return Objects.hash(message, code, errorMessage, errorCode);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class ConnectedAccountErrorResponse {\n");
+        sb.append("    message: ").append(toIndentedString(message)).append("\n");
+        sb.append("    code: ").append(toIndentedString(code)).append("\n");
         sb.append("    errorMessage: ").append(toIndentedString(errorMessage)).append("\n");
         sb.append("    errorCode: ").append(toIndentedString(errorCode)).append("\n");
         sb.append("}");
@@ -165,6 +223,26 @@ public class ConnectedAccountErrorResponse {
         }
 
         StringJoiner joiner = new StringJoiner("&");
+
+        // add `message` to the URL query string
+        if (getMessage() != null) {
+            joiner.add(
+                    String.format(
+                            "%smessage%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getMessage()))));
+        }
+
+        // add `code` to the URL query string
+        if (getCode() != null) {
+            joiner.add(
+                    String.format(
+                            "%scode%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getCode()))));
+        }
 
         // add `errorMessage` to the URL query string
         if (getErrorMessage() != null) {

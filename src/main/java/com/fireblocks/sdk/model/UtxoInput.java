@@ -22,7 +22,7 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /** UtxoInput */
-@JsonPropertyOrder({UtxoInput.JSON_PROPERTY_TX_HASH, UtxoInput.JSON_PROPERTY_VOUT})
+@JsonPropertyOrder({UtxoInput.JSON_PROPERTY_TX_HASH, UtxoInput.JSON_PROPERTY_INDEX})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
@@ -30,17 +30,17 @@ public class UtxoInput {
     public static final String JSON_PROPERTY_TX_HASH = "txHash";
     @jakarta.annotation.Nonnull private String txHash;
 
-    public static final String JSON_PROPERTY_VOUT = "vout";
-    @jakarta.annotation.Nonnull private Integer vout;
+    public static final String JSON_PROPERTY_INDEX = "index";
+    @jakarta.annotation.Nonnull private Integer index;
 
     public UtxoInput() {}
 
     @JsonCreator
     public UtxoInput(
             @JsonProperty(value = JSON_PROPERTY_TX_HASH, required = true) String txHash,
-            @JsonProperty(value = JSON_PROPERTY_VOUT, required = true) Integer vout) {
+            @JsonProperty(value = JSON_PROPERTY_INDEX, required = true) Integer index) {
         this.txHash = txHash;
-        this.vout = vout;
+        this.index = index;
     }
 
     public UtxoInput txHash(@jakarta.annotation.Nonnull String txHash) {
@@ -66,27 +66,27 @@ public class UtxoInput {
         this.txHash = txHash;
     }
 
-    public UtxoInput vout(@jakarta.annotation.Nonnull Integer vout) {
-        this.vout = vout;
+    public UtxoInput index(@jakarta.annotation.Nonnull Integer index) {
+        this.index = index;
         return this;
     }
 
     /**
-     * Get vout
+     * The output index (vout)
      *
-     * @return vout
+     * @return index
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_VOUT)
+    @JsonProperty(JSON_PROPERTY_INDEX)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Integer getVout() {
-        return vout;
+    public Integer getIndex() {
+        return index;
     }
 
-    @JsonProperty(JSON_PROPERTY_VOUT)
+    @JsonProperty(JSON_PROPERTY_INDEX)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVout(@jakarta.annotation.Nonnull Integer vout) {
-        this.vout = vout;
+    public void setIndex(@jakarta.annotation.Nonnull Integer index) {
+        this.index = index;
     }
 
     /** Return true if this UtxoInput object is equal to o. */
@@ -100,12 +100,12 @@ public class UtxoInput {
         }
         UtxoInput utxoInput = (UtxoInput) o;
         return Objects.equals(this.txHash, utxoInput.txHash)
-                && Objects.equals(this.vout, utxoInput.vout);
+                && Objects.equals(this.index, utxoInput.index);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(txHash, vout);
+        return Objects.hash(txHash, index);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class UtxoInput {
         StringBuilder sb = new StringBuilder();
         sb.append("class UtxoInput {\n");
         sb.append("    txHash: ").append(toIndentedString(txHash)).append("\n");
-        sb.append("    vout: ").append(toIndentedString(vout)).append("\n");
+        sb.append("    index: ").append(toIndentedString(index)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -171,14 +171,14 @@ public class UtxoInput {
                             ApiClient.urlEncode(ApiClient.valueToString(getTxHash()))));
         }
 
-        // add `vout` to the URL query string
-        if (getVout() != null) {
+        // add `index` to the URL query string
+        if (getIndex() != null) {
             joiner.add(
                     String.format(
-                            "%svout%s=%s",
+                            "%sindex%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getVout()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIndex()))));
         }
 
         return joiner.toString();

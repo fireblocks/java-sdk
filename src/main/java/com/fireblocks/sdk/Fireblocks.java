@@ -65,7 +65,8 @@ public class Fireblocks {
     private OtaBetaApi otaBeta;
     private PaymentsPayoutApi paymentsPayout;
     private PolicyEditorBetaApi policyEditorBeta;
-    private PolicyEditorV2BetaApi policyEditorV2Beta;
+    private PolicyEditorV2Api policyEditorV2;
+    private ReportsBetaApi reportsBeta;
     private ResetDeviceApi resetDevice;
     private SmartTransferApi smartTransfer;
     private StakingApi staking;
@@ -427,11 +428,18 @@ public class Fireblocks {
         return policyEditorBeta;
     }
 
-    public PolicyEditorV2BetaApi policyEditorV2Beta() {
-        if (policyEditorV2Beta == null) {
-            policyEditorV2Beta = new PolicyEditorV2BetaApi(apiClient);
+    public PolicyEditorV2Api policyEditorV2() {
+        if (policyEditorV2 == null) {
+            policyEditorV2 = new PolicyEditorV2Api(apiClient);
         }
-        return policyEditorV2Beta;
+        return policyEditorV2;
+    }
+
+    public ReportsBetaApi reportsBeta() {
+        if (reportsBeta == null) {
+            reportsBeta = new ReportsBetaApi(apiClient);
+        }
+        return reportsBeta;
     }
 
     public ResetDeviceApi resetDevice() {

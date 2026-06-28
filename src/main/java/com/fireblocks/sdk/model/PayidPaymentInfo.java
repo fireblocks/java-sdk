@@ -153,7 +153,7 @@ public class PayidPaymentInfo {
     @jakarta.annotation.Nonnull private TypeEnum type;
 
     public static final String JSON_PROPERTY_BSB = "bsb";
-    @jakarta.annotation.Nullable private String bsb;
+    @jakarta.annotation.Nonnull private String bsb;
 
     public static final String JSON_PROPERTY_ACCOUNT_NUMBER = "accountNumber";
     @jakarta.annotation.Nonnull private String accountNumber;
@@ -172,6 +172,7 @@ public class PayidPaymentInfo {
             @JsonProperty(value = JSON_PROPERTY_COUNTRY, required = true) String country,
             @JsonProperty(value = JSON_PROPERTY_VALUE, required = true) String value,
             @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
+            @JsonProperty(value = JSON_PROPERTY_BSB, required = true) String bsb,
             @JsonProperty(value = JSON_PROPERTY_ACCOUNT_NUMBER, required = true)
                     String accountNumber) {
         this.rail = rail;
@@ -181,6 +182,7 @@ public class PayidPaymentInfo {
         this.country = country;
         this.value = value;
         this.type = type;
+        this.bsb = bsb;
         this.accountNumber = accountNumber;
     }
 
@@ -350,7 +352,7 @@ public class PayidPaymentInfo {
         this.type = type;
     }
 
-    public PayidPaymentInfo bsb(@jakarta.annotation.Nullable String bsb) {
+    public PayidPaymentInfo bsb(@jakarta.annotation.Nonnull String bsb) {
         this.bsb = bsb;
         return this;
     }
@@ -360,16 +362,16 @@ public class PayidPaymentInfo {
      *
      * @return bsb
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_BSB)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getBsb() {
         return bsb;
     }
 
     @JsonProperty(JSON_PROPERTY_BSB)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBsb(@jakarta.annotation.Nullable String bsb) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setBsb(@jakarta.annotation.Nonnull String bsb) {
         this.bsb = bsb;
     }
 

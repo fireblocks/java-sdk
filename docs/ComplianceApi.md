@@ -12,6 +12,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**deactivateArsConfig**](ComplianceApi.md#deactivateArsConfig) | **POST** /screening/ars/config/deactivate | Deactivate ARS (Address Registry Screening) |
 | [**deactivateByorkConfig**](ComplianceApi.md#deactivateByorkConfig) | **POST** /screening/byork/config/deactivate | Deactivate BYORK Light |
 | [**deleteCounterpartyGroup**](ComplianceApi.md#deleteCounterpartyGroup) | **DELETE** /counterparty_groups/{groupId} | Delete a counterparty group |
+| [**deleteLegalEntity**](ComplianceApi.md#deleteLegalEntity) | **DELETE** /legal_entities/{legalEntityId} | Delete a legal entity |
 | [**getAddressRegistryTenantParticipationStatus**](ComplianceApi.md#getAddressRegistryTenantParticipationStatus) | **GET** /address_registry/tenant | Get address registry participation status for the authenticated workspace |
 | [**getAddressRegistryVaultOptOut**](ComplianceApi.md#getAddressRegistryVaultOptOut) | **GET** /address_registry/vaults/{vaultAccountId} | Get whether a vault account is opted out of the address registry |
 | [**getAmlPostScreeningPolicy**](ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy |
@@ -723,6 +724,90 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## deleteLegalEntity
+
+> CompletableFuture<ApiResponse<Void>> deleteLegalEntity deleteLegalEntity(legalEntityId)
+
+Delete a legal entity
+
+Delete a legal entity will change the status of a legal entity registration to REVOKED. Endpoint Permission: Admin, Non-Signing Admin.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID legalEntityId = UUID.randomUUID(); // UUID | The unique ID of the legal entity registration to delete
+        try {
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.compliance().deleteLegalEntity(legalEntityId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#deleteLegalEntity");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ComplianceApi#deleteLegalEntity");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **legalEntityId** | **UUID**| The unique ID of the legal entity registration to delete | |
+
+### Return type
+
+
+CompletableFuture<ApiResponse<Void>>
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | Legal entity deleted successfully |  * X-Request-ID -  <br>  |
+| **400** | Legal entity registration is not in deletable status (PENDING or APPROVED) |  * X-Request-ID -  <br>  |
+| **404** | Legal entity registration not found |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getAddressRegistryTenantParticipationStatus
 
 > CompletableFuture<ApiResponse<AddressRegistryTenantRegistryResponse>> getAddressRegistryTenantParticipationStatus getAddressRegistryTenantParticipationStatus()
@@ -1382,7 +1467,7 @@ No authorization required
 
 Look up legal entity by blockchain address
 
-Returns legal entity information for the given blockchain address (verification status, LEI, Travel Rule providers, contact email, and related fields — see response schema). URL-encode &#x60;{address}&#x60; when required.
+Returns legal entity information for the given blockchain address (LEI data availability, LEI identifier, Travel Rule providers, contact email, and related fields — see response schema). URL-encode &#x60;{address}&#x60; when required.
 
 ### Example
 

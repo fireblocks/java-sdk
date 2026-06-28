@@ -29,7 +29,8 @@ import java.util.StringJoiner;
  */
 @JsonPropertyOrder({
     SolanaBlockchainData.JSON_PROPERTY_STAKE_ACCOUNT_ADDRESS,
-    SolanaBlockchainData.JSON_PROPERTY_STAKE_ACCOUNT_DERIVATION_CHANGE_VALUE
+    SolanaBlockchainData.JSON_PROPERTY_STAKE_ACCOUNT_DERIVATION_CHANGE_VALUE,
+    SolanaBlockchainData.JSON_PROPERTY_REWARDS_BREAKDOWN
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -41,6 +42,9 @@ public class SolanaBlockchainData {
     public static final String JSON_PROPERTY_STAKE_ACCOUNT_DERIVATION_CHANGE_VALUE =
             "stakeAccountDerivationChangeValue";
     @jakarta.annotation.Nonnull private BigDecimal stakeAccountDerivationChangeValue;
+
+    public static final String JSON_PROPERTY_REWARDS_BREAKDOWN = "rewardsBreakdown";
+    @jakarta.annotation.Nullable private SolanaRewardsBreakdown rewardsBreakdown;
 
     public SolanaBlockchainData() {}
 
@@ -106,6 +110,31 @@ public class SolanaBlockchainData {
         this.stakeAccountDerivationChangeValue = stakeAccountDerivationChangeValue;
     }
 
+    public SolanaBlockchainData rewardsBreakdown(
+            @jakarta.annotation.Nullable SolanaRewardsBreakdown rewardsBreakdown) {
+        this.rewardsBreakdown = rewardsBreakdown;
+        return this;
+    }
+
+    /**
+     * Get rewardsBreakdown
+     *
+     * @return rewardsBreakdown
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_REWARDS_BREAKDOWN)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public SolanaRewardsBreakdown getRewardsBreakdown() {
+        return rewardsBreakdown;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REWARDS_BREAKDOWN)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRewardsBreakdown(
+            @jakarta.annotation.Nullable SolanaRewardsBreakdown rewardsBreakdown) {
+        this.rewardsBreakdown = rewardsBreakdown;
+    }
+
     /** Return true if this SolanaBlockchainData object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -119,12 +148,14 @@ public class SolanaBlockchainData {
         return Objects.equals(this.stakeAccountAddress, solanaBlockchainData.stakeAccountAddress)
                 && Objects.equals(
                         this.stakeAccountDerivationChangeValue,
-                        solanaBlockchainData.stakeAccountDerivationChangeValue);
+                        solanaBlockchainData.stakeAccountDerivationChangeValue)
+                && Objects.equals(this.rewardsBreakdown, solanaBlockchainData.rewardsBreakdown);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stakeAccountAddress, stakeAccountDerivationChangeValue);
+        return Objects.hash(
+                stakeAccountAddress, stakeAccountDerivationChangeValue, rewardsBreakdown);
     }
 
     @Override
@@ -137,6 +168,7 @@ public class SolanaBlockchainData {
         sb.append("    stakeAccountDerivationChangeValue: ")
                 .append(toIndentedString(stakeAccountDerivationChangeValue))
                 .append("\n");
+        sb.append("    rewardsBreakdown: ").append(toIndentedString(rewardsBreakdown)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -205,6 +237,12 @@ public class SolanaBlockchainData {
                             ApiClient.urlEncode(
                                     ApiClient.valueToString(
                                             getStakeAccountDerivationChangeValue()))));
+        }
+
+        // add `rewardsBreakdown` to the URL query string
+        if (getRewardsBreakdown() != null) {
+            joiner.add(
+                    getRewardsBreakdown().toUrlQueryString(prefix + "rewardsBreakdown" + suffix));
         }
 
         return joiner.toString();

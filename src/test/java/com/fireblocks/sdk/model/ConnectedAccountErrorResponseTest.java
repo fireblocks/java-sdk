@@ -25,6 +25,18 @@ class ConnectedAccountErrorResponseTest {
         // TODO: test ConnectedAccountErrorResponse
     }
 
+    /** Test the property 'message' */
+    @Test
+    void messageTest() {
+        // TODO: test message
+    }
+
+    /** Test the property 'code' */
+    @Test
+    void codeTest() {
+        // TODO: test code
+    }
+
     /** Test the property 'errorMessage' */
     @Test
     void errorMessageTest() {

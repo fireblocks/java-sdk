@@ -49,6 +49,24 @@ class ChapsPaymentInfoTest {
         // TODO: test accountHolderSurname
     }
 
+    /** Test the property 'accountHolderCity' */
+    @Test
+    void accountHolderCityTest() {
+        // TODO: test accountHolderCity
+    }
+
+    /** Test the property 'accountHolderCountry' */
+    @Test
+    void accountHolderCountryTest() {
+        // TODO: test accountHolderCountry
+    }
+
+    /** Test the property 'accountHolderPostalCode' */
+    @Test
+    void accountHolderPostalCodeTest() {
+        // TODO: test accountHolderPostalCode
+    }
+
     /** Test the property 'country' */
     @Test
     void countryTest() {

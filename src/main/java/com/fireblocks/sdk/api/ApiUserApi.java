@@ -18,8 +18,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreateAPIUser;
 import com.fireblocks.sdk.model.GetAPIUsersResponse;
+import com.fireblocks.sdk.model.IssueApiUserPairingTokenResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -193,6 +195,84 @@ public class ApiUserApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Issue API user pairing token Issues a device pairing token for the given user and returns the
+     * user&#39;s info along with the token. - The API user must be in PENDING_ACTIVATION status. If
+     * the user is already set up (enabled), the request is rejected with a 409 Conflict. - Please
+     * note that this endpoint is available only for API keys with Owner/Admin/Non Signing Admin
+     * permissions. Endpoint Permission: Owner, Admin, Non-Signing Admin.
+     *
+     * @param userId The ID of the api user (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;IssueApiUserPairingTokenResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<IssueApiUserPairingTokenResponse>>
+            issueApiUserPairingToken(String userId, String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    issueApiUserPairingTokenRequestBuilder(userId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "issueApiUserPairingToken", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<IssueApiUserPairingTokenResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            IssueApiUserPairingTokenResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder issueApiUserPairingTokenRequestBuilder(
+            String userId, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("issueApiUserPairingToken", "userId", userId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/management/api_users/{userId}/pairing_token"
+                        .replace("{userId}", ApiClient.urlEncode(userId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

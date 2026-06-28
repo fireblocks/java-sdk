@@ -25,12 +25,6 @@ class ParticipantsIdentificationPolicyTest {
         // TODO: test ParticipantsIdentificationPolicy
     }
 
-    /** Test the property 'supportedEndpoints' */
-    @Test
-    void supportedEndpointsTest() {
-        // TODO: test supportedEndpoints
-    }
-
     /** Test the property 'defaultSchema' */
     @Test
     void defaultSchemaTest() {

@@ -9,6 +9,8 @@ Single lending action (intent plus per-step execution rows).
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** | Action sequence id (UUID). |  |
+|**vaultAccountId** | **String** | Fireblocks vault account that executed the action. |  |
+|**userId** | **String** | User who initiated the action. |  |
 |**status** | **String** | Intent status (e.g. CREATED, IN_PROGRESS, COMPLETED). |  |
 |**providerId** | [**ProviderIdEnum**](#ProviderIdEnum) | Lending protocol identifier. |  |
 |**actionType** | [**ActionTypeEnum**](#ActionTypeEnum) | Whether this action is a deposit or withdraw flow. |  |

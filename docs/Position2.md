@@ -7,23 +7,24 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** | Position UUID. |  [optional] |
-|**status** | [**StatusEnum**](#StatusEnum) | Lifecycle status of the position. |  [optional] |
-|**inFlight** | **Boolean** | True while an action is in progress for this position. |  [optional] |
-|**positionType** | [**PositionTypeEnum**](#PositionTypeEnum) | Whether the position is lend- or borrow-side. |  [optional] |
-|**vaultAccountId** | **String** | Fireblocks vault account holding the position. |  [optional] |
-|**opportunityId** | **String** | Opportunity / vault or market identifier. |  [optional] |
-|**chainId** | **String** | Chain identifier as a string (e.g. \&quot;1\&quot;). |  [optional] |
-|**providerId** | [**ProviderIdEnum**](#ProviderIdEnum) | Lending protocol. |  [optional] |
-|**origin** | [**OriginEnum**](#OriginEnum) | Whether the position was opened natively in Fireblocks or imported externally. |  [optional] |
-|**principalAssetId** | **String** | Fireblocks asset id for the principal (underlying) asset. |  [optional] |
-|**positionAssetId** | **String** | Fireblocks asset id for the position / share token. |  [optional] |
-|**principalBalance** | **String** | Human-readable principal balance. |  [optional] |
-|**positionBalance** | **String** | Human-readable position token balance. |  [optional] |
-|**createdAt** | **String** | Creation time (ISO-8601). |  [optional] |
-|**updatedAt** | **String** | Last update time (ISO-8601). |  [optional] |
+|**id** | **String** | Position UUID. |  |
+|**status** | [**StatusEnum**](#StatusEnum) | Lifecycle status of the position. |  |
+|**inFlight** | **Boolean** | True while an action is in progress for this position. |  |
+|**positionType** | [**PositionTypeEnum**](#PositionTypeEnum) | Whether the position is lend- or borrow-side. |  |
+|**vaultAccountId** | **String** | Fireblocks vault account holding the position. |  |
+|**opportunityId** | **String** | Opportunity / vault or market identifier. |  |
+|**chainId** | **String** | Chain identifier as a string (e.g. \&quot;1\&quot;). |  |
+|**providerId** | [**ProviderIdEnum**](#ProviderIdEnum) | Lending protocol. |  |
+|**origin** | [**OriginEnum**](#OriginEnum) | Whether the position was opened natively in Fireblocks or imported externally. |  |
+|**principalAssetId** | **String** | Fireblocks asset id for the principal (underlying) asset. |  |
+|**positionAssetId** | **String** | Fireblocks asset id for the position / share token. |  |
+|**principalBalance** | **String** | Human-readable principal balance. |  |
+|**positionBalance** | **String** | Human-readable position token balance. |  |
+|**createdAt** | **String** | Creation time (ISO-8601). |  |
+|**updatedAt** | **String** | Last update time (ISO-8601). |  |
 |**lastSyncedAt** | **String** | Last successful on-chain sync time (ISO-8601). |  [optional] |
-|**availableActions** | [**List&lt;AvailableActionsEnum&gt;**](#List&lt;AvailableActionsEnum&gt;) | Actions the API allows next for this position. |  [optional] |
+|**availableActions** | [**List&lt;AvailableActionsEnum&gt;**](#List&lt;AvailableActionsEnum&gt;) | Actions the API allows next for this position. |  |
+|**yield** | **String** | Accrued yield in principal token units (decimal string). Only present for Morpho positions. |  [optional] |
 
 
 

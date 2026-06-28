@@ -28,6 +28,9 @@ import java.util.StringJoiner;
     ChapsPaymentInfo.JSON_PROPERTY_ADDRESSING_SYSTEM,
     ChapsPaymentInfo.JSON_PROPERTY_ACCOUNT_HOLDER_GIVEN_NAME,
     ChapsPaymentInfo.JSON_PROPERTY_ACCOUNT_HOLDER_SURNAME,
+    ChapsPaymentInfo.JSON_PROPERTY_ACCOUNT_HOLDER_CITY,
+    ChapsPaymentInfo.JSON_PROPERTY_ACCOUNT_HOLDER_COUNTRY,
+    ChapsPaymentInfo.JSON_PROPERTY_ACCOUNT_HOLDER_POSTAL_CODE,
     ChapsPaymentInfo.JSON_PROPERTY_COUNTRY,
     ChapsPaymentInfo.JSON_PROPERTY_SORT_CODE,
     ChapsPaymentInfo.JSON_PROPERTY_ACCOUNT_NUMBER,
@@ -112,6 +115,15 @@ public class ChapsPaymentInfo {
 
     public static final String JSON_PROPERTY_ACCOUNT_HOLDER_SURNAME = "accountHolderSurname";
     @jakarta.annotation.Nonnull private String accountHolderSurname;
+
+    public static final String JSON_PROPERTY_ACCOUNT_HOLDER_CITY = "accountHolderCity";
+    @jakarta.annotation.Nullable private String accountHolderCity;
+
+    public static final String JSON_PROPERTY_ACCOUNT_HOLDER_COUNTRY = "accountHolderCountry";
+    @jakarta.annotation.Nullable private String accountHolderCountry;
+
+    public static final String JSON_PROPERTY_ACCOUNT_HOLDER_POSTAL_CODE = "accountHolderPostalCode";
+    @jakarta.annotation.Nullable private String accountHolderPostalCode;
 
     public static final String JSON_PROPERTY_COUNTRY = "country";
     @jakarta.annotation.Nonnull private String country;
@@ -256,6 +268,79 @@ public class ChapsPaymentInfo {
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setAccountHolderSurname(@jakarta.annotation.Nonnull String accountHolderSurname) {
         this.accountHolderSurname = accountHolderSurname;
+    }
+
+    public ChapsPaymentInfo accountHolderCity(
+            @jakarta.annotation.Nullable String accountHolderCity) {
+        this.accountHolderCity = accountHolderCity;
+        return this;
+    }
+
+    /**
+     * The city where the account holder resides
+     *
+     * @return accountHolderCity
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_CITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAccountHolderCity() {
+        return accountHolderCity;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_CITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAccountHolderCity(@jakarta.annotation.Nullable String accountHolderCity) {
+        this.accountHolderCity = accountHolderCity;
+    }
+
+    public ChapsPaymentInfo accountHolderCountry(
+            @jakarta.annotation.Nullable String accountHolderCountry) {
+        this.accountHolderCountry = accountHolderCountry;
+        return this;
+    }
+
+    /**
+     * The country where the account holder resides (ISO 3166-1 alpha-2 code)
+     *
+     * @return accountHolderCountry
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_COUNTRY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAccountHolderCountry() {
+        return accountHolderCountry;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_COUNTRY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAccountHolderCountry(@jakarta.annotation.Nullable String accountHolderCountry) {
+        this.accountHolderCountry = accountHolderCountry;
+    }
+
+    public ChapsPaymentInfo accountHolderPostalCode(
+            @jakarta.annotation.Nullable String accountHolderPostalCode) {
+        this.accountHolderPostalCode = accountHolderPostalCode;
+        return this;
+    }
+
+    /**
+     * The postal code of the account holder&#39;s address
+     *
+     * @return accountHolderPostalCode
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_POSTAL_CODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAccountHolderPostalCode() {
+        return accountHolderPostalCode;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_POSTAL_CODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAccountHolderPostalCode(
+            @jakarta.annotation.Nullable String accountHolderPostalCode) {
+        this.accountHolderPostalCode = accountHolderPostalCode;
     }
 
     public ChapsPaymentInfo country(@jakarta.annotation.Nonnull String country) {
@@ -413,6 +498,10 @@ public class ChapsPaymentInfo {
                 && Objects.equals(
                         this.accountHolderGivenName, chapsPaymentInfo.accountHolderGivenName)
                 && Objects.equals(this.accountHolderSurname, chapsPaymentInfo.accountHolderSurname)
+                && Objects.equals(this.accountHolderCity, chapsPaymentInfo.accountHolderCity)
+                && Objects.equals(this.accountHolderCountry, chapsPaymentInfo.accountHolderCountry)
+                && Objects.equals(
+                        this.accountHolderPostalCode, chapsPaymentInfo.accountHolderPostalCode)
                 && Objects.equals(this.country, chapsPaymentInfo.country)
                 && Objects.equals(this.sortCode, chapsPaymentInfo.sortCode)
                 && Objects.equals(this.accountNumber, chapsPaymentInfo.accountNumber)
@@ -429,6 +518,9 @@ public class ChapsPaymentInfo {
                 addressingSystem,
                 accountHolderGivenName,
                 accountHolderSurname,
+                accountHolderCity,
+                accountHolderCountry,
+                accountHolderPostalCode,
                 country,
                 sortCode,
                 accountNumber,
@@ -448,6 +540,15 @@ public class ChapsPaymentInfo {
                 .append("\n");
         sb.append("    accountHolderSurname: ")
                 .append(toIndentedString(accountHolderSurname))
+                .append("\n");
+        sb.append("    accountHolderCity: ")
+                .append(toIndentedString(accountHolderCity))
+                .append("\n");
+        sb.append("    accountHolderCountry: ")
+                .append(toIndentedString(accountHolderCountry))
+                .append("\n");
+        sb.append("    accountHolderPostalCode: ")
+                .append(toIndentedString(accountHolderPostalCode))
                 .append("\n");
         sb.append("    country: ").append(toIndentedString(country)).append("\n");
         sb.append("    sortCode: ").append(toIndentedString(sortCode)).append("\n");
@@ -546,6 +647,38 @@ public class ChapsPaymentInfo {
                             suffix,
                             ApiClient.urlEncode(
                                     ApiClient.valueToString(getAccountHolderSurname()))));
+        }
+
+        // add `accountHolderCity` to the URL query string
+        if (getAccountHolderCity() != null) {
+            joiner.add(
+                    String.format(
+                            "%saccountHolderCity%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAccountHolderCity()))));
+        }
+
+        // add `accountHolderCountry` to the URL query string
+        if (getAccountHolderCountry() != null) {
+            joiner.add(
+                    String.format(
+                            "%saccountHolderCountry%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getAccountHolderCountry()))));
+        }
+
+        // add `accountHolderPostalCode` to the URL query string
+        if (getAccountHolderPostalCode() != null) {
+            joiner.add(
+                    String.format(
+                            "%saccountHolderPostalCode%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getAccountHolderPostalCode()))));
         }
 
         // add `country` to the URL query string
