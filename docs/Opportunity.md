@@ -21,7 +21,8 @@
 |**apy** | [**Apy**](Apy.md) | APY breakdown; values are percentages (e.g. 4.25 means 4.25%). |  [optional] |
 |**performanceFee** | **String** | Performance fee as a human-readable decimal string. |  [optional] |
 |**managementFee** | **String** | Management fee as a human-readable decimal string. |  [optional] |
-|**exposure** | [**List&lt;Exposure&gt;**](Exposure.md) | Optional per-asset exposure breakdown. |  [optional] |
+|**exposureType** | [**ExposureTypeEnum**](#ExposureTypeEnum) | What the &#x60;exposure&#x60; rows represent; &#x60;UNSPECIFIED&#x60; when there is no exposure. |  [optional] |
+|**exposure** | [**List&lt;Exposure&gt;**](Exposure.md) | Per-asset exposure breakdown (vault allocation slices, top 20 by USD notional). Empty when not applicable. |  [optional] |
 
 
 
@@ -40,6 +41,16 @@
 |---- | -----|
 | VAULT | &quot;VAULT&quot; |
 | MARKET | &quot;MARKET&quot; |
+
+
+
+## Enum: ExposureTypeEnum
+
+| Name | Value |
+|---- | -----|
+| UNSPECIFIED | &quot;UNSPECIFIED&quot; |
+| VAULT_ALLOCATION | &quot;VAULT_ALLOCATION&quot; |
+| MARKET_COLLATERAL | &quot;MARKET_COLLATERAL&quot; |
 
 
 

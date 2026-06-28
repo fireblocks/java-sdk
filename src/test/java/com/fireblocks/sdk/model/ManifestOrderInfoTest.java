@@ -36,4 +36,10 @@ class ManifestOrderInfoTest {
     void executionTypesTest() {
         // TODO: test executionTypes
     }
+
+    /** Test the property 'requiresReasonForPayment' */
+    @Test
+    void requiresReasonForPaymentTest() {
+        // TODO: test requiresReasonForPayment
+    }
 }

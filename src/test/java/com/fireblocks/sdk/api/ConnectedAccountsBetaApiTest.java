@@ -15,7 +15,7 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.model.AllowlistEntry;
+import com.fireblocks.sdk.model.AllowlistEntryResponse;
 import com.fireblocks.sdk.model.AllowlistEntryStatus;
 import com.fireblocks.sdk.model.AllowlistResponse;
 import com.fireblocks.sdk.model.ConnectedAccountBalancesResponse;
@@ -23,6 +23,8 @@ import com.fireblocks.sdk.model.ConnectedAccountRateResponse;
 import com.fireblocks.sdk.model.ConnectedAccountTradingPairsResponse;
 import com.fireblocks.sdk.model.ConnectedAccountsResponse;
 import com.fireblocks.sdk.model.ConnectedSingleAccountResponse;
+import com.fireblocks.sdk.model.CreateConnectedAccountRequest;
+import com.fireblocks.sdk.model.CreateConnectedAccountResponse;
 import com.fireblocks.sdk.model.RenameConnectedAccountRequest;
 import com.fireblocks.sdk.model.RenameConnectedAccountResponse;
 import java.util.concurrent.CompletableFuture;
@@ -34,6 +36,26 @@ import org.junit.Test;
 public class ConnectedAccountsBetaApiTest {
 
     private final ConnectedAccountsBetaApi api = new ConnectedAccountsBetaApi();
+
+    /**
+     * Create a connected account
+     *
+     * <p>Creates a new connected account for the authenticated tenant. The &#x60;creds&#x60; field
+     * must be a Base64-encoded RSA-encrypted credential blob. Use &#x60;GET
+     * /exchange_accounts/credentials_public_key&#x60; to retrieve the public key for encryption.
+     * The &#x60;providerType&#x60; is derived server-side from the &#x60;providerId&#x60; — callers
+     * do not supply it. Endpoint Permission: Editor, Admin, Non-Signing Admin. **Note:** This
+     * endpoint is currently in beta and might be subject to changes.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void createConnectedAccountTest() throws ApiException {
+        CreateConnectedAccountRequest createConnectedAccountRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<CreateConnectedAccountResponse>> response =
+                api.createConnectedAccount(createConnectedAccountRequest, idempotencyKey);
+    }
 
     /**
      * Disconnect connected account
@@ -69,8 +91,8 @@ public class ConnectedAccountsBetaApiTest {
      * Get allowlist for connected account
      *
      * <p>Retrieves the address allowlist for a specified connected account. **Note:** This endpoint
-     * is currently in beta and might be subject to changes. Currently supports CoinbaseExchange
-     * accounts only.
+     * is currently in beta and might be subject to changes. Currently supports
+     * CoinbaseExchange/Binance accounts only.
      *
      * @throws ApiException if the Api call fails
      */
@@ -103,7 +125,7 @@ public class ConnectedAccountsBetaApiTest {
      *
      * <p>Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected
      * account. **Note:** This endpoint is currently in beta and might be subject to changes.
-     * Currently supports CoinbaseExchange accounts only.
+     * Currently supports CoinbaseExchange/Binance accounts only.
      *
      * @throws ApiException if the Api call fails
      */
@@ -111,7 +133,7 @@ public class ConnectedAccountsBetaApiTest {
     public void getConnectedAccountAllowlistEntryTest() throws ApiException {
         String accountId = null;
         String allowlistId = null;
-        CompletableFuture<ApiResponse<AllowlistEntry>> response =
+        CompletableFuture<ApiResponse<AllowlistEntryResponse>> response =
                 api.getConnectedAccountAllowlistEntry(accountId, allowlistId);
     }
 
@@ -209,7 +231,7 @@ public class ConnectedAccountsBetaApiTest {
      * <p>Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data
      * immediately. **Rate limit:** 1 request per minute per connected account. **Note:** This
      * endpoint is currently in beta and might be subject to changes. Currently supports
-     * CoinbaseExchange accounts only.
+     * CoinbaseExchange/Binance accounts only.
      *
      * @throws ApiException if the Api call fails
      */

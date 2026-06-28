@@ -189,6 +189,21 @@ public class ComplianceApiTest {
     }
 
     /**
+     * Delete a legal entity
+     *
+     * <p>Delete a legal entity will change the status of a legal entity registration to REVOKED.
+     * Endpoint Permission: Admin, Non-Signing Admin.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void deleteLegalEntityTest() throws ApiException {
+        UUID legalEntityId = null;
+
+        CompletableFuture<ApiResponse<Void>> response = api.deleteLegalEntity(legalEntityId);
+    }
+
+    /**
      * Get address registry participation status for the authenticated workspace
      *
      * <p>Returns whether the workspace is &#x60;OPTED_IN&#x60; or &#x60;OPTED_OUT&#x60; of the
@@ -308,9 +323,9 @@ public class ComplianceApiTest {
     /**
      * Look up legal entity by blockchain address
      *
-     * <p>Returns legal entity information for the given blockchain address (verification status,
-     * LEI, Travel Rule providers, contact email, and related fields — see response schema).
-     * URL-encode &#x60;{address}&#x60; when required.
+     * <p>Returns legal entity information for the given blockchain address (LEI data availability,
+     * LEI identifier, Travel Rule providers, contact email, and related fields — see response
+     * schema). URL-encode &#x60;{address}&#x60; when required.
      *
      * @throws ApiException if the Api call fails
      */

@@ -29,6 +29,8 @@ import java.util.StringJoiner;
     SepaPaymentInfo.JSON_PROPERTY_ACCOUNT_HOLDER_GIVEN_NAME,
     SepaPaymentInfo.JSON_PROPERTY_ACCOUNT_HOLDER_SURNAME,
     SepaPaymentInfo.JSON_PROPERTY_ACCOUNT_HOLDER_COUNTRY,
+    SepaPaymentInfo.JSON_PROPERTY_ACCOUNT_HOLDER_POSTAL_CODE,
+    SepaPaymentInfo.JSON_PROPERTY_ACCOUNT_HOLDER_CITY,
     SepaPaymentInfo.JSON_PROPERTY_ACCOUNT_HOLDER_ADDRESS,
     SepaPaymentInfo.JSON_PROPERTY_IBAN,
     SepaPaymentInfo.JSON_PROPERTY_COUNTRY,
@@ -119,6 +121,12 @@ public class SepaPaymentInfo {
 
     public static final String JSON_PROPERTY_ACCOUNT_HOLDER_COUNTRY = "accountHolderCountry";
     @jakarta.annotation.Nullable private String accountHolderCountry;
+
+    public static final String JSON_PROPERTY_ACCOUNT_HOLDER_POSTAL_CODE = "accountHolderPostalCode";
+    @jakarta.annotation.Nullable private String accountHolderPostalCode;
+
+    public static final String JSON_PROPERTY_ACCOUNT_HOLDER_CITY = "accountHolderCity";
+    @jakarta.annotation.Nullable private String accountHolderCity;
 
     public static final String JSON_PROPERTY_ACCOUNT_HOLDER_ADDRESS = "accountHolderAddress";
     @jakarta.annotation.Nullable private String accountHolderAddress;
@@ -287,6 +295,55 @@ public class SepaPaymentInfo {
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setAccountHolderCountry(@jakarta.annotation.Nullable String accountHolderCountry) {
         this.accountHolderCountry = accountHolderCountry;
+    }
+
+    public SepaPaymentInfo accountHolderPostalCode(
+            @jakarta.annotation.Nullable String accountHolderPostalCode) {
+        this.accountHolderPostalCode = accountHolderPostalCode;
+        return this;
+    }
+
+    /**
+     * The postal code of the account holder&#39;s address
+     *
+     * @return accountHolderPostalCode
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_POSTAL_CODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAccountHolderPostalCode() {
+        return accountHolderPostalCode;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_POSTAL_CODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAccountHolderPostalCode(
+            @jakarta.annotation.Nullable String accountHolderPostalCode) {
+        this.accountHolderPostalCode = accountHolderPostalCode;
+    }
+
+    public SepaPaymentInfo accountHolderCity(
+            @jakarta.annotation.Nullable String accountHolderCity) {
+        this.accountHolderCity = accountHolderCity;
+        return this;
+    }
+
+    /**
+     * The city where the account holder resides
+     *
+     * @return accountHolderCity
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_CITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAccountHolderCity() {
+        return accountHolderCity;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_CITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAccountHolderCity(@jakarta.annotation.Nullable String accountHolderCity) {
+        this.accountHolderCity = accountHolderCity;
     }
 
     public SepaPaymentInfo accountHolderAddress(
@@ -513,6 +570,9 @@ public class SepaPaymentInfo {
                         this.accountHolderGivenName, sepaPaymentInfo.accountHolderGivenName)
                 && Objects.equals(this.accountHolderSurname, sepaPaymentInfo.accountHolderSurname)
                 && Objects.equals(this.accountHolderCountry, sepaPaymentInfo.accountHolderCountry)
+                && Objects.equals(
+                        this.accountHolderPostalCode, sepaPaymentInfo.accountHolderPostalCode)
+                && Objects.equals(this.accountHolderCity, sepaPaymentInfo.accountHolderCity)
                 && Objects.equals(this.accountHolderAddress, sepaPaymentInfo.accountHolderAddress)
                 && Objects.equals(this.iban, sepaPaymentInfo.iban)
                 && Objects.equals(this.country, sepaPaymentInfo.country)
@@ -532,6 +592,8 @@ public class SepaPaymentInfo {
                 accountHolderGivenName,
                 accountHolderSurname,
                 accountHolderCountry,
+                accountHolderPostalCode,
+                accountHolderCity,
                 accountHolderAddress,
                 iban,
                 country,
@@ -557,6 +619,12 @@ public class SepaPaymentInfo {
                 .append("\n");
         sb.append("    accountHolderCountry: ")
                 .append(toIndentedString(accountHolderCountry))
+                .append("\n");
+        sb.append("    accountHolderPostalCode: ")
+                .append(toIndentedString(accountHolderPostalCode))
+                .append("\n");
+        sb.append("    accountHolderCity: ")
+                .append(toIndentedString(accountHolderCity))
                 .append("\n");
         sb.append("    accountHolderAddress: ")
                 .append(toIndentedString(accountHolderAddress))
@@ -667,6 +735,27 @@ public class SepaPaymentInfo {
                             suffix,
                             ApiClient.urlEncode(
                                     ApiClient.valueToString(getAccountHolderCountry()))));
+        }
+
+        // add `accountHolderPostalCode` to the URL query string
+        if (getAccountHolderPostalCode() != null) {
+            joiner.add(
+                    String.format(
+                            "%saccountHolderPostalCode%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getAccountHolderPostalCode()))));
+        }
+
+        // add `accountHolderCity` to the URL query string
+        if (getAccountHolderCity() != null) {
+            joiner.add(
+                    String.format(
+                            "%saccountHolderCity%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAccountHolderCity()))));
         }
 
         // add `accountHolderAddress` to the URL query string

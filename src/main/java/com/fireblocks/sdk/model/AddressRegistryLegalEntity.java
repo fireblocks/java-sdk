@@ -25,7 +25,7 @@ import java.util.StringJoiner;
 
 /** Legal entity details for a blockchain address. */
 @JsonPropertyOrder({
-    AddressRegistryLegalEntity.JSON_PROPERTY_VERIFIED,
+    AddressRegistryLegalEntity.JSON_PROPERTY_LEI_DATA,
     AddressRegistryLegalEntity.JSON_PROPERTY_ENTITY_NAME,
     AddressRegistryLegalEntity.JSON_PROPERTY_JURISDICTION,
     AddressRegistryLegalEntity.JSON_PROPERTY_LEI,
@@ -36,8 +36,8 @@ import java.util.StringJoiner;
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class AddressRegistryLegalEntity {
-    public static final String JSON_PROPERTY_VERIFIED = "verified";
-    @jakarta.annotation.Nonnull private Boolean verified;
+    public static final String JSON_PROPERTY_LEI_DATA = "leiData";
+    @jakarta.annotation.Nonnull private Boolean leiData;
 
     public static final String JSON_PROPERTY_ENTITY_NAME = "entityName";
     @jakarta.annotation.Nonnull private String entityName;
@@ -58,14 +58,14 @@ public class AddressRegistryLegalEntity {
 
     @JsonCreator
     public AddressRegistryLegalEntity(
-            @JsonProperty(value = JSON_PROPERTY_VERIFIED, required = true) Boolean verified,
+            @JsonProperty(value = JSON_PROPERTY_LEI_DATA, required = true) Boolean leiData,
             @JsonProperty(value = JSON_PROPERTY_ENTITY_NAME, required = true) String entityName,
             @JsonProperty(value = JSON_PROPERTY_JURISDICTION, required = true) String jurisdiction,
             @JsonProperty(value = JSON_PROPERTY_LEI, required = true) String lei,
             @JsonProperty(value = JSON_PROPERTY_TRAVEL_RULE_PROVIDERS, required = true)
                     List<AddressRegistryTravelRuleProvider> travelRuleProviders,
             @JsonProperty(value = JSON_PROPERTY_EMAIL, required = true) String email) {
-        this.verified = verified;
+        this.leiData = leiData;
         this.entityName = entityName;
         this.jurisdiction = jurisdiction;
         this.lei = lei;
@@ -73,27 +73,28 @@ public class AddressRegistryLegalEntity {
         this.email = email;
     }
 
-    public AddressRegistryLegalEntity verified(@jakarta.annotation.Nonnull Boolean verified) {
-        this.verified = verified;
+    public AddressRegistryLegalEntity leiData(@jakarta.annotation.Nonnull Boolean leiData) {
+        this.leiData = leiData;
         return this;
     }
 
     /**
-     * Whether the entity was resolved from verified public registry data (e.g. LEI sources).
+     * Indicates whether LEI (Legal Entity Identifier) data is available for this address from a
+     * verified public registry. A value of &#x60;false&#x60; means no LEI record was found.
      *
-     * @return verified
+     * @return leiData
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_VERIFIED)
+    @JsonProperty(JSON_PROPERTY_LEI_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Boolean getVerified() {
-        return verified;
+    public Boolean getLeiData() {
+        return leiData;
     }
 
-    @JsonProperty(JSON_PROPERTY_VERIFIED)
+    @JsonProperty(JSON_PROPERTY_LEI_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVerified(@jakarta.annotation.Nonnull Boolean verified) {
-        this.verified = verified;
+    public void setLeiData(@jakarta.annotation.Nonnull Boolean leiData) {
+        this.leiData = leiData;
     }
 
     public AddressRegistryLegalEntity entityName(@jakarta.annotation.Nonnull String entityName) {
@@ -149,7 +150,7 @@ public class AddressRegistryLegalEntity {
     }
 
     /**
-     * Legal Entity Identifier when available; may be empty when unverified.
+     * Legal Entity Identifier when available. Empty when &#x60;leiData&#x60; is &#x60;false&#x60;.
      *
      * @return lei
      */
@@ -235,7 +236,7 @@ public class AddressRegistryLegalEntity {
             return false;
         }
         AddressRegistryLegalEntity addressRegistryLegalEntity = (AddressRegistryLegalEntity) o;
-        return Objects.equals(this.verified, addressRegistryLegalEntity.verified)
+        return Objects.equals(this.leiData, addressRegistryLegalEntity.leiData)
                 && Objects.equals(this.entityName, addressRegistryLegalEntity.entityName)
                 && Objects.equals(this.jurisdiction, addressRegistryLegalEntity.jurisdiction)
                 && Objects.equals(this.lei, addressRegistryLegalEntity.lei)
@@ -246,14 +247,14 @@ public class AddressRegistryLegalEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(verified, entityName, jurisdiction, lei, travelRuleProviders, email);
+        return Objects.hash(leiData, entityName, jurisdiction, lei, travelRuleProviders, email);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class AddressRegistryLegalEntity {\n");
-        sb.append("    verified: ").append(toIndentedString(verified)).append("\n");
+        sb.append("    leiData: ").append(toIndentedString(leiData)).append("\n");
         sb.append("    entityName: ").append(toIndentedString(entityName)).append("\n");
         sb.append("    jurisdiction: ").append(toIndentedString(jurisdiction)).append("\n");
         sb.append("    lei: ").append(toIndentedString(lei)).append("\n");
@@ -308,14 +309,14 @@ public class AddressRegistryLegalEntity {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `verified` to the URL query string
-        if (getVerified() != null) {
+        // add `leiData` to the URL query string
+        if (getLeiData() != null) {
             joiner.add(
                     String.format(
-                            "%sverified%s=%s",
+                            "%sleiData%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getVerified()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLeiData()))));
         }
 
         // add `entityName` to the URL query string

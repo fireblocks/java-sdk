@@ -17,6 +17,7 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateAPIUser;
 import com.fireblocks.sdk.model.GetAPIUsersResponse;
+import com.fireblocks.sdk.model.IssueApiUserPairingTokenResponse;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -57,5 +58,24 @@ public class ApiUserApiTest {
     @Test
     public void getApiUsersTest() throws ApiException {
         CompletableFuture<ApiResponse<GetAPIUsersResponse>> response = api.getApiUsers();
+    }
+
+    /**
+     * Issue API user pairing token
+     *
+     * <p>Issues a device pairing token for the given user and returns the user&#39;s info along
+     * with the token. - The API user must be in PENDING_ACTIVATION status. If the user is already
+     * set up (enabled), the request is rejected with a 409 Conflict. - Please note that this
+     * endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions.
+     * Endpoint Permission: Owner, Admin, Non-Signing Admin.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void issueApiUserPairingTokenTest() throws ApiException {
+        String userId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<IssueApiUserPairingTokenResponse>> response =
+                api.issueApiUserPairingToken(userId, idempotencyKey);
     }
 }

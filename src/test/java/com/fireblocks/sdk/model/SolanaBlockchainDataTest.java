@@ -36,4 +36,10 @@ class SolanaBlockchainDataTest {
     void stakeAccountDerivationChangeValueTest() {
         // TODO: test stakeAccountDerivationChangeValue
     }
+
+    /** Test the property 'rewardsBreakdown' */
+    @Test
+    void rewardsBreakdownTest() {
+        // TODO: test rewardsBreakdown
+    }
 }

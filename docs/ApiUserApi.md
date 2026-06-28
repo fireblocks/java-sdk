@@ -6,6 +6,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 |------------- | ------------- | -------------|
 | [**createApiUser**](ApiUserApi.md#createApiUser) | **POST** /management/api_users | Create API Key |
 | [**getApiUsers**](ApiUserApi.md#getApiUsers) | **GET** /management/api_users | Get API Keys |
+| [**issueApiUserPairingToken**](ApiUserApi.md#issueApiUserPairingToken) | **POST** /management/api_users/{userId}/pairing_token | Issue API user pairing token |
 
 
 
@@ -175,6 +176,96 @@ No authorization required
 | **200** | got api users |  * X-Request-ID -  <br>  |
 | **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 | **403** | Lacking permissions. |  * X-Request-ID -  <br>  |
+| **5XX** | Internal error. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## issueApiUserPairingToken
+
+> CompletableFuture<ApiResponse<IssueApiUserPairingTokenResponse>> issueApiUserPairingToken issueApiUserPairingToken(userId, idempotencyKey)
+
+Issue API user pairing token
+
+Issues a device pairing token for the given user and returns the user&#39;s info along with the token. - The API user must be in PENDING_ACTIVATION status. If the user is already set up (enabled), the request is rejected with a 409 Conflict. - Please note that this endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions. Endpoint Permission: Owner, Admin, Non-Signing Admin.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ApiUserApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String userId = "userId_example"; // String | The ID of the api user
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<IssueApiUserPairingTokenResponse>> response = fireblocks.apiUser().issueApiUserPairingToken(userId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ApiUserApi#issueApiUserPairingToken");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ApiUserApi#issueApiUserPairingToken");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **userId** | **String**| The ID of the api user | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**IssueApiUserPairingTokenResponse**](IssueApiUserPairingTokenResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Pairing token issued |  * X-Request-ID -  <br>  |
+| **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
+| **403** | Lacking permissions. |  * X-Request-ID -  <br>  |
+| **404** | API user not found for the given userId. |  * X-Request-ID -  <br>  |
+| **409** | Conflict. The API user is not in PENDING_ACTIVATION status (e.g. already set up / enabled). |  * X-Request-ID -  <br>  |
 | **5XX** | Internal error. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 

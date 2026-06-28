@@ -42,10 +42,4 @@ class ManifestTest {
     void rateTest() {
         // TODO: test rate
     }
-
-    /** Test the property 'participantsIdentificationPolicy' */
-    @Test
-    void participantsIdentificationPolicyTest() {
-        // TODO: test participantsIdentificationPolicy
-    }
 }

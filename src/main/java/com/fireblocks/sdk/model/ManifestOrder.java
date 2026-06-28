@@ -26,8 +26,11 @@ import java.util.StringJoiner;
 /** ManifestOrder */
 @JsonPropertyOrder({
     ManifestOrder.JSON_PROPERTY_SUPPORTED,
+    ManifestOrder.JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION_POLICY,
+    ManifestOrder.JSON_PROPERTY_SUPPORTED_PARTIES,
     ManifestOrder.JSON_PROPERTY_SETTLEMENT_TYPES,
-    ManifestOrder.JSON_PROPERTY_EXECUTION_TYPES
+    ManifestOrder.JSON_PROPERTY_EXECUTION_TYPES,
+    ManifestOrder.JSON_PROPERTY_REQUIRES_REASON_FOR_PAYMENT
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -36,11 +39,24 @@ public class ManifestOrder {
     public static final String JSON_PROPERTY_SUPPORTED = "supported";
     @jakarta.annotation.Nonnull private Boolean supported;
 
+    public static final String JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION_POLICY =
+            "participantsIdentificationPolicy";
+
+    @jakarta.annotation.Nullable
+    private ParticipantsIdentificationPolicy participantsIdentificationPolicy;
+
+    public static final String JSON_PROPERTY_SUPPORTED_PARTIES = "supportedParties";
+    @jakarta.annotation.Nullable private List<ParticipantRelationshipType> supportedParties;
+
     public static final String JSON_PROPERTY_SETTLEMENT_TYPES = "settlementTypes";
     @jakarta.annotation.Nullable private List<SettlementTypeEnum> settlementTypes;
 
     public static final String JSON_PROPERTY_EXECUTION_TYPES = "executionTypes";
     @jakarta.annotation.Nonnull private List<ExecutionRequestDetailsType> executionTypes;
+
+    public static final String JSON_PROPERTY_REQUIRES_REASON_FOR_PAYMENT =
+            "requiresReasonForPayment";
+    @jakarta.annotation.Nullable private Boolean requiresReasonForPayment;
 
     public ManifestOrder() {}
 
@@ -74,6 +90,66 @@ public class ManifestOrder {
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setSupported(@jakarta.annotation.Nonnull Boolean supported) {
         this.supported = supported;
+    }
+
+    public ManifestOrder participantsIdentificationPolicy(
+            @jakarta.annotation.Nullable
+                    ParticipantsIdentificationPolicy participantsIdentificationPolicy) {
+        this.participantsIdentificationPolicy = participantsIdentificationPolicy;
+        return this;
+    }
+
+    /**
+     * Get participantsIdentificationPolicy
+     *
+     * @return participantsIdentificationPolicy
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION_POLICY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ParticipantsIdentificationPolicy getParticipantsIdentificationPolicy() {
+        return participantsIdentificationPolicy;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION_POLICY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setParticipantsIdentificationPolicy(
+            @jakarta.annotation.Nullable
+                    ParticipantsIdentificationPolicy participantsIdentificationPolicy) {
+        this.participantsIdentificationPolicy = participantsIdentificationPolicy;
+    }
+
+    public ManifestOrder supportedParties(
+            @jakarta.annotation.Nullable List<ParticipantRelationshipType> supportedParties) {
+        this.supportedParties = supportedParties;
+        return this;
+    }
+
+    public ManifestOrder addSupportedPartiesItem(ParticipantRelationshipType supportedPartiesItem) {
+        if (this.supportedParties == null) {
+            this.supportedParties = new ArrayList<>();
+        }
+        this.supportedParties.add(supportedPartiesItem);
+        return this;
+    }
+
+    /**
+     * The participant party types the provider supports for this endpoint.
+     *
+     * @return supportedParties
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SUPPORTED_PARTIES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<ParticipantRelationshipType> getSupportedParties() {
+        return supportedParties;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SUPPORTED_PARTIES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSupportedParties(
+            @jakarta.annotation.Nullable List<ParticipantRelationshipType> supportedParties) {
+        this.supportedParties = supportedParties;
     }
 
     public ManifestOrder settlementTypes(
@@ -143,6 +219,33 @@ public class ManifestOrder {
         this.executionTypes = executionTypes;
     }
 
+    public ManifestOrder requiresReasonForPayment(
+            @jakarta.annotation.Nullable Boolean requiresReasonForPayment) {
+        this.requiresReasonForPayment = requiresReasonForPayment;
+        return this;
+    }
+
+    /**
+     * Information about the source and purpose of the funds being transacted. Used by providers
+     * that require additional context for compliance and reporting. Provide this field when the
+     * provider manifest indicates it is required.
+     *
+     * @return requiresReasonForPayment
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_REQUIRES_REASON_FOR_PAYMENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getRequiresReasonForPayment() {
+        return requiresReasonForPayment;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REQUIRES_REASON_FOR_PAYMENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRequiresReasonForPayment(
+            @jakarta.annotation.Nullable Boolean requiresReasonForPayment) {
+        this.requiresReasonForPayment = requiresReasonForPayment;
+    }
+
     /** Return true if this ManifestOrder object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -154,13 +257,25 @@ public class ManifestOrder {
         }
         ManifestOrder manifestOrder = (ManifestOrder) o;
         return Objects.equals(this.supported, manifestOrder.supported)
+                && Objects.equals(
+                        this.participantsIdentificationPolicy,
+                        manifestOrder.participantsIdentificationPolicy)
+                && Objects.equals(this.supportedParties, manifestOrder.supportedParties)
                 && Objects.equals(this.settlementTypes, manifestOrder.settlementTypes)
-                && Objects.equals(this.executionTypes, manifestOrder.executionTypes);
+                && Objects.equals(this.executionTypes, manifestOrder.executionTypes)
+                && Objects.equals(
+                        this.requiresReasonForPayment, manifestOrder.requiresReasonForPayment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(supported, settlementTypes, executionTypes);
+        return Objects.hash(
+                supported,
+                participantsIdentificationPolicy,
+                supportedParties,
+                settlementTypes,
+                executionTypes,
+                requiresReasonForPayment);
     }
 
     @Override
@@ -168,8 +283,15 @@ public class ManifestOrder {
         StringBuilder sb = new StringBuilder();
         sb.append("class ManifestOrder {\n");
         sb.append("    supported: ").append(toIndentedString(supported)).append("\n");
+        sb.append("    participantsIdentificationPolicy: ")
+                .append(toIndentedString(participantsIdentificationPolicy))
+                .append("\n");
+        sb.append("    supportedParties: ").append(toIndentedString(supportedParties)).append("\n");
         sb.append("    settlementTypes: ").append(toIndentedString(settlementTypes)).append("\n");
         sb.append("    executionTypes: ").append(toIndentedString(executionTypes)).append("\n");
+        sb.append("    requiresReasonForPayment: ")
+                .append(toIndentedString(requiresReasonForPayment))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -227,6 +349,34 @@ public class ManifestOrder {
                             ApiClient.urlEncode(ApiClient.valueToString(getSupported()))));
         }
 
+        // add `participantsIdentificationPolicy` to the URL query string
+        if (getParticipantsIdentificationPolicy() != null) {
+            joiner.add(
+                    getParticipantsIdentificationPolicy()
+                            .toUrlQueryString(
+                                    prefix + "participantsIdentificationPolicy" + suffix));
+        }
+
+        // add `supportedParties` to the URL query string
+        if (getSupportedParties() != null) {
+            for (int i = 0; i < getSupportedParties().size(); i++) {
+                if (getSupportedParties().get(i) != null) {
+                    joiner.add(
+                            String.format(
+                                    "%ssupportedParties%s%s=%s",
+                                    prefix,
+                                    suffix,
+                                    "".equals(suffix)
+                                            ? ""
+                                            : String.format(
+                                                    "%s%d%s", containerPrefix, i, containerSuffix),
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(
+                                                    getSupportedParties().get(i)))));
+                }
+            }
+        }
+
         // add `settlementTypes` to the URL query string
         if (getSettlementTypes() != null) {
             for (int i = 0; i < getSettlementTypes().size(); i++) {
@@ -263,6 +413,17 @@ public class ManifestOrder {
                                             ApiClient.valueToString(getExecutionTypes().get(i)))));
                 }
             }
+        }
+
+        // add `requiresReasonForPayment` to the URL query string
+        if (getRequiresReasonForPayment() != null) {
+            joiner.add(
+                    String.format(
+                            "%srequiresReasonForPayment%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getRequiresReasonForPayment()))));
         }
 
         return joiner.toString();

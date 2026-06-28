@@ -126,4 +126,10 @@ class Position2Test {
     void availableActionsTest() {
         // TODO: test availableActions
     }
+
+    /** Test the property 'yield' */
+    @Test
+    void yieldTest() {
+        // TODO: test yield
+    }
 }

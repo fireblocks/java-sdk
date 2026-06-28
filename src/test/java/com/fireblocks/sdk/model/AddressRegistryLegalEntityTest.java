@@ -25,10 +25,10 @@ class AddressRegistryLegalEntityTest {
         // TODO: test AddressRegistryLegalEntity
     }
 
-    /** Test the property 'verified' */
+    /** Test the property 'leiData' */
     @Test
-    void verifiedTest() {
-        // TODO: test verified
+    void leiDataTest() {
+        // TODO: test leiData
     }
 
     /** Test the property 'entityName' */

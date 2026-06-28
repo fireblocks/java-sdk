@@ -18,17 +18,32 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** Base manifest schema with common properties */
-@JsonPropertyOrder({ManifestBase.JSON_PROPERTY_SUPPORTED})
+@JsonPropertyOrder({
+    ManifestBase.JSON_PROPERTY_SUPPORTED,
+    ManifestBase.JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION_POLICY,
+    ManifestBase.JSON_PROPERTY_SUPPORTED_PARTIES
+})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class ManifestBase {
     public static final String JSON_PROPERTY_SUPPORTED = "supported";
     @jakarta.annotation.Nonnull private Boolean supported;
+
+    public static final String JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION_POLICY =
+            "participantsIdentificationPolicy";
+
+    @jakarta.annotation.Nullable
+    private ParticipantsIdentificationPolicy participantsIdentificationPolicy;
+
+    public static final String JSON_PROPERTY_SUPPORTED_PARTIES = "supportedParties";
+    @jakarta.annotation.Nullable private List<ParticipantRelationshipType> supportedParties;
 
     public ManifestBase() {}
 
@@ -61,6 +76,66 @@ public class ManifestBase {
         this.supported = supported;
     }
 
+    public ManifestBase participantsIdentificationPolicy(
+            @jakarta.annotation.Nullable
+                    ParticipantsIdentificationPolicy participantsIdentificationPolicy) {
+        this.participantsIdentificationPolicy = participantsIdentificationPolicy;
+        return this;
+    }
+
+    /**
+     * Get participantsIdentificationPolicy
+     *
+     * @return participantsIdentificationPolicy
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION_POLICY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ParticipantsIdentificationPolicy getParticipantsIdentificationPolicy() {
+        return participantsIdentificationPolicy;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION_POLICY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setParticipantsIdentificationPolicy(
+            @jakarta.annotation.Nullable
+                    ParticipantsIdentificationPolicy participantsIdentificationPolicy) {
+        this.participantsIdentificationPolicy = participantsIdentificationPolicy;
+    }
+
+    public ManifestBase supportedParties(
+            @jakarta.annotation.Nullable List<ParticipantRelationshipType> supportedParties) {
+        this.supportedParties = supportedParties;
+        return this;
+    }
+
+    public ManifestBase addSupportedPartiesItem(ParticipantRelationshipType supportedPartiesItem) {
+        if (this.supportedParties == null) {
+            this.supportedParties = new ArrayList<>();
+        }
+        this.supportedParties.add(supportedPartiesItem);
+        return this;
+    }
+
+    /**
+     * The participant party types the provider supports for this endpoint.
+     *
+     * @return supportedParties
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SUPPORTED_PARTIES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<ParticipantRelationshipType> getSupportedParties() {
+        return supportedParties;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SUPPORTED_PARTIES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSupportedParties(
+            @jakarta.annotation.Nullable List<ParticipantRelationshipType> supportedParties) {
+        this.supportedParties = supportedParties;
+    }
+
     /** Return true if this ManifestBase object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -71,12 +146,16 @@ public class ManifestBase {
             return false;
         }
         ManifestBase manifestBase = (ManifestBase) o;
-        return Objects.equals(this.supported, manifestBase.supported);
+        return Objects.equals(this.supported, manifestBase.supported)
+                && Objects.equals(
+                        this.participantsIdentificationPolicy,
+                        manifestBase.participantsIdentificationPolicy)
+                && Objects.equals(this.supportedParties, manifestBase.supportedParties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(supported);
+        return Objects.hash(supported, participantsIdentificationPolicy, supportedParties);
     }
 
     @Override
@@ -84,6 +163,10 @@ public class ManifestBase {
         StringBuilder sb = new StringBuilder();
         sb.append("class ManifestBase {\n");
         sb.append("    supported: ").append(toIndentedString(supported)).append("\n");
+        sb.append("    participantsIdentificationPolicy: ")
+                .append(toIndentedString(participantsIdentificationPolicy))
+                .append("\n");
+        sb.append("    supportedParties: ").append(toIndentedString(supportedParties)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -139,6 +222,34 @@ public class ManifestBase {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getSupported()))));
+        }
+
+        // add `participantsIdentificationPolicy` to the URL query string
+        if (getParticipantsIdentificationPolicy() != null) {
+            joiner.add(
+                    getParticipantsIdentificationPolicy()
+                            .toUrlQueryString(
+                                    prefix + "participantsIdentificationPolicy" + suffix));
+        }
+
+        // add `supportedParties` to the URL query string
+        if (getSupportedParties() != null) {
+            for (int i = 0; i < getSupportedParties().size(); i++) {
+                if (getSupportedParties().get(i) != null) {
+                    joiner.add(
+                            String.format(
+                                    "%ssupportedParties%s%s=%s",
+                                    prefix,
+                                    suffix,
+                                    "".equals(suffix)
+                                            ? ""
+                                            : String.format(
+                                                    "%s%d%s", containerPrefix, i, containerSuffix),
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(
+                                                    getSupportedParties().get(i)))));
+                }
+            }
         }
 
         return joiner.toString();

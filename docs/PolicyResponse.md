@@ -9,7 +9,7 @@ Response object for policy operations
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**rules** | [**List&lt;PolicyRule&gt;**](PolicyRule.md) | A set of policy rules |  |
-|**metadata** | [**PolicyMetadata**](PolicyMetadata.md) |  |  |
+|**metadata** | [**Map&lt;String, PolicyMetadataEntry&gt;**](PolicyMetadataEntry.md) | Policy metadata keyed by policy type |  |
 
 
 

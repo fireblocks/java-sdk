@@ -20,7 +20,7 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
-import com.fireblocks.sdk.model.AllowlistEntry;
+import com.fireblocks.sdk.model.AllowlistEntryResponse;
 import com.fireblocks.sdk.model.AllowlistEntryStatus;
 import com.fireblocks.sdk.model.AllowlistResponse;
 import com.fireblocks.sdk.model.ConnectedAccountBalancesResponse;
@@ -28,6 +28,8 @@ import com.fireblocks.sdk.model.ConnectedAccountRateResponse;
 import com.fireblocks.sdk.model.ConnectedAccountTradingPairsResponse;
 import com.fireblocks.sdk.model.ConnectedAccountsResponse;
 import com.fireblocks.sdk.model.ConnectedSingleAccountResponse;
+import com.fireblocks.sdk.model.CreateConnectedAccountRequest;
+import com.fireblocks.sdk.model.CreateConnectedAccountResponse;
 import com.fireblocks.sdk.model.RenameConnectedAccountRequest;
 import com.fireblocks.sdk.model.RenameConnectedAccountResponse;
 import java.io.IOException;
@@ -83,6 +85,97 @@ public class ConnectedAccountsBetaApi {
         return operationId + " call failed with: " + statusCode + " - " + body;
     }
 
+    /**
+     * Create a connected account Creates a new connected account for the authenticated tenant. The
+     * &#x60;creds&#x60; field must be a Base64-encoded RSA-encrypted credential blob. Use &#x60;GET
+     * /exchange_accounts/credentials_public_key&#x60; to retrieve the public key for encryption.
+     * The &#x60;providerType&#x60; is derived server-side from the &#x60;providerId&#x60; — callers
+     * do not supply it. Endpoint Permission: Editor, Admin, Non-Signing Admin. **Note:** This
+     * endpoint is currently in beta and might be subject to changes.
+     *
+     * @param createConnectedAccountRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateConnectedAccountResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<CreateConnectedAccountResponse>> createConnectedAccount(
+            CreateConnectedAccountRequest createConnectedAccountRequest, String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    createConnectedAccountRequestBuilder(
+                            createConnectedAccountRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "createConnectedAccount", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<CreateConnectedAccountResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            CreateConnectedAccountResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder createConnectedAccountRequestBuilder(
+            CreateConnectedAccountRequest createConnectedAccountRequest, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "createConnectedAccount",
+                "createConnectedAccountRequest",
+                createConnectedAccountRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/connected_accounts";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(createConnectedAccountRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
     /**
      * Disconnect connected account Disconnect a connected account by ID. **Note**: - This endpoint
      * is currently in beta and might be subject to changes.
@@ -216,7 +309,7 @@ public class ConnectedAccountsBetaApi {
     /**
      * Get allowlist for connected account Retrieves the address allowlist for a specified connected
      * account. **Note:** This endpoint is currently in beta and might be subject to changes.
-     * Currently supports CoinbaseExchange accounts only.
+     * Currently supports CoinbaseExchange/Binance accounts only.
      *
      * @param accountId The connected account identifier (required)
      * @param status Filter by allowlist entry status (optional)
@@ -357,15 +450,15 @@ public class ConnectedAccountsBetaApi {
     /**
      * Get a single allowlist entry for a connected account Retrieves a single allowlist entry by
      * its Fireblocks identifier for a specified connected account. **Note:** This endpoint is
-     * currently in beta and might be subject to changes. Currently supports CoinbaseExchange
-     * accounts only.
+     * currently in beta and might be subject to changes. Currently supports
+     * CoinbaseExchange/Binance accounts only.
      *
      * @param accountId The connected account identifier (required)
      * @param allowlistId The Fireblocks allowlist entry identifier (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;AllowlistEntry&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;AllowlistEntryResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<AllowlistEntry>> getConnectedAccountAllowlistEntry(
+    public CompletableFuture<ApiResponse<AllowlistEntryResponse>> getConnectedAccountAllowlistEntry(
             String accountId, String allowlistId) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
@@ -386,7 +479,7 @@ public class ConnectedAccountsBetaApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<AllowlistEntry>(
+                                            new ApiResponse<AllowlistEntryResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -394,7 +487,7 @@ public class ConnectedAccountsBetaApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            AllowlistEntry>() {})));
+                                                                            AllowlistEntryResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -902,7 +995,7 @@ public class ConnectedAccountsBetaApi {
      * Sync allowlist for connected account Triggers an on-demand sync from the exchange, bypassing
      * the cache and fetching live data immediately. **Rate limit:** 1 request per minute per
      * connected account. **Note:** This endpoint is currently in beta and might be subject to
-     * changes. Currently supports CoinbaseExchange accounts only.
+     * changes. Currently supports CoinbaseExchange/Binance accounts only.
      *
      * @param accountId The connected account identifier (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple

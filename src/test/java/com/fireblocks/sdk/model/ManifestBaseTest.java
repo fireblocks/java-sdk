@@ -30,4 +30,16 @@ class ManifestBaseTest {
     void supportedTest() {
         // TODO: test supported
     }
+
+    /** Test the property 'participantsIdentificationPolicy' */
+    @Test
+    void participantsIdentificationPolicyTest() {
+        // TODO: test participantsIdentificationPolicy
+    }
+
+    /** Test the property 'supportedParties' */
+    @Test
+    void supportedPartiesTest() {
+        // TODO: test supportedParties
+    }
 }

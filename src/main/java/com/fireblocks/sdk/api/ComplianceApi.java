@@ -732,6 +732,65 @@ public class ComplianceApi {
         return localVarRequestBuilder;
     }
     /**
+     * Delete a legal entity Delete a legal entity will change the status of a legal entity
+     * registration to REVOKED. Endpoint Permission: Admin, Non-Signing Admin.
+     *
+     * @param legalEntityId The unique ID of the legal entity registration to delete (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Void>> deleteLegalEntity(UUID legalEntityId)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    deleteLegalEntityRequestBuilder(legalEntityId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("deleteLegalEntity", localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder deleteLegalEntityRequestBuilder(UUID legalEntityId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "deleteLegalEntity", "legalEntityId", legalEntityId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/legal_entities/{legalEntityId}"
+                        .replace("{legalEntityId}", ApiClient.urlEncode(legalEntityId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Get address registry participation status for the authenticated workspace Returns whether the
      * workspace is &#x60;OPTED_IN&#x60; or &#x60;OPTED_OUT&#x60; of the address registry.
      *
@@ -1284,8 +1343,9 @@ public class ComplianceApi {
     }
     /**
      * Look up legal entity by blockchain address Returns legal entity information for the given
-     * blockchain address (verification status, LEI, Travel Rule providers, contact email, and
-     * related fields — see response schema). URL-encode &#x60;{address}&#x60; when required.
+     * blockchain address (LEI data availability, LEI identifier, Travel Rule providers, contact
+     * email, and related fields — see response schema). URL-encode &#x60;{address}&#x60; when
+     * required.
      *
      * @param address Blockchain address to look up (required)
      * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryLegalEntity&gt;&gt;

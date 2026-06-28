@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**txHash** | **String** |  |  |
-|**vout** | **Integer** |  |  |
+|**index** | **Integer** | The output index (vout) |  |
 
 
 

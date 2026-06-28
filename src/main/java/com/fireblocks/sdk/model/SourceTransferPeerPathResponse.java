@@ -18,6 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
@@ -29,7 +31,8 @@ import java.util.UUID;
     SourceTransferPeerPathResponse.JSON_PROPERTY_ID,
     SourceTransferPeerPathResponse.JSON_PROPERTY_NAME,
     SourceTransferPeerPathResponse.JSON_PROPERTY_WALLET_ID,
-    SourceTransferPeerPathResponse.JSON_PROPERTY_TRADING_ACCOUNT
+    SourceTransferPeerPathResponse.JSON_PROPERTY_TRADING_ACCOUNT,
+    SourceTransferPeerPathResponse.JSON_PROPERTY_TAGS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -52,6 +55,9 @@ public class SourceTransferPeerPathResponse {
 
     public static final String JSON_PROPERTY_TRADING_ACCOUNT = "tradingAccount";
     @jakarta.annotation.Nullable private String tradingAccount;
+
+    public static final String JSON_PROPERTY_TAGS = "tags";
+    @jakarta.annotation.Nullable private List<TransactionTag> tags;
 
     public SourceTransferPeerPathResponse() {}
 
@@ -213,6 +219,38 @@ public class SourceTransferPeerPathResponse {
         this.tradingAccount = tradingAccount;
     }
 
+    public SourceTransferPeerPathResponse tags(
+            @jakarta.annotation.Nullable List<TransactionTag> tags) {
+        this.tags = tags;
+        return this;
+    }
+
+    public SourceTransferPeerPathResponse addTagsItem(TransactionTag tagsItem) {
+        if (this.tags == null) {
+            this.tags = new ArrayList<>();
+        }
+        this.tags.add(tagsItem);
+        return this;
+    }
+
+    /**
+     * Tags associated with the transaction&#39;s source.
+     *
+     * @return tags
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TAGS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<TransactionTag> getTags() {
+        return tags;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TAGS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTags(@jakarta.annotation.Nullable List<TransactionTag> tags) {
+        this.tags = tags;
+    }
+
     /** Return true if this SourceTransferPeerPathResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -230,12 +268,13 @@ public class SourceTransferPeerPathResponse {
                 && Objects.equals(this.name, sourceTransferPeerPathResponse.name)
                 && Objects.equals(this.walletId, sourceTransferPeerPathResponse.walletId)
                 && Objects.equals(
-                        this.tradingAccount, sourceTransferPeerPathResponse.tradingAccount);
+                        this.tradingAccount, sourceTransferPeerPathResponse.tradingAccount)
+                && Objects.equals(this.tags, sourceTransferPeerPathResponse.tags);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, subType, id, name, walletId, tradingAccount);
+        return Objects.hash(type, subType, id, name, walletId, tradingAccount, tags);
     }
 
     @Override
@@ -248,6 +287,7 @@ public class SourceTransferPeerPathResponse {
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    walletId: ").append(toIndentedString(walletId)).append("\n");
         sb.append("    tradingAccount: ").append(toIndentedString(tradingAccount)).append("\n");
+        sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -351,6 +391,29 @@ public class SourceTransferPeerPathResponse {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getTradingAccount()))));
+        }
+
+        // add `tags` to the URL query string
+        if (getTags() != null) {
+            for (int i = 0; i < getTags().size(); i++) {
+                if (getTags().get(i) != null) {
+                    joiner.add(
+                            getTags()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%stags%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
         }
 
         return joiner.toString();

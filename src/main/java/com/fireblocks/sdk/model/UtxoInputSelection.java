@@ -62,7 +62,7 @@ public class UtxoInputSelection {
     }
 
     /**
-     * Force-include specific UTXOs by txHash and vout.
+     * Force-include specific UTXOs by txHash and index.
      *
      * @return inputsToSpend
      */

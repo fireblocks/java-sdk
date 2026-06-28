@@ -42,7 +42,7 @@ import java.util.function.Consumer;
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class PolicyEditorV2BetaApi {
+public class PolicyEditorV2Api {
     private final HttpClient memberVarHttpClient;
     private final ObjectMapper memberVarObjectMapper;
     private final String memberVarBaseUri;
@@ -51,11 +51,11 @@ public class PolicyEditorV2BetaApi {
     private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
     private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-    public PolicyEditorV2BetaApi() {
+    public PolicyEditorV2Api() {
         this(new ApiClient());
     }
 
-    public PolicyEditorV2BetaApi(ApiClient apiClient) {
+    public PolicyEditorV2Api(ApiClient apiClient) {
         memberVarHttpClient = apiClient.getHttpClient();
         memberVarObjectMapper = apiClient.getObjectMapper();
         memberVarBaseUri = apiClient.getBaseUri();
@@ -81,10 +81,7 @@ public class PolicyEditorV2BetaApi {
 
     /**
      * Get the active policy and its validation by policy type Returns the active policy and its
-     * validation for a specific policy type. **Note:** This endpoint is currently in beta and
-     * subject to change. If you want to participate in the Policies beta, contact your Fireblocks
-     * Customer Success Manager or send an email to csm@fireblocks.com. Endpoint Permissions: Owner,
-     * Admin, Non-Signing Admin.
+     * validation for a specific policy type. Endpoint Permissions: Owner, Admin, Non-Signing Admin.
      *
      * @param policyType The policy type(s) to retrieve. Can be a single type or multiple types by
      *     repeating the parameter (e.g., ?policyType&#x3D;TRANSFER&amp;policyType&#x3D;MINT).
@@ -167,8 +164,7 @@ public class PolicyEditorV2BetaApi {
     }
     /**
      * Get the active draft by policy type Returns the active draft and its validation for a
-     * specific policy type. **Note:** These endpoints are currently in beta and might be subject to
-     * changes.
+     * specific policy type.
      *
      * @param policyType The policy type(s) to retrieve. Can be a single type or multiple types by
      *     repeating the parameter (e.g., ?policyType&#x3D;TRANSFER&amp;policyType&#x3D;MINT).
@@ -250,9 +246,14 @@ public class PolicyEditorV2BetaApi {
     }
     /**
      * Send publish request for a certain draft id Send publish request of certain draft id and
-     * returns the response. **Note:** These endpoints are currently in beta and might be subject to
-     * changes. If you want to participate and learn more about the Fireblocks Policy Editor, please
-     * contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+     * returns the response. **⚠️ IMPORTANT SECURITY NOTICE:** The Fireblocks Policy is a critical
+     * security guardrail. Programmatically modifying your policy via the API introduces significant
+     * security risks. As an industry best practice, Fireblocks strongly recommends manual editing
+     * accompanied by strict human oversight and approval workflows for all policy changes.
+     * Programmatic updates should only be implemented by advanced users with comprehensive,
+     * multi-layer security controls in place. If you want to learn more about the Fireblocks Policy
+     * Editor, please contact your Fireblocks Customer Success Manager or send an email to
+     * CSM@fireblocks.com.
      *
      * @param publishDraftRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -332,8 +333,12 @@ public class PolicyEditorV2BetaApi {
     }
     /**
      * Update the draft with a new set of rules by policy types Update the draft and return its
-     * validation for specific policy types. **Note:** These endpoints are currently in beta and
-     * might be subject to changes.
+     * validation for specific policy types. **⚠️ IMPORTANT SECURITY NOTICE:** The Fireblocks Policy
+     * is a critical security guardrail. Programmatically modifying your policy via the API
+     * introduces significant security risks. As an industry best practice, Fireblocks strongly
+     * recommends manual editing accompanied by strict human oversight and approval workflows for
+     * all policy changes. Programmatic updates should only be implemented by advanced users with
+     * comprehensive, multi-layer security controls in place.
      *
      * @param updateDraftRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple

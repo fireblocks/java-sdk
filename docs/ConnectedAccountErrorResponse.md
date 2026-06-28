@@ -7,8 +7,10 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**errorMessage** | **String** | Error message describing what went wrong |  |
-|**errorCode** | **String** | Error code identifying the type of error |  |
+|**message** | **String** | Error message describing what went wrong. |  |
+|**code** | **Integer** | Numeric error code identifying the type of error. |  |
+|**errorMessage** | **String** | Error message describing what went wrong |  [optional] |
+|**errorCode** | **String** | Error code identifying the type of error |  [optional] |
 
 
 
