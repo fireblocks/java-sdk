@@ -31,9 +31,9 @@ class UtxoInputTest {
         // TODO: test txHash
     }
 
-    /** Test the property 'vout' */
+    /** Test the property 'index' */
     @Test
-    void voutTest() {
-        // TODO: test vout
+    void indexTest() {
+        // TODO: test index
     }
 }

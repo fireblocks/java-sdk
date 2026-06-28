@@ -60,4 +60,10 @@ class SourceTransferPeerPathResponseTest {
     void tradingAccountTest() {
         // TODO: test tradingAccount
     }
+
+    /** Test the property 'tags' */
+    @Test
+    void tagsTest() {
+        // TODO: test tags
+    }
 }

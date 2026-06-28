@@ -1,8 +1,8 @@
 
 
-# PolicyMetadata
+# PolicyMetadataEntry
 
-Policy metadata
+Policy metadata entry (per policy type)
 
 ## Properties
 
@@ -12,7 +12,6 @@ Policy metadata
 |**editedAt** | **String** | The timestamp of the last edit of the policy |  [optional] |
 |**publishedBy** | **String** | The user ID of the user who last published the policy |  [optional] |
 |**publishedAt** | **String** | The timestamp of the last publish of the policy |  [optional] |
-|**policyType** | **PolicyType** |  |  |
 
 
 

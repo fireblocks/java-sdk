@@ -35,23 +35,6 @@ public class TagsApiTest {
     private final TagsApi api = new TagsApi();
 
     /**
-     * Cancel an approval request by id
-     *
-     * <p>Cancel an approval request by id. Can only cancel requests in PENDING status. Returns 202
-     * Accepted when the cancellation is processed.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void cancelApprovalRequestTest() throws ApiException {
-        String id = null;
-        String idempotencyKey = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
-                api.cancelApprovalRequest(id, idempotencyKey);
-    }
-
-    /**
      * Create a new tag
      *
      * <p>Create a new tag. Endpoint Permissions: For protected tags: ADMIN,NON_SIGNING_ADMIN,OWNER.

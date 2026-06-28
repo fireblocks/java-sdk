@@ -135,8 +135,8 @@ public class IdentificationPolicyOverride {
 
     /**
      * A JSON Schema (draft-07) in string format that validates the ParticipantsIdentification
-     * object on requests where the provider manifest lists that endpoint in
-     * &#x60;participantsIdentificationPolicy.supportedEndpoints&#x60; (e.g. POST /orders). Defines
+     * object on requests where the provider manifest declares a
+     * &#x60;participantsIdentificationPolicy&#x60; for that endpoint (e.g. POST /orders). Defines
      * which fields from originator and/or beneficiary are required. The schema uses oneOf to
      * discriminate between INDIVIDUAL (PersonalIdentification) and BUSINESS
      * (BusinessIdentification) entity types for each participant. For INDIVIDUAL: fullName,

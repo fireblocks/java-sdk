@@ -26,6 +26,8 @@ import java.util.StringJoiner;
 /** ManifestQuote */
 @JsonPropertyOrder({
     ManifestQuote.JSON_PROPERTY_SUPPORTED,
+    ManifestQuote.JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION_POLICY,
+    ManifestQuote.JSON_PROPERTY_SUPPORTED_PARTIES,
     ManifestQuote.JSON_PROPERTY_SETTLEMENT_TYPES
 })
 @jakarta.annotation.Generated(
@@ -34,6 +36,15 @@ import java.util.StringJoiner;
 public class ManifestQuote {
     public static final String JSON_PROPERTY_SUPPORTED = "supported";
     @jakarta.annotation.Nonnull private Boolean supported;
+
+    public static final String JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION_POLICY =
+            "participantsIdentificationPolicy";
+
+    @jakarta.annotation.Nullable
+    private ParticipantsIdentificationPolicy participantsIdentificationPolicy;
+
+    public static final String JSON_PROPERTY_SUPPORTED_PARTIES = "supportedParties";
+    @jakarta.annotation.Nullable private List<ParticipantRelationshipType> supportedParties;
 
     public static final String JSON_PROPERTY_SETTLEMENT_TYPES = "settlementTypes";
     @jakarta.annotation.Nullable private List<DVPSettlementType> settlementTypes;
@@ -67,6 +78,66 @@ public class ManifestQuote {
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setSupported(@jakarta.annotation.Nonnull Boolean supported) {
         this.supported = supported;
+    }
+
+    public ManifestQuote participantsIdentificationPolicy(
+            @jakarta.annotation.Nullable
+                    ParticipantsIdentificationPolicy participantsIdentificationPolicy) {
+        this.participantsIdentificationPolicy = participantsIdentificationPolicy;
+        return this;
+    }
+
+    /**
+     * Get participantsIdentificationPolicy
+     *
+     * @return participantsIdentificationPolicy
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION_POLICY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ParticipantsIdentificationPolicy getParticipantsIdentificationPolicy() {
+        return participantsIdentificationPolicy;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION_POLICY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setParticipantsIdentificationPolicy(
+            @jakarta.annotation.Nullable
+                    ParticipantsIdentificationPolicy participantsIdentificationPolicy) {
+        this.participantsIdentificationPolicy = participantsIdentificationPolicy;
+    }
+
+    public ManifestQuote supportedParties(
+            @jakarta.annotation.Nullable List<ParticipantRelationshipType> supportedParties) {
+        this.supportedParties = supportedParties;
+        return this;
+    }
+
+    public ManifestQuote addSupportedPartiesItem(ParticipantRelationshipType supportedPartiesItem) {
+        if (this.supportedParties == null) {
+            this.supportedParties = new ArrayList<>();
+        }
+        this.supportedParties.add(supportedPartiesItem);
+        return this;
+    }
+
+    /**
+     * The participant party types the provider supports for this endpoint.
+     *
+     * @return supportedParties
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SUPPORTED_PARTIES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<ParticipantRelationshipType> getSupportedParties() {
+        return supportedParties;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SUPPORTED_PARTIES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSupportedParties(
+            @jakarta.annotation.Nullable List<ParticipantRelationshipType> supportedParties) {
+        this.supportedParties = supportedParties;
     }
 
     public ManifestQuote settlementTypes(
@@ -114,12 +185,17 @@ public class ManifestQuote {
         }
         ManifestQuote manifestQuote = (ManifestQuote) o;
         return Objects.equals(this.supported, manifestQuote.supported)
+                && Objects.equals(
+                        this.participantsIdentificationPolicy,
+                        manifestQuote.participantsIdentificationPolicy)
+                && Objects.equals(this.supportedParties, manifestQuote.supportedParties)
                 && Objects.equals(this.settlementTypes, manifestQuote.settlementTypes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(supported, settlementTypes);
+        return Objects.hash(
+                supported, participantsIdentificationPolicy, supportedParties, settlementTypes);
     }
 
     @Override
@@ -127,6 +203,10 @@ public class ManifestQuote {
         StringBuilder sb = new StringBuilder();
         sb.append("class ManifestQuote {\n");
         sb.append("    supported: ").append(toIndentedString(supported)).append("\n");
+        sb.append("    participantsIdentificationPolicy: ")
+                .append(toIndentedString(participantsIdentificationPolicy))
+                .append("\n");
+        sb.append("    supportedParties: ").append(toIndentedString(supportedParties)).append("\n");
         sb.append("    settlementTypes: ").append(toIndentedString(settlementTypes)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -183,6 +263,34 @@ public class ManifestQuote {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getSupported()))));
+        }
+
+        // add `participantsIdentificationPolicy` to the URL query string
+        if (getParticipantsIdentificationPolicy() != null) {
+            joiner.add(
+                    getParticipantsIdentificationPolicy()
+                            .toUrlQueryString(
+                                    prefix + "participantsIdentificationPolicy" + suffix));
+        }
+
+        // add `supportedParties` to the URL query string
+        if (getSupportedParties() != null) {
+            for (int i = 0; i < getSupportedParties().size(); i++) {
+                if (getSupportedParties().get(i) != null) {
+                    joiner.add(
+                            String.format(
+                                    "%ssupportedParties%s%s=%s",
+                                    prefix,
+                                    suffix,
+                                    "".equals(suffix)
+                                            ? ""
+                                            : String.format(
+                                                    "%s%d%s", containerPrefix, i, containerSuffix),
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(
+                                                    getSupportedParties().get(i)))));
+                }
+            }
         }
 
         // add `settlementTypes` to the URL query string

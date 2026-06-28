@@ -590,11 +590,19 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetPolicyEditorV2BetaApi() {
+    public void testGetPolicyEditorV2Api() {
         setupFireblocks(true, null, null);
-        PolicyEditorV2BetaApi policyEditorV2Beta = fireblocks.policyEditorV2Beta();
-        Assert.assertNotNull(policyEditorV2Beta);
-        Assert.assertSame(policyEditorV2Beta, fireblocks.policyEditorV2Beta());
+        PolicyEditorV2Api policyEditorV2 = fireblocks.policyEditorV2();
+        Assert.assertNotNull(policyEditorV2);
+        Assert.assertSame(policyEditorV2, fireblocks.policyEditorV2());
+    }
+
+    @Test
+    public void testGetReportsBetaApi() {
+        setupFireblocks(true, null, null);
+        ReportsBetaApi reportsBeta = fireblocks.reportsBeta();
+        Assert.assertNotNull(reportsBeta);
+        Assert.assertSame(reportsBeta, fireblocks.reportsBeta());
     }
 
     @Test

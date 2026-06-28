@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -20,48 +21,91 @@ import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** Exposure */
+/** Vault allocation exposure item (Morpho MetaMorpho allocation slice). */
 @JsonPropertyOrder({
-    Exposure.JSON_PROPERTY_ASSET_ADDRESS,
+    Exposure.JSON_PROPERTY_ADDRESS,
+    Exposure.JSON_PROPERTY_AMOUNT,
     Exposure.JSON_PROPERTY_SYMBOL,
-    Exposure.JSON_PROPERTY_AMOUNT
+    Exposure.JSON_PROPERTY_DECIMALS,
+    Exposure.JSON_PROPERTY_ASSET_ID,
+    Exposure.JSON_PROPERTY_AMOUNT_USD
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class Exposure {
-    public static final String JSON_PROPERTY_ASSET_ADDRESS = "assetAddress";
-    @jakarta.annotation.Nullable private String assetAddress;
+    public static final String JSON_PROPERTY_ADDRESS = "address";
+    @jakarta.annotation.Nonnull private String address;
+
+    public static final String JSON_PROPERTY_AMOUNT = "amount";
+    @jakarta.annotation.Nonnull private String amount;
 
     public static final String JSON_PROPERTY_SYMBOL = "symbol";
     @jakarta.annotation.Nullable private String symbol;
 
-    public static final String JSON_PROPERTY_AMOUNT = "amount";
-    @jakarta.annotation.Nullable private String amount;
+    public static final String JSON_PROPERTY_DECIMALS = "decimals";
+    @jakarta.annotation.Nullable private Integer decimals;
+
+    public static final String JSON_PROPERTY_ASSET_ID = "assetId";
+    @jakarta.annotation.Nullable private String assetId;
+
+    public static final String JSON_PROPERTY_AMOUNT_USD = "amountUsd";
+    @jakarta.annotation.Nullable private String amountUsd;
 
     public Exposure() {}
 
-    public Exposure assetAddress(@jakarta.annotation.Nullable String assetAddress) {
-        this.assetAddress = assetAddress;
+    @JsonCreator
+    public Exposure(
+            @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = true) String address,
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) String amount) {
+        this.address = address;
+        this.amount = amount;
+    }
+
+    public Exposure address(@jakarta.annotation.Nonnull String address) {
+        this.address = address;
         return this;
     }
 
     /**
-     * On-chain address of the exposure asset.
+     * Contract address of the exposure token on-chain.
      *
-     * @return assetAddress
+     * @return address
      */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ASSET_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getAssetAddress() {
-        return assetAddress;
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getAddress() {
+        return address;
     }
 
-    @JsonProperty(JSON_PROPERTY_ASSET_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssetAddress(@jakarta.annotation.Nullable String assetAddress) {
-        this.assetAddress = assetAddress;
+    @JsonProperty(JSON_PROPERTY_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAddress(@jakarta.annotation.Nonnull String address) {
+        this.address = address;
+    }
+
+    public Exposure amount(@jakarta.annotation.Nonnull String amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    /**
+     * Human-readable token amount (raw on-chain value scaled by 10^decimals).
+     *
+     * @return amount
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getAmount() {
+        return amount;
+    }
+
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAmount(@jakarta.annotation.Nonnull String amount) {
+        this.amount = amount;
     }
 
     public Exposure symbol(@jakarta.annotation.Nullable String symbol) {
@@ -70,7 +114,7 @@ public class Exposure {
     }
 
     /**
-     * Ticker for the exposure asset.
+     * Human-readable ticker (e.g. USDC).
      *
      * @return symbol
      */
@@ -87,27 +131,74 @@ public class Exposure {
         this.symbol = symbol;
     }
 
-    public Exposure amount(@jakarta.annotation.Nullable String amount) {
-        this.amount = amount;
+    public Exposure decimals(@jakarta.annotation.Nullable Integer decimals) {
+        this.decimals = decimals;
         return this;
     }
 
     /**
-     * Human-readable decimal string (raw on-chain value scaled by 10^decimals).
+     * Token decimals used when interpreting on-chain amounts.
      *
-     * @return amount
+     * @return decimals
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonProperty(JSON_PROPERTY_DECIMALS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getAmount() {
-        return amount;
+    public Integer getDecimals() {
+        return decimals;
     }
 
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonProperty(JSON_PROPERTY_DECIMALS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(@jakarta.annotation.Nullable String amount) {
-        this.amount = amount;
+    public void setDecimals(@jakarta.annotation.Nullable Integer decimals) {
+        this.decimals = decimals;
+    }
+
+    public Exposure assetId(@jakarta.annotation.Nullable String assetId) {
+        this.assetId = assetId;
+        return this;
+    }
+
+    /**
+     * Fireblocks legacy asset identifier (e.g. USDC_ETH, PYUSD); only present when resolved via
+     * asset-service.
+     *
+     * @return assetId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ASSET_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAssetId() {
+        return assetId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ASSET_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAssetId(@jakarta.annotation.Nullable String assetId) {
+        this.assetId = assetId;
+    }
+
+    public Exposure amountUsd(@jakarta.annotation.Nullable String amountUsd) {
+        this.amountUsd = amountUsd;
+        return this;
+    }
+
+    /**
+     * USD notional value of the exposure amount.
+     *
+     * @return amountUsd
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_AMOUNT_USD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAmountUsd() {
+        return amountUsd;
+    }
+
+    @JsonProperty(JSON_PROPERTY_AMOUNT_USD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAmountUsd(@jakarta.annotation.Nullable String amountUsd) {
+        this.amountUsd = amountUsd;
     }
 
     /** Return true if this Exposure object is equal to o. */
@@ -120,23 +211,29 @@ public class Exposure {
             return false;
         }
         Exposure exposure = (Exposure) o;
-        return Objects.equals(this.assetAddress, exposure.assetAddress)
+        return Objects.equals(this.address, exposure.address)
+                && Objects.equals(this.amount, exposure.amount)
                 && Objects.equals(this.symbol, exposure.symbol)
-                && Objects.equals(this.amount, exposure.amount);
+                && Objects.equals(this.decimals, exposure.decimals)
+                && Objects.equals(this.assetId, exposure.assetId)
+                && Objects.equals(this.amountUsd, exposure.amountUsd);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(assetAddress, symbol, amount);
+        return Objects.hash(address, amount, symbol, decimals, assetId, amountUsd);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class Exposure {\n");
-        sb.append("    assetAddress: ").append(toIndentedString(assetAddress)).append("\n");
-        sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
+        sb.append("    address: ").append(toIndentedString(address)).append("\n");
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+        sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
+        sb.append("    decimals: ").append(toIndentedString(decimals)).append("\n");
+        sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
+        sb.append("    amountUsd: ").append(toIndentedString(amountUsd)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -184,14 +281,24 @@ public class Exposure {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `assetAddress` to the URL query string
-        if (getAssetAddress() != null) {
+        // add `address` to the URL query string
+        if (getAddress() != null) {
             joiner.add(
                     String.format(
-                            "%sassetAddress%s=%s",
+                            "%saddress%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getAssetAddress()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
+        }
+
+        // add `amount` to the URL query string
+        if (getAmount() != null) {
+            joiner.add(
+                    String.format(
+                            "%samount%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `symbol` to the URL query string
@@ -204,14 +311,34 @@ public class Exposure {
                             ApiClient.urlEncode(ApiClient.valueToString(getSymbol()))));
         }
 
-        // add `amount` to the URL query string
-        if (getAmount() != null) {
+        // add `decimals` to the URL query string
+        if (getDecimals() != null) {
             joiner.add(
                     String.format(
-                            "%samount%s=%s",
+                            "%sdecimals%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDecimals()))));
+        }
+
+        // add `assetId` to the URL query string
+        if (getAssetId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sassetId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
+        }
+
+        // add `amountUsd` to the URL query string
+        if (getAmountUsd() != null) {
+            joiner.add(
+                    String.format(
+                            "%samountUsd%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmountUsd()))));
         }
 
         return joiner.toString();

@@ -15,43 +15,37 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for PolicyMetadata */
-class PolicyMetadataTest {
-    private final PolicyMetadata model = new PolicyMetadata();
+/** Model tests for CreateAddressesReportRequest */
+class CreateAddressesReportRequestTest {
+    private final CreateAddressesReportRequest model = new CreateAddressesReportRequest();
 
-    /** Model tests for PolicyMetadata */
+    /** Model tests for CreateAddressesReportRequest */
     @Test
-    void testPolicyMetadata() {
-        // TODO: test PolicyMetadata
+    void testCreateAddressesReportRequest() {
+        // TODO: test CreateAddressesReportRequest
     }
 
-    /** Test the property 'editedBy' */
+    /** Test the property 'reportType' */
     @Test
-    void editedByTest() {
-        // TODO: test editedBy
+    void reportTypeTest() {
+        // TODO: test reportType
     }
 
-    /** Test the property 'editedAt' */
+    /** Test the property 'outputFormat' */
     @Test
-    void editedAtTest() {
-        // TODO: test editedAt
+    void outputFormatTest() {
+        // TODO: test outputFormat
     }
 
-    /** Test the property 'publishedBy' */
+    /** Test the property 'compress' */
     @Test
-    void publishedByTest() {
-        // TODO: test publishedBy
+    void compressTest() {
+        // TODO: test compress
     }
 
-    /** Test the property 'publishedAt' */
+    /** Test the property 'filters' */
     @Test
-    void publishedAtTest() {
-        // TODO: test publishedAt
-    }
-
-    /** Test the property 'policyType' */
-    @Test
-    void policyTypeTest() {
-        // TODO: test policyType
+    void filtersTest() {
+        // TODO: test filters
     }
 }

@@ -19,7 +19,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -44,7 +46,7 @@ public class DraftResponse {
     @jakarta.annotation.Nonnull private String draftId;
 
     public static final String JSON_PROPERTY_METADATA = "metadata";
-    @jakarta.annotation.Nonnull private PolicyMetadata metadata;
+    @jakarta.annotation.Nonnull private Map<String, PolicyMetadataEntry> metadata;
 
     public DraftResponse() {}
 
@@ -54,7 +56,7 @@ public class DraftResponse {
             @JsonProperty(value = JSON_PROPERTY_RULES, required = true) List<PolicyRule> rules,
             @JsonProperty(value = JSON_PROPERTY_DRAFT_ID, required = true) String draftId,
             @JsonProperty(value = JSON_PROPERTY_METADATA, required = true)
-                    PolicyMetadata metadata) {
+                    Map<String, PolicyMetadataEntry> metadata) {
         this.status = status;
         this.rules = rules;
         this.draftId = draftId;
@@ -138,26 +140,35 @@ public class DraftResponse {
         this.draftId = draftId;
     }
 
-    public DraftResponse metadata(@jakarta.annotation.Nonnull PolicyMetadata metadata) {
+    public DraftResponse metadata(
+            @jakarta.annotation.Nonnull Map<String, PolicyMetadataEntry> metadata) {
         this.metadata = metadata;
         return this;
     }
 
+    public DraftResponse putMetadataItem(String key, PolicyMetadataEntry metadataItem) {
+        if (this.metadata == null) {
+            this.metadata = new HashMap<>();
+        }
+        this.metadata.put(key, metadataItem);
+        return this;
+    }
+
     /**
-     * Get metadata
+     * Policy metadata keyed by policy type
      *
      * @return metadata
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_METADATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public PolicyMetadata getMetadata() {
+    public Map<String, PolicyMetadataEntry> getMetadata() {
         return metadata;
     }
 
     @JsonProperty(JSON_PROPERTY_METADATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMetadata(@jakarta.annotation.Nonnull PolicyMetadata metadata) {
+    public void setMetadata(@jakarta.annotation.Nonnull Map<String, PolicyMetadataEntry> metadata) {
         this.metadata = metadata;
     }
 
@@ -282,7 +293,25 @@ public class DraftResponse {
 
         // add `metadata` to the URL query string
         if (getMetadata() != null) {
-            joiner.add(getMetadata().toUrlQueryString(prefix + "metadata" + suffix));
+            for (String _key : getMetadata().keySet()) {
+                if (getMetadata().get(_key) != null) {
+                    joiner.add(
+                            getMetadata()
+                                    .get(_key)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%smetadata%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    _key,
+                                                                    containerSuffix))));
+                }
+            }
         }
 
         return joiner.toString();

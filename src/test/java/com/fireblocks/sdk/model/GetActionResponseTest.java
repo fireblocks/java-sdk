@@ -31,6 +31,18 @@ class GetActionResponseTest {
         // TODO: test id
     }
 
+    /** Test the property 'vaultAccountId' */
+    @Test
+    void vaultAccountIdTest() {
+        // TODO: test vaultAccountId
+    }
+
+    /** Test the property 'userId' */
+    @Test
+    void userIdTest() {
+        // TODO: test userId
+    }
+
     /** Test the property 'status' */
     @Test
     void statusTest() {

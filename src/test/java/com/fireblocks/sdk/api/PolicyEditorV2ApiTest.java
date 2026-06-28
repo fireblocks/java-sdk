@@ -25,19 +25,17 @@ import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
 
-/** API tests for PolicyEditorV2BetaApi */
+/** API tests for PolicyEditorV2Api */
 @Ignore
-public class PolicyEditorV2BetaApiTest {
+public class PolicyEditorV2ApiTest {
 
-    private final PolicyEditorV2BetaApi api = new PolicyEditorV2BetaApi();
+    private final PolicyEditorV2Api api = new PolicyEditorV2Api();
 
     /**
      * Get the active policy and its validation by policy type
      *
-     * <p>Returns the active policy and its validation for a specific policy type. **Note:** This
-     * endpoint is currently in beta and subject to change. If you want to participate in the
-     * Policies beta, contact your Fireblocks Customer Success Manager or send an email to
-     * csm@fireblocks.com. Endpoint Permissions: Owner, Admin, Non-Signing Admin.
+     * <p>Returns the active policy and its validation for a specific policy type. Endpoint
+     * Permissions: Owner, Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -51,8 +49,7 @@ public class PolicyEditorV2BetaApiTest {
     /**
      * Get the active draft by policy type
      *
-     * <p>Returns the active draft and its validation for a specific policy type. **Note:** These
-     * endpoints are currently in beta and might be subject to changes.
+     * <p>Returns the active draft and its validation for a specific policy type.
      *
      * @throws ApiException if the Api call fails
      */
@@ -66,9 +63,13 @@ public class PolicyEditorV2BetaApiTest {
     /**
      * Send publish request for a certain draft id
      *
-     * <p>Send publish request of certain draft id and returns the response. **Note:** These
-     * endpoints are currently in beta and might be subject to changes. If you want to participate
-     * and learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer
+     * <p>Send publish request of certain draft id and returns the response. **⚠️ IMPORTANT SECURITY
+     * NOTICE:** The Fireblocks Policy is a critical security guardrail. Programmatically modifying
+     * your policy via the API introduces significant security risks. As an industry best practice,
+     * Fireblocks strongly recommends manual editing accompanied by strict human oversight and
+     * approval workflows for all policy changes. Programmatic updates should only be implemented by
+     * advanced users with comprehensive, multi-layer security controls in place. If you want to
+     * learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer
      * Success Manager or send an email to CSM@fireblocks.com.
      *
      * @throws ApiException if the Api call fails
@@ -84,8 +85,12 @@ public class PolicyEditorV2BetaApiTest {
     /**
      * Update the draft with a new set of rules by policy types
      *
-     * <p>Update the draft and return its validation for specific policy types. **Note:** These
-     * endpoints are currently in beta and might be subject to changes.
+     * <p>Update the draft and return its validation for specific policy types. **⚠️ IMPORTANT
+     * SECURITY NOTICE:** The Fireblocks Policy is a critical security guardrail. Programmatically
+     * modifying your policy via the API introduces significant security risks. As an industry best
+     * practice, Fireblocks strongly recommends manual editing accompanied by strict human oversight
+     * and approval workflows for all policy changes. Programmatic updates should only be
+     * implemented by advanced users with comprehensive, multi-layer security controls in place.
      *
      * @throws ApiException if the Api call fails
      */

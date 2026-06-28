@@ -24,8 +24,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
     Manifest.JSON_PROPERTY_ORDER,
     Manifest.JSON_PROPERTY_QUOTE,
-    Manifest.JSON_PROPERTY_RATE,
-    Manifest.JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION_POLICY
+    Manifest.JSON_PROPERTY_RATE
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -39,12 +38,6 @@ public class Manifest {
 
     public static final String JSON_PROPERTY_RATE = "rate";
     @jakarta.annotation.Nonnull private ManifestBase rate;
-
-    public static final String JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION_POLICY =
-            "participantsIdentificationPolicy";
-
-    @jakarta.annotation.Nullable
-    private ParticipantsIdentificationPolicy participantsIdentificationPolicy;
 
     public Manifest() {}
 
@@ -127,33 +120,6 @@ public class Manifest {
         this.rate = rate;
     }
 
-    public Manifest participantsIdentificationPolicy(
-            @jakarta.annotation.Nullable
-                    ParticipantsIdentificationPolicy participantsIdentificationPolicy) {
-        this.participantsIdentificationPolicy = participantsIdentificationPolicy;
-        return this;
-    }
-
-    /**
-     * Get participantsIdentificationPolicy
-     *
-     * @return participantsIdentificationPolicy
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION_POLICY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ParticipantsIdentificationPolicy getParticipantsIdentificationPolicy() {
-        return participantsIdentificationPolicy;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PARTICIPANTS_IDENTIFICATION_POLICY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setParticipantsIdentificationPolicy(
-            @jakarta.annotation.Nullable
-                    ParticipantsIdentificationPolicy participantsIdentificationPolicy) {
-        this.participantsIdentificationPolicy = participantsIdentificationPolicy;
-    }
-
     /** Return true if this Manifest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -166,15 +132,12 @@ public class Manifest {
         Manifest manifest = (Manifest) o;
         return Objects.equals(this.order, manifest.order)
                 && Objects.equals(this.quote, manifest.quote)
-                && Objects.equals(this.rate, manifest.rate)
-                && Objects.equals(
-                        this.participantsIdentificationPolicy,
-                        manifest.participantsIdentificationPolicy);
+                && Objects.equals(this.rate, manifest.rate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(order, quote, rate, participantsIdentificationPolicy);
+        return Objects.hash(order, quote, rate);
     }
 
     @Override
@@ -184,9 +147,6 @@ public class Manifest {
         sb.append("    order: ").append(toIndentedString(order)).append("\n");
         sb.append("    quote: ").append(toIndentedString(quote)).append("\n");
         sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
-        sb.append("    participantsIdentificationPolicy: ")
-                .append(toIndentedString(participantsIdentificationPolicy))
-                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -247,14 +207,6 @@ public class Manifest {
         // add `rate` to the URL query string
         if (getRate() != null) {
             joiner.add(getRate().toUrlQueryString(prefix + "rate" + suffix));
-        }
-
-        // add `participantsIdentificationPolicy` to the URL query string
-        if (getParticipantsIdentificationPolicy() != null) {
-            joiner.add(
-                    getParticipantsIdentificationPolicy()
-                            .toUrlQueryString(
-                                    prefix + "participantsIdentificationPolicy" + suffix));
         }
 
         return joiner.toString();

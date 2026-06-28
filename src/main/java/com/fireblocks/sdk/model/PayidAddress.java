@@ -78,7 +78,7 @@ public class PayidAddress {
     @jakarta.annotation.Nullable private String bsb;
 
     public static final String JSON_PROPERTY_ACCOUNT_NUMBER = "accountNumber";
-    @jakarta.annotation.Nonnull private String accountNumber;
+    @jakarta.annotation.Nullable private String accountNumber;
 
     public PayidAddress() {}
 
@@ -87,13 +87,10 @@ public class PayidAddress {
             @JsonProperty(value = JSON_PROPERTY_ACCOUNT_HOLDER, required = true)
                     AccountHolderDetails accountHolder,
             @JsonProperty(value = JSON_PROPERTY_VALUE, required = true) String value,
-            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
-            @JsonProperty(value = JSON_PROPERTY_ACCOUNT_NUMBER, required = true)
-                    String accountNumber) {
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type) {
         this.accountHolder = accountHolder;
         this.value = value;
         this.type = type;
-        this.accountNumber = accountNumber;
     }
 
     public PayidAddress accountHolder(
@@ -189,7 +186,7 @@ public class PayidAddress {
         this.bsb = bsb;
     }
 
-    public PayidAddress accountNumber(@jakarta.annotation.Nonnull String accountNumber) {
+    public PayidAddress accountNumber(@jakarta.annotation.Nullable String accountNumber) {
         this.accountNumber = accountNumber;
         return this;
     }
@@ -199,16 +196,16 @@ public class PayidAddress {
      *
      * @return accountNumber
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_ACCOUNT_NUMBER)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public String getAccountNumber() {
         return accountNumber;
     }
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_NUMBER)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAccountNumber(@jakarta.annotation.Nonnull String accountNumber) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAccountNumber(@jakarta.annotation.Nullable String accountNumber) {
         this.accountNumber = accountNumber;
     }
 

@@ -31,6 +31,18 @@ class ManifestOrderTest {
         // TODO: test supported
     }
 
+    /** Test the property 'participantsIdentificationPolicy' */
+    @Test
+    void participantsIdentificationPolicyTest() {
+        // TODO: test participantsIdentificationPolicy
+    }
+
+    /** Test the property 'supportedParties' */
+    @Test
+    void supportedPartiesTest() {
+        // TODO: test supportedParties
+    }
+
     /** Test the property 'settlementTypes' */
     @Test
     void settlementTypesTest() {
@@ -41,5 +53,11 @@ class ManifestOrderTest {
     @Test
     void executionTypesTest() {
         // TODO: test executionTypes
+    }
+
+    /** Test the property 'requiresReasonForPayment' */
+    @Test
+    void requiresReasonForPaymentTest() {
+        // TODO: test requiresReasonForPayment
     }
 }

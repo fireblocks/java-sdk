@@ -15,11 +15,11 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for ParticipantsIdentificationSupportedEndpoint */
-class ParticipantsIdentificationSupportedEndpointTest {
-    /** Model tests for ParticipantsIdentificationSupportedEndpoint */
+/** Model tests for ReportStatus */
+class ReportStatusTest {
+    /** Model tests for ReportStatus */
     @Test
-    void testParticipantsIdentificationSupportedEndpoint() {
-        // TODO: test ParticipantsIdentificationSupportedEndpoint
+    void testReportStatus() {
+        // TODO: test ReportStatus
     }
 }

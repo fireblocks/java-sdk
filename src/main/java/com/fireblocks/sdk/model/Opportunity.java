@@ -40,6 +40,7 @@ import java.util.StringJoiner;
     Opportunity.JSON_PROPERTY_APY,
     Opportunity.JSON_PROPERTY_PERFORMANCE_FEE,
     Opportunity.JSON_PROPERTY_MANAGEMENT_FEE,
+    Opportunity.JSON_PROPERTY_EXPOSURE_TYPE,
     Opportunity.JSON_PROPERTY_EXPOSURE
 })
 @jakarta.annotation.Generated(
@@ -153,6 +154,47 @@ public class Opportunity {
 
     public static final String JSON_PROPERTY_MANAGEMENT_FEE = "managementFee";
     @jakarta.annotation.Nullable private String managementFee;
+
+    /**
+     * What the &#x60;exposure&#x60; rows represent; &#x60;UNSPECIFIED&#x60; when there is no
+     * exposure.
+     */
+    public enum ExposureTypeEnum {
+        UNSPECIFIED(String.valueOf("UNSPECIFIED")),
+
+        VAULT_ALLOCATION(String.valueOf("VAULT_ALLOCATION")),
+
+        MARKET_COLLATERAL(String.valueOf("MARKET_COLLATERAL"));
+
+        private String value;
+
+        ExposureTypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static ExposureTypeEnum fromValue(String value) {
+            for (ExposureTypeEnum b : ExposureTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    public static final String JSON_PROPERTY_EXPOSURE_TYPE = "exposureType";
+    @jakarta.annotation.Nullable private ExposureTypeEnum exposureType;
 
     public static final String JSON_PROPERTY_EXPOSURE = "exposure";
     @jakarta.annotation.Nullable private List<Exposure> exposure;
@@ -481,6 +523,30 @@ public class Opportunity {
         this.managementFee = managementFee;
     }
 
+    public Opportunity exposureType(@jakarta.annotation.Nullable ExposureTypeEnum exposureType) {
+        this.exposureType = exposureType;
+        return this;
+    }
+
+    /**
+     * What the &#x60;exposure&#x60; rows represent; &#x60;UNSPECIFIED&#x60; when there is no
+     * exposure.
+     *
+     * @return exposureType
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_EXPOSURE_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ExposureTypeEnum getExposureType() {
+        return exposureType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EXPOSURE_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setExposureType(@jakarta.annotation.Nullable ExposureTypeEnum exposureType) {
+        this.exposureType = exposureType;
+    }
+
     public Opportunity exposure(@jakarta.annotation.Nullable List<Exposure> exposure) {
         this.exposure = exposure;
         return this;
@@ -495,7 +561,8 @@ public class Opportunity {
     }
 
     /**
-     * Optional per-asset exposure breakdown.
+     * Per-asset exposure breakdown (vault allocation slices, top 20 by USD notional). Empty when
+     * not applicable.
      *
      * @return exposure
      */
@@ -536,6 +603,7 @@ public class Opportunity {
                 && Objects.equals(this.apy, opportunity.apy)
                 && Objects.equals(this.performanceFee, opportunity.performanceFee)
                 && Objects.equals(this.managementFee, opportunity.managementFee)
+                && Objects.equals(this.exposureType, opportunity.exposureType)
                 && Objects.equals(this.exposure, opportunity.exposure);
     }
 
@@ -556,6 +624,7 @@ public class Opportunity {
                 apy,
                 performanceFee,
                 managementFee,
+                exposureType,
                 exposure);
     }
 
@@ -577,6 +646,7 @@ public class Opportunity {
         sb.append("    apy: ").append(toIndentedString(apy)).append("\n");
         sb.append("    performanceFee: ").append(toIndentedString(performanceFee)).append("\n");
         sb.append("    managementFee: ").append(toIndentedString(managementFee)).append("\n");
+        sb.append("    exposureType: ").append(toIndentedString(exposureType)).append("\n");
         sb.append("    exposure: ").append(toIndentedString(exposure)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -746,6 +816,16 @@ public class Opportunity {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getManagementFee()))));
+        }
+
+        // add `exposureType` to the URL query string
+        if (getExposureType() != null) {
+            joiner.add(
+                    String.format(
+                            "%sexposureType%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getExposureType()))));
         }
 
         // add `exposure` to the URL query string

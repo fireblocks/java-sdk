@@ -25,10 +25,16 @@ class ExposureTest {
         // TODO: test Exposure
     }
 
-    /** Test the property 'assetAddress' */
+    /** Test the property 'address' */
     @Test
-    void assetAddressTest() {
-        // TODO: test assetAddress
+    void addressTest() {
+        // TODO: test address
+    }
+
+    /** Test the property 'amount' */
+    @Test
+    void amountTest() {
+        // TODO: test amount
     }
 
     /** Test the property 'symbol' */
@@ -37,9 +43,21 @@ class ExposureTest {
         // TODO: test symbol
     }
 
-    /** Test the property 'amount' */
+    /** Test the property 'decimals' */
     @Test
-    void amountTest() {
-        // TODO: test amount
+    void decimalsTest() {
+        // TODO: test decimals
+    }
+
+    /** Test the property 'assetId' */
+    @Test
+    void assetIdTest() {
+        // TODO: test assetId
+    }
+
+    /** Test the property 'amountUsd' */
+    @Test
+    void amountUsdTest() {
+        // TODO: test amountUsd
     }
 }

@@ -16,21 +16,19 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/**
- * Trading API endpoint category where &#x60;participantsIdentification&#x60; may be required when
- * this policy is present. Corresponds to manifest &#x60;order&#x60;, &#x60;quote&#x60;, and
- * &#x60;rate&#x60;: ORDER, QUOTE, and RATE respectively.
- */
-public enum ParticipantsIdentificationSupportedEndpoint {
-    ORDER("ORDER"),
+/** The current lifecycle state of a report job */
+public enum ReportStatus {
+    QUEUED("QUEUED"),
 
-    QUOTE("QUOTE"),
+    PROCESSING("PROCESSING"),
 
-    RATE("RATE");
+    COMPLETED("COMPLETED"),
+
+    FAILED("FAILED");
 
     private String value;
 
-    ParticipantsIdentificationSupportedEndpoint(String value) {
+    ReportStatus(String value) {
         this.value = value;
     }
 
@@ -45,9 +43,8 @@ public enum ParticipantsIdentificationSupportedEndpoint {
     }
 
     @JsonCreator
-    public static ParticipantsIdentificationSupportedEndpoint fromValue(String value) {
-        for (ParticipantsIdentificationSupportedEndpoint b :
-                ParticipantsIdentificationSupportedEndpoint.values()) {
+    public static ReportStatus fromValue(String value) {
+        for (ReportStatus b : ReportStatus.values()) {
             if (b.value.equals(value)) {
                 return b;
             }
