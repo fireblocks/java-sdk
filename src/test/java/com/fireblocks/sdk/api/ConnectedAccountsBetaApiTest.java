@@ -15,6 +15,8 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.AddConnectedAccountRequest;
+import com.fireblocks.sdk.model.AddConnectedAccountResponse;
 import com.fireblocks.sdk.model.AllowlistEntryResponse;
 import com.fireblocks.sdk.model.AllowlistEntryStatus;
 import com.fireblocks.sdk.model.AllowlistResponse;
@@ -23,8 +25,6 @@ import com.fireblocks.sdk.model.ConnectedAccountRateResponse;
 import com.fireblocks.sdk.model.ConnectedAccountTradingPairsResponse;
 import com.fireblocks.sdk.model.ConnectedAccountsResponse;
 import com.fireblocks.sdk.model.ConnectedSingleAccountResponse;
-import com.fireblocks.sdk.model.CreateConnectedAccountRequest;
-import com.fireblocks.sdk.model.CreateConnectedAccountResponse;
 import com.fireblocks.sdk.model.RenameConnectedAccountRequest;
 import com.fireblocks.sdk.model.RenameConnectedAccountResponse;
 import java.util.concurrent.CompletableFuture;
@@ -38,7 +38,7 @@ public class ConnectedAccountsBetaApiTest {
     private final ConnectedAccountsBetaApi api = new ConnectedAccountsBetaApi();
 
     /**
-     * Create a connected account
+     * Add a connected account
      *
      * <p>Creates a new connected account for the authenticated tenant. The &#x60;creds&#x60; field
      * must be a Base64-encoded RSA-encrypted credential blob. Use &#x60;GET
@@ -50,11 +50,11 @@ public class ConnectedAccountsBetaApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void createConnectedAccountTest() throws ApiException {
-        CreateConnectedAccountRequest createConnectedAccountRequest = null;
+    public void addConnectedAccountTest() throws ApiException {
+        AddConnectedAccountRequest addConnectedAccountRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<CreateConnectedAccountResponse>> response =
-                api.createConnectedAccount(createConnectedAccountRequest, idempotencyKey);
+        CompletableFuture<ApiResponse<AddConnectedAccountResponse>> response =
+                api.addConnectedAccount(addConnectedAccountRequest, idempotencyKey);
     }
 
     /**

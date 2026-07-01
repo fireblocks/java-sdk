@@ -21,17 +21,17 @@ import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** CreatedConnectedAccountItem */
+/** AddedConnectedAccountItem */
 @JsonPropertyOrder({
-    CreatedConnectedAccountItem.JSON_PROPERTY_ACCOUNT_ID,
-    CreatedConnectedAccountItem.JSON_PROPERTY_NAME,
-    CreatedConnectedAccountItem.JSON_PROPERTY_PARENT_ACCOUNT_ID,
-    CreatedConnectedAccountItem.JSON_PROPERTY_STATUS
+    AddedConnectedAccountItem.JSON_PROPERTY_ACCOUNT_ID,
+    AddedConnectedAccountItem.JSON_PROPERTY_NAME,
+    AddedConnectedAccountItem.JSON_PROPERTY_PARENT_ACCOUNT_ID,
+    AddedConnectedAccountItem.JSON_PROPERTY_STATUS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class CreatedConnectedAccountItem {
+public class AddedConnectedAccountItem {
     public static final String JSON_PROPERTY_ACCOUNT_ID = "accountId";
     @jakarta.annotation.Nonnull private String accountId;
 
@@ -44,10 +44,10 @@ public class CreatedConnectedAccountItem {
     public static final String JSON_PROPERTY_STATUS = "status";
     @jakarta.annotation.Nonnull private ConnectedAccountApprovalStatus status;
 
-    public CreatedConnectedAccountItem() {}
+    public AddedConnectedAccountItem() {}
 
     @JsonCreator
-    public CreatedConnectedAccountItem(
+    public AddedConnectedAccountItem(
             @JsonProperty(value = JSON_PROPERTY_ACCOUNT_ID, required = true) String accountId,
             @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
             @JsonProperty(value = JSON_PROPERTY_STATUS, required = true)
@@ -57,7 +57,7 @@ public class CreatedConnectedAccountItem {
         this.status = status;
     }
 
-    public CreatedConnectedAccountItem accountId(@jakarta.annotation.Nonnull String accountId) {
+    public AddedConnectedAccountItem accountId(@jakarta.annotation.Nonnull String accountId) {
         this.accountId = accountId;
         return this;
     }
@@ -80,7 +80,7 @@ public class CreatedConnectedAccountItem {
         this.accountId = accountId;
     }
 
-    public CreatedConnectedAccountItem name(@jakarta.annotation.Nonnull String name) {
+    public AddedConnectedAccountItem name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -103,7 +103,7 @@ public class CreatedConnectedAccountItem {
         this.name = name;
     }
 
-    public CreatedConnectedAccountItem parentAccountId(
+    public AddedConnectedAccountItem parentAccountId(
             @jakarta.annotation.Nullable String parentAccountId) {
         this.parentAccountId = parentAccountId;
         return this;
@@ -127,7 +127,7 @@ public class CreatedConnectedAccountItem {
         this.parentAccountId = parentAccountId;
     }
 
-    public CreatedConnectedAccountItem status(
+    public AddedConnectedAccountItem status(
             @jakarta.annotation.Nonnull ConnectedAccountApprovalStatus status) {
         this.status = status;
         return this;
@@ -151,7 +151,7 @@ public class CreatedConnectedAccountItem {
         this.status = status;
     }
 
-    /** Return true if this CreatedConnectedAccountItem object is equal to o. */
+    /** Return true if this AddedConnectedAccountItem object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -160,11 +160,11 @@ public class CreatedConnectedAccountItem {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CreatedConnectedAccountItem createdConnectedAccountItem = (CreatedConnectedAccountItem) o;
-        return Objects.equals(this.accountId, createdConnectedAccountItem.accountId)
-                && Objects.equals(this.name, createdConnectedAccountItem.name)
-                && Objects.equals(this.parentAccountId, createdConnectedAccountItem.parentAccountId)
-                && Objects.equals(this.status, createdConnectedAccountItem.status);
+        AddedConnectedAccountItem addedConnectedAccountItem = (AddedConnectedAccountItem) o;
+        return Objects.equals(this.accountId, addedConnectedAccountItem.accountId)
+                && Objects.equals(this.name, addedConnectedAccountItem.name)
+                && Objects.equals(this.parentAccountId, addedConnectedAccountItem.parentAccountId)
+                && Objects.equals(this.status, addedConnectedAccountItem.status);
     }
 
     @Override
@@ -175,7 +175,7 @@ public class CreatedConnectedAccountItem {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class CreatedConnectedAccountItem {\n");
+        sb.append("class AddedConnectedAccountItem {\n");
         sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    parentAccountId: ").append(toIndentedString(parentAccountId)).append("\n");

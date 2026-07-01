@@ -1,6 +1,6 @@
 
 
-# CreatedConnectedAccountItem
+# AddedConnectedAccountItem
 
 
 ## Properties

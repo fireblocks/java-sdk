@@ -4147,7 +4147,7 @@ paths:
         Endpoint Permission: Editor, Admin, Non-Signing Admin.
 
         **Note:** This endpoint is currently in beta and might be subject to changes.
-      operationId: createConnectedAccount
+      operationId: addConnectedAccount
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
           \ multiple times with the same idempotency key, the server will return the\
@@ -4164,14 +4164,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateConnectedAccountRequest"
+              $ref: "#/components/schemas/AddConnectedAccountRequest"
         required: true
       responses:
         "201":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreateConnectedAccountResponse"
+                $ref: "#/components/schemas/AddConnectedAccountResponse"
           description: Account created (or pending approval).
           headers:
             X-Request-ID:
@@ -4224,35 +4224,35 @@ paths:
               $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
-      summary: Create a connected account
+      summary: Add a connected account
       tags:
       - Connected Accounts (Beta)
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<CreateConnectedAccountResponse>>\
-            \ = fireblocks.connectedAccountsBeta.createConnectedAccount(connectedAccountsBetaApiCreateConnectedAccountRequest);"
+          code: "const response: Promise<FireblocksResponse<AddConnectedAccountResponse>>\
+            \ = fireblocks.connectedAccountsBeta.addConnectedAccount(connectedAccountsBetaApiAddConnectedAccountRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<CreateConnectedAccountResponse>> response\
-            \ = fireblocks.connectedAccountsBeta().createConnectedAccount(createConnectedAccountRequest,\
+          code: "CompletableFuture<ApiResponse<AddConnectedAccountResponse>> response\
+            \ = fireblocks.connectedAccountsBeta().addConnectedAccount(addConnectedAccountRequest,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.connected_accounts_beta.create_connected_account(create_connected_account_request,\
+          code: "response = fireblocks.connected_accounts_beta.add_connected_account(add_connected_account_request,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<CreateConnectedAccountResponse>>\
-          \ = fireblocks.connectedAccountsBeta.createConnectedAccount(connectedAccountsBetaApiCreateConnectedAccountRequest);"
+        source: "const response: Promise<FireblocksResponse<AddConnectedAccountResponse>>\
+          \ = fireblocks.connectedAccountsBeta.addConnectedAccount(connectedAccountsBetaApiAddConnectedAccountRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<CreateConnectedAccountResponse>> response\
-          \ = fireblocks.connectedAccountsBeta().createConnectedAccount(createConnectedAccountRequest,\
+        source: "CompletableFuture<ApiResponse<AddConnectedAccountResponse>> response\
+          \ = fireblocks.connectedAccountsBeta().addConnectedAccount(addConnectedAccountRequest,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.connected_accounts_beta.create_connected_account(create_connected_account_request,\
+        source: "response = fireblocks.connected_accounts_beta.add_connected_account(add_connected_account_request,\
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -39257,7 +39257,7 @@ components:
       required:
       - data
       type: object
-    CreateConnectedAccountRequest:
+    AddConnectedAccountRequest:
       example:
         accountId: provider-acc-001
         apiKey: api_key_abc123
@@ -39307,7 +39307,7 @@ components:
       - creds
       - providerId
       type: object
-    CreatedConnectedAccountItem:
+    AddedConnectedAccountItem:
       properties:
         accountId:
           description: ID of the created account.
@@ -39329,7 +39329,7 @@ components:
       - name
       - status
       type: object
-    CreateConnectedAccountResponse:
+    AddConnectedAccountResponse:
       example:
         accounts:
         - accountId: acc-789012
@@ -39344,7 +39344,7 @@ components:
             name: My Exchange Account
             status: WAITING_FOR_APPROVAL
           items:
-            $ref: "#/components/schemas/CreatedConnectedAccountItem"
+            $ref: "#/components/schemas/AddedConnectedAccountItem"
           type: array
       required:
       - accounts

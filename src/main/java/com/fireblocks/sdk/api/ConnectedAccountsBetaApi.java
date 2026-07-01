@@ -20,6 +20,8 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
+import com.fireblocks.sdk.model.AddConnectedAccountRequest;
+import com.fireblocks.sdk.model.AddConnectedAccountResponse;
 import com.fireblocks.sdk.model.AllowlistEntryResponse;
 import com.fireblocks.sdk.model.AllowlistEntryStatus;
 import com.fireblocks.sdk.model.AllowlistResponse;
@@ -28,8 +30,6 @@ import com.fireblocks.sdk.model.ConnectedAccountRateResponse;
 import com.fireblocks.sdk.model.ConnectedAccountTradingPairsResponse;
 import com.fireblocks.sdk.model.ConnectedAccountsResponse;
 import com.fireblocks.sdk.model.ConnectedSingleAccountResponse;
-import com.fireblocks.sdk.model.CreateConnectedAccountRequest;
-import com.fireblocks.sdk.model.CreateConnectedAccountResponse;
 import com.fireblocks.sdk.model.RenameConnectedAccountRequest;
 import com.fireblocks.sdk.model.RenameConnectedAccountResponse;
 import java.io.IOException;
@@ -86,27 +86,26 @@ public class ConnectedAccountsBetaApi {
     }
 
     /**
-     * Create a connected account Creates a new connected account for the authenticated tenant. The
+     * Add a connected account Creates a new connected account for the authenticated tenant. The
      * &#x60;creds&#x60; field must be a Base64-encoded RSA-encrypted credential blob. Use &#x60;GET
      * /exchange_accounts/credentials_public_key&#x60; to retrieve the public key for encryption.
      * The &#x60;providerType&#x60; is derived server-side from the &#x60;providerId&#x60; — callers
      * do not supply it. Endpoint Permission: Editor, Admin, Non-Signing Admin. **Note:** This
      * endpoint is currently in beta and might be subject to changes.
      *
-     * @param createConnectedAccountRequest (required)
+     * @param addConnectedAccountRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateConnectedAccountResponse&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;AddConnectedAccountResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<CreateConnectedAccountResponse>> createConnectedAccount(
-            CreateConnectedAccountRequest createConnectedAccountRequest, String idempotencyKey)
+    public CompletableFuture<ApiResponse<AddConnectedAccountResponse>> addConnectedAccount(
+            AddConnectedAccountRequest addConnectedAccountRequest, String idempotencyKey)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    createConnectedAccountRequestBuilder(
-                            createConnectedAccountRequest, idempotencyKey);
+                    addConnectedAccountRequestBuilder(addConnectedAccountRequest, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -117,12 +116,12 @@ public class ConnectedAccountsBetaApi {
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
-                                                    "createConnectedAccount", localVarResponse));
+                                                    "addConnectedAccount", localVarResponse));
                                 }
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<CreateConnectedAccountResponse>(
+                                            new ApiResponse<AddConnectedAccountResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -130,7 +129,7 @@ public class ConnectedAccountsBetaApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            CreateConnectedAccountResponse>() {})));
+                                                                            AddConnectedAccountResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -140,13 +139,11 @@ public class ConnectedAccountsBetaApi {
         }
     }
 
-    private HttpRequest.Builder createConnectedAccountRequestBuilder(
-            CreateConnectedAccountRequest createConnectedAccountRequest, String idempotencyKey)
+    private HttpRequest.Builder addConnectedAccountRequestBuilder(
+            AddConnectedAccountRequest addConnectedAccountRequest, String idempotencyKey)
             throws ApiException {
         ValidationUtils.assertParamExists(
-                "createConnectedAccount",
-                "createConnectedAccountRequest",
-                createConnectedAccountRequest);
+                "addConnectedAccount", "addConnectedAccountRequest", addConnectedAccountRequest);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -162,7 +159,7 @@ public class ConnectedAccountsBetaApi {
 
         try {
             byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(createConnectedAccountRequest);
+                    memberVarObjectMapper.writeValueAsBytes(addConnectedAccountRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {
