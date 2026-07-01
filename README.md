@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>22.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:22.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-22.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -194,7 +194,7 @@ Class | Method | HTTP request | Description
 *ComplianceApi* | [**updateTravelRuleConfig**](docs/ComplianceApi.md#updateTravelRuleConfig) | **PUT** /screening/travel_rule/policy_configuration | Update Travel Rule Configuration
 *ComplianceScreeningConfigurationApi* | [**getAmlScreeningConfiguration**](docs/ComplianceScreeningConfigurationApi.md#getAmlScreeningConfiguration) | **GET** /screening/aml/policy_configuration | Get AML Screening Policy Configuration
 *ComplianceScreeningConfigurationApi* | [**getScreeningConfiguration**](docs/ComplianceScreeningConfigurationApi.md#getScreeningConfiguration) | **GET** /screening/travel_rule/policy_configuration | Get Travel Rule Screening Policy Configuration
-*ConnectedAccountsBetaApi* | [**createConnectedAccount**](docs/ConnectedAccountsBetaApi.md#createConnectedAccount) | **POST** /connected_accounts | Create a connected account
+*ConnectedAccountsBetaApi* | [**addConnectedAccount**](docs/ConnectedAccountsBetaApi.md#addConnectedAccount) | **POST** /connected_accounts | Add a connected account
 *ConnectedAccountsBetaApi* | [**disconnectConnectedAccount**](docs/ConnectedAccountsBetaApi.md#disconnectConnectedAccount) | **DELETE** /connected_accounts/{accountId} | Disconnect connected account
 *ConnectedAccountsBetaApi* | [**getConnectedAccount**](docs/ConnectedAccountsBetaApi.md#getConnectedAccount) | **GET** /connected_accounts/{accountId} | Get connected account
 *ConnectedAccountsBetaApi* | [**getConnectedAccountAllowlist**](docs/ConnectedAccountsBetaApi.md#getConnectedAccountAllowlist) | **GET** /connected_accounts/{accountId}/allowlist | Get allowlist for connected account
@@ -609,11 +609,14 @@ Class | Method | HTTP request | Description
  - [AddAbiRequestDto](docs/AddAbiRequestDto.md)
  - [AddAssetToExternalWalletRequest](docs/AddAssetToExternalWalletRequest.md)
  - [AddCollateralRequestBody](docs/AddCollateralRequestBody.md)
+ - [AddConnectedAccountRequest](docs/AddConnectedAccountRequest.md)
+ - [AddConnectedAccountResponse](docs/AddConnectedAccountResponse.md)
  - [AddContractAssetRequest](docs/AddContractAssetRequest.md)
  - [AddCosignerRequest](docs/AddCosignerRequest.md)
  - [AddCosignerResponse](docs/AddCosignerResponse.md)
  - [AddExchangeAccountRequest](docs/AddExchangeAccountRequest.md)
  - [AddExchangeAccountResponse](docs/AddExchangeAccountResponse.md)
+ - [AddedConnectedAccountItem](docs/AddedConnectedAccountItem.md)
  - [AdditionalInfo](docs/AdditionalInfo.md)
  - [AdditionalInfoRequest](docs/AdditionalInfoRequest.md)
  - [AdditionalInfoRequestAdditionalInfo](docs/AdditionalInfoRequestAdditionalInfo.md)
@@ -825,8 +828,6 @@ Class | Method | HTTP request | Description
  - [CreateAddressesReportRequest](docs/CreateAddressesReportRequest.md)
  - [CreateAssetsRequest](docs/CreateAssetsRequest.md)
  - [CreateConfigOperationRequest](docs/CreateConfigOperationRequest.md)
- - [CreateConnectedAccountRequest](docs/CreateConnectedAccountRequest.md)
- - [CreateConnectedAccountResponse](docs/CreateConnectedAccountResponse.md)
  - [CreateConnectionRequest](docs/CreateConnectionRequest.md)
  - [CreateConnectionResponse](docs/CreateConnectionResponse.md)
  - [CreateConsoleUser](docs/CreateConsoleUser.md)
@@ -867,7 +868,6 @@ Class | Method | HTTP request | Description
  - [CreateWalletRequest](docs/CreateWalletRequest.md)
  - [CreateWebhookRequest](docs/CreateWebhookRequest.md)
  - [CreateWorkflowExecutionRequestParamsInner](docs/CreateWorkflowExecutionRequestParamsInner.md)
- - [CreatedConnectedAccountItem](docs/CreatedConnectedAccountItem.md)
  - [CustomRoutingDest](docs/CustomRoutingDest.md)
  - [DAppAddressConfig](docs/DAppAddressConfig.md)
  - [DVPSettlement](docs/DVPSettlement.md)

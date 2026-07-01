@@ -22,32 +22,31 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** CreateConnectedAccountResponse */
-@JsonPropertyOrder({CreateConnectedAccountResponse.JSON_PROPERTY_ACCOUNTS})
+/** AddConnectedAccountResponse */
+@JsonPropertyOrder({AddConnectedAccountResponse.JSON_PROPERTY_ACCOUNTS})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class CreateConnectedAccountResponse {
+public class AddConnectedAccountResponse {
     public static final String JSON_PROPERTY_ACCOUNTS = "accounts";
-    @jakarta.annotation.Nonnull private List<CreatedConnectedAccountItem> accounts;
+    @jakarta.annotation.Nonnull private List<AddedConnectedAccountItem> accounts;
 
-    public CreateConnectedAccountResponse() {}
+    public AddConnectedAccountResponse() {}
 
     @JsonCreator
-    public CreateConnectedAccountResponse(
+    public AddConnectedAccountResponse(
             @JsonProperty(value = JSON_PROPERTY_ACCOUNTS, required = true)
-                    List<CreatedConnectedAccountItem> accounts) {
+                    List<AddedConnectedAccountItem> accounts) {
         this.accounts = accounts;
     }
 
-    public CreateConnectedAccountResponse accounts(
-            @jakarta.annotation.Nonnull List<CreatedConnectedAccountItem> accounts) {
+    public AddConnectedAccountResponse accounts(
+            @jakarta.annotation.Nonnull List<AddedConnectedAccountItem> accounts) {
         this.accounts = accounts;
         return this;
     }
 
-    public CreateConnectedAccountResponse addAccountsItem(
-            CreatedConnectedAccountItem accountsItem) {
+    public AddConnectedAccountResponse addAccountsItem(AddedConnectedAccountItem accountsItem) {
         if (this.accounts == null) {
             this.accounts = new ArrayList<>();
         }
@@ -63,18 +62,17 @@ public class CreateConnectedAccountResponse {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ACCOUNTS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<CreatedConnectedAccountItem> getAccounts() {
+    public List<AddedConnectedAccountItem> getAccounts() {
         return accounts;
     }
 
     @JsonProperty(JSON_PROPERTY_ACCOUNTS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAccounts(
-            @jakarta.annotation.Nonnull List<CreatedConnectedAccountItem> accounts) {
+    public void setAccounts(@jakarta.annotation.Nonnull List<AddedConnectedAccountItem> accounts) {
         this.accounts = accounts;
     }
 
-    /** Return true if this CreateConnectedAccountResponse object is equal to o. */
+    /** Return true if this AddConnectedAccountResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -83,9 +81,8 @@ public class CreateConnectedAccountResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CreateConnectedAccountResponse createConnectedAccountResponse =
-                (CreateConnectedAccountResponse) o;
-        return Objects.equals(this.accounts, createConnectedAccountResponse.accounts);
+        AddConnectedAccountResponse addConnectedAccountResponse = (AddConnectedAccountResponse) o;
+        return Objects.equals(this.accounts, addConnectedAccountResponse.accounts);
     }
 
     @Override
@@ -96,7 +93,7 @@ public class CreateConnectedAccountResponse {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class CreateConnectedAccountResponse {\n");
+        sb.append("class AddConnectedAccountResponse {\n");
         sb.append("    accounts: ").append(toIndentedString(accounts)).append("\n");
         sb.append("}");
         return sb.toString();

@@ -22,20 +22,20 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** CreateConnectedAccountRequest */
+/** AddConnectedAccountRequest */
 @JsonPropertyOrder({
-    CreateConnectedAccountRequest.JSON_PROPERTY_PROVIDER_ID,
-    CreateConnectedAccountRequest.JSON_PROPERTY_DISPLAY_NAME,
-    CreateConnectedAccountRequest.JSON_PROPERTY_CREDS,
-    CreateConnectedAccountRequest.JSON_PROPERTY_API_KEY,
-    CreateConnectedAccountRequest.JSON_PROPERTY_MAIN_ACCOUNT_ID,
-    CreateConnectedAccountRequest.JSON_PROPERTY_ACCOUNT_ID,
-    CreateConnectedAccountRequest.JSON_PROPERTY_ON_PREMISE_SERVER_ID
+    AddConnectedAccountRequest.JSON_PROPERTY_PROVIDER_ID,
+    AddConnectedAccountRequest.JSON_PROPERTY_DISPLAY_NAME,
+    AddConnectedAccountRequest.JSON_PROPERTY_CREDS,
+    AddConnectedAccountRequest.JSON_PROPERTY_API_KEY,
+    AddConnectedAccountRequest.JSON_PROPERTY_MAIN_ACCOUNT_ID,
+    AddConnectedAccountRequest.JSON_PROPERTY_ACCOUNT_ID,
+    AddConnectedAccountRequest.JSON_PROPERTY_ON_PREMISE_SERVER_ID
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class CreateConnectedAccountRequest {
+public class AddConnectedAccountRequest {
     public static final String JSON_PROPERTY_PROVIDER_ID = "providerId";
     @jakarta.annotation.Nonnull private String providerId;
 
@@ -57,10 +57,10 @@ public class CreateConnectedAccountRequest {
     public static final String JSON_PROPERTY_ON_PREMISE_SERVER_ID = "onPremiseServerId";
     @jakarta.annotation.Nullable private String onPremiseServerId;
 
-    public CreateConnectedAccountRequest() {}
+    public AddConnectedAccountRequest() {}
 
     @JsonCreator
-    public CreateConnectedAccountRequest(
+    public AddConnectedAccountRequest(
             @JsonProperty(value = JSON_PROPERTY_PROVIDER_ID, required = true) String providerId,
             @JsonProperty(value = JSON_PROPERTY_CREDS, required = true) byte[] creds,
             @JsonProperty(value = JSON_PROPERTY_API_KEY, required = true) String apiKey) {
@@ -69,7 +69,7 @@ public class CreateConnectedAccountRequest {
         this.apiKey = apiKey;
     }
 
-    public CreateConnectedAccountRequest providerId(@jakarta.annotation.Nonnull String providerId) {
+    public AddConnectedAccountRequest providerId(@jakarta.annotation.Nonnull String providerId) {
         this.providerId = providerId;
         return this;
     }
@@ -92,8 +92,7 @@ public class CreateConnectedAccountRequest {
         this.providerId = providerId;
     }
 
-    public CreateConnectedAccountRequest displayName(
-            @jakarta.annotation.Nullable String displayName) {
+    public AddConnectedAccountRequest displayName(@jakarta.annotation.Nullable String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -116,7 +115,7 @@ public class CreateConnectedAccountRequest {
         this.displayName = displayName;
     }
 
-    public CreateConnectedAccountRequest creds(@jakarta.annotation.Nonnull byte[] creds) {
+    public AddConnectedAccountRequest creds(@jakarta.annotation.Nonnull byte[] creds) {
         this.creds = creds;
         return this;
     }
@@ -140,7 +139,7 @@ public class CreateConnectedAccountRequest {
         this.creds = creds;
     }
 
-    public CreateConnectedAccountRequest apiKey(@jakarta.annotation.Nonnull String apiKey) {
+    public AddConnectedAccountRequest apiKey(@jakarta.annotation.Nonnull String apiKey) {
         this.apiKey = apiKey;
         return this;
     }
@@ -163,7 +162,7 @@ public class CreateConnectedAccountRequest {
         this.apiKey = apiKey;
     }
 
-    public CreateConnectedAccountRequest mainAccountId(
+    public AddConnectedAccountRequest mainAccountId(
             @jakarta.annotation.Nullable String mainAccountId) {
         this.mainAccountId = mainAccountId;
         return this;
@@ -187,7 +186,7 @@ public class CreateConnectedAccountRequest {
         this.mainAccountId = mainAccountId;
     }
 
-    public CreateConnectedAccountRequest accountId(@jakarta.annotation.Nullable String accountId) {
+    public AddConnectedAccountRequest accountId(@jakarta.annotation.Nullable String accountId) {
         this.accountId = accountId;
         return this;
     }
@@ -210,7 +209,7 @@ public class CreateConnectedAccountRequest {
         this.accountId = accountId;
     }
 
-    public CreateConnectedAccountRequest onPremiseServerId(
+    public AddConnectedAccountRequest onPremiseServerId(
             @jakarta.annotation.Nullable String onPremiseServerId) {
         this.onPremiseServerId = onPremiseServerId;
         return this;
@@ -234,7 +233,7 @@ public class CreateConnectedAccountRequest {
         this.onPremiseServerId = onPremiseServerId;
     }
 
-    /** Return true if this CreateConnectedAccountRequest object is equal to o. */
+    /** Return true if this AddConnectedAccountRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -243,16 +242,15 @@ public class CreateConnectedAccountRequest {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CreateConnectedAccountRequest createConnectedAccountRequest =
-                (CreateConnectedAccountRequest) o;
-        return Objects.equals(this.providerId, createConnectedAccountRequest.providerId)
-                && Objects.equals(this.displayName, createConnectedAccountRequest.displayName)
-                && Arrays.equals(this.creds, createConnectedAccountRequest.creds)
-                && Objects.equals(this.apiKey, createConnectedAccountRequest.apiKey)
-                && Objects.equals(this.mainAccountId, createConnectedAccountRequest.mainAccountId)
-                && Objects.equals(this.accountId, createConnectedAccountRequest.accountId)
+        AddConnectedAccountRequest addConnectedAccountRequest = (AddConnectedAccountRequest) o;
+        return Objects.equals(this.providerId, addConnectedAccountRequest.providerId)
+                && Objects.equals(this.displayName, addConnectedAccountRequest.displayName)
+                && Arrays.equals(this.creds, addConnectedAccountRequest.creds)
+                && Objects.equals(this.apiKey, addConnectedAccountRequest.apiKey)
+                && Objects.equals(this.mainAccountId, addConnectedAccountRequest.mainAccountId)
+                && Objects.equals(this.accountId, addConnectedAccountRequest.accountId)
                 && Objects.equals(
-                        this.onPremiseServerId, createConnectedAccountRequest.onPremiseServerId);
+                        this.onPremiseServerId, addConnectedAccountRequest.onPremiseServerId);
     }
 
     @Override
@@ -270,7 +268,7 @@ public class CreateConnectedAccountRequest {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class CreateConnectedAccountRequest {\n");
+        sb.append("class AddConnectedAccountRequest {\n");
         sb.append("    providerId: ").append(toIndentedString(providerId)).append("\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    creds: ").append(toIndentedString(creds)).append("\n");

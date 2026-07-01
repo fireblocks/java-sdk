@@ -15,14 +15,14 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for CreateConnectedAccountResponse */
-class CreateConnectedAccountResponseTest {
-    private final CreateConnectedAccountResponse model = new CreateConnectedAccountResponse();
+/** Model tests for AddConnectedAccountResponse */
+class AddConnectedAccountResponseTest {
+    private final AddConnectedAccountResponse model = new AddConnectedAccountResponse();
 
-    /** Model tests for CreateConnectedAccountResponse */
+    /** Model tests for AddConnectedAccountResponse */
     @Test
-    void testCreateConnectedAccountResponse() {
-        // TODO: test CreateConnectedAccountResponse
+    void testAddConnectedAccountResponse() {
+        // TODO: test AddConnectedAccountResponse
     }
 
     /** Test the property 'accounts' */

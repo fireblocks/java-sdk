@@ -4,7 +4,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createConnectedAccount**](ConnectedAccountsBetaApi.md#createConnectedAccount) | **POST** /connected_accounts | Create a connected account |
+| [**addConnectedAccount**](ConnectedAccountsBetaApi.md#addConnectedAccount) | **POST** /connected_accounts | Add a connected account |
 | [**disconnectConnectedAccount**](ConnectedAccountsBetaApi.md#disconnectConnectedAccount) | **DELETE** /connected_accounts/{accountId} | Disconnect connected account |
 | [**getConnectedAccount**](ConnectedAccountsBetaApi.md#getConnectedAccount) | **GET** /connected_accounts/{accountId} | Get connected account |
 | [**getConnectedAccountAllowlist**](ConnectedAccountsBetaApi.md#getConnectedAccountAllowlist) | **GET** /connected_accounts/{accountId}/allowlist | Get allowlist for connected account |
@@ -18,11 +18,11 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 
 
-## createConnectedAccount
+## addConnectedAccount
 
-> CompletableFuture<ApiResponse<CreateConnectedAccountResponse>> createConnectedAccount createConnectedAccount(createConnectedAccountRequest, idempotencyKey)
+> CompletableFuture<ApiResponse<AddConnectedAccountResponse>> addConnectedAccount addConnectedAccount(addConnectedAccountRequest, idempotencyKey)
 
-Create a connected account
+Add a connected account
 
 Creates a new connected account for the authenticated tenant.  The &#x60;creds&#x60; field must be a Base64-encoded RSA-encrypted credential blob. Use &#x60;GET /exchange_accounts/credentials_public_key&#x60; to retrieve the public key for encryption.  The &#x60;providerType&#x60; is derived server-side from the &#x60;providerId&#x60; — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
 
@@ -49,22 +49,22 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        CreateConnectedAccountRequest createConnectedAccountRequest = new CreateConnectedAccountRequest(); // CreateConnectedAccountRequest | 
+        AddConnectedAccountRequest addConnectedAccountRequest = new AddConnectedAccountRequest(); // AddConnectedAccountRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<CreateConnectedAccountResponse>> response = fireblocks.connectedAccountsBeta().createConnectedAccount(createConnectedAccountRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<AddConnectedAccountResponse>> response = fireblocks.connectedAccountsBeta().addConnectedAccount(addConnectedAccountRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling ConnectedAccountsBetaApi#createConnectedAccount");
+            System.err.println("Exception when calling ConnectedAccountsBetaApi#addConnectedAccount");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
         } catch (ApiException e) {
-            System.err.println("Exception when calling ConnectedAccountsBetaApi#createConnectedAccount");
+            System.err.println("Exception when calling ConnectedAccountsBetaApi#addConnectedAccount");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Response headers: " + e.getResponseHeaders());
             System.err.println("Reason: " + e.getResponseBody());
@@ -79,12 +79,12 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **createConnectedAccountRequest** | [**CreateConnectedAccountRequest**](CreateConnectedAccountRequest.md)|  | |
+| **addConnectedAccountRequest** | [**AddConnectedAccountRequest**](AddConnectedAccountRequest.md)|  | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**CreateConnectedAccountResponse**](CreateConnectedAccountResponse.md)>>
+CompletableFuture<ApiResponse<[**AddConnectedAccountResponse**](AddConnectedAccountResponse.md)>>
 
 
 ### Authorization

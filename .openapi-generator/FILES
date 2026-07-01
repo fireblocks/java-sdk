@@ -37,11 +37,14 @@ docs/AdapterProcessingResult.md
 docs/AddAbiRequestDto.md
 docs/AddAssetToExternalWalletRequest.md
 docs/AddCollateralRequestBody.md
+docs/AddConnectedAccountRequest.md
+docs/AddConnectedAccountResponse.md
 docs/AddContractAssetRequest.md
 docs/AddCosignerRequest.md
 docs/AddCosignerResponse.md
 docs/AddExchangeAccountRequest.md
 docs/AddExchangeAccountResponse.md
+docs/AddedConnectedAccountItem.md
 docs/AdditionalInfo.md
 docs/AdditionalInfoRequest.md
 docs/AdditionalInfoRequestAdditionalInfo.md
@@ -264,8 +267,6 @@ docs/CreateAddressResponse.md
 docs/CreateAddressesReportRequest.md
 docs/CreateAssetsRequest.md
 docs/CreateConfigOperationRequest.md
-docs/CreateConnectedAccountRequest.md
-docs/CreateConnectedAccountResponse.md
 docs/CreateConnectionRequest.md
 docs/CreateConnectionResponse.md
 docs/CreateConsoleUser.md
@@ -306,7 +307,6 @@ docs/CreateVaultAssetResponse.md
 docs/CreateWalletRequest.md
 docs/CreateWebhookRequest.md
 docs/CreateWorkflowExecutionRequestParamsInner.md
-docs/CreatedConnectedAccountItem.md
 docs/CustomRoutingDest.md
 docs/DAppAddressConfig.md
 docs/DVPSettlement.md
@@ -1297,11 +1297,14 @@ src/main/java/com/fireblocks/sdk/model/AdapterProcessingResult.java
 src/main/java/com/fireblocks/sdk/model/AddAbiRequestDto.java
 src/main/java/com/fireblocks/sdk/model/AddAssetToExternalWalletRequest.java
 src/main/java/com/fireblocks/sdk/model/AddCollateralRequestBody.java
+src/main/java/com/fireblocks/sdk/model/AddConnectedAccountRequest.java
+src/main/java/com/fireblocks/sdk/model/AddConnectedAccountResponse.java
 src/main/java/com/fireblocks/sdk/model/AddContractAssetRequest.java
 src/main/java/com/fireblocks/sdk/model/AddCosignerRequest.java
 src/main/java/com/fireblocks/sdk/model/AddCosignerResponse.java
 src/main/java/com/fireblocks/sdk/model/AddExchangeAccountRequest.java
 src/main/java/com/fireblocks/sdk/model/AddExchangeAccountResponse.java
+src/main/java/com/fireblocks/sdk/model/AddedConnectedAccountItem.java
 src/main/java/com/fireblocks/sdk/model/AdditionalInfo.java
 src/main/java/com/fireblocks/sdk/model/AdditionalInfoRequest.java
 src/main/java/com/fireblocks/sdk/model/AdditionalInfoRequestAdditionalInfo.java
@@ -1513,8 +1516,6 @@ src/main/java/com/fireblocks/sdk/model/CreateAddressResponse.java
 src/main/java/com/fireblocks/sdk/model/CreateAddressesReportRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateAssetsRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateConfigOperationRequest.java
-src/main/java/com/fireblocks/sdk/model/CreateConnectedAccountRequest.java
-src/main/java/com/fireblocks/sdk/model/CreateConnectedAccountResponse.java
 src/main/java/com/fireblocks/sdk/model/CreateConnectionRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateConnectionResponse.java
 src/main/java/com/fireblocks/sdk/model/CreateConsoleUser.java
@@ -1555,7 +1556,6 @@ src/main/java/com/fireblocks/sdk/model/CreateVaultAssetResponse.java
 src/main/java/com/fireblocks/sdk/model/CreateWalletRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateWebhookRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateWorkflowExecutionRequestParamsInner.java
-src/main/java/com/fireblocks/sdk/model/CreatedConnectedAccountItem.java
 src/main/java/com/fireblocks/sdk/model/CustomRoutingDest.java
 src/main/java/com/fireblocks/sdk/model/DAppAddressConfig.java
 src/main/java/com/fireblocks/sdk/model/DVPSettlement.java
@@ -2485,11 +2485,14 @@ src/test/java/com/fireblocks/sdk/model/AdapterProcessingResultTest.java
 src/test/java/com/fireblocks/sdk/model/AddAbiRequestDtoTest.java
 src/test/java/com/fireblocks/sdk/model/AddAssetToExternalWalletRequestTest.java
 src/test/java/com/fireblocks/sdk/model/AddCollateralRequestBodyTest.java
+src/test/java/com/fireblocks/sdk/model/AddConnectedAccountRequestTest.java
+src/test/java/com/fireblocks/sdk/model/AddConnectedAccountResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AddContractAssetRequestTest.java
 src/test/java/com/fireblocks/sdk/model/AddCosignerRequestTest.java
 src/test/java/com/fireblocks/sdk/model/AddCosignerResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AddExchangeAccountRequestTest.java
 src/test/java/com/fireblocks/sdk/model/AddExchangeAccountResponseTest.java
+src/test/java/com/fireblocks/sdk/model/AddedConnectedAccountItemTest.java
 src/test/java/com/fireblocks/sdk/model/AdditionalInfoRequestAdditionalInfoTest.java
 src/test/java/com/fireblocks/sdk/model/AdditionalInfoRequestTest.java
 src/test/java/com/fireblocks/sdk/model/AdditionalInfoTest.java
@@ -2701,8 +2704,6 @@ src/test/java/com/fireblocks/sdk/model/CreateAddressResponseTest.java
 src/test/java/com/fireblocks/sdk/model/CreateAddressesReportRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateAssetsRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateConfigOperationRequestTest.java
-src/test/java/com/fireblocks/sdk/model/CreateConnectedAccountRequestTest.java
-src/test/java/com/fireblocks/sdk/model/CreateConnectedAccountResponseTest.java
 src/test/java/com/fireblocks/sdk/model/CreateConnectionRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateConnectionResponseTest.java
 src/test/java/com/fireblocks/sdk/model/CreateConsoleUserTest.java
@@ -2743,7 +2744,6 @@ src/test/java/com/fireblocks/sdk/model/CreateVaultAssetResponseTest.java
 src/test/java/com/fireblocks/sdk/model/CreateWalletRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateWebhookRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateWorkflowExecutionRequestParamsInnerTest.java
-src/test/java/com/fireblocks/sdk/model/CreatedConnectedAccountItemTest.java
 src/test/java/com/fireblocks/sdk/model/CustomRoutingDestTest.java
 src/test/java/com/fireblocks/sdk/model/DAppAddressConfigTest.java
 src/test/java/com/fireblocks/sdk/model/DVPSettlementTest.java
