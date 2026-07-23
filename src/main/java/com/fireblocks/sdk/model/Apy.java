@@ -21,7 +21,12 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /** Apy */
-@JsonPropertyOrder({Apy.JSON_PROPERTY_NATIVE, Apy.JSON_PROPERTY_GROSS, Apy.JSON_PROPERTY_NET})
+@JsonPropertyOrder({
+    Apy.JSON_PROPERTY_NATIVE,
+    Apy.JSON_PROPERTY_GROSS,
+    Apy.JSON_PROPERTY_NET,
+    Apy.JSON_PROPERTY_SUPPLY_INCENTIVE_APY
+})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
@@ -34,6 +39,9 @@ public class Apy {
 
     public static final String JSON_PROPERTY_NET = "net";
     @jakarta.annotation.Nullable private Double net;
+
+    public static final String JSON_PROPERTY_SUPPLY_INCENTIVE_APY = "supplyIncentiveApy";
+    @jakarta.annotation.Nullable private Double supplyIncentiveApy;
 
     public Apy() {}
 
@@ -106,6 +114,30 @@ public class Apy {
         this.net = net;
     }
 
+    public Apy supplyIncentiveApy(@jakarta.annotation.Nullable Double supplyIncentiveApy) {
+        this.supplyIncentiveApy = supplyIncentiveApy;
+        return this;
+    }
+
+    /**
+     * Additional incentive APY from reward programs (e.g. Merkl rewards on Aave), as a percentage.
+     * Only present when the opportunity has active incentives.
+     *
+     * @return supplyIncentiveApy
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SUPPLY_INCENTIVE_APY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Double getSupplyIncentiveApy() {
+        return supplyIncentiveApy;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SUPPLY_INCENTIVE_APY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSupplyIncentiveApy(@jakarta.annotation.Nullable Double supplyIncentiveApy) {
+        this.supplyIncentiveApy = supplyIncentiveApy;
+    }
+
     /** Return true if this Apy object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -118,12 +150,13 @@ public class Apy {
         Apy apy = (Apy) o;
         return Objects.equals(this._native, apy._native)
                 && Objects.equals(this.gross, apy.gross)
-                && Objects.equals(this.net, apy.net);
+                && Objects.equals(this.net, apy.net)
+                && Objects.equals(this.supplyIncentiveApy, apy.supplyIncentiveApy);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(_native, gross, net);
+        return Objects.hash(_native, gross, net, supplyIncentiveApy);
     }
 
     @Override
@@ -133,6 +166,9 @@ public class Apy {
         sb.append("    _native: ").append(toIndentedString(_native)).append("\n");
         sb.append("    gross: ").append(toIndentedString(gross)).append("\n");
         sb.append("    net: ").append(toIndentedString(net)).append("\n");
+        sb.append("    supplyIncentiveApy: ")
+                .append(toIndentedString(supplyIncentiveApy))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -208,6 +244,16 @@ public class Apy {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getNet()))));
+        }
+
+        // add `supplyIncentiveApy` to the URL query string
+        if (getSupplyIncentiveApy() != null) {
+            joiner.add(
+                    String.format(
+                            "%ssupplyIncentiveApy%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getSupplyIncentiveApy()))));
         }
 
         return joiner.toString();

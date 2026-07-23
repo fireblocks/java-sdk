@@ -46,6 +46,7 @@ Mobile Money (MOMO) payment information for African mobile payment services
 | MTN | &quot;MTN&quot; |
 | TIGO | &quot;TIGO&quot; |
 | WAVE | &quot;WAVE&quot; |
+| ORANGE | &quot;ORANGE&quot; |
 
 
 

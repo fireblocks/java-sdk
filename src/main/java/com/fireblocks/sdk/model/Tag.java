@@ -19,6 +19,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
@@ -32,6 +34,7 @@ import java.util.UUID;
     Tag.JSON_PROPERTY_IS_PROTECTED,
     Tag.JSON_PROPERTY_UPDATED_AT,
     Tag.JSON_PROPERTY_TYPE,
+    Tag.JSON_PROPERTY_ALLOWED_ENTITY_TYPES,
     Tag.JSON_PROPERTY_PENDING_APPROVAL_REQUEST
 })
 @jakarta.annotation.Generated(
@@ -58,6 +61,9 @@ public class Tag {
 
     public static final String JSON_PROPERTY_TYPE = "type";
     @jakarta.annotation.Nullable private TagType type;
+
+    public static final String JSON_PROPERTY_ALLOWED_ENTITY_TYPES = "allowedEntityTypes";
+    @jakarta.annotation.Nullable private List<String> allowedEntityTypes;
 
     public static final String JSON_PROPERTY_PENDING_APPROVAL_REQUEST = "pendingApprovalRequest";
     @jakarta.annotation.Nullable private ApprovalRequest pendingApprovalRequest;
@@ -237,6 +243,39 @@ public class Tag {
         this.type = type;
     }
 
+    public Tag allowedEntityTypes(@jakarta.annotation.Nullable List<String> allowedEntityTypes) {
+        this.allowedEntityTypes = allowedEntityTypes;
+        return this;
+    }
+
+    public Tag addAllowedEntityTypesItem(String allowedEntityTypesItem) {
+        if (this.allowedEntityTypes == null) {
+            this.allowedEntityTypes = new ArrayList<>();
+        }
+        this.allowedEntityTypes.add(allowedEntityTypesItem);
+        return this;
+    }
+
+    /**
+     * The entity types this tag may be attached to. Tags created before this field was introduced
+     * read back as [&#39;vault_account&#39;]. Known values: vault_account (default), contact.
+     *
+     * @return allowedEntityTypes
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ALLOWED_ENTITY_TYPES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<String> getAllowedEntityTypes() {
+        return allowedEntityTypes;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ALLOWED_ENTITY_TYPES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAllowedEntityTypes(
+            @jakarta.annotation.Nullable List<String> allowedEntityTypes) {
+        this.allowedEntityTypes = allowedEntityTypes;
+    }
+
     public Tag pendingApprovalRequest(
             @jakarta.annotation.Nullable ApprovalRequest pendingApprovalRequest) {
         this.pendingApprovalRequest = pendingApprovalRequest;
@@ -279,6 +318,7 @@ public class Tag {
                 && Objects.equals(this.isProtected, tag.isProtected)
                 && Objects.equals(this.updatedAt, tag.updatedAt)
                 && Objects.equals(this.type, tag.type)
+                && Objects.equals(this.allowedEntityTypes, tag.allowedEntityTypes)
                 && Objects.equals(this.pendingApprovalRequest, tag.pendingApprovalRequest);
     }
 
@@ -292,6 +332,7 @@ public class Tag {
                 isProtected,
                 updatedAt,
                 type,
+                allowedEntityTypes,
                 pendingApprovalRequest);
     }
 
@@ -306,6 +347,9 @@ public class Tag {
         sb.append("    isProtected: ").append(toIndentedString(isProtected)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    allowedEntityTypes: ")
+                .append(toIndentedString(allowedEntityTypes))
+                .append("\n");
         sb.append("    pendingApprovalRequest: ")
                 .append(toIndentedString(pendingApprovalRequest))
                 .append("\n");
@@ -422,6 +466,23 @@ public class Tag {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getType()))));
+        }
+
+        // add `allowedEntityTypes` to the URL query string
+        if (getAllowedEntityTypes() != null) {
+            for (int i = 0; i < getAllowedEntityTypes().size(); i++) {
+                joiner.add(
+                        String.format(
+                                "%sallowedEntityTypes%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getAllowedEntityTypes().get(i)))));
+            }
         }
 
         // add `pendingApprovalRequest` to the URL query string

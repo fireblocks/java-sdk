@@ -33,6 +33,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -94,6 +95,9 @@ public class UtxoManagementBetaApi {
      * @param excludeAnyLabels Exclude UTXOs that have ANY of these labels. (optional
      * @param includeStatuses Filter by UTXO statuses to include. (optional
      * @param address Filter by address (optional)
+     * @param txHash Filter by the on-chain hash of the transaction that created the UTXOs. Returns
+     *     all UTXOs originating from that transaction. (optional)
+     * @param txId Filter by the Fireblocks transaction ID that created the UTXOs. (optional)
      * @param minAmount Minimum amount filter (optional)
      * @param maxAmount Maximum amount filter (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;ListUtxosResponse&gt;&gt;
@@ -111,6 +115,8 @@ public class UtxoManagementBetaApi {
             List<String> excludeAnyLabels,
             List<String> includeStatuses,
             String address,
+            String txHash,
+            UUID txId,
             String minAmount,
             String maxAmount)
             throws ApiException {
@@ -128,6 +134,8 @@ public class UtxoManagementBetaApi {
                             excludeAnyLabels,
                             includeStatuses,
                             address,
+                            txHash,
+                            txId,
                             minAmount,
                             maxAmount);
             return memberVarHttpClient
@@ -174,6 +182,8 @@ public class UtxoManagementBetaApi {
             List<String> excludeAnyLabels,
             List<String> includeStatuses,
             String address,
+            String txHash,
+            UUID txId,
             String minAmount,
             String maxAmount)
             throws ApiException {
@@ -212,6 +222,10 @@ public class UtxoManagementBetaApi {
                 ApiClient.parameterToPairs("multi", "includeStatuses", includeStatuses));
         localVarQueryParameterBaseName = "address";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("address", address));
+        localVarQueryParameterBaseName = "txHash";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("txHash", txHash));
+        localVarQueryParameterBaseName = "txId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("txId", txId));
         localVarQueryParameterBaseName = "minAmount";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("minAmount", minAmount));
         localVarQueryParameterBaseName = "maxAmount";

@@ -85,10 +85,22 @@ class OpportunityTest {
         // TODO: test totalAssets
     }
 
+    /** Test the property 'totalAssetsUsd' */
+    @Test
+    void totalAssetsUsdTest() {
+        // TODO: test totalAssetsUsd
+    }
+
     /** Test the property 'liquidity' */
     @Test
     void liquidityTest() {
         // TODO: test liquidity
+    }
+
+    /** Test the property 'liquidityUsd' */
+    @Test
+    void liquidityUsdTest() {
+        // TODO: test liquidityUsd
     }
 
     /** Test the property 'apy' */
@@ -119,5 +131,17 @@ class OpportunityTest {
     @Test
     void exposureTest() {
         // TODO: test exposure
+    }
+
+    /** Test the property 'curator' */
+    @Test
+    void curatorTest() {
+        // TODO: test curator
+    }
+
+    /** Test the property 'metadata' */
+    @Test
+    void metadataTest() {
+        // TODO: test metadata
     }
 }

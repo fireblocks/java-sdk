@@ -54,4 +54,10 @@ class CreateTagRequestTest {
     void typeTest() {
         // TODO: test type
     }
+
+    /** Test the property 'allowedEntityTypes' */
+    @Test
+    void allowedEntityTypesTest() {
+        // TODO: test allowedEntityTypes
+    }
 }

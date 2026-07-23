@@ -30,6 +30,7 @@ import com.fireblocks.sdk.model.ConnectedAccountRateResponse;
 import com.fireblocks.sdk.model.ConnectedAccountTradingPairsResponse;
 import com.fireblocks.sdk.model.ConnectedAccountsResponse;
 import com.fireblocks.sdk.model.ConnectedSingleAccountResponse;
+import com.fireblocks.sdk.model.GetConnectedAccountsCredentialsPublicKeyResponse;
 import com.fireblocks.sdk.model.RenameConnectedAccountRequest;
 import com.fireblocks.sdk.model.RenameConnectedAccountResponse;
 import java.io.IOException;
@@ -88,7 +89,7 @@ public class ConnectedAccountsBetaApi {
     /**
      * Add a connected account Creates a new connected account for the authenticated tenant. The
      * &#x60;creds&#x60; field must be a Base64-encoded RSA-encrypted credential blob. Use &#x60;GET
-     * /exchange_accounts/credentials_public_key&#x60; to retrieve the public key for encryption.
+     * /connected_accounts/credentials/public_key&#x60; to retrieve the public key for encryption.
      * The &#x60;providerType&#x60; is derived server-side from the &#x60;providerId&#x60; — callers
      * do not supply it. Endpoint Permission: Editor, Admin, Non-Signing Admin. **Note:** This
      * endpoint is currently in beta and might be subject to changes.
@@ -319,7 +320,6 @@ public class ConnectedAccountsBetaApi {
      * @param address Filter by specific address (optional)
      * @param pageCursor Pagination cursor for next page (optional)
      * @param pageSize Maximum number of entries to return (optional)
-     * @param sortBy Field to sort results by. (optional, default to addedAt)
      * @param order Sort order (ASC or DESC). (optional, default to DESC)
      * @return CompletableFuture&lt;ApiResponse&lt;AllowlistResponse&gt;&gt;
      * @throws ApiException if fails to make API call
@@ -332,7 +332,6 @@ public class ConnectedAccountsBetaApi {
             String address,
             String pageCursor,
             Integer pageSize,
-            String sortBy,
             String order)
             throws ApiException {
         try {
@@ -345,7 +344,6 @@ public class ConnectedAccountsBetaApi {
                             address,
                             pageCursor,
                             pageSize,
-                            sortBy,
                             order);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
@@ -389,7 +387,6 @@ public class ConnectedAccountsBetaApi {
             String address,
             String pageCursor,
             Integer pageSize,
-            String sortBy,
             String order)
             throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty(
@@ -416,8 +413,6 @@ public class ConnectedAccountsBetaApi {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
         localVarQueryParameterBaseName = "pageSize";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
-        localVarQueryParameterBaseName = "sortBy";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("sortBy", sortBy));
         localVarQueryParameterBaseName = "order";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
 
@@ -880,6 +875,77 @@ public class ConnectedAccountsBetaApi {
         } else {
             localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
         }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get public key to encrypt connected account credentials Returns the RSA public key used to
+     * encrypt the &#x60;creds&#x60; field before calling &#x60;POST /connected_accounts&#x60;. The
+     * key is a singleton resource scoped to the connected-accounts credentials domain — there is
+     * one per tenant context. **Note:** This endpoint is currently in beta and might be subject to
+     * changes.
+     *
+     * @return
+     *     CompletableFuture&lt;ApiResponse&lt;GetConnectedAccountsCredentialsPublicKeyResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<GetConnectedAccountsCredentialsPublicKeyResponse>>
+            getConnectedAccountsCredentialsPublicKey() throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getConnectedAccountsCredentialsPublicKeyRequestBuilder();
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getConnectedAccountsCredentialsPublicKey",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<
+                                                    GetConnectedAccountsCredentialsPublicKeyResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            GetConnectedAccountsCredentialsPublicKeyResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getConnectedAccountsCredentialsPublicKeyRequestBuilder()
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/connected_accounts/credentials/public_key";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
         localVarRequestBuilder.header("Accept", "application/json");
 

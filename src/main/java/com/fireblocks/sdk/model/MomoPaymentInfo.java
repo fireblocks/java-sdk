@@ -129,7 +129,9 @@ public class MomoPaymentInfo {
 
         TIGO(String.valueOf("TIGO")),
 
-        WAVE(String.valueOf("WAVE"));
+        WAVE(String.valueOf("WAVE")),
+
+        ORANGE(String.valueOf("ORANGE"));
 
         private String value;
 

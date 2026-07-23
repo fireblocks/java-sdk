@@ -23,6 +23,7 @@
 |**createdAt** | **String** | Creation time (ISO-8601). |  |
 |**updatedAt** | **String** | Last update time (ISO-8601). |  |
 |**lastSyncedAt** | **String** | Last successful on-chain sync time (ISO-8601). |  [optional] |
+|**lastModifiedAt** | **String** | Timestamp of the last user-triggered action on this position (ISO-8601). Empty if the user has never interacted with it. |  [optional] |
 |**availableActions** | [**List&lt;AvailableActionsEnum&gt;**](#List&lt;AvailableActionsEnum&gt;) | Actions the API allows next for this position. |  |
 |**yield** | **String** | Accrued yield in principal token units (decimal string). Only present for Morpho positions. |  [optional] |
 

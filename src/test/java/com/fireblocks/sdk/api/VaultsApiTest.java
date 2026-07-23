@@ -16,6 +16,8 @@ package com.fireblocks.sdk.api;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AddressReverseLookupResponse;
+import com.fireblocks.sdk.model.AutomationSettingsRequest;
+import com.fireblocks.sdk.model.AutomationSettingsResponse;
 import com.fireblocks.sdk.model.CreateAddressRequest;
 import com.fireblocks.sdk.model.CreateAddressResponse;
 import com.fireblocks.sdk.model.CreateAssetsRequest;
@@ -25,6 +27,7 @@ import com.fireblocks.sdk.model.CreateMultipleDepositAddressesRequest;
 import com.fireblocks.sdk.model.CreateMultipleVaultAccountsJobStatus;
 import com.fireblocks.sdk.model.CreateVaultAccountRequest;
 import com.fireblocks.sdk.model.CreateVaultAssetResponse;
+import com.fireblocks.sdk.model.GetAutomationSettingsResponse;
 import com.fireblocks.sdk.model.GetMaxBipIndexUsedResponse;
 import com.fireblocks.sdk.model.GetMaxSpendableAmountResponse;
 import com.fireblocks.sdk.model.JobCreated;
@@ -32,10 +35,12 @@ import com.fireblocks.sdk.model.PaginatedAddressResponse;
 import com.fireblocks.sdk.model.PaginatedAssetWalletResponse;
 import com.fireblocks.sdk.model.PublicKeyInformation;
 import com.fireblocks.sdk.model.RenameVaultAccountResponse;
+import com.fireblocks.sdk.model.SaveAutomationSettingsResponse;
 import com.fireblocks.sdk.model.SetAutoFuelRequest;
 import com.fireblocks.sdk.model.SetCustomerRefIdForAddressRequest;
 import com.fireblocks.sdk.model.SetCustomerRefIdRequest;
 import com.fireblocks.sdk.model.UnspentInputsResponse;
+import com.fireblocks.sdk.model.UpdateAutomationSettingsRequest;
 import com.fireblocks.sdk.model.UpdateVaultAccountAssetAddressRequest;
 import com.fireblocks.sdk.model.UpdateVaultAccountRequest;
 import com.fireblocks.sdk.model.UsdcGatewayWalletInfoResponse;
@@ -254,6 +259,25 @@ public class VaultsApiTest {
     }
 
     /**
+     * Stop a USDC Gateway deposit automation&#39;s schedule
+     *
+     * <p>Stops the schedule for an existing deposit automation. The automation itself stays
+     * configured, only its schedule stops. Turn it back on later with PATCH, without setting up the
+     * automation again from scratch. **Note:** This endpoint is currently in beta and might be
+     * subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void disableUsdcGatewayDepositAutomationScheduleBetaTest() throws ApiException {
+        String vaultAccountId = null;
+        UUID automationId = null;
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.disableUsdcGatewayDepositAutomationScheduleBeta(vaultAccountId, automationId);
+    }
+
+    /**
      * Get vault wallets (Paginated)
      *
      * <p>Get all vault wallets of the vault accounts in your workspace. A vault wallet is an asset
@@ -335,8 +359,23 @@ public class VaultsApiTest {
         String vaultAccountId = null;
         String assetId = null;
         Boolean manualSignging = null;
+        List<String> includeAllLabels = null;
+        List<String> includeAnyLabels = null;
+        List<String> excludeAnyLabels = null;
+        String address = null;
+        String minAmount = null;
+        String maxAmount = null;
         CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> response =
-                api.getMaxSpendableAmount(vaultAccountId, assetId, manualSignging);
+                api.getMaxSpendableAmount(
+                        vaultAccountId,
+                        assetId,
+                        manualSignging,
+                        includeAllLabels,
+                        includeAnyLabels,
+                        excludeAnyLabels,
+                        address,
+                        minAmount,
+                        maxAmount);
     }
 
     /**
@@ -427,6 +466,22 @@ public class VaultsApiTest {
         String assetId = null;
         CompletableFuture<ApiResponse<List<UnspentInputsResponse>>> response =
                 api.getUnspentInputs(vaultAccountId, assetId);
+    }
+
+    /**
+     * Read the USDC Gateway deposit automations for a vault account
+     *
+     * <p>Returns the USDC Gateway deposit automations configured for the given vault account.
+     * **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getUsdcGatewayDepositAutomationBetaTest() throws ApiException {
+        String vaultAccountId = null;
+        CompletableFuture<ApiResponse<GetAutomationSettingsResponse>> response =
+                api.getUsdcGatewayDepositAutomationBeta(vaultAccountId);
     }
 
     /**
@@ -587,6 +642,27 @@ public class VaultsApiTest {
     }
 
     /**
+     * Set up a USDC Gateway deposit automation for a vault account
+     *
+     * <p>Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on
+     * the schedule you choose. Returns an error if an automation already exists for this vault
+     * account and asset. Use PATCH to change it instead. **Note:** This endpoint is currently in
+     * beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void setUsdcGatewayDepositAutomationBetaTest() throws ApiException {
+        AutomationSettingsRequest automationSettingsRequest = null;
+        String vaultAccountId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<SaveAutomationSettingsResponse>> response =
+                api.setUsdcGatewayDepositAutomationBeta(
+                        automationSettingsRequest, vaultAccountId, idempotencyKey);
+    }
+
+    /**
      * Set auto fueling to on or off
      *
      * <p>Toggles the auto fueling property of the vault account to enabled or disabled. Vault
@@ -640,6 +716,29 @@ public class VaultsApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<VaultActionStatus>> response =
                 api.unhideVaultAccount(vaultAccountId, idempotencyKey);
+    }
+
+    /**
+     * Change a USDC Gateway deposit automation
+     *
+     * <p>Changes an existing USDC Gateway deposit automation for a vault account. **Note:** This
+     * endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void updateUsdcGatewayDepositAutomationBetaTest() throws ApiException {
+        UpdateAutomationSettingsRequest updateAutomationSettingsRequest = null;
+        String vaultAccountId = null;
+        UUID automationId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<AutomationSettingsResponse>> response =
+                api.updateUsdcGatewayDepositAutomationBeta(
+                        updateAutomationSettingsRequest,
+                        vaultAccountId,
+                        automationId,
+                        idempotencyKey);
     }
 
     /**

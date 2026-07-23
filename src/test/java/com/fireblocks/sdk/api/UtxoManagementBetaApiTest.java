@@ -19,6 +19,7 @@ import com.fireblocks.sdk.model.AttachDetachUtxoLabelsRequest;
 import com.fireblocks.sdk.model.AttachDetachUtxoLabelsResponse;
 import com.fireblocks.sdk.model.ListUtxosResponse;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -52,6 +53,8 @@ public class UtxoManagementBetaApiTest {
         List<String> excludeAnyLabels = null;
         List<String> includeStatuses = null;
         String address = null;
+        String txHash = null;
+        UUID txId = null;
         String minAmount = null;
         String maxAmount = null;
         CompletableFuture<ApiResponse<ListUtxosResponse>> response =
@@ -67,6 +70,8 @@ public class UtxoManagementBetaApiTest {
                         excludeAnyLabels,
                         includeStatuses,
                         address,
+                        txHash,
+                        txId,
                         minAmount,
                         maxAmount);
     }

@@ -67,6 +67,12 @@ class TagTest {
         // TODO: test type
     }
 
+    /** Test the property 'allowedEntityTypes' */
+    @Test
+    void allowedEntityTypesTest() {
+        // TODO: test allowedEntityTypes
+    }
+
     /** Test the property 'pendingApprovalRequest' */
     @Test
     void pendingApprovalRequestTest() {

@@ -14,6 +14,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**createVaultAccountAsset**](VaultsApi.md#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new vault wallet |
 | [**createVaultAccountAssetAddress**](VaultsApi.md#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address |
 | [**deactivateUsdcGatewayWalletBeta**](VaultsApi.md#deactivateUsdcGatewayWalletBeta) | **POST** /vault/accounts/{vaultAccountId}/usdc_gateway/deactivate | Deactivate a USDC Gateway wallet |
+| [**disableUsdcGatewayDepositAutomationScheduleBeta**](VaultsApi.md#disableUsdcGatewayDepositAutomationScheduleBeta) | **DELETE** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation/{automationId} | Stop a USDC Gateway deposit automation&#39;s schedule |
 | [**getAssetWallets**](VaultsApi.md#getAssetWallets) | **GET** /vault/asset_wallets | Get vault wallets (Paginated) |
 | [**getCreateMultipleDepositAddressesJobStatus**](VaultsApi.md#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get the job status of the bulk deposit address creation |
 | [**getCreateMultipleVaultAccountsJobStatus**](VaultsApi.md#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts |
@@ -23,6 +24,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getPublicKeyInfo**](VaultsApi.md#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key for a derivation path |
 | [**getPublicKeyInfoForAddress**](VaultsApi.md#getPublicKeyInfoForAddress) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/{change}/{addressIndex}/public_key_info | Get an asset&#39;s public key |
 | [**getUnspentInputs**](VaultsApi.md#getUnspentInputs) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs | Get UTXO unspent inputs information |
+| [**getUsdcGatewayDepositAutomationBeta**](VaultsApi.md#getUsdcGatewayDepositAutomationBeta) | **GET** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation | Read the USDC Gateway deposit automations for a vault account |
 | [**getUsdcGatewayWalletInfoBeta**](VaultsApi.md#getUsdcGatewayWalletInfoBeta) | **GET** /vault/accounts/{vaultAccountId}/usdc_gateway | Get USDC Gateway wallet info |
 | [**getVaultAccount**](VaultsApi.md#getVaultAccount) | **GET** /vault/accounts/{vaultAccountId} | Get a vault account by ID |
 | [**getVaultAccountAsset**](VaultsApi.md#getVaultAccountAsset) | **GET** /vault/accounts/{vaultAccountId}/{assetId} | Get the asset balance for a vault account |
@@ -32,9 +34,11 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**hideVaultAccount**](VaultsApi.md#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console |
 | [**lookupVaultByAddress**](VaultsApi.md#lookupVaultByAddress) | **GET** /vault/lookup_by_address | Look up a vault account by blockchain address |
 | [**setCustomerRefIdForAddress**](VaultsApi.md#setCustomerRefIdForAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id | Assign AML customer reference ID |
+| [**setUsdcGatewayDepositAutomationBeta**](VaultsApi.md#setUsdcGatewayDepositAutomationBeta) | **POST** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation | Set up a USDC Gateway deposit automation for a vault account |
 | [**setVaultAccountAutoFuel**](VaultsApi.md#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Set auto fueling to on or off |
 | [**setVaultAccountCustomerRefId**](VaultsApi.md#setVaultAccountCustomerRefId) | **POST** /vault/accounts/{vaultAccountId}/set_customer_ref_id | Set an AML/KYT ID for a vault account |
 | [**unhideVaultAccount**](VaultsApi.md#unhideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/unhide | Unhide a vault account in the console |
+| [**updateUsdcGatewayDepositAutomationBeta**](VaultsApi.md#updateUsdcGatewayDepositAutomationBeta) | **PATCH** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation/{automationId} | Change a USDC Gateway deposit automation |
 | [**updateVaultAccount**](VaultsApi.md#updateVaultAccount) | **PUT** /vault/accounts/{vaultAccountId} | Rename a vault account |
 | [**updateVaultAccountAssetAddress**](VaultsApi.md#updateVaultAccountAssetAddress) | **PUT** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId} | Update address description |
 | [**updateVaultAccountAssetBalance**](VaultsApi.md#updateVaultAccountAssetBalance) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/balance | Refresh asset balance data |
@@ -910,6 +914,90 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## disableUsdcGatewayDepositAutomationScheduleBeta
+
+> CompletableFuture<ApiResponse<Void>> disableUsdcGatewayDepositAutomationScheduleBeta disableUsdcGatewayDepositAutomationScheduleBeta(vaultAccountId, automationId)
+
+Stop a USDC Gateway deposit automation&#39;s schedule
+
+Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.VaultsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
+        UUID automationId = UUID.randomUUID(); // UUID | The ID of the deposit automation, returned when it was created or read
+        try {
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.vaults().disableUsdcGatewayDepositAutomationScheduleBeta(vaultAccountId, automationId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling VaultsApi#disableUsdcGatewayDepositAutomationScheduleBeta");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VaultsApi#disableUsdcGatewayDepositAutomationScheduleBeta");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **vaultAccountId** | **String**| The ID of the vault account | |
+| **automationId** | **UUID**| The ID of the deposit automation, returned when it was created or read | |
+
+### Return type
+
+
+CompletableFuture<ApiResponse<Void>>
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | Deposit automation schedule disabled |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getAssetWallets
 
 > CompletableFuture<ApiResponse<PaginatedAssetWalletResponse>> getAssetWallets getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit)
@@ -1255,7 +1343,7 @@ No authorization required
 
 ## getMaxSpendableAmount
 
-> CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> getMaxSpendableAmount getMaxSpendableAmount(vaultAccountId, assetId, manualSignging)
+> CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> getMaxSpendableAmount getMaxSpendableAmount(vaultAccountId, assetId, manualSignging, includeAllLabels, includeAnyLabels, excludeAnyLabels, address, minAmount, maxAmount)
 
 Get max spendable amount in a transaction
 
@@ -1287,8 +1375,14 @@ public class Example {
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account, or 'default' for the default vault account
         String assetId = "assetId_example"; // String | The ID of the asset
         Boolean manualSignging = true; // Boolean | False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device.
+        List<String> includeAllLabels = Arrays.asList(); // List<String> | Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+        List<String> includeAnyLabels = Arrays.asList(); // List<String> | Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+        List<String> excludeAnyLabels = Arrays.asList(); // List<String> | Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+        String address = "address_example"; // String | Only include UTXOs from this specific address. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+        String minAmount = "minAmount_example"; // String | Minimum UTXO amount in the asset's base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+        String maxAmount = "maxAmount_example"; // String | Maximum UTXO amount in the asset's base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
         try {
-            CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> response = fireblocks.vaults().getMaxSpendableAmount(vaultAccountId, assetId, manualSignging);
+            CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> response = fireblocks.vaults().getMaxSpendableAmount(vaultAccountId, assetId, manualSignging, includeAllLabels, includeAnyLabels, excludeAnyLabels, address, minAmount, maxAmount);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1318,6 +1412,12 @@ public class Example {
 | **vaultAccountId** | **String**| The ID of the vault account, or &#39;default&#39; for the default vault account | |
 | **assetId** | **String**| The ID of the asset | |
 | **manualSignging** | **Boolean**| False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device. | [optional] |
+| **includeAllLabels** | [**List&lt;String&gt;**](String.md)| Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | [optional] |
+| **includeAnyLabels** | [**List&lt;String&gt;**](String.md)| Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | [optional] |
+| **excludeAnyLabels** | [**List&lt;String&gt;**](String.md)| Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | [optional] |
+| **address** | **String**| Only include UTXOs from this specific address. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | [optional] |
+| **minAmount** | **String**| Minimum UTXO amount in the asset&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | [optional] |
+| **maxAmount** | **String**| Maximum UTXO amount in the asset&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | [optional] |
 
 ### Return type
 
@@ -1702,6 +1802,89 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | List of Unspent information per input |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getUsdcGatewayDepositAutomationBeta
+
+> CompletableFuture<ApiResponse<GetAutomationSettingsResponse>> getUsdcGatewayDepositAutomationBeta getUsdcGatewayDepositAutomationBeta(vaultAccountId)
+
+Read the USDC Gateway deposit automations for a vault account
+
+Returns the USDC Gateway deposit automations configured for the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.VaultsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
+        try {
+            CompletableFuture<ApiResponse<GetAutomationSettingsResponse>> response = fireblocks.vaults().getUsdcGatewayDepositAutomationBeta(vaultAccountId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling VaultsApi#getUsdcGatewayDepositAutomationBeta");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VaultsApi#getUsdcGatewayDepositAutomationBeta");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **vaultAccountId** | **String**| The ID of the vault account | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**GetAutomationSettingsResponse**](GetAutomationSettingsResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | USDC Gateway deposit automations |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -2477,6 +2660,93 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## setUsdcGatewayDepositAutomationBeta
+
+> CompletableFuture<ApiResponse<SaveAutomationSettingsResponse>> setUsdcGatewayDepositAutomationBeta setUsdcGatewayDepositAutomationBeta(automationSettingsRequest, vaultAccountId, idempotencyKey)
+
+Set up a USDC Gateway deposit automation for a vault account
+
+Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.VaultsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        AutomationSettingsRequest automationSettingsRequest = new AutomationSettingsRequest(); // AutomationSettingsRequest | 
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<SaveAutomationSettingsResponse>> response = fireblocks.vaults().setUsdcGatewayDepositAutomationBeta(automationSettingsRequest, vaultAccountId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling VaultsApi#setUsdcGatewayDepositAutomationBeta");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VaultsApi#setUsdcGatewayDepositAutomationBeta");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **automationSettingsRequest** | [**AutomationSettingsRequest**](AutomationSettingsRequest.md)|  | |
+| **vaultAccountId** | **String**| The ID of the vault account | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**SaveAutomationSettingsResponse**](SaveAutomationSettingsResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Deposit automation created |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## setVaultAccountAutoFuel
 
 > CompletableFuture<ApiResponse<VaultActionStatus>> setVaultAccountAutoFuel setVaultAccountAutoFuel(setAutoFuelRequest, vaultAccountId, idempotencyKey)
@@ -2733,6 +3003,95 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | OK |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## updateUsdcGatewayDepositAutomationBeta
+
+> CompletableFuture<ApiResponse<AutomationSettingsResponse>> updateUsdcGatewayDepositAutomationBeta updateUsdcGatewayDepositAutomationBeta(updateAutomationSettingsRequest, vaultAccountId, automationId, idempotencyKey)
+
+Change a USDC Gateway deposit automation
+
+Changes an existing USDC Gateway deposit automation for a vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.VaultsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UpdateAutomationSettingsRequest updateAutomationSettingsRequest = new UpdateAutomationSettingsRequest(); // UpdateAutomationSettingsRequest | 
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
+        UUID automationId = UUID.randomUUID(); // UUID | The ID of the deposit automation, returned when it was created or read
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<AutomationSettingsResponse>> response = fireblocks.vaults().updateUsdcGatewayDepositAutomationBeta(updateAutomationSettingsRequest, vaultAccountId, automationId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling VaultsApi#updateUsdcGatewayDepositAutomationBeta");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling VaultsApi#updateUsdcGatewayDepositAutomationBeta");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **updateAutomationSettingsRequest** | [**UpdateAutomationSettingsRequest**](UpdateAutomationSettingsRequest.md)|  | |
+| **vaultAccountId** | **String**| The ID of the vault account | |
+| **automationId** | **UUID**| The ID of the deposit automation, returned when it was created or read | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**AutomationSettingsResponse**](AutomationSettingsResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Deposit automation updated |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

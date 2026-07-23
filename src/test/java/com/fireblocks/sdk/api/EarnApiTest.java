@@ -26,11 +26,11 @@ import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
 
-/** API tests for EarnBetaApi */
+/** API tests for EarnApi */
 @Ignore
-public class EarnBetaApiTest {
+public class EarnApiTest {
 
-    private final EarnBetaApi api = new EarnBetaApi();
+    private final EarnApi api = new EarnApi();
 
     /**
      * Approve earn provider terms of service
@@ -38,8 +38,7 @@ public class EarnBetaApiTest {
      * <p>Approves earn provider terms of service for this workspace (one-time per tenant). When
      * &#x60;isTermsApprovalRequired&#x60; is true on a provider (see list providers), call this
      * once before creating or executing earn actions with providers that require it. After success,
-     * &#x60;GET /earn/providers&#x60; reflects &#x60;isTermsOfServiceApproved&#x60;. **Note:** This
-     * endpoint is currently in beta and might be subject to changes.
+     * &#x60;GET /earn/providers&#x60; reflects &#x60;isTermsOfServiceApproved&#x60;.
      *
      * @throws ApiException if the Api call fails
      */
@@ -55,8 +54,7 @@ public class EarnBetaApiTest {
      *
      * <p>Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal
      * from an earn vault/market. Specify the operation with &#x60;action&#x60; in the request body
-     * (&#x60;DEPOSIT&#x60; or &#x60;WITHDRAW&#x60;). **Note:** This endpoint is currently in beta
-     * and might be subject to changes.
+     * (&#x60;DEPOSIT&#x60; or &#x60;WITHDRAW&#x60;).
      *
      * @throws ApiException if the Api call fails
      */
@@ -71,8 +69,7 @@ public class EarnBetaApiTest {
     /**
      * Get a single earn lending action
      *
-     * <p>Returns one lending action by its action sequence id (tenant-scoped). **Note:** This
-     * endpoint is currently in beta and might be subject to changes.
+     * <p>Returns one lending action by its action sequence id (tenant-scoped).
      *
      * @throws ApiException if the Api call fails
      */
@@ -86,8 +83,7 @@ public class EarnBetaApiTest {
      * List earn lending actions
      *
      * <p>Returns a paginated list of lending actions (deposits and withdrawals) for the
-     * authenticated tenant. **Note:** This endpoint is currently in beta and might be subject to
-     * changes.
+     * authenticated tenant.
      *
      * @throws ApiException if the Api call fails
      */
@@ -104,8 +100,7 @@ public class EarnBetaApiTest {
     /**
      * Get list of earn opportunities
      *
-     * <p>Get list of earn opportunities (vaults). **Note:** This endpoint is currently in beta and
-     * might be subject to changes.
+     * <p>Get list of earn opportunities (vaults).
      *
      * @throws ApiException if the Api call fails
      */
@@ -123,8 +118,7 @@ public class EarnBetaApiTest {
      * Get list of earn positions
      *
      * <p>Get list of earn positions for accounts tracked for this workspace. Optional query
-     * parameters filter by chain, provider, and pagination. **Note:** This endpoint is currently in
-     * beta and might be subject to changes.
+     * parameters filter by chain, provider, and pagination.
      *
      * @throws ApiException if the Api call fails
      */
@@ -143,8 +137,7 @@ public class EarnBetaApiTest {
     /**
      * Get list of earn providers
      *
-     * <p>Get list of earn providers. **Note:** This endpoint is currently in beta and might be
-     * subject to changes.
+     * <p>Get list of earn providers.
      *
      * @throws ApiException if the Api call fails
      */

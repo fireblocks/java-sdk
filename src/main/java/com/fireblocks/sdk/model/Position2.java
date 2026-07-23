@@ -42,6 +42,7 @@ import java.util.StringJoiner;
     Position2.JSON_PROPERTY_CREATED_AT,
     Position2.JSON_PROPERTY_UPDATED_AT,
     Position2.JSON_PROPERTY_LAST_SYNCED_AT,
+    Position2.JSON_PROPERTY_LAST_MODIFIED_AT,
     Position2.JSON_PROPERTY_AVAILABLE_ACTIONS,
     Position2.JSON_PROPERTY_YIELD
 })
@@ -228,6 +229,9 @@ public class Position2 {
 
     public static final String JSON_PROPERTY_LAST_SYNCED_AT = "lastSyncedAt";
     @jakarta.annotation.Nullable private String lastSyncedAt;
+
+    public static final String JSON_PROPERTY_LAST_MODIFIED_AT = "lastModifiedAt";
+    @jakarta.annotation.Nullable private String lastModifiedAt;
 
     /** Gets or Sets availableActions */
     public enum AvailableActionsEnum {
@@ -683,6 +687,30 @@ public class Position2 {
         this.lastSyncedAt = lastSyncedAt;
     }
 
+    public Position2 lastModifiedAt(@jakarta.annotation.Nullable String lastModifiedAt) {
+        this.lastModifiedAt = lastModifiedAt;
+        return this;
+    }
+
+    /**
+     * Timestamp of the last user-triggered action on this position (ISO-8601). Empty if the user
+     * has never interacted with it.
+     *
+     * @return lastModifiedAt
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_LAST_MODIFIED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getLastModifiedAt() {
+        return lastModifiedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LAST_MODIFIED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setLastModifiedAt(@jakarta.annotation.Nullable String lastModifiedAt) {
+        this.lastModifiedAt = lastModifiedAt;
+    }
+
     public Position2 availableActions(
             @jakarta.annotation.Nonnull List<AvailableActionsEnum> availableActions) {
         this.availableActions = availableActions;
@@ -765,6 +793,7 @@ public class Position2 {
                 && Objects.equals(this.createdAt, position2.createdAt)
                 && Objects.equals(this.updatedAt, position2.updatedAt)
                 && Objects.equals(this.lastSyncedAt, position2.lastSyncedAt)
+                && Objects.equals(this.lastModifiedAt, position2.lastModifiedAt)
                 && Objects.equals(this.availableActions, position2.availableActions)
                 && Objects.equals(this.yield, position2.yield);
     }
@@ -788,6 +817,7 @@ public class Position2 {
                 createdAt,
                 updatedAt,
                 lastSyncedAt,
+                lastModifiedAt,
                 availableActions,
                 yield);
     }
@@ -812,6 +842,7 @@ public class Position2 {
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
         sb.append("    lastSyncedAt: ").append(toIndentedString(lastSyncedAt)).append("\n");
+        sb.append("    lastModifiedAt: ").append(toIndentedString(lastModifiedAt)).append("\n");
         sb.append("    availableActions: ").append(toIndentedString(availableActions)).append("\n");
         sb.append("    yield: ").append(toIndentedString(yield)).append("\n");
         sb.append("}");
@@ -1017,6 +1048,16 @@ public class Position2 {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getLastSyncedAt()))));
+        }
+
+        // add `lastModifiedAt` to the URL query string
+        if (getLastModifiedAt() != null) {
+            joiner.add(
+                    String.format(
+                            "%slastModifiedAt%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getLastModifiedAt()))));
         }
 
         // add `availableActions` to the URL query string

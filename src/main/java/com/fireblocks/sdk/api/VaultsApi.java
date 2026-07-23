@@ -21,6 +21,8 @@ import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.AddressReverseLookupResponse;
+import com.fireblocks.sdk.model.AutomationSettingsRequest;
+import com.fireblocks.sdk.model.AutomationSettingsResponse;
 import com.fireblocks.sdk.model.CreateAddressRequest;
 import com.fireblocks.sdk.model.CreateAddressResponse;
 import com.fireblocks.sdk.model.CreateAssetsRequest;
@@ -30,6 +32,7 @@ import com.fireblocks.sdk.model.CreateMultipleDepositAddressesRequest;
 import com.fireblocks.sdk.model.CreateMultipleVaultAccountsJobStatus;
 import com.fireblocks.sdk.model.CreateVaultAccountRequest;
 import com.fireblocks.sdk.model.CreateVaultAssetResponse;
+import com.fireblocks.sdk.model.GetAutomationSettingsResponse;
 import com.fireblocks.sdk.model.GetMaxBipIndexUsedResponse;
 import com.fireblocks.sdk.model.GetMaxSpendableAmountResponse;
 import com.fireblocks.sdk.model.JobCreated;
@@ -37,10 +40,12 @@ import com.fireblocks.sdk.model.PaginatedAddressResponse;
 import com.fireblocks.sdk.model.PaginatedAssetWalletResponse;
 import com.fireblocks.sdk.model.PublicKeyInformation;
 import com.fireblocks.sdk.model.RenameVaultAccountResponse;
+import com.fireblocks.sdk.model.SaveAutomationSettingsResponse;
 import com.fireblocks.sdk.model.SetAutoFuelRequest;
 import com.fireblocks.sdk.model.SetCustomerRefIdForAddressRequest;
 import com.fireblocks.sdk.model.SetCustomerRefIdRequest;
 import com.fireblocks.sdk.model.UnspentInputsResponse;
+import com.fireblocks.sdk.model.UpdateAutomationSettingsRequest;
 import com.fireblocks.sdk.model.UpdateVaultAccountAssetAddressRequest;
 import com.fireblocks.sdk.model.UpdateVaultAccountRequest;
 import com.fireblocks.sdk.model.UsdcGatewayWalletInfoResponse;
@@ -1052,6 +1057,80 @@ public class VaultsApi {
         return localVarRequestBuilder;
     }
     /**
+     * Stop a USDC Gateway deposit automation&#39;s schedule Stops the schedule for an existing
+     * deposit automation. The automation itself stays configured, only its schedule stops. Turn it
+     * back on later with PATCH, without setting up the automation again from scratch. **Note:**
+     * This endpoint is currently in beta and might be subject to changes. Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver.
+     *
+     * @param vaultAccountId The ID of the vault account (required)
+     * @param automationId The ID of the deposit automation, returned when it was created or read
+     *     (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Void>> disableUsdcGatewayDepositAutomationScheduleBeta(
+            String vaultAccountId, UUID automationId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    disableUsdcGatewayDepositAutomationScheduleBetaRequestBuilder(
+                            vaultAccountId, automationId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "disableUsdcGatewayDepositAutomationScheduleBeta",
+                                                    localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder disableUsdcGatewayDepositAutomationScheduleBetaRequestBuilder(
+            String vaultAccountId, UUID automationId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "disableUsdcGatewayDepositAutomationScheduleBeta",
+                "vaultAccountId",
+                vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "disableUsdcGatewayDepositAutomationScheduleBeta",
+                "automationId",
+                automationId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation/{automationId}"
+                        .replace("{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()))
+                        .replace("{automationId}", ApiClient.urlEncode(automationId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Get vault wallets (Paginated) Get all vault wallets of the vault accounts in your workspace.
      * A vault wallet is an asset in a vault account. This method allows fast traversal of all
      * account balances. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
@@ -1398,14 +1477,46 @@ public class VaultsApi {
      * @param manualSignging False by default. The maximum number of inputs depends if the
      *     transaction will be signed by an automated co-signer server or on a mobile device.
      *     (optional)
+     * @param includeAllLabels Only include UTXOs that have ALL of these labels (AND logic).
+     *     Requires the UTXO Manager. This feature is currently in beta and might be subject to
+     *     changes. (optional
+     * @param includeAnyLabels Only include UTXOs that have ANY of these labels (OR logic). Requires
+     *     the UTXO Manager. This feature is currently in beta and might be subject to changes.
+     *     (optional
+     * @param excludeAnyLabels Exclude UTXOs that have ANY of these labels. Requires the UTXO
+     *     Manager. This feature is currently in beta and might be subject to changes. (optional
+     * @param address Only include UTXOs from this specific address. Requires the UTXO Manager. This
+     *     feature is currently in beta and might be subject to changes. (optional)
+     * @param minAmount Minimum UTXO amount in the asset&#39;s base unit. Requires the UTXO Manager.
+     *     This feature is currently in beta and might be subject to changes. (optional)
+     * @param maxAmount Maximum UTXO amount in the asset&#39;s base unit. Requires the UTXO Manager.
+     *     This feature is currently in beta and might be subject to changes. (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;GetMaxSpendableAmountResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> getMaxSpendableAmount(
-            String vaultAccountId, String assetId, Boolean manualSignging) throws ApiException {
+            String vaultAccountId,
+            String assetId,
+            Boolean manualSignging,
+            List<String> includeAllLabels,
+            List<String> includeAnyLabels,
+            List<String> excludeAnyLabels,
+            String address,
+            String minAmount,
+            String maxAmount)
+            throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    getMaxSpendableAmountRequestBuilder(vaultAccountId, assetId, manualSignging);
+                    getMaxSpendableAmountRequestBuilder(
+                            vaultAccountId,
+                            assetId,
+                            manualSignging,
+                            includeAllLabels,
+                            includeAnyLabels,
+                            excludeAnyLabels,
+                            address,
+                            minAmount,
+                            maxAmount);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -1440,7 +1551,16 @@ public class VaultsApi {
     }
 
     private HttpRequest.Builder getMaxSpendableAmountRequestBuilder(
-            String vaultAccountId, String assetId, Boolean manualSignging) throws ApiException {
+            String vaultAccountId,
+            String assetId,
+            Boolean manualSignging,
+            List<String> includeAllLabels,
+            List<String> includeAnyLabels,
+            List<String> excludeAnyLabels,
+            String address,
+            String minAmount,
+            String maxAmount)
+            throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty(
                 "getMaxSpendableAmount", "vaultAccountId", vaultAccountId);
         ValidationUtils.assertParamExistsAndNotEmpty("getMaxSpendableAmount", "assetId", assetId);
@@ -1457,6 +1577,21 @@ public class VaultsApi {
         String localVarQueryParameterBaseName;
         localVarQueryParameterBaseName = "manualSignging";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("manualSignging", manualSignging));
+        localVarQueryParameterBaseName = "includeAllLabels";
+        localVarQueryParams.addAll(
+                ApiClient.parameterToPairs("multi", "includeAllLabels", includeAllLabels));
+        localVarQueryParameterBaseName = "includeAnyLabels";
+        localVarQueryParams.addAll(
+                ApiClient.parameterToPairs("multi", "includeAnyLabels", includeAnyLabels));
+        localVarQueryParameterBaseName = "excludeAnyLabels";
+        localVarQueryParams.addAll(
+                ApiClient.parameterToPairs("multi", "excludeAnyLabels", excludeAnyLabels));
+        localVarQueryParameterBaseName = "address";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("address", address));
+        localVarQueryParameterBaseName = "minAmount";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("minAmount", minAmount));
+        localVarQueryParameterBaseName = "maxAmount";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("maxAmount", maxAmount));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");
@@ -1894,6 +2029,80 @@ public class VaultsApi {
                 "/vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs"
                         .replace("{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()))
                         .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Read the USDC Gateway deposit automations for a vault account Returns the USDC Gateway
+     * deposit automations configured for the given vault account. **Note:** This endpoint is
+     * currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing
+     * Admin, Signer, Approver, Editor, Viewer.
+     *
+     * @param vaultAccountId The ID of the vault account (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;GetAutomationSettingsResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<GetAutomationSettingsResponse>>
+            getUsdcGatewayDepositAutomationBeta(String vaultAccountId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getUsdcGatewayDepositAutomationBetaRequestBuilder(vaultAccountId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getUsdcGatewayDepositAutomationBeta",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<GetAutomationSettingsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            GetAutomationSettingsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getUsdcGatewayDepositAutomationBetaRequestBuilder(
+            String vaultAccountId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getUsdcGatewayDepositAutomationBeta", "vaultAccountId", vaultAccountId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation"
+                        .replace(
+                                "{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()));
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
@@ -2670,6 +2879,108 @@ public class VaultsApi {
         return localVarRequestBuilder;
     }
     /**
+     * Set up a USDC Gateway deposit automation for a vault account Turns on automatic deposits into
+     * the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an
+     * error if an automation already exists for this vault account and asset. Use PATCH to change
+     * it instead. **Note:** This endpoint is currently in beta and might be subject to changes.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     *
+     * @param automationSettingsRequest (required)
+     * @param vaultAccountId The ID of the vault account (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;SaveAutomationSettingsResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<SaveAutomationSettingsResponse>>
+            setUsdcGatewayDepositAutomationBeta(
+                    AutomationSettingsRequest automationSettingsRequest,
+                    String vaultAccountId,
+                    String idempotencyKey)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    setUsdcGatewayDepositAutomationBetaRequestBuilder(
+                            automationSettingsRequest, vaultAccountId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "setUsdcGatewayDepositAutomationBeta",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<SaveAutomationSettingsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            SaveAutomationSettingsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder setUsdcGatewayDepositAutomationBetaRequestBuilder(
+            AutomationSettingsRequest automationSettingsRequest,
+            String vaultAccountId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "setUsdcGatewayDepositAutomationBeta",
+                "automationSettingsRequest",
+                automationSettingsRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "setUsdcGatewayDepositAutomationBeta", "vaultAccountId", vaultAccountId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation"
+                        .replace(
+                                "{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(automationSettingsRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Set auto fueling to on or off Toggles the auto fueling property of the vault account to
      * enabled or disabled. Vault Accounts with &#39;autoFuel&#x3D;true&#39; are monitored and auto
      * fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the
@@ -2929,6 +3240,115 @@ public class VaultsApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Change a USDC Gateway deposit automation Changes an existing USDC Gateway deposit automation
+     * for a vault account. **Note:** This endpoint is currently in beta and might be subject to
+     * changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     *
+     * @param updateAutomationSettingsRequest (required)
+     * @param vaultAccountId The ID of the vault account (required)
+     * @param automationId The ID of the deposit automation, returned when it was created or read
+     *     (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;AutomationSettingsResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<AutomationSettingsResponse>>
+            updateUsdcGatewayDepositAutomationBeta(
+                    UpdateAutomationSettingsRequest updateAutomationSettingsRequest,
+                    String vaultAccountId,
+                    UUID automationId,
+                    String idempotencyKey)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    updateUsdcGatewayDepositAutomationBetaRequestBuilder(
+                            updateAutomationSettingsRequest,
+                            vaultAccountId,
+                            automationId,
+                            idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "updateUsdcGatewayDepositAutomationBeta",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<AutomationSettingsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AutomationSettingsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder updateUsdcGatewayDepositAutomationBetaRequestBuilder(
+            UpdateAutomationSettingsRequest updateAutomationSettingsRequest,
+            String vaultAccountId,
+            UUID automationId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "updateUsdcGatewayDepositAutomationBeta",
+                "updateAutomationSettingsRequest",
+                updateAutomationSettingsRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateUsdcGatewayDepositAutomationBeta", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateUsdcGatewayDepositAutomationBeta", "automationId", automationId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation/{automationId}"
+                        .replace("{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()))
+                        .replace("{automationId}", ApiClient.urlEncode(automationId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(updateAutomationSettingsRequest);
+            localVarRequestBuilder.method(
+                    "PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

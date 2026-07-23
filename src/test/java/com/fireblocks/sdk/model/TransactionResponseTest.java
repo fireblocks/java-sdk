@@ -133,6 +133,12 @@ class TransactionResponseTest {
         // TODO: test contractCallDecodedData
     }
 
+    /** Test the property 'programCallDecodedData' */
+    @Test
+    void programCallDecodedDataTest() {
+        // TODO: test programCallDecodedData
+    }
+
     /** Test the property 'amountInfo' */
     @Test
     void amountInfoTest() {

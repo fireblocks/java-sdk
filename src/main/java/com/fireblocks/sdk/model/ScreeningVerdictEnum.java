@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * The final verdict of the screening (unified for AML, Travel Rule, and TRLink). Different
- * providers may return different verdict values: - AML: PASS, FAIL, ALERT - Travel Rule: PASS,
+ * providers may return different verdict values: - AML: ACCEPT, REJECT, ALERT - Travel Rule: PASS,
  * FAIL, TRAVEL_RULE_REQUIRED - TRLink: PASS, REJECT, WARN
  */
 public enum ScreeningVerdictEnum {
@@ -36,7 +36,9 @@ public enum ScreeningVerdictEnum {
 
     ACCEPT("ACCEPT"),
 
-    REVIEW("REVIEW");
+    REVIEW("REVIEW"),
+
+    WAIT("WAIT");
 
     private String value;
 

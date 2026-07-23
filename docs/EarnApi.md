@@ -1,16 +1,16 @@
-# EarnBetaApi
+# EarnApi
 
 All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**approveTermsOfService**](EarnBetaApi.md#approveTermsOfService) | **POST** /earn/providers/approve_terms_of_service | Approve earn provider terms of service |
-| [**createEarnAction**](EarnBetaApi.md#createEarnAction) | **POST** /earn/actions | Create and execute a lending action (deposit or withdraw) |
-| [**getEarnAction**](EarnBetaApi.md#getEarnAction) | **GET** /earn/actions/{id} | Get a single earn lending action |
-| [**getEarnActions**](EarnBetaApi.md#getEarnActions) | **GET** /earn/actions | List earn lending actions |
-| [**getEarnOpportunities**](EarnBetaApi.md#getEarnOpportunities) | **GET** /earn/opportunities | Get list of earn opportunities |
-| [**getEarnPositions**](EarnBetaApi.md#getEarnPositions) | **GET** /earn/positions | Get list of earn positions |
-| [**getEarnProviders**](EarnBetaApi.md#getEarnProviders) | **GET** /earn/providers | Get list of earn providers |
+| [**approveTermsOfService**](EarnApi.md#approveTermsOfService) | **POST** /earn/providers/approve_terms_of_service | Approve earn provider terms of service |
+| [**createEarnAction**](EarnApi.md#createEarnAction) | **POST** /earn/actions | Create and execute a lending action (deposit or withdraw) |
+| [**getEarnAction**](EarnApi.md#getEarnAction) | **GET** /earn/actions/{id} | Get a single earn lending action |
+| [**getEarnActions**](EarnApi.md#getEarnActions) | **GET** /earn/actions | List earn lending actions |
+| [**getEarnOpportunities**](EarnApi.md#getEarnOpportunities) | **GET** /earn/opportunities | Get list of earn opportunities |
+| [**getEarnPositions**](EarnApi.md#getEarnPositions) | **GET** /earn/positions | Get list of earn positions |
+| [**getEarnProviders**](EarnApi.md#getEarnProviders) | **GET** /earn/providers | Get list of earn providers |
 
 
 
@@ -20,7 +20,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Approve earn provider terms of service
 
-Approves earn provider terms of service for this workspace (one-time per tenant). When &#x60;isTermsApprovalRequired&#x60; is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, &#x60;GET /earn/providers&#x60; reflects &#x60;isTermsOfServiceApproved&#x60;.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Approves earn provider terms of service for this workspace (one-time per tenant). When &#x60;isTermsApprovalRequired&#x60; is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, &#x60;GET /earn/providers&#x60; reflects &#x60;isTermsOfServiceApproved&#x60;. 
 
 ### Example
 
@@ -33,7 +33,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.EarnBetaApi;
+import com.fireblocks.sdk.api.EarnApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -47,18 +47,18 @@ public class Example {
 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = fireblocks.earnBeta().approveTermsOfService(idempotencyKey);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.earn().approveTermsOfService(idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling EarnBetaApi#approveTermsOfService");
+            System.err.println("Exception when calling EarnApi#approveTermsOfService");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
         } catch (ApiException e) {
-            System.err.println("Exception when calling EarnBetaApi#approveTermsOfService");
+            System.err.println("Exception when calling EarnApi#approveTermsOfService");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Response headers: " + e.getResponseHeaders());
             System.err.println("Reason: " + e.getResponseBody());
@@ -107,7 +107,7 @@ No authorization required
 
 Create and execute a lending action (deposit or withdraw)
 
-Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal from an earn vault/market. Specify the operation with &#x60;action&#x60; in the request body (&#x60;DEPOSIT&#x60; or &#x60;WITHDRAW&#x60;).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal from an earn vault/market. Specify the operation with &#x60;action&#x60; in the request body (&#x60;DEPOSIT&#x60; or &#x60;WITHDRAW&#x60;). 
 
 ### Example
 
@@ -120,7 +120,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.EarnBetaApi;
+import com.fireblocks.sdk.api.EarnApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -135,19 +135,19 @@ public class Example {
         CreateEarnActionRequest createEarnActionRequest = new CreateEarnActionRequest(); // CreateEarnActionRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<CreateEarnActionResponse>> response = fireblocks.earnBeta().createEarnAction(createEarnActionRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<CreateEarnActionResponse>> response = fireblocks.earn().createEarnAction(createEarnActionRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling EarnBetaApi#createEarnAction");
+            System.err.println("Exception when calling EarnApi#createEarnAction");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
         } catch (ApiException e) {
-            System.err.println("Exception when calling EarnBetaApi#createEarnAction");
+            System.err.println("Exception when calling EarnApi#createEarnAction");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Response headers: " + e.getResponseHeaders());
             System.err.println("Reason: " + e.getResponseBody());
@@ -197,7 +197,7 @@ No authorization required
 
 Get a single earn lending action
 
-Returns one lending action by its action sequence id (tenant-scoped).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Returns one lending action by its action sequence id (tenant-scoped). 
 
 ### Example
 
@@ -210,7 +210,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.EarnBetaApi;
+import com.fireblocks.sdk.api.EarnApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -224,19 +224,19 @@ public class Example {
 
         String id = "id_example"; // String | Action sequence id (UUID).
         try {
-            CompletableFuture<ApiResponse<GetActionResponse>> response = fireblocks.earnBeta().getEarnAction(id);
+            CompletableFuture<ApiResponse<GetActionResponse>> response = fireblocks.earn().getEarnAction(id);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling EarnBetaApi#getEarnAction");
+            System.err.println("Exception when calling EarnApi#getEarnAction");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
         } catch (ApiException e) {
-            System.err.println("Exception when calling EarnBetaApi#getEarnAction");
+            System.err.println("Exception when calling EarnApi#getEarnAction");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Response headers: " + e.getResponseHeaders());
             System.err.println("Reason: " + e.getResponseBody());
@@ -284,7 +284,7 @@ No authorization required
 
 List earn lending actions
 
-Returns a paginated list of lending actions (deposits and withdrawals) for the authenticated tenant.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Returns a paginated list of lending actions (deposits and withdrawals) for the authenticated tenant. 
 
 ### Example
 
@@ -297,7 +297,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.EarnBetaApi;
+import com.fireblocks.sdk.api.EarnApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -314,19 +314,19 @@ public class Example {
         String sortBy = "createdAt"; // String | Field to sort results by.
         String order = "ASC"; // String | Sort order (ASC or DESC).
         try {
-            CompletableFuture<ApiResponse<GetActionsResponse>> response = fireblocks.earnBeta().getEarnActions(pageCursor, pageSize, sortBy, order);
+            CompletableFuture<ApiResponse<GetActionsResponse>> response = fireblocks.earn().getEarnActions(pageCursor, pageSize, sortBy, order);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling EarnBetaApi#getEarnActions");
+            System.err.println("Exception when calling EarnApi#getEarnActions");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
         } catch (ApiException e) {
-            System.err.println("Exception when calling EarnBetaApi#getEarnActions");
+            System.err.println("Exception when calling EarnApi#getEarnActions");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Response headers: " + e.getResponseHeaders());
             System.err.println("Reason: " + e.getResponseBody());
@@ -377,7 +377,7 @@ No authorization required
 
 Get list of earn opportunities
 
-Get list of earn opportunities (vaults).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Get list of earn opportunities (vaults). 
 
 ### Example
 
@@ -390,7 +390,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.EarnBetaApi;
+import com.fireblocks.sdk.api.EarnApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -407,19 +407,19 @@ public class Example {
         String sortBy = "sortBy_example"; // String | Field to sort results by.
         String order = "ASC"; // String | Sort order (ASC or DESC).
         try {
-            CompletableFuture<ApiResponse<GetOpportunitiesResponse>> response = fireblocks.earnBeta().getEarnOpportunities(pageCursor, pageSize, sortBy, order);
+            CompletableFuture<ApiResponse<GetOpportunitiesResponse>> response = fireblocks.earn().getEarnOpportunities(pageCursor, pageSize, sortBy, order);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling EarnBetaApi#getEarnOpportunities");
+            System.err.println("Exception when calling EarnApi#getEarnOpportunities");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
         } catch (ApiException e) {
-            System.err.println("Exception when calling EarnBetaApi#getEarnOpportunities");
+            System.err.println("Exception when calling EarnApi#getEarnOpportunities");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Response headers: " + e.getResponseHeaders());
             System.err.println("Reason: " + e.getResponseBody());
@@ -470,7 +470,7 @@ No authorization required
 
 Get list of earn positions
 
-Get list of earn positions for accounts tracked for this workspace.  Optional query parameters filter by chain, provider, and pagination.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Get list of earn positions for accounts tracked for this workspace. Optional query parameters filter by chain, provider, and pagination. 
 
 ### Example
 
@@ -483,7 +483,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.EarnBetaApi;
+import com.fireblocks.sdk.api.EarnApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -502,19 +502,19 @@ public class Example {
         String sortBy = "sortBy_example"; // String | Field to sort results by.
         String order = "ASC"; // String | Sort order (ASC or DESC).
         try {
-            CompletableFuture<ApiResponse<GetPositionsResponse>> response = fireblocks.earnBeta().getEarnPositions(chainId, providerId, pageCursor, pageSize, sortBy, order);
+            CompletableFuture<ApiResponse<GetPositionsResponse>> response = fireblocks.earn().getEarnPositions(chainId, providerId, pageCursor, pageSize, sortBy, order);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling EarnBetaApi#getEarnPositions");
+            System.err.println("Exception when calling EarnApi#getEarnPositions");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
         } catch (ApiException e) {
-            System.err.println("Exception when calling EarnBetaApi#getEarnPositions");
+            System.err.println("Exception when calling EarnApi#getEarnPositions");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Response headers: " + e.getResponseHeaders());
             System.err.println("Reason: " + e.getResponseBody());
@@ -567,7 +567,7 @@ No authorization required
 
 Get list of earn providers
 
-Get list of earn providers.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Get list of earn providers. 
 
 ### Example
 
@@ -580,7 +580,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.EarnBetaApi;
+import com.fireblocks.sdk.api.EarnApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -597,19 +597,19 @@ public class Example {
         String sortBy = "sortBy_example"; // String | Field to sort results by.
         String order = "ASC"; // String | Sort order (ASC or DESC).
         try {
-            CompletableFuture<ApiResponse<GetProvidersResponse>> response = fireblocks.earnBeta().getEarnProviders(pageCursor, pageSize, sortBy, order);
+            CompletableFuture<ApiResponse<GetProvidersResponse>> response = fireblocks.earn().getEarnProviders(pageCursor, pageSize, sortBy, order);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling EarnBetaApi#getEarnProviders");
+            System.err.println("Exception when calling EarnApi#getEarnProviders");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
         } catch (ApiException e) {
-            System.err.println("Exception when calling EarnBetaApi#getEarnProviders");
+            System.err.println("Exception when calling EarnApi#getEarnProviders");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Response headers: " + e.getResponseHeaders());
             System.err.println("Reason: " + e.getResponseBody());

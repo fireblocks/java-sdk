@@ -372,6 +372,14 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetBlockchainLinkBetaApi() {
+        setupFireblocks(true, null, null);
+        BlockchainLinkBetaApi blockchainLinkBeta = fireblocks.blockchainLinkBeta();
+        Assert.assertNotNull(blockchainLinkBeta);
+        Assert.assertSame(blockchainLinkBeta, fireblocks.blockchainLinkBeta());
+    }
+
+    @Test
     public void testGetBlockchainsAssetsApi() {
         setupFireblocks(true, null, null);
         BlockchainsAssetsApi blockchainsAssets = fireblocks.blockchainsAssets();
@@ -454,11 +462,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetEarnBetaApi() {
+    public void testGetEarnApi() {
         setupFireblocks(true, null, null);
-        EarnBetaApi earnBeta = fireblocks.earnBeta();
-        Assert.assertNotNull(earnBeta);
-        Assert.assertSame(earnBeta, fireblocks.earnBeta());
+        EarnApi earn = fireblocks.earn();
+        Assert.assertNotNull(earn);
+        Assert.assertSame(earn, fireblocks.earn());
     }
 
     @Test
@@ -595,6 +603,14 @@ public class FireblocksTest {
         PolicyEditorV2Api policyEditorV2 = fireblocks.policyEditorV2();
         Assert.assertNotNull(policyEditorV2);
         Assert.assertSame(policyEditorV2, fireblocks.policyEditorV2());
+    }
+
+    @Test
+    public void testGetPolicyEditorV2BetaApi() {
+        setupFireblocks(true, null, null);
+        PolicyEditorV2BetaApi policyEditorV2Beta = fireblocks.policyEditorV2Beta();
+        Assert.assertNotNull(policyEditorV2Beta);
+        Assert.assertSame(policyEditorV2Beta, fireblocks.policyEditorV2Beta());
     }
 
     @Test

@@ -45,6 +45,7 @@ import java.util.StringJoiner;
     TransactionResponse.JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION,
     TransactionResponse.JSON_PROPERTY_DESTINATION_TAG,
     TransactionResponse.JSON_PROPERTY_CONTRACT_CALL_DECODED_DATA,
+    TransactionResponse.JSON_PROPERTY_PROGRAM_CALL_DECODED_DATA,
     TransactionResponse.JSON_PROPERTY_AMOUNT_INFO,
     TransactionResponse.JSON_PROPERTY_TREAT_AS_GROSS_AMOUNT,
     TransactionResponse.JSON_PROPERTY_FEE_INFO,
@@ -148,6 +149,9 @@ public class TransactionResponse {
 
     @jakarta.annotation.Nullable
     private TransactionResponseContractCallDecodedData contractCallDecodedData;
+
+    public static final String JSON_PROPERTY_PROGRAM_CALL_DECODED_DATA = "programCallDecodedData";
+    @jakarta.annotation.Nullable private List<ProgramCallDecodedDataItem> programCallDecodedData;
 
     public static final String JSON_PROPERTY_AMOUNT_INFO = "amountInfo";
     @jakarta.annotation.Nullable private AmountInfo amountInfo;
@@ -780,6 +784,43 @@ public class TransactionResponse {
             @jakarta.annotation.Nullable
                     TransactionResponseContractCallDecodedData contractCallDecodedData) {
         this.contractCallDecodedData = contractCallDecodedData;
+    }
+
+    public TransactionResponse programCallDecodedData(
+            @jakarta.annotation.Nullable List<ProgramCallDecodedDataItem> programCallDecodedData) {
+        this.programCallDecodedData = programCallDecodedData;
+        return this;
+    }
+
+    public TransactionResponse addProgramCallDecodedDataItem(
+            ProgramCallDecodedDataItem programCallDecodedDataItem) {
+        if (this.programCallDecodedData == null) {
+            this.programCallDecodedData = new ArrayList<>();
+        }
+        this.programCallDecodedData.add(programCallDecodedDataItem);
+        return this;
+    }
+
+    /**
+     * Decoded instruction list for &#x60;PROGRAM_CALL&#x60; (Solana) operations. Each entry
+     * represents one instruction in the transaction, in execution order. Fireblocks-injected
+     * instructions (e.g. &#x60;AdvanceNonceAccount&#x60;, &#x60;ComputeBudget&#x60;) appear first,
+     * followed by the original dApp instructions.
+     *
+     * @return programCallDecodedData
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PROGRAM_CALL_DECODED_DATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<ProgramCallDecodedDataItem> getProgramCallDecodedData() {
+        return programCallDecodedData;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PROGRAM_CALL_DECODED_DATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setProgramCallDecodedData(
+            @jakarta.annotation.Nullable List<ProgramCallDecodedDataItem> programCallDecodedData) {
+        this.programCallDecodedData = programCallDecodedData;
     }
 
     public TransactionResponse amountInfo(@jakarta.annotation.Nullable AmountInfo amountInfo) {
@@ -1869,6 +1910,8 @@ public class TransactionResponse {
                 && Objects.equals(this.destinationTag, transactionResponse.destinationTag)
                 && Objects.equals(
                         this.contractCallDecodedData, transactionResponse.contractCallDecodedData)
+                && Objects.equals(
+                        this.programCallDecodedData, transactionResponse.programCallDecodedData)
                 && Objects.equals(this.amountInfo, transactionResponse.amountInfo)
                 && Objects.equals(this.treatAsGrossAmount, transactionResponse.treatAsGrossAmount)
                 && Objects.equals(this.feeInfo, transactionResponse.feeInfo)
@@ -1935,6 +1978,7 @@ public class TransactionResponse {
                 destinationAddressDescription,
                 destinationTag,
                 contractCallDecodedData,
+                programCallDecodedData,
                 amountInfo,
                 treatAsGrossAmount,
                 feeInfo,
@@ -2006,6 +2050,9 @@ public class TransactionResponse {
         sb.append("    destinationTag: ").append(toIndentedString(destinationTag)).append("\n");
         sb.append("    contractCallDecodedData: ")
                 .append(toIndentedString(contractCallDecodedData))
+                .append("\n");
+        sb.append("    programCallDecodedData: ")
+                .append(toIndentedString(programCallDecodedData))
                 .append("\n");
         sb.append("    amountInfo: ").append(toIndentedString(amountInfo)).append("\n");
         sb.append("    treatAsGrossAmount: ")
@@ -2287,6 +2334,29 @@ public class TransactionResponse {
             joiner.add(
                     getContractCallDecodedData()
                             .toUrlQueryString(prefix + "contractCallDecodedData" + suffix));
+        }
+
+        // add `programCallDecodedData` to the URL query string
+        if (getProgramCallDecodedData() != null) {
+            for (int i = 0; i < getProgramCallDecodedData().size(); i++) {
+                if (getProgramCallDecodedData().get(i) != null) {
+                    joiner.add(
+                            getProgramCallDecodedData()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%sprogramCallDecodedData%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
         }
 
         // add `amountInfo` to the URL query string

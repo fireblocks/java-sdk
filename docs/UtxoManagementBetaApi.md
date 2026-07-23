@@ -11,7 +11,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 ## getUtxos
 
-> CompletableFuture<ApiResponse<ListUtxosResponse>> getUtxos getUtxos(vaultAccountId, assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels, excludeAnyLabels, includeStatuses, address, minAmount, maxAmount)
+> CompletableFuture<ApiResponse<ListUtxosResponse>> getUtxos getUtxos(vaultAccountId, assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels, excludeAnyLabels, includeStatuses, address, txHash, txId, minAmount, maxAmount)
 
 List unspent outputs (UTXOs)
 
@@ -51,10 +51,12 @@ public class Example {
         List<String> excludeAnyLabels = Arrays.asList(); // List<String> | Exclude UTXOs that have ANY of these labels.
         List<String> includeStatuses = Arrays.asList(); // List<String> | Filter by UTXO statuses to include.
         String address = "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"; // String | Filter by address
+        String txHash = "0000000000000000000a1b2c3d4e5f60718293a4b5c6d7e8f900112233445566"; // String | Filter by the on-chain hash of the transaction that created the UTXOs. Returns all UTXOs originating from that transaction.
+        UUID txId = UUID.fromString("f47ac10b-58cc-4372-a567-0e02b2c3d479"); // UUID | Filter by the Fireblocks transaction ID that created the UTXOs.
         String minAmount = "0.001"; // String | Minimum amount filter
         String maxAmount = "1.0"; // String | Maximum amount filter
         try {
-            CompletableFuture<ApiResponse<ListUtxosResponse>> response = fireblocks.utxoManagementBeta().getUtxos(vaultAccountId, assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels, excludeAnyLabels, includeStatuses, address, minAmount, maxAmount);
+            CompletableFuture<ApiResponse<ListUtxosResponse>> response = fireblocks.utxoManagementBeta().getUtxos(vaultAccountId, assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels, excludeAnyLabels, includeStatuses, address, txHash, txId, minAmount, maxAmount);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -92,6 +94,8 @@ public class Example {
 | **excludeAnyLabels** | [**List&lt;String&gt;**](String.md)| Exclude UTXOs that have ANY of these labels. | [optional] |
 | **includeStatuses** | [**List&lt;String&gt;**](String.md)| Filter by UTXO statuses to include. | [optional] |
 | **address** | **String**| Filter by address | [optional] |
+| **txHash** | **String**| Filter by the on-chain hash of the transaction that created the UTXOs. Returns all UTXOs originating from that transaction. | [optional] |
+| **txId** | **UUID**| Filter by the Fireblocks transaction ID that created the UTXOs. | [optional] |
 | **minAmount** | **String**| Minimum amount filter | [optional] |
 | **maxAmount** | **String**| Maximum amount filter | [optional] |
 
