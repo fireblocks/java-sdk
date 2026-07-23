@@ -18,6 +18,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,7 +30,8 @@ import java.util.StringJoiner;
     CreateTagRequest.JSON_PROPERTY_DESCRIPTION,
     CreateTagRequest.JSON_PROPERTY_COLOR,
     CreateTagRequest.JSON_PROPERTY_IS_PROTECTED,
-    CreateTagRequest.JSON_PROPERTY_TYPE
+    CreateTagRequest.JSON_PROPERTY_TYPE,
+    CreateTagRequest.JSON_PROPERTY_ALLOWED_ENTITY_TYPES
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -47,6 +51,11 @@ public class CreateTagRequest {
 
     public static final String JSON_PROPERTY_TYPE = "type";
     @jakarta.annotation.Nullable private TagType type;
+
+    public static final String JSON_PROPERTY_ALLOWED_ENTITY_TYPES = "allowedEntityTypes";
+
+    @jakarta.annotation.Nullable
+    private List<String> allowedEntityTypes = new ArrayList<>(Arrays.asList("vault_account"));
 
     public CreateTagRequest() {}
 
@@ -171,6 +180,41 @@ public class CreateTagRequest {
         this.type = type;
     }
 
+    public CreateTagRequest allowedEntityTypes(
+            @jakarta.annotation.Nullable List<String> allowedEntityTypes) {
+        this.allowedEntityTypes = allowedEntityTypes;
+        return this;
+    }
+
+    public CreateTagRequest addAllowedEntityTypesItem(String allowedEntityTypesItem) {
+        if (this.allowedEntityTypes == null) {
+            this.allowedEntityTypes = new ArrayList<>(Arrays.asList("vault_account"));
+        }
+        this.allowedEntityTypes.add(allowedEntityTypesItem);
+        return this;
+    }
+
+    /**
+     * Allow-list of entity types this tag may be attached to. Soft-defaults to
+     * [&#39;vault_account&#39;] when omitted, and is immutable after creation. Known values:
+     * vault_account (default), contact.
+     *
+     * @return allowedEntityTypes
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ALLOWED_ENTITY_TYPES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<String> getAllowedEntityTypes() {
+        return allowedEntityTypes;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ALLOWED_ENTITY_TYPES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAllowedEntityTypes(
+            @jakarta.annotation.Nullable List<String> allowedEntityTypes) {
+        this.allowedEntityTypes = allowedEntityTypes;
+    }
+
     /** Return true if this CreateTagRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -185,12 +229,13 @@ public class CreateTagRequest {
                 && Objects.equals(this.description, createTagRequest.description)
                 && Objects.equals(this.color, createTagRequest.color)
                 && Objects.equals(this.isProtected, createTagRequest.isProtected)
-                && Objects.equals(this.type, createTagRequest.type);
+                && Objects.equals(this.type, createTagRequest.type)
+                && Objects.equals(this.allowedEntityTypes, createTagRequest.allowedEntityTypes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(label, description, color, isProtected, type);
+        return Objects.hash(label, description, color, isProtected, type, allowedEntityTypes);
     }
 
     @Override
@@ -202,6 +247,9 @@ public class CreateTagRequest {
         sb.append("    color: ").append(toIndentedString(color)).append("\n");
         sb.append("    isProtected: ").append(toIndentedString(isProtected)).append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    allowedEntityTypes: ")
+                .append(toIndentedString(allowedEntityTypes))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -297,6 +345,23 @@ public class CreateTagRequest {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getType()))));
+        }
+
+        // add `allowedEntityTypes` to the URL query string
+        if (getAllowedEntityTypes() != null) {
+            for (int i = 0; i < getAllowedEntityTypes().size(); i++) {
+                joiner.add(
+                        String.format(
+                                "%sallowedEntityTypes%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getAllowedEntityTypes().get(i)))));
+            }
         }
 
         return joiner.toString();

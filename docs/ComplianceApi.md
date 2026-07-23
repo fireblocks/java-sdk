@@ -34,6 +34,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**registerLegalEntity**](ComplianceApi.md#registerLegalEntity) | **POST** /legal_entities | Register a new legal entity |
 | [**removeAddressRegistryVaultOptOut**](ComplianceApi.md#removeAddressRegistryVaultOptOut) | **DELETE** /address_registry/vaults/{vaultAccountId} | Remove a single vault account from the address registry opt-out list |
 | [**removeAllAddressRegistryVaultOptOuts**](ComplianceApi.md#removeAllAddressRegistryVaultOptOuts) | **DELETE** /address_registry/vaults | Remove all vault-level address registry opt-outs for the workspace |
+| [**rescreenRejectedTransaction**](ComplianceApi.md#rescreenRejectedTransaction) | **POST** /screening/transaction/{txId}/rescreen | Rescreen a rejected transaction |
 | [**retryRejectedTransactionBypassScreeningChecks**](ComplianceApi.md#retryRejectedTransactionBypassScreeningChecks) | **POST** /screening/transaction/{txId}/bypass_screening_policy | Bypass Screening Policy |
 | [**setAmlVerdict**](ComplianceApi.md#setAmlVerdict) | **POST** /screening/aml/verdict/manual | Set AML Verdict (BYORK Super Light) |
 | [**setByorkTimeouts**](ComplianceApi.md#setByorkTimeouts) | **PUT** /screening/byork/config/timeouts | Set BYORK Light timeouts |
@@ -2544,6 +2545,93 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | All opt-outs cleared; response body includes &#x60;removedCount&#x60;. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## rescreenRejectedTransaction
+
+> CompletableFuture<ApiResponse<RescreenTransactionResponse>> rescreenRejectedTransaction rescreenRejectedTransaction(txId, rescreenTransactionRequest, idempotencyKey)
+
+Rescreen a rejected transaction
+
+Re-runs compliance screening on an incoming transaction that was rejected or failed by screening checks, moving it back to pending screening. This endpoint is only applicable to incoming transactions with a rejected/failed AML screening status.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String txId = "550e8400-e29b-41d4-a716-446655440000"; // String | The transaction id that was rejected by screening checks
+        RescreenTransactionRequest rescreenTransactionRequest = new RescreenTransactionRequest(); // RescreenTransactionRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<RescreenTransactionResponse>> response = fireblocks.compliance().rescreenRejectedTransaction(txId, rescreenTransactionRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#rescreenRejectedTransaction");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ComplianceApi#rescreenRejectedTransaction");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **txId** | **String**| The transaction id that was rejected by screening checks | |
+| **rescreenTransactionRequest** | [**RescreenTransactionRequest**](RescreenTransactionRequest.md)|  | [optional] |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**RescreenTransactionResponse**](RescreenTransactionResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Rescreen result |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

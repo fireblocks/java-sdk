@@ -548,6 +548,618 @@ paths:
           \ page_cursor, cursor);"
       x-accepts:
       - application/json
+  /blockchain_link/blockchains:
+    get:
+      description: "Returns the tenant's blockchains, paginated and filterable by\
+        \ state, network environment, and free-text search, with configurable sorting."
+      operationId: listBlockchainLinkChains
+      parameters:
+      - description: "tenant_id is extracted from JWT token context. Opaque cursor\
+          \ for the requested page. Currently encodes the 1-based page number as a\
+          \ decimal string (\"1\", \"2\", ...); treat as opaque on the client. Absent\
+          \ = first page."
+        example: "1"
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Maximum number of items per page. Default 20, clamped to [1,\
+          \ 1000]."
+        example: 20
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 20
+          maximum: 1000
+          minimum: 1
+          type: number
+        style: form
+      - description: Free-text search across chain and symbol name.
+        example: eth
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Include filter (repeated query params).
+        example:
+        - BLOCKCHAIN_STATE_ACTIVATED
+        explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/BlockchainStateFilter"
+          type: array
+        style: form
+      - description: Filter by network.
+        explode: true
+        in: query
+        name: blockchainEnv
+        required: false
+        schema:
+          $ref: "#/components/schemas/BlockchainEnvironment"
+        style: form
+      - description: "Sort field. Default: createdAt."
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          $ref: "#/components/schemas/BlockchainSortField"
+        style: form
+      - description: "Sort order. Default: DESC."
+        example: DESC
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      - description: Exclude filter (repeated query params).
+        example:
+        - BLOCKCHAIN_STATE_DEACTIVATED
+        explode: true
+        in: query
+        name: statusExclude
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/BlockchainStateFilter"
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListBlockchainsResponse-2"
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: List blockchains with pagination and filtering
+      tags:
+      - Blockchain link (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ListBlockchainsResponse>>\
+            \ = fireblocks.blockchainLinkBeta.listBlockchainLinkChains(blockchainLinkBetaApiListBlockchainLinkChainsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ListBlockchainsResponse>> response\
+            \ = fireblocks.blockchainLinkBeta().listBlockchainLinkChains(pageCursor,\
+            \ pageSize, search, status, blockchainEnv, sortBy, order, statusExclude);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.blockchain_link_beta.list_blockchain_link_chains(page_cursor,\
+            \ page_size, search, status, blockchain_env, sort_by, order, status_exclude);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ListBlockchainsResponse>>\
+          \ = fireblocks.blockchainLinkBeta.listBlockchainLinkChains(blockchainLinkBetaApiListBlockchainLinkChainsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ListBlockchainsResponse>> response\
+          \ = fireblocks.blockchainLinkBeta().listBlockchainLinkChains(pageCursor,\
+          \ pageSize, search, status, blockchainEnv, sortBy, order, statusExclude);"
+      - lang: Python
+        source: "response = fireblocks.blockchain_link_beta.list_blockchain_link_chains(page_cursor,\
+          \ page_size, search, status, blockchain_env, sort_by, order, status_exclude);"
+      x-accepts:
+      - application/json
+    post:
+      description: Registers a new tenant-managed blockchain from the supplied declared
+        properties. The blockchain starts in the CREATED state and must be activated
+        separately before it can be used.
+      operationId: createBlockchainLinkChain
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBlockchainRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateBlockchainResponse"
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Create a new blockchain
+      tags:
+      - Blockchain link (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateBlockchainResponse>>\
+            \ = fireblocks.blockchainLinkBeta.createBlockchainLinkChain(blockchainLinkBetaApiCreateBlockchainLinkChainRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CreateBlockchainResponse>> response\
+            \ = fireblocks.blockchainLinkBeta().createBlockchainLinkChain(createBlockchainRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.blockchain_link_beta.create_blockchain_link_chain(create_blockchain_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CreateBlockchainResponse>>\
+          \ = fireblocks.blockchainLinkBeta.createBlockchainLinkChain(blockchainLinkBetaApiCreateBlockchainLinkChainRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<CreateBlockchainResponse>> response\
+          \ = fireblocks.blockchainLinkBeta().createBlockchainLinkChain(createBlockchainRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.blockchain_link_beta.create_blockchain_link_chain(create_blockchain_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /blockchain_link/blockchains/{blockchainId}:
+    delete:
+      description: Permanently removes a blockchain identified by its ID. The blockchain
+        must not be in an active lifecycle state.
+      operationId: deleteBlockchainLinkChain
+      parameters:
+      - description: tenant_id is extracted from JWT token context
+        explode: false
+        in: path
+        name: blockchainId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Delete a blockchain
+      tags:
+      - Blockchain link (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.blockchainLinkBeta.deleteBlockchainLinkChain(blockchainLinkBetaApiDeleteBlockchainLinkChainRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.blockchainLinkBeta().deleteBlockchainLinkChain(blockchainId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.blockchain_link_beta.delete_blockchain_link_chain(blockchain_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.blockchainLinkBeta.deleteBlockchainLinkChain(blockchainLinkBetaApiDeleteBlockchainLinkChainRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<Void>> response = fireblocks.blockchainLinkBeta().deleteBlockchainLinkChain(blockchainId);
+      - lang: Python
+        source: response = fireblocks.blockchain_link_beta.delete_blockchain_link_chain(blockchain_id);
+      x-accepts:
+      - application/json
+    get:
+      description: "Returns a single blockchain owned by the tenant, identified by\
+        \ its ID."
+      operationId: getBlockchainLinkChain
+      parameters:
+      - description: ID of the blockchain to retrieve (supplied as a path parameter).
+        explode: false
+        in: path
+        name: blockchainId
+        required: true
+        schema:
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetBlockchainByIdResponse"
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get a blockchain by ID
+      tags:
+      - Blockchain link (Beta)
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetBlockchainByIdResponse>>\
+            \ = fireblocks.blockchainLinkBeta.getBlockchainLinkChain(blockchainLinkBetaApiGetBlockchainLinkChainRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetBlockchainByIdResponse>> response
+            = fireblocks.blockchainLinkBeta().getBlockchainLinkChain(blockchainId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.blockchain_link_beta.get_blockchain_link_chain(blockchain_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetBlockchainByIdResponse>>\
+          \ = fireblocks.blockchainLinkBeta.getBlockchainLinkChain(blockchainLinkBetaApiGetBlockchainLinkChainRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<GetBlockchainByIdResponse>> response
+          = fireblocks.blockchainLinkBeta().getBlockchainLinkChain(blockchainId);
+      - lang: Python
+        source: response = fireblocks.blockchain_link_beta.get_blockchain_link_chain(blockchain_id);
+      x-accepts:
+      - application/json
+    put:
+      description: Updates the declared properties of an existing blockchain identified
+        by its ID. Only the fields supplied in the request are modified.
+      operationId: updateBlockchainLinkChain
+      parameters:
+      - description: ID of the blockchain to update (supplied as a path parameter).
+        explode: false
+        in: path
+        name: blockchainId
+        required: true
+        schema:
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BlockchainDeclaredProperties"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateBlockchainResponse"
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Update a blockchain
+      tags:
+      - Blockchain link (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UpdateBlockchainResponse>>\
+            \ = fireblocks.blockchainLinkBeta.updateBlockchainLinkChain(blockchainLinkBetaApiUpdateBlockchainLinkChainRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<UpdateBlockchainResponse>> response\
+            \ = fireblocks.blockchainLinkBeta().updateBlockchainLinkChain(blockchainDeclaredProperties,\
+            \ blockchainId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.blockchain_link_beta.update_blockchain_link_chain(blockchain_declared_properties,\
+            \ blockchain_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<UpdateBlockchainResponse>>\
+          \ = fireblocks.blockchainLinkBeta.updateBlockchainLinkChain(blockchainLinkBetaApiUpdateBlockchainLinkChainRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<UpdateBlockchainResponse>> response\
+          \ = fireblocks.blockchainLinkBeta().updateBlockchainLinkChain(blockchainDeclaredProperties,\
+          \ blockchainId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.blockchain_link_beta.update_blockchain_link_chain(blockchain_declared_properties,\
+          \ blockchain_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /blockchain_link/blockchains/{blockchainId}/activate:
+    post:
+      description: "Starts the asynchronous activation workflow for the blockchain\
+        \ identified by its ID, transitioning it towards the ACTIVATED state."
+      operationId: activateBlockchainLinkChain
+      parameters:
+      - description: Required blockchain ID to activate
+        explode: false
+        in: path
+        name: blockchainId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActivateBlockchainResponse"
+          description: Accepted
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Activate a blockchain (triggers activation workflow)
+      tags:
+      - Blockchain link (Beta)
+      x-rate-limit-category: async
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ActivateBlockchainResponse>>\
+            \ = fireblocks.blockchainLinkBeta.activateBlockchainLinkChain(blockchainLinkBetaApiActivateBlockchainLinkChainRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ActivateBlockchainResponse>> response\
+            \ = fireblocks.blockchainLinkBeta().activateBlockchainLinkChain(blockchainId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.blockchain_link_beta.activate_blockchain_link_chain(blockchain_id,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ActivateBlockchainResponse>>\
+          \ = fireblocks.blockchainLinkBeta.activateBlockchainLinkChain(blockchainLinkBetaApiActivateBlockchainLinkChainRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ActivateBlockchainResponse>> response\
+          \ = fireblocks.blockchainLinkBeta().activateBlockchainLinkChain(blockchainId,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.blockchain_link_beta.activate_blockchain_link_chain(blockchain_id,\
+          \ idempotency_key);"
+      x-accepts:
+      - application/json
+  /blockchain_link/blockchains/{blockchainId}/validate:
+    post:
+      description: Starts the asynchronous validation workflow for a blockchain and
+        its associated validation session.
+      operationId: triggerBlockchainLinkValidation
+      parameters:
+      - description: ID of the blockchain to validate.
+        explode: false
+        in: path
+        name: blockchainId
+        required: true
+        schema:
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          format: uuid
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TriggerValidationFlowResponse"
+          description: Accepted
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Trigger validation workflow
+      tags:
+      - Blockchain link (Beta)
+      x-rate-limit-category: async
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TriggerValidationFlowResponse>>\
+            \ = fireblocks.blockchainLinkBeta.triggerBlockchainLinkValidation(blockchainLinkBetaApiTriggerBlockchainLinkValidationRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TriggerValidationFlowResponse>> response\
+            \ = fireblocks.blockchainLinkBeta().triggerBlockchainLinkValidation(blockchainId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.blockchain_link_beta.trigger_blockchain_link_validation(blockchain_id,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<TriggerValidationFlowResponse>>\
+          \ = fireblocks.blockchainLinkBeta.triggerBlockchainLinkValidation(blockchainLinkBetaApiTriggerBlockchainLinkValidationRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<TriggerValidationFlowResponse>> response\
+          \ = fireblocks.blockchainLinkBeta().triggerBlockchainLinkValidation(blockchainId,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.blockchain_link_beta.trigger_blockchain_link_validation(blockchain_id,\
+          \ idempotency_key);"
+      x-accepts:
+      - application/json
+  /blockchain_link/blockchains/billing_info:
+    get:
+      description: Returns the tenant's blockchain activation limit and current usage.
+        tenant_id is derived from the JWT token context.
+      operationId: getBlockchainLinkBillingInfo
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetBillingInfoResponse"
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get tenant billing info
+      tags:
+      - Blockchain link (Beta)
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetBillingInfoResponse>>\
+            \ = fireblocks.blockchainLinkBeta.getBlockchainLinkBillingInfo();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetBillingInfoResponse>> response =
+            fireblocks.blockchainLinkBeta().getBlockchainLinkBillingInfo();
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.blockchain_link_beta.get_blockchain_link_billing_info();
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetBillingInfoResponse>>\
+          \ = fireblocks.blockchainLinkBeta.getBlockchainLinkBillingInfo();"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<GetBillingInfoResponse>> response =
+          fireblocks.blockchainLinkBeta().getBlockchainLinkBillingInfo();
+      - lang: Python
+        source: response = fireblocks.blockchain_link_beta.get_blockchain_link_billing_info();
+      x-accepts:
+      - application/json
+  /blockchain_link/blockchains/test_wallet_address:
+    get:
+      description: "Returns the Ethereum address derived from the configured external\
+        \ wallet private key, used by the UI for test transfers. tenant_id is derived\
+        \ from the JWT token context."
+      operationId: getBlockchainLinkTestWalletAddress
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetTestWalletAddressResponse"
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get the test wallet address
+      tags:
+      - Blockchain link (Beta)
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetTestWalletAddressResponse>>\
+            \ = fireblocks.blockchainLinkBeta.getBlockchainLinkTestWalletAddress();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetTestWalletAddressResponse>> response
+            = fireblocks.blockchainLinkBeta().getBlockchainLinkTestWalletAddress();
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.blockchain_link_beta.get_blockchain_link_test_wallet_address();
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetTestWalletAddressResponse>>\
+          \ = fireblocks.blockchainLinkBeta.getBlockchainLinkTestWalletAddress();"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<GetTestWalletAddressResponse>> response
+          = fireblocks.blockchainLinkBeta().getBlockchainLinkTestWalletAddress();
+      - lang: Python
+        source: response = fireblocks.blockchain_link_beta.get_blockchain_link_test_wallet_address();
+      x-accepts:
+      - application/json
   /assets:
     get:
       description: |
@@ -3885,6 +4497,85 @@ paths:
           \ idempotency_key);"
       x-accepts:
       - application/json
+  /screening/transaction/{txId}/rescreen:
+    post:
+      description: "Re-runs compliance screening on an incoming transaction that was\
+        \ rejected or failed by screening checks, moving it back to pending screening.\
+        \ This endpoint is only applicable to incoming transactions with a rejected/failed\
+        \ AML screening status."
+      operationId: rescreenRejectedTransaction
+      parameters:
+      - description: The transaction id that was rejected by screening checks
+        example: 550e8400-e29b-41d4-a716-446655440000
+        explode: false
+        in: path
+        name: txId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RescreenTransactionRequest"
+        required: false
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RescreenTransactionResponse"
+          description: Rescreen result
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Rescreen a rejected transaction
+      tags:
+      - Compliance
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<RescreenTransactionResponse>>\
+            \ = fireblocks.compliance.rescreenRejectedTransaction(complianceApiRescreenRejectedTransactionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<RescreenTransactionResponse>> response\
+            \ = fireblocks.compliance().rescreenRejectedTransaction(txId, rescreenTransactionRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.compliance.rescreen_rejected_transaction(tx_id,\
+            \ rescreen_transaction_request, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<RescreenTransactionResponse>>\
+          \ = fireblocks.compliance.rescreenRejectedTransaction(complianceApiRescreenRejectedTransactionRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<RescreenTransactionResponse>> response\
+          \ = fireblocks.compliance().rescreenRejectedTransaction(txId, rescreenTransactionRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.compliance.rescreen_rejected_transaction(tx_id,\
+          \ rescreen_transaction_request, idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
   /screening/travel_rule/policy_configuration:
     get:
       description: Retrieves the configuration for Travel Rule screening policy.
@@ -4140,7 +4831,7 @@ paths:
         Creates a new connected account for the authenticated tenant.
 
         The `creds` field must be a Base64-encoded RSA-encrypted credential blob.
-        Use `GET /exchange_accounts/credentials_public_key` to retrieve the public key for encryption.
+        Use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption.
 
         The `providerType` is derived server-side from the `providerId` — callers do not supply it.
 
@@ -4435,18 +5126,6 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: Field to sort results by.
-        explode: true
-        in: query
-        name: sortBy
-        required: false
-        schema:
-          default: addedAt
-          enum:
-          - addedAt
-          - lastSyncedAt
-          type: string
-        style: form
       - description: Sort order (ASC or DESC).
         explode: true
         in: query
@@ -4493,12 +5172,11 @@ paths:
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<AllowlistResponse>> response = fireblocks.connectedAccountsBeta().getConnectedAccountAllowlist(accountId,\
-            \ status, assetId, networkId, address, pageCursor, pageSize, sortBy, order);"
+            \ status, assetId, networkId, address, pageCursor, pageSize, order);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.connected_accounts_beta.get_connected_account_allowlist(account_id,\
-            \ status, asset_id, network_id, address, page_cursor, page_size, sort_by,\
-            \ order);"
+            \ status, asset_id, network_id, address, page_cursor, page_size, order);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -4506,11 +5184,10 @@ paths:
           \ fireblocks.connectedAccountsBeta.getConnectedAccountAllowlist(connectedAccountsBetaApiGetConnectedAccountAllowlistRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<AllowlistResponse>> response = fireblocks.connectedAccountsBeta().getConnectedAccountAllowlist(accountId,\
-          \ status, assetId, networkId, address, pageCursor, pageSize, sortBy, order);"
+          \ status, assetId, networkId, address, pageCursor, pageSize, order);"
       - lang: Python
         source: "response = fireblocks.connected_accounts_beta.get_connected_account_allowlist(account_id,\
-          \ status, asset_id, network_id, address, page_cursor, page_size, sort_by,\
-          \ order);"
+          \ status, asset_id, network_id, address, page_cursor, page_size, order);"
       x-accepts:
       - application/json
   /connected_accounts/{accountId}/allowlist/{allowlistId}:
@@ -5001,6 +5678,55 @@ paths:
         source: "response = fireblocks.connected_accounts_beta.rename_connected_account(rename_connected_account_request,\
           \ account_id, idempotency_key);"
       x-content-type: application/json
+      x-accepts:
+      - application/json
+  /connected_accounts/credentials/public_key:
+    get:
+      description: |
+        Returns the RSA public key used to encrypt the `creds` field before calling `POST /connected_accounts`.
+
+        The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context.
+
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+      operationId: getConnectedAccountsCredentialsPublicKey
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetConnectedAccountsCredentialsPublicKeyResponse"
+          description: Public key retrieved successfully.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get public key to encrypt connected account credentials
+      tags:
+      - Connected Accounts (Beta)
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetConnectedAccountsCredentialsPublicKeyResponse>>\
+            \ = fireblocks.connectedAccountsBeta.getConnectedAccountsCredentialsPublicKey();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetConnectedAccountsCredentialsPublicKeyResponse>>
+            response = fireblocks.connectedAccountsBeta().getConnectedAccountsCredentialsPublicKey();
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.connected_accounts_beta.get_connected_accounts_credentials_public_key();
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetConnectedAccountsCredentialsPublicKeyResponse>>\
+          \ = fireblocks.connectedAccountsBeta.getConnectedAccountsCredentialsPublicKey();"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<GetConnectedAccountsCredentialsPublicKeyResponse>>
+          response = fireblocks.connectedAccountsBeta().getConnectedAccountsCredentialsPublicKey();
+      - lang: Python
+        source: response = fireblocks.connected_accounts_beta.get_connected_accounts_credentials_public_key();
       x-accepts:
       - application/json
   /management/users:
@@ -7788,8 +8514,6 @@ paths:
     get:
       description: |
         Returns a paginated list of lending actions (deposits and withdrawals) for the authenticated tenant.
-
-        **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: getEarnActions
       parameters:
       - description: Cursor for the next or previous page of results.
@@ -7887,31 +8611,31 @@ paths:
           $ref: "#/components/responses/Error"
       summary: List earn lending actions
       tags:
-      - Earn (Beta)
+      - Earn
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<GetActionsResponse>> =\
-            \ fireblocks.earnBeta.getEarnActions(earnBetaApiGetEarnActionsRequest);"
+            \ fireblocks.earn.getEarnActions(earnApiGetEarnActionsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<GetActionsResponse>> response = fireblocks.earnBeta().getEarnActions(pageCursor,\
+          code: "CompletableFuture<ApiResponse<GetActionsResponse>> response = fireblocks.earn().getEarnActions(pageCursor,\
             \ pageSize, sortBy, order);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.earn_beta.get_earn_actions(page_cursor, page_size,\
+          code: "response = fireblocks.earn.get_earn_actions(page_cursor, page_size,\
             \ sort_by, order);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<GetActionsResponse>> =\
-          \ fireblocks.earnBeta.getEarnActions(earnBetaApiGetEarnActionsRequest);"
+          \ fireblocks.earn.getEarnActions(earnApiGetEarnActionsRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<GetActionsResponse>> response = fireblocks.earnBeta().getEarnActions(pageCursor,\
+        source: "CompletableFuture<ApiResponse<GetActionsResponse>> response = fireblocks.earn().getEarnActions(pageCursor,\
           \ pageSize, sortBy, order);"
       - lang: Python
-        source: "response = fireblocks.earn_beta.get_earn_actions(page_cursor, page_size,\
+        source: "response = fireblocks.earn.get_earn_actions(page_cursor, page_size,\
           \ sort_by, order);"
       x-accepts:
       - application/json
@@ -7919,8 +8643,6 @@ paths:
       description: |
         Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal from an earn
         vault/market. Specify the operation with `action` in the request body (`DEPOSIT` or `WITHDRAW`).
-
-        **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: createEarnAction
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -8002,31 +8724,31 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Create and execute a lending action (deposit or withdraw)
       tags:
-      - Earn (Beta)
+      - Earn
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<CreateEarnActionResponse>>\
-            \ = fireblocks.earnBeta.createEarnAction(earnBetaApiCreateEarnActionRequest);"
+            \ = fireblocks.earn.createEarnAction(earnApiCreateEarnActionRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<CreateEarnActionResponse>> response\
-            \ = fireblocks.earnBeta().createEarnAction(createEarnActionRequest, idempotencyKey);"
+            \ = fireblocks.earn().createEarnAction(createEarnActionRequest, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.earn_beta.create_earn_action(create_earn_action_request,\
+          code: "response = fireblocks.earn.create_earn_action(create_earn_action_request,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<CreateEarnActionResponse>>\
-          \ = fireblocks.earnBeta.createEarnAction(earnBetaApiCreateEarnActionRequest);"
+          \ = fireblocks.earn.createEarnAction(earnApiCreateEarnActionRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<CreateEarnActionResponse>> response\
-          \ = fireblocks.earnBeta().createEarnAction(createEarnActionRequest, idempotencyKey);"
+          \ = fireblocks.earn().createEarnAction(createEarnActionRequest, idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.earn_beta.create_earn_action(create_earn_action_request,\
+        source: "response = fireblocks.earn.create_earn_action(create_earn_action_request,\
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -8035,8 +8757,6 @@ paths:
     get:
       description: |
         Returns one lending action by its action sequence id (tenant-scoped).
-
-        **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: getEarnAction
       parameters:
       - description: Action sequence id (UUID).
@@ -8100,36 +8820,34 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get a single earn lending action
       tags:
-      - Earn (Beta)
+      - Earn
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<GetActionResponse>> =\
-            \ fireblocks.earnBeta.getEarnAction(earnBetaApiGetEarnActionRequest);"
+            \ fireblocks.earn.getEarnAction(earnApiGetEarnActionRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<GetActionResponse>> response = fireblocks.earnBeta().getEarnAction(id);
+          code: CompletableFuture<ApiResponse<GetActionResponse>> response = fireblocks.earn().getEarnAction(id);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.earn_beta.get_earn_action(id);
+          code: response = fireblocks.earn.get_earn_action(id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<GetActionResponse>> =\
-          \ fireblocks.earnBeta.getEarnAction(earnBetaApiGetEarnActionRequest);"
+          \ fireblocks.earn.getEarnAction(earnApiGetEarnActionRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<GetActionResponse>> response = fireblocks.earnBeta().getEarnAction(id);
+        source: CompletableFuture<ApiResponse<GetActionResponse>> response = fireblocks.earn().getEarnAction(id);
       - lang: Python
-        source: response = fireblocks.earn_beta.get_earn_action(id);
+        source: response = fireblocks.earn.get_earn_action(id);
       x-accepts:
       - application/json
   /earn/opportunities:
     get:
       description: |
         Get list of earn opportunities (vaults).
-
-        **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: getEarnOpportunities
       parameters:
       - description: Cursor for the next or previous page of results.
@@ -8224,41 +8942,41 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get list of earn opportunities
       tags:
-      - Earn (Beta)
+      - Earn
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<GetOpportunitiesResponse>>\
-            \ = fireblocks.earnBeta.getEarnOpportunities(earnBetaApiGetEarnOpportunitiesRequest);"
+            \ = fireblocks.earn.getEarnOpportunities(earnApiGetEarnOpportunitiesRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<GetOpportunitiesResponse>> response\
-            \ = fireblocks.earnBeta().getEarnOpportunities(pageCursor, pageSize, sortBy,\
+            \ = fireblocks.earn().getEarnOpportunities(pageCursor, pageSize, sortBy,\
             \ order);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.earn_beta.get_earn_opportunities(page_cursor,\
-            \ page_size, sort_by, order);"
+          code: "response = fireblocks.earn.get_earn_opportunities(page_cursor, page_size,\
+            \ sort_by, order);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<GetOpportunitiesResponse>>\
-          \ = fireblocks.earnBeta.getEarnOpportunities(earnBetaApiGetEarnOpportunitiesRequest);"
+          \ = fireblocks.earn.getEarnOpportunities(earnApiGetEarnOpportunitiesRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<GetOpportunitiesResponse>> response\
-          \ = fireblocks.earnBeta().getEarnOpportunities(pageCursor, pageSize, sortBy,\
+          \ = fireblocks.earn().getEarnOpportunities(pageCursor, pageSize, sortBy,\
           \ order);"
       - lang: Python
-        source: "response = fireblocks.earn_beta.get_earn_opportunities(page_cursor,\
-          \ page_size, sort_by, order);"
+        source: "response = fireblocks.earn.get_earn_opportunities(page_cursor, page_size,\
+          \ sort_by, order);"
       x-accepts:
       - application/json
   /earn/positions:
     get:
-      description: "Get list of earn positions for accounts tracked for this workspace.\
-        \ \nOptional query parameters filter by chain, provider, and pagination.\n\
-        \n**Note:** This endpoint is currently in beta and might be subject to changes.\n"
+      description: |
+        Get list of earn positions for accounts tracked for this workspace.
+        Optional query parameters filter by chain, provider, and pagination.
       operationId: getEarnPositions
       parameters:
       - explode: true
@@ -8371,31 +9089,31 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get list of earn positions
       tags:
-      - Earn (Beta)
+      - Earn
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<GetPositionsResponse>>\
-            \ = fireblocks.earnBeta.getEarnPositions(earnBetaApiGetEarnPositionsRequest);"
+            \ = fireblocks.earn.getEarnPositions(earnApiGetEarnPositionsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<GetPositionsResponse>> response = fireblocks.earnBeta().getEarnPositions(chainId,\
+          code: "CompletableFuture<ApiResponse<GetPositionsResponse>> response = fireblocks.earn().getEarnPositions(chainId,\
             \ providerId, pageCursor, pageSize, sortBy, order);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.earn_beta.get_earn_positions(chain_id, provider_id,\
+          code: "response = fireblocks.earn.get_earn_positions(chain_id, provider_id,\
             \ page_cursor, page_size, sort_by, order);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<GetPositionsResponse>>\
-          \ = fireblocks.earnBeta.getEarnPositions(earnBetaApiGetEarnPositionsRequest);"
+          \ = fireblocks.earn.getEarnPositions(earnApiGetEarnPositionsRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<GetPositionsResponse>> response = fireblocks.earnBeta().getEarnPositions(chainId,\
+        source: "CompletableFuture<ApiResponse<GetPositionsResponse>> response = fireblocks.earn().getEarnPositions(chainId,\
           \ providerId, pageCursor, pageSize, sortBy, order);"
       - lang: Python
-        source: "response = fireblocks.earn_beta.get_earn_positions(chain_id, provider_id,\
+        source: "response = fireblocks.earn.get_earn_positions(chain_id, provider_id,\
           \ page_cursor, page_size, sort_by, order);"
       x-accepts:
       - application/json
@@ -8403,8 +9121,6 @@ paths:
     get:
       description: |
         Get list of earn providers.
-
-        **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: getEarnProviders
       parameters:
       - description: Cursor for the next or previous page of results.
@@ -8499,31 +9215,31 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get list of earn providers
       tags:
-      - Earn (Beta)
+      - Earn
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<GetProvidersResponse>>\
-            \ = fireblocks.earnBeta.getEarnProviders(earnBetaApiGetEarnProvidersRequest);"
+            \ = fireblocks.earn.getEarnProviders(earnApiGetEarnProvidersRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<GetProvidersResponse>> response = fireblocks.earnBeta().getEarnProviders(pageCursor,\
+          code: "CompletableFuture<ApiResponse<GetProvidersResponse>> response = fireblocks.earn().getEarnProviders(pageCursor,\
             \ pageSize, sortBy, order);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.earn_beta.get_earn_providers(page_cursor, page_size,\
+          code: "response = fireblocks.earn.get_earn_providers(page_cursor, page_size,\
             \ sort_by, order);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<GetProvidersResponse>>\
-          \ = fireblocks.earnBeta.getEarnProviders(earnBetaApiGetEarnProvidersRequest);"
+          \ = fireblocks.earn.getEarnProviders(earnApiGetEarnProvidersRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<GetProvidersResponse>> response = fireblocks.earnBeta().getEarnProviders(pageCursor,\
+        source: "CompletableFuture<ApiResponse<GetProvidersResponse>> response = fireblocks.earn().getEarnProviders(pageCursor,\
           \ pageSize, sortBy, order);"
       - lang: Python
-        source: "response = fireblocks.earn_beta.get_earn_providers(page_cursor, page_size,\
+        source: "response = fireblocks.earn.get_earn_providers(page_cursor, page_size,\
           \ sort_by, order);"
       x-accepts:
       - application/json
@@ -8534,8 +9250,6 @@ paths:
         When `isTermsApprovalRequired` is true on a provider (see list providers),
         call this once before creating or executing earn actions with providers that require it.
         After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.
-
-        **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: approveTermsOfService
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -8607,26 +9321,26 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Approve earn provider terms of service
       tags:
-      - Earn (Beta)
+      - Earn
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.earnBeta.approveTermsOfService(earnBetaApiApproveTermsOfServiceRequest);"
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.earn.approveTermsOfService(earnApiApproveTermsOfServiceRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.earnBeta().approveTermsOfService(idempotencyKey);
+          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.earn().approveTermsOfService(idempotencyKey);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.earn_beta.approve_terms_of_service(idempotency_key);
+          code: response = fireblocks.earn.approve_terms_of_service(idempotency_key);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.earnBeta.approveTermsOfService(earnBetaApiApproveTermsOfServiceRequest);"
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.earn.approveTermsOfService(earnApiApproveTermsOfServiceRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<Void>> response = fireblocks.earnBeta().approveTermsOfService(idempotencyKey);
+        source: CompletableFuture<ApiResponse<Void>> response = fireblocks.earn().approveTermsOfService(idempotencyKey);
       - lang: Python
-        source: response = fireblocks.earn_beta.approve_terms_of_service(idempotency_key);
+        source: response = fireblocks.earn.approve_terms_of_service(idempotency_key);
       x-accepts:
       - application/json
   /ncw/{walletId}/accounts/{accountId}/{assetId}/{change}/{addressIndex}/public_key_info:
@@ -18112,6 +18826,122 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+  /policy/rules/quota:
+    post:
+      description: |
+        Returns the Amount Over Time (AOT) quota calculated for a specific policy rule.
+
+        Endpoint Permissions: Owner, Admin, Non-Signing Admin.
+      operationId: getPolicyRuleQuota
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PolicyRuleQuotaRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PolicyRuleQuotaResponse"
+          description: The calculated AOT quota for the rule
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Invalid request parameters or rule configuration prevents AOT
+            calculation.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Caller lacks permission to access the requested rule.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: The requested policy rule was not found.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Internal server error while calculating AOT quota.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Calculate the AOT quota for a policy rule
+      tags:
+      - Policy Editor V2 (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<PolicyRuleQuotaResponse>>\
+            \ = fireblocks.policyEditorV2Beta.getPolicyRuleQuota(policyEditorV2BetaApiGetPolicyRuleQuotaRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<PolicyRuleQuotaResponse>> response\
+            \ = fireblocks.policyEditorV2Beta().getPolicyRuleQuota(policyRuleQuotaRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.policy_editor_v2_beta.get_policy_rule_quota(policy_rule_quota_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<PolicyRuleQuotaResponse>>\
+          \ = fireblocks.policyEditorV2Beta.getPolicyRuleQuota(policyEditorV2BetaApiGetPolicyRuleQuotaRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<PolicyRuleQuotaResponse>> response\
+          \ = fireblocks.policyEditorV2Beta().getPolicyRuleQuota(policyRuleQuotaRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.policy_editor_v2_beta.get_policy_rule_quota(policy_rule_quota_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
   /reports:
     get:
       description: |
@@ -22123,6 +22953,16 @@ paths:
             $ref: "#/components/schemas/TagType"
           type: array
         style: form
+      - description: "Filter tags whose allow-list contains this entity type. Known\
+          \ values: vault_account, contact."
+        example: contact
+        explode: true
+        in: query
+        name: allowedEntityType
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -22145,11 +22985,12 @@ paths:
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<TagsPagedResponse>> response = fireblocks.tags().getTags(pageCursor,\
-            \ pageSize, label, tagIds, includePendingApprovalsInfo, isProtected, type);"
+            \ pageSize, label, tagIds, includePendingApprovalsInfo, isProtected, type,\
+            \ allowedEntityType);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.tags.get_tags(page_cursor, page_size, label,\
-            \ tag_ids, include_pending_approvals_info, is_protected, type);"
+            \ tag_ids, include_pending_approvals_info, is_protected, type, allowed_entity_type);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -22157,10 +22998,11 @@ paths:
           \ fireblocks.tags.getTags(tagsApiGetTagsRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<TagsPagedResponse>> response = fireblocks.tags().getTags(pageCursor,\
-          \ pageSize, label, tagIds, includePendingApprovalsInfo, isProtected, type);"
+          \ pageSize, label, tagIds, includePendingApprovalsInfo, isProtected, type,\
+          \ allowedEntityType);"
       - lang: Python
         source: "response = fireblocks.tags.get_tags(page_cursor, page_size, label,\
-          \ tag_ids, include_pending_approvals_info, is_protected, type);"
+          \ tag_ids, include_pending_approvals_info, is_protected, type, allowed_entity_type);"
       x-accepts:
       - application/json
     post:
@@ -30925,6 +31767,26 @@ paths:
         schema:
           type: string
         style: form
+      - description: Filter by the on-chain hash of the transaction that created the
+          UTXOs. Returns all UTXOs originating from that transaction.
+        example: 0000000000000000000a1b2c3d4e5f60718293a4b5c6d7e8f900112233445566
+        explode: true
+        in: query
+        name: txHash
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by the Fireblocks transaction ID that created the UTXOs.
+        example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+        explode: true
+        in: query
+        name: txId
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
       - description: Minimum amount filter
         example: "0.001"
         explode: true
@@ -30968,12 +31830,14 @@ paths:
         - language: java
           code: "CompletableFuture<ApiResponse<ListUtxosResponse>> response = fireblocks.uTXOManagementBeta().getUtxos(vaultAccountId,\
             \ assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels,\
-            \ excludeAnyLabels, includeStatuses, address, minAmount, maxAmount);"
+            \ excludeAnyLabels, includeStatuses, address, txHash, txId, minAmount,\
+            \ maxAmount);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.u_t_x_o_management_beta.get_utxos(vault_account_id,\
             \ asset_id, page_cursor, page_size, sort, order, include_all_labels, include_any_labels,\
-            \ exclude_any_labels, include_statuses, address, min_amount, max_amount);"
+            \ exclude_any_labels, include_statuses, address, tx_hash, tx_id, min_amount,\
+            \ max_amount);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -30982,11 +31846,12 @@ paths:
       - lang: Java
         source: "CompletableFuture<ApiResponse<ListUtxosResponse>> response = fireblocks.uTXOManagementBeta().getUtxos(vaultAccountId,\
           \ assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels,\
-          \ excludeAnyLabels, includeStatuses, address, minAmount, maxAmount);"
+          \ excludeAnyLabels, includeStatuses, address, txHash, txId, minAmount, maxAmount);"
       - lang: Python
         source: "response = fireblocks.u_t_x_o_management_beta.get_utxos(vault_account_id,\
           \ asset_id, page_cursor, page_size, sort, order, include_all_labels, include_any_labels,\
-          \ exclude_any_labels, include_statuses, address, min_amount, max_amount);"
+          \ exclude_any_labels, include_statuses, address, tx_hash, tx_id, min_amount,\
+          \ max_amount);"
       x-accepts:
       - application/json
   /vault/accounts:
@@ -32551,6 +33416,68 @@ paths:
         schema:
           type: boolean
         style: form
+      - description: Only include UTXOs that have ALL of these labels (AND logic).
+          Requires the UTXO Manager. This feature is currently in beta and might be
+          subject to changes.
+        explode: true
+        in: query
+        name: includeAllLabels
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Only include UTXOs that have ANY of these labels (OR logic).
+          Requires the UTXO Manager. This feature is currently in beta and might be
+          subject to changes.
+        explode: true
+        in: query
+        name: includeAnyLabels
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Exclude UTXOs that have ANY of these labels. Requires the UTXO
+          Manager. This feature is currently in beta and might be subject to changes.
+        explode: true
+        in: query
+        name: excludeAnyLabels
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Only include UTXOs from this specific address. Requires the UTXO
+          Manager. This feature is currently in beta and might be subject to changes.
+        explode: true
+        in: query
+        name: address
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Minimum UTXO amount in the asset's base unit. Requires the UTXO
+          Manager. This feature is currently in beta and might be subject to changes.
+        explode: true
+        in: query
+        name: minAmount
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Maximum UTXO amount in the asset's base unit. Requires the UTXO
+          Manager. This feature is currently in beta and might be subject to changes.
+        explode: true
+        in: query
+        name: maxAmount
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -32584,11 +33511,13 @@ paths:
         - language: java
           code: "CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> response\
             \ = fireblocks.vaults().getMaxSpendableAmount(vaultAccountId, assetId,\
-            \ manualSignging);"
+            \ manualSignging, includeAllLabels, includeAnyLabels, excludeAnyLabels,\
+            \ address, minAmount, maxAmount);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.vaults.get_max_spendable_amount(vault_account_id,\
-            \ asset_id, manual_signging);"
+            \ asset_id, manual_signging, include_all_labels, include_any_labels, exclude_any_labels,\
+            \ address, min_amount, max_amount);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -32596,10 +33525,13 @@ paths:
           \ = fireblocks.vaults.getMaxSpendableAmount(vaultsApiGetMaxSpendableAmountRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> response\
-          \ = fireblocks.vaults().getMaxSpendableAmount(vaultAccountId, assetId, manualSignging);"
+          \ = fireblocks.vaults().getMaxSpendableAmount(vaultAccountId, assetId, manualSignging,\
+          \ includeAllLabels, includeAnyLabels, excludeAnyLabels, address, minAmount,\
+          \ maxAmount);"
       - lang: Python
         source: "response = fireblocks.vaults.get_max_spendable_amount(vault_account_id,\
-          \ asset_id, manual_signging);"
+          \ asset_id, manual_signging, include_all_labels, include_any_labels, exclude_any_labels,\
+          \ address, min_amount, max_amount);"
       x-accepts:
       - application/json
   /vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs:
@@ -33201,6 +34133,296 @@ paths:
           \ idempotency_key);"
       x-accepts:
       - application/json
+  /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation:
+    get:
+      description: |-
+        Returns the USDC Gateway deposit automations configured for the given vault account.
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+      operationId: getUsdcGatewayDepositAutomationBeta
+      parameters:
+      - description: The ID of the vault account
+        explode: false
+        in: path
+        name: vaultAccountId
+        required: true
+        schema:
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetAutomationSettingsResponse"
+          description: USDC Gateway deposit automations
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Read the USDC Gateway deposit automations for a vault account
+      tags:
+      - Vaults
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetAutomationSettingsResponse>>\
+            \ = fireblocks.vaults.getUsdcGatewayDepositAutomationBeta(vaultsApiGetUsdcGatewayDepositAutomationBetaRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetAutomationSettingsResponse>> response
+            = fireblocks.vaults().getUsdcGatewayDepositAutomationBeta(vaultAccountId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.vaults.get_usdc_gateway_deposit_automation_beta(vault_account_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetAutomationSettingsResponse>>\
+          \ = fireblocks.vaults.getUsdcGatewayDepositAutomationBeta(vaultsApiGetUsdcGatewayDepositAutomationBetaRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<GetAutomationSettingsResponse>> response
+          = fireblocks.vaults().getUsdcGatewayDepositAutomationBeta(vaultAccountId);
+      - lang: Python
+        source: response = fireblocks.vaults.get_usdc_gateway_deposit_automation_beta(vault_account_id);
+      x-accepts:
+      - application/json
+    post:
+      description: |-
+        Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead.
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+      operationId: setUsdcGatewayDepositAutomationBeta
+      parameters:
+      - description: The ID of the vault account
+        explode: false
+        in: path
+        name: vaultAccountId
+        required: true
+        schema:
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AutomationSettingsRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SaveAutomationSettingsResponse"
+          description: Deposit automation created
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Set up a USDC Gateway deposit automation for a vault account
+      tags:
+      - Vaults
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SaveAutomationSettingsResponse>>\
+            \ = fireblocks.vaults.setUsdcGatewayDepositAutomationBeta(vaultsApiSetUsdcGatewayDepositAutomationBetaRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SaveAutomationSettingsResponse>> response\
+            \ = fireblocks.vaults().setUsdcGatewayDepositAutomationBeta(automationSettingsRequest,\
+            \ vaultAccountId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.vaults.set_usdc_gateway_deposit_automation_beta(automation_settings_request,\
+            \ vault_account_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<SaveAutomationSettingsResponse>>\
+          \ = fireblocks.vaults.setUsdcGatewayDepositAutomationBeta(vaultsApiSetUsdcGatewayDepositAutomationBetaRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<SaveAutomationSettingsResponse>> response\
+          \ = fireblocks.vaults().setUsdcGatewayDepositAutomationBeta(automationSettingsRequest,\
+          \ vaultAccountId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.vaults.set_usdc_gateway_deposit_automation_beta(automation_settings_request,\
+          \ vault_account_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation/{automationId}:
+    delete:
+      description: |-
+        Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch.
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+      operationId: disableUsdcGatewayDepositAutomationScheduleBeta
+      parameters:
+      - description: The ID of the vault account
+        explode: false
+        in: path
+        name: vaultAccountId
+        required: true
+        schema:
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        style: simple
+      - description: "The ID of the deposit automation, returned when it was created\
+          \ or read"
+        explode: false
+        in: path
+        name: automationId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Deposit automation schedule disabled
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Stop a USDC Gateway deposit automation's schedule
+      tags:
+      - Vaults
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.vaults.disableUsdcGatewayDepositAutomationScheduleBeta(vaultsApiDisableUsdcGatewayDepositAutomationScheduleBetaRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.vaults().disableUsdcGatewayDepositAutomationScheduleBeta(vaultAccountId,\
+            \ automationId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.vaults.disable_usdc_gateway_deposit_automation_schedule_beta(vault_account_id,\
+            \ automation_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.vaults.disableUsdcGatewayDepositAutomationScheduleBeta(vaultsApiDisableUsdcGatewayDepositAutomationScheduleBetaRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.vaults().disableUsdcGatewayDepositAutomationScheduleBeta(vaultAccountId,\
+          \ automationId);"
+      - lang: Python
+        source: "response = fireblocks.vaults.disable_usdc_gateway_deposit_automation_schedule_beta(vault_account_id,\
+          \ automation_id);"
+      x-accepts:
+      - application/json
+    patch:
+      description: |-
+        Changes an existing USDC Gateway deposit automation for a vault account.
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+      operationId: updateUsdcGatewayDepositAutomationBeta
+      parameters:
+      - description: The ID of the vault account
+        explode: false
+        in: path
+        name: vaultAccountId
+        required: true
+        schema:
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        style: simple
+      - description: "The ID of the deposit automation, returned when it was created\
+          \ or read"
+        explode: false
+        in: path
+        name: automationId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateAutomationSettingsRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AutomationSettingsResponse"
+          description: Deposit automation updated
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Change a USDC Gateway deposit automation
+      tags:
+      - Vaults
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AutomationSettingsResponse>>\
+            \ = fireblocks.vaults.updateUsdcGatewayDepositAutomationBeta(vaultsApiUpdateUsdcGatewayDepositAutomationBetaRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<AutomationSettingsResponse>> response\
+            \ = fireblocks.vaults().updateUsdcGatewayDepositAutomationBeta(updateAutomationSettingsRequest,\
+            \ vaultAccountId, automationId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.vaults.update_usdc_gateway_deposit_automation_beta(update_automation_settings_request,\
+            \ vault_account_id, automation_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<AutomationSettingsResponse>>\
+          \ = fireblocks.vaults.updateUsdcGatewayDepositAutomationBeta(vaultsApiUpdateUsdcGatewayDepositAutomationBetaRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<AutomationSettingsResponse>> response\
+          \ = fireblocks.vaults().updateUsdcGatewayDepositAutomationBeta(updateAutomationSettingsRequest,\
+          \ vaultAccountId, automationId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.vaults.update_usdc_gateway_deposit_automation_beta(update_automation_settings_request,\
+          \ vault_account_id, automation_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
   /vault/accounts/addresses/bulk:
     post:
       description: |
@@ -33459,7 +34681,7 @@ paths:
       summary: Bulk creation of new vault accounts
       tags:
       - Vaults
-      x-rate-limit-category: write
+      x-rate-limit-category: high_compute
       x-readme:
         code-samples:
         - language: typescript
@@ -36461,6 +37683,8 @@ components:
         id: df4c0987-30da-4976-8dcf-bc2dd41ae331
         label: VIP
         type: WALLET_POOL
+        allowedEntityTypes:
+        - vault_account
         pendingApprovalRequest:
           id: "12345"
           state: PENDING
@@ -36494,6 +37718,16 @@ components:
           type: number
         type:
           $ref: "#/components/schemas/TagType"
+        allowedEntityTypes:
+          description: "The entity types this tag may be attached to. Tags created\
+            \ before this field was introduced read back as ['vault_account']. Known\
+            \ values: vault_account (default), contact."
+          example:
+          - vault_account
+          items:
+            type: string
+          minItems: 1
+          type: array
         pendingApprovalRequest:
           $ref: "#/components/schemas/ApprovalRequest"
       required:
@@ -36553,6 +37787,8 @@ components:
           id: df4c0987-30da-4976-8dcf-bc2dd41ae331
           label: VIP
           type: WALLET_POOL
+          allowedEntityTypes:
+          - vault_account
           pendingApprovalRequest:
             id: "12345"
             state: PENDING
@@ -36564,6 +37800,8 @@ components:
           id: df4c0987-30da-4976-8dcf-bc2dd41ae331
           label: VIP
           type: WALLET_POOL
+          allowedEntityTypes:
+          - vault_account
           pendingApprovalRequest:
             id: "12345"
             state: PENDING
@@ -36690,6 +37928,8 @@ components:
             id: df4c0987-30da-4976-8dcf-bc2dd41ae331
             label: VIP
             type: WALLET_POOL
+            allowedEntityTypes:
+            - vault_account
             pendingApprovalRequest:
               id: "12345"
               state: PENDING
@@ -36701,6 +37941,8 @@ components:
             id: df4c0987-30da-4976-8dcf-bc2dd41ae331
             label: VIP
             type: WALLET_POOL
+            allowedEntityTypes:
+            - vault_account
             pendingApprovalRequest:
               id: "12345"
               state: PENDING
@@ -36755,6 +37997,8 @@ components:
             id: df4c0987-30da-4976-8dcf-bc2dd41ae331
             label: VIP
             type: WALLET_POOL
+            allowedEntityTypes:
+            - vault_account
             pendingApprovalRequest:
               id: "12345"
               state: PENDING
@@ -36766,6 +38010,8 @@ components:
             id: df4c0987-30da-4976-8dcf-bc2dd41ae331
             label: VIP
             type: WALLET_POOL
+            allowedEntityTypes:
+            - vault_account
             pendingApprovalRequest:
               id: "12345"
               state: PENDING
@@ -37049,6 +38295,158 @@ components:
       required:
       - status
       - walletId
+      type: object
+    TimeBasedTrigger:
+      description: The schedule for this deposit automation.
+      example:
+        intervalUnit: MINUTES
+        balanceThreshold: "1000"
+        intervalValue: 60
+      properties:
+        intervalValue:
+          description: "How often the deposit runs, in units of intervalUnit."
+          example: 60
+          minimum: 1
+          type: integer
+        intervalUnit:
+          description: The unit for intervalValue.
+          enum:
+          - MINUTES
+          - HOURS
+          - DAYS
+          example: MINUTES
+          type: string
+        balanceThreshold:
+          description: "Minimum USDC balance required before a deposit runs. Set to\
+            \ \"0\" to sweep the full available balance every time, with no minimum."
+          example: "1000"
+          pattern: ^\d+(\.\d+)?$
+          type: string
+      required:
+      - balanceThreshold
+      - intervalUnit
+      - intervalValue
+      type: object
+    AutomationSettingsResponse:
+      example:
+        automationId: b68a9e08-b59c-4ff9-893f-52d4f78c21e6
+        assetId: USDC_ETH
+        timeBased:
+          intervalUnit: MINUTES
+          balanceThreshold: "1000"
+          intervalValue: 60
+        vaultAccountId: "42"
+        automationType: USDC_GATEWAY_DEPOSIT
+      properties:
+        automationId:
+          description: The ID of this deposit automation.
+          example: b68a9e08-b59c-4ff9-893f-52d4f78c21e6
+          format: uuid
+          type: string
+        vaultAccountId:
+          description: The vault account this deposit automation applies to.
+          example: "42"
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        assetId:
+          description: "The Fireblocks asset ID this automation applies to, if scoped\
+            \ to one."
+          example: USDC_ETH
+          type: string
+        automationType:
+          description: The type of this automation.
+          enum:
+          - USDC_GATEWAY_DEPOSIT
+          example: USDC_GATEWAY_DEPOSIT
+          type: string
+        timeBased:
+          $ref: "#/components/schemas/TimeBasedTrigger"
+      required:
+      - automationId
+      - automationType
+      - timeBased
+      - vaultAccountId
+      type: object
+    GetAutomationSettingsResponse:
+      example:
+        settings:
+        - automationId: b68a9e08-b59c-4ff9-893f-52d4f78c21e6
+          vaultAccountId: "42"
+          assetId: USDC_ETH
+          automationType: USDC_GATEWAY_DEPOSIT
+          timeBased:
+            intervalValue: 60
+            intervalUnit: MINUTES
+      properties:
+        settings:
+          description: The deposit automations configured for the vault account.
+          example:
+          - automationId: b68a9e08-b59c-4ff9-893f-52d4f78c21e6
+            vaultAccountId: "42"
+            assetId: USDC_ETH
+            automationType: USDC_GATEWAY_DEPOSIT
+            timeBased:
+              intervalValue: 60
+              intervalUnit: MINUTES
+          items:
+            $ref: "#/components/schemas/AutomationSettingsResponse"
+          type: array
+      required:
+      - settings
+      type: object
+    AutomationSettingsRequest:
+      description: Request body for setting up a USDC Gateway deposit automation for
+        a vault account.
+      example:
+        assetId: USDC_ETH
+        timeBased:
+          intervalUnit: MINUTES
+          balanceThreshold: "1000"
+          intervalValue: 60
+        automationType: USDC_GATEWAY_DEPOSIT
+      properties:
+        automationType:
+          description: The type of automation to configure.
+          enum:
+          - USDC_GATEWAY_DEPOSIT
+          example: USDC_GATEWAY_DEPOSIT
+          type: string
+        assetId:
+          description: The Fireblocks asset ID this automation applies to. Omit to
+            cover all supported USDC Gateway assets.
+          example: USDC_ETH
+          type: string
+        timeBased:
+          $ref: "#/components/schemas/TimeBasedTrigger"
+      required:
+      - automationType
+      - timeBased
+      type: object
+    SaveAutomationSettingsResponse:
+      example:
+        automationId: b68a9e08-b59c-4ff9-893f-52d4f78c21e6
+      properties:
+        automationId:
+          description: The ID of the newly created deposit automation.
+          example: b68a9e08-b59c-4ff9-893f-52d4f78c21e6
+          format: uuid
+          type: string
+      required:
+      - automationId
+      type: object
+    UpdateAutomationSettingsRequest:
+      description: Request body for changing an existing USDC Gateway deposit automation.
+      example:
+        timeBased:
+          intervalUnit: MINUTES
+          balanceThreshold: "1000"
+          intervalValue: 60
+      properties:
+        timeBased:
+          $ref: "#/components/schemas/TimeBasedTrigger"
+      required:
+      - timeBased
       type: object
     CreateAssetsRequest:
       example:
@@ -39279,7 +40677,7 @@ components:
           type: string
         creds:
           description: Base64-encoded RSA-encrypted credential blob. Encrypt using
-            the public key from GET /exchange_accounts/credentials_public_key.
+            the public key from GET /connected_accounts/credentials/public_key.
           example: !!binary |-
             YmFzZTY0ZW5jb2RlZGVuY3J5cHRlZGNyZWRlbnRpYWxzPT0=
           format: byte
@@ -39375,6 +40773,24 @@ components:
       required:
       - code
       - message
+      type: object
+    GetConnectedAccountsCredentialsPublicKeyResponse:
+      example:
+        publicKey: |-
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA...
+          -----END PUBLIC KEY-----
+      properties:
+        publicKey:
+          description: RSA public key (PEM) used to encrypt credential payloads sent
+            to POST /connected_accounts.
+          example: |-
+            -----BEGIN PUBLIC KEY-----
+            MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA...
+            -----END PUBLIC KEY-----
+          type: string
+      required:
+      - publicKey
       type: object
     ConnectedSingleAccount:
       properties:
@@ -41514,6 +42930,7 @@ components:
           - MTN
           - TIGO
           - WAVE
+          - ORANGE
           example: MTN
           type: string
         email:
@@ -42975,16 +44392,245 @@ components:
       required:
       - type
       type: object
-    AmlScreeningResult:
-      description: The result of the AML screening.
+    ScreeningVerdictEnum:
+      description: |
+        The final verdict of the screening (unified for AML, Travel Rule, and TRLink).
+        Different providers may return different verdict values:
+        - AML: ACCEPT, REJECT, ALERT
+        - Travel Rule: PASS, FAIL, TRAVEL_RULE_REQUIRED
+        - TRLink: PASS, REJECT, WARN
+      enum:
+      - PASS
+      - FAIL
+      - ALERT
+      - REJECT
+      - WARN
+      - TRAVEL_RULE_REQUIRED
+      - ACCEPT
+      - REVIEW
+      - WAIT
+      example: PASS
+      type: string
+    ScreeningStatusEnum:
+      description: |
+        Current status of the screening process.
+        Applies to AML, Travel Rule, and TRLink screening flows.
+      enum:
+      - COMPLETED
+      - PENDING
+      - BYPASSED
+      - FAILED
+      - FROZEN
+      example: COMPLETED
+      type: string
+    AmlBypassReasonEnum:
+      description: "Reason for bypassing AML screening, when applicable."
+      enum:
+      - MANUAL
+      - UNSUPPORTED_ASSET
+      - BYPASSED_FAILURE
+      - UNSUPPORTED_ROUTE
+      - PASSED_BY_POLICY
+      - TIMED_OUT
+      - BAD_CREDENTIALS
+      - CONFIGURATION_ERROR
+      - DROPPED_BY_BLOCKCHAIN
+      - PROCESS_DISMISSED
+      example: PASSED_BY_POLICY
+      type: string
+    PolicyVerdictActionEnum:
+      description: Policy verdict action
+      enum:
+      - ALLOW
+      - BLOCK
+      - 2-TIER
+      - SCREEN
+      - ACCEPT
+      - REJECT
+      - ALERT
+      - WAIT
+      - FREEZE
+      - CANCEL
+      example: ALLOW
+      type: string
+    AmlMatchedRule:
+      description: AML matched rule information
       example:
-        provider: provider
-        payload: "{}"
+        ruleName: High Risk Sanctions Check
+        action: ALLOW
+        ruleId: rule_001
+      properties:
+        ruleId:
+          description: Identifier of the matched rule
+          example: rule_001
+          type: string
+        ruleName:
+          description: Name of the matched rule
+          example: High Risk Sanctions Check
+          type: string
+        action:
+          $ref: "#/components/schemas/PolicyVerdictActionEnum"
+      type: object
+    AlertLevelEnum:
+      description: Alert level severity
+      enum:
+      - SEVERE
+      - HIGH
+      - MEDIUM
+      - LOW
+      example: HIGH
+      type: string
+    AlertExposureTypeEnum:
+      description: Alert exposure type (AlertExposureType enum)
+      enum:
+      - DIRECT
+      - INDIRECT
+      example: DIRECT
+      type: string
+    AmlAlert:
+      description: AML alert information
+      example:
+        policyAction: BLOCK
+        alertName: Sanctions Match
+        service: CHAINALYSIS
+        exposureType: DIRECT
+        alertLevel: HIGH
+        externalId: alert_12345
+        category: SANCTIONED_ENTITY
+        categoryId: 101
+        alertAmount: 1000.5
+      properties:
+        alertLevel:
+          $ref: "#/components/schemas/AlertLevelEnum"
+        alertName:
+          description: Name or type of the alert
+          example: Sanctions Match
+          type: string
+        category:
+          description: Alert category
+          example: SANCTIONED_ENTITY
+          type: string
+        service:
+          description: Service that generated the alert
+          example: CHAINALYSIS
+          type: string
+        externalId:
+          description: External identifier for the alert
+          example: alert_12345
+          type: string
+        alertAmount:
+          description: Amount associated with the alert
+          example: 1000.5
+          type: number
+        exposureType:
+          $ref: "#/components/schemas/AlertExposureTypeEnum"
+        policyAction:
+          description: Recommended action based on policy
+          example: BLOCK
+          type: string
+        categoryId:
+          description: Category identifier
+          example: 101
+          type: number
+      required:
+      - alertAmount
+      - alertLevel
+      - exposureType
+      - externalId
+      type: object
+    AmlScreeningResult:
+      description: |
+        The result of the AML screening.
+        Mirrors the output of the developer-api transaction formatter (IFormattedAmlResult).
+        Not all fields are present in every response — the set depends on the AML provider and screening flow.
+      example:
+        matchedPrescreeningRule:
+          ruleName: High Risk Sanctions Check
+          action: ALLOW
+          ruleId: rule_001
+        externalId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        bypassReason: PASSED_BY_POLICY
+        customerRefId: DEFAULT
+        matchedRule:
+          ruleName: High Risk Sanctions Check
+          action: ALLOW
+          ruleId: rule_001
+        provider: CHAINALYSIS
+        payload:
+          key: ""
+        verdict: PASS
+        destAddress: 0xA2dC2490ED1DcA2D21613508fdb0c82daEAb0715
+        risk: lowRisk
+        category: EXCHANGE
+        matchedAlert:
+          policyAction: BLOCK
+          alertName: Sanctions Match
+          service: CHAINALYSIS
+          exposureType: DIRECT
+          alertLevel: HIGH
+          externalId: alert_12345
+          category: SANCTIONED_ENTITY
+          categoryId: 101
+          alertAmount: 1000.5
+        screeningStatus: COMPLETED
+        categoryId: 5
+        timestamp: 1774363599908
       properties:
         provider:
+          description: |
+            The AML provider name.
+            Known values: CHAINALYSIS, ELLIPTIC, CHAINALYSIS_V2, ELLIPTIC_HOLISTIC, BYORK_SLITE, BYORK_LITE, NONE.
+          example: CHAINALYSIS
           type: string
         payload:
+          additionalProperties: true
+          description: |
+            The raw, unmodified screening response from the provider.
+            Structure varies per provider.
           type: object
+        verdict:
+          $ref: "#/components/schemas/ScreeningVerdictEnum"
+        screeningStatus:
+          $ref: "#/components/schemas/ScreeningStatusEnum"
+        bypassReason:
+          $ref: "#/components/schemas/AmlBypassReasonEnum"
+        timestamp:
+          description: Unix timestamp in milliseconds when the screening result was
+            generated.
+          example: 1774363599908
+          type: number
+        customerRefId:
+          description: Customer-provided reference identifier for tracking.
+          example: DEFAULT
+          type: string
+        externalId:
+          description: External identifier for the screening (provider-specific).
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          type: string
+        category:
+          description: |
+            Risk category classification.
+            The available categories are subject to change depending on the provider.
+          example: EXCHANGE
+          type: string
+        categoryId:
+          description: Numeric identifier for the risk category.
+          example: 5
+          type: number
+        risk:
+          description: Provider-specific risk level. Values vary by provider.
+          example: lowRisk
+          type: string
+        destAddress:
+          description: The destination blockchain address associated with the screening.
+          example: 0xA2dC2490ED1DcA2D21613508fdb0c82daEAb0715
+          type: string
+        matchedRule:
+          $ref: "#/components/schemas/AmlMatchedRule"
+        matchedPrescreeningRule:
+          $ref: "#/components/schemas/AmlMatchedRule"
+        matchedAlert:
+          $ref: "#/components/schemas/AmlAlert"
       type: object
     AuthorizationGroups:
       example:
@@ -43044,8 +44690,37 @@ components:
               key: PENDING_AUTHORIZATION
           logic: AND
         amlScreeningResult:
-          provider: provider
-          payload: "{}"
+          matchedPrescreeningRule:
+            ruleName: High Risk Sanctions Check
+            action: ALLOW
+            ruleId: rule_001
+          externalId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          bypassReason: PASSED_BY_POLICY
+          customerRefId: DEFAULT
+          matchedRule:
+            ruleName: High Risk Sanctions Check
+            action: ALLOW
+            ruleId: rule_001
+          provider: CHAINALYSIS
+          payload:
+            key: ""
+          verdict: PASS
+          destAddress: 0xA2dC2490ED1DcA2D21613508fdb0c82daEAb0715
+          risk: lowRisk
+          category: EXCHANGE
+          matchedAlert:
+            policyAction: BLOCK
+            alertName: Sanctions Match
+            service: CHAINALYSIS
+            exposureType: DIRECT
+            alertLevel: HIGH
+            externalId: alert_12345
+            category: SANCTIONED_ENTITY
+            categoryId: 101
+            alertAmount: 1000.5
+          screeningStatus: COMPLETED
+          categoryId: 5
+          timestamp: 1774363599908
         destination:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           tradingAccount: tradingAccount
@@ -43076,6 +44751,54 @@ components:
           $ref: "#/components/schemas/DestinationTransferPeerPathResponse"
         authorizationInfo:
           $ref: "#/components/schemas/AuthorizationInfo"
+      type: object
+    ProgramCallInstructionData:
+      additionalProperties:
+        description: "Instruction-specific field value. May be a string, number, or\
+          \ nested object."
+      description: "Decoded instruction arguments. Keys and values depend on the instruction\
+        \ type — values may be strings, numbers, or nested objects (e.g. `args`, `accounts`,\
+        \ `name`)."
+      example:
+        name: transferSol
+        args:
+          lamports: 1000000
+        accounts:
+        - pubkey: "11111111111111111111111111111111"
+          isSigner: false
+          isWritable: true
+      type: object
+    ProgramCallDecodedDataItem:
+      description: A single decoded Solana instruction from a PROGRAM_CALL transaction.
+      properties:
+        programId:
+          description: The on-chain program address that owns this instruction.
+          example: "11111111111111111111111111111111"
+          type: string
+        programName:
+          description: "Human-readable program name (e.g. `SystemProgram`, `ComputeBudget`)."
+          example: SystemProgram
+          type: string
+        instructionData:
+          additionalProperties:
+            description: "Instruction-specific field value. May be a string, number,\
+              \ or nested object."
+          description: "Decoded instruction arguments. Keys and values depend on the\
+            \ instruction type — values may be strings, numbers, or nested objects\
+            \ (e.g. `args`, `accounts`, `name`)."
+          example:
+            name: transferSol
+            args:
+              lamports: 1000000
+            accounts:
+            - pubkey: "11111111111111111111111111111111"
+              isSigner: false
+              isWritable: true
+          type: object
+      required:
+      - instructionData
+      - programId
+      - programName
       type: object
     AmountInfo:
       description: The details of the requested amount to transfer.
@@ -43241,124 +44964,6 @@ components:
       - FROZEN
       example: COMPLETED
       type: string
-    ScreeningVerdictEnum:
-      description: |
-        The final verdict of the screening (unified for AML, Travel Rule, and TRLink).
-        Different providers may return different verdict values:
-        - AML: PASS, FAIL, ALERT
-        - Travel Rule: PASS, FAIL, TRAVEL_RULE_REQUIRED
-        - TRLink: PASS, REJECT, WARN
-      enum:
-      - PASS
-      - FAIL
-      - ALERT
-      - REJECT
-      - WARN
-      - TRAVEL_RULE_REQUIRED
-      - ACCEPT
-      - REVIEW
-      example: PASS
-      type: string
-    AlertLevelEnum:
-      description: Alert level severity
-      enum:
-      - SEVERE
-      - HIGH
-      - MEDIUM
-      - LOW
-      example: HIGH
-      type: string
-    AlertExposureTypeEnum:
-      description: Alert exposure type (AlertExposureType enum)
-      enum:
-      - DIRECT
-      - INDIRECT
-      example: DIRECT
-      type: string
-    AmlAlert:
-      description: AML alert information
-      example:
-        policyAction: BLOCK
-        alertName: Sanctions Match
-        service: CHAINALYSIS
-        exposureType: DIRECT
-        alertLevel: HIGH
-        externalId: alert_12345
-        category: SANCTIONED_ENTITY
-        categoryId: 101
-        alertAmount: 1000.5
-      properties:
-        alertLevel:
-          $ref: "#/components/schemas/AlertLevelEnum"
-        alertName:
-          description: Name or type of the alert
-          example: Sanctions Match
-          type: string
-        category:
-          description: Alert category
-          example: SANCTIONED_ENTITY
-          type: string
-        service:
-          description: Service that generated the alert
-          example: CHAINALYSIS
-          type: string
-        externalId:
-          description: External identifier for the alert
-          example: alert_12345
-          type: string
-        alertAmount:
-          description: Amount associated with the alert
-          example: 1000.5
-          type: number
-        exposureType:
-          $ref: "#/components/schemas/AlertExposureTypeEnum"
-        policyAction:
-          description: Recommended action based on policy
-          example: BLOCK
-          type: string
-        categoryId:
-          description: Category identifier
-          example: 101
-          type: number
-      required:
-      - alertAmount
-      - alertLevel
-      - exposureType
-      - externalId
-      type: object
-    PolicyVerdictActionEnum:
-      description: Policy verdict action
-      enum:
-      - ALLOW
-      - BLOCK
-      - 2-TIER
-      - SCREEN
-      - ACCEPT
-      - REJECT
-      - ALERT
-      - WAIT
-      - FREEZE
-      - CANCEL
-      example: ALLOW
-      type: string
-    AmlMatchedRule:
-      description: AML matched rule information
-      example:
-        ruleName: High Risk Sanctions Check
-        action: ALLOW
-        ruleId: rule_001
-      properties:
-        ruleId:
-          description: Identifier of the matched rule
-          example: rule_001
-          type: string
-        ruleName:
-          description: Name of the matched rule
-          example: High Risk Sanctions Check
-          type: string
-        action:
-          $ref: "#/components/schemas/PolicyVerdictActionEnum"
-      type: object
     AmlResult:
       deprecated: true
       description: |
@@ -45421,8 +47026,37 @@ components:
                 key: PENDING_AUTHORIZATION
             logic: AND
           amlScreeningResult:
-            provider: provider
-            payload: "{}"
+            matchedPrescreeningRule:
+              ruleName: High Risk Sanctions Check
+              action: ALLOW
+              ruleId: rule_001
+            externalId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+            bypassReason: PASSED_BY_POLICY
+            customerRefId: DEFAULT
+            matchedRule:
+              ruleName: High Risk Sanctions Check
+              action: ALLOW
+              ruleId: rule_001
+            provider: CHAINALYSIS
+            payload:
+              key: ""
+            verdict: PASS
+            destAddress: 0xA2dC2490ED1DcA2D21613508fdb0c82daEAb0715
+            risk: lowRisk
+            category: EXCHANGE
+            matchedAlert:
+              policyAction: BLOCK
+              alertName: Sanctions Match
+              service: CHAINALYSIS
+              exposureType: DIRECT
+              alertLevel: HIGH
+              externalId: alert_12345
+              category: SANCTIONED_ENTITY
+              categoryId: 101
+              alertAmount: 1000.5
+            screeningStatus: COMPLETED
+            categoryId: 5
+            timestamp: 1774363599908
           destination:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             tradingAccount: tradingAccount
@@ -45447,8 +47081,37 @@ components:
                 key: PENDING_AUTHORIZATION
             logic: AND
           amlScreeningResult:
-            provider: provider
-            payload: "{}"
+            matchedPrescreeningRule:
+              ruleName: High Risk Sanctions Check
+              action: ALLOW
+              ruleId: rule_001
+            externalId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+            bypassReason: PASSED_BY_POLICY
+            customerRefId: DEFAULT
+            matchedRule:
+              ruleName: High Risk Sanctions Check
+              action: ALLOW
+              ruleId: rule_001
+            provider: CHAINALYSIS
+            payload:
+              key: ""
+            verdict: PASS
+            destAddress: 0xA2dC2490ED1DcA2D21613508fdb0c82daEAb0715
+            risk: lowRisk
+            category: EXCHANGE
+            matchedAlert:
+              policyAction: BLOCK
+              alertName: Sanctions Match
+              service: CHAINALYSIS
+              exposureType: DIRECT
+              alertLevel: HIGH
+              externalId: alert_12345
+              category: SANCTIONED_ENTITY
+              categoryId: 101
+              alertAmount: 1000.5
+            screeningStatus: COMPLETED
+            categoryId: 5
+            timestamp: 1774363599908
           destination:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             tradingAccount: tradingAccount
@@ -45489,6 +47152,13 @@ components:
           amountUSD: amountUSD
           netAmount: netAmount
           requestedAmount: requestedAmount
+        programCallDecodedData:
+        - programId: "11111111111111111111111111111111"
+          programName: SystemProgram
+          instructionData:
+            name: transferSol
+            args:
+              lamports: 1000000
         customerRefId: customerRefId
         nonce: "11228"
         subStatus: subStatus
@@ -45502,8 +47172,37 @@ components:
           destRewards: destRewards
           srcRewards: srcRewards
         amlScreeningResult:
-          provider: provider
-          payload: "{}"
+          matchedPrescreeningRule:
+            ruleName: High Risk Sanctions Check
+            action: ALLOW
+            ruleId: rule_001
+          externalId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          bypassReason: PASSED_BY_POLICY
+          customerRefId: DEFAULT
+          matchedRule:
+            ruleName: High Risk Sanctions Check
+            action: ALLOW
+            ruleId: rule_001
+          provider: CHAINALYSIS
+          payload:
+            key: ""
+          verdict: PASS
+          destAddress: 0xA2dC2490ED1DcA2D21613508fdb0c82daEAb0715
+          risk: lowRisk
+          category: EXCHANGE
+          matchedAlert:
+            policyAction: BLOCK
+            alertName: Sanctions Match
+            service: CHAINALYSIS
+            exposureType: DIRECT
+            alertLevel: HIGH
+            externalId: alert_12345
+            category: SANCTIONED_ENTITY
+            categoryId: 101
+            alertAmount: 1000.5
+          screeningStatus: COMPLETED
+          categoryId: 5
+          timestamp: 1774363599908
         requestedAmount: 3.616076749251911
         status: status
         note: note
@@ -46317,6 +48016,21 @@ components:
           type: string
         contractCallDecodedData:
           $ref: "#/components/schemas/TransactionResponse_contractCallDecodedData"
+        programCallDecodedData:
+          description: "Decoded instruction list for `PROGRAM_CALL` (Solana) operations.\
+            \ Each entry represents one instruction in the transaction, in execution\
+            \ order. Fireblocks-injected instructions (e.g. `AdvanceNonceAccount`,\
+            \ `ComputeBudget`) appear first, followed by the original dApp instructions."
+          example:
+          - programId: "11111111111111111111111111111111"
+            programName: SystemProgram
+            instructionData:
+              name: transferSol
+              args:
+                lamports: 1000000
+          items:
+            $ref: "#/components/schemas/ProgramCallDecodedDataItem"
+          type: array
         amountInfo:
           $ref: "#/components/schemas/AmountInfo"
         treatAsGrossAmount:
@@ -50694,26 +52408,26 @@ components:
         gasLimit: gasLimit
         feePerByte: feePerByte
         networkFee: networkFee
-        priorityFee: 1.4658129805029452
+        priorityFee: priorityFee
         l1Fee: l1Fee
-        baseFee: 6.027456183070403
-        gasPrice: 0.8008281904610115
+        baseFee: baseFee
+        gasPrice: gasPrice
         maxFeePerGasDelta: maxFeePerGasDelta
       properties:
         feePerByte:
           type: string
         gasPrice:
-          type: number
+          type: string
         gasLimit:
           type: string
         networkFee:
           type: string
         baseFee:
           description: (optional) Base Fee according to EIP-1559 (ETH assets)
-          type: number
+          type: string
         priorityFee:
           description: (optional) Priority Fee according to EIP-1559 (ETH assets)
-          type: number
+          type: string
         maxFeePerGasDelta:
           description: Max Fee Per Gas Delta added only for EIP-1559 (ETH assets)
           type: string
@@ -50774,19 +52488,19 @@ components:
           gasLimit: gasLimit
           feePerByte: feePerByte
           networkFee: networkFee
-          priorityFee: 1.4658129805029452
+          priorityFee: priorityFee
           l1Fee: l1Fee
-          baseFee: 6.027456183070403
-          gasPrice: 0.8008281904610115
+          baseFee: baseFee
+          gasPrice: gasPrice
           maxFeePerGasDelta: maxFeePerGasDelta
         low:
           gasLimit: gasLimit
           feePerByte: feePerByte
           networkFee: networkFee
-          priorityFee: 1.4658129805029452
+          priorityFee: priorityFee
           l1Fee: l1Fee
-          baseFee: 6.027456183070403
-          gasPrice: 0.8008281904610115
+          baseFee: baseFee
+          gasPrice: gasPrice
           maxFeePerGasDelta: maxFeePerGasDelta
         feeDetails:
           high:
@@ -50808,10 +52522,10 @@ components:
           gasLimit: gasLimit
           feePerByte: feePerByte
           networkFee: networkFee
-          priorityFee: 1.4658129805029452
+          priorityFee: priorityFee
           l1Fee: l1Fee
-          baseFee: 6.027456183070403
-          gasPrice: 0.8008281904610115
+          baseFee: baseFee
+          gasPrice: gasPrice
           maxFeePerGasDelta: maxFeePerGasDelta
       properties:
         low:
@@ -62120,6 +63834,13 @@ components:
           example: 4.05
           format: double
           type: number
+        supplyIncentiveApy:
+          description: "Additional incentive APY from reward programs (e.g. Merkl\
+            \ rewards on Aave), as a percentage. Only present when the opportunity\
+            \ has active incentives."
+          example: 0.5
+          format: double
+          type: number
       type: object
     Exposure:
       description: Vault allocation exposure item (Morpho MetaMorpho allocation slice).
@@ -62153,6 +63874,30 @@ components:
       required:
       - address
       - amount
+      type: object
+    EarnCurator:
+      properties:
+        name:
+          description: Curator display name.
+          example: Sentora
+          type: string
+        iconUrl:
+          description: URL of the curator's icon/logo.
+          example: https://example.com/sentora-icon.png
+          format: uri
+          type: string
+      type: object
+    EarnMetadata:
+      properties:
+        name:
+          description: "Protocol display name (e.g. \"Aave\", \"Aave Horizon\")."
+          example: Aave
+          type: string
+        iconUrl:
+          description: URL of the protocol's icon/logo.
+          example: https://example.com/aave-icon.png
+          format: uri
+          type: string
       type: object
     Opportunity:
       properties:
@@ -62203,9 +63948,17 @@ components:
           description: Human-readable total value locked / assets in the opportunity.
           example: "50000000.0"
           type: string
+        totalAssetsUsd:
+          description: USD-denominated total assets / TVL.
+          example: "50000000.00"
+          type: string
         liquidity:
           description: Human-readable available liquidity.
           example: "1200000.0"
+          type: string
+        liquidityUsd:
+          description: USD-denominated available liquidity.
+          example: "1200000.00"
           type: string
         apy:
           allOf:
@@ -62237,6 +63990,20 @@ components:
           maxItems: 20
           minItems: 0
           type: array
+        curator:
+          allOf:
+          - $ref: "#/components/schemas/EarnCurator"
+          description: Curator information for Morpho vaults.
+          example:
+            name: Sentora
+            iconUrl: https://example.com/sentora-icon.png
+        metadata:
+          allOf:
+          - $ref: "#/components/schemas/EarnMetadata"
+          description: Protocol-level metadata (display name and logo).
+          example:
+            name: Aave
+            iconUrl: https://example.com/aave-icon.png
       type: object
     GetOpportunitiesResponse:
       example:
@@ -62400,6 +64167,11 @@ components:
         lastSyncedAt:
           description: Last successful on-chain sync time (ISO-8601).
           example: 2025-03-20T08:29:55Z
+          type: string
+        lastModifiedAt:
+          description: Timestamp of the last user-triggered action on this position
+            (ISO-8601). Empty if the user has never interacted with it.
+          example: 2025-03-19T14:00:00Z
           type: string
         availableActions:
           description: Actions the API allows next for this position.
@@ -71569,6 +73341,28 @@ components:
           description: Flag to enable or disable unfreeze of transaction frozen by
             policy rule on tenant configuration.
           type: boolean
+      type: object
+    RescreenTransactionRequest:
+      example:
+        resetTravelRuleMessage: false
+      properties:
+        resetTravelRuleMessage:
+          default: false
+          description: "When true, clears the existing travel rule message on the\
+            \ transaction before rescreening."
+          example: false
+          type: boolean
+      type: object
+    RescreenTransactionResponse:
+      example:
+        success: true
+      properties:
+        success:
+          description: Whether the rescreen was triggered successfully
+          example: true
+          type: boolean
+      required:
+      - success
       type: object
     ScreeningAlertExposureTypeEnum:
       description: Alert exposure type
@@ -81684,6 +83478,94 @@ components:
       - rules
       - status
       type: object
+    PolicyRuleQuotaParticipant:
+      description: Participant identifier for AOT quota calculation
+      example:
+        id: "123"
+        type: VAULT
+      properties:
+        id:
+          description: "Participant identifier (integer for VAULT accounts, UUID for\
+            \ others)"
+          example: "123"
+          type: string
+        type:
+          description: Participant type
+          example: VAULT
+          type: string
+      required:
+      - id
+      - type
+      type: object
+    PolicyRuleQuotaRequest:
+      example:
+        initiator: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        destination:
+          id: "123"
+          type: VAULT
+        source:
+          id: "123"
+          type: VAULT
+        ruleId: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+      properties:
+        ruleId:
+          description: The ID of the policy rule to calculate AOT quota for
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+          type: string
+        initiator:
+          description: Optional initiator identifier for the AOT calculation
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+          type: string
+        source:
+          $ref: "#/components/schemas/PolicyRuleQuotaParticipant"
+        destination:
+          $ref: "#/components/schemas/PolicyRuleQuotaParticipant"
+      required:
+      - ruleId
+      type: object
+    PolicyRuleQuotaResponse:
+      example:
+        amount: "10000"
+        quotaConfig:
+          timePeriod:
+            seconds: "86400"
+            initiator: PER_SINGLE_MATCH
+            destination: PER_SINGLE_MATCH
+            source: PER_SINGLE_MATCH
+          range:
+            min: "100"
+            max: "10000"
+          currency: USD
+        windowStart: 1699913600
+        currency: USD
+        windowEnd: 1700000000
+        transactionCount: 5
+      properties:
+        amount:
+          description: The calculated Amount Over Time (AOT) quota for the rule
+          example: "10000"
+          type: string
+        quotaConfig:
+          $ref: "#/components/schemas/AmountOverTimeConfig"
+        currency:
+          description: The currency of the AOT amount
+          example: USD
+          type: string
+        windowStart:
+          description: Unix timestamp (seconds) of the start of the current AOT time
+            window
+          example: 1699913600
+          type: number
+        windowEnd:
+          description: Unix timestamp (seconds) of the end of the current AOT time
+            window (when the AOT was calculated)
+          example: 1700000000
+          type: number
+        transactionCount:
+          description: Number of transactions in the current AOT time window
+          example: 5
+          type: number
+      type: object
     UserId:
       description: The unique identifier of the user
       type: string
@@ -82974,6 +84856,8 @@ components:
           id: df4c0987-30da-4976-8dcf-bc2dd41ae331
           label: VIP
           type: WALLET_POOL
+          allowedEntityTypes:
+          - vault_account
           pendingApprovalRequest:
             id: "12345"
             state: PENDING
@@ -82985,6 +84869,8 @@ components:
           id: df4c0987-30da-4976-8dcf-bc2dd41ae331
           label: VIP
           type: WALLET_POOL
+          allowedEntityTypes:
+          - vault_account
           pendingApprovalRequest:
             id: "12345"
             state: PENDING
@@ -83011,6 +84897,8 @@ components:
         description: Tag for VIP customers
         label: VIP
         type: WALLET_POOL
+        allowedEntityTypes:
+        - vault_account
       properties:
         label:
           description: The tag label
@@ -83033,6 +84921,18 @@ components:
           type: boolean
         type:
           $ref: "#/components/schemas/TagType"
+        allowedEntityTypes:
+          default:
+          - vault_account
+          description: "Allow-list of entity types this tag may be attached to. Soft-defaults\
+            \ to ['vault_account'] when omitted, and is immutable after creation.\
+            \ Known values: vault_account (default), contact."
+          example:
+          - vault_account
+          items:
+            type: string
+          minItems: 1
+          type: array
       required:
       - label
       type: object
@@ -84459,6 +86359,622 @@ components:
       - reportType
       - requestedByUserId
       - status
+      type: object
+    BlockchainStateFilter:
+      description: Blockchain lifecycle state used for list filtering.
+      enum:
+      - BLOCKCHAIN_STATE_CREATED
+      - BLOCKCHAIN_STATE_ACTIVATING
+      - BLOCKCHAIN_STATE_ACTIVATED
+      - BLOCKCHAIN_STATE_DEACTIVATING
+      - BLOCKCHAIN_STATE_DEACTIVATED
+      - BLOCKCHAIN_STATE_TECHNICAL_FAILURE
+      type: string
+    BlockchainEnvironment:
+      description: Blockchain network environment.
+      enum:
+      - MAINNET
+      - TESTNET
+      type: string
+    BlockchainSortField:
+      description: Field to sort the blockchain list by.
+      enum:
+      - createdAt
+      - chainName
+      - symbolName
+      - status
+      type: string
+    BlockchainRpcAuth:
+      description: Discriminated RPC auth payload. Sent on create/update so backend
+        can distinguish "no auth" from "field unchanged" on PUT updates. Credential
+        values are stored inside declaredProperties and fetched at activation time;
+        they are deliberately not carried through workflow context.
+      example:
+        password: my-password
+        headerName: X-Custom-Auth
+        headerValue: my-header-value
+        type: RPC_AUTH_BASIC
+        username: rpc_user
+        token: my-bearer-token
+      properties:
+        type:
+          description: Authentication scheme used when calling the RPC endpoint.
+          enum:
+          - RPC_AUTH_BASIC
+          - RPC_AUTH_BEARER
+          - RPC_AUTH_CUSTOM_HEADER
+          example: RPC_AUTH_BASIC
+          type: string
+        username:
+          description: Username for RPC_AUTH_BASIC authentication.
+          example: rpc_user
+          type: string
+        password:
+          description: Password for RPC_AUTH_BASIC authentication.
+          example: my-password
+          type: string
+        token:
+          description: Bearer token for RPC_AUTH_BEARER authentication.
+          example: my-bearer-token
+          type: string
+        headerName:
+          description: Header name for RPC_AUTH_CUSTOM_HEADER authentication.
+          example: X-Custom-Auth
+          type: string
+        headerValue:
+          description: Header value for RPC_AUTH_CUSTOM_HEADER authentication.
+          example: my-header-value
+          type: string
+      required:
+      - type
+      type: object
+    BlockchainDeclaredProperties:
+      description: Declared properties for blockchain configuration (create/update
+        API and response) Only the fields sent by the API and returned in list/create/update
+        responses.
+      example:
+        explorerApiUrl: https://api.etherscan.io
+        chainName: Ethereum
+        baseAssetTenantIds:
+        - f47ac10b-58cc-4372-a567-0e02b2c3d479
+        isPoa: false
+        environmentType: ENVIRONMENT_TYPE_MAINNET
+        blockExplorerTransactionPath: /tx
+        hasFee: true
+        rpcUrls:
+        - https://rpc.example.com
+        nodeType: NODE_TYPE_CORE_GETH
+        explorerApiKey: my-explorer-api-key
+        transactionFormat: 0
+        blockExplorerAddressPath: /address
+        chainId: 1
+        decimals: 18
+        isTraceEnabled: false
+        symbolName: ETH
+        networkId: 1
+        rpcAuth:
+          password: my-password
+          headerName: X-Custom-Auth
+          headerValue: my-header-value
+          type: RPC_AUTH_BASIC
+          username: rpc_user
+          token: my-bearer-token
+        blockExplorerUrl: https://etherscan.io
+        hasLayeredFee: false
+      properties:
+        chainName:
+          description: Human-readable name of the blockchain.
+          example: Ethereum
+          type: string
+        chainId:
+          description: EVM chain ID of the blockchain.
+          example: 1
+          type: number
+        symbolName:
+          description: Native asset symbol of the blockchain.
+          example: ETH
+          type: string
+        decimals:
+          description: Number of decimals for the native asset.
+          example: 18
+          type: number
+        rpcUrls:
+          description: RPC endpoint URLs for the blockchain.
+          example:
+          - https://rpc.example.com
+          items:
+            type: string
+          maxItems: 1
+          minItems: 1
+          type: array
+        environmentType:
+          description: Network environment (mainnet or testnet).
+          enum:
+          - ENVIRONMENT_TYPE_MAINNET
+          - ENVIRONMENT_TYPE_TESTNET
+          example: ENVIRONMENT_TYPE_MAINNET
+          type: string
+        blockExplorerUrl:
+          description: Base URL of the block explorer.
+          example: https://etherscan.io
+          type: string
+        blockExplorerTransactionPath:
+          description: Path template for a transaction on the block explorer.
+          example: /tx
+          type: string
+        blockExplorerAddressPath:
+          description: Path template for an address on the block explorer.
+          example: /address
+          type: string
+        networkId:
+          description: EVM network ID of the blockchain.
+          example: 1
+          type: number
+        hasFee:
+          description: Whether the blockchain charges transaction fees.
+          example: true
+          type: boolean
+        isPoa:
+          description: Whether the blockchain uses proof-of-authority consensus.
+          example: false
+          type: boolean
+        hasLayeredFee:
+          description: Whether the blockchain uses a layered fee model.
+          example: false
+          type: boolean
+        nodeType:
+          description: Node client type for the blockchain.
+          enum:
+          - NODE_TYPE_CORE_GETH
+          - NODE_TYPE_FANTOM
+          - NODE_TYPE_ERIGON
+          - NODE_TYPE_PARITY
+          - NODE_TYPE_BESU
+          example: NODE_TYPE_CORE_GETH
+          type: string
+        transactionFormat:
+          description: Transaction format identifier.
+          example: 0
+          type: number
+        baseAssetTenantIds:
+          description: Tenant IDs that share this base asset.
+          example:
+          - f47ac10b-58cc-4372-a567-0e02b2c3d479
+          items:
+            type: string
+          type: array
+        explorerApiUrl:
+          description: Block explorer API base URL.
+          example: https://api.etherscan.io
+          type: string
+        explorerApiKey:
+          description: API key for the block explorer API.
+          example: my-explorer-api-key
+          type: string
+        isTraceEnabled:
+          description: Whether trace/debug RPC methods are enabled.
+          example: false
+          type: boolean
+        rpcAuth:
+          $ref: "#/components/schemas/BlockchainRpcAuth"
+      required:
+      - chainId
+      - chainName
+      - environmentType
+      - rpcUrls
+      - symbolName
+      type: object
+    Blockchain:
+      description: Blockchain entity
+      example:
+        validationCreatedAtUtc: 1700000000000
+        validationUpdatedAtUtc: 1700000000000
+        validationSessionId: f47ac10b-58cc-4372-a567-0e02b2c3d479
+        declaredProperties:
+          explorerApiUrl: https://api.etherscan.io
+          chainName: Ethereum
+          baseAssetTenantIds:
+          - f47ac10b-58cc-4372-a567-0e02b2c3d479
+          isPoa: false
+          environmentType: ENVIRONMENT_TYPE_MAINNET
+          blockExplorerTransactionPath: /tx
+          hasFee: true
+          rpcUrls:
+          - https://rpc.example.com
+          nodeType: NODE_TYPE_CORE_GETH
+          explorerApiKey: my-explorer-api-key
+          transactionFormat: 0
+          blockExplorerAddressPath: /address
+          chainId: 1
+          decimals: 18
+          isTraceEnabled: false
+          symbolName: ETH
+          networkId: 1
+          rpcAuth:
+            password: my-password
+            headerName: X-Custom-Auth
+            headerValue: my-header-value
+            type: RPC_AUTH_BASIC
+            username: rpc_user
+            token: my-bearer-token
+          blockExplorerUrl: https://etherscan.io
+          hasLayeredFee: false
+        failedStep: FAILED_STEP_CONFIGURATION
+        blockchainState: BLOCKCHAIN_STATE_ACTIVATED
+        createdAtUtc: 1700000000000
+        validationFailureReasons:
+        - RPC endpoint unreachable
+        id: f47ac10b-58cc-4372-a567-0e02b2c3d479
+        validationCompletedAtUtc: 1700000000000
+        validationStatus: VALIDATION_STATUS_SUCCEEDED
+        updatedAtUtc: 1700000000000
+      properties:
+        id:
+          description: Unique blockchain identifier.
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          type: string
+        blockchainState:
+          description: Current lifecycle state of the blockchain.
+          enum:
+          - BLOCKCHAIN_STATE_CREATED
+          - BLOCKCHAIN_STATE_ACTIVATING
+          - BLOCKCHAIN_STATE_ACTIVATED
+          - BLOCKCHAIN_STATE_DEACTIVATING
+          - BLOCKCHAIN_STATE_DEACTIVATED
+          - BLOCKCHAIN_STATE_TECHNICAL_FAILURE
+          example: BLOCKCHAIN_STATE_ACTIVATED
+          type: string
+        declaredProperties:
+          $ref: "#/components/schemas/BlockchainDeclaredProperties"
+        createdAtUtc:
+          description: "Creation timestamp (epoch milliseconds, UTC)."
+          example: 1700000000000
+          type: number
+        updatedAtUtc:
+          description: "Last update timestamp (epoch milliseconds, UTC)."
+          example: 1700000000000
+          type: number
+        validationSessionId:
+          description: Validation session data (optional - only present if validation
+            session exists)
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          type: string
+        validationStatus:
+          description: Status of the latest validation session.
+          enum:
+          - VALIDATION_STATUS_PENDING
+          - VALIDATION_STATUS_IN_PROGRESS
+          - VALIDATION_STATUS_SUCCEEDED
+          - VALIDATION_STATUS_FAILED
+          - VALIDATION_STATUS_TECHNICAL_FAILURE
+          example: VALIDATION_STATUS_SUCCEEDED
+          type: string
+        validationCreatedAtUtc:
+          description: "Validation session creation timestamp (epoch milliseconds,\
+            \ UTC)."
+          example: 1700000000000
+          type: number
+        validationUpdatedAtUtc:
+          description: "Validation session last update timestamp (epoch milliseconds,\
+            \ UTC)."
+          example: 1700000000000
+          type: number
+        validationCompletedAtUtc:
+          description: "Validation session completion timestamp (epoch milliseconds,\
+            \ UTC)."
+          example: 1700000000000
+          type: number
+        validationFailureReasons:
+          description: "Reasons the latest validation failed, if any."
+          example:
+          - RPC endpoint unreachable
+          items:
+            type: string
+          type: array
+        failedStep:
+          description: Business step at which the activation flow failed. Absent when
+            no failure has been recorded.
+          enum:
+          - FAILED_STEP_CONFIGURATION
+          - FAILED_STEP_RESOURCES_ALLOCATION
+          - FAILED_STEP_TEST_TX_EXTERNAL_TO_FIREBLOCKS
+          - FAILED_STEP_TEST_TX_FIREBLOCKS_TO_FIREBLOCKS
+          example: FAILED_STEP_CONFIGURATION
+          type: string
+      required:
+      - blockchainState
+      - createdAtUtc
+      - declaredProperties
+      - id
+      - updatedAtUtc
+      - validationFailureReasons
+      type: object
+    ListBlockchainsResponse-2:
+      example:
+        next: some_value
+        total: 100
+        data: []
+        prev: some_value
+      properties:
+        data:
+          description: Blockchains for the current page.
+          example: []
+          items:
+            $ref: "#/components/schemas/Blockchain"
+          type: array
+        total:
+          description: "Total number of items across all pages, matching the current\
+            \ filter."
+          example: 100
+          type: number
+        next:
+          description: "Cursor for the next page; absent when the current page is\
+            \ the last. Opaque base64 blob bundling the target pageCursor and current\
+            \ query params (pageSize, search, status, statusExclude, blockchainEnv,\
+            \ sortBy, order)."
+          example: some_value
+          type: string
+        prev:
+          description: Cursor for the previous page; absent when the current page
+            is the first.
+          example: some_value
+          type: string
+      required:
+      - data
+      - total
+      type: object
+    CreateBlockchainRequest:
+      description: Create blockchain request. tenant_id is derived from the JWT token
+        context.
+      example:
+        declaredProperties:
+          explorerApiUrl: https://api.etherscan.io
+          chainName: Ethereum
+          baseAssetTenantIds:
+          - f47ac10b-58cc-4372-a567-0e02b2c3d479
+          isPoa: false
+          environmentType: ENVIRONMENT_TYPE_MAINNET
+          blockExplorerTransactionPath: /tx
+          hasFee: true
+          rpcUrls:
+          - https://rpc.example.com
+          nodeType: NODE_TYPE_CORE_GETH
+          explorerApiKey: my-explorer-api-key
+          transactionFormat: 0
+          blockExplorerAddressPath: /address
+          chainId: 1
+          decimals: 18
+          isTraceEnabled: false
+          symbolName: ETH
+          networkId: 1
+          rpcAuth:
+            password: my-password
+            headerName: X-Custom-Auth
+            headerValue: my-header-value
+            type: RPC_AUTH_BASIC
+            username: rpc_user
+            token: my-bearer-token
+          blockExplorerUrl: https://etherscan.io
+          hasLayeredFee: false
+      properties:
+        declaredProperties:
+          $ref: "#/components/schemas/BlockchainDeclaredProperties"
+      required:
+      - declaredProperties
+      type: object
+    CreateBlockchainResponse:
+      example:
+        blockchain:
+          validationCreatedAtUtc: 1700000000000
+          validationUpdatedAtUtc: 1700000000000
+          validationSessionId: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          declaredProperties:
+            explorerApiUrl: https://api.etherscan.io
+            chainName: Ethereum
+            baseAssetTenantIds:
+            - f47ac10b-58cc-4372-a567-0e02b2c3d479
+            isPoa: false
+            environmentType: ENVIRONMENT_TYPE_MAINNET
+            blockExplorerTransactionPath: /tx
+            hasFee: true
+            rpcUrls:
+            - https://rpc.example.com
+            nodeType: NODE_TYPE_CORE_GETH
+            explorerApiKey: my-explorer-api-key
+            transactionFormat: 0
+            blockExplorerAddressPath: /address
+            chainId: 1
+            decimals: 18
+            isTraceEnabled: false
+            symbolName: ETH
+            networkId: 1
+            rpcAuth:
+              password: my-password
+              headerName: X-Custom-Auth
+              headerValue: my-header-value
+              type: RPC_AUTH_BASIC
+              username: rpc_user
+              token: my-bearer-token
+            blockExplorerUrl: https://etherscan.io
+            hasLayeredFee: false
+          failedStep: FAILED_STEP_CONFIGURATION
+          blockchainState: BLOCKCHAIN_STATE_ACTIVATED
+          createdAtUtc: 1700000000000
+          validationFailureReasons:
+          - RPC endpoint unreachable
+          id: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          validationCompletedAtUtc: 1700000000000
+          validationStatus: VALIDATION_STATUS_SUCCEEDED
+          updatedAtUtc: 1700000000000
+        message: Blockchain created successfully
+      properties:
+        blockchain:
+          $ref: "#/components/schemas/Blockchain"
+        message:
+          description: Human-readable result message.
+          example: Blockchain created successfully
+          type: string
+      required:
+      - blockchain
+      - message
+      type: object
+    GetTestWalletAddressResponse:
+      example:
+        testWalletAddress: 0x0000000000000000000000000000000000000000
+      properties:
+        testWalletAddress:
+          description: Ethereum address derived from BLOCKCHAIN_LINK_EXTERNAL_WALLET_PRIVATE_KEY
+            (for UI display).
+          example: 0x0000000000000000000000000000000000000000
+          type: string
+      type: object
+    GetBillingInfoResponse:
+      example:
+        activatedBlockchainsLimit: 10
+        activatedBlockchainsUsed: 3
+      properties:
+        activatedBlockchainsLimit:
+          description: Maximum number of activated blockchains allowed for this tenant
+            (0 = not purchased).
+          example: 10
+          type: number
+        activatedBlockchainsUsed:
+          description: "Number of blockchains currently in Activating, Activated,\
+            \ or Deactivating state for this tenant. Filter-independent (ignores list\
+            \ filters/pagination)."
+          example: 3
+          type: number
+      required:
+      - activatedBlockchainsLimit
+      - activatedBlockchainsUsed
+      type: object
+    GetBlockchainByIdResponse:
+      example:
+        blockchain:
+          validationCreatedAtUtc: 1700000000000
+          validationUpdatedAtUtc: 1700000000000
+          validationSessionId: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          declaredProperties:
+            explorerApiUrl: https://api.etherscan.io
+            chainName: Ethereum
+            baseAssetTenantIds:
+            - f47ac10b-58cc-4372-a567-0e02b2c3d479
+            isPoa: false
+            environmentType: ENVIRONMENT_TYPE_MAINNET
+            blockExplorerTransactionPath: /tx
+            hasFee: true
+            rpcUrls:
+            - https://rpc.example.com
+            nodeType: NODE_TYPE_CORE_GETH
+            explorerApiKey: my-explorer-api-key
+            transactionFormat: 0
+            blockExplorerAddressPath: /address
+            chainId: 1
+            decimals: 18
+            isTraceEnabled: false
+            symbolName: ETH
+            networkId: 1
+            rpcAuth:
+              password: my-password
+              headerName: X-Custom-Auth
+              headerValue: my-header-value
+              type: RPC_AUTH_BASIC
+              username: rpc_user
+              token: my-bearer-token
+            blockExplorerUrl: https://etherscan.io
+            hasLayeredFee: false
+          failedStep: FAILED_STEP_CONFIGURATION
+          blockchainState: BLOCKCHAIN_STATE_ACTIVATED
+          createdAtUtc: 1700000000000
+          validationFailureReasons:
+          - RPC endpoint unreachable
+          id: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          validationCompletedAtUtc: 1700000000000
+          validationStatus: VALIDATION_STATUS_SUCCEEDED
+          updatedAtUtc: 1700000000000
+      properties:
+        blockchain:
+          $ref: "#/components/schemas/Blockchain"
+      required:
+      - blockchain
+      type: object
+    UpdateBlockchainResponse:
+      example:
+        blockchain:
+          validationCreatedAtUtc: 1700000000000
+          validationUpdatedAtUtc: 1700000000000
+          validationSessionId: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          declaredProperties:
+            explorerApiUrl: https://api.etherscan.io
+            chainName: Ethereum
+            baseAssetTenantIds:
+            - f47ac10b-58cc-4372-a567-0e02b2c3d479
+            isPoa: false
+            environmentType: ENVIRONMENT_TYPE_MAINNET
+            blockExplorerTransactionPath: /tx
+            hasFee: true
+            rpcUrls:
+            - https://rpc.example.com
+            nodeType: NODE_TYPE_CORE_GETH
+            explorerApiKey: my-explorer-api-key
+            transactionFormat: 0
+            blockExplorerAddressPath: /address
+            chainId: 1
+            decimals: 18
+            isTraceEnabled: false
+            symbolName: ETH
+            networkId: 1
+            rpcAuth:
+              password: my-password
+              headerName: X-Custom-Auth
+              headerValue: my-header-value
+              type: RPC_AUTH_BASIC
+              username: rpc_user
+              token: my-bearer-token
+            blockExplorerUrl: https://etherscan.io
+            hasLayeredFee: false
+          failedStep: FAILED_STEP_CONFIGURATION
+          blockchainState: BLOCKCHAIN_STATE_ACTIVATED
+          createdAtUtc: 1700000000000
+          validationFailureReasons:
+          - RPC endpoint unreachable
+          id: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          validationCompletedAtUtc: 1700000000000
+          validationStatus: VALIDATION_STATUS_SUCCEEDED
+          updatedAtUtc: 1700000000000
+        message: Blockchain updated successfully
+      properties:
+        blockchain:
+          $ref: "#/components/schemas/Blockchain"
+        message:
+          description: Human-readable result message.
+          example: Blockchain updated successfully
+          type: string
+      required:
+      - blockchain
+      - message
+      type: object
+    ActivateBlockchainResponse:
+      example:
+        message: Blockchain activation started
+      properties:
+        message:
+          description: Human-readable result message.
+          example: Blockchain activation started
+          type: string
+      required:
+      - message
+      type: object
+    TriggerValidationFlowResponse:
+      example:
+        message: Validation flow triggered
+      properties:
+        message:
+          description: Human-readable result message.
+          example: Validation flow triggered
+          type: string
+      required:
+      - message
       type: object
     get_filter_parameter:
       properties:

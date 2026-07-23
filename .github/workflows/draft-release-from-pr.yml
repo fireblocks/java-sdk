@@ -12,6 +12,7 @@ permissions:
 jobs:
   draft-release:
     runs-on: ubuntu-latest
+    if: "!startsWith(github.event.head_commit.message, 'release ')"
 
     steps:
       - name: Checkout repository

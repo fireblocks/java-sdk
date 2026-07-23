@@ -353,6 +353,8 @@ public class TagsApi {
      *     (optional, default to false)
      * @param isProtected (optional)
      * @param type Filter by tag type (optional
+     * @param allowedEntityType Filter tags whose allow-list contains this entity type. Known
+     *     values: vault_account, contact. (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;TagsPagedResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
@@ -363,7 +365,8 @@ public class TagsApi {
             List<UUID> tagIds,
             Boolean includePendingApprovalsInfo,
             Boolean isProtected,
-            List<TagType> type)
+            List<TagType> type,
+            String allowedEntityType)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
@@ -374,7 +377,8 @@ public class TagsApi {
                             tagIds,
                             includePendingApprovalsInfo,
                             isProtected,
-                            type);
+                            type,
+                            allowedEntityType);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -414,7 +418,8 @@ public class TagsApi {
             List<UUID> tagIds,
             Boolean includePendingApprovalsInfo,
             Boolean isProtected,
-            List<TagType> type)
+            List<TagType> type,
+            String allowedEntityType)
             throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -440,6 +445,9 @@ public class TagsApi {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("isProtected", isProtected));
         localVarQueryParameterBaseName = "type";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "type", type));
+        localVarQueryParameterBaseName = "allowedEntityType";
+        localVarQueryParams.addAll(
+                ApiClient.parameterToPairs("allowedEntityType", allowedEntityType));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");

@@ -21,5 +21,7 @@
 
 * `REVIEW` (value: `"REVIEW"`)
 
+* `WAIT` (value: `"WAIT"`)
+
 
 

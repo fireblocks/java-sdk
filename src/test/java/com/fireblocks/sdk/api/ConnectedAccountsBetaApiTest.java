@@ -25,6 +25,7 @@ import com.fireblocks.sdk.model.ConnectedAccountRateResponse;
 import com.fireblocks.sdk.model.ConnectedAccountTradingPairsResponse;
 import com.fireblocks.sdk.model.ConnectedAccountsResponse;
 import com.fireblocks.sdk.model.ConnectedSingleAccountResponse;
+import com.fireblocks.sdk.model.GetConnectedAccountsCredentialsPublicKeyResponse;
 import com.fireblocks.sdk.model.RenameConnectedAccountRequest;
 import com.fireblocks.sdk.model.RenameConnectedAccountResponse;
 import java.util.concurrent.CompletableFuture;
@@ -42,7 +43,7 @@ public class ConnectedAccountsBetaApiTest {
      *
      * <p>Creates a new connected account for the authenticated tenant. The &#x60;creds&#x60; field
      * must be a Base64-encoded RSA-encrypted credential blob. Use &#x60;GET
-     * /exchange_accounts/credentials_public_key&#x60; to retrieve the public key for encryption.
+     * /connected_accounts/credentials/public_key&#x60; to retrieve the public key for encryption.
      * The &#x60;providerType&#x60; is derived server-side from the &#x60;providerId&#x60; — callers
      * do not supply it. Endpoint Permission: Editor, Admin, Non-Signing Admin. **Note:** This
      * endpoint is currently in beta and might be subject to changes.
@@ -105,7 +106,6 @@ public class ConnectedAccountsBetaApiTest {
         String address = null;
         String pageCursor = null;
         Integer pageSize = null;
-        String sortBy = null;
         String order = null;
         CompletableFuture<ApiResponse<AllowlistResponse>> response =
                 api.getConnectedAccountAllowlist(
@@ -116,7 +116,6 @@ public class ConnectedAccountsBetaApiTest {
                         address,
                         pageCursor,
                         pageSize,
-                        sortBy,
                         order);
     }
 
@@ -205,6 +204,22 @@ public class ConnectedAccountsBetaApiTest {
         String pageCursor = null;
         CompletableFuture<ApiResponse<ConnectedAccountsResponse>> response =
                 api.getConnectedAccounts(mainAccounts, pageSize, pageCursor);
+    }
+
+    /**
+     * Get public key to encrypt connected account credentials
+     *
+     * <p>Returns the RSA public key used to encrypt the &#x60;creds&#x60; field before calling
+     * &#x60;POST /connected_accounts&#x60;. The key is a singleton resource scoped to the
+     * connected-accounts credentials domain — there is one per tenant context. **Note:** This
+     * endpoint is currently in beta and might be subject to changes.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getConnectedAccountsCredentialsPublicKeyTest() throws ApiException {
+        CompletableFuture<ApiResponse<GetConnectedAccountsCredentialsPublicKeyResponse>> response =
+                api.getConnectedAccountsCredentialsPublicKey();
     }
 
     /**

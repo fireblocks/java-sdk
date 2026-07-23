@@ -108,6 +108,7 @@ public class TagsApiTest {
         Boolean includePendingApprovalsInfo = null;
         Boolean isProtected = null;
         List<TagType> type = null;
+        String allowedEntityType = null;
         CompletableFuture<ApiResponse<TagsPagedResponse>> response =
                 api.getTags(
                         pageCursor,
@@ -116,7 +117,8 @@ public class TagsApiTest {
                         tagIds,
                         includePendingApprovalsInfo,
                         isProtected,
-                        type);
+                        type,
+                        allowedEntityType);
     }
 
     /**

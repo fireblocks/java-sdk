@@ -36,4 +36,82 @@ class AmlScreeningResultTest {
     void payloadTest() {
         // TODO: test payload
     }
+
+    /** Test the property 'verdict' */
+    @Test
+    void verdictTest() {
+        // TODO: test verdict
+    }
+
+    /** Test the property 'screeningStatus' */
+    @Test
+    void screeningStatusTest() {
+        // TODO: test screeningStatus
+    }
+
+    /** Test the property 'bypassReason' */
+    @Test
+    void bypassReasonTest() {
+        // TODO: test bypassReason
+    }
+
+    /** Test the property 'timestamp' */
+    @Test
+    void timestampTest() {
+        // TODO: test timestamp
+    }
+
+    /** Test the property 'customerRefId' */
+    @Test
+    void customerRefIdTest() {
+        // TODO: test customerRefId
+    }
+
+    /** Test the property 'externalId' */
+    @Test
+    void externalIdTest() {
+        // TODO: test externalId
+    }
+
+    /** Test the property 'category' */
+    @Test
+    void categoryTest() {
+        // TODO: test category
+    }
+
+    /** Test the property 'categoryId' */
+    @Test
+    void categoryIdTest() {
+        // TODO: test categoryId
+    }
+
+    /** Test the property 'risk' */
+    @Test
+    void riskTest() {
+        // TODO: test risk
+    }
+
+    /** Test the property 'destAddress' */
+    @Test
+    void destAddressTest() {
+        // TODO: test destAddress
+    }
+
+    /** Test the property 'matchedRule' */
+    @Test
+    void matchedRuleTest() {
+        // TODO: test matchedRule
+    }
+
+    /** Test the property 'matchedPrescreeningRule' */
+    @Test
+    void matchedPrescreeningRuleTest() {
+        // TODO: test matchedPrescreeningRule
+    }
+
+    /** Test the property 'matchedAlert' */
+    @Test
+    void matchedAlertTest() {
+        // TODO: test matchedAlert
+    }
 }

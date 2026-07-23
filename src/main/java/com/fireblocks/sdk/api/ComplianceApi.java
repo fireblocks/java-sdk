@@ -48,6 +48,8 @@ import com.fireblocks.sdk.model.LegalEntityRegistration;
 import com.fireblocks.sdk.model.ListLegalEntitiesResponse;
 import com.fireblocks.sdk.model.ListVaultsForRegistrationResponse;
 import com.fireblocks.sdk.model.RegisterLegalEntityRequest;
+import com.fireblocks.sdk.model.RescreenTransactionRequest;
+import com.fireblocks.sdk.model.RescreenTransactionResponse;
 import com.fireblocks.sdk.model.ScreeningConfigurationsRequest;
 import com.fireblocks.sdk.model.ScreeningPolicyResponse;
 import com.fireblocks.sdk.model.ScreeningProviderRulesConfigurationResponse;
@@ -2336,6 +2338,100 @@ public class ComplianceApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Rescreen a rejected transaction Re-runs compliance screening on an incoming transaction that
+     * was rejected or failed by screening checks, moving it back to pending screening. This
+     * endpoint is only applicable to incoming transactions with a rejected/failed AML screening
+     * status.
+     *
+     * @param txId The transaction id that was rejected by screening checks (required)
+     * @param rescreenTransactionRequest (optional)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;RescreenTransactionResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<RescreenTransactionResponse>> rescreenRejectedTransaction(
+            String txId,
+            RescreenTransactionRequest rescreenTransactionRequest,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    rescreenRejectedTransactionRequestBuilder(
+                            txId, rescreenTransactionRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "rescreenRejectedTransaction",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<RescreenTransactionResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            RescreenTransactionResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder rescreenRejectedTransactionRequestBuilder(
+            String txId,
+            RescreenTransactionRequest rescreenTransactionRequest,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("rescreenRejectedTransaction", "txId", txId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/screening/transaction/{txId}/rescreen"
+                        .replace("{txId}", ApiClient.urlEncode(txId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(rescreenTransactionRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

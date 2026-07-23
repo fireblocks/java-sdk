@@ -122,7 +122,7 @@ public class AddConnectedAccountRequest {
 
     /**
      * Base64-encoded RSA-encrypted credential blob. Encrypt using the public key from GET
-     * /exchange_accounts/credentials_public_key.
+     * /connected_accounts/credentials/public_key.
      *
      * @return creds
      */

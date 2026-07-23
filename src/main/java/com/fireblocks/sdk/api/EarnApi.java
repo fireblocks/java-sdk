@@ -43,7 +43,7 @@ import java.util.function.Consumer;
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class EarnBetaApi {
+public class EarnApi {
     private final HttpClient memberVarHttpClient;
     private final ObjectMapper memberVarObjectMapper;
     private final String memberVarBaseUri;
@@ -52,11 +52,11 @@ public class EarnBetaApi {
     private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
     private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-    public EarnBetaApi() {
+    public EarnApi() {
         this(new ApiClient());
     }
 
-    public EarnBetaApi(ApiClient apiClient) {
+    public EarnApi(ApiClient apiClient) {
         memberVarHttpClient = apiClient.getHttpClient();
         memberVarObjectMapper = apiClient.getObjectMapper();
         memberVarBaseUri = apiClient.getBaseUri();
@@ -85,8 +85,7 @@ public class EarnBetaApi {
      * workspace (one-time per tenant). When &#x60;isTermsApprovalRequired&#x60; is true on a
      * provider (see list providers), call this once before creating or executing earn actions with
      * providers that require it. After success, &#x60;GET /earn/providers&#x60; reflects
-     * &#x60;isTermsOfServiceApproved&#x60;. **Note:** This endpoint is currently in beta and might
-     * be subject to changes.
+     * &#x60;isTermsOfServiceApproved&#x60;.
      *
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
@@ -149,8 +148,7 @@ public class EarnBetaApi {
      * Create and execute a lending action (deposit or withdraw) Creates and runs a sequence of
      * on-chain steps for either a deposit into or a withdrawal from an earn vault/market. Specify
      * the operation with &#x60;action&#x60; in the request body (&#x60;DEPOSIT&#x60; or
-     * &#x60;WITHDRAW&#x60;). **Note:** This endpoint is currently in beta and might be subject to
-     * changes.
+     * &#x60;WITHDRAW&#x60;).
      *
      * @param createEarnActionRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -233,8 +231,7 @@ public class EarnBetaApi {
     }
     /**
      * Get a single earn lending action Returns one lending action by its action sequence id
-     * (tenant-scoped). **Note:** This endpoint is currently in beta and might be subject to
-     * changes.
+     * (tenant-scoped).
      *
      * @param id Action sequence id (UUID). (required)
      * @return CompletableFuture&lt;ApiResponse&lt;GetActionResponse&gt;&gt;
@@ -299,8 +296,7 @@ public class EarnBetaApi {
     }
     /**
      * List earn lending actions Returns a paginated list of lending actions (deposits and
-     * withdrawals) for the authenticated tenant. **Note:** This endpoint is currently in beta and
-     * might be subject to changes.
+     * withdrawals) for the authenticated tenant.
      *
      * @param pageCursor Cursor for the next or previous page of results. (optional)
      * @param pageSize Number of items per page (default 100, max 100). (optional, default to 100)
@@ -389,8 +385,7 @@ public class EarnBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get list of earn opportunities Get list of earn opportunities (vaults). **Note:** This
-     * endpoint is currently in beta and might be subject to changes.
+     * Get list of earn opportunities Get list of earn opportunities (vaults).
      *
      * @param pageCursor Cursor for the next or previous page of results. (optional)
      * @param pageSize Number of items per page. (optional, default to 100)
@@ -481,8 +476,7 @@ public class EarnBetaApi {
     }
     /**
      * Get list of earn positions Get list of earn positions for accounts tracked for this
-     * workspace. Optional query parameters filter by chain, provider, and pagination. **Note:**
-     * This endpoint is currently in beta and might be subject to changes.
+     * workspace. Optional query parameters filter by chain, provider, and pagination.
      *
      * @param chainId (optional)
      * @param providerId (optional)
@@ -590,8 +584,7 @@ public class EarnBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get list of earn providers Get list of earn providers. **Note:** This endpoint is currently
-     * in beta and might be subject to changes.
+     * Get list of earn providers Get list of earn providers.
      *
      * @param pageCursor Cursor for the next or previous page of results. (optional)
      * @param pageSize Number of items per page. (optional, default to 100)

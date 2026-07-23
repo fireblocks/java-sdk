@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>23.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:23.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-23.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -145,6 +145,15 @@ Class | Method | HTTP request | Description
 *ApiUserApi* | [**getApiUsers**](docs/ApiUserApi.md#getApiUsers) | **GET** /management/api_users | Get API Keys
 *ApiUserApi* | [**issueApiUserPairingToken**](docs/ApiUserApi.md#issueApiUserPairingToken) | **POST** /management/api_users/{userId}/pairing_token | Issue API user pairing token
 *AuditLogsApi* | [**getAuditLogs**](docs/AuditLogsApi.md#getAuditLogs) | **GET** /management/audit_logs | Get audit logs
+*BlockchainLinkBetaApi* | [**activateBlockchainLinkChain**](docs/BlockchainLinkBetaApi.md#activateBlockchainLinkChain) | **POST** /blockchain_link/blockchains/{blockchainId}/activate | Activate a blockchain (triggers activation workflow)
+*BlockchainLinkBetaApi* | [**createBlockchainLinkChain**](docs/BlockchainLinkBetaApi.md#createBlockchainLinkChain) | **POST** /blockchain_link/blockchains | Create a new blockchain
+*BlockchainLinkBetaApi* | [**deleteBlockchainLinkChain**](docs/BlockchainLinkBetaApi.md#deleteBlockchainLinkChain) | **DELETE** /blockchain_link/blockchains/{blockchainId} | Delete a blockchain
+*BlockchainLinkBetaApi* | [**getBlockchainLinkBillingInfo**](docs/BlockchainLinkBetaApi.md#getBlockchainLinkBillingInfo) | **GET** /blockchain_link/blockchains/billing_info | Get tenant billing info
+*BlockchainLinkBetaApi* | [**getBlockchainLinkChain**](docs/BlockchainLinkBetaApi.md#getBlockchainLinkChain) | **GET** /blockchain_link/blockchains/{blockchainId} | Get a blockchain by ID
+*BlockchainLinkBetaApi* | [**getBlockchainLinkTestWalletAddress**](docs/BlockchainLinkBetaApi.md#getBlockchainLinkTestWalletAddress) | **GET** /blockchain_link/blockchains/test_wallet_address | Get the test wallet address
+*BlockchainLinkBetaApi* | [**listBlockchainLinkChains**](docs/BlockchainLinkBetaApi.md#listBlockchainLinkChains) | **GET** /blockchain_link/blockchains | List blockchains with pagination and filtering
+*BlockchainLinkBetaApi* | [**triggerBlockchainLinkValidation**](docs/BlockchainLinkBetaApi.md#triggerBlockchainLinkValidation) | **POST** /blockchain_link/blockchains/{blockchainId}/validate | Trigger validation workflow
+*BlockchainLinkBetaApi* | [**updateBlockchainLinkChain**](docs/BlockchainLinkBetaApi.md#updateBlockchainLinkChain) | **PUT** /blockchain_link/blockchains/{blockchainId} | Update a blockchain
 *BlockchainsAssetsApi* | [**getAsset**](docs/BlockchainsAssetsApi.md#getAsset) | **GET** /assets/{id} | Get an asset
 *BlockchainsAssetsApi* | [**getBlockchain**](docs/BlockchainsAssetsApi.md#getBlockchain) | **GET** /blockchains/{id} | Get a Blockchain by ID
 *BlockchainsAssetsApi* | [**getSupportedAssets**](docs/BlockchainsAssetsApi.md#getSupportedAssets) | **GET** /supported_assets | List assets (Legacy)
@@ -183,6 +192,7 @@ Class | Method | HTTP request | Description
 *ComplianceApi* | [**registerLegalEntity**](docs/ComplianceApi.md#registerLegalEntity) | **POST** /legal_entities | Register a new legal entity
 *ComplianceApi* | [**removeAddressRegistryVaultOptOut**](docs/ComplianceApi.md#removeAddressRegistryVaultOptOut) | **DELETE** /address_registry/vaults/{vaultAccountId} | Remove a single vault account from the address registry opt-out list
 *ComplianceApi* | [**removeAllAddressRegistryVaultOptOuts**](docs/ComplianceApi.md#removeAllAddressRegistryVaultOptOuts) | **DELETE** /address_registry/vaults | Remove all vault-level address registry opt-outs for the workspace
+*ComplianceApi* | [**rescreenRejectedTransaction**](docs/ComplianceApi.md#rescreenRejectedTransaction) | **POST** /screening/transaction/{txId}/rescreen | Rescreen a rejected transaction
 *ComplianceApi* | [**retryRejectedTransactionBypassScreeningChecks**](docs/ComplianceApi.md#retryRejectedTransactionBypassScreeningChecks) | **POST** /screening/transaction/{txId}/bypass_screening_policy | Bypass Screening Policy
 *ComplianceApi* | [**setAmlVerdict**](docs/ComplianceApi.md#setAmlVerdict) | **POST** /screening/aml/verdict/manual | Set AML Verdict (BYORK Super Light)
 *ComplianceApi* | [**setByorkTimeouts**](docs/ComplianceApi.md#setByorkTimeouts) | **PUT** /screening/byork/config/timeouts | Set BYORK Light timeouts
@@ -203,6 +213,7 @@ Class | Method | HTTP request | Description
 *ConnectedAccountsBetaApi* | [**getConnectedAccountRates**](docs/ConnectedAccountsBetaApi.md#getConnectedAccountRates) | **GET** /connected_accounts/{accountId}/rates | Get exchange rates for an account
 *ConnectedAccountsBetaApi* | [**getConnectedAccountTradingPairs**](docs/ConnectedAccountsBetaApi.md#getConnectedAccountTradingPairs) | **GET** /connected_accounts/{accountId}/manifest/capabilities/trading/pairs | Get supported trading pairs for an account
 *ConnectedAccountsBetaApi* | [**getConnectedAccounts**](docs/ConnectedAccountsBetaApi.md#getConnectedAccounts) | **GET** /connected_accounts | Get connected accounts
+*ConnectedAccountsBetaApi* | [**getConnectedAccountsCredentialsPublicKey**](docs/ConnectedAccountsBetaApi.md#getConnectedAccountsCredentialsPublicKey) | **GET** /connected_accounts/credentials/public_key | Get public key to encrypt connected account credentials
 *ConnectedAccountsBetaApi* | [**renameConnectedAccount**](docs/ConnectedAccountsBetaApi.md#renameConnectedAccount) | **POST** /connected_accounts/{accountId}/rename | Rename Connected Account
 *ConnectedAccountsBetaApi* | [**syncConnectedAccountAllowlist**](docs/ConnectedAccountsBetaApi.md#syncConnectedAccountAllowlist) | **POST** /connected_accounts/{accountId}/allowlist/sync | Sync allowlist for connected account
 *ConsoleUserApi* | [**createConsoleUser**](docs/ConsoleUserApi.md#createConsoleUser) | **POST** /management/users | Create console user
@@ -243,13 +254,13 @@ Class | Method | HTTP request | Description
 *DeployedContractsApi* | [**getDeployedContractByAddress**](docs/DeployedContractsApi.md#getDeployedContractByAddress) | **GET** /tokenization/contracts/{assetId}/{contractAddress} | Return deployed contract data
 *DeployedContractsApi* | [**getDeployedContractById**](docs/DeployedContractsApi.md#getDeployedContractById) | **GET** /tokenization/contracts/{id} | Return deployed contract data by id
 *DeployedContractsApi* | [**getDeployedContracts**](docs/DeployedContractsApi.md#getDeployedContracts) | **GET** /tokenization/contracts | List deployed contracts data
-*EarnBetaApi* | [**approveTermsOfService**](docs/EarnBetaApi.md#approveTermsOfService) | **POST** /earn/providers/approve_terms_of_service | Approve earn provider terms of service
-*EarnBetaApi* | [**createEarnAction**](docs/EarnBetaApi.md#createEarnAction) | **POST** /earn/actions | Create and execute a lending action (deposit or withdraw)
-*EarnBetaApi* | [**getEarnAction**](docs/EarnBetaApi.md#getEarnAction) | **GET** /earn/actions/{id} | Get a single earn lending action
-*EarnBetaApi* | [**getEarnActions**](docs/EarnBetaApi.md#getEarnActions) | **GET** /earn/actions | List earn lending actions
-*EarnBetaApi* | [**getEarnOpportunities**](docs/EarnBetaApi.md#getEarnOpportunities) | **GET** /earn/opportunities | Get list of earn opportunities
-*EarnBetaApi* | [**getEarnPositions**](docs/EarnBetaApi.md#getEarnPositions) | **GET** /earn/positions | Get list of earn positions
-*EarnBetaApi* | [**getEarnProviders**](docs/EarnBetaApi.md#getEarnProviders) | **GET** /earn/providers | Get list of earn providers
+*EarnApi* | [**approveTermsOfService**](docs/EarnApi.md#approveTermsOfService) | **POST** /earn/providers/approve_terms_of_service | Approve earn provider terms of service
+*EarnApi* | [**createEarnAction**](docs/EarnApi.md#createEarnAction) | **POST** /earn/actions | Create and execute a lending action (deposit or withdraw)
+*EarnApi* | [**getEarnAction**](docs/EarnApi.md#getEarnAction) | **GET** /earn/actions/{id} | Get a single earn lending action
+*EarnApi* | [**getEarnActions**](docs/EarnApi.md#getEarnActions) | **GET** /earn/actions | List earn lending actions
+*EarnApi* | [**getEarnOpportunities**](docs/EarnApi.md#getEarnOpportunities) | **GET** /earn/opportunities | Get list of earn opportunities
+*EarnApi* | [**getEarnPositions**](docs/EarnApi.md#getEarnPositions) | **GET** /earn/positions | Get list of earn positions
+*EarnApi* | [**getEarnProviders**](docs/EarnApi.md#getEarnProviders) | **GET** /earn/providers | Get list of earn providers
 *EmbeddedWalletsApi* | [**addEmbeddedWalletAsset**](docs/EmbeddedWalletsApi.md#addEmbeddedWalletAsset) | **POST** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId} | Add asset to account
 *EmbeddedWalletsApi* | [**assignEmbeddedWallet**](docs/EmbeddedWalletsApi.md#assignEmbeddedWallet) | **POST** /ncw/wallets/{walletId}/assign | Assign a wallet
 *EmbeddedWalletsApi* | [**createEmbeddedWallet**](docs/EmbeddedWalletsApi.md#createEmbeddedWallet) | **POST** /ncw/wallets | Create a new wallet
@@ -369,6 +380,7 @@ Class | Method | HTTP request | Description
 *PolicyEditorV2Api* | [**getDraft**](docs/PolicyEditorV2Api.md#getDraft) | **GET** /policy/draft | Get the active draft by policy type
 *PolicyEditorV2Api* | [**publishDraft**](docs/PolicyEditorV2Api.md#publishDraft) | **POST** /policy/draft | Send publish request for a certain draft id
 *PolicyEditorV2Api* | [**updateDraft**](docs/PolicyEditorV2Api.md#updateDraft) | **PUT** /policy/draft | Update the draft with a new set of rules by policy types
+*PolicyEditorV2BetaApi* | [**getPolicyRuleQuota**](docs/PolicyEditorV2BetaApi.md#getPolicyRuleQuota) | **POST** /policy/rules/quota | Calculate the AOT quota for a policy rule
 *ReportsBetaApi* | [**createReport**](docs/ReportsBetaApi.md#createReport) | **POST** /reports | Create a report
 *ReportsBetaApi* | [**getReport**](docs/ReportsBetaApi.md#getReport) | **GET** /reports/{reportId} | Get report status
 *ReportsBetaApi* | [**listReports**](docs/ReportsBetaApi.md#listReports) | **GET** /reports | List reports
@@ -527,6 +539,7 @@ Class | Method | HTTP request | Description
 *VaultsApi* | [**createVaultAccountAsset**](docs/VaultsApi.md#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new vault wallet
 *VaultsApi* | [**createVaultAccountAssetAddress**](docs/VaultsApi.md#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address
 *VaultsApi* | [**deactivateUsdcGatewayWalletBeta**](docs/VaultsApi.md#deactivateUsdcGatewayWalletBeta) | **POST** /vault/accounts/{vaultAccountId}/usdc_gateway/deactivate | Deactivate a USDC Gateway wallet
+*VaultsApi* | [**disableUsdcGatewayDepositAutomationScheduleBeta**](docs/VaultsApi.md#disableUsdcGatewayDepositAutomationScheduleBeta) | **DELETE** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation/{automationId} | Stop a USDC Gateway deposit automation&#39;s schedule
 *VaultsApi* | [**getAssetWallets**](docs/VaultsApi.md#getAssetWallets) | **GET** /vault/asset_wallets | Get vault wallets (Paginated)
 *VaultsApi* | [**getCreateMultipleDepositAddressesJobStatus**](docs/VaultsApi.md#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get the job status of the bulk deposit address creation
 *VaultsApi* | [**getCreateMultipleVaultAccountsJobStatus**](docs/VaultsApi.md#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts
@@ -536,6 +549,7 @@ Class | Method | HTTP request | Description
 *VaultsApi* | [**getPublicKeyInfo**](docs/VaultsApi.md#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key for a derivation path
 *VaultsApi* | [**getPublicKeyInfoForAddress**](docs/VaultsApi.md#getPublicKeyInfoForAddress) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/{change}/{addressIndex}/public_key_info | Get an asset&#39;s public key
 *VaultsApi* | [**getUnspentInputs**](docs/VaultsApi.md#getUnspentInputs) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs | Get UTXO unspent inputs information
+*VaultsApi* | [**getUsdcGatewayDepositAutomationBeta**](docs/VaultsApi.md#getUsdcGatewayDepositAutomationBeta) | **GET** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation | Read the USDC Gateway deposit automations for a vault account
 *VaultsApi* | [**getUsdcGatewayWalletInfoBeta**](docs/VaultsApi.md#getUsdcGatewayWalletInfoBeta) | **GET** /vault/accounts/{vaultAccountId}/usdc_gateway | Get USDC Gateway wallet info
 *VaultsApi* | [**getVaultAccount**](docs/VaultsApi.md#getVaultAccount) | **GET** /vault/accounts/{vaultAccountId} | Get a vault account by ID
 *VaultsApi* | [**getVaultAccountAsset**](docs/VaultsApi.md#getVaultAccountAsset) | **GET** /vault/accounts/{vaultAccountId}/{assetId} | Get the asset balance for a vault account
@@ -545,9 +559,11 @@ Class | Method | HTTP request | Description
 *VaultsApi* | [**hideVaultAccount**](docs/VaultsApi.md#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console
 *VaultsApi* | [**lookupVaultByAddress**](docs/VaultsApi.md#lookupVaultByAddress) | **GET** /vault/lookup_by_address | Look up a vault account by blockchain address
 *VaultsApi* | [**setCustomerRefIdForAddress**](docs/VaultsApi.md#setCustomerRefIdForAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id | Assign AML customer reference ID
+*VaultsApi* | [**setUsdcGatewayDepositAutomationBeta**](docs/VaultsApi.md#setUsdcGatewayDepositAutomationBeta) | **POST** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation | Set up a USDC Gateway deposit automation for a vault account
 *VaultsApi* | [**setVaultAccountAutoFuel**](docs/VaultsApi.md#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Set auto fueling to on or off
 *VaultsApi* | [**setVaultAccountCustomerRefId**](docs/VaultsApi.md#setVaultAccountCustomerRefId) | **POST** /vault/accounts/{vaultAccountId}/set_customer_ref_id | Set an AML/KYT ID for a vault account
 *VaultsApi* | [**unhideVaultAccount**](docs/VaultsApi.md#unhideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/unhide | Unhide a vault account in the console
+*VaultsApi* | [**updateUsdcGatewayDepositAutomationBeta**](docs/VaultsApi.md#updateUsdcGatewayDepositAutomationBeta) | **PATCH** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation/{automationId} | Change a USDC Gateway deposit automation
 *VaultsApi* | [**updateVaultAccount**](docs/VaultsApi.md#updateVaultAccount) | **PUT** /vault/accounts/{vaultAccountId} | Rename a vault account
 *VaultsApi* | [**updateVaultAccountAssetAddress**](docs/VaultsApi.md#updateVaultAccountAssetAddress) | **PUT** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId} | Update address description
 *VaultsApi* | [**updateVaultAccountAssetBalance**](docs/VaultsApi.md#updateVaultAccountAssetBalance) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/balance | Refresh asset balance data
@@ -604,6 +620,7 @@ Class | Method | HTTP request | Description
  - [AchDestination](docs/AchDestination.md)
  - [AchPaymentInfo](docs/AchPaymentInfo.md)
  - [ActionRecord](docs/ActionRecord.md)
+ - [ActivateBlockchainResponse](docs/ActivateBlockchainResponse.md)
  - [ActiveRolesResponse](docs/ActiveRolesResponse.md)
  - [AdapterProcessingResult](docs/AdapterProcessingResult.md)
  - [AddAbiRequestDto](docs/AddAbiRequestDto.md)
@@ -647,6 +664,7 @@ Class | Method | HTTP request | Description
  - [AllowlistMetadata](docs/AllowlistMetadata.md)
  - [AllowlistResponse](docs/AllowlistResponse.md)
  - [AmlAlert](docs/AmlAlert.md)
+ - [AmlBypassReasonEnum](docs/AmlBypassReasonEnum.md)
  - [AmlMatchedRule](docs/AmlMatchedRule.md)
  - [AmlRegistrationResult](docs/AmlRegistrationResult.md)
  - [AmlRegistrationResultFullPayload](docs/AmlRegistrationResultFullPayload.md)
@@ -707,6 +725,8 @@ Class | Method | HTTP request | Description
  - [AuditorData](docs/AuditorData.md)
  - [AuthorizationGroups](docs/AuthorizationGroups.md)
  - [AuthorizationInfo](docs/AuthorizationInfo.md)
+ - [AutomationSettingsRequest](docs/AutomationSettingsRequest.md)
+ - [AutomationSettingsResponse](docs/AutomationSettingsResponse.md)
  - [BalanceHistoryItemDto](docs/BalanceHistoryItemDto.md)
  - [BalanceHistoryPagedResponse](docs/BalanceHistoryPagedResponse.md)
  - [BalanceHistoryPagedResponse2](docs/BalanceHistoryPagedResponse2.md)
@@ -714,14 +734,20 @@ Class | Method | HTTP request | Description
  - [BaseProvider](docs/BaseProvider.md)
  - [BasicAddressRequest](docs/BasicAddressRequest.md)
  - [BlockInfo](docs/BlockInfo.md)
+ - [Blockchain](docs/Blockchain.md)
  - [BlockchainAddress](docs/BlockchainAddress.md)
+ - [BlockchainDeclaredProperties](docs/BlockchainDeclaredProperties.md)
  - [BlockchainDestination](docs/BlockchainDestination.md)
+ - [BlockchainEnvironment](docs/BlockchainEnvironment.md)
  - [BlockchainExplorer](docs/BlockchainExplorer.md)
  - [BlockchainMedia](docs/BlockchainMedia.md)
  - [BlockchainMetadata](docs/BlockchainMetadata.md)
  - [BlockchainNotFoundErrorResponse](docs/BlockchainNotFoundErrorResponse.md)
  - [BlockchainOnchain](docs/BlockchainOnchain.md)
  - [BlockchainResponse](docs/BlockchainResponse.md)
+ - [BlockchainRpcAuth](docs/BlockchainRpcAuth.md)
+ - [BlockchainSortField](docs/BlockchainSortField.md)
+ - [BlockchainStateFilter](docs/BlockchainStateFilter.md)
  - [BlockchainTransfer](docs/BlockchainTransfer.md)
  - [BpsFee](docs/BpsFee.md)
  - [BusinessEntityTypeEnum](docs/BusinessEntityTypeEnum.md)
@@ -827,6 +853,8 @@ Class | Method | HTTP request | Description
  - [CreateAddressResponse](docs/CreateAddressResponse.md)
  - [CreateAddressesReportRequest](docs/CreateAddressesReportRequest.md)
  - [CreateAssetsRequest](docs/CreateAssetsRequest.md)
+ - [CreateBlockchainRequest](docs/CreateBlockchainRequest.md)
+ - [CreateBlockchainResponse](docs/CreateBlockchainResponse.md)
  - [CreateConfigOperationRequest](docs/CreateConfigOperationRequest.md)
  - [CreateConnectionRequest](docs/CreateConnectionRequest.md)
  - [CreateConnectionResponse](docs/CreateConnectionResponse.md)
@@ -919,6 +947,8 @@ Class | Method | HTTP request | Description
  - [DvnConfigWithConfirmations](docs/DvnConfigWithConfirmations.md)
  - [EVMTokenCreateParamsDto](docs/EVMTokenCreateParamsDto.md)
  - [EarnAsset](docs/EarnAsset.md)
+ - [EarnCurator](docs/EarnCurator.md)
+ - [EarnMetadata](docs/EarnMetadata.md)
  - [EarnProvider](docs/EarnProvider.md)
  - [EditGasStationConfigurationResponse](docs/EditGasStationConfigurationResponse.md)
  - [EmbeddedWallet](docs/EmbeddedWallet.md)
@@ -1013,7 +1043,11 @@ Class | Method | HTTP request | Description
  - [GetActionResponse](docs/GetActionResponse.md)
  - [GetActionsResponse](docs/GetActionsResponse.md)
  - [GetAuditLogsResponse](docs/GetAuditLogsResponse.md)
+ - [GetAutomationSettingsResponse](docs/GetAutomationSettingsResponse.md)
+ - [GetBillingInfoResponse](docs/GetBillingInfoResponse.md)
+ - [GetBlockchainByIdResponse](docs/GetBlockchainByIdResponse.md)
  - [GetByorkVerdictResponse](docs/GetByorkVerdictResponse.md)
+ - [GetConnectedAccountsCredentialsPublicKeyResponse](docs/GetConnectedAccountsCredentialsPublicKeyResponse.md)
  - [GetConnectionsResponse](docs/GetConnectionsResponse.md)
  - [GetConsoleUsersResponse](docs/GetConsoleUsersResponse.md)
  - [GetDeployableAddressRequest](docs/GetDeployableAddressRequest.md)
@@ -1035,6 +1069,7 @@ Class | Method | HTTP request | Description
  - [GetPositionsResponse](docs/GetPositionsResponse.md)
  - [GetProvidersResponse](docs/GetProvidersResponse.md)
  - [GetSigningKeyResponseDto](docs/GetSigningKeyResponseDto.md)
+ - [GetTestWalletAddressResponse](docs/GetTestWalletAddressResponse.md)
  - [GetTransactionOperation](docs/GetTransactionOperation.md)
  - [GetValidationKeyResponseDto](docs/GetValidationKeyResponseDto.md)
  - [GetWhitelistIpAddressesResponse](docs/GetWhitelistIpAddressesResponse.md)
@@ -1099,6 +1134,7 @@ Class | Method | HTTP request | Description
  - [LinkedTokensCount](docs/LinkedTokensCount.md)
  - [ListAssetsResponse](docs/ListAssetsResponse.md)
  - [ListBlockchainsResponse](docs/ListBlockchainsResponse.md)
+ - [ListBlockchainsResponse2](docs/ListBlockchainsResponse2.md)
  - [ListLegalEntitiesResponse](docs/ListLegalEntitiesResponse.md)
  - [ListOwnedCollectionsResponse](docs/ListOwnedCollectionsResponse.md)
  - [ListOwnedTokensResponse](docs/ListOwnedTokensResponse.md)
@@ -1223,6 +1259,9 @@ Class | Method | HTTP request | Description
  - [PolicyRule](docs/PolicyRule.md)
  - [PolicyRuleCheckResult](docs/PolicyRuleCheckResult.md)
  - [PolicyRuleError](docs/PolicyRuleError.md)
+ - [PolicyRuleQuotaParticipant](docs/PolicyRuleQuotaParticipant.md)
+ - [PolicyRuleQuotaRequest](docs/PolicyRuleQuotaRequest.md)
+ - [PolicyRuleQuotaResponse](docs/PolicyRuleQuotaResponse.md)
  - [PolicyStatus](docs/PolicyStatus.md)
  - [PolicyTag](docs/PolicyTag.md)
  - [PolicyType](docs/PolicyType.md)
@@ -1237,6 +1276,7 @@ Class | Method | HTTP request | Description
  - [PrefundedSettlement](docs/PrefundedSettlement.md)
  - [PrefundedSettlementType](docs/PrefundedSettlementType.md)
  - [ProgramCallConfig](docs/ProgramCallConfig.md)
+ - [ProgramCallDecodedDataItem](docs/ProgramCallDecodedDataItem.md)
  - [Provider](docs/Provider.md)
  - [ProvidersListResponse](docs/ProvidersListResponse.md)
  - [PublicKeyInformation](docs/PublicKeyInformation.md)
@@ -1288,6 +1328,8 @@ Class | Method | HTTP request | Description
  - [ReportOutputFormat](docs/ReportOutputFormat.md)
  - [ReportStatus](docs/ReportStatus.md)
  - [ReportType](docs/ReportType.md)
+ - [RescreenTransactionRequest](docs/RescreenTransactionRequest.md)
+ - [RescreenTransactionResponse](docs/RescreenTransactionResponse.md)
  - [ResendByQueryRequest](docs/ResendByQueryRequest.md)
  - [ResendByQueryResponse](docs/ResendByQueryResponse.md)
  - [ResendFailedNotificationsJobStatusResponse](docs/ResendFailedNotificationsJobStatusResponse.md)
@@ -1309,6 +1351,7 @@ Class | Method | HTTP request | Description
  - [SEPADestination](docs/SEPADestination.md)
  - [SOLAccount](docs/SOLAccount.md)
  - [SOLAccountWithValue](docs/SOLAccountWithValue.md)
+ - [SaveAutomationSettingsResponse](docs/SaveAutomationSettingsResponse.md)
  - [ScopeItem](docs/ScopeItem.md)
  - [ScopeItemFailure](docs/ScopeItemFailure.md)
  - [ScreeningAlertExposureTypeEnum](docs/ScreeningAlertExposureTypeEnum.md)
@@ -1326,6 +1369,7 @@ Class | Method | HTTP request | Description
  - [ScreeningPolicyCurrency](docs/ScreeningPolicyCurrency.md)
  - [ScreeningPolicyResponse](docs/ScreeningPolicyResponse.md)
  - [ScreeningProviderRulesConfigurationResponse](docs/ScreeningProviderRulesConfigurationResponse.md)
+ - [ScreeningStatusEnum](docs/ScreeningStatusEnum.md)
  - [ScreeningTRLinkAmount](docs/ScreeningTRLinkAmount.md)
  - [ScreeningTRLinkMissingTrmDecision](docs/ScreeningTRLinkMissingTrmDecision.md)
  - [ScreeningTRLinkMissingTrmRule](docs/ScreeningTRLinkMissingTrmRule.md)
@@ -1530,6 +1574,7 @@ Class | Method | HTTP request | Description
  - [TagsPagedResponse](docs/TagsPagedResponse.md)
  - [TemplatesPaginatedResponse](docs/TemplatesPaginatedResponse.md)
  - [ThirdPartyRouting](docs/ThirdPartyRouting.md)
+ - [TimeBasedTrigger](docs/TimeBasedTrigger.md)
  - [TimePeriodConfig](docs/TimePeriodConfig.md)
  - [TimePeriodMatchType](docs/TimePeriodMatchType.md)
  - [ToCollateralTransaction](docs/ToCollateralTransaction.md)
@@ -1634,6 +1679,7 @@ Class | Method | HTTP request | Description
  - [TravelRuleValidateTransactionResponse](docs/TravelRuleValidateTransactionResponse.md)
  - [TravelRuleVaspForVault](docs/TravelRuleVaspForVault.md)
  - [TravelRuleVerdictEnum](docs/TravelRuleVerdictEnum.md)
+ - [TriggerValidationFlowResponse](docs/TriggerValidationFlowResponse.md)
  - [TrustProofOfAddressCreateResponse](docs/TrustProofOfAddressCreateResponse.md)
  - [TrustProofOfAddressRequest](docs/TrustProofOfAddressRequest.md)
  - [TrustProofOfAddressResponse](docs/TrustProofOfAddressResponse.md)
@@ -1647,6 +1693,8 @@ Class | Method | HTTP request | Description
  - [UnspentInputsResponse](docs/UnspentInputsResponse.md)
  - [UnstakeRequest](docs/UnstakeRequest.md)
  - [UpdateAssetUserMetadataRequest](docs/UpdateAssetUserMetadataRequest.md)
+ - [UpdateAutomationSettingsRequest](docs/UpdateAutomationSettingsRequest.md)
+ - [UpdateBlockchainResponse](docs/UpdateBlockchainResponse.md)
  - [UpdateCallbackHandlerRequest](docs/UpdateCallbackHandlerRequest.md)
  - [UpdateCallbackHandlerResponse](docs/UpdateCallbackHandlerResponse.md)
  - [UpdateCounterpartyGroupRequest](docs/UpdateCounterpartyGroupRequest.md)

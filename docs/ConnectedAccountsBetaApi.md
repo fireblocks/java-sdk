@@ -13,6 +13,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getConnectedAccountRates**](ConnectedAccountsBetaApi.md#getConnectedAccountRates) | **GET** /connected_accounts/{accountId}/rates | Get exchange rates for an account |
 | [**getConnectedAccountTradingPairs**](ConnectedAccountsBetaApi.md#getConnectedAccountTradingPairs) | **GET** /connected_accounts/{accountId}/manifest/capabilities/trading/pairs | Get supported trading pairs for an account |
 | [**getConnectedAccounts**](ConnectedAccountsBetaApi.md#getConnectedAccounts) | **GET** /connected_accounts | Get connected accounts |
+| [**getConnectedAccountsCredentialsPublicKey**](ConnectedAccountsBetaApi.md#getConnectedAccountsCredentialsPublicKey) | **GET** /connected_accounts/credentials/public_key | Get public key to encrypt connected account credentials |
 | [**renameConnectedAccount**](ConnectedAccountsBetaApi.md#renameConnectedAccount) | **POST** /connected_accounts/{accountId}/rename | Rename Connected Account |
 | [**syncConnectedAccountAllowlist**](ConnectedAccountsBetaApi.md#syncConnectedAccountAllowlist) | **POST** /connected_accounts/{accountId}/allowlist/sync | Sync allowlist for connected account |
 
@@ -24,7 +25,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Add a connected account
 
-Creates a new connected account for the authenticated tenant.  The &#x60;creds&#x60; field must be a Base64-encoded RSA-encrypted credential blob. Use &#x60;GET /exchange_accounts/credentials_public_key&#x60; to retrieve the public key for encryption.  The &#x60;providerType&#x60; is derived server-side from the &#x60;providerId&#x60; — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Creates a new connected account for the authenticated tenant.  The &#x60;creds&#x60; field must be a Base64-encoded RSA-encrypted credential blob. Use &#x60;GET /connected_accounts/credentials/public_key&#x60; to retrieve the public key for encryption.  The &#x60;providerType&#x60; is derived server-side from the &#x60;providerId&#x60; — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
 
 ### Example
 
@@ -275,7 +276,7 @@ No authorization required
 
 ## getConnectedAccountAllowlist
 
-> CompletableFuture<ApiResponse<AllowlistResponse>> getConnectedAccountAllowlist getConnectedAccountAllowlist(accountId, status, assetId, networkId, address, pageCursor, pageSize, sortBy, order)
+> CompletableFuture<ApiResponse<AllowlistResponse>> getConnectedAccountAllowlist getConnectedAccountAllowlist(accountId, status, assetId, networkId, address, pageCursor, pageSize, order)
 
 Get allowlist for connected account
 
@@ -311,10 +312,9 @@ public class Example {
         String address = "address_example"; // String | Filter by specific address
         String pageCursor = "pageCursor_example"; // String | Pagination cursor for next page
         Integer pageSize = 56; // Integer | Maximum number of entries to return
-        String sortBy = "addedAt"; // String | Field to sort results by.
         String order = "ASC"; // String | Sort order (ASC or DESC).
         try {
-            CompletableFuture<ApiResponse<AllowlistResponse>> response = fireblocks.connectedAccountsBeta().getConnectedAccountAllowlist(accountId, status, assetId, networkId, address, pageCursor, pageSize, sortBy, order);
+            CompletableFuture<ApiResponse<AllowlistResponse>> response = fireblocks.connectedAccountsBeta().getConnectedAccountAllowlist(accountId, status, assetId, networkId, address, pageCursor, pageSize, order);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -348,7 +348,6 @@ public class Example {
 | **address** | **String**| Filter by specific address | [optional] |
 | **pageCursor** | **String**| Pagination cursor for next page | [optional] |
 | **pageSize** | **Integer**| Maximum number of entries to return | [optional] |
-| **sortBy** | **String**| Field to sort results by. | [optional] [default to addedAt] [enum: addedAt, lastSyncedAt] |
 | **order** | **String**| Sort order (ASC or DESC). | [optional] [default to DESC] [enum: ASC, DESC] |
 
 ### Return type
@@ -804,6 +803,85 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Get accounts response |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getConnectedAccountsCredentialsPublicKey
+
+> CompletableFuture<ApiResponse<GetConnectedAccountsCredentialsPublicKeyResponse>> getConnectedAccountsCredentialsPublicKey getConnectedAccountsCredentialsPublicKey()
+
+Get public key to encrypt connected account credentials
+
+Returns the RSA public key used to encrypt the &#x60;creds&#x60; field before calling &#x60;POST /connected_accounts&#x60;.  The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ConnectedAccountsBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        try {
+            CompletableFuture<ApiResponse<GetConnectedAccountsCredentialsPublicKeyResponse>> response = fireblocks.connectedAccountsBeta().getConnectedAccountsCredentialsPublicKey();
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ConnectedAccountsBetaApi#getConnectedAccountsCredentialsPublicKey");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConnectedAccountsBetaApi#getConnectedAccountsCredentialsPublicKey");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+CompletableFuture<ApiResponse<[**GetConnectedAccountsCredentialsPublicKeyResponse**](GetConnectedAccountsCredentialsPublicKeyResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Public key retrieved successfully. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

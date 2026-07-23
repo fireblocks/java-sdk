@@ -347,7 +347,7 @@ No authorization required
 
 ## getTags
 
-> CompletableFuture<ApiResponse<TagsPagedResponse>> getTags getTags(pageCursor, pageSize, label, tagIds, includePendingApprovalsInfo, isProtected, type)
+> CompletableFuture<ApiResponse<TagsPagedResponse>> getTags getTags(pageCursor, pageSize, label, tagIds, includePendingApprovalsInfo, isProtected, type, allowedEntityType)
 
 Get list of tags
 
@@ -383,8 +383,9 @@ public class Example {
         Boolean includePendingApprovalsInfo = false; // Boolean | Whether to include pending approval requests info.
         Boolean isProtected = true; // Boolean | 
         List<TagType> type = Arrays.asList(); // List<TagType> | Filter by tag type
+        String allowedEntityType = "contact"; // String | Filter tags whose allow-list contains this entity type. Known values: vault_account, contact.
         try {
-            CompletableFuture<ApiResponse<TagsPagedResponse>> response = fireblocks.tags().getTags(pageCursor, pageSize, label, tagIds, includePendingApprovalsInfo, isProtected, type);
+            CompletableFuture<ApiResponse<TagsPagedResponse>> response = fireblocks.tags().getTags(pageCursor, pageSize, label, tagIds, includePendingApprovalsInfo, isProtected, type, allowedEntityType);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -418,6 +419,7 @@ public class Example {
 | **includePendingApprovalsInfo** | **Boolean**| Whether to include pending approval requests info. | [optional] [default to false] |
 | **isProtected** | **Boolean**|  | [optional] |
 | **type** | [**List&lt;TagType&gt;**](TagType.md)| Filter by tag type | [optional] |
+| **allowedEntityType** | **String**| Filter tags whose allow-list contains this entity type. Known values: vault_account, contact. | [optional] |
 
 ### Return type
 

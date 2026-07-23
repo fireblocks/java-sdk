@@ -121,6 +121,12 @@ class Position2Test {
         // TODO: test lastSyncedAt
     }
 
+    /** Test the property 'lastModifiedAt' */
+    @Test
+    void lastModifiedAtTest() {
+        // TODO: test lastModifiedAt
+    }
+
     /** Test the property 'availableActions' */
     @Test
     void availableActionsTest() {

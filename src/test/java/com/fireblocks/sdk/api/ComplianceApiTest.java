@@ -43,6 +43,8 @@ import com.fireblocks.sdk.model.LegalEntityRegistration;
 import com.fireblocks.sdk.model.ListLegalEntitiesResponse;
 import com.fireblocks.sdk.model.ListVaultsForRegistrationResponse;
 import com.fireblocks.sdk.model.RegisterLegalEntityRequest;
+import com.fireblocks.sdk.model.RescreenTransactionRequest;
+import com.fireblocks.sdk.model.RescreenTransactionResponse;
 import com.fireblocks.sdk.model.ScreeningConfigurationsRequest;
 import com.fireblocks.sdk.model.ScreeningPolicyResponse;
 import com.fireblocks.sdk.model.ScreeningProviderRulesConfigurationResponse;
@@ -523,6 +525,24 @@ public class ComplianceApiTest {
     public void removeAllAddressRegistryVaultOptOutsTest() throws ApiException {
         CompletableFuture<ApiResponse<AddressRegistryRemoveAllVaultOptOutsResponse>> response =
                 api.removeAllAddressRegistryVaultOptOuts();
+    }
+
+    /**
+     * Rescreen a rejected transaction
+     *
+     * <p>Re-runs compliance screening on an incoming transaction that was rejected or failed by
+     * screening checks, moving it back to pending screening. This endpoint is only applicable to
+     * incoming transactions with a rejected/failed AML screening status.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void rescreenRejectedTransactionTest() throws ApiException {
+        String txId = null;
+        RescreenTransactionRequest rescreenTransactionRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<RescreenTransactionResponse>> response =
+                api.rescreenRejectedTransaction(txId, rescreenTransactionRequest, idempotencyKey);
     }
 
     /**

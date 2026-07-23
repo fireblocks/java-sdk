@@ -36,12 +36,16 @@ import java.util.StringJoiner;
     Opportunity.JSON_PROPERTY_PRINCIPAL_ASSET,
     Opportunity.JSON_PROPERTY_POSITION_ASSET,
     Opportunity.JSON_PROPERTY_TOTAL_ASSETS,
+    Opportunity.JSON_PROPERTY_TOTAL_ASSETS_USD,
     Opportunity.JSON_PROPERTY_LIQUIDITY,
+    Opportunity.JSON_PROPERTY_LIQUIDITY_USD,
     Opportunity.JSON_PROPERTY_APY,
     Opportunity.JSON_PROPERTY_PERFORMANCE_FEE,
     Opportunity.JSON_PROPERTY_MANAGEMENT_FEE,
     Opportunity.JSON_PROPERTY_EXPOSURE_TYPE,
-    Opportunity.JSON_PROPERTY_EXPOSURE
+    Opportunity.JSON_PROPERTY_EXPOSURE,
+    Opportunity.JSON_PROPERTY_CURATOR,
+    Opportunity.JSON_PROPERTY_METADATA
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -143,8 +147,14 @@ public class Opportunity {
     public static final String JSON_PROPERTY_TOTAL_ASSETS = "totalAssets";
     @jakarta.annotation.Nullable private String totalAssets;
 
+    public static final String JSON_PROPERTY_TOTAL_ASSETS_USD = "totalAssetsUsd";
+    @jakarta.annotation.Nullable private String totalAssetsUsd;
+
     public static final String JSON_PROPERTY_LIQUIDITY = "liquidity";
     @jakarta.annotation.Nullable private String liquidity;
+
+    public static final String JSON_PROPERTY_LIQUIDITY_USD = "liquidityUsd";
+    @jakarta.annotation.Nullable private String liquidityUsd;
 
     public static final String JSON_PROPERTY_APY = "apy";
     @jakarta.annotation.Nullable private Apy apy;
@@ -198,6 +208,12 @@ public class Opportunity {
 
     public static final String JSON_PROPERTY_EXPOSURE = "exposure";
     @jakarta.annotation.Nullable private List<Exposure> exposure;
+
+    public static final String JSON_PROPERTY_CURATOR = "curator";
+    @jakarta.annotation.Nullable private EarnCurator curator;
+
+    public static final String JSON_PROPERTY_METADATA = "metadata";
+    @jakarta.annotation.Nullable private EarnMetadata metadata;
 
     public Opportunity() {}
 
@@ -431,6 +447,29 @@ public class Opportunity {
         this.totalAssets = totalAssets;
     }
 
+    public Opportunity totalAssetsUsd(@jakarta.annotation.Nullable String totalAssetsUsd) {
+        this.totalAssetsUsd = totalAssetsUsd;
+        return this;
+    }
+
+    /**
+     * USD-denominated total assets / TVL.
+     *
+     * @return totalAssetsUsd
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TOTAL_ASSETS_USD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTotalAssetsUsd() {
+        return totalAssetsUsd;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TOTAL_ASSETS_USD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTotalAssetsUsd(@jakarta.annotation.Nullable String totalAssetsUsd) {
+        this.totalAssetsUsd = totalAssetsUsd;
+    }
+
     public Opportunity liquidity(@jakarta.annotation.Nullable String liquidity) {
         this.liquidity = liquidity;
         return this;
@@ -452,6 +491,29 @@ public class Opportunity {
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setLiquidity(@jakarta.annotation.Nullable String liquidity) {
         this.liquidity = liquidity;
+    }
+
+    public Opportunity liquidityUsd(@jakarta.annotation.Nullable String liquidityUsd) {
+        this.liquidityUsd = liquidityUsd;
+        return this;
+    }
+
+    /**
+     * USD-denominated available liquidity.
+     *
+     * @return liquidityUsd
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_LIQUIDITY_USD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getLiquidityUsd() {
+        return liquidityUsd;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LIQUIDITY_USD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setLiquidityUsd(@jakarta.annotation.Nullable String liquidityUsd) {
+        this.liquidityUsd = liquidityUsd;
     }
 
     public Opportunity apy(@jakarta.annotation.Nullable Apy apy) {
@@ -579,6 +641,52 @@ public class Opportunity {
         this.exposure = exposure;
     }
 
+    public Opportunity curator(@jakarta.annotation.Nullable EarnCurator curator) {
+        this.curator = curator;
+        return this;
+    }
+
+    /**
+     * Curator information for Morpho vaults.
+     *
+     * @return curator
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CURATOR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public EarnCurator getCurator() {
+        return curator;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CURATOR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCurator(@jakarta.annotation.Nullable EarnCurator curator) {
+        this.curator = curator;
+    }
+
+    public Opportunity metadata(@jakarta.annotation.Nullable EarnMetadata metadata) {
+        this.metadata = metadata;
+        return this;
+    }
+
+    /**
+     * Protocol-level metadata (display name and logo).
+     *
+     * @return metadata
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_METADATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public EarnMetadata getMetadata() {
+        return metadata;
+    }
+
+    @JsonProperty(JSON_PROPERTY_METADATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMetadata(@jakarta.annotation.Nullable EarnMetadata metadata) {
+        this.metadata = metadata;
+    }
+
     /** Return true if this Opportunity object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -599,12 +707,16 @@ public class Opportunity {
                 && Objects.equals(this.principalAsset, opportunity.principalAsset)
                 && Objects.equals(this.positionAsset, opportunity.positionAsset)
                 && Objects.equals(this.totalAssets, opportunity.totalAssets)
+                && Objects.equals(this.totalAssetsUsd, opportunity.totalAssetsUsd)
                 && Objects.equals(this.liquidity, opportunity.liquidity)
+                && Objects.equals(this.liquidityUsd, opportunity.liquidityUsd)
                 && Objects.equals(this.apy, opportunity.apy)
                 && Objects.equals(this.performanceFee, opportunity.performanceFee)
                 && Objects.equals(this.managementFee, opportunity.managementFee)
                 && Objects.equals(this.exposureType, opportunity.exposureType)
-                && Objects.equals(this.exposure, opportunity.exposure);
+                && Objects.equals(this.exposure, opportunity.exposure)
+                && Objects.equals(this.curator, opportunity.curator)
+                && Objects.equals(this.metadata, opportunity.metadata);
     }
 
     @Override
@@ -620,12 +732,16 @@ public class Opportunity {
                 principalAsset,
                 positionAsset,
                 totalAssets,
+                totalAssetsUsd,
                 liquidity,
+                liquidityUsd,
                 apy,
                 performanceFee,
                 managementFee,
                 exposureType,
-                exposure);
+                exposure,
+                curator,
+                metadata);
     }
 
     @Override
@@ -642,12 +758,16 @@ public class Opportunity {
         sb.append("    principalAsset: ").append(toIndentedString(principalAsset)).append("\n");
         sb.append("    positionAsset: ").append(toIndentedString(positionAsset)).append("\n");
         sb.append("    totalAssets: ").append(toIndentedString(totalAssets)).append("\n");
+        sb.append("    totalAssetsUsd: ").append(toIndentedString(totalAssetsUsd)).append("\n");
         sb.append("    liquidity: ").append(toIndentedString(liquidity)).append("\n");
+        sb.append("    liquidityUsd: ").append(toIndentedString(liquidityUsd)).append("\n");
         sb.append("    apy: ").append(toIndentedString(apy)).append("\n");
         sb.append("    performanceFee: ").append(toIndentedString(performanceFee)).append("\n");
         sb.append("    managementFee: ").append(toIndentedString(managementFee)).append("\n");
         sb.append("    exposureType: ").append(toIndentedString(exposureType)).append("\n");
         sb.append("    exposure: ").append(toIndentedString(exposure)).append("\n");
+        sb.append("    curator: ").append(toIndentedString(curator)).append("\n");
+        sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -783,6 +903,16 @@ public class Opportunity {
                             ApiClient.urlEncode(ApiClient.valueToString(getTotalAssets()))));
         }
 
+        // add `totalAssetsUsd` to the URL query string
+        if (getTotalAssetsUsd() != null) {
+            joiner.add(
+                    String.format(
+                            "%stotalAssetsUsd%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotalAssetsUsd()))));
+        }
+
         // add `liquidity` to the URL query string
         if (getLiquidity() != null) {
             joiner.add(
@@ -791,6 +921,16 @@ public class Opportunity {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getLiquidity()))));
+        }
+
+        // add `liquidityUsd` to the URL query string
+        if (getLiquidityUsd() != null) {
+            joiner.add(
+                    String.format(
+                            "%sliquidityUsd%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getLiquidityUsd()))));
         }
 
         // add `apy` to the URL query string
@@ -849,6 +989,16 @@ public class Opportunity {
                                                                     containerSuffix))));
                 }
             }
+        }
+
+        // add `curator` to the URL query string
+        if (getCurator() != null) {
+            joiner.add(getCurator().toUrlQueryString(prefix + "curator" + suffix));
+        }
+
+        // add `metadata` to the URL query string
+        if (getMetadata() != null) {
+            joiner.add(getMetadata().toUrlQueryString(prefix + "metadata" + suffix));
         }
 
         return joiner.toString();

@@ -38,6 +38,7 @@ public class Fireblocks {
 
     private ApiUserApi apiUser;
     private AuditLogsApi auditLogs;
+    private BlockchainLinkBetaApi blockchainLinkBeta;
     private BlockchainsAssetsApi blockchainsAssets;
     private ComplianceApi compliance;
     private ComplianceScreeningConfigurationApi complianceScreeningConfiguration;
@@ -48,7 +49,7 @@ public class Fireblocks {
     private ContractsApi contracts;
     private CosignersBetaApi cosignersBeta;
     private DeployedContractsApi deployedContracts;
-    private EarnBetaApi earnBeta;
+    private EarnApi earn;
     private EmbeddedWalletsApi embeddedWallets;
     private ExchangeAccountsApi exchangeAccounts;
     private ExternalWalletsApi externalWallets;
@@ -66,6 +67,7 @@ public class Fireblocks {
     private PaymentsPayoutApi paymentsPayout;
     private PolicyEditorBetaApi policyEditorBeta;
     private PolicyEditorV2Api policyEditorV2;
+    private PolicyEditorV2BetaApi policyEditorV2Beta;
     private ReportsBetaApi reportsBeta;
     private ResetDeviceApi resetDevice;
     private SmartTransferApi smartTransfer;
@@ -239,6 +241,13 @@ public class Fireblocks {
         return auditLogs;
     }
 
+    public BlockchainLinkBetaApi blockchainLinkBeta() {
+        if (blockchainLinkBeta == null) {
+            blockchainLinkBeta = new BlockchainLinkBetaApi(apiClient);
+        }
+        return blockchainLinkBeta;
+    }
+
     public BlockchainsAssetsApi blockchainsAssets() {
         if (blockchainsAssets == null) {
             blockchainsAssets = new BlockchainsAssetsApi(apiClient);
@@ -309,11 +318,11 @@ public class Fireblocks {
         return deployedContracts;
     }
 
-    public EarnBetaApi earnBeta() {
-        if (earnBeta == null) {
-            earnBeta = new EarnBetaApi(apiClient);
+    public EarnApi earn() {
+        if (earn == null) {
+            earn = new EarnApi(apiClient);
         }
-        return earnBeta;
+        return earn;
     }
 
     public EmbeddedWalletsApi embeddedWallets() {
@@ -433,6 +442,13 @@ public class Fireblocks {
             policyEditorV2 = new PolicyEditorV2Api(apiClient);
         }
         return policyEditorV2;
+    }
+
+    public PolicyEditorV2BetaApi policyEditorV2Beta() {
+        if (policyEditorV2Beta == null) {
+            policyEditorV2Beta = new PolicyEditorV2BetaApi(apiClient);
+        }
+        return policyEditorV2Beta;
     }
 
     public ReportsBetaApi reportsBeta() {

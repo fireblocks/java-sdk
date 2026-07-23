@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
-import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -40,7 +39,7 @@ public class TransactionFee {
     @jakarta.annotation.Nullable private String feePerByte;
 
     public static final String JSON_PROPERTY_GAS_PRICE = "gasPrice";
-    @jakarta.annotation.Nullable private BigDecimal gasPrice;
+    @jakarta.annotation.Nullable private String gasPrice;
 
     public static final String JSON_PROPERTY_GAS_LIMIT = "gasLimit";
     @jakarta.annotation.Nullable private String gasLimit;
@@ -49,10 +48,10 @@ public class TransactionFee {
     @jakarta.annotation.Nullable private String networkFee;
 
     public static final String JSON_PROPERTY_BASE_FEE = "baseFee";
-    @jakarta.annotation.Nullable private BigDecimal baseFee;
+    @jakarta.annotation.Nullable private String baseFee;
 
     public static final String JSON_PROPERTY_PRIORITY_FEE = "priorityFee";
-    @jakarta.annotation.Nullable private BigDecimal priorityFee;
+    @jakarta.annotation.Nullable private String priorityFee;
 
     public static final String JSON_PROPERTY_MAX_FEE_PER_GAS_DELTA = "maxFeePerGasDelta";
     @jakarta.annotation.Nullable private String maxFeePerGasDelta;
@@ -85,7 +84,7 @@ public class TransactionFee {
         this.feePerByte = feePerByte;
     }
 
-    public TransactionFee gasPrice(@jakarta.annotation.Nullable BigDecimal gasPrice) {
+    public TransactionFee gasPrice(@jakarta.annotation.Nullable String gasPrice) {
         this.gasPrice = gasPrice;
         return this;
     }
@@ -98,13 +97,13 @@ public class TransactionFee {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_GAS_PRICE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getGasPrice() {
+    public String getGasPrice() {
         return gasPrice;
     }
 
     @JsonProperty(JSON_PROPERTY_GAS_PRICE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGasPrice(@jakarta.annotation.Nullable BigDecimal gasPrice) {
+    public void setGasPrice(@jakarta.annotation.Nullable String gasPrice) {
         this.gasPrice = gasPrice;
     }
 
@@ -154,7 +153,7 @@ public class TransactionFee {
         this.networkFee = networkFee;
     }
 
-    public TransactionFee baseFee(@jakarta.annotation.Nullable BigDecimal baseFee) {
+    public TransactionFee baseFee(@jakarta.annotation.Nullable String baseFee) {
         this.baseFee = baseFee;
         return this;
     }
@@ -167,17 +166,17 @@ public class TransactionFee {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_BASE_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getBaseFee() {
+    public String getBaseFee() {
         return baseFee;
     }
 
     @JsonProperty(JSON_PROPERTY_BASE_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBaseFee(@jakarta.annotation.Nullable BigDecimal baseFee) {
+    public void setBaseFee(@jakarta.annotation.Nullable String baseFee) {
         this.baseFee = baseFee;
     }
 
-    public TransactionFee priorityFee(@jakarta.annotation.Nullable BigDecimal priorityFee) {
+    public TransactionFee priorityFee(@jakarta.annotation.Nullable String priorityFee) {
         this.priorityFee = priorityFee;
         return this;
     }
@@ -190,13 +189,13 @@ public class TransactionFee {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_PRIORITY_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getPriorityFee() {
+    public String getPriorityFee() {
         return priorityFee;
     }
 
     @JsonProperty(JSON_PROPERTY_PRIORITY_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPriorityFee(@jakarta.annotation.Nullable BigDecimal priorityFee) {
+    public void setPriorityFee(@jakarta.annotation.Nullable String priorityFee) {
         this.priorityFee = priorityFee;
     }
 

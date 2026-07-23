@@ -17,13 +17,33 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** The result of the AML screening. */
+/**
+ * The result of the AML screening. Mirrors the output of the developer-api transaction formatter
+ * (IFormattedAmlResult). Not all fields are present in every response — the set depends on the AML
+ * provider and screening flow.
+ */
 @JsonPropertyOrder({
     AmlScreeningResult.JSON_PROPERTY_PROVIDER,
-    AmlScreeningResult.JSON_PROPERTY_PAYLOAD
+    AmlScreeningResult.JSON_PROPERTY_PAYLOAD,
+    AmlScreeningResult.JSON_PROPERTY_VERDICT,
+    AmlScreeningResult.JSON_PROPERTY_SCREENING_STATUS,
+    AmlScreeningResult.JSON_PROPERTY_BYPASS_REASON,
+    AmlScreeningResult.JSON_PROPERTY_TIMESTAMP,
+    AmlScreeningResult.JSON_PROPERTY_CUSTOMER_REF_ID,
+    AmlScreeningResult.JSON_PROPERTY_EXTERNAL_ID,
+    AmlScreeningResult.JSON_PROPERTY_CATEGORY,
+    AmlScreeningResult.JSON_PROPERTY_CATEGORY_ID,
+    AmlScreeningResult.JSON_PROPERTY_RISK,
+    AmlScreeningResult.JSON_PROPERTY_DEST_ADDRESS,
+    AmlScreeningResult.JSON_PROPERTY_MATCHED_RULE,
+    AmlScreeningResult.JSON_PROPERTY_MATCHED_PRESCREENING_RULE,
+    AmlScreeningResult.JSON_PROPERTY_MATCHED_ALERT
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -33,7 +53,46 @@ public class AmlScreeningResult {
     @jakarta.annotation.Nullable private String provider;
 
     public static final String JSON_PROPERTY_PAYLOAD = "payload";
-    @jakarta.annotation.Nullable private Object payload;
+    @jakarta.annotation.Nullable private Map<String, Object> payload;
+
+    public static final String JSON_PROPERTY_VERDICT = "verdict";
+    @jakarta.annotation.Nullable private ScreeningVerdictEnum verdict;
+
+    public static final String JSON_PROPERTY_SCREENING_STATUS = "screeningStatus";
+    @jakarta.annotation.Nullable private ScreeningStatusEnum screeningStatus;
+
+    public static final String JSON_PROPERTY_BYPASS_REASON = "bypassReason";
+    @jakarta.annotation.Nullable private AmlBypassReasonEnum bypassReason;
+
+    public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
+    @jakarta.annotation.Nullable private BigDecimal timestamp;
+
+    public static final String JSON_PROPERTY_CUSTOMER_REF_ID = "customerRefId";
+    @jakarta.annotation.Nullable private String customerRefId;
+
+    public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
+    @jakarta.annotation.Nullable private String externalId;
+
+    public static final String JSON_PROPERTY_CATEGORY = "category";
+    @jakarta.annotation.Nullable private String category;
+
+    public static final String JSON_PROPERTY_CATEGORY_ID = "categoryId";
+    @jakarta.annotation.Nullable private BigDecimal categoryId;
+
+    public static final String JSON_PROPERTY_RISK = "risk";
+    @jakarta.annotation.Nullable private String risk;
+
+    public static final String JSON_PROPERTY_DEST_ADDRESS = "destAddress";
+    @jakarta.annotation.Nullable private String destAddress;
+
+    public static final String JSON_PROPERTY_MATCHED_RULE = "matchedRule";
+    @jakarta.annotation.Nullable private AmlMatchedRule matchedRule;
+
+    public static final String JSON_PROPERTY_MATCHED_PRESCREENING_RULE = "matchedPrescreeningRule";
+    @jakarta.annotation.Nullable private AmlMatchedRule matchedPrescreeningRule;
+
+    public static final String JSON_PROPERTY_MATCHED_ALERT = "matchedAlert";
+    @jakarta.annotation.Nullable private AmlAlert matchedAlert;
 
     public AmlScreeningResult() {}
 
@@ -43,7 +102,8 @@ public class AmlScreeningResult {
     }
 
     /**
-     * Get provider
+     * The AML provider name. Known values: CHAINALYSIS, ELLIPTIC, CHAINALYSIS_V2,
+     * ELLIPTIC_HOLISTIC, BYORK_SLITE, BYORK_LITE, NONE.
      *
      * @return provider
      */
@@ -60,27 +120,340 @@ public class AmlScreeningResult {
         this.provider = provider;
     }
 
-    public AmlScreeningResult payload(@jakarta.annotation.Nullable Object payload) {
+    public AmlScreeningResult payload(@jakarta.annotation.Nullable Map<String, Object> payload) {
         this.payload = payload;
         return this;
     }
 
+    public AmlScreeningResult putPayloadItem(String key, Object payloadItem) {
+        if (this.payload == null) {
+            this.payload = new HashMap<>();
+        }
+        this.payload.put(key, payloadItem);
+        return this;
+    }
+
     /**
-     * Get payload
+     * The raw, unmodified screening response from the provider. Structure varies per provider.
      *
      * @return payload
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_PAYLOAD)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Object getPayload() {
+    @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+    public Map<String, Object> getPayload() {
         return payload;
     }
 
     @JsonProperty(JSON_PROPERTY_PAYLOAD)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPayload(@jakarta.annotation.Nullable Object payload) {
+    @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPayload(@jakarta.annotation.Nullable Map<String, Object> payload) {
         this.payload = payload;
+    }
+
+    public AmlScreeningResult verdict(@jakarta.annotation.Nullable ScreeningVerdictEnum verdict) {
+        this.verdict = verdict;
+        return this;
+    }
+
+    /**
+     * Get verdict
+     *
+     * @return verdict
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_VERDICT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ScreeningVerdictEnum getVerdict() {
+        return verdict;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VERDICT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setVerdict(@jakarta.annotation.Nullable ScreeningVerdictEnum verdict) {
+        this.verdict = verdict;
+    }
+
+    public AmlScreeningResult screeningStatus(
+            @jakarta.annotation.Nullable ScreeningStatusEnum screeningStatus) {
+        this.screeningStatus = screeningStatus;
+        return this;
+    }
+
+    /**
+     * Get screeningStatus
+     *
+     * @return screeningStatus
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SCREENING_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ScreeningStatusEnum getScreeningStatus() {
+        return screeningStatus;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SCREENING_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setScreeningStatus(
+            @jakarta.annotation.Nullable ScreeningStatusEnum screeningStatus) {
+        this.screeningStatus = screeningStatus;
+    }
+
+    public AmlScreeningResult bypassReason(
+            @jakarta.annotation.Nullable AmlBypassReasonEnum bypassReason) {
+        this.bypassReason = bypassReason;
+        return this;
+    }
+
+    /**
+     * Get bypassReason
+     *
+     * @return bypassReason
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_BYPASS_REASON)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public AmlBypassReasonEnum getBypassReason() {
+        return bypassReason;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BYPASS_REASON)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBypassReason(@jakarta.annotation.Nullable AmlBypassReasonEnum bypassReason) {
+        this.bypassReason = bypassReason;
+    }
+
+    public AmlScreeningResult timestamp(@jakarta.annotation.Nullable BigDecimal timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+
+    /**
+     * Unix timestamp in milliseconds when the screening result was generated.
+     *
+     * @return timestamp
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public BigDecimal getTimestamp() {
+        return timestamp;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTimestamp(@jakarta.annotation.Nullable BigDecimal timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public AmlScreeningResult customerRefId(@jakarta.annotation.Nullable String customerRefId) {
+        this.customerRefId = customerRefId;
+        return this;
+    }
+
+    /**
+     * Customer-provided reference identifier for tracking.
+     *
+     * @return customerRefId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCustomerRefId() {
+        return customerRefId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCustomerRefId(@jakarta.annotation.Nullable String customerRefId) {
+        this.customerRefId = customerRefId;
+    }
+
+    public AmlScreeningResult externalId(@jakarta.annotation.Nullable String externalId) {
+        this.externalId = externalId;
+        return this;
+    }
+
+    /**
+     * External identifier for the screening (provider-specific).
+     *
+     * @return externalId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getExternalId() {
+        return externalId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setExternalId(@jakarta.annotation.Nullable String externalId) {
+        this.externalId = externalId;
+    }
+
+    public AmlScreeningResult category(@jakarta.annotation.Nullable String category) {
+        this.category = category;
+        return this;
+    }
+
+    /**
+     * Risk category classification. The available categories are subject to change depending on the
+     * provider.
+     *
+     * @return category
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CATEGORY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCategory() {
+        return category;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CATEGORY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCategory(@jakarta.annotation.Nullable String category) {
+        this.category = category;
+    }
+
+    public AmlScreeningResult categoryId(@jakarta.annotation.Nullable BigDecimal categoryId) {
+        this.categoryId = categoryId;
+        return this;
+    }
+
+    /**
+     * Numeric identifier for the risk category.
+     *
+     * @return categoryId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CATEGORY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public BigDecimal getCategoryId() {
+        return categoryId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CATEGORY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCategoryId(@jakarta.annotation.Nullable BigDecimal categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public AmlScreeningResult risk(@jakarta.annotation.Nullable String risk) {
+        this.risk = risk;
+        return this;
+    }
+
+    /**
+     * Provider-specific risk level. Values vary by provider.
+     *
+     * @return risk
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_RISK)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRisk() {
+        return risk;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RISK)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRisk(@jakarta.annotation.Nullable String risk) {
+        this.risk = risk;
+    }
+
+    public AmlScreeningResult destAddress(@jakarta.annotation.Nullable String destAddress) {
+        this.destAddress = destAddress;
+        return this;
+    }
+
+    /**
+     * The destination blockchain address associated with the screening.
+     *
+     * @return destAddress
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_DEST_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getDestAddress() {
+        return destAddress;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DEST_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDestAddress(@jakarta.annotation.Nullable String destAddress) {
+        this.destAddress = destAddress;
+    }
+
+    public AmlScreeningResult matchedRule(@jakarta.annotation.Nullable AmlMatchedRule matchedRule) {
+        this.matchedRule = matchedRule;
+        return this;
+    }
+
+    /**
+     * Get matchedRule
+     *
+     * @return matchedRule
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_MATCHED_RULE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public AmlMatchedRule getMatchedRule() {
+        return matchedRule;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MATCHED_RULE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMatchedRule(@jakarta.annotation.Nullable AmlMatchedRule matchedRule) {
+        this.matchedRule = matchedRule;
+    }
+
+    public AmlScreeningResult matchedPrescreeningRule(
+            @jakarta.annotation.Nullable AmlMatchedRule matchedPrescreeningRule) {
+        this.matchedPrescreeningRule = matchedPrescreeningRule;
+        return this;
+    }
+
+    /**
+     * Get matchedPrescreeningRule
+     *
+     * @return matchedPrescreeningRule
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_MATCHED_PRESCREENING_RULE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public AmlMatchedRule getMatchedPrescreeningRule() {
+        return matchedPrescreeningRule;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MATCHED_PRESCREENING_RULE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMatchedPrescreeningRule(
+            @jakarta.annotation.Nullable AmlMatchedRule matchedPrescreeningRule) {
+        this.matchedPrescreeningRule = matchedPrescreeningRule;
+    }
+
+    public AmlScreeningResult matchedAlert(@jakarta.annotation.Nullable AmlAlert matchedAlert) {
+        this.matchedAlert = matchedAlert;
+        return this;
+    }
+
+    /**
+     * Get matchedAlert
+     *
+     * @return matchedAlert
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_MATCHED_ALERT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public AmlAlert getMatchedAlert() {
+        return matchedAlert;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MATCHED_ALERT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMatchedAlert(@jakarta.annotation.Nullable AmlAlert matchedAlert) {
+        this.matchedAlert = matchedAlert;
     }
 
     /** Return true if this AmlScreeningResult object is equal to o. */
@@ -94,12 +467,41 @@ public class AmlScreeningResult {
         }
         AmlScreeningResult amlScreeningResult = (AmlScreeningResult) o;
         return Objects.equals(this.provider, amlScreeningResult.provider)
-                && Objects.equals(this.payload, amlScreeningResult.payload);
+                && Objects.equals(this.payload, amlScreeningResult.payload)
+                && Objects.equals(this.verdict, amlScreeningResult.verdict)
+                && Objects.equals(this.screeningStatus, amlScreeningResult.screeningStatus)
+                && Objects.equals(this.bypassReason, amlScreeningResult.bypassReason)
+                && Objects.equals(this.timestamp, amlScreeningResult.timestamp)
+                && Objects.equals(this.customerRefId, amlScreeningResult.customerRefId)
+                && Objects.equals(this.externalId, amlScreeningResult.externalId)
+                && Objects.equals(this.category, amlScreeningResult.category)
+                && Objects.equals(this.categoryId, amlScreeningResult.categoryId)
+                && Objects.equals(this.risk, amlScreeningResult.risk)
+                && Objects.equals(this.destAddress, amlScreeningResult.destAddress)
+                && Objects.equals(this.matchedRule, amlScreeningResult.matchedRule)
+                && Objects.equals(
+                        this.matchedPrescreeningRule, amlScreeningResult.matchedPrescreeningRule)
+                && Objects.equals(this.matchedAlert, amlScreeningResult.matchedAlert);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(provider, payload);
+        return Objects.hash(
+                provider,
+                payload,
+                verdict,
+                screeningStatus,
+                bypassReason,
+                timestamp,
+                customerRefId,
+                externalId,
+                category,
+                categoryId,
+                risk,
+                destAddress,
+                matchedRule,
+                matchedPrescreeningRule,
+                matchedAlert);
     }
 
     @Override
@@ -108,6 +510,21 @@ public class AmlScreeningResult {
         sb.append("class AmlScreeningResult {\n");
         sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
         sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
+        sb.append("    verdict: ").append(toIndentedString(verdict)).append("\n");
+        sb.append("    screeningStatus: ").append(toIndentedString(screeningStatus)).append("\n");
+        sb.append("    bypassReason: ").append(toIndentedString(bypassReason)).append("\n");
+        sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
+        sb.append("    customerRefId: ").append(toIndentedString(customerRefId)).append("\n");
+        sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
+        sb.append("    category: ").append(toIndentedString(category)).append("\n");
+        sb.append("    categoryId: ").append(toIndentedString(categoryId)).append("\n");
+        sb.append("    risk: ").append(toIndentedString(risk)).append("\n");
+        sb.append("    destAddress: ").append(toIndentedString(destAddress)).append("\n");
+        sb.append("    matchedRule: ").append(toIndentedString(matchedRule)).append("\n");
+        sb.append("    matchedPrescreeningRule: ")
+                .append(toIndentedString(matchedPrescreeningRule))
+                .append("\n");
+        sb.append("    matchedAlert: ").append(toIndentedString(matchedAlert)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -167,12 +584,137 @@ public class AmlScreeningResult {
 
         // add `payload` to the URL query string
         if (getPayload() != null) {
+            for (String _key : getPayload().keySet()) {
+                joiner.add(
+                        String.format(
+                                "%spayload%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, _key, containerSuffix),
+                                getPayload().get(_key),
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getPayload().get(_key)))));
+            }
+        }
+
+        // add `verdict` to the URL query string
+        if (getVerdict() != null) {
             joiner.add(
                     String.format(
-                            "%spayload%s=%s",
+                            "%sverdict%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getPayload()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVerdict()))));
+        }
+
+        // add `screeningStatus` to the URL query string
+        if (getScreeningStatus() != null) {
+            joiner.add(
+                    String.format(
+                            "%sscreeningStatus%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getScreeningStatus()))));
+        }
+
+        // add `bypassReason` to the URL query string
+        if (getBypassReason() != null) {
+            joiner.add(
+                    String.format(
+                            "%sbypassReason%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getBypassReason()))));
+        }
+
+        // add `timestamp` to the URL query string
+        if (getTimestamp() != null) {
+            joiner.add(
+                    String.format(
+                            "%stimestamp%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getTimestamp()))));
+        }
+
+        // add `customerRefId` to the URL query string
+        if (getCustomerRefId() != null) {
+            joiner.add(
+                    String.format(
+                            "%scustomerRefId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getCustomerRefId()))));
+        }
+
+        // add `externalId` to the URL query string
+        if (getExternalId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sexternalId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getExternalId()))));
+        }
+
+        // add `category` to the URL query string
+        if (getCategory() != null) {
+            joiner.add(
+                    String.format(
+                            "%scategory%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getCategory()))));
+        }
+
+        // add `categoryId` to the URL query string
+        if (getCategoryId() != null) {
+            joiner.add(
+                    String.format(
+                            "%scategoryId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getCategoryId()))));
+        }
+
+        // add `risk` to the URL query string
+        if (getRisk() != null) {
+            joiner.add(
+                    String.format(
+                            "%srisk%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getRisk()))));
+        }
+
+        // add `destAddress` to the URL query string
+        if (getDestAddress() != null) {
+            joiner.add(
+                    String.format(
+                            "%sdestAddress%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getDestAddress()))));
+        }
+
+        // add `matchedRule` to the URL query string
+        if (getMatchedRule() != null) {
+            joiner.add(getMatchedRule().toUrlQueryString(prefix + "matchedRule" + suffix));
+        }
+
+        // add `matchedPrescreeningRule` to the URL query string
+        if (getMatchedPrescreeningRule() != null) {
+            joiner.add(
+                    getMatchedPrescreeningRule()
+                            .toUrlQueryString(prefix + "matchedPrescreeningRule" + suffix));
+        }
+
+        // add `matchedAlert` to the URL query string
+        if (getMatchedAlert() != null) {
+            joiner.add(getMatchedAlert().toUrlQueryString(prefix + "matchedAlert" + suffix));
         }
 
         return joiner.toString();

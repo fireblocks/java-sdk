@@ -32,6 +32,7 @@ docs/AchAddress.md
 docs/AchDestination.md
 docs/AchPaymentInfo.md
 docs/ActionRecord.md
+docs/ActivateBlockchainResponse.md
 docs/ActiveRolesResponse.md
 docs/AdapterProcessingResult.md
 docs/AddAbiRequestDto.md
@@ -75,6 +76,7 @@ docs/AllowlistEntryStatus.md
 docs/AllowlistMetadata.md
 docs/AllowlistResponse.md
 docs/AmlAlert.md
+docs/AmlBypassReasonEnum.md
 docs/AmlMatchedRule.md
 docs/AmlRegistrationResult.md
 docs/AmlRegistrationResultFullPayload.md
@@ -137,6 +139,8 @@ docs/AuditLogsApi.md
 docs/AuditorData.md
 docs/AuthorizationGroups.md
 docs/AuthorizationInfo.md
+docs/AutomationSettingsRequest.md
+docs/AutomationSettingsResponse.md
 docs/BalanceHistoryItemDto.md
 docs/BalanceHistoryPagedResponse.md
 docs/BalanceHistoryPagedResponse2.md
@@ -144,14 +148,21 @@ docs/BankAddress.md
 docs/BaseProvider.md
 docs/BasicAddressRequest.md
 docs/BlockInfo.md
+docs/Blockchain.md
 docs/BlockchainAddress.md
+docs/BlockchainDeclaredProperties.md
 docs/BlockchainDestination.md
+docs/BlockchainEnvironment.md
 docs/BlockchainExplorer.md
+docs/BlockchainLinkBetaApi.md
 docs/BlockchainMedia.md
 docs/BlockchainMetadata.md
 docs/BlockchainNotFoundErrorResponse.md
 docs/BlockchainOnchain.md
 docs/BlockchainResponse.md
+docs/BlockchainRpcAuth.md
+docs/BlockchainSortField.md
+docs/BlockchainStateFilter.md
 docs/BlockchainTransfer.md
 docs/BlockchainsAssetsApi.md
 docs/BpsFee.md
@@ -266,6 +277,8 @@ docs/CreateAddressRequest.md
 docs/CreateAddressResponse.md
 docs/CreateAddressesReportRequest.md
 docs/CreateAssetsRequest.md
+docs/CreateBlockchainRequest.md
+docs/CreateBlockchainResponse.md
 docs/CreateConfigOperationRequest.md
 docs/CreateConnectionRequest.md
 docs/CreateConnectionResponse.md
@@ -358,8 +371,10 @@ docs/DropTransactionResponse.md
 docs/DvnConfig.md
 docs/DvnConfigWithConfirmations.md
 docs/EVMTokenCreateParamsDto.md
+docs/EarnApi.md
 docs/EarnAsset.md
-docs/EarnBetaApi.md
+docs/EarnCurator.md
+docs/EarnMetadata.md
 docs/EarnProvider.md
 docs/EditGasStationConfigurationResponse.md
 docs/EmbeddedWallet.md
@@ -460,7 +475,11 @@ docs/GetAPIUsersResponse.md
 docs/GetActionResponse.md
 docs/GetActionsResponse.md
 docs/GetAuditLogsResponse.md
+docs/GetAutomationSettingsResponse.md
+docs/GetBillingInfoResponse.md
+docs/GetBlockchainByIdResponse.md
 docs/GetByorkVerdictResponse.md
+docs/GetConnectedAccountsCredentialsPublicKeyResponse.md
 docs/GetConnectionsResponse.md
 docs/GetConsoleUsersResponse.md
 docs/GetDeployableAddressRequest.md
@@ -482,6 +501,7 @@ docs/GetPagedExchangeAccountsResponsePaging.md
 docs/GetPositionsResponse.md
 docs/GetProvidersResponse.md
 docs/GetSigningKeyResponseDto.md
+docs/GetTestWalletAddressResponse.md
 docs/GetTransactionOperation.md
 docs/GetValidationKeyResponseDto.md
 docs/GetWhitelistIpAddressesResponse.md
@@ -549,6 +569,7 @@ docs/LeiStatus.md
 docs/LinkedTokensCount.md
 docs/ListAssetsResponse.md
 docs/ListBlockchainsResponse.md
+docs/ListBlockchainsResponse2.md
 docs/ListLegalEntitiesResponse.md
 docs/ListOwnedCollectionsResponse.md
 docs/ListOwnedTokensResponse.md
@@ -675,12 +696,16 @@ docs/PolicyCheckResult.md
 docs/PolicyCurrency.md
 docs/PolicyEditorBetaApi.md
 docs/PolicyEditorV2Api.md
+docs/PolicyEditorV2BetaApi.md
 docs/PolicyMetadataEntry.md
 docs/PolicyOperator.md
 docs/PolicyResponse.md
 docs/PolicyRule.md
 docs/PolicyRuleCheckResult.md
 docs/PolicyRuleError.md
+docs/PolicyRuleQuotaParticipant.md
+docs/PolicyRuleQuotaRequest.md
+docs/PolicyRuleQuotaResponse.md
 docs/PolicyStatus.md
 docs/PolicyTag.md
 docs/PolicyType.md
@@ -695,6 +720,7 @@ docs/PreScreening.md
 docs/PrefundedSettlement.md
 docs/PrefundedSettlementType.md
 docs/ProgramCallConfig.md
+docs/ProgramCallDecodedDataItem.md
 docs/Provider.md
 docs/ProvidersListResponse.md
 docs/PublicKeyInformation.md
@@ -747,6 +773,8 @@ docs/ReportOutputFormat.md
 docs/ReportStatus.md
 docs/ReportType.md
 docs/ReportsBetaApi.md
+docs/RescreenTransactionRequest.md
+docs/RescreenTransactionResponse.md
 docs/ResendByQueryRequest.md
 docs/ResendByQueryResponse.md
 docs/ResendFailedNotificationsJobStatusResponse.md
@@ -769,6 +797,7 @@ docs/SEPAAddress.md
 docs/SEPADestination.md
 docs/SOLAccount.md
 docs/SOLAccountWithValue.md
+docs/SaveAutomationSettingsResponse.md
 docs/ScopeItem.md
 docs/ScopeItemFailure.md
 docs/ScreeningAlertExposureTypeEnum.md
@@ -786,6 +815,7 @@ docs/ScreeningPolicyAmountRange.md
 docs/ScreeningPolicyCurrency.md
 docs/ScreeningPolicyResponse.md
 docs/ScreeningProviderRulesConfigurationResponse.md
+docs/ScreeningStatusEnum.md
 docs/ScreeningTRLinkAmount.md
 docs/ScreeningTRLinkMissingTrmDecision.md
 docs/ScreeningTRLinkMissingTrmRule.md
@@ -993,6 +1023,7 @@ docs/TagsApi.md
 docs/TagsPagedResponse.md
 docs/TemplatesPaginatedResponse.md
 docs/ThirdPartyRouting.md
+docs/TimeBasedTrigger.md
 docs/TimePeriodConfig.md
 docs/TimePeriodMatchType.md
 docs/ToCollateralTransaction.md
@@ -1102,6 +1133,7 @@ docs/TravelRuleValidateTransactionRequest.md
 docs/TravelRuleValidateTransactionResponse.md
 docs/TravelRuleVaspForVault.md
 docs/TravelRuleVerdictEnum.md
+docs/TriggerValidationFlowResponse.md
 docs/TrustProofOfAddressCreateResponse.md
 docs/TrustProofOfAddressRequest.md
 docs/TrustProofOfAddressResponse.md
@@ -1115,6 +1147,8 @@ docs/UnspentInput.md
 docs/UnspentInputsResponse.md
 docs/UnstakeRequest.md
 docs/UpdateAssetUserMetadataRequest.md
+docs/UpdateAutomationSettingsRequest.md
+docs/UpdateBlockchainResponse.md
 docs/UpdateCallbackHandlerRequest.md
 docs/UpdateCallbackHandlerResponse.md
 docs/UpdateCounterpartyGroupRequest.md
@@ -1219,6 +1253,7 @@ src/main/java/com/fireblocks/sdk/UserAgentUtil.java
 src/main/java/com/fireblocks/sdk/ValidationUtils.java
 src/main/java/com/fireblocks/sdk/api/ApiUserApi.java
 src/main/java/com/fireblocks/sdk/api/AuditLogsApi.java
+src/main/java/com/fireblocks/sdk/api/BlockchainLinkBetaApi.java
 src/main/java/com/fireblocks/sdk/api/BlockchainsAssetsApi.java
 src/main/java/com/fireblocks/sdk/api/ComplianceApi.java
 src/main/java/com/fireblocks/sdk/api/ComplianceScreeningConfigurationApi.java
@@ -1229,7 +1264,7 @@ src/main/java/com/fireblocks/sdk/api/ContractTemplatesApi.java
 src/main/java/com/fireblocks/sdk/api/ContractsApi.java
 src/main/java/com/fireblocks/sdk/api/CosignersBetaApi.java
 src/main/java/com/fireblocks/sdk/api/DeployedContractsApi.java
-src/main/java/com/fireblocks/sdk/api/EarnBetaApi.java
+src/main/java/com/fireblocks/sdk/api/EarnApi.java
 src/main/java/com/fireblocks/sdk/api/EmbeddedWalletsApi.java
 src/main/java/com/fireblocks/sdk/api/ExchangeAccountsApi.java
 src/main/java/com/fireblocks/sdk/api/ExternalWalletsApi.java
@@ -1247,6 +1282,7 @@ src/main/java/com/fireblocks/sdk/api/OtaBetaApi.java
 src/main/java/com/fireblocks/sdk/api/PaymentsPayoutApi.java
 src/main/java/com/fireblocks/sdk/api/PolicyEditorBetaApi.java
 src/main/java/com/fireblocks/sdk/api/PolicyEditorV2Api.java
+src/main/java/com/fireblocks/sdk/api/PolicyEditorV2BetaApi.java
 src/main/java/com/fireblocks/sdk/api/ReportsBetaApi.java
 src/main/java/com/fireblocks/sdk/api/ResetDeviceApi.java
 src/main/java/com/fireblocks/sdk/api/SmartTransferApi.java
@@ -1292,6 +1328,7 @@ src/main/java/com/fireblocks/sdk/model/AchAddress.java
 src/main/java/com/fireblocks/sdk/model/AchDestination.java
 src/main/java/com/fireblocks/sdk/model/AchPaymentInfo.java
 src/main/java/com/fireblocks/sdk/model/ActionRecord.java
+src/main/java/com/fireblocks/sdk/model/ActivateBlockchainResponse.java
 src/main/java/com/fireblocks/sdk/model/ActiveRolesResponse.java
 src/main/java/com/fireblocks/sdk/model/AdapterProcessingResult.java
 src/main/java/com/fireblocks/sdk/model/AddAbiRequestDto.java
@@ -1335,6 +1372,7 @@ src/main/java/com/fireblocks/sdk/model/AllowlistEntryStatus.java
 src/main/java/com/fireblocks/sdk/model/AllowlistMetadata.java
 src/main/java/com/fireblocks/sdk/model/AllowlistResponse.java
 src/main/java/com/fireblocks/sdk/model/AmlAlert.java
+src/main/java/com/fireblocks/sdk/model/AmlBypassReasonEnum.java
 src/main/java/com/fireblocks/sdk/model/AmlMatchedRule.java
 src/main/java/com/fireblocks/sdk/model/AmlRegistrationResult.java
 src/main/java/com/fireblocks/sdk/model/AmlRegistrationResultFullPayload.java
@@ -1395,6 +1433,8 @@ src/main/java/com/fireblocks/sdk/model/AuditLogData.java
 src/main/java/com/fireblocks/sdk/model/AuditorData.java
 src/main/java/com/fireblocks/sdk/model/AuthorizationGroups.java
 src/main/java/com/fireblocks/sdk/model/AuthorizationInfo.java
+src/main/java/com/fireblocks/sdk/model/AutomationSettingsRequest.java
+src/main/java/com/fireblocks/sdk/model/AutomationSettingsResponse.java
 src/main/java/com/fireblocks/sdk/model/BalanceHistoryItemDto.java
 src/main/java/com/fireblocks/sdk/model/BalanceHistoryPagedResponse.java
 src/main/java/com/fireblocks/sdk/model/BalanceHistoryPagedResponse2.java
@@ -1402,14 +1442,20 @@ src/main/java/com/fireblocks/sdk/model/BankAddress.java
 src/main/java/com/fireblocks/sdk/model/BaseProvider.java
 src/main/java/com/fireblocks/sdk/model/BasicAddressRequest.java
 src/main/java/com/fireblocks/sdk/model/BlockInfo.java
+src/main/java/com/fireblocks/sdk/model/Blockchain.java
 src/main/java/com/fireblocks/sdk/model/BlockchainAddress.java
+src/main/java/com/fireblocks/sdk/model/BlockchainDeclaredProperties.java
 src/main/java/com/fireblocks/sdk/model/BlockchainDestination.java
+src/main/java/com/fireblocks/sdk/model/BlockchainEnvironment.java
 src/main/java/com/fireblocks/sdk/model/BlockchainExplorer.java
 src/main/java/com/fireblocks/sdk/model/BlockchainMedia.java
 src/main/java/com/fireblocks/sdk/model/BlockchainMetadata.java
 src/main/java/com/fireblocks/sdk/model/BlockchainNotFoundErrorResponse.java
 src/main/java/com/fireblocks/sdk/model/BlockchainOnchain.java
 src/main/java/com/fireblocks/sdk/model/BlockchainResponse.java
+src/main/java/com/fireblocks/sdk/model/BlockchainRpcAuth.java
+src/main/java/com/fireblocks/sdk/model/BlockchainSortField.java
+src/main/java/com/fireblocks/sdk/model/BlockchainStateFilter.java
 src/main/java/com/fireblocks/sdk/model/BlockchainTransfer.java
 src/main/java/com/fireblocks/sdk/model/BpsFee.java
 src/main/java/com/fireblocks/sdk/model/BusinessEntityTypeEnum.java
@@ -1515,6 +1561,8 @@ src/main/java/com/fireblocks/sdk/model/CreateAddressRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateAddressResponse.java
 src/main/java/com/fireblocks/sdk/model/CreateAddressesReportRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateAssetsRequest.java
+src/main/java/com/fireblocks/sdk/model/CreateBlockchainRequest.java
+src/main/java/com/fireblocks/sdk/model/CreateBlockchainResponse.java
 src/main/java/com/fireblocks/sdk/model/CreateConfigOperationRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateConnectionRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateConnectionResponse.java
@@ -1607,6 +1655,8 @@ src/main/java/com/fireblocks/sdk/model/DvnConfig.java
 src/main/java/com/fireblocks/sdk/model/DvnConfigWithConfirmations.java
 src/main/java/com/fireblocks/sdk/model/EVMTokenCreateParamsDto.java
 src/main/java/com/fireblocks/sdk/model/EarnAsset.java
+src/main/java/com/fireblocks/sdk/model/EarnCurator.java
+src/main/java/com/fireblocks/sdk/model/EarnMetadata.java
 src/main/java/com/fireblocks/sdk/model/EarnProvider.java
 src/main/java/com/fireblocks/sdk/model/EditGasStationConfigurationResponse.java
 src/main/java/com/fireblocks/sdk/model/EmbeddedWallet.java
@@ -1701,7 +1751,11 @@ src/main/java/com/fireblocks/sdk/model/GetAPIUsersResponse.java
 src/main/java/com/fireblocks/sdk/model/GetActionResponse.java
 src/main/java/com/fireblocks/sdk/model/GetActionsResponse.java
 src/main/java/com/fireblocks/sdk/model/GetAuditLogsResponse.java
+src/main/java/com/fireblocks/sdk/model/GetAutomationSettingsResponse.java
+src/main/java/com/fireblocks/sdk/model/GetBillingInfoResponse.java
+src/main/java/com/fireblocks/sdk/model/GetBlockchainByIdResponse.java
 src/main/java/com/fireblocks/sdk/model/GetByorkVerdictResponse.java
+src/main/java/com/fireblocks/sdk/model/GetConnectedAccountsCredentialsPublicKeyResponse.java
 src/main/java/com/fireblocks/sdk/model/GetConnectionsResponse.java
 src/main/java/com/fireblocks/sdk/model/GetConsoleUsersResponse.java
 src/main/java/com/fireblocks/sdk/model/GetDeployableAddressRequest.java
@@ -1723,6 +1777,7 @@ src/main/java/com/fireblocks/sdk/model/GetPagedExchangeAccountsResponsePaging.ja
 src/main/java/com/fireblocks/sdk/model/GetPositionsResponse.java
 src/main/java/com/fireblocks/sdk/model/GetProvidersResponse.java
 src/main/java/com/fireblocks/sdk/model/GetSigningKeyResponseDto.java
+src/main/java/com/fireblocks/sdk/model/GetTestWalletAddressResponse.java
 src/main/java/com/fireblocks/sdk/model/GetTransactionOperation.java
 src/main/java/com/fireblocks/sdk/model/GetValidationKeyResponseDto.java
 src/main/java/com/fireblocks/sdk/model/GetWhitelistIpAddressesResponse.java
@@ -1787,6 +1842,7 @@ src/main/java/com/fireblocks/sdk/model/LeiStatus.java
 src/main/java/com/fireblocks/sdk/model/LinkedTokensCount.java
 src/main/java/com/fireblocks/sdk/model/ListAssetsResponse.java
 src/main/java/com/fireblocks/sdk/model/ListBlockchainsResponse.java
+src/main/java/com/fireblocks/sdk/model/ListBlockchainsResponse2.java
 src/main/java/com/fireblocks/sdk/model/ListLegalEntitiesResponse.java
 src/main/java/com/fireblocks/sdk/model/ListOwnedCollectionsResponse.java
 src/main/java/com/fireblocks/sdk/model/ListOwnedTokensResponse.java
@@ -1911,6 +1967,9 @@ src/main/java/com/fireblocks/sdk/model/PolicyResponse.java
 src/main/java/com/fireblocks/sdk/model/PolicyRule.java
 src/main/java/com/fireblocks/sdk/model/PolicyRuleCheckResult.java
 src/main/java/com/fireblocks/sdk/model/PolicyRuleError.java
+src/main/java/com/fireblocks/sdk/model/PolicyRuleQuotaParticipant.java
+src/main/java/com/fireblocks/sdk/model/PolicyRuleQuotaRequest.java
+src/main/java/com/fireblocks/sdk/model/PolicyRuleQuotaResponse.java
 src/main/java/com/fireblocks/sdk/model/PolicyStatus.java
 src/main/java/com/fireblocks/sdk/model/PolicyTag.java
 src/main/java/com/fireblocks/sdk/model/PolicyType.java
@@ -1925,6 +1984,7 @@ src/main/java/com/fireblocks/sdk/model/PreScreening.java
 src/main/java/com/fireblocks/sdk/model/PrefundedSettlement.java
 src/main/java/com/fireblocks/sdk/model/PrefundedSettlementType.java
 src/main/java/com/fireblocks/sdk/model/ProgramCallConfig.java
+src/main/java/com/fireblocks/sdk/model/ProgramCallDecodedDataItem.java
 src/main/java/com/fireblocks/sdk/model/Provider.java
 src/main/java/com/fireblocks/sdk/model/ProvidersListResponse.java
 src/main/java/com/fireblocks/sdk/model/PublicKeyInformation.java
@@ -1976,6 +2036,8 @@ src/main/java/com/fireblocks/sdk/model/ReportListResponse.java
 src/main/java/com/fireblocks/sdk/model/ReportOutputFormat.java
 src/main/java/com/fireblocks/sdk/model/ReportStatus.java
 src/main/java/com/fireblocks/sdk/model/ReportType.java
+src/main/java/com/fireblocks/sdk/model/RescreenTransactionRequest.java
+src/main/java/com/fireblocks/sdk/model/RescreenTransactionResponse.java
 src/main/java/com/fireblocks/sdk/model/ResendByQueryRequest.java
 src/main/java/com/fireblocks/sdk/model/ResendByQueryResponse.java
 src/main/java/com/fireblocks/sdk/model/ResendFailedNotificationsJobStatusResponse.java
@@ -1997,6 +2059,7 @@ src/main/java/com/fireblocks/sdk/model/SEPAAddress.java
 src/main/java/com/fireblocks/sdk/model/SEPADestination.java
 src/main/java/com/fireblocks/sdk/model/SOLAccount.java
 src/main/java/com/fireblocks/sdk/model/SOLAccountWithValue.java
+src/main/java/com/fireblocks/sdk/model/SaveAutomationSettingsResponse.java
 src/main/java/com/fireblocks/sdk/model/ScopeItem.java
 src/main/java/com/fireblocks/sdk/model/ScopeItemFailure.java
 src/main/java/com/fireblocks/sdk/model/ScreeningAlertExposureTypeEnum.java
@@ -2014,6 +2077,7 @@ src/main/java/com/fireblocks/sdk/model/ScreeningPolicyAmountRange.java
 src/main/java/com/fireblocks/sdk/model/ScreeningPolicyCurrency.java
 src/main/java/com/fireblocks/sdk/model/ScreeningPolicyResponse.java
 src/main/java/com/fireblocks/sdk/model/ScreeningProviderRulesConfigurationResponse.java
+src/main/java/com/fireblocks/sdk/model/ScreeningStatusEnum.java
 src/main/java/com/fireblocks/sdk/model/ScreeningTRLinkAmount.java
 src/main/java/com/fireblocks/sdk/model/ScreeningTRLinkMissingTrmDecision.java
 src/main/java/com/fireblocks/sdk/model/ScreeningTRLinkMissingTrmRule.java
@@ -2218,6 +2282,7 @@ src/main/java/com/fireblocks/sdk/model/TagType.java
 src/main/java/com/fireblocks/sdk/model/TagsPagedResponse.java
 src/main/java/com/fireblocks/sdk/model/TemplatesPaginatedResponse.java
 src/main/java/com/fireblocks/sdk/model/ThirdPartyRouting.java
+src/main/java/com/fireblocks/sdk/model/TimeBasedTrigger.java
 src/main/java/com/fireblocks/sdk/model/TimePeriodConfig.java
 src/main/java/com/fireblocks/sdk/model/TimePeriodMatchType.java
 src/main/java/com/fireblocks/sdk/model/ToCollateralTransaction.java
@@ -2322,6 +2387,7 @@ src/main/java/com/fireblocks/sdk/model/TravelRuleValidateTransactionRequest.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleValidateTransactionResponse.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleVaspForVault.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleVerdictEnum.java
+src/main/java/com/fireblocks/sdk/model/TriggerValidationFlowResponse.java
 src/main/java/com/fireblocks/sdk/model/TrustProofOfAddressCreateResponse.java
 src/main/java/com/fireblocks/sdk/model/TrustProofOfAddressRequest.java
 src/main/java/com/fireblocks/sdk/model/TrustProofOfAddressResponse.java
@@ -2335,6 +2401,8 @@ src/main/java/com/fireblocks/sdk/model/UnspentInput.java
 src/main/java/com/fireblocks/sdk/model/UnspentInputsResponse.java
 src/main/java/com/fireblocks/sdk/model/UnstakeRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateAssetUserMetadataRequest.java
+src/main/java/com/fireblocks/sdk/model/UpdateAutomationSettingsRequest.java
+src/main/java/com/fireblocks/sdk/model/UpdateBlockchainResponse.java
 src/main/java/com/fireblocks/sdk/model/UpdateCallbackHandlerRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateCallbackHandlerResponse.java
 src/main/java/com/fireblocks/sdk/model/UpdateCounterpartyGroupRequest.java
@@ -2408,6 +2476,7 @@ src/test/java/com/fireblocks/sdk/UserAgentUtilTest.java
 src/test/java/com/fireblocks/sdk/ValidationUtilsTest.java
 src/test/java/com/fireblocks/sdk/api/ApiUserApiTest.java
 src/test/java/com/fireblocks/sdk/api/AuditLogsApiTest.java
+src/test/java/com/fireblocks/sdk/api/BlockchainLinkBetaApiTest.java
 src/test/java/com/fireblocks/sdk/api/BlockchainsAssetsApiTest.java
 src/test/java/com/fireblocks/sdk/api/ComplianceApiTest.java
 src/test/java/com/fireblocks/sdk/api/ComplianceScreeningConfigurationApiTest.java
@@ -2418,7 +2487,7 @@ src/test/java/com/fireblocks/sdk/api/ContractTemplatesApiTest.java
 src/test/java/com/fireblocks/sdk/api/ContractsApiTest.java
 src/test/java/com/fireblocks/sdk/api/CosignersBetaApiTest.java
 src/test/java/com/fireblocks/sdk/api/DeployedContractsApiTest.java
-src/test/java/com/fireblocks/sdk/api/EarnBetaApiTest.java
+src/test/java/com/fireblocks/sdk/api/EarnApiTest.java
 src/test/java/com/fireblocks/sdk/api/EmbeddedWalletsApiTest.java
 src/test/java/com/fireblocks/sdk/api/ExchangeAccountsApiTest.java
 src/test/java/com/fireblocks/sdk/api/ExternalWalletsApiTest.java
@@ -2436,6 +2505,7 @@ src/test/java/com/fireblocks/sdk/api/OtaBetaApiTest.java
 src/test/java/com/fireblocks/sdk/api/PaymentsPayoutApiTest.java
 src/test/java/com/fireblocks/sdk/api/PolicyEditorBetaApiTest.java
 src/test/java/com/fireblocks/sdk/api/PolicyEditorV2ApiTest.java
+src/test/java/com/fireblocks/sdk/api/PolicyEditorV2BetaApiTest.java
 src/test/java/com/fireblocks/sdk/api/ReportsBetaApiTest.java
 src/test/java/com/fireblocks/sdk/api/ResetDeviceApiTest.java
 src/test/java/com/fireblocks/sdk/api/SmartTransferApiTest.java
@@ -2480,6 +2550,7 @@ src/test/java/com/fireblocks/sdk/model/AchAddressTest.java
 src/test/java/com/fireblocks/sdk/model/AchDestinationTest.java
 src/test/java/com/fireblocks/sdk/model/AchPaymentInfoTest.java
 src/test/java/com/fireblocks/sdk/model/ActionRecordTest.java
+src/test/java/com/fireblocks/sdk/model/ActivateBlockchainResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ActiveRolesResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AdapterProcessingResultTest.java
 src/test/java/com/fireblocks/sdk/model/AddAbiRequestDtoTest.java
@@ -2523,6 +2594,7 @@ src/test/java/com/fireblocks/sdk/model/AllowlistEntryTest.java
 src/test/java/com/fireblocks/sdk/model/AllowlistMetadataTest.java
 src/test/java/com/fireblocks/sdk/model/AllowlistResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AmlAlertTest.java
+src/test/java/com/fireblocks/sdk/model/AmlBypassReasonEnumTest.java
 src/test/java/com/fireblocks/sdk/model/AmlMatchedRuleTest.java
 src/test/java/com/fireblocks/sdk/model/AmlRegistrationResultFullPayloadTest.java
 src/test/java/com/fireblocks/sdk/model/AmlRegistrationResultTest.java
@@ -2583,6 +2655,8 @@ src/test/java/com/fireblocks/sdk/model/AuditLogDataTest.java
 src/test/java/com/fireblocks/sdk/model/AuditorDataTest.java
 src/test/java/com/fireblocks/sdk/model/AuthorizationGroupsTest.java
 src/test/java/com/fireblocks/sdk/model/AuthorizationInfoTest.java
+src/test/java/com/fireblocks/sdk/model/AutomationSettingsRequestTest.java
+src/test/java/com/fireblocks/sdk/model/AutomationSettingsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/BalanceHistoryItemDtoTest.java
 src/test/java/com/fireblocks/sdk/model/BalanceHistoryPagedResponse2Test.java
 src/test/java/com/fireblocks/sdk/model/BalanceHistoryPagedResponseTest.java
@@ -2591,13 +2665,19 @@ src/test/java/com/fireblocks/sdk/model/BaseProviderTest.java
 src/test/java/com/fireblocks/sdk/model/BasicAddressRequestTest.java
 src/test/java/com/fireblocks/sdk/model/BlockInfoTest.java
 src/test/java/com/fireblocks/sdk/model/BlockchainAddressTest.java
+src/test/java/com/fireblocks/sdk/model/BlockchainDeclaredPropertiesTest.java
 src/test/java/com/fireblocks/sdk/model/BlockchainDestinationTest.java
+src/test/java/com/fireblocks/sdk/model/BlockchainEnvironmentTest.java
 src/test/java/com/fireblocks/sdk/model/BlockchainExplorerTest.java
 src/test/java/com/fireblocks/sdk/model/BlockchainMediaTest.java
 src/test/java/com/fireblocks/sdk/model/BlockchainMetadataTest.java
 src/test/java/com/fireblocks/sdk/model/BlockchainNotFoundErrorResponseTest.java
 src/test/java/com/fireblocks/sdk/model/BlockchainOnchainTest.java
 src/test/java/com/fireblocks/sdk/model/BlockchainResponseTest.java
+src/test/java/com/fireblocks/sdk/model/BlockchainRpcAuthTest.java
+src/test/java/com/fireblocks/sdk/model/BlockchainSortFieldTest.java
+src/test/java/com/fireblocks/sdk/model/BlockchainStateFilterTest.java
+src/test/java/com/fireblocks/sdk/model/BlockchainTest.java
 src/test/java/com/fireblocks/sdk/model/BlockchainTransferTest.java
 src/test/java/com/fireblocks/sdk/model/BpsFeeTest.java
 src/test/java/com/fireblocks/sdk/model/BusinessEntityTypeEnumTest.java
@@ -2703,6 +2783,8 @@ src/test/java/com/fireblocks/sdk/model/CreateAddressRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateAddressResponseTest.java
 src/test/java/com/fireblocks/sdk/model/CreateAddressesReportRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateAssetsRequestTest.java
+src/test/java/com/fireblocks/sdk/model/CreateBlockchainRequestTest.java
+src/test/java/com/fireblocks/sdk/model/CreateBlockchainResponseTest.java
 src/test/java/com/fireblocks/sdk/model/CreateConfigOperationRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateConnectionRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateConnectionResponseTest.java
@@ -2795,6 +2877,8 @@ src/test/java/com/fireblocks/sdk/model/DvnConfigTest.java
 src/test/java/com/fireblocks/sdk/model/DvnConfigWithConfirmationsTest.java
 src/test/java/com/fireblocks/sdk/model/EVMTokenCreateParamsDtoTest.java
 src/test/java/com/fireblocks/sdk/model/EarnAssetTest.java
+src/test/java/com/fireblocks/sdk/model/EarnCuratorTest.java
+src/test/java/com/fireblocks/sdk/model/EarnMetadataTest.java
 src/test/java/com/fireblocks/sdk/model/EarnProviderTest.java
 src/test/java/com/fireblocks/sdk/model/EditGasStationConfigurationResponseTest.java
 src/test/java/com/fireblocks/sdk/model/EmbeddedWalletAccountTest.java
@@ -2889,7 +2973,11 @@ src/test/java/com/fireblocks/sdk/model/GetAPIUsersResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetActionResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetActionsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetAuditLogsResponseTest.java
+src/test/java/com/fireblocks/sdk/model/GetAutomationSettingsResponseTest.java
+src/test/java/com/fireblocks/sdk/model/GetBillingInfoResponseTest.java
+src/test/java/com/fireblocks/sdk/model/GetBlockchainByIdResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetByorkVerdictResponseTest.java
+src/test/java/com/fireblocks/sdk/model/GetConnectedAccountsCredentialsPublicKeyResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetConnectionsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetConsoleUsersResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetDeployableAddressRequestTest.java
@@ -2911,6 +2999,7 @@ src/test/java/com/fireblocks/sdk/model/GetPagedExchangeAccountsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetPositionsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetProvidersResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetSigningKeyResponseDtoTest.java
+src/test/java/com/fireblocks/sdk/model/GetTestWalletAddressResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetTransactionOperationTest.java
 src/test/java/com/fireblocks/sdk/model/GetValidationKeyResponseDtoTest.java
 src/test/java/com/fireblocks/sdk/model/GetWhitelistIpAddressesResponseTest.java
@@ -2974,6 +3063,7 @@ src/test/java/com/fireblocks/sdk/model/LegalEntityRegistrationTest.java
 src/test/java/com/fireblocks/sdk/model/LeiStatusTest.java
 src/test/java/com/fireblocks/sdk/model/LinkedTokensCountTest.java
 src/test/java/com/fireblocks/sdk/model/ListAssetsResponseTest.java
+src/test/java/com/fireblocks/sdk/model/ListBlockchainsResponse2Test.java
 src/test/java/com/fireblocks/sdk/model/ListBlockchainsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ListLegalEntitiesResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ListOwnedCollectionsResponseTest.java
@@ -3098,6 +3188,9 @@ src/test/java/com/fireblocks/sdk/model/PolicyOperatorTest.java
 src/test/java/com/fireblocks/sdk/model/PolicyResponseTest.java
 src/test/java/com/fireblocks/sdk/model/PolicyRuleCheckResultTest.java
 src/test/java/com/fireblocks/sdk/model/PolicyRuleErrorTest.java
+src/test/java/com/fireblocks/sdk/model/PolicyRuleQuotaParticipantTest.java
+src/test/java/com/fireblocks/sdk/model/PolicyRuleQuotaRequestTest.java
+src/test/java/com/fireblocks/sdk/model/PolicyRuleQuotaResponseTest.java
 src/test/java/com/fireblocks/sdk/model/PolicyRuleTest.java
 src/test/java/com/fireblocks/sdk/model/PolicyStatusTest.java
 src/test/java/com/fireblocks/sdk/model/PolicyTagTest.java
@@ -3113,6 +3206,7 @@ src/test/java/com/fireblocks/sdk/model/PreScreeningTest.java
 src/test/java/com/fireblocks/sdk/model/PrefundedSettlementTest.java
 src/test/java/com/fireblocks/sdk/model/PrefundedSettlementTypeTest.java
 src/test/java/com/fireblocks/sdk/model/ProgramCallConfigTest.java
+src/test/java/com/fireblocks/sdk/model/ProgramCallDecodedDataItemTest.java
 src/test/java/com/fireblocks/sdk/model/ProviderTest.java
 src/test/java/com/fireblocks/sdk/model/ProvidersListResponseTest.java
 src/test/java/com/fireblocks/sdk/model/PublicKeyInformationTest.java
@@ -3164,6 +3258,8 @@ src/test/java/com/fireblocks/sdk/model/ReportListResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ReportOutputFormatTest.java
 src/test/java/com/fireblocks/sdk/model/ReportStatusTest.java
 src/test/java/com/fireblocks/sdk/model/ReportTypeTest.java
+src/test/java/com/fireblocks/sdk/model/RescreenTransactionRequestTest.java
+src/test/java/com/fireblocks/sdk/model/RescreenTransactionResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ResendByQueryRequestTest.java
 src/test/java/com/fireblocks/sdk/model/ResendByQueryResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ResendFailedNotificationsJobStatusResponseTest.java
@@ -3185,6 +3281,7 @@ src/test/java/com/fireblocks/sdk/model/SEPAAddressTest.java
 src/test/java/com/fireblocks/sdk/model/SEPADestinationTest.java
 src/test/java/com/fireblocks/sdk/model/SOLAccountTest.java
 src/test/java/com/fireblocks/sdk/model/SOLAccountWithValueTest.java
+src/test/java/com/fireblocks/sdk/model/SaveAutomationSettingsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ScopeItemFailureTest.java
 src/test/java/com/fireblocks/sdk/model/ScopeItemTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningAlertExposureTypeEnumTest.java
@@ -3202,6 +3299,7 @@ src/test/java/com/fireblocks/sdk/model/ScreeningPolicyAmountTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningPolicyCurrencyTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningPolicyResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningProviderRulesConfigurationResponseTest.java
+src/test/java/com/fireblocks/sdk/model/ScreeningStatusEnumTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningTRLinkAmountTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningTRLinkMissingTrmDecisionTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningTRLinkMissingTrmRuleTest.java
@@ -3406,6 +3504,7 @@ src/test/java/com/fireblocks/sdk/model/TagTypeTest.java
 src/test/java/com/fireblocks/sdk/model/TagsPagedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/TemplatesPaginatedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ThirdPartyRoutingTest.java
+src/test/java/com/fireblocks/sdk/model/TimeBasedTriggerTest.java
 src/test/java/com/fireblocks/sdk/model/TimePeriodConfigTest.java
 src/test/java/com/fireblocks/sdk/model/TimePeriodMatchTypeTest.java
 src/test/java/com/fireblocks/sdk/model/ToCollateralTransactionTest.java
@@ -3510,6 +3609,7 @@ src/test/java/com/fireblocks/sdk/model/TravelRuleValidateTransactionRequestTest.
 src/test/java/com/fireblocks/sdk/model/TravelRuleValidateTransactionResponseTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleVaspForVaultTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleVerdictEnumTest.java
+src/test/java/com/fireblocks/sdk/model/TriggerValidationFlowResponseTest.java
 src/test/java/com/fireblocks/sdk/model/TrustProofOfAddressCreateResponseTest.java
 src/test/java/com/fireblocks/sdk/model/TrustProofOfAddressRequestTest.java
 src/test/java/com/fireblocks/sdk/model/TrustProofOfAddressResponseTest.java
@@ -3523,6 +3623,8 @@ src/test/java/com/fireblocks/sdk/model/UnspentInputTest.java
 src/test/java/com/fireblocks/sdk/model/UnspentInputsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/UnstakeRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateAssetUserMetadataRequestTest.java
+src/test/java/com/fireblocks/sdk/model/UpdateAutomationSettingsRequestTest.java
+src/test/java/com/fireblocks/sdk/model/UpdateBlockchainResponseTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateCallbackHandlerRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateCallbackHandlerResponseTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateCounterpartyGroupRequestTest.java

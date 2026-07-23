@@ -42,4 +42,10 @@ class ApyTest {
     void netTest() {
         // TODO: test net
     }
+
+    /** Test the property 'supplyIncentiveApy' */
+    @Test
+    void supplyIncentiveApyTest() {
+        // TODO: test supplyIncentiveApy
+    }
 }
