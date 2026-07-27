@@ -3,6 +3,12 @@ name: Publish Maven
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to use for this test run (no commit/push/tag/deploy will actually happen)'
+        required: false
+        default: '0.0.0-test'
 
 jobs:
   bump-version:
@@ -29,10 +35,15 @@ jobs:
           pip install bump-my-version
           npm i -g auto-changelog
       - name: Bump version
+        env:
+          INITIAL_TAG: ${{ github.event.release.tag_name || inputs.version }}
+          # TEMPORARY DRY-RUN OVERRIDE - forces test mode even for real releases.
+          # Original: ${{ github.event_name == 'workflow_dispatch' }}
+          # Revert this commit before running a real release.
+          IS_TEST_RUN: 'true'
         run: |
-          initialTag=${{ github.event.release.tag_name }}
-          tag="${initialTag//[v]/}"
-          echo $tag
+          tag="${INITIAL_TAG//[v]/}"
+          echo "$tag"
           git remote update
           git fetch
           echo "finished fetching"
@@ -41,18 +52,25 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git config --global user.name "Github Actions"
           echo "finished configuration"
-          bump-my-version bump --config-file .bump_version.toml --current-version 0.0.0 --new-version $tag
+          bump-my-version bump --config-file .bump_version.toml --current-version 0.0.0 --new-version "$tag"
           echo "bumpversion finished"
           auto-changelog
           git add .
           git commit -m "release $tag"
-          git push
+          if [ "$IS_TEST_RUN" = "true" ]; then
+            echo "Test run: skipping git push"
+          else
+            git push
+          fi
       - name: Move tag
+        # TEMPORARY DRY-RUN OVERRIDE - original: github.event_name == 'release'
+        if: false
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
         run: |
-          TAG_NAME=${{ github.event.release.tag_name }}
-          echo $tag
-          git tag --force $TAG_NAME
-          git push --force origin $TAG_NAME
+          echo "$TAG_NAME"
+          git tag --force "$TAG_NAME"
+          git push --force origin "$TAG_NAME"
 
   publish:
     needs: bump-version
@@ -78,7 +96,16 @@ jobs:
         run: |
           echo -n "${{ secrets.GPG_SIGNING_KEY }}" | base64 --decode | gpg --import --batch
       - name: Publish package
-        run: mvn --batch-mode deploy -Dgpg.passphrase='${{ secrets.GPG_PASSWORD }}'
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_OSSRH_TOKEN }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSWORD }}
+          # TEMPORARY DRY-RUN OVERRIDE - original: ${{ github.event_name == 'workflow_dispatch' }}
+          IS_TEST_RUN: 'true'
+        run: |
+          if [ "$IS_TEST_RUN" = "true" ]; then
+            # 'verify' runs through compile/test/package/sign without the 'deploy' phase, so nothing is uploaded
+            mvn --batch-mode verify -Dgpg.passphrase="$GPG_PASSPHRASE"
+          else
+            mvn --batch-mode deploy -Dgpg.passphrase="$GPG_PASSPHRASE"
+          fi

@@ -18,7 +18,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,7 +30,9 @@ import java.util.StringJoiner;
     UpdateWebhookRequest.JSON_PROPERTY_DESCRIPTION,
     UpdateWebhookRequest.JSON_PROPERTY_EVENTS,
     UpdateWebhookRequest.JSON_PROPERTY_ENABLED,
-    UpdateWebhookRequest.JSON_PROPERTY_MTLS
+    UpdateWebhookRequest.JSON_PROPERTY_MTLS,
+    UpdateWebhookRequest.JSON_PROPERTY_OAUTH,
+    UpdateWebhookRequest.JSON_PROPERTY_CUSTOM_HEADERS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -48,6 +52,12 @@ public class UpdateWebhookRequest {
 
     public static final String JSON_PROPERTY_MTLS = "mtls";
     @jakarta.annotation.Nullable private WebhookMtls mtls;
+
+    public static final String JSON_PROPERTY_OAUTH = "oauth";
+    @jakarta.annotation.Nullable private WebhookOAuth oauth;
+
+    public static final String JSON_PROPERTY_CUSTOM_HEADERS = "customHeaders";
+    @jakarta.annotation.Nullable private Map<String, String> customHeaders;
 
     public UpdateWebhookRequest() {}
 
@@ -174,6 +184,66 @@ public class UpdateWebhookRequest {
         this.mtls = mtls;
     }
 
+    public UpdateWebhookRequest oauth(@jakarta.annotation.Nullable WebhookOAuth oauth) {
+        this.oauth = oauth;
+        return this;
+    }
+
+    /**
+     * Get oauth
+     *
+     * @return oauth
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_OAUTH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public WebhookOAuth getOauth() {
+        return oauth;
+    }
+
+    @JsonProperty(JSON_PROPERTY_OAUTH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOauth(@jakarta.annotation.Nullable WebhookOAuth oauth) {
+        this.oauth = oauth;
+    }
+
+    public UpdateWebhookRequest customHeaders(
+            @jakarta.annotation.Nullable Map<String, String> customHeaders) {
+        this.customHeaders = customHeaders;
+        return this;
+    }
+
+    public UpdateWebhookRequest putCustomHeadersItem(String key, String customHeadersItem) {
+        if (this.customHeaders == null) {
+            this.customHeaders = new HashMap<>();
+        }
+        this.customHeaders.put(key, customHeadersItem);
+        return this;
+    }
+
+    /**
+     * Custom headers delta: entries with a string value are added or updated, entries with a
+     * &#x60;null&#x60; value delete that header (no-op if absent), and header names omitted from
+     * the payload are left untouched. The resulting set is limited to 10 headers. Header names are
+     * case-insensitive, up to 128 characters, and limited to valid HTTP header name characters.
+     * Some system header names are reserved and cannot be used. Values are write-only — never
+     * returned in responses.
+     *
+     * @return customHeaders
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
+    @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+    public Map<String, String> getCustomHeaders() {
+        return customHeaders;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
+    @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCustomHeaders(@jakarta.annotation.Nullable Map<String, String> customHeaders) {
+        this.customHeaders = customHeaders;
+    }
+
     /** Return true if this UpdateWebhookRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -188,12 +258,14 @@ public class UpdateWebhookRequest {
                 && Objects.equals(this.description, updateWebhookRequest.description)
                 && Objects.equals(this.events, updateWebhookRequest.events)
                 && Objects.equals(this.enabled, updateWebhookRequest.enabled)
-                && Objects.equals(this.mtls, updateWebhookRequest.mtls);
+                && Objects.equals(this.mtls, updateWebhookRequest.mtls)
+                && Objects.equals(this.oauth, updateWebhookRequest.oauth)
+                && Objects.equals(this.customHeaders, updateWebhookRequest.customHeaders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(url, description, events, enabled, mtls);
+        return Objects.hash(url, description, events, enabled, mtls, oauth, customHeaders);
     }
 
     @Override
@@ -205,6 +277,8 @@ public class UpdateWebhookRequest {
         sb.append("    events: ").append(toIndentedString(events)).append("\n");
         sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
         sb.append("    mtls: ").append(toIndentedString(mtls)).append("\n");
+        sb.append("    oauth: ").append(toIndentedString(oauth)).append("\n");
+        sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -304,6 +378,29 @@ public class UpdateWebhookRequest {
         // add `mtls` to the URL query string
         if (getMtls() != null) {
             joiner.add(getMtls().toUrlQueryString(prefix + "mtls" + suffix));
+        }
+
+        // add `oauth` to the URL query string
+        if (getOauth() != null) {
+            joiner.add(getOauth().toUrlQueryString(prefix + "oauth" + suffix));
+        }
+
+        // add `customHeaders` to the URL query string
+        if (getCustomHeaders() != null) {
+            for (String _key : getCustomHeaders().keySet()) {
+                joiner.add(
+                        String.format(
+                                "%scustomHeaders%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, _key, containerSuffix),
+                                getCustomHeaders().get(_key),
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getCustomHeaders().get(_key)))));
+            }
         }
 
         return joiner.toString();

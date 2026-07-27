@@ -32,9 +32,9 @@ import java.util.StringJoiner;
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class PaymentInstructionsOneOf {
-    /** Gets or Sets type */
+    /** The transfer rail type for the destination */
     public enum TypeEnum {
-        INTERNAL_TRANSFER(String.valueOf("INTERNAL_TRANSFER"));
+        PESONET(String.valueOf("PESONET"));
 
         private String value;
 
@@ -67,7 +67,7 @@ public class PaymentInstructionsOneOf {
     @jakarta.annotation.Nonnull private TypeEnum type;
 
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    @jakarta.annotation.Nonnull private InternalTransferAddress address;
+    @jakarta.annotation.Nonnull private PesonetAddress address;
 
     public static final String JSON_PROPERTY_REFERENCE_ID = "referenceId";
     @jakarta.annotation.Nullable private String referenceId;
@@ -77,8 +77,7 @@ public class PaymentInstructionsOneOf {
     @JsonCreator
     public PaymentInstructionsOneOf(
             @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
-            @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = true)
-                    InternalTransferAddress address) {
+            @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = true) PesonetAddress address) {
         this.type = type;
         this.address = address;
     }
@@ -89,7 +88,7 @@ public class PaymentInstructionsOneOf {
     }
 
     /**
-     * Get type
+     * The transfer rail type for the destination
      *
      * @return type
      */
@@ -106,8 +105,7 @@ public class PaymentInstructionsOneOf {
         this.type = type;
     }
 
-    public PaymentInstructionsOneOf address(
-            @jakarta.annotation.Nonnull InternalTransferAddress address) {
+    public PaymentInstructionsOneOf address(@jakarta.annotation.Nonnull PesonetAddress address) {
         this.address = address;
         return this;
     }
@@ -120,13 +118,13 @@ public class PaymentInstructionsOneOf {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public InternalTransferAddress getAddress() {
+    public PesonetAddress getAddress() {
         return address;
     }
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAddress(@jakarta.annotation.Nonnull InternalTransferAddress address) {
+    public void setAddress(@jakarta.annotation.Nonnull PesonetAddress address) {
         this.address = address;
     }
 

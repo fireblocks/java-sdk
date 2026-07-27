@@ -15,6 +15,8 @@
 |**createdAt** | **Long** | The date and time the webhook was created in milliseconds |  |
 |**updatedAt** | **Long** | The date and time the webhook was last updated in milliseconds |  |
 |**mtls** | [**WebhookMtls**](WebhookMtls.md) |  |  [optional] |
+|**oauth** | [**WebhookOAuthResponse**](WebhookOAuthResponse.md) |  |  [optional] |
+|**customHeaders** | **List&lt;String&gt;** | Names of the custom headers configured for this webhook. Header values are never returned. |  [optional] |
 
 
 

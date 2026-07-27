@@ -25,10 +25,10 @@ class SolanaRewardsBreakdownTest {
         // TODO: test SolanaRewardsBreakdown
     }
 
-    /** Test the property 'issuance' */
+    /** Test the property 'inflation' */
     @Test
-    void issuanceTest() {
-        // TODO: test issuance
+    void inflationTest() {
+        // TODO: test inflation
     }
 
     /** Test the property 'mev' */

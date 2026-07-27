@@ -54,4 +54,16 @@ class UpdateWebhookRequestTest {
     void mtlsTest() {
         // TODO: test mtls
     }
+
+    /** Test the property 'oauth' */
+    @Test
+    void oauthTest() {
+        // TODO: test oauth
+    }
+
+    /** Test the property 'customHeaders' */
+    @Test
+    void customHeadersTest() {
+        // TODO: test customHeaders
+    }
 }

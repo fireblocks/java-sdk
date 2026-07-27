@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>24.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:24.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-24.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -769,6 +769,8 @@ Class | Method | HTTP request | Description
  - [ChapsAddress](docs/ChapsAddress.md)
  - [ChapsDestination](docs/ChapsDestination.md)
  - [ChapsPaymentInfo](docs/ChapsPaymentInfo.md)
+ - [CipsAddress](docs/CipsAddress.md)
+ - [CipsDestination](docs/CipsDestination.md)
  - [ClaimRewardsRequest](docs/ClaimRewardsRequest.md)
  - [CollectionBurnRequestDto](docs/CollectionBurnRequestDto.md)
  - [CollectionBurnResponseDto](docs/CollectionBurnResponseDto.md)
@@ -1028,6 +1030,10 @@ Class | Method | HTTP request | Description
  - [FixedAmountTypeEnum](docs/FixedAmountTypeEnum.md)
  - [FixedFee](docs/FixedFee.md)
  - [FlowDirection](docs/FlowDirection.md)
+ - [FpsHkAddress](docs/FpsHkAddress.md)
+ - [FpsHkDestination](docs/FpsHkDestination.md)
+ - [FpsUkAddress](docs/FpsUkAddress.md)
+ - [FpsUkDestination](docs/FpsUkDestination.md)
  - [FreezeTransactionResponse](docs/FreezeTransactionResponse.md)
  - [FunctionDoc](docs/FunctionDoc.md)
  - [Funds](docs/Funds.md)
@@ -1085,6 +1091,8 @@ Class | Method | HTTP request | Description
  - [IdlType](docs/IdlType.md)
  - [InitiatorConfig](docs/InitiatorConfig.md)
  - [InitiatorConfigPattern](docs/InitiatorConfigPattern.md)
+ - [InstaPayAddress](docs/InstaPayAddress.md)
+ - [InstaPayDestination](docs/InstaPayDestination.md)
  - [InstructionAmount](docs/InstructionAmount.md)
  - [InteracAddress](docs/InteracAddress.md)
  - [InteracDestination](docs/InteracDestination.md)
@@ -1165,6 +1173,8 @@ Class | Method | HTTP request | Description
  - [MomoPaymentInfo](docs/MomoPaymentInfo.md)
  - [MpcKey](docs/MpcKey.md)
  - [MultichainDeploymentMetadata](docs/MultichainDeploymentMetadata.md)
+ - [NequiAddress](docs/NequiAddress.md)
+ - [NequiDestination](docs/NequiDestination.md)
  - [NetworkChannel](docs/NetworkChannel.md)
  - [NetworkConnection](docs/NetworkConnection.md)
  - [NetworkConnectionResponse](docs/NetworkConnectionResponse.md)
@@ -1244,6 +1254,8 @@ Class | Method | HTTP request | Description
  - [PersonalIdentificationDocument](docs/PersonalIdentificationDocument.md)
  - [PersonalIdentificationFullName](docs/PersonalIdentificationFullName.md)
  - [PersonalIdentificationType](docs/PersonalIdentificationType.md)
+ - [PesonetAddress](docs/PesonetAddress.md)
+ - [PesonetDestination](docs/PesonetDestination.md)
  - [PixAddress](docs/PixAddress.md)
  - [PixDestination](docs/PixDestination.md)
  - [PixPaymentInfo](docs/PixPaymentInfo.md)
@@ -1749,6 +1761,8 @@ Class | Method | HTTP request | Description
  - [WebhookMetric](docs/WebhookMetric.md)
  - [WebhookMtls](docs/WebhookMtls.md)
  - [WebhookMtlsCsrResponse](docs/WebhookMtlsCsrResponse.md)
+ - [WebhookOAuth](docs/WebhookOAuth.md)
+ - [WebhookOAuthResponse](docs/WebhookOAuthResponse.md)
  - [WebhookPaginatedResponse](docs/WebhookPaginatedResponse.md)
  - [WithdrawRequest](docs/WithdrawRequest.md)
  - [WorkflowConfigStatus](docs/WorkflowConfigStatus.md)

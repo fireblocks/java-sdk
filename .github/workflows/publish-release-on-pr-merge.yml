@@ -1,0 +1,96 @@
+name: Publish Release on PR Merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [master]
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  publish-release:
+    runs-on: ubuntu-latest
+    if: >-
+      github.event.pull_request.merged == true &&
+      startsWith(github.event.pull_request.head.ref, 'fireblocks-api-spec/generated/')
+    steps:
+      - name: Check for existing release
+        id: existing
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          marker="<!-- fireblocks-sdk-generator:source-pr=${PR_NUMBER} -->"
+          existing_url=$(gh release list --limit 20 --json tagName,url \
+            --jq '.[].tagName' | while read -r tag; do
+              body=$(gh release view "$tag" --json body --jq '.body')
+              if [[ "$body" == *"$marker"* ]]; then
+                gh release view "$tag" --json url --jq '.url'
+                break
+              fi
+            done)
+
+          if [[ -n "$existing_url" ]]; then
+            echo "Release for PR #${PR_NUMBER} was already published (found idempotency marker) - skipping."
+            echo "Existing release: $existing_url"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Calculate next version
+        id: version
+        if: steps.existing.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          LAST_TAG=$(gh release list --limit 1 --json tagName -q '.[0].tagName')
+          if [[ -z "$LAST_TAG" || "$LAST_TAG" == "null" ]]; then
+            echo "ERROR: No existing release found. A release tag is required to calculate the next version."
+            exit 1
+          fi
+          echo "Found latest release: $LAST_TAG"
+
+          V="${LAST_TAG#v}"
+          MAJOR=$(echo "$V" | cut -d. -f1)
+          MINOR=$(echo "$V" | cut -d. -f2)
+          PATCH=$(echo "$V" | cut -d. -f3)
+
+          if [[ "$PR_TITLE" =~ \(major\) ]]; then
+            echo "Bumping MAJOR version"
+            MAJOR=$((MAJOR + 1))
+            MINOR=0
+            PATCH=0
+          elif [[ "$PR_TITLE" =~ \(minor\) ]]; then
+            echo "Bumping MINOR version"
+            MINOR=$((MINOR + 1))
+            PATCH=0
+          else
+            echo "Bumping PATCH version"
+            PATCH=$((PATCH + 1))
+          fi
+
+          echo "version=v${MAJOR}.${MINOR}.${PATCH}" >> "$GITHUB_OUTPUT"
+
+      - name: Create published release
+        if: steps.existing.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          marker="<!-- fireblocks-sdk-generator:source-pr=${PR_NUMBER} -->"
+          notes=$(printf '%s\n\n%s' "$PR_BODY" "$marker")
+
+          echo "Creating published release: $VERSION (target: $MERGE_SHA)"
+          gh release create "$VERSION" \
+            --target "$MERGE_SHA" \
+            --title "$VERSION" \
+            --notes "$notes"
+
+          echo "Published release created successfully!"

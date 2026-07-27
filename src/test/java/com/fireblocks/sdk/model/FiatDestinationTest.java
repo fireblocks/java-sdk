@@ -36,4 +36,10 @@ class FiatDestinationTest {
     void addressTest() {
         // TODO: test address
     }
+
+    /** Test the property 'referenceId' */
+    @Test
+    void referenceIdTest() {
+        // TODO: test referenceId
+    }
 }
