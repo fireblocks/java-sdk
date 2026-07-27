@@ -162,6 +162,48 @@ public class FiatDestination extends AbstractOpenApiSchema {
                 log.log(Level.FINER, "Input data does not match schema 'ChapsDestination'", e);
             }
 
+            // deserialize CipsDestination
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (CipsDestination.class.equals(Integer.class)
+                        || CipsDestination.class.equals(Long.class)
+                        || CipsDestination.class.equals(Float.class)
+                        || CipsDestination.class.equals(Double.class)
+                        || CipsDestination.class.equals(Boolean.class)
+                        || CipsDestination.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((CipsDestination.class.equals(Integer.class)
+                                                || CipsDestination.class.equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((CipsDestination.class.equals(Float.class)
+                                                || CipsDestination.class.equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (CipsDestination.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (CipsDestination.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(CipsDestination.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'CipsDestination'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'CipsDestination'", e);
+            }
+
             // deserialize EuropeanSEPADestination
             try {
                 boolean attemptParsing = true;
@@ -209,6 +251,90 @@ public class FiatDestination extends AbstractOpenApiSchema {
                         e);
             }
 
+            // deserialize FpsHkDestination
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (FpsHkDestination.class.equals(Integer.class)
+                        || FpsHkDestination.class.equals(Long.class)
+                        || FpsHkDestination.class.equals(Float.class)
+                        || FpsHkDestination.class.equals(Double.class)
+                        || FpsHkDestination.class.equals(Boolean.class)
+                        || FpsHkDestination.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((FpsHkDestination.class.equals(Integer.class)
+                                                || FpsHkDestination.class.equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((FpsHkDestination.class.equals(Float.class)
+                                                || FpsHkDestination.class.equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (FpsHkDestination.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (FpsHkDestination.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(FpsHkDestination.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'FpsHkDestination'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'FpsHkDestination'", e);
+            }
+
+            // deserialize FpsUkDestination
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (FpsUkDestination.class.equals(Integer.class)
+                        || FpsUkDestination.class.equals(Long.class)
+                        || FpsUkDestination.class.equals(Float.class)
+                        || FpsUkDestination.class.equals(Double.class)
+                        || FpsUkDestination.class.equals(Boolean.class)
+                        || FpsUkDestination.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((FpsUkDestination.class.equals(Integer.class)
+                                                || FpsUkDestination.class.equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((FpsUkDestination.class.equals(Float.class)
+                                                || FpsUkDestination.class.equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (FpsUkDestination.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (FpsUkDestination.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(FpsUkDestination.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'FpsUkDestination'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'FpsUkDestination'", e);
+            }
+
             // deserialize IbanDestination
             try {
                 boolean attemptParsing = true;
@@ -249,6 +375,49 @@ public class FiatDestination extends AbstractOpenApiSchema {
             } catch (Exception e) {
                 // deserialization failed, continue
                 log.log(Level.FINER, "Input data does not match schema 'IbanDestination'", e);
+            }
+
+            // deserialize InstaPayDestination
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (InstaPayDestination.class.equals(Integer.class)
+                        || InstaPayDestination.class.equals(Long.class)
+                        || InstaPayDestination.class.equals(Float.class)
+                        || InstaPayDestination.class.equals(Double.class)
+                        || InstaPayDestination.class.equals(Boolean.class)
+                        || InstaPayDestination.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((InstaPayDestination.class.equals(Integer.class)
+                                                || InstaPayDestination.class.equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((InstaPayDestination.class.equals(Float.class)
+                                                || InstaPayDestination.class.equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (InstaPayDestination.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (InstaPayDestination.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized =
+                            tree.traverse(jp.getCodec()).readValueAs(InstaPayDestination.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'InstaPayDestination'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'InstaPayDestination'", e);
             }
 
             // deserialize InteracDestination
@@ -441,6 +610,48 @@ public class FiatDestination extends AbstractOpenApiSchema {
                         e);
             }
 
+            // deserialize NequiDestination
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (NequiDestination.class.equals(Integer.class)
+                        || NequiDestination.class.equals(Long.class)
+                        || NequiDestination.class.equals(Float.class)
+                        || NequiDestination.class.equals(Double.class)
+                        || NequiDestination.class.equals(Boolean.class)
+                        || NequiDestination.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((NequiDestination.class.equals(Integer.class)
+                                                || NequiDestination.class.equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((NequiDestination.class.equals(Float.class)
+                                                || NequiDestination.class.equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (NequiDestination.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (NequiDestination.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(NequiDestination.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'NequiDestination'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'NequiDestination'", e);
+            }
+
             // deserialize PayidDestination
             try {
                 boolean attemptParsing = true;
@@ -481,6 +692,49 @@ public class FiatDestination extends AbstractOpenApiSchema {
             } catch (Exception e) {
                 // deserialization failed, continue
                 log.log(Level.FINER, "Input data does not match schema 'PayidDestination'", e);
+            }
+
+            // deserialize PesonetDestination
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (PesonetDestination.class.equals(Integer.class)
+                        || PesonetDestination.class.equals(Long.class)
+                        || PesonetDestination.class.equals(Float.class)
+                        || PesonetDestination.class.equals(Double.class)
+                        || PesonetDestination.class.equals(Boolean.class)
+                        || PesonetDestination.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((PesonetDestination.class.equals(Integer.class)
+                                                || PesonetDestination.class.equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((PesonetDestination.class.equals(Float.class)
+                                                || PesonetDestination.class.equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (PesonetDestination.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (PesonetDestination.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized =
+                            tree.traverse(jp.getCodec()).readValueAs(PesonetDestination.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'PesonetDestination'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'PesonetDestination'", e);
             }
 
             // deserialize PixDestination
@@ -731,12 +985,32 @@ public class FiatDestination extends AbstractOpenApiSchema {
         setActualInstance(o);
     }
 
+    public FiatDestination(CipsDestination o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
     public FiatDestination(EuropeanSEPADestination o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
 
+    public FiatDestination(FpsHkDestination o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
+    public FiatDestination(FpsUkDestination o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
     public FiatDestination(IbanDestination o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
+    public FiatDestination(InstaPayDestination o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
@@ -761,7 +1035,17 @@ public class FiatDestination extends AbstractOpenApiSchema {
         setActualInstance(o);
     }
 
+    public FiatDestination(NequiDestination o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
     public FiatDestination(PayidDestination o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
+    public FiatDestination(PesonetDestination o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
@@ -794,13 +1078,19 @@ public class FiatDestination extends AbstractOpenApiSchema {
     static {
         schemas.put("AchDestination", AchDestination.class);
         schemas.put("ChapsDestination", ChapsDestination.class);
+        schemas.put("CipsDestination", CipsDestination.class);
         schemas.put("EuropeanSEPADestination", EuropeanSEPADestination.class);
+        schemas.put("FpsHkDestination", FpsHkDestination.class);
+        schemas.put("FpsUkDestination", FpsUkDestination.class);
         schemas.put("IbanDestination", IbanDestination.class);
+        schemas.put("InstaPayDestination", InstaPayDestination.class);
         schemas.put("InteracDestination", InteracDestination.class);
         schemas.put("InternalTransferDestination", InternalTransferDestination.class);
         schemas.put("LocalBankTransferAfricaDestination", LocalBankTransferAfricaDestination.class);
         schemas.put("MobileMoneyDestination", MobileMoneyDestination.class);
+        schemas.put("NequiDestination", NequiDestination.class);
         schemas.put("PayidDestination", PayidDestination.class);
+        schemas.put("PesonetDestination", PesonetDestination.class);
         schemas.put("PixDestination", PixDestination.class);
         schemas.put("SEPADestination", SEPADestination.class);
         schemas.put("SpeiDestination", SpeiDestination.class);
@@ -816,10 +1106,12 @@ public class FiatDestination extends AbstractOpenApiSchema {
 
     /**
      * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: AchDestination, ChapsDestination, EuropeanSEPADestination,
-     * IbanDestination, InteracDestination, InternalTransferDestination,
-     * LocalBankTransferAfricaDestination, MobileMoneyDestination, PayidDestination, PixDestination,
-     * SEPADestination, SpeiDestination, SwiftDestination, USWireDestination
+     * against the oneOf child schemas: AchDestination, ChapsDestination, CipsDestination,
+     * EuropeanSEPADestination, FpsHkDestination, FpsUkDestination, IbanDestination,
+     * InstaPayDestination, InteracDestination, InternalTransferDestination,
+     * LocalBankTransferAfricaDestination, MobileMoneyDestination, NequiDestination,
+     * PayidDestination, PesonetDestination, PixDestination, SEPADestination, SpeiDestination,
+     * SwiftDestination, USWireDestination
      *
      * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
      * a composed schema (allOf, anyOf, oneOf).
@@ -836,12 +1128,32 @@ public class FiatDestination extends AbstractOpenApiSchema {
             return;
         }
 
+        if (JSON.isInstanceOf(CipsDestination.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
         if (JSON.isInstanceOf(EuropeanSEPADestination.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
+        if (JSON.isInstanceOf(FpsHkDestination.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (JSON.isInstanceOf(FpsUkDestination.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
         if (JSON.isInstanceOf(IbanDestination.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (JSON.isInstanceOf(InstaPayDestination.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
@@ -868,7 +1180,17 @@ public class FiatDestination extends AbstractOpenApiSchema {
             return;
         }
 
+        if (JSON.isInstanceOf(NequiDestination.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
         if (JSON.isInstanceOf(PayidDestination.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (JSON.isInstanceOf(PesonetDestination.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
@@ -899,23 +1221,29 @@ public class FiatDestination extends AbstractOpenApiSchema {
         }
 
         throw new RuntimeException(
-                "Invalid instance type. Must be AchDestination, ChapsDestination,"
-                    + " EuropeanSEPADestination, IbanDestination, InteracDestination,"
-                    + " InternalTransferDestination, LocalBankTransferAfricaDestination,"
-                    + " MobileMoneyDestination, PayidDestination, PixDestination, SEPADestination,"
-                    + " SpeiDestination, SwiftDestination, USWireDestination");
+                "Invalid instance type. Must be AchDestination, ChapsDestination, CipsDestination,"
+                        + " EuropeanSEPADestination, FpsHkDestination, FpsUkDestination,"
+                        + " IbanDestination, InstaPayDestination, InteracDestination,"
+                        + " InternalTransferDestination, LocalBankTransferAfricaDestination,"
+                        + " MobileMoneyDestination, NequiDestination, PayidDestination,"
+                        + " PesonetDestination, PixDestination, SEPADestination, SpeiDestination,"
+                        + " SwiftDestination, USWireDestination");
     }
 
     /**
      * Get the actual instance, which can be the following: AchDestination, ChapsDestination,
-     * EuropeanSEPADestination, IbanDestination, InteracDestination, InternalTransferDestination,
-     * LocalBankTransferAfricaDestination, MobileMoneyDestination, PayidDestination, PixDestination,
-     * SEPADestination, SpeiDestination, SwiftDestination, USWireDestination
+     * CipsDestination, EuropeanSEPADestination, FpsHkDestination, FpsUkDestination,
+     * IbanDestination, InstaPayDestination, InteracDestination, InternalTransferDestination,
+     * LocalBankTransferAfricaDestination, MobileMoneyDestination, NequiDestination,
+     * PayidDestination, PesonetDestination, PixDestination, SEPADestination, SpeiDestination,
+     * SwiftDestination, USWireDestination
      *
-     * @return The actual instance (AchDestination, ChapsDestination, EuropeanSEPADestination,
-     *     IbanDestination, InteracDestination, InternalTransferDestination,
-     *     LocalBankTransferAfricaDestination, MobileMoneyDestination, PayidDestination,
-     *     PixDestination, SEPADestination, SpeiDestination, SwiftDestination, USWireDestination)
+     * @return The actual instance (AchDestination, ChapsDestination, CipsDestination,
+     *     EuropeanSEPADestination, FpsHkDestination, FpsUkDestination, IbanDestination,
+     *     InstaPayDestination, InteracDestination, InternalTransferDestination,
+     *     LocalBankTransferAfricaDestination, MobileMoneyDestination, NequiDestination,
+     *     PayidDestination, PesonetDestination, PixDestination, SEPADestination, SpeiDestination,
+     *     SwiftDestination, USWireDestination)
      */
     @Override
     public Object getActualInstance() {
@@ -945,6 +1273,17 @@ public class FiatDestination extends AbstractOpenApiSchema {
     }
 
     /**
+     * Get the actual instance of `CipsDestination`. If the actual instance is not
+     * `CipsDestination`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `CipsDestination`
+     * @throws ClassCastException if the instance is not `CipsDestination`
+     */
+    public CipsDestination getCipsDestination() throws ClassCastException {
+        return (CipsDestination) super.getActualInstance();
+    }
+
+    /**
      * Get the actual instance of `EuropeanSEPADestination`. If the actual instance is not
      * `EuropeanSEPADestination`, the ClassCastException will be thrown.
      *
@@ -956,6 +1295,28 @@ public class FiatDestination extends AbstractOpenApiSchema {
     }
 
     /**
+     * Get the actual instance of `FpsHkDestination`. If the actual instance is not
+     * `FpsHkDestination`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `FpsHkDestination`
+     * @throws ClassCastException if the instance is not `FpsHkDestination`
+     */
+    public FpsHkDestination getFpsHkDestination() throws ClassCastException {
+        return (FpsHkDestination) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `FpsUkDestination`. If the actual instance is not
+     * `FpsUkDestination`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `FpsUkDestination`
+     * @throws ClassCastException if the instance is not `FpsUkDestination`
+     */
+    public FpsUkDestination getFpsUkDestination() throws ClassCastException {
+        return (FpsUkDestination) super.getActualInstance();
+    }
+
+    /**
      * Get the actual instance of `IbanDestination`. If the actual instance is not
      * `IbanDestination`, the ClassCastException will be thrown.
      *
@@ -964,6 +1325,17 @@ public class FiatDestination extends AbstractOpenApiSchema {
      */
     public IbanDestination getIbanDestination() throws ClassCastException {
         return (IbanDestination) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `InstaPayDestination`. If the actual instance is not
+     * `InstaPayDestination`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `InstaPayDestination`
+     * @throws ClassCastException if the instance is not `InstaPayDestination`
+     */
+    public InstaPayDestination getInstaPayDestination() throws ClassCastException {
+        return (InstaPayDestination) super.getActualInstance();
     }
 
     /**
@@ -1012,6 +1384,17 @@ public class FiatDestination extends AbstractOpenApiSchema {
     }
 
     /**
+     * Get the actual instance of `NequiDestination`. If the actual instance is not
+     * `NequiDestination`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `NequiDestination`
+     * @throws ClassCastException if the instance is not `NequiDestination`
+     */
+    public NequiDestination getNequiDestination() throws ClassCastException {
+        return (NequiDestination) super.getActualInstance();
+    }
+
+    /**
      * Get the actual instance of `PayidDestination`. If the actual instance is not
      * `PayidDestination`, the ClassCastException will be thrown.
      *
@@ -1020,6 +1403,17 @@ public class FiatDestination extends AbstractOpenApiSchema {
      */
     public PayidDestination getPayidDestination() throws ClassCastException {
         return (PayidDestination) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `PesonetDestination`. If the actual instance is not
+     * `PesonetDestination`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `PesonetDestination`
+     * @throws ClassCastException if the instance is not `PesonetDestination`
+     */
+    public PesonetDestination getPesonetDestination() throws ClassCastException {
+        return (PesonetDestination) super.getActualInstance();
     }
 
     /**
@@ -1218,6 +1612,54 @@ public class FiatDestination extends AbstractOpenApiSchema {
                 joiner.add(
                         ((InternalTransferDestination) getActualInstance())
                                 .toUrlQueryString(prefix + "one_of_13" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof CipsDestination) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((CipsDestination) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_14" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof NequiDestination) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((NequiDestination) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_15" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof FpsUkDestination) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((FpsUkDestination) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_16" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof FpsHkDestination) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((FpsHkDestination) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_17" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof InstaPayDestination) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((InstaPayDestination) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_18" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof PesonetDestination) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((PesonetDestination) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_19" + suffix));
             }
             return joiner.toString();
         }

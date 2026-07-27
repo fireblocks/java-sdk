@@ -56972,6 +56972,48 @@ components:
       required:
       - clientSignedCert
       type: object
+    WebhookOAuthResponse:
+      description: OAuth 2.0 client credentials configuration for the webhook. Present
+        only when OAuth is configured. The `clientSecret` is write-only and is never
+        returned.
+      example:
+        clientId: my-client-id
+        url: https://auth.example.com/oauth/token
+        mtlsClientSignedCert: |-
+          -----BEGIN CERTIFICATE-----
+          ...
+          -----END CERTIFICATE-----
+      properties:
+        clientId:
+          description: OAuth client ID used to authenticate with the token endpoint.
+          example: my-client-id
+          type: string
+        url:
+          description: Token endpoint URL.
+          example: https://auth.example.com/oauth/token
+          type: string
+        mtlsClientSignedCert:
+          description: Signed client certificate PEM used for mTLS when connecting
+            to the token endpoint.
+          example: |-
+            -----BEGIN CERTIFICATE-----
+            ...
+            -----END CERTIFICATE-----
+          nullable: true
+          type: string
+      required:
+      - clientId
+      - url
+      type: object
+    WebhookCustomHeadersResponse:
+      description: Names of the custom headers configured for this webhook. Header
+        values are never returned.
+      example:
+      - x-gateway-key
+      - x-region-tag
+      items:
+        type: string
+      type: array
     Webhook:
       example:
         createdAt: 1625126400000
@@ -56982,10 +57024,20 @@ components:
             -----BEGIN CERTIFICATE-----
             ...
             -----END CERTIFICATE-----
+        oauth:
+          clientId: my-client-id
+          url: https://auth.example.com/oauth/token
+          mtlsClientSignedCert: |-
+            -----BEGIN CERTIFICATE-----
+            ...
+            -----END CERTIFICATE-----
         url: https://example.com/webhook
         events:
         - transaction.created
         - transaction.status.updated
+        customHeaders:
+        - x-gateway-key
+        - x-region-tag
         status: ENABLED
         updatedAt: 1625126400000
       properties:
@@ -57033,6 +57085,17 @@ components:
           type: integer
         mtls:
           $ref: "#/components/schemas/WebhookMtls"
+        oauth:
+          $ref: "#/components/schemas/WebhookOAuthResponse"
+        customHeaders:
+          description: Names of the custom headers configured for this webhook. Header
+            values are never returned.
+          example:
+          - x-gateway-key
+          - x-region-tag
+          items:
+            type: string
+          type: array
       required:
       - createdAt
       - events
@@ -57053,10 +57116,20 @@ components:
               -----BEGIN CERTIFICATE-----
               ...
               -----END CERTIFICATE-----
+          oauth:
+            clientId: my-client-id
+            url: https://auth.example.com/oauth/token
+            mtlsClientSignedCert: |-
+              -----BEGIN CERTIFICATE-----
+              ...
+              -----END CERTIFICATE-----
           url: https://example.com/webhook
           events:
           - transaction.created
           - transaction.status.updated
+          customHeaders:
+          - x-gateway-key
+          - x-region-tag
           status: ENABLED
           updatedAt: 1625126400000
         - createdAt: 1625126400000
@@ -57067,10 +57140,20 @@ components:
               -----BEGIN CERTIFICATE-----
               ...
               -----END CERTIFICATE-----
+          oauth:
+            clientId: my-client-id
+            url: https://auth.example.com/oauth/token
+            mtlsClientSignedCert: |-
+              -----BEGIN CERTIFICATE-----
+              ...
+              -----END CERTIFICATE-----
           url: https://example.com/webhook
           events:
           - transaction.created
           - transaction.status.updated
+          customHeaders:
+          - x-gateway-key
+          - x-region-tag
           status: ENABLED
           updatedAt: 1625126400000
       properties:
@@ -57087,6 +57170,72 @@ components:
       required:
       - data
       type: object
+    WebhookOAuth:
+      description: "OAuth 2.0 client credentials configuration for the webhook. When\
+        \ set, the webhook dispatcher fetches a bearer token from the configured token\
+        \ endpoint before each delivery and attaches it as `Authorization: Bearer\
+        \ {token}`. Send `null` to remove OAuth configuration entirely."
+      example:
+        clientId: my-client-id
+        clientSecret: my-client-secret
+        url: https://auth.example.com/oauth/token
+        mtlsClientSignedCert: |-
+          -----BEGIN CERTIFICATE-----
+          ...
+          -----END CERTIFICATE-----
+      nullable: true
+      properties:
+        clientId:
+          description: OAuth client ID used to authenticate with the token endpoint.
+          example: my-client-id
+          maxLength: 255
+          type: string
+        clientSecret:
+          description: OAuth client secret. Write-only — never returned in responses.
+          example: my-client-secret
+          maxLength: 480
+          type: string
+        url:
+          description: Token endpoint URL. Must be HTTPS.
+          example: https://auth.example.com/oauth/token
+          maxLength: 2048
+          pattern: ^https://
+          type: string
+        mtlsClientSignedCert:
+          description: Signed client certificate PEM used for mTLS when connecting
+            to the token endpoint. Same format as the webhook mTLS certificate. Send
+            `null` to remove.
+          example: |-
+            -----BEGIN CERTIFICATE-----
+            ...
+            -----END CERTIFICATE-----
+          nullable: true
+          type: string
+      required:
+      - clientId
+      - clientSecret
+      - url
+      type: object
+    WebhookCustomHeaders:
+      additionalProperties:
+        description: Header value. Must not contain CR or LF characters.
+        maxLength: 1024
+        minLength: 1
+        pattern: "^[^\\r\\n]*$"
+        type: string
+      description: "Custom HTTP headers attached to every notification delivered by\
+        \ this webhook (max 10). Header names must be valid RFC 7230 tokens (printable\
+        \ ASCII, no separators), are treated case-insensitively (duplicate names differing\
+        \ only in case are rejected), and may not exceed 128 characters. The following\
+        \ names are reserved and cannot be used: Host, Content-Type, Content-Length,\
+        \ Transfer-Encoding, Connection, User-Agent, Accept, Accept-Encoding, Fireblocks-Signature,\
+        \ Fireblocks-Webhook-Signature. Header values are write-only — never returned\
+        \ in responses."
+      example:
+        X-Gateway-Key: abc123
+        X-Region-Tag: eu
+      maxProperties: 10
+      type: object
     CreateWebhookRequest:
       example:
         description: This webhook is used for transactions notifications
@@ -57095,11 +57244,22 @@ components:
             -----BEGIN CERTIFICATE-----
             ...
             -----END CERTIFICATE-----
+        oauth:
+          clientId: my-client-id
+          clientSecret: my-client-secret
+          url: https://auth.example.com/oauth/token
+          mtlsClientSignedCert: |-
+            -----BEGIN CERTIFICATE-----
+            ...
+            -----END CERTIFICATE-----
         url: https://example.com/webhook
         events:
         - transaction.created
         - transaction.status.updated
         enabled: false
+        customHeaders:
+          X-Gateway-Key: abc123
+          X-Region-Tag: eu
       properties:
         url:
           description: "The url of the webhook where notifications will be sent. URL\
@@ -57128,6 +57288,28 @@ components:
           type: boolean
         mtls:
           $ref: "#/components/schemas/WebhookMtls"
+        oauth:
+          $ref: "#/components/schemas/WebhookOAuth"
+        customHeaders:
+          additionalProperties:
+            description: Header value. Must not contain CR or LF characters.
+            maxLength: 1024
+            minLength: 1
+            pattern: "^[^\\r\\n]*$"
+            type: string
+          description: "Custom HTTP headers attached to every notification delivered\
+            \ by this webhook (max 10). Header names must be valid RFC 7230 tokens\
+            \ (printable ASCII, no separators), are treated case-insensitively (duplicate\
+            \ names differing only in case are rejected), and may not exceed 128 characters.\
+            \ The following names are reserved and cannot be used: Host, Content-Type,\
+            \ Content-Length, Transfer-Encoding, Connection, User-Agent, Accept, Accept-Encoding,\
+            \ Fireblocks-Signature, Fireblocks-Webhook-Signature. Header values are\
+            \ write-only — never returned in responses."
+          example:
+            X-Gateway-Key: abc123
+            X-Region-Tag: eu
+          maxProperties: 10
+          type: object
       required:
       - events
       - url
@@ -57150,6 +57332,24 @@ components:
       required:
       - csr
       type: object
+    WebhookCustomHeadersUpdate:
+      additionalProperties:
+        maxLength: 1024
+        minLength: 1
+        nullable: true
+        type: string
+      description: "Custom headers delta: entries with a string value are added or\
+        \ updated, entries with a `null` value delete that header (no-op if absent),\
+        \ and header names omitted from the payload are left untouched. The resulting\
+        \ set is limited to 10 headers. Header names are case-insensitive, up to 128\
+        \ characters, and limited to valid HTTP header name characters. Some system\
+        \ header names are reserved and cannot be used. Values are write-only — never\
+        \ returned in responses."
+      example:
+        X-Gateway-Key: abc123
+        X-Region-Tag: null
+      maxProperties: 10
+      type: object
     UpdateWebhookRequest:
       example:
         description: This webhook is used for transactions notifications
@@ -57158,11 +57358,22 @@ components:
             -----BEGIN CERTIFICATE-----
             ...
             -----END CERTIFICATE-----
+        oauth:
+          clientId: my-client-id
+          clientSecret: my-client-secret
+          url: https://auth.example.com/oauth/token
+          mtlsClientSignedCert: |-
+            -----BEGIN CERTIFICATE-----
+            ...
+            -----END CERTIFICATE-----
         url: https://example.com/webhook
         events:
         - transaction.created
         - transaction.status.updated
         enabled: false
+        customHeaders:
+          X-Gateway-Key: abc123
+          X-Region-Tag: null
       properties:
         url:
           description: "The url of the webhook where notifications will be sent. URL\
@@ -57190,6 +57401,26 @@ components:
           type: boolean
         mtls:
           $ref: "#/components/schemas/WebhookMtls"
+        oauth:
+          $ref: "#/components/schemas/WebhookOAuth"
+        customHeaders:
+          additionalProperties:
+            maxLength: 1024
+            minLength: 1
+            nullable: true
+            type: string
+          description: "Custom headers delta: entries with a string value are added\
+            \ or updated, entries with a `null` value delete that header (no-op if\
+            \ absent), and header names omitted from the payload are left untouched.\
+            \ The resulting set is limited to 10 headers. Header names are case-insensitive,\
+            \ up to 128 characters, and limited to valid HTTP header name characters.\
+            \ Some system header names are reserved and cannot be used. Values are\
+            \ write-only — never returned in responses."
+          example:
+            X-Gateway-Key: abc123
+            X-Region-Tag: null
+          maxProperties: 10
+          type: object
       type: object
     WebhookMetric:
       example:
@@ -62813,12 +63044,12 @@ components:
     SolanaRewardsBreakdown:
       description: A breakdown of the staking rewards earned by the position.
       example:
-        issuance: "0.000856038"
+        inflation: "0.000856038"
         mev: "0.000123456"
         lastRewardSyncedAt: 2023-07-13T15:55:34.256Z
       properties:
-        issuance:
-          description: "The issuance reward amount earned by the position, measured\
+        inflation:
+          description: "The inflation reward amount earned by the position, measured\
             \ in the staked asset unit."
           example: "0.000856038"
           type: string
@@ -62833,7 +63064,7 @@ components:
           format: date-time
           type: string
       required:
-      - issuance
+      - inflation
       - lastRewardSyncedAt
       - mev
       type: object
@@ -62845,7 +63076,7 @@ components:
       example:
         stakeAccountAddress: 3Ru67FyzMTcdENmmRL4Eve4dtPd6AdpuypR21q5EQCdq
         rewardsBreakdown:
-          issuance: "0.000856038"
+          inflation: "0.000856038"
           mev: "0.000123456"
           lastRewardSyncedAt: 2023-07-13T15:55:34.256Z
       properties:
@@ -62926,7 +63157,7 @@ components:
         blockchainPositionInfo:
           stakeAccountAddress: 3Ru67FyzMTcdENmmRL4Eve4dtPd6AdpuypR21q5EQCdq
           rewardsBreakdown:
-            issuance: "0.000856038"
+            inflation: "0.000856038"
             mev: "0.000123456"
             lastRewardSyncedAt: 2023-07-13T15:55:34.256Z
         chainDescriptor: SOL
@@ -62983,8 +63214,10 @@ components:
           type: string
         rewardsAmount:
           description: "The amount staked in the position, measured in the staked\
-            \ asset unit."
+            \ asset unit. Returned as null for chains where reward tracking is not\
+            \ supported (Cosmos-family chains), instead of a numeric value."
           example: "0.000856038"
+          nullable: true
           type: string
         dateCreated:
           description: When was the request made (ISO Date).
@@ -63076,7 +63309,7 @@ components:
         blockchainPositionInfo:
           stakeAccountAddress: 3Ru67FyzMTcdENmmRL4Eve4dtPd6AdpuypR21q5EQCdq
           rewardsBreakdown:
-            issuance: "0.000856038"
+            inflation: "0.000856038"
             mev: "0.000123456"
             lastRewardSyncedAt: 2023-07-13T15:55:34.256Z
         chainDescriptor: SOL
@@ -63123,8 +63356,10 @@ components:
           type: string
         rewardsAmount:
           description: "The amount staked in the position, measured in the staked\
-            \ asset unit."
+            \ asset unit. Returned as null for chains where reward tracking is not\
+            \ supported (Cosmos-family chains), instead of a numeric value."
           example: "0.000856038"
+          nullable: true
           type: string
         dateCreated:
           description: When was the request made (ISO Date).
@@ -63213,7 +63448,7 @@ components:
           blockchainPositionInfo:
             stakeAccountAddress: 3Ru67FyzMTcdENmmRL4Eve4dtPd6AdpuypR21q5EQCdq
             rewardsBreakdown:
-              issuance: "0.000856038"
+              inflation: "0.000856038"
               mev: "0.000123456"
               lastRewardSyncedAt: 2023-07-13T15:55:34.256Z
           chainDescriptor: SOL
@@ -63235,7 +63470,7 @@ components:
           blockchainPositionInfo:
             stakeAccountAddress: 3Ru67FyzMTcdENmmRL4Eve4dtPd6AdpuypR21q5EQCdq
             rewardsBreakdown:
-              issuance: "0.000856038"
+              inflation: "0.000856038"
               mev: "0.000123456"
               lastRewardSyncedAt: 2023-07-13T15:55:34.256Z
           chainDescriptor: SOL
@@ -64486,13 +64721,16 @@ components:
         \ Clearing House transfer, typically takes longer but not as expensive as\
         \ wire transfers\n* **SEPA** - Euro transfers within the SEPA zone\n* **SPEI**\
         \ - Mexican interbank electronic payment system\n* **PIX** - Brazilian instant\
-        \ payment system\n* **LBT** - Local bank transfers within Africa\n* **MOMO**\
-        \ - Mobile money transfers (e.g. M-Pesa)\n* **CHAPS** - The Clearing House\
-        \ Automated Payment System (CHAPS) is a real-time gross settlement payment\
-        \ system used for transactions in the United Kingdom\n* **PAYID** - PayID\
-        \ payment identifier system (Australia)\n* **INTERAC** - Interac electronic\
-        \ funds transfer (Canada)\n* **INTERNAL_TRANSFER** - Internal transfer between\
-        \ accounts\n"
+        \ payment system\n* **LBT** - Local bank transfers\n* **MOMO** - Mobile money\
+        \ transfers (e.g. M-Pesa)\n* **CHAPS** - The Clearing House Automated Payment\
+        \ System (CHAPS) is a real-time gross settlement payment system used for transactions\
+        \ in the United Kingdom\n* **PAYID** - PayID payment identifier system (Australia)\n\
+        * **INTERAC** - Interac electronic funds transfer (Canada)\n* **INTERNAL_TRANSFER**\
+        \ - Internal transfer between accounts\n* **CIPS** - Cross-Border Interbank\
+        \ Payment System (China)\n* **NEQUI** - Nequi mobile payment (Colombia)\n\
+        * **FPS_UK** - UK Faster Payments (GBP)\n* **FPS_HK** - Hong Kong Faster Payment\
+        \ System (HKD)\n* **INSTA_PAY** - InstaPay instant payment (Philippines)\n\
+        * **PESONET** - PesoNet batch payment (Philippines)\n"
       enum:
       - BLOCKCHAIN
       - INTERNAL
@@ -64509,6 +64747,12 @@ components:
       - PAYID
       - INTERAC
       - INTERNAL_TRANSFER
+      - CIPS
+      - NEQUI
+      - FPS_UK
+      - FPS_HK
+      - INSTA_PAY
+      - PESONET
       example: BLOCKCHAIN
       type: string
     FlowDirection:
@@ -67809,6 +68053,209 @@ components:
       required:
       - type
       type: object
+    CipsAddress:
+      properties:
+        accountHolder:
+          $ref: "#/components/schemas/AccountHolderDetails"
+        bankName:
+          description: Name of the recipient's bank
+          example: Bank of China
+          type: string
+        bankCountry:
+          description: ISO 3166-1 alpha-2 country code of the bank
+          example: CN
+          type: string
+        swiftCode:
+          description: SWIFT/BIC code of the recipient bank
+          example: BKCHCNBJ
+          type: string
+        accountNumber:
+          description: Recipient bank account number
+          example: "6217000010000000000"
+          type: string
+      required:
+      - accountHolder
+      - accountNumber
+      - bankCountry
+      - bankName
+      - swiftCode
+      type: object
+    CipsDestination:
+      properties:
+        type:
+          description: The transfer rail type for the destination
+          enum:
+          - CIPS
+          example: CIPS
+          type: string
+        address:
+          $ref: "#/components/schemas/CipsAddress"
+        referenceId:
+          description: Optional payment reference
+          example: INV-2024-0001
+          type: string
+      required:
+      - address
+      - type
+      type: object
+    NequiAddress:
+      properties:
+        phone:
+          description: Recipient phone number in E.164 format
+          example: "+573001234567"
+          type: string
+      required:
+      - phone
+      type: object
+    NequiDestination:
+      properties:
+        type:
+          description: The transfer rail type for the destination
+          enum:
+          - NEQUI
+          example: NEQUI
+          type: string
+        address:
+          $ref: "#/components/schemas/NequiAddress"
+      required:
+      - address
+      - type
+      type: object
+    FpsUkAddress:
+      properties:
+        accountHolder:
+          $ref: "#/components/schemas/AccountHolderDetails"
+        accountNumber:
+          description: UK bank account number
+          example: "12345678"
+          type: string
+        sortCode:
+          description: UK sort code (format XX-XX-XX)
+          example: 12-34-56
+          type: string
+      required:
+      - accountHolder
+      - accountNumber
+      - sortCode
+      type: object
+    FpsUkDestination:
+      properties:
+        type:
+          description: The transfer rail type for the destination
+          enum:
+          - FPS_UK
+          example: FPS_UK
+          type: string
+        address:
+          $ref: "#/components/schemas/FpsUkAddress"
+      required:
+      - address
+      - type
+      type: object
+    FpsHkAddress:
+      properties:
+        recipientLegalName:
+          description: Full legal name of the recipient
+          example: Chan Tai Man
+          type: string
+        accountNumber:
+          description: Recipient bank account number
+          example: "1234567890"
+          type: string
+        bankCode:
+          description: Hong Kong bank code
+          example: "003"
+          type: string
+        phone:
+          description: Recipient phone number in E.164 format
+          example: "+85291234567"
+          type: string
+        email:
+          description: Recipient email address
+          example: chan.taiman@email.com
+          type: string
+        fpsId:
+          description: Hong Kong FPS identifier
+          example: "163912345"
+          type: string
+      type: object
+    FpsHkDestination:
+      properties:
+        type:
+          description: The transfer rail type for the destination
+          enum:
+          - FPS_HK
+          example: FPS_HK
+          type: string
+        address:
+          $ref: "#/components/schemas/FpsHkAddress"
+      required:
+      - address
+      - type
+      type: object
+    InstaPayAddress:
+      properties:
+        accountHolder:
+          $ref: "#/components/schemas/AccountHolderDetails"
+        bankName:
+          description: "Name of the recipient's bank or wallet (e.g. BDO, BPI, GCash,\
+            \ Maya)"
+          example: BDO Unibank
+          type: string
+        accountNumber:
+          description: Recipient bank account or wallet number
+          example: "001234567890"
+          type: string
+      required:
+      - accountHolder
+      - accountNumber
+      - bankName
+      type: object
+    InstaPayDestination:
+      properties:
+        type:
+          description: The transfer rail type for the destination
+          enum:
+          - INSTA_PAY
+          example: INSTA_PAY
+          type: string
+        address:
+          $ref: "#/components/schemas/InstaPayAddress"
+      required:
+      - address
+      - type
+      type: object
+    PesonetAddress:
+      properties:
+        accountHolder:
+          $ref: "#/components/schemas/AccountHolderDetails"
+        bankName:
+          description: Name of the recipient's bank
+          example: BPI
+          type: string
+        accountNumber:
+          description: Recipient bank account number
+          example: "001234567890"
+          type: string
+      required:
+      - accountHolder
+      - accountNumber
+      - bankName
+      type: object
+    PesonetDestination:
+      properties:
+        type:
+          description: The transfer rail type for the destination
+          enum:
+          - PESONET
+          example: PESONET
+          type: string
+        address:
+          $ref: "#/components/schemas/PesonetAddress"
+      required:
+      - address
+      - type
+      type: object
     FiatDestination:
       oneOf:
       - $ref: "#/components/schemas/IbanDestination"
@@ -67825,6 +68272,12 @@ components:
       - $ref: "#/components/schemas/InteracDestination"
       - $ref: "#/components/schemas/PayidDestination"
       - $ref: "#/components/schemas/InternalTransferDestination"
+      - $ref: "#/components/schemas/CipsDestination"
+      - $ref: "#/components/schemas/NequiDestination"
+      - $ref: "#/components/schemas/FpsUkDestination"
+      - $ref: "#/components/schemas/FpsHkDestination"
+      - $ref: "#/components/schemas/InstaPayDestination"
+      - $ref: "#/components/schemas/PesonetDestination"
     FiatPaymentMetadata:
       properties:
         referenceId:
@@ -67862,6 +68315,8 @@ components:
       - EXTERNAL_SOURCE_NOT_SUPPORTED
       - UNSUPPORTED_REGION
       - DESTINATION_NOT_WHITELISTED
+      - MISSING_DESTINATION_DETAILS
+      - MISSING_WORKSPACE_DETAILS
       type: string
     Failure:
       properties:

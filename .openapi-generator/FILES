@@ -185,6 +185,8 @@ docs/ChannelDvnConfigWithConfirmations.md
 docs/ChapsAddress.md
 docs/ChapsDestination.md
 docs/ChapsPaymentInfo.md
+docs/CipsAddress.md
+docs/CipsDestination.md
 docs/ClaimRewardsRequest.md
 docs/CollectionBurnRequestDto.md
 docs/CollectionBurnResponseDto.md
@@ -458,6 +460,10 @@ docs/FiatTransfer.md
 docs/FixedAmountTypeEnum.md
 docs/FixedFee.md
 docs/FlowDirection.md
+docs/FpsHkAddress.md
+docs/FpsHkDestination.md
+docs/FpsUkAddress.md
+docs/FpsUkDestination.md
 docs/FreezeTransactionResponse.md
 docs/FunctionDoc.md
 docs/Funds.md
@@ -517,6 +523,8 @@ docs/IdentificationPolicyOverride.md
 docs/IdlType.md
 docs/InitiatorConfig.md
 docs/InitiatorConfigPattern.md
+docs/InstaPayAddress.md
+docs/InstaPayDestination.md
 docs/InstructionAmount.md
 docs/InteracAddress.md
 docs/InteracDestination.md
@@ -600,6 +608,8 @@ docs/ModifyValidationKeyDto.md
 docs/MomoPaymentInfo.md
 docs/MpcKey.md
 docs/MultichainDeploymentMetadata.md
+docs/NequiAddress.md
+docs/NequiDestination.md
 docs/NetworkChannel.md
 docs/NetworkConnection.md
 docs/NetworkConnectionResponse.md
@@ -685,6 +695,8 @@ docs/PersonalIdentification.md
 docs/PersonalIdentificationDocument.md
 docs/PersonalIdentificationFullName.md
 docs/PersonalIdentificationType.md
+docs/PesonetAddress.md
+docs/PesonetDestination.md
 docs/PixAddress.md
 docs/PixDestination.md
 docs/PixPaymentInfo.md
@@ -1208,6 +1220,8 @@ docs/WebhookEvent.md
 docs/WebhookMetric.md
 docs/WebhookMtls.md
 docs/WebhookMtlsCsrResponse.md
+docs/WebhookOAuth.md
+docs/WebhookOAuthResponse.md
 docs/WebhookPaginatedResponse.md
 docs/WebhooksApi.md
 docs/WebhooksV2Api.md
@@ -1477,6 +1491,8 @@ src/main/java/com/fireblocks/sdk/model/ChannelDvnConfigWithConfirmations.java
 src/main/java/com/fireblocks/sdk/model/ChapsAddress.java
 src/main/java/com/fireblocks/sdk/model/ChapsDestination.java
 src/main/java/com/fireblocks/sdk/model/ChapsPaymentInfo.java
+src/main/java/com/fireblocks/sdk/model/CipsAddress.java
+src/main/java/com/fireblocks/sdk/model/CipsDestination.java
 src/main/java/com/fireblocks/sdk/model/ClaimRewardsRequest.java
 src/main/java/com/fireblocks/sdk/model/CollectionBurnRequestDto.java
 src/main/java/com/fireblocks/sdk/model/CollectionBurnResponseDto.java
@@ -1736,6 +1752,10 @@ src/main/java/com/fireblocks/sdk/model/FiatTransfer.java
 src/main/java/com/fireblocks/sdk/model/FixedAmountTypeEnum.java
 src/main/java/com/fireblocks/sdk/model/FixedFee.java
 src/main/java/com/fireblocks/sdk/model/FlowDirection.java
+src/main/java/com/fireblocks/sdk/model/FpsHkAddress.java
+src/main/java/com/fireblocks/sdk/model/FpsHkDestination.java
+src/main/java/com/fireblocks/sdk/model/FpsUkAddress.java
+src/main/java/com/fireblocks/sdk/model/FpsUkDestination.java
 src/main/java/com/fireblocks/sdk/model/FreezeTransactionResponse.java
 src/main/java/com/fireblocks/sdk/model/FunctionDoc.java
 src/main/java/com/fireblocks/sdk/model/Funds.java
@@ -1793,6 +1813,8 @@ src/main/java/com/fireblocks/sdk/model/IdentificationPolicyOverride.java
 src/main/java/com/fireblocks/sdk/model/IdlType.java
 src/main/java/com/fireblocks/sdk/model/InitiatorConfig.java
 src/main/java/com/fireblocks/sdk/model/InitiatorConfigPattern.java
+src/main/java/com/fireblocks/sdk/model/InstaPayAddress.java
+src/main/java/com/fireblocks/sdk/model/InstaPayDestination.java
 src/main/java/com/fireblocks/sdk/model/InstructionAmount.java
 src/main/java/com/fireblocks/sdk/model/InteracAddress.java
 src/main/java/com/fireblocks/sdk/model/InteracDestination.java
@@ -1873,6 +1895,8 @@ src/main/java/com/fireblocks/sdk/model/ModifyValidationKeyDto.java
 src/main/java/com/fireblocks/sdk/model/MomoPaymentInfo.java
 src/main/java/com/fireblocks/sdk/model/MpcKey.java
 src/main/java/com/fireblocks/sdk/model/MultichainDeploymentMetadata.java
+src/main/java/com/fireblocks/sdk/model/NequiAddress.java
+src/main/java/com/fireblocks/sdk/model/NequiDestination.java
 src/main/java/com/fireblocks/sdk/model/NetworkChannel.java
 src/main/java/com/fireblocks/sdk/model/NetworkConnection.java
 src/main/java/com/fireblocks/sdk/model/NetworkConnectionResponse.java
@@ -1952,6 +1976,8 @@ src/main/java/com/fireblocks/sdk/model/PersonalIdentification.java
 src/main/java/com/fireblocks/sdk/model/PersonalIdentificationDocument.java
 src/main/java/com/fireblocks/sdk/model/PersonalIdentificationFullName.java
 src/main/java/com/fireblocks/sdk/model/PersonalIdentificationType.java
+src/main/java/com/fireblocks/sdk/model/PesonetAddress.java
+src/main/java/com/fireblocks/sdk/model/PesonetDestination.java
 src/main/java/com/fireblocks/sdk/model/PixAddress.java
 src/main/java/com/fireblocks/sdk/model/PixDestination.java
 src/main/java/com/fireblocks/sdk/model/PixPaymentInfo.java
@@ -2457,6 +2483,8 @@ src/main/java/com/fireblocks/sdk/model/WebhookEvent.java
 src/main/java/com/fireblocks/sdk/model/WebhookMetric.java
 src/main/java/com/fireblocks/sdk/model/WebhookMtls.java
 src/main/java/com/fireblocks/sdk/model/WebhookMtlsCsrResponse.java
+src/main/java/com/fireblocks/sdk/model/WebhookOAuth.java
+src/main/java/com/fireblocks/sdk/model/WebhookOAuthResponse.java
 src/main/java/com/fireblocks/sdk/model/WebhookPaginatedResponse.java
 src/main/java/com/fireblocks/sdk/model/WithdrawRequest.java
 src/main/java/com/fireblocks/sdk/model/WorkflowConfigStatus.java
@@ -2699,6 +2727,8 @@ src/test/java/com/fireblocks/sdk/model/ChannelDvnConfigWithConfirmationsTest.jav
 src/test/java/com/fireblocks/sdk/model/ChapsAddressTest.java
 src/test/java/com/fireblocks/sdk/model/ChapsDestinationTest.java
 src/test/java/com/fireblocks/sdk/model/ChapsPaymentInfoTest.java
+src/test/java/com/fireblocks/sdk/model/CipsAddressTest.java
+src/test/java/com/fireblocks/sdk/model/CipsDestinationTest.java
 src/test/java/com/fireblocks/sdk/model/ClaimRewardsRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CollectionBurnRequestDtoTest.java
 src/test/java/com/fireblocks/sdk/model/CollectionBurnResponseDtoTest.java
@@ -2958,6 +2988,10 @@ src/test/java/com/fireblocks/sdk/model/FiatTransferTest.java
 src/test/java/com/fireblocks/sdk/model/FixedAmountTypeEnumTest.java
 src/test/java/com/fireblocks/sdk/model/FixedFeeTest.java
 src/test/java/com/fireblocks/sdk/model/FlowDirectionTest.java
+src/test/java/com/fireblocks/sdk/model/FpsHkAddressTest.java
+src/test/java/com/fireblocks/sdk/model/FpsHkDestinationTest.java
+src/test/java/com/fireblocks/sdk/model/FpsUkAddressTest.java
+src/test/java/com/fireblocks/sdk/model/FpsUkDestinationTest.java
 src/test/java/com/fireblocks/sdk/model/FreezeTransactionResponseTest.java
 src/test/java/com/fireblocks/sdk/model/FunctionDocTest.java
 src/test/java/com/fireblocks/sdk/model/FundsTest.java
@@ -3015,6 +3049,8 @@ src/test/java/com/fireblocks/sdk/model/IdentificationTest.java
 src/test/java/com/fireblocks/sdk/model/IdlTypeTest.java
 src/test/java/com/fireblocks/sdk/model/InitiatorConfigPatternTest.java
 src/test/java/com/fireblocks/sdk/model/InitiatorConfigTest.java
+src/test/java/com/fireblocks/sdk/model/InstaPayAddressTest.java
+src/test/java/com/fireblocks/sdk/model/InstaPayDestinationTest.java
 src/test/java/com/fireblocks/sdk/model/InstructionAmountTest.java
 src/test/java/com/fireblocks/sdk/model/InteracAddressTest.java
 src/test/java/com/fireblocks/sdk/model/InteracDestinationTest.java
@@ -3095,6 +3131,8 @@ src/test/java/com/fireblocks/sdk/model/ModifyValidationKeyDtoTest.java
 src/test/java/com/fireblocks/sdk/model/MomoPaymentInfoTest.java
 src/test/java/com/fireblocks/sdk/model/MpcKeyTest.java
 src/test/java/com/fireblocks/sdk/model/MultichainDeploymentMetadataTest.java
+src/test/java/com/fireblocks/sdk/model/NequiAddressTest.java
+src/test/java/com/fireblocks/sdk/model/NequiDestinationTest.java
 src/test/java/com/fireblocks/sdk/model/NetworkChannelTest.java
 src/test/java/com/fireblocks/sdk/model/NetworkConnectionResponseTest.java
 src/test/java/com/fireblocks/sdk/model/NetworkConnectionRoutingPolicyValueTest.java
@@ -3174,6 +3212,8 @@ src/test/java/com/fireblocks/sdk/model/PersonalIdentificationDocumentTest.java
 src/test/java/com/fireblocks/sdk/model/PersonalIdentificationFullNameTest.java
 src/test/java/com/fireblocks/sdk/model/PersonalIdentificationTest.java
 src/test/java/com/fireblocks/sdk/model/PersonalIdentificationTypeTest.java
+src/test/java/com/fireblocks/sdk/model/PesonetAddressTest.java
+src/test/java/com/fireblocks/sdk/model/PesonetDestinationTest.java
 src/test/java/com/fireblocks/sdk/model/PixAddressTest.java
 src/test/java/com/fireblocks/sdk/model/PixDestinationTest.java
 src/test/java/com/fireblocks/sdk/model/PixPaymentInfoTest.java
@@ -3678,6 +3718,8 @@ src/test/java/com/fireblocks/sdk/model/WebhookEventTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookMetricTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookMtlsCsrResponseTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookMtlsTest.java
+src/test/java/com/fireblocks/sdk/model/WebhookOAuthResponseTest.java
+src/test/java/com/fireblocks/sdk/model/WebhookOAuthTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookPaginatedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookTest.java
 src/test/java/com/fireblocks/sdk/model/WithdrawRequestTest.java

@@ -35,5 +35,17 @@
 
 * `INTERNAL_TRANSFER` (value: `"INTERNAL_TRANSFER"`)
 
+* `CIPS` (value: `"CIPS"`)
+
+* `NEQUI` (value: `"NEQUI"`)
+
+* `FPS_UK` (value: `"FPS_UK"`)
+
+* `FPS_HK` (value: `"FPS_HK"`)
+
+* `INSTA_PAY` (value: `"INSTA_PAY"`)
+
+* `PESONET` (value: `"PESONET"`)
+
 
 

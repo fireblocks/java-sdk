@@ -24,7 +24,7 @@ import java.util.StringJoiner;
 
 /** A breakdown of the staking rewards earned by the position. */
 @JsonPropertyOrder({
-    SolanaRewardsBreakdown.JSON_PROPERTY_ISSUANCE,
+    SolanaRewardsBreakdown.JSON_PROPERTY_INFLATION,
     SolanaRewardsBreakdown.JSON_PROPERTY_MEV,
     SolanaRewardsBreakdown.JSON_PROPERTY_LAST_REWARD_SYNCED_AT
 })
@@ -32,8 +32,8 @@ import java.util.StringJoiner;
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class SolanaRewardsBreakdown {
-    public static final String JSON_PROPERTY_ISSUANCE = "issuance";
-    @jakarta.annotation.Nonnull private String issuance;
+    public static final String JSON_PROPERTY_INFLATION = "inflation";
+    @jakarta.annotation.Nonnull private String inflation;
 
     public static final String JSON_PROPERTY_MEV = "mev";
     @jakarta.annotation.Nonnull private String mev;
@@ -45,36 +45,36 @@ public class SolanaRewardsBreakdown {
 
     @JsonCreator
     public SolanaRewardsBreakdown(
-            @JsonProperty(value = JSON_PROPERTY_ISSUANCE, required = true) String issuance,
+            @JsonProperty(value = JSON_PROPERTY_INFLATION, required = true) String inflation,
             @JsonProperty(value = JSON_PROPERTY_MEV, required = true) String mev,
             @JsonProperty(value = JSON_PROPERTY_LAST_REWARD_SYNCED_AT, required = true)
                     OffsetDateTime lastRewardSyncedAt) {
-        this.issuance = issuance;
+        this.inflation = inflation;
         this.mev = mev;
         this.lastRewardSyncedAt = lastRewardSyncedAt;
     }
 
-    public SolanaRewardsBreakdown issuance(@jakarta.annotation.Nonnull String issuance) {
-        this.issuance = issuance;
+    public SolanaRewardsBreakdown inflation(@jakarta.annotation.Nonnull String inflation) {
+        this.inflation = inflation;
         return this;
     }
 
     /**
-     * The issuance reward amount earned by the position, measured in the staked asset unit.
+     * The inflation reward amount earned by the position, measured in the staked asset unit.
      *
-     * @return issuance
+     * @return inflation
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ISSUANCE)
+    @JsonProperty(JSON_PROPERTY_INFLATION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getIssuance() {
-        return issuance;
+    public String getInflation() {
+        return inflation;
     }
 
-    @JsonProperty(JSON_PROPERTY_ISSUANCE)
+    @JsonProperty(JSON_PROPERTY_INFLATION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIssuance(@jakarta.annotation.Nonnull String issuance) {
-        this.issuance = issuance;
+    public void setInflation(@jakarta.annotation.Nonnull String inflation) {
+        this.inflation = inflation;
     }
 
     public SolanaRewardsBreakdown mev(@jakarta.annotation.Nonnull String mev) {
@@ -135,7 +135,7 @@ public class SolanaRewardsBreakdown {
             return false;
         }
         SolanaRewardsBreakdown solanaRewardsBreakdown = (SolanaRewardsBreakdown) o;
-        return Objects.equals(this.issuance, solanaRewardsBreakdown.issuance)
+        return Objects.equals(this.inflation, solanaRewardsBreakdown.inflation)
                 && Objects.equals(this.mev, solanaRewardsBreakdown.mev)
                 && Objects.equals(
                         this.lastRewardSyncedAt, solanaRewardsBreakdown.lastRewardSyncedAt);
@@ -143,14 +143,14 @@ public class SolanaRewardsBreakdown {
 
     @Override
     public int hashCode() {
-        return Objects.hash(issuance, mev, lastRewardSyncedAt);
+        return Objects.hash(inflation, mev, lastRewardSyncedAt);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class SolanaRewardsBreakdown {\n");
-        sb.append("    issuance: ").append(toIndentedString(issuance)).append("\n");
+        sb.append("    inflation: ").append(toIndentedString(inflation)).append("\n");
         sb.append("    mev: ").append(toIndentedString(mev)).append("\n");
         sb.append("    lastRewardSyncedAt: ")
                 .append(toIndentedString(lastRewardSyncedAt))
@@ -202,14 +202,14 @@ public class SolanaRewardsBreakdown {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `issuance` to the URL query string
-        if (getIssuance() != null) {
+        // add `inflation` to the URL query string
+        if (getInflation() != null) {
             joiner.add(
                     String.format(
-                            "%sissuance%s=%s",
+                            "%sinflation%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getIssuance()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInflation()))));
         }
 
         // add `mev` to the URL query string

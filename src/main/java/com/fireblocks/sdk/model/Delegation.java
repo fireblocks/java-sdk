@@ -68,7 +68,7 @@ public class Delegation {
     @jakarta.annotation.Nonnull private String amount;
 
     public static final String JSON_PROPERTY_REWARDS_AMOUNT = "rewardsAmount";
-    @jakarta.annotation.Nonnull private String rewardsAmount;
+    @jakarta.annotation.Nullable private String rewardsAmount;
 
     public static final String JSON_PROPERTY_DATE_CREATED = "dateCreated";
     @jakarta.annotation.Nonnull private OffsetDateTime dateCreated;
@@ -292,17 +292,19 @@ public class Delegation {
         this.amount = amount;
     }
 
-    public Delegation rewardsAmount(@jakarta.annotation.Nonnull String rewardsAmount) {
+    public Delegation rewardsAmount(@jakarta.annotation.Nullable String rewardsAmount) {
         this.rewardsAmount = rewardsAmount;
         return this;
     }
 
     /**
-     * The amount staked in the position, measured in the staked asset unit.
+     * The amount staked in the position, measured in the staked asset unit. Returned as null for
+     * chains where reward tracking is not supported (Cosmos-family chains), instead of a numeric
+     * value.
      *
      * @return rewardsAmount
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_REWARDS_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getRewardsAmount() {
@@ -311,7 +313,7 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_REWARDS_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRewardsAmount(@jakarta.annotation.Nonnull String rewardsAmount) {
+    public void setRewardsAmount(@jakarta.annotation.Nullable String rewardsAmount) {
         this.rewardsAmount = rewardsAmount;
     }
 

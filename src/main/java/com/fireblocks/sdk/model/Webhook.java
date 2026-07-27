@@ -34,7 +34,9 @@ import java.util.UUID;
     Webhook.JSON_PROPERTY_STATUS,
     Webhook.JSON_PROPERTY_CREATED_AT,
     Webhook.JSON_PROPERTY_UPDATED_AT,
-    Webhook.JSON_PROPERTY_MTLS
+    Webhook.JSON_PROPERTY_MTLS,
+    Webhook.JSON_PROPERTY_OAUTH,
+    Webhook.JSON_PROPERTY_CUSTOM_HEADERS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -98,6 +100,12 @@ public class Webhook {
 
     public static final String JSON_PROPERTY_MTLS = "mtls";
     @jakarta.annotation.Nullable private WebhookMtls mtls;
+
+    public static final String JSON_PROPERTY_OAUTH = "oauth";
+    @jakarta.annotation.Nullable private WebhookOAuthResponse oauth;
+
+    public static final String JSON_PROPERTY_CUSTOM_HEADERS = "customHeaders";
+    @jakarta.annotation.Nullable private List<String> customHeaders;
 
     public Webhook() {}
 
@@ -309,6 +317,60 @@ public class Webhook {
         this.mtls = mtls;
     }
 
+    public Webhook oauth(@jakarta.annotation.Nullable WebhookOAuthResponse oauth) {
+        this.oauth = oauth;
+        return this;
+    }
+
+    /**
+     * Get oauth
+     *
+     * @return oauth
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_OAUTH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public WebhookOAuthResponse getOauth() {
+        return oauth;
+    }
+
+    @JsonProperty(JSON_PROPERTY_OAUTH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOauth(@jakarta.annotation.Nullable WebhookOAuthResponse oauth) {
+        this.oauth = oauth;
+    }
+
+    public Webhook customHeaders(@jakarta.annotation.Nullable List<String> customHeaders) {
+        this.customHeaders = customHeaders;
+        return this;
+    }
+
+    public Webhook addCustomHeadersItem(String customHeadersItem) {
+        if (this.customHeaders == null) {
+            this.customHeaders = new ArrayList<>();
+        }
+        this.customHeaders.add(customHeadersItem);
+        return this;
+    }
+
+    /**
+     * Names of the custom headers configured for this webhook. Header values are never returned.
+     *
+     * @return customHeaders
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<String> getCustomHeaders() {
+        return customHeaders;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCustomHeaders(@jakarta.annotation.Nullable List<String> customHeaders) {
+        this.customHeaders = customHeaders;
+    }
+
     /** Return true if this Webhook object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -326,12 +388,24 @@ public class Webhook {
                 && Objects.equals(this.status, webhook.status)
                 && Objects.equals(this.createdAt, webhook.createdAt)
                 && Objects.equals(this.updatedAt, webhook.updatedAt)
-                && Objects.equals(this.mtls, webhook.mtls);
+                && Objects.equals(this.mtls, webhook.mtls)
+                && Objects.equals(this.oauth, webhook.oauth)
+                && Objects.equals(this.customHeaders, webhook.customHeaders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, url, description, events, status, createdAt, updatedAt, mtls);
+        return Objects.hash(
+                id,
+                url,
+                description,
+                events,
+                status,
+                createdAt,
+                updatedAt,
+                mtls,
+                oauth,
+                customHeaders);
     }
 
     @Override
@@ -346,6 +420,8 @@ public class Webhook {
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
         sb.append("    mtls: ").append(toIndentedString(mtls)).append("\n");
+        sb.append("    oauth: ").append(toIndentedString(oauth)).append("\n");
+        sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -473,6 +549,28 @@ public class Webhook {
         // add `mtls` to the URL query string
         if (getMtls() != null) {
             joiner.add(getMtls().toUrlQueryString(prefix + "mtls" + suffix));
+        }
+
+        // add `oauth` to the URL query string
+        if (getOauth() != null) {
+            joiner.add(getOauth().toUrlQueryString(prefix + "oauth" + suffix));
+        }
+
+        // add `customHeaders` to the URL query string
+        if (getCustomHeaders() != null) {
+            for (int i = 0; i < getCustomHeaders().size(); i++) {
+                joiner.add(
+                        String.format(
+                                "%scustomHeaders%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getCustomHeaders().get(i)))));
+            }
         }
 
         return joiner.toString();

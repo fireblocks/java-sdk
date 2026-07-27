@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**TypeEnum**](#TypeEnum) |  |  |
-|**address** | [**InternalTransferAddress**](InternalTransferAddress.md) |  |  |
+|**type** | [**TypeEnum**](#TypeEnum) | The transfer rail type for the destination |  |
+|**address** | [**PesonetAddress**](PesonetAddress.md) |  |  |
 |**referenceId** | **String** |  |  [optional] |
 
 
@@ -17,7 +17,7 @@
 
 | Name | Value |
 |---- | -----|
-| INTERNAL_TRANSFER | &quot;INTERNAL_TRANSFER&quot; |
+| PESONET | &quot;PESONET&quot; |
 
 
 
