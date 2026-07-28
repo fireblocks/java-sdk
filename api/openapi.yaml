@@ -62693,15 +62693,8 @@ components:
         extra details about the blockchain network.
       example:
         activationPeriod: 172800000
-        estimatedAnnualReward: 6.48
         lockupPeriod: 172800000
       properties:
-        estimatedAnnualReward:
-          deprecated: true
-          description: "The estimated annual reward rate for the blockchain, represented\
-            \ as a decimal percentage value."
-          example: 6.48
-          type: number
         lockupPeriod:
           description: "The duration of the lockup period for certain actions on the\
             \ blockchain, measured in milliseconds."
@@ -62714,7 +62707,6 @@ components:
           type: number
       required:
       - activationPeriod
-      - estimatedAnnualReward
       - lockupPeriod
       type: object
     ChainInfoResponse:
@@ -62725,7 +62717,6 @@ components:
         epochDuration: 172800000
         additionalInfo:
           activationPeriod: 172800000
-          estimatedAnnualReward: 6.48
           lockupPeriod: 172800000
         currentEpoch: 483
       properties:
@@ -63104,6 +63095,12 @@ components:
             validator type).
           example: true
           type: boolean
+        estimatedActivationTime:
+          description: "Estimated time the staked ETH will activate, derived from\
+            \ the beacon-chain deposit queue. Present only while the position is pending/activating;\
+            \ omitted once active."
+          example: 2024-01-15T14:30:00.000Z
+          type: string
       required:
       - isCompoundingValidator
       type: object

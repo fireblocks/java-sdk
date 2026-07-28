@@ -30,4 +30,10 @@ class EthereumBlockchainDataTest {
     void isCompoundingValidatorTest() {
         // TODO: test isCompoundingValidator
     }
+
+    /** Test the property 'estimatedActivationTime' */
+    @Test
+    void estimatedActivationTimeTest() {
+        // TODO: test estimatedActivationTime
+    }
 }
