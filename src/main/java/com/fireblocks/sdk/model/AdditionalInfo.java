@@ -27,7 +27,6 @@ import java.util.StringJoiner;
  * blockchain network.
  */
 @JsonPropertyOrder({
-    AdditionalInfo.JSON_PROPERTY_ESTIMATED_ANNUAL_REWARD,
     AdditionalInfo.JSON_PROPERTY_LOCKUP_PERIOD,
     AdditionalInfo.JSON_PROPERTY_ACTIVATION_PERIOD
 })
@@ -35,9 +34,6 @@ import java.util.StringJoiner;
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class AdditionalInfo {
-    public static final String JSON_PROPERTY_ESTIMATED_ANNUAL_REWARD = "estimatedAnnualReward";
-    @jakarta.annotation.Nonnull private BigDecimal estimatedAnnualReward;
-
     public static final String JSON_PROPERTY_LOCKUP_PERIOD = "lockupPeriod";
     @jakarta.annotation.Nonnull private BigDecimal lockupPeriod;
 
@@ -48,43 +44,12 @@ public class AdditionalInfo {
 
     @JsonCreator
     public AdditionalInfo(
-            @JsonProperty(value = JSON_PROPERTY_ESTIMATED_ANNUAL_REWARD, required = true)
-                    BigDecimal estimatedAnnualReward,
             @JsonProperty(value = JSON_PROPERTY_LOCKUP_PERIOD, required = true)
                     BigDecimal lockupPeriod,
             @JsonProperty(value = JSON_PROPERTY_ACTIVATION_PERIOD, required = true)
                     BigDecimal activationPeriod) {
-        this.estimatedAnnualReward = estimatedAnnualReward;
         this.lockupPeriod = lockupPeriod;
         this.activationPeriod = activationPeriod;
-    }
-
-    public AdditionalInfo estimatedAnnualReward(
-            @jakarta.annotation.Nonnull BigDecimal estimatedAnnualReward) {
-        this.estimatedAnnualReward = estimatedAnnualReward;
-        return this;
-    }
-
-    /**
-     * The estimated annual reward rate for the blockchain, represented as a decimal percentage
-     * value.
-     *
-     * @return estimatedAnnualReward
-     * @deprecated
-     */
-    @Deprecated
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ESTIMATED_ANNUAL_REWARD)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public BigDecimal getEstimatedAnnualReward() {
-        return estimatedAnnualReward;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ESTIMATED_ANNUAL_REWARD)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setEstimatedAnnualReward(
-            @jakarta.annotation.Nonnull BigDecimal estimatedAnnualReward) {
-        this.estimatedAnnualReward = estimatedAnnualReward;
     }
 
     public AdditionalInfo lockupPeriod(@jakarta.annotation.Nonnull BigDecimal lockupPeriod) {
@@ -146,23 +111,19 @@ public class AdditionalInfo {
             return false;
         }
         AdditionalInfo additionalInfo = (AdditionalInfo) o;
-        return Objects.equals(this.estimatedAnnualReward, additionalInfo.estimatedAnnualReward)
-                && Objects.equals(this.lockupPeriod, additionalInfo.lockupPeriod)
+        return Objects.equals(this.lockupPeriod, additionalInfo.lockupPeriod)
                 && Objects.equals(this.activationPeriod, additionalInfo.activationPeriod);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(estimatedAnnualReward, lockupPeriod, activationPeriod);
+        return Objects.hash(lockupPeriod, activationPeriod);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class AdditionalInfo {\n");
-        sb.append("    estimatedAnnualReward: ")
-                .append(toIndentedString(estimatedAnnualReward))
-                .append("\n");
         sb.append("    lockupPeriod: ").append(toIndentedString(lockupPeriod)).append("\n");
         sb.append("    activationPeriod: ").append(toIndentedString(activationPeriod)).append("\n");
         sb.append("}");
@@ -211,17 +172,6 @@ public class AdditionalInfo {
         }
 
         StringJoiner joiner = new StringJoiner("&");
-
-        // add `estimatedAnnualReward` to the URL query string
-        if (getEstimatedAnnualReward() != null) {
-            joiner.add(
-                    String.format(
-                            "%sestimatedAnnualReward%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(
-                                    ApiClient.valueToString(getEstimatedAnnualReward()))));
-        }
 
         // add `lockupPeriod` to the URL query string
         if (getLockupPeriod() != null) {

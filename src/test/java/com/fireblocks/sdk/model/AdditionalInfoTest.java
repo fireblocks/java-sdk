@@ -25,12 +25,6 @@ class AdditionalInfoTest {
         // TODO: test AdditionalInfo
     }
 
-    /** Test the property 'estimatedAnnualReward' */
-    @Test
-    void estimatedAnnualRewardTest() {
-        // TODO: test estimatedAnnualReward
-    }
-
     /** Test the property 'lockupPeriod' */
     @Test
     void lockupPeriodTest() {
