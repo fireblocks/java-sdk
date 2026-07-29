@@ -25,13 +25,19 @@ import java.util.StringJoiner;
  * Additional fields per blockchain for Ethereum (ETH) - can be empty or missing if not initialized
  * or no specific data is available.
  */
-@JsonPropertyOrder({EthereumBlockchainData.JSON_PROPERTY_IS_COMPOUNDING_VALIDATOR})
+@JsonPropertyOrder({
+    EthereumBlockchainData.JSON_PROPERTY_IS_COMPOUNDING_VALIDATOR,
+    EthereumBlockchainData.JSON_PROPERTY_ESTIMATED_ACTIVATION_TIME
+})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class EthereumBlockchainData {
     public static final String JSON_PROPERTY_IS_COMPOUNDING_VALIDATOR = "isCompoundingValidator";
     @jakarta.annotation.Nonnull private Boolean isCompoundingValidator;
+
+    public static final String JSON_PROPERTY_ESTIMATED_ACTIVATION_TIME = "estimatedActivationTime";
+    @jakarta.annotation.Nullable private String estimatedActivationTime;
 
     public EthereumBlockchainData() {}
 
@@ -67,6 +73,32 @@ public class EthereumBlockchainData {
         this.isCompoundingValidator = isCompoundingValidator;
     }
 
+    public EthereumBlockchainData estimatedActivationTime(
+            @jakarta.annotation.Nullable String estimatedActivationTime) {
+        this.estimatedActivationTime = estimatedActivationTime;
+        return this;
+    }
+
+    /**
+     * Estimated time the staked ETH will activate, derived from the beacon-chain deposit queue.
+     * Present only while the position is pending/activating; omitted once active.
+     *
+     * @return estimatedActivationTime
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ESTIMATED_ACTIVATION_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getEstimatedActivationTime() {
+        return estimatedActivationTime;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ESTIMATED_ACTIVATION_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setEstimatedActivationTime(
+            @jakarta.annotation.Nullable String estimatedActivationTime) {
+        this.estimatedActivationTime = estimatedActivationTime;
+    }
+
     /** Return true if this EthereumBlockchainData object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -78,12 +110,15 @@ public class EthereumBlockchainData {
         }
         EthereumBlockchainData ethereumBlockchainData = (EthereumBlockchainData) o;
         return Objects.equals(
-                this.isCompoundingValidator, ethereumBlockchainData.isCompoundingValidator);
+                        this.isCompoundingValidator, ethereumBlockchainData.isCompoundingValidator)
+                && Objects.equals(
+                        this.estimatedActivationTime,
+                        ethereumBlockchainData.estimatedActivationTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isCompoundingValidator);
+        return Objects.hash(isCompoundingValidator, estimatedActivationTime);
     }
 
     @Override
@@ -92,6 +127,9 @@ public class EthereumBlockchainData {
         sb.append("class EthereumBlockchainData {\n");
         sb.append("    isCompoundingValidator: ")
                 .append(toIndentedString(isCompoundingValidator))
+                .append("\n");
+        sb.append("    estimatedActivationTime: ")
+                .append(toIndentedString(estimatedActivationTime))
                 .append("\n");
         sb.append("}");
         return sb.toString();
@@ -149,6 +187,17 @@ public class EthereumBlockchainData {
                             suffix,
                             ApiClient.urlEncode(
                                     ApiClient.valueToString(getIsCompoundingValidator()))));
+        }
+
+        // add `estimatedActivationTime` to the URL query string
+        if (getEstimatedActivationTime() != null) {
+            joiner.add(
+                    String.format(
+                            "%sestimatedActivationTime%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getEstimatedActivationTime()))));
         }
 
         return joiner.toString();

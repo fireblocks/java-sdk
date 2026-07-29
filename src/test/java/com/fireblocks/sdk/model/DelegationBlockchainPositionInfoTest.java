@@ -49,6 +49,12 @@ class DelegationBlockchainPositionInfoTest {
         // TODO: test isCompoundingValidator
     }
 
+    /** Test the property 'estimatedActivationTime' */
+    @Test
+    void estimatedActivationTimeTest() {
+        // TODO: test estimatedActivationTime
+    }
+
     /** Test the property 'totalWithdrawableAmount' */
     @Test
     void totalWithdrawableAmountTest() {
