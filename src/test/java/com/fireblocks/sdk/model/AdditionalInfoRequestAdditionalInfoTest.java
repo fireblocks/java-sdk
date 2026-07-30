@@ -361,4 +361,34 @@ class AdditionalInfoRequestAdditionalInfoTest {
     void bankAccountHolderNameTest() {
         // TODO: test bankAccountHolderName
     }
+
+    /** Test the property 'bankCountry' */
+    @Test
+    void bankCountryTest() {
+        // TODO: test bankCountry
+    }
+
+    /** Test the property 'referenceId' */
+    @Test
+    void referenceIdTest() {
+        // TODO: test referenceId
+    }
+
+    /** Test the property 'phone' */
+    @Test
+    void phoneTest() {
+        // TODO: test phone
+    }
+
+    /** Test the property 'recipientLegalName' */
+    @Test
+    void recipientLegalNameTest() {
+        // TODO: test recipientLegalName
+    }
+
+    /** Test the property 'fpsId' */
+    @Test
+    void fpsIdTest() {
+        // TODO: test fpsId
+    }
 }

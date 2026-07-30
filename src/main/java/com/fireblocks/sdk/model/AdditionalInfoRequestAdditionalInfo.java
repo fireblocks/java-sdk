@@ -217,6 +217,132 @@ public class AdditionalInfoRequestAdditionalInfo extends AbstractOpenApiSchema {
                 log.log(Level.FINER, "Input data does not match schema 'ChapsPaymentInfo'", e);
             }
 
+            // deserialize CipsPaymentInfo
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (CipsPaymentInfo.class.equals(Integer.class)
+                        || CipsPaymentInfo.class.equals(Long.class)
+                        || CipsPaymentInfo.class.equals(Float.class)
+                        || CipsPaymentInfo.class.equals(Double.class)
+                        || CipsPaymentInfo.class.equals(Boolean.class)
+                        || CipsPaymentInfo.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((CipsPaymentInfo.class.equals(Integer.class)
+                                                || CipsPaymentInfo.class.equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((CipsPaymentInfo.class.equals(Float.class)
+                                                || CipsPaymentInfo.class.equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (CipsPaymentInfo.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (CipsPaymentInfo.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(CipsPaymentInfo.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'CipsPaymentInfo'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'CipsPaymentInfo'", e);
+            }
+
+            // deserialize FpsHkPaymentInfo
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (FpsHkPaymentInfo.class.equals(Integer.class)
+                        || FpsHkPaymentInfo.class.equals(Long.class)
+                        || FpsHkPaymentInfo.class.equals(Float.class)
+                        || FpsHkPaymentInfo.class.equals(Double.class)
+                        || FpsHkPaymentInfo.class.equals(Boolean.class)
+                        || FpsHkPaymentInfo.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((FpsHkPaymentInfo.class.equals(Integer.class)
+                                                || FpsHkPaymentInfo.class.equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((FpsHkPaymentInfo.class.equals(Float.class)
+                                                || FpsHkPaymentInfo.class.equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (FpsHkPaymentInfo.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (FpsHkPaymentInfo.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(FpsHkPaymentInfo.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'FpsHkPaymentInfo'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'FpsHkPaymentInfo'", e);
+            }
+
+            // deserialize FpsUkPaymentInfo
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (FpsUkPaymentInfo.class.equals(Integer.class)
+                        || FpsUkPaymentInfo.class.equals(Long.class)
+                        || FpsUkPaymentInfo.class.equals(Float.class)
+                        || FpsUkPaymentInfo.class.equals(Double.class)
+                        || FpsUkPaymentInfo.class.equals(Boolean.class)
+                        || FpsUkPaymentInfo.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((FpsUkPaymentInfo.class.equals(Integer.class)
+                                                || FpsUkPaymentInfo.class.equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((FpsUkPaymentInfo.class.equals(Float.class)
+                                                || FpsUkPaymentInfo.class.equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (FpsUkPaymentInfo.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (FpsUkPaymentInfo.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(FpsUkPaymentInfo.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'FpsUkPaymentInfo'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'FpsUkPaymentInfo'", e);
+            }
+
             // deserialize IbanPaymentInfo
             try {
                 boolean attemptParsing = true;
@@ -257,6 +383,49 @@ public class AdditionalInfoRequestAdditionalInfo extends AbstractOpenApiSchema {
             } catch (Exception e) {
                 // deserialization failed, continue
                 log.log(Level.FINER, "Input data does not match schema 'IbanPaymentInfo'", e);
+            }
+
+            // deserialize InstaPayPaymentInfo
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (InstaPayPaymentInfo.class.equals(Integer.class)
+                        || InstaPayPaymentInfo.class.equals(Long.class)
+                        || InstaPayPaymentInfo.class.equals(Float.class)
+                        || InstaPayPaymentInfo.class.equals(Double.class)
+                        || InstaPayPaymentInfo.class.equals(Boolean.class)
+                        || InstaPayPaymentInfo.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((InstaPayPaymentInfo.class.equals(Integer.class)
+                                                || InstaPayPaymentInfo.class.equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((InstaPayPaymentInfo.class.equals(Float.class)
+                                                || InstaPayPaymentInfo.class.equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (InstaPayPaymentInfo.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (InstaPayPaymentInfo.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized =
+                            tree.traverse(jp.getCodec()).readValueAs(InstaPayPaymentInfo.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'InstaPayPaymentInfo'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'InstaPayPaymentInfo'", e);
             }
 
             // deserialize InteracPaymentInfo
@@ -386,6 +555,48 @@ public class AdditionalInfoRequestAdditionalInfo extends AbstractOpenApiSchema {
                 log.log(Level.FINER, "Input data does not match schema 'MomoPaymentInfo'", e);
             }
 
+            // deserialize NequiPaymentInfo
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (NequiPaymentInfo.class.equals(Integer.class)
+                        || NequiPaymentInfo.class.equals(Long.class)
+                        || NequiPaymentInfo.class.equals(Float.class)
+                        || NequiPaymentInfo.class.equals(Double.class)
+                        || NequiPaymentInfo.class.equals(Boolean.class)
+                        || NequiPaymentInfo.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((NequiPaymentInfo.class.equals(Integer.class)
+                                                || NequiPaymentInfo.class.equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((NequiPaymentInfo.class.equals(Float.class)
+                                                || NequiPaymentInfo.class.equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (NequiPaymentInfo.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (NequiPaymentInfo.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(NequiPaymentInfo.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'NequiPaymentInfo'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'NequiPaymentInfo'", e);
+            }
+
             // deserialize PayidPaymentInfo
             try {
                 boolean attemptParsing = true;
@@ -426,6 +637,49 @@ public class AdditionalInfoRequestAdditionalInfo extends AbstractOpenApiSchema {
             } catch (Exception e) {
                 // deserialization failed, continue
                 log.log(Level.FINER, "Input data does not match schema 'PayidPaymentInfo'", e);
+            }
+
+            // deserialize PesonetPaymentInfo
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (PesonetPaymentInfo.class.equals(Integer.class)
+                        || PesonetPaymentInfo.class.equals(Long.class)
+                        || PesonetPaymentInfo.class.equals(Float.class)
+                        || PesonetPaymentInfo.class.equals(Double.class)
+                        || PesonetPaymentInfo.class.equals(Boolean.class)
+                        || PesonetPaymentInfo.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((PesonetPaymentInfo.class.equals(Integer.class)
+                                                || PesonetPaymentInfo.class.equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((PesonetPaymentInfo.class.equals(Float.class)
+                                                || PesonetPaymentInfo.class.equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (PesonetPaymentInfo.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (PesonetPaymentInfo.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized =
+                            tree.traverse(jp.getCodec()).readValueAs(PesonetPaymentInfo.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'PesonetPaymentInfo'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'PesonetPaymentInfo'", e);
             }
 
             // deserialize PixPaymentInfo
@@ -688,7 +942,27 @@ public class AdditionalInfoRequestAdditionalInfo extends AbstractOpenApiSchema {
         setActualInstance(o);
     }
 
+    public AdditionalInfoRequestAdditionalInfo(CipsPaymentInfo o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
+    public AdditionalInfoRequestAdditionalInfo(FpsHkPaymentInfo o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
+    public AdditionalInfoRequestAdditionalInfo(FpsUkPaymentInfo o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
     public AdditionalInfoRequestAdditionalInfo(IbanPaymentInfo o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
+    public AdditionalInfoRequestAdditionalInfo(InstaPayPaymentInfo o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
@@ -708,7 +982,17 @@ public class AdditionalInfoRequestAdditionalInfo extends AbstractOpenApiSchema {
         setActualInstance(o);
     }
 
+    public AdditionalInfoRequestAdditionalInfo(NequiPaymentInfo o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
     public AdditionalInfoRequestAdditionalInfo(PayidPaymentInfo o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
+    public AdditionalInfoRequestAdditionalInfo(PesonetPaymentInfo o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
@@ -742,11 +1026,17 @@ public class AdditionalInfoRequestAdditionalInfo extends AbstractOpenApiSchema {
         schemas.put("AbaPaymentInfo", AbaPaymentInfo.class);
         schemas.put("AchPaymentInfo", AchPaymentInfo.class);
         schemas.put("ChapsPaymentInfo", ChapsPaymentInfo.class);
+        schemas.put("CipsPaymentInfo", CipsPaymentInfo.class);
+        schemas.put("FpsHkPaymentInfo", FpsHkPaymentInfo.class);
+        schemas.put("FpsUkPaymentInfo", FpsUkPaymentInfo.class);
         schemas.put("IbanPaymentInfo", IbanPaymentInfo.class);
+        schemas.put("InstaPayPaymentInfo", InstaPayPaymentInfo.class);
         schemas.put("InteracPaymentInfo", InteracPaymentInfo.class);
         schemas.put("LbtPaymentInfo", LbtPaymentInfo.class);
         schemas.put("MomoPaymentInfo", MomoPaymentInfo.class);
+        schemas.put("NequiPaymentInfo", NequiPaymentInfo.class);
         schemas.put("PayidPaymentInfo", PayidPaymentInfo.class);
+        schemas.put("PesonetPaymentInfo", PesonetPaymentInfo.class);
         schemas.put("PixPaymentInfo", PixPaymentInfo.class);
         schemas.put("SepaPaymentInfo", SepaPaymentInfo.class);
         schemas.put("SpeiAdvancedPaymentInfo", SpeiAdvancedPaymentInfo.class);
@@ -764,9 +1054,10 @@ public class AdditionalInfoRequestAdditionalInfo extends AbstractOpenApiSchema {
     /**
      * Set the instance that matches the oneOf child schema, check the instance parameter is valid
      * against the oneOf child schemas: AbaPaymentInfo, AchPaymentInfo, ChapsPaymentInfo,
-     * IbanPaymentInfo, InteracPaymentInfo, LbtPaymentInfo, MomoPaymentInfo, PayidPaymentInfo,
-     * PixPaymentInfo, SepaPaymentInfo, SpeiAdvancedPaymentInfo, SpeiBasicPaymentInfo,
-     * UsWirePaymentInfo
+     * CipsPaymentInfo, FpsHkPaymentInfo, FpsUkPaymentInfo, IbanPaymentInfo, InstaPayPaymentInfo,
+     * InteracPaymentInfo, LbtPaymentInfo, MomoPaymentInfo, NequiPaymentInfo, PayidPaymentInfo,
+     * PesonetPaymentInfo, PixPaymentInfo, SepaPaymentInfo, SpeiAdvancedPaymentInfo,
+     * SpeiBasicPaymentInfo, UsWirePaymentInfo
      *
      * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
      * a composed schema (allOf, anyOf, oneOf).
@@ -788,7 +1079,27 @@ public class AdditionalInfoRequestAdditionalInfo extends AbstractOpenApiSchema {
             return;
         }
 
+        if (JSON.isInstanceOf(CipsPaymentInfo.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (JSON.isInstanceOf(FpsHkPaymentInfo.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (JSON.isInstanceOf(FpsUkPaymentInfo.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
         if (JSON.isInstanceOf(IbanPaymentInfo.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (JSON.isInstanceOf(InstaPayPaymentInfo.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
@@ -808,7 +1119,17 @@ public class AdditionalInfoRequestAdditionalInfo extends AbstractOpenApiSchema {
             return;
         }
 
+        if (JSON.isInstanceOf(NequiPaymentInfo.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
         if (JSON.isInstanceOf(PayidPaymentInfo.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (JSON.isInstanceOf(PesonetPaymentInfo.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
@@ -840,21 +1161,25 @@ public class AdditionalInfoRequestAdditionalInfo extends AbstractOpenApiSchema {
 
         throw new RuntimeException(
                 "Invalid instance type. Must be AbaPaymentInfo, AchPaymentInfo, ChapsPaymentInfo,"
-                    + " IbanPaymentInfo, InteracPaymentInfo, LbtPaymentInfo, MomoPaymentInfo,"
-                    + " PayidPaymentInfo, PixPaymentInfo, SepaPaymentInfo, SpeiAdvancedPaymentInfo,"
-                    + " SpeiBasicPaymentInfo, UsWirePaymentInfo");
+                    + " CipsPaymentInfo, FpsHkPaymentInfo, FpsUkPaymentInfo, IbanPaymentInfo,"
+                    + " InstaPayPaymentInfo, InteracPaymentInfo, LbtPaymentInfo, MomoPaymentInfo,"
+                    + " NequiPaymentInfo, PayidPaymentInfo, PesonetPaymentInfo, PixPaymentInfo,"
+                    + " SepaPaymentInfo, SpeiAdvancedPaymentInfo, SpeiBasicPaymentInfo,"
+                    + " UsWirePaymentInfo");
     }
 
     /**
      * Get the actual instance, which can be the following: AbaPaymentInfo, AchPaymentInfo,
-     * ChapsPaymentInfo, IbanPaymentInfo, InteracPaymentInfo, LbtPaymentInfo, MomoPaymentInfo,
-     * PayidPaymentInfo, PixPaymentInfo, SepaPaymentInfo, SpeiAdvancedPaymentInfo,
-     * SpeiBasicPaymentInfo, UsWirePaymentInfo
+     * ChapsPaymentInfo, CipsPaymentInfo, FpsHkPaymentInfo, FpsUkPaymentInfo, IbanPaymentInfo,
+     * InstaPayPaymentInfo, InteracPaymentInfo, LbtPaymentInfo, MomoPaymentInfo, NequiPaymentInfo,
+     * PayidPaymentInfo, PesonetPaymentInfo, PixPaymentInfo, SepaPaymentInfo,
+     * SpeiAdvancedPaymentInfo, SpeiBasicPaymentInfo, UsWirePaymentInfo
      *
      * @return The actual instance (AbaPaymentInfo, AchPaymentInfo, ChapsPaymentInfo,
-     *     IbanPaymentInfo, InteracPaymentInfo, LbtPaymentInfo, MomoPaymentInfo, PayidPaymentInfo,
-     *     PixPaymentInfo, SepaPaymentInfo, SpeiAdvancedPaymentInfo, SpeiBasicPaymentInfo,
-     *     UsWirePaymentInfo)
+     *     CipsPaymentInfo, FpsHkPaymentInfo, FpsUkPaymentInfo, IbanPaymentInfo,
+     *     InstaPayPaymentInfo, InteracPaymentInfo, LbtPaymentInfo, MomoPaymentInfo,
+     *     NequiPaymentInfo, PayidPaymentInfo, PesonetPaymentInfo, PixPaymentInfo, SepaPaymentInfo,
+     *     SpeiAdvancedPaymentInfo, SpeiBasicPaymentInfo, UsWirePaymentInfo)
      */
     @Override
     public Object getActualInstance() {
@@ -895,6 +1220,39 @@ public class AdditionalInfoRequestAdditionalInfo extends AbstractOpenApiSchema {
     }
 
     /**
+     * Get the actual instance of `CipsPaymentInfo`. If the actual instance is not
+     * `CipsPaymentInfo`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `CipsPaymentInfo`
+     * @throws ClassCastException if the instance is not `CipsPaymentInfo`
+     */
+    public CipsPaymentInfo getCipsPaymentInfo() throws ClassCastException {
+        return (CipsPaymentInfo) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `FpsHkPaymentInfo`. If the actual instance is not
+     * `FpsHkPaymentInfo`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `FpsHkPaymentInfo`
+     * @throws ClassCastException if the instance is not `FpsHkPaymentInfo`
+     */
+    public FpsHkPaymentInfo getFpsHkPaymentInfo() throws ClassCastException {
+        return (FpsHkPaymentInfo) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `FpsUkPaymentInfo`. If the actual instance is not
+     * `FpsUkPaymentInfo`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `FpsUkPaymentInfo`
+     * @throws ClassCastException if the instance is not `FpsUkPaymentInfo`
+     */
+    public FpsUkPaymentInfo getFpsUkPaymentInfo() throws ClassCastException {
+        return (FpsUkPaymentInfo) super.getActualInstance();
+    }
+
+    /**
      * Get the actual instance of `IbanPaymentInfo`. If the actual instance is not
      * `IbanPaymentInfo`, the ClassCastException will be thrown.
      *
@@ -903,6 +1261,17 @@ public class AdditionalInfoRequestAdditionalInfo extends AbstractOpenApiSchema {
      */
     public IbanPaymentInfo getIbanPaymentInfo() throws ClassCastException {
         return (IbanPaymentInfo) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `InstaPayPaymentInfo`. If the actual instance is not
+     * `InstaPayPaymentInfo`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `InstaPayPaymentInfo`
+     * @throws ClassCastException if the instance is not `InstaPayPaymentInfo`
+     */
+    public InstaPayPaymentInfo getInstaPayPaymentInfo() throws ClassCastException {
+        return (InstaPayPaymentInfo) super.getActualInstance();
     }
 
     /**
@@ -939,6 +1308,17 @@ public class AdditionalInfoRequestAdditionalInfo extends AbstractOpenApiSchema {
     }
 
     /**
+     * Get the actual instance of `NequiPaymentInfo`. If the actual instance is not
+     * `NequiPaymentInfo`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `NequiPaymentInfo`
+     * @throws ClassCastException if the instance is not `NequiPaymentInfo`
+     */
+    public NequiPaymentInfo getNequiPaymentInfo() throws ClassCastException {
+        return (NequiPaymentInfo) super.getActualInstance();
+    }
+
+    /**
      * Get the actual instance of `PayidPaymentInfo`. If the actual instance is not
      * `PayidPaymentInfo`, the ClassCastException will be thrown.
      *
@@ -947,6 +1327,17 @@ public class AdditionalInfoRequestAdditionalInfo extends AbstractOpenApiSchema {
      */
     public PayidPaymentInfo getPayidPaymentInfo() throws ClassCastException {
         return (PayidPaymentInfo) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `PesonetPaymentInfo`. If the actual instance is not
+     * `PesonetPaymentInfo`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `PesonetPaymentInfo`
+     * @throws ClassCastException if the instance is not `PesonetPaymentInfo`
+     */
+    public PesonetPaymentInfo getPesonetPaymentInfo() throws ClassCastException {
+        return (PesonetPaymentInfo) super.getActualInstance();
     }
 
     /**
@@ -1137,6 +1528,54 @@ public class AdditionalInfoRequestAdditionalInfo extends AbstractOpenApiSchema {
                 joiner.add(
                         ((ChapsPaymentInfo) getActualInstance())
                                 .toUrlQueryString(prefix + "one_of_12" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof CipsPaymentInfo) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((CipsPaymentInfo) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_13" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof NequiPaymentInfo) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((NequiPaymentInfo) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_14" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof FpsUkPaymentInfo) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((FpsUkPaymentInfo) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_15" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof FpsHkPaymentInfo) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((FpsHkPaymentInfo) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_16" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof InstaPayPaymentInfo) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((InstaPayPaymentInfo) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_17" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof PesonetPaymentInfo) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((PesonetPaymentInfo) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_18" + suffix));
             }
             return joiner.toString();
         }

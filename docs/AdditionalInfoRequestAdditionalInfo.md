@@ -8,11 +8,17 @@ Additional payment information based on the payment rail type
 * [AbaPaymentInfo](AbaPaymentInfo.md)
 * [AchPaymentInfo](AchPaymentInfo.md)
 * [ChapsPaymentInfo](ChapsPaymentInfo.md)
+* [CipsPaymentInfo](CipsPaymentInfo.md)
+* [FpsHkPaymentInfo](FpsHkPaymentInfo.md)
+* [FpsUkPaymentInfo](FpsUkPaymentInfo.md)
 * [IbanPaymentInfo](IbanPaymentInfo.md)
+* [InstaPayPaymentInfo](InstaPayPaymentInfo.md)
 * [InteracPaymentInfo](InteracPaymentInfo.md)
 * [LbtPaymentInfo](LbtPaymentInfo.md)
 * [MomoPaymentInfo](MomoPaymentInfo.md)
+* [NequiPaymentInfo](NequiPaymentInfo.md)
 * [PayidPaymentInfo](PayidPaymentInfo.md)
+* [PesonetPaymentInfo](PesonetPaymentInfo.md)
 * [PixPaymentInfo](PixPaymentInfo.md)
 * [SepaPaymentInfo](SepaPaymentInfo.md)
 * [SpeiAdvancedPaymentInfo](SpeiAdvancedPaymentInfo.md)
@@ -26,11 +32,17 @@ import com.fireblocks.sdk.model.AdditionalInfoRequestAdditionalInfo;
 import com.fireblocks.sdk.model.AbaPaymentInfo;
 import com.fireblocks.sdk.model.AchPaymentInfo;
 import com.fireblocks.sdk.model.ChapsPaymentInfo;
+import com.fireblocks.sdk.model.CipsPaymentInfo;
+import com.fireblocks.sdk.model.FpsHkPaymentInfo;
+import com.fireblocks.sdk.model.FpsUkPaymentInfo;
 import com.fireblocks.sdk.model.IbanPaymentInfo;
+import com.fireblocks.sdk.model.InstaPayPaymentInfo;
 import com.fireblocks.sdk.model.InteracPaymentInfo;
 import com.fireblocks.sdk.model.LbtPaymentInfo;
 import com.fireblocks.sdk.model.MomoPaymentInfo;
+import com.fireblocks.sdk.model.NequiPaymentInfo;
 import com.fireblocks.sdk.model.PayidPaymentInfo;
+import com.fireblocks.sdk.model.PesonetPaymentInfo;
 import com.fireblocks.sdk.model.PixPaymentInfo;
 import com.fireblocks.sdk.model.SepaPaymentInfo;
 import com.fireblocks.sdk.model.SpeiAdvancedPaymentInfo;
@@ -62,12 +74,40 @@ public class Example {
         // to get back the ChapsPaymentInfo set earlier
         ChapsPaymentInfo testChapsPaymentInfo = (ChapsPaymentInfo) exampleAdditionalInfoRequestAdditionalInfo.getActualInstance();
 
+        // create a new CipsPaymentInfo
+        CipsPaymentInfo exampleCipsPaymentInfo = new CipsPaymentInfo();
+        // set AdditionalInfoRequestAdditionalInfo to CipsPaymentInfo
+        exampleAdditionalInfoRequestAdditionalInfo.setActualInstance(exampleCipsPaymentInfo);
+        // to get back the CipsPaymentInfo set earlier
+        CipsPaymentInfo testCipsPaymentInfo = (CipsPaymentInfo) exampleAdditionalInfoRequestAdditionalInfo.getActualInstance();
+
+        // create a new FpsHkPaymentInfo
+        FpsHkPaymentInfo exampleFpsHkPaymentInfo = new FpsHkPaymentInfo();
+        // set AdditionalInfoRequestAdditionalInfo to FpsHkPaymentInfo
+        exampleAdditionalInfoRequestAdditionalInfo.setActualInstance(exampleFpsHkPaymentInfo);
+        // to get back the FpsHkPaymentInfo set earlier
+        FpsHkPaymentInfo testFpsHkPaymentInfo = (FpsHkPaymentInfo) exampleAdditionalInfoRequestAdditionalInfo.getActualInstance();
+
+        // create a new FpsUkPaymentInfo
+        FpsUkPaymentInfo exampleFpsUkPaymentInfo = new FpsUkPaymentInfo();
+        // set AdditionalInfoRequestAdditionalInfo to FpsUkPaymentInfo
+        exampleAdditionalInfoRequestAdditionalInfo.setActualInstance(exampleFpsUkPaymentInfo);
+        // to get back the FpsUkPaymentInfo set earlier
+        FpsUkPaymentInfo testFpsUkPaymentInfo = (FpsUkPaymentInfo) exampleAdditionalInfoRequestAdditionalInfo.getActualInstance();
+
         // create a new IbanPaymentInfo
         IbanPaymentInfo exampleIbanPaymentInfo = new IbanPaymentInfo();
         // set AdditionalInfoRequestAdditionalInfo to IbanPaymentInfo
         exampleAdditionalInfoRequestAdditionalInfo.setActualInstance(exampleIbanPaymentInfo);
         // to get back the IbanPaymentInfo set earlier
         IbanPaymentInfo testIbanPaymentInfo = (IbanPaymentInfo) exampleAdditionalInfoRequestAdditionalInfo.getActualInstance();
+
+        // create a new InstaPayPaymentInfo
+        InstaPayPaymentInfo exampleInstaPayPaymentInfo = new InstaPayPaymentInfo();
+        // set AdditionalInfoRequestAdditionalInfo to InstaPayPaymentInfo
+        exampleAdditionalInfoRequestAdditionalInfo.setActualInstance(exampleInstaPayPaymentInfo);
+        // to get back the InstaPayPaymentInfo set earlier
+        InstaPayPaymentInfo testInstaPayPaymentInfo = (InstaPayPaymentInfo) exampleAdditionalInfoRequestAdditionalInfo.getActualInstance();
 
         // create a new InteracPaymentInfo
         InteracPaymentInfo exampleInteracPaymentInfo = new InteracPaymentInfo();
@@ -90,12 +130,26 @@ public class Example {
         // to get back the MomoPaymentInfo set earlier
         MomoPaymentInfo testMomoPaymentInfo = (MomoPaymentInfo) exampleAdditionalInfoRequestAdditionalInfo.getActualInstance();
 
+        // create a new NequiPaymentInfo
+        NequiPaymentInfo exampleNequiPaymentInfo = new NequiPaymentInfo();
+        // set AdditionalInfoRequestAdditionalInfo to NequiPaymentInfo
+        exampleAdditionalInfoRequestAdditionalInfo.setActualInstance(exampleNequiPaymentInfo);
+        // to get back the NequiPaymentInfo set earlier
+        NequiPaymentInfo testNequiPaymentInfo = (NequiPaymentInfo) exampleAdditionalInfoRequestAdditionalInfo.getActualInstance();
+
         // create a new PayidPaymentInfo
         PayidPaymentInfo examplePayidPaymentInfo = new PayidPaymentInfo();
         // set AdditionalInfoRequestAdditionalInfo to PayidPaymentInfo
         exampleAdditionalInfoRequestAdditionalInfo.setActualInstance(examplePayidPaymentInfo);
         // to get back the PayidPaymentInfo set earlier
         PayidPaymentInfo testPayidPaymentInfo = (PayidPaymentInfo) exampleAdditionalInfoRequestAdditionalInfo.getActualInstance();
+
+        // create a new PesonetPaymentInfo
+        PesonetPaymentInfo examplePesonetPaymentInfo = new PesonetPaymentInfo();
+        // set AdditionalInfoRequestAdditionalInfo to PesonetPaymentInfo
+        exampleAdditionalInfoRequestAdditionalInfo.setActualInstance(examplePesonetPaymentInfo);
+        // to get back the PesonetPaymentInfo set earlier
+        PesonetPaymentInfo testPesonetPaymentInfo = (PesonetPaymentInfo) exampleAdditionalInfoRequestAdditionalInfo.getActualInstance();
 
         // create a new PixPaymentInfo
         PixPaymentInfo examplePixPaymentInfo = new PixPaymentInfo();
