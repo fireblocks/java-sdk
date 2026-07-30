@@ -43190,6 +43190,253 @@ components:
       - rail
       - sortCode
       type: object
+    CipsPaymentInfo:
+      description: CIPS payment information for Cross-Border Interbank Payment System
+        transfers (CNY)
+      properties:
+        rail:
+          description: The payment rail type for CIPS transfers
+          enum:
+          - CIPS
+          example: CIPS
+          type: string
+        addressingSystem:
+          description: The addressing system used for CIPS transfers
+          enum:
+          - CIPS
+          example: CIPS
+          type: string
+        accountHolderGivenName:
+          description: The given name (first name) of the account holder
+          example: Wei
+          type: string
+        accountHolderSurname:
+          description: The surname (last name) of the account holder
+          example: Zhang
+          type: string
+        bankName:
+          description: Name of the recipient's bank
+          example: Bank of China
+          type: string
+        bankCountry:
+          description: ISO 3166-1 alpha-2 country code of the bank
+          example: CN
+          type: string
+        swiftCode:
+          description: SWIFT/BIC code of the recipient bank
+          example: BKCHCNBJ
+          type: string
+        accountNumber:
+          description: Recipient bank account number
+          example: "6217000010000000000"
+          type: string
+        referenceId:
+          description: Optional payment reference
+          example: INV-2024-0001
+          type: string
+      required:
+      - accountHolderGivenName
+      - accountNumber
+      - addressingSystem
+      - bankCountry
+      - bankName
+      - rail
+      - swiftCode
+      type: object
+    NequiPaymentInfo:
+      description: NEQUI payment information for Colombian mobile payment transfers
+        (COP)
+      properties:
+        rail:
+          description: The payment rail type for NEQUI transfers
+          enum:
+          - NEQUI
+          example: NEQUI
+          type: string
+        addressingSystem:
+          description: The addressing system used for NEQUI transfers
+          enum:
+          - NEQUI
+          example: NEQUI
+          type: string
+        phone:
+          description: Recipient phone number in E.164 format
+          example: "+573001234567"
+          type: string
+      required:
+      - addressingSystem
+      - phone
+      - rail
+      type: object
+    FpsUkPaymentInfo:
+      description: FPS UK payment information for UK Faster Payments transfers (GBP)
+      properties:
+        rail:
+          description: The payment rail type for UK Faster Payments transfers
+          enum:
+          - FPS_UK
+          example: FPS_UK
+          type: string
+        addressingSystem:
+          description: The addressing system used for UK Faster Payments transfers
+          enum:
+          - FPS_UK
+          example: FPS_UK
+          type: string
+        accountHolderGivenName:
+          description: The given name (first name) of the account holder
+          example: James
+          type: string
+        accountHolderSurname:
+          description: The surname (last name) of the account holder
+          example: Wilson
+          type: string
+        accountNumber:
+          description: UK bank account number
+          example: "12345678"
+          type: string
+        sortCode:
+          description: UK sort code (format XX-XX-XX)
+          example: 12-34-56
+          type: string
+        bankAccountCountry:
+          description: ISO 3166-1 alpha-2 country code of the bank account
+          example: GB
+          type: string
+      required:
+      - accountHolderGivenName
+      - accountHolderSurname
+      - accountNumber
+      - addressingSystem
+      - rail
+      - sortCode
+      type: object
+    FpsHkPaymentInfo:
+      description: FPS HK payment information for Hong Kong Faster Payment System
+        transfers (HKD)
+      properties:
+        rail:
+          description: The payment rail type for Hong Kong FPS transfers
+          enum:
+          - FPS_HK
+          example: FPS_HK
+          type: string
+        addressingSystem:
+          description: The addressing system used for Hong Kong FPS transfers
+          enum:
+          - FPS_HK
+          example: FPS_HK
+          type: string
+        recipientLegalName:
+          description: Full legal name of the recipient
+          example: Chan Tai Man
+          type: string
+        accountNumber:
+          description: Recipient bank account number
+          example: "1234567890"
+          type: string
+        bankCode:
+          description: Hong Kong bank code
+          example: "003"
+          type: string
+        phone:
+          description: Recipient phone number in E.164 format
+          example: "+85291234567"
+          type: string
+        email:
+          description: Recipient email address
+          example: chan.taiman@email.com
+          format: email
+          type: string
+        fpsId:
+          description: Hong Kong FPS identifier
+          example: "163912345"
+          type: string
+      required:
+      - addressingSystem
+      - rail
+      type: object
+    InstaPayPaymentInfo:
+      description: InstaPay payment information for Philippine instant payment transfers
+        (PHP)
+      properties:
+        rail:
+          description: The payment rail type for InstaPay transfers
+          enum:
+          - INSTA_PAY
+          example: INSTA_PAY
+          type: string
+        addressingSystem:
+          description: The addressing system used for InstaPay transfers
+          enum:
+          - INSTA_PAY
+          example: INSTA_PAY
+          type: string
+        accountHolderGivenName:
+          description: The given name (first name) of the account holder
+          example: Juan
+          type: string
+        accountHolderSurname:
+          description: The surname (last name) of the account holder
+          example: Dela Cruz
+          type: string
+        accountNumber:
+          description: Recipient bank account or wallet number
+          example: "001234567890"
+          type: string
+        bankName:
+          description: "Name of the recipient's bank or wallet (e.g. BDO, BPI, GCash,\
+            \ Maya)"
+          example: BDO Unibank
+          type: string
+      required:
+      - accountHolderGivenName
+      - accountHolderSurname
+      - accountNumber
+      - addressingSystem
+      - bankName
+      - rail
+      type: object
+    PesonetPaymentInfo:
+      description: PesoNet payment information for Philippine batch payment transfers
+        (PHP)
+      properties:
+        rail:
+          description: The payment rail type for PesoNet transfers
+          enum:
+          - PESONET
+          example: PESONET
+          type: string
+        addressingSystem:
+          description: The addressing system used for PesoNet transfers
+          enum:
+          - PESONET
+          example: PESONET
+          type: string
+        accountHolderGivenName:
+          description: The given name (first name) of the account holder
+          example: Maria
+          type: string
+        accountHolderSurname:
+          description: The surname (last name) of the account holder
+          example: Santos
+          type: string
+        accountNumber:
+          description: Recipient bank account number
+          example: "001234567890"
+          type: string
+        bankName:
+          description: Name of the recipient's bank
+          example: BPI
+          type: string
+      required:
+      - accountHolderGivenName
+      - accountHolderSurname
+      - accountNumber
+      - addressingSystem
+      - bankName
+      - rail
+      type: object
     AdditionalInfoRequest:
       description: External wallet request with additional payment information for
         various payment rails
@@ -87562,6 +87809,12 @@ components:
       - $ref: "#/components/schemas/InteracPaymentInfo"
       - $ref: "#/components/schemas/PayidPaymentInfo"
       - $ref: "#/components/schemas/ChapsPaymentInfo"
+      - $ref: "#/components/schemas/CipsPaymentInfo"
+      - $ref: "#/components/schemas/NequiPaymentInfo"
+      - $ref: "#/components/schemas/FpsUkPaymentInfo"
+      - $ref: "#/components/schemas/FpsHkPaymentInfo"
+      - $ref: "#/components/schemas/InstaPayPaymentInfo"
+      - $ref: "#/components/schemas/PesonetPaymentInfo"
       type: object
     AssetMedia_attributes:
       description: Media attributes

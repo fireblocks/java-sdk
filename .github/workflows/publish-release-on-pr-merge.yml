@@ -1,4 +1,4 @@
-name: Publish Release on PR Merge
+name: Publish GitHub Release on PR Merge 
 
 on:
   pull_request:
@@ -19,7 +19,11 @@ jobs:
       - name: Check for existing release
         id: existing
         env:
+          # The gh commands below read both of these from the environment: GH_TOKEN for auth,
+          # GH_REPO for which repo to act on. GH_REPO is required because this job has no
+          # checkout, so gh has no git remote to infer it from, and gh ignores GITHUB_REPOSITORY.
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           marker="<!-- fireblocks-sdk-generator:source-pr=${PR_NUMBER} -->"
@@ -45,6 +49,7 @@ jobs:
         if: steps.existing.outputs.skip == 'false'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
           PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
           LAST_TAG=$(gh release list --limit 1 --json tagName -q '.[0].tagName')
@@ -79,6 +84,7 @@ jobs:
         if: steps.existing.outputs.skip == 'false'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_BODY: ${{ github.event.pull_request.body }}
           MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
