@@ -39,7 +39,7 @@ jobs:
         run: |
           set -o pipefail
           marker="<!-- fireblocks-sdk-generator:source-pr=${PR_NUMBER} -->"
-          existing_url=$(gh release list --limit 20 --json tagName,url \
+          existing_url=$(gh release list --limit 20 --json tagName \
             --jq '.[].tagName' | while read -r tag; do
               body=$(gh release view "$tag" --json body --jq '.body')
               if [[ "$body" == *"$marker"* ]]; then
