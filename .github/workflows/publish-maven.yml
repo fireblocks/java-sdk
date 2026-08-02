@@ -3,12 +3,6 @@ name: Publish Maven
 on:
   release:
     types: [published]
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version to use for this test run (no commit/push/tag/deploy will actually happen)'
-        required: false
-        default: '0.0.0-test'
 
 jobs:
   bump-version:
@@ -36,11 +30,9 @@ jobs:
           npm i -g auto-changelog
       - name: Bump version
         env:
-          INITIAL_TAG: ${{ github.event.release.tag_name || inputs.version }}
-          # TEMPORARY DRY-RUN OVERRIDE - forces test mode even for real releases.
-          # Original: ${{ github.event_name == 'workflow_dispatch' }}
-          # Revert this commit before running a real release.
-          IS_TEST_RUN: 'true'
+          # Passed via env, never interpolated into the script: a git tag name may legally contain
+          # ; $ ` & | ( ), so inlining it in the script would let a crafted release tag run commands.
+          INITIAL_TAG: ${{ github.event.release.tag_name }}
         run: |
           tag="${INITIAL_TAG//[v]/}"
           echo "$tag"
@@ -52,19 +44,13 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git config --global user.name "Github Actions"
           echo "finished configuration"
-          bump-my-version bump --config-file .bump_version.toml --current-version 0.0.0 --new-version "$tag"
+          bump-my-version bump --config-file .bump_version.toml --current-version 0.0.0 --new-version $tag
           echo "bumpversion finished"
           auto-changelog
           git add .
           git commit -m "release $tag"
-          if [ "$IS_TEST_RUN" = "true" ]; then
-            echo "Test run: skipping git push"
-          else
-            git push
-          fi
+          git push
       - name: Move tag
-        # TEMPORARY DRY-RUN OVERRIDE - original: github.event_name == 'release'
-        if: false
         env:
           TAG_NAME: ${{ github.event.release.tag_name }}
         run: |
@@ -96,16 +82,10 @@ jobs:
         run: |
           echo -n "${{ secrets.GPG_SIGNING_KEY }}" | base64 --decode | gpg --import --batch
       - name: Publish package
+        # The passphrase goes through env rather than the command line: inlining a secret there
+        # exposes it in the process list and breaks on quote characters.
+        run: mvn --batch-mode deploy -Dgpg.passphrase="$GPG_PASSPHRASE"
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_OSSRH_TOKEN }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSWORD }}
-          # TEMPORARY DRY-RUN OVERRIDE - original: ${{ github.event_name == 'workflow_dispatch' }}
-          IS_TEST_RUN: 'true'
-        run: |
-          if [ "$IS_TEST_RUN" = "true" ]; then
-            # 'verify' runs through compile/test/package/sign without the 'deploy' phase, so nothing is uploaded
-            mvn --batch-mode verify -Dgpg.passphrase="$GPG_PASSPHRASE"
-          else
-            mvn --batch-mode deploy -Dgpg.passphrase="$GPG_PASSPHRASE"
-          fi
