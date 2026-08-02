@@ -6,16 +6,27 @@ on:
     branches: [master]
 
 permissions:
-  contents: write
-  pull-requests: read
+  contents: read
 
 jobs:
   publish-release:
     runs-on: ubuntu-latest
     if: >-
       github.event.pull_request.merged == true &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.user.login == 'sdk-generation-automation[bot]' &&
       startsWith(github.event.pull_request.head.ref, 'fireblocks-api-spec/generated/')
     steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.SDK_GENERATION_APP_ID }}
+          private-key: ${{ secrets.SDK_GENERATION_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
+          permission-contents: write
+
       - name: Check for existing release
         id: existing
         env:
@@ -26,6 +37,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
+          set -o pipefail
           marker="<!-- fireblocks-sdk-generator:source-pr=${PR_NUMBER} -->"
           existing_url=$(gh release list --limit 20 --json tagName,url \
             --jq '.[].tagName' | while read -r tag; do
@@ -83,7 +95,7 @@ jobs:
       - name: Create published release
         if: steps.existing.outputs.skip == 'false'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
           GH_REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_BODY: ${{ github.event.pull_request.body }}
