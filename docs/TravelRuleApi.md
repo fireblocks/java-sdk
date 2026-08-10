@@ -189,7 +189,7 @@ No authorization required
 
 Get VASP details
 
-Get VASP Details.  Returns information about a VASP that has the specified DID.
+Get VASP Details.  Returns information about a VASP that has the specified DID.  The response may contain fields that are not documented in the schema below. Clients must ignore unrecognised fields rather than failing to deserialize.
 
 ### Example
 
@@ -214,8 +214,8 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        String did = "did_example"; // String | 
-        List<String> fields = Arrays.asList(); // List<String> | A CSV of fields to return. Choose from the following options:
+        String did = "did:ethr:0x17fe2dd11a2daa7f6c1fdf22532a4763f963aea6"; // String | The Decentralized Identifier (DID) of the VASP.
+        List<String> fields = Arrays.asList(); // List<String> | The VASP fields to return.  Optional. If omitted, or supplied with an empty value, the complete VASP record is returned, which is the same as passing `all`.  Most field names return exactly the requested field. A few behave differently: `documents` and `ddq` return a small default set of identifying fields instead of the requested one, and `travelRule_EMAIL` returns an empty object. An unrecognised field name causes an error.
         try {
             CompletableFuture<ApiResponse<TravelRuleVASP>> response = fireblocks.travelRule().getVASPByDID(did, fields);
             System.out.println("Status code: " + response.get().getStatusCode());
@@ -244,8 +244,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **did** | **String**|  | |
-| **fields** | [**List&lt;String&gt;**](String.md)| A CSV of fields to return. Choose from the following options: | [optional] [enum: did, name, verificationStatus, addressLine1, addressLine2, city, country, emailDomains, website, logo, legalStructure, legalName, yearFounded, incorporationCountry, isRegulated, otherNames, identificationType, identificationCountry, businessNumber, regulatoryAuthorities, jurisdictions, street, number, unit, postCode, state, certificates, description, travelRule_OPENVASP, travelRule_SYGNA, travelRule_TRISA, travelRule_TRLIGHT, travelRule_EMAIL, travelRule_TRP, travelRule_SHYFT, travelRule_USTRAVELRULEWG, createdAt, createdBy, updatedAt, updatedBy, lastSentDate, lastReceivedDate, documents, hasAdmin, isNotifiable, issuers] |
+| **did** | **String**| The Decentralized Identifier (DID) of the VASP. | |
+| **fields** | [**List&lt;String&gt;**](String.md)| The VASP fields to return.  Optional. If omitted, or supplied with an empty value, the complete VASP record is returned, which is the same as passing &#x60;all&#x60;.  Most field names return exactly the requested field. A few behave differently: &#x60;documents&#x60; and &#x60;ddq&#x60; return a small default set of identifying fields instead of the requested one, and &#x60;travelRule_EMAIL&#x60; returns an empty object. An unrecognised field name causes an error. | [optional] [enum: all, did, name, verificationStatus, addressLine1, addressLine2, city, country, emailDomains, website, logo, legalStructure, legalName, yearFounded, incorporationCountry, isRegulated, otherNames, identificationType, identificationCountry, businessNumber, regulatoryAuthorities, jurisdictions, division, street, number, unit, postCode, state, otherLegalName, gleifUpdatedAt, leiNumber, legalForm, entityCategory, entityStatus, externalEntityConfig, hqStreet, hqNumber, hqPostcode, hqRegion, hqCity, hqCountry, certificates, description, travelRule_OPENVASP, travelRule_SYGNA, travelRule_TRISA, travelRule_TRLIGHT, travelRule_EMAIL, travelRule_TRP, travelRule_SHYFT, travelRule_USTRAVELRULEWG, createdAt, createdBy, updatedAt, updatedBy, lastSentDate, lastReceivedDate, documents, hasAdmin, isNotifiable, issuers, regulatoryStatus, supervisoryAuthority, registrationLicenseId, statusStartDate, statusExpirationDate, lastChecked, additionalInformation, subsidiaryOf, pii_didkey, compliancePhase, compliancePhaseData, vaspnetId, vaspnetUpdatedAt, vaspnetImmutableFields, node_didkey, ddq, targetProtocol, parentGateway, isActiveSender, isActiveReceiver, subsidiaries] |
 
 ### Return type
 
@@ -264,7 +264,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Transaction validated successfully |  -  |
+| **200** | VASP details |  -  |
 | **400** | Invalid request body |  -  |
 | **500** | Internal server error |  -  |
 
@@ -275,7 +275,7 @@ No authorization required
 
 Get All VASPs
 
-Get All VASPs.  Returns a list of VASPs. VASPs can be searched and sorted.
+Get All VASPs.  Returns a list of VASPs. VASPs can be searched and sorted.  Each VASP in the response may contain fields that are not documented in the schema below. Clients must ignore unrecognised fields rather than failing to deserialize.
 
 ### Example
 
@@ -302,7 +302,7 @@ public class Example {
 
         String order = "ASC"; // String | Field to order by
         BigDecimal pageSize = new BigDecimal("500"); // BigDecimal | Records per page
-        List<String> fields = Arrays.asList(); // List<String> | CSV of fields to return (all, \"blank\" or see list of all field names below)
+        List<String> fields = Arrays.asList(); // List<String> | The VASP fields to return.  Optional. If omitted, each VASP is returned with a default subset of six fields: `did`, `name`, `website`, `logo`, `incorporationCountry` and `jurisdictions`. Pass `all` to return the complete record for each VASP.  Most field names return exactly the requested field. A few behave differently: `documents` and `ddq` return a small default set of identifying fields instead of the requested one, and `travelRule_EMAIL` returns an empty object. An unrecognised field name causes an error.
         String search = "Fireblocks"; // String | Search query
         String reviewValue = "TRUSTED"; // String | Filter by the VASP's review status. Possible values include: \"TRUSTED\", \"BLOCKED\", \"MANUAL\", or \"NULL\". When provided, only VASPs that match the specified reviewValue will be returned (i.e., VASPs that have already been reviewed to this status).
         String pageCursor = "100"; // String | Cursor for pagination. When provided, the response will include the next page of results.
@@ -336,7 +336,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **order** | **String**| Field to order by | [optional] [enum: ASC, DESC] |
 | **pageSize** | **BigDecimal**| Records per page | [optional] [default to 500] |
-| **fields** | [**List&lt;String&gt;**](String.md)| CSV of fields to return (all, \&quot;blank\&quot; or see list of all field names below) | [optional] [enum: did, name, verificationStatus, addressLine1, addressLine2, city, country, emailDomains, website, logo, legalStructure, legalName, yearFounded, incorporationCountry, isRegulated, otherNames, identificationType, identificationCountry, businessNumber, regulatoryAuthorities, jurisdictions, street, number, unit, postCode, state, certificates, description, travelRule_OPENVASP, travelRule_SYGNA, travelRule_TRISA, travelRule_TRLIGHT, travelRule_EMAIL, travelRule_TRP, travelRule_SHYFT, travelRule_USTRAVELRULEWG, createdAt, createdBy, updatedAt, updatedBy, lastSentDate, lastReceivedDate, documents, hasAdmin, isNotifiable, issuers] |
+| **fields** | [**List&lt;String&gt;**](String.md)| The VASP fields to return.  Optional. If omitted, each VASP is returned with a default subset of six fields: &#x60;did&#x60;, &#x60;name&#x60;, &#x60;website&#x60;, &#x60;logo&#x60;, &#x60;incorporationCountry&#x60; and &#x60;jurisdictions&#x60;. Pass &#x60;all&#x60; to return the complete record for each VASP.  Most field names return exactly the requested field. A few behave differently: &#x60;documents&#x60; and &#x60;ddq&#x60; return a small default set of identifying fields instead of the requested one, and &#x60;travelRule_EMAIL&#x60; returns an empty object. An unrecognised field name causes an error. | [optional] [enum: all, did, name, verificationStatus, addressLine1, addressLine2, city, country, emailDomains, website, logo, legalStructure, legalName, yearFounded, incorporationCountry, isRegulated, otherNames, identificationType, identificationCountry, businessNumber, regulatoryAuthorities, jurisdictions, division, street, number, unit, postCode, state, otherLegalName, gleifUpdatedAt, leiNumber, legalForm, entityCategory, entityStatus, externalEntityConfig, hqStreet, hqNumber, hqPostcode, hqRegion, hqCity, hqCountry, certificates, description, travelRule_OPENVASP, travelRule_SYGNA, travelRule_TRISA, travelRule_TRLIGHT, travelRule_EMAIL, travelRule_TRP, travelRule_SHYFT, travelRule_USTRAVELRULEWG, createdAt, createdBy, updatedAt, updatedBy, lastSentDate, lastReceivedDate, documents, hasAdmin, isNotifiable, issuers, regulatoryStatus, supervisoryAuthority, registrationLicenseId, statusStartDate, statusExpirationDate, lastChecked, additionalInformation, subsidiaryOf, pii_didkey, compliancePhase, compliancePhaseData, vaspnetId, vaspnetUpdatedAt, vaspnetImmutableFields, node_didkey, ddq, targetProtocol, parentGateway, isActiveSender, isActiveReceiver, subsidiaries] |
 | **search** | **String**| Search query | [optional] |
 | **reviewValue** | **String**| Filter by the VASP&#39;s review status. Possible values include: \&quot;TRUSTED\&quot;, \&quot;BLOCKED\&quot;, \&quot;MANUAL\&quot;, or \&quot;NULL\&quot;. When provided, only VASPs that match the specified reviewValue will be returned (i.e., VASPs that have already been reviewed to this status). | [optional] [enum: TRUSTED, BLOCKED, MANUAL, ] |
 | **pageCursor** | **String**| Cursor for pagination. When provided, the response will include the next page of results. | [optional] |

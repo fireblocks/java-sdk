@@ -28914,6 +28914,8 @@ paths:
         Get All VASPs.
 
         Returns a list of VASPs. VASPs can be searched and sorted.
+
+        Each VASP in the response may contain fields that are not documented in the schema below. Clients must ignore unrecognised fields rather than failing to deserialize.
       operationId: getVASPs
       parameters:
       - description: Field to order by
@@ -28940,8 +28942,12 @@ paths:
           minimum: 100
           type: number
         style: form
-      - description: "CSV of fields to return (all, \"blank\" or see list of all field\
-          \ names below)"
+      - description: |-
+          The VASP fields to return.
+
+          Optional. If omitted, each VASP is returned with a default subset of six fields: `did`, `name`, `website`, `logo`, `incorporationCountry` and `jurisdictions`. Pass `all` to return the complete record for each VASP.
+
+          Most field names return exactly the requested field. A few behave differently: `documents` and `ddq` return a small default set of identifying fields instead of the requested one, and `travelRule_EMAIL` returns an empty object. An unrecognised field name causes an error.
         explode: true
         in: query
         name: fields
@@ -29032,16 +29038,25 @@ paths:
         Get VASP Details.
 
         Returns information about a VASP that has the specified DID.
+
+        The response may contain fields that are not documented in the schema below. Clients must ignore unrecognised fields rather than failing to deserialize.
       operationId: getVASPByDID
       parameters:
-      - explode: false
+      - description: The Decentralized Identifier (DID) of the VASP.
+        example: did:ethr:0x17fe2dd11a2daa7f6c1fdf22532a4763f963aea6
+        explode: false
         in: path
         name: did
         required: true
         schema:
           type: string
         style: simple
-      - description: "A CSV of fields to return. Choose from the following options:"
+      - description: |-
+          The VASP fields to return.
+
+          Optional. If omitted, or supplied with an empty value, the complete VASP record is returned, which is the same as passing `all`.
+
+          Most field names return exactly the requested field. A few behave differently: `documents` and `ddq` return a small default set of identifying fields instead of the requested one, and `travelRule_EMAIL` returns an empty object. An unrecognised field name causes an error.
         explode: true
         in: query
         name: fields
@@ -29055,7 +29070,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TravelRuleVASP"
-          description: Transaction validated successfully
+          description: VASP details
         "400":
           description: Invalid request body
         "500":
@@ -58044,15 +58059,14 @@ components:
             type: string
           type: array
         standards:
+          description: "Token standards implemented by the contract (e.g. ERC-20,\
+            \ ERC-1400). Not returned for templates that do not follow ERC token standards,\
+            \ such as non-EVM templates (e.g. Stellar, Solana Token 2022)"
           items:
             type: string
           type: array
         auditor:
           $ref: "#/components/schemas/AuditorData"
-      required:
-      - auditor
-      - standards
-      - useCases
       type: object
     VendorDto:
       properties:
@@ -73161,12 +73175,21 @@ components:
       - originator
       type: object
     TravelRuleFieldsEnum:
+      description: |-
+        The VASP fields to return. Pass `all` for the complete record.
+
+        Behaviour differs between the two endpoints when this parameter is omitted: Get VASP details returns the complete record, while Get All VASPs returns a six-field subset per VASP. Passing `all` returns the complete record from both.
+
+        Combining `all` with specific field names is not defined; pass either `all` alone or a list of specific names.
+
+        This list is not exhaustive. Some field names the API accepts are intentionally undocumented, and an unrecognised name causes an error.
       example:
       - name
       - country
       - website
       items:
         enum:
+        - all
         - did
         - name
         - verificationStatus
@@ -73188,11 +73211,25 @@ components:
         - businessNumber
         - regulatoryAuthorities
         - jurisdictions
+        - division
         - street
         - number
         - unit
         - postCode
         - state
+        - otherLegalName
+        - gleifUpdatedAt
+        - leiNumber
+        - legalForm
+        - entityCategory
+        - entityStatus
+        - externalEntityConfig
+        - hqStreet
+        - hqNumber
+        - hqPostcode
+        - hqRegion
+        - hqCity
+        - hqCountry
         - certificates
         - description
         - travelRule_OPENVASP
@@ -73213,13 +73250,228 @@ components:
         - hasAdmin
         - isNotifiable
         - issuers
+        - regulatoryStatus
+        - supervisoryAuthority
+        - registrationLicenseId
+        - statusStartDate
+        - statusExpirationDate
+        - lastChecked
+        - additionalInformation
+        - subsidiaryOf
+        - pii_didkey
+        - compliancePhase
+        - compliancePhaseData
+        - vaspnetId
+        - vaspnetUpdatedAt
+        - vaspnetImmutableFields
+        - node_didkey
+        - ddq
+        - targetProtocol
+        - parentGateway
+        - isActiveSender
+        - isActiveReceiver
+        - subsidiaries
         type: string
       type: array
+    TravelRuleVASPExternalEntity:
+      description: "The VASP's entity data as held by an external registry. These\
+        \ fields mirror a subset of the top-level VASP fields, but carry the registry's\
+        \ values rather than the VASP's own, so the two may differ."
+      properties:
+        legalName:
+          description: The legal name of the entity as recorded by the external registry.
+          example: Fireblocks Inc.
+          nullable: true
+          type: string
+        otherLegalName:
+          description: "Alternative legal names of the entity, as a comma-separated\
+            \ list."
+          example: "SIX Digital Exchange SA, SIX Digital Exchange Ltd"
+          nullable: true
+          type: string
+        legalForm:
+          description: The Entity Legal Form (ELF) code of the entity.
+          example: MVII
+          nullable: true
+          type: string
+        legalStructure:
+          description: "The legal structure of the entity. The external registry may\
+            \ return the Entity Legal Form code in this field, so its value can duplicate\
+            \ `legalForm`."
+          example: MVII
+          nullable: true
+          type: string
+        entityCategory:
+          description: The category assigned to the entity by the external registry.
+          example: GENERAL
+          nullable: true
+          type: string
+        entityStatus:
+          description: The status of the entity at the external registry.
+          example: ACTIVE
+          nullable: true
+          type: string
+        businessNumber:
+          description: The business registration number of the entity.
+          example: CHE-449.145.067
+          nullable: true
+          type: string
+        yearFounded:
+          description: "The year the entity was founded. Returned as a string, not\
+            \ an integer."
+          example: "2018"
+          nullable: true
+          type: string
+        jurisdictions:
+          description: The jurisdictions the entity is registered in.
+          example: CH
+          nullable: true
+          type: string
+        addressLine1:
+          description: The first line of the entity's registered address.
+          example: Hardturmstrasse 201
+          nullable: true
+          type: string
+        number:
+          description: The building number of the entity's registered address. May
+            be returned as an empty string as well as `null` when not supplied.
+          example: "201"
+          nullable: true
+          type: string
+        postCode:
+          description: The postal code of the entity's registered address.
+          example: "8005"
+          nullable: true
+          type: string
+        city:
+          description: The city of the entity's registered address.
+          example: Zurich
+          nullable: true
+          type: string
+        state:
+          description: "The state or region of the entity's registered address, as\
+            \ an ISO-3166-2 subdivision code."
+          example: CH-ZH
+          nullable: true
+          type: string
+        country:
+          description: The country of the entity's registered address (ISO-3166 Alpha-2
+            code).
+          example: CH
+          nullable: true
+          type: string
+        hqStreet:
+          description: The street of the entity's headquarters address.
+          example: Hardturmstrasse 201
+          nullable: true
+          type: string
+        hqNumber:
+          description: The building number of the entity's headquarters address. May
+            be returned as an empty string as well as `null` when not supplied.
+          example: "201"
+          nullable: true
+          type: string
+        hqPostcode:
+          description: The postal code of the entity's headquarters address.
+          example: "8005"
+          nullable: true
+          type: string
+        hqCity:
+          description: The city of the entity's headquarters address.
+          example: Zurich
+          nullable: true
+          type: string
+        hqRegion:
+          description: "The region of the entity's headquarters address, as an ISO-3166-2\
+            \ subdivision code."
+          example: CH-ZH
+          nullable: true
+          type: string
+        hqCountry:
+          description: The country of the entity's headquarters address (ISO-3166
+            Alpha-2 code).
+          example: CH
+          nullable: true
+          type: string
+      type: object
+    TravelRuleVASPExternalEntityRegistration:
+      description: The registration state of the VASP as reported by an external registry.
+      properties:
+        status:
+          description: "The registration status at the external registry, for example\
+            \ `ISSUED`, `LAPSED` or `RETIRED`. The value set is defined by the registry,\
+            \ not by Fireblocks."
+          example: ISSUED
+          nullable: true
+          type: string
+        nextRenewalDate:
+          description: The date the registration is next due for renewal at the external
+            registry.
+          example: 2026-05-19T12:41:57Z
+          nullable: true
+          type: string
+        corroborationLevel:
+          description: "The level to which the registry has corroborated the entity\
+            \ data, for example `FULLY_CORROBORATED`. The value set is defined by\
+            \ the registry, not by Fireblocks."
+          example: FULLY_CORROBORATED
+          nullable: true
+          type: string
+      type: object
+    TravelRuleVASPExternalEntityConfig:
+      description: "An entity record for the VASP as resolved from an external registry,\
+        \ together with the registration state reported by that registry."
+      properties:
+        provider:
+          description: "The external registry the record was resolved from. Returned\
+            \ in lower case, for example `gleif`."
+          example: gleif
+          type: string
+        externalId:
+          description: The VASP's identifier within the external registry. For the
+            `gleif` provider this is the Legal Entity Identifier (LEI).
+          example: 9845001C5PA89625E069
+          nullable: true
+          type: string
+        updatedAt:
+          description: Timestamp of the last change to the record at the external
+            registry.
+          example: 2024-07-20T00:00:00Z
+          nullable: true
+          type: string
+        resolvedAt:
+          description: Timestamp when the record was last resolved from the external
+            registry.
+          example: 2024-07-20T13:27:30.929Z
+          nullable: true
+          type: string
+        entity:
+          $ref: "#/components/schemas/TravelRuleVASPExternalEntity"
+        registration:
+          $ref: "#/components/schemas/TravelRuleVASPExternalEntityRegistration"
+      type: object
     TravelRuleIssuer:
+      description: An attestation of a single VASP attribute by an issuing party.
       example:
-        issuerDid: issuerDid
+        issuedDate: 2024-07-20T13:27:30.958Z
+        issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+        issuerName: GLEIF
       properties:
         issuerDid:
+          description: The Decentralized Identifier (DID) of the party that issued
+            the attestation.
+          example: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+          type: string
+        issuedDate:
+          description: "Timestamp when the attestation was issued. Present on every\
+            \ attestation observed to date, but not guaranteed, so treat it as optional."
+          example: 2024-07-20T13:27:30.958Z
+          type: string
+        issuerName:
+          description: "The human-readable name of the issuing party. Returned only\
+            \ for issuers that publish a name, such as GLEIF; absent for others, including\
+            \ in the same response."
+          example: GLEIF
           type: string
       required:
       - issuerDid
@@ -73227,33 +73479,61 @@ components:
     TravelRuleIssuers:
       example:
         country:
-          issuerDid: issuerDid
+          issuedDate: 2024-07-20T13:27:30.958Z
+          issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+          issuerName: GLEIF
         website:
-          issuerDid: issuerDid
+          issuedDate: 2024-07-20T13:27:30.958Z
+          issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+          issuerName: GLEIF
         city:
-          issuerDid: issuerDid
+          issuedDate: 2024-07-20T13:27:30.958Z
+          issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+          issuerName: GLEIF
         isRegulated:
-          issuerDid: issuerDid
+          issuedDate: 2024-07-20T13:27:30.958Z
+          issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+          issuerName: GLEIF
         description:
-          issuerDid: issuerDid
+          issuedDate: 2024-07-20T13:27:30.958Z
+          issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+          issuerName: GLEIF
         businessNumber:
-          issuerDid: issuerDid
+          issuedDate: 2024-07-20T13:27:30.958Z
+          issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+          issuerName: GLEIF
         yearFounded:
-          issuerDid: issuerDid
+          issuedDate: 2024-07-20T13:27:30.958Z
+          issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+          issuerName: GLEIF
         legalName:
-          issuerDid: issuerDid
+          issuedDate: 2024-07-20T13:27:30.958Z
+          issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+          issuerName: GLEIF
         legalStructure:
-          issuerDid: issuerDid
+          issuedDate: 2024-07-20T13:27:30.958Z
+          issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+          issuerName: GLEIF
         regulatoryAuthorities:
-          issuerDid: issuerDid
+          issuedDate: 2024-07-20T13:27:30.958Z
+          issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+          issuerName: GLEIF
         name:
-          issuerDid: issuerDid
+          issuedDate: 2024-07-20T13:27:30.958Z
+          issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+          issuerName: GLEIF
         logo:
-          issuerDid: issuerDid
+          issuedDate: 2024-07-20T13:27:30.958Z
+          issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+          issuerName: GLEIF
         addressLine1:
-          issuerDid: issuerDid
+          issuedDate: 2024-07-20T13:27:30.958Z
+          issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+          issuerName: GLEIF
         incorporationCountry:
-          issuerDid: issuerDid
+          issuedDate: 2024-07-20T13:27:30.958Z
+          issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+          issuerName: GLEIF
       properties:
         yearFounded:
           $ref: "#/components/schemas/TravelRuleIssuer"
@@ -73299,82 +73579,169 @@ components:
       - website
       - yearFounded
       type: object
+    TravelRuleVASPCompliancePhaseData:
+      additionalProperties:
+        description: Whether the milestone identified by the key has been completed.
+        example: true
+        type: boolean
+      description: |-
+        The VASP's progress through the Travel Rule compliance onboarding milestones, as a map keyed by milestone code.
+
+        Each value indicates whether that milestone has been completed. The set of milestone codes is defined by the Travel Rule provider and may change over time, so clients must not assume any particular key is present. Examples of milestone codes include `TX_SENT`, `TX_NOTIFY_API`, `TF_VASP_VERIFIED`, `RULES_CUSTOM_INCOMING` and `INTEGRATIONS_WIDGET`.
+      nullable: true
+      type: object
     TravelRuleVASP:
+      description: |-
+        A VASP record from the Travel Rule trust framework directory.
+
+        The set of keys returned depends on the `fields` query parameter. When `fields` is omitted, or supplied with an empty value, this endpoint returns the complete record.
+
+        Additional fields may be present in the response beyond those documented here. Clients must ignore unrecognised fields rather than failing to deserialize.
       example:
         country: US
         travelRule_TRISA: pending
-        travelRule_TRP: active
-        isNotifiable: true
-        city: New York
         documents: "['license.pdf', 'compliance.pdf']"
-        isRegulated: "YES"
-        travelRule_EMAIL: inactive
-        description: A leading provider of crypto security solutions.
-        identificationType: Business License
-        identificationCountry: US
+        identificationType: OTHER
         travelRule_SYGNA: inactive
-        lastReceivedDate: 2024-03-20T11:45:30.212Z
         legalName: Fireblocks Inc.
+        division: Downtown
+        externalEntityConfig:
+        - provider: gleif
+          externalId: 9845001C5PA89625E069
+          updatedAt: 2024-07-20T00:00:00Z
+          resolvedAt: 2024-07-20T13:27:30.929Z
         number: "10"
         createdAt: 2023-09-19T12:23:59.711Z
-        legalStructure: CORPORATION
-        street: Wall Street
         travelRule_SHYFT: inactive
+        subsidiaryOf: did:ethr:0x44957e75d6ce4a5bf37aae117da86422c848f7c2
+        pii_didkey: 86fae05d276b4096a324a1450ed92a6b2c277412bb6a49bce1ed942a0c6726bf
         regulatoryAuthorities: "SEC, FINCEN"
+        entityCategory: GENERAL
+        vaspnetUpdatedAt: 2024-07-20T13:27:30.961Z
+        leiNumber: 9845001C5PA89625E069
+        isActiveSender: true
         addressLine1: 657 Campfire Street
         logo: https://fireblocks.com/logo.png
         addressLine2: Suite 10
+        hqRegion: CH-ZH
         state: NY
         jurisdictions: "US, EU"
         travelRule_TRLIGHT: active
         updatedAt: 2024-08-29T08:23:51.416Z
-        website: https://fireblocks.com
-        hasAdmin: true
-        updatedBy: system
+        additionalInformation: Licensed for custody and exchange services.
+        updatedBy: did:ethr:0x19b5ff8440019b635a86bbb632db854f2ea80423
         verificationStatus: VERIFIED
-        emailDomains: "fireblocks.com,example.com"
-        businessNumber: "123456789"
-        yearFounded: "2019"
-        issuers:
-          country:
-            issuerDid: issuerDid
-          website:
-            issuerDid: issuerDid
-          city:
-            issuerDid: issuerDid
-          isRegulated:
-            issuerDid: issuerDid
-          description:
-            issuerDid: issuerDid
-          businessNumber:
-            issuerDid: issuerDid
-          yearFounded:
-            issuerDid: issuerDid
-          legalName:
-            issuerDid: issuerDid
-          legalStructure:
-            issuerDid: issuerDid
-          regulatoryAuthorities:
-            issuerDid: issuerDid
-          name:
-            issuerDid: issuerDid
-          logo:
-            issuerDid: issuerDid
-          addressLine1:
-            issuerDid: issuerDid
-          incorporationCountry:
-            issuerDid: issuerDid
-        travelRule_OPENVASP: active
         travelRule_USTRAVELRULEWG: pending
         unit: Apt 2B
         otherNames: Fireblocks Test VASP
         certificates: ISO 27001
         lastSentDate: 2024-03-18T09:26:07.988Z
-        createdBy: admin
         name: Fireblocks TST
+        hqStreet: Hardturmstrasse 201
         postCode: "10005"
-        did: did:ethr:0x17fe2dd11a2daa7f6c1fdf22532a4763f963aea6
+        otherLegalName: "SIX Digital Exchange SA, SIX Digital Exchange Ltd"
+        hqPostcode: "8005"
+        lastChecked: 2024-07-20T13:27:30.961Z
         incorporationCountry: US
+        travelRule_TRP: active
+        isNotifiable: true
+        hqCity: Zurich
+        statusExpirationDate: 2026-01-01T00:00:00.000Z
+        city: New York
+        registrationLicenseId: LIC-123456
+        vaspnetImmutableFields:
+        - legalName
+        isRegulated: "YES"
+        travelRule_EMAIL: inactive
+        description: A leading provider of crypto security solutions.
+        hqCountry: CH
+        identificationCountry: US
+        lastReceivedDate: 2024-03-20T11:45:30.212Z
+        regulatoryStatus: Regulated
+        legalStructure: CORPORATION
+        street: Wall Street
+        compliancePhaseData:
+          key: true
+        website: https://fireblocks.com
+        hasAdmin: true
+        statusStartDate: 2023-01-01T00:00:00.000Z
+        node_didkey: did:key:z6Mks5CZRaiooKYhq5TwtXQC1gWhwiZnmiKfFrMnYY62MhYf
+        emailDomains: "[\"fireblocks.com\", \"example.com\"]"
+        businessNumber: "123456789"
+        hqNumber: "201"
+        compliancePhase: 3
+        yearFounded: "2019"
+        issuers:
+          country:
+            issuedDate: 2024-07-20T13:27:30.958Z
+            issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+            issuerName: GLEIF
+          website:
+            issuedDate: 2024-07-20T13:27:30.958Z
+            issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+            issuerName: GLEIF
+          city:
+            issuedDate: 2024-07-20T13:27:30.958Z
+            issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+            issuerName: GLEIF
+          isRegulated:
+            issuedDate: 2024-07-20T13:27:30.958Z
+            issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+            issuerName: GLEIF
+          description:
+            issuedDate: 2024-07-20T13:27:30.958Z
+            issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+            issuerName: GLEIF
+          businessNumber:
+            issuedDate: 2024-07-20T13:27:30.958Z
+            issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+            issuerName: GLEIF
+          yearFounded:
+            issuedDate: 2024-07-20T13:27:30.958Z
+            issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+            issuerName: GLEIF
+          legalName:
+            issuedDate: 2024-07-20T13:27:30.958Z
+            issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+            issuerName: GLEIF
+          legalStructure:
+            issuedDate: 2024-07-20T13:27:30.958Z
+            issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+            issuerName: GLEIF
+          regulatoryAuthorities:
+            issuedDate: 2024-07-20T13:27:30.958Z
+            issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+            issuerName: GLEIF
+          name:
+            issuedDate: 2024-07-20T13:27:30.958Z
+            issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+            issuerName: GLEIF
+          logo:
+            issuedDate: 2024-07-20T13:27:30.958Z
+            issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+            issuerName: GLEIF
+          addressLine1:
+            issuedDate: 2024-07-20T13:27:30.958Z
+            issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+            issuerName: GLEIF
+          incorporationCountry:
+            issuedDate: 2024-07-20T13:27:30.958Z
+            issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+            issuerName: GLEIF
+        targetProtocol: TRLIGHT
+        parentGateway: did:ethr:0x79189b9b98c95785702f8ecfe16bbe396479e1a0
+        legalForm: MVII
+        ddq: "{\"data\":{\"fullLegalName\":\"Fireblocks Inc.\"},\"updatedAt\":\"2024-11-27T08:59:31.178Z\"\
+          }"
+        travelRule_OPENVASP: active
+        isActiveReceiver: true
+        entityStatus: ACTIVE
+        createdBy: did:ethr:0x19b5ff8440019b635a86bbb632db854f2ea80423
+        vaspnetId: vaspnet-123456
+        subsidiaries: []
+        gleifUpdatedAt: 2024-07-20T00:00:00.000Z
+        supervisoryAuthority: FINMA
+        did: did:ethr:0x17fe2dd11a2daa7f6c1fdf22532a4763f963aea6
       properties:
         did:
           description: The Decentralized Identifier (DID) of the VASP.
@@ -73393,7 +73760,8 @@ components:
           example: 657 Campfire Street
           type: string
         addressLine2:
-          description: The second line of the VASP's address (if applicable).
+          description: The second line of the VASP's address (if applicable). May
+            be null.
           example: Suite 10
           type: string
         city:
@@ -73406,15 +73774,17 @@ components:
           example: US
           type: string
         emailDomains:
-          description: Comma-separated list of email domains associated with the VASP.
-          example: "fireblocks.com,example.com"
+          description: The email domains associated with the VASP. The field's type
+            is string; its content is a JSON-encoded array of domains. Clients must
+            parse this value to obtain the array.
+          example: "[\"fireblocks.com\", \"example.com\"]"
           type: string
         website:
           description: The official website of the VASP.
           example: https://fireblocks.com
           type: string
         logo:
-          description: URL to the logo of the VASP.
+          description: URL to the logo of the VASP. May be null.
           example: https://fireblocks.com/logo.png
           type: string
         legalStructure:
@@ -73426,7 +73796,8 @@ components:
           example: Fireblocks Inc.
           type: string
         yearFounded:
-          description: The year the VASP was founded.
+          description: "The year the VASP was founded. Returned as a string, not an\
+            \ integer."
           example: "2019"
           type: string
         incorporationCountry:
@@ -73439,16 +73810,16 @@ components:
           example: "YES"
           type: string
         otherNames:
-          description: Other names the VASP is known by.
+          description: Other names the VASP is known by. May be null.
           example: Fireblocks Test VASP
           type: string
         identificationType:
           description: The type of identification used by the VASP.
-          example: Business License
+          example: OTHER
           type: string
         identificationCountry:
           description: The country of identification for the VASP (ISO-3166 Alpha-2
-            code).
+            code). May be null.
           example: US
           type: string
         businessNumber:
@@ -73456,23 +73827,29 @@ components:
           example: "123456789"
           type: string
         regulatoryAuthorities:
-          description: The regulatory authorities overseeing the VASP.
+          description: The regulatory authorities overseeing the VASP. May be null.
           example: "SEC, FINCEN"
           type: string
         jurisdictions:
           description: The jurisdictions where the VASP operates.
           example: "US, EU"
           type: string
+        division:
+          description: "The division of the VASP's registered address, where applicable."
+          example: Downtown
+          nullable: true
+          type: string
         street:
-          description: The street name where the VASP is located.
+          description: The street name where the VASP is located. May be null.
           example: Wall Street
           type: string
         number:
-          description: The building number of the VASP's address.
+          description: The building number of the VASP's address. May be returned
+            as an empty string when not supplied.
           example: "10"
           type: string
         unit:
-          description: The unit or suite number of the VASP's address.
+          description: The unit or suite number of the VASP's address. May be null.
           example: Apt 2B
           type: string
         postCode:
@@ -73483,24 +73860,113 @@ components:
           description: The state or region where the VASP is located.
           example: NY
           type: string
+        otherLegalName:
+          description: "Alternative legal names of the VASP, as a comma-separated\
+            \ list. Resolved from an external registry, so it is only populated for\
+            \ VASPs with a resolved entity record."
+          example: "SIX Digital Exchange SA, SIX Digital Exchange Ltd"
+          nullable: true
+          type: string
+        gleifUpdatedAt:
+          description: Timestamp of the last synchronization with the GLEIF registry.
+            Only populated for VASPs with a GLEIF-resolved LEI.
+          example: 2024-07-20T00:00:00.000Z
+          nullable: true
+          type: string
+        leiNumber:
+          description: "The VASP's Legal Entity Identifier (LEI), a 20-character alphanumeric\
+            \ code. Only populated for VASPs with a GLEIF-resolved LEI."
+          example: 9845001C5PA89625E069
+          nullable: true
+          type: string
+        legalForm:
+          description: The GLEIF Entity Legal Form (ELF) code of the VASP. Only populated
+            for VASPs with a GLEIF-resolved LEI.
+          example: MVII
+          nullable: true
+          type: string
+        entityCategory:
+          description: The GLEIF entity category of the VASP. Only populated for VASPs
+            with a GLEIF-resolved LEI.
+          example: GENERAL
+          nullable: true
+          type: string
+        entityStatus:
+          description: The GLEIF entity status of the VASP. Only populated for VASPs
+            with a GLEIF-resolved LEI.
+          example: ACTIVE
+          nullable: true
+          type: string
+        externalEntityConfig:
+          description: "Entity records resolved from external registries, such as\
+            \ GLEIF. Only populated for VASPs that have been resolved against at least\
+            \ one external registry."
+          example:
+          - provider: gleif
+            externalId: 9845001C5PA89625E069
+            updatedAt: 2024-07-20T00:00:00Z
+            resolvedAt: 2024-07-20T13:27:30.929Z
+          items:
+            $ref: "#/components/schemas/TravelRuleVASPExternalEntityConfig"
+          nullable: true
+          type: array
+        hqStreet:
+          description: The street of the VASP's headquarters address. Only populated
+            for VASPs with a GLEIF-resolved LEI.
+          example: Hardturmstrasse 201
+          nullable: true
+          type: string
+        hqNumber:
+          description: The building number of the VASP's headquarters address. May
+            be returned as an empty string as well as `null` when not supplied.
+          example: "201"
+          nullable: true
+          type: string
+        hqPostcode:
+          description: The postal code of the VASP's headquarters address. Only populated
+            for VASPs with a GLEIF-resolved LEI.
+          example: "8005"
+          nullable: true
+          type: string
+        hqRegion:
+          description: "The region of the VASP's headquarters address, as an ISO-3166-2\
+            \ subdivision code. Only populated for VASPs with a GLEIF-resolved LEI."
+          example: CH-ZH
+          nullable: true
+          type: string
+        hqCity:
+          description: The city of the VASP's headquarters address. Only populated
+            for VASPs with a GLEIF-resolved LEI.
+          example: Zurich
+          nullable: true
+          type: string
+        hqCountry:
+          description: The country of the VASP's headquarters address (ISO-3166 Alpha-2
+            code). Only populated for VASPs with a GLEIF-resolved LEI.
+          example: CH
+          nullable: true
+          type: string
         certificates:
-          description: Certificates or licenses held by the VASP.
+          description: Certificates or licenses held by the VASP. May be null.
           example: ISO 27001
           type: string
         description:
-          description: A brief description of the VASP.
+          description: A brief description of the VASP. May be null.
           example: A leading provider of crypto security solutions.
           type: string
         travelRule_OPENVASP:
-          description: Travel rule compliance status for OpenVASP.
+          description: Travel rule compliance status for OpenVASP. Null when the VASP
+            does not support this protocol.
           example: active
           type: string
         travelRule_SYGNA:
-          description: Travel rule compliance status for Sygna.
+          description: Travel rule compliance status for Sygna. Null when the VASP
+            does not support this protocol.
           example: inactive
           type: string
         travelRule_TRISA:
-          description: Travel rule compliance status for TRISA.
+          description: Travel rule compliance status for TRISA. Null when the VASP
+            does not support this protocol.
           example: pending
           type: string
         travelRule_TRLIGHT:
@@ -73508,19 +73974,23 @@ components:
           example: active
           type: string
         travelRule_EMAIL:
-          description: Travel rule compliance status for EMAIL.
+          description: Travel rule compliance status for EMAIL. Null when the VASP
+            does not support this protocol.
           example: inactive
           type: string
         travelRule_TRP:
-          description: Travel rule compliance status for TRP.
+          description: Travel rule compliance status for TRP. Null when the VASP does
+            not support this protocol.
           example: active
           type: string
         travelRule_SHYFT:
-          description: Travel rule compliance status for Shyft.
+          description: Travel rule compliance status for Shyft. Null when the VASP
+            does not support this protocol.
           example: inactive
           type: string
         travelRule_USTRAVELRULEWG:
-          description: Travel rule compliance status for US Travel Rule WG.
+          description: Travel rule compliance status for US Travel Rule WG. Null when
+            the VASP does not support this protocol.
           example: pending
           type: string
         createdAt:
@@ -73528,16 +73998,16 @@ components:
           example: 2023-09-19T12:23:59.711Z
           type: string
         createdBy:
-          description: User or system that created the VASP record.
-          example: admin
+          description: The DID of the party that created the VASP record. May be null.
+          example: did:ethr:0x19b5ff8440019b635a86bbb632db854f2ea80423
           type: string
         updatedAt:
           description: Timestamp of the last update to the VASP record.
           example: 2024-08-29T08:23:51.416Z
           type: string
         updatedBy:
-          description: User or system that last updated the VASP record.
-          example: system
+          description: The DID of the party that last updated the VASP record.
+          example: did:ethr:0x19b5ff8440019b635a86bbb632db854f2ea80423
           type: string
         lastSentDate:
           description: The last date a transaction was sent by the VASP.
@@ -73548,7 +74018,7 @@ components:
           example: 2024-03-20T11:45:30.212Z
           type: string
         documents:
-          description: Documents associated with the VASP.
+          description: Documents associated with the VASP. May be null.
           example: "['license.pdf', 'compliance.pdf']"
           type: string
         hasAdmin:
@@ -73561,6 +74031,137 @@ components:
           type: boolean
         issuers:
           $ref: "#/components/schemas/TravelRuleIssuers"
+        regulatoryStatus:
+          description: "The regulatory status of the VASP, as free text."
+          example: Regulated
+          nullable: true
+          type: string
+        supervisoryAuthority:
+          description: The supervisory authority responsible for the VASP.
+          example: FINMA
+          nullable: true
+          type: string
+        registrationLicenseId:
+          description: The identifier of the VASP's registration or operating license.
+          example: LIC-123456
+          nullable: true
+          type: string
+        statusStartDate:
+          description: The date the VASP's current regulatory status took effect.
+          example: 2023-01-01T00:00:00.000Z
+          nullable: true
+          type: string
+        statusExpirationDate:
+          description: The date the VASP's current regulatory status expires.
+          example: 2026-01-01T00:00:00.000Z
+          nullable: true
+          type: string
+        lastChecked:
+          description: Timestamp of the last verification of the VASP's regulatory
+            status.
+          example: 2024-07-20T13:27:30.961Z
+          nullable: true
+          type: string
+        additionalInformation:
+          description: Additional free-text information about the VASP.
+          example: Licensed for custody and exchange services.
+          nullable: true
+          type: string
+        subsidiaryOf:
+          description: "The DID of the parent VASP, when this VASP is a subsidiary\
+            \ of another."
+          example: did:ethr:0x44957e75d6ce4a5bf37aae117da86422c848f7c2
+          nullable: true
+          type: string
+        pii_didkey:
+          description: "The VASP's public PII encryption key, published in the trust\
+            \ framework directory. Use it to encrypt IVMS101 personally identifiable\
+            \ information addressed to this VASP."
+          example: 86fae05d276b4096a324a1450ed92a6b2c277412bb6a49bce1ed942a0c6726bf
+          nullable: true
+          type: string
+        compliancePhase:
+          description: The VASP's current compliance onboarding phase.
+          example: 3
+          nullable: true
+          type: integer
+        compliancePhaseData:
+          additionalProperties:
+            description: Whether the milestone identified by the key has been completed.
+            example: true
+            type: boolean
+          description: |-
+            The VASP's progress through the Travel Rule compliance onboarding milestones, as a map keyed by milestone code.
+
+            Each value indicates whether that milestone has been completed. The set of milestone codes is defined by the Travel Rule provider and may change over time, so clients must not assume any particular key is present. Examples of milestone codes include `TX_SENT`, `TX_NOTIFY_API`, `TF_VASP_VERIFIED`, `RULES_CUSTOM_INCOMING` and `INTEGRATIONS_WIDGET`.
+          nullable: true
+          type: object
+        vaspnetId:
+          description: The VASP's VASPnet identifier.
+          example: vaspnet-123456
+          nullable: true
+          type: string
+        vaspnetUpdatedAt:
+          description: Timestamp of the last synchronization with VASPnet.
+          example: 2024-07-20T13:27:30.961Z
+          nullable: true
+          type: string
+        vaspnetImmutableFields:
+          description: Names of the fields that are managed by VASPnet and cannot
+            be modified locally. Empty when no fields are locked.
+          example:
+          - legalName
+          items:
+            description: The name of a VASP field managed by VASPnet.
+            example: legalName
+            type: string
+          nullable: true
+          type: array
+        node_didkey:
+          description: The public key of the Travel Rule node serving this VASP record.
+            The format has not been confirmed against a live response; every observed
+            value has been null.
+          example: did:key:z6Mks5CZRaiooKYhq5TwtXQC1gWhwiZnmiKfFrMnYY62MhYf
+          nullable: true
+          type: string
+        ddq:
+          description: "The VASP's Due Diligence Questionnaire, as a JSON-encoded\
+            \ string containing a `data` object and an `updatedAt` timestamp. Clients\
+            \ must parse this value."
+          example: "{\"data\":{\"fullLegalName\":\"Fireblocks Inc.\"},\"updatedAt\"\
+            :\"2024-11-27T08:59:31.178Z\"}"
+          nullable: true
+          type: string
+        targetProtocol:
+          description: "The Travel Rule protocol used to reach this VASP, when a specific\
+            \ one is configured."
+          example: TRLIGHT
+          nullable: true
+          type: string
+        parentGateway:
+          description: The DID of the gateway VASP that routes messages on this VASP's
+            behalf.
+          example: did:ethr:0x79189b9b98c95785702f8ecfe16bbe396479e1a0
+          nullable: true
+          type: string
+        isActiveSender:
+          description: Indicates if the VASP actively sends Travel Rule transfers.
+          example: true
+          nullable: true
+          type: boolean
+        isActiveReceiver:
+          description: Indicates if the VASP actively receives Travel Rule transfers.
+          example: true
+          nullable: true
+          type: boolean
+        subsidiaries:
+          description: "The VASP's subsidiary entities. The element schema is not\
+            \ yet documented, as no response containing a populated value has been\
+            \ observed; do not assume a particular element type."
+          example: []
+          items: {}
+          nullable: true
+          type: array
       required:
       - addressLine1
       - city
@@ -73589,152 +74190,292 @@ components:
         data:
         - country: US
           travelRule_TRISA: pending
-          travelRule_TRP: active
-          isNotifiable: true
-          city: New York
           documents: "['license.pdf', 'compliance.pdf']"
-          isRegulated: "YES"
-          travelRule_EMAIL: inactive
-          description: A leading provider of crypto security solutions.
-          identificationType: Business License
-          identificationCountry: US
+          identificationType: OTHER
           travelRule_SYGNA: inactive
-          lastReceivedDate: 2024-03-20T11:45:30.212Z
           legalName: Fireblocks Inc.
+          division: Downtown
+          externalEntityConfig:
+          - provider: gleif
+            externalId: 9845001C5PA89625E069
+            updatedAt: 2024-07-20T00:00:00Z
+            resolvedAt: 2024-07-20T13:27:30.929Z
           number: "10"
           createdAt: 2023-09-19T12:23:59.711Z
-          legalStructure: CORPORATION
-          street: Wall Street
           travelRule_SHYFT: inactive
+          subsidiaryOf: did:ethr:0x44957e75d6ce4a5bf37aae117da86422c848f7c2
+          pii_didkey: 86fae05d276b4096a324a1450ed92a6b2c277412bb6a49bce1ed942a0c6726bf
           regulatoryAuthorities: "SEC, FINCEN"
+          entityCategory: GENERAL
+          vaspnetUpdatedAt: 2024-07-20T13:27:30.961Z
+          leiNumber: 9845001C5PA89625E069
+          isActiveSender: true
           addressLine1: 657 Campfire Street
           logo: https://fireblocks.com/logo.png
           addressLine2: Suite 10
+          hqRegion: CH-ZH
           state: NY
           jurisdictions: "US, EU"
           travelRule_TRLIGHT: active
           updatedAt: 2024-08-29T08:23:51.416Z
-          website: https://fireblocks.com
-          hasAdmin: true
-          updatedBy: system
+          additionalInformation: Licensed for custody and exchange services.
+          updatedBy: did:ethr:0x19b5ff8440019b635a86bbb632db854f2ea80423
           verificationStatus: VERIFIED
-          emailDomains: "fireblocks.com,example.com"
-          businessNumber: "123456789"
-          yearFounded: "2019"
-          issuers:
-            country:
-              issuerDid: issuerDid
-            website:
-              issuerDid: issuerDid
-            city:
-              issuerDid: issuerDid
-            isRegulated:
-              issuerDid: issuerDid
-            description:
-              issuerDid: issuerDid
-            businessNumber:
-              issuerDid: issuerDid
-            yearFounded:
-              issuerDid: issuerDid
-            legalName:
-              issuerDid: issuerDid
-            legalStructure:
-              issuerDid: issuerDid
-            regulatoryAuthorities:
-              issuerDid: issuerDid
-            name:
-              issuerDid: issuerDid
-            logo:
-              issuerDid: issuerDid
-            addressLine1:
-              issuerDid: issuerDid
-            incorporationCountry:
-              issuerDid: issuerDid
-          travelRule_OPENVASP: active
           travelRule_USTRAVELRULEWG: pending
           unit: Apt 2B
           otherNames: Fireblocks Test VASP
           certificates: ISO 27001
           lastSentDate: 2024-03-18T09:26:07.988Z
-          createdBy: admin
           name: Fireblocks TST
+          hqStreet: Hardturmstrasse 201
           postCode: "10005"
-          did: did:ethr:0x17fe2dd11a2daa7f6c1fdf22532a4763f963aea6
+          otherLegalName: "SIX Digital Exchange SA, SIX Digital Exchange Ltd"
+          hqPostcode: "8005"
+          lastChecked: 2024-07-20T13:27:30.961Z
           incorporationCountry: US
+          travelRule_TRP: active
+          isNotifiable: true
+          hqCity: Zurich
+          statusExpirationDate: 2026-01-01T00:00:00.000Z
+          city: New York
+          registrationLicenseId: LIC-123456
+          vaspnetImmutableFields:
+          - legalName
+          isRegulated: "YES"
+          travelRule_EMAIL: inactive
+          description: A leading provider of crypto security solutions.
+          hqCountry: CH
+          identificationCountry: US
+          lastReceivedDate: 2024-03-20T11:45:30.212Z
+          regulatoryStatus: Regulated
+          legalStructure: CORPORATION
+          street: Wall Street
+          compliancePhaseData:
+            key: true
+          website: https://fireblocks.com
+          hasAdmin: true
+          statusStartDate: 2023-01-01T00:00:00.000Z
+          node_didkey: did:key:z6Mks5CZRaiooKYhq5TwtXQC1gWhwiZnmiKfFrMnYY62MhYf
+          emailDomains: "[\"fireblocks.com\", \"example.com\"]"
+          businessNumber: "123456789"
+          hqNumber: "201"
+          compliancePhase: 3
+          yearFounded: "2019"
+          issuers:
+            country:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            website:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            city:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            isRegulated:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            description:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            businessNumber:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            yearFounded:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            legalName:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            legalStructure:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            regulatoryAuthorities:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            name:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            logo:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            addressLine1:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            incorporationCountry:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+          targetProtocol: TRLIGHT
+          parentGateway: did:ethr:0x79189b9b98c95785702f8ecfe16bbe396479e1a0
+          legalForm: MVII
+          ddq: "{\"data\":{\"fullLegalName\":\"Fireblocks Inc.\"},\"updatedAt\":\"\
+            2024-11-27T08:59:31.178Z\"}"
+          travelRule_OPENVASP: active
+          isActiveReceiver: true
+          entityStatus: ACTIVE
+          createdBy: did:ethr:0x19b5ff8440019b635a86bbb632db854f2ea80423
+          vaspnetId: vaspnet-123456
+          subsidiaries: []
+          gleifUpdatedAt: 2024-07-20T00:00:00.000Z
+          supervisoryAuthority: FINMA
+          did: did:ethr:0x17fe2dd11a2daa7f6c1fdf22532a4763f963aea6
         - country: US
           travelRule_TRISA: pending
-          travelRule_TRP: active
-          isNotifiable: true
-          city: New York
           documents: "['license.pdf', 'compliance.pdf']"
-          isRegulated: "YES"
-          travelRule_EMAIL: inactive
-          description: A leading provider of crypto security solutions.
-          identificationType: Business License
-          identificationCountry: US
+          identificationType: OTHER
           travelRule_SYGNA: inactive
-          lastReceivedDate: 2024-03-20T11:45:30.212Z
           legalName: Fireblocks Inc.
+          division: Downtown
+          externalEntityConfig:
+          - provider: gleif
+            externalId: 9845001C5PA89625E069
+            updatedAt: 2024-07-20T00:00:00Z
+            resolvedAt: 2024-07-20T13:27:30.929Z
           number: "10"
           createdAt: 2023-09-19T12:23:59.711Z
-          legalStructure: CORPORATION
-          street: Wall Street
           travelRule_SHYFT: inactive
+          subsidiaryOf: did:ethr:0x44957e75d6ce4a5bf37aae117da86422c848f7c2
+          pii_didkey: 86fae05d276b4096a324a1450ed92a6b2c277412bb6a49bce1ed942a0c6726bf
           regulatoryAuthorities: "SEC, FINCEN"
+          entityCategory: GENERAL
+          vaspnetUpdatedAt: 2024-07-20T13:27:30.961Z
+          leiNumber: 9845001C5PA89625E069
+          isActiveSender: true
           addressLine1: 657 Campfire Street
           logo: https://fireblocks.com/logo.png
           addressLine2: Suite 10
+          hqRegion: CH-ZH
           state: NY
           jurisdictions: "US, EU"
           travelRule_TRLIGHT: active
           updatedAt: 2024-08-29T08:23:51.416Z
-          website: https://fireblocks.com
-          hasAdmin: true
-          updatedBy: system
+          additionalInformation: Licensed for custody and exchange services.
+          updatedBy: did:ethr:0x19b5ff8440019b635a86bbb632db854f2ea80423
           verificationStatus: VERIFIED
-          emailDomains: "fireblocks.com,example.com"
-          businessNumber: "123456789"
-          yearFounded: "2019"
-          issuers:
-            country:
-              issuerDid: issuerDid
-            website:
-              issuerDid: issuerDid
-            city:
-              issuerDid: issuerDid
-            isRegulated:
-              issuerDid: issuerDid
-            description:
-              issuerDid: issuerDid
-            businessNumber:
-              issuerDid: issuerDid
-            yearFounded:
-              issuerDid: issuerDid
-            legalName:
-              issuerDid: issuerDid
-            legalStructure:
-              issuerDid: issuerDid
-            regulatoryAuthorities:
-              issuerDid: issuerDid
-            name:
-              issuerDid: issuerDid
-            logo:
-              issuerDid: issuerDid
-            addressLine1:
-              issuerDid: issuerDid
-            incorporationCountry:
-              issuerDid: issuerDid
-          travelRule_OPENVASP: active
           travelRule_USTRAVELRULEWG: pending
           unit: Apt 2B
           otherNames: Fireblocks Test VASP
           certificates: ISO 27001
           lastSentDate: 2024-03-18T09:26:07.988Z
-          createdBy: admin
           name: Fireblocks TST
+          hqStreet: Hardturmstrasse 201
           postCode: "10005"
-          did: did:ethr:0x17fe2dd11a2daa7f6c1fdf22532a4763f963aea6
+          otherLegalName: "SIX Digital Exchange SA, SIX Digital Exchange Ltd"
+          hqPostcode: "8005"
+          lastChecked: 2024-07-20T13:27:30.961Z
           incorporationCountry: US
+          travelRule_TRP: active
+          isNotifiable: true
+          hqCity: Zurich
+          statusExpirationDate: 2026-01-01T00:00:00.000Z
+          city: New York
+          registrationLicenseId: LIC-123456
+          vaspnetImmutableFields:
+          - legalName
+          isRegulated: "YES"
+          travelRule_EMAIL: inactive
+          description: A leading provider of crypto security solutions.
+          hqCountry: CH
+          identificationCountry: US
+          lastReceivedDate: 2024-03-20T11:45:30.212Z
+          regulatoryStatus: Regulated
+          legalStructure: CORPORATION
+          street: Wall Street
+          compliancePhaseData:
+            key: true
+          website: https://fireblocks.com
+          hasAdmin: true
+          statusStartDate: 2023-01-01T00:00:00.000Z
+          node_didkey: did:key:z6Mks5CZRaiooKYhq5TwtXQC1gWhwiZnmiKfFrMnYY62MhYf
+          emailDomains: "[\"fireblocks.com\", \"example.com\"]"
+          businessNumber: "123456789"
+          hqNumber: "201"
+          compliancePhase: 3
+          yearFounded: "2019"
+          issuers:
+            country:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            website:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            city:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            isRegulated:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            description:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            businessNumber:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            yearFounded:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            legalName:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            legalStructure:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            regulatoryAuthorities:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            name:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            logo:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            addressLine1:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+            incorporationCountry:
+              issuedDate: 2024-07-20T13:27:30.958Z
+              issuerDid: did:ethr:0x7947578140ed0fa32cb025d9ad9a6c6e72c52686
+              issuerName: GLEIF
+          targetProtocol: TRLIGHT
+          parentGateway: did:ethr:0x79189b9b98c95785702f8ecfe16bbe396479e1a0
+          legalForm: MVII
+          ddq: "{\"data\":{\"fullLegalName\":\"Fireblocks Inc.\"},\"updatedAt\":\"\
+            2024-11-27T08:59:31.178Z\"}"
+          travelRule_OPENVASP: active
+          isActiveReceiver: true
+          entityStatus: ACTIVE
+          createdBy: did:ethr:0x19b5ff8440019b635a86bbb632db854f2ea80423
+          vaspnetId: vaspnet-123456
+          subsidiaries: []
+          gleifUpdatedAt: 2024-07-20T00:00:00.000Z
+          supervisoryAuthority: FINMA
+          did: did:ethr:0x17fe2dd11a2daa7f6c1fdf22532a4763f963aea6
       properties:
         data:
           description: "An array of VASP objects, referencing the TravelRuleVASP schema."

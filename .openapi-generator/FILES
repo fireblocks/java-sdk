@@ -1136,6 +1136,9 @@ docs/TravelRuleStatusEnum.md
 docs/TravelRuleTransactionBlockchainInfo.md
 docs/TravelRuleUpdateVASPDetails.md
 docs/TravelRuleVASP.md
+docs/TravelRuleVASPExternalEntity.md
+docs/TravelRuleVASPExternalEntityConfig.md
+docs/TravelRuleVASPExternalEntityRegistration.md
 docs/TravelRuleValidateDateAndPlaceOfBirth.md
 docs/TravelRuleValidateFullTransactionRequest.md
 docs/TravelRuleValidateGeographicAddress.md
@@ -2410,6 +2413,9 @@ src/main/java/com/fireblocks/sdk/model/TravelRuleStatusEnum.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleTransactionBlockchainInfo.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleUpdateVASPDetails.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleVASP.java
+src/main/java/com/fireblocks/sdk/model/TravelRuleVASPExternalEntity.java
+src/main/java/com/fireblocks/sdk/model/TravelRuleVASPExternalEntityConfig.java
+src/main/java/com/fireblocks/sdk/model/TravelRuleVASPExternalEntityRegistration.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleValidateDateAndPlaceOfBirth.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleValidateFullTransactionRequest.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleValidateGeographicAddress.java
@@ -3651,6 +3657,9 @@ src/test/java/com/fireblocks/sdk/model/TravelRuleResultTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleStatusEnumTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleTransactionBlockchainInfoTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleUpdateVASPDetailsTest.java
+src/test/java/com/fireblocks/sdk/model/TravelRuleVASPExternalEntityConfigTest.java
+src/test/java/com/fireblocks/sdk/model/TravelRuleVASPExternalEntityRegistrationTest.java
+src/test/java/com/fireblocks/sdk/model/TravelRuleVASPExternalEntityTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleVASPTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleValidateDateAndPlaceOfBirthTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleValidateFullTransactionRequestTest.java

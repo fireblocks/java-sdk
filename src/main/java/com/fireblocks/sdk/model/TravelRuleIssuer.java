@@ -21,14 +21,24 @@ import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** TravelRuleIssuer */
-@JsonPropertyOrder({TravelRuleIssuer.JSON_PROPERTY_ISSUER_DID})
+/** An attestation of a single VASP attribute by an issuing party. */
+@JsonPropertyOrder({
+    TravelRuleIssuer.JSON_PROPERTY_ISSUER_DID,
+    TravelRuleIssuer.JSON_PROPERTY_ISSUED_DATE,
+    TravelRuleIssuer.JSON_PROPERTY_ISSUER_NAME
+})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class TravelRuleIssuer {
     public static final String JSON_PROPERTY_ISSUER_DID = "issuerDid";
     @jakarta.annotation.Nonnull private String issuerDid;
+
+    public static final String JSON_PROPERTY_ISSUED_DATE = "issuedDate";
+    @jakarta.annotation.Nullable private String issuedDate;
+
+    public static final String JSON_PROPERTY_ISSUER_NAME = "issuerName";
+    @jakarta.annotation.Nullable private String issuerName;
 
     public TravelRuleIssuer() {}
 
@@ -44,7 +54,7 @@ public class TravelRuleIssuer {
     }
 
     /**
-     * Get issuerDid
+     * The Decentralized Identifier (DID) of the party that issued the attestation.
      *
      * @return issuerDid
      */
@@ -61,6 +71,54 @@ public class TravelRuleIssuer {
         this.issuerDid = issuerDid;
     }
 
+    public TravelRuleIssuer issuedDate(@jakarta.annotation.Nullable String issuedDate) {
+        this.issuedDate = issuedDate;
+        return this;
+    }
+
+    /**
+     * Timestamp when the attestation was issued. Present on every attestation observed to date, but
+     * not guaranteed, so treat it as optional.
+     *
+     * @return issuedDate
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ISSUED_DATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getIssuedDate() {
+        return issuedDate;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ISSUED_DATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIssuedDate(@jakarta.annotation.Nullable String issuedDate) {
+        this.issuedDate = issuedDate;
+    }
+
+    public TravelRuleIssuer issuerName(@jakarta.annotation.Nullable String issuerName) {
+        this.issuerName = issuerName;
+        return this;
+    }
+
+    /**
+     * The human-readable name of the issuing party. Returned only for issuers that publish a name,
+     * such as GLEIF; absent for others, including in the same response.
+     *
+     * @return issuerName
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ISSUER_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getIssuerName() {
+        return issuerName;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ISSUER_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIssuerName(@jakarta.annotation.Nullable String issuerName) {
+        this.issuerName = issuerName;
+    }
+
     /** Return true if this TravelRuleIssuer object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -71,12 +129,14 @@ public class TravelRuleIssuer {
             return false;
         }
         TravelRuleIssuer travelRuleIssuer = (TravelRuleIssuer) o;
-        return Objects.equals(this.issuerDid, travelRuleIssuer.issuerDid);
+        return Objects.equals(this.issuerDid, travelRuleIssuer.issuerDid)
+                && Objects.equals(this.issuedDate, travelRuleIssuer.issuedDate)
+                && Objects.equals(this.issuerName, travelRuleIssuer.issuerName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(issuerDid);
+        return Objects.hash(issuerDid, issuedDate, issuerName);
     }
 
     @Override
@@ -84,6 +144,8 @@ public class TravelRuleIssuer {
         StringBuilder sb = new StringBuilder();
         sb.append("class TravelRuleIssuer {\n");
         sb.append("    issuerDid: ").append(toIndentedString(issuerDid)).append("\n");
+        sb.append("    issuedDate: ").append(toIndentedString(issuedDate)).append("\n");
+        sb.append("    issuerName: ").append(toIndentedString(issuerName)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -139,6 +201,26 @@ public class TravelRuleIssuer {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getIssuerDid()))));
+        }
+
+        // add `issuedDate` to the URL query string
+        if (getIssuedDate() != null) {
+            joiner.add(
+                    String.format(
+                            "%sissuedDate%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getIssuedDate()))));
+        }
+
+        // add `issuerName` to the URL query string
+        if (getIssuerName() != null) {
+            joiner.add(
+                    String.format(
+                            "%sissuerName%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getIssuerName()))));
         }
 
         return joiner.toString();
