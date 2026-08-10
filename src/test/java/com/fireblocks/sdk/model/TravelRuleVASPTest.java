@@ -151,6 +151,12 @@ class TravelRuleVASPTest {
         // TODO: test jurisdictions
     }
 
+    /** Test the property 'division' */
+    @Test
+    void divisionTest() {
+        // TODO: test division
+    }
+
     /** Test the property 'street' */
     @Test
     void streetTest() {
@@ -179,6 +185,84 @@ class TravelRuleVASPTest {
     @Test
     void stateTest() {
         // TODO: test state
+    }
+
+    /** Test the property 'otherLegalName' */
+    @Test
+    void otherLegalNameTest() {
+        // TODO: test otherLegalName
+    }
+
+    /** Test the property 'gleifUpdatedAt' */
+    @Test
+    void gleifUpdatedAtTest() {
+        // TODO: test gleifUpdatedAt
+    }
+
+    /** Test the property 'leiNumber' */
+    @Test
+    void leiNumberTest() {
+        // TODO: test leiNumber
+    }
+
+    /** Test the property 'legalForm' */
+    @Test
+    void legalFormTest() {
+        // TODO: test legalForm
+    }
+
+    /** Test the property 'entityCategory' */
+    @Test
+    void entityCategoryTest() {
+        // TODO: test entityCategory
+    }
+
+    /** Test the property 'entityStatus' */
+    @Test
+    void entityStatusTest() {
+        // TODO: test entityStatus
+    }
+
+    /** Test the property 'externalEntityConfig' */
+    @Test
+    void externalEntityConfigTest() {
+        // TODO: test externalEntityConfig
+    }
+
+    /** Test the property 'hqStreet' */
+    @Test
+    void hqStreetTest() {
+        // TODO: test hqStreet
+    }
+
+    /** Test the property 'hqNumber' */
+    @Test
+    void hqNumberTest() {
+        // TODO: test hqNumber
+    }
+
+    /** Test the property 'hqPostcode' */
+    @Test
+    void hqPostcodeTest() {
+        // TODO: test hqPostcode
+    }
+
+    /** Test the property 'hqRegion' */
+    @Test
+    void hqRegionTest() {
+        // TODO: test hqRegion
+    }
+
+    /** Test the property 'hqCity' */
+    @Test
+    void hqCityTest() {
+        // TODO: test hqCity
+    }
+
+    /** Test the property 'hqCountry' */
+    @Test
+    void hqCountryTest() {
+        // TODO: test hqCountry
     }
 
     /** Test the property 'certificates' */
@@ -299,5 +383,131 @@ class TravelRuleVASPTest {
     @Test
     void issuersTest() {
         // TODO: test issuers
+    }
+
+    /** Test the property 'regulatoryStatus' */
+    @Test
+    void regulatoryStatusTest() {
+        // TODO: test regulatoryStatus
+    }
+
+    /** Test the property 'supervisoryAuthority' */
+    @Test
+    void supervisoryAuthorityTest() {
+        // TODO: test supervisoryAuthority
+    }
+
+    /** Test the property 'registrationLicenseId' */
+    @Test
+    void registrationLicenseIdTest() {
+        // TODO: test registrationLicenseId
+    }
+
+    /** Test the property 'statusStartDate' */
+    @Test
+    void statusStartDateTest() {
+        // TODO: test statusStartDate
+    }
+
+    /** Test the property 'statusExpirationDate' */
+    @Test
+    void statusExpirationDateTest() {
+        // TODO: test statusExpirationDate
+    }
+
+    /** Test the property 'lastChecked' */
+    @Test
+    void lastCheckedTest() {
+        // TODO: test lastChecked
+    }
+
+    /** Test the property 'additionalInformation' */
+    @Test
+    void additionalInformationTest() {
+        // TODO: test additionalInformation
+    }
+
+    /** Test the property 'subsidiaryOf' */
+    @Test
+    void subsidiaryOfTest() {
+        // TODO: test subsidiaryOf
+    }
+
+    /** Test the property 'piiDidkey' */
+    @Test
+    void piiDidkeyTest() {
+        // TODO: test piiDidkey
+    }
+
+    /** Test the property 'compliancePhase' */
+    @Test
+    void compliancePhaseTest() {
+        // TODO: test compliancePhase
+    }
+
+    /** Test the property 'compliancePhaseData' */
+    @Test
+    void compliancePhaseDataTest() {
+        // TODO: test compliancePhaseData
+    }
+
+    /** Test the property 'vaspnetId' */
+    @Test
+    void vaspnetIdTest() {
+        // TODO: test vaspnetId
+    }
+
+    /** Test the property 'vaspnetUpdatedAt' */
+    @Test
+    void vaspnetUpdatedAtTest() {
+        // TODO: test vaspnetUpdatedAt
+    }
+
+    /** Test the property 'vaspnetImmutableFields' */
+    @Test
+    void vaspnetImmutableFieldsTest() {
+        // TODO: test vaspnetImmutableFields
+    }
+
+    /** Test the property 'nodeDidkey' */
+    @Test
+    void nodeDidkeyTest() {
+        // TODO: test nodeDidkey
+    }
+
+    /** Test the property 'ddq' */
+    @Test
+    void ddqTest() {
+        // TODO: test ddq
+    }
+
+    /** Test the property 'targetProtocol' */
+    @Test
+    void targetProtocolTest() {
+        // TODO: test targetProtocol
+    }
+
+    /** Test the property 'parentGateway' */
+    @Test
+    void parentGatewayTest() {
+        // TODO: test parentGateway
+    }
+
+    /** Test the property 'isActiveSender' */
+    @Test
+    void isActiveSenderTest() {
+        // TODO: test isActiveSender
+    }
+
+    /** Test the property 'isActiveReceiver' */
+    @Test
+    void isActiveReceiverTest() {
+        // TODO: test isActiveReceiver
+    }
+
+    /** Test the property 'subsidiaries' */
+    @Test
+    void subsidiariesTest() {
+        // TODO: test subsidiaries
     }
 }

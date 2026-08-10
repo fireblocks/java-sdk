@@ -18,10 +18,20 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** TravelRuleVASP */
+/**
+ * A VASP record from the Travel Rule trust framework directory. The set of keys returned depends on
+ * the &#x60;fields&#x60; query parameter. When &#x60;fields&#x60; is omitted, or supplied with an
+ * empty value, this endpoint returns the complete record. Additional fields may be present in the
+ * response beyond those documented here. Clients must ignore unrecognised fields rather than
+ * failing to deserialize.
+ */
 @JsonPropertyOrder({
     TravelRuleVASP.JSON_PROPERTY_DID,
     TravelRuleVASP.JSON_PROPERTY_NAME,
@@ -44,11 +54,25 @@ import java.util.StringJoiner;
     TravelRuleVASP.JSON_PROPERTY_BUSINESS_NUMBER,
     TravelRuleVASP.JSON_PROPERTY_REGULATORY_AUTHORITIES,
     TravelRuleVASP.JSON_PROPERTY_JURISDICTIONS,
+    TravelRuleVASP.JSON_PROPERTY_DIVISION,
     TravelRuleVASP.JSON_PROPERTY_STREET,
     TravelRuleVASP.JSON_PROPERTY_NUMBER,
     TravelRuleVASP.JSON_PROPERTY_UNIT,
     TravelRuleVASP.JSON_PROPERTY_POST_CODE,
     TravelRuleVASP.JSON_PROPERTY_STATE,
+    TravelRuleVASP.JSON_PROPERTY_OTHER_LEGAL_NAME,
+    TravelRuleVASP.JSON_PROPERTY_GLEIF_UPDATED_AT,
+    TravelRuleVASP.JSON_PROPERTY_LEI_NUMBER,
+    TravelRuleVASP.JSON_PROPERTY_LEGAL_FORM,
+    TravelRuleVASP.JSON_PROPERTY_ENTITY_CATEGORY,
+    TravelRuleVASP.JSON_PROPERTY_ENTITY_STATUS,
+    TravelRuleVASP.JSON_PROPERTY_EXTERNAL_ENTITY_CONFIG,
+    TravelRuleVASP.JSON_PROPERTY_HQ_STREET,
+    TravelRuleVASP.JSON_PROPERTY_HQ_NUMBER,
+    TravelRuleVASP.JSON_PROPERTY_HQ_POSTCODE,
+    TravelRuleVASP.JSON_PROPERTY_HQ_REGION,
+    TravelRuleVASP.JSON_PROPERTY_HQ_CITY,
+    TravelRuleVASP.JSON_PROPERTY_HQ_COUNTRY,
     TravelRuleVASP.JSON_PROPERTY_CERTIFICATES,
     TravelRuleVASP.JSON_PROPERTY_DESCRIPTION,
     TravelRuleVASP.JSON_PROPERTY_TRAVEL_RULE_O_P_E_N_V_A_S_P,
@@ -68,7 +92,28 @@ import java.util.StringJoiner;
     TravelRuleVASP.JSON_PROPERTY_DOCUMENTS,
     TravelRuleVASP.JSON_PROPERTY_HAS_ADMIN,
     TravelRuleVASP.JSON_PROPERTY_IS_NOTIFIABLE,
-    TravelRuleVASP.JSON_PROPERTY_ISSUERS
+    TravelRuleVASP.JSON_PROPERTY_ISSUERS,
+    TravelRuleVASP.JSON_PROPERTY_REGULATORY_STATUS,
+    TravelRuleVASP.JSON_PROPERTY_SUPERVISORY_AUTHORITY,
+    TravelRuleVASP.JSON_PROPERTY_REGISTRATION_LICENSE_ID,
+    TravelRuleVASP.JSON_PROPERTY_STATUS_START_DATE,
+    TravelRuleVASP.JSON_PROPERTY_STATUS_EXPIRATION_DATE,
+    TravelRuleVASP.JSON_PROPERTY_LAST_CHECKED,
+    TravelRuleVASP.JSON_PROPERTY_ADDITIONAL_INFORMATION,
+    TravelRuleVASP.JSON_PROPERTY_SUBSIDIARY_OF,
+    TravelRuleVASP.JSON_PROPERTY_PII_DIDKEY,
+    TravelRuleVASP.JSON_PROPERTY_COMPLIANCE_PHASE,
+    TravelRuleVASP.JSON_PROPERTY_COMPLIANCE_PHASE_DATA,
+    TravelRuleVASP.JSON_PROPERTY_VASPNET_ID,
+    TravelRuleVASP.JSON_PROPERTY_VASPNET_UPDATED_AT,
+    TravelRuleVASP.JSON_PROPERTY_VASPNET_IMMUTABLE_FIELDS,
+    TravelRuleVASP.JSON_PROPERTY_NODE_DIDKEY,
+    TravelRuleVASP.JSON_PROPERTY_DDQ,
+    TravelRuleVASP.JSON_PROPERTY_TARGET_PROTOCOL,
+    TravelRuleVASP.JSON_PROPERTY_PARENT_GATEWAY,
+    TravelRuleVASP.JSON_PROPERTY_IS_ACTIVE_SENDER,
+    TravelRuleVASP.JSON_PROPERTY_IS_ACTIVE_RECEIVER,
+    TravelRuleVASP.JSON_PROPERTY_SUBSIDIARIES
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -137,6 +182,9 @@ public class TravelRuleVASP {
     public static final String JSON_PROPERTY_JURISDICTIONS = "jurisdictions";
     @jakarta.annotation.Nonnull private String jurisdictions;
 
+    public static final String JSON_PROPERTY_DIVISION = "division";
+    @jakarta.annotation.Nullable private String division;
+
     public static final String JSON_PROPERTY_STREET = "street";
     @jakarta.annotation.Nullable private String street;
 
@@ -151,6 +199,47 @@ public class TravelRuleVASP {
 
     public static final String JSON_PROPERTY_STATE = "state";
     @jakarta.annotation.Nullable private String state;
+
+    public static final String JSON_PROPERTY_OTHER_LEGAL_NAME = "otherLegalName";
+    @jakarta.annotation.Nullable private String otherLegalName;
+
+    public static final String JSON_PROPERTY_GLEIF_UPDATED_AT = "gleifUpdatedAt";
+    @jakarta.annotation.Nullable private String gleifUpdatedAt;
+
+    public static final String JSON_PROPERTY_LEI_NUMBER = "leiNumber";
+    @jakarta.annotation.Nullable private String leiNumber;
+
+    public static final String JSON_PROPERTY_LEGAL_FORM = "legalForm";
+    @jakarta.annotation.Nullable private String legalForm;
+
+    public static final String JSON_PROPERTY_ENTITY_CATEGORY = "entityCategory";
+    @jakarta.annotation.Nullable private String entityCategory;
+
+    public static final String JSON_PROPERTY_ENTITY_STATUS = "entityStatus";
+    @jakarta.annotation.Nullable private String entityStatus;
+
+    public static final String JSON_PROPERTY_EXTERNAL_ENTITY_CONFIG = "externalEntityConfig";
+
+    @jakarta.annotation.Nullable
+    private List<TravelRuleVASPExternalEntityConfig> externalEntityConfig;
+
+    public static final String JSON_PROPERTY_HQ_STREET = "hqStreet";
+    @jakarta.annotation.Nullable private String hqStreet;
+
+    public static final String JSON_PROPERTY_HQ_NUMBER = "hqNumber";
+    @jakarta.annotation.Nullable private String hqNumber;
+
+    public static final String JSON_PROPERTY_HQ_POSTCODE = "hqPostcode";
+    @jakarta.annotation.Nullable private String hqPostcode;
+
+    public static final String JSON_PROPERTY_HQ_REGION = "hqRegion";
+    @jakarta.annotation.Nullable private String hqRegion;
+
+    public static final String JSON_PROPERTY_HQ_CITY = "hqCity";
+    @jakarta.annotation.Nullable private String hqCity;
+
+    public static final String JSON_PROPERTY_HQ_COUNTRY = "hqCountry";
+    @jakarta.annotation.Nullable private String hqCountry;
 
     public static final String JSON_PROPERTY_CERTIFICATES = "certificates";
     @jakarta.annotation.Nullable private String certificates;
@@ -212,6 +301,69 @@ public class TravelRuleVASP {
 
     public static final String JSON_PROPERTY_ISSUERS = "issuers";
     @jakarta.annotation.Nonnull private TravelRuleIssuers issuers;
+
+    public static final String JSON_PROPERTY_REGULATORY_STATUS = "regulatoryStatus";
+    @jakarta.annotation.Nullable private String regulatoryStatus;
+
+    public static final String JSON_PROPERTY_SUPERVISORY_AUTHORITY = "supervisoryAuthority";
+    @jakarta.annotation.Nullable private String supervisoryAuthority;
+
+    public static final String JSON_PROPERTY_REGISTRATION_LICENSE_ID = "registrationLicenseId";
+    @jakarta.annotation.Nullable private String registrationLicenseId;
+
+    public static final String JSON_PROPERTY_STATUS_START_DATE = "statusStartDate";
+    @jakarta.annotation.Nullable private String statusStartDate;
+
+    public static final String JSON_PROPERTY_STATUS_EXPIRATION_DATE = "statusExpirationDate";
+    @jakarta.annotation.Nullable private String statusExpirationDate;
+
+    public static final String JSON_PROPERTY_LAST_CHECKED = "lastChecked";
+    @jakarta.annotation.Nullable private String lastChecked;
+
+    public static final String JSON_PROPERTY_ADDITIONAL_INFORMATION = "additionalInformation";
+    @jakarta.annotation.Nullable private String additionalInformation;
+
+    public static final String JSON_PROPERTY_SUBSIDIARY_OF = "subsidiaryOf";
+    @jakarta.annotation.Nullable private String subsidiaryOf;
+
+    public static final String JSON_PROPERTY_PII_DIDKEY = "pii_didkey";
+    @jakarta.annotation.Nullable private String piiDidkey;
+
+    public static final String JSON_PROPERTY_COMPLIANCE_PHASE = "compliancePhase";
+    @jakarta.annotation.Nullable private Integer compliancePhase;
+
+    public static final String JSON_PROPERTY_COMPLIANCE_PHASE_DATA = "compliancePhaseData";
+    @jakarta.annotation.Nullable private Map<String, Boolean> compliancePhaseData;
+
+    public static final String JSON_PROPERTY_VASPNET_ID = "vaspnetId";
+    @jakarta.annotation.Nullable private String vaspnetId;
+
+    public static final String JSON_PROPERTY_VASPNET_UPDATED_AT = "vaspnetUpdatedAt";
+    @jakarta.annotation.Nullable private String vaspnetUpdatedAt;
+
+    public static final String JSON_PROPERTY_VASPNET_IMMUTABLE_FIELDS = "vaspnetImmutableFields";
+    @jakarta.annotation.Nullable private List<String> vaspnetImmutableFields;
+
+    public static final String JSON_PROPERTY_NODE_DIDKEY = "node_didkey";
+    @jakarta.annotation.Nullable private String nodeDidkey;
+
+    public static final String JSON_PROPERTY_DDQ = "ddq";
+    @jakarta.annotation.Nullable private String ddq;
+
+    public static final String JSON_PROPERTY_TARGET_PROTOCOL = "targetProtocol";
+    @jakarta.annotation.Nullable private String targetProtocol;
+
+    public static final String JSON_PROPERTY_PARENT_GATEWAY = "parentGateway";
+    @jakarta.annotation.Nullable private String parentGateway;
+
+    public static final String JSON_PROPERTY_IS_ACTIVE_SENDER = "isActiveSender";
+    @jakarta.annotation.Nullable private Boolean isActiveSender;
+
+    public static final String JSON_PROPERTY_IS_ACTIVE_RECEIVER = "isActiveReceiver";
+    @jakarta.annotation.Nullable private Boolean isActiveReceiver;
+
+    public static final String JSON_PROPERTY_SUBSIDIARIES = "subsidiaries";
+    @jakarta.annotation.Nullable private List<Object> subsidiaries;
 
     public TravelRuleVASP() {}
 
@@ -363,7 +515,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The second line of the VASP&#39;s address (if applicable).
+     * The second line of the VASP&#39;s address (if applicable). May be null.
      *
      * @return addressLine2
      */
@@ -432,7 +584,8 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Comma-separated list of email domains associated with the VASP.
+     * The email domains associated with the VASP. The field&#39;s type is string; its content is a
+     * JSON-encoded array of domains. Clients must parse this value to obtain the array.
      *
      * @return emailDomains
      */
@@ -478,7 +631,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * URL to the logo of the VASP.
+     * URL to the logo of the VASP. May be null.
      *
      * @return logo
      */
@@ -547,7 +700,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The year the VASP was founded.
+     * The year the VASP was founded. Returned as a string, not an integer.
      *
      * @return yearFounded
      */
@@ -617,7 +770,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Other names the VASP is known by.
+     * Other names the VASP is known by. May be null.
      *
      * @return otherNames
      */
@@ -665,7 +818,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The country of identification for the VASP (ISO-3166 Alpha-2 code).
+     * The country of identification for the VASP (ISO-3166 Alpha-2 code). May be null.
      *
      * @return identificationCountry
      */
@@ -713,7 +866,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The regulatory authorities overseeing the VASP.
+     * The regulatory authorities overseeing the VASP. May be null.
      *
      * @return regulatoryAuthorities
      */
@@ -754,13 +907,36 @@ public class TravelRuleVASP {
         this.jurisdictions = jurisdictions;
     }
 
+    public TravelRuleVASP division(@jakarta.annotation.Nullable String division) {
+        this.division = division;
+        return this;
+    }
+
+    /**
+     * The division of the VASP&#39;s registered address, where applicable.
+     *
+     * @return division
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_DIVISION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getDivision() {
+        return division;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DIVISION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDivision(@jakarta.annotation.Nullable String division) {
+        this.division = division;
+    }
+
     public TravelRuleVASP street(@jakarta.annotation.Nullable String street) {
         this.street = street;
         return this;
     }
 
     /**
-     * The street name where the VASP is located.
+     * The street name where the VASP is located. May be null.
      *
      * @return street
      */
@@ -783,7 +959,8 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The building number of the VASP&#39;s address.
+     * The building number of the VASP&#39;s address. May be returned as an empty string when not
+     * supplied.
      *
      * @return number
      */
@@ -806,7 +983,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The unit or suite number of the VASP&#39;s address.
+     * The unit or suite number of the VASP&#39;s address. May be null.
      *
      * @return unit
      */
@@ -869,13 +1046,336 @@ public class TravelRuleVASP {
         this.state = state;
     }
 
+    public TravelRuleVASP otherLegalName(@jakarta.annotation.Nullable String otherLegalName) {
+        this.otherLegalName = otherLegalName;
+        return this;
+    }
+
+    /**
+     * Alternative legal names of the VASP, as a comma-separated list. Resolved from an external
+     * registry, so it is only populated for VASPs with a resolved entity record.
+     *
+     * @return otherLegalName
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_OTHER_LEGAL_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getOtherLegalName() {
+        return otherLegalName;
+    }
+
+    @JsonProperty(JSON_PROPERTY_OTHER_LEGAL_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOtherLegalName(@jakarta.annotation.Nullable String otherLegalName) {
+        this.otherLegalName = otherLegalName;
+    }
+
+    public TravelRuleVASP gleifUpdatedAt(@jakarta.annotation.Nullable String gleifUpdatedAt) {
+        this.gleifUpdatedAt = gleifUpdatedAt;
+        return this;
+    }
+
+    /**
+     * Timestamp of the last synchronization with the GLEIF registry. Only populated for VASPs with
+     * a GLEIF-resolved LEI.
+     *
+     * @return gleifUpdatedAt
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_GLEIF_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getGleifUpdatedAt() {
+        return gleifUpdatedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_GLEIF_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setGleifUpdatedAt(@jakarta.annotation.Nullable String gleifUpdatedAt) {
+        this.gleifUpdatedAt = gleifUpdatedAt;
+    }
+
+    public TravelRuleVASP leiNumber(@jakarta.annotation.Nullable String leiNumber) {
+        this.leiNumber = leiNumber;
+        return this;
+    }
+
+    /**
+     * The VASP&#39;s Legal Entity Identifier (LEI), a 20-character alphanumeric code. Only
+     * populated for VASPs with a GLEIF-resolved LEI.
+     *
+     * @return leiNumber
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_LEI_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getLeiNumber() {
+        return leiNumber;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LEI_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setLeiNumber(@jakarta.annotation.Nullable String leiNumber) {
+        this.leiNumber = leiNumber;
+    }
+
+    public TravelRuleVASP legalForm(@jakarta.annotation.Nullable String legalForm) {
+        this.legalForm = legalForm;
+        return this;
+    }
+
+    /**
+     * The GLEIF Entity Legal Form (ELF) code of the VASP. Only populated for VASPs with a
+     * GLEIF-resolved LEI.
+     *
+     * @return legalForm
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_LEGAL_FORM)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getLegalForm() {
+        return legalForm;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LEGAL_FORM)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setLegalForm(@jakarta.annotation.Nullable String legalForm) {
+        this.legalForm = legalForm;
+    }
+
+    public TravelRuleVASP entityCategory(@jakarta.annotation.Nullable String entityCategory) {
+        this.entityCategory = entityCategory;
+        return this;
+    }
+
+    /**
+     * The GLEIF entity category of the VASP. Only populated for VASPs with a GLEIF-resolved LEI.
+     *
+     * @return entityCategory
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ENTITY_CATEGORY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getEntityCategory() {
+        return entityCategory;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ENTITY_CATEGORY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setEntityCategory(@jakarta.annotation.Nullable String entityCategory) {
+        this.entityCategory = entityCategory;
+    }
+
+    public TravelRuleVASP entityStatus(@jakarta.annotation.Nullable String entityStatus) {
+        this.entityStatus = entityStatus;
+        return this;
+    }
+
+    /**
+     * The GLEIF entity status of the VASP. Only populated for VASPs with a GLEIF-resolved LEI.
+     *
+     * @return entityStatus
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ENTITY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getEntityStatus() {
+        return entityStatus;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ENTITY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setEntityStatus(@jakarta.annotation.Nullable String entityStatus) {
+        this.entityStatus = entityStatus;
+    }
+
+    public TravelRuleVASP externalEntityConfig(
+            @jakarta.annotation.Nullable
+                    List<TravelRuleVASPExternalEntityConfig> externalEntityConfig) {
+        this.externalEntityConfig = externalEntityConfig;
+        return this;
+    }
+
+    public TravelRuleVASP addExternalEntityConfigItem(
+            TravelRuleVASPExternalEntityConfig externalEntityConfigItem) {
+        if (this.externalEntityConfig == null) {
+            this.externalEntityConfig = new ArrayList<>();
+        }
+        this.externalEntityConfig.add(externalEntityConfigItem);
+        return this;
+    }
+
+    /**
+     * Entity records resolved from external registries, such as GLEIF. Only populated for VASPs
+     * that have been resolved against at least one external registry.
+     *
+     * @return externalEntityConfig
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_EXTERNAL_ENTITY_CONFIG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<TravelRuleVASPExternalEntityConfig> getExternalEntityConfig() {
+        return externalEntityConfig;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EXTERNAL_ENTITY_CONFIG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setExternalEntityConfig(
+            @jakarta.annotation.Nullable
+                    List<TravelRuleVASPExternalEntityConfig> externalEntityConfig) {
+        this.externalEntityConfig = externalEntityConfig;
+    }
+
+    public TravelRuleVASP hqStreet(@jakarta.annotation.Nullable String hqStreet) {
+        this.hqStreet = hqStreet;
+        return this;
+    }
+
+    /**
+     * The street of the VASP&#39;s headquarters address. Only populated for VASPs with a
+     * GLEIF-resolved LEI.
+     *
+     * @return hqStreet
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_HQ_STREET)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getHqStreet() {
+        return hqStreet;
+    }
+
+    @JsonProperty(JSON_PROPERTY_HQ_STREET)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setHqStreet(@jakarta.annotation.Nullable String hqStreet) {
+        this.hqStreet = hqStreet;
+    }
+
+    public TravelRuleVASP hqNumber(@jakarta.annotation.Nullable String hqNumber) {
+        this.hqNumber = hqNumber;
+        return this;
+    }
+
+    /**
+     * The building number of the VASP&#39;s headquarters address. May be returned as an empty
+     * string as well as &#x60;null&#x60; when not supplied.
+     *
+     * @return hqNumber
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_HQ_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getHqNumber() {
+        return hqNumber;
+    }
+
+    @JsonProperty(JSON_PROPERTY_HQ_NUMBER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setHqNumber(@jakarta.annotation.Nullable String hqNumber) {
+        this.hqNumber = hqNumber;
+    }
+
+    public TravelRuleVASP hqPostcode(@jakarta.annotation.Nullable String hqPostcode) {
+        this.hqPostcode = hqPostcode;
+        return this;
+    }
+
+    /**
+     * The postal code of the VASP&#39;s headquarters address. Only populated for VASPs with a
+     * GLEIF-resolved LEI.
+     *
+     * @return hqPostcode
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_HQ_POSTCODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getHqPostcode() {
+        return hqPostcode;
+    }
+
+    @JsonProperty(JSON_PROPERTY_HQ_POSTCODE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setHqPostcode(@jakarta.annotation.Nullable String hqPostcode) {
+        this.hqPostcode = hqPostcode;
+    }
+
+    public TravelRuleVASP hqRegion(@jakarta.annotation.Nullable String hqRegion) {
+        this.hqRegion = hqRegion;
+        return this;
+    }
+
+    /**
+     * The region of the VASP&#39;s headquarters address, as an ISO-3166-2 subdivision code. Only
+     * populated for VASPs with a GLEIF-resolved LEI.
+     *
+     * @return hqRegion
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_HQ_REGION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getHqRegion() {
+        return hqRegion;
+    }
+
+    @JsonProperty(JSON_PROPERTY_HQ_REGION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setHqRegion(@jakarta.annotation.Nullable String hqRegion) {
+        this.hqRegion = hqRegion;
+    }
+
+    public TravelRuleVASP hqCity(@jakarta.annotation.Nullable String hqCity) {
+        this.hqCity = hqCity;
+        return this;
+    }
+
+    /**
+     * The city of the VASP&#39;s headquarters address. Only populated for VASPs with a
+     * GLEIF-resolved LEI.
+     *
+     * @return hqCity
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_HQ_CITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getHqCity() {
+        return hqCity;
+    }
+
+    @JsonProperty(JSON_PROPERTY_HQ_CITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setHqCity(@jakarta.annotation.Nullable String hqCity) {
+        this.hqCity = hqCity;
+    }
+
+    public TravelRuleVASP hqCountry(@jakarta.annotation.Nullable String hqCountry) {
+        this.hqCountry = hqCountry;
+        return this;
+    }
+
+    /**
+     * The country of the VASP&#39;s headquarters address (ISO-3166 Alpha-2 code). Only populated
+     * for VASPs with a GLEIF-resolved LEI.
+     *
+     * @return hqCountry
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_HQ_COUNTRY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getHqCountry() {
+        return hqCountry;
+    }
+
+    @JsonProperty(JSON_PROPERTY_HQ_COUNTRY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setHqCountry(@jakarta.annotation.Nullable String hqCountry) {
+        this.hqCountry = hqCountry;
+    }
+
     public TravelRuleVASP certificates(@jakarta.annotation.Nullable String certificates) {
         this.certificates = certificates;
         return this;
     }
 
     /**
-     * Certificates or licenses held by the VASP.
+     * Certificates or licenses held by the VASP. May be null.
      *
      * @return certificates
      */
@@ -898,7 +1398,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * A brief description of the VASP.
+     * A brief description of the VASP. May be null.
      *
      * @return description
      */
@@ -922,7 +1422,8 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Travel rule compliance status for OpenVASP.
+     * Travel rule compliance status for OpenVASP. Null when the VASP does not support this
+     * protocol.
      *
      * @return travelRuleOPENVASP
      */
@@ -945,7 +1446,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Travel rule compliance status for Sygna.
+     * Travel rule compliance status for Sygna. Null when the VASP does not support this protocol.
      *
      * @return travelRuleSYGNA
      */
@@ -968,7 +1469,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Travel rule compliance status for TRISA.
+     * Travel rule compliance status for TRISA. Null when the VASP does not support this protocol.
      *
      * @return travelRuleTRISA
      */
@@ -1014,7 +1515,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Travel rule compliance status for EMAIL.
+     * Travel rule compliance status for EMAIL. Null when the VASP does not support this protocol.
      *
      * @return travelRuleEMAIL
      */
@@ -1037,7 +1538,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Travel rule compliance status for TRP.
+     * Travel rule compliance status for TRP. Null when the VASP does not support this protocol.
      *
      * @return travelRuleTRP
      */
@@ -1060,7 +1561,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Travel rule compliance status for Shyft.
+     * Travel rule compliance status for Shyft. Null when the VASP does not support this protocol.
      *
      * @return travelRuleSHYFT
      */
@@ -1084,7 +1585,8 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Travel rule compliance status for US Travel Rule WG.
+     * Travel rule compliance status for US Travel Rule WG. Null when the VASP does not support this
+     * protocol.
      *
      * @return travelRuleUSTRAVELRULEWG
      */
@@ -1131,7 +1633,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * User or system that created the VASP record.
+     * The DID of the party that created the VASP record. May be null.
      *
      * @return createdBy
      */
@@ -1177,7 +1679,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * User or system that last updated the VASP record.
+     * The DID of the party that last updated the VASP record.
      *
      * @return updatedBy
      */
@@ -1246,7 +1748,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Documents associated with the VASP.
+     * Documents associated with the VASP. May be null.
      *
      * @return documents
      */
@@ -1332,6 +1834,534 @@ public class TravelRuleVASP {
         this.issuers = issuers;
     }
 
+    public TravelRuleVASP regulatoryStatus(@jakarta.annotation.Nullable String regulatoryStatus) {
+        this.regulatoryStatus = regulatoryStatus;
+        return this;
+    }
+
+    /**
+     * The regulatory status of the VASP, as free text.
+     *
+     * @return regulatoryStatus
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_REGULATORY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRegulatoryStatus() {
+        return regulatoryStatus;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REGULATORY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRegulatoryStatus(@jakarta.annotation.Nullable String regulatoryStatus) {
+        this.regulatoryStatus = regulatoryStatus;
+    }
+
+    public TravelRuleVASP supervisoryAuthority(
+            @jakarta.annotation.Nullable String supervisoryAuthority) {
+        this.supervisoryAuthority = supervisoryAuthority;
+        return this;
+    }
+
+    /**
+     * The supervisory authority responsible for the VASP.
+     *
+     * @return supervisoryAuthority
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SUPERVISORY_AUTHORITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getSupervisoryAuthority() {
+        return supervisoryAuthority;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SUPERVISORY_AUTHORITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSupervisoryAuthority(@jakarta.annotation.Nullable String supervisoryAuthority) {
+        this.supervisoryAuthority = supervisoryAuthority;
+    }
+
+    public TravelRuleVASP registrationLicenseId(
+            @jakarta.annotation.Nullable String registrationLicenseId) {
+        this.registrationLicenseId = registrationLicenseId;
+        return this;
+    }
+
+    /**
+     * The identifier of the VASP&#39;s registration or operating license.
+     *
+     * @return registrationLicenseId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_REGISTRATION_LICENSE_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRegistrationLicenseId() {
+        return registrationLicenseId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REGISTRATION_LICENSE_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRegistrationLicenseId(
+            @jakarta.annotation.Nullable String registrationLicenseId) {
+        this.registrationLicenseId = registrationLicenseId;
+    }
+
+    public TravelRuleVASP statusStartDate(@jakarta.annotation.Nullable String statusStartDate) {
+        this.statusStartDate = statusStartDate;
+        return this;
+    }
+
+    /**
+     * The date the VASP&#39;s current regulatory status took effect.
+     *
+     * @return statusStartDate
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_STATUS_START_DATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getStatusStartDate() {
+        return statusStartDate;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS_START_DATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStatusStartDate(@jakarta.annotation.Nullable String statusStartDate) {
+        this.statusStartDate = statusStartDate;
+    }
+
+    public TravelRuleVASP statusExpirationDate(
+            @jakarta.annotation.Nullable String statusExpirationDate) {
+        this.statusExpirationDate = statusExpirationDate;
+        return this;
+    }
+
+    /**
+     * The date the VASP&#39;s current regulatory status expires.
+     *
+     * @return statusExpirationDate
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_STATUS_EXPIRATION_DATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getStatusExpirationDate() {
+        return statusExpirationDate;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS_EXPIRATION_DATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStatusExpirationDate(@jakarta.annotation.Nullable String statusExpirationDate) {
+        this.statusExpirationDate = statusExpirationDate;
+    }
+
+    public TravelRuleVASP lastChecked(@jakarta.annotation.Nullable String lastChecked) {
+        this.lastChecked = lastChecked;
+        return this;
+    }
+
+    /**
+     * Timestamp of the last verification of the VASP&#39;s regulatory status.
+     *
+     * @return lastChecked
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_LAST_CHECKED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getLastChecked() {
+        return lastChecked;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LAST_CHECKED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setLastChecked(@jakarta.annotation.Nullable String lastChecked) {
+        this.lastChecked = lastChecked;
+    }
+
+    public TravelRuleVASP additionalInformation(
+            @jakarta.annotation.Nullable String additionalInformation) {
+        this.additionalInformation = additionalInformation;
+        return this;
+    }
+
+    /**
+     * Additional free-text information about the VASP.
+     *
+     * @return additionalInformation
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ADDITIONAL_INFORMATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAdditionalInformation() {
+        return additionalInformation;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ADDITIONAL_INFORMATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAdditionalInformation(
+            @jakarta.annotation.Nullable String additionalInformation) {
+        this.additionalInformation = additionalInformation;
+    }
+
+    public TravelRuleVASP subsidiaryOf(@jakarta.annotation.Nullable String subsidiaryOf) {
+        this.subsidiaryOf = subsidiaryOf;
+        return this;
+    }
+
+    /**
+     * The DID of the parent VASP, when this VASP is a subsidiary of another.
+     *
+     * @return subsidiaryOf
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SUBSIDIARY_OF)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getSubsidiaryOf() {
+        return subsidiaryOf;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SUBSIDIARY_OF)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSubsidiaryOf(@jakarta.annotation.Nullable String subsidiaryOf) {
+        this.subsidiaryOf = subsidiaryOf;
+    }
+
+    public TravelRuleVASP piiDidkey(@jakarta.annotation.Nullable String piiDidkey) {
+        this.piiDidkey = piiDidkey;
+        return this;
+    }
+
+    /**
+     * The VASP&#39;s public PII encryption key, published in the trust framework directory. Use it
+     * to encrypt IVMS101 personally identifiable information addressed to this VASP.
+     *
+     * @return piiDidkey
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PII_DIDKEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPiiDidkey() {
+        return piiDidkey;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PII_DIDKEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPiiDidkey(@jakarta.annotation.Nullable String piiDidkey) {
+        this.piiDidkey = piiDidkey;
+    }
+
+    public TravelRuleVASP compliancePhase(@jakarta.annotation.Nullable Integer compliancePhase) {
+        this.compliancePhase = compliancePhase;
+        return this;
+    }
+
+    /**
+     * The VASP&#39;s current compliance onboarding phase.
+     *
+     * @return compliancePhase
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_COMPLIANCE_PHASE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getCompliancePhase() {
+        return compliancePhase;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COMPLIANCE_PHASE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCompliancePhase(@jakarta.annotation.Nullable Integer compliancePhase) {
+        this.compliancePhase = compliancePhase;
+    }
+
+    public TravelRuleVASP compliancePhaseData(
+            @jakarta.annotation.Nullable Map<String, Boolean> compliancePhaseData) {
+        this.compliancePhaseData = compliancePhaseData;
+        return this;
+    }
+
+    public TravelRuleVASP putCompliancePhaseDataItem(String key, Boolean compliancePhaseDataItem) {
+        if (this.compliancePhaseData == null) {
+            this.compliancePhaseData = new HashMap<>();
+        }
+        this.compliancePhaseData.put(key, compliancePhaseDataItem);
+        return this;
+    }
+
+    /**
+     * The VASP&#39;s progress through the Travel Rule compliance onboarding milestones, as a map
+     * keyed by milestone code. Each value indicates whether that milestone has been completed. The
+     * set of milestone codes is defined by the Travel Rule provider and may change over time, so
+     * clients must not assume any particular key is present. Examples of milestone codes include
+     * &#x60;TX_SENT&#x60;, &#x60;TX_NOTIFY_API&#x60;, &#x60;TF_VASP_VERIFIED&#x60;,
+     * &#x60;RULES_CUSTOM_INCOMING&#x60; and &#x60;INTEGRATIONS_WIDGET&#x60;.
+     *
+     * @return compliancePhaseData
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_COMPLIANCE_PHASE_DATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Map<String, Boolean> getCompliancePhaseData() {
+        return compliancePhaseData;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COMPLIANCE_PHASE_DATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCompliancePhaseData(
+            @jakarta.annotation.Nullable Map<String, Boolean> compliancePhaseData) {
+        this.compliancePhaseData = compliancePhaseData;
+    }
+
+    public TravelRuleVASP vaspnetId(@jakarta.annotation.Nullable String vaspnetId) {
+        this.vaspnetId = vaspnetId;
+        return this;
+    }
+
+    /**
+     * The VASP&#39;s VASPnet identifier.
+     *
+     * @return vaspnetId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_VASPNET_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getVaspnetId() {
+        return vaspnetId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VASPNET_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setVaspnetId(@jakarta.annotation.Nullable String vaspnetId) {
+        this.vaspnetId = vaspnetId;
+    }
+
+    public TravelRuleVASP vaspnetUpdatedAt(@jakarta.annotation.Nullable String vaspnetUpdatedAt) {
+        this.vaspnetUpdatedAt = vaspnetUpdatedAt;
+        return this;
+    }
+
+    /**
+     * Timestamp of the last synchronization with VASPnet.
+     *
+     * @return vaspnetUpdatedAt
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_VASPNET_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getVaspnetUpdatedAt() {
+        return vaspnetUpdatedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VASPNET_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setVaspnetUpdatedAt(@jakarta.annotation.Nullable String vaspnetUpdatedAt) {
+        this.vaspnetUpdatedAt = vaspnetUpdatedAt;
+    }
+
+    public TravelRuleVASP vaspnetImmutableFields(
+            @jakarta.annotation.Nullable List<String> vaspnetImmutableFields) {
+        this.vaspnetImmutableFields = vaspnetImmutableFields;
+        return this;
+    }
+
+    public TravelRuleVASP addVaspnetImmutableFieldsItem(String vaspnetImmutableFieldsItem) {
+        if (this.vaspnetImmutableFields == null) {
+            this.vaspnetImmutableFields = new ArrayList<>();
+        }
+        this.vaspnetImmutableFields.add(vaspnetImmutableFieldsItem);
+        return this;
+    }
+
+    /**
+     * Names of the fields that are managed by VASPnet and cannot be modified locally. Empty when no
+     * fields are locked.
+     *
+     * @return vaspnetImmutableFields
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_VASPNET_IMMUTABLE_FIELDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<String> getVaspnetImmutableFields() {
+        return vaspnetImmutableFields;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VASPNET_IMMUTABLE_FIELDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setVaspnetImmutableFields(
+            @jakarta.annotation.Nullable List<String> vaspnetImmutableFields) {
+        this.vaspnetImmutableFields = vaspnetImmutableFields;
+    }
+
+    public TravelRuleVASP nodeDidkey(@jakarta.annotation.Nullable String nodeDidkey) {
+        this.nodeDidkey = nodeDidkey;
+        return this;
+    }
+
+    /**
+     * The public key of the Travel Rule node serving this VASP record. The format has not been
+     * confirmed against a live response; every observed value has been null.
+     *
+     * @return nodeDidkey
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_NODE_DIDKEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getNodeDidkey() {
+        return nodeDidkey;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NODE_DIDKEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setNodeDidkey(@jakarta.annotation.Nullable String nodeDidkey) {
+        this.nodeDidkey = nodeDidkey;
+    }
+
+    public TravelRuleVASP ddq(@jakarta.annotation.Nullable String ddq) {
+        this.ddq = ddq;
+        return this;
+    }
+
+    /**
+     * The VASP&#39;s Due Diligence Questionnaire, as a JSON-encoded string containing a
+     * &#x60;data&#x60; object and an &#x60;updatedAt&#x60; timestamp. Clients must parse this
+     * value.
+     *
+     * @return ddq
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_DDQ)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getDdq() {
+        return ddq;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DDQ)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDdq(@jakarta.annotation.Nullable String ddq) {
+        this.ddq = ddq;
+    }
+
+    public TravelRuleVASP targetProtocol(@jakarta.annotation.Nullable String targetProtocol) {
+        this.targetProtocol = targetProtocol;
+        return this;
+    }
+
+    /**
+     * The Travel Rule protocol used to reach this VASP, when a specific one is configured.
+     *
+     * @return targetProtocol
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TARGET_PROTOCOL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTargetProtocol() {
+        return targetProtocol;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TARGET_PROTOCOL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTargetProtocol(@jakarta.annotation.Nullable String targetProtocol) {
+        this.targetProtocol = targetProtocol;
+    }
+
+    public TravelRuleVASP parentGateway(@jakarta.annotation.Nullable String parentGateway) {
+        this.parentGateway = parentGateway;
+        return this;
+    }
+
+    /**
+     * The DID of the gateway VASP that routes messages on this VASP&#39;s behalf.
+     *
+     * @return parentGateway
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PARENT_GATEWAY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getParentGateway() {
+        return parentGateway;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PARENT_GATEWAY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setParentGateway(@jakarta.annotation.Nullable String parentGateway) {
+        this.parentGateway = parentGateway;
+    }
+
+    public TravelRuleVASP isActiveSender(@jakarta.annotation.Nullable Boolean isActiveSender) {
+        this.isActiveSender = isActiveSender;
+        return this;
+    }
+
+    /**
+     * Indicates if the VASP actively sends Travel Rule transfers.
+     *
+     * @return isActiveSender
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_IS_ACTIVE_SENDER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getIsActiveSender() {
+        return isActiveSender;
+    }
+
+    @JsonProperty(JSON_PROPERTY_IS_ACTIVE_SENDER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIsActiveSender(@jakarta.annotation.Nullable Boolean isActiveSender) {
+        this.isActiveSender = isActiveSender;
+    }
+
+    public TravelRuleVASP isActiveReceiver(@jakarta.annotation.Nullable Boolean isActiveReceiver) {
+        this.isActiveReceiver = isActiveReceiver;
+        return this;
+    }
+
+    /**
+     * Indicates if the VASP actively receives Travel Rule transfers.
+     *
+     * @return isActiveReceiver
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_IS_ACTIVE_RECEIVER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getIsActiveReceiver() {
+        return isActiveReceiver;
+    }
+
+    @JsonProperty(JSON_PROPERTY_IS_ACTIVE_RECEIVER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIsActiveReceiver(@jakarta.annotation.Nullable Boolean isActiveReceiver) {
+        this.isActiveReceiver = isActiveReceiver;
+    }
+
+    public TravelRuleVASP subsidiaries(@jakarta.annotation.Nullable List<Object> subsidiaries) {
+        this.subsidiaries = subsidiaries;
+        return this;
+    }
+
+    public TravelRuleVASP addSubsidiariesItem(Object subsidiariesItem) {
+        if (this.subsidiaries == null) {
+            this.subsidiaries = new ArrayList<>();
+        }
+        this.subsidiaries.add(subsidiariesItem);
+        return this;
+    }
+
+    /**
+     * The VASP&#39;s subsidiary entities. The element schema is not yet documented, as no response
+     * containing a populated value has been observed; do not assume a particular element type.
+     *
+     * @return subsidiaries
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SUBSIDIARIES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<Object> getSubsidiaries() {
+        return subsidiaries;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SUBSIDIARIES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSubsidiaries(@jakarta.annotation.Nullable List<Object> subsidiaries) {
+        this.subsidiaries = subsidiaries;
+    }
+
     /** Return true if this TravelRuleVASP object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -1363,11 +2393,25 @@ public class TravelRuleVASP {
                 && Objects.equals(this.businessNumber, travelRuleVASP.businessNumber)
                 && Objects.equals(this.regulatoryAuthorities, travelRuleVASP.regulatoryAuthorities)
                 && Objects.equals(this.jurisdictions, travelRuleVASP.jurisdictions)
+                && Objects.equals(this.division, travelRuleVASP.division)
                 && Objects.equals(this.street, travelRuleVASP.street)
                 && Objects.equals(this.number, travelRuleVASP.number)
                 && Objects.equals(this.unit, travelRuleVASP.unit)
                 && Objects.equals(this.postCode, travelRuleVASP.postCode)
                 && Objects.equals(this.state, travelRuleVASP.state)
+                && Objects.equals(this.otherLegalName, travelRuleVASP.otherLegalName)
+                && Objects.equals(this.gleifUpdatedAt, travelRuleVASP.gleifUpdatedAt)
+                && Objects.equals(this.leiNumber, travelRuleVASP.leiNumber)
+                && Objects.equals(this.legalForm, travelRuleVASP.legalForm)
+                && Objects.equals(this.entityCategory, travelRuleVASP.entityCategory)
+                && Objects.equals(this.entityStatus, travelRuleVASP.entityStatus)
+                && Objects.equals(this.externalEntityConfig, travelRuleVASP.externalEntityConfig)
+                && Objects.equals(this.hqStreet, travelRuleVASP.hqStreet)
+                && Objects.equals(this.hqNumber, travelRuleVASP.hqNumber)
+                && Objects.equals(this.hqPostcode, travelRuleVASP.hqPostcode)
+                && Objects.equals(this.hqRegion, travelRuleVASP.hqRegion)
+                && Objects.equals(this.hqCity, travelRuleVASP.hqCity)
+                && Objects.equals(this.hqCountry, travelRuleVASP.hqCountry)
                 && Objects.equals(this.certificates, travelRuleVASP.certificates)
                 && Objects.equals(this.description, travelRuleVASP.description)
                 && Objects.equals(this.travelRuleOPENVASP, travelRuleVASP.travelRuleOPENVASP)
@@ -1388,7 +2432,29 @@ public class TravelRuleVASP {
                 && Objects.equals(this.documents, travelRuleVASP.documents)
                 && Objects.equals(this.hasAdmin, travelRuleVASP.hasAdmin)
                 && Objects.equals(this.isNotifiable, travelRuleVASP.isNotifiable)
-                && Objects.equals(this.issuers, travelRuleVASP.issuers);
+                && Objects.equals(this.issuers, travelRuleVASP.issuers)
+                && Objects.equals(this.regulatoryStatus, travelRuleVASP.regulatoryStatus)
+                && Objects.equals(this.supervisoryAuthority, travelRuleVASP.supervisoryAuthority)
+                && Objects.equals(this.registrationLicenseId, travelRuleVASP.registrationLicenseId)
+                && Objects.equals(this.statusStartDate, travelRuleVASP.statusStartDate)
+                && Objects.equals(this.statusExpirationDate, travelRuleVASP.statusExpirationDate)
+                && Objects.equals(this.lastChecked, travelRuleVASP.lastChecked)
+                && Objects.equals(this.additionalInformation, travelRuleVASP.additionalInformation)
+                && Objects.equals(this.subsidiaryOf, travelRuleVASP.subsidiaryOf)
+                && Objects.equals(this.piiDidkey, travelRuleVASP.piiDidkey)
+                && Objects.equals(this.compliancePhase, travelRuleVASP.compliancePhase)
+                && Objects.equals(this.compliancePhaseData, travelRuleVASP.compliancePhaseData)
+                && Objects.equals(this.vaspnetId, travelRuleVASP.vaspnetId)
+                && Objects.equals(this.vaspnetUpdatedAt, travelRuleVASP.vaspnetUpdatedAt)
+                && Objects.equals(
+                        this.vaspnetImmutableFields, travelRuleVASP.vaspnetImmutableFields)
+                && Objects.equals(this.nodeDidkey, travelRuleVASP.nodeDidkey)
+                && Objects.equals(this.ddq, travelRuleVASP.ddq)
+                && Objects.equals(this.targetProtocol, travelRuleVASP.targetProtocol)
+                && Objects.equals(this.parentGateway, travelRuleVASP.parentGateway)
+                && Objects.equals(this.isActiveSender, travelRuleVASP.isActiveSender)
+                && Objects.equals(this.isActiveReceiver, travelRuleVASP.isActiveReceiver)
+                && Objects.equals(this.subsidiaries, travelRuleVASP.subsidiaries);
     }
 
     @Override
@@ -1415,11 +2481,25 @@ public class TravelRuleVASP {
                 businessNumber,
                 regulatoryAuthorities,
                 jurisdictions,
+                division,
                 street,
                 number,
                 unit,
                 postCode,
                 state,
+                otherLegalName,
+                gleifUpdatedAt,
+                leiNumber,
+                legalForm,
+                entityCategory,
+                entityStatus,
+                externalEntityConfig,
+                hqStreet,
+                hqNumber,
+                hqPostcode,
+                hqRegion,
+                hqCity,
+                hqCountry,
                 certificates,
                 description,
                 travelRuleOPENVASP,
@@ -1439,7 +2519,28 @@ public class TravelRuleVASP {
                 documents,
                 hasAdmin,
                 isNotifiable,
-                issuers);
+                issuers,
+                regulatoryStatus,
+                supervisoryAuthority,
+                registrationLicenseId,
+                statusStartDate,
+                statusExpirationDate,
+                lastChecked,
+                additionalInformation,
+                subsidiaryOf,
+                piiDidkey,
+                compliancePhase,
+                compliancePhaseData,
+                vaspnetId,
+                vaspnetUpdatedAt,
+                vaspnetImmutableFields,
+                nodeDidkey,
+                ddq,
+                targetProtocol,
+                parentGateway,
+                isActiveSender,
+                isActiveReceiver,
+                subsidiaries);
     }
 
     @Override
@@ -1477,11 +2578,27 @@ public class TravelRuleVASP {
                 .append(toIndentedString(regulatoryAuthorities))
                 .append("\n");
         sb.append("    jurisdictions: ").append(toIndentedString(jurisdictions)).append("\n");
+        sb.append("    division: ").append(toIndentedString(division)).append("\n");
         sb.append("    street: ").append(toIndentedString(street)).append("\n");
         sb.append("    number: ").append(toIndentedString(number)).append("\n");
         sb.append("    unit: ").append(toIndentedString(unit)).append("\n");
         sb.append("    postCode: ").append(toIndentedString(postCode)).append("\n");
         sb.append("    state: ").append(toIndentedString(state)).append("\n");
+        sb.append("    otherLegalName: ").append(toIndentedString(otherLegalName)).append("\n");
+        sb.append("    gleifUpdatedAt: ").append(toIndentedString(gleifUpdatedAt)).append("\n");
+        sb.append("    leiNumber: ").append(toIndentedString(leiNumber)).append("\n");
+        sb.append("    legalForm: ").append(toIndentedString(legalForm)).append("\n");
+        sb.append("    entityCategory: ").append(toIndentedString(entityCategory)).append("\n");
+        sb.append("    entityStatus: ").append(toIndentedString(entityStatus)).append("\n");
+        sb.append("    externalEntityConfig: ")
+                .append(toIndentedString(externalEntityConfig))
+                .append("\n");
+        sb.append("    hqStreet: ").append(toIndentedString(hqStreet)).append("\n");
+        sb.append("    hqNumber: ").append(toIndentedString(hqNumber)).append("\n");
+        sb.append("    hqPostcode: ").append(toIndentedString(hqPostcode)).append("\n");
+        sb.append("    hqRegion: ").append(toIndentedString(hqRegion)).append("\n");
+        sb.append("    hqCity: ").append(toIndentedString(hqCity)).append("\n");
+        sb.append("    hqCountry: ").append(toIndentedString(hqCountry)).append("\n");
         sb.append("    certificates: ").append(toIndentedString(certificates)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    travelRuleOPENVASP: ")
@@ -1508,6 +2625,39 @@ public class TravelRuleVASP {
         sb.append("    hasAdmin: ").append(toIndentedString(hasAdmin)).append("\n");
         sb.append("    isNotifiable: ").append(toIndentedString(isNotifiable)).append("\n");
         sb.append("    issuers: ").append(toIndentedString(issuers)).append("\n");
+        sb.append("    regulatoryStatus: ").append(toIndentedString(regulatoryStatus)).append("\n");
+        sb.append("    supervisoryAuthority: ")
+                .append(toIndentedString(supervisoryAuthority))
+                .append("\n");
+        sb.append("    registrationLicenseId: ")
+                .append(toIndentedString(registrationLicenseId))
+                .append("\n");
+        sb.append("    statusStartDate: ").append(toIndentedString(statusStartDate)).append("\n");
+        sb.append("    statusExpirationDate: ")
+                .append(toIndentedString(statusExpirationDate))
+                .append("\n");
+        sb.append("    lastChecked: ").append(toIndentedString(lastChecked)).append("\n");
+        sb.append("    additionalInformation: ")
+                .append(toIndentedString(additionalInformation))
+                .append("\n");
+        sb.append("    subsidiaryOf: ").append(toIndentedString(subsidiaryOf)).append("\n");
+        sb.append("    piiDidkey: ").append(toIndentedString(piiDidkey)).append("\n");
+        sb.append("    compliancePhase: ").append(toIndentedString(compliancePhase)).append("\n");
+        sb.append("    compliancePhaseData: ")
+                .append(toIndentedString(compliancePhaseData))
+                .append("\n");
+        sb.append("    vaspnetId: ").append(toIndentedString(vaspnetId)).append("\n");
+        sb.append("    vaspnetUpdatedAt: ").append(toIndentedString(vaspnetUpdatedAt)).append("\n");
+        sb.append("    vaspnetImmutableFields: ")
+                .append(toIndentedString(vaspnetImmutableFields))
+                .append("\n");
+        sb.append("    nodeDidkey: ").append(toIndentedString(nodeDidkey)).append("\n");
+        sb.append("    ddq: ").append(toIndentedString(ddq)).append("\n");
+        sb.append("    targetProtocol: ").append(toIndentedString(targetProtocol)).append("\n");
+        sb.append("    parentGateway: ").append(toIndentedString(parentGateway)).append("\n");
+        sb.append("    isActiveSender: ").append(toIndentedString(isActiveSender)).append("\n");
+        sb.append("    isActiveReceiver: ").append(toIndentedString(isActiveReceiver)).append("\n");
+        sb.append("    subsidiaries: ").append(toIndentedString(subsidiaries)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -1768,6 +2918,16 @@ public class TravelRuleVASP {
                             ApiClient.urlEncode(ApiClient.valueToString(getJurisdictions()))));
         }
 
+        // add `division` to the URL query string
+        if (getDivision() != null) {
+            joiner.add(
+                    String.format(
+                            "%sdivision%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getDivision()))));
+        }
+
         // add `street` to the URL query string
         if (getStreet() != null) {
             joiner.add(
@@ -1816,6 +2976,149 @@ public class TravelRuleVASP {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getState()))));
+        }
+
+        // add `otherLegalName` to the URL query string
+        if (getOtherLegalName() != null) {
+            joiner.add(
+                    String.format(
+                            "%sotherLegalName%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getOtherLegalName()))));
+        }
+
+        // add `gleifUpdatedAt` to the URL query string
+        if (getGleifUpdatedAt() != null) {
+            joiner.add(
+                    String.format(
+                            "%sgleifUpdatedAt%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getGleifUpdatedAt()))));
+        }
+
+        // add `leiNumber` to the URL query string
+        if (getLeiNumber() != null) {
+            joiner.add(
+                    String.format(
+                            "%sleiNumber%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getLeiNumber()))));
+        }
+
+        // add `legalForm` to the URL query string
+        if (getLegalForm() != null) {
+            joiner.add(
+                    String.format(
+                            "%slegalForm%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getLegalForm()))));
+        }
+
+        // add `entityCategory` to the URL query string
+        if (getEntityCategory() != null) {
+            joiner.add(
+                    String.format(
+                            "%sentityCategory%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getEntityCategory()))));
+        }
+
+        // add `entityStatus` to the URL query string
+        if (getEntityStatus() != null) {
+            joiner.add(
+                    String.format(
+                            "%sentityStatus%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getEntityStatus()))));
+        }
+
+        // add `externalEntityConfig` to the URL query string
+        if (getExternalEntityConfig() != null) {
+            for (int i = 0; i < getExternalEntityConfig().size(); i++) {
+                if (getExternalEntityConfig().get(i) != null) {
+                    joiner.add(
+                            getExternalEntityConfig()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%sexternalEntityConfig%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
+        }
+
+        // add `hqStreet` to the URL query string
+        if (getHqStreet() != null) {
+            joiner.add(
+                    String.format(
+                            "%shqStreet%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getHqStreet()))));
+        }
+
+        // add `hqNumber` to the URL query string
+        if (getHqNumber() != null) {
+            joiner.add(
+                    String.format(
+                            "%shqNumber%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getHqNumber()))));
+        }
+
+        // add `hqPostcode` to the URL query string
+        if (getHqPostcode() != null) {
+            joiner.add(
+                    String.format(
+                            "%shqPostcode%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getHqPostcode()))));
+        }
+
+        // add `hqRegion` to the URL query string
+        if (getHqRegion() != null) {
+            joiner.add(
+                    String.format(
+                            "%shqRegion%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getHqRegion()))));
+        }
+
+        // add `hqCity` to the URL query string
+        if (getHqCity() != null) {
+            joiner.add(
+                    String.format(
+                            "%shqCity%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getHqCity()))));
+        }
+
+        // add `hqCountry` to the URL query string
+        if (getHqCountry() != null) {
+            joiner.add(
+                    String.format(
+                            "%shqCountry%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getHqCountry()))));
         }
 
         // add `certificates` to the URL query string
@@ -2012,6 +3315,244 @@ public class TravelRuleVASP {
         // add `issuers` to the URL query string
         if (getIssuers() != null) {
             joiner.add(getIssuers().toUrlQueryString(prefix + "issuers" + suffix));
+        }
+
+        // add `regulatoryStatus` to the URL query string
+        if (getRegulatoryStatus() != null) {
+            joiner.add(
+                    String.format(
+                            "%sregulatoryStatus%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getRegulatoryStatus()))));
+        }
+
+        // add `supervisoryAuthority` to the URL query string
+        if (getSupervisoryAuthority() != null) {
+            joiner.add(
+                    String.format(
+                            "%ssupervisoryAuthority%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getSupervisoryAuthority()))));
+        }
+
+        // add `registrationLicenseId` to the URL query string
+        if (getRegistrationLicenseId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sregistrationLicenseId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getRegistrationLicenseId()))));
+        }
+
+        // add `statusStartDate` to the URL query string
+        if (getStatusStartDate() != null) {
+            joiner.add(
+                    String.format(
+                            "%sstatusStartDate%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatusStartDate()))));
+        }
+
+        // add `statusExpirationDate` to the URL query string
+        if (getStatusExpirationDate() != null) {
+            joiner.add(
+                    String.format(
+                            "%sstatusExpirationDate%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getStatusExpirationDate()))));
+        }
+
+        // add `lastChecked` to the URL query string
+        if (getLastChecked() != null) {
+            joiner.add(
+                    String.format(
+                            "%slastChecked%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getLastChecked()))));
+        }
+
+        // add `additionalInformation` to the URL query string
+        if (getAdditionalInformation() != null) {
+            joiner.add(
+                    String.format(
+                            "%sadditionalInformation%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getAdditionalInformation()))));
+        }
+
+        // add `subsidiaryOf` to the URL query string
+        if (getSubsidiaryOf() != null) {
+            joiner.add(
+                    String.format(
+                            "%ssubsidiaryOf%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getSubsidiaryOf()))));
+        }
+
+        // add `pii_didkey` to the URL query string
+        if (getPiiDidkey() != null) {
+            joiner.add(
+                    String.format(
+                            "%spii_didkey%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getPiiDidkey()))));
+        }
+
+        // add `compliancePhase` to the URL query string
+        if (getCompliancePhase() != null) {
+            joiner.add(
+                    String.format(
+                            "%scompliancePhase%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getCompliancePhase()))));
+        }
+
+        // add `compliancePhaseData` to the URL query string
+        if (getCompliancePhaseData() != null) {
+            for (String _key : getCompliancePhaseData().keySet()) {
+                joiner.add(
+                        String.format(
+                                "%scompliancePhaseData%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, _key, containerSuffix),
+                                getCompliancePhaseData().get(_key),
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(
+                                                getCompliancePhaseData().get(_key)))));
+            }
+        }
+
+        // add `vaspnetId` to the URL query string
+        if (getVaspnetId() != null) {
+            joiner.add(
+                    String.format(
+                            "%svaspnetId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaspnetId()))));
+        }
+
+        // add `vaspnetUpdatedAt` to the URL query string
+        if (getVaspnetUpdatedAt() != null) {
+            joiner.add(
+                    String.format(
+                            "%svaspnetUpdatedAt%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaspnetUpdatedAt()))));
+        }
+
+        // add `vaspnetImmutableFields` to the URL query string
+        if (getVaspnetImmutableFields() != null) {
+            for (int i = 0; i < getVaspnetImmutableFields().size(); i++) {
+                joiner.add(
+                        String.format(
+                                "%svaspnetImmutableFields%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(
+                                                getVaspnetImmutableFields().get(i)))));
+            }
+        }
+
+        // add `node_didkey` to the URL query string
+        if (getNodeDidkey() != null) {
+            joiner.add(
+                    String.format(
+                            "%snode_didkey%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getNodeDidkey()))));
+        }
+
+        // add `ddq` to the URL query string
+        if (getDdq() != null) {
+            joiner.add(
+                    String.format(
+                            "%sddq%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getDdq()))));
+        }
+
+        // add `targetProtocol` to the URL query string
+        if (getTargetProtocol() != null) {
+            joiner.add(
+                    String.format(
+                            "%stargetProtocol%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getTargetProtocol()))));
+        }
+
+        // add `parentGateway` to the URL query string
+        if (getParentGateway() != null) {
+            joiner.add(
+                    String.format(
+                            "%sparentGateway%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getParentGateway()))));
+        }
+
+        // add `isActiveSender` to the URL query string
+        if (getIsActiveSender() != null) {
+            joiner.add(
+                    String.format(
+                            "%sisActiveSender%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsActiveSender()))));
+        }
+
+        // add `isActiveReceiver` to the URL query string
+        if (getIsActiveReceiver() != null) {
+            joiner.add(
+                    String.format(
+                            "%sisActiveReceiver%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsActiveReceiver()))));
+        }
+
+        // add `subsidiaries` to the URL query string
+        if (getSubsidiaries() != null) {
+            for (int i = 0; i < getSubsidiaries().size(); i++) {
+                joiner.add(
+                        String.format(
+                                "%ssubsidiaries%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getSubsidiaries().get(i)))));
+            }
         }
 
         return joiner.toString();

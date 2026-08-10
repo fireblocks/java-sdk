@@ -30,4 +30,16 @@ class TravelRuleIssuerTest {
     void issuerDidTest() {
         // TODO: test issuerDid
     }
+
+    /** Test the property 'issuedDate' */
+    @Test
+    void issuedDateTest() {
+        // TODO: test issuedDate
+    }
+
+    /** Test the property 'issuerName' */
+    @Test
+    void issuerNameTest() {
+        // TODO: test issuerName
+    }
 }

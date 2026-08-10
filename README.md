@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>25.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:25.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-25.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -1682,6 +1682,9 @@ Class | Method | HTTP request | Description
  - [TravelRuleTransactionBlockchainInfo](docs/TravelRuleTransactionBlockchainInfo.md)
  - [TravelRuleUpdateVASPDetails](docs/TravelRuleUpdateVASPDetails.md)
  - [TravelRuleVASP](docs/TravelRuleVASP.md)
+ - [TravelRuleVASPExternalEntity](docs/TravelRuleVASPExternalEntity.md)
+ - [TravelRuleVASPExternalEntityConfig](docs/TravelRuleVASPExternalEntityConfig.md)
+ - [TravelRuleVASPExternalEntityRegistration](docs/TravelRuleVASPExternalEntityRegistration.md)
  - [TravelRuleValidateDateAndPlaceOfBirth](docs/TravelRuleValidateDateAndPlaceOfBirth.md)
  - [TravelRuleValidateFullTransactionRequest](docs/TravelRuleValidateFullTransactionRequest.md)
  - [TravelRuleValidateGeographicAddress](docs/TravelRuleValidateGeographicAddress.md)

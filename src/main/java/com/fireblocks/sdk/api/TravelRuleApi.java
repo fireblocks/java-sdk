@@ -245,10 +245,16 @@ public class TravelRuleApi {
     }
     /**
      * Get VASP details Get VASP Details. Returns information about a VASP that has the specified
-     * DID.
+     * DID. The response may contain fields that are not documented in the schema below. Clients
+     * must ignore unrecognised fields rather than failing to deserialize.
      *
-     * @param did (required)
-     * @param fields A CSV of fields to return. Choose from the following options: (optional
+     * @param did The Decentralized Identifier (DID) of the VASP. (required)
+     * @param fields The VASP fields to return. Optional. If omitted, or supplied with an empty
+     *     value, the complete VASP record is returned, which is the same as passing
+     *     &#x60;all&#x60;. Most field names return exactly the requested field. A few behave
+     *     differently: &#x60;documents&#x60; and &#x60;ddq&#x60; return a small default set of
+     *     identifying fields instead of the requested one, and &#x60;travelRule_EMAIL&#x60; returns
+     *     an empty object. An unrecognised field name causes an error. (optional
      * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleVASP&gt;&gt;
      * @throws ApiException if fails to make API call
      */
@@ -328,12 +334,20 @@ public class TravelRuleApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get All VASPs Get All VASPs. Returns a list of VASPs. VASPs can be searched and sorted.
+     * Get All VASPs Get All VASPs. Returns a list of VASPs. VASPs can be searched and sorted. Each
+     * VASP in the response may contain fields that are not documented in the schema below. Clients
+     * must ignore unrecognised fields rather than failing to deserialize.
      *
      * @param order Field to order by (optional)
      * @param pageSize Records per page (optional, default to 500)
-     * @param fields CSV of fields to return (all, \&quot;blank\&quot; or see list of all field
-     *     names below) (optional
+     * @param fields The VASP fields to return. Optional. If omitted, each VASP is returned with a
+     *     default subset of six fields: &#x60;did&#x60;, &#x60;name&#x60;, &#x60;website&#x60;,
+     *     &#x60;logo&#x60;, &#x60;incorporationCountry&#x60; and &#x60;jurisdictions&#x60;. Pass
+     *     &#x60;all&#x60; to return the complete record for each VASP. Most field names return
+     *     exactly the requested field. A few behave differently: &#x60;documents&#x60; and
+     *     &#x60;ddq&#x60; return a small default set of identifying fields instead of the requested
+     *     one, and &#x60;travelRule_EMAIL&#x60; returns an empty object. An unrecognised field name
+     *     causes an error. (optional
      * @param search Search query (optional)
      * @param reviewValue Filter by the VASP&#39;s review status. Possible values include:
      *     \&quot;TRUSTED\&quot;, \&quot;BLOCKED\&quot;, \&quot;MANUAL\&quot;, or

@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.model;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -34,27 +33,17 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class ContractAttributes {
     public static final String JSON_PROPERTY_USE_CASES = "useCases";
-    @jakarta.annotation.Nonnull private List<String> useCases;
+    @jakarta.annotation.Nullable private List<String> useCases;
 
     public static final String JSON_PROPERTY_STANDARDS = "standards";
-    @jakarta.annotation.Nonnull private List<String> standards;
+    @jakarta.annotation.Nullable private List<String> standards;
 
     public static final String JSON_PROPERTY_AUDITOR = "auditor";
-    @jakarta.annotation.Nonnull private AuditorData auditor;
+    @jakarta.annotation.Nullable private AuditorData auditor;
 
     public ContractAttributes() {}
 
-    @JsonCreator
-    public ContractAttributes(
-            @JsonProperty(value = JSON_PROPERTY_USE_CASES, required = true) List<String> useCases,
-            @JsonProperty(value = JSON_PROPERTY_STANDARDS, required = true) List<String> standards,
-            @JsonProperty(value = JSON_PROPERTY_AUDITOR, required = true) AuditorData auditor) {
-        this.useCases = useCases;
-        this.standards = standards;
-        this.auditor = auditor;
-    }
-
-    public ContractAttributes useCases(@jakarta.annotation.Nonnull List<String> useCases) {
+    public ContractAttributes useCases(@jakarta.annotation.Nullable List<String> useCases) {
         this.useCases = useCases;
         return this;
     }
@@ -72,20 +61,20 @@ public class ContractAttributes {
      *
      * @return useCases
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_USE_CASES)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public List<String> getUseCases() {
         return useCases;
     }
 
     @JsonProperty(JSON_PROPERTY_USE_CASES)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUseCases(@jakarta.annotation.Nonnull List<String> useCases) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUseCases(@jakarta.annotation.Nullable List<String> useCases) {
         this.useCases = useCases;
     }
 
-    public ContractAttributes standards(@jakarta.annotation.Nonnull List<String> standards) {
+    public ContractAttributes standards(@jakarta.annotation.Nullable List<String> standards) {
         this.standards = standards;
         return this;
     }
@@ -99,24 +88,26 @@ public class ContractAttributes {
     }
 
     /**
-     * Get standards
+     * Token standards implemented by the contract (e.g. ERC-20, ERC-1400). Not returned for
+     * templates that do not follow ERC token standards, such as non-EVM templates (e.g. Stellar,
+     * Solana Token 2022)
      *
      * @return standards
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_STANDARDS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public List<String> getStandards() {
         return standards;
     }
 
     @JsonProperty(JSON_PROPERTY_STANDARDS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStandards(@jakarta.annotation.Nonnull List<String> standards) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStandards(@jakarta.annotation.Nullable List<String> standards) {
         this.standards = standards;
     }
 
-    public ContractAttributes auditor(@jakarta.annotation.Nonnull AuditorData auditor) {
+    public ContractAttributes auditor(@jakarta.annotation.Nullable AuditorData auditor) {
         this.auditor = auditor;
         return this;
     }
@@ -126,16 +117,16 @@ public class ContractAttributes {
      *
      * @return auditor
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_AUDITOR)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public AuditorData getAuditor() {
         return auditor;
     }
 
     @JsonProperty(JSON_PROPERTY_AUDITOR)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAuditor(@jakarta.annotation.Nonnull AuditorData auditor) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAuditor(@jakarta.annotation.Nullable AuditorData auditor) {
         this.auditor = auditor;
     }
 

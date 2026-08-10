@@ -70,7 +70,9 @@ public class TravelRuleApiTest {
     /**
      * Get VASP details
      *
-     * <p>Get VASP Details. Returns information about a VASP that has the specified DID.
+     * <p>Get VASP Details. Returns information about a VASP that has the specified DID. The
+     * response may contain fields that are not documented in the schema below. Clients must ignore
+     * unrecognised fields rather than failing to deserialize.
      *
      * @throws ApiException if the Api call fails
      */
@@ -84,7 +86,9 @@ public class TravelRuleApiTest {
     /**
      * Get All VASPs
      *
-     * <p>Get All VASPs. Returns a list of VASPs. VASPs can be searched and sorted.
+     * <p>Get All VASPs. Returns a list of VASPs. VASPs can be searched and sorted. Each VASP in the
+     * response may contain fields that are not documented in the schema below. Clients must ignore
+     * unrecognised fields rather than failing to deserialize.
      *
      * @throws ApiException if the Api call fails
      */
