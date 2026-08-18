@@ -48,7 +48,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -84,6 +87,28 @@ public class EmbeddedWalletsApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -101,12 +126,11 @@ public class EmbeddedWalletsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAddressDetails&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAddressDetails&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWalletAddressDetails>> addEmbeddedWalletAsset(
-            String walletId, String accountId, String assetId, String idempotencyKey)
-            throws ApiException {
+            String walletId, String accountId, String assetId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     addEmbeddedWalletAssetRequestBuilder(
@@ -138,7 +162,17 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<EmbeddedWalletAddressDetails>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -184,11 +218,11 @@ public class EmbeddedWalletsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWallet&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWallet&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWallet>> assignEmbeddedWallet(
-            String walletId, String idempotencyKey) throws ApiException {
+            String walletId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     assignEmbeddedWalletRequestBuilder(walletId, idempotencyKey);
@@ -219,7 +253,15 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<EmbeddedWallet>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -257,11 +299,11 @@ public class EmbeddedWalletsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWallet&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWallet&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWallet>> createEmbeddedWallet(
-            String idempotencyKey) throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createEmbeddedWalletRequestBuilder(idempotencyKey);
@@ -292,7 +334,15 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<EmbeddedWallet>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -328,11 +378,11 @@ public class EmbeddedWalletsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAccount&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAccount&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWalletAccount>> createEmbeddedWalletAccount(
-            String walletId, String idempotencyKey) throws ApiException {
+            String walletId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createEmbeddedWalletAccountRequestBuilder(walletId, idempotencyKey);
@@ -364,7 +414,17 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<EmbeddedWalletAccount>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -401,11 +461,10 @@ public class EmbeddedWalletsApi {
      * Get a wallet Get a wallet
      *
      * @param walletId Wallet Id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWallet&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWallet&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<EmbeddedWallet>> getEmbeddedWallet(String walletId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<EmbeddedWallet>> getEmbeddedWallet(String walletId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getEmbeddedWalletRequestBuilder(walletId);
             return memberVarHttpClient
@@ -434,7 +493,15 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<EmbeddedWallet>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -468,11 +535,11 @@ public class EmbeddedWalletsApi {
      *
      * @param walletId WalletId (required)
      * @param accountId The ID of the account (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAccount&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAccount&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWalletAccount>> getEmbeddedWalletAccount(
-            String walletId, String accountId) throws ApiException {
+            String walletId, String accountId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEmbeddedWalletAccountRequestBuilder(walletId, accountId);
@@ -503,7 +570,17 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<EmbeddedWalletAccount>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -548,8 +625,8 @@ public class EmbeddedWalletsApi {
      * @param sort Sort by address (optional, default to createdAt)
      * @param order Is the order ascending or descending (optional, default to ASC)
      * @param enabled Enabled (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletPaginatedAddressesResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletPaginatedAddressesResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWalletPaginatedAddressesResponse>>
             getEmbeddedWalletAddresses(
@@ -560,8 +637,7 @@ public class EmbeddedWalletsApi {
                     BigDecimal pageSize,
                     String sort,
                     String order,
-                    Boolean enabled)
-                    throws ApiException {
+                    Boolean enabled) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEmbeddedWalletAddressesRequestBuilder(
@@ -602,7 +678,18 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    EmbeddedWalletPaginatedAddressesResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -676,11 +763,11 @@ public class EmbeddedWalletsApi {
      * @param walletId Wallet Id (required)
      * @param accountId The ID of the account (required)
      * @param assetId The ID of the asset (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAssetResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAssetResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWalletAssetResponse>> getEmbeddedWalletAsset(
-            String walletId, String accountId, String assetId) throws ApiException {
+            String walletId, String accountId, String assetId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEmbeddedWalletAssetRequestBuilder(walletId, accountId, assetId);
@@ -711,7 +798,17 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<EmbeddedWalletAssetResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -752,11 +849,11 @@ public class EmbeddedWalletsApi {
      * @param walletId Wallet Id (required)
      * @param accountId The ID of the account (required)
      * @param assetId The ID of the asset (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAssetBalance&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAssetBalance&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWalletAssetBalance>> getEmbeddedWalletAssetBalance(
-            String walletId, String accountId, String assetId) throws ApiException {
+            String walletId, String accountId, String assetId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEmbeddedWalletAssetBalanceRequestBuilder(walletId, accountId, assetId);
@@ -788,7 +885,17 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<EmbeddedWalletAssetBalance>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -833,8 +940,8 @@ public class EmbeddedWalletsApi {
      * @param pageCursor Cursor to the next page (optional)
      * @param pageSize Amount of results to return in the next page (optional, default to 200)
      * @param order Is the order ascending or descending (optional, default to ASC)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletPaginatedAssetsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletPaginatedAssetsResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWalletPaginatedAssetsResponse>>
             getEmbeddedWalletAssets(
@@ -843,8 +950,7 @@ public class EmbeddedWalletsApi {
                     List<String> sort,
                     String pageCursor,
                     BigDecimal pageSize,
-                    String order)
-                    throws ApiException {
+                    String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEmbeddedWalletAssetsRequestBuilder(
@@ -876,7 +982,18 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    EmbeddedWalletPaginatedAssetsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -942,11 +1059,11 @@ public class EmbeddedWalletsApi {
      *
      * @param walletId Wallet Id (required)
      * @param deviceId Device Id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletDevice&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletDevice&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWalletDevice>> getEmbeddedWalletDevice(
-            String walletId, String deviceId) throws ApiException {
+            String walletId, String deviceId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEmbeddedWalletDeviceRequestBuilder(walletId, deviceId);
@@ -977,7 +1094,17 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<EmbeddedWalletDevice>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1016,12 +1143,11 @@ public class EmbeddedWalletsApi {
      *
      * @param walletId Wallet Id (required)
      * @param deviceId Device Id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletDeviceKeySetupResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletDeviceKeySetupResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWalletDeviceKeySetupResponse>>
-            getEmbeddedWalletDeviceSetupState(String walletId, String deviceId)
-                    throws ApiException {
+            getEmbeddedWalletDeviceSetupState(String walletId, String deviceId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEmbeddedWalletDeviceSetupStateRequestBuilder(walletId, deviceId);
@@ -1053,7 +1179,18 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    EmbeddedWalletDeviceKeySetupResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1095,8 +1232,8 @@ public class EmbeddedWalletsApi {
      * @param pageCursor Cursor to the next page (optional)
      * @param pageSize Amount of results to return in the next page (optional, default to 200)
      * @param order Is the order ascending or descending (optional, default to ASC)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletPaginatedDevicesResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletPaginatedDevicesResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWalletPaginatedDevicesResponse>>
             getEmbeddedWalletDevicesPaginated(
@@ -1104,8 +1241,7 @@ public class EmbeddedWalletsApi {
                     List<String> sort,
                     String pageCursor,
                     BigDecimal pageSize,
-                    String order)
-                    throws ApiException {
+                    String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEmbeddedWalletDevicesPaginatedRequestBuilder(
@@ -1138,7 +1274,18 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    EmbeddedWalletPaginatedDevicesResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1200,11 +1347,11 @@ public class EmbeddedWalletsApi {
      * and backup time
      *
      * @param walletId Wallet Id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletLatestBackupResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletLatestBackupResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWalletLatestBackupResponse>>
-            getEmbeddedWalletLatestBackup(String walletId) throws ApiException {
+            getEmbeddedWalletLatestBackup(String walletId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEmbeddedWalletLatestBackupRequestBuilder(walletId);
@@ -1236,7 +1383,18 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    EmbeddedWalletLatestBackupResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1278,8 +1436,8 @@ public class EmbeddedWalletsApi {
      * @param change BIP44 derivation path - change value (required)
      * @param addressIndex BIP44 derivation path - index value (required)
      * @param compressed Compressed/Uncompressed public key format (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;PublicKeyInformation&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;PublicKeyInformation&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<PublicKeyInformation>>
             getEmbeddedWalletPublicKeyInfoForAddress(
@@ -1289,8 +1447,7 @@ public class EmbeddedWalletsApi {
                     String assetId,
                     BigDecimal change,
                     BigDecimal addressIndex,
-                    Boolean compressed)
-                    throws ApiException {
+                    Boolean compressed) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEmbeddedWalletPublicKeyInfoForAddressRequestBuilder(
@@ -1329,7 +1486,17 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<PublicKeyInformation>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1406,11 +1573,11 @@ public class EmbeddedWalletsApi {
      * including required algorithms and device setup status
      *
      * @param walletId Wallet Id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletSetupStatusResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletSetupStatusResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWalletSetupStatusResponse>>
-            getEmbeddedWalletSetupStatus(String walletId) throws ApiException {
+            getEmbeddedWalletSetupStatus(String walletId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEmbeddedWalletSetupStatusRequestBuilder(walletId);
@@ -1442,7 +1609,18 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    EmbeddedWalletSetupStatusResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1478,13 +1656,12 @@ public class EmbeddedWalletsApi {
      * @param pageCursor Next page cursor to fetch (optional)
      * @param pageSize Items per page (optional, default to 200)
      * @param onlyBaseAssets Only base assets (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletPaginatedAssetsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletPaginatedAssetsResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWalletPaginatedAssetsResponse>>
             getEmbeddedWalletSupportedAssets(
-                    String pageCursor, BigDecimal pageSize, Boolean onlyBaseAssets)
-                    throws ApiException {
+                    String pageCursor, BigDecimal pageSize, Boolean onlyBaseAssets) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEmbeddedWalletSupportedAssetsRequestBuilder(
@@ -1517,7 +1694,18 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    EmbeddedWalletPaginatedAssetsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1571,8 +1759,8 @@ public class EmbeddedWalletsApi {
      * @param sort Field(s) to use for sorting (optional, default to createdAt)
      * @param order Is the order ascending or descending (optional, default to ASC)
      * @param enabled Enabled Wallets (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletPaginatedWalletsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletPaginatedWalletsResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWalletPaginatedWalletsResponse>>
             getEmbeddedWallets(
@@ -1580,8 +1768,7 @@ public class EmbeddedWalletsApi {
                     BigDecimal pageSize,
                     String sort,
                     String order,
-                    Boolean enabled)
-                    throws ApiException {
+                    Boolean enabled) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEmbeddedWalletsRequestBuilder(pageCursor, pageSize, sort, order, enabled);
@@ -1612,7 +1799,18 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    EmbeddedWalletPaginatedWalletsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1675,16 +1873,15 @@ public class EmbeddedWalletsApi {
      *     be 44. (required)
      * @param algorithm Elliptic Curve (required)
      * @param compressed Compressed/Uncompressed public key format (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;PublicKeyInformation&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;PublicKeyInformation&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<PublicKeyInformation>> getPublicKeyInfoNcw(
             UUID xEndUserWalletId,
             String walletId,
             String derivationPath,
             String algorithm,
-            Boolean compressed)
-            throws ApiException {
+            Boolean compressed) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getPublicKeyInfoNcwRequestBuilder(
@@ -1716,7 +1913,17 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<PublicKeyInformation>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1787,13 +1994,12 @@ public class EmbeddedWalletsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAssetBalance&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAssetBalance&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<EmbeddedWalletAssetBalance>>
             refreshEmbeddedWalletAssetBalance(
-                    String walletId, String accountId, String assetId, String idempotencyKey)
-                    throws ApiException {
+                    String walletId, String accountId, String assetId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     refreshEmbeddedWalletAssetBalanceRequestBuilder(
@@ -1826,7 +2032,17 @@ public class EmbeddedWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<EmbeddedWalletAssetBalance>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1876,12 +2092,11 @@ public class EmbeddedWalletsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> updateEmbeddedWalletDeviceStatus(
-            EnableDevice enableDevice, String walletId, String deviceId, String idempotencyKey)
-            throws ApiException {
+            EnableDevice enableDevice, String walletId, String deviceId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateEmbeddedWalletDeviceStatusRequestBuilder(
@@ -1904,7 +2119,14 @@ public class EmbeddedWalletsApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1958,11 +2180,11 @@ public class EmbeddedWalletsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> updateEmbeddedWalletStatus(
-            EnableWallet enableWallet, String walletId, String idempotencyKey) throws ApiException {
+            EnableWallet enableWallet, String walletId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateEmbeddedWalletStatusRequestBuilder(
@@ -1985,7 +2207,14 @@ public class EmbeddedWalletsApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

@@ -40,7 +40,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -76,6 +79,28 @@ public class NftsApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -87,10 +112,10 @@ public class NftsApi {
      * List token data by ID Returns the requested token data.
      *
      * @param id NFT ID (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TokenResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TokenResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<TokenResponse>> getNFT(String id) throws ApiException {
+    public CompletableFuture<ApiResponse<TokenResponse>> getNFT(String id) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getNFTRequestBuilder(id);
             return memberVarHttpClient
@@ -119,7 +144,15 @@ public class NftsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TokenResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -157,12 +190,11 @@ public class NftsApi {
      *     (optional
      * @param order Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for
      *     descending (optional, default to ASC)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetNFTsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetNFTsResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetNFTsResponse>> getNFTs(
-            String ids, String pageCursor, BigDecimal pageSize, List<String> sort, String order)
-            throws ApiException {
+            String ids, String pageCursor, BigDecimal pageSize, List<String> sort, String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getNFTsRequestBuilder(ids, pageCursor, pageSize, sort, order);
@@ -192,7 +224,15 @@ public class NftsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetNFTsResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -272,8 +312,8 @@ public class NftsApi {
      *     name and id within the contract/collection, collection name, blockchain descriptor and
      *     name. (optional)
      * @param spam Token ownership spam status. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetOwnershipTokensResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetOwnershipTokensResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetOwnershipTokensResponse>> getOwnershipTokens(
             String blockchainDescriptor,
@@ -289,8 +329,7 @@ public class NftsApi {
             String order,
             String status,
             String search,
-            String spam)
-            throws ApiException {
+            String spam) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getOwnershipTokensRequestBuilder(
@@ -335,7 +374,17 @@ public class NftsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetOwnershipTokensResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -433,8 +482,8 @@ public class NftsApi {
      * @param order Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for
      *     descending (optional, default to ASC)
      * @param status Token ownership status (optional, default to LISTED)
-     * @return CompletableFuture&lt;ApiResponse&lt;ListOwnedCollectionsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ListOwnedCollectionsResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ListOwnedCollectionsResponse>> listOwnedCollections(
             String ncwId,
@@ -444,8 +493,7 @@ public class NftsApi {
             BigDecimal pageSize,
             List<String> sort,
             String order,
-            String status)
-            throws ApiException {
+            String status) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     listOwnedCollectionsRequestBuilder(
@@ -477,7 +525,17 @@ public class NftsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ListOwnedCollectionsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -557,8 +615,8 @@ public class NftsApi {
      * @param status Token ownership status (optional, default to LISTED)
      * @param search Search owned tokens by token name (optional)
      * @param spam Token ownership spam status. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ListOwnedTokensResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ListOwnedTokensResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ListOwnedTokensResponse>> listOwnedTokens(
             String ncwId,
@@ -569,8 +627,7 @@ public class NftsApi {
             String order,
             String status,
             String search,
-            String spam)
-            throws ApiException {
+            String spam) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     listOwnedTokensRequestBuilder(
@@ -609,7 +666,17 @@ public class NftsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ListOwnedTokensResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -685,11 +752,11 @@ public class NftsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> refreshNFTMetadata(
-            String id, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
+            String id, UUID xEndUserWalletId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     refreshNFTMetadataRequestBuilder(id, xEndUserWalletId, idempotencyKey);
@@ -710,7 +777,14 @@ public class NftsApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -755,12 +829,11 @@ public class NftsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> updateOwnershipTokens(
-            String blockchainDescriptor, String vaultAccountId, String idempotencyKey)
-            throws ApiException {
+            String blockchainDescriptor, String vaultAccountId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateOwnershipTokensRequestBuilder(
@@ -782,7 +855,14 @@ public class NftsApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -845,15 +925,14 @@ public class NftsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> updateTokenOwnershipStatus(
             UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto,
             String id,
             UUID xEndUserWalletId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateTokenOwnershipStatusRequestBuilder(
@@ -876,7 +955,14 @@ public class NftsApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -937,14 +1023,13 @@ public class NftsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> updateTokensOwnershipSpam(
             List<TokenOwnershipSpamUpdatePayload> tokenOwnershipSpamUpdatePayload,
             UUID xEndUserWalletId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateTokensOwnershipSpamRequestBuilder(
@@ -966,7 +1051,14 @@ public class NftsApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1022,14 +1114,13 @@ public class NftsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> updateTokensOwnershipStatus(
             List<TokenOwnershipStatusUpdatePayload> tokenOwnershipStatusUpdatePayload,
             UUID xEndUserWalletId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateTokensOwnershipStatusRequestBuilder(
@@ -1052,7 +1143,14 @@ public class NftsApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

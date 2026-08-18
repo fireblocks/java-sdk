@@ -36,4 +36,22 @@ class EthereumBlockchainDataTest {
     void estimatedActivationTimeTest() {
         // TODO: test estimatedActivationTime
     }
+
+    /** Test the property 'estimatedSourceExitTime' */
+    @Test
+    void estimatedSourceExitTimeTest() {
+        // TODO: test estimatedSourceExitTime
+    }
+
+    /** Test the property 'estimatedConsolidationTime' */
+    @Test
+    void estimatedConsolidationTimeTest() {
+        // TODO: test estimatedConsolidationTime
+    }
+
+    /** Test the property 'estimatedWithdrawalTime' */
+    @Test
+    void estimatedWithdrawalTimeTest() {
+        // TODO: test estimatedWithdrawalTime
+    }
 }

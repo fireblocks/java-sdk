@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AddAbiRequestDto;
 import com.fireblocks.sdk.model.ContractWithAbiDto;
@@ -35,11 +34,9 @@ public class DeployedContractsApiTest {
      * Save contract ABI
      *
      * <p>Save contract ABI for the tenant
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void addContractABITest() throws ApiException {
+    public void addContractABITest() {
         AddAbiRequestDto addAbiRequestDto = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ContractWithAbiDto>> response =
@@ -50,11 +47,9 @@ public class DeployedContractsApiTest {
      * Fetch the contract ABI
      *
      * <p>Fetch the ABI. If not found fetch the ABI from the block explorer
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void fetchContractAbiTest() throws ApiException {
+    public void fetchContractAbiTest() {
         FetchAbiRequestDto fetchAbiRequestDto = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ContractWithAbiDto>> response =
@@ -65,11 +60,9 @@ public class DeployedContractsApiTest {
      * Return deployed contract data
      *
      * <p>Return deployed contract data by blockchain native asset id and contract address
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getDeployedContractByAddressTest() throws ApiException {
+    public void getDeployedContractByAddressTest() {
         String contractAddress = null;
         String assetId = null;
         CompletableFuture<ApiResponse<DeployedContractResponseDto>> response =
@@ -80,11 +73,9 @@ public class DeployedContractsApiTest {
      * Return deployed contract data by id
      *
      * <p>Return deployed contract data by id
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getDeployedContractByIdTest() throws ApiException {
+    public void getDeployedContractByIdTest() {
         String id = null;
         CompletableFuture<ApiResponse<DeployedContractResponseDto>> response =
                 api.getDeployedContractById(id);
@@ -95,11 +86,9 @@ public class DeployedContractsApiTest {
      *
      * <p>Return a filtered lean representation of the deployed contracts data on all blockchains
      * (paginated)
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getDeployedContractsTest() throws ApiException {
+    public void getDeployedContractsTest() {
         String pageCursor = null;
         BigDecimal pageSize = null;
         String contractAddress = null;

@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.LegacyDraftReviewAndValidationResponse;
 import com.fireblocks.sdk.model.LegacyPolicyAndValidationResponse;
@@ -40,11 +39,9 @@ public class PolicyEditorBetaApiTest {
      * subject to changes. If you want to participate and learn more about the Fireblocks TAP,
      * please contact your Fireblocks Customer Success Manager or send an email to
      * CSM@fireblocks.com.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getActivePolicyLegacyTest() throws ApiException {
+    public void getActivePolicyLegacyTest() {
         CompletableFuture<ApiResponse<LegacyPolicyAndValidationResponse>> response =
                 api.getActivePolicyLegacy();
     }
@@ -58,11 +55,9 @@ public class PolicyEditorBetaApiTest {
      * improved functionality. - These endpoints are currently in beta and might be subject to
      * changes. If you want to participate and learn more about the Fireblocks TAP, please contact
      * your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getDraftLegacyTest() throws ApiException {
+    public void getDraftLegacyTest() {
         CompletableFuture<ApiResponse<LegacyDraftReviewAndValidationResponse>> response =
                 api.getDraftLegacy();
     }
@@ -77,11 +72,9 @@ public class PolicyEditorBetaApiTest {
      * subject to changes. If you want to participate and learn more about the Fireblocks TAP,
      * please contact your Fireblocks Customer Success Manager or send an email to
      * CSM@fireblocks.com.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void publishDraftLegacyTest() throws ApiException {
+    public void publishDraftLegacyTest() {
         LegacyPublishDraftRequest legacyPublishDraftRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<LegacyPublishResult>> response =
@@ -95,11 +88,9 @@ public class PolicyEditorBetaApiTest {
      * endpoints are currently in beta and might be subject to changes. If you want to participate
      * and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success
      * Manager or send an email to CSM@fireblocks.com.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void publishPolicyRulesTest() throws ApiException {
+    public void publishPolicyRulesTest() {
         LegacyPolicyRules legacyPolicyRules = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<LegacyPublishResult>> response =
@@ -115,11 +106,9 @@ public class PolicyEditorBetaApiTest {
      * and improved functionality. - These endpoints are currently in beta and might be subject to
      * changes. If you want to participate and learn more about the Fireblocks TAP, please contact
      * your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateDraftLegacyTest() throws ApiException {
+    public void updateDraftLegacyTest() {
         LegacyPolicyRules legacyPolicyRules = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<LegacyDraftReviewAndValidationResponse>> response =

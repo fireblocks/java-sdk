@@ -49,7 +49,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -85,6 +88,28 @@ public class WebhooksV2Api {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -100,11 +125,11 @@ public class WebhooksV2Api {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Webhook&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Webhook&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Webhook>> createWebhook(
-            CreateWebhookRequest createWebhookRequest, String idempotencyKey) throws ApiException {
+            CreateWebhookRequest createWebhookRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createWebhookRequestBuilder(createWebhookRequest, idempotencyKey);
@@ -134,7 +159,14 @@ public class WebhooksV2Api {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Webhook>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -177,11 +209,10 @@ public class WebhooksV2Api {
      * Admin.
      *
      * @param webhookId The unique identifier of the webhook (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Webhook&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Webhook&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Webhook>> deleteWebhook(UUID webhookId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<Webhook>> deleteWebhook(UUID webhookId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = deleteWebhookRequestBuilder(webhookId);
             return memberVarHttpClient
@@ -210,7 +241,14 @@ public class WebhooksV2Api {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Webhook>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -244,11 +282,11 @@ public class WebhooksV2Api {
      *
      * @param webhookId (required)
      * @param metricName Name of the metric to retrieve (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;WebhookMetric&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookMetric&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<WebhookMetric>> getMetrics(
-            UUID webhookId, String metricName) throws ApiException {
+            UUID webhookId, String metricName) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getMetricsRequestBuilder(webhookId, metricName);
@@ -278,7 +316,15 @@ public class WebhooksV2Api {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<WebhookMetric>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -314,10 +360,10 @@ public class WebhooksV2Api {
      * Get mTLS CSR Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use
      * to generate their signed client certificate.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;WebhookMtlsCsrResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookMtlsCsrResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<WebhookMtlsCsrResponse>> getMtlsCsr() throws ApiException {
+    public CompletableFuture<ApiResponse<WebhookMtlsCsrResponse>> getMtlsCsr() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getMtlsCsrRequestBuilder();
             return memberVarHttpClient
@@ -346,7 +392,17 @@ public class WebhooksV2Api {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<WebhookMtlsCsrResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -377,11 +433,11 @@ public class WebhooksV2Api {
      * @param webhookId The ID of the webhook to fetch (required)
      * @param notificationId The ID of the notification to fetch (required)
      * @param includeData Include the data of the notification (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;NotificationWithData&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;NotificationWithData&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<NotificationWithData>> getNotification(
-            String webhookId, String notificationId, Boolean includeData) throws ApiException {
+            String webhookId, String notificationId, Boolean includeData) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getNotificationRequestBuilder(webhookId, notificationId, includeData);
@@ -411,7 +467,17 @@ public class WebhooksV2Api {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<NotificationWithData>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -467,13 +533,15 @@ public class WebhooksV2Api {
      * @param notificationId The ID of the notification to fetch (required)
      * @param pageCursor Cursor of the required page (optional)
      * @param pageSize Maximum number of items in the page (optional, default to 10)
-     * @return CompletableFuture&lt;ApiResponse&lt;NotificationAttemptsPaginatedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;NotificationAttemptsPaginatedResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<NotificationAttemptsPaginatedResponse>>
             getNotificationAttempts(
-                    String webhookId, String notificationId, String pageCursor, BigDecimal pageSize)
-                    throws ApiException {
+                    String webhookId,
+                    String notificationId,
+                    String pageCursor,
+                    BigDecimal pageSize) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getNotificationAttemptsRequestBuilder(
@@ -505,7 +573,18 @@ public class WebhooksV2Api {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    NotificationAttemptsPaginatedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -573,8 +652,8 @@ public class WebhooksV2Api {
      * @param statuses List of notification statuses to filter by (optional
      * @param events List of webhook event types to filter by (optional
      * @param resourceId Resource ID to filter by (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;NotificationPaginatedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;NotificationPaginatedResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<NotificationPaginatedResponse>> getNotifications(
             UUID webhookId,
@@ -586,8 +665,7 @@ public class WebhooksV2Api {
             BigDecimal endTime,
             List<NotificationStatus> statuses,
             List<WebhookEvent> events,
-            String resourceId)
-            throws ApiException {
+            String resourceId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getNotificationsRequestBuilder(
@@ -627,7 +705,17 @@ public class WebhooksV2Api {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<NotificationPaginatedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -705,11 +793,11 @@ public class WebhooksV2Api {
      * @param webhookId The ID of the webhook (required)
      * @param jobId The ID of the resend job (required)
      * @return
-     *     CompletableFuture&lt;ApiResponse&lt;ResendFailedNotificationsJobStatusResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     *     CompletableFuture&lt;ApiResponse&lt;ResendFailedNotificationsJobStatusResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ResendFailedNotificationsJobStatusResponse>>
-            getResendByQueryJobStatus(String webhookId, String jobId) throws ApiException {
+            getResendByQueryJobStatus(String webhookId, String jobId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getResendByQueryJobStatusRequestBuilder(webhookId, jobId);
@@ -741,7 +829,18 @@ public class WebhooksV2Api {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    ResendFailedNotificationsJobStatusResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -779,11 +878,11 @@ public class WebhooksV2Api {
      * @param webhookId The ID of the webhook (required)
      * @param jobId The ID of the resend job (required)
      * @return
-     *     CompletableFuture&lt;ApiResponse&lt;ResendFailedNotificationsJobStatusResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     *     CompletableFuture&lt;ApiResponse&lt;ResendFailedNotificationsJobStatusResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ResendFailedNotificationsJobStatusResponse>>
-            getResendJobStatus(String webhookId, String jobId) throws ApiException {
+            getResendJobStatus(String webhookId, String jobId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getResendJobStatusRequestBuilder(webhookId, jobId);
@@ -815,7 +914,18 @@ public class WebhooksV2Api {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    ResendFailedNotificationsJobStatusResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -850,10 +960,10 @@ public class WebhooksV2Api {
      * Get webhook by id Retrieve a webhook by its id
      *
      * @param webhookId The unique identifier of the webhook (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Webhook&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Webhook&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Webhook>> getWebhook(UUID webhookId) throws ApiException {
+    public CompletableFuture<ApiResponse<Webhook>> getWebhook(UUID webhookId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getWebhookRequestBuilder(webhookId);
             return memberVarHttpClient
@@ -882,7 +992,14 @@ public class WebhooksV2Api {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Webhook>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -917,11 +1034,11 @@ public class WebhooksV2Api {
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
      * @param pageCursor Cursor of the required page (optional)
      * @param pageSize Maximum number of items in the page (optional, default to 10)
-     * @return CompletableFuture&lt;ApiResponse&lt;WebhookPaginatedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookPaginatedResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<WebhookPaginatedResponse>> getWebhooks(
-            String order, String pageCursor, BigDecimal pageSize) throws ApiException {
+            String order, String pageCursor, BigDecimal pageSize) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getWebhooksRequestBuilder(order, pageCursor, pageSize);
@@ -951,7 +1068,17 @@ public class WebhooksV2Api {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<WebhookPaginatedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1006,15 +1133,14 @@ public class WebhooksV2Api {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ResendFailedNotificationsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ResendFailedNotificationsResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ResendFailedNotificationsResponse>>
             resendFailedNotifications(
                     ResendFailedNotificationsRequest resendFailedNotificationsRequest,
                     String webhookId,
-                    String idempotencyKey)
-                    throws ApiException {
+                    String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     resendFailedNotificationsRequestBuilder(
@@ -1046,7 +1172,18 @@ public class WebhooksV2Api {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    ResendFailedNotificationsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1103,11 +1240,11 @@ public class WebhooksV2Api {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> resendNotificationById(
-            String webhookId, String notificationId, String idempotencyKey) throws ApiException {
+            String webhookId, String notificationId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     resendNotificationByIdRequestBuilder(webhookId, notificationId, idempotencyKey);
@@ -1128,7 +1265,14 @@ public class WebhooksV2Api {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1175,12 +1319,11 @@ public class WebhooksV2Api {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ResendByQueryResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ResendByQueryResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ResendByQueryResponse>> resendNotificationsByQuery(
-            ResendByQueryRequest resendByQueryRequest, String webhookId, String idempotencyKey)
-            throws ApiException {
+            ResendByQueryRequest resendByQueryRequest, String webhookId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     resendNotificationsByQueryRequestBuilder(
@@ -1213,7 +1356,17 @@ public class WebhooksV2Api {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ResendByQueryResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1265,14 +1418,13 @@ public class WebhooksV2Api {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> resendNotificationsByResourceId(
             ResendNotificationsByResourceIdRequest resendNotificationsByResourceIdRequest,
             String webhookId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     resendNotificationsByResourceIdRequestBuilder(
@@ -1295,7 +1447,14 @@ public class WebhooksV2Api {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1349,11 +1508,11 @@ public class WebhooksV2Api {
      *
      * @param updateWebhookRequest (required)
      * @param webhookId The unique identifier of the webhook (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Webhook&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Webhook&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Webhook>> updateWebhook(
-            UpdateWebhookRequest updateWebhookRequest, UUID webhookId) throws ApiException {
+            UpdateWebhookRequest updateWebhookRequest, UUID webhookId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateWebhookRequestBuilder(updateWebhookRequest, webhookId);
@@ -1383,7 +1542,14 @@ public class WebhooksV2Api {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Webhook>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

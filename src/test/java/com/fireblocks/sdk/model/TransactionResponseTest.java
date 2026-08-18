@@ -313,6 +313,12 @@ class TransactionResponseTest {
         // TODO: test feePayerInfo
     }
 
+    /** Test the property 'gaslessInfo' */
+    @Test
+    void gaslessInfoTest() {
+        // TODO: test gaslessInfo
+    }
+
     /** Test the property 'systemMessages' */
     @Test
     void systemMessagesTest() {

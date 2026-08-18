@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.GetWhitelistIpAddressesResponse;
 import java.util.concurrent.CompletableFuture;
@@ -32,11 +31,9 @@ public class WhitelistIpAddressesApiTest {
      * <p>Get a list of the whitelisted IP addresses for a specific API Key - Please note that this
      * endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint
      * Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getWhitelistIpAddressesTest() throws ApiException {
+    public void getWhitelistIpAddressesTest() {
         String userId = null;
         CompletableFuture<ApiResponse<GetWhitelistIpAddressesResponse>> response =
                 api.getWhitelistIpAddresses(userId);

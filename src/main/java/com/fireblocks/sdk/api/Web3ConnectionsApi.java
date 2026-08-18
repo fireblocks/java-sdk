@@ -37,7 +37,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -73,6 +76,28 @@ public class Web3ConnectionsApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -91,14 +116,13 @@ public class Web3ConnectionsApi {
      *     first request. The idempotency key is valid for 24 hours. (optional)
      * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
      *     end-user wallet operations. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateConnectionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateConnectionResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CreateConnectionResponse>> create(
             CreateConnectionRequest createConnectionRequest,
             String idempotencyKey,
-            UUID xEndUserWalletId)
-            throws ApiException {
+            UUID xEndUserWalletId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createRequestBuilder(createConnectionRequest, idempotencyKey, xEndUserWalletId);
@@ -128,7 +152,17 @@ public class Web3ConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CreateConnectionResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -183,8 +217,8 @@ public class Web3ConnectionsApi {
      * @param sort Property to sort Web3 connections by. (optional, default to createdAt)
      * @param pageSize Amount of results to return in the next page. (optional, default to 10)
      * @param next Cursor to the next page (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetConnectionsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetConnectionsResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetConnectionsResponse>> get(
             UUID xEndUserWalletId,
@@ -192,8 +226,7 @@ public class Web3ConnectionsApi {
             GetFilterParameter filter,
             String sort,
             BigDecimal pageSize,
-            String next)
-            throws ApiException {
+            String next) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getRequestBuilder(xEndUserWalletId, order, filter, sort, pageSize, next);
@@ -223,7 +256,17 @@ public class Web3ConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetConnectionsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -296,11 +339,10 @@ public class Web3ConnectionsApi {
      * @param id The ID of the existing Web3 connection to remove. (required)
      * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
      *     end-user wallet operations. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Void>> remove(String id, UUID xEndUserWalletId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<Void>> remove(String id, UUID xEndUserWalletId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = removeRequestBuilder(id, xEndUserWalletId);
             return memberVarHttpClient
@@ -319,7 +361,14 @@ public class Web3ConnectionsApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -363,15 +412,14 @@ public class Web3ConnectionsApi {
      *     first request. The idempotency key is valid for 24 hours. (optional)
      * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
      *     end-user wallet operations. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> submit(
             RespondToConnectionRequest respondToConnectionRequest,
             String id,
             String idempotencyKey,
-            UUID xEndUserWalletId)
-            throws ApiException {
+            UUID xEndUserWalletId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     submitRequestBuilder(
@@ -392,7 +440,14 @@ public class Web3ConnectionsApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

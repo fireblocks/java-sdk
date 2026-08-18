@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.DraftReviewAndValidationResponse;
 import com.fireblocks.sdk.model.PolicyAndValidationResponse;
@@ -36,11 +35,9 @@ public class PolicyEditorV2ApiTest {
      *
      * <p>Returns the active policy and its validation for a specific policy type. Endpoint
      * Permissions: Owner, Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getActivePolicyTest() throws ApiException {
+    public void getActivePolicyTest() {
         PolicyType policyType = null;
         CompletableFuture<ApiResponse<PolicyAndValidationResponse>> response =
                 api.getActivePolicy(policyType);
@@ -50,11 +47,9 @@ public class PolicyEditorV2ApiTest {
      * Get the active draft by policy type
      *
      * <p>Returns the active draft and its validation for a specific policy type.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getDraftTest() throws ApiException {
+    public void getDraftTest() {
         PolicyType policyType = null;
         CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>> response =
                 api.getDraft(policyType);
@@ -71,11 +66,9 @@ public class PolicyEditorV2ApiTest {
      * advanced users with comprehensive, multi-layer security controls in place. If you want to
      * learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer
      * Success Manager or send an email to CSM@fireblocks.com.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void publishDraftTest() throws ApiException {
+    public void publishDraftTest() {
         PublishDraftRequest publishDraftRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<PublishResult>> response =
@@ -91,11 +84,9 @@ public class PolicyEditorV2ApiTest {
      * practice, Fireblocks strongly recommends manual editing accompanied by strict human oversight
      * and approval workflows for all policy changes. Programmatic updates should only be
      * implemented by advanced users with comprehensive, multi-layer security controls in place.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateDraftTest() throws ApiException {
+    public void updateDraftTest() {
         UpdateDraftRequest updateDraftRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>> response =

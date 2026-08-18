@@ -41,7 +41,10 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -77,6 +80,28 @@ public class KeyLinkBetaApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -93,11 +118,11 @@ public class KeyLinkBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;SigningKeyDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;SigningKeyDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<SigningKeyDto>> createSigningKey(
-            CreateSigningKeyDto createSigningKeyDto, String idempotencyKey) throws ApiException {
+            CreateSigningKeyDto createSigningKeyDto, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createSigningKeyRequestBuilder(createSigningKeyDto, idempotencyKey);
@@ -127,7 +152,15 @@ public class KeyLinkBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<SigningKeyDto>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -173,12 +206,11 @@ public class KeyLinkBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateValidationKeyResponseDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateValidationKeyResponseDto&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CreateValidationKeyResponseDto>> createValidationKey(
-            CreateValidationKeyDto createValidationKeyDto, String idempotencyKey)
-            throws ApiException {
+            CreateValidationKeyDto createValidationKeyDto, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createValidationKeyRequestBuilder(createValidationKeyDto, idempotencyKey);
@@ -209,7 +241,17 @@ public class KeyLinkBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CreateValidationKeyResponseDto>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -256,11 +298,11 @@ public class KeyLinkBetaApi {
      *
      * @param modifyValidationKeyDto (required)
      * @param keyId The unique identifier for the validation key provided by Fireblocks (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ValidationKeyDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ValidationKeyDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ValidationKeyDto>> disableValidationKey(
-            ModifyValidationKeyDto modifyValidationKeyDto, String keyId) throws ApiException {
+            ModifyValidationKeyDto modifyValidationKeyDto, String keyId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     disableValidationKeyRequestBuilder(modifyValidationKeyDto, keyId);
@@ -291,7 +333,15 @@ public class KeyLinkBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ValidationKeyDto>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -335,11 +385,10 @@ public class KeyLinkBetaApi {
      * specified &#x60;keyId&#x60;.
      *
      * @param keyId The unique identifier for the signing key provided by Fireblocks (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;SigningKeyDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;SigningKeyDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<SigningKeyDto>> getSigningKey(String keyId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<SigningKeyDto>> getSigningKey(String keyId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getSigningKeyRequestBuilder(keyId);
             return memberVarHttpClient
@@ -368,7 +417,15 @@ public class KeyLinkBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<SigningKeyDto>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -412,8 +469,8 @@ public class KeyLinkBetaApi {
      * @param isAssigned Return keys that are assigned to a vault account (optional)
      * @param keyPrefix A case-insensitive prefix filter that matches records where either keyId or
      *     signingDeviceKeyID starts with the specified value. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetSigningKeyResponseDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetSigningKeyResponseDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> getSigningKeysList(
             String pageCursor,
@@ -426,8 +483,7 @@ public class KeyLinkBetaApi {
             Boolean enabled,
             Boolean available,
             Boolean isAssigned,
-            String keyPrefix)
-            throws ApiException {
+            String keyPrefix) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getSigningKeysListRequestBuilder(
@@ -469,7 +525,17 @@ public class KeyLinkBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetSigningKeyResponseDto>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -547,11 +613,10 @@ public class KeyLinkBetaApi {
      * by the specified &#x60;keyId&#x60;.
      *
      * @param keyId (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ValidationKeyDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ValidationKeyDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<ValidationKeyDto>> getValidationKey(String keyId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<ValidationKeyDto>> getValidationKey(String keyId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getValidationKeyRequestBuilder(keyId);
             return memberVarHttpClient
@@ -580,7 +645,15 @@ public class KeyLinkBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ValidationKeyDto>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -615,12 +688,11 @@ public class KeyLinkBetaApi {
      * @param pageSize Amount of results to return in the next page (optional, default to 10)
      * @param sortBy Field(s) to use for sorting (optional, default to createdAt)
      * @param order Is the order ascending or descending (optional, default to ASC)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetValidationKeyResponseDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetValidationKeyResponseDto&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetValidationKeyResponseDto>> getValidationKeysList(
-            String pageCursor, BigDecimal pageSize, String sortBy, String order)
-            throws ApiException {
+            String pageCursor, BigDecimal pageSize, String sortBy, String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getValidationKeysListRequestBuilder(pageCursor, pageSize, sortBy, order);
@@ -651,7 +723,17 @@ public class KeyLinkBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetValidationKeyResponseDto>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -707,12 +789,11 @@ public class KeyLinkBetaApi {
      *
      * @param modifySigningKeyAgentIdDto (required)
      * @param keyId The unique identifier for the signing key provided by Fireblocks (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> setAgentId(
-            ModifySigningKeyAgentIdDto modifySigningKeyAgentIdDto, String keyId)
-            throws ApiException {
+            ModifySigningKeyAgentIdDto modifySigningKeyAgentIdDto, String keyId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setAgentIdRequestBuilder(modifySigningKeyAgentIdDto, keyId);
@@ -732,7 +813,14 @@ public class KeyLinkBetaApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -778,11 +866,11 @@ public class KeyLinkBetaApi {
      *
      * @param modifySigningKeyDto (required)
      * @param keyId The unique identifier for the signing key provided by Fireblocks (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;SigningKeyDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;SigningKeyDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<SigningKeyDto>> updateSigningKey(
-            ModifySigningKeyDto modifySigningKeyDto, String keyId) throws ApiException {
+            ModifySigningKeyDto modifySigningKeyDto, String keyId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateSigningKeyRequestBuilder(modifySigningKeyDto, keyId);
@@ -812,7 +900,15 @@ public class KeyLinkBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<SigningKeyDto>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

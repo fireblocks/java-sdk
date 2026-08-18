@@ -70,6 +70,7 @@ public class Fireblocks {
     private PolicyEditorV2BetaApi policyEditorV2Beta;
     private ReportsBetaApi reportsBeta;
     private ResetDeviceApi resetDevice;
+    private SecurityPostureManagementApi securityPostureManagement;
     private SmartTransferApi smartTransfer;
     private StakingApi staking;
     private TagsApi tags;
@@ -463,6 +464,13 @@ public class Fireblocks {
             resetDevice = new ResetDeviceApi(apiClient);
         }
         return resetDevice;
+    }
+
+    public SecurityPostureManagementApi securityPostureManagement() {
+        if (securityPostureManagement == null) {
+            securityPostureManagement = new SecurityPostureManagementApi(apiClient);
+        }
+        return securityPostureManagement;
     }
 
     public SmartTransferApi smartTransfer() {

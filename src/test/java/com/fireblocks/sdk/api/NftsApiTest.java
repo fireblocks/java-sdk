@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.GetNFTsResponse;
 import com.fireblocks.sdk.model.GetOwnershipTokensResponse;
@@ -40,11 +39,9 @@ public class NftsApiTest {
      * List token data by ID
      *
      * <p>Returns the requested token data.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getNFTTest() throws ApiException {
+    public void getNFTTest() {
         String id = null;
         CompletableFuture<ApiResponse<TokenResponse>> response = api.getNFT(id);
     }
@@ -53,11 +50,9 @@ public class NftsApiTest {
      * List tokens by IDs
      *
      * <p>Returns the requested tokens data.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getNFTsTest() throws ApiException {
+    public void getNFTsTest() {
         String ids = null;
         String pageCursor = null;
         BigDecimal pageSize = null;
@@ -71,11 +66,9 @@ public class NftsApiTest {
      * List all owned tokens (paginated)
      *
      * <p>Returns all tokens and their data in your workspace.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getOwnershipTokensTest() throws ApiException {
+    public void getOwnershipTokensTest() {
         String blockchainDescriptor = null;
         String vaultAccountIds = null;
         String ncwId = null;
@@ -112,11 +105,9 @@ public class NftsApiTest {
      * List owned collections (paginated)
      *
      * <p>Returns all collections in your workspace
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listOwnedCollectionsTest() throws ApiException {
+    public void listOwnedCollectionsTest() {
         String ncwId = null;
         String walletType = null;
         String search = null;
@@ -134,11 +125,9 @@ public class NftsApiTest {
      * List all distinct owned tokens (paginated)
      *
      * <p>Returns all owned distinct tokens (for your tenant) and their data in your workspace.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listOwnedTokensTest() throws ApiException {
+    public void listOwnedTokensTest() {
         String ncwId = null;
         String walletType = null;
         String pageCursor = null;
@@ -157,11 +146,9 @@ public class NftsApiTest {
      * Refresh token metadata
      *
      * <p>Updates the latest token metadata.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void refreshNFTMetadataTest() throws ApiException {
+    public void refreshNFTMetadataTest() {
         String id = null;
         UUID xEndUserWalletId = null;
         String idempotencyKey = null;
@@ -177,11 +164,9 @@ public class NftsApiTest {
      * Fireblocks NFT management in the following
      * [guide](https://developers.fireblocks.com/reference/deploy-an-nft-collection). Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateOwnershipTokensTest() throws ApiException {
+    public void updateOwnershipTokensTest() {
         String blockchainDescriptor = null;
         String vaultAccountId = null;
         String idempotencyKey = null;
@@ -194,11 +179,9 @@ public class NftsApiTest {
      * Update token ownership status
      *
      * <p>Updates token status for a tenant, in all tenant vaults.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateTokenOwnershipStatusTest() throws ApiException {
+    public void updateTokenOwnershipStatusTest() {
         UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto = null;
         String id = null;
         UUID xEndUserWalletId = null;
@@ -213,11 +196,9 @@ public class NftsApiTest {
      * Update tokens ownership spam property
      *
      * <p>Updates tokens spam property for a tenant&#39;s token ownerships, in all tenant vaults.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateTokensOwnershipSpamTest() throws ApiException {
+    public void updateTokensOwnershipSpamTest() {
         List<TokenOwnershipSpamUpdatePayload> tokenOwnershipSpamUpdatePayload = null;
         UUID xEndUserWalletId = null;
         String idempotencyKey = null;
@@ -231,11 +212,9 @@ public class NftsApiTest {
      * Update tokens ownership status
      *
      * <p>Updates tokens status for a tenant, in all tenant vaults.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateTokensOwnershipStatusTest() throws ApiException {
+    public void updateTokensOwnershipStatusTest() {
         List<TokenOwnershipStatusUpdatePayload> tokenOwnershipStatusUpdatePayload = null;
         UUID xEndUserWalletId = null;
         String idempotencyKey = null;

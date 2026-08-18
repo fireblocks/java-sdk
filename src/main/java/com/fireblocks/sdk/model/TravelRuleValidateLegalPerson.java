@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -36,7 +37,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class TravelRuleValidateLegalPerson {
     public static final String JSON_PROPERTY_NAME = "name";
-    @jakarta.annotation.Nullable private TravelRuleValidateLegalPersonNameIdentifier name;
+    @jakarta.annotation.Nonnull private TravelRuleValidateLegalPersonNameIdentifier name;
 
     public static final String JSON_PROPERTY_GEOGRAPHIC_ADDRESS = "geographicAddress";
 
@@ -59,8 +60,15 @@ public class TravelRuleValidateLegalPerson {
 
     public TravelRuleValidateLegalPerson() {}
 
+    @JsonCreator
+    public TravelRuleValidateLegalPerson(
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
+                    TravelRuleValidateLegalPersonNameIdentifier name) {
+        this.name = name;
+    }
+
     public TravelRuleValidateLegalPerson name(
-            @jakarta.annotation.Nullable TravelRuleValidateLegalPersonNameIdentifier name) {
+            @jakarta.annotation.Nonnull TravelRuleValidateLegalPersonNameIdentifier name) {
         this.name = name;
         return this;
     }
@@ -70,17 +78,17 @@ public class TravelRuleValidateLegalPerson {
      *
      * @return name
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public TravelRuleValidateLegalPersonNameIdentifier getName() {
         return name;
     }
 
     @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setName(
-            @jakarta.annotation.Nullable TravelRuleValidateLegalPersonNameIdentifier name) {
+            @jakarta.annotation.Nonnull TravelRuleValidateLegalPersonNameIdentifier name) {
         this.name = name;
     }
 

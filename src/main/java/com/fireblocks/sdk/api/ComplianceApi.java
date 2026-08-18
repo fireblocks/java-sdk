@@ -67,7 +67,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -103,6 +106,28 @@ public class ComplianceApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -118,11 +143,11 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ArsConfigResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ArsConfigResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ArsConfigResponse>> activateArsConfig(
-            String idempotencyKey) throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     activateArsConfigRequestBuilder(idempotencyKey);
@@ -152,7 +177,15 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ArsConfigResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -189,11 +222,11 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ByorkConfigResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ByorkConfigResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ByorkConfigResponse>> activateByorkConfig(
-            String idempotencyKey) throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     activateByorkConfigRequestBuilder(idempotencyKey);
@@ -224,7 +257,15 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ByorkConfigResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -261,14 +302,13 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryAddVaultOptOutsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryAddVaultOptOutsResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AddressRegistryAddVaultOptOutsResponse>>
             addAddressRegistryVaultOptOuts(
                     AddressRegistryAddVaultOptOutsRequest addressRegistryAddVaultOptOutsRequest,
-                    String idempotencyKey)
-                    throws ApiException {
+                    String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     addAddressRegistryVaultOptOutsRequestBuilder(
@@ -301,7 +341,18 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    AddressRegistryAddVaultOptOutsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -354,15 +405,14 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;AssignVaultsToLegalEntityResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AssignVaultsToLegalEntityResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AssignVaultsToLegalEntityResponse>>
             assignVaultsToLegalEntity(
                     AssignVaultsToLegalEntityRequest assignVaultsToLegalEntityRequest,
                     UUID legalEntityId,
-                    String idempotencyKey)
-                    throws ApiException {
+                    String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     assignVaultsToLegalEntityRequestBuilder(
@@ -394,7 +444,18 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    AssignVaultsToLegalEntityResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -450,12 +511,11 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CounterpartyGroup&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CounterpartyGroup&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CounterpartyGroup>> createCounterpartyGroup(
-            CreateCounterpartyGroupRequest createCounterpartyGroupRequest, String idempotencyKey)
-            throws ApiException {
+            CreateCounterpartyGroupRequest createCounterpartyGroupRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createCounterpartyGroupRequestBuilder(
@@ -487,7 +547,15 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CounterpartyGroup>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -537,11 +605,11 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ArsConfigResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ArsConfigResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ArsConfigResponse>> deactivateArsConfig(
-            String idempotencyKey) throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     deactivateArsConfigRequestBuilder(idempotencyKey);
@@ -572,7 +640,15 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ArsConfigResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -609,11 +685,11 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ByorkConfigResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ByorkConfigResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ByorkConfigResponse>> deactivateByorkConfig(
-            String idempotencyKey) throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     deactivateByorkConfigRequestBuilder(idempotencyKey);
@@ -644,7 +720,15 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ByorkConfigResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -678,11 +762,10 @@ public class ComplianceApi {
      * Permissions:** Admin, Non-Signing Admin.
      *
      * @param groupId The unique identifier of the counterparty group (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Void>> deleteCounterpartyGroup(UUID groupId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<Void>> deleteCounterpartyGroup(UUID groupId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     deleteCounterpartyGroupRequestBuilder(groupId);
@@ -703,7 +786,14 @@ public class ComplianceApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -738,11 +828,10 @@ public class ComplianceApi {
      * registration to REVOKED. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param legalEntityId The unique ID of the legal entity registration to delete (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Void>> deleteLegalEntity(UUID legalEntityId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<Void>> deleteLegalEntity(UUID legalEntityId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     deleteLegalEntityRequestBuilder(legalEntityId);
@@ -762,7 +851,14 @@ public class ComplianceApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -796,11 +892,11 @@ public class ComplianceApi {
      * Get address registry participation status for the authenticated workspace Returns whether the
      * workspace is &#x60;OPTED_IN&#x60; or &#x60;OPTED_OUT&#x60; of the address registry.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryTenantRegistryResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryTenantRegistryResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AddressRegistryTenantRegistryResponse>>
-            getAddressRegistryTenantParticipationStatus() throws ApiException {
+            getAddressRegistryTenantParticipationStatus() {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getAddressRegistryTenantParticipationStatusRequestBuilder();
@@ -832,7 +928,18 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    AddressRegistryTenantRegistryResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -865,11 +972,11 @@ public class ComplianceApi {
      * removes one vault.
      *
      * @param vaultAccountId Vault account id (non-negative integer). (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryGetVaultOptOutResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryGetVaultOptOutResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AddressRegistryGetVaultOptOutResponse>>
-            getAddressRegistryVaultOptOut(Integer vaultAccountId) throws ApiException {
+            getAddressRegistryVaultOptOut(Integer vaultAccountId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getAddressRegistryVaultOptOutRequestBuilder(vaultAccountId);
@@ -901,7 +1008,18 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    AddressRegistryGetVaultOptOutResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -935,11 +1053,10 @@ public class ComplianceApi {
     /**
      * AML - View Post-Screening Policy Get the post-screening policy for AML.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;ScreeningPolicyResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ScreeningPolicyResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<ScreeningPolicyResponse>> getAmlPostScreeningPolicy()
-            throws ApiException {
+    public CompletableFuture<ApiResponse<ScreeningPolicyResponse>> getAmlPostScreeningPolicy() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getAmlPostScreeningPolicyRequestBuilder();
             return memberVarHttpClient
@@ -969,7 +1086,17 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ScreeningPolicyResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -998,11 +1125,11 @@ public class ComplianceApi {
      * AML - View Screening Policy Get the screening policy for AML.
      *
      * @return
-     *     CompletableFuture&lt;ApiResponse&lt;ScreeningProviderRulesConfigurationResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     *     CompletableFuture&lt;ApiResponse&lt;ScreeningProviderRulesConfigurationResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ScreeningProviderRulesConfigurationResponse>>
-            getAmlScreeningPolicy() throws ApiException {
+            getAmlScreeningPolicy() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getAmlScreeningPolicyRequestBuilder();
             return memberVarHttpClient
@@ -1033,7 +1160,18 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    ScreeningProviderRulesConfigurationResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1063,11 +1201,10 @@ public class ComplianceApi {
      * tenant (timeouts, active flag, allowed timeout ranges). Returns default config when none
      * exists. Requires BYORK Light to be enabled for the tenant.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;ByorkConfigResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ByorkConfigResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<ByorkConfigResponse>> getByorkConfig()
-            throws ApiException {
+    public CompletableFuture<ApiResponse<ByorkConfigResponse>> getByorkConfig() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getByorkConfigRequestBuilder();
             return memberVarHttpClient
@@ -1096,7 +1233,15 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ByorkConfigResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1128,11 +1273,10 @@ public class ComplianceApi {
      * BYORK verdict is found for the transaction.
      *
      * @param txId Transaction ID (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetByorkVerdictResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetByorkVerdictResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<GetByorkVerdictResponse>> getByorkVerdict(String txId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<GetByorkVerdictResponse>> getByorkVerdict(String txId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getByorkVerdictRequestBuilder(txId);
             return memberVarHttpClient
@@ -1161,7 +1305,17 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetByorkVerdictResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1208,11 +1362,10 @@ public class ComplianceApi {
      * Permissions:** Admin, Non-Signing Admin, Viewer.
      *
      * @param groupId The unique identifier of the counterparty group (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;CounterpartyGroup&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CounterpartyGroup&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<CounterpartyGroup>> getCounterpartyGroup(UUID groupId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<CounterpartyGroup>> getCounterpartyGroup(UUID groupId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getCounterpartyGroupRequestBuilder(groupId);
@@ -1243,7 +1396,15 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CounterpartyGroup>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1279,11 +1440,11 @@ public class ComplianceApi {
      * Viewer.
      *
      * @param legalEntityId The unique ID of the legal entity registration (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;LegalEntityRegistration&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;LegalEntityRegistration&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<LegalEntityRegistration>> getLegalEntity(
-            UUID legalEntityId) throws ApiException {
+            UUID legalEntityId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getLegalEntityRequestBuilder(legalEntityId);
@@ -1313,7 +1474,17 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<LegalEntityRegistration>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1350,11 +1521,11 @@ public class ComplianceApi {
      * required.
      *
      * @param address Blockchain address to look up (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryLegalEntity&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryLegalEntity&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AddressRegistryLegalEntity>> getLegalEntityForAddress(
-            String address) throws ApiException {
+            String address) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getLegalEntityForAddressRequestBuilder(address);
@@ -1385,7 +1556,17 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<AddressRegistryLegalEntity>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1418,11 +1599,10 @@ public class ComplianceApi {
     /**
      * Travel Rule - View Post-Screening Policy Get the post-screening policy for Travel Rule.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;ScreeningPolicyResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ScreeningPolicyResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<ScreeningPolicyResponse>> getPostScreeningPolicy()
-            throws ApiException {
+    public CompletableFuture<ApiResponse<ScreeningPolicyResponse>> getPostScreeningPolicy() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getPostScreeningPolicyRequestBuilder();
             return memberVarHttpClient
@@ -1452,7 +1632,17 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ScreeningPolicyResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1482,11 +1672,11 @@ public class ComplianceApi {
      * compliance details for the given screened transaction.
      *
      * @param txId Fireblocks transaction ID of the screened transaction (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ComplianceResultFullPayload&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ComplianceResultFullPayload&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ComplianceResultFullPayload>> getScreeningFullDetails(
-            String txId) throws ApiException {
+            String txId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getScreeningFullDetailsRequestBuilder(txId);
@@ -1517,7 +1707,17 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ComplianceResultFullPayload>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1550,11 +1750,11 @@ public class ComplianceApi {
      * Travel Rule - View Screening Policy Get the screening policy for Travel Rule.
      *
      * @return
-     *     CompletableFuture&lt;ApiResponse&lt;ScreeningProviderRulesConfigurationResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     *     CompletableFuture&lt;ApiResponse&lt;ScreeningProviderRulesConfigurationResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ScreeningProviderRulesConfigurationResponse>>
-            getScreeningPolicy() throws ApiException {
+            getScreeningPolicy() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getScreeningPolicyRequestBuilder();
             return memberVarHttpClient
@@ -1585,7 +1785,18 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    ScreeningProviderRulesConfigurationResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1622,13 +1833,12 @@ public class ComplianceApi {
      *     (optional, default to 50)
      * @param order Sort direction by vault account id. Omit for ascending; use the enum value for
      *     descending. (optional, default to VAULT_OPT_OUT_LIST_ORDER_ASC)
-     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryListVaultOptOutsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryListVaultOptOutsResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AddressRegistryListVaultOptOutsResponse>>
             listAddressRegistryVaultOptOuts(
-                    String pageCursor, Integer pageSize, AddressRegistryVaultListOrder order)
-                    throws ApiException {
+                    String pageCursor, Integer pageSize, AddressRegistryVaultListOrder order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     listAddressRegistryVaultOptOutsRequestBuilder(pageCursor, pageSize, order);
@@ -1661,7 +1871,18 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    AddressRegistryListVaultOptOutsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1714,11 +1935,11 @@ public class ComplianceApi {
      *
      * @param pageCursor Cursor of the required page (optional)
      * @param pageSize Maximum number of items in the page (optional, default to 50)
-     * @return CompletableFuture&lt;ApiResponse&lt;CounterpartyGroupsPaginatedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CounterpartyGroupsPaginatedResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CounterpartyGroupsPaginatedResponse>>
-            listCounterpartyGroups(String pageCursor, Integer pageSize) throws ApiException {
+            listCounterpartyGroups(String pageCursor, Integer pageSize) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     listCounterpartyGroupsRequestBuilder(pageCursor, pageSize);
@@ -1749,7 +1970,18 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    CounterpartyGroupsPaginatedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1807,11 +2039,11 @@ public class ComplianceApi {
      *     previous response. Ignored when &#x60;vaultAccountId&#x60; is provided. (optional)
      * @param pageSize Maximum number of registrations to return. Ignored when
      *     &#x60;vaultAccountId&#x60; is provided. (optional, default to 50)
-     * @return CompletableFuture&lt;ApiResponse&lt;ListLegalEntitiesResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ListLegalEntitiesResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ListLegalEntitiesResponse>> listLegalEntities(
-            String vaultAccountId, String pageCursor, Integer pageSize) throws ApiException {
+            String vaultAccountId, String pageCursor, Integer pageSize) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     listLegalEntitiesRequestBuilder(vaultAccountId, pageCursor, pageSize);
@@ -1841,7 +2073,17 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ListLegalEntitiesResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1896,12 +2138,11 @@ public class ComplianceApi {
      * @param pageCursor Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a
      *     previous response (optional)
      * @param pageSize Maximum number of registrations to return (optional, default to 50)
-     * @return CompletableFuture&lt;ApiResponse&lt;ListVaultsForRegistrationResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ListVaultsForRegistrationResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ListVaultsForRegistrationResponse>>
-            listVaultsForLegalEntity(UUID legalEntityId, String pageCursor, Integer pageSize)
-                    throws ApiException {
+            listVaultsForLegalEntity(UUID legalEntityId, String pageCursor, Integer pageSize) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     listVaultsForLegalEntityRequestBuilder(legalEntityId, pageCursor, pageSize);
@@ -1932,7 +2173,18 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    ListVaultsForRegistrationResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1987,11 +2239,11 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryTenantRegistryResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryTenantRegistryResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AddressRegistryTenantRegistryResponse>>
-            optInAddressRegistryTenant(String idempotencyKey) throws ApiException {
+            optInAddressRegistryTenant(String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     optInAddressRegistryTenantRequestBuilder(idempotencyKey);
@@ -2023,7 +2275,18 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    AddressRegistryTenantRegistryResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2056,11 +2319,11 @@ public class ComplianceApi {
      * Opt the workspace out of the address registry Opts the workspace out. No request body.
      * Response uses the same JSON shape as GET; status is OPTED_OUT.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryTenantRegistryResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryTenantRegistryResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AddressRegistryTenantRegistryResponse>>
-            optOutAddressRegistryTenant() throws ApiException {
+            optOutAddressRegistryTenant() {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     optOutAddressRegistryTenantRequestBuilder();
@@ -2092,7 +2355,18 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    AddressRegistryTenantRegistryResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2127,12 +2401,11 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;LegalEntityRegistration&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;LegalEntityRegistration&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<LegalEntityRegistration>> registerLegalEntity(
-            RegisterLegalEntityRequest registerLegalEntityRequest, String idempotencyKey)
-            throws ApiException {
+            RegisterLegalEntityRequest registerLegalEntityRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     registerLegalEntityRequestBuilder(registerLegalEntityRequest, idempotencyKey);
@@ -2163,7 +2436,17 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<LegalEntityRegistration>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2210,11 +2493,11 @@ public class ComplianceApi {
      * success). To clear the whole list, use &#x60;DELETE /v1/address_registry/vaults&#x60;.
      *
      * @param vaultAccountId Vault account id (non-negative integer). (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryRemoveVaultOptOutResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryRemoveVaultOptOutResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AddressRegistryRemoveVaultOptOutResponse>>
-            removeAddressRegistryVaultOptOut(Integer vaultAccountId) throws ApiException {
+            removeAddressRegistryVaultOptOut(Integer vaultAccountId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     removeAddressRegistryVaultOptOutRequestBuilder(vaultAccountId);
@@ -2247,7 +2530,18 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    AddressRegistryRemoveVaultOptOutResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2283,11 +2577,11 @@ public class ComplianceApi {
      * from the workspace opt-out list.
      *
      * @return
-     *     CompletableFuture&lt;ApiResponse&lt;AddressRegistryRemoveAllVaultOptOutsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     *     CompletableFuture&lt;ApiResponse&lt;AddressRegistryRemoveAllVaultOptOutsResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AddressRegistryRemoveAllVaultOptOutsResponse>>
-            removeAllAddressRegistryVaultOptOuts() throws ApiException {
+            removeAllAddressRegistryVaultOptOuts() {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     removeAllAddressRegistryVaultOptOutsRequestBuilder();
@@ -2320,7 +2614,18 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    AddressRegistryRemoveAllVaultOptOutsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2357,14 +2662,13 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;RescreenTransactionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;RescreenTransactionResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<RescreenTransactionResponse>> rescreenRejectedTransaction(
             String txId,
             RescreenTransactionRequest rescreenTransactionRequest,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     rescreenRejectedTransactionRequestBuilder(
@@ -2397,7 +2701,17 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<RescreenTransactionResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2449,12 +2763,11 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateTransactionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateTransactionResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CreateTransactionResponse>>
-            retryRejectedTransactionBypassScreeningChecks(String txId, String idempotencyKey)
-                    throws ApiException {
+            retryRejectedTransactionBypassScreeningChecks(String txId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     retryRejectedTransactionBypassScreeningChecksRequestBuilder(
@@ -2487,7 +2800,17 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CreateTransactionResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2530,12 +2853,11 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;AmlVerdictManualResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AmlVerdictManualResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AmlVerdictManualResponse>> setAmlVerdict(
-            AmlVerdictManualRequest amlVerdictManualRequest, String idempotencyKey)
-            throws ApiException {
+            AmlVerdictManualRequest amlVerdictManualRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setAmlVerdictRequestBuilder(amlVerdictManualRequest, idempotencyKey);
@@ -2565,7 +2887,17 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<AmlVerdictManualResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2616,12 +2948,11 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ByorkConfigResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ByorkConfigResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ByorkConfigResponse>> setByorkTimeouts(
-            ByorkSetTimeoutsRequest byorkSetTimeoutsRequest, String idempotencyKey)
-            throws ApiException {
+            ByorkSetTimeoutsRequest byorkSetTimeoutsRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setByorkTimeoutsRequestBuilder(byorkSetTimeoutsRequest, idempotencyKey);
@@ -2651,7 +2982,15 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ByorkConfigResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2702,11 +3041,11 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ByorkVerdictResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ByorkVerdictResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ByorkVerdictResponse>> setByorkVerdict(
-            ByorkVerdictRequest byorkVerdictRequest, String idempotencyKey) throws ApiException {
+            ByorkVerdictRequest byorkVerdictRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setByorkVerdictRequestBuilder(byorkVerdictRequest, idempotencyKey);
@@ -2736,7 +3075,17 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ByorkVerdictResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2781,11 +3130,11 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ScreeningConfigurationsRequest&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ScreeningConfigurationsRequest&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>>
-            updateAmlScreeningConfiguration(String idempotencyKey) throws ApiException {
+            updateAmlScreeningConfiguration(String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateAmlScreeningConfigurationRequestBuilder(idempotencyKey);
@@ -2817,7 +3166,17 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ScreeningConfigurationsRequest>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2855,14 +3214,13 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CounterpartyGroup&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CounterpartyGroup&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CounterpartyGroup>> updateCounterpartyGroup(
             UpdateCounterpartyGroupRequest updateCounterpartyGroupRequest,
             UUID groupId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateCounterpartyGroupRequestBuilder(
@@ -2894,7 +3252,15 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CounterpartyGroup>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2952,14 +3318,13 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;LegalEntityRegistration&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;LegalEntityRegistration&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<LegalEntityRegistration>> updateLegalEntity(
             UpdateLegalEntityRequest updateLegalEntityRequest,
             UUID legalEntityId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateLegalEntityRequestBuilder(
@@ -2990,7 +3355,17 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<LegalEntityRegistration>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -3043,14 +3418,13 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ScreeningUpdateConfigurations&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ScreeningUpdateConfigurations&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ScreeningUpdateConfigurations>>
             updateScreeningConfiguration(
                     ScreeningUpdateConfigurations screeningUpdateConfigurations,
-                    String idempotencyKey)
-                    throws ApiException {
+                    String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateScreeningConfigurationRequestBuilder(
@@ -3083,7 +3457,17 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ScreeningUpdateConfigurations>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -3132,11 +3516,11 @@ public class ComplianceApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ScreeningConfigurationsRequest&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ScreeningConfigurationsRequest&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> updateTravelRuleConfig(
-            String idempotencyKey) throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateTravelRuleConfigRequestBuilder(idempotencyKey);
@@ -3167,7 +3551,17 @@ public class ComplianceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ScreeningConfigurationsRequest>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

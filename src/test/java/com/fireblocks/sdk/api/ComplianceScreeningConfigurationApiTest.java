@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ScreeningConfigurationsRequest;
 import java.util.concurrent.CompletableFuture;
@@ -31,11 +30,9 @@ public class ComplianceScreeningConfigurationApiTest {
      * Get AML Screening Policy Configuration
      *
      * <p>Retrieves the configuration for Travel Rule screening policy.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getAmlScreeningConfigurationTest() throws ApiException {
+    public void getAmlScreeningConfigurationTest() {
         CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response =
                 api.getAmlScreeningConfiguration();
     }
@@ -44,11 +41,9 @@ public class ComplianceScreeningConfigurationApiTest {
      * Get Travel Rule Screening Policy Configuration
      *
      * <p>Retrieves the configuration for Travel Rule screening policy.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getScreeningConfigurationTest() throws ApiException {
+    public void getScreeningConfigurationTest() {
         CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response =
                 api.getScreeningConfiguration();
     }

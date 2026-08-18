@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateOffersRequest;
 import com.fireblocks.sdk.model.CreateOrderRequest;
@@ -51,11 +50,9 @@ public class TradingBetaApiTest {
      * Admin, Non-Signing Admin, Signer, Editor. For detailed information about error codes and
      * troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createOrderTest() throws ApiException {
+    public void createOrderTest() {
         CreateOrderRequest createOrderRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<OrderDetails>> response =
@@ -72,11 +69,9 @@ public class TradingBetaApiTest {
      * Permission: Owner, Admin, Non-Signing Admin, Signer, Editor. For detailed information about
      * error codes and troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createQuoteTest() throws ApiException {
+    public void createQuoteTest() {
         CreateQuote createQuote = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<QuotesResponse>> response =
@@ -96,11 +91,9 @@ public class TradingBetaApiTest {
      * Admin, Non-Signing Admin, Signer, Editor. For detailed information about error codes and
      * troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void fetchAllOffersTest() throws ApiException {
+    public void fetchAllOffersTest() {
         CreateOffersRequest createOffersRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<OffersResponse>> response =
@@ -118,11 +111,9 @@ public class TradingBetaApiTest {
      * Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed information about error
      * codes and troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void fetchRatesTest() throws ApiException {
+    public void fetchRatesTest() {
         RatesRequest ratesRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<RatesResponse>> response =
@@ -139,11 +130,9 @@ public class TradingBetaApiTest {
      * Approver, Editor, Viewer. For detailed information about error codes and troubleshooting,
      * please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getOrderTest() throws ApiException {
+    public void getOrderTest() {
         String orderId = null;
         CompletableFuture<ApiResponse<OrderDetails>> response = api.getOrder(orderId);
     }
@@ -163,11 +152,9 @@ public class TradingBetaApiTest {
      * Approver, Editor, Viewer. For detailed information about error codes and troubleshooting,
      * please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getOrderRequirementsTest() throws ApiException {
+    public void getOrderRequirementsTest() {
         String orderId = null;
         CompletableFuture<ApiResponse<OrderRequirementDetails>> response =
                 api.getOrderRequirements(orderId);
@@ -183,11 +170,9 @@ public class TradingBetaApiTest {
      * Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed
      * information about error codes and troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getOrdersTest() throws ApiException {
+    public void getOrdersTest() {
         Integer pageSize = null;
         String pageCursor = null;
         String order = null;
@@ -220,11 +205,9 @@ public class TradingBetaApiTest {
      * Approver, Editor, Viewer. For detailed information about error codes and troubleshooting,
      * please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTradingProviderByIdTest() throws ApiException {
+    public void getTradingProviderByIdTest() {
         String providerId = null;
         CompletableFuture<ApiResponse<TradingProvider>> response =
                 api.getTradingProviderById(providerId);
@@ -240,11 +223,9 @@ public class TradingBetaApiTest {
      * **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * For detailed information about error codes and troubleshooting, please refer to our [API
      * Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTradingProvidersTest() throws ApiException {
+    public void getTradingProvidersTest() {
         Integer pageSize = null;
         String pageCursor = null;
         CompletableFuture<ApiResponse<ProvidersListResponse>> response =
@@ -264,11 +245,9 @@ public class TradingBetaApiTest {
      * to CSM@fireblocks.com. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
      * For detailed information about error codes and troubleshooting, please refer to our [API
      * Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void submitOrderRequirementsTest() throws ApiException {
+    public void submitOrderRequirementsTest() {
         SubmitOrderRequirementRequest submitOrderRequirementRequest = null;
         String orderId = null;
         String idempotencyKey = null;
@@ -292,11 +271,9 @@ public class TradingBetaApiTest {
      * to CSM@fireblocks.com. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
      * For detailed information about error codes and troubleshooting, please refer to our [API
      * Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void uploadOrderRequirementFileTest() throws ApiException {
+    public void uploadOrderRequirementFileTest() {
         String fileKey = null;
         File _file = null;
         String orderId = null;

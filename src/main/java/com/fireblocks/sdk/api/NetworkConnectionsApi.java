@@ -45,7 +45,10 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -81,6 +84,28 @@ public class NetworkConnectionsApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -96,11 +121,11 @@ public class NetworkConnectionsApi {
      *
      * @param connectionId The ID of the network connection (required)
      * @param assetType The destination asset type (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ThirdPartyRouting&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ThirdPartyRouting&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ThirdPartyRouting>> checkThirdPartyRouting(
-            String connectionId, String assetType) throws ApiException {
+            String connectionId, String assetType) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     checkThirdPartyRoutingRequestBuilder(connectionId, assetType);
@@ -131,7 +156,15 @@ public class NetworkConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ThirdPartyRouting>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -184,11 +217,11 @@ public class NetworkConnectionsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;NetworkConnectionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;NetworkConnectionResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<NetworkConnectionResponse>> createNetworkConnection(
-            NetworkConnection networkConnection, String idempotencyKey) throws ApiException {
+            NetworkConnection networkConnection, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createNetworkConnectionRequestBuilder(networkConnection, idempotencyKey);
@@ -219,7 +252,17 @@ public class NetworkConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<NetworkConnectionResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -262,12 +305,11 @@ public class NetworkConnectionsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;NetworkIdResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;NetworkIdResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<NetworkIdResponse>> createNetworkId(
-            CreateNetworkIdRequest createNetworkIdRequest, String idempotencyKey)
-            throws ApiException {
+            CreateNetworkIdRequest createNetworkIdRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createNetworkIdRequestBuilder(createNetworkIdRequest, idempotencyKey);
@@ -297,7 +339,15 @@ public class NetworkConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<NetworkIdResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -340,11 +390,11 @@ public class NetworkConnectionsApi {
      * connection ID.
      *
      * @param connectionId The ID of the network connection to delete (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;DeleteNetworkConnectionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;DeleteNetworkConnectionResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<DeleteNetworkConnectionResponse>> deleteNetworkConnection(
-            String connectionId) throws ApiException {
+            String connectionId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     deleteNetworkConnectionRequestBuilder(connectionId);
@@ -375,7 +425,17 @@ public class NetworkConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<DeleteNetworkConnectionResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -409,11 +469,11 @@ public class NetworkConnectionsApi {
      * Delete specific network ID. Deletes a network by its ID.
      *
      * @param networkId The ID of the network (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;DeleteNetworkIdResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;DeleteNetworkIdResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<DeleteNetworkIdResponse>> deleteNetworkId(String networkId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<DeleteNetworkIdResponse>> deleteNetworkId(
+            String networkId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = deleteNetworkIdRequestBuilder(networkId);
             return memberVarHttpClient
@@ -442,7 +502,17 @@ public class NetworkConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<DeleteNetworkIdResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -475,11 +545,11 @@ public class NetworkConnectionsApi {
      * Get a network connection Gets a network connection by ID.
      *
      * @param connectionId The ID of the connection (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;NetworkConnectionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;NetworkConnectionResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<NetworkConnectionResponse>> getNetwork(String connectionId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<NetworkConnectionResponse>> getNetwork(
+            String connectionId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getNetworkRequestBuilder(connectionId);
             return memberVarHttpClient
@@ -508,7 +578,17 @@ public class NetworkConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<NetworkConnectionResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -548,11 +628,10 @@ public class NetworkConnectionsApi {
      * Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT → **None** -
      * Network Connection Crypto → **Default** - Network Connection FIAT → **Default**
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;NetworkConnectionResponse&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;NetworkConnectionResponse&gt;&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<List<NetworkConnectionResponse>>> getNetworkConnections()
-            throws ApiException {
+    public CompletableFuture<ApiResponse<List<NetworkConnectionResponse>>> getNetworkConnections() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getNetworkConnectionsRequestBuilder();
             return memberVarHttpClient
@@ -583,7 +662,17 @@ public class NetworkConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<NetworkConnectionResponse>>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -612,11 +701,10 @@ public class NetworkConnectionsApi {
      * Return specific network ID. Returns specific network ID.
      *
      * @param networkId The ID of the network (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;NetworkIdResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;NetworkIdResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<NetworkIdResponse>> getNetworkId(String networkId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<NetworkIdResponse>> getNetworkId(String networkId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getNetworkIdRequestBuilder(networkId);
             return memberVarHttpClient
@@ -645,7 +733,15 @@ public class NetworkConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<NetworkIdResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -676,13 +772,12 @@ public class NetworkConnectionsApi {
     /**
      * Get all network IDs Retrieves a list of all local and discoverable remote network IDs.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;NetworkIdResponse&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;NetworkIdResponse&gt;&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      * @deprecated
      */
     @Deprecated
-    public CompletableFuture<ApiResponse<List<NetworkIdResponse>>> getNetworkIds()
-            throws ApiException {
+    public CompletableFuture<ApiResponse<List<NetworkIdResponse>>> getNetworkIds() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getNetworkIdsRequestBuilder();
             return memberVarHttpClient
@@ -712,7 +807,17 @@ public class NetworkConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<NetworkIdResponse>>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -741,11 +846,10 @@ public class NetworkConnectionsApi {
      * Return all enabled routing policy asset groups Returns all enabled routing policy asset
      * groups
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;String&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;String&gt;&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<List<String>>> getRoutingPolicyAssetGroups()
-            throws ApiException {
+    public CompletableFuture<ApiResponse<List<String>>> getRoutingPolicyAssetGroups() {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getRoutingPolicyAssetGroupsRequestBuilder();
@@ -777,7 +881,15 @@ public class NetworkConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<String>>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -812,8 +924,8 @@ public class NetworkConnectionsApi {
      * @param excludeConnected Exclude connected networkIds. Optional, default false (optional)
      * @param pageCursor ID of the record after which to fetch $limit records (optional)
      * @param pageSize Number of records to fetch. By default, it is 50 (optional, default to 50)
-     * @return CompletableFuture&lt;ApiResponse&lt;SearchNetworkIdsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;SearchNetworkIdsResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<SearchNetworkIdsResponse>> searchNetworkIds(
             String search,
@@ -821,8 +933,7 @@ public class NetworkConnectionsApi {
             Boolean onlySelf,
             Boolean excludeConnected,
             String pageCursor,
-            BigDecimal pageSize)
-            throws ApiException {
+            BigDecimal pageSize) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     searchNetworkIdsRequestBuilder(
@@ -853,7 +964,17 @@ public class NetworkConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<SearchNetworkIdsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -918,12 +1039,12 @@ public class NetworkConnectionsApi {
      *
      * @param setNetworkIdDiscoverabilityRequest (required)
      * @param networkId The ID of the network (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;SetNetworkIdResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;SetNetworkIdResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<SetNetworkIdResponse>> setNetworkIdDiscoverability(
-            SetNetworkIdDiscoverabilityRequest setNetworkIdDiscoverabilityRequest, String networkId)
-            throws ApiException {
+            SetNetworkIdDiscoverabilityRequest setNetworkIdDiscoverabilityRequest,
+            String networkId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setNetworkIdDiscoverabilityRequestBuilder(
@@ -956,7 +1077,17 @@ public class NetworkConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<SetNetworkIdResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1004,11 +1135,11 @@ public class NetworkConnectionsApi {
      *
      * @param setNetworkIdNameRequest (required)
      * @param networkId The ID of the network (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;SetNetworkIdResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;SetNetworkIdResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<SetNetworkIdResponse>> setNetworkIdName(
-            SetNetworkIdNameRequest setNetworkIdNameRequest, String networkId) throws ApiException {
+            SetNetworkIdNameRequest setNetworkIdNameRequest, String networkId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setNetworkIdNameRequestBuilder(setNetworkIdNameRequest, networkId);
@@ -1038,7 +1169,17 @@ public class NetworkConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<SetNetworkIdResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1082,12 +1223,11 @@ public class NetworkConnectionsApi {
      *
      * @param networkId The ID of the network (required)
      * @param setNetworkIdRoutingPolicyRequest (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;SetNetworkIdResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;SetNetworkIdResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<SetNetworkIdResponse>> setNetworkIdRoutingPolicy(
-            String networkId, SetNetworkIdRoutingPolicyRequest setNetworkIdRoutingPolicyRequest)
-            throws ApiException {
+            String networkId, SetNetworkIdRoutingPolicyRequest setNetworkIdRoutingPolicyRequest) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setNetworkIdRoutingPolicyRequestBuilder(
@@ -1119,7 +1259,17 @@ public class NetworkConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<SetNetworkIdResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1164,12 +1314,11 @@ public class NetworkConnectionsApi {
      *
      * @param connectionId The ID of the network connection (required)
      * @param setRoutingPolicyRequest (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;SetRoutingPolicyResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;SetRoutingPolicyResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<SetRoutingPolicyResponse>> setRoutingPolicy(
-            String connectionId, SetRoutingPolicyRequest setRoutingPolicyRequest)
-            throws ApiException {
+            String connectionId, SetRoutingPolicyRequest setRoutingPolicyRequest) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setRoutingPolicyRequestBuilder(connectionId, setRoutingPolicyRequest);
@@ -1199,7 +1348,17 @@ public class NetworkConnectionsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<SetRoutingPolicyResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

@@ -19299,6 +19299,171 @@ paths:
         source: "response = fireblocks.reset_device.reset_device(id, idempotency_key);"
       x-accepts:
       - application/json
+  /security/fspm/findings:
+    get:
+      description: |
+        Returns a paginated list of FSPM security findings for the workspace.
+        Endpoint Permissions: Security Admin, Security Auditor.
+      operationId: getSecurityFindings
+      parameters:
+      - description: Cursor indicating the page position. Omit to fetch the first
+          page.
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Number of results per page
+        example: 10
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 10
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Filter by severity level
+        example: HIGH
+        explode: true
+        in: query
+        name: severity
+        required: false
+        schema:
+          enum:
+          - INFO
+          - LOW
+          - MEDIUM
+          - HIGH
+          type: string
+        style: form
+      - description: Filter by finding category
+        example: USER_MANAGEMENT
+        explode: true
+        in: query
+        name: category
+        required: false
+        schema:
+          enum:
+          - USER_MANAGEMENT
+          - ACCESS_CONTROL
+          - ADMIN_MANAGEMENT
+          - SECURITY
+          - CONFIGURATION
+          - APPROVAL_GROUP_MANAGEMENT
+          - POLICY_ENGINE_UTILIZATION
+          - WORKSPACE_CONFIGURATION
+          - DEFI_ACCESS
+          - FLEET_MANAGEMENT
+          type: string
+        style: form
+      - description: Filter by finding status
+        example: OPEN
+        explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          enum:
+          - OPEN
+          - ACCEPTED
+          - RESOLVED
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetFindingsExternalResponse"
+          description: A paginated list of FSPM findings
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Bad request — invalid or malformed query parameters.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Unauthorized — missing or invalid authentication token.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Forbidden — insufficient permissions or feature is disabled.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Too many requests — rate limit exceeded, slow down and retry\
+            \ later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Internal error.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get FSPM security findings
+      tags:
+      - Security Posture Management
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetFindingsExternalResponse>>\
+            \ = fireblocks.securityPostureManagement.getSecurityFindings(securityPostureManagementApiGetSecurityFindingsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<GetFindingsExternalResponse>> response\
+            \ = fireblocks.securityPostureManagement().getSecurityFindings(pageCursor,\
+            \ pageSize, severity, category, status);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.security_posture_management.get_security_findings(page_cursor,\
+            \ page_size, severity, category, status);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetFindingsExternalResponse>>\
+          \ = fireblocks.securityPostureManagement.getSecurityFindings(securityPostureManagementApiGetSecurityFindingsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<GetFindingsExternalResponse>> response\
+          \ = fireblocks.securityPostureManagement().getSecurityFindings(pageCursor,\
+          \ pageSize, severity, category, status);"
+      - lang: Python
+        source: "response = fireblocks.security_posture_management.get_security_findings(page_cursor,\
+          \ page_size, severity, category, status);"
+      x-accepts:
+      - application/json
   /smart_transfers/{ticketId}/dvp/fund:
     put:
       description: Create or fulfill dvp ticket order
@@ -21956,7 +22121,7 @@ paths:
     get:
       description: |-
         Returns all staking positions with core details: amounts, rewards, status, chain, and vault.
-        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getAllDelegations
       parameters:
       - description: "Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA).\
@@ -22073,7 +22238,7 @@ paths:
     get:
       description: |-
         Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure.
-        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getPositions
       parameters:
       - description: "Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA).\
@@ -22694,7 +22859,7 @@ paths:
     get:
       description: |-
         Returns all available staking providers with metadata such as name, ID, and supported chains.
-        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getProviders
       responses:
         "200":
@@ -47202,6 +47367,36 @@ components:
           example: "123"
           type: string
       type: object
+    GaslessInfo:
+      description: Relay (meta-transaction) details. Returned only for meta-transactions
+        (`isMetaTx` is `true`). For meta-transactions the deprecated top-level `fee`
+        field is omitted; use `feeInfo` instead.
+      example:
+        relayVaultAccountId: "19"
+        isMetaTx: true
+        relayTenantId: 97cc731c-f920-5e82-bb56-ba76f292c874
+        relayTenantName: Or Manzur - Crypto Journey
+      properties:
+        isMetaTx:
+          description: Indicates the transaction is a meta-transaction (gas paid by
+            a relay tenant).
+          example: true
+          type: boolean
+        relayTenantId:
+          description: The tenant ID of the relay that sponsors the gas for the meta-transaction.
+          example: 97cc731c-f920-5e82-bb56-ba76f292c874
+          type: string
+        relayTenantName:
+          description: The tenant name of the relay that sponsors the gas for the
+            meta-transaction.
+          example: Or Manzur - Crypto Journey
+          type: string
+        relayVaultAccountId:
+          description: The vault account ID of the relay that sponsors the gas for
+            the meta-transaction.
+          example: "19"
+          type: string
+      type: object
     SystemMessageInfo:
       example:
         type: WARN
@@ -47567,6 +47762,11 @@ components:
           isDropped: true
         blockchainIndex: 1.1.1
         assetId: assetId
+        gaslessInfo:
+          relayVaultAccountId: "19"
+          isMetaTx: true
+          relayTenantId: 97cc731c-f920-5e82-bb56-ba76f292c874
+          relayTenantName: Or Manzur - Crypto Journey
         amount: 2.027123023002322
         sourceAddress: sourceAddress
         netAmount: 4.145608029883936
@@ -48400,6 +48600,8 @@ components:
           $ref: "#/components/schemas/RewardInfo"
         feePayerInfo:
           $ref: "#/components/schemas/FeePayerInfo"
+        gaslessInfo:
+          $ref: "#/components/schemas/GaslessInfo"
         systemMessages:
           items:
             $ref: "#/components/schemas/SystemMessageInfo"
@@ -49122,10 +49324,7 @@ components:
           example: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
           type: string
       type: object
-    TravelRuleLegalPersonNameIdentifier:
-      example:
-        legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-        legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+    TravelRuleLegalNameIdentifier:
       properties:
         legalPersonName:
           description: Name by which the legal person is known. The value must be
@@ -49133,18 +49332,66 @@ components:
           example: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
           type: string
         legalPersonNameIdentifierType:
-          description: "Specifies the type of name for a legal person. Acceptable\
-            \ values are: - 'REGISTERED': The official registered name. - 'TRADE':\
-            \ A trading name or DBA (Doing Business As) name. - 'OTHER': Any other\
-            \ type of name. The value must be encrypted."
+          description: "Specifies the type of name for a legal person (IVMS101 LegalPersonNameTypeCode).\
+            \ Acceptable values are: - 'LEGL': Legal name - official name under which\
+            \ the organisation is registered. - 'SHRT': Short name of the organisation.\
+            \ - 'TRAD': Trading name - name used by the business for commercial purposes.\
+            \ The value must be encrypted."
           example: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
           type: string
+      required:
+      - legalPersonName
+      - legalPersonNameIdentifierType
+      type: object
+    TravelRuleLegalPersonNameIdentifier:
+      example:
+        localNameIdentifier:
+        - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+          legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+        phoneticNameIdentifier:
+        - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+          legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+        nameIdentifier:
+        - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+          legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+      properties:
+        nameIdentifier:
+          description: An array of name identifiers of the legal person.
+          example:
+          - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+            legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+          items:
+            $ref: "#/components/schemas/TravelRuleLegalNameIdentifier"
+          type: array
+        localNameIdentifier:
+          description: An array of local name identifiers of the legal person.
+          example:
+          - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+            legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+          items:
+            $ref: "#/components/schemas/TravelRuleLegalNameIdentifier"
+          type: array
+        phoneticNameIdentifier:
+          description: An array of phonetic name identifiers of the legal person.
+          example:
+          - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+            legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+          items:
+            $ref: "#/components/schemas/TravelRuleLegalNameIdentifier"
+          type: array
       type: object
     TravelRuleLegalPerson:
       example:
         name:
-          legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-          legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+          localNameIdentifier:
+          - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+            legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+          phoneticNameIdentifier:
+          - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+            legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+          nameIdentifier:
+          - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+            legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
         nationalIdentification:
           nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
           countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -49219,8 +49466,15 @@ components:
       example:
         legalPerson:
           name:
-            legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-            legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+            localNameIdentifier:
+            - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+              legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+            phoneticNameIdentifier:
+            - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+              legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+            nameIdentifier:
+            - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+              legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
           nationalIdentification:
             nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
             countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -49366,8 +49620,15 @@ components:
         originatorPersons:
         - legalPerson:
             name:
-              legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-              legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+              localNameIdentifier:
+              - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+              phoneticNameIdentifier:
+              - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+              nameIdentifier:
+              - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
             nationalIdentification:
               nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
               countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -49503,8 +49764,15 @@ components:
             customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
         - legalPerson:
             name:
-              legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-              legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+              localNameIdentifier:
+              - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+              phoneticNameIdentifier:
+              - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+              nameIdentifier:
+              - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
             nationalIdentification:
               nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
               countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -49641,8 +49909,15 @@ components:
         beneficiaryPersons:
         - legalPerson:
             name:
-              legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-              legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+              localNameIdentifier:
+              - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+              phoneticNameIdentifier:
+              - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+              nameIdentifier:
+              - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
             nationalIdentification:
               nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
               countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -49778,8 +50053,15 @@ components:
             customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
         - legalPerson:
             name:
-              legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-              legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+              localNameIdentifier:
+              - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+              phoneticNameIdentifier:
+              - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+              nameIdentifier:
+              - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
             nationalIdentification:
               nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
               countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -50019,8 +50301,15 @@ components:
           originatorPersons:
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                localNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                phoneticNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                nameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
               nationalIdentification:
                 nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                 countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -50156,8 +50445,15 @@ components:
               customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                localNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                phoneticNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                nameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
               nationalIdentification:
                 nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                 countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -50294,8 +50590,15 @@ components:
           beneficiaryPersons:
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                localNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                phoneticNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                nameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
               nationalIdentification:
                 nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                 countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -50431,8 +50734,15 @@ components:
               customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                localNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                phoneticNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                nameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
               nationalIdentification:
                 nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                 countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -50578,8 +50888,15 @@ components:
           originatorPersons:
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                localNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                phoneticNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                nameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
               nationalIdentification:
                 nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                 countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -50715,8 +51032,15 @@ components:
               customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                localNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                phoneticNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                nameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
               nationalIdentification:
                 nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                 countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -50853,8 +51177,15 @@ components:
           beneficiaryPersons:
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                localNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                phoneticNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                nameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
               nationalIdentification:
                 nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                 countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -50990,8 +51321,15 @@ components:
               customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                localNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                phoneticNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                nameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
               nationalIdentification:
                 nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                 countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -51360,8 +51698,15 @@ components:
             originatorPersons:
             - legalPerson:
                 name:
-                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                  legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  localNameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                  phoneticNameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                  nameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                 nationalIdentification:
                   nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                   countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -51497,8 +51842,15 @@ components:
                 customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
             - legalPerson:
                 name:
-                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                  legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  localNameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                  phoneticNameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                  nameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                 nationalIdentification:
                   nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                   countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -51635,8 +51987,15 @@ components:
             beneficiaryPersons:
             - legalPerson:
                 name:
-                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                  legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  localNameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                  phoneticNameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                  nameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                 nationalIdentification:
                   nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                   countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -51772,8 +52131,15 @@ components:
                 customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
             - legalPerson:
                 name:
-                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                  legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  localNameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                  phoneticNameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                  nameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                 nationalIdentification:
                   nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                   countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -51919,8 +52285,15 @@ components:
             originatorPersons:
             - legalPerson:
                 name:
-                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                  legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  localNameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                  phoneticNameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                  nameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                 nationalIdentification:
                   nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                   countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -52056,8 +52429,15 @@ components:
                 customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
             - legalPerson:
                 name:
-                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                  legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  localNameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                  phoneticNameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                  nameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                 nationalIdentification:
                   nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                   countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -52194,8 +52574,15 @@ components:
             beneficiaryPersons:
             - legalPerson:
                 name:
-                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                  legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  localNameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                  phoneticNameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                  nameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                 nationalIdentification:
                   nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                   countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -52331,8 +52718,15 @@ components:
                 customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
             - legalPerson:
                 name:
-                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                  legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  localNameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                  phoneticNameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                  nameIdentifier:
+                  - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                 nationalIdentification:
                   nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                   countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -54582,8 +54976,15 @@ components:
               originatorPersons:
               - legalPerson:
                   name:
-                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                    legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    localNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    phoneticNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    nameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                   nationalIdentification:
                     nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                     countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -54719,8 +55120,15 @@ components:
                   customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
               - legalPerson:
                   name:
-                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                    legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    localNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    phoneticNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    nameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                   nationalIdentification:
                     nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                     countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -54857,8 +55265,15 @@ components:
               beneficiaryPersons:
               - legalPerson:
                   name:
-                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                    legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    localNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    phoneticNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    nameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                   nationalIdentification:
                     nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                     countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -54994,8 +55409,15 @@ components:
                   customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
               - legalPerson:
                   name:
-                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                    legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    localNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    phoneticNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    nameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                   nationalIdentification:
                     nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                     countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -55141,8 +55563,15 @@ components:
               originatorPersons:
               - legalPerson:
                   name:
-                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                    legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    localNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    phoneticNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    nameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                   nationalIdentification:
                     nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                     countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -55278,8 +55707,15 @@ components:
                   customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
               - legalPerson:
                   name:
-                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                    legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    localNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    phoneticNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    nameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                   nationalIdentification:
                     nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                     countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -55416,8 +55852,15 @@ components:
               beneficiaryPersons:
               - legalPerson:
                   name:
-                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                    legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    localNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    phoneticNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    nameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                   nationalIdentification:
                     nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                     countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -55553,8 +55996,15 @@ components:
                   customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
               - legalPerson:
                   name:
-                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                    legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    localNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    phoneticNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    nameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                   nationalIdentification:
                     nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                     countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -55847,8 +56297,15 @@ components:
               originatorPersons:
               - legalPerson:
                   name:
-                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                    legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    localNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    phoneticNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    nameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                   nationalIdentification:
                     nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                     countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -55984,8 +56441,15 @@ components:
                   customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
               - legalPerson:
                   name:
-                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                    legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    localNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    phoneticNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    nameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                   nationalIdentification:
                     nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                     countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -56122,8 +56586,15 @@ components:
               beneficiaryPersons:
               - legalPerson:
                   name:
-                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                    legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    localNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    phoneticNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    nameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                   nationalIdentification:
                     nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                     countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -56259,8 +56730,15 @@ components:
                   customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
               - legalPerson:
                   name:
-                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                    legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    localNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    phoneticNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    nameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                   nationalIdentification:
                     nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                     countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -56406,8 +56884,15 @@ components:
               originatorPersons:
               - legalPerson:
                   name:
-                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                    legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    localNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    phoneticNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    nameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                   nationalIdentification:
                     nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                     countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -56543,8 +57028,15 @@ components:
                   customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
               - legalPerson:
                   name:
-                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                    legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    localNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    phoneticNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    nameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                   nationalIdentification:
                     nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                     countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -56681,8 +57173,15 @@ components:
               beneficiaryPersons:
               - legalPerson:
                   name:
-                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                    legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    localNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    phoneticNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    nameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                   nationalIdentification:
                     nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                     countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -56818,8 +57317,15 @@ components:
                   customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
               - legalPerson:
                   name:
-                    legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                    legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                    localNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    phoneticNameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                    nameIdentifier:
+                    - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                      legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
                   nationalIdentification:
                     nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                     countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -63362,6 +63868,28 @@ components:
             \ omitted once active."
           example: 2024-01-15T14:30:00.000Z
           type: string
+        estimatedSourceExitTime:
+          description: "Estimated time the source validator will exit the active set\
+            \ and stop earning rewards, derived from the beacon-chain consolidation\
+            \ queue. Present only while a consolidation is in progress."
+          example: 2024-01-15T14:30:00Z
+          format: date-time
+          type: string
+        estimatedConsolidationTime:
+          description: "Estimated time the consolidation will complete, i.e. when\
+            \ the source balance is swept to the destination validator, derived from\
+            \ the beacon-chain consolidation queue. Present only while a consolidation\
+            \ is in progress."
+          example: 2024-01-15T17:45:00Z
+          format: date-time
+          type: string
+        estimatedWithdrawalTime:
+          description: "Estimated time the in-flight withdrawal will complete, derived\
+            \ from the beacon-chain exit queue for a full exit or the manual withdrawal\
+            \ queue for a partial one. Present only while a withdrawal is in progress."
+          example: 2024-01-15T14:30:00Z
+          format: date-time
+          type: string
       required:
       - isCompoundingValidator
       type: object
@@ -67128,6 +67656,9 @@ components:
       - ADVANCE_GOODS_PAYMENT
       - MERCHANT_SETTLEMENT
       - REPATRIATION_FUND_SETTLEMENT
+      - CORPORATE_INVESTMENT
+      - INTER_COMPANY_TRANSFER
+      - OFFICE_OPERATING_EXPENSES
       type: string
     SourceOfFunds:
       description: |
@@ -70427,10 +70958,7 @@ components:
           example: "123456789"
           type: string
       type: object
-    TravelRuleValidateLegalPersonNameIdentifier:
-      example:
-        legalPersonNameIdentifierType: REGISTERED
-        legalPersonName: Acme Corporation
+    TravelRuleValidateLegalNameIdentifier:
       properties:
         legalPersonName:
           description: Name by which the legal person is known.
@@ -70438,22 +70966,72 @@ components:
           maxLength: 100
           type: string
         legalPersonNameIdentifierType:
-          description: "Specifies the type of name for a legal person. Acceptable\
-            \ values are: - 'REGISTERED': The official registered name. - 'TRADE':\
-            \ A trading name or DBA (Doing Business As) name. - 'OTHER': Any other\
-            \ type of name."
+          description: "Specifies the type of name for a legal person (IVMS101 LegalPersonNameTypeCode).\
+            \ Acceptable values are: - 'LEGL': Legal name - official name under which\
+            \ the organisation is registered. - 'SHRT': Short name of the organisation.\
+            \ - 'TRAD': Trading name - name used by the business for commercial purposes."
           enum:
-          - REGISTERED
-          - TRADE
-          - OTHER
-          example: REGISTERED
+          - LEGL
+          - SHRT
+          - TRAD
+          example: LEGL
           type: string
+      required:
+      - legalPersonName
+      - legalPersonNameIdentifierType
+      type: object
+    TravelRuleValidateLegalPersonNameIdentifier:
+      example:
+        localNameIdentifier:
+        - legalPersonName: アクメ株式会社
+          legalPersonNameIdentifierType: LEGL
+        phoneticNameIdentifier:
+        - legalPersonName: Akume Kabushiki Gaisha
+          legalPersonNameIdentifierType: LEGL
+        nameIdentifier:
+        - legalPersonName: Acme Corporation
+          legalPersonNameIdentifierType: LEGL
+      properties:
+        nameIdentifier:
+          description: An array of name identifiers of the legal person.
+          example:
+          - legalPersonName: Acme Corporation
+            legalPersonNameIdentifierType: LEGL
+          items:
+            $ref: "#/components/schemas/TravelRuleValidateLegalNameIdentifier"
+          minItems: 1
+          type: array
+        localNameIdentifier:
+          description: An array of local name identifiers of the legal person.
+          example:
+          - legalPersonName: アクメ株式会社
+            legalPersonNameIdentifierType: LEGL
+          items:
+            $ref: "#/components/schemas/TravelRuleValidateLegalNameIdentifier"
+          type: array
+        phoneticNameIdentifier:
+          description: An array of phonetic name identifiers of the legal person.
+          example:
+          - legalPersonName: Akume Kabushiki Gaisha
+            legalPersonNameIdentifierType: LEGL
+          items:
+            $ref: "#/components/schemas/TravelRuleValidateLegalNameIdentifier"
+          type: array
+      required:
+      - nameIdentifier
       type: object
     TravelRuleValidateLegalPerson:
       example:
         name:
-          legalPersonNameIdentifierType: REGISTERED
-          legalPersonName: Acme Corporation
+          localNameIdentifier:
+          - legalPersonName: アクメ株式会社
+            legalPersonNameIdentifierType: LEGL
+          phoneticNameIdentifier:
+          - legalPersonName: Akume Kabushiki Gaisha
+            legalPersonNameIdentifierType: LEGL
+          nameIdentifier:
+          - legalPersonName: Acme Corporation
+            legalPersonNameIdentifierType: LEGL
         nationalIdentification:
           nationalIdentifierType: NATIONAL_ID
           countryOfIssue: US
@@ -70527,13 +71105,22 @@ components:
             registered.
           example: US
           type: string
+      required:
+      - name
       type: object
     TravelRuleValidatePerson:
       example:
         legalPerson:
           name:
-            legalPersonNameIdentifierType: REGISTERED
-            legalPersonName: Acme Corporation
+            localNameIdentifier:
+            - legalPersonName: アクメ株式会社
+              legalPersonNameIdentifierType: LEGL
+            phoneticNameIdentifier:
+            - legalPersonName: Akume Kabushiki Gaisha
+              legalPersonNameIdentifierType: LEGL
+            nameIdentifier:
+            - legalPersonName: Acme Corporation
+              legalPersonNameIdentifierType: LEGL
           nationalIdentification:
             nationalIdentifierType: NATIONAL_ID
             countryOfIssue: US
@@ -70687,8 +71274,15 @@ components:
         originatorPersons:
         - legalPerson:
             name:
-              legalPersonNameIdentifierType: REGISTERED
-              legalPersonName: Acme Corporation
+              localNameIdentifier:
+              - legalPersonName: アクメ株式会社
+                legalPersonNameIdentifierType: LEGL
+              phoneticNameIdentifier:
+              - legalPersonName: Akume Kabushiki Gaisha
+                legalPersonNameIdentifierType: LEGL
+              nameIdentifier:
+              - legalPersonName: Acme Corporation
+                legalPersonNameIdentifierType: LEGL
             nationalIdentification:
               nationalIdentifierType: NATIONAL_ID
               countryOfIssue: US
@@ -70832,8 +71426,15 @@ components:
             customerIdentification: CUST123456
         - legalPerson:
             name:
-              legalPersonNameIdentifierType: REGISTERED
-              legalPersonName: Acme Corporation
+              localNameIdentifier:
+              - legalPersonName: アクメ株式会社
+                legalPersonNameIdentifierType: LEGL
+              phoneticNameIdentifier:
+              - legalPersonName: Akume Kabushiki Gaisha
+                legalPersonNameIdentifierType: LEGL
+              nameIdentifier:
+              - legalPersonName: Acme Corporation
+                legalPersonNameIdentifierType: LEGL
             nationalIdentification:
               nationalIdentifierType: NATIONAL_ID
               countryOfIssue: US
@@ -70978,8 +71579,15 @@ components:
         beneficiaryPersons:
         - legalPerson:
             name:
-              legalPersonNameIdentifierType: REGISTERED
-              legalPersonName: Acme Corporation
+              localNameIdentifier:
+              - legalPersonName: アクメ株式会社
+                legalPersonNameIdentifierType: LEGL
+              phoneticNameIdentifier:
+              - legalPersonName: Akume Kabushiki Gaisha
+                legalPersonNameIdentifierType: LEGL
+              nameIdentifier:
+              - legalPersonName: Acme Corporation
+                legalPersonNameIdentifierType: LEGL
             nationalIdentification:
               nationalIdentifierType: NATIONAL_ID
               countryOfIssue: US
@@ -71123,8 +71731,15 @@ components:
             customerIdentification: CUST123456
         - legalPerson:
             name:
-              legalPersonNameIdentifierType: REGISTERED
-              legalPersonName: Acme Corporation
+              localNameIdentifier:
+              - legalPersonName: アクメ株式会社
+                legalPersonNameIdentifierType: LEGL
+              phoneticNameIdentifier:
+              - legalPersonName: Akume Kabushiki Gaisha
+                legalPersonNameIdentifierType: LEGL
+              nameIdentifier:
+              - legalPersonName: Acme Corporation
+                legalPersonNameIdentifierType: LEGL
             nationalIdentification:
               nationalIdentifierType: NATIONAL_ID
               countryOfIssue: US
@@ -71307,8 +71922,15 @@ components:
           originatorPersons:
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: REGISTERED
-                legalPersonName: Acme Corporation
+                localNameIdentifier:
+                - legalPersonName: アクメ株式会社
+                  legalPersonNameIdentifierType: LEGL
+                phoneticNameIdentifier:
+                - legalPersonName: Akume Kabushiki Gaisha
+                  legalPersonNameIdentifierType: LEGL
+                nameIdentifier:
+                - legalPersonName: Acme Corporation
+                  legalPersonNameIdentifierType: LEGL
               nationalIdentification:
                 nationalIdentifierType: NATIONAL_ID
                 countryOfIssue: US
@@ -71452,8 +72074,15 @@ components:
               customerIdentification: CUST123456
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: REGISTERED
-                legalPersonName: Acme Corporation
+                localNameIdentifier:
+                - legalPersonName: アクメ株式会社
+                  legalPersonNameIdentifierType: LEGL
+                phoneticNameIdentifier:
+                - legalPersonName: Akume Kabushiki Gaisha
+                  legalPersonNameIdentifierType: LEGL
+                nameIdentifier:
+                - legalPersonName: Acme Corporation
+                  legalPersonNameIdentifierType: LEGL
               nationalIdentification:
                 nationalIdentifierType: NATIONAL_ID
                 countryOfIssue: US
@@ -71598,8 +72227,15 @@ components:
           beneficiaryPersons:
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: REGISTERED
-                legalPersonName: Acme Corporation
+                localNameIdentifier:
+                - legalPersonName: アクメ株式会社
+                  legalPersonNameIdentifierType: LEGL
+                phoneticNameIdentifier:
+                - legalPersonName: Akume Kabushiki Gaisha
+                  legalPersonNameIdentifierType: LEGL
+                nameIdentifier:
+                - legalPersonName: Acme Corporation
+                  legalPersonNameIdentifierType: LEGL
               nationalIdentification:
                 nationalIdentifierType: NATIONAL_ID
                 countryOfIssue: US
@@ -71743,8 +72379,15 @@ components:
               customerIdentification: CUST123456
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: REGISTERED
-                legalPersonName: Acme Corporation
+                localNameIdentifier:
+                - legalPersonName: アクメ株式会社
+                  legalPersonNameIdentifierType: LEGL
+                phoneticNameIdentifier:
+                - legalPersonName: Akume Kabushiki Gaisha
+                  legalPersonNameIdentifierType: LEGL
+                nameIdentifier:
+                - legalPersonName: Acme Corporation
+                  legalPersonNameIdentifierType: LEGL
               nationalIdentification:
                 nationalIdentifierType: NATIONAL_ID
                 countryOfIssue: US
@@ -71896,8 +72539,15 @@ components:
           originatorPersons:
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                localNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                phoneticNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                nameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
               nationalIdentification:
                 nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                 countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -72033,8 +72683,15 @@ components:
               customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                localNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                phoneticNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                nameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
               nationalIdentification:
                 nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                 countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -72171,8 +72828,15 @@ components:
           beneficiaryPersons:
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                localNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                phoneticNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                nameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
               nationalIdentification:
                 nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                 countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -72308,8 +72972,15 @@ components:
               customerIdentification: QmTJsK3sc3fPEVwvAp97UUiVoFhjzQhYX3sCda1JxuCnXj
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
-                legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                localNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                phoneticNameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
+                nameIdentifier:
+                - legalPersonName: QmVXXj5BJchhqQTU27uEkeghYMnxR6aVjZxJP9jS6uCg9Q
+                  legalPersonNameIdentifierType: QmPevsa5xdkxf6Lgt7f9YweRBdgseeAkWVaYyssKF3Q86e
               nationalIdentification:
                 nationalIdentifierType: QmUKTg3aFJFhMz1o9gPqA3MgTRwd2LvDLwWTPHYUoMEYVi
                 countryOfIssue: QmRGHdoxQfSi6tevyvaYGzs8BVStfqJqEyrMYqUfzXxkmm
@@ -72452,8 +73123,15 @@ components:
           originatorPersons:
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: REGISTERED
-                legalPersonName: Acme Corporation
+                localNameIdentifier:
+                - legalPersonName: アクメ株式会社
+                  legalPersonNameIdentifierType: LEGL
+                phoneticNameIdentifier:
+                - legalPersonName: Akume Kabushiki Gaisha
+                  legalPersonNameIdentifierType: LEGL
+                nameIdentifier:
+                - legalPersonName: Acme Corporation
+                  legalPersonNameIdentifierType: LEGL
               nationalIdentification:
                 nationalIdentifierType: NATIONAL_ID
                 countryOfIssue: US
@@ -72597,8 +73275,15 @@ components:
               customerIdentification: CUST123456
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: REGISTERED
-                legalPersonName: Acme Corporation
+                localNameIdentifier:
+                - legalPersonName: アクメ株式会社
+                  legalPersonNameIdentifierType: LEGL
+                phoneticNameIdentifier:
+                - legalPersonName: Akume Kabushiki Gaisha
+                  legalPersonNameIdentifierType: LEGL
+                nameIdentifier:
+                - legalPersonName: Acme Corporation
+                  legalPersonNameIdentifierType: LEGL
               nationalIdentification:
                 nationalIdentifierType: NATIONAL_ID
                 countryOfIssue: US
@@ -72743,8 +73428,15 @@ components:
           beneficiaryPersons:
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: REGISTERED
-                legalPersonName: Acme Corporation
+                localNameIdentifier:
+                - legalPersonName: アクメ株式会社
+                  legalPersonNameIdentifierType: LEGL
+                phoneticNameIdentifier:
+                - legalPersonName: Akume Kabushiki Gaisha
+                  legalPersonNameIdentifierType: LEGL
+                nameIdentifier:
+                - legalPersonName: Acme Corporation
+                  legalPersonNameIdentifierType: LEGL
               nationalIdentification:
                 nationalIdentifierType: NATIONAL_ID
                 countryOfIssue: US
@@ -72888,8 +73580,15 @@ components:
               customerIdentification: CUST123456
           - legalPerson:
               name:
-                legalPersonNameIdentifierType: REGISTERED
-                legalPersonName: Acme Corporation
+                localNameIdentifier:
+                - legalPersonName: アクメ株式会社
+                  legalPersonNameIdentifierType: LEGL
+                phoneticNameIdentifier:
+                - legalPersonName: Akume Kabushiki Gaisha
+                  legalPersonNameIdentifierType: LEGL
+                nameIdentifier:
+                - legalPersonName: Acme Corporation
+                  legalPersonNameIdentifierType: LEGL
               nationalIdentification:
                 nationalIdentifierType: NATIONAL_ID
                 countryOfIssue: US
@@ -81319,6 +82018,109 @@ components:
       - metadata
       - rules
       - status
+      type: object
+    SecurityFinding:
+      description: A single FSPM finding
+      properties:
+        id:
+          description: Unique identifier of the finding
+          example: d7ca6101-a65e-4a9c-b6c1-b8bd697e0cd2
+          format: uuid
+          type: string
+        type:
+          description: The finding type identifier
+          enum:
+          - API_USER_NOT_WHITELISTED
+          - CONSOLE_IP_ALLOWLIST_DEACTIVATED
+          - ADMIN_TH_SET_TO_ALL_AND_MORE_THAN_2_ADMINS
+          - API_USERS_COUNT_PASSES_TH_AND_OWNER_NOT_MANDATORY
+          - API_COSIGNER_WITH_NO_CALLBACK
+          - API_USER_DIDNT_APPROVE_CCR_IN_X_DAYS
+          - NON_VIEWER_DIDNT_INITIATE_APPROVE_OR_SIGN_TX_OR_CCR_LAST_X_DAYS
+          - TH_SET_TO_1_AND_MORE_THAN_3_APPROVERS
+          - ADMIN_TH_SET_TO_1_AND_MORE_THAN_3_ADMINS
+          - NON_EVM_DAPP_CONNECTIONS_ENABLED_BUT_UNUSED
+          - OTA_ENABLED_BUT_UNUSED
+          - POLICY_NOT_UPDATED_RECENTLY
+          - RAW_SIGNING_ENABLED_BUT_UNUSED
+          - API_USER_UNUSED_FOR_90_DAYS
+          - UNUSED_UNLIMITED_TOKEN_ALLOWANCES
+          - UNUSED_WHITELISTED_ADDRESS
+          - TRANSACTION_REPETITION_ATTACK
+          - USER_EMAIL_DOMAIN_NON_BUSINESS
+          - OUTDATED_MOBILE_APP_VERSION
+          - SINGLE_HOP_DRAIN_ATTACK
+          - LATERAL_MOVEMENT_DRAIN_ATTACK
+          - WORKSPACE_USER_DORMANT_FOR_X_DAYS
+          example: API_COSIGNER_WITH_NO_CALLBACK
+          type: string
+        status:
+          description: Current status of the finding
+          enum:
+          - OPEN
+          - ACCEPTED
+          - RESOLVED
+          example: OPEN
+          type: string
+        severity:
+          description: Severity level of the finding
+          enum:
+          - INFO
+          - LOW
+          - MEDIUM
+          - HIGH
+          example: HIGH
+          type: string
+        category:
+          description: Category of the finding
+          enum:
+          - USER_MANAGEMENT
+          - ACCESS_CONTROL
+          - ADMIN_MANAGEMENT
+          - SECURITY
+          - CONFIGURATION
+          - APPROVAL_GROUP_MANAGEMENT
+          - POLICY_ENGINE_UTILIZATION
+          - WORKSPACE_CONFIGURATION
+          - DEFI_ACCESS
+          - FLEET_MANAGEMENT
+          example: USER_MANAGEMENT
+          type: string
+        createdAt:
+          description: When the finding was first detected
+          example: 2026-07-28T11:37:05Z
+          format: date-time
+          type: string
+        title:
+          description: Human-readable title of the finding
+          example: API co-signer configured without a callback URL
+          type: string
+      type: object
+    GetFindingsExternalResponse:
+      description: A paginated list of FSPM findings
+      example:
+        next: eyJzZXZlcml0eVJhbmsiOjMsImNyZWF0ZWRBdCI6IjIwMjYtMDctMTRUMTA6MDU6NTYuMDAwWiIsImlkIjoiYjJmZTkwYjItMWZlMy00ZTczLTg1YTItNjZlMTlmN2RhYzY2In0=
+        total: 42
+        data: []
+      properties:
+        data:
+          description: List of FSPM findings for the current page.
+          example: []
+          items:
+            $ref: "#/components/schemas/SecurityFinding"
+          type: array
+        total:
+          description: Total number of findings matching the query.
+          example: 42
+          type: integer
+        next:
+          description: "Cursor for the next page of results, omitted when there are\
+            \ no more results."
+          example: eyJzZXZlcml0eVJhbmsiOjMsImNyZWF0ZWRBdCI6IjIwMjYtMDctMTRUMTA6MDU6NTYuMDAwWiIsImlkIjoiYjJmZTkwYjItMWZlMy00ZTczLTg1YTItNjZlMTlmN2RhYzY2In0=
+          type: string
+      required:
+      - data
+      - total
       type: object
     PolicyType:
       description: Policy type enumeration

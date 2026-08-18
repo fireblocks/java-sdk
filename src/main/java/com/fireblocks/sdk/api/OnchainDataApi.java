@@ -40,7 +40,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -76,6 +79,28 @@ public class OnchainDataApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -95,8 +120,8 @@ public class OnchainDataApi {
      *     items (optional)
      * @param sortBy Sorting field (enum). (optional, default to dateAdded)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;AccessRegistryCurrentStateResponse2&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AccessRegistryCurrentStateResponse2&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AccessRegistryCurrentStateResponse2>>
             getAccessRegistryCurrentState(
@@ -105,8 +130,7 @@ public class OnchainDataApi {
                     String pageCursor,
                     Integer pageSize,
                     String sortBy,
-                    String order)
-                    throws ApiException {
+                    String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getAccessRegistryCurrentStateRequestBuilder(
@@ -144,7 +168,18 @@ public class OnchainDataApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    AccessRegistryCurrentStateResponse2>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -213,11 +248,11 @@ public class OnchainDataApi {
      *
      * @param baseAssetId The blockchain base assetId (required)
      * @param accessRegistryAddress The access registry address (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;AccessRegistrySummaryResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AccessRegistrySummaryResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AccessRegistrySummaryResponse>> getAccessRegistrySummary(
-            String baseAssetId, String accessRegistryAddress) throws ApiException {
+            String baseAssetId, String accessRegistryAddress) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getAccessRegistrySummaryRequestBuilder(baseAssetId, accessRegistryAddress);
@@ -248,7 +283,17 @@ public class OnchainDataApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<AccessRegistrySummaryResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -289,11 +334,11 @@ public class OnchainDataApi {
      *
      * @param baseAssetId The blockchain base assetId (required)
      * @param contractAddress The contract address (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Map&lt;String, RoleDetails2&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Map&lt;String, RoleDetails2&gt;&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Map<String, RoleDetails2>>> getActiveRolesForContract(
-            String baseAssetId, String contractAddress) throws ApiException {
+            String baseAssetId, String contractAddress) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getActiveRolesForContractRequestBuilder(baseAssetId, contractAddress);
@@ -326,7 +371,17 @@ public class OnchainDataApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<Map<String, RoleDetails2>>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -378,8 +433,8 @@ public class OnchainDataApi {
      * @param sortBy Sorting field (enum). Sorting only supported by &#39;blockTimestamp&#39;
      *     (optional, default to blockTimestamp)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;BalanceHistoryPagedResponse2&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;BalanceHistoryPagedResponse2&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<BalanceHistoryPagedResponse2>> getContractBalanceHistory(
             String baseAssetId,
@@ -391,8 +446,7 @@ public class OnchainDataApi {
             String pageCursor,
             Integer pageSize,
             String sortBy,
-            String order)
-            throws ApiException {
+            String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getContractBalanceHistoryRequestBuilder(
@@ -433,7 +487,17 @@ public class OnchainDataApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<BalanceHistoryPagedResponse2>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -516,11 +580,11 @@ public class OnchainDataApi {
      *
      * @param baseAssetId The blockchain base assetId (required)
      * @param contractAddress The contract address (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TokenContractSummaryResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TokenContractSummaryResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TokenContractSummaryResponse>> getContractBalancesSummary(
-            String baseAssetId, String contractAddress) throws ApiException {
+            String baseAssetId, String contractAddress) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getContractBalancesSummaryRequestBuilder(baseAssetId, contractAddress);
@@ -552,7 +616,17 @@ public class OnchainDataApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TokenContractSummaryResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -602,8 +676,8 @@ public class OnchainDataApi {
      * @param sortBy Sorting field (enum). Sorting only supported by &#39;blockTimestamp&#39;
      *     (optional, default to blockTimestamp)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;TotalSupplyPagedResponse2&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TotalSupplyPagedResponse2&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TotalSupplyPagedResponse2>> getContractTotalSupply(
             String baseAssetId,
@@ -614,8 +688,7 @@ public class OnchainDataApi {
             String pageCursor,
             Integer pageSize,
             String sortBy,
-            String order)
-            throws ApiException {
+            String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getContractTotalSupplyRequestBuilder(
@@ -655,7 +728,17 @@ public class OnchainDataApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TotalSupplyPagedResponse2>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -741,8 +824,8 @@ public class OnchainDataApi {
      *     items (optional)
      * @param sortBy Sorting field for balances (optional, default to blockTimestamp)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;AddressBalancePagedResponse2&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressBalancePagedResponse2&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AddressBalancePagedResponse2>>
             getLatestBalancesForContract(
@@ -752,8 +835,7 @@ public class OnchainDataApi {
                     String pageCursor,
                     Integer pageSize,
                     String sortBy,
-                    String order)
-                    throws ApiException {
+                    String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getLatestBalancesForContractRequestBuilder(
@@ -792,7 +874,17 @@ public class OnchainDataApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<AddressBalancePagedResponse2>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -871,8 +963,8 @@ public class OnchainDataApi {
      *     items (optional)
      * @param sortBy Sorting field (enum). (optional, default to blockTimestamp)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;OnchainTransactionsPagedResponse2&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;OnchainTransactionsPagedResponse2&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<OnchainTransactionsPagedResponse2>> getOnchainTransactions(
             String baseAssetId,
@@ -882,8 +974,7 @@ public class OnchainDataApi {
             String pageCursor,
             Integer pageSize,
             String sortBy,
-            String order)
-            throws ApiException {
+            String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getOnchainTransactionsRequestBuilder(
@@ -922,7 +1013,18 @@ public class OnchainDataApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    OnchainTransactionsPagedResponse2>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

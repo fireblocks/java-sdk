@@ -37,7 +37,10 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -73,6 +76,28 @@ public class EarnApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -90,11 +115,10 @@ public class EarnApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Void>> approveTermsOfService(String idempotencyKey)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<Void>> approveTermsOfService(String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     approveTermsOfServiceRequestBuilder(idempotencyKey);
@@ -115,7 +139,14 @@ public class EarnApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -154,12 +185,11 @@ public class EarnApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateEarnActionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateEarnActionResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CreateEarnActionResponse>> createEarnAction(
-            CreateEarnActionRequest createEarnActionRequest, String idempotencyKey)
-            throws ApiException {
+            CreateEarnActionRequest createEarnActionRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createEarnActionRequestBuilder(createEarnActionRequest, idempotencyKey);
@@ -189,7 +219,17 @@ public class EarnApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CreateEarnActionResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -234,11 +274,10 @@ public class EarnApi {
      * (tenant-scoped).
      *
      * @param id Action sequence id (UUID). (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetActionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetActionResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<GetActionResponse>> getEarnAction(String id)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<GetActionResponse>> getEarnAction(String id) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getEarnActionRequestBuilder(id);
             return memberVarHttpClient
@@ -267,7 +306,15 @@ public class EarnApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetActionResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -302,11 +349,11 @@ public class EarnApi {
      * @param pageSize Number of items per page (default 100, max 100). (optional, default to 100)
      * @param sortBy Field to sort results by. (optional)
      * @param order Sort order (ASC or DESC). (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetActionsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetActionsResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetActionsResponse>> getEarnActions(
-            String pageCursor, Integer pageSize, String sortBy, String order) throws ApiException {
+            String pageCursor, Integer pageSize, String sortBy, String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEarnActionsRequestBuilder(pageCursor, pageSize, sortBy, order);
@@ -336,7 +383,15 @@ public class EarnApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetActionsResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -391,11 +446,11 @@ public class EarnApi {
      * @param pageSize Number of items per page. (optional, default to 100)
      * @param sortBy Field to sort results by. (optional)
      * @param order Sort order (ASC or DESC). (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetOpportunitiesResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetOpportunitiesResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetOpportunitiesResponse>> getEarnOpportunities(
-            String pageCursor, Integer pageSize, String sortBy, String order) throws ApiException {
+            String pageCursor, Integer pageSize, String sortBy, String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEarnOpportunitiesRequestBuilder(pageCursor, pageSize, sortBy, order);
@@ -426,7 +481,17 @@ public class EarnApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetOpportunitiesResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -484,8 +549,8 @@ public class EarnApi {
      * @param pageSize Number of items per page. (optional, default to 100)
      * @param sortBy Field to sort results by. (optional)
      * @param order Sort order (ASC or DESC). (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetPositionsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetPositionsResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetPositionsResponse>> getEarnPositions(
             Integer chainId,
@@ -493,8 +558,7 @@ public class EarnApi {
             String pageCursor,
             Integer pageSize,
             String sortBy,
-            String order)
-            throws ApiException {
+            String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEarnPositionsRequestBuilder(
@@ -525,7 +589,17 @@ public class EarnApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetPositionsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -590,11 +664,11 @@ public class EarnApi {
      * @param pageSize Number of items per page. (optional, default to 100)
      * @param sortBy Field to sort results by. (optional)
      * @param order Sort order (ASC or DESC). (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetProvidersResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetProvidersResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetProvidersResponse>> getEarnProviders(
-            String pageCursor, Integer pageSize, String sortBy, String order) throws ApiException {
+            String pageCursor, Integer pageSize, String sortBy, String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getEarnProvidersRequestBuilder(pageCursor, pageSize, sortBy, order);
@@ -624,7 +698,17 @@ public class EarnApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetProvidersResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

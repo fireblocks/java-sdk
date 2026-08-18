@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.UserResponse;
 import java.util.List;
@@ -32,11 +31,9 @@ public class UsersApiTest {
      *
      * <p>List all users for the workspace. Please note that this endpoint is available only for API
      * keys with Admin permissions.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getUsersTest() throws ApiException {
+    public void getUsersTest() {
         CompletableFuture<ApiResponse<List<UserResponse>>> response = api.getUsers();
     }
 }

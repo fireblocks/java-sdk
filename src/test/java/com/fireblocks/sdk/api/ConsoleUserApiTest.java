@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateConsoleUser;
 import com.fireblocks.sdk.model.GetConsoleUsersResponse;
@@ -34,11 +33,9 @@ public class ConsoleUserApiTest {
      * for API keys with Admin/Non Signing Admin permissions. Learn more about Fireblocks Users
      * management in the following [guide](https://developers.fireblocks.com/docs/manage-users).
      * Endpoint Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createConsoleUserTest() throws ApiException {
+    public void createConsoleUserTest() {
         CreateConsoleUser createConsoleUser = null;
         String idempotencyKey = null;
 
@@ -52,11 +49,9 @@ public class ConsoleUserApiTest {
      * <p>Get console users for your workspace. - Please note that this endpoint is available only
      * for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin,
      * Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getConsoleUsersTest() throws ApiException {
+    public void getConsoleUsersTest() {
         CompletableFuture<ApiResponse<GetConsoleUsersResponse>> response = api.getConsoleUsers();
     }
 }

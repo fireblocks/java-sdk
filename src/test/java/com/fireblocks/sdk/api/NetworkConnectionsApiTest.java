@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateNetworkIdRequest;
 import com.fireblocks.sdk.model.DeleteNetworkConnectionResponse;
@@ -47,11 +46,9 @@ public class NetworkConnectionsApiTest {
      * <p>The Fireblocks Network allows for flexibility around incoming deposits. A receiver can
      * receive network deposits to locations other than Fireblocks. This endpoint validates whether
      * future transactions are routed to the displayed recipient or to a 3rd party.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void checkThirdPartyRoutingTest() throws ApiException {
+    public void checkThirdPartyRoutingTest() {
         String connectionId = null;
         String assetType = null;
         CompletableFuture<ApiResponse<ThirdPartyRouting>> response =
@@ -74,11 +71,9 @@ public class NetworkConnectionsApiTest {
      * can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default,
      * Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60;
      * &#x3D; &#x60;VAULT&#x60;).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createNetworkConnectionTest() throws ApiException {
+    public void createNetworkConnectionTest() {
         NetworkConnection networkConnection = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<NetworkConnectionResponse>> response =
@@ -89,11 +84,9 @@ public class NetworkConnectionsApiTest {
      * Creates a new Network ID
      *
      * <p>Create a new Network ID.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createNetworkIdTest() throws ApiException {
+    public void createNetworkIdTest() {
         CreateNetworkIdRequest createNetworkIdRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<NetworkIdResponse>> response =
@@ -104,11 +97,9 @@ public class NetworkConnectionsApiTest {
      * Delete a network connection by ID
      *
      * <p>Deletes an existing network connection specified by its connection ID.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteNetworkConnectionTest() throws ApiException {
+    public void deleteNetworkConnectionTest() {
         String connectionId = null;
         CompletableFuture<ApiResponse<DeleteNetworkConnectionResponse>> response =
                 api.deleteNetworkConnection(connectionId);
@@ -118,11 +109,9 @@ public class NetworkConnectionsApiTest {
      * Delete specific network ID.
      *
      * <p>Deletes a network by its ID.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteNetworkIdTest() throws ApiException {
+    public void deleteNetworkIdTest() {
         String networkId = null;
         CompletableFuture<ApiResponse<DeleteNetworkIdResponse>> response =
                 api.deleteNetworkId(networkId);
@@ -132,11 +121,9 @@ public class NetworkConnectionsApiTest {
      * Get a network connection
      *
      * <p>Gets a network connection by ID.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getNetworkTest() throws ApiException {
+    public void getNetworkTest() {
         String connectionId = null;
         CompletableFuture<ApiResponse<NetworkConnectionResponse>> response =
                 api.getNetwork(connectionId);
@@ -155,11 +142,9 @@ public class NetworkConnectionsApiTest {
      * also referred to as \&quot;Profile Routing\&quot; Default Workspace Presets: - Network
      * Profile Crypto → **Custom** - Network Profile FIAT → **None** - Network Connection Crypto →
      * **Default** - Network Connection FIAT → **Default**
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getNetworkConnectionsTest() throws ApiException {
+    public void getNetworkConnectionsTest() {
         CompletableFuture<ApiResponse<List<NetworkConnectionResponse>>> response =
                 api.getNetworkConnections();
     }
@@ -168,11 +153,9 @@ public class NetworkConnectionsApiTest {
      * Return specific network ID.
      *
      * <p>Returns specific network ID.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getNetworkIdTest() throws ApiException {
+    public void getNetworkIdTest() {
         String networkId = null;
         CompletableFuture<ApiResponse<NetworkIdResponse>> response = api.getNetworkId(networkId);
     }
@@ -181,11 +164,9 @@ public class NetworkConnectionsApiTest {
      * Get all network IDs
      *
      * <p>Retrieves a list of all local and discoverable remote network IDs.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getNetworkIdsTest() throws ApiException {
+    public void getNetworkIdsTest() {
         CompletableFuture<ApiResponse<List<NetworkIdResponse>>> response = api.getNetworkIds();
     }
 
@@ -193,11 +174,9 @@ public class NetworkConnectionsApiTest {
      * Return all enabled routing policy asset groups
      *
      * <p>Returns all enabled routing policy asset groups
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getRoutingPolicyAssetGroupsTest() throws ApiException {
+    public void getRoutingPolicyAssetGroupsTest() {
         CompletableFuture<ApiResponse<List<String>>> response = api.getRoutingPolicyAssetGroups();
     }
 
@@ -205,11 +184,9 @@ public class NetworkConnectionsApiTest {
      * Get both local IDs and discoverable remote IDs
      *
      * <p>Retrieves a list of all local and discoverable remote network IDs. Can be filtered.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void searchNetworkIdsTest() throws ApiException {
+    public void searchNetworkIdsTest() {
         String search = null;
         Boolean excludeSelf = null;
         Boolean onlySelf = null;
@@ -225,11 +202,9 @@ public class NetworkConnectionsApiTest {
      * Update network ID&#39;s discoverability.
      *
      * <p>Update whether or not the network ID is discoverable by others.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setNetworkIdDiscoverabilityTest() throws ApiException {
+    public void setNetworkIdDiscoverabilityTest() {
         SetNetworkIdDiscoverabilityRequest setNetworkIdDiscoverabilityRequest = null;
         String networkId = null;
         CompletableFuture<ApiResponse<SetNetworkIdResponse>> response =
@@ -240,11 +215,9 @@ public class NetworkConnectionsApiTest {
      * Update network ID&#39;s name.
      *
      * <p>Updates name of a specified network ID.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setNetworkIdNameTest() throws ApiException {
+    public void setNetworkIdNameTest() {
         SetNetworkIdNameRequest setNetworkIdNameRequest = null;
         String networkId = null;
         CompletableFuture<ApiResponse<SetNetworkIdResponse>> response =
@@ -255,11 +228,9 @@ public class NetworkConnectionsApiTest {
      * Update network id routing policy.
      *
      * <p>Updates the routing policy of a specified network ID.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setNetworkIdRoutingPolicyTest() throws ApiException {
+    public void setNetworkIdRoutingPolicyTest() {
         String networkId = null;
         SetNetworkIdRoutingPolicyRequest setNetworkIdRoutingPolicyRequest = null;
         CompletableFuture<ApiResponse<SetNetworkIdResponse>> response =
@@ -270,11 +241,9 @@ public class NetworkConnectionsApiTest {
      * Update network connection routing policy.
      *
      * <p>Updates an existing network connection&#39;s routing policy.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setRoutingPolicyTest() throws ApiException {
+    public void setRoutingPolicyTest() {
         String connectionId = null;
         SetRoutingPolicyRequest setRoutingPolicyRequest = null;
         CompletableFuture<ApiResponse<SetRoutingPolicyResponse>> response =

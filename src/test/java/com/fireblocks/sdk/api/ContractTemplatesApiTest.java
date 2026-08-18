@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AbiFunction;
 import com.fireblocks.sdk.model.ContractDeployRequest;
@@ -38,11 +37,9 @@ public class ContractTemplatesApiTest {
      *
      * <p>Delete a contract by id. allowed only for private contract templates. Notice: it is
      * irreversible!
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteContractTemplateByIdTest() throws ApiException {
+    public void deleteContractTemplateByIdTest() {
         String contractTemplateId = null;
 
         CompletableFuture<ApiResponse<Void>> response =
@@ -54,11 +51,9 @@ public class ContractTemplatesApiTest {
      *
      * <p>Deploy a new contract by contract template id. If you wish to deploy a token (ERC20,
      * ERC721 etc), and create asset please use POST /tokenization
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deployContractTest() throws ApiException {
+    public void deployContractTest() {
         ContractDeployRequest contractDeployRequest = null;
         String contractTemplateId = null;
         String idempotencyKey = null;
@@ -70,11 +65,9 @@ public class ContractTemplatesApiTest {
      * Return contract template&#39;s constructor
      *
      * <p>Return contract template&#39;s constructor ABI
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getConstructorByContractTemplateIdTest() throws ApiException {
+    public void getConstructorByContractTemplateIdTest() {
         String contractTemplateId = null;
         Boolean withDocs = null;
         CompletableFuture<ApiResponse<AbiFunction>> response =
@@ -85,11 +78,9 @@ public class ContractTemplatesApiTest {
      * Return contract template by id
      *
      * <p>Return detailed information about the contract template
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getContractTemplateByIdTest() throws ApiException {
+    public void getContractTemplateByIdTest() {
         String contractTemplateId = null;
         CompletableFuture<ApiResponse<ContractTemplateDto>> response =
                 api.getContractTemplateById(contractTemplateId);
@@ -100,11 +91,9 @@ public class ContractTemplatesApiTest {
      *
      * <p>Return minimal representation of all the contract templates available for the workspace.
      * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getContractTemplatesTest() throws ApiException {
+    public void getContractTemplatesTest() {
         BigDecimal limit = null;
         BigDecimal offset = null;
         String pageCursor = null;
@@ -120,11 +109,9 @@ public class ContractTemplatesApiTest {
      * Return contract template&#39;s function
      *
      * <p>Return contract template&#x60;s function ABI by signature
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getFunctionAbiByContractTemplateIdTest() throws ApiException {
+    public void getFunctionAbiByContractTemplateIdTest() {
         String contractTemplateId = null;
         String functionSignature = null;
         CompletableFuture<ApiResponse<AbiFunction>> response =
@@ -135,11 +122,9 @@ public class ContractTemplatesApiTest {
      * Get supported blockchains for the template
      *
      * <p>Get supported blockchains for the template
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getSupportedBlockchainsByTemplateIdTest() throws ApiException {
+    public void getSupportedBlockchainsByTemplateIdTest() {
         String contractTemplateId = null;
         CompletableFuture<ApiResponse<SupportedBlockChainsResponse>> response =
                 api.getSupportedBlockchainsByTemplateId(contractTemplateId);
@@ -149,11 +134,9 @@ public class ContractTemplatesApiTest {
      * Upload contract template
      *
      * <p>Upload a new contract template. This contract template will be available for the workspace
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void uploadContractTemplateTest() throws ApiException {
+    public void uploadContractTemplateTest() {
         ContractUploadRequest contractUploadRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ContractTemplateDto>> response =

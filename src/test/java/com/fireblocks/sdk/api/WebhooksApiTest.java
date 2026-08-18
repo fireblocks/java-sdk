@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ResendTransactionWebhooksRequest;
 import com.fireblocks.sdk.model.ResendWebhooksByTransactionIdResponse;
@@ -35,11 +34,9 @@ public class WebhooksApiTest {
      * Fireblocks Webhooks in the following
      * [guide](https://developers.fireblocks.com/docs/configure-webhooks). **Endpoint Permissions:**
      * Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void resendTransactionWebhooksTest() throws ApiException {
+    public void resendTransactionWebhooksTest() {
         ResendTransactionWebhooksRequest resendTransactionWebhooksRequest = null;
         String txId = null;
         String idempotencyKey = null;
@@ -54,11 +51,9 @@ public class WebhooksApiTest {
      * <p>Resends all failed webhook notifications. Learn more about Fireblocks Webhooks in the
      * following [guide](https://developers.fireblocks.com/docs/configure-webhooks). Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void resendWebhooksTest() throws ApiException {
+    public void resendWebhooksTest() {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ResendWebhooksResponse>> response =
                 api.resendWebhooks(idempotencyKey);

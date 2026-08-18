@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateEarnActionRequest;
 import com.fireblocks.sdk.model.CreateEarnActionResponse;
@@ -39,11 +38,9 @@ public class EarnApiTest {
      * &#x60;isTermsApprovalRequired&#x60; is true on a provider (see list providers), call this
      * once before creating or executing earn actions with providers that require it. After success,
      * &#x60;GET /earn/providers&#x60; reflects &#x60;isTermsOfServiceApproved&#x60;.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void approveTermsOfServiceTest() throws ApiException {
+    public void approveTermsOfServiceTest() {
         String idempotencyKey = null;
 
         CompletableFuture<ApiResponse<Void>> response = api.approveTermsOfService(idempotencyKey);
@@ -55,11 +52,9 @@ public class EarnApiTest {
      * <p>Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal
      * from an earn vault/market. Specify the operation with &#x60;action&#x60; in the request body
      * (&#x60;DEPOSIT&#x60; or &#x60;WITHDRAW&#x60;).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createEarnActionTest() throws ApiException {
+    public void createEarnActionTest() {
         CreateEarnActionRequest createEarnActionRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<CreateEarnActionResponse>> response =
@@ -70,11 +65,9 @@ public class EarnApiTest {
      * Get a single earn lending action
      *
      * <p>Returns one lending action by its action sequence id (tenant-scoped).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEarnActionTest() throws ApiException {
+    public void getEarnActionTest() {
         String id = null;
         CompletableFuture<ApiResponse<GetActionResponse>> response = api.getEarnAction(id);
     }
@@ -84,11 +77,9 @@ public class EarnApiTest {
      *
      * <p>Returns a paginated list of lending actions (deposits and withdrawals) for the
      * authenticated tenant.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEarnActionsTest() throws ApiException {
+    public void getEarnActionsTest() {
         String pageCursor = null;
         Integer pageSize = null;
         String sortBy = null;
@@ -101,11 +92,9 @@ public class EarnApiTest {
      * Get list of earn opportunities
      *
      * <p>Get list of earn opportunities (vaults).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEarnOpportunitiesTest() throws ApiException {
+    public void getEarnOpportunitiesTest() {
         String pageCursor = null;
         Integer pageSize = null;
         String sortBy = null;
@@ -119,11 +108,9 @@ public class EarnApiTest {
      *
      * <p>Get list of earn positions for accounts tracked for this workspace. Optional query
      * parameters filter by chain, provider, and pagination.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEarnPositionsTest() throws ApiException {
+    public void getEarnPositionsTest() {
         Integer chainId = null;
         String providerId = null;
         String pageCursor = null;
@@ -138,11 +125,9 @@ public class EarnApiTest {
      * Get list of earn providers
      *
      * <p>Get list of earn providers.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEarnProvidersTest() throws ApiException {
+    public void getEarnProvidersTest() {
         String pageCursor = null;
         Integer pageSize = null;
         String sortBy = null;

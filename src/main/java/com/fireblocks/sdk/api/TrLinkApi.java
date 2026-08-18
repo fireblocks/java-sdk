@@ -59,7 +59,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -95,6 +98,28 @@ public class TrLinkApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -112,15 +137,14 @@ public class TrLinkApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkAssessTravelRuleResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkAssessTravelRuleResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkAssessTravelRuleResponse>>
             assessTRLinkTravelRuleRequirement(
                     TRLinkAssessTravelRuleRequest trLinkAssessTravelRuleRequest,
                     UUID customerIntegrationId,
-                    String idempotencyKey)
-                    throws ApiException {
+                    String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     assessTRLinkTravelRuleRequirementRequestBuilder(
@@ -153,7 +177,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkAssessTravelRuleResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -215,15 +249,14 @@ public class TrLinkApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkTrmInfoResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkTrmInfoResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkTrmInfoResponse>> cancelTRLinkTrm(
             TRLinkCancelTrmRequest trLinkCancelTrmRequest,
             UUID customerIntegrationId,
             String trmId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     cancelTRLinkTrmRequestBuilder(
@@ -254,7 +287,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkTrmInfoResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -314,15 +357,14 @@ public class TrLinkApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkCustomerIntegrationResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkCustomerIntegrationResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkCustomerIntegrationResponse>>
             connectTRLinkIntegration(
                     TRLinkConnectIntegrationRequest trLinkConnectIntegrationRequest,
                     UUID customerIntegrationId,
-                    String idempotencyKey)
-                    throws ApiException {
+                    String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     connectTRLinkIntegrationRequestBuilder(
@@ -354,7 +396,18 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    TRLinkCustomerIntegrationResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -415,12 +468,11 @@ public class TrLinkApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkCustomerResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkCustomerResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkCustomerResponse>> createTRLinkCustomer(
-            TRLinkCreateCustomerRequest trLinkCreateCustomerRequest, String idempotencyKey)
-            throws ApiException {
+            TRLinkCreateCustomerRequest trLinkCreateCustomerRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createTRLinkCustomerRequestBuilder(trLinkCreateCustomerRequest, idempotencyKey);
@@ -451,7 +503,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkCustomerResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -502,14 +564,13 @@ public class TrLinkApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkCustomerIntegrationResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkCustomerIntegrationResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkCustomerIntegrationResponse>>
             createTRLinkIntegration(
                     TRLinkCreateIntegrationRequest trLinkCreateIntegrationRequest,
-                    String idempotencyKey)
-                    throws ApiException {
+                    String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createTRLinkIntegrationRequestBuilder(
@@ -541,7 +602,18 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    TRLinkCustomerIntegrationResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -593,15 +665,14 @@ public class TrLinkApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkManualDecisionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkManualDecisionResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkManualDecisionResponse>> createTRLinkManualDecision(
             TRLinkManualDecisionRequest trLinkManualDecisionRequest,
             UUID customerIntegrationId,
             UUID txId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createTRLinkManualDecisionRequestBuilder(
@@ -637,7 +708,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkManualDecisionResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -702,14 +783,13 @@ public class TrLinkApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkTrmInfoResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkTrmInfoResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkTrmInfoResponse>> createTRLinkTrm(
             TRLinkCreateTrmRequest trLinkCreateTrmRequest,
             UUID customerIntegrationId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createTRLinkTrmRequestBuilder(
@@ -740,7 +820,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkTrmInfoResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -793,11 +883,10 @@ public class TrLinkApi {
      * undone.
      *
      * @param customerId Customer unique identifier (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Void>> deleteTRLinkCustomer(UUID customerId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<Void>> deleteTRLinkCustomer(UUID customerId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     deleteTRLinkCustomerRequestBuilder(customerId);
@@ -818,7 +907,14 @@ public class TrLinkApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -856,11 +952,11 @@ public class TrLinkApi {
      * recovered after delete.
      *
      * @param customerIntegrationId Customer integration unique identifier (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> disconnectTRLinkIntegration(
-            UUID customerIntegrationId) throws ApiException {
+            UUID customerIntegrationId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     disconnectTRLinkIntegrationRequestBuilder(customerIntegrationId);
@@ -882,7 +978,14 @@ public class TrLinkApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -921,11 +1024,11 @@ public class TrLinkApi {
      * identifier.
      *
      * @param customerId Customer unique identifier (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkCustomerResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkCustomerResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkCustomerResponse>> getTRLinkCustomerById(
-            UUID customerId) throws ApiException {
+            UUID customerId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTRLinkCustomerByIdRequestBuilder(customerId);
@@ -956,7 +1059,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkCustomerResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -992,12 +1105,11 @@ public class TrLinkApi {
      *
      * @param customerId Customer unique identifier (required)
      * @param customerIntegrationId Customer integration unique identifier (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkCustomerIntegrationResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkCustomerIntegrationResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkCustomerIntegrationResponse>>
-            getTRLinkCustomerIntegrationById(UUID customerId, UUID customerIntegrationId)
-                    throws ApiException {
+            getTRLinkCustomerIntegrationById(UUID customerId, UUID customerIntegrationId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTRLinkCustomerIntegrationByIdRequestBuilder(
@@ -1030,7 +1142,18 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    TRLinkCustomerIntegrationResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1073,11 +1196,11 @@ public class TrLinkApi {
      *
      * @param customerId Customer unique identifier (required)
      * @return
-     *     CompletableFuture&lt;ApiResponse&lt;List&lt;TRLinkCustomerIntegrationResponse&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     *     CompletableFuture&lt;ApiResponse&lt;List&lt;TRLinkCustomerIntegrationResponse&gt;&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<List<TRLinkCustomerIntegrationResponse>>>
-            getTRLinkCustomerIntegrations(UUID customerId) throws ApiException {
+            getTRLinkCustomerIntegrations(UUID customerId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTRLinkCustomerIntegrationsRequestBuilder(customerId);
@@ -1111,7 +1234,19 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    List<
+                                                                            TRLinkCustomerIntegrationResponse>>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1145,11 +1280,10 @@ public class TrLinkApi {
      * Get all customers Retrieves all customers associated with the authenticated tenant. Returns a
      * list of legal entities configured for Travel Rule compliance.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;TRLinkCustomerResponse&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;TRLinkCustomerResponse&gt;&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<List<TRLinkCustomerResponse>>> getTRLinkCustomers()
-            throws ApiException {
+    public CompletableFuture<ApiResponse<List<TRLinkCustomerResponse>>> getTRLinkCustomers() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getTRLinkCustomersRequestBuilder();
             return memberVarHttpClient
@@ -1180,7 +1314,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<TRLinkCustomerResponse>>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1211,11 +1355,11 @@ public class TrLinkApi {
      * beneficiary information before sending Travel Rule messages.
      *
      * @param customerIntegrationId Customer integration unique identifier (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkPublicKeyResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkPublicKeyResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkPublicKeyResponse>> getTRLinkIntegrationPublicKey(
-            UUID customerIntegrationId) throws ApiException {
+            UUID customerIntegrationId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTRLinkIntegrationPublicKeyRequestBuilder(customerIntegrationId);
@@ -1247,7 +1391,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkPublicKeyResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1286,11 +1440,10 @@ public class TrLinkApi {
      * integration partners. Partners provide Travel Rule compliance services such as VASP
      * discovery, TRM exchange, and PII encryption.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;TRLinkPartnerResponse&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;TRLinkPartnerResponse&gt;&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<List<TRLinkPartnerResponse>>> getTRLinkPartners()
-            throws ApiException {
+    public CompletableFuture<ApiResponse<List<TRLinkPartnerResponse>>> getTRLinkPartners() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getTRLinkPartnersRequestBuilder();
             return memberVarHttpClient
@@ -1320,7 +1473,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<TRLinkPartnerResponse>>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1352,11 +1515,10 @@ public class TrLinkApi {
      * actions based on screening results. Missing TRM rules handle cases when screening data is
      * unavailable.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkPolicyResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkPolicyResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<TRLinkPolicyResponse>> getTRLinkPolicy()
-            throws ApiException {
+    public CompletableFuture<ApiResponse<TRLinkPolicyResponse>> getTRLinkPolicy() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getTRLinkPolicyRequestBuilder();
             return memberVarHttpClient
@@ -1385,7 +1547,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkPolicyResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1417,11 +1589,11 @@ public class TrLinkApi {
      *
      * @param customerIntegrationId Customer integration unique identifier (required)
      * @param assetId Fireblocks asset ID (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkGetSupportedAssetResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkGetSupportedAssetResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkGetSupportedAssetResponse>> getTRLinkSupportedAsset(
-            UUID customerIntegrationId, String assetId) throws ApiException {
+            UUID customerIntegrationId, String assetId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTRLinkSupportedAssetRequestBuilder(customerIntegrationId, assetId);
@@ -1452,7 +1624,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkGetSupportedAssetResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1495,11 +1677,11 @@ public class TrLinkApi {
      *
      * @param customerIntegrationId Customer integration unique identifier (required)
      * @param trmId Travel Rule Message unique identifier (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkTrmInfoResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkTrmInfoResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkTrmInfoResponse>> getTRLinkTrmById(
-            UUID customerIntegrationId, String trmId) throws ApiException {
+            UUID customerIntegrationId, String trmId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTRLinkTrmByIdRequestBuilder(customerIntegrationId, trmId);
@@ -1529,7 +1711,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkTrmInfoResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1569,12 +1761,11 @@ public class TrLinkApi {
      *
      * @param customerIntegrationId Customer integration unique identifier (required)
      * @param trmId Travel Rule Message unique identifier (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkGetRequiredActionsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkGetRequiredActionsResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkGetRequiredActionsResponse>>
-            getTRLinkTrmRequiredActions(UUID customerIntegrationId, String trmId)
-                    throws ApiException {
+            getTRLinkTrmRequiredActions(UUID customerIntegrationId, String trmId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTRLinkTrmRequiredActionsRequestBuilder(customerIntegrationId, trmId);
@@ -1606,7 +1797,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkGetRequiredActionsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1648,11 +1849,11 @@ public class TrLinkApi {
      *
      * @param customerIntegrationId Customer integration unique identifier (required)
      * @param vaspId VASP unique identifier (DID format) (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkVaspDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkVaspDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkVaspDto>> getTRLinkVaspById(
-            UUID customerIntegrationId, String vaspId) throws ApiException {
+            UUID customerIntegrationId, String vaspId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTRLinkVaspByIdRequestBuilder(customerIntegrationId, vaspId);
@@ -1682,7 +1883,15 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkVaspDto>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1724,11 +1933,11 @@ public class TrLinkApi {
      * @param customerIntegrationId Customer integration unique identifier (required)
      * @param pageSize Number of results per page (max 100) (optional, default to 100)
      * @param pageCursor Cursor for pagination (from previous response) (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkAssetsListPagedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkAssetsListPagedResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkAssetsListPagedResponse>> listTRLinkSupportedAssets(
-            UUID customerIntegrationId, Integer pageSize, String pageCursor) throws ApiException {
+            UUID customerIntegrationId, Integer pageSize, String pageCursor) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     listTRLinkSupportedAssetsRequestBuilder(
@@ -1760,7 +1969,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkAssetsListPagedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1819,11 +2038,11 @@ public class TrLinkApi {
      * @param customerIntegrationId Customer integration unique identifier (required)
      * @param pageSize Number of results per page (max 100) (optional, default to 100)
      * @param pageCursor Cursor for pagination (from previous response) (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkAPIPagedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkAPIPagedResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkAPIPagedResponse>> listTRLinkVasps(
-            UUID customerIntegrationId, Integer pageSize, String pageCursor) throws ApiException {
+            UUID customerIntegrationId, Integer pageSize, String pageCursor) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     listTRLinkVaspsRequestBuilder(customerIntegrationId, pageSize, pageCursor);
@@ -1853,7 +2072,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkAPIPagedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1913,15 +2142,14 @@ public class TrLinkApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkTrmInfoResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkTrmInfoResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkTrmInfoResponse>> redirectTRLinkTrm(
             TRLinkRedirectTrmRequest trLinkRedirectTrmRequest,
             UUID customerIntegrationId,
             String trmId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     redirectTRLinkTrmRequestBuilder(
@@ -1952,7 +2180,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkTrmInfoResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2013,15 +2251,14 @@ public class TrLinkApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkTrmInfoResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkTrmInfoResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkTrmInfoResponse>> resolveActionTRLinkTrm(
             TRLinkResolveActionRequest trLinkResolveActionRequest,
             UUID customerIntegrationId,
             String trmId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     resolveActionTRLinkTrmRequestBuilder(
@@ -2056,7 +2293,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkTrmInfoResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2120,16 +2367,15 @@ public class TrLinkApi {
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
      * @return
-     *     CompletableFuture&lt;ApiResponse&lt;TRLinkSetDestinationTravelRuleMessageIdResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     *     CompletableFuture&lt;ApiResponse&lt;TRLinkSetDestinationTravelRuleMessageIdResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkSetDestinationTravelRuleMessageIdResponse>>
             setTRLinkDestinationTravelRuleMessageId(
                     TRLinkSetDestinationTravelRuleMessageIdRequest
                             trLinkSetDestinationTravelRuleMessageIdRequest,
                     UUID txId,
-                    String idempotencyKey)
-                    throws ApiException {
+                    String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setTRLinkDestinationTravelRuleMessageIdRequestBuilder(
@@ -2163,7 +2409,18 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    TRLinkSetDestinationTravelRuleMessageIdResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2223,16 +2480,15 @@ public class TrLinkApi {
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
      * @return
-     *     CompletableFuture&lt;ApiResponse&lt;TRLinkSetTransactionTravelRuleMessageIdResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     *     CompletableFuture&lt;ApiResponse&lt;TRLinkSetTransactionTravelRuleMessageIdResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkSetTransactionTravelRuleMessageIdResponse>>
             setTRLinkTransactionTravelRuleMessageId(
                     TRLinkSetTransactionTravelRuleMessageIdRequest
                             trLinkSetTransactionTravelRuleMessageIdRequest,
                     UUID txId,
-                    String idempotencyKey)
-                    throws ApiException {
+                    String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setTRLinkTransactionTravelRuleMessageIdRequestBuilder(
@@ -2266,7 +2522,18 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    TRLinkSetTransactionTravelRuleMessageIdResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2325,12 +2592,11 @@ public class TrLinkApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkTestConnectionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkTestConnectionResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkTestConnectionResponse>>
-            testTRLinkIntegrationConnection(UUID customerIntegrationId, String idempotencyKey)
-                    throws ApiException {
+            testTRLinkIntegrationConnection(UUID customerIntegrationId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     testTRLinkIntegrationConnectionRequestBuilder(
@@ -2363,7 +2629,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkTestConnectionResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2409,14 +2685,13 @@ public class TrLinkApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkCustomerResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkCustomerResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TRLinkCustomerResponse>> updateTRLinkCustomer(
             TRLinkUpdateCustomerRequest trLinkUpdateCustomerRequest,
             UUID customerId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateTRLinkCustomerRequestBuilder(
@@ -2448,7 +2723,17 @@ public class TrLinkApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkCustomerResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

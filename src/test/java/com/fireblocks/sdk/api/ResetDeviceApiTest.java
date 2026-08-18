@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
@@ -31,11 +30,9 @@ public class ResetDeviceApiTest {
      * <p>Resets mobile device for given console user, that user will need to do mobile onboarding
      * again. - Please note that this endpoint is available only for API keys with Admin/Non Signing
      * Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void resetDeviceTest() throws ApiException {
+    public void resetDeviceTest() {
         String id = null;
         String idempotencyKey = null;
 

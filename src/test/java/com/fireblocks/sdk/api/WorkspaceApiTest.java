@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.Workspace;
 import java.util.concurrent.CompletableFuture;
@@ -30,11 +29,9 @@ public class WorkspaceApiTest {
      * Get workspace
      *
      * <p>Returns the workspace ID and name for the authenticated user.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getWorkspaceTest() throws ApiException {
+    public void getWorkspaceTest() {
         CompletableFuture<ApiResponse<Workspace>> response = api.getWorkspace();
     }
 }

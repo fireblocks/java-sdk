@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.PolicyRuleQuotaRequest;
 import com.fireblocks.sdk.model.PolicyRuleQuotaResponse;
@@ -32,11 +31,9 @@ public class PolicyEditorV2BetaApiTest {
      *
      * <p>Returns the Amount Over Time (AOT) quota calculated for a specific policy rule. Endpoint
      * Permissions: Owner, Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getPolicyRuleQuotaTest() throws ApiException {
+    public void getPolicyRuleQuotaTest() {
         PolicyRuleQuotaRequest policyRuleQuotaRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<PolicyRuleQuotaResponse>> response =

@@ -48,7 +48,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -84,6 +87,28 @@ public class StakingApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -99,11 +124,11 @@ public class StakingApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> approveTermsOfServiceByProviderId(
-            StakingProvider providerId, String idempotencyKey) throws ApiException {
+            StakingProvider providerId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     approveTermsOfServiceByProviderIdRequestBuilder(providerId, idempotencyKey);
@@ -125,7 +150,14 @@ public class StakingApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -169,12 +201,13 @@ public class StakingApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> claimRewards(
-            ClaimRewardsRequest claimRewardsRequest, String chainDescriptor, String idempotencyKey)
-            throws ApiException {
+            ClaimRewardsRequest claimRewardsRequest,
+            String chainDescriptor,
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     claimRewardsRequestBuilder(
@@ -195,7 +228,14 @@ public class StakingApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -254,14 +294,13 @@ public class StakingApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;MergeStakeAccountsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;MergeStakeAccountsResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<MergeStakeAccountsResponse>> consolidate(
             MergeStakeAccountsRequest mergeStakeAccountsRequest,
             String chainDescriptor,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     consolidateRequestBuilder(
@@ -292,7 +331,17 @@ public class StakingApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<MergeStakeAccountsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -342,17 +391,17 @@ public class StakingApi {
     }
     /**
      * List staking positions Returns all staking positions with core details: amounts, rewards,
-     * status, chain, and vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
-     * Editor.
+     * status, chain, and vault. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, Viewer.
      *
      * @param chainDescriptor Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA).
      *     If omitted, positions across all supported chains are returned. (optional)
      * @param vaultAccountId Filter positions by vault account ID. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;Delegation&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;Delegation&gt;&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<List<Delegation>>> getAllDelegations(
-            ChainDescriptor chainDescriptor, String vaultAccountId) throws ApiException {
+            ChainDescriptor chainDescriptor, String vaultAccountId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getAllDelegationsRequestBuilder(chainDescriptor, vaultAccountId);
@@ -383,7 +432,15 @@ public class StakingApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<Delegation>>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -434,11 +491,11 @@ public class StakingApi {
      *
      * @param chainDescriptor Protocol identifier for the chain info staking operation (e.g.,
      *     ETH/MATIC/SOL). (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ChainInfoResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ChainInfoResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ChainInfoResponse>> getChainInfo(
-            ChainDescriptor chainDescriptor) throws ApiException {
+            ChainDescriptor chainDescriptor) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getChainInfoRequestBuilder(chainDescriptor);
@@ -468,7 +525,15 @@ public class StakingApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ChainInfoResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -504,10 +569,10 @@ public class StakingApi {
      * staking by the current workspace context. Endpoint Permission: Admin, Non-Signing Admin,
      * Signer, Approver, Editor.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;ChainDescriptor&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;ChainDescriptor&gt;&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<List<ChainDescriptor>>> getChains() throws ApiException {
+    public CompletableFuture<ApiResponse<List<ChainDescriptor>>> getChains() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getChainsRequestBuilder();
             return memberVarHttpClient
@@ -537,7 +602,17 @@ public class StakingApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<ChainDescriptor>>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -567,11 +642,10 @@ public class StakingApi {
      * status, chain, and vault.
      *
      * @param id Unique identifier of the staking position. (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Delegation&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Delegation&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Delegation>> getDelegationById(String id)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<Delegation>> getDelegationById(String id) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getDelegationByIdRequestBuilder(id);
             return memberVarHttpClient
@@ -600,7 +674,15 @@ public class StakingApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<Delegation>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -640,13 +722,12 @@ public class StakingApi {
      * @param order ASC / DESC ordering for completed/failed history (default DESC). The in-flight
      *     transaction is always returned first. (optional, default to DESC)
      * @return
-     *     CompletableFuture&lt;ApiResponse&lt;StakingPositionRelatedTransactionsPaginatedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     *     CompletableFuture&lt;ApiResponse&lt;StakingPositionRelatedTransactionsPaginatedResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<StakingPositionRelatedTransactionsPaginatedResponse>>
             getPositionRelatedTransactions(
-                    String id, Integer pageSize, String pageCursor, String order)
-                    throws ApiException {
+                    String id, Integer pageSize, String pageCursor, String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getPositionRelatedTransactionsRequestBuilder(id, pageSize, pageCursor, order);
@@ -679,7 +760,18 @@ public class StakingApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    StakingPositionRelatedTransactionsPaginatedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -733,7 +825,7 @@ public class StakingApi {
      * List staking positions (Paginated) Returns staking positions with core details: amounts,
      * rewards, status, chain, and vault. It supports cursor-based pagination for efficient data
      * retrieval. This endpoint always returns a paginated response with {data, next} structure.
-     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @param pageSize Number of results per page. When provided, the response returns a paginated
      *     object with {data, next}. If omitted, all results are returned as an array. (required)
@@ -744,16 +836,15 @@ public class StakingApi {
      * @param pageCursor Cursor for the next page of results. Use the value from the &#39;next&#39;
      *     field in the previous response. (optional)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;StakingPositionsPaginatedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;StakingPositionsPaginatedResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<StakingPositionsPaginatedResponse>> getPositions(
             Integer pageSize,
             ChainDescriptor chainDescriptor,
             String vaultAccountId,
             String pageCursor,
-            String order)
-            throws ApiException {
+            String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getPositionsRequestBuilder(
@@ -784,7 +875,18 @@ public class StakingApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    StakingPositionsPaginatedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -842,13 +944,13 @@ public class StakingApi {
     }
     /**
      * List staking providers Returns all available staking providers with metadata such as name,
-     * ID, and supported chains. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
-     * Editor.
+     * ID, and supported chains. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, Viewer.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;Provider&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;Provider&gt;&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<List<Provider>>> getProviders() throws ApiException {
+    public CompletableFuture<ApiResponse<List<Provider>>> getProviders() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getProvidersRequestBuilder();
             return memberVarHttpClient
@@ -877,7 +979,15 @@ public class StakingApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<Provider>>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -906,10 +1016,10 @@ public class StakingApi {
      * Get positions summary Returns an aggregated cross-vault summary: active/inactive counts,
      * total staked, and total rewards per chain.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;DelegationSummary&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;DelegationSummary&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<DelegationSummary>> getSummary() throws ApiException {
+    public CompletableFuture<ApiResponse<DelegationSummary>> getSummary() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getSummaryRequestBuilder();
             return memberVarHttpClient
@@ -938,7 +1048,15 @@ public class StakingApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<DelegationSummary>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -967,11 +1085,10 @@ public class StakingApi {
      * Get positions summary by vault Returns per-vault aggregates: status breakdown, total staked,
      * and total rewards per chain.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;Map&lt;String, DelegationSummary&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Map&lt;String, DelegationSummary&gt;&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Map<String, DelegationSummary>>> getSummaryByVault()
-            throws ApiException {
+    public CompletableFuture<ApiResponse<Map<String, DelegationSummary>>> getSummaryByVault() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getSummaryByVaultRequestBuilder();
             return memberVarHttpClient
@@ -1002,7 +1119,17 @@ public class StakingApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<Map<String, DelegationSummary>>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1039,14 +1166,13 @@ public class StakingApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;MergeStakeAccountsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;MergeStakeAccountsResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<MergeStakeAccountsResponse>> mergeStakeAccounts(
             MergeStakeAccountsRequest mergeStakeAccountsRequest,
             String chainDescriptor,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     mergeStakeAccountsRequestBuilder(
@@ -1078,7 +1204,17 @@ public class StakingApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<MergeStakeAccountsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1136,12 +1272,11 @@ public class StakingApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;SplitResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;SplitResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<SplitResponse>> split(
-            SplitRequest splitRequest, String chainDescriptor, String idempotencyKey)
-            throws ApiException {
+            SplitRequest splitRequest, String chainDescriptor, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     splitRequestBuilder(splitRequest, chainDescriptor, idempotencyKey);
@@ -1171,7 +1306,15 @@ public class StakingApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<SplitResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1230,12 +1373,11 @@ public class StakingApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;StakeResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;StakeResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<StakeResponse>> stake(
-            StakeRequest stakeRequest, ChainDescriptor chainDescriptor, String idempotencyKey)
-            throws ApiException {
+            StakeRequest stakeRequest, ChainDescriptor chainDescriptor, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     stakeRequestBuilder(stakeRequest, chainDescriptor, idempotencyKey);
@@ -1265,7 +1407,15 @@ public class StakingApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<StakeResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1317,12 +1467,11 @@ public class StakingApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> unstake(
-            UnstakeRequest unstakeRequest, ChainDescriptor chainDescriptor, String idempotencyKey)
-            throws ApiException {
+            UnstakeRequest unstakeRequest, ChainDescriptor chainDescriptor, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     unstakeRequestBuilder(unstakeRequest, chainDescriptor, idempotencyKey);
@@ -1342,7 +1491,14 @@ public class StakingApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1399,12 +1555,13 @@ public class StakingApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> withdraw(
-            WithdrawRequest withdrawRequest, ChainDescriptor chainDescriptor, String idempotencyKey)
-            throws ApiException {
+            WithdrawRequest withdrawRequest,
+            ChainDescriptor chainDescriptor,
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     withdrawRequestBuilder(withdrawRequest, chainDescriptor, idempotencyKey);
@@ -1424,7 +1581,14 @@ public class StakingApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

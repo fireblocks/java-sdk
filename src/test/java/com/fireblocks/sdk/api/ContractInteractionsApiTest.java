@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ContractAbiResponseDto;
 import com.fireblocks.sdk.model.ContractAddressResponse;
@@ -40,11 +39,9 @@ public class ContractInteractionsApiTest {
      *
      * <p>Decode a function call data, error, or event log from a deployed contract by blockchain
      * native asset id and contract address.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void decodeContractDataTest() throws ApiException {
+    public void decodeContractDataTest() {
         ContractDataDecodeRequest contractDataDecodeRequest = null;
         String contractAddress = null;
         String baseAssetId = null;
@@ -58,11 +55,9 @@ public class ContractInteractionsApiTest {
      * Get contract address by transaction hash
      *
      * <p>Retrieve the contract address by blockchain native asset ID and transaction hash
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getContractAddressTest() throws ApiException {
+    public void getContractAddressTest() {
         String baseAssetId = null;
         String txHash = null;
         String idempotencyKey = null;
@@ -75,11 +70,9 @@ public class ContractInteractionsApiTest {
      *
      * <p>Return deployed contract&#39;s ABI by blockchain native asset id and contract address.
      * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getDeployedContractAbiTest() throws ApiException {
+    public void getDeployedContractAbiTest() {
         String contractAddress = null;
         String baseAssetId = null;
         String idempotencyKey = null;
@@ -94,11 +87,9 @@ public class ContractInteractionsApiTest {
      * **Note** &gt; This functionality is exclusively available for EVM (Ethereum Virtual Machine)
      * compatible chains. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
      * and Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTransactionReceiptTest() throws ApiException {
+    public void getTransactionReceiptTest() {
         String baseAssetId = null;
         String txHash = null;
         CompletableFuture<ApiResponse<TransactionReceiptResponse>> response =
@@ -110,11 +101,9 @@ public class ContractInteractionsApiTest {
      *
      * <p>Call a read function on a deployed contract by blockchain native asset id and contract
      * address
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void readCallFunctionTest() throws ApiException {
+    public void readCallFunctionTest() {
         ReadCallFunctionDto readCallFunctionDto = null;
         String contractAddress = null;
         String baseAssetId = null;
@@ -130,11 +119,9 @@ public class ContractInteractionsApiTest {
      * <p>Call a write function on a deployed contract by blockchain native asset id and contract
      * address. This creates an onchain transaction, thus it is an async operation. It returns a
      * transaction id that can be polled for status check
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void writeCallFunctionTest() throws ApiException {
+    public void writeCallFunctionTest() {
         WriteCallFunctionDto writeCallFunctionDto = null;
         String contractAddress = null;
         String baseAssetId = null;

@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateSigningKeyDto;
 import com.fireblocks.sdk.model.CreateValidationKeyDto;
@@ -42,11 +41,9 @@ public class KeyLinkBetaApiTest {
      * <p>Adds a new signing key to the workspace. The added key will be linked to the specific
      * Fireblocks agent user ID. The same user will receive the proof of ownership message to be
      * signed, and upon successful proof, the key will become enabled.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createSigningKeyTest() throws ApiException {
+    public void createSigningKeyTest() {
         CreateSigningKeyDto createSigningKeyDto = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<SigningKeyDto>> response =
@@ -58,11 +55,9 @@ public class KeyLinkBetaApiTest {
      *
      * <p>Adds a new validation key used to validate signing keys. The new validation key will
      * undergo an approval process by the workspace quorum.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createValidationKeyTest() throws ApiException {
+    public void createValidationKeyTest() {
         CreateValidationKeyDto createValidationKeyDto = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<CreateValidationKeyResponseDto>> response =
@@ -74,11 +69,9 @@ public class KeyLinkBetaApiTest {
      *
      * <p>Allows disabling validation key even if it has not expired yet. It is not allowed to
      * enable the validation key back. Another key has to be used for future validations.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void disableValidationKeyTest() throws ApiException {
+    public void disableValidationKeyTest() {
         ModifyValidationKeyDto modifyValidationKeyDto = null;
         String keyId = null;
         CompletableFuture<ApiResponse<ValidationKeyDto>> response =
@@ -89,11 +82,9 @@ public class KeyLinkBetaApiTest {
      * Get a signing key by &#x60;keyId&#x60;
      *
      * <p>Returns a signing key if it exists, identified by the specified &#x60;keyId&#x60;.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getSigningKeyTest() throws ApiException {
+    public void getSigningKeyTest() {
         String keyId = null;
         CompletableFuture<ApiResponse<SigningKeyDto>> response = api.getSigningKey(keyId);
     }
@@ -102,11 +93,9 @@ public class KeyLinkBetaApiTest {
      * Get list of signing keys
      *
      * <p>Returns the list of signing keys in the workspace
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getSigningKeysListTest() throws ApiException {
+    public void getSigningKeysListTest() {
         String pageCursor = null;
         BigDecimal pageSize = null;
         String sortBy = null;
@@ -137,11 +126,9 @@ public class KeyLinkBetaApiTest {
      * Get a validation key by &#x60;keyId&#x60;
      *
      * <p>Returns a validation key if it exists, identified by the specified &#x60;keyId&#x60;.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getValidationKeyTest() throws ApiException {
+    public void getValidationKeyTest() {
         String keyId = null;
         CompletableFuture<ApiResponse<ValidationKeyDto>> response = api.getValidationKey(keyId);
     }
@@ -150,11 +137,9 @@ public class KeyLinkBetaApiTest {
      * Get list of registered validation keys
      *
      * <p>Returns the list of validation keys in the workspace
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getValidationKeysListTest() throws ApiException {
+    public void getValidationKeysListTest() {
         String pageCursor = null;
         BigDecimal pageSize = null;
         String sortBy = null;
@@ -169,11 +154,9 @@ public class KeyLinkBetaApiTest {
      * <p>Can modify existing signing key id if the key is not enabled. The change done in
      * background and will be visible once applied. If key is already enabled (after proof of
      * ownership) the user cannot be changed.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setAgentIdTest() throws ApiException {
+    public void setAgentIdTest() {
         ModifySigningKeyAgentIdDto modifySigningKeyAgentIdDto = null;
         String keyId = null;
 
@@ -186,11 +169,9 @@ public class KeyLinkBetaApiTest {
      *
      * <p>Allows assigning the signing key to a vault account, if it hasn&#39;t been assigned to any
      * other vault accounts yet.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateSigningKeyTest() throws ApiException {
+    public void updateSigningKeyTest() {
         ModifySigningKeyDto modifySigningKeyDto = null;
         String keyId = null;
         CompletableFuture<ApiResponse<SigningKeyDto>> response =

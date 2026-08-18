@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,7 +28,10 @@ import java.util.StringJoiner;
  */
 @JsonPropertyOrder({
     EthereumBlockchainData.JSON_PROPERTY_IS_COMPOUNDING_VALIDATOR,
-    EthereumBlockchainData.JSON_PROPERTY_ESTIMATED_ACTIVATION_TIME
+    EthereumBlockchainData.JSON_PROPERTY_ESTIMATED_ACTIVATION_TIME,
+    EthereumBlockchainData.JSON_PROPERTY_ESTIMATED_SOURCE_EXIT_TIME,
+    EthereumBlockchainData.JSON_PROPERTY_ESTIMATED_CONSOLIDATION_TIME,
+    EthereumBlockchainData.JSON_PROPERTY_ESTIMATED_WITHDRAWAL_TIME
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -38,6 +42,16 @@ public class EthereumBlockchainData {
 
     public static final String JSON_PROPERTY_ESTIMATED_ACTIVATION_TIME = "estimatedActivationTime";
     @jakarta.annotation.Nullable private String estimatedActivationTime;
+
+    public static final String JSON_PROPERTY_ESTIMATED_SOURCE_EXIT_TIME = "estimatedSourceExitTime";
+    @jakarta.annotation.Nullable private OffsetDateTime estimatedSourceExitTime;
+
+    public static final String JSON_PROPERTY_ESTIMATED_CONSOLIDATION_TIME =
+            "estimatedConsolidationTime";
+    @jakarta.annotation.Nullable private OffsetDateTime estimatedConsolidationTime;
+
+    public static final String JSON_PROPERTY_ESTIMATED_WITHDRAWAL_TIME = "estimatedWithdrawalTime";
+    @jakarta.annotation.Nullable private OffsetDateTime estimatedWithdrawalTime;
 
     public EthereumBlockchainData() {}
 
@@ -99,6 +113,87 @@ public class EthereumBlockchainData {
         this.estimatedActivationTime = estimatedActivationTime;
     }
 
+    public EthereumBlockchainData estimatedSourceExitTime(
+            @jakarta.annotation.Nullable OffsetDateTime estimatedSourceExitTime) {
+        this.estimatedSourceExitTime = estimatedSourceExitTime;
+        return this;
+    }
+
+    /**
+     * Estimated time the source validator will exit the active set and stop earning rewards,
+     * derived from the beacon-chain consolidation queue. Present only while a consolidation is in
+     * progress.
+     *
+     * @return estimatedSourceExitTime
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ESTIMATED_SOURCE_EXIT_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getEstimatedSourceExitTime() {
+        return estimatedSourceExitTime;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ESTIMATED_SOURCE_EXIT_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setEstimatedSourceExitTime(
+            @jakarta.annotation.Nullable OffsetDateTime estimatedSourceExitTime) {
+        this.estimatedSourceExitTime = estimatedSourceExitTime;
+    }
+
+    public EthereumBlockchainData estimatedConsolidationTime(
+            @jakarta.annotation.Nullable OffsetDateTime estimatedConsolidationTime) {
+        this.estimatedConsolidationTime = estimatedConsolidationTime;
+        return this;
+    }
+
+    /**
+     * Estimated time the consolidation will complete, i.e. when the source balance is swept to the
+     * destination validator, derived from the beacon-chain consolidation queue. Present only while
+     * a consolidation is in progress.
+     *
+     * @return estimatedConsolidationTime
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ESTIMATED_CONSOLIDATION_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getEstimatedConsolidationTime() {
+        return estimatedConsolidationTime;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ESTIMATED_CONSOLIDATION_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setEstimatedConsolidationTime(
+            @jakarta.annotation.Nullable OffsetDateTime estimatedConsolidationTime) {
+        this.estimatedConsolidationTime = estimatedConsolidationTime;
+    }
+
+    public EthereumBlockchainData estimatedWithdrawalTime(
+            @jakarta.annotation.Nullable OffsetDateTime estimatedWithdrawalTime) {
+        this.estimatedWithdrawalTime = estimatedWithdrawalTime;
+        return this;
+    }
+
+    /**
+     * Estimated time the in-flight withdrawal will complete, derived from the beacon-chain exit
+     * queue for a full exit or the manual withdrawal queue for a partial one. Present only while a
+     * withdrawal is in progress.
+     *
+     * @return estimatedWithdrawalTime
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ESTIMATED_WITHDRAWAL_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getEstimatedWithdrawalTime() {
+        return estimatedWithdrawalTime;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ESTIMATED_WITHDRAWAL_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setEstimatedWithdrawalTime(
+            @jakarta.annotation.Nullable OffsetDateTime estimatedWithdrawalTime) {
+        this.estimatedWithdrawalTime = estimatedWithdrawalTime;
+    }
+
     /** Return true if this EthereumBlockchainData object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -113,12 +208,26 @@ public class EthereumBlockchainData {
                         this.isCompoundingValidator, ethereumBlockchainData.isCompoundingValidator)
                 && Objects.equals(
                         this.estimatedActivationTime,
-                        ethereumBlockchainData.estimatedActivationTime);
+                        ethereumBlockchainData.estimatedActivationTime)
+                && Objects.equals(
+                        this.estimatedSourceExitTime,
+                        ethereumBlockchainData.estimatedSourceExitTime)
+                && Objects.equals(
+                        this.estimatedConsolidationTime,
+                        ethereumBlockchainData.estimatedConsolidationTime)
+                && Objects.equals(
+                        this.estimatedWithdrawalTime,
+                        ethereumBlockchainData.estimatedWithdrawalTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isCompoundingValidator, estimatedActivationTime);
+        return Objects.hash(
+                isCompoundingValidator,
+                estimatedActivationTime,
+                estimatedSourceExitTime,
+                estimatedConsolidationTime,
+                estimatedWithdrawalTime);
     }
 
     @Override
@@ -130,6 +239,15 @@ public class EthereumBlockchainData {
                 .append("\n");
         sb.append("    estimatedActivationTime: ")
                 .append(toIndentedString(estimatedActivationTime))
+                .append("\n");
+        sb.append("    estimatedSourceExitTime: ")
+                .append(toIndentedString(estimatedSourceExitTime))
+                .append("\n");
+        sb.append("    estimatedConsolidationTime: ")
+                .append(toIndentedString(estimatedConsolidationTime))
+                .append("\n");
+        sb.append("    estimatedWithdrawalTime: ")
+                .append(toIndentedString(estimatedWithdrawalTime))
                 .append("\n");
         sb.append("}");
         return sb.toString();
@@ -198,6 +316,39 @@ public class EthereumBlockchainData {
                             suffix,
                             ApiClient.urlEncode(
                                     ApiClient.valueToString(getEstimatedActivationTime()))));
+        }
+
+        // add `estimatedSourceExitTime` to the URL query string
+        if (getEstimatedSourceExitTime() != null) {
+            joiner.add(
+                    String.format(
+                            "%sestimatedSourceExitTime%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getEstimatedSourceExitTime()))));
+        }
+
+        // add `estimatedConsolidationTime` to the URL query string
+        if (getEstimatedConsolidationTime() != null) {
+            joiner.add(
+                    String.format(
+                            "%sestimatedConsolidationTime%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getEstimatedConsolidationTime()))));
+        }
+
+        // add `estimatedWithdrawalTime` to the URL query string
+        if (getEstimatedWithdrawalTime() != null) {
+            joiner.add(
+                    String.format(
+                            "%sestimatedWithdrawalTime%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getEstimatedWithdrawalTime()))));
         }
 
         return joiner.toString();

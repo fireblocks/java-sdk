@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ChainDescriptor;
 import com.fireblocks.sdk.model.ChainInfoResponse;
@@ -49,11 +48,9 @@ public class StakingApiTest {
      *
      * <p>Approves the provider&#39;s terms of service. Must be called once before performing any
      * staking operation with this provider.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void approveTermsOfServiceByProviderIdTest() throws ApiException {
+    public void approveTermsOfServiceByProviderIdTest() {
         StakingProvider providerId = null;
         String idempotencyKey = null;
 
@@ -66,11 +63,9 @@ public class StakingApiTest {
      *
      * <p>Claims available staking rewards for the specified chain and vault. Supported chains:
      * Solana and Polygon (POL/Matic). Behavior depends on protocol reward distribution.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void claimRewardsTest() throws ApiException {
+    public void claimRewardsTest() {
         ClaimRewardsRequest claimRewardsRequest = null;
         String chainDescriptor = null;
         String idempotencyKey = null;
@@ -89,11 +84,9 @@ public class StakingApiTest {
      * validator. Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin,
      * Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and
      * might be subject to changes.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void consolidateTest() throws ApiException {
+    public void consolidateTest() {
         MergeStakeAccountsRequest mergeStakeAccountsRequest = null;
         String chainDescriptor = null;
         String idempotencyKey = null;
@@ -105,12 +98,11 @@ public class StakingApiTest {
      * List staking positions
      *
      * <p>Returns all staking positions with core details: amounts, rewards, status, chain, and
-     * vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
+     * vault. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor,
+     * Viewer.
      */
     @Test
-    public void getAllDelegationsTest() throws ApiException {
+    public void getAllDelegationsTest() {
         ChainDescriptor chainDescriptor = null;
         String vaultAccountId = null;
         CompletableFuture<ApiResponse<List<Delegation>>> response =
@@ -122,11 +114,9 @@ public class StakingApiTest {
      *
      * <p>Returns chain-specific staking information such as epoch/slot cadence, lockup or unbonding
      * periods, fee/reward mechanics, and other operational constraints.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getChainInfoTest() throws ApiException {
+    public void getChainInfoTest() {
         ChainDescriptor chainDescriptor = null;
         CompletableFuture<ApiResponse<ChainInfoResponse>> response =
                 api.getChainInfo(chainDescriptor);
@@ -137,11 +127,9 @@ public class StakingApiTest {
      *
      * <p>Returns an alphabetical list of blockchains supported for staking by the current workspace
      * context. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getChainsTest() throws ApiException {
+    public void getChainsTest() {
         CompletableFuture<ApiResponse<List<ChainDescriptor>>> response = api.getChains();
     }
 
@@ -150,11 +138,9 @@ public class StakingApiTest {
      *
      * <p>Returns full details for a single staking position: amounts, rewards, status, chain, and
      * vault.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getDelegationByIdTest() throws ApiException {
+    public void getDelegationByIdTest() {
         String id = null;
         CompletableFuture<ApiResponse<Delegation>> response = api.getDelegationById(id);
     }
@@ -165,11 +151,9 @@ public class StakingApiTest {
      * <p>Returns enriched transaction history for a staking position with cursor-based pagination.
      * Includes in-flight transactions with status pending. The in-flight transaction is always
      * returned first; completed and failed history is ordered by the order parameter.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getPositionRelatedTransactionsTest() throws ApiException {
+    public void getPositionRelatedTransactionsTest() {
         String id = null;
         Integer pageSize = null;
         String pageCursor = null;
@@ -183,13 +167,11 @@ public class StakingApiTest {
      *
      * <p>Returns staking positions with core details: amounts, rewards, status, chain, and vault.
      * It supports cursor-based pagination for efficient data retrieval. This endpoint always
-     * returns a paginated response with {data, next} structure. Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
+     * returns a paginated response with {data, next} structure. Endpoint Permission: Owner, Admin,
+     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
      */
     @Test
-    public void getPositionsTest() throws ApiException {
+    public void getPositionsTest() {
         Integer pageSize = null;
         ChainDescriptor chainDescriptor = null;
         String vaultAccountId = null;
@@ -203,12 +185,11 @@ public class StakingApiTest {
      * List staking providers
      *
      * <p>Returns all available staking providers with metadata such as name, ID, and supported
-     * chains. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
+     * chains. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor,
+     * Viewer.
      */
     @Test
-    public void getProvidersTest() throws ApiException {
+    public void getProvidersTest() {
         CompletableFuture<ApiResponse<List<Provider>>> response = api.getProviders();
     }
 
@@ -217,11 +198,9 @@ public class StakingApiTest {
      *
      * <p>Returns an aggregated cross-vault summary: active/inactive counts, total staked, and total
      * rewards per chain.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getSummaryTest() throws ApiException {
+    public void getSummaryTest() {
         CompletableFuture<ApiResponse<DelegationSummary>> response = api.getSummary();
     }
 
@@ -229,11 +208,9 @@ public class StakingApiTest {
      * Get positions summary by vault
      *
      * <p>Returns per-vault aggregates: status breakdown, total staked, and total rewards per chain.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getSummaryByVaultTest() throws ApiException {
+    public void getSummaryByVaultTest() {
         CompletableFuture<ApiResponse<Map<String, DelegationSummary>>> response =
                 api.getSummaryByVault();
     }
@@ -245,11 +222,9 @@ public class StakingApiTest {
      * destination and closing the source account once complete. Both accounts must be from the same
      * validator provider and of same vault account.. Supported chains: Solana (SOL). Endpoint
      * Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void mergeStakeAccountsTest() throws ApiException {
+    public void mergeStakeAccountsTest() {
         MergeStakeAccountsRequest mergeStakeAccountsRequest = null;
         String chainDescriptor = null;
         String idempotencyKey = null;
@@ -262,11 +237,9 @@ public class StakingApiTest {
      *
      * <p>Splits a staking position by creating a new stake account with the requested amount, while
      * keeping the original account with the remaining balance. Supported chains: Solana (SOL).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void splitTest() throws ApiException {
+    public void splitTest() {
         SplitRequest splitRequest = null;
         String chainDescriptor = null;
         String idempotencyKey = null;
@@ -285,11 +258,9 @@ public class StakingApiTest {
      * validator provider and same vault account if one exists, otherwise create a new position. For
      * Solana and Polygon (MATIC/POL): always create new positions regardless of existing
      * delegations.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void stakeTest() throws ApiException {
+    public void stakeTest() {
         StakeRequest stakeRequest = null;
         ChainDescriptor chainDescriptor = null;
         String idempotencyKey = null;
@@ -301,11 +272,9 @@ public class StakingApiTest {
      * Initiate unstake
      *
      * <p>Submits a chain-specific unstake request.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void unstakeTest() throws ApiException {
+    public void unstakeTest() {
         UnstakeRequest unstakeRequest = null;
         ChainDescriptor chainDescriptor = null;
         String idempotencyKey = null;
@@ -323,11 +292,9 @@ public class StakingApiTest {
      * and Cosmos chains via the optional &#39;amount&#39; field. For ETH compounding validators,
      * the remaining balance must be at least 32 ETH after the withdrawal. For all other chains,
      * omitting &#39;amount&#39; withdraws the entire available balance.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void withdrawTest() throws ApiException {
+    public void withdrawTest() {
         WithdrawRequest withdrawRequest = null;
         ChainDescriptor chainDescriptor = null;
         String idempotencyKey = null;

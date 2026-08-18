@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ApprovalRequest;
 import com.fireblocks.sdk.model.CreateTagRequest;
@@ -39,11 +38,9 @@ public class TagsApiTest {
      *
      * <p>Create a new tag. Endpoint Permissions: For protected tags: ADMIN,NON_SIGNING_ADMIN,OWNER.
      * For non protected tags: ADMIN,NON_SIGNING_ADMIN,OWNER,SIGNER,EDITOR,APPROVER.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createTagTest() throws ApiException {
+    public void createTagTest() {
         CreateTagRequest createTagRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<Tag>> response =
@@ -56,11 +53,9 @@ public class TagsApiTest {
      * <p>Delete the specified tag. Endpoint Permission: For protected tags: Owner, Admin,
      * Non-Signing Admin. For non protected tags: Owner, Admin, Non-Signing Admin, Signer, Editor,
      * Approver.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteTagTest() throws ApiException {
+    public void deleteTagTest() {
         UUID tagId = null;
 
         CompletableFuture<ApiResponse<Void>> response = api.deleteTag(tagId);
@@ -70,11 +65,9 @@ public class TagsApiTest {
      * Get an approval request by id
      *
      * <p>Get an approval request by id
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getApprovalRequestTest() throws ApiException {
+    public void getApprovalRequestTest() {
         String id = null;
         CompletableFuture<ApiResponse<ApprovalRequest>> response = api.getApprovalRequest(id);
     }
@@ -83,11 +76,9 @@ public class TagsApiTest {
      * Get a tag
      *
      * <p>Retrieve an existing tag by ID.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTagTest() throws ApiException {
+    public void getTagTest() {
         UUID tagId = null;
         CompletableFuture<ApiResponse<Tag>> response = api.getTag(tagId);
     }
@@ -96,11 +87,9 @@ public class TagsApiTest {
      * Get list of tags
      *
      * <p>Retrieve a paged list of all tags according to filters.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTagsTest() throws ApiException {
+    public void getTagsTest() {
         String pageCursor = null;
         BigDecimal pageSize = null;
         String label = null;
@@ -127,11 +116,9 @@ public class TagsApiTest {
      * <p>Update an existing specified tag. Endpoint Permission: For protected tags: Owner, Admin,
      * Non-Signing Admin. For non protected tags: Owner, Admin, Non-Signing Admin, Signer, Editor,
      * Approver.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateTagTest() throws ApiException {
+    public void updateTagTest() {
         UpdateTagRequest updateTagRequest = null;
         UUID tagId = null;
         String idempotencyKey = null;

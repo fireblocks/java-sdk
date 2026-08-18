@@ -630,6 +630,15 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetSecurityPostureManagementApi() {
+        setupFireblocks(true, null, null);
+        SecurityPostureManagementApi securityPostureManagement =
+                fireblocks.securityPostureManagement();
+        Assert.assertNotNull(securityPostureManagement);
+        Assert.assertSame(securityPostureManagement, fireblocks.securityPostureManagement());
+    }
+
+    @Test
     public void testGetSmartTransferApi() {
         setupFireblocks(true, null, null);
         SmartTransferApi smartTransfer = fireblocks.smartTransfer();

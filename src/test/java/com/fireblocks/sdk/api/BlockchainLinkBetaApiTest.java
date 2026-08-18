@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ActivateBlockchainResponse;
 import com.fireblocks.sdk.model.BlockchainDeclaredProperties;
@@ -46,11 +45,9 @@ public class BlockchainLinkBetaApiTest {
      *
      * <p>Starts the asynchronous activation workflow for the blockchain identified by its ID,
      * transitioning it towards the ACTIVATED state.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void activateBlockchainLinkChainTest() throws ApiException {
+    public void activateBlockchainLinkChainTest() {
         String blockchainId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ActivateBlockchainResponse>> response =
@@ -63,11 +60,9 @@ public class BlockchainLinkBetaApiTest {
      * <p>Registers a new tenant-managed blockchain from the supplied declared properties. The
      * blockchain starts in the CREATED state and must be activated separately before it can be
      * used.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createBlockchainLinkChainTest() throws ApiException {
+    public void createBlockchainLinkChainTest() {
         CreateBlockchainRequest createBlockchainRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<CreateBlockchainResponse>> response =
@@ -79,11 +74,9 @@ public class BlockchainLinkBetaApiTest {
      *
      * <p>Permanently removes a blockchain identified by its ID. The blockchain must not be in an
      * active lifecycle state.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteBlockchainLinkChainTest() throws ApiException {
+    public void deleteBlockchainLinkChainTest() {
         String blockchainId = null;
 
         CompletableFuture<ApiResponse<Void>> response = api.deleteBlockchainLinkChain(blockchainId);
@@ -94,11 +87,9 @@ public class BlockchainLinkBetaApiTest {
      *
      * <p>Returns the tenant&#39;s blockchain activation limit and current usage. tenant_id is
      * derived from the JWT token context.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getBlockchainLinkBillingInfoTest() throws ApiException {
+    public void getBlockchainLinkBillingInfoTest() {
         CompletableFuture<ApiResponse<GetBillingInfoResponse>> response =
                 api.getBlockchainLinkBillingInfo();
     }
@@ -107,11 +98,9 @@ public class BlockchainLinkBetaApiTest {
      * Get a blockchain by ID
      *
      * <p>Returns a single blockchain owned by the tenant, identified by its ID.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getBlockchainLinkChainTest() throws ApiException {
+    public void getBlockchainLinkChainTest() {
         String blockchainId = null;
         CompletableFuture<ApiResponse<GetBlockchainByIdResponse>> response =
                 api.getBlockchainLinkChain(blockchainId);
@@ -122,11 +111,9 @@ public class BlockchainLinkBetaApiTest {
      *
      * <p>Returns the Ethereum address derived from the configured external wallet private key, used
      * by the UI for test transfers. tenant_id is derived from the JWT token context.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getBlockchainLinkTestWalletAddressTest() throws ApiException {
+    public void getBlockchainLinkTestWalletAddressTest() {
         CompletableFuture<ApiResponse<GetTestWalletAddressResponse>> response =
                 api.getBlockchainLinkTestWalletAddress();
     }
@@ -136,11 +123,9 @@ public class BlockchainLinkBetaApiTest {
      *
      * <p>Returns the tenant&#39;s blockchains, paginated and filterable by state, network
      * environment, and free-text search, with configurable sorting.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listBlockchainLinkChainsTest() throws ApiException {
+    public void listBlockchainLinkChainsTest() {
         String pageCursor = null;
         BigDecimal pageSize = null;
         String search = null;
@@ -166,11 +151,9 @@ public class BlockchainLinkBetaApiTest {
      *
      * <p>Starts the asynchronous validation workflow for a blockchain and its associated validation
      * session.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void triggerBlockchainLinkValidationTest() throws ApiException {
+    public void triggerBlockchainLinkValidationTest() {
         UUID blockchainId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<TriggerValidationFlowResponse>> response =
@@ -182,11 +165,9 @@ public class BlockchainLinkBetaApiTest {
      *
      * <p>Updates the declared properties of an existing blockchain identified by its ID. Only the
      * fields supplied in the request are modified.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateBlockchainLinkChainTest() throws ApiException {
+    public void updateBlockchainLinkChainTest() {
         BlockchainDeclaredProperties blockchainDeclaredProperties = null;
         String blockchainId = null;
         String idempotencyKey = null;

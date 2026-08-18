@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateWebhookRequest;
 import com.fireblocks.sdk.model.NotificationAttemptsPaginatedResponse;
@@ -50,11 +49,9 @@ public class WebhooksV2ApiTest {
      *
      * <p>Creates a new webhook, which will be triggered on the specified events **Endpoint
      * Permissions:** Owner, Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createWebhookTest() throws ApiException {
+    public void createWebhookTest() {
         CreateWebhookRequest createWebhookRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<Webhook>> response =
@@ -65,11 +62,9 @@ public class WebhooksV2ApiTest {
      * Delete webhook
      *
      * <p>Delete a webhook by its id Endpoint Permission: Owner, Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteWebhookTest() throws ApiException {
+    public void deleteWebhookTest() {
         UUID webhookId = null;
         CompletableFuture<ApiResponse<Webhook>> response = api.deleteWebhook(webhookId);
     }
@@ -78,11 +73,9 @@ public class WebhooksV2ApiTest {
      * Get webhook metrics
      *
      * <p>Get webhook metrics by webhook id and metric name
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getMetricsTest() throws ApiException {
+    public void getMetricsTest() {
         UUID webhookId = null;
         String metricName = null;
         CompletableFuture<ApiResponse<WebhookMetric>> response =
@@ -94,11 +87,9 @@ public class WebhooksV2ApiTest {
      *
      * <p>Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use to
      * generate their signed client certificate.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getMtlsCsrTest() throws ApiException {
+    public void getMtlsCsrTest() {
         CompletableFuture<ApiResponse<WebhookMtlsCsrResponse>> response = api.getMtlsCsr();
     }
 
@@ -106,11 +97,9 @@ public class WebhooksV2ApiTest {
      * Get notification by id
      *
      * <p>Get notification by id
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getNotificationTest() throws ApiException {
+    public void getNotificationTest() {
         String webhookId = null;
         String notificationId = null;
         Boolean includeData = null;
@@ -122,11 +111,9 @@ public class WebhooksV2ApiTest {
      * Get notification attempts
      *
      * <p>Get notification attempts by notification id
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getNotificationAttemptsTest() throws ApiException {
+    public void getNotificationAttemptsTest() {
         String webhookId = null;
         String notificationId = null;
         String pageCursor = null;
@@ -139,11 +126,9 @@ public class WebhooksV2ApiTest {
      * Get all notifications by webhook id
      *
      * <p>Get all notifications by webhook id (paginated)
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getNotificationsTest() throws ApiException {
+    public void getNotificationsTest() {
         UUID webhookId = null;
         String order = null;
         String sortBy = null;
@@ -172,11 +157,9 @@ public class WebhooksV2ApiTest {
      * Get resend by query job status
      *
      * <p>Get the status of a resend by query job
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getResendByQueryJobStatusTest() throws ApiException {
+    public void getResendByQueryJobStatusTest() {
         String webhookId = null;
         String jobId = null;
         CompletableFuture<ApiResponse<ResendFailedNotificationsJobStatusResponse>> response =
@@ -187,11 +170,9 @@ public class WebhooksV2ApiTest {
      * Get resend job status
      *
      * <p>Get the status of a resend job
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getResendJobStatusTest() throws ApiException {
+    public void getResendJobStatusTest() {
         String webhookId = null;
         String jobId = null;
         CompletableFuture<ApiResponse<ResendFailedNotificationsJobStatusResponse>> response =
@@ -202,11 +183,9 @@ public class WebhooksV2ApiTest {
      * Get webhook by id
      *
      * <p>Retrieve a webhook by its id
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getWebhookTest() throws ApiException {
+    public void getWebhookTest() {
         UUID webhookId = null;
         CompletableFuture<ApiResponse<Webhook>> response = api.getWebhook(webhookId);
     }
@@ -215,11 +194,9 @@ public class WebhooksV2ApiTest {
      * Get all webhooks
      *
      * <p>Get all webhooks (paginated).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getWebhooksTest() throws ApiException {
+    public void getWebhooksTest() {
         String order = null;
         String pageCursor = null;
         BigDecimal pageSize = null;
@@ -232,11 +209,9 @@ public class WebhooksV2ApiTest {
      *
      * <p>Resend all failed notifications for a webhook in the last 24 hours Endpoint Permission:
      * Owner, Admin, Non-Signing Admin, Editor, Signer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void resendFailedNotificationsTest() throws ApiException {
+    public void resendFailedNotificationsTest() {
         ResendFailedNotificationsRequest resendFailedNotificationsRequest = null;
         String webhookId = null;
         String idempotencyKey = null;
@@ -250,11 +225,9 @@ public class WebhooksV2ApiTest {
      *
      * <p>Resend notification by ID Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor,
      * Signer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void resendNotificationByIdTest() throws ApiException {
+    public void resendNotificationByIdTest() {
         String webhookId = null;
         String notificationId = null;
         String idempotencyKey = null;
@@ -268,11 +241,9 @@ public class WebhooksV2ApiTest {
      *
      * <p>Resend notifications matching the given query filters (statuses, events, time range,
      * resource ID) Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void resendNotificationsByQueryTest() throws ApiException {
+    public void resendNotificationsByQueryTest() {
         ResendByQueryRequest resendByQueryRequest = null;
         String webhookId = null;
         String idempotencyKey = null;
@@ -285,11 +256,9 @@ public class WebhooksV2ApiTest {
      *
      * <p>Resend notifications by resource Id Endpoint Permission: Owner, Admin, Non-Signing Admin,
      * Editor, Signer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void resendNotificationsByResourceIdTest() throws ApiException {
+    public void resendNotificationsByResourceIdTest() {
         ResendNotificationsByResourceIdRequest resendNotificationsByResourceIdRequest = null;
         String webhookId = null;
         String idempotencyKey = null;
@@ -303,11 +272,9 @@ public class WebhooksV2ApiTest {
      * Update webhook
      *
      * <p>Update a webhook by its id Endpoint Permission: Owner, Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateWebhookTest() throws ApiException {
+    public void updateWebhookTest() {
         UpdateWebhookRequest updateWebhookRequest = null;
         UUID webhookId = null;
         CompletableFuture<ApiResponse<Webhook>> response =

@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AccessRegistryCurrentStateResponse2;
 import com.fireblocks.sdk.model.AccessRegistrySummaryResponse;
@@ -40,11 +39,9 @@ public class OnchainDataApiTest {
      *
      * <p>Returns the current state of addresses in the specified access registry. Only addresses
      * that are currently active (added but not removed) are included.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getAccessRegistryCurrentStateTest() throws ApiException {
+    public void getAccessRegistryCurrentStateTest() {
         String baseAssetId = null;
         String accessRegistryAddress = null;
         String pageCursor = null;
@@ -61,11 +58,9 @@ public class OnchainDataApiTest {
      *
      * <p>Returns a summary of the current state of the access registry for the specified
      * baseAssetId and accessRegistryAddress.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getAccessRegistrySummaryTest() throws ApiException {
+    public void getAccessRegistrySummaryTest() {
         String baseAssetId = null;
         String accessRegistryAddress = null;
         CompletableFuture<ApiResponse<AccessRegistrySummaryResponse>> response =
@@ -77,11 +72,9 @@ public class OnchainDataApiTest {
      *
      * <p>Returns a list of currently active roles for the specified baseAssetId and
      * contractAddress.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getActiveRolesForContractTest() throws ApiException {
+    public void getActiveRolesForContractTest() {
         String baseAssetId = null;
         String contractAddress = null;
         CompletableFuture<ApiResponse<Map<String, RoleDetails2>>> response =
@@ -93,11 +86,9 @@ public class OnchainDataApiTest {
      *
      * <p>Returns the paginated balance history of the specified account in a contract with optional
      * date range and interval filtering.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getContractBalanceHistoryTest() throws ApiException {
+    public void getContractBalanceHistoryTest() {
         String baseAssetId = null;
         String contractAddress = null;
         String accountAddress = null;
@@ -127,11 +118,9 @@ public class OnchainDataApiTest {
      *
      * <p>Returns the total number of unique addresses holding balances and the total supply for the
      * specified contract.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getContractBalancesSummaryTest() throws ApiException {
+    public void getContractBalancesSummaryTest() {
         String baseAssetId = null;
         String contractAddress = null;
         CompletableFuture<ApiResponse<TokenContractSummaryResponse>> response =
@@ -143,11 +132,9 @@ public class OnchainDataApiTest {
      *
      * <p>Returns the paginated total supply history of the specified contract with optional date
      * range and interval filtering.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getContractTotalSupplyTest() throws ApiException {
+    public void getContractTotalSupplyTest() {
         String baseAssetId = null;
         String contractAddress = null;
         OffsetDateTime startDate = null;
@@ -175,11 +162,9 @@ public class OnchainDataApiTest {
      *
      * <p>Returns the latest balance for each unique address with support for numeric balance
      * sorting. The &#x60;prev&#x60; cursor is reserved for future support.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getLatestBalancesForContractTest() throws ApiException {
+    public void getLatestBalancesForContractTest() {
         String baseAssetId = null;
         String contractAddress = null;
         String accountAddress = null;
@@ -203,11 +188,9 @@ public class OnchainDataApiTest {
      *
      * <p>Returns a paginated list of onchain transactions for the specified contract address and
      * base asset ID, optionally filtered by date range.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getOnchainTransactionsTest() throws ApiException {
+    public void getOnchainTransactionsTest() {
         String baseAssetId = null;
         String contractAddress = null;
         OffsetDateTime startDate = null;

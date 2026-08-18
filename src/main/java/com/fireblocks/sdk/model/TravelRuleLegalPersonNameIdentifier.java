@@ -16,77 +16,134 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.ApiClient;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** TravelRuleLegalPersonNameIdentifier */
 @JsonPropertyOrder({
-    TravelRuleLegalPersonNameIdentifier.JSON_PROPERTY_LEGAL_PERSON_NAME,
-    TravelRuleLegalPersonNameIdentifier.JSON_PROPERTY_LEGAL_PERSON_NAME_IDENTIFIER_TYPE
+    TravelRuleLegalPersonNameIdentifier.JSON_PROPERTY_NAME_IDENTIFIER,
+    TravelRuleLegalPersonNameIdentifier.JSON_PROPERTY_LOCAL_NAME_IDENTIFIER,
+    TravelRuleLegalPersonNameIdentifier.JSON_PROPERTY_PHONETIC_NAME_IDENTIFIER
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class TravelRuleLegalPersonNameIdentifier {
-    public static final String JSON_PROPERTY_LEGAL_PERSON_NAME = "legalPersonName";
-    @jakarta.annotation.Nullable private String legalPersonName;
+    public static final String JSON_PROPERTY_NAME_IDENTIFIER = "nameIdentifier";
+    @jakarta.annotation.Nullable private List<TravelRuleLegalNameIdentifier> nameIdentifier;
 
-    public static final String JSON_PROPERTY_LEGAL_PERSON_NAME_IDENTIFIER_TYPE =
-            "legalPersonNameIdentifierType";
-    @jakarta.annotation.Nullable private String legalPersonNameIdentifierType;
+    public static final String JSON_PROPERTY_LOCAL_NAME_IDENTIFIER = "localNameIdentifier";
+    @jakarta.annotation.Nullable private List<TravelRuleLegalNameIdentifier> localNameIdentifier;
+
+    public static final String JSON_PROPERTY_PHONETIC_NAME_IDENTIFIER = "phoneticNameIdentifier";
+    @jakarta.annotation.Nullable private List<TravelRuleLegalNameIdentifier> phoneticNameIdentifier;
 
     public TravelRuleLegalPersonNameIdentifier() {}
 
-    public TravelRuleLegalPersonNameIdentifier legalPersonName(
-            @jakarta.annotation.Nullable String legalPersonName) {
-        this.legalPersonName = legalPersonName;
+    public TravelRuleLegalPersonNameIdentifier nameIdentifier(
+            @jakarta.annotation.Nullable List<TravelRuleLegalNameIdentifier> nameIdentifier) {
+        this.nameIdentifier = nameIdentifier;
+        return this;
+    }
+
+    public TravelRuleLegalPersonNameIdentifier addNameIdentifierItem(
+            TravelRuleLegalNameIdentifier nameIdentifierItem) {
+        if (this.nameIdentifier == null) {
+            this.nameIdentifier = new ArrayList<>();
+        }
+        this.nameIdentifier.add(nameIdentifierItem);
         return this;
     }
 
     /**
-     * Name by which the legal person is known. The value must be encrypted.
+     * An array of name identifiers of the legal person.
      *
-     * @return legalPersonName
+     * @return nameIdentifier
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_LEGAL_PERSON_NAME)
+    @JsonProperty(JSON_PROPERTY_NAME_IDENTIFIER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getLegalPersonName() {
-        return legalPersonName;
+    public List<TravelRuleLegalNameIdentifier> getNameIdentifier() {
+        return nameIdentifier;
     }
 
-    @JsonProperty(JSON_PROPERTY_LEGAL_PERSON_NAME)
+    @JsonProperty(JSON_PROPERTY_NAME_IDENTIFIER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLegalPersonName(@jakarta.annotation.Nullable String legalPersonName) {
-        this.legalPersonName = legalPersonName;
+    public void setNameIdentifier(
+            @jakarta.annotation.Nullable List<TravelRuleLegalNameIdentifier> nameIdentifier) {
+        this.nameIdentifier = nameIdentifier;
     }
 
-    public TravelRuleLegalPersonNameIdentifier legalPersonNameIdentifierType(
-            @jakarta.annotation.Nullable String legalPersonNameIdentifierType) {
-        this.legalPersonNameIdentifierType = legalPersonNameIdentifierType;
+    public TravelRuleLegalPersonNameIdentifier localNameIdentifier(
+            @jakarta.annotation.Nullable List<TravelRuleLegalNameIdentifier> localNameIdentifier) {
+        this.localNameIdentifier = localNameIdentifier;
+        return this;
+    }
+
+    public TravelRuleLegalPersonNameIdentifier addLocalNameIdentifierItem(
+            TravelRuleLegalNameIdentifier localNameIdentifierItem) {
+        if (this.localNameIdentifier == null) {
+            this.localNameIdentifier = new ArrayList<>();
+        }
+        this.localNameIdentifier.add(localNameIdentifierItem);
         return this;
     }
 
     /**
-     * Specifies the type of name for a legal person. Acceptable values are: - &#39;REGISTERED&#39;:
-     * The official registered name. - &#39;TRADE&#39;: A trading name or DBA (Doing Business As)
-     * name. - &#39;OTHER&#39;: Any other type of name. The value must be encrypted.
+     * An array of local name identifiers of the legal person.
      *
-     * @return legalPersonNameIdentifierType
+     * @return localNameIdentifier
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_LEGAL_PERSON_NAME_IDENTIFIER_TYPE)
+    @JsonProperty(JSON_PROPERTY_LOCAL_NAME_IDENTIFIER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getLegalPersonNameIdentifierType() {
-        return legalPersonNameIdentifierType;
+    public List<TravelRuleLegalNameIdentifier> getLocalNameIdentifier() {
+        return localNameIdentifier;
     }
 
-    @JsonProperty(JSON_PROPERTY_LEGAL_PERSON_NAME_IDENTIFIER_TYPE)
+    @JsonProperty(JSON_PROPERTY_LOCAL_NAME_IDENTIFIER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLegalPersonNameIdentifierType(
-            @jakarta.annotation.Nullable String legalPersonNameIdentifierType) {
-        this.legalPersonNameIdentifierType = legalPersonNameIdentifierType;
+    public void setLocalNameIdentifier(
+            @jakarta.annotation.Nullable List<TravelRuleLegalNameIdentifier> localNameIdentifier) {
+        this.localNameIdentifier = localNameIdentifier;
+    }
+
+    public TravelRuleLegalPersonNameIdentifier phoneticNameIdentifier(
+            @jakarta.annotation.Nullable
+                    List<TravelRuleLegalNameIdentifier> phoneticNameIdentifier) {
+        this.phoneticNameIdentifier = phoneticNameIdentifier;
+        return this;
+    }
+
+    public TravelRuleLegalPersonNameIdentifier addPhoneticNameIdentifierItem(
+            TravelRuleLegalNameIdentifier phoneticNameIdentifierItem) {
+        if (this.phoneticNameIdentifier == null) {
+            this.phoneticNameIdentifier = new ArrayList<>();
+        }
+        this.phoneticNameIdentifier.add(phoneticNameIdentifierItem);
+        return this;
+    }
+
+    /**
+     * An array of phonetic name identifiers of the legal person.
+     *
+     * @return phoneticNameIdentifier
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PHONETIC_NAME_IDENTIFIER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<TravelRuleLegalNameIdentifier> getPhoneticNameIdentifier() {
+        return phoneticNameIdentifier;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PHONETIC_NAME_IDENTIFIER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPhoneticNameIdentifier(
+            @jakarta.annotation.Nullable
+                    List<TravelRuleLegalNameIdentifier> phoneticNameIdentifier) {
+        this.phoneticNameIdentifier = phoneticNameIdentifier;
     }
 
     /** Return true if this TravelRuleLegalPersonNameIdentifier object is equal to o. */
@@ -101,24 +158,30 @@ public class TravelRuleLegalPersonNameIdentifier {
         TravelRuleLegalPersonNameIdentifier travelRuleLegalPersonNameIdentifier =
                 (TravelRuleLegalPersonNameIdentifier) o;
         return Objects.equals(
-                        this.legalPersonName, travelRuleLegalPersonNameIdentifier.legalPersonName)
+                        this.nameIdentifier, travelRuleLegalPersonNameIdentifier.nameIdentifier)
                 && Objects.equals(
-                        this.legalPersonNameIdentifierType,
-                        travelRuleLegalPersonNameIdentifier.legalPersonNameIdentifierType);
+                        this.localNameIdentifier,
+                        travelRuleLegalPersonNameIdentifier.localNameIdentifier)
+                && Objects.equals(
+                        this.phoneticNameIdentifier,
+                        travelRuleLegalPersonNameIdentifier.phoneticNameIdentifier);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(legalPersonName, legalPersonNameIdentifierType);
+        return Objects.hash(nameIdentifier, localNameIdentifier, phoneticNameIdentifier);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TravelRuleLegalPersonNameIdentifier {\n");
-        sb.append("    legalPersonName: ").append(toIndentedString(legalPersonName)).append("\n");
-        sb.append("    legalPersonNameIdentifierType: ")
-                .append(toIndentedString(legalPersonNameIdentifierType))
+        sb.append("    nameIdentifier: ").append(toIndentedString(nameIdentifier)).append("\n");
+        sb.append("    localNameIdentifier: ")
+                .append(toIndentedString(localNameIdentifier))
+                .append("\n");
+        sb.append("    phoneticNameIdentifier: ")
+                .append(toIndentedString(phoneticNameIdentifier))
                 .append("\n");
         sb.append("}");
         return sb.toString();
@@ -167,25 +230,73 @@ public class TravelRuleLegalPersonNameIdentifier {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `legalPersonName` to the URL query string
-        if (getLegalPersonName() != null) {
-            joiner.add(
-                    String.format(
-                            "%slegalPersonName%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getLegalPersonName()))));
+        // add `nameIdentifier` to the URL query string
+        if (getNameIdentifier() != null) {
+            for (int i = 0; i < getNameIdentifier().size(); i++) {
+                if (getNameIdentifier().get(i) != null) {
+                    joiner.add(
+                            getNameIdentifier()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%snameIdentifier%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
         }
 
-        // add `legalPersonNameIdentifierType` to the URL query string
-        if (getLegalPersonNameIdentifierType() != null) {
-            joiner.add(
-                    String.format(
-                            "%slegalPersonNameIdentifierType%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(
-                                    ApiClient.valueToString(getLegalPersonNameIdentifierType()))));
+        // add `localNameIdentifier` to the URL query string
+        if (getLocalNameIdentifier() != null) {
+            for (int i = 0; i < getLocalNameIdentifier().size(); i++) {
+                if (getLocalNameIdentifier().get(i) != null) {
+                    joiner.add(
+                            getLocalNameIdentifier()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%slocalNameIdentifier%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
+        }
+
+        // add `phoneticNameIdentifier` to the URL query string
+        if (getPhoneticNameIdentifier() != null) {
+            for (int i = 0; i < getPhoneticNameIdentifier().size(); i++) {
+                if (getPhoneticNameIdentifier().get(i) != null) {
+                    joiner.add(
+                            getPhoneticNameIdentifier()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%sphoneticNameIdentifier%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
         }
 
         return joiner.toString();

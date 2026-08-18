@@ -26,15 +26,21 @@ class TravelRuleValidateLegalPersonNameIdentifierTest {
         // TODO: test TravelRuleValidateLegalPersonNameIdentifier
     }
 
-    /** Test the property 'legalPersonName' */
+    /** Test the property 'nameIdentifier' */
     @Test
-    void legalPersonNameTest() {
-        // TODO: test legalPersonName
+    void nameIdentifierTest() {
+        // TODO: test nameIdentifier
     }
 
-    /** Test the property 'legalPersonNameIdentifierType' */
+    /** Test the property 'localNameIdentifier' */
     @Test
-    void legalPersonNameIdentifierTypeTest() {
-        // TODO: test legalPersonNameIdentifierType
+    void localNameIdentifierTest() {
+        // TODO: test localNameIdentifier
+    }
+
+    /** Test the property 'phoneticNameIdentifier' */
+    @Test
+    void phoneticNameIdentifierTest() {
+        // TODO: test phoneticNameIdentifier
     }
 }
