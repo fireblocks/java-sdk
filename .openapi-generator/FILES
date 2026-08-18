@@ -474,6 +474,7 @@ docs/GasStationConfiguration.md
 docs/GasStationConfigurationResponse.md
 docs/GasStationPropertiesResponse.md
 docs/GasStationsApi.md
+docs/GaslessInfo.md
 docs/GasslessStandardConfigurations.md
 docs/GasslessStandardConfigurationsGaslessStandardConfigurationsValue.md
 docs/GenieBetaApi.md
@@ -494,6 +495,7 @@ docs/GetConsoleUsersResponse.md
 docs/GetDeployableAddressRequest.md
 docs/GetExchangeAccountsCredentialsPublicKeyResponse.md
 docs/GetFilterParameter.md
+docs/GetFindingsExternalResponse.md
 docs/GetLayerZeroDvnConfigResponse.md
 docs/GetLayerZeroPeersResponse.md
 docs/GetLinkedCollectionsPaginatedResponse.md
@@ -849,6 +851,8 @@ docs/ScreeningVerdict.md
 docs/ScreeningVerdictEnum.md
 docs/ScreeningVerdictMatchedRule.md
 docs/SearchNetworkIdsResponse.md
+docs/SecurityFinding.md
+docs/SecurityPostureManagementApi.md
 docs/SepaPaymentInfo.md
 docs/SessionDTO.md
 docs/SessionMetadata.md
@@ -1118,6 +1122,7 @@ docs/TravelRuleGeographicAddress.md
 docs/TravelRuleGetAllVASPsResponse.md
 docs/TravelRuleIssuer.md
 docs/TravelRuleIssuers.md
+docs/TravelRuleLegalNameIdentifier.md
 docs/TravelRuleLegalPerson.md
 docs/TravelRuleLegalPersonNameIdentifier.md
 docs/TravelRuleMatchedRule.md
@@ -1142,6 +1147,7 @@ docs/TravelRuleVASPExternalEntityRegistration.md
 docs/TravelRuleValidateDateAndPlaceOfBirth.md
 docs/TravelRuleValidateFullTransactionRequest.md
 docs/TravelRuleValidateGeographicAddress.md
+docs/TravelRuleValidateLegalNameIdentifier.md
 docs/TravelRuleValidateLegalPerson.md
 docs/TravelRuleValidateLegalPersonNameIdentifier.md
 docs/TravelRuleValidateNationalIdentification.md
@@ -1308,6 +1314,7 @@ src/main/java/com/fireblocks/sdk/api/PolicyEditorV2Api.java
 src/main/java/com/fireblocks/sdk/api/PolicyEditorV2BetaApi.java
 src/main/java/com/fireblocks/sdk/api/ReportsBetaApi.java
 src/main/java/com/fireblocks/sdk/api/ResetDeviceApi.java
+src/main/java/com/fireblocks/sdk/api/SecurityPostureManagementApi.java
 src/main/java/com/fireblocks/sdk/api/SmartTransferApi.java
 src/main/java/com/fireblocks/sdk/api/StakingApi.java
 src/main/java/com/fireblocks/sdk/api/TagsApi.java
@@ -1774,6 +1781,7 @@ src/main/java/com/fireblocks/sdk/model/Funds.java
 src/main/java/com/fireblocks/sdk/model/GasStationConfiguration.java
 src/main/java/com/fireblocks/sdk/model/GasStationConfigurationResponse.java
 src/main/java/com/fireblocks/sdk/model/GasStationPropertiesResponse.java
+src/main/java/com/fireblocks/sdk/model/GaslessInfo.java
 src/main/java/com/fireblocks/sdk/model/GasslessStandardConfigurations.java
 src/main/java/com/fireblocks/sdk/model/GasslessStandardConfigurationsGaslessStandardConfigurationsValue.java
 src/main/java/com/fireblocks/sdk/model/GenieChatMessage.java
@@ -1793,6 +1801,7 @@ src/main/java/com/fireblocks/sdk/model/GetConsoleUsersResponse.java
 src/main/java/com/fireblocks/sdk/model/GetDeployableAddressRequest.java
 src/main/java/com/fireblocks/sdk/model/GetExchangeAccountsCredentialsPublicKeyResponse.java
 src/main/java/com/fireblocks/sdk/model/GetFilterParameter.java
+src/main/java/com/fireblocks/sdk/model/GetFindingsExternalResponse.java
 src/main/java/com/fireblocks/sdk/model/GetLayerZeroDvnConfigResponse.java
 src/main/java/com/fireblocks/sdk/model/GetLayerZeroPeersResponse.java
 src/main/java/com/fireblocks/sdk/model/GetLinkedCollectionsPaginatedResponse.java
@@ -2134,6 +2143,7 @@ src/main/java/com/fireblocks/sdk/model/ScreeningVerdict.java
 src/main/java/com/fireblocks/sdk/model/ScreeningVerdictEnum.java
 src/main/java/com/fireblocks/sdk/model/ScreeningVerdictMatchedRule.java
 src/main/java/com/fireblocks/sdk/model/SearchNetworkIdsResponse.java
+src/main/java/com/fireblocks/sdk/model/SecurityFinding.java
 src/main/java/com/fireblocks/sdk/model/SepaPaymentInfo.java
 src/main/java/com/fireblocks/sdk/model/SessionDTO.java
 src/main/java/com/fireblocks/sdk/model/SessionMetadata.java
@@ -2395,6 +2405,7 @@ src/main/java/com/fireblocks/sdk/model/TravelRuleGeographicAddress.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleGetAllVASPsResponse.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleIssuer.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleIssuers.java
+src/main/java/com/fireblocks/sdk/model/TravelRuleLegalNameIdentifier.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleLegalPerson.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleLegalPersonNameIdentifier.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleMatchedRule.java
@@ -2419,6 +2430,7 @@ src/main/java/com/fireblocks/sdk/model/TravelRuleVASPExternalEntityRegistration.
 src/main/java/com/fireblocks/sdk/model/TravelRuleValidateDateAndPlaceOfBirth.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleValidateFullTransactionRequest.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleValidateGeographicAddress.java
+src/main/java/com/fireblocks/sdk/model/TravelRuleValidateLegalNameIdentifier.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleValidateLegalPerson.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleValidateLegalPersonNameIdentifier.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleValidateNationalIdentification.java
@@ -2554,6 +2566,7 @@ src/test/java/com/fireblocks/sdk/api/PolicyEditorV2ApiTest.java
 src/test/java/com/fireblocks/sdk/api/PolicyEditorV2BetaApiTest.java
 src/test/java/com/fireblocks/sdk/api/ReportsBetaApiTest.java
 src/test/java/com/fireblocks/sdk/api/ResetDeviceApiTest.java
+src/test/java/com/fireblocks/sdk/api/SecurityPostureManagementApiTest.java
 src/test/java/com/fireblocks/sdk/api/SmartTransferApiTest.java
 src/test/java/com/fireblocks/sdk/api/StakingApiTest.java
 src/test/java/com/fireblocks/sdk/api/TagsApiTest.java
@@ -3019,6 +3032,7 @@ src/test/java/com/fireblocks/sdk/model/FundsTest.java
 src/test/java/com/fireblocks/sdk/model/GasStationConfigurationResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GasStationConfigurationTest.java
 src/test/java/com/fireblocks/sdk/model/GasStationPropertiesResponseTest.java
+src/test/java/com/fireblocks/sdk/model/GaslessInfoTest.java
 src/test/java/com/fireblocks/sdk/model/GasslessStandardConfigurationsGaslessStandardConfigurationsValueTest.java
 src/test/java/com/fireblocks/sdk/model/GasslessStandardConfigurationsTest.java
 src/test/java/com/fireblocks/sdk/model/GenieChatMessageTest.java
@@ -3038,6 +3052,7 @@ src/test/java/com/fireblocks/sdk/model/GetConsoleUsersResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetDeployableAddressRequestTest.java
 src/test/java/com/fireblocks/sdk/model/GetExchangeAccountsCredentialsPublicKeyResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetFilterParameterTest.java
+src/test/java/com/fireblocks/sdk/model/GetFindingsExternalResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetLayerZeroDvnConfigResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetLayerZeroPeersResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetLinkedCollectionsPaginatedResponseTest.java
@@ -3379,6 +3394,7 @@ src/test/java/com/fireblocks/sdk/model/ScreeningVerdictEnumTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningVerdictMatchedRuleTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningVerdictTest.java
 src/test/java/com/fireblocks/sdk/model/SearchNetworkIdsResponseTest.java
+src/test/java/com/fireblocks/sdk/model/SecurityFindingTest.java
 src/test/java/com/fireblocks/sdk/model/SepaPaymentInfoTest.java
 src/test/java/com/fireblocks/sdk/model/SessionDTOTest.java
 src/test/java/com/fireblocks/sdk/model/SessionMetadataTest.java
@@ -3640,6 +3656,7 @@ src/test/java/com/fireblocks/sdk/model/TravelRuleGeographicAddressTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleGetAllVASPsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleIssuerTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleIssuersTest.java
+src/test/java/com/fireblocks/sdk/model/TravelRuleLegalNameIdentifierTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleLegalPersonNameIdentifierTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleLegalPersonTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleMatchedRuleTest.java
@@ -3664,6 +3681,7 @@ src/test/java/com/fireblocks/sdk/model/TravelRuleVASPTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleValidateDateAndPlaceOfBirthTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleValidateFullTransactionRequestTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleValidateGeographicAddressTest.java
+src/test/java/com/fireblocks/sdk/model/TravelRuleValidateLegalNameIdentifierTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleValidateLegalPersonNameIdentifierTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleValidateLegalPersonTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleValidateNationalIdentificationTest.java

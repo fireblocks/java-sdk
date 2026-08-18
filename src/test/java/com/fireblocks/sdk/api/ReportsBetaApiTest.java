@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateAddressesReportRequest;
 import com.fireblocks.sdk.model.CreateReportResponse;
@@ -40,11 +39,9 @@ public class ReportsBetaApiTest {
      * &#x60;COMPLETED&#x60;, the poll response includes a fresh pre-signed download URL in
      * &#x60;links.downloadUrl&#x60;. **Note:** These endpoints are currently in beta and might be
      * subject to changes. Endpoint Permission: Viewer and above.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createReportTest() throws ApiException {
+    public void createReportTest() {
         CreateAddressesReportRequest body = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<CreateReportResponse>> response =
@@ -61,11 +58,9 @@ public class ReportsBetaApiTest {
      * &#x60;FAILED&#x60;, the &#x60;failedAt&#x60; timestamp indicates when the failure occurred.
      * **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint
      * Permission: Viewer and above.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getReportTest() throws ApiException {
+    public void getReportTest() {
         String reportId = null;
         CompletableFuture<ApiResponse<ReportJobResponse>> response = api.getReport(reportId);
     }
@@ -77,11 +72,9 @@ public class ReportsBetaApiTest {
      * URLs are not included in list responses. Call &#x60;GET /v1/reports/{reportId}&#x60; to
      * obtain a fresh signed download URL for a specific completed report. **Note:** These endpoints
      * are currently in beta and might be subject to changes. Endpoint Permission: Viewer and above.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listReportsTest() throws ApiException {
+    public void listReportsTest() {
         String pageCursor = null;
         Integer pageSize = null;
         String sortBy = null;

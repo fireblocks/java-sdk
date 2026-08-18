@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AddConnectedAccountRequest;
 import com.fireblocks.sdk.model.AddConnectedAccountResponse;
@@ -47,11 +46,9 @@ public class ConnectedAccountsBetaApiTest {
      * The &#x60;providerType&#x60; is derived server-side from the &#x60;providerId&#x60; — callers
      * do not supply it. Endpoint Permission: Editor, Admin, Non-Signing Admin. **Note:** This
      * endpoint is currently in beta and might be subject to changes.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void addConnectedAccountTest() throws ApiException {
+    public void addConnectedAccountTest() {
         AddConnectedAccountRequest addConnectedAccountRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<AddConnectedAccountResponse>> response =
@@ -63,11 +60,9 @@ public class ConnectedAccountsBetaApiTest {
      *
      * <p>Disconnect a connected account by ID. **Note**: - This endpoint is currently in beta and
      * might be subject to changes.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void disconnectConnectedAccountTest() throws ApiException {
+    public void disconnectConnectedAccountTest() {
         String accountId = null;
 
         CompletableFuture<ApiResponse<Void>> response = api.disconnectConnectedAccount(accountId);
@@ -78,11 +73,9 @@ public class ConnectedAccountsBetaApiTest {
      *
      * <p>Retrieve detailed information about a specific connected account by ID. **Note:** This
      * endpoint is currently in beta and might be subject to changes.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getConnectedAccountTest() throws ApiException {
+    public void getConnectedAccountTest() {
         String accountId = null;
         CompletableFuture<ApiResponse<ConnectedSingleAccountResponse>> response =
                 api.getConnectedAccount(accountId);
@@ -94,11 +87,9 @@ public class ConnectedAccountsBetaApiTest {
      * <p>Retrieves the address allowlist for a specified connected account. **Note:** This endpoint
      * is currently in beta and might be subject to changes. Currently supports
      * CoinbaseExchange/Binance accounts only.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getConnectedAccountAllowlistTest() throws ApiException {
+    public void getConnectedAccountAllowlistTest() {
         String accountId = null;
         AllowlistEntryStatus status = null;
         String assetId = null;
@@ -125,11 +116,9 @@ public class ConnectedAccountsBetaApiTest {
      * <p>Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected
      * account. **Note:** This endpoint is currently in beta and might be subject to changes.
      * Currently supports CoinbaseExchange/Binance accounts only.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getConnectedAccountAllowlistEntryTest() throws ApiException {
+    public void getConnectedAccountAllowlistEntryTest() {
         String accountId = null;
         String allowlistId = null;
         CompletableFuture<ApiResponse<AllowlistEntryResponse>> response =
@@ -142,11 +131,9 @@ public class ConnectedAccountsBetaApiTest {
      * <p>Retrieve current asset balances for a specific connected account as a flat list (one row
      * per &#x60;assetId&#x60;, &#x60;balanceType&#x60;). **Note:** This endpoint is currently in
      * beta and might be subject to changes.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getConnectedAccountBalancesTest() throws ApiException {
+    public void getConnectedAccountBalancesTest() {
         String accountId = null;
         Integer pageSize = null;
         String pageCursor = null;
@@ -159,11 +146,9 @@ public class ConnectedAccountsBetaApiTest {
      *
      * <p>Retrieve current exchange rates for converting between specific assets in a connected
      * account. **Note:** This endpoint is currently in beta and might be subject to changes.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getConnectedAccountRatesTest() throws ApiException {
+    public void getConnectedAccountRatesTest() {
         String accountId = null;
         String baseAssetId = null;
         String quoteAssetId = null;
@@ -177,11 +162,9 @@ public class ConnectedAccountsBetaApiTest {
      * <p>Retrieve all asset trading pairs supported by a specific connected account, including the
      * pair type (&#x60;quote&#x60;, &#x60;market&#x60;, &#x60;onOffRamp&#x60;). **Note:** This
      * endpoint is currently in beta and might be subject to changes.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getConnectedAccountTradingPairsTest() throws ApiException {
+    public void getConnectedAccountTradingPairsTest() {
         String accountId = null;
         Integer pageSize = null;
         String pageCursor = null;
@@ -194,11 +177,9 @@ public class ConnectedAccountsBetaApiTest {
      *
      * <p>Returns all connected accounts. **Note:** This endpoint is currently in beta and might be
      * subject to changes.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getConnectedAccountsTest() throws ApiException {
+    public void getConnectedAccountsTest() {
         Boolean mainAccounts = null;
         Integer pageSize = null;
         String pageCursor = null;
@@ -213,11 +194,9 @@ public class ConnectedAccountsBetaApiTest {
      * &#x60;POST /connected_accounts&#x60;. The key is a singleton resource scoped to the
      * connected-accounts credentials domain — there is one per tenant context. **Note:** This
      * endpoint is currently in beta and might be subject to changes.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getConnectedAccountsCredentialsPublicKeyTest() throws ApiException {
+    public void getConnectedAccountsCredentialsPublicKeyTest() {
         CompletableFuture<ApiResponse<GetConnectedAccountsCredentialsPublicKeyResponse>> response =
                 api.getConnectedAccountsCredentialsPublicKey();
     }
@@ -227,11 +206,9 @@ public class ConnectedAccountsBetaApiTest {
      *
      * <p>Rename a connected account by account ID. **Note:** This endpoint is currently in beta and
      * might be subject to changes.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void renameConnectedAccountTest() throws ApiException {
+    public void renameConnectedAccountTest() {
         RenameConnectedAccountRequest renameConnectedAccountRequest = null;
         String accountId = null;
         String idempotencyKey = null;
@@ -247,11 +224,9 @@ public class ConnectedAccountsBetaApiTest {
      * immediately. **Rate limit:** 1 request per minute per connected account. **Note:** This
      * endpoint is currently in beta and might be subject to changes. Currently supports
      * CoinbaseExchange/Binance accounts only.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void syncConnectedAccountAllowlistTest() throws ApiException {
+    public void syncConnectedAccountAllowlistTest() {
         String accountId = null;
         String idempotencyKey = null;
 

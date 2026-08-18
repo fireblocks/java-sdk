@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.GetWorkspaceStatusResponse;
 import java.util.concurrent.CompletableFuture;
@@ -33,11 +32,9 @@ public class WorkspaceStatusBetaApiTest {
      * disabled for general availability at this time. - Please note that this endpoint is available
      * only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin,
      * Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getWorkspaceStatusTest() throws ApiException {
+    public void getWorkspaceStatusTest() {
         CompletableFuture<ApiResponse<GetWorkspaceStatusResponse>> response =
                 api.getWorkspaceStatus();
     }

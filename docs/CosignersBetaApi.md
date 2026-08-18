@@ -62,12 +62,6 @@ public class Example {
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CosignersBetaApi#addCosigner");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
         }
     }
 }
@@ -146,12 +140,6 @@ public class Example {
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CosignersBetaApi#getApiKey");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
             e.printStackTrace();
         }
     }
@@ -234,12 +222,6 @@ public class Example {
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CosignersBetaApi#getApiKeys");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
         }
     }
 }
@@ -320,12 +302,6 @@ public class Example {
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CosignersBetaApi#getCosigner");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
         }
     }
 }
@@ -404,12 +380,6 @@ public class Example {
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CosignersBetaApi#getCosigners");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
             e.printStackTrace();
         }
     }
@@ -491,12 +461,6 @@ public class Example {
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CosignersBetaApi#getRequestStatus");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
             e.printStackTrace();
         }
     }
@@ -580,12 +544,6 @@ public class Example {
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CosignersBetaApi#pairApiKey");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
         }
     }
 }
@@ -667,12 +625,6 @@ public class Example {
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CosignersBetaApi#renameCosigner");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
         }
     }
 }
@@ -751,12 +703,6 @@ public class Example {
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CosignersBetaApi#unpairApiKey");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
             e.printStackTrace();
         }
     }
@@ -837,12 +783,6 @@ public class Example {
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling CosignersBetaApi#updateCallbackHandler");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
             e.printStackTrace();
         }
     }

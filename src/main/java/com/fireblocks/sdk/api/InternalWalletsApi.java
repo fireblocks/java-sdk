@@ -37,7 +37,10 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -73,6 +76,28 @@ public class InternalWalletsApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -89,11 +114,11 @@ public class InternalWalletsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;UnmanagedWallet&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;UnmanagedWallet&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<UnmanagedWallet>> createInternalWallet(
-            CreateWalletRequest createWalletRequest, String idempotencyKey) throws ApiException {
+            CreateWalletRequest createWalletRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createInternalWalletRequestBuilder(createWalletRequest, idempotencyKey);
@@ -124,7 +149,15 @@ public class InternalWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<UnmanagedWallet>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -169,15 +202,14 @@ public class InternalWalletsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;WalletAsset&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;WalletAsset&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<WalletAsset>> createInternalWalletAsset(
             String walletId,
             String assetId,
             CreateInternalWalletAssetRequest createInternalWalletAssetRequest,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createInternalWalletAssetRequestBuilder(
@@ -209,7 +241,15 @@ public class InternalWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<WalletAsset>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -261,11 +301,10 @@ public class InternalWalletsApi {
      * Delete an internal wallet Deletes an internal wallet by ID.
      *
      * @param walletId The ID of the wallet to delete (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Void>> deleteInternalWallet(String walletId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<Void>> deleteInternalWallet(String walletId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     deleteInternalWalletRequestBuilder(walletId);
@@ -286,7 +325,14 @@ public class InternalWalletsApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -321,11 +367,11 @@ public class InternalWalletsApi {
      *
      * @param walletId The ID of the wallet (required)
      * @param assetId The ID of the asset to delete (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> deleteInternalWalletAsset(
-            String walletId, String assetId) throws ApiException {
+            String walletId, String assetId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     deleteInternalWalletAssetRequestBuilder(walletId, assetId);
@@ -346,7 +392,14 @@ public class InternalWalletsApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -383,11 +436,10 @@ public class InternalWalletsApi {
      * Get assets for internal wallet Returns information for an internal wallet.
      *
      * @param walletId The ID of the wallet to return (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;UnmanagedWallet&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;UnmanagedWallet&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<UnmanagedWallet>> getInternalWallet(String walletId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<UnmanagedWallet>> getInternalWallet(String walletId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getInternalWalletRequestBuilder(walletId);
             return memberVarHttpClient
@@ -416,7 +468,15 @@ public class InternalWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<UnmanagedWallet>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -450,11 +510,11 @@ public class InternalWalletsApi {
      *
      * @param walletId The ID of the wallet (required)
      * @param assetId The ID of the asset to return (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;WalletAsset&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;WalletAsset&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<WalletAsset>> getInternalWalletAsset(
-            String walletId, String assetId) throws ApiException {
+            String walletId, String assetId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getInternalWalletAssetRequestBuilder(walletId, assetId);
@@ -485,7 +545,15 @@ public class InternalWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<WalletAsset>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -524,11 +592,11 @@ public class InternalWalletsApi {
      * @param walletId The ID of the internal wallet to return assets for (required)
      * @param pageSize (optional, default to 50)
      * @param pageCursor (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;PaginatedAssetsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;PaginatedAssetsResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<PaginatedAssetsResponse>> getInternalWalletAssetsPaginated(
-            String walletId, BigDecimal pageSize, String pageCursor) throws ApiException {
+            String walletId, BigDecimal pageSize, String pageCursor) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getInternalWalletAssetsPaginatedRequestBuilder(walletId, pageSize, pageCursor);
@@ -560,7 +628,17 @@ public class InternalWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<PaginatedAssetsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -611,11 +689,10 @@ public class InternalWalletsApi {
     /**
      * List internal wallets Gets a list of internal wallets.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;UnmanagedWallet&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;UnmanagedWallet&gt;&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<List<UnmanagedWallet>>> getInternalWallets()
-            throws ApiException {
+    public CompletableFuture<ApiResponse<List<UnmanagedWallet>>> getInternalWallets() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getInternalWalletsRequestBuilder();
             return memberVarHttpClient
@@ -646,7 +723,17 @@ public class InternalWalletsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<UnmanagedWallet>>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -680,12 +767,13 @@ public class InternalWalletsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> setCustomerRefIdForInternalWallet(
-            SetCustomerRefIdRequest setCustomerRefIdRequest, String walletId, String idempotencyKey)
-            throws ApiException {
+            SetCustomerRefIdRequest setCustomerRefIdRequest,
+            String walletId,
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setCustomerRefIdForInternalWalletRequestBuilder(
@@ -708,7 +796,14 @@ public class InternalWalletsApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

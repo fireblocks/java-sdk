@@ -55,6 +55,7 @@
 |**index** | **BigDecimal** | For UTXO based assets this is the vOut, for Ethereum based, this is the index of the event of the contract call.  **Note:** This field is not returned if a transaction uses the &#x60;destinations&#x60; object with more than one value. |  [optional] |
 |**rewardInfo** | [**RewardInfo**](RewardInfo.md) |  |  [optional] |
 |**feePayerInfo** | [**FeePayerInfo**](FeePayerInfo.md) |  |  [optional] |
+|**gaslessInfo** | [**GaslessInfo**](GaslessInfo.md) |  |  [optional] |
 |**systemMessages** | [**List&lt;SystemMessageInfo&gt;**](SystemMessageInfo.md) |  |  [optional] |
 |**addressType** | [**AddressTypeEnum**](#AddressTypeEnum) |  |  [optional] |
 |**requestedAmount** | **BigDecimal** | The amount requested by the user. Deprecated - please use the &#x60;amountInfo&#x60; field for accuracy. |  [optional] |

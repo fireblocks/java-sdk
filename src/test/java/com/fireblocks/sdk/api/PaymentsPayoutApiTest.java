@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreatePayoutRequest;
 import com.fireblocks.sdk.model.DispatchPayoutResponse;
@@ -44,11 +43,9 @@ public class PaymentsPayoutApiTest {
      * about Fireblocks Payments - Payouts in the following
      * [guide](https://developers.fireblocks.com/docs/create-payouts). Endpoint Permission: Admin,
      * Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createPayoutTest() throws ApiException {
+    public void createPayoutTest() {
         CreatePayoutRequest createPayoutRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<PayoutResponse>> response =
@@ -67,11 +64,9 @@ public class PaymentsPayoutApiTest {
      * you are executing a payout instruction set from a payment account with an already active
      * payout the active payout will complete before the new payout instruction set can be executed.
      * You cannot execute the same payout instruction set more than once.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void executePayoutActionTest() throws ApiException {
+    public void executePayoutActionTest() {
         String payoutId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<DispatchPayoutResponse>> response =
@@ -87,11 +82,9 @@ public class PaymentsPayoutApiTest {
      * changes. If you want to learn more about Fireblocks Payments Engine, please contact your
      * Fireblocks Customer Success Manager or email CSM@fireblocks.com. Endpoint Permission: Admin,
      * Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getPayoutTest() throws ApiException {
+    public void getPayoutTest() {
         String payoutId = null;
         CompletableFuture<ApiResponse<PayoutResponse>> response = api.getPayout(payoutId);
     }

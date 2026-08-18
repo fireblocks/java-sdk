@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.SmartTransferApproveTerm;
 import com.fireblocks.sdk.model.SmartTransferCreateTicket;
@@ -49,11 +48,9 @@ public class SmartTransferApiTest {
      *
      * <p>Set funding source for ticket term and creating approving transaction for contract to
      * transfer asset
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void approveDvPTicketTermTest() throws ApiException {
+    public void approveDvPTicketTermTest() {
         SmartTransferApproveTerm smartTransferApproveTerm = null;
         String ticketId = null;
         String termId = null;
@@ -68,11 +65,9 @@ public class SmartTransferApiTest {
      *
      * <p>Cancel Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer,
      * Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void cancelTicketTest() throws ApiException {
+    public void cancelTicketTest() {
         String ticketId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response =
@@ -87,11 +82,9 @@ public class SmartTransferApiTest {
      * &#x60;DVP&#x60; value is in Early Access and should only be used if Fireblocks has enabled it
      * in your workspace. Contact your Customer Success Manager for more information. **Endpoint
      * Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createTicketTest() throws ApiException {
+    public void createTicketTest() {
         SmartTransferCreateTicket smartTransferCreateTicket = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response =
@@ -105,11 +98,9 @@ public class SmartTransferApiTest {
      * Fireblocks Smart Transfers in the following
      * [guide](https://developers.fireblocks.com/docs/execute-smart-transfers). Endpoint Permission:
      * Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createTicketTermTest() throws ApiException {
+    public void createTicketTermTest() {
         SmartTransferCreateTicketTerm smartTransferCreateTicketTerm = null;
         String ticketId = null;
         String idempotencyKey = null;
@@ -122,11 +113,9 @@ public class SmartTransferApiTest {
      *
      * <p>Find Smart Transfer ticket by id. Endpoint Permission: Admin, Non-Signing Admin, Signer,
      * Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void findTicketByIdTest() throws ApiException {
+    public void findTicketByIdTest() {
         String ticketId = null;
         CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response =
                 api.findTicketById(ticketId);
@@ -137,11 +126,9 @@ public class SmartTransferApiTest {
      *
      * <p>Find a specific term of a specific Smart Transfer ticket. Endpoint Permission: Admin,
      * Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void findTicketTermByIdTest() throws ApiException {
+    public void findTicketTermByIdTest() {
         String ticketId = null;
         String termId = null;
         CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response =
@@ -153,11 +140,9 @@ public class SmartTransferApiTest {
      *
      * <p>Manually fulfill ticket, in case when all terms (legs) are funded manually. Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void fulfillTicketTest() throws ApiException {
+    public void fulfillTicketTest() {
         String ticketId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response =
@@ -168,11 +153,9 @@ public class SmartTransferApiTest {
      * Fund dvp ticket
      *
      * <p>Create or fulfill dvp ticket order
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void fundDvpTicketTest() throws ApiException {
+    public void fundDvpTicketTest() {
         SmartTransferFundDvpTicket smartTransferFundDvpTicket = null;
         String ticketId = null;
         String idempotencyKey = null;
@@ -185,11 +168,9 @@ public class SmartTransferApiTest {
      *
      * <p>Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer
      * immediately). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void fundTicketTermTest() throws ApiException {
+    public void fundTicketTermTest() {
         SmartTransferFundTerm smartTransferFundTerm = null;
         String ticketId = null;
         String termId = null;
@@ -202,11 +183,9 @@ public class SmartTransferApiTest {
      * Get smart transfers statistic
      *
      * <p>Get smart transfer statistic
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getSmartTransferStatisticTest() throws ApiException {
+    public void getSmartTransferStatisticTest() {
         CompletableFuture<ApiResponse<SmartTransferStatistic>> response =
                 api.getSmartTransferStatistic();
     }
@@ -216,11 +195,9 @@ public class SmartTransferApiTest {
      *
      * <p>Get Smart Transfer user groups. Endpoint Permission: Admin, Non-Signing Admin, Signer,
      * Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getSmartTransferUserGroupsTest() throws ApiException {
+    public void getSmartTransferUserGroupsTest() {
         CompletableFuture<ApiResponse<SmartTransferUserGroupsResponse>> response =
                 api.getSmartTransferUserGroups();
     }
@@ -230,11 +207,9 @@ public class SmartTransferApiTest {
      *
      * <p>Manually set ticket term transaction. Endpoint Permission: Admin, Non-Signing Admin,
      * Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void manuallyFundTicketTermTest() throws ApiException {
+    public void manuallyFundTicketTermTest() {
         SmartTransferManuallyFundTerm smartTransferManuallyFundTerm = null;
         String ticketId = null;
         String termId = null;
@@ -248,11 +223,9 @@ public class SmartTransferApiTest {
      * Delete ticket leg (term)
      *
      * <p>Delete ticket term when ticket is in DRAFT status
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void removeTicketTermTest() throws ApiException {
+    public void removeTicketTermTest() {
         String ticketId = null;
         String termId = null;
 
@@ -265,11 +238,9 @@ public class SmartTransferApiTest {
      * <p>Find tickets by their title or ticker. You can also query all tickets without filters by
      * not providing any input parameters. **Endpoint Permissions:** Admin, Non-Signing Admin,
      * Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void searchTicketsTest() throws ApiException {
+    public void searchTicketsTest() {
         String q = null;
         List<String> statuses = null;
         String networkId = null;
@@ -303,11 +274,9 @@ public class SmartTransferApiTest {
      *
      * <p>Set external id Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin,
      * Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setExternalRefIdTest() throws ApiException {
+    public void setExternalRefIdTest() {
         SmartTransferSetTicketExternalId smartTransferSetTicketExternalId = null;
         String ticketId = null;
         String idempotencyKey = null;
@@ -320,11 +289,9 @@ public class SmartTransferApiTest {
      *
      * <p>Set expiration date on Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing
      * Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setTicketExpirationTest() throws ApiException {
+    public void setTicketExpirationTest() {
         SmartTransferSetTicketExpiration smartTransferSetTicketExpiration = null;
         String ticketId = null;
         String idempotencyKey = null;
@@ -337,11 +304,9 @@ public class SmartTransferApiTest {
      *
      * <p>Set Smart Transfers user group to receive email notifications for Smart Transfers.
      * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setUserGroupsTest() throws ApiException {
+    public void setUserGroupsTest() {
         SmartTransferSetUserGroups smartTransferSetUserGroups = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<SmartTransferUserGroupsResponse>> response =
@@ -354,11 +319,9 @@ public class SmartTransferApiTest {
      * <p>Submit Smart Transfer ticket - change status into ready for approval if auto approval is
      * not turned on, or OPEN if auto approval is on. Endpoint Permission: Admin, Non-Signing Admin,
      * Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void submitTicketTest() throws ApiException {
+    public void submitTicketTest() {
         SmartTransferSubmitTicket smartTransferSubmitTicket = null;
         String ticketId = null;
         String idempotencyKey = null;
@@ -370,11 +333,9 @@ public class SmartTransferApiTest {
      * Update ticket leg (term)
      *
      * <p>Update ticket term (when ticket status is DRAFT)
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateTicketTermTest() throws ApiException {
+    public void updateTicketTermTest() {
         SmartTransferUpdateTicketTerm smartTransferUpdateTicketTerm = null;
         String ticketId = null;
         String termId = null;

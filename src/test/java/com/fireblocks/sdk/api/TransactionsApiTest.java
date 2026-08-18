@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CancelTransactionResponse;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
@@ -46,11 +45,9 @@ public class TransactionsApiTest {
      * <p>Cancels a transaction by Fireblocks Transaction ID. Can be used only for transactions that
      * did not get to the BROADCASTING state. Endpoint Permission: Admin, Non-Signing Admin, Signer,
      * Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void cancelTransactionTest() throws ApiException {
+    public void cancelTransactionTest() {
         String txId = null;
         UUID xEndUserWalletId = null;
         String idempotencyKey = null;
@@ -66,11 +63,9 @@ public class TransactionsApiTest {
      * &#x60;assetId&#x60;, &#x60;source&#x60;, &#x60;destination&#x60; and &#x60;amount&#x60;. -
      * For Contract Calls, the required parameters are: &#x60;operation.CONTRACT_CALL&#x60;,
      * &#x60;assetId&#x60; (Base Asset), &#x60;source&#x60;,
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createTransactionTest() throws ApiException {
+    public void createTransactionTest() {
         TransactionRequest transactionRequest = null;
         UUID xEndUserWalletId = null;
         String idempotencyKey = null;
@@ -83,11 +78,9 @@ public class TransactionsApiTest {
      *
      * <p>Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount.
      * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void dropTransactionTest() throws ApiException {
+    public void dropTransactionTest() {
         String txId = null;
         DropTransactionRequest dropTransactionRequest = null;
         UUID xEndUserWalletId = null;
@@ -114,11 +107,9 @@ public class TransactionsApiTest {
      * the &#x60;networkFee&#x60; parameter. Learn more about Fireblocks Fee Management in the
      * following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee).
      * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void estimateNetworkFeeTest() throws ApiException {
+    public void estimateNetworkFeeTest() {
         String assetId = null;
         CompletableFuture<ApiResponse<EstimatedNetworkFeeResponse>> response =
                 api.estimateNetworkFee(assetId);
@@ -134,11 +125,9 @@ public class TransactionsApiTest {
      * calls is not available. Learn more about Fireblocks Fee Management in the following
      * [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint
      * Permission: Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void estimateTransactionFeeTest() throws ApiException {
+    public void estimateTransactionFeeTest() {
         TransactionRequest transactionRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<EstimatedTransactionFeeResponse>> response =
@@ -152,11 +141,9 @@ public class TransactionsApiTest {
      * should be quarantined. For account based assets - the entire amount of the transaction is
      * frozen For UTXO based assets - all UTXOs of the specified transaction are frozen Endpoint
      * Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void freezeTransactionTest() throws ApiException {
+    public void freezeTransactionTest() {
         String txId = null;
         UUID xEndUserWalletId = null;
         String idempotencyKey = null;
@@ -169,11 +156,9 @@ public class TransactionsApiTest {
      *
      * <p>Get a specific transaction data by Fireblocks Transaction ID Endpoint Permission: Admin,
      * Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTransactionTest() throws ApiException {
+    public void getTransactionTest() {
         String txId = null;
         CompletableFuture<ApiResponse<TransactionResponse>> response = api.getTransaction(txId);
     }
@@ -183,11 +168,9 @@ public class TransactionsApiTest {
      *
      * <p>Returns transaction by external transaction ID. Endpoint Permission: Admin, Non-Signing
      * Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTransactionByExternalIdTest() throws ApiException {
+    public void getTransactionByExternalIdTest() {
         String externalTxId = null;
         CompletableFuture<ApiResponse<TransactionResponse>> response =
                 api.getTransactionByExternalId(externalTxId);
@@ -198,11 +181,9 @@ public class TransactionsApiTest {
      *
      * <p>Get the transaction history for your workspace. **Endpoint Permissions:** Admin,
      * Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTransactionsTest() throws ApiException {
+    public void getTransactionsTest() {
         String next = null;
         String prev = null;
         String before = null;
@@ -244,11 +225,9 @@ public class TransactionsApiTest {
      *
      * <p>Overrides the required number of confirmations for transaction completion by transaction
      * hash. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setConfirmationThresholdByTransactionHashTest() throws ApiException {
+    public void setConfirmationThresholdByTransactionHashTest() {
         String txHash = null;
         SetConfirmationsThresholdRequest setConfirmationsThresholdRequest = null;
         String idempotencyKey = null;
@@ -262,11 +241,9 @@ public class TransactionsApiTest {
      *
      * <p>Overrides the required number of confirmations for transaction completion Fireblocks
      * Transaction ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setTransactionConfirmationThresholdTest() throws ApiException {
+    public void setTransactionConfirmationThresholdTest() {
         String txId = null;
         SetConfirmationsThresholdRequest setConfirmationsThresholdRequest = null;
         String idempotencyKey = null;
@@ -280,11 +257,9 @@ public class TransactionsApiTest {
      *
      * <p>Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available
      * again. Endpoint Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void unfreezeTransactionTest() throws ApiException {
+    public void unfreezeTransactionTest() {
         String txId = null;
         UUID xEndUserWalletId = null;
         String idempotencyKey = null;
@@ -297,11 +272,9 @@ public class TransactionsApiTest {
      *
      * <p>Checks if an address is valid and active (for XRP, DOT, XLM, and EOS). Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void validateAddressTest() throws ApiException {
+    public void validateAddressTest() {
         String assetId = null;
         String address = null;
         CompletableFuture<ApiResponse<ValidateAddressResponse>> response =

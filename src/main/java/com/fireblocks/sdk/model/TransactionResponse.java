@@ -75,6 +75,7 @@ import java.util.StringJoiner;
     TransactionResponse.JSON_PROPERTY_INDEX,
     TransactionResponse.JSON_PROPERTY_REWARD_INFO,
     TransactionResponse.JSON_PROPERTY_FEE_PAYER_INFO,
+    TransactionResponse.JSON_PROPERTY_GASLESS_INFO,
     TransactionResponse.JSON_PROPERTY_SYSTEM_MESSAGES,
     TransactionResponse.JSON_PROPERTY_ADDRESS_TYPE,
     TransactionResponse.JSON_PROPERTY_REQUESTED_AMOUNT,
@@ -240,6 +241,9 @@ public class TransactionResponse {
 
     public static final String JSON_PROPERTY_FEE_PAYER_INFO = "feePayerInfo";
     @jakarta.annotation.Nullable private FeePayerInfo feePayerInfo;
+
+    public static final String JSON_PROPERTY_GASLESS_INFO = "gaslessInfo";
+    @jakarta.annotation.Nullable private GaslessInfo gaslessInfo;
 
     public static final String JSON_PROPERTY_SYSTEM_MESSAGES = "systemMessages";
     @jakarta.annotation.Nullable private List<SystemMessageInfo> systemMessages;
@@ -1543,6 +1547,29 @@ public class TransactionResponse {
         this.feePayerInfo = feePayerInfo;
     }
 
+    public TransactionResponse gaslessInfo(@jakarta.annotation.Nullable GaslessInfo gaslessInfo) {
+        this.gaslessInfo = gaslessInfo;
+        return this;
+    }
+
+    /**
+     * Get gaslessInfo
+     *
+     * @return gaslessInfo
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_GASLESS_INFO)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public GaslessInfo getGaslessInfo() {
+        return gaslessInfo;
+    }
+
+    @JsonProperty(JSON_PROPERTY_GASLESS_INFO)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setGaslessInfo(@jakarta.annotation.Nullable GaslessInfo gaslessInfo) {
+        this.gaslessInfo = gaslessInfo;
+    }
+
     public TransactionResponse systemMessages(
             @jakarta.annotation.Nullable List<SystemMessageInfo> systemMessages) {
         this.systemMessages = systemMessages;
@@ -1942,6 +1969,7 @@ public class TransactionResponse {
                 && Objects.equals(this.index, transactionResponse.index)
                 && Objects.equals(this.rewardInfo, transactionResponse.rewardInfo)
                 && Objects.equals(this.feePayerInfo, transactionResponse.feePayerInfo)
+                && Objects.equals(this.gaslessInfo, transactionResponse.gaslessInfo)
                 && Objects.equals(this.systemMessages, transactionResponse.systemMessages)
                 && Objects.equals(this.addressType, transactionResponse.addressType)
                 && Objects.equals(this.requestedAmount, transactionResponse.requestedAmount)
@@ -2008,6 +2036,7 @@ public class TransactionResponse {
                 index,
                 rewardInfo,
                 feePayerInfo,
+                gaslessInfo,
                 systemMessages,
                 addressType,
                 requestedAmount,
@@ -2097,6 +2126,7 @@ public class TransactionResponse {
         sb.append("    index: ").append(toIndentedString(index)).append("\n");
         sb.append("    rewardInfo: ").append(toIndentedString(rewardInfo)).append("\n");
         sb.append("    feePayerInfo: ").append(toIndentedString(feePayerInfo)).append("\n");
+        sb.append("    gaslessInfo: ").append(toIndentedString(gaslessInfo)).append("\n");
         sb.append("    systemMessages: ").append(toIndentedString(systemMessages)).append("\n");
         sb.append("    addressType: ").append(toIndentedString(addressType)).append("\n");
         sb.append("    requestedAmount: ").append(toIndentedString(requestedAmount)).append("\n");
@@ -2646,6 +2676,11 @@ public class TransactionResponse {
         // add `feePayerInfo` to the URL query string
         if (getFeePayerInfo() != null) {
             joiner.add(getFeePayerInfo().toUrlQueryString(prefix + "feePayerInfo" + suffix));
+        }
+
+        // add `gaslessInfo` to the URL query string
+        if (getGaslessInfo() != null) {
+            joiner.add(getGaslessInfo().toUrlQueryString(prefix + "gaslessInfo" + suffix));
         }
 
         // add `systemMessages` to the URL query string

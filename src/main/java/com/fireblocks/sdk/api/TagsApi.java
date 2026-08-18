@@ -38,7 +38,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -74,6 +77,28 @@ public class TagsApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -90,11 +115,11 @@ public class TagsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Tag&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Tag&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Tag>> createTag(
-            CreateTagRequest createTagRequest, String idempotencyKey) throws ApiException {
+            CreateTagRequest createTagRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createTagRequestBuilder(createTagRequest, idempotencyKey);
@@ -123,7 +148,14 @@ public class TagsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Tag>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -166,10 +198,10 @@ public class TagsApi {
      * Approver.
      *
      * @param tagId The ID of the tag to retrieve (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Void>> deleteTag(UUID tagId) throws ApiException {
+    public CompletableFuture<ApiResponse<Void>> deleteTag(UUID tagId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = deleteTagRequestBuilder(tagId);
             return memberVarHttpClient
@@ -188,7 +220,14 @@ public class TagsApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -219,11 +258,10 @@ public class TagsApi {
      * Get an approval request by id Get an approval request by id
      *
      * @param id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ApprovalRequest&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ApprovalRequest&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<ApprovalRequest>> getApprovalRequest(String id)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<ApprovalRequest>> getApprovalRequest(String id) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getApprovalRequestRequestBuilder(id);
             return memberVarHttpClient
@@ -253,7 +291,15 @@ public class TagsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ApprovalRequest>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -284,10 +330,10 @@ public class TagsApi {
      * Get a tag Retrieve an existing tag by ID.
      *
      * @param tagId The ID of the tag to retrieve (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Tag&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Tag&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Tag>> getTag(UUID tagId) throws ApiException {
+    public CompletableFuture<ApiResponse<Tag>> getTag(UUID tagId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getTagRequestBuilder(tagId);
             return memberVarHttpClient
@@ -315,7 +361,14 @@ public class TagsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Tag>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -355,8 +408,8 @@ public class TagsApi {
      * @param type Filter by tag type (optional
      * @param allowedEntityType Filter tags whose allow-list contains this entity type. Known
      *     values: vault_account, contact. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TagsPagedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TagsPagedResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TagsPagedResponse>> getTags(
             String pageCursor,
@@ -366,8 +419,7 @@ public class TagsApi {
             Boolean includePendingApprovalsInfo,
             Boolean isProtected,
             List<TagType> type,
-            String allowedEntityType)
-            throws ApiException {
+            String allowedEntityType) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTagsRequestBuilder(
@@ -405,7 +457,15 @@ public class TagsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TagsPagedResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -482,12 +542,11 @@ public class TagsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Tag&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Tag&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Tag>> updateTag(
-            UpdateTagRequest updateTagRequest, UUID tagId, String idempotencyKey)
-            throws ApiException {
+            UpdateTagRequest updateTagRequest, UUID tagId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateTagRequestBuilder(updateTagRequest, tagId, idempotencyKey);
@@ -516,7 +575,14 @@ public class TagsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Tag>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

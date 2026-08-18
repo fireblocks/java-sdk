@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.GetMpcKeysResponse;
 import java.util.concurrent.CompletableFuture;
@@ -32,11 +31,9 @@ public class KeysBetaApiTest {
      * <p>Returns a list of MPC signing keys of the workspace. For each key, the list of players
      * associated with it is attached. **Note:** This endpoint is currently in beta and might be
      * subject to changes.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getMpcKeysListTest() throws ApiException {
+    public void getMpcKeysListTest() {
         CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = api.getMpcKeysList();
     }
 
@@ -46,11 +43,9 @@ public class KeysBetaApiTest {
      * <p>Returns a list of MPC signing keys of a specific user. For each key, the list of players
      * associated with it is attached. **Note:** This endpoint is currently in beta and might be
      * subject to changes.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getMpcKeysListByUserTest() throws ApiException {
+    public void getMpcKeysListByUserTest() {
         String userId = null;
         CompletableFuture<ApiResponse<GetMpcKeysResponse>> response =
                 api.getMpcKeysListByUser(userId);

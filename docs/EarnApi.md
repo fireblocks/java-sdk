@@ -57,12 +57,6 @@ public class Example {
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling EarnApi#approveTermsOfService");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
         }
     }
 }
@@ -145,12 +139,6 @@ public class Example {
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling EarnApi#createEarnAction");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
             e.printStackTrace();
         }
     }
@@ -235,12 +223,6 @@ public class Example {
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling EarnApi#getEarnAction");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
         }
     }
 }
@@ -324,12 +306,6 @@ public class Example {
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling EarnApi#getEarnActions");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
             e.printStackTrace();
         }
     }
@@ -417,12 +393,6 @@ public class Example {
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling EarnApi#getEarnOpportunities");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
             e.printStackTrace();
         }
     }
@@ -513,12 +483,6 @@ public class Example {
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
             e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling EarnApi#getEarnPositions");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
-            e.printStackTrace();
         }
     }
 }
@@ -607,12 +571,6 @@ public class Example {
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        } catch (ApiException e) {
-            System.err.println("Exception when calling EarnApi#getEarnProviders");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            System.err.println("Reason: " + e.getResponseBody());
             e.printStackTrace();
         }
     }

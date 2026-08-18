@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AccessRegistryCurrentStateResponse;
 import com.fireblocks.sdk.model.AccessRegistrySummaryResponse;
@@ -72,11 +71,9 @@ public class TokenizationApiTest {
      * Burn tokens
      *
      * <p>Burn tokens in a collection
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void burnCollectionTokenTest() throws ApiException {
+    public void burnCollectionTokenTest() {
         CollectionBurnRequestDto collectionBurnRequestDto = null;
         String id = null;
         String idempotencyKey = null;
@@ -89,11 +86,9 @@ public class TokenizationApiTest {
      *
      * <p>Create a new collection and link it as a token. Endpoint Permission: Owner, Admin,
      * Non-Signing Admin, Signer, and Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createNewCollectionTest() throws ApiException {
+    public void createNewCollectionTest() {
         CollectionDeployRequestDto collectionDeployRequestDto = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<CollectionLinkDto>> response =
@@ -105,11 +100,9 @@ public class TokenizationApiTest {
      *
      * <p>Remove LayerZero adapters by deactivating and unlinking them. This endpoint revokes roles
      * and deactivates the specified adapter contracts.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deactivateAndUnlinkAdaptersTest() throws ApiException {
+    public void deactivateAndUnlinkAdaptersTest() {
         RemoveLayerZeroAdaptersRequest removeLayerZeroAdaptersRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<RemoveLayerZeroAdaptersResponse>> response =
@@ -121,11 +114,9 @@ public class TokenizationApiTest {
      *
      * <p>Deploy LayerZero adapters for multichain token bridging functionality. This endpoint
      * creates adapter contracts that enable cross-chain token transfers.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deployAndLinkAdaptersTest() throws ApiException {
+    public void deployAndLinkAdaptersTest() {
         DeployLayerZeroAdaptersRequest deployLayerZeroAdaptersRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<List<AdapterProcessingResult>>> response =
@@ -136,11 +127,9 @@ public class TokenizationApiTest {
      * Get collection token details
      *
      * <p>Get collection token details by id
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void fetchCollectionTokenDetailsTest() throws ApiException {
+    public void fetchCollectionTokenDetailsTest() {
         String id = null;
         String tokenId = null;
         CompletableFuture<ApiResponse<CollectionLinkDto>> response =
@@ -151,11 +140,9 @@ public class TokenizationApiTest {
      * Get a collection by id
      *
      * <p>Get a collection by id
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getCollectionByIdTest() throws ApiException {
+    public void getCollectionByIdTest() {
         String id = null;
         CompletableFuture<ApiResponse<CollectionLinkDto>> response = api.getCollectionById(id);
     }
@@ -166,11 +153,9 @@ public class TokenizationApiTest {
      * <p>Get a deterministic address for contract deployment. The address is derived from the
      * contract&#39;s bytecode and provided salt. This endpoint is used to get the address of a
      * contract that will be deployed in the future.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getDeployableAddressTest() throws ApiException {
+    public void getDeployableAddressTest() {
         GetDeployableAddressRequest getDeployableAddressRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<DeployableAddressResponse>> response =
@@ -182,11 +167,9 @@ public class TokenizationApiTest {
      *
      * <p>Retrieve the DVN (Data Verification Network) configuration for a specific adapter. Returns
      * DVN configurations for channels between the source adapter and its peers.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getLayerZeroDvnConfigTest() throws ApiException {
+    public void getLayerZeroDvnConfigTest() {
         UUID adapterTokenLinkId = null;
         UUID peerAdapterTokenLinkId = null;
         CompletableFuture<ApiResponse<GetLayerZeroDvnConfigResponse>> response =
@@ -198,11 +181,9 @@ public class TokenizationApiTest {
      *
      * <p>Retrieve the LayerZero peers configured for a specific adapter. Returns information about
      * peer relationships for cross-chain communication.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getLayerZeroPeersTest() throws ApiException {
+    public void getLayerZeroPeersTest() {
         UUID adapterTokenLinkId = null;
         CompletableFuture<ApiResponse<GetLayerZeroPeersResponse>> response =
                 api.getLayerZeroPeers(adapterTokenLinkId);
@@ -213,11 +194,9 @@ public class TokenizationApiTest {
      *
      * <p>Get collections (paginated). Endpoint Permission: Admin, Non-Signing Admin, Signer,
      * Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getLinkedCollectionsTest() throws ApiException {
+    public void getLinkedCollectionsTest() {
         String pageCursor = null;
         BigDecimal pageSize = null;
         Object status = null;
@@ -229,11 +208,9 @@ public class TokenizationApiTest {
      * Return a linked token
      *
      * <p>Return a linked token, with its status and metadata.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getLinkedTokenTest() throws ApiException {
+    public void getLinkedTokenTest() {
         String id = null;
         CompletableFuture<ApiResponse<TokenLinkDto>> response = api.getLinkedToken(id);
     }
@@ -242,11 +219,9 @@ public class TokenizationApiTest {
      * List all linked tokens
      *
      * <p>Return all linked tokens (paginated)
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getLinkedTokensTest() throws ApiException {
+    public void getLinkedTokensTest() {
         String pageCursor = null;
         BigDecimal pageSize = null;
         Object status = null;
@@ -258,11 +233,9 @@ public class TokenizationApiTest {
      * Get the total count of linked tokens
      *
      * <p>Get the total count of linked tokens
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getLinkedTokensCountTest() throws ApiException {
+    public void getLinkedTokensCountTest() {
         CompletableFuture<ApiResponse<LinkedTokensCount>> response = api.getLinkedTokensCount();
     }
 
@@ -270,11 +243,9 @@ public class TokenizationApiTest {
      * Get current state of addresses in an access registry
      *
      * <p>Returns the currently active addresses in the access registry (added but not removed).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTokenAccessRegistryAddressesTest() throws ApiException {
+    public void getTokenAccessRegistryAddressesTest() {
         String id = null;
         String pageCursor = null;
         Integer pageSize = null;
@@ -288,11 +259,9 @@ public class TokenizationApiTest {
      * Get summary of an access registry
      *
      * <p>Returns a summary of the current state of the access registry.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTokenAccessRegistrySummaryTest() throws ApiException {
+    public void getTokenAccessRegistrySummaryTest() {
         String id = null;
         CompletableFuture<ApiResponse<AccessRegistrySummaryResponse>> response =
                 api.getTokenAccessRegistrySummary(id);
@@ -302,11 +271,9 @@ public class TokenizationApiTest {
      * Get the latest balance for a specific account
      *
      * <p>Returns the latest token balance for the specified account address.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTokenBalanceForAccountTest() throws ApiException {
+    public void getTokenBalanceForAccountTest() {
         String id = null;
         String accountAddress = null;
         CompletableFuture<ApiResponse<AddressBalanceItemDto>> response =
@@ -318,11 +285,9 @@ public class TokenizationApiTest {
      *
      * <p>Returns paginated balance history for the specified account address with optional
      * time-range filtering.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTokenBalanceHistoryTest() throws ApiException {
+    public void getTokenBalanceHistoryTest() {
         String id = null;
         String accountAddress = null;
         OffsetDateTime startDate = null;
@@ -349,11 +314,9 @@ public class TokenizationApiTest {
      * Get latest balances for all holders of a token
      *
      * <p>Returns the latest balance for each unique address holding this token.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTokenBalancesTest() throws ApiException {
+    public void getTokenBalancesTest() {
         String id = null;
         String pageCursor = null;
         Integer pageSize = null;
@@ -367,11 +330,9 @@ public class TokenizationApiTest {
      * Get onchain summary for a token
      *
      * <p>Returns the total number of unique holders and the total supply for the token contract.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTokenContractSummaryTest() throws ApiException {
+    public void getTokenContractSummaryTest() {
         String id = null;
         CompletableFuture<ApiResponse<TokenContractSummaryResponse>> response =
                 api.getTokenContractSummary(id);
@@ -381,11 +342,9 @@ public class TokenizationApiTest {
      * Get active RBAC roles for a token
      *
      * <p>Returns a list of currently active roles for the token contract.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTokenRbacTest() throws ApiException {
+    public void getTokenRbacTest() {
         String id = null;
         CompletableFuture<ApiResponse<ActiveRolesResponse>> response = api.getTokenRbac(id);
     }
@@ -395,11 +354,9 @@ public class TokenizationApiTest {
      *
      * <p>Returns paginated total supply history for the token contract with optional time-range
      * filtering and binning.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTokenTotalSupplyTest() throws ApiException {
+    public void getTokenTotalSupplyTest() {
         String id = null;
         OffsetDateTime startDate = null;
         OffsetDateTime endDate = null;
@@ -418,11 +375,9 @@ public class TokenizationApiTest {
      *
      * <p>Returns a paginated list of onchain transactions for the token contract, optionally
      * filtered by date range.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTokenTransactionsTest() throws ApiException {
+    public void getTokenTransactionsTest() {
         String id = null;
         OffsetDateTime startDate = null;
         OffsetDateTime endDate = null;
@@ -440,11 +395,9 @@ public class TokenizationApiTest {
      *
      * <p>Returns a paginated list of ERC20 transfer events for the token contract, optionally
      * filtered by date range.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTokenTransfersTest() throws ApiException {
+    public void getTokenTransfersTest() {
         String id = null;
         OffsetDateTime startDate = null;
         OffsetDateTime endDate = null;
@@ -476,11 +429,9 @@ public class TokenizationApiTest {
      * to the workspace without deploying a contract. Returns the token link with status
      * \&quot;PENDING\&quot; until the token is deployed or \&quot;SUCCESS\&quot; if no deployment
      * is needed. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void issueNewTokenTest() throws ApiException {
+    public void issueNewTokenTest() {
         CreateTokenRequestDto createTokenRequestDto = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<TokenLinkDto>> response =
@@ -491,11 +442,9 @@ public class TokenizationApiTest {
      * Issue a token on one or more blockchains
      *
      * <p>Facilitates the creation of a new token on one or more blockchains.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void issueTokenMultiChainTest() throws ApiException {
+    public void issueTokenMultiChainTest() {
         CreateMultichainTokenRequest createMultichainTokenRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<List<TokenLinkDto>>> response =
@@ -506,11 +455,9 @@ public class TokenizationApiTest {
      * Link a contract
      *
      * <p>Link an a contract
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void linkTest() throws ApiException {
+    public void linkTest() {
         TokenLinkRequestDto tokenLinkRequestDto = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<TokenLinkDto>> response =
@@ -521,11 +468,9 @@ public class TokenizationApiTest {
      * Mint tokens
      *
      * <p>Mint tokens and upload metadata
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void mintCollectionTokenTest() throws ApiException {
+    public void mintCollectionTokenTest() {
         CollectionMintRequestDto collectionMintRequestDto = null;
         String id = null;
         String idempotencyKey = null;
@@ -538,11 +483,9 @@ public class TokenizationApiTest {
      *
      * <p>Reissue a multichain token. This endpoint allows you to reissue a token on one or more
      * blockchains. The token must be initially issued using the issueTokenMultiChain endpoint.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void reIssueTokenMultiChainTest() throws ApiException {
+    public void reIssueTokenMultiChainTest() {
         ReissueMultichainTokenRequest reissueMultichainTokenRequest = null;
         String tokenLinkId = null;
         String idempotencyKey = null;
@@ -556,11 +499,9 @@ public class TokenizationApiTest {
      *
      * <p>Remove LayerZero peers to disconnect adapter contracts. This endpoint removes peer
      * relationships between LayerZero adapters.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void removeLayerZeroPeersTest() throws ApiException {
+    public void removeLayerZeroPeersTest() {
         RemoveLayerZeroPeersRequest removeLayerZeroPeersRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<RemoveLayerZeroPeersResponse>> response =
@@ -572,11 +513,9 @@ public class TokenizationApiTest {
      *
      * <p>Configure DVN settings for LayerZero adapters. This endpoint sets up the DVN configuration
      * for message verification between source and destination adapters.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setLayerZeroDvnConfigTest() throws ApiException {
+    public void setLayerZeroDvnConfigTest() {
         SetLayerZeroDvnConfigRequest setLayerZeroDvnConfigRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<SetLayerZeroDvnConfigResponse>> response =
@@ -590,11 +529,9 @@ public class TokenizationApiTest {
      * creates peer relationships that enable cross-chain communication. It sets the destination
      * adapter as a peer of the source adapter. If &#x60;bidirectional&#x60; is true, it also sets
      * the source adapter as a peer of the destination adapter(s).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setLayerZeroPeersTest() throws ApiException {
+    public void setLayerZeroPeersTest() {
         SetLayerZeroPeersRequest setLayerZeroPeersRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<SetLayerZeroPeersResponse>> response =
@@ -606,11 +543,9 @@ public class TokenizationApiTest {
      *
      * <p>Unlink a token. The token will be unlinked from the workspace. The token will not be
      * deleted on chain nor the refId, only the link to the workspace will be removed.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void unlinkTest() throws ApiException {
+    public void unlinkTest() {
         String id = null;
 
         CompletableFuture<ApiResponse<Void>> response = api.unlink(id);
@@ -620,11 +555,9 @@ public class TokenizationApiTest {
      * Delete a collection link
      *
      * <p>Delete a collection link
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void unlinkCollectionTest() throws ApiException {
+    public void unlinkCollectionTest() {
         String id = null;
 
         CompletableFuture<ApiResponse<Void>> response = api.unlinkCollection(id);
@@ -635,11 +568,9 @@ public class TokenizationApiTest {
      *
      * <p>Validate the LayerZero channel configuration between adapters. This endpoint checks if the
      * channel configuration is correct and returns any validation errors.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void validateLayerZeroChannelConfigTest() throws ApiException {
+    public void validateLayerZeroChannelConfigTest() {
         UUID adapterTokenLinkId = null;
         UUID peerAdapterTokenLinkId = null;
         CompletableFuture<ApiResponse<ValidateLayerZeroChannelResponse>> response =

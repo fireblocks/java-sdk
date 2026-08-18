@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateUserGroupResponse;
 import com.fireblocks.sdk.model.UserGroupCreateRequest;
@@ -36,11 +35,9 @@ public class UserGroupsBetaApiTest {
      *
      * <p>Create a new user group. Users with the Viewer role cannot be added to groups. Endpoint
      * Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createUserGroupTest() throws ApiException {
+    public void createUserGroupTest() {
         UserGroupCreateRequest userGroupCreateRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<CreateUserGroupResponse>> response =
@@ -53,11 +50,9 @@ public class UserGroupsBetaApiTest {
      * <p>Delete a user group by ID. **Note**: - This endpoint is now in Beta, disabled for general
      * availability at this time. - Please note that this endpoint is available only for API keys
      * with Admin permissions.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteUserGroupTest() throws ApiException {
+    public void deleteUserGroupTest() {
         String groupId = null;
 
         CompletableFuture<ApiResponse<Void>> response = api.deleteUserGroup(groupId);
@@ -69,11 +64,9 @@ public class UserGroupsBetaApiTest {
      * <p>Get a user group by ID. **Note**: - This endpoint is now in Beta, disabled for general
      * availability at this time. - Please note that this endpoint is available only for API keys
      * with Admin permissions.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getUserGroupTest() throws ApiException {
+    public void getUserGroupTest() {
         String groupId = null;
         CompletableFuture<ApiResponse<UserGroupResponse>> response = api.getUserGroup(groupId);
     }
@@ -84,11 +77,9 @@ public class UserGroupsBetaApiTest {
      * <p>Get all user groups in your workspace - Please note that this endpoint is available only
      * for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin,
      * Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getUserGroupsTest() throws ApiException {
+    public void getUserGroupsTest() {
         CompletableFuture<ApiResponse<List<UserGroupResponse>>> response = api.getUserGroups();
     }
 
@@ -98,11 +89,9 @@ public class UserGroupsBetaApiTest {
      * <p>Update a user group by ID. **Note**: - This endpoint is now in Beta, disabled for general
      * availability at this time. - Please note that this endpoint is available only for API keys
      * with Admin permissions.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateUserGroupTest() throws ApiException {
+    public void updateUserGroupTest() {
         UserGroupUpdateRequest userGroupUpdateRequest = null;
         String groupId = null;
         String idempotencyKey = null;

@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.DepositFundsFromLinkedDDAResponse;
 import com.fireblocks.sdk.model.FiatAccount;
@@ -34,11 +33,9 @@ public class FiatAccountsApiTest {
      * Deposit funds from DDA
      *
      * <p>Deposits funds from the linked DDA.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void depositFundsFromLinkedDDATest() throws ApiException {
+    public void depositFundsFromLinkedDDATest() {
         String accountId = null;
         Funds funds = null;
         String idempotencyKey = null;
@@ -50,11 +47,9 @@ public class FiatAccountsApiTest {
      * Find a specific fiat account
      *
      * <p>Returns a fiat account by ID. Endpoint Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getFiatAccountTest() throws ApiException {
+    public void getFiatAccountTest() {
         String accountId = null;
         CompletableFuture<ApiResponse<FiatAccount>> response = api.getFiatAccount(accountId);
     }
@@ -63,11 +58,9 @@ public class FiatAccountsApiTest {
      * List fiat accounts
      *
      * <p>Returns all fiat accounts. Endpoint Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getFiatAccountsTest() throws ApiException {
+    public void getFiatAccountsTest() {
         CompletableFuture<ApiResponse<List<FiatAccount>>> response = api.getFiatAccounts();
     }
 
@@ -75,11 +68,9 @@ public class FiatAccountsApiTest {
      * Redeem funds to DDA
      *
      * <p>Redeems funds to the linked DDA.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void redeemFundsToLinkedDDATest() throws ApiException {
+    public void redeemFundsToLinkedDDATest() {
         String accountId = null;
         Funds funds = null;
         String idempotencyKey = null;

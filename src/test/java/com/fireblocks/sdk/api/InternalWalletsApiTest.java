@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateInternalWalletAssetRequest;
 import com.fireblocks.sdk.model.CreateWalletRequest;
@@ -39,11 +38,9 @@ public class InternalWalletsApiTest {
      * <p>Creates a new internal wallet with the requested name. Learn more about Whitelisted
      * Internal Addresses
      * [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createInternalWalletTest() throws ApiException {
+    public void createInternalWalletTest() {
         CreateWalletRequest createWalletRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<UnmanagedWallet>> response =
@@ -54,11 +51,9 @@ public class InternalWalletsApiTest {
      * Add an asset to an internal wallet
      *
      * <p>Adds an asset to an existing internal wallet.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createInternalWalletAssetTest() throws ApiException {
+    public void createInternalWalletAssetTest() {
         String walletId = null;
         String assetId = null;
         CreateInternalWalletAssetRequest createInternalWalletAssetRequest = null;
@@ -72,11 +67,9 @@ public class InternalWalletsApiTest {
      * Delete an internal wallet
      *
      * <p>Deletes an internal wallet by ID.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteInternalWalletTest() throws ApiException {
+    public void deleteInternalWalletTest() {
         String walletId = null;
 
         CompletableFuture<ApiResponse<Void>> response = api.deleteInternalWallet(walletId);
@@ -86,11 +79,9 @@ public class InternalWalletsApiTest {
      * Delete a whitelisted address
      *
      * <p>Deletes a whitelisted address (for an asset) from an internal wallet.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteInternalWalletAssetTest() throws ApiException {
+    public void deleteInternalWalletAssetTest() {
         String walletId = null;
         String assetId = null;
 
@@ -102,11 +93,9 @@ public class InternalWalletsApiTest {
      * Get assets for internal wallet
      *
      * <p>Returns information for an internal wallet.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getInternalWalletTest() throws ApiException {
+    public void getInternalWalletTest() {
         String walletId = null;
         CompletableFuture<ApiResponse<UnmanagedWallet>> response = api.getInternalWallet(walletId);
     }
@@ -115,11 +104,9 @@ public class InternalWalletsApiTest {
      * Get an asset from an internal wallet
      *
      * <p>Returns information for an asset in an internal wallet.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getInternalWalletAssetTest() throws ApiException {
+    public void getInternalWalletAssetTest() {
         String walletId = null;
         String assetId = null;
         CompletableFuture<ApiResponse<WalletAsset>> response =
@@ -130,11 +117,9 @@ public class InternalWalletsApiTest {
      * List assets in an internal wallet (Paginated)
      *
      * <p>Returns a paginated response of assets in an internal wallet.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getInternalWalletAssetsPaginatedTest() throws ApiException {
+    public void getInternalWalletAssetsPaginatedTest() {
         String walletId = null;
         BigDecimal pageSize = null;
         String pageCursor = null;
@@ -146,11 +131,9 @@ public class InternalWalletsApiTest {
      * List internal wallets
      *
      * <p>Gets a list of internal wallets.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getInternalWalletsTest() throws ApiException {
+    public void getInternalWalletsTest() {
         CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = api.getInternalWallets();
     }
 
@@ -158,11 +141,9 @@ public class InternalWalletsApiTest {
      * Set an AML/KYT customer reference ID for internal wallet
      *
      * <p>Sets an AML/KYT customer reference ID for the specific internal wallet.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setCustomerRefIdForInternalWalletTest() throws ApiException {
+    public void setCustomerRefIdForInternalWalletTest() {
         SetCustomerRefIdRequest setCustomerRefIdRequest = null;
         String walletId = null;
         String idempotencyKey = null;

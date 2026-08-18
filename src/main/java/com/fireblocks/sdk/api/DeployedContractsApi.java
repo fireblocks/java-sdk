@@ -36,7 +36,10 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -72,6 +75,28 @@ public class DeployedContractsApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -86,11 +111,11 @@ public class DeployedContractsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ContractWithAbiDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ContractWithAbiDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ContractWithAbiDto>> addContractABI(
-            AddAbiRequestDto addAbiRequestDto, String idempotencyKey) throws ApiException {
+            AddAbiRequestDto addAbiRequestDto, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     addContractABIRequestBuilder(addAbiRequestDto, idempotencyKey);
@@ -120,7 +145,15 @@ public class DeployedContractsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ContractWithAbiDto>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -164,11 +197,11 @@ public class DeployedContractsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ContractWithAbiDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ContractWithAbiDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ContractWithAbiDto>> fetchContractAbi(
-            FetchAbiRequestDto fetchAbiRequestDto, String idempotencyKey) throws ApiException {
+            FetchAbiRequestDto fetchAbiRequestDto, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     fetchContractAbiRequestBuilder(fetchAbiRequestDto, idempotencyKey);
@@ -198,7 +231,15 @@ public class DeployedContractsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ContractWithAbiDto>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -242,11 +283,11 @@ public class DeployedContractsApi {
      *
      * @param contractAddress The contract&#39;s onchain address (required)
      * @param assetId (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;DeployedContractResponseDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;DeployedContractResponseDto&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<DeployedContractResponseDto>> getDeployedContractByAddress(
-            String contractAddress, String assetId) throws ApiException {
+            String contractAddress, String assetId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getDeployedContractByAddressRequestBuilder(contractAddress, assetId);
@@ -278,7 +319,17 @@ public class DeployedContractsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<DeployedContractResponseDto>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -317,11 +368,11 @@ public class DeployedContractsApi {
      * Return deployed contract data by id Return deployed contract data by id
      *
      * @param id The deployed contract data identifier (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;DeployedContractResponseDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;DeployedContractResponseDto&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<DeployedContractResponseDto>> getDeployedContractById(
-            String id) throws ApiException {
+            String id) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getDeployedContractByIdRequestBuilder(id);
             return memberVarHttpClient
@@ -351,7 +402,17 @@ public class DeployedContractsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<DeployedContractResponseDto>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -389,16 +450,15 @@ public class DeployedContractsApi {
      * @param contractAddress The contract&#39;s onchain address (optional)
      * @param baseAssetId (optional)
      * @param contractTemplateId (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;DeployedContractsPaginatedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;DeployedContractsPaginatedResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<DeployedContractsPaginatedResponse>> getDeployedContracts(
             String pageCursor,
             BigDecimal pageSize,
             String contractAddress,
             String baseAssetId,
-            String contractTemplateId)
-            throws ApiException {
+            String contractTemplateId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getDeployedContractsRequestBuilder(
@@ -430,7 +490,18 @@ public class DeployedContractsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    DeployedContractsPaginatedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

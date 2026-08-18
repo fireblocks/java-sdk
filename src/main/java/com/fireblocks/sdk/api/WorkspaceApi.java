@@ -26,7 +26,10 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -62,6 +65,28 @@ public class WorkspaceApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -72,10 +97,10 @@ public class WorkspaceApi {
     /**
      * Get workspace Returns the workspace ID and name for the authenticated user.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;Workspace&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Workspace&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Workspace>> getWorkspace() throws ApiException {
+    public CompletableFuture<ApiResponse<Workspace>> getWorkspace() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getWorkspaceRequestBuilder();
             return memberVarHttpClient
@@ -104,7 +129,15 @@ public class WorkspaceApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<Workspace>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

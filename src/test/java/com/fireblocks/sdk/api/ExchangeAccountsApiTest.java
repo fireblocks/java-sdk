@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AddExchangeAccountRequest;
 import com.fireblocks.sdk.model.AddExchangeAccountResponse;
@@ -46,11 +45,9 @@ public class ExchangeAccountsApiTest {
      * &#x60;COINHAKO&#x60;, &#x60;BULLISH&#x60;, &#x60;BITGET&#x60;, and &#x60;LUNO&#x60; To add an
      * exchange account, please use the following
      * [guide](https://developers.fireblocks.com/docs/add-an-exchange-account).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void addExchangeAccountTest() throws ApiException {
+    public void addExchangeAccountTest() {
         AddExchangeAccountRequest addExchangeAccountRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<AddExchangeAccountResponse>> response =
@@ -65,11 +62,9 @@ public class ExchangeAccountsApiTest {
      * Fireblocks Exchange Connectivity in the following
      * [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers).
      * Endpoint Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void convertAssetsTest() throws ApiException {
+    public void convertAssetsTest() {
         String exchangeAccountId = null;
         ConvertAssetsRequest convertAssetsRequest = null;
         String idempotencyKey = null;
@@ -81,11 +76,9 @@ public class ExchangeAccountsApiTest {
      * Get a specific exchange account
      *
      * <p>Returns an exchange account by ID. Endpoint Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getExchangeAccountTest() throws ApiException {
+    public void getExchangeAccountTest() {
         String exchangeAccountId = null;
         CompletableFuture<ApiResponse<ExchangeAccount>> response =
                 api.getExchangeAccount(exchangeAccountId);
@@ -95,11 +88,9 @@ public class ExchangeAccountsApiTest {
      * Get an asset for an exchange account
      *
      * <p>Returns an asset for an exchange account. Endpoint Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getExchangeAccountAssetTest() throws ApiException {
+    public void getExchangeAccountAssetTest() {
         String exchangeAccountId = null;
         String assetId = null;
         CompletableFuture<ApiResponse<ExchangeAsset>> response =
@@ -110,11 +101,9 @@ public class ExchangeAccountsApiTest {
      * Get public key to encrypt exchange credentials
      *
      * <p>Return public key
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getExchangeAccountsCredentialsPublicKeyTest() throws ApiException {
+    public void getExchangeAccountsCredentialsPublicKeyTest() {
         CompletableFuture<ApiResponse<GetExchangeAccountsCredentialsPublicKeyResponse>> response =
                 api.getExchangeAccountsCredentialsPublicKey();
     }
@@ -124,11 +113,9 @@ public class ExchangeAccountsApiTest {
      *
      * <p>Returns a list of the connected exchange accounts in your workspace. Endpoint Permission:
      * Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getPagedExchangeAccountsTest() throws ApiException {
+    public void getPagedExchangeAccountsTest() {
         BigDecimal limit = null;
         String before = null;
         String after = null;
@@ -143,11 +130,9 @@ public class ExchangeAccountsApiTest {
      * Fireblocks Exchange Connectivity in the following
      * [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers).
      * Endpoint Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void internalTransferTest() throws ApiException {
+    public void internalTransferTest() {
         String exchangeAccountId = null;
         CreateInternalTransferRequest createInternalTransferRequest = null;
         String idempotencyKey = null;

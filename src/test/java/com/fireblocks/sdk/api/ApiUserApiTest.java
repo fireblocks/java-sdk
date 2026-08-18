@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateAPIUser;
 import com.fireblocks.sdk.model.GetAPIUsersResponse;
@@ -34,11 +33,9 @@ public class ApiUserApiTest {
      * <p>Create a new API key in your workspace. Learn more about Fireblocks API Keys management in
      * the following [guide](https://developers.fireblocks.com/docs/manage-api-keys). Endpoint
      * Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createApiUserTest() throws ApiException {
+    public void createApiUserTest() {
         CreateAPIUser createAPIUser = null;
         String idempotencyKey = null;
 
@@ -52,11 +49,9 @@ public class ApiUserApiTest {
      * <p>List all API keys in your workspace. - Please note that this endpoint is available only
      * for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin,
      * Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getApiUsersTest() throws ApiException {
+    public void getApiUsersTest() {
         CompletableFuture<ApiResponse<GetAPIUsersResponse>> response = api.getApiUsers();
     }
 
@@ -68,11 +63,9 @@ public class ApiUserApiTest {
      * set up (enabled), the request is rejected with a 409 Conflict. - Please note that this
      * endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions.
      * Endpoint Permission: Owner, Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void issueApiUserPairingTokenTest() throws ApiException {
+    public void issueApiUserPairingTokenTest() {
         String userId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<IssueApiUserPairingTokenResponse>> response =

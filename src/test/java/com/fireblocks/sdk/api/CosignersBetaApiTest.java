@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AddCosignerRequest;
 import com.fireblocks.sdk.model.AddCosignerResponse;
@@ -44,11 +43,9 @@ public class CosignersBetaApiTest {
      *
      * <p>Add a new cosigner. The cosigner will be pending pairing until the API key is manually
      * paired Endpoint Permission: Admin and Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void addCosignerTest() throws ApiException {
+    public void addCosignerTest() {
         AddCosignerRequest addCosignerRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<AddCosignerResponse>> response =
@@ -60,11 +57,9 @@ public class CosignersBetaApiTest {
      *
      * <p>Get an API key by ID. **Note:** These endpoints are currently in beta and might be subject
      * to changes. Endpoint Permission: Admin and Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getApiKeyTest() throws ApiException {
+    public void getApiKeyTest() {
         UUID cosignerId = null;
         String apiKeyId = null;
         CompletableFuture<ApiResponse<ApiKey>> response = api.getApiKey(cosignerId, apiKeyId);
@@ -75,11 +70,9 @@ public class CosignersBetaApiTest {
      *
      * <p>Get all cosigner paired API keys (paginated). **Note:** These endpoints are currently in
      * beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getApiKeysTest() throws ApiException {
+    public void getApiKeysTest() {
         UUID cosignerId = null;
         String order = null;
         String pageCursor = null;
@@ -93,11 +86,9 @@ public class CosignersBetaApiTest {
      *
      * <p>Get a cosigner by ID. **Note:** These endpoints are currently in beta and might be subject
      * to changes. Endpoint Permission: Admin and Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getCosignerTest() throws ApiException {
+    public void getCosignerTest() {
         UUID cosignerId = null;
         CompletableFuture<ApiResponse<Cosigner>> response = api.getCosigner(cosignerId);
     }
@@ -107,11 +98,9 @@ public class CosignersBetaApiTest {
      *
      * <p>Get all workspace cosigners (paginated). **Note:** These endpoints are currently in beta
      * and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getCosignersTest() throws ApiException {
+    public void getCosignersTest() {
         String order = null;
         String pageCursor = null;
         BigDecimal pageSize = null;
@@ -124,11 +113,9 @@ public class CosignersBetaApiTest {
      *
      * <p>Get the status of an asynchronous request Endpoint Permission: Admin and Non-Signing
      * Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getRequestStatusTest() throws ApiException {
+    public void getRequestStatusTest() {
         UUID cosignerId = null;
         String apiKeyId = null;
         String requestId = null;
@@ -140,11 +127,9 @@ public class CosignersBetaApiTest {
      * Pair API key
      *
      * <p>Pair an API key to a cosigner Endpoint Permission: Admin and Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void pairApiKeyTest() throws ApiException {
+    public void pairApiKeyTest() {
         PairApiKeyRequest pairApiKeyRequest = null;
         UUID cosignerId = null;
         String apiKeyId = null;
@@ -158,11 +143,9 @@ public class CosignersBetaApiTest {
      *
      * <p>Rename a cosigner by ID. **Note:** These endpoints are currently in beta and might be
      * subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void renameCosignerTest() throws ApiException {
+    public void renameCosignerTest() {
         RenameCosigner renameCosigner = null;
         UUID cosignerId = null;
         CompletableFuture<ApiResponse<Cosigner>> response =
@@ -173,11 +156,9 @@ public class CosignersBetaApiTest {
      * Unpair API key
      *
      * <p>Unpair an API key from a cosigner Endpoint Permission: Admin and Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void unpairApiKeyTest() throws ApiException {
+    public void unpairApiKeyTest() {
         UUID cosignerId = null;
         String apiKeyId = null;
         CompletableFuture<ApiResponse<ApiKey>> response = api.unpairApiKey(cosignerId, apiKeyId);
@@ -188,11 +169,9 @@ public class CosignersBetaApiTest {
      *
      * <p>Update the callback handler of an API key Endpoint Permission: Admin and Non-Signing
      * Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateCallbackHandlerTest() throws ApiException {
+    public void updateCallbackHandlerTest() {
         UpdateCallbackHandlerRequest updateCallbackHandlerRequest = null;
         UUID cosignerId = null;
         String apiKeyId = null;

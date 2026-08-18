@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AddAssetToExternalWalletRequest;
 import com.fireblocks.sdk.model.CreateWalletRequest;
@@ -36,11 +35,9 @@ public class ExternalWalletsApiTest {
      *
      * <p>Adds an asset to an existing external wallet. Endpoint Permission: Admin, Non-Signing
      * Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void addAssetToExternalWalletTest() throws ApiException {
+    public void addAssetToExternalWalletTest() {
         String walletId = null;
         String assetId = null;
         AddAssetToExternalWalletRequest addAssetToExternalWalletRequest = null;
@@ -58,11 +55,9 @@ public class ExternalWalletsApiTest {
      * of the external wallet. - You cannot initiate transactions from an external wallet as the
      * source via Fireblocks. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
      * Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createExternalWalletTest() throws ApiException {
+    public void createExternalWalletTest() {
         CreateWalletRequest createWalletRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<UnmanagedWallet>> response =
@@ -75,11 +70,9 @@ public class ExternalWalletsApiTest {
      * <p>Deletes an external wallet by ID. External Wallet is a whitelisted address of a wallet
      * that belongs to your users/counterparties. Endpoint Permission: Admin, Non-Signing Admin,
      * Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteExternalWalletTest() throws ApiException {
+    public void deleteExternalWalletTest() {
         String walletId = null;
 
         CompletableFuture<ApiResponse<Void>> response = api.deleteExternalWallet(walletId);
@@ -91,11 +84,9 @@ public class ExternalWalletsApiTest {
      * <p>Returns an external wallet by ID. External Wallet is a whitelisted address of a wallet
      * that belongs to your users/counterparties. Endpoint Permission: Admin, Non-Signing Admin,
      * Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getExternalWalletTest() throws ApiException {
+    public void getExternalWalletTest() {
         String walletId = null;
         CompletableFuture<ApiResponse<UnmanagedWallet>> response = api.getExternalWallet(walletId);
     }
@@ -106,11 +97,9 @@ public class ExternalWalletsApiTest {
      * <p>Returns an external wallet by wallet ID and asset ID. External Wallet is a whitelisted
      * address of a wallet that belongs to your users/counterparties. Endpoint Permission: Admin,
      * Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getExternalWalletAssetTest() throws ApiException {
+    public void getExternalWalletAssetTest() {
         String walletId = null;
         String assetId = null;
         CompletableFuture<ApiResponse<ExternalWalletAsset>> response =
@@ -125,11 +114,9 @@ public class ExternalWalletsApiTest {
      * of the external wallet. - You cannot initiate transactions from an external wallet as the
      * source via Fireblocks. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
      * Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getExternalWalletsTest() throws ApiException {
+    public void getExternalWalletsTest() {
         CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = api.getExternalWallets();
     }
 
@@ -138,11 +125,9 @@ public class ExternalWalletsApiTest {
      *
      * <p>Deletes an external wallet asset by ID. Endpoint Permission: Admin, Non-Signing Admin,
      * Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void removeAssetFromExternalWalletTest() throws ApiException {
+    public void removeAssetFromExternalWalletTest() {
         String walletId = null;
         String assetId = null;
 
@@ -156,11 +141,9 @@ public class ExternalWalletsApiTest {
      * <p>Sets an AML/KYT customer reference ID for the specific external wallet. External Wallet is
      * a whitelisted address of a wallet that belongs to your users/counterparties. Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setExternalWalletCustomerRefIdTest() throws ApiException {
+    public void setExternalWalletCustomerRefIdTest() {
         SetCustomerRefIdRequest setCustomerRefIdRequest = null;
         String walletId = null;
         String idempotencyKey = null;

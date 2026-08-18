@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AttachDetachUtxoLabelsRequest;
 import com.fireblocks.sdk.model.AttachDetachUtxoLabelsResponse;
@@ -37,11 +36,9 @@ public class UtxoManagementBetaApiTest {
      * a vault account, with optional filters for labels, statuses, amounts, and more. **Note:**
      * These endpoints are currently in beta and might be subject to changes. Endpoint Permission:
      * Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getUtxosTest() throws ApiException {
+    public void getUtxosTest() {
         String vaultAccountId = null;
         String assetId = null;
         String pageCursor = null;
@@ -84,11 +81,9 @@ public class UtxoManagementBetaApiTest {
      * adds to the existing label set and &#x60;labelsToDetach&#x60; removes from it. Neither
      * operation replaces the full set. **Note:** These endpoints are currently in beta and might be
      * subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateUtxoLabelsTest() throws ApiException {
+    public void updateUtxoLabelsTest() {
         AttachDetachUtxoLabelsRequest attachDetachUtxoLabelsRequest = null;
         String vaultAccountId = null;
         String assetId = null;

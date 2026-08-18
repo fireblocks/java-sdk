@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AddCollateralRequestBody;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
@@ -38,11 +37,9 @@ public class OffExchangesApiTest {
      * <p>Add collateral and create deposit request. Learn more about Fireblocks Off Exchange in the
      * following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission:
      * Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void addOffExchangeTest() throws ApiException {
+    public void addOffExchangeTest() {
         AddCollateralRequestBody addCollateralRequestBody = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<CreateTransactionResponse>> response =
@@ -55,11 +52,9 @@ public class OffExchangesApiTest {
      * <p>Returns a collateral account by mainExchangeAccountId. Learn more about Fireblocks Off
      * Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange).
      * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getOffExchangeCollateralAccountsTest() throws ApiException {
+    public void getOffExchangeCollateralAccountsTest() {
         String mainExchangeAccountId = null;
         CompletableFuture<ApiResponse<ExchangeAccount>> response =
                 api.getOffExchangeCollateralAccounts(mainExchangeAccountId);
@@ -71,11 +66,9 @@ public class OffExchangesApiTest {
      * <p>Get settlements transactions from exchange. Learn more about Fireblocks Off Exchange in
      * the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getOffExchangeSettlementTransactionsTest() throws ApiException {
+    public void getOffExchangeSettlementTransactionsTest() {
         String mainExchangeAccountId = null;
         CompletableFuture<ApiResponse<ExchangeSettlementTransactionsResponse>> response =
                 api.getOffExchangeSettlementTransactions(mainExchangeAccountId);
@@ -87,11 +80,9 @@ public class OffExchangesApiTest {
      * <p>Remove collateral, create withdraw request. Learn more about Fireblocks Off Exchange in
      * the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void removeOffExchangeTest() throws ApiException {
+    public void removeOffExchangeTest() {
         RemoveCollateralRequestBody removeCollateralRequestBody = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<CreateTransactionResponse>> response =
@@ -104,11 +95,9 @@ public class OffExchangesApiTest {
      * <p>Create settlement for a trader. Learn more about Fireblocks Off Exchange in the following
      * [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin,
      * Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void settleOffExchangeTradesTest() throws ApiException {
+    public void settleOffExchangeTradesTest() {
         SettlementRequestBody settlementRequestBody = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<SettlementResponse>> response =

@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.TRLinkAPIPagedResponse;
 import com.fireblocks.sdk.model.TRLinkAssessTravelRuleRequest;
@@ -61,11 +60,9 @@ public class TrLinkApiTest {
      * <p>Assesses travel rule requirement for a transaction by validating stored credentials and
      * determining whether Travel Rule compliance is required based on amount, jurisdiction, and
      * partner thresholds.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void assessTRLinkTravelRuleRequirementTest() throws ApiException {
+    public void assessTRLinkTravelRuleRequirementTest() {
         TRLinkAssessTravelRuleRequest trLinkAssessTravelRuleRequest = null;
         UUID customerIntegrationId = null;
         String idempotencyKey = null;
@@ -79,11 +76,9 @@ public class TrLinkApiTest {
      *
      * <p>Cancels a travel rule message. The TRM status will be updated to cancelled and the partner
      * will be notified.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void cancelTRLinkTrmTest() throws ApiException {
+    public void cancelTRLinkTrmTest() {
         TRLinkCancelTrmRequest trLinkCancelTrmRequest = null;
         UUID customerIntegrationId = null;
         String trmId = null;
@@ -98,11 +93,9 @@ public class TrLinkApiTest {
      *
      * <p>Connects a customer integration by providing API credentials. Stores encrypted credentials
      * and enables the integration for use.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void connectTRLinkIntegrationTest() throws ApiException {
+    public void connectTRLinkIntegrationTest() {
         TRLinkConnectIntegrationRequest trLinkConnectIntegrationRequest = null;
         UUID customerIntegrationId = null;
         String idempotencyKey = null;
@@ -117,11 +110,9 @@ public class TrLinkApiTest {
      * <p>Creates a new customer (legal entity/VASP) for TRSupport Travel Rule compliance
      * operations. The customer represents your organization in the Travel Rule network and contains
      * IVMS101-compliant identity information.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createTRLinkCustomerTest() throws ApiException {
+    public void createTRLinkCustomerTest() {
         TRLinkCreateCustomerRequest trLinkCreateCustomerRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<TRLinkCustomerResponse>> response =
@@ -135,11 +126,9 @@ public class TrLinkApiTest {
      * placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide
      * credentials after creation. You may optionally supply &#x60;customerIntegrationId&#x60; in
      * the request body when your tenant is enabled for client-provided integration ids.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createTRLinkIntegrationTest() throws ApiException {
+    public void createTRLinkIntegrationTest() {
         TRLinkCreateIntegrationRequest trLinkCreateIntegrationRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<TRLinkCustomerIntegrationResponse>> response =
@@ -151,11 +140,9 @@ public class TrLinkApiTest {
      *
      * <p>Accept or reject destinations stuck in NoTRM step without waiting for TRP webhook or
      * policy timeout.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createTRLinkManualDecisionTest() throws ApiException {
+    public void createTRLinkManualDecisionTest() {
         TRLinkManualDecisionRequest trLinkManualDecisionRequest = null;
         UUID customerIntegrationId = null;
         UUID txId = null;
@@ -170,11 +157,9 @@ public class TrLinkApiTest {
      *
      * <p>Creates a new travel rule message with IVMS101-compliant PII data. Encrypts sensitive
      * originator and beneficiary information before sending to partner.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createTRLinkTrmTest() throws ApiException {
+    public void createTRLinkTrmTest() {
         TRLinkCreateTrmRequest trLinkCreateTrmRequest = null;
         UUID customerIntegrationId = null;
         String idempotencyKey = null;
@@ -186,11 +171,9 @@ public class TrLinkApiTest {
      * Delete customer
      *
      * <p>Deletes a customer and all associated integrations. This action cannot be undone.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteTRLinkCustomerTest() throws ApiException {
+    public void deleteTRLinkCustomerTest() {
         UUID customerId = null;
 
         CompletableFuture<ApiResponse<Void>> response = api.deleteTRLinkCustomer(customerId);
@@ -203,11 +186,9 @@ public class TrLinkApiTest {
      * credentials and deletes this tenant&#39;s integration record. The operation is scoped to the
      * caller&#39;s tenant; it does not remove partner-side state for other workspaces that reuse
      * the same logical customer integration. The record cannot be recovered after delete.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void disconnectTRLinkIntegrationTest() throws ApiException {
+    public void disconnectTRLinkIntegrationTest() {
         UUID customerIntegrationId = null;
 
         CompletableFuture<ApiResponse<Void>> response =
@@ -218,11 +199,9 @@ public class TrLinkApiTest {
      * Get customer by ID
      *
      * <p>Retrieves detailed information about a specific customer by their unique identifier.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTRLinkCustomerByIdTest() throws ApiException {
+    public void getTRLinkCustomerByIdTest() {
         UUID customerId = null;
         CompletableFuture<ApiResponse<TRLinkCustomerResponse>> response =
                 api.getTRLinkCustomerById(customerId);
@@ -232,11 +211,9 @@ public class TrLinkApiTest {
      * Get customer integration by ID
      *
      * <p>Retrieves detailed information about a specific customer integration.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTRLinkCustomerIntegrationByIdTest() throws ApiException {
+    public void getTRLinkCustomerIntegrationByIdTest() {
         UUID customerId = null;
         UUID customerIntegrationId = null;
         CompletableFuture<ApiResponse<TRLinkCustomerIntegrationResponse>> response =
@@ -248,11 +225,9 @@ public class TrLinkApiTest {
      *
      * <p>Retrieves all TRSupport integrations for a specific customer. Returns a list of partner
      * integrations configured for Travel Rule compliance.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTRLinkCustomerIntegrationsTest() throws ApiException {
+    public void getTRLinkCustomerIntegrationsTest() {
         UUID customerId = null;
         CompletableFuture<ApiResponse<List<TRLinkCustomerIntegrationResponse>>> response =
                 api.getTRLinkCustomerIntegrations(customerId);
@@ -263,11 +238,9 @@ public class TrLinkApiTest {
      *
      * <p>Retrieves all customers associated with the authenticated tenant. Returns a list of legal
      * entities configured for Travel Rule compliance.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTRLinkCustomersTest() throws ApiException {
+    public void getTRLinkCustomersTest() {
         CompletableFuture<ApiResponse<List<TRLinkCustomerResponse>>> response =
                 api.getTRLinkCustomers();
     }
@@ -278,11 +251,9 @@ public class TrLinkApiTest {
      * <p>Retrieves the partner&#39;s public key in JWK format for encrypting PII data in Travel
      * Rule Messages. Use this key to encrypt sensitive originator and beneficiary information
      * before sending Travel Rule messages.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTRLinkIntegrationPublicKeyTest() throws ApiException {
+    public void getTRLinkIntegrationPublicKeyTest() {
         UUID customerIntegrationId = null;
         CompletableFuture<ApiResponse<TRLinkPublicKeyResponse>> response =
                 api.getTRLinkIntegrationPublicKey(customerIntegrationId);
@@ -294,11 +265,9 @@ public class TrLinkApiTest {
      * <p>Retrieves a list of all available Travel Rule Support integration partners. Partners
      * provide Travel Rule compliance services such as VASP discovery, TRM exchange, and PII
      * encryption.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTRLinkPartnersTest() throws ApiException {
+    public void getTRLinkPartnersTest() {
         CompletableFuture<ApiResponse<List<TRLinkPartnerResponse>>> response =
                 api.getTRLinkPartners();
     }
@@ -311,11 +280,9 @@ public class TrLinkApiTest {
      * determine whether transactions should be screened. Post-screening rules determine actions
      * based on screening results. Missing TRM rules handle cases when screening data is
      * unavailable.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTRLinkPolicyTest() throws ApiException {
+    public void getTRLinkPolicyTest() {
         CompletableFuture<ApiResponse<TRLinkPolicyResponse>> response = api.getTRLinkPolicy();
     }
 
@@ -324,11 +291,9 @@ public class TrLinkApiTest {
      *
      * <p>Retrieves detailed information about a specific asset by its Fireblocks asset ID. Returns
      * the transformed Fireblocks asset data, raw partner response, and support status.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTRLinkSupportedAssetTest() throws ApiException {
+    public void getTRLinkSupportedAssetTest() {
         UUID customerIntegrationId = null;
         String assetId = null;
         CompletableFuture<ApiResponse<TRLinkGetSupportedAssetResponse>> response =
@@ -340,11 +305,9 @@ public class TrLinkApiTest {
      *
      * <p>Retrieves a Travel Rule Message by its unique identifier from the partner provider.
      * Returns full TRM details including status, IVMS101 data, and transaction information.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTRLinkTrmByIdTest() throws ApiException {
+    public void getTRLinkTrmByIdTest() {
         UUID customerIntegrationId = null;
         String trmId = null;
         CompletableFuture<ApiResponse<TRLinkTrmInfoResponse>> response =
@@ -356,11 +319,9 @@ public class TrLinkApiTest {
      *
      * <p>Retrieves the list of required actions (e.g., PII fields) needed to process the Travel
      * Rule Message.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTRLinkTrmRequiredActionsTest() throws ApiException {
+    public void getTRLinkTrmRequiredActionsTest() {
         UUID customerIntegrationId = null;
         String trmId = null;
         CompletableFuture<ApiResponse<TRLinkGetRequiredActionsResponse>> response =
@@ -372,11 +333,9 @@ public class TrLinkApiTest {
      *
      * <p>Retrieves detailed information about a specific VASP by its unique identifier. Returns
      * VASP details including public key if available.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTRLinkVaspByIdTest() throws ApiException {
+    public void getTRLinkVaspByIdTest() {
         UUID customerIntegrationId = null;
         String vaspId = null;
         CompletableFuture<ApiResponse<TRLinkVaspDto>> response =
@@ -389,11 +348,9 @@ public class TrLinkApiTest {
      * <p>Retrieves a paginated list of assets supported by the partner integration. Includes a flag
      * indicating whether the partner can handle assets not explicitly listed. Supports cursor-based
      * pagination.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listTRLinkSupportedAssetsTest() throws ApiException {
+    public void listTRLinkSupportedAssetsTest() {
         UUID customerIntegrationId = null;
         Integer pageSize = null;
         String pageCursor = null;
@@ -406,11 +363,9 @@ public class TrLinkApiTest {
      *
      * <p>Retrieves a paginated list of VASPs (Virtual Asset Service Providers) available through
      * the partner integration. Supports cursor-based pagination.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listTRLinkVaspsTest() throws ApiException {
+    public void listTRLinkVaspsTest() {
         UUID customerIntegrationId = null;
         Integer pageSize = null;
         String pageCursor = null;
@@ -423,11 +378,9 @@ public class TrLinkApiTest {
      *
      * <p>Redirects a Travel Rule Message to a subsidiary VASP. This operation requires the partner
      * to support nested VASPs functionality.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void redirectTRLinkTrmTest() throws ApiException {
+    public void redirectTRLinkTrmTest() {
         TRLinkRedirectTrmRequest trLinkRedirectTrmRequest = null;
         UUID customerIntegrationId = null;
         String trmId = null;
@@ -442,11 +395,9 @@ public class TrLinkApiTest {
      *
      * <p>Submits required data (e.g., beneficiary PII) to resolve a pending Travel Rule Message
      * action.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void resolveActionTRLinkTrmTest() throws ApiException {
+    public void resolveActionTRLinkTrmTest() {
         TRLinkResolveActionRequest trLinkResolveActionRequest = null;
         UUID customerIntegrationId = null;
         String trmId = null;
@@ -461,11 +412,9 @@ public class TrLinkApiTest {
      *
      * <p>Associates a Travel Rule Message ID with a specific destination in a multi-destination
      * Fireblocks transaction. Matches destinations by amount and peer path.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setTRLinkDestinationTravelRuleMessageIdTest() throws ApiException {
+    public void setTRLinkDestinationTravelRuleMessageIdTest() {
         TRLinkSetDestinationTravelRuleMessageIdRequest
                 trLinkSetDestinationTravelRuleMessageIdRequest = null;
         UUID txId = null;
@@ -480,11 +429,9 @@ public class TrLinkApiTest {
      *
      * <p>Associates a Travel Rule Message ID with a Fireblocks transaction. This links the TRM
      * compliance data to the blockchain transaction.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setTRLinkTransactionTravelRuleMessageIdTest() throws ApiException {
+    public void setTRLinkTransactionTravelRuleMessageIdTest() {
         TRLinkSetTransactionTravelRuleMessageIdRequest
                 trLinkSetTransactionTravelRuleMessageIdRequest = null;
         UUID txId = null;
@@ -500,11 +447,9 @@ public class TrLinkApiTest {
      * <p>Tests the connection to a customer integration by validating stored credentials and
      * attempting communication with the Travel Rule partner. Returns connection status and any
      * error messages.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void testTRLinkIntegrationConnectionTest() throws ApiException {
+    public void testTRLinkIntegrationConnectionTest() {
         UUID customerIntegrationId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<TRLinkTestConnectionResponse>> response =
@@ -516,11 +461,9 @@ public class TrLinkApiTest {
      *
      * <p>Updates an existing customer&#39;s information. All fields are optional - only provided
      * fields will be updated.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateTRLinkCustomerTest() throws ApiException {
+    public void updateTRLinkCustomerTest() {
         TRLinkUpdateCustomerRequest trLinkUpdateCustomerRequest = null;
         UUID customerId = null;
         String idempotencyKey = null;

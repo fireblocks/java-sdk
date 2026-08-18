@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>26.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:26.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-26.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -385,6 +385,7 @@ Class | Method | HTTP request | Description
 *ReportsBetaApi* | [**getReport**](docs/ReportsBetaApi.md#getReport) | **GET** /reports/{reportId} | Get report status
 *ReportsBetaApi* | [**listReports**](docs/ReportsBetaApi.md#listReports) | **GET** /reports | List reports
 *ResetDeviceApi* | [**resetDevice**](docs/ResetDeviceApi.md#resetDevice) | **POST** /management/users/{id}/reset_device | Resets device
+*SecurityPostureManagementApi* | [**getSecurityFindings**](docs/SecurityPostureManagementApi.md#getSecurityFindings) | **GET** /security/fspm/findings | Get FSPM security findings
 *SmartTransferApi* | [**approveDvPTicketTerm**](docs/SmartTransferApi.md#approveDvPTicketTerm) | **PUT** /smart_transfers/{ticketId}/terms/{termId}/dvp/approve | Set funding source and approval
 *SmartTransferApi* | [**cancelTicket**](docs/SmartTransferApi.md#cancelTicket) | **PUT** /smart-transfers/{ticketId}/cancel | Cancel Ticket
 *SmartTransferApi* | [**createTicket**](docs/SmartTransferApi.md#createTicket) | **POST** /smart-transfers | Create Ticket
@@ -1043,6 +1044,7 @@ Class | Method | HTTP request | Description
  - [GasStationConfiguration](docs/GasStationConfiguration.md)
  - [GasStationConfigurationResponse](docs/GasStationConfigurationResponse.md)
  - [GasStationPropertiesResponse](docs/GasStationPropertiesResponse.md)
+ - [GaslessInfo](docs/GaslessInfo.md)
  - [GasslessStandardConfigurations](docs/GasslessStandardConfigurations.md)
  - [GasslessStandardConfigurationsGaslessStandardConfigurationsValue](docs/GasslessStandardConfigurationsGaslessStandardConfigurationsValue.md)
  - [GenieChatMessage](docs/GenieChatMessage.md)
@@ -1062,6 +1064,7 @@ Class | Method | HTTP request | Description
  - [GetDeployableAddressRequest](docs/GetDeployableAddressRequest.md)
  - [GetExchangeAccountsCredentialsPublicKeyResponse](docs/GetExchangeAccountsCredentialsPublicKeyResponse.md)
  - [GetFilterParameter](docs/GetFilterParameter.md)
+ - [GetFindingsExternalResponse](docs/GetFindingsExternalResponse.md)
  - [GetLayerZeroDvnConfigResponse](docs/GetLayerZeroDvnConfigResponse.md)
  - [GetLayerZeroPeersResponse](docs/GetLayerZeroPeersResponse.md)
  - [GetLinkedCollectionsPaginatedResponse](docs/GetLinkedCollectionsPaginatedResponse.md)
@@ -1403,6 +1406,7 @@ Class | Method | HTTP request | Description
  - [ScreeningVerdictEnum](docs/ScreeningVerdictEnum.md)
  - [ScreeningVerdictMatchedRule](docs/ScreeningVerdictMatchedRule.md)
  - [SearchNetworkIdsResponse](docs/SearchNetworkIdsResponse.md)
+ - [SecurityFinding](docs/SecurityFinding.md)
  - [SepaPaymentInfo](docs/SepaPaymentInfo.md)
  - [SessionDTO](docs/SessionDTO.md)
  - [SessionMetadata](docs/SessionMetadata.md)
@@ -1664,6 +1668,7 @@ Class | Method | HTTP request | Description
  - [TravelRuleGetAllVASPsResponse](docs/TravelRuleGetAllVASPsResponse.md)
  - [TravelRuleIssuer](docs/TravelRuleIssuer.md)
  - [TravelRuleIssuers](docs/TravelRuleIssuers.md)
+ - [TravelRuleLegalNameIdentifier](docs/TravelRuleLegalNameIdentifier.md)
  - [TravelRuleLegalPerson](docs/TravelRuleLegalPerson.md)
  - [TravelRuleLegalPersonNameIdentifier](docs/TravelRuleLegalPersonNameIdentifier.md)
  - [TravelRuleMatchedRule](docs/TravelRuleMatchedRule.md)
@@ -1688,6 +1693,7 @@ Class | Method | HTTP request | Description
  - [TravelRuleValidateDateAndPlaceOfBirth](docs/TravelRuleValidateDateAndPlaceOfBirth.md)
  - [TravelRuleValidateFullTransactionRequest](docs/TravelRuleValidateFullTransactionRequest.md)
  - [TravelRuleValidateGeographicAddress](docs/TravelRuleValidateGeographicAddress.md)
+ - [TravelRuleValidateLegalNameIdentifier](docs/TravelRuleValidateLegalNameIdentifier.md)
  - [TravelRuleValidateLegalPerson](docs/TravelRuleValidateLegalPerson.md)
  - [TravelRuleValidateLegalPersonNameIdentifier](docs/TravelRuleValidateLegalPersonNameIdentifier.md)
  - [TravelRuleValidateNationalIdentification](docs/TravelRuleValidateNationalIdentification.md)

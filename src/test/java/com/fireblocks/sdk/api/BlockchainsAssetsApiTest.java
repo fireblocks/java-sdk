@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.Asset;
 import com.fireblocks.sdk.model.AssetClass;
@@ -45,11 +44,9 @@ public class BlockchainsAssetsApiTest {
      * <p>Returns an asset by ID or legacyID. **Note**: - We will continue displaying and supporting
      * the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID,
      * please use only the legacy ID until further notice.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getAssetTest() throws ApiException {
+    public void getAssetTest() {
         String id = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<Asset>> response = api.getAsset(id, idempotencyKey);
@@ -59,11 +56,9 @@ public class BlockchainsAssetsApiTest {
      * Get a Blockchain by ID
      *
      * <p>Returns a blockchain by ID or legacyID.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getBlockchainTest() throws ApiException {
+    public void getBlockchainTest() {
         String id = null;
         CompletableFuture<ApiResponse<BlockchainResponse>> response = api.getBlockchain(id);
     }
@@ -77,11 +72,9 @@ public class BlockchainsAssetsApiTest {
      * performance and to retrieve more detailed asset information.** Retrieves all assets supported
      * by Fireblocks in your workspace. **Endpoint Permissions:** Admin, Non-Signing Admin, Signer,
      * Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getSupportedAssetsTest() throws ApiException {
+    public void getSupportedAssetsTest() {
         CompletableFuture<ApiResponse<List<AssetTypeResponse>>> response = api.getSupportedAssets();
     }
 
@@ -92,11 +85,9 @@ public class BlockchainsAssetsApiTest {
      * **Note:** We will continue to support and display the legacy ID (API ID). Since not all
      * Fireblocks services fully support the new Assets UUID, please use only the legacy ID until
      * further notice.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listAssetsTest() throws ApiException {
+    public void listAssetsTest() {
         String blockchainId = null;
         AssetClass assetClass = null;
         String symbol = null;
@@ -123,11 +114,9 @@ public class BlockchainsAssetsApiTest {
      * List blockchains
      *
      * <p>Returns all blockchains supported by Fireblocks.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listBlockchainsTest() throws ApiException {
+    public void listBlockchainsTest() {
         String protocol = null;
         Boolean deprecated = null;
         Boolean test = null;
@@ -144,11 +133,9 @@ public class BlockchainsAssetsApiTest {
      * <p>Register a new asset to a workspace and return the newly created asset&#39;s details.
      * Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR -
      * Solana - Sui - TON
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void registerNewAssetTest() throws ApiException {
+    public void registerNewAssetTest() {
         RegisterNewAssetRequest registerNewAssetRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<AssetResponse>> response =
@@ -159,11 +146,9 @@ public class BlockchainsAssetsApiTest {
      * Set asset price
      *
      * <p>Set asset price for the given asset id. Returns the asset price response.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setAssetPriceTest() throws ApiException {
+    public void setAssetPriceTest() {
         String id = null;
         SetAssetPriceRequest setAssetPriceRequest = null;
         String idempotencyKey = null;
@@ -176,11 +161,9 @@ public class BlockchainsAssetsApiTest {
      *
      * <p>Update the user’s metadata for an asset. Endpoint Permission: Owner, Admin, Non-Signing
      * Admin, NCW Admin, Signer, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateAssetUserMetadataTest() throws ApiException {
+    public void updateAssetUserMetadataTest() {
         String id = null;
         UpdateAssetUserMetadataRequest updateAssetUserMetadataRequest = null;
         String idempotencyKey = null;

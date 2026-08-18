@@ -44,7 +44,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -80,6 +83,28 @@ public class CosignersBetaApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -95,11 +120,11 @@ public class CosignersBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;AddCosignerResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AddCosignerResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AddCosignerResponse>> addCosigner(
-            AddCosignerRequest addCosignerRequest, String idempotencyKey) throws ApiException {
+            AddCosignerRequest addCosignerRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     addCosignerRequestBuilder(addCosignerRequest, idempotencyKey);
@@ -129,7 +154,15 @@ public class CosignersBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<AddCosignerResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -172,11 +205,10 @@ public class CosignersBetaApi {
      *
      * @param cosignerId The unique identifier of the cosigner (required)
      * @param apiKeyId The unique identifier of the API key (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ApiKey&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ApiKey&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<ApiKey>> getApiKey(UUID cosignerId, String apiKeyId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<ApiKey>> getApiKey(UUID cosignerId, String apiKeyId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getApiKeyRequestBuilder(cosignerId, apiKeyId);
@@ -206,7 +238,14 @@ public class CosignersBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<ApiKey>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -247,12 +286,11 @@ public class CosignersBetaApi {
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
      * @param pageCursor Cursor of the required page (optional)
      * @param pageSize Maximum number of items in the page (optional, default to 10)
-     * @return CompletableFuture&lt;ApiResponse&lt;ApiKeysPaginatedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ApiKeysPaginatedResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ApiKeysPaginatedResponse>> getApiKeys(
-            UUID cosignerId, String order, String pageCursor, BigDecimal pageSize)
-            throws ApiException {
+            UUID cosignerId, String order, String pageCursor, BigDecimal pageSize) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getApiKeysRequestBuilder(cosignerId, order, pageCursor, pageSize);
@@ -282,7 +320,17 @@ public class CosignersBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ApiKeysPaginatedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -338,11 +386,10 @@ public class CosignersBetaApi {
      * be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
      *
      * @param cosignerId The unique identifier of the cosigner (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Cosigner&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Cosigner&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Cosigner>> getCosigner(UUID cosignerId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<Cosigner>> getCosigner(UUID cosignerId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getCosignerRequestBuilder(cosignerId);
             return memberVarHttpClient
@@ -371,7 +418,14 @@ public class CosignersBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Cosigner>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -408,11 +462,11 @@ public class CosignersBetaApi {
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
      * @param pageCursor Cursor of the required page (optional)
      * @param pageSize Maximum number of items in the page (optional, default to 10)
-     * @return CompletableFuture&lt;ApiResponse&lt;CosignersPaginatedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CosignersPaginatedResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CosignersPaginatedResponse>> getCosigners(
-            String order, String pageCursor, BigDecimal pageSize) throws ApiException {
+            String order, String pageCursor, BigDecimal pageSize) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getCosignersRequestBuilder(order, pageCursor, pageSize);
@@ -442,7 +496,17 @@ public class CosignersBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CosignersPaginatedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -495,11 +559,11 @@ public class CosignersBetaApi {
      * @param cosignerId The unique identifier of the cosigner (required)
      * @param apiKeyId The unique identifier of the API key (required)
      * @param requestId (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Status&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Status&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Status>> getRequestStatus(
-            UUID cosignerId, String apiKeyId, String requestId) throws ApiException {
+            UUID cosignerId, String apiKeyId, String requestId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getRequestStatusRequestBuilder(cosignerId, apiKeyId, requestId);
@@ -529,7 +593,14 @@ public class CosignersBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Status>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -572,15 +643,14 @@ public class CosignersBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;PairApiKeyResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;PairApiKeyResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<PairApiKeyResponse>> pairApiKey(
             PairApiKeyRequest pairApiKeyRequest,
             UUID cosignerId,
             String apiKeyId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     pairApiKeyRequestBuilder(
@@ -611,7 +681,15 @@ public class CosignersBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<PairApiKeyResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -664,11 +742,11 @@ public class CosignersBetaApi {
      *
      * @param renameCosigner (required)
      * @param cosignerId The unique identifier of the cosigner (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Cosigner&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Cosigner&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Cosigner>> renameCosigner(
-            RenameCosigner renameCosigner, UUID cosignerId) throws ApiException {
+            RenameCosigner renameCosigner, UUID cosignerId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     renameCosignerRequestBuilder(renameCosigner, cosignerId);
@@ -698,7 +776,14 @@ public class CosignersBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Cosigner>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -742,11 +827,10 @@ public class CosignersBetaApi {
      *
      * @param cosignerId The unique identifier of the cosigner (required)
      * @param apiKeyId The unique identifier of the API key (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ApiKey&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ApiKey&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<ApiKey>> unpairApiKey(UUID cosignerId, String apiKeyId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<ApiKey>> unpairApiKey(UUID cosignerId, String apiKeyId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     unpairApiKeyRequestBuilder(cosignerId, apiKeyId);
@@ -776,7 +860,14 @@ public class CosignersBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<ApiKey>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -815,14 +906,13 @@ public class CosignersBetaApi {
      * @param updateCallbackHandlerRequest (required)
      * @param cosignerId The unique identifier of the cosigner (required)
      * @param apiKeyId The unique identifier of the API key (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;UpdateCallbackHandlerResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;UpdateCallbackHandlerResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<UpdateCallbackHandlerResponse>> updateCallbackHandler(
             UpdateCallbackHandlerRequest updateCallbackHandlerRequest,
             UUID cosignerId,
-            String apiKeyId)
-            throws ApiException {
+            String apiKeyId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateCallbackHandlerRequestBuilder(
@@ -854,7 +944,17 @@ public class CosignersBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<UpdateCallbackHandlerResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

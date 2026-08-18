@@ -43,7 +43,10 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -79,6 +82,28 @@ public class ConnectedAccountsBetaApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -98,12 +123,11 @@ public class ConnectedAccountsBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;AddConnectedAccountResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AddConnectedAccountResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AddConnectedAccountResponse>> addConnectedAccount(
-            AddConnectedAccountRequest addConnectedAccountRequest, String idempotencyKey)
-            throws ApiException {
+            AddConnectedAccountRequest addConnectedAccountRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     addConnectedAccountRequestBuilder(addConnectedAccountRequest, idempotencyKey);
@@ -134,7 +158,17 @@ public class ConnectedAccountsBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<AddConnectedAccountResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -179,11 +213,10 @@ public class ConnectedAccountsBetaApi {
      * is currently in beta and might be subject to changes.
      *
      * @param accountId The ID of the account to disconnect. (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Void>> disconnectConnectedAccount(String accountId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<Void>> disconnectConnectedAccount(String accountId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     disconnectConnectedAccountRequestBuilder(accountId);
@@ -205,7 +238,14 @@ public class ConnectedAccountsBetaApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -240,11 +280,11 @@ public class ConnectedAccountsBetaApi {
      * **Note:** This endpoint is currently in beta and might be subject to changes.
      *
      * @param accountId The ID of the account to fetch. (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ConnectedSingleAccountResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ConnectedSingleAccountResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ConnectedSingleAccountResponse>> getConnectedAccount(
-            String accountId) throws ApiException {
+            String accountId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getConnectedAccountRequestBuilder(accountId);
@@ -275,7 +315,17 @@ public class ConnectedAccountsBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ConnectedSingleAccountResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -321,8 +371,8 @@ public class ConnectedAccountsBetaApi {
      * @param pageCursor Pagination cursor for next page (optional)
      * @param pageSize Maximum number of entries to return (optional)
      * @param order Sort order (ASC or DESC). (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;AllowlistResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AllowlistResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AllowlistResponse>> getConnectedAccountAllowlist(
             String accountId,
@@ -332,8 +382,7 @@ public class ConnectedAccountsBetaApi {
             String address,
             String pageCursor,
             Integer pageSize,
-            String order)
-            throws ApiException {
+            String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getConnectedAccountAllowlistRequestBuilder(
@@ -373,7 +422,15 @@ public class ConnectedAccountsBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<AllowlistResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -447,11 +504,11 @@ public class ConnectedAccountsBetaApi {
      *
      * @param accountId The connected account identifier (required)
      * @param allowlistId The Fireblocks allowlist entry identifier (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;AllowlistEntryResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AllowlistEntryResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AllowlistEntryResponse>> getConnectedAccountAllowlistEntry(
-            String accountId, String allowlistId) throws ApiException {
+            String accountId, String allowlistId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getConnectedAccountAllowlistEntryRequestBuilder(accountId, allowlistId);
@@ -483,7 +540,17 @@ public class ConnectedAccountsBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<AllowlistEntryResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -524,12 +591,11 @@ public class ConnectedAccountsBetaApi {
      * @param accountId The ID of the account to fetch balances for. (required)
      * @param pageSize Page size for pagination. (optional)
      * @param pageCursor Page cursor for pagination. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ConnectedAccountBalancesResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ConnectedAccountBalancesResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ConnectedAccountBalancesResponse>>
-            getConnectedAccountBalances(String accountId, Integer pageSize, String pageCursor)
-                    throws ApiException {
+            getConnectedAccountBalances(String accountId, Integer pageSize, String pageCursor) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getConnectedAccountBalancesRequestBuilder(accountId, pageSize, pageCursor);
@@ -561,7 +627,17 @@ public class ConnectedAccountsBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ConnectedAccountBalancesResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -617,11 +693,11 @@ public class ConnectedAccountsBetaApi {
      * @param accountId The ID of the account to fetch rates for. (required)
      * @param baseAssetId The ID of the asset to fetch rates for. (required)
      * @param quoteAssetId The ID of the asset to get the rates nominally. (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ConnectedAccountRateResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ConnectedAccountRateResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ConnectedAccountRateResponse>> getConnectedAccountRates(
-            String accountId, String baseAssetId, String quoteAssetId) throws ApiException {
+            String accountId, String baseAssetId, String quoteAssetId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getConnectedAccountRatesRequestBuilder(accountId, baseAssetId, quoteAssetId);
@@ -652,7 +728,17 @@ public class ConnectedAccountsBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ConnectedAccountRateResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -713,12 +799,11 @@ public class ConnectedAccountsBetaApi {
      * @param accountId The ID of the account to fetch supported pairs for. (required)
      * @param pageSize Page size for pagination. (optional, default to 100)
      * @param pageCursor Page cursor for pagination. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ConnectedAccountTradingPairsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ConnectedAccountTradingPairsResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ConnectedAccountTradingPairsResponse>>
-            getConnectedAccountTradingPairs(String accountId, Integer pageSize, String pageCursor)
-                    throws ApiException {
+            getConnectedAccountTradingPairs(String accountId, Integer pageSize, String pageCursor) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getConnectedAccountTradingPairsRequestBuilder(accountId, pageSize, pageCursor);
@@ -750,7 +835,18 @@ public class ConnectedAccountsBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    ConnectedAccountTradingPairsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -806,11 +902,11 @@ public class ConnectedAccountsBetaApi {
      *     to false)
      * @param pageSize Page size for pagination. (optional)
      * @param pageCursor Page cursor for pagination. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ConnectedAccountsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ConnectedAccountsResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ConnectedAccountsResponse>> getConnectedAccounts(
-            Boolean mainAccounts, Integer pageSize, String pageCursor) throws ApiException {
+            Boolean mainAccounts, Integer pageSize, String pageCursor) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getConnectedAccountsRequestBuilder(mainAccounts, pageSize, pageCursor);
@@ -841,7 +937,17 @@ public class ConnectedAccountsBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ConnectedAccountsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -895,11 +1001,11 @@ public class ConnectedAccountsBetaApi {
      * changes.
      *
      * @return
-     *     CompletableFuture&lt;ApiResponse&lt;GetConnectedAccountsCredentialsPublicKeyResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     *     CompletableFuture&lt;ApiResponse&lt;GetConnectedAccountsCredentialsPublicKeyResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetConnectedAccountsCredentialsPublicKeyResponse>>
-            getConnectedAccountsCredentialsPublicKey() throws ApiException {
+            getConnectedAccountsCredentialsPublicKey() {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getConnectedAccountsCredentialsPublicKeyRequestBuilder();
@@ -932,7 +1038,18 @@ public class ConnectedAccountsBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    GetConnectedAccountsCredentialsPublicKeyResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -967,14 +1084,13 @@ public class ConnectedAccountsBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;RenameConnectedAccountResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;RenameConnectedAccountResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<RenameConnectedAccountResponse>> renameConnectedAccount(
             RenameConnectedAccountRequest renameConnectedAccountRequest,
             String accountId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     renameConnectedAccountRequestBuilder(
@@ -1006,7 +1122,17 @@ public class ConnectedAccountsBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<RenameConnectedAccountResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1064,11 +1190,11 @@ public class ConnectedAccountsBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> syncConnectedAccountAllowlist(
-            String accountId, String idempotencyKey) throws ApiException {
+            String accountId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     syncConnectedAccountAllowlistRequestBuilder(accountId, idempotencyKey);
@@ -1090,7 +1216,14 @@ public class ConnectedAccountsBetaApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

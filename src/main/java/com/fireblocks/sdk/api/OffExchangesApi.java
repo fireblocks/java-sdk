@@ -37,7 +37,10 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -73,6 +76,28 @@ public class OffExchangesApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -89,12 +114,11 @@ public class OffExchangesApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateTransactionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateTransactionResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CreateTransactionResponse>> addOffExchange(
-            AddCollateralRequestBody addCollateralRequestBody, String idempotencyKey)
-            throws ApiException {
+            AddCollateralRequestBody addCollateralRequestBody, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     addOffExchangeRequestBuilder(addCollateralRequestBody, idempotencyKey);
@@ -124,7 +148,17 @@ public class OffExchangesApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CreateTransactionResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -170,11 +204,11 @@ public class OffExchangesApi {
      *
      * @param mainExchangeAccountId The id of the main exchange account for which the requested
      *     collateral account is associated with (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ExchangeAccount&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ExchangeAccount&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ExchangeAccount>> getOffExchangeCollateralAccounts(
-            String mainExchangeAccountId) throws ApiException {
+            String mainExchangeAccountId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getOffExchangeCollateralAccountsRequestBuilder(mainExchangeAccountId);
@@ -206,7 +240,15 @@ public class OffExchangesApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ExchangeAccount>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -245,11 +287,11 @@ public class OffExchangesApi {
      * Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param mainExchangeAccountId (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ExchangeSettlementTransactionsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ExchangeSettlementTransactionsResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ExchangeSettlementTransactionsResponse>>
-            getOffExchangeSettlementTransactions(String mainExchangeAccountId) throws ApiException {
+            getOffExchangeSettlementTransactions(String mainExchangeAccountId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getOffExchangeSettlementTransactionsRequestBuilder(mainExchangeAccountId);
@@ -281,7 +323,18 @@ public class OffExchangesApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    ExchangeSettlementTransactionsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -337,12 +390,11 @@ public class OffExchangesApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateTransactionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateTransactionResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CreateTransactionResponse>> removeOffExchange(
-            RemoveCollateralRequestBody removeCollateralRequestBody, String idempotencyKey)
-            throws ApiException {
+            RemoveCollateralRequestBody removeCollateralRequestBody, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     removeOffExchangeRequestBuilder(removeCollateralRequestBody, idempotencyKey);
@@ -372,7 +424,17 @@ public class OffExchangesApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CreateTransactionResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -419,12 +481,11 @@ public class OffExchangesApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;SettlementResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;SettlementResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<SettlementResponse>> settleOffExchangeTrades(
-            SettlementRequestBody settlementRequestBody, String idempotencyKey)
-            throws ApiException {
+            SettlementRequestBody settlementRequestBody, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     settleOffExchangeTradesRequestBuilder(settlementRequestBody, idempotencyKey);
@@ -455,7 +516,15 @@ public class OffExchangesApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<SettlementResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

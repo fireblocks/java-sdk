@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.GetAuditLogsResponse;
 import java.util.List;
@@ -38,11 +37,9 @@ public class AuditLogsApiTest {
      * but new integrations should use &#x60;startTime&#x60;/&#x60;endTime&#x60; and
      * &#x60;pageCursor&#x60; instead. Endpoint Permission: Admin, Non-Signing Admin, Auditor,
      * Security Admin, Security Auditor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getAuditLogsTest() throws ApiException {
+    public void getAuditLogsTest() {
         Integer startTime = null;
         Integer endTime = null;
         String timePeriod = null;

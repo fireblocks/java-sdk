@@ -45,7 +45,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -81,6 +84,28 @@ public class BlockchainLinkBetaApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -97,11 +122,11 @@ public class BlockchainLinkBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ActivateBlockchainResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ActivateBlockchainResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ActivateBlockchainResponse>> activateBlockchainLinkChain(
-            String blockchainId, String idempotencyKey) throws ApiException {
+            String blockchainId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     activateBlockchainLinkChainRequestBuilder(blockchainId, idempotencyKey);
@@ -133,7 +158,17 @@ public class BlockchainLinkBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ActivateBlockchainResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -175,12 +210,11 @@ public class BlockchainLinkBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateBlockchainResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateBlockchainResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CreateBlockchainResponse>> createBlockchainLinkChain(
-            CreateBlockchainRequest createBlockchainRequest, String idempotencyKey)
-            throws ApiException {
+            CreateBlockchainRequest createBlockchainRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createBlockchainLinkChainRequestBuilder(
@@ -212,7 +246,17 @@ public class BlockchainLinkBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CreateBlockchainResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -257,11 +301,10 @@ public class BlockchainLinkBetaApi {
      * must not be in an active lifecycle state.
      *
      * @param blockchainId tenant_id is extracted from JWT token context (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Void>> deleteBlockchainLinkChain(String blockchainId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<Void>> deleteBlockchainLinkChain(String blockchainId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     deleteBlockchainLinkChainRequestBuilder(blockchainId);
@@ -282,7 +325,14 @@ public class BlockchainLinkBetaApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -316,11 +366,10 @@ public class BlockchainLinkBetaApi {
      * Get tenant billing info Returns the tenant&#39;s blockchain activation limit and current
      * usage. tenant_id is derived from the JWT token context.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;GetBillingInfoResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetBillingInfoResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<GetBillingInfoResponse>> getBlockchainLinkBillingInfo()
-            throws ApiException {
+    public CompletableFuture<ApiResponse<GetBillingInfoResponse>> getBlockchainLinkBillingInfo() {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getBlockchainLinkBillingInfoRequestBuilder();
@@ -352,7 +401,17 @@ public class BlockchainLinkBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetBillingInfoResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -382,11 +441,11 @@ public class BlockchainLinkBetaApi {
      *
      * @param blockchainId ID of the blockchain to retrieve (supplied as a path parameter).
      *     (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetBlockchainByIdResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetBlockchainByIdResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetBlockchainByIdResponse>> getBlockchainLinkChain(
-            String blockchainId) throws ApiException {
+            String blockchainId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getBlockchainLinkChainRequestBuilder(blockchainId);
@@ -417,7 +476,17 @@ public class BlockchainLinkBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetBlockchainByIdResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -452,11 +521,11 @@ public class BlockchainLinkBetaApi {
      * wallet private key, used by the UI for test transfers. tenant_id is derived from the JWT
      * token context.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;GetTestWalletAddressResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetTestWalletAddressResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetTestWalletAddressResponse>>
-            getBlockchainLinkTestWalletAddress() throws ApiException {
+            getBlockchainLinkTestWalletAddress() {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getBlockchainLinkTestWalletAddressRequestBuilder();
@@ -488,7 +557,17 @@ public class BlockchainLinkBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetTestWalletAddressResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -531,8 +610,8 @@ public class BlockchainLinkBetaApi {
      * @param sortBy Sort field. Default: createdAt. (optional)
      * @param order Sort order. Default: DESC. (optional, default to DESC)
      * @param statusExclude Exclude filter (repeated query params). (optional
-     * @return CompletableFuture&lt;ApiResponse&lt;ListBlockchainsResponse2&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ListBlockchainsResponse2&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ListBlockchainsResponse2>> listBlockchainLinkChains(
             String pageCursor,
@@ -542,8 +621,7 @@ public class BlockchainLinkBetaApi {
             BlockchainEnvironment blockchainEnv,
             BlockchainSortField sortBy,
             String order,
-            List<BlockchainStateFilter> statusExclude)
-            throws ApiException {
+            List<BlockchainStateFilter> statusExclude) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     listBlockchainLinkChainsRequestBuilder(
@@ -582,7 +660,17 @@ public class BlockchainLinkBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ListBlockchainsResponse2>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -655,12 +743,11 @@ public class BlockchainLinkBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TriggerValidationFlowResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TriggerValidationFlowResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TriggerValidationFlowResponse>>
-            triggerBlockchainLinkValidation(UUID blockchainId, String idempotencyKey)
-                    throws ApiException {
+            triggerBlockchainLinkValidation(UUID blockchainId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     triggerBlockchainLinkValidationRequestBuilder(blockchainId, idempotencyKey);
@@ -692,7 +779,17 @@ public class BlockchainLinkBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TriggerValidationFlowResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -734,14 +831,13 @@ public class BlockchainLinkBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;UpdateBlockchainResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;UpdateBlockchainResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<UpdateBlockchainResponse>> updateBlockchainLinkChain(
             BlockchainDeclaredProperties blockchainDeclaredProperties,
             String blockchainId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateBlockchainLinkChainRequestBuilder(
@@ -773,7 +869,17 @@ public class BlockchainLinkBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<UpdateBlockchainResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

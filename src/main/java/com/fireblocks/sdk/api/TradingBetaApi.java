@@ -50,7 +50,10 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
@@ -88,6 +91,28 @@ public class TradingBetaApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -108,11 +133,11 @@ public class TradingBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;OrderDetails&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;OrderDetails&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<OrderDetails>> createOrder(
-            CreateOrderRequest createOrderRequest, String idempotencyKey) throws ApiException {
+            CreateOrderRequest createOrderRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createOrderRequestBuilder(createOrderRequest, idempotencyKey);
@@ -142,7 +167,15 @@ public class TradingBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<OrderDetails>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -192,11 +225,11 @@ public class TradingBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;QuotesResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;QuotesResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<QuotesResponse>> createQuote(
-            CreateQuote createQuote, String idempotencyKey) throws ApiException {
+            CreateQuote createQuote, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createQuoteRequestBuilder(createQuote, idempotencyKey);
@@ -226,7 +259,15 @@ public class TradingBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<QuotesResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -279,11 +320,11 @@ public class TradingBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;OffersResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;OffersResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<OffersResponse>> fetchAllOffers(
-            CreateOffersRequest createOffersRequest, String idempotencyKey) throws ApiException {
+            CreateOffersRequest createOffersRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     fetchAllOffersRequestBuilder(createOffersRequest, idempotencyKey);
@@ -313,7 +354,15 @@ public class TradingBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<OffersResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -365,11 +414,11 @@ public class TradingBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;RatesResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;RatesResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<RatesResponse>> fetchRates(
-            RatesRequest ratesRequest, String idempotencyKey) throws ApiException {
+            RatesRequest ratesRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     fetchRatesRequestBuilder(ratesRequest, idempotencyKey);
@@ -399,7 +448,15 @@ public class TradingBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<RatesResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -446,11 +503,10 @@ public class TradingBetaApi {
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      *
      * @param orderId The ID of the order to fetch. (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;OrderDetails&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;OrderDetails&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<OrderDetails>> getOrder(String orderId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<OrderDetails>> getOrder(String orderId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getOrderRequestBuilder(orderId);
             return memberVarHttpClient
@@ -479,7 +535,15 @@ public class TradingBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<OrderDetails>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -523,11 +587,11 @@ public class TradingBetaApi {
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      *
      * @param orderId The ID of the order for which the order requirement is issued. (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;OrderRequirementDetails&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;OrderRequirementDetails&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<OrderRequirementDetails>> getOrderRequirements(
-            String orderId) throws ApiException {
+            String orderId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getOrderRequirementsRequestBuilder(orderId);
@@ -558,7 +622,17 @@ public class TradingBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<OrderRequirementDetails>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -605,8 +679,8 @@ public class TradingBetaApi {
      * @param startTime (optional)
      * @param endTime (optional)
      * @param assetConversionType (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetOrdersResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetOrdersResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetOrdersResponse>> getOrders(
             Integer pageSize,
@@ -617,8 +691,7 @@ public class TradingBetaApi {
             List<OrderStatus> statuses,
             Integer startTime,
             Integer endTime,
-            String assetConversionType)
-            throws ApiException {
+            String assetConversionType) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getOrdersRequestBuilder(
@@ -657,7 +730,15 @@ public class TradingBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetOrdersResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -736,11 +817,11 @@ public class TradingBetaApi {
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      *
      * @param providerId The unique identifier of the provider. (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TradingProvider&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TradingProvider&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<TradingProvider>> getTradingProviderById(String providerId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<TradingProvider>> getTradingProviderById(
+            String providerId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTradingProviderByIdRequestBuilder(providerId);
@@ -771,7 +852,15 @@ public class TradingBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TradingProvider>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -813,11 +902,11 @@ public class TradingBetaApi {
      *
      * @param pageSize Page size for pagination. (optional, default to 20)
      * @param pageCursor Page cursor for pagination. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ProvidersListResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ProvidersListResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ProvidersListResponse>> getTradingProviders(
-            Integer pageSize, String pageCursor) throws ApiException {
+            Integer pageSize, String pageCursor) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTradingProvidersRequestBuilder(pageSize, pageCursor);
@@ -848,7 +937,17 @@ public class TradingBetaApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ProvidersListResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -909,14 +1008,13 @@ public class TradingBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> submitOrderRequirements(
             SubmitOrderRequirementRequest submitOrderRequirementRequest,
             String orderId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     submitOrderRequirementsRequestBuilder(
@@ -938,7 +1036,14 @@ public class TradingBetaApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1009,11 +1114,11 @@ public class TradingBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> uploadOrderRequirementFile(
-            String fileKey, File _file, String orderId, String idempotencyKey) throws ApiException {
+            String fileKey, File _file, String orderId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     uploadOrderRequirementFileRequestBuilder(
@@ -1036,7 +1141,14 @@ public class TradingBetaApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

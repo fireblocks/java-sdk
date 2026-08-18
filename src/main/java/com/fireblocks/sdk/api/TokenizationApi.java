@@ -72,7 +72,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -108,6 +111,28 @@ public class TokenizationApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -123,12 +148,11 @@ public class TokenizationApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CollectionBurnResponseDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CollectionBurnResponseDto&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CollectionBurnResponseDto>> burnCollectionToken(
-            CollectionBurnRequestDto collectionBurnRequestDto, String id, String idempotencyKey)
-            throws ApiException {
+            CollectionBurnRequestDto collectionBurnRequestDto, String id, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     burnCollectionTokenRequestBuilder(collectionBurnRequestDto, id, idempotencyKey);
@@ -159,7 +183,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CollectionBurnResponseDto>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -210,12 +244,11 @@ public class TokenizationApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CollectionLinkDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CollectionLinkDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CollectionLinkDto>> createNewCollection(
-            CollectionDeployRequestDto collectionDeployRequestDto, String idempotencyKey)
-            throws ApiException {
+            CollectionDeployRequestDto collectionDeployRequestDto, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createNewCollectionRequestBuilder(collectionDeployRequestDto, idempotencyKey);
@@ -246,7 +279,15 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CollectionLinkDto>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -294,14 +335,13 @@ public class TokenizationApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;RemoveLayerZeroAdaptersResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;RemoveLayerZeroAdaptersResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<RemoveLayerZeroAdaptersResponse>>
             deactivateAndUnlinkAdapters(
                     RemoveLayerZeroAdaptersRequest removeLayerZeroAdaptersRequest,
-                    String idempotencyKey)
-                    throws ApiException {
+                    String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     deactivateAndUnlinkAdaptersRequestBuilder(
@@ -334,7 +374,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<RemoveLayerZeroAdaptersResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -385,12 +435,11 @@ public class TokenizationApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;AdapterProcessingResult&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;AdapterProcessingResult&gt;&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<List<AdapterProcessingResult>>> deployAndLinkAdapters(
-            DeployLayerZeroAdaptersRequest deployLayerZeroAdaptersRequest, String idempotencyKey)
-            throws ApiException {
+            DeployLayerZeroAdaptersRequest deployLayerZeroAdaptersRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     deployAndLinkAdaptersRequestBuilder(
@@ -423,7 +472,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<AdapterProcessingResult>>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -470,11 +529,11 @@ public class TokenizationApi {
      *
      * @param id The collection link id (required)
      * @param tokenId The tokenId as it appears on the blockchain (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;CollectionLinkDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CollectionLinkDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CollectionLinkDto>> fetchCollectionTokenDetails(
-            String id, String tokenId) throws ApiException {
+            String id, String tokenId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     fetchCollectionTokenDetailsRequestBuilder(id, tokenId);
@@ -506,7 +565,15 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CollectionLinkDto>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -542,11 +609,10 @@ public class TokenizationApi {
      * Get a collection by id Get a collection by id
      *
      * @param id The token link id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;CollectionLinkDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CollectionLinkDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<CollectionLinkDto>> getCollectionById(String id)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<CollectionLinkDto>> getCollectionById(String id) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getCollectionByIdRequestBuilder(id);
             return memberVarHttpClient
@@ -575,7 +641,15 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CollectionLinkDto>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -612,12 +686,11 @@ public class TokenizationApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;DeployableAddressResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;DeployableAddressResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<DeployableAddressResponse>> getDeployableAddress(
-            GetDeployableAddressRequest getDeployableAddressRequest, String idempotencyKey)
-            throws ApiException {
+            GetDeployableAddressRequest getDeployableAddressRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getDeployableAddressRequestBuilder(getDeployableAddressRequest, idempotencyKey);
@@ -648,7 +721,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<DeployableAddressResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -696,11 +779,11 @@ public class TokenizationApi {
      * @param adapterTokenLinkId The token link id of the adapter token link (required)
      * @param peerAdapterTokenLinkId Optional peer adapter token link ID to filter results
      *     (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetLayerZeroDvnConfigResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetLayerZeroDvnConfigResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetLayerZeroDvnConfigResponse>> getLayerZeroDvnConfig(
-            UUID adapterTokenLinkId, UUID peerAdapterTokenLinkId) throws ApiException {
+            UUID adapterTokenLinkId, UUID peerAdapterTokenLinkId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getLayerZeroDvnConfigRequestBuilder(adapterTokenLinkId, peerAdapterTokenLinkId);
@@ -731,7 +814,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetLayerZeroDvnConfigResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -785,11 +878,11 @@ public class TokenizationApi {
      * information about peer relationships for cross-chain communication.
      *
      * @param adapterTokenLinkId The token link id of the adapter token link (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetLayerZeroPeersResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetLayerZeroPeersResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetLayerZeroPeersResponse>> getLayerZeroPeers(
-            UUID adapterTokenLinkId) throws ApiException {
+            UUID adapterTokenLinkId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getLayerZeroPeersRequestBuilder(adapterTokenLinkId);
@@ -819,7 +912,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetLayerZeroPeersResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -861,12 +964,11 @@ public class TokenizationApi {
      *     items (optional, default to 100)
      * @param status A comma separated list of statuses to filter. Default is
      *     \&quot;COMPLETED\&quot; (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetLinkedCollectionsPaginatedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetLinkedCollectionsPaginatedResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetLinkedCollectionsPaginatedResponse>>
-            getLinkedCollections(String pageCursor, BigDecimal pageSize, Object status)
-                    throws ApiException {
+            getLinkedCollections(String pageCursor, BigDecimal pageSize, Object status) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getLinkedCollectionsRequestBuilder(pageCursor, pageSize, status);
@@ -897,7 +999,18 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    GetLinkedCollectionsPaginatedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -947,11 +1060,10 @@ public class TokenizationApi {
      * Return a linked token Return a linked token, with its status and metadata.
      *
      * @param id The token link id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TokenLinkDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TokenLinkDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<TokenLinkDto>> getLinkedToken(String id)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<TokenLinkDto>> getLinkedToken(String id) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getLinkedTokenRequestBuilder(id);
             return memberVarHttpClient
@@ -980,7 +1092,15 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TokenLinkDto>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1015,11 +1135,11 @@ public class TokenizationApi {
      *     (optional)
      * @param status A comma separated list of statuses to filter. Default is
      *     \&quot;COMPLETED\&quot; (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TokensPaginatedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TokensPaginatedResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TokensPaginatedResponse>> getLinkedTokens(
-            String pageCursor, BigDecimal pageSize, Object status) throws ApiException {
+            String pageCursor, BigDecimal pageSize, Object status) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getLinkedTokensRequestBuilder(pageCursor, pageSize, status);
@@ -1049,7 +1169,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TokensPaginatedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1098,11 +1228,10 @@ public class TokenizationApi {
     /**
      * Get the total count of linked tokens Get the total count of linked tokens
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;LinkedTokensCount&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;LinkedTokensCount&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<LinkedTokensCount>> getLinkedTokensCount()
-            throws ApiException {
+    public CompletableFuture<ApiResponse<LinkedTokensCount>> getLinkedTokensCount() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getLinkedTokensCountRequestBuilder();
             return memberVarHttpClient
@@ -1132,7 +1261,15 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<LinkedTokensCount>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1167,13 +1304,12 @@ public class TokenizationApi {
      *     items (optional)
      * @param sortBy Sorting field (enum). (optional, default to dateAdded)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;AccessRegistryCurrentStateResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AccessRegistryCurrentStateResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AccessRegistryCurrentStateResponse>>
             getTokenAccessRegistryAddresses(
-                    String id, String pageCursor, Integer pageSize, String sortBy, String order)
-                    throws ApiException {
+                    String id, String pageCursor, Integer pageSize, String sortBy, String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTokenAccessRegistryAddressesRequestBuilder(
@@ -1206,7 +1342,18 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    AccessRegistryCurrentStateResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1263,11 +1410,11 @@ public class TokenizationApi {
      * registry.
      *
      * @param id The token link id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;AccessRegistrySummaryResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AccessRegistrySummaryResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AccessRegistrySummaryResponse>>
-            getTokenAccessRegistrySummary(String id) throws ApiException {
+            getTokenAccessRegistrySummary(String id) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTokenAccessRegistrySummaryRequestBuilder(id);
@@ -1299,7 +1446,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<AccessRegistrySummaryResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1334,11 +1491,11 @@ public class TokenizationApi {
      *
      * @param id The token link id (required)
      * @param accountAddress The account address to get balance history for (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;AddressBalanceItemDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressBalanceItemDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AddressBalanceItemDto>> getTokenBalanceForAccount(
-            String id, String accountAddress) throws ApiException {
+            String id, String accountAddress) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTokenBalanceForAccountRequestBuilder(id, accountAddress);
@@ -1369,7 +1526,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<AddressBalanceItemDto>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1417,8 +1584,8 @@ public class TokenizationApi {
      * @param sortBy Sorting field (enum). Sorting only supported by &#39;blockTimestamp&#39;
      *     (optional, default to blockTimestamp)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;BalanceHistoryPagedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;BalanceHistoryPagedResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<BalanceHistoryPagedResponse>> getTokenBalanceHistory(
             String id,
@@ -1429,8 +1596,7 @@ public class TokenizationApi {
             String pageCursor,
             Integer pageSize,
             String sortBy,
-            String order)
-            throws ApiException {
+            String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTokenBalanceHistoryRequestBuilder(
@@ -1470,7 +1636,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<BalanceHistoryPagedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1550,12 +1726,11 @@ public class TokenizationApi {
      *     items (optional)
      * @param sortBy Sorting field for balances (optional, default to blockTimestamp)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;AddressBalancePagedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressBalancePagedResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AddressBalancePagedResponse>> getTokenBalances(
-            String id, String pageCursor, Integer pageSize, String sortBy, String order)
-            throws ApiException {
+            String id, String pageCursor, Integer pageSize, String sortBy, String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTokenBalancesRequestBuilder(id, pageCursor, pageSize, sortBy, order);
@@ -1585,7 +1760,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<AddressBalancePagedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1642,11 +1827,11 @@ public class TokenizationApi {
      * supply for the token contract.
      *
      * @param id The token link id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TokenContractSummaryResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TokenContractSummaryResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TokenContractSummaryResponse>> getTokenContractSummary(
-            String id) throws ApiException {
+            String id) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getTokenContractSummaryRequestBuilder(id);
             return memberVarHttpClient
@@ -1676,7 +1861,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TokenContractSummaryResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1710,11 +1905,10 @@ public class TokenizationApi {
      * contract.
      *
      * @param id The token link id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ActiveRolesResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ActiveRolesResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<ActiveRolesResponse>> getTokenRbac(String id)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<ActiveRolesResponse>> getTokenRbac(String id) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getTokenRbacRequestBuilder(id);
             return memberVarHttpClient
@@ -1743,7 +1937,15 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ActiveRolesResponse>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1785,8 +1987,8 @@ public class TokenizationApi {
      * @param sortBy Sorting field (enum). Sorting only supported by &#39;blockTimestamp&#39;
      *     (optional, default to blockTimestamp)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;TotalSupplyPagedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TotalSupplyPagedResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TotalSupplyPagedResponse>> getTokenTotalSupply(
             String id,
@@ -1796,8 +1998,7 @@ public class TokenizationApi {
             String pageCursor,
             Integer pageSize,
             String sortBy,
-            String order)
-            throws ApiException {
+            String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTokenTotalSupplyRequestBuilder(
@@ -1829,7 +2030,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TotalSupplyPagedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1906,8 +2117,8 @@ public class TokenizationApi {
      *     items (optional)
      * @param sortBy Sorting field (enum). (optional, default to blockTimestamp)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @return CompletableFuture&lt;ApiResponse&lt;OnchainTransactionsPagedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;OnchainTransactionsPagedResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<OnchainTransactionsPagedResponse>> getTokenTransactions(
             String id,
@@ -1916,8 +2127,7 @@ public class TokenizationApi {
             String pageCursor,
             Integer pageSize,
             String sortBy,
-            String order)
-            throws ApiException {
+            String order) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTokenTransactionsRequestBuilder(
@@ -1949,7 +2159,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<OnchainTransactionsPagedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2025,8 +2245,8 @@ public class TokenizationApi {
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
      * @param sender Filter transfers by sender address (optional)
      * @param receiver Filter transfers by receiver address (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;OnchainTransfersPagedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;OnchainTransfersPagedResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<OnchainTransfersPagedResponse>> getTokenTransfers(
             String id,
@@ -2037,8 +2257,7 @@ public class TokenizationApi {
             String sortBy,
             String order,
             String sender,
-            String receiver)
-            throws ApiException {
+            String receiver) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTokenTransfersRequestBuilder(
@@ -2077,7 +2296,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<OnchainTransfersPagedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2158,12 +2387,11 @@ public class TokenizationApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TokenLinkDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TokenLinkDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TokenLinkDto>> issueNewToken(
-            CreateTokenRequestDto createTokenRequestDto, String idempotencyKey)
-            throws ApiException {
+            CreateTokenRequestDto createTokenRequestDto, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     issueNewTokenRequestBuilder(createTokenRequestDto, idempotencyKey);
@@ -2193,7 +2421,15 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TokenLinkDto>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2241,12 +2477,11 @@ public class TokenizationApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;TokenLinkDto&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;TokenLinkDto&gt;&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<List<TokenLinkDto>>> issueTokenMultiChain(
-            CreateMultichainTokenRequest createMultichainTokenRequest, String idempotencyKey)
-            throws ApiException {
+            CreateMultichainTokenRequest createMultichainTokenRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     issueTokenMultiChainRequestBuilder(
@@ -2279,7 +2514,15 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<TokenLinkDto>>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2328,11 +2571,11 @@ public class TokenizationApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TokenLinkDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TokenLinkDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TokenLinkDto>> link(
-            TokenLinkRequestDto tokenLinkRequestDto, String idempotencyKey) throws ApiException {
+            TokenLinkRequestDto tokenLinkRequestDto, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     linkRequestBuilder(tokenLinkRequestDto, idempotencyKey);
@@ -2362,7 +2605,15 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TokenLinkDto>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2407,12 +2658,11 @@ public class TokenizationApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CollectionMintResponseDto&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CollectionMintResponseDto&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CollectionMintResponseDto>> mintCollectionToken(
-            CollectionMintRequestDto collectionMintRequestDto, String id, String idempotencyKey)
-            throws ApiException {
+            CollectionMintRequestDto collectionMintRequestDto, String id, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     mintCollectionTokenRequestBuilder(collectionMintRequestDto, id, idempotencyKey);
@@ -2443,7 +2693,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CollectionMintResponseDto>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2496,14 +2756,13 @@ public class TokenizationApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;TokenLinkDto&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;TokenLinkDto&gt;&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<List<TokenLinkDto>>> reIssueTokenMultiChain(
             ReissueMultichainTokenRequest reissueMultichainTokenRequest,
             String tokenLinkId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     reIssueTokenMultiChainRequestBuilder(
@@ -2536,7 +2795,15 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<TokenLinkDto>>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2592,12 +2859,11 @@ public class TokenizationApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;RemoveLayerZeroPeersResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;RemoveLayerZeroPeersResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<RemoveLayerZeroPeersResponse>> removeLayerZeroPeers(
-            RemoveLayerZeroPeersRequest removeLayerZeroPeersRequest, String idempotencyKey)
-            throws ApiException {
+            RemoveLayerZeroPeersRequest removeLayerZeroPeersRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     removeLayerZeroPeersRequestBuilder(removeLayerZeroPeersRequest, idempotencyKey);
@@ -2628,7 +2894,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<RemoveLayerZeroPeersResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2677,12 +2953,11 @@ public class TokenizationApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;SetLayerZeroDvnConfigResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;SetLayerZeroDvnConfigResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<SetLayerZeroDvnConfigResponse>> setLayerZeroDvnConfig(
-            SetLayerZeroDvnConfigRequest setLayerZeroDvnConfigRequest, String idempotencyKey)
-            throws ApiException {
+            SetLayerZeroDvnConfigRequest setLayerZeroDvnConfigRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setLayerZeroDvnConfigRequestBuilder(
@@ -2714,7 +2989,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<SetLayerZeroDvnConfigResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2766,12 +3051,11 @@ public class TokenizationApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;SetLayerZeroPeersResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;SetLayerZeroPeersResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<SetLayerZeroPeersResponse>> setLayerZeroPeers(
-            SetLayerZeroPeersRequest setLayerZeroPeersRequest, String idempotencyKey)
-            throws ApiException {
+            SetLayerZeroPeersRequest setLayerZeroPeersRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setLayerZeroPeersRequestBuilder(setLayerZeroPeersRequest, idempotencyKey);
@@ -2801,7 +3085,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<SetLayerZeroPeersResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2846,10 +3140,10 @@ public class TokenizationApi {
      * not be deleted on chain nor the refId, only the link to the workspace will be removed.
      *
      * @param id The token link id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Void>> unlink(String id) throws ApiException {
+    public CompletableFuture<ApiResponse<Void>> unlink(String id) {
         try {
             HttpRequest.Builder localVarRequestBuilder = unlinkRequestBuilder(id);
             return memberVarHttpClient
@@ -2868,7 +3162,14 @@ public class TokenizationApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2899,10 +3200,10 @@ public class TokenizationApi {
      * Delete a collection link Delete a collection link
      *
      * @param id The token link id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Void>> unlinkCollection(String id) throws ApiException {
+    public CompletableFuture<ApiResponse<Void>> unlinkCollection(String id) {
         try {
             HttpRequest.Builder localVarRequestBuilder = unlinkCollectionRequestBuilder(id);
             return memberVarHttpClient
@@ -2921,7 +3222,14 @@ public class TokenizationApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2956,12 +3264,11 @@ public class TokenizationApi {
      *
      * @param adapterTokenLinkId The token link ID of the adapter (required)
      * @param peerAdapterTokenLinkId Peer adapter token link ID to validate against (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ValidateLayerZeroChannelResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;ValidateLayerZeroChannelResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<ValidateLayerZeroChannelResponse>>
-            validateLayerZeroChannelConfig(UUID adapterTokenLinkId, UUID peerAdapterTokenLinkId)
-                    throws ApiException {
+            validateLayerZeroChannelConfig(UUID adapterTokenLinkId, UUID peerAdapterTokenLinkId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     validateLayerZeroChannelConfigRequestBuilder(
@@ -2994,7 +3301,17 @@ public class TokenizationApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ValidateLayerZeroChannelResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

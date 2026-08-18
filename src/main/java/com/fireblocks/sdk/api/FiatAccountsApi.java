@@ -31,7 +31,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -67,6 +70,28 @@ public class FiatAccountsApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -82,12 +107,11 @@ public class FiatAccountsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;DepositFundsFromLinkedDDAResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;DepositFundsFromLinkedDDAResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<DepositFundsFromLinkedDDAResponse>>
-            depositFundsFromLinkedDDA(String accountId, Funds funds, String idempotencyKey)
-                    throws ApiException {
+            depositFundsFromLinkedDDA(String accountId, Funds funds, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     depositFundsFromLinkedDDARequestBuilder(accountId, funds, idempotencyKey);
@@ -118,7 +142,18 @@ public class FiatAccountsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    DepositFundsFromLinkedDDAResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -163,11 +198,10 @@ public class FiatAccountsApi {
      * Non-Signing Admin.
      *
      * @param accountId The ID of the fiat account to return (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;FiatAccount&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;FiatAccount&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<FiatAccount>> getFiatAccount(String accountId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<FiatAccount>> getFiatAccount(String accountId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getFiatAccountRequestBuilder(accountId);
             return memberVarHttpClient
@@ -196,7 +230,15 @@ public class FiatAccountsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<FiatAccount>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -227,10 +269,10 @@ public class FiatAccountsApi {
     /**
      * List fiat accounts Returns all fiat accounts. Endpoint Permission: Admin, Non-Signing Admin.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;FiatAccount&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;FiatAccount&gt;&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<List<FiatAccount>>> getFiatAccounts() throws ApiException {
+    public CompletableFuture<ApiResponse<List<FiatAccount>>> getFiatAccounts() {
         try {
             HttpRequest.Builder localVarRequestBuilder = getFiatAccountsRequestBuilder();
             return memberVarHttpClient
@@ -260,7 +302,15 @@ public class FiatAccountsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<FiatAccount>>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -293,11 +343,11 @@ public class FiatAccountsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;RedeemFundsToLinkedDDAResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;RedeemFundsToLinkedDDAResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<RedeemFundsToLinkedDDAResponse>> redeemFundsToLinkedDDA(
-            String accountId, Funds funds, String idempotencyKey) throws ApiException {
+            String accountId, Funds funds, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     redeemFundsToLinkedDDARequestBuilder(accountId, funds, idempotencyKey);
@@ -328,7 +378,17 @@ public class FiatAccountsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<RedeemFundsToLinkedDDAResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

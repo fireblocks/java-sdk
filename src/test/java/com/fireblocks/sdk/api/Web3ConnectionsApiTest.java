@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateConnectionRequest;
 import com.fireblocks.sdk.model.CreateConnectionResponse;
@@ -37,11 +36,9 @@ public class Web3ConnectionsApiTest {
      *
      * <p>Initiate a new Web3 connection. * Note: After this succeeds, make a request to &#x60;PUT
      * /v1/connections/wc/{id}&#x60; (below) to approve or reject the new Web3 connection.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createTest() throws ApiException {
+    public void createTest() {
         CreateConnectionRequest createConnectionRequest = null;
         String idempotencyKey = null;
         UUID xEndUserWalletId = null;
@@ -53,11 +50,9 @@ public class Web3ConnectionsApiTest {
      * List all open Web3 connections.
      *
      * <p>Get open Web3 connections.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getTest() throws ApiException {
+    public void getTest() {
         UUID xEndUserWalletId = null;
         String order = null;
         GetFilterParameter filter = null;
@@ -72,11 +67,9 @@ public class Web3ConnectionsApiTest {
      * Remove an existing Web3 connection.
      *
      * <p>Remove a Web3 connection
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void removeTest() throws ApiException {
+    public void removeTest() {
         String id = null;
         UUID xEndUserWalletId = null;
 
@@ -89,11 +82,9 @@ public class Web3ConnectionsApiTest {
      * <p>Submit a response to *approve* or *reject* an initiated Web3 connection. * Note: This call
      * is used to complete your &#x60;POST /v1/connections/wc/&#x60; request. After this succeeds,
      * your new Web3 connection is created and functioning.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void submitTest() throws ApiException {
+    public void submitTest() {
         RespondToConnectionRequest respondToConnectionRequest = null;
         String id = null;
         String idempotencyKey = null;

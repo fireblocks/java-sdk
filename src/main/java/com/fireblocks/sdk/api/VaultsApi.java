@@ -68,7 +68,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -104,6 +107,28 @@ public class VaultsApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -124,15 +149,14 @@ public class VaultsApi {
      *     first request. The idempotency key is valid for 24 hours. (optional)
      * @param blockchainWalletType Optional immutable blockchain wallet type to store per
      *     tenant+vault (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateVaultAssetResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateVaultAssetResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CreateVaultAssetResponse>> activateAssetForVaultAccount(
             String vaultAccountId,
             String assetId,
             String idempotencyKey,
-            String blockchainWalletType)
-            throws ApiException {
+            String blockchainWalletType) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     activateAssetForVaultAccountRequestBuilder(
@@ -165,7 +189,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CreateVaultAssetResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -232,12 +266,11 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;UsdcGatewayWalletStatusResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;UsdcGatewayWalletStatusResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<UsdcGatewayWalletStatusResponse>>
-            activateUsdcGatewayWalletBeta(String vaultAccountId, String idempotencyKey)
-                    throws ApiException {
+            activateUsdcGatewayWalletBeta(String vaultAccountId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     activateUsdcGatewayWalletBetaRequestBuilder(vaultAccountId, idempotencyKey);
@@ -269,7 +302,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<UsdcGatewayWalletStatusResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -313,15 +356,14 @@ public class VaultsApi {
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
      * @return
-     *     CompletableFuture&lt;ApiResponse&lt;VaultAccountsTagAttachmentOperationsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     *     CompletableFuture&lt;ApiResponse&lt;VaultAccountsTagAttachmentOperationsResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<VaultAccountsTagAttachmentOperationsResponse>>
             attachOrDetachTagsFromVaultAccounts(
                     VaultAccountsTagAttachmentOperationsRequest
                             vaultAccountsTagAttachmentOperationsRequest,
-                    String idempotencyKey)
-                    throws ApiException {
+                    String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     attachOrDetachTagsFromVaultAccountsRequestBuilder(
@@ -355,7 +397,18 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    VaultAccountsTagAttachmentOperationsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -409,12 +462,11 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateAddressResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateAddressResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CreateAddressResponse>> createLegacyAddress(
-            String vaultAccountId, String assetId, String addressId, String idempotencyKey)
-            throws ApiException {
+            String vaultAccountId, String assetId, String addressId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createLegacyAddressRequestBuilder(
@@ -446,7 +498,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CreateAddressResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -494,12 +556,11 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;JobCreated&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;JobCreated&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<JobCreated>> createMultipleAccounts(
-            CreateMultipleAccountsRequest createMultipleAccountsRequest, String idempotencyKey)
-            throws ApiException {
+            CreateMultipleAccountsRequest createMultipleAccountsRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createMultipleAccountsRequestBuilder(
@@ -531,7 +592,15 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<JobCreated>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -584,13 +653,12 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;JobCreated&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;JobCreated&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<JobCreated>> createMultipleDepositAddresses(
             CreateMultipleDepositAddressesRequest createMultipleDepositAddressesRequest,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createMultipleDepositAddressesRequestBuilder(
@@ -623,7 +691,15 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<JobCreated>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -677,12 +753,11 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;VaultAccount&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;VaultAccount&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<VaultAccount>> createVaultAccount(
-            CreateVaultAccountRequest createVaultAccountRequest, String idempotencyKey)
-            throws ApiException {
+            CreateVaultAccountRequest createVaultAccountRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createVaultAccountRequestBuilder(createVaultAccountRequest, idempotencyKey);
@@ -713,7 +788,15 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<VaultAccount>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -768,16 +851,15 @@ public class VaultsApi {
      *     first request. The idempotency key is valid for 24 hours. (optional)
      * @param blockchainWalletType Optional immutable blockchain wallet type to store per
      *     tenant+vault (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateVaultAssetResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateVaultAssetResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CreateVaultAssetResponse>> createVaultAccountAsset(
             String vaultAccountId,
             String assetId,
             CreateAssetsRequest createAssetsRequest,
             String idempotencyKey,
-            String blockchainWalletType)
-            throws ApiException {
+            String blockchainWalletType) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createVaultAccountAssetRequestBuilder(
@@ -813,7 +895,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CreateVaultAssetResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -888,15 +980,14 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateAddressResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateAddressResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CreateAddressResponse>> createVaultAccountAssetAddress(
             String vaultAccountId,
             String assetId,
             CreateAddressRequest createAddressRequest,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createVaultAccountAssetAddressRequestBuilder(
@@ -929,7 +1020,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CreateAddressResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -985,12 +1086,11 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;UsdcGatewayWalletStatusResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;UsdcGatewayWalletStatusResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<UsdcGatewayWalletStatusResponse>>
-            deactivateUsdcGatewayWalletBeta(String vaultAccountId, String idempotencyKey)
-                    throws ApiException {
+            deactivateUsdcGatewayWalletBeta(String vaultAccountId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     deactivateUsdcGatewayWalletBetaRequestBuilder(vaultAccountId, idempotencyKey);
@@ -1022,7 +1122,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<UsdcGatewayWalletStatusResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1066,11 +1176,11 @@ public class VaultsApi {
      * @param vaultAccountId The ID of the vault account (required)
      * @param automationId The ID of the deposit automation, returned when it was created or read
      *     (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<Void>> disableUsdcGatewayDepositAutomationScheduleBeta(
-            String vaultAccountId, UUID automationId) throws ApiException {
+            String vaultAccountId, UUID automationId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     disableUsdcGatewayDepositAutomationScheduleBetaRequestBuilder(
@@ -1093,7 +1203,14 @@ public class VaultsApi {
                                                 localVarResponse.statusCode(),
                                                 localVarResponse.headers().map(),
                                                 null));
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1147,8 +1264,8 @@ public class VaultsApi {
      *     and is returned at the response of the previous page. (optional)
      * @param limit The maximum number of vault wallets in a single response. The default is 200 and
      *     the maximum is 1000. (optional, default to 200)
-     * @return CompletableFuture&lt;ApiResponse&lt;PaginatedAssetWalletResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;PaginatedAssetWalletResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<PaginatedAssetWalletResponse>> getAssetWallets(
             BigDecimal totalAmountLargerThan,
@@ -1156,8 +1273,7 @@ public class VaultsApi {
             String orderBy,
             String before,
             String after,
-            BigDecimal limit)
-            throws ApiException {
+            BigDecimal limit) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getAssetWalletsRequestBuilder(
@@ -1188,7 +1304,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<PaginatedAssetWalletResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1253,11 +1379,11 @@ public class VaultsApi {
      * Non-Signing Admin, Signer, Approver, Editor, and Viewer.
      *
      * @param jobId The ID of the job to create addresses (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateMultipleDepositAddressesJobStatus&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateMultipleDepositAddressesJobStatus&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CreateMultipleDepositAddressesJobStatus>>
-            getCreateMultipleDepositAddressesJobStatus(String jobId) throws ApiException {
+            getCreateMultipleDepositAddressesJobStatus(String jobId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getCreateMultipleDepositAddressesJobStatusRequestBuilder(jobId);
@@ -1290,7 +1416,18 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    CreateMultipleDepositAddressesJobStatus>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1326,11 +1463,11 @@ public class VaultsApi {
      * Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @param jobId The ID of the job to create addresses (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;CreateMultipleVaultAccountsJobStatus&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateMultipleVaultAccountsJobStatus&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<CreateMultipleVaultAccountsJobStatus>>
-            getCreateMultipleVaultAccountsJobStatus(String jobId) throws ApiException {
+            getCreateMultipleVaultAccountsJobStatus(String jobId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getCreateMultipleVaultAccountsJobStatusRequestBuilder(jobId);
@@ -1362,7 +1499,18 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    CreateMultipleVaultAccountsJobStatus>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1398,11 +1546,11 @@ public class VaultsApi {
      *
      * @param vaultAccountId The ID of the vault account (required)
      * @param assetId The ID of the asset (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetMaxBipIndexUsedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetMaxBipIndexUsedResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetMaxBipIndexUsedResponse>> getMaxBipIndexUsed(
-            String vaultAccountId, String assetId) throws ApiException {
+            String vaultAccountId, String assetId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getMaxBipIndexUsedRequestBuilder(vaultAccountId, assetId);
@@ -1433,7 +1581,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetMaxBipIndexUsedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1491,8 +1649,8 @@ public class VaultsApi {
      *     This feature is currently in beta and might be subject to changes. (optional)
      * @param maxAmount Maximum UTXO amount in the asset&#39;s base unit. Requires the UTXO Manager.
      *     This feature is currently in beta and might be subject to changes. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetMaxSpendableAmountResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetMaxSpendableAmountResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> getMaxSpendableAmount(
             String vaultAccountId,
@@ -1503,8 +1661,7 @@ public class VaultsApi {
             List<String> excludeAnyLabels,
             String address,
             String minAmount,
-            String maxAmount)
-            throws ApiException {
+            String maxAmount) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getMaxSpendableAmountRequestBuilder(
@@ -1544,7 +1701,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetMaxSpendableAmountResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1636,8 +1803,8 @@ public class VaultsApi {
      *     be included (optional
      * @param excludeTagIds List of tag IDs to exclude. Vault accounts with any of these tags will
      *     be filtered out (optional
-     * @return CompletableFuture&lt;ApiResponse&lt;VaultAccountsPagedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;VaultAccountsPagedResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> getPagedVaultAccounts(
             String namePrefix,
@@ -1650,8 +1817,7 @@ public class VaultsApi {
             BigDecimal limit,
             List<UUID> tagIds,
             List<UUID> includeTagIds,
-            List<UUID> excludeTagIds)
-            throws ApiException {
+            List<UUID> excludeTagIds) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getPagedVaultAccountsRequestBuilder(
@@ -1693,7 +1859,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<VaultAccountsPagedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1776,11 +1952,11 @@ public class VaultsApi {
      * @param derivationPath (required)
      * @param algorithm (required)
      * @param compressed (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;PublicKeyInformation&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;PublicKeyInformation&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<PublicKeyInformation>> getPublicKeyInfo(
-            String derivationPath, String algorithm, Boolean compressed) throws ApiException {
+            String derivationPath, String algorithm, Boolean compressed) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getPublicKeyInfoRequestBuilder(derivationPath, algorithm, compressed);
@@ -1810,7 +1986,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<PublicKeyInformation>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1868,16 +2054,15 @@ public class VaultsApi {
      * @param change (required)
      * @param addressIndex (required)
      * @param compressed (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;PublicKeyInformation&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;PublicKeyInformation&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<PublicKeyInformation>> getPublicKeyInfoForAddress(
             String vaultAccountId,
             String assetId,
             BigDecimal change,
             BigDecimal addressIndex,
-            Boolean compressed)
-            throws ApiException {
+            Boolean compressed) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getPublicKeyInfoForAddressRequestBuilder(
@@ -1910,7 +2095,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<PublicKeyInformation>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -1976,11 +2171,11 @@ public class VaultsApi {
      *
      * @param vaultAccountId The ID of the vault account (required)
      * @param assetId The ID of the asset (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;UnspentInputsResponse&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;UnspentInputsResponse&gt;&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<List<UnspentInputsResponse>>> getUnspentInputs(
-            String vaultAccountId, String assetId) throws ApiException {
+            String vaultAccountId, String assetId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getUnspentInputsRequestBuilder(vaultAccountId, assetId);
@@ -2011,7 +2206,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<UnspentInputsResponse>>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2050,11 +2255,11 @@ public class VaultsApi {
      * Admin, Signer, Approver, Editor, Viewer.
      *
      * @param vaultAccountId The ID of the vault account (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetAutomationSettingsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;GetAutomationSettingsResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetAutomationSettingsResponse>>
-            getUsdcGatewayDepositAutomationBeta(String vaultAccountId) throws ApiException {
+            getUsdcGatewayDepositAutomationBeta(String vaultAccountId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getUsdcGatewayDepositAutomationBetaRequestBuilder(vaultAccountId);
@@ -2086,7 +2291,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<GetAutomationSettingsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2123,11 +2338,11 @@ public class VaultsApi {
      * changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @param vaultAccountId The ID of the vault account (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;UsdcGatewayWalletInfoResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;UsdcGatewayWalletInfoResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<UsdcGatewayWalletInfoResponse>>
-            getUsdcGatewayWalletInfoBeta(String vaultAccountId) throws ApiException {
+            getUsdcGatewayWalletInfoBeta(String vaultAccountId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getUsdcGatewayWalletInfoBetaRequestBuilder(vaultAccountId);
@@ -2159,7 +2374,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<UsdcGatewayWalletInfoResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2195,11 +2420,10 @@ public class VaultsApi {
      * Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @param vaultAccountId The ID of the vault account (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;VaultAccount&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;VaultAccount&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<VaultAccount>> getVaultAccount(String vaultAccountId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<VaultAccount>> getVaultAccount(String vaultAccountId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getVaultAccountRequestBuilder(vaultAccountId);
@@ -2229,7 +2453,15 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<VaultAccount>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2267,11 +2499,11 @@ public class VaultsApi {
      *
      * @param vaultAccountId The ID of the vault account to return (required)
      * @param assetId The ID of the asset (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;VaultAsset&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;VaultAsset&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<VaultAsset>> getVaultAccountAsset(
-            String vaultAccountId, String assetId) throws ApiException {
+            String vaultAccountId, String assetId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getVaultAccountAssetRequestBuilder(vaultAccountId, assetId);
@@ -2302,7 +2534,15 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<VaultAsset>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2344,8 +2584,8 @@ public class VaultsApi {
      * @param limit (optional)
      * @param before (optional)
      * @param after (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;PaginatedAddressResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;PaginatedAddressResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<PaginatedAddressResponse>>
             getVaultAccountAssetAddressesPaginated(
@@ -2353,8 +2593,7 @@ public class VaultsApi {
                     String assetId,
                     BigDecimal limit,
                     String before,
-                    String after)
-                    throws ApiException {
+                    String after) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getVaultAccountAssetAddressesPaginatedRequestBuilder(
@@ -2387,7 +2626,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<PaginatedAddressResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2448,11 +2697,11 @@ public class VaultsApi {
      *
      * @param accountNamePrefix (optional)
      * @param accountNameSuffix (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;VaultAsset&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;VaultAsset&gt;&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<List<VaultAsset>>> getVaultAssets(
-            String accountNamePrefix, String accountNameSuffix) throws ApiException {
+            String accountNamePrefix, String accountNameSuffix) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getVaultAssetsRequestBuilder(accountNamePrefix, accountNameSuffix);
@@ -2483,7 +2732,15 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<VaultAsset>>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2534,11 +2791,10 @@ public class VaultsApi {
      * accounts. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @param assetId (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;VaultAsset&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;VaultAsset&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<VaultAsset>> getVaultBalanceByAsset(String assetId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<VaultAsset>> getVaultBalanceByAsset(String assetId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getVaultBalanceByAssetRequestBuilder(assetId);
@@ -2569,7 +2825,15 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<VaultAsset>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2612,11 +2876,11 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;VaultActionStatus&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;VaultActionStatus&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<VaultActionStatus>> hideVaultAccount(
-            String vaultAccountId, String idempotencyKey) throws ApiException {
+            String vaultAccountId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     hideVaultAccountRequestBuilder(vaultAccountId, idempotencyKey);
@@ -2646,7 +2910,15 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<VaultActionStatus>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2686,11 +2958,11 @@ public class VaultsApi {
      * address. **Note:** This endpoint is currently in beta and might be subject to changes.
      *
      * @param address The blockchain address to resolve. (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;AddressReverseLookupResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressReverseLookupResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AddressReverseLookupResponse>> lookupVaultByAddress(
-            String address) throws ApiException {
+            String address) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     lookupVaultByAddressRequestBuilder(address);
@@ -2721,7 +2993,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<AddressReverseLookupResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2776,16 +3058,15 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;VaultActionStatus&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;VaultActionStatus&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<VaultActionStatus>> setCustomerRefIdForAddress(
             SetCustomerRefIdForAddressRequest setCustomerRefIdForAddressRequest,
             String vaultAccountId,
             String assetId,
             String addressId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setCustomerRefIdForAddressRequestBuilder(
@@ -2822,7 +3103,15 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<VaultActionStatus>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2890,15 +3179,14 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;SaveAutomationSettingsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;SaveAutomationSettingsResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<SaveAutomationSettingsResponse>>
             setUsdcGatewayDepositAutomationBeta(
                     AutomationSettingsRequest automationSettingsRequest,
                     String vaultAccountId,
-                    String idempotencyKey)
-                    throws ApiException {
+                    String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setUsdcGatewayDepositAutomationBetaRequestBuilder(
@@ -2931,7 +3219,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<SaveAutomationSettingsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -2992,12 +3290,11 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;VaultActionStatus&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;VaultActionStatus&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<VaultActionStatus>> setVaultAccountAutoFuel(
-            SetAutoFuelRequest setAutoFuelRequest, String vaultAccountId, String idempotencyKey)
-            throws ApiException {
+            SetAutoFuelRequest setAutoFuelRequest, String vaultAccountId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setVaultAccountAutoFuelRequestBuilder(
@@ -3029,7 +3326,15 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<VaultActionStatus>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -3084,14 +3389,13 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;VaultActionStatus&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;VaultActionStatus&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<VaultActionStatus>> setVaultAccountCustomerRefId(
             SetCustomerRefIdRequest setCustomerRefIdRequest,
             String vaultAccountId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setVaultAccountCustomerRefIdRequestBuilder(
@@ -3124,7 +3428,15 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<VaultActionStatus>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -3179,11 +3491,11 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;VaultActionStatus&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;VaultActionStatus&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<VaultActionStatus>> unhideVaultAccount(
-            String vaultAccountId, String idempotencyKey) throws ApiException {
+            String vaultAccountId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     unhideVaultAccountRequestBuilder(vaultAccountId, idempotencyKey);
@@ -3214,7 +3526,15 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<VaultActionStatus>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -3260,16 +3580,15 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;AutomationSettingsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;AutomationSettingsResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<AutomationSettingsResponse>>
             updateUsdcGatewayDepositAutomationBeta(
                     UpdateAutomationSettingsRequest updateAutomationSettingsRequest,
                     String vaultAccountId,
                     UUID automationId,
-                    String idempotencyKey)
-                    throws ApiException {
+                    String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateUsdcGatewayDepositAutomationBetaRequestBuilder(
@@ -3305,7 +3624,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<AutomationSettingsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -3366,14 +3695,13 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;RenameVaultAccountResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;RenameVaultAccountResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<RenameVaultAccountResponse>> updateVaultAccount(
             UpdateVaultAccountRequest updateVaultAccountRequest,
             String vaultAccountId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateVaultAccountRequestBuilder(
@@ -3405,7 +3733,17 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<RenameVaultAccountResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -3464,16 +3802,15 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;VaultActionStatus&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;VaultActionStatus&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<VaultActionStatus>> updateVaultAccountAssetAddress(
             String vaultAccountId,
             String assetId,
             String addressId,
             UpdateVaultAccountAssetAddressRequest updateVaultAccountAssetAddressRequest,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateVaultAccountAssetAddressRequestBuilder(
@@ -3510,7 +3847,15 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<VaultActionStatus>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -3572,11 +3917,11 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;VaultAsset&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;VaultAsset&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<VaultAsset>> updateVaultAccountAssetBalance(
-            String vaultAccountId, String assetId, String idempotencyKey) throws ApiException {
+            String vaultAccountId, String assetId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateVaultAccountAssetBalanceRequestBuilder(
@@ -3609,7 +3954,15 @@ public class VaultsApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<VaultAsset>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

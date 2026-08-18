@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.EditGasStationConfigurationResponse;
 import com.fireblocks.sdk.model.GasStationConfiguration;
@@ -33,11 +32,9 @@ public class GasStationsApiTest {
      *
      * <p>Returns gas station settings and balances for a requested asset. Endpoint Permission:
      * Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getGasStationByAssetIdTest() throws ApiException {
+    public void getGasStationByAssetIdTest() {
         String assetId = null;
         CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response =
                 api.getGasStationByAssetId(assetId);
@@ -48,11 +45,9 @@ public class GasStationsApiTest {
      *
      * <p>Returns gas station settings and ETH balance. Endpoint Permission: Admin, Non-Signing
      * Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getGasStationInfoTest() throws ApiException {
+    public void getGasStationInfoTest() {
         CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response =
                 api.getGasStationInfo();
     }
@@ -63,11 +58,9 @@ public class GasStationsApiTest {
      * <p>Configures gas station settings for ETH. Learn more about the Fireblocks Gas Station in
      * the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateGasStationConfigurationTest() throws ApiException {
+    public void updateGasStationConfigurationTest() {
         GasStationConfiguration gasStationConfiguration = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>> response =
@@ -81,11 +74,9 @@ public class GasStationsApiTest {
      * Station in the following
      * [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint Permission:
      * Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateGasStationConfigurationByAssetIdTest() throws ApiException {
+    public void updateGasStationConfigurationByAssetIdTest() {
         GasStationConfiguration gasStationConfiguration = null;
         String assetId = null;
         String idempotencyKey = null;

@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsRequest;
 import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsResponse;
@@ -67,11 +66,9 @@ public class ComplianceApiTest {
      *
      * <p>Activates ARS (Address Registry Screening) for the authenticated tenant (sets
      * config.active to true). Once activated, ARS screening applies to matching transactions.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void activateArsConfigTest() throws ApiException {
+    public void activateArsConfigTest() {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ArsConfigResponse>> response =
                 api.activateArsConfig(idempotencyKey);
@@ -83,11 +80,9 @@ public class ComplianceApiTest {
      * <p>Activates BYORK Light for the authenticated tenant (sets config.active to true). Once
      * activated, BYORK screening applies to matching transactions. Requires BYORK Light to be
      * enabled for the tenant (contact your CSM to enable).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void activateByorkConfigTest() throws ApiException {
+    public void activateByorkConfigTest() {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ByorkConfigResponse>> response =
                 api.activateByorkConfig(idempotencyKey);
@@ -97,11 +92,9 @@ public class ComplianceApiTest {
      * Add vault accounts to the address registry opt-out list
      *
      * <p>Adds one or more vault account ids to the workspace opt-out list for the address registry.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void addAddressRegistryVaultOptOutsTest() throws ApiException {
+    public void addAddressRegistryVaultOptOutsTest() {
         AddressRegistryAddVaultOptOutsRequest addressRegistryAddVaultOptOutsRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<AddressRegistryAddVaultOptOutsResponse>> response =
@@ -115,11 +108,9 @@ public class ComplianceApiTest {
      * <p>Assigns one or more vault accounts to a specific legal entity registration. Explicitly
      * mapped vault accounts take precedence over the workspace default legal entity. Endpoint
      * Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void assignVaultsToLegalEntityTest() throws ApiException {
+    public void assignVaultsToLegalEntityTest() {
         AssignVaultsToLegalEntityRequest assignVaultsToLegalEntityRequest = null;
         UUID legalEntityId = null;
         String idempotencyKey = null;
@@ -132,11 +123,9 @@ public class ComplianceApiTest {
      * Create a counterparty group
      *
      * <p>Creates a new counterparty group. **Endpoint Permissions:** Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createCounterpartyGroupTest() throws ApiException {
+    public void createCounterpartyGroupTest() {
         CreateCounterpartyGroupRequest createCounterpartyGroupRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<CounterpartyGroup>> response =
@@ -149,11 +138,9 @@ public class ComplianceApiTest {
      * <p>Deactivates ARS (Address Registry Screening) for the authenticated tenant (sets
      * config.active to false). Once deactivated, ARS screening no longer applies until activated
      * again.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deactivateArsConfigTest() throws ApiException {
+    public void deactivateArsConfigTest() {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ArsConfigResponse>> response =
                 api.deactivateArsConfig(idempotencyKey);
@@ -165,11 +152,9 @@ public class ComplianceApiTest {
      * <p>Deactivates BYORK Light for the authenticated tenant (sets config.active to false). Once
      * deactivated, BYORK screening no longer applies until activated again. Requires BYORK Light to
      * be enabled for the tenant (contact your CSM to enable).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deactivateByorkConfigTest() throws ApiException {
+    public void deactivateByorkConfigTest() {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ByorkConfigResponse>> response =
                 api.deactivateByorkConfig(idempotencyKey);
@@ -180,11 +165,9 @@ public class ComplianceApiTest {
      *
      * <p>Permanently deletes a counterparty group. **Endpoint Permissions:** Admin, Non-Signing
      * Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteCounterpartyGroupTest() throws ApiException {
+    public void deleteCounterpartyGroupTest() {
         UUID groupId = null;
 
         CompletableFuture<ApiResponse<Void>> response = api.deleteCounterpartyGroup(groupId);
@@ -195,11 +178,9 @@ public class ComplianceApiTest {
      *
      * <p>Delete a legal entity will change the status of a legal entity registration to REVOKED.
      * Endpoint Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteLegalEntityTest() throws ApiException {
+    public void deleteLegalEntityTest() {
         UUID legalEntityId = null;
 
         CompletableFuture<ApiResponse<Void>> response = api.deleteLegalEntity(legalEntityId);
@@ -210,11 +191,9 @@ public class ComplianceApiTest {
      *
      * <p>Returns whether the workspace is &#x60;OPTED_IN&#x60; or &#x60;OPTED_OUT&#x60; of the
      * address registry.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getAddressRegistryTenantParticipationStatusTest() throws ApiException {
+    public void getAddressRegistryTenantParticipationStatusTest() {
         CompletableFuture<ApiResponse<AddressRegistryTenantRegistryResponse>> response =
                 api.getAddressRegistryTenantParticipationStatus();
     }
@@ -225,11 +204,9 @@ public class ComplianceApiTest {
      * <p>Returns whether this vault account is on the workspace opt-out list (&#x60;optedOut&#x60;
      * true or false). List, add, and clear-all are available on
      * &#x60;/v1/address_registry/vaults&#x60;; this path reads or removes one vault.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getAddressRegistryVaultOptOutTest() throws ApiException {
+    public void getAddressRegistryVaultOptOutTest() {
         Integer vaultAccountId = null;
         CompletableFuture<ApiResponse<AddressRegistryGetVaultOptOutResponse>> response =
                 api.getAddressRegistryVaultOptOut(vaultAccountId);
@@ -239,11 +216,9 @@ public class ComplianceApiTest {
      * AML - View Post-Screening Policy
      *
      * <p>Get the post-screening policy for AML.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getAmlPostScreeningPolicyTest() throws ApiException {
+    public void getAmlPostScreeningPolicyTest() {
         CompletableFuture<ApiResponse<ScreeningPolicyResponse>> response =
                 api.getAmlPostScreeningPolicy();
     }
@@ -252,11 +227,9 @@ public class ComplianceApiTest {
      * AML - View Screening Policy
      *
      * <p>Get the screening policy for AML.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getAmlScreeningPolicyTest() throws ApiException {
+    public void getAmlScreeningPolicyTest() {
         CompletableFuture<ApiResponse<ScreeningProviderRulesConfigurationResponse>> response =
                 api.getAmlScreeningPolicy();
     }
@@ -267,11 +240,9 @@ public class ComplianceApiTest {
      * <p>Retrieves BYORK Light configuration for the authenticated tenant (timeouts, active flag,
      * allowed timeout ranges). Returns default config when none exists. Requires BYORK Light to be
      * enabled for the tenant.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getByorkConfigTest() throws ApiException {
+    public void getByorkConfigTest() {
         CompletableFuture<ApiResponse<ByorkConfigResponse>> response = api.getByorkConfig();
     }
 
@@ -282,11 +253,9 @@ public class ComplianceApiTest {
      * PRE_ACCEPTED, PENDING, RECEIVED (verdict is final but processing not yet complete), or
      * COMPLETED. Requires BYORK Light to be enabled for the tenant. Returns 404 if no BYORK verdict
      * is found for the transaction.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getByorkVerdictTest() throws ApiException {
+    public void getByorkVerdictTest() {
         String txId = null;
         CompletableFuture<ApiResponse<GetByorkVerdictResponse>> response =
                 api.getByorkVerdict(txId);
@@ -297,11 +266,9 @@ public class ComplianceApiTest {
      *
      * <p>Returns the details of a specific counterparty group. **Endpoint Permissions:** Admin,
      * Non-Signing Admin, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getCounterpartyGroupTest() throws ApiException {
+    public void getCounterpartyGroupTest() {
         UUID groupId = null;
         CompletableFuture<ApiResponse<CounterpartyGroup>> response =
                 api.getCounterpartyGroup(groupId);
@@ -312,11 +279,9 @@ public class ComplianceApiTest {
      *
      * <p>Returns details of a specific legal entity registration, including GLEIF data when
      * available. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getLegalEntityTest() throws ApiException {
+    public void getLegalEntityTest() {
         UUID legalEntityId = null;
         CompletableFuture<ApiResponse<LegalEntityRegistration>> response =
                 api.getLegalEntity(legalEntityId);
@@ -328,11 +293,9 @@ public class ComplianceApiTest {
      * <p>Returns legal entity information for the given blockchain address (LEI data availability,
      * LEI identifier, Travel Rule providers, contact email, and related fields — see response
      * schema). URL-encode &#x60;{address}&#x60; when required.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getLegalEntityForAddressTest() throws ApiException {
+    public void getLegalEntityForAddressTest() {
         String address = null;
         CompletableFuture<ApiResponse<AddressRegistryLegalEntity>> response =
                 api.getLegalEntityForAddress(address);
@@ -342,11 +305,9 @@ public class ComplianceApiTest {
      * Travel Rule - View Post-Screening Policy
      *
      * <p>Get the post-screening policy for Travel Rule.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getPostScreeningPolicyTest() throws ApiException {
+    public void getPostScreeningPolicyTest() {
         CompletableFuture<ApiResponse<ScreeningPolicyResponse>> response =
                 api.getPostScreeningPolicy();
     }
@@ -355,11 +316,9 @@ public class ComplianceApiTest {
      * Provides all the compliance details for the given screened transaction.
      *
      * <p>Provides all the compliance details for the given screened transaction.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getScreeningFullDetailsTest() throws ApiException {
+    public void getScreeningFullDetailsTest() {
         String txId = null;
         CompletableFuture<ApiResponse<ComplianceResultFullPayload>> response =
                 api.getScreeningFullDetails(txId);
@@ -369,11 +328,9 @@ public class ComplianceApiTest {
      * Travel Rule - View Screening Policy
      *
      * <p>Get the screening policy for Travel Rule.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getScreeningPolicyTest() throws ApiException {
+    public void getScreeningPolicyTest() {
         CompletableFuture<ApiResponse<ScreeningProviderRulesConfigurationResponse>> response =
                 api.getScreeningPolicy();
     }
@@ -385,11 +342,9 @@ public class ComplianceApiTest {
      * Pagination uses &#x60;next&#x60; and &#x60;prev&#x60; cursors from the response. If
      * &#x60;pageSize&#x60; is omitted, **50** items are returned per page; allowed range is
      * **1–100** per request.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listAddressRegistryVaultOptOutsTest() throws ApiException {
+    public void listAddressRegistryVaultOptOutsTest() {
         String pageCursor = null;
         Integer pageSize = null;
         AddressRegistryVaultListOrder order = null;
@@ -402,11 +357,9 @@ public class ComplianceApiTest {
      *
      * <p>Returns a paginated list of counterparty groups. **Endpoint Permissions:** Admin,
      * Non-Signing Admin, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listCounterpartyGroupsTest() throws ApiException {
+    public void listCounterpartyGroupsTest() {
         String pageCursor = null;
         Integer pageSize = null;
         CompletableFuture<ApiResponse<CounterpartyGroupsPaginatedResponse>> response =
@@ -422,11 +375,9 @@ public class ComplianceApiTest {
      * default legal entity is returned. Returns an empty response if neither a vault mapping nor a
      * default legal entity is configured. Endpoint Permission: Admin, Non-Signing Admin, Signer,
      * Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listLegalEntitiesTest() throws ApiException {
+    public void listLegalEntitiesTest() {
         String vaultAccountId = null;
         String pageCursor = null;
         Integer pageSize = null;
@@ -440,11 +391,9 @@ public class ComplianceApiTest {
      * <p>Returns vault account IDs explicitly assigned to a specific legal entity registration,
      * with cursor-based pagination. Endpoint Permission: Admin, Non-Signing Admin, Signer,
      * Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void listVaultsForLegalEntityTest() throws ApiException {
+    public void listVaultsForLegalEntityTest() {
         UUID legalEntityId = null;
         String pageCursor = null;
         Integer pageSize = null;
@@ -457,11 +406,9 @@ public class ComplianceApiTest {
      *
      * <p>Opts the workspace in. No request body. Response uses the same JSON shape as GET; status
      * is OPTED_IN.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void optInAddressRegistryTenantTest() throws ApiException {
+    public void optInAddressRegistryTenantTest() {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<AddressRegistryTenantRegistryResponse>> response =
                 api.optInAddressRegistryTenant(idempotencyKey);
@@ -472,11 +419,9 @@ public class ComplianceApiTest {
      *
      * <p>Opts the workspace out. No request body. Response uses the same JSON shape as GET; status
      * is OPTED_OUT.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void optOutAddressRegistryTenantTest() throws ApiException {
+    public void optOutAddressRegistryTenantTest() {
         CompletableFuture<ApiResponse<AddressRegistryTenantRegistryResponse>> response =
                 api.optOutAddressRegistryTenant();
     }
@@ -487,11 +432,9 @@ public class ComplianceApiTest {
      * <p>Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier)
      * code. The LEI is validated against the GLEIF registry. Each workspace can register multiple
      * legal entities. Endpoint Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void registerLegalEntityTest() throws ApiException {
+    public void registerLegalEntityTest() {
         RegisterLegalEntityRequest registerLegalEntityRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<LegalEntityRegistration>> response =
@@ -504,11 +447,9 @@ public class ComplianceApiTest {
      * <p>Removes this vault account id from the workspace opt-out list if it is present; otherwise
      * the call still succeeds. Response body matches GET (&#x60;optedOut&#x60; is &#x60;false&#x60;
      * after success). To clear the whole list, use &#x60;DELETE /v1/address_registry/vaults&#x60;.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void removeAddressRegistryVaultOptOutTest() throws ApiException {
+    public void removeAddressRegistryVaultOptOutTest() {
         Integer vaultAccountId = null;
         CompletableFuture<ApiResponse<AddressRegistryRemoveVaultOptOutResponse>> response =
                 api.removeAddressRegistryVaultOptOut(vaultAccountId);
@@ -518,11 +459,9 @@ public class ComplianceApiTest {
      * Remove all vault-level address registry opt-outs for the workspace
      *
      * <p>Removes all vault accounts from the workspace opt-out list.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void removeAllAddressRegistryVaultOptOutsTest() throws ApiException {
+    public void removeAllAddressRegistryVaultOptOutsTest() {
         CompletableFuture<ApiResponse<AddressRegistryRemoveAllVaultOptOutsResponse>> response =
                 api.removeAllAddressRegistryVaultOptOuts();
     }
@@ -533,11 +472,9 @@ public class ComplianceApiTest {
      * <p>Re-runs compliance screening on an incoming transaction that was rejected or failed by
      * screening checks, moving it back to pending screening. This endpoint is only applicable to
      * incoming transactions with a rejected/failed AML screening status.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void rescreenRejectedTransactionTest() throws ApiException {
+    public void rescreenRejectedTransactionTest() {
         String txId = null;
         RescreenTransactionRequest rescreenTransactionRequest = null;
         String idempotencyKey = null;
@@ -551,11 +488,9 @@ public class ComplianceApiTest {
      * <p>Triggers a new transaction, with the API user as the initiator, bypassing the screening
      * policy checks. This endpoint is restricted to Admin API users and is only applicable to
      * outgoing transactions.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void retryRejectedTransactionBypassScreeningChecksTest() throws ApiException {
+    public void retryRejectedTransactionBypassScreeningChecksTest() {
         String txId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<CreateTransactionResponse>> response =
@@ -569,11 +504,9 @@ public class ComplianceApiTest {
      * Verdict) is enabled. This endpoint is for Super Light only. For **BYORK Light**, use POST
      * /screening/byork/verdict instead. When Super Light is retired, this endpoint will be
      * deprecated; use the BYORK Light verdict API for new integrations.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setAmlVerdictTest() throws ApiException {
+    public void setAmlVerdictTest() {
         AmlVerdictManualRequest amlVerdictManualRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<AmlVerdictManualResponse>> response =
@@ -588,11 +521,9 @@ public class ComplianceApiTest {
      * the ranges returned in GET config (timeoutRangeIncoming for incomingTimeoutSeconds,
      * timeoutRangeOutgoing for outgoingTimeoutSeconds). Requires BYORK Light to be enabled for the
      * tenant (contact your CSM to enable).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setByorkTimeoutsTest() throws ApiException {
+    public void setByorkTimeoutsTest() {
         ByorkSetTimeoutsRequest byorkSetTimeoutsRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ByorkConfigResponse>> response =
@@ -607,11 +538,9 @@ public class ComplianceApiTest {
      * COMPLETED). If processing has not yet reached that point, the verdict is stored and applied
      * when it does (response status PRE_ACCEPTED). Requires BYORK Light to be enabled for the
      * tenant.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setByorkVerdictTest() throws ApiException {
+    public void setByorkVerdictTest() {
         ByorkVerdictRequest byorkVerdictRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ByorkVerdictResponse>> response =
@@ -622,11 +551,9 @@ public class ComplianceApiTest {
      * Update AML Configuration
      *
      * <p>Updates bypass screening, inbound delay, or outbound delay configurations for AML.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateAmlScreeningConfigurationTest() throws ApiException {
+    public void updateAmlScreeningConfigurationTest() {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response =
                 api.updateAmlScreeningConfiguration(idempotencyKey);
@@ -637,11 +564,9 @@ public class ComplianceApiTest {
      *
      * <p>Updates an existing counterparty group. **Endpoint Permissions:** Admin, Non-Signing
      * Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateCounterpartyGroupTest() throws ApiException {
+    public void updateCounterpartyGroupTest() {
         UpdateCounterpartyGroupRequest updateCounterpartyGroupRequest = null;
         UUID groupId = null;
         String idempotencyKey = null;
@@ -656,11 +581,9 @@ public class ComplianceApiTest {
      * <p>Updates the status of a legal entity registration. Setting isDefault to true marks the
      * registration as the workspace default, which is applied to vault accounts that have no
      * explicit legal entity mapping. Endpoint Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateLegalEntityTest() throws ApiException {
+    public void updateLegalEntityTest() {
         UpdateLegalEntityRequest updateLegalEntityRequest = null;
         UUID legalEntityId = null;
         String idempotencyKey = null;
@@ -672,11 +595,9 @@ public class ComplianceApiTest {
      * Tenant - Screening Configuration
      *
      * <p>Update tenant screening configuration.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateScreeningConfigurationTest() throws ApiException {
+    public void updateScreeningConfigurationTest() {
         ScreeningUpdateConfigurations screeningUpdateConfigurations = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ScreeningUpdateConfigurations>> response =
@@ -687,11 +608,9 @@ public class ComplianceApiTest {
      * Update Travel Rule Configuration
      *
      * <p>Updates bypass screening, inbound delay, or outbound delay configurations for Travel Rule.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateTravelRuleConfigTest() throws ApiException {
+    public void updateTravelRuleConfigTest() {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response =
                 api.updateTravelRuleConfig(idempotencyKey);

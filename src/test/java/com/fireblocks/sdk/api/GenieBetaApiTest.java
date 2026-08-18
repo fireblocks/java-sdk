@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.GenieChatMessage;
 import com.fireblocks.sdk.model.GenieCreateSessionResponse;
@@ -35,11 +34,9 @@ public class GenieBetaApiTest {
      * &#x60;sessionId&#x60; — pass it when sending messages, and reuse it across calls to keep one
      * continuous conversation. **Note:** This endpoint is currently in beta and might be subject to
      * changes.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createGenieSessionTest() throws ApiException {
+    public void createGenieSessionTest() {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<GenieCreateSessionResponse>> response =
                 api.createGenieSession(idempotencyKey);
@@ -51,11 +48,9 @@ public class GenieBetaApiTest {
      * <p>Sends a question to Genie and returns a single answer. Reuse the &#x60;sessionId&#x60;
      * from the original session on follow-up messages to continue the conversation with prior
      * context. **Note:** This endpoint is currently in beta and might be subject to changes.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void sendGenieMessageTest() throws ApiException {
+    public void sendGenieMessageTest() {
         GenieSendMessageRequest genieSendMessageRequest = null;
         String sessionId = null;
         String idempotencyKey = null;

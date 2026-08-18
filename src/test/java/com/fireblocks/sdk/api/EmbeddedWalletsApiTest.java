@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.EmbeddedWallet;
 import com.fireblocks.sdk.model.EmbeddedWalletAccount;
@@ -49,11 +48,9 @@ public class EmbeddedWalletsApiTest {
      *
      * <p>Get the addresses of a specific asset, under a specific account, under a specific Non
      * Custodial Wallet
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void addEmbeddedWalletAssetTest() throws ApiException {
+    public void addEmbeddedWalletAssetTest() {
         String walletId = null;
         String accountId = null;
         String assetId = null;
@@ -66,11 +63,9 @@ public class EmbeddedWalletsApiTest {
      * Assign a wallet
      *
      * <p>Assign a specific Non Custodial Wallet to a user
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void assignEmbeddedWalletTest() throws ApiException {
+    public void assignEmbeddedWalletTest() {
         String walletId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<EmbeddedWallet>> response =
@@ -81,11 +76,9 @@ public class EmbeddedWalletsApiTest {
      * Create a new wallet
      *
      * <p>Create new Non Custodial Wallet
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createEmbeddedWalletTest() throws ApiException {
+    public void createEmbeddedWalletTest() {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<EmbeddedWallet>> response =
                 api.createEmbeddedWallet(idempotencyKey);
@@ -95,11 +88,9 @@ public class EmbeddedWalletsApiTest {
      * Create a new account
      *
      * <p>Create a new account under a specific Non Custodial Wallet
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createEmbeddedWalletAccountTest() throws ApiException {
+    public void createEmbeddedWalletAccountTest() {
         String walletId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<EmbeddedWalletAccount>> response =
@@ -110,11 +101,9 @@ public class EmbeddedWalletsApiTest {
      * Get a wallet
      *
      * <p>Get a wallet
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEmbeddedWalletTest() throws ApiException {
+    public void getEmbeddedWalletTest() {
         String walletId = null;
         CompletableFuture<ApiResponse<EmbeddedWallet>> response = api.getEmbeddedWallet(walletId);
     }
@@ -123,11 +112,9 @@ public class EmbeddedWalletsApiTest {
      * Get a account
      *
      * <p>Get a specific account under a specific Non Custodial Wallet
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEmbeddedWalletAccountTest() throws ApiException {
+    public void getEmbeddedWalletAccountTest() {
         String walletId = null;
         String accountId = null;
         CompletableFuture<ApiResponse<EmbeddedWalletAccount>> response =
@@ -139,11 +126,9 @@ public class EmbeddedWalletsApiTest {
      *
      * <p>Get the addresses of a specific asset, under a specific account, under a specific Non
      * Custodial Wallet
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEmbeddedWalletAddressesTest() throws ApiException {
+    public void getEmbeddedWalletAddressesTest() {
         String walletId = null;
         String accountId = null;
         String assetId = null;
@@ -161,11 +146,9 @@ public class EmbeddedWalletsApiTest {
      * Retrieve asset
      *
      * <p>Get asset under a specific account, under a specific Non Custodial Wallet
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEmbeddedWalletAssetTest() throws ApiException {
+    public void getEmbeddedWalletAssetTest() {
         String walletId = null;
         String accountId = null;
         String assetId = null;
@@ -177,11 +160,9 @@ public class EmbeddedWalletsApiTest {
      * Retrieve asset balance
      *
      * <p>Get balance for specific asset, under a specific account
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEmbeddedWalletAssetBalanceTest() throws ApiException {
+    public void getEmbeddedWalletAssetBalanceTest() {
         String walletId = null;
         String accountId = null;
         String assetId = null;
@@ -193,11 +174,9 @@ public class EmbeddedWalletsApiTest {
      * Retrieve assets
      *
      * <p>Retrieve assets for a specific account under a specific Non Custodial Wallet
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEmbeddedWalletAssetsTest() throws ApiException {
+    public void getEmbeddedWalletAssetsTest() {
         String walletId = null;
         String accountId = null;
         List<String> sort = null;
@@ -212,11 +191,9 @@ public class EmbeddedWalletsApiTest {
      * Get Embedded Wallet Device
      *
      * <p>Get specific device for a specific s Wallet
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEmbeddedWalletDeviceTest() throws ApiException {
+    public void getEmbeddedWalletDeviceTest() {
         String walletId = null;
         String deviceId = null;
         CompletableFuture<ApiResponse<EmbeddedWalletDevice>> response =
@@ -227,11 +204,9 @@ public class EmbeddedWalletsApiTest {
      * Get device key setup state
      *
      * <p>Get the state of the specific device setup key under a specific Non Custodial Wallet
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEmbeddedWalletDeviceSetupStateTest() throws ApiException {
+    public void getEmbeddedWalletDeviceSetupStateTest() {
         String walletId = null;
         String deviceId = null;
         CompletableFuture<ApiResponse<EmbeddedWalletDeviceKeySetupResponse>> response =
@@ -242,11 +217,9 @@ public class EmbeddedWalletsApiTest {
      * Get registered devices - paginated
      *
      * <p>Get a paginated list of registered devices for a specific Non Custodial Wallet
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEmbeddedWalletDevicesPaginatedTest() throws ApiException {
+    public void getEmbeddedWalletDevicesPaginatedTest() {
         String walletId = null;
         List<String> sort = null;
         String pageCursor = null;
@@ -260,11 +233,9 @@ public class EmbeddedWalletsApiTest {
      * Get wallet Latest Backup details
      *
      * <p>Get wallet Latest Backup details, including the deviceId, and backup time
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEmbeddedWalletLatestBackupTest() throws ApiException {
+    public void getEmbeddedWalletLatestBackupTest() {
         String walletId = null;
         CompletableFuture<ApiResponse<EmbeddedWalletLatestBackupResponse>> response =
                 api.getEmbeddedWalletLatestBackup(walletId);
@@ -275,11 +246,9 @@ public class EmbeddedWalletsApiTest {
      *
      * <p>Gets the public key of an asset associated with a specific account within a Non-Custodial
      * Wallet
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEmbeddedWalletPublicKeyInfoForAddressTest() throws ApiException {
+    public void getEmbeddedWalletPublicKeyInfoForAddressTest() {
         UUID xEndUserWalletId = null;
         String walletId = null;
         String accountId = null;
@@ -303,11 +272,9 @@ public class EmbeddedWalletsApiTest {
      *
      * <p>Get the key setup state for a specific Non Custodial Wallet, including required algorithms
      * and device setup status
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEmbeddedWalletSetupStatusTest() throws ApiException {
+    public void getEmbeddedWalletSetupStatusTest() {
         String walletId = null;
         CompletableFuture<ApiResponse<EmbeddedWalletSetupStatusResponse>> response =
                 api.getEmbeddedWalletSetupStatus(walletId);
@@ -317,11 +284,9 @@ public class EmbeddedWalletsApiTest {
      * Retrieve supported assets
      *
      * <p>Get all the available supported assets for the Non-Custodial Wallet
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEmbeddedWalletSupportedAssetsTest() throws ApiException {
+    public void getEmbeddedWalletSupportedAssetsTest() {
         String pageCursor = null;
         BigDecimal pageSize = null;
         Boolean onlyBaseAssets = null;
@@ -333,11 +298,9 @@ public class EmbeddedWalletsApiTest {
      * List wallets
      *
      * <p>Get all Non Custodial Wallets
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getEmbeddedWalletsTest() throws ApiException {
+    public void getEmbeddedWalletsTest() {
         String pageCursor = null;
         BigDecimal pageSize = null;
         String sort = null;
@@ -352,11 +315,9 @@ public class EmbeddedWalletsApiTest {
      *
      * <p>Gets the public key information based on derivation path and signing algorithm within a
      * Non-Custodial Wallet
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getPublicKeyInfoNcwTest() throws ApiException {
+    public void getPublicKeyInfoNcwTest() {
         UUID xEndUserWalletId = null;
         String walletId = null;
         String derivationPath = null;
@@ -371,11 +332,9 @@ public class EmbeddedWalletsApiTest {
      * Refresh asset balance
      *
      * <p>Refresh the balance of an asset in a specific account
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void refreshEmbeddedWalletAssetBalanceTest() throws ApiException {
+    public void refreshEmbeddedWalletAssetBalanceTest() {
         String walletId = null;
         String accountId = null;
         String assetId = null;
@@ -388,11 +347,9 @@ public class EmbeddedWalletsApiTest {
      * Update device status
      *
      * <p>Update the enabled/disabled status of a specific device for a Non Custodial Wallet
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateEmbeddedWalletDeviceStatusTest() throws ApiException {
+    public void updateEmbeddedWalletDeviceStatusTest() {
         EnableDevice enableDevice = null;
         String walletId = null;
         String deviceId = null;
@@ -407,11 +364,9 @@ public class EmbeddedWalletsApiTest {
      * Update wallet status
      *
      * <p>Update the enabled/disabled status of a specific Non Custodial Wallet
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateEmbeddedWalletStatusTest() throws ApiException {
+    public void updateEmbeddedWalletStatusTest() {
         EnableWallet enableWallet = null;
         String walletId = null;
         String idempotencyKey = null;

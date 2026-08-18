@@ -41,7 +41,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(
@@ -77,6 +80,28 @@ public class TravelRuleApi {
                 response.statusCode(), message, response.headers(), response.body());
     }
 
+    /**
+     * Normalizes any failure raised while performing the call into the single failure type callers
+     * are told to expect. Transport-level errors surfaced by {@code HttpClient.sendAsync} -
+     * connection refused, DNS failures, TLS errors, timeouts - would otherwise reach the caller as
+     * a raw {@link java.io.IOException}, which makes the documented {@code (ApiException)
+     * e.getCause()} throw {@link ClassCastException}.
+     *
+     * <p>{@link CancellationException} is passed through unchanged: a cancelled call is not an API
+     * failure.
+     */
+    private static Throwable toApiFailure(Throwable throwable) {
+        Throwable cause = throwable;
+        while ((cause instanceof CompletionException || cause instanceof ExecutionException)
+                && cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+        if (cause instanceof ApiException || cause instanceof CancellationException) {
+            return cause;
+        }
+        return new ApiException(cause);
+    }
+
     private String formatExceptionMessage(String operationId, int statusCode, String body) {
         if (body == null || body.isEmpty()) {
             body = "[no body]";
@@ -92,13 +117,12 @@ public class TravelRuleApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TrustProofOfAddressCreateResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TrustProofOfAddressCreateResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TrustProofOfAddressCreateResponse>>
             createTrustProofOfAddress(
-                    TrustProofOfAddressRequest trustProofOfAddressRequest, String idempotencyKey)
-                    throws ApiException {
+                    TrustProofOfAddressRequest trustProofOfAddressRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createTrustProofOfAddressRequestBuilder(
@@ -130,7 +154,18 @@ public class TravelRuleApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    TrustProofOfAddressCreateResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -178,11 +213,11 @@ public class TravelRuleApi {
      * verification.
      *
      * @param transactionId Fireblocks transaction ID (UUID format) (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TrustProofOfAddressResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TrustProofOfAddressResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TrustProofOfAddressResponse>> getTrustProofOfAddress(
-            UUID transactionId) throws ApiException {
+            UUID transactionId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getTrustProofOfAddressRequestBuilder(transactionId);
@@ -213,7 +248,17 @@ public class TravelRuleApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TrustProofOfAddressResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -255,11 +300,11 @@ public class TravelRuleApi {
      *     differently: &#x60;documents&#x60; and &#x60;ddq&#x60; return a small default set of
      *     identifying fields instead of the requested one, and &#x60;travelRule_EMAIL&#x60; returns
      *     an empty object. An unrecognised field name causes an error. (optional
-     * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleVASP&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleVASP&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TravelRuleVASP>> getVASPByDID(
-            String did, List<String> fields) throws ApiException {
+            String did, List<String> fields) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getVASPByDIDRequestBuilder(did, fields);
             return memberVarHttpClient
@@ -288,7 +333,15 @@ public class TravelRuleApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TravelRuleVASP>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -355,8 +408,8 @@ public class TravelRuleApi {
      *     be returned (i.e., VASPs that have already been reviewed to this status). (optional)
      * @param pageCursor Cursor for pagination. When provided, the response will include the next
      *     page of results. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleGetAllVASPsResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleGetAllVASPsResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TravelRuleGetAllVASPsResponse>> getVASPs(
             String order,
@@ -364,8 +417,7 @@ public class TravelRuleApi {
             List<String> fields,
             String search,
             String reviewValue,
-            String pageCursor)
-            throws ApiException {
+            String pageCursor) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getVASPsRequestBuilder(
@@ -396,7 +448,17 @@ public class TravelRuleApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TravelRuleGetAllVASPsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -459,11 +521,11 @@ public class TravelRuleApi {
      * vaspDid value in response if none assigned.
      *
      * @param vaultAccountId The ID of the vault account (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleVaspForVault&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleVaspForVault&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TravelRuleVaspForVault>> getVaspForVault(
-            String vaultAccountId) throws ApiException {
+            String vaultAccountId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getVaspForVaultRequestBuilder(vaultAccountId);
@@ -493,7 +555,17 @@ public class TravelRuleApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TravelRuleVaspForVault>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -533,14 +605,13 @@ public class TravelRuleApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleVaspForVault&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleVaspForVault&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TravelRuleVaspForVault>> setVaspForVault(
             TravelRuleVaspForVault travelRuleVaspForVault,
             String vaultAccountId,
-            String idempotencyKey)
-            throws ApiException {
+            String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     setVaspForVaultRequestBuilder(
@@ -571,7 +642,17 @@ public class TravelRuleApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TravelRuleVaspForVault>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -626,12 +707,11 @@ public class TravelRuleApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleUpdateVASPDetails&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleUpdateVASPDetails&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TravelRuleUpdateVASPDetails>> updateVasp(
-            TravelRuleUpdateVASPDetails travelRuleUpdateVASPDetails, String idempotencyKey)
-            throws ApiException {
+            TravelRuleUpdateVASPDetails travelRuleUpdateVASPDetails, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateVaspRequestBuilder(travelRuleUpdateVASPDetails, idempotencyKey);
@@ -661,7 +741,17 @@ public class TravelRuleApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TravelRuleUpdateVASPDetails>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -716,16 +806,15 @@ public class TravelRuleApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleValidateTransactionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
+     * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleValidateTransactionResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<TravelRuleValidateTransactionResponse>>
             validateFullTravelRuleTransaction(
                     TravelRuleValidateFullTransactionRequest
                             travelRuleValidateFullTransactionRequest,
                     List<String> notation,
-                    String idempotencyKey)
-                    throws ApiException {
+                    String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     validateFullTravelRuleTransactionRequestBuilder(
@@ -758,7 +847,18 @@ public class TravelRuleApi {
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
-                            });
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    TravelRuleValidateTransactionResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }

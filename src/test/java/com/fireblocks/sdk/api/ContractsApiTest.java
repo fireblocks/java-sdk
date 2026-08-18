@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AddContractAssetRequest;
 import com.fireblocks.sdk.model.CreateContractRequest;
@@ -35,11 +34,9 @@ public class ContractsApiTest {
      *
      * <p>Adds an asset to a whitelisted contract. Endpoint Permission: Admin, Non-Signing Admin,
      * Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void addContractAssetTest() throws ApiException {
+    public void addContractAssetTest() {
         String contractId = null;
         String assetId = null;
         AddContractAssetRequest addContractAssetRequest = null;
@@ -53,11 +50,9 @@ public class ContractsApiTest {
      *
      * <p>Adds a contract to the workspace whitelist. Endpoint Permission: Admin, Non-Signing Admin,
      * Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createContractTest() throws ApiException {
+    public void createContractTest() {
         CreateContractRequest createContractRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<UnmanagedWallet>> response =
@@ -69,11 +64,9 @@ public class ContractsApiTest {
      *
      * <p>Deletes a contract by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
      * Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteContractTest() throws ApiException {
+    public void deleteContractTest() {
         String contractId = null;
 
         CompletableFuture<ApiResponse<Void>> response = api.deleteContract(contractId);
@@ -84,11 +77,9 @@ public class ContractsApiTest {
      *
      * <p>Deletes a whitelisted contract asset by ID. Endpoint Permission: Admin, Non-Signing Admin,
      * Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deleteContractAssetTest() throws ApiException {
+    public void deleteContractAssetTest() {
         String contractId = null;
         String assetId = null;
 
@@ -101,11 +92,9 @@ public class ContractsApiTest {
      *
      * <p>Returns a whitelisted contract by Fireblocks Contract ID. Endpoint Permission: Admin,
      * Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getContractTest() throws ApiException {
+    public void getContractTest() {
         String contractId = null;
         CompletableFuture<ApiResponse<UnmanagedWallet>> response = api.getContract(contractId);
     }
@@ -115,11 +104,9 @@ public class ContractsApiTest {
      *
      * <p>Returns a whitelisted contract&#39;s asset by ID. Endpoint Permission: Admin, Non-Signing
      * Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getContractAssetTest() throws ApiException {
+    public void getContractAssetTest() {
         String contractId = null;
         String assetId = null;
         CompletableFuture<ApiResponse<ExternalWalletAsset>> response =
@@ -131,11 +118,9 @@ public class ContractsApiTest {
      *
      * <p>Gets a list of whitelisted contracts. Endpoint Permission: Admin, Non-Signing Admin,
      * Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getContractsTest() throws ApiException {
+    public void getContractsTest() {
         CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = api.getContracts();
     }
 }

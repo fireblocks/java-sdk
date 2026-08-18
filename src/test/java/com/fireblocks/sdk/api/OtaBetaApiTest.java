@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.GetOtaStatusResponse;
 import com.fireblocks.sdk.model.SetOtaStatusRequest;
@@ -32,11 +31,9 @@ public class OtaBetaApiTest {
      * Returns current OTA status
      *
      * <p>Returns current OTA status
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getOtaStatusTest() throws ApiException {
+    public void getOtaStatusTest() {
         CompletableFuture<ApiResponse<GetOtaStatusResponse>> response = api.getOtaStatus();
     }
 
@@ -46,11 +43,9 @@ public class OtaBetaApiTest {
      * <p>Enable or disable transactions to One Time Addresses (Non Whitelisted addresses). Learn
      * more about [One Time
      * Addresses](https://support.fireblocks.io/hc/en-us/articles/4409104568338-One-Time-Address-OTA-feature)
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setOtaStatusTest() throws ApiException {
+    public void setOtaStatusTest() {
         SetOtaStatusRequest setOtaStatusRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<SetOtaStatusResponse>> response =

@@ -13,7 +13,6 @@
 package com.fireblocks.sdk.api;
 
 
-import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AddressReverseLookupResponse;
 import com.fireblocks.sdk.model.AutomationSettingsRequest;
@@ -70,11 +69,9 @@ public class VaultsApiTest {
      * <p>Initiates activation for a wallet in a vault account. Activation is required for tokens
      * that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void activateAssetForVaultAccountTest() throws ApiException {
+    public void activateAssetForVaultAccountTest() {
         String vaultAccountId = null;
         String assetId = null;
         String idempotencyKey = null;
@@ -91,11 +88,9 @@ public class VaultsApiTest {
      * does not yet exist it is created in an activated state. **Note:** This endpoint is currently
      * in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin,
      * Signer, Approver.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void activateUsdcGatewayWalletBetaTest() throws ApiException {
+    public void activateUsdcGatewayWalletBetaTest() {
         String vaultAccountId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<UsdcGatewayWalletStatusResponse>> response =
@@ -108,11 +103,9 @@ public class VaultsApiTest {
      * <p>Attach or detach one or more tags from the requested vault accounts. Endpoint Permission:
      * For protected tags: Owner, Admin, Non-Signing Admin. For non protected tags: Owner, Admin,
      * Non-Signing Admin, Signer, Editor, Approver.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void attachOrDetachTagsFromVaultAccountsTest() throws ApiException {
+    public void attachOrDetachTagsFromVaultAccountsTest() {
         VaultAccountsTagAttachmentOperationsRequest vaultAccountsTagAttachmentOperationsRequest =
                 null;
         String idempotencyKey = null;
@@ -126,11 +119,9 @@ public class VaultsApiTest {
      *
      * <p>Converts an existing segwit address to the legacy format. Endpoint Permission: Admin,
      * Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createLegacyAddressTest() throws ApiException {
+    public void createLegacyAddressTest() {
         String vaultAccountId = null;
         String assetId = null;
         String addressId = null;
@@ -146,11 +137,9 @@ public class VaultsApiTest {
      * and DOT blockchains are not supported. - These endpoints are currently in beta and might be
      * subject to changes. - Limited to a maximum of 10,000 accounts per operation. **Endpoint
      * Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createMultipleAccountsTest() throws ApiException {
+    public void createMultipleAccountsTest() {
         CreateMultipleAccountsRequest createMultipleAccountsRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<JobCreated>> response =
@@ -165,11 +154,9 @@ public class VaultsApiTest {
      * - Limited to a maximum of 10,000 addresses per operation. Use multiple operations for the
      * same Vault account/permanent address if needed. **Endpoint Permissions:** Admin, Non-Signing
      * Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createMultipleDepositAddressesTest() throws ApiException {
+    public void createMultipleDepositAddressesTest() {
         CreateMultipleDepositAddressesRequest createMultipleDepositAddressesRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<JobCreated>> response =
@@ -184,11 +171,9 @@ public class VaultsApiTest {
      * consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following
      * [guide](https://developers.fireblocks.com/reference/create-vault-account). Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createVaultAccountTest() throws ApiException {
+    public void createVaultAccountTest() {
         CreateVaultAccountRequest createVaultAccountRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<VaultAccount>> response =
@@ -202,11 +187,9 @@ public class VaultsApiTest {
      * Vault Wallets in the following
      * [guide](https://developers.fireblocks.com/reference/create-vault-wallet). Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createVaultAccountAssetTest() throws ApiException {
+    public void createVaultAccountAssetTest() {
         String vaultAccountId = null;
         String assetId = null;
         CreateAssetsRequest createAssetsRequest = null;
@@ -227,11 +210,9 @@ public class VaultsApiTest {
      * <p>Creates a new deposit address for an asset of a vault account. Should be used for UTXO or
      * Tag/Memo based assets ONLY. Requests with account based assets will fail. Endpoint
      * Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void createVaultAccountAssetAddressTest() throws ApiException {
+    public void createVaultAccountAssetAddressTest() {
         String vaultAccountId = null;
         String assetId = null;
         CreateAddressRequest createAddressRequest = null;
@@ -247,11 +228,9 @@ public class VaultsApiTest {
      * <p>Deactivates the USDC Gateway wallet associated with the given vault account. **Note:**
      * This endpoint is currently in beta and might be subject to changes. Endpoint Permission:
      * Admin, Non-Signing Admin, Signer, Approver.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void deactivateUsdcGatewayWalletBetaTest() throws ApiException {
+    public void deactivateUsdcGatewayWalletBetaTest() {
         String vaultAccountId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<UsdcGatewayWalletStatusResponse>> response =
@@ -265,11 +244,9 @@ public class VaultsApiTest {
      * configured, only its schedule stops. Turn it back on later with PATCH, without setting up the
      * automation again from scratch. **Note:** This endpoint is currently in beta and might be
      * subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void disableUsdcGatewayDepositAutomationScheduleBetaTest() throws ApiException {
+    public void disableUsdcGatewayDepositAutomationScheduleBetaTest() {
         String vaultAccountId = null;
         UUID automationId = null;
 
@@ -283,11 +260,9 @@ public class VaultsApiTest {
      * <p>Get all vault wallets of the vault accounts in your workspace. A vault wallet is an asset
      * in a vault account. This method allows fast traversal of all account balances. Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getAssetWalletsTest() throws ApiException {
+    public void getAssetWalletsTest() {
         BigDecimal totalAmountLargerThan = null;
         String assetId = null;
         String orderBy = null;
@@ -304,11 +279,9 @@ public class VaultsApiTest {
      * <p>Returns the current status of (or an error for) the specified deposit addresss bulk
      * creation job. **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor,
      * and Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getCreateMultipleDepositAddressesJobStatusTest() throws ApiException {
+    public void getCreateMultipleDepositAddressesJobStatusTest() {
         String jobId = null;
         CompletableFuture<ApiResponse<CreateMultipleDepositAddressesJobStatus>> response =
                 api.getCreateMultipleDepositAddressesJobStatus(jobId);
@@ -319,11 +292,9 @@ public class VaultsApiTest {
      *
      * <p>Returns the current status of (or error for) the specified vault account bulk creation
      * job. **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getCreateMultipleVaultAccountsJobStatusTest() throws ApiException {
+    public void getCreateMultipleVaultAccountsJobStatusTest() {
         String jobId = null;
         CompletableFuture<ApiResponse<CreateMultipleVaultAccountsJobStatus>> response =
                 api.getCreateMultipleVaultAccountsJobStatus(jobId);
@@ -334,11 +305,9 @@ public class VaultsApiTest {
      *
      * <p>Retrieves the maximum BIP44 address index and change address index used for a specific
      * asset in a vault account (BIP44 standard).
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getMaxBipIndexUsedTest() throws ApiException {
+    public void getMaxBipIndexUsedTest() {
         String vaultAccountId = null;
         String assetId = null;
         CompletableFuture<ApiResponse<GetMaxBipIndexUsedResponse>> response =
@@ -351,11 +320,9 @@ public class VaultsApiTest {
      * <p>**UTXO assets only.** Retrieve the maximum amount of the specified asset that can be spent
      * in a single transaction from the specified vault account. **Endpoint Permissions:** Admin,
      * Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getMaxSpendableAmountTest() throws ApiException {
+    public void getMaxSpendableAmountTest() {
         String vaultAccountId = null;
         String assetId = null;
         Boolean manualSignging = null;
@@ -384,11 +351,9 @@ public class VaultsApiTest {
      * <p>Gets all vault accounts in your workspace. This endpoint returns a limited amount of
      * results with a quick response time. Endpoint Permission: Admin, Non-Signing Admin, Signer,
      * Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getPagedVaultAccountsTest() throws ApiException {
+    public void getPagedVaultAccountsTest() {
         String namePrefix = null;
         String nameSuffix = null;
         BigDecimal minAmountThreshold = null;
@@ -420,11 +385,9 @@ public class VaultsApiTest {
      *
      * <p>Gets the public key information based on derivation path and signing algorithm. Endpoint
      * Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getPublicKeyInfoTest() throws ApiException {
+    public void getPublicKeyInfoTest() {
         String derivationPath = null;
         String algorithm = null;
         Boolean compressed = null;
@@ -437,11 +400,9 @@ public class VaultsApiTest {
      *
      * <p>Get the public key information for a specific asset in a vault account. Endpoint
      * Permission: Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getPublicKeyInfoForAddressTest() throws ApiException {
+    public void getPublicKeyInfoForAddressTest() {
         String vaultAccountId = null;
         String assetId = null;
         BigDecimal change = null;
@@ -457,11 +418,9 @@ public class VaultsApiTest {
      *
      * <p>Returns unspent inputs information of an UTXO asset in a vault account. Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getUnspentInputsTest() throws ApiException {
+    public void getUnspentInputsTest() {
         String vaultAccountId = null;
         String assetId = null;
         CompletableFuture<ApiResponse<List<UnspentInputsResponse>>> response =
@@ -474,11 +433,9 @@ public class VaultsApiTest {
      * <p>Returns the USDC Gateway deposit automations configured for the given vault account.
      * **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getUsdcGatewayDepositAutomationBetaTest() throws ApiException {
+    public void getUsdcGatewayDepositAutomationBetaTest() {
         String vaultAccountId = null;
         CompletableFuture<ApiResponse<GetAutomationSettingsResponse>> response =
                 api.getUsdcGatewayDepositAutomationBeta(vaultAccountId);
@@ -490,11 +447,9 @@ public class VaultsApiTest {
      * <p>Returns the USDC Gateway wallet information associated with the given vault account.
      * **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getUsdcGatewayWalletInfoBetaTest() throws ApiException {
+    public void getUsdcGatewayWalletInfoBetaTest() {
         String vaultAccountId = null;
         CompletableFuture<ApiResponse<UsdcGatewayWalletInfoResponse>> response =
                 api.getUsdcGatewayWalletInfoBeta(vaultAccountId);
@@ -505,11 +460,9 @@ public class VaultsApiTest {
      *
      * <p>Get a vault account by its unique ID. Endpoint Permission: Admin, Non-Signing Admin,
      * Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getVaultAccountTest() throws ApiException {
+    public void getVaultAccountTest() {
         String vaultAccountId = null;
         CompletableFuture<ApiResponse<VaultAccount>> response = api.getVaultAccount(vaultAccountId);
     }
@@ -519,11 +472,9 @@ public class VaultsApiTest {
      *
      * <p>Returns a specific vault wallet balance information for a specific asset. Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getVaultAccountAssetTest() throws ApiException {
+    public void getVaultAccountAssetTest() {
         String vaultAccountId = null;
         String assetId = null;
         CompletableFuture<ApiResponse<VaultAsset>> response =
@@ -535,11 +486,9 @@ public class VaultsApiTest {
      *
      * <p>Returns a paginated response of the addresses for a given vault account and asset.
      * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getVaultAccountAssetAddressesPaginatedTest() throws ApiException {
+    public void getVaultAccountAssetAddressesPaginatedTest() {
         String vaultAccountId = null;
         String assetId = null;
         BigDecimal limit = null;
@@ -555,11 +504,9 @@ public class VaultsApiTest {
      *
      * <p>Gets the assets amount summary for all accounts or filtered accounts. Endpoint Permission:
      * Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getVaultAssetsTest() throws ApiException {
+    public void getVaultAssetsTest() {
         String accountNamePrefix = null;
         String accountNameSuffix = null;
         CompletableFuture<ApiResponse<List<VaultAsset>>> response =
@@ -571,11 +518,9 @@ public class VaultsApiTest {
      *
      * <p>Get the total balance of an asset across all the vault accounts. Endpoint Permission:
      * Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getVaultBalanceByAssetTest() throws ApiException {
+    public void getVaultBalanceByAssetTest() {
         String assetId = null;
         CompletableFuture<ApiResponse<VaultAsset>> response = api.getVaultBalanceByAsset(assetId);
     }
@@ -590,11 +535,9 @@ public class VaultsApiTest {
      * NOTE: Hiding the vault account from the web console will also hide all the related
      * transactions to/from this vault. Endpoint Permission: Admin, Non-Signing Admin, Signer,
      * Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void hideVaultAccountTest() throws ApiException {
+    public void hideVaultAccountTest() {
         String vaultAccountId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<VaultActionStatus>> response =
@@ -607,11 +550,9 @@ public class VaultsApiTest {
      * <p>Resolves a blockchain address to the vault account that owns it. Returns the vault account
      * ID and the blockchains associated with the address. **Note:** This endpoint is currently in
      * beta and might be subject to changes.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void lookupVaultByAddressTest() throws ApiException {
+    public void lookupVaultByAddressTest() {
         String address = null;
         CompletableFuture<ApiResponse<AddressReverseLookupResponse>> response =
                 api.lookupVaultByAddress(address);
@@ -622,11 +563,9 @@ public class VaultsApiTest {
      *
      * <p>Sets an AML/KYT customer reference ID for a specific address. Endpoint Permission: Admin,
      * Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setCustomerRefIdForAddressTest() throws ApiException {
+    public void setCustomerRefIdForAddressTest() {
         SetCustomerRefIdForAddressRequest setCustomerRefIdForAddressRequest = null;
         String vaultAccountId = null;
         String assetId = null;
@@ -649,11 +588,9 @@ public class VaultsApiTest {
      * account and asset. Use PATCH to change it instead. **Note:** This endpoint is currently in
      * beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer,
      * Approver.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setUsdcGatewayDepositAutomationBetaTest() throws ApiException {
+    public void setUsdcGatewayDepositAutomationBetaTest() {
         AutomationSettingsRequest automationSettingsRequest = null;
         String vaultAccountId = null;
         String idempotencyKey = null;
@@ -670,11 +607,9 @@ public class VaultsApiTest {
      * Gas Station. Learn more about the Fireblocks Gas Station in the following
      * [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint Permission:
      * Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setVaultAccountAutoFuelTest() throws ApiException {
+    public void setVaultAccountAutoFuelTest() {
         SetAutoFuelRequest setAutoFuelRequest = null;
         String vaultAccountId = null;
         String idempotencyKey = null;
@@ -689,11 +624,9 @@ public class VaultsApiTest {
      * Fireblocks AML management in the following
      * [guide](https://developers.fireblocks.com/docs/define-aml-policies). Endpoint Permission:
      * Admin, Non-Signing Admin.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void setVaultAccountCustomerRefIdTest() throws ApiException {
+    public void setVaultAccountCustomerRefIdTest() {
         SetCustomerRefIdRequest setCustomerRefIdRequest = null;
         String vaultAccountId = null;
         String idempotencyKey = null;
@@ -707,11 +640,9 @@ public class VaultsApiTest {
      *
      * <p>Makes a hidden vault account visible in web console view. Endpoint Permission: Admin,
      * Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void unhideVaultAccountTest() throws ApiException {
+    public void unhideVaultAccountTest() {
         String vaultAccountId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<VaultActionStatus>> response =
@@ -724,11 +655,9 @@ public class VaultsApiTest {
      * <p>Changes an existing USDC Gateway deposit automation for a vault account. **Note:** This
      * endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin,
      * Non-Signing Admin, Signer, Approver.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateUsdcGatewayDepositAutomationBetaTest() throws ApiException {
+    public void updateUsdcGatewayDepositAutomationBetaTest() {
         UpdateAutomationSettingsRequest updateAutomationSettingsRequest = null;
         String vaultAccountId = null;
         UUID automationId = null;
@@ -746,11 +675,9 @@ public class VaultsApiTest {
      *
      * <p>Renames the requested vault account. Endpoint Permission: Admin, Non-Signing Admin,
      * Signer, Approver.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateVaultAccountTest() throws ApiException {
+    public void updateVaultAccountTest() {
         UpdateVaultAccountRequest updateVaultAccountRequest = null;
         String vaultAccountId = null;
         String idempotencyKey = null;
@@ -763,11 +690,9 @@ public class VaultsApiTest {
      *
      * <p>Updates the description of an existing address of an asset in a vault account. Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateVaultAccountAssetAddressTest() throws ApiException {
+    public void updateVaultAccountAssetAddressTest() {
         String vaultAccountId = null;
         String assetId = null;
         String addressId = null;
@@ -788,11 +713,9 @@ public class VaultsApiTest {
      * <p>Updates the balance of a specific asset in a vault account. This API endpoint is subject
      * to a strict rate limit. Should be used by clients in very specific scenarios. Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateVaultAccountAssetBalanceTest() throws ApiException {
+    public void updateVaultAccountAssetBalanceTest() {
         String vaultAccountId = null;
         String assetId = null;
         String idempotencyKey = null;
