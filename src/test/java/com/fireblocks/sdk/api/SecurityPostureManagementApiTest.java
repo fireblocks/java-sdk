@@ -15,6 +15,9 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.GetFindingsExternalResponse;
+import com.fireblocks.sdk.model.SecurityFindingDetailed;
+import com.fireblocks.sdk.model.UpdateFindingExternalRequest;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -26,10 +29,23 @@ public class SecurityPostureManagementApiTest {
     private final SecurityPostureManagementApi api = new SecurityPostureManagementApi();
 
     /**
+     * Get a FSPM security finding by ID
+     *
+     * <p>Returns a single FSPM security finding for the workspace, redacted to the public field
+     * set. Endpoint Roles: Security Admin, Security Auditor.
+     */
+    @Test
+    public void getSecurityFindingByIdTest() {
+        UUID id = null;
+        CompletableFuture<ApiResponse<SecurityFindingDetailed>> response =
+                api.getSecurityFindingById(id);
+    }
+
+    /**
      * Get FSPM security findings
      *
-     * <p>Returns a paginated list of FSPM security findings for the workspace. Endpoint
-     * Permissions: Security Admin, Security Auditor.
+     * <p>Returns a paginated list of FSPM security findings for the workspace. Endpoint Roles:
+     * Security Admin, Security Auditor.
      */
     @Test
     public void getSecurityFindingsTest() {
@@ -40,5 +56,21 @@ public class SecurityPostureManagementApiTest {
         String status = null;
         CompletableFuture<ApiResponse<GetFindingsExternalResponse>> response =
                 api.getSecurityFindings(pageCursor, pageSize, severity, category, status);
+    }
+
+    /**
+     * Update a FSPM security finding by ID
+     *
+     * <p>Accepts or reopens a finding for the workspace. When accepting a finding (&#x60;status:
+     * \&quot;ACCEPTED\&quot;&#x60;), &#x60;statusUpdatedReason&#x60; is required. Endpoint Roles:
+     * Security Admin.
+     */
+    @Test
+    public void updateSecurityFindingByIdTest() {
+        UpdateFindingExternalRequest updateFindingExternalRequest = null;
+        UUID id = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<SecurityFindingDetailed>> response =
+                api.updateSecurityFindingById(updateFindingExternalRequest, id, idempotencyKey);
     }
 }

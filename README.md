@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>27.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:27.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-27.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -385,7 +385,9 @@ Class | Method | HTTP request | Description
 *ReportsBetaApi* | [**getReport**](docs/ReportsBetaApi.md#getReport) | **GET** /reports/{reportId} | Get report status
 *ReportsBetaApi* | [**listReports**](docs/ReportsBetaApi.md#listReports) | **GET** /reports | List reports
 *ResetDeviceApi* | [**resetDevice**](docs/ResetDeviceApi.md#resetDevice) | **POST** /management/users/{id}/reset_device | Resets device
+*SecurityPostureManagementApi* | [**getSecurityFindingById**](docs/SecurityPostureManagementApi.md#getSecurityFindingById) | **GET** /security/fspm/findings/{id} | Get a FSPM security finding by ID
 *SecurityPostureManagementApi* | [**getSecurityFindings**](docs/SecurityPostureManagementApi.md#getSecurityFindings) | **GET** /security/fspm/findings | Get FSPM security findings
+*SecurityPostureManagementApi* | [**updateSecurityFindingById**](docs/SecurityPostureManagementApi.md#updateSecurityFindingById) | **PATCH** /security/fspm/findings/{id} | Update a FSPM security finding by ID
 *SmartTransferApi* | [**approveDvPTicketTerm**](docs/SmartTransferApi.md#approveDvPTicketTerm) | **PUT** /smart_transfers/{ticketId}/terms/{termId}/dvp/approve | Set funding source and approval
 *SmartTransferApi* | [**cancelTicket**](docs/SmartTransferApi.md#cancelTicket) | **PUT** /smart-transfers/{ticketId}/cancel | Cancel Ticket
 *SmartTransferApi* | [**createTicket**](docs/SmartTransferApi.md#createTicket) | **POST** /smart-transfers | Create Ticket
@@ -600,6 +602,7 @@ Class | Method | HTTP request | Description
  - [APIUser](docs/APIUser.md)
  - [AbaPaymentInfo](docs/AbaPaymentInfo.md)
  - [AbiFunction](docs/AbiFunction.md)
+ - [AcceptFindingRequest](docs/AcceptFindingRequest.md)
  - [AccessRegistryAddressItem](docs/AccessRegistryAddressItem.md)
  - [AccessRegistryCurrentStateResponse](docs/AccessRegistryCurrentStateResponse.md)
  - [AccessRegistryCurrentStateResponse2](docs/AccessRegistryCurrentStateResponse2.md)
@@ -785,6 +788,7 @@ Class | Method | HTTP request | Description
  - [CollectionTokenMetadataAttributeDto](docs/CollectionTokenMetadataAttributeDto.md)
  - [CollectionTokenMetadataDto](docs/CollectionTokenMetadataDto.md)
  - [CollectionType](docs/CollectionType.md)
+ - [ComplianceRequirement](docs/ComplianceRequirement.md)
  - [ComplianceResultFullPayload](docs/ComplianceResultFullPayload.md)
  - [ComplianceResultStatusesEnum](docs/ComplianceResultStatusesEnum.md)
  - [ComplianceResults](docs/ComplianceResults.md)
@@ -1341,6 +1345,7 @@ Class | Method | HTTP request | Description
  - [RenameConnectedAccountResponse](docs/RenameConnectedAccountResponse.md)
  - [RenameCosigner](docs/RenameCosigner.md)
  - [RenameVaultAccountResponse](docs/RenameVaultAccountResponse.md)
+ - [ReopenFindingRequest](docs/ReopenFindingRequest.md)
  - [ReportConflictResponse](docs/ReportConflictResponse.md)
  - [ReportJob](docs/ReportJob.md)
  - [ReportJobLinks](docs/ReportJobLinks.md)
@@ -1407,6 +1412,7 @@ Class | Method | HTTP request | Description
  - [ScreeningVerdictMatchedRule](docs/ScreeningVerdictMatchedRule.md)
  - [SearchNetworkIdsResponse](docs/SearchNetworkIdsResponse.md)
  - [SecurityFinding](docs/SecurityFinding.md)
+ - [SecurityFindingDetailed](docs/SecurityFindingDetailed.md)
  - [SepaPaymentInfo](docs/SepaPaymentInfo.md)
  - [SessionDTO](docs/SessionDTO.md)
  - [SessionMetadata](docs/SessionMetadata.md)
@@ -1726,6 +1732,7 @@ Class | Method | HTTP request | Description
  - [UpdateCallbackHandlerResponse](docs/UpdateCallbackHandlerResponse.md)
  - [UpdateCounterpartyGroupRequest](docs/UpdateCounterpartyGroupRequest.md)
  - [UpdateDraftRequest](docs/UpdateDraftRequest.md)
+ - [UpdateFindingExternalRequest](docs/UpdateFindingExternalRequest.md)
  - [UpdateLegalEntityRequest](docs/UpdateLegalEntityRequest.md)
  - [UpdateTagRequest](docs/UpdateTagRequest.md)
  - [UpdateTokenOwnershipStatusDto](docs/UpdateTokenOwnershipStatusDto.md)

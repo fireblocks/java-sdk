@@ -206,14 +206,6 @@ public class SecurityFinding {
     public enum CategoryEnum {
         USER_MANAGEMENT(String.valueOf("USER_MANAGEMENT")),
 
-        ACCESS_CONTROL(String.valueOf("ACCESS_CONTROL")),
-
-        ADMIN_MANAGEMENT(String.valueOf("ADMIN_MANAGEMENT")),
-
-        SECURITY(String.valueOf("SECURITY")),
-
-        CONFIGURATION(String.valueOf("CONFIGURATION")),
-
         APPROVAL_GROUP_MANAGEMENT(String.valueOf("APPROVAL_GROUP_MANAGEMENT")),
 
         POLICY_ENGINE_UTILIZATION(String.valueOf("POLICY_ENGINE_UTILIZATION")),

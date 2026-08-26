@@ -11,6 +11,7 @@ build.sbt
 docs/APIUser.md
 docs/AbaPaymentInfo.md
 docs/AbiFunction.md
+docs/AcceptFindingRequest.md
 docs/AccessRegistryAddressItem.md
 docs/AccessRegistryCurrentStateResponse.md
 docs/AccessRegistryCurrentStateResponse2.md
@@ -201,6 +202,7 @@ docs/CollectionTokenMetadataAttributeDto.md
 docs/CollectionTokenMetadataDto.md
 docs/CollectionType.md
 docs/ComplianceApi.md
+docs/ComplianceRequirement.md
 docs/ComplianceResultFullPayload.md
 docs/ComplianceResultStatusesEnum.md
 docs/ComplianceResults.md
@@ -784,6 +786,7 @@ docs/RenameConnectedAccountRequest.md
 docs/RenameConnectedAccountResponse.md
 docs/RenameCosigner.md
 docs/RenameVaultAccountResponse.md
+docs/ReopenFindingRequest.md
 docs/ReportConflictResponse.md
 docs/ReportJob.md
 docs/ReportJobLinks.md
@@ -852,6 +855,7 @@ docs/ScreeningVerdictEnum.md
 docs/ScreeningVerdictMatchedRule.md
 docs/SearchNetworkIdsResponse.md
 docs/SecurityFinding.md
+docs/SecurityFindingDetailed.md
 docs/SecurityPostureManagementApi.md
 docs/SepaPaymentInfo.md
 docs/SessionDTO.md
@@ -1180,6 +1184,7 @@ docs/UpdateCallbackHandlerRequest.md
 docs/UpdateCallbackHandlerResponse.md
 docs/UpdateCounterpartyGroupRequest.md
 docs/UpdateDraftRequest.md
+docs/UpdateFindingExternalRequest.md
 docs/UpdateLegalEntityRequest.md
 docs/UpdateTagRequest.md
 docs/UpdateTokenOwnershipStatusDto.md
@@ -1337,6 +1342,7 @@ src/main/java/com/fireblocks/sdk/model/APIUser.java
 src/main/java/com/fireblocks/sdk/model/AbaPaymentInfo.java
 src/main/java/com/fireblocks/sdk/model/AbiFunction.java
 src/main/java/com/fireblocks/sdk/model/AbstractOpenApiSchema.java
+src/main/java/com/fireblocks/sdk/model/AcceptFindingRequest.java
 src/main/java/com/fireblocks/sdk/model/AccessRegistryAddressItem.java
 src/main/java/com/fireblocks/sdk/model/AccessRegistryCurrentStateResponse.java
 src/main/java/com/fireblocks/sdk/model/AccessRegistryCurrentStateResponse2.java
@@ -1522,6 +1528,7 @@ src/main/java/com/fireblocks/sdk/model/CollectionOwnershipResponse.java
 src/main/java/com/fireblocks/sdk/model/CollectionTokenMetadataAttributeDto.java
 src/main/java/com/fireblocks/sdk/model/CollectionTokenMetadataDto.java
 src/main/java/com/fireblocks/sdk/model/CollectionType.java
+src/main/java/com/fireblocks/sdk/model/ComplianceRequirement.java
 src/main/java/com/fireblocks/sdk/model/ComplianceResultFullPayload.java
 src/main/java/com/fireblocks/sdk/model/ComplianceResultStatusesEnum.java
 src/main/java/com/fireblocks/sdk/model/ComplianceResults.java
@@ -2078,6 +2085,7 @@ src/main/java/com/fireblocks/sdk/model/RenameConnectedAccountRequest.java
 src/main/java/com/fireblocks/sdk/model/RenameConnectedAccountResponse.java
 src/main/java/com/fireblocks/sdk/model/RenameCosigner.java
 src/main/java/com/fireblocks/sdk/model/RenameVaultAccountResponse.java
+src/main/java/com/fireblocks/sdk/model/ReopenFindingRequest.java
 src/main/java/com/fireblocks/sdk/model/ReportConflictResponse.java
 src/main/java/com/fireblocks/sdk/model/ReportJob.java
 src/main/java/com/fireblocks/sdk/model/ReportJobLinks.java
@@ -2144,6 +2152,7 @@ src/main/java/com/fireblocks/sdk/model/ScreeningVerdictEnum.java
 src/main/java/com/fireblocks/sdk/model/ScreeningVerdictMatchedRule.java
 src/main/java/com/fireblocks/sdk/model/SearchNetworkIdsResponse.java
 src/main/java/com/fireblocks/sdk/model/SecurityFinding.java
+src/main/java/com/fireblocks/sdk/model/SecurityFindingDetailed.java
 src/main/java/com/fireblocks/sdk/model/SepaPaymentInfo.java
 src/main/java/com/fireblocks/sdk/model/SessionDTO.java
 src/main/java/com/fireblocks/sdk/model/SessionMetadata.java
@@ -2463,6 +2472,7 @@ src/main/java/com/fireblocks/sdk/model/UpdateCallbackHandlerRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateCallbackHandlerResponse.java
 src/main/java/com/fireblocks/sdk/model/UpdateCounterpartyGroupRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateDraftRequest.java
+src/main/java/com/fireblocks/sdk/model/UpdateFindingExternalRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateLegalEntityRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateTagRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateTokenOwnershipStatusDto.java
@@ -2588,6 +2598,7 @@ src/test/java/com/fireblocks/sdk/api/WorkspaceStatusBetaApiTest.java
 src/test/java/com/fireblocks/sdk/model/APIUserTest.java
 src/test/java/com/fireblocks/sdk/model/AbaPaymentInfoTest.java
 src/test/java/com/fireblocks/sdk/model/AbiFunctionTest.java
+src/test/java/com/fireblocks/sdk/model/AcceptFindingRequestTest.java
 src/test/java/com/fireblocks/sdk/model/AccessRegistryAddressItemTest.java
 src/test/java/com/fireblocks/sdk/model/AccessRegistryCurrentStateResponse2Test.java
 src/test/java/com/fireblocks/sdk/model/AccessRegistryCurrentStateResponseTest.java
@@ -2773,6 +2784,7 @@ src/test/java/com/fireblocks/sdk/model/CollectionOwnershipResponseTest.java
 src/test/java/com/fireblocks/sdk/model/CollectionTokenMetadataAttributeDtoTest.java
 src/test/java/com/fireblocks/sdk/model/CollectionTokenMetadataDtoTest.java
 src/test/java/com/fireblocks/sdk/model/CollectionTypeTest.java
+src/test/java/com/fireblocks/sdk/model/ComplianceRequirementTest.java
 src/test/java/com/fireblocks/sdk/model/ComplianceResultFullPayloadTest.java
 src/test/java/com/fireblocks/sdk/model/ComplianceResultStatusesEnumTest.java
 src/test/java/com/fireblocks/sdk/model/ComplianceResultsTest.java
@@ -3329,6 +3341,7 @@ src/test/java/com/fireblocks/sdk/model/RenameConnectedAccountRequestTest.java
 src/test/java/com/fireblocks/sdk/model/RenameConnectedAccountResponseTest.java
 src/test/java/com/fireblocks/sdk/model/RenameCosignerTest.java
 src/test/java/com/fireblocks/sdk/model/RenameVaultAccountResponseTest.java
+src/test/java/com/fireblocks/sdk/model/ReopenFindingRequestTest.java
 src/test/java/com/fireblocks/sdk/model/ReportConflictResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ReportJobLinksTest.java
 src/test/java/com/fireblocks/sdk/model/ReportJobResponseTest.java
@@ -3394,6 +3407,7 @@ src/test/java/com/fireblocks/sdk/model/ScreeningVerdictEnumTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningVerdictMatchedRuleTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningVerdictTest.java
 src/test/java/com/fireblocks/sdk/model/SearchNetworkIdsResponseTest.java
+src/test/java/com/fireblocks/sdk/model/SecurityFindingDetailedTest.java
 src/test/java/com/fireblocks/sdk/model/SecurityFindingTest.java
 src/test/java/com/fireblocks/sdk/model/SepaPaymentInfoTest.java
 src/test/java/com/fireblocks/sdk/model/SessionDTOTest.java
@@ -3714,6 +3728,7 @@ src/test/java/com/fireblocks/sdk/model/UpdateCallbackHandlerRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateCallbackHandlerResponseTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateCounterpartyGroupRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateDraftRequestTest.java
+src/test/java/com/fireblocks/sdk/model/UpdateFindingExternalRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateLegalEntityRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateTagRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateTokenOwnershipStatusDtoTest.java
