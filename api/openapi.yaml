@@ -19303,7 +19303,7 @@ paths:
     get:
       description: |
         Returns a paginated list of FSPM security findings for the workspace.
-        Endpoint Permissions: Security Admin, Security Auditor.
+        Endpoint Roles: Security Admin, Security Auditor.
       operationId: getSecurityFindings
       parameters:
       - description: Cursor indicating the page position. Omit to fetch the first
@@ -19350,10 +19350,6 @@ paths:
         schema:
           enum:
           - USER_MANAGEMENT
-          - ACCESS_CONTROL
-          - ADMIN_MANAGEMENT
-          - SECURITY
-          - CONFIGURATION
           - APPROVAL_GROUP_MANAGEMENT
           - POLICY_ENGINE_UTILIZATION
           - WORKSPACE_CONFIGURATION
@@ -19462,6 +19458,142 @@ paths:
       - lang: Python
         source: "response = fireblocks.security_posture_management.get_security_findings(page_cursor,\
           \ page_size, severity, category, status);"
+      x-accepts:
+      - application/json
+  /security/fspm/findings/{id}:
+    get:
+      description: |
+        Returns a single FSPM security finding for the workspace, redacted to the public field set.
+        Endpoint Roles: Security Admin, Security Auditor.
+      operationId: getSecurityFindingById
+      parameters:
+      - description: Unique identifier of the finding
+        example: d7ca6101-a65e-4a9c-b6c1-b8bd697e0cd2
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SecurityFindingDetailed"
+          description: A single FSPM finding
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get a FSPM security finding by ID
+      tags:
+      - Security Posture Management
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SecurityFindingDetailed>>\
+            \ = fireblocks.securityPostureManagement.getSecurityFindingById(securityPostureManagementApiGetSecurityFindingByIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<SecurityFindingDetailed>> response =
+            fireblocks.securityPostureManagement().getSecurityFindingById(id);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.security_posture_management.get_security_finding_by_id(id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<SecurityFindingDetailed>>\
+          \ = fireblocks.securityPostureManagement.getSecurityFindingById(securityPostureManagementApiGetSecurityFindingByIdRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<SecurityFindingDetailed>> response =
+          fireblocks.securityPostureManagement().getSecurityFindingById(id);
+      - lang: Python
+        source: response = fireblocks.security_posture_management.get_security_finding_by_id(id);
+      x-accepts:
+      - application/json
+    patch:
+      description: |
+        Accepts or reopens a finding for the workspace. When accepting a finding
+        (`status: "ACCEPTED"`), `statusUpdatedReason` is required.
+        Endpoint Roles: Security Admin.
+      operationId: updateSecurityFindingById
+      parameters:
+      - description: Unique identifier of the finding
+        example: d7ca6101-a65e-4a9c-b6c1-b8bd697e0cd2
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateFindingExternalRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SecurityFindingDetailed"
+          description: The updated FSPM finding
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Update a FSPM security finding by ID
+      tags:
+      - Security Posture Management
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SecurityFindingDetailed>>\
+            \ = fireblocks.securityPostureManagement.updateSecurityFindingById(securityPostureManagementApiUpdateSecurityFindingByIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SecurityFindingDetailed>> response\
+            \ = fireblocks.securityPostureManagement().updateSecurityFindingById(updateFindingExternalRequest,\
+            \ id, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.security_posture_management.update_security_finding_by_id(update_finding_external_request,\
+            \ id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<SecurityFindingDetailed>>\
+          \ = fireblocks.securityPostureManagement.updateSecurityFindingById(securityPostureManagementApiUpdateSecurityFindingByIdRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<SecurityFindingDetailed>> response\
+          \ = fireblocks.securityPostureManagement().updateSecurityFindingById(updateFindingExternalRequest,\
+          \ id, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.security_posture_management.update_security_finding_by_id(update_finding_external_request,\
+          \ id, idempotency_key);"
+      x-content-type: application/json
       x-accepts:
       - application/json
   /smart_transfers/{ticketId}/dvp/fund:
@@ -82075,10 +82207,6 @@ components:
           description: Category of the finding
           enum:
           - USER_MANAGEMENT
-          - ACCESS_CONTROL
-          - ADMIN_MANAGEMENT
-          - SECURITY
-          - CONFIGURATION
           - APPROVAL_GROUP_MANAGEMENT
           - POLICY_ENGINE_UTILIZATION
           - WORKSPACE_CONFIGURATION
@@ -82122,6 +82250,255 @@ components:
       - data
       - total
       type: object
+    FindingInfo:
+      additionalProperties:
+        description: Arbitrary key-value metadata associated with the finding type
+      description: Additional structured context about the finding. Shape varies by
+        finding type.
+      example:
+        apiKey: e7c3f18c-3060-3748-3563-19c3dbb3fa88
+        apiUserName: Security admin api
+        cosignerId: 02f53cfa-34a3-4393-a451-e13dfab3c157
+        cosignerName: Production Co-Signer
+      type: object
+    ComplianceRequirement:
+      description: A compliance requirement associated with a finding
+      properties:
+        id:
+          description: Identifier of the compliance requirement
+          example: 19894318-338e-4304-848f-9388d140e703
+          format: uuid
+          type: string
+        standard:
+          description: The compliance standard this requirement belongs to
+          example: SOC 2
+          type: string
+        criteria:
+          description: The specific criteria within the compliance standard
+          example: CC7.1
+          type: string
+        description:
+          description: "Human-readable description of the requirement, omitted if\
+            \ not available"
+          example: Continuous monitoring and configuration baselines
+          type: string
+      required:
+      - criteria
+      - id
+      - standard
+      type: object
+    SecurityFindingDetailed:
+      description: "A single FSPM finding, redacted to the public field set"
+      example:
+        severity: HIGH
+        mitigationGuidance: "Add a callback implementation to the API user. Alternatively,\
+          \ if the API user is no longer needed, you can delete it. To do so, go to\
+          \ Developer Center > API Users, click the actions button (3 dots) next to\
+          \ the API user, and select Delete. Note that by default this action can\
+          \ only be performed by the workspace owner."
+        statusUpdatedByUserId: 00d77437-3e7a-4e39-8482-55115a7a0892
+        riskExplanation: "An API user that is paired with a co-signer and does not\
+          \ have a callback implementation is vulnerable to auto-approving, allowing\
+          \ malicious transactions to proceed without review."
+        statusUpdatedAt: 2026-08-16T08:52:57Z
+        complianceReqs: []
+        type: API_COSIGNER_WITH_NO_CALLBACK
+        title: The API user 'Security admin api' is paired with a co-signer and has
+          no callback
+        createdAt: 2026-07-28T11:37:05Z
+        statusUpdatedReason: "False positive, callback is configured via a different\
+          \ mechanism"
+        id: d7ca6101-a65e-4a9c-b6c1-b8bd697e0cd2
+        category: USER_MANAGEMENT
+        status: OPEN
+        info:
+          apiKey: e7c3f18c-3060-3748-3563-19c3dbb3fa88
+          apiUserName: Security admin api
+          cosignerId: 02f53cfa-34a3-4393-a451-e13dfab3c157
+          cosignerName: Production Co-Signer
+      properties:
+        id:
+          description: Unique identifier of the finding
+          example: d7ca6101-a65e-4a9c-b6c1-b8bd697e0cd2
+          format: uuid
+          type: string
+        type:
+          description: The finding type identifier
+          enum:
+          - API_USER_NOT_WHITELISTED
+          - CONSOLE_IP_ALLOWLIST_DEACTIVATED
+          - ADMIN_TH_SET_TO_ALL_AND_MORE_THAN_2_ADMINS
+          - API_USERS_COUNT_PASSES_TH_AND_OWNER_NOT_MANDATORY
+          - API_COSIGNER_WITH_NO_CALLBACK
+          - API_USER_DIDNT_APPROVE_CCR_IN_X_DAYS
+          - NON_VIEWER_DIDNT_INITIATE_APPROVE_OR_SIGN_TX_OR_CCR_LAST_X_DAYS
+          - TH_SET_TO_1_AND_MORE_THAN_3_APPROVERS
+          - ADMIN_TH_SET_TO_1_AND_MORE_THAN_3_ADMINS
+          - NON_EVM_DAPP_CONNECTIONS_ENABLED_BUT_UNUSED
+          - OTA_ENABLED_BUT_UNUSED
+          - POLICY_NOT_UPDATED_RECENTLY
+          - RAW_SIGNING_ENABLED_BUT_UNUSED
+          - API_USER_UNUSED_FOR_90_DAYS
+          - UNUSED_UNLIMITED_TOKEN_ALLOWANCES
+          - UNUSED_WHITELISTED_ADDRESS
+          - TRANSACTION_REPETITION_ATTACK
+          - USER_EMAIL_DOMAIN_NON_BUSINESS
+          - OUTDATED_MOBILE_APP_VERSION
+          - SINGLE_HOP_DRAIN_ATTACK
+          - LATERAL_MOVEMENT_DRAIN_ATTACK
+          - WORKSPACE_USER_DORMANT_FOR_X_DAYS
+          example: API_COSIGNER_WITH_NO_CALLBACK
+          type: string
+        status:
+          description: Current status of the finding
+          enum:
+          - OPEN
+          - ACCEPTED
+          - RESOLVED
+          example: OPEN
+          type: string
+        severity:
+          description: Severity level of the finding
+          enum:
+          - INFO
+          - LOW
+          - MEDIUM
+          - HIGH
+          example: HIGH
+          type: string
+        category:
+          description: Category of the finding
+          enum:
+          - USER_MANAGEMENT
+          - APPROVAL_GROUP_MANAGEMENT
+          - POLICY_ENGINE_UTILIZATION
+          - WORKSPACE_CONFIGURATION
+          - DEFI_ACCESS
+          - FLEET_MANAGEMENT
+          example: USER_MANAGEMENT
+          type: string
+        createdAt:
+          description: When the finding was first detected
+          example: 2026-07-28T11:37:05Z
+          format: date-time
+          type: string
+        title:
+          description: Human-readable title of the finding
+          example: The API user 'Security admin api' is paired with a co-signer and
+            has no callback
+          type: string
+        statusUpdatedAt:
+          description: "When the finding status was last updated, omitted if the status\
+            \ was never updated"
+          example: 2026-08-16T08:52:57Z
+          format: date-time
+          type: string
+        statusUpdatedByUserId:
+          description: "The user who last updated the finding status, omitted if the\
+            \ status was never updated"
+          example: 00d77437-3e7a-4e39-8482-55115a7a0892
+          format: uuid
+          type: string
+        statusUpdatedReason:
+          description: "The reason provided for the last status update, omitted if\
+            \ none was provided"
+          example: "False positive, callback is configured via a different mechanism"
+          type: string
+        info:
+          additionalProperties:
+            description: Arbitrary key-value metadata associated with the finding
+              type
+          description: Additional structured context about the finding. Shape varies
+            by finding type.
+          example:
+            apiKey: e7c3f18c-3060-3748-3563-19c3dbb3fa88
+            apiUserName: Security admin api
+            cosignerId: 02f53cfa-34a3-4393-a451-e13dfab3c157
+            cosignerName: Production Co-Signer
+          type: object
+        complianceReqs:
+          description: Compliance requirements this finding relates to
+          example: []
+          items:
+            $ref: "#/components/schemas/ComplianceRequirement"
+          type: array
+        riskExplanation:
+          description: Explanation of the risk this finding represents
+          example: "An API user that is paired with a co-signer and does not have\
+            \ a callback implementation is vulnerable to auto-approving, allowing\
+            \ malicious transactions to proceed without review."
+          type: string
+        mitigationGuidance:
+          description: Guidance on how to mitigate this finding
+          example: "Add a callback implementation to the API user. Alternatively,\
+            \ if the API user is no longer needed, you can delete it. To do so, go\
+            \ to Developer Center > API Users, click the actions button (3 dots) next\
+            \ to the API user, and select Delete. Note that by default this action\
+            \ can only be performed by the workspace owner."
+          type: string
+      required:
+      - category
+      - complianceReqs
+      - createdAt
+      - id
+      - info
+      - mitigationGuidance
+      - riskExplanation
+      - severity
+      - status
+      - title
+      - type
+      type: object
+    AcceptFindingRequest:
+      description: Request to accept a FSPM finding. A reason is required.
+      example:
+        statusUpdatedReason: Risk accepted - compensating controls are in place
+        status: ACCEPTED
+      properties:
+        status:
+          description: Marks the finding as accepted.
+          enum:
+          - ACCEPTED
+          example: ACCEPTED
+          type: string
+        statusUpdatedReason:
+          description: The reason for accepting the finding.
+          example: Risk accepted - compensating controls are in place
+          minLength: 1
+          type: string
+      required:
+      - status
+      - statusUpdatedReason
+      type: object
+    ReopenFindingRequest:
+      description: Request to reopen a FSPM finding.
+      properties:
+        status:
+          description: Marks the finding as open again.
+          enum:
+          - OPEN
+          example: OPEN
+          type: string
+        statusUpdatedReason:
+          description: Ignored when reopening a finding.
+          example: False positive - reviewed and confirmed no risk
+          type: string
+      required:
+      - status
+      type: object
+    UpdateFindingExternalRequest:
+      description: "Request to update the status of a FSPM finding. Only OPEN (reopen)\
+        \ and ACCEPTED (accept) are settable; findings become RESOLVED via automated\
+        \ detection, not through this API. `statusUpdatedReason` is required when\
+        \ accepting a finding and ignored when reopening."
+      discriminator:
+        mapping:
+          ACCEPTED: "#/components/schemas/AcceptFindingRequest"
+          OPEN: "#/components/schemas/ReopenFindingRequest"
+        propertyName: status
+      oneOf:
+      - $ref: "#/components/schemas/AcceptFindingRequest"
+      - $ref: "#/components/schemas/ReopenFindingRequest"
     PolicyType:
       description: Policy type enumeration
       enum:
