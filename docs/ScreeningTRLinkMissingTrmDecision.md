@@ -25,8 +25,8 @@ Interface for reporting missing TRM screening decisions in ITRLinkResult
 |**operation** | **TransactionOperationEnum** |  |  [optional] |
 |**description** | **String** | Rule description |  [optional] |
 |**isDefault** | **Boolean** | Whether this is a default rule |  [optional] |
-|**validBefore** | **BigDecimal** | Unix timestamp when rule expires |  [optional] |
-|**validAfter** | **BigDecimal** | Unix timestamp when rule becomes valid |  [optional] |
+|**validBefore** | **BigDecimal** | Rule expires once this many seconds have elapsed since the wait/screening step started |  [optional] |
+|**validAfter** | **BigDecimal** | Rule applies only after this many seconds have elapsed since the wait/screening step started |  [optional] |
 |**action** | **TRLinkMissingTrmActionEnum** |  |  |
 |**source** | **String** | TRLink missing TRM source |  |
 |**timestamp** | **OffsetDateTime** | Timestamp of the decision |  [optional] |

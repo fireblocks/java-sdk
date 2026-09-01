@@ -236,6 +236,12 @@ docs/ConnectedSingleAccount.md
 docs/ConnectedSingleAccountResponse.md
 docs/ConsoleUser.md
 docs/ConsoleUserApi.md
+docs/Contact.md
+docs/ContactApprovalRequest.md
+docs/ContactTag.md
+docs/ContactTagAttachmentPending.md
+docs/ContactsApi.md
+docs/ContactsPagedResponse.md
 docs/ContractAbiResponseDto.md
 docs/ContractAbiResponseDtoAbiInner.md
 docs/ContractAddressResponse.md
@@ -1293,6 +1299,7 @@ src/main/java/com/fireblocks/sdk/api/ComplianceApi.java
 src/main/java/com/fireblocks/sdk/api/ComplianceScreeningConfigurationApi.java
 src/main/java/com/fireblocks/sdk/api/ConnectedAccountsBetaApi.java
 src/main/java/com/fireblocks/sdk/api/ConsoleUserApi.java
+src/main/java/com/fireblocks/sdk/api/ContactsApi.java
 src/main/java/com/fireblocks/sdk/api/ContractInteractionsApi.java
 src/main/java/com/fireblocks/sdk/api/ContractTemplatesApi.java
 src/main/java/com/fireblocks/sdk/api/ContractsApi.java
@@ -1559,6 +1566,11 @@ src/main/java/com/fireblocks/sdk/model/ConnectedAccountsResponse.java
 src/main/java/com/fireblocks/sdk/model/ConnectedSingleAccount.java
 src/main/java/com/fireblocks/sdk/model/ConnectedSingleAccountResponse.java
 src/main/java/com/fireblocks/sdk/model/ConsoleUser.java
+src/main/java/com/fireblocks/sdk/model/Contact.java
+src/main/java/com/fireblocks/sdk/model/ContactApprovalRequest.java
+src/main/java/com/fireblocks/sdk/model/ContactTag.java
+src/main/java/com/fireblocks/sdk/model/ContactTagAttachmentPending.java
+src/main/java/com/fireblocks/sdk/model/ContactsPagedResponse.java
 src/main/java/com/fireblocks/sdk/model/ContractAbiResponseDto.java
 src/main/java/com/fireblocks/sdk/model/ContractAbiResponseDtoAbiInner.java
 src/main/java/com/fireblocks/sdk/model/ContractAddressResponse.java
@@ -2550,6 +2562,7 @@ src/test/java/com/fireblocks/sdk/api/ComplianceApiTest.java
 src/test/java/com/fireblocks/sdk/api/ComplianceScreeningConfigurationApiTest.java
 src/test/java/com/fireblocks/sdk/api/ConnectedAccountsBetaApiTest.java
 src/test/java/com/fireblocks/sdk/api/ConsoleUserApiTest.java
+src/test/java/com/fireblocks/sdk/api/ContactsApiTest.java
 src/test/java/com/fireblocks/sdk/api/ContractInteractionsApiTest.java
 src/test/java/com/fireblocks/sdk/api/ContractTemplatesApiTest.java
 src/test/java/com/fireblocks/sdk/api/ContractsApiTest.java
@@ -2815,6 +2828,11 @@ src/test/java/com/fireblocks/sdk/model/ConnectedAccountsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ConnectedSingleAccountResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ConnectedSingleAccountTest.java
 src/test/java/com/fireblocks/sdk/model/ConsoleUserTest.java
+src/test/java/com/fireblocks/sdk/model/ContactApprovalRequestTest.java
+src/test/java/com/fireblocks/sdk/model/ContactTagAttachmentPendingTest.java
+src/test/java/com/fireblocks/sdk/model/ContactTagTest.java
+src/test/java/com/fireblocks/sdk/model/ContactTest.java
+src/test/java/com/fireblocks/sdk/model/ContactsPagedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ContractAbiResponseDtoAbiInnerTest.java
 src/test/java/com/fireblocks/sdk/model/ContractAbiResponseDtoTest.java
 src/test/java/com/fireblocks/sdk/model/ContractAddressResponseTest.java

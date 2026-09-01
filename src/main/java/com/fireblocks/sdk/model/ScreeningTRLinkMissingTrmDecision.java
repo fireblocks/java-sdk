@@ -547,7 +547,7 @@ public class ScreeningTRLinkMissingTrmDecision {
     }
 
     /**
-     * Unix timestamp when rule expires
+     * Rule expires once this many seconds have elapsed since the wait/screening step started
      *
      * @return validBefore
      */
@@ -571,7 +571,7 @@ public class ScreeningTRLinkMissingTrmDecision {
     }
 
     /**
-     * Unix timestamp when rule becomes valid
+     * Rule applies only after this many seconds have elapsed since the wait/screening step started
      *
      * @return validAfter
      */

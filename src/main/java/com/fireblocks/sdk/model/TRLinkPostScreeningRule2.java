@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
+import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -108,10 +109,10 @@ public class TRLinkPostScreeningRule2 {
     @jakarta.annotation.Nullable private TRLinkTrmStatus trmStatus;
 
     public static final String JSON_PROPERTY_VALID_BEFORE = "validBefore";
-    @jakarta.annotation.Nullable private Long validBefore;
+    @jakarta.annotation.Nullable private BigDecimal validBefore;
 
     public static final String JSON_PROPERTY_VALID_AFTER = "validAfter";
-    @jakarta.annotation.Nullable private Long validAfter;
+    @jakarta.annotation.Nullable private BigDecimal validAfter;
 
     public static final String JSON_PROPERTY_ACTION = "action";
     @jakarta.annotation.Nonnull private TRLinkPostScreeningAction action;
@@ -569,49 +570,50 @@ public class TRLinkPostScreeningRule2 {
         this.trmStatus = trmStatus;
     }
 
-    public TRLinkPostScreeningRule2 validBefore(@jakarta.annotation.Nullable Long validBefore) {
+    public TRLinkPostScreeningRule2 validBefore(
+            @jakarta.annotation.Nullable BigDecimal validBefore) {
         this.validBefore = validBefore;
         return this;
     }
 
     /**
-     * Rule is valid before this timestamp (milliseconds)
+     * Rule expires once this many seconds have elapsed since the wait/screening step started
      *
      * @return validBefore
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_VALID_BEFORE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Long getValidBefore() {
+    public BigDecimal getValidBefore() {
         return validBefore;
     }
 
     @JsonProperty(JSON_PROPERTY_VALID_BEFORE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setValidBefore(@jakarta.annotation.Nullable Long validBefore) {
+    public void setValidBefore(@jakarta.annotation.Nullable BigDecimal validBefore) {
         this.validBefore = validBefore;
     }
 
-    public TRLinkPostScreeningRule2 validAfter(@jakarta.annotation.Nullable Long validAfter) {
+    public TRLinkPostScreeningRule2 validAfter(@jakarta.annotation.Nullable BigDecimal validAfter) {
         this.validAfter = validAfter;
         return this;
     }
 
     /**
-     * Rule is valid after this timestamp (milliseconds)
+     * Rule applies only after this many seconds have elapsed since the wait/screening step started
      *
      * @return validAfter
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_VALID_AFTER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Long getValidAfter() {
+    public BigDecimal getValidAfter() {
         return validAfter;
     }
 
     @JsonProperty(JSON_PROPERTY_VALID_AFTER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setValidAfter(@jakarta.annotation.Nullable Long validAfter) {
+    public void setValidAfter(@jakarta.annotation.Nullable BigDecimal validAfter) {
         this.validAfter = validAfter;
     }
 

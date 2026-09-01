@@ -31,12 +31,6 @@ class SecurityFindingDetailedTest {
         // TODO: test id
     }
 
-    /** Test the property 'type' */
-    @Test
-    void typeTest() {
-        // TODO: test type
-    }
-
     /** Test the property 'status' */
     @Test
     void statusTest() {
