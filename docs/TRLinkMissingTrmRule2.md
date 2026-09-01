@@ -25,8 +25,8 @@ Rule for handling transactions when TRM screening data is missing or unavailable
 |**operation** | **String** | Operation type |  [optional] |
 |**description** | **String** | Rule description |  [optional] |
 |**isDefault** | **Boolean** | Whether this is a default rule |  [optional] |
-|**validBefore** | **Long** | Rule is valid before this timestamp (milliseconds) |  [optional] |
-|**validAfter** | **Long** | Rule is valid after this timestamp (milliseconds) |  [optional] |
+|**validBefore** | **BigDecimal** | Rule expires once this many seconds have elapsed since the wait/screening step started |  [optional] |
+|**validAfter** | **BigDecimal** | Rule applies only after this many seconds have elapsed since the wait/screening step started |  [optional] |
 |**action** | **TRLinkMissingTrmAction2** |  |  |
 
 

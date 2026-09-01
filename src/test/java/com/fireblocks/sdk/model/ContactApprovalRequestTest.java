@@ -15,14 +15,14 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for SecurityFinding */
-class SecurityFindingTest {
-    private final SecurityFinding model = new SecurityFinding();
+/** Model tests for ContactApprovalRequest */
+class ContactApprovalRequestTest {
+    private final ContactApprovalRequest model = new ContactApprovalRequest();
 
-    /** Model tests for SecurityFinding */
+    /** Model tests for ContactApprovalRequest */
     @Test
-    void testSecurityFinding() {
-        // TODO: test SecurityFinding
+    void testContactApprovalRequest() {
+        // TODO: test ContactApprovalRequest
     }
 
     /** Test the property 'id' */
@@ -31,33 +31,9 @@ class SecurityFindingTest {
         // TODO: test id
     }
 
-    /** Test the property 'status' */
+    /** Test the property 'type' */
     @Test
-    void statusTest() {
-        // TODO: test status
-    }
-
-    /** Test the property 'severity' */
-    @Test
-    void severityTest() {
-        // TODO: test severity
-    }
-
-    /** Test the property 'category' */
-    @Test
-    void categoryTest() {
-        // TODO: test category
-    }
-
-    /** Test the property 'createdAt' */
-    @Test
-    void createdAtTest() {
-        // TODO: test createdAt
-    }
-
-    /** Test the property 'title' */
-    @Test
-    void titleTest() {
-        // TODO: test title
+    void typeTest() {
+        // TODO: test type
     }
 }

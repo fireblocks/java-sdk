@@ -29,6 +29,7 @@ import java.util.StringJoiner;
     TransactionRequest.JSON_PROPERTY_OPERATION,
     TransactionRequest.JSON_PROPERTY_NOTE,
     TransactionRequest.JSON_PROPERTY_EXTERNAL_TX_ID,
+    TransactionRequest.JSON_PROPERTY_FEE_CURRENCY,
     TransactionRequest.JSON_PROPERTY_ASSET_ID,
     TransactionRequest.JSON_PROPERTY_SOURCE,
     TransactionRequest.JSON_PROPERTY_DESTINATION,
@@ -71,6 +72,9 @@ public class TransactionRequest {
 
     public static final String JSON_PROPERTY_EXTERNAL_TX_ID = "externalTxId";
     @jakarta.annotation.Nullable private String externalTxId;
+
+    public static final String JSON_PROPERTY_FEE_CURRENCY = "feeCurrency";
+    @jakarta.annotation.Nullable private String feeCurrency;
 
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
     @jakarta.annotation.Nullable private String assetId;
@@ -270,6 +274,33 @@ public class TransactionRequest {
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setExternalTxId(@jakarta.annotation.Nullable String externalTxId) {
         this.externalTxId = externalTxId;
+    }
+
+    public TransactionRequest feeCurrency(@jakarta.annotation.Nullable String feeCurrency) {
+        this.feeCurrency = feeCurrency;
+        return this;
+    }
+
+    /**
+     * For Tempo-based transactions only, the asset used to pay the transaction&#39;s network fee,
+     * as an asset ID ([see supported
+     * assets](https://developers.fireblocks.com/api-reference/blockchains-&amp;-assets/list-assets)).
+     * For any other blockchain, this value is ignored. This feature is currently in beta and might
+     * be subject to changes.
+     *
+     * @return feeCurrency
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_FEE_CURRENCY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getFeeCurrency() {
+        return feeCurrency;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FEE_CURRENCY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setFeeCurrency(@jakarta.annotation.Nullable String feeCurrency) {
+        this.feeCurrency = feeCurrency;
     }
 
     public TransactionRequest assetId(@jakarta.annotation.Nullable String assetId) {
@@ -961,6 +992,7 @@ public class TransactionRequest {
         return Objects.equals(this.operation, transactionRequest.operation)
                 && Objects.equals(this.note, transactionRequest.note)
                 && Objects.equals(this.externalTxId, transactionRequest.externalTxId)
+                && Objects.equals(this.feeCurrency, transactionRequest.feeCurrency)
                 && Objects.equals(this.assetId, transactionRequest.assetId)
                 && Objects.equals(this.source, transactionRequest.source)
                 && Objects.equals(this.destination, transactionRequest.destination)
@@ -996,6 +1028,7 @@ public class TransactionRequest {
                 operation,
                 note,
                 externalTxId,
+                feeCurrency,
                 assetId,
                 source,
                 destination,
@@ -1032,6 +1065,7 @@ public class TransactionRequest {
         sb.append("    operation: ").append(toIndentedString(operation)).append("\n");
         sb.append("    note: ").append(toIndentedString(note)).append("\n");
         sb.append("    externalTxId: ").append(toIndentedString(externalTxId)).append("\n");
+        sb.append("    feeCurrency: ").append(toIndentedString(feeCurrency)).append("\n");
         sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
         sb.append("    source: ").append(toIndentedString(source)).append("\n");
         sb.append("    destination: ").append(toIndentedString(destination)).append("\n");
@@ -1142,6 +1176,16 @@ public class TransactionRequest {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getExternalTxId()))));
+        }
+
+        // add `feeCurrency` to the URL query string
+        if (getFeeCurrency() != null) {
+            joiner.add(
+                    String.format(
+                            "%sfeeCurrency%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeCurrency()))));
         }
 
         // add `assetId` to the URL query string

@@ -31,7 +31,6 @@ import java.util.UUID;
 /** A single FSPM finding, redacted to the public field set */
 @JsonPropertyOrder({
     SecurityFindingDetailed.JSON_PROPERTY_ID,
-    SecurityFindingDetailed.JSON_PROPERTY_TYPE,
     SecurityFindingDetailed.JSON_PROPERTY_STATUS,
     SecurityFindingDetailed.JSON_PROPERTY_SEVERITY,
     SecurityFindingDetailed.JSON_PROPERTY_CATEGORY,
@@ -51,89 +50,6 @@ import java.util.UUID;
 public class SecurityFindingDetailed {
     public static final String JSON_PROPERTY_ID = "id";
     @jakarta.annotation.Nonnull private UUID id;
-
-    /** The finding type identifier */
-    public enum TypeEnum {
-        API_USER_NOT_WHITELISTED(String.valueOf("API_USER_NOT_WHITELISTED")),
-
-        CONSOLE_IP_ALLOWLIST_DEACTIVATED(String.valueOf("CONSOLE_IP_ALLOWLIST_DEACTIVATED")),
-
-        ADMIN_TH_SET_TO_ALL_AND_MORE_THAN_2_ADMINS(
-                String.valueOf("ADMIN_TH_SET_TO_ALL_AND_MORE_THAN_2_ADMINS")),
-
-        API_USERS_COUNT_PASSES_TH_AND_OWNER_NOT_MANDATORY(
-                String.valueOf("API_USERS_COUNT_PASSES_TH_AND_OWNER_NOT_MANDATORY")),
-
-        API_COSIGNER_WITH_NO_CALLBACK(String.valueOf("API_COSIGNER_WITH_NO_CALLBACK")),
-
-        API_USER_DIDNT_APPROVE_CCR_IN_X_DAYS(
-                String.valueOf("API_USER_DIDNT_APPROVE_CCR_IN_X_DAYS")),
-
-        NON_VIEWER_DIDNT_INITIATE_APPROVE_OR_SIGN_TX_OR_CCR_LAST_X_DAYS(
-                String.valueOf("NON_VIEWER_DIDNT_INITIATE_APPROVE_OR_SIGN_TX_OR_CCR_LAST_X_DAYS")),
-
-        TH_SET_TO_1_AND_MORE_THAN_3_APPROVERS(
-                String.valueOf("TH_SET_TO_1_AND_MORE_THAN_3_APPROVERS")),
-
-        ADMIN_TH_SET_TO_1_AND_MORE_THAN_3_ADMINS(
-                String.valueOf("ADMIN_TH_SET_TO_1_AND_MORE_THAN_3_ADMINS")),
-
-        NON_EVM_DAPP_CONNECTIONS_ENABLED_BUT_UNUSED(
-                String.valueOf("NON_EVM_DAPP_CONNECTIONS_ENABLED_BUT_UNUSED")),
-
-        OTA_ENABLED_BUT_UNUSED(String.valueOf("OTA_ENABLED_BUT_UNUSED")),
-
-        POLICY_NOT_UPDATED_RECENTLY(String.valueOf("POLICY_NOT_UPDATED_RECENTLY")),
-
-        RAW_SIGNING_ENABLED_BUT_UNUSED(String.valueOf("RAW_SIGNING_ENABLED_BUT_UNUSED")),
-
-        API_USER_UNUSED_FOR_90_DAYS(String.valueOf("API_USER_UNUSED_FOR_90_DAYS")),
-
-        UNUSED_UNLIMITED_TOKEN_ALLOWANCES(String.valueOf("UNUSED_UNLIMITED_TOKEN_ALLOWANCES")),
-
-        UNUSED_WHITELISTED_ADDRESS(String.valueOf("UNUSED_WHITELISTED_ADDRESS")),
-
-        TRANSACTION_REPETITION_ATTACK(String.valueOf("TRANSACTION_REPETITION_ATTACK")),
-
-        USER_EMAIL_DOMAIN_NON_BUSINESS(String.valueOf("USER_EMAIL_DOMAIN_NON_BUSINESS")),
-
-        OUTDATED_MOBILE_APP_VERSION(String.valueOf("OUTDATED_MOBILE_APP_VERSION")),
-
-        SINGLE_HOP_DRAIN_ATTACK(String.valueOf("SINGLE_HOP_DRAIN_ATTACK")),
-
-        LATERAL_MOVEMENT_DRAIN_ATTACK(String.valueOf("LATERAL_MOVEMENT_DRAIN_ATTACK")),
-
-        WORKSPACE_USER_DORMANT_FOR_X_DAYS(String.valueOf("WORKSPACE_USER_DORMANT_FOR_X_DAYS"));
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_TYPE = "type";
-    @jakarta.annotation.Nonnull private TypeEnum type;
 
     /** Current status of the finding */
     public enum StatusEnum {
@@ -289,7 +205,6 @@ public class SecurityFindingDetailed {
     @JsonCreator
     public SecurityFindingDetailed(
             @JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id,
-            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
             @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status,
             @JsonProperty(value = JSON_PROPERTY_SEVERITY, required = true) SeverityEnum severity,
             @JsonProperty(value = JSON_PROPERTY_CATEGORY, required = true) CategoryEnum category,
@@ -304,7 +219,6 @@ public class SecurityFindingDetailed {
             @JsonProperty(value = JSON_PROPERTY_MITIGATION_GUIDANCE, required = true)
                     String mitigationGuidance) {
         this.id = id;
-        this.type = type;
         this.status = status;
         this.severity = severity;
         this.category = category;
@@ -337,29 +251,6 @@ public class SecurityFindingDetailed {
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setId(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
-    }
-
-    public SecurityFindingDetailed type(@jakarta.annotation.Nonnull TypeEnum type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * The finding type identifier
-     *
-     * @return type
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TypeEnum getType() {
-        return type;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
-        this.type = type;
     }
 
     public SecurityFindingDetailed status(@jakarta.annotation.Nonnull StatusEnum status) {
@@ -672,7 +563,6 @@ public class SecurityFindingDetailed {
         }
         SecurityFindingDetailed securityFindingDetailed = (SecurityFindingDetailed) o;
         return Objects.equals(this.id, securityFindingDetailed.id)
-                && Objects.equals(this.type, securityFindingDetailed.type)
                 && Objects.equals(this.status, securityFindingDetailed.status)
                 && Objects.equals(this.severity, securityFindingDetailed.severity)
                 && Objects.equals(this.category, securityFindingDetailed.category)
@@ -694,7 +584,6 @@ public class SecurityFindingDetailed {
     public int hashCode() {
         return Objects.hash(
                 id,
-                type,
                 status,
                 severity,
                 category,
@@ -714,7 +603,6 @@ public class SecurityFindingDetailed {
         StringBuilder sb = new StringBuilder();
         sb.append("class SecurityFindingDetailed {\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    severity: ").append(toIndentedString(severity)).append("\n");
         sb.append("    category: ").append(toIndentedString(category)).append("\n");
@@ -786,16 +674,6 @@ public class SecurityFindingDetailed {
                     String.format(
                             "%sid%s=%s",
                             prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
-        }
-
-        // add `type` to the URL query string
-        if (getType() != null) {
-            joiner.add(
-                    String.format(
-                            "%stype%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `status` to the URL query string

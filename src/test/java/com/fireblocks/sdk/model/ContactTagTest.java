@@ -15,14 +15,14 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for SecurityFinding */
-class SecurityFindingTest {
-    private final SecurityFinding model = new SecurityFinding();
+/** Model tests for ContactTag */
+class ContactTagTest {
+    private final ContactTag model = new ContactTag();
 
-    /** Model tests for SecurityFinding */
+    /** Model tests for ContactTag */
     @Test
-    void testSecurityFinding() {
-        // TODO: test SecurityFinding
+    void testContactTag() {
+        // TODO: test ContactTag
     }
 
     /** Test the property 'id' */
@@ -31,33 +31,39 @@ class SecurityFindingTest {
         // TODO: test id
     }
 
-    /** Test the property 'status' */
+    /** Test the property 'label' */
     @Test
-    void statusTest() {
-        // TODO: test status
+    void labelTest() {
+        // TODO: test label
     }
 
-    /** Test the property 'severity' */
+    /** Test the property 'color' */
     @Test
-    void severityTest() {
-        // TODO: test severity
+    void colorTest() {
+        // TODO: test color
     }
 
-    /** Test the property 'category' */
+    /** Test the property 'description' */
     @Test
-    void categoryTest() {
-        // TODO: test category
+    void descriptionTest() {
+        // TODO: test description
     }
 
-    /** Test the property 'createdAt' */
+    /** Test the property 'isProtected' */
     @Test
-    void createdAtTest() {
-        // TODO: test createdAt
+    void isProtectedTest() {
+        // TODO: test isProtected
     }
 
-    /** Test the property 'title' */
+    /** Test the property 'pendingApprovalRequest' */
     @Test
-    void titleTest() {
-        // TODO: test title
+    void pendingApprovalRequestTest() {
+        // TODO: test pendingApprovalRequest
+    }
+
+    /** Test the property 'pendingAttachment' */
+    @Test
+    void pendingAttachmentTest() {
+        // TODO: test pendingAttachment
     }
 }

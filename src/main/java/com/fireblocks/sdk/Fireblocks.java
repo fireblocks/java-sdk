@@ -44,6 +44,7 @@ public class Fireblocks {
     private ComplianceScreeningConfigurationApi complianceScreeningConfiguration;
     private ConnectedAccountsBetaApi connectedAccountsBeta;
     private ConsoleUserApi consoleUser;
+    private ContactsApi contacts;
     private ContractInteractionsApi contractInteractions;
     private ContractTemplatesApi contractTemplates;
     private ContractsApi contracts;
@@ -282,6 +283,13 @@ public class Fireblocks {
             consoleUser = new ConsoleUserApi(apiClient);
         }
         return consoleUser;
+    }
+
+    public ContactsApi contacts() {
+        if (contacts == null) {
+            contacts = new ContactsApi(apiClient);
+        }
+        return contacts;
     }
 
     public ContractInteractionsApi contractInteractions() {

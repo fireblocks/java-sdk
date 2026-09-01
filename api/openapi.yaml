@@ -5912,6 +5912,217 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+  /contacts:
+    get:
+      description: |
+        Returns a paginated list of the workspace's address book contacts.
+
+        Live contacts are returned by default; pass `archived=true` to return only the archived
+        ones. Results are sorted by `name` ascending unless `sortBy`/`order` say otherwise.
+        Because the sort column is the page cursor's leading key, a `pageCursor` must be replayed
+        with the same sort it was minted under, or the request is rejected.
+
+        Endpoint Permissions: any workspace role may read the address book. Writes are role-gated.
+      operationId: getContacts
+      parameters:
+      - description: Cursor indicating the page position. Omit to fetch the first
+          page.
+        example: bmFtZS1BU0M=~QWNtZSBDb3Jw:NA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          maxLength: 1024
+          type: string
+        style: form
+      - description: Number of results per page
+        example: 25
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 100
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: Return the total count of matching contacts alongside the page.
+          Counting is opt-in because it costs an extra pass over the filtered set;
+          `total` is omitted from the response unless this is `true`.
+        example: true
+        explode: true
+        in: query
+        name: includeTotal
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: Filter by a case-insensitive substring of the contact name
+        example: acme
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          maxLength: 255
+          minLength: 1
+          type: string
+        style: form
+      - description: Filter by one or more contact types
+        example:
+        - COUNTERPARTY
+        explode: true
+        in: query
+        name: types
+        required: false
+        schema:
+          items:
+            enum:
+            - COUNTERPARTY
+            - OWN_ACCOUNT
+            type: string
+          maxItems: 2
+          type: array
+        style: form
+      - description: Filter by the container holding the contact
+        example: 11111111-1111-1111-1111-111111111111
+        explode: true
+        in: query
+        name: containerId
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      - description: Return only archived contacts instead of live ones
+        example: false
+        explode: true
+        in: query
+        name: archived
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: Filter by the access control applied to the contact
+        example: WHITELIST
+        explode: true
+        in: query
+        name: accessControl
+        required: false
+        schema:
+          enum:
+          - WHITELIST
+          - BLACKLIST
+          type: string
+        style: form
+      - description: List of tag IDs to include. Contacts with any of these tags will
+          be included
+        example:
+        - df4c0987-30da-4976-8dcf-bc2dd41ae331
+        explode: true
+        in: query
+        name: includeTagIds
+        required: false
+        schema:
+          items:
+            format: uuid
+            type: string
+          maxItems: 50
+          type: array
+        style: form
+      - description: List of tag IDs to exclude. Contacts with any of these tags will
+          be filtered out
+        example:
+        - df4c0987-30da-4976-8dcf-bc2dd41ae331
+        explode: true
+        in: query
+        name: excludeTagIds
+        required: false
+        schema:
+          items:
+            format: uuid
+            type: string
+          maxItems: 50
+          type: array
+        style: form
+      - description: The field to sort by
+        example: updatedAt
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          default: name
+          enum:
+          - name
+          - updatedAt
+          type: string
+        style: form
+      - description: The sort direction
+        example: DESC
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: ASC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactsPagedResponse"
+          description: A paginated list of contacts
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: List contacts
+      tags:
+      - Contacts
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ContactsPagedResponse>>\
+            \ = fireblocks.contacts.getContacts(contactsApiGetContactsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ContactsPagedResponse>> response =\
+            \ fireblocks.contacts().getContacts(pageCursor, pageSize, includeTotal,\
+            \ name, types, containerId, archived, accessControl, includeTagIds, excludeTagIds,\
+            \ sortBy, order);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.contacts.get_contacts(page_cursor, page_size,\
+            \ include_total, name, types, container_id, archived, access_control,\
+            \ include_tag_ids, exclude_tag_ids, sort_by, order);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ContactsPagedResponse>>\
+          \ = fireblocks.contacts.getContacts(contactsApiGetContactsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ContactsPagedResponse>> response =\
+          \ fireblocks.contacts().getContacts(pageCursor, pageSize, includeTotal,\
+          \ name, types, containerId, archived, accessControl, includeTagIds, excludeTagIds,\
+          \ sortBy, order);"
+      - lang: Python
+        source: "response = fireblocks.contacts.get_contacts(page_cursor, page_size,\
+          \ include_total, name, types, container_id, archived, access_control, include_tag_ids,\
+          \ exclude_tag_ids, sort_by, order);"
+      x-accepts:
+      - application/json
   /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/decode:
     post:
       description: "Decode a function call data, error, or event log from a deployed\
@@ -46445,12 +46656,14 @@ components:
           trmStatus:
             $ref: "#/components/schemas/TRLinkTrmScreeningStatus"
           validBefore:
-            description: Unix timestamp when rule expires
-            example: 1672531200000
+            description: Rule expires once this many seconds have elapsed since the
+              wait/screening step started
+            example: 1800
             type: number
           validAfter:
-            description: Unix timestamp when rule becomes valid
-            example: 1640995200000
+            description: Rule applies only after this many seconds have elapsed since
+              the wait/screening step started
+            example: 1800
             type: number
           action:
             $ref: "#/components/schemas/TRLinkVerdict"
@@ -46481,9 +46694,9 @@ components:
         sourceSubType: INTERNAL
         asset: BTC
         operation: TRANSFER
-        validBefore: 1672531200000
+        validBefore: 1800
         networkProtocol: BITCOIN
-        validAfter: 1640995200000
+        validAfter: 1800
         direction: OUTBOUND
       type: object
     TRLinkProviderResultWithRule:
@@ -46513,9 +46726,9 @@ components:
           sourceSubType: INTERNAL
           asset: BTC
           operation: TRANSFER
-          validBefore: 1672531200000
+          validBefore: 1800
           networkProtocol: BITCOIN
-          validAfter: 1640995200000
+          validAfter: 1800
           direction: OUTBOUND
         providerResponse: "{}"
       properties:
@@ -46539,12 +46752,14 @@ components:
       - $ref: "#/components/schemas/TRLinkRuleBase"
       - properties:
           validBefore:
-            description: Unix timestamp when rule expires
-            example: 1672531200000
+            description: Rule expires once this many seconds have elapsed since the
+              wait/screening step started
+            example: 1800
             type: number
           validAfter:
-            description: Unix timestamp when rule becomes valid
-            example: 1640995200000
+            description: Rule applies only after this many seconds have elapsed since
+              the wait/screening step started
+            example: 1800
             type: number
           action:
             $ref: "#/components/schemas/TRLinkMissingTrmAction"
@@ -46596,9 +46811,9 @@ components:
         sourceSubType: INTERNAL
         asset: BTC
         operation: TRANSFER
-        validBefore: 1672531200000
+        validBefore: 1800
         networkProtocol: BITCOIN
-        validAfter: 1640995200000
+        validAfter: 1800
         direction: OUTBOUND
         timestamp: 2000-01-23T04:56:07.000+00:00
       type: object
@@ -46657,9 +46872,9 @@ components:
             sourceSubType: INTERNAL
             asset: BTC
             operation: TRANSFER
-            validBefore: 1672531200000
+            validBefore: 1800
             networkProtocol: BITCOIN
-            validAfter: 1640995200000
+            validAfter: 1800
             direction: OUTBOUND
           providerResponse: "{}"
         customerShortName: ACME Corp
@@ -46689,9 +46904,9 @@ components:
           sourceSubType: INTERNAL
           asset: BTC
           operation: TRANSFER
-          validBefore: 1672531200000
+          validBefore: 1800
           networkProtocol: BITCOIN
-          validAfter: 1640995200000
+          validAfter: 1800
           direction: OUTBOUND
           timestamp: 2000-01-23T04:56:07.000+00:00
         timestamp: 1640995200000
@@ -46946,9 +47161,9 @@ components:
               sourceSubType: INTERNAL
               asset: BTC
               operation: TRANSFER
-              validBefore: 1672531200000
+              validBefore: 1800
               networkProtocol: BITCOIN
-              validAfter: 1640995200000
+              validAfter: 1800
               direction: OUTBOUND
             providerResponse: "{}"
           customerShortName: ACME Corp
@@ -46978,9 +47193,9 @@ components:
             sourceSubType: INTERNAL
             asset: BTC
             operation: TRANSFER
-            validBefore: 1672531200000
+            validBefore: 1800
             networkProtocol: BITCOIN
-            validAfter: 1640995200000
+            validAfter: 1800
             direction: OUTBOUND
             timestamp: 2000-01-23T04:56:07.000+00:00
           timestamp: 1640995200000
@@ -47037,9 +47252,9 @@ components:
               sourceSubType: INTERNAL
               asset: BTC
               operation: TRANSFER
-              validBefore: 1672531200000
+              validBefore: 1800
               networkProtocol: BITCOIN
-              validAfter: 1640995200000
+              validAfter: 1800
               direction: OUTBOUND
             providerResponse: "{}"
           customerShortName: ACME Corp
@@ -47069,9 +47284,9 @@ components:
             sourceSubType: INTERNAL
             asset: BTC
             operation: TRANSFER
-            validBefore: 1672531200000
+            validBefore: 1800
             networkProtocol: BITCOIN
-            validAfter: 1640995200000
+            validAfter: 1800
             direction: OUTBOUND
             timestamp: 2000-01-23T04:56:07.000+00:00
           timestamp: 1640995200000
@@ -48097,9 +48312,9 @@ components:
                 sourceSubType: INTERNAL
                 asset: BTC
                 operation: TRANSFER
-                validBefore: 1672531200000
+                validBefore: 1800
                 networkProtocol: BITCOIN
-                validAfter: 1640995200000
+                validAfter: 1800
                 direction: OUTBOUND
               providerResponse: "{}"
             customerShortName: ACME Corp
@@ -48129,9 +48344,9 @@ components:
               sourceSubType: INTERNAL
               asset: BTC
               operation: TRANSFER
-              validBefore: 1672531200000
+              validBefore: 1800
               networkProtocol: BITCOIN
-              validAfter: 1640995200000
+              validAfter: 1800
               direction: OUTBOUND
               timestamp: 2000-01-23T04:56:07.000+00:00
             timestamp: 1640995200000
@@ -48188,9 +48403,9 @@ components:
                 sourceSubType: INTERNAL
                 asset: BTC
                 operation: TRANSFER
-                validBefore: 1672531200000
+                validBefore: 1800
                 networkProtocol: BITCOIN
-                validAfter: 1640995200000
+                validAfter: 1800
                 direction: OUTBOUND
               providerResponse: "{}"
             customerShortName: ACME Corp
@@ -48220,9 +48435,9 @@ components:
               sourceSubType: INTERNAL
               asset: BTC
               operation: TRANSFER
-              validBefore: 1672531200000
+              validBefore: 1800
               networkProtocol: BITCOIN
-              validAfter: 1640995200000
+              validAfter: 1800
               direction: OUTBOUND
               timestamp: 2000-01-23T04:56:07.000+00:00
             timestamp: 1640995200000
@@ -51752,6 +51967,7 @@ components:
           subType: null
           id: id
           type: null
+        feeCurrency: PATHUSD_TEMPO_54V8
         extraParameters:
           piiData:
             key: ""
@@ -53061,6 +53277,14 @@ components:
             After you submit a transaction with an external ID, Fireblocks will automatically reject all future transactions with the same ID. Using an external ID primarily helps in situations where, even though a submitted transaction responds with an error due to an internet outage,  the transaction was still sent to and processed on the blockchain.  Use the [Get a specific transaction by external transaction ID](https://developers.fireblocks.com/reference/gettransactionbyexternalid)  endpoint to validate whether these transactions have been processed.
           example: 00000000-0000-0000-0000-000000000000
           type: string
+        feeCurrency:
+          description: "For Tempo-based transactions only, the asset used to pay the\
+            \ transaction's network fee, as an asset ID ([see supported assets](https://developers.fireblocks.com/api-reference/blockchains-&-assets/list-assets)).\
+            \ For any other blockchain, this value is ignored. This feature is currently\
+            \ in beta and might be subject to changes."
+          example: PATHUSD_TEMPO_54V8
+          type: string
+          x-fb-entity: asset
         assetId:
           description: "The ID of the asset to transfer, for `TRANSFER`, `MINT` or\
             \ `BURN` operations. [See the list of supported assets and their IDs on\
@@ -55030,6 +55254,7 @@ components:
             subType: null
             id: id
             type: null
+          feeCurrency: PATHUSD_TEMPO_54V8
           extraParameters:
             piiData:
               key: ""
@@ -56351,6 +56576,7 @@ components:
             subType: null
             id: id
             type: null
+          feeCurrency: PATHUSD_TEMPO_54V8
           extraParameters:
             piiData:
               key: ""
@@ -69232,6 +69458,7 @@ components:
       - UNSUPPORTED_SOURCE_ASSET
       - UNSUPPORTED_DESTINATION_ASSET
       - AMOUNT_BELOW_MINIMUM
+      - AMOUNT_ABOVE_MAXIMUM
       - PII_MISSING
       - EXTERNAL_SOURCE_NOT_SUPPORTED
       - UNSUPPORTED_REGION
@@ -76481,12 +76708,14 @@ components:
           trmStatus:
             $ref: "#/components/schemas/TRLinkTrmScreeningStatusEnum"
           validBefore:
-            description: Unix timestamp when rule expires
-            example: 1672531200000
+            description: Rule expires once this many seconds have elapsed since the
+              wait/screening step started
+            example: 1800
             type: number
           validAfter:
-            description: Unix timestamp when rule becomes valid
-            example: 1640995200000
+            description: Rule applies only after this many seconds have elapsed since
+              the wait/screening step started
+            example: 1800
             type: number
           action:
             $ref: "#/components/schemas/TRLinkVerdictEnum"
@@ -76517,9 +76746,9 @@ components:
         sourceSubType: INTERNAL
         asset: BTC
         operation: TRANSFER
-        validBefore: 1672531200000
+        validBefore: 1800
         networkProtocol: BITCOIN
-        validAfter: 1640995200000
+        validAfter: 1800
         direction: OUTBOUND
       type: object
     TRLinkProviderResultWithRule-2:
@@ -76549,9 +76778,9 @@ components:
           sourceSubType: INTERNAL
           asset: BTC
           operation: TRANSFER
-          validBefore: 1672531200000
+          validBefore: 1800
           networkProtocol: BITCOIN
-          validAfter: 1640995200000
+          validAfter: 1800
           direction: OUTBOUND
         providerResponse: "{}"
       properties:
@@ -76575,12 +76804,14 @@ components:
       - $ref: "#/components/schemas/ScreeningTRLinkRuleBase"
       - properties:
           validBefore:
-            description: Unix timestamp when rule expires
-            example: 1672531200000
+            description: Rule expires once this many seconds have elapsed since the
+              wait/screening step started
+            example: 1800
             type: number
           validAfter:
-            description: Unix timestamp when rule becomes valid
-            example: 1640995200000
+            description: Rule applies only after this many seconds have elapsed since
+              the wait/screening step started
+            example: 1800
             type: number
           action:
             $ref: "#/components/schemas/TRLinkMissingTrmActionEnum"
@@ -76633,9 +76864,9 @@ components:
         sourceSubType: INTERNAL
         asset: BTC
         operation: TRANSFER
-        validBefore: 1672531200000
+        validBefore: 1800
         networkProtocol: BITCOIN
-        validAfter: 1640995200000
+        validAfter: 1800
         direction: OUTBOUND
         timestamp: 2023-10-05T14:48:00Z
       type: object
@@ -76694,9 +76925,9 @@ components:
             sourceSubType: INTERNAL
             asset: BTC
             operation: TRANSFER
-            validBefore: 1672531200000
+            validBefore: 1800
             networkProtocol: BITCOIN
-            validAfter: 1640995200000
+            validAfter: 1800
             direction: OUTBOUND
           providerResponse: "{}"
         customerShortName: ACME Corp
@@ -76726,9 +76957,9 @@ components:
           sourceSubType: INTERNAL
           asset: BTC
           operation: TRANSFER
-          validBefore: 1672531200000
+          validBefore: 1800
           networkProtocol: BITCOIN
-          validAfter: 1640995200000
+          validAfter: 1800
           direction: OUTBOUND
           timestamp: 2023-10-05T14:48:00Z
         timestamp: 1640995200000
@@ -76983,9 +77214,9 @@ components:
               sourceSubType: INTERNAL
               asset: BTC
               operation: TRANSFER
-              validBefore: 1672531200000
+              validBefore: 1800
               networkProtocol: BITCOIN
-              validAfter: 1640995200000
+              validAfter: 1800
               direction: OUTBOUND
             providerResponse: "{}"
           customerShortName: ACME Corp
@@ -77015,9 +77246,9 @@ components:
             sourceSubType: INTERNAL
             asset: BTC
             operation: TRANSFER
-            validBefore: 1672531200000
+            validBefore: 1800
             networkProtocol: BITCOIN
-            validAfter: 1640995200000
+            validAfter: 1800
             direction: OUTBOUND
             timestamp: 2023-10-05T14:48:00Z
           timestamp: 1640995200000
@@ -77074,9 +77305,9 @@ components:
               sourceSubType: INTERNAL
               asset: BTC
               operation: TRANSFER
-              validBefore: 1672531200000
+              validBefore: 1800
               networkProtocol: BITCOIN
-              validAfter: 1640995200000
+              validAfter: 1800
               direction: OUTBOUND
             providerResponse: "{}"
           customerShortName: ACME Corp
@@ -77106,9 +77337,9 @@ components:
             sourceSubType: INTERNAL
             asset: BTC
             operation: TRANSFER
-            validBefore: 1672531200000
+            validBefore: 1800
             networkProtocol: BITCOIN
-            validAfter: 1640995200000
+            validAfter: 1800
             direction: OUTBOUND
             timestamp: 2023-10-05T14:48:00Z
           timestamp: 1640995200000
@@ -79885,9 +80116,9 @@ components:
         sourceSubType: sourceSubType
         asset: ETH
         operation: TRANSFER
-        validBefore: 1735689600000
+        validBefore: 1800
         networkProtocol: ETHEREUM
-        validAfter: 1704067200000
+        validAfter: 1800
         direction: OUTBOUND
       properties:
         customerId:
@@ -79972,17 +80203,17 @@ components:
         trmStatus:
           $ref: "#/components/schemas/TRLinkTrmStatus"
         validBefore:
-          description: Rule is valid before this timestamp (milliseconds)
-          example: 1735689600000
-          format: int64
+          description: Rule expires once this many seconds have elapsed since the
+            wait/screening step started
+          example: 1800
           nullable: true
-          type: integer
+          type: number
         validAfter:
-          description: Rule is valid after this timestamp (milliseconds)
-          example: 1704067200000
-          format: int64
+          description: Rule applies only after this many seconds have elapsed since
+            the wait/screening step started
+          example: 1800
           nullable: true
-          type: integer
+          type: number
         action:
           $ref: "#/components/schemas/TRLinkPostScreeningAction"
       required:
@@ -80019,9 +80250,9 @@ components:
         sourceSubType: sourceSubType
         asset: BTC
         operation: TRANSFER
-        validBefore: 1735689600000
+        validBefore: 1800
         networkProtocol: BITCOIN
-        validAfter: 1704067200000
+        validAfter: 1800
         direction: OUTBOUND
       properties:
         customerId:
@@ -80099,17 +80330,17 @@ components:
           nullable: true
           type: boolean
         validBefore:
-          description: Rule is valid before this timestamp (milliseconds)
-          example: 1735689600000
-          format: int64
+          description: Rule expires once this many seconds have elapsed since the
+            wait/screening step started
+          example: 1800
           nullable: true
-          type: integer
+          type: number
         validAfter:
-          description: Rule is valid after this timestamp (milliseconds)
-          example: 1704067200000
-          format: int64
+          description: Rule applies only after this many seconds have elapsed since
+            the wait/screening step started
+          example: 1800
           nullable: true
-          type: integer
+          type: number
         action:
           $ref: "#/components/schemas/TRLinkMissingTrmAction-2"
       required:
@@ -80140,9 +80371,9 @@ components:
           sourceSubType: sourceSubType
           asset: BTC
           operation: TRANSFER
-          validBefore: 1735689600000
+          validBefore: 1800
           networkProtocol: BITCOIN
-          validAfter: 1704067200000
+          validAfter: 1800
           direction: OUTBOUND
         - sourceId: sourceId
           amount:
@@ -80164,9 +80395,9 @@ components:
           sourceSubType: sourceSubType
           asset: BTC
           operation: TRANSFER
-          validBefore: 1735689600000
+          validBefore: 1800
           networkProtocol: BITCOIN
-          validAfter: 1704067200000
+          validAfter: 1800
           direction: OUTBOUND
         preScreeningRules:
         - sourceId: sourceId
@@ -80236,9 +80467,9 @@ components:
           sourceSubType: sourceSubType
           asset: ETH
           operation: TRANSFER
-          validBefore: 1735689600000
+          validBefore: 1800
           networkProtocol: ETHEREUM
-          validAfter: 1704067200000
+          validAfter: 1800
           direction: OUTBOUND
         - sourceId: sourceId
           amount:
@@ -80262,9 +80493,9 @@ components:
           sourceSubType: sourceSubType
           asset: ETH
           operation: TRANSFER
-          validBefore: 1735689600000
+          validBefore: 1800
           networkProtocol: ETHEREUM
-          validAfter: 1704067200000
+          validAfter: 1800
           direction: OUTBOUND
       properties:
         preScreeningRules:
@@ -82159,33 +82390,6 @@ components:
           example: d7ca6101-a65e-4a9c-b6c1-b8bd697e0cd2
           format: uuid
           type: string
-        type:
-          description: The finding type identifier
-          enum:
-          - API_USER_NOT_WHITELISTED
-          - CONSOLE_IP_ALLOWLIST_DEACTIVATED
-          - ADMIN_TH_SET_TO_ALL_AND_MORE_THAN_2_ADMINS
-          - API_USERS_COUNT_PASSES_TH_AND_OWNER_NOT_MANDATORY
-          - API_COSIGNER_WITH_NO_CALLBACK
-          - API_USER_DIDNT_APPROVE_CCR_IN_X_DAYS
-          - NON_VIEWER_DIDNT_INITIATE_APPROVE_OR_SIGN_TX_OR_CCR_LAST_X_DAYS
-          - TH_SET_TO_1_AND_MORE_THAN_3_APPROVERS
-          - ADMIN_TH_SET_TO_1_AND_MORE_THAN_3_ADMINS
-          - NON_EVM_DAPP_CONNECTIONS_ENABLED_BUT_UNUSED
-          - OTA_ENABLED_BUT_UNUSED
-          - POLICY_NOT_UPDATED_RECENTLY
-          - RAW_SIGNING_ENABLED_BUT_UNUSED
-          - API_USER_UNUSED_FOR_90_DAYS
-          - UNUSED_UNLIMITED_TOKEN_ALLOWANCES
-          - UNUSED_WHITELISTED_ADDRESS
-          - TRANSACTION_REPETITION_ATTACK
-          - USER_EMAIL_DOMAIN_NON_BUSINESS
-          - OUTDATED_MOBILE_APP_VERSION
-          - SINGLE_HOP_DRAIN_ATTACK
-          - LATERAL_MOVEMENT_DRAIN_ATTACK
-          - WORKSPACE_USER_DORMANT_FOR_X_DAYS
-          example: API_COSIGNER_WITH_NO_CALLBACK
-          type: string
         status:
           description: Current status of the finding
           enum:
@@ -82256,10 +82460,17 @@ components:
       description: Additional structured context about the finding. Shape varies by
         finding type.
       example:
-        apiKey: e7c3f18c-3060-3748-3563-19c3dbb3fa88
-        apiUserName: Security admin api
-        cosignerId: 02f53cfa-34a3-4393-a451-e13dfab3c157
-        cosignerName: Production Co-Signer
+        id: 2a6f3c4e-9d33-437e-8f2a-2c9b4d3e1f35
+        createdAt: 2026-05-12T12:06:26.242Z
+        email: ""
+        enabled: true
+        firstName: Admin API
+        isWhitelisted: false
+        lastName: testd6
+        role: ADMIN
+        status: READY
+        tenantId: 6d13843c-4e2b-4a22-2c6f-3b8e3d4a7f52
+        userType: API
       type: object
     ComplianceRequirement:
       description: A compliance requirement associated with a finding
@@ -82290,64 +82501,38 @@ components:
     SecurityFindingDetailed:
       description: "A single FSPM finding, redacted to the public field set"
       example:
-        severity: HIGH
-        mitigationGuidance: "Add a callback implementation to the API user. Alternatively,\
-          \ if the API user is no longer needed, you can delete it. To do so, go to\
-          \ Developer Center > API Users, click the actions button (3 dots) next to\
-          \ the API user, and select Delete. Note that by default this action can\
-          \ only be performed by the workspace owner."
-        statusUpdatedByUserId: 00d77437-3e7a-4e39-8482-55115a7a0892
-        riskExplanation: "An API user that is paired with a co-signer and does not\
-          \ have a callback implementation is vulnerable to auto-approving, allowing\
-          \ malicious transactions to proceed without review."
+        severity: MEDIUM
+        mitigationGuidance: "Go to Developer Center > API Users, click the actions\
+          \ button (3 dots) next to the API user, and select 'Allowlist IP address'."
+        statusUpdatedByUserId: 7c2e3a4f-144d-4f23-932c-518b3d7f1a09
+        riskExplanation: "This API user has no IP allowlist, so it can be accessed\
+          \ from anywhere, increasing the risk of unauthorized activity."
         statusUpdatedAt: 2026-08-16T08:52:57Z
         complianceReqs: []
-        type: API_COSIGNER_WITH_NO_CALLBACK
-        title: The API user 'Security admin api' is paired with a co-signer and has
-          no callback
-        createdAt: 2026-07-28T11:37:05Z
-        statusUpdatedReason: "False positive, callback is configured via a different\
-          \ mechanism"
-        id: d7ca6101-a65e-4a9c-b6c1-b8bd697e0cd2
+        title: The API user 'Admin API' is missing an IP allowlist
+        createdAt: 2026-07-21T07:49:28Z
+        statusUpdatedReason: "False positive, the API user only ever connects from\
+          \ a fixed, trusted network"
+        id: 2f8a132e-623d-3a97-841f-2c5d9b7a3e60
         category: USER_MANAGEMENT
         status: OPEN
         info:
-          apiKey: e7c3f18c-3060-3748-3563-19c3dbb3fa88
-          apiUserName: Security admin api
-          cosignerId: 02f53cfa-34a3-4393-a451-e13dfab3c157
-          cosignerName: Production Co-Signer
+          id: 2a6f3c4e-9d33-437e-8f2a-2c9b4d3e1f35
+          createdAt: 2026-05-12T12:06:26.242Z
+          email: ""
+          enabled: true
+          firstName: Admin API
+          isWhitelisted: false
+          lastName: testd6
+          role: ADMIN
+          status: READY
+          tenantId: 6d13843c-4e2b-4a22-2c6f-3b8e3d4a7f52
+          userType: API
       properties:
         id:
           description: Unique identifier of the finding
-          example: d7ca6101-a65e-4a9c-b6c1-b8bd697e0cd2
+          example: 2f8a132e-623d-3a97-841f-2c5d9b7a3e60
           format: uuid
-          type: string
-        type:
-          description: The finding type identifier
-          enum:
-          - API_USER_NOT_WHITELISTED
-          - CONSOLE_IP_ALLOWLIST_DEACTIVATED
-          - ADMIN_TH_SET_TO_ALL_AND_MORE_THAN_2_ADMINS
-          - API_USERS_COUNT_PASSES_TH_AND_OWNER_NOT_MANDATORY
-          - API_COSIGNER_WITH_NO_CALLBACK
-          - API_USER_DIDNT_APPROVE_CCR_IN_X_DAYS
-          - NON_VIEWER_DIDNT_INITIATE_APPROVE_OR_SIGN_TX_OR_CCR_LAST_X_DAYS
-          - TH_SET_TO_1_AND_MORE_THAN_3_APPROVERS
-          - ADMIN_TH_SET_TO_1_AND_MORE_THAN_3_ADMINS
-          - NON_EVM_DAPP_CONNECTIONS_ENABLED_BUT_UNUSED
-          - OTA_ENABLED_BUT_UNUSED
-          - POLICY_NOT_UPDATED_RECENTLY
-          - RAW_SIGNING_ENABLED_BUT_UNUSED
-          - API_USER_UNUSED_FOR_90_DAYS
-          - UNUSED_UNLIMITED_TOKEN_ALLOWANCES
-          - UNUSED_WHITELISTED_ADDRESS
-          - TRANSACTION_REPETITION_ATTACK
-          - USER_EMAIL_DOMAIN_NON_BUSINESS
-          - OUTDATED_MOBILE_APP_VERSION
-          - SINGLE_HOP_DRAIN_ATTACK
-          - LATERAL_MOVEMENT_DRAIN_ATTACK
-          - WORKSPACE_USER_DORMANT_FOR_X_DAYS
-          example: API_COSIGNER_WITH_NO_CALLBACK
           type: string
         status:
           description: Current status of the finding
@@ -82364,7 +82549,7 @@ components:
           - LOW
           - MEDIUM
           - HIGH
-          example: HIGH
+          example: MEDIUM
           type: string
         category:
           description: Category of the finding
@@ -82379,13 +82564,12 @@ components:
           type: string
         createdAt:
           description: When the finding was first detected
-          example: 2026-07-28T11:37:05Z
+          example: 2026-07-21T07:49:28Z
           format: date-time
           type: string
         title:
           description: Human-readable title of the finding
-          example: The API user 'Security admin api' is paired with a co-signer and
-            has no callback
+          example: The API user 'Admin API' is missing an IP allowlist
           type: string
         statusUpdatedAt:
           description: "When the finding status was last updated, omitted if the status\
@@ -82396,13 +82580,14 @@ components:
         statusUpdatedByUserId:
           description: "The user who last updated the finding status, omitted if the\
             \ status was never updated"
-          example: 00d77437-3e7a-4e39-8482-55115a7a0892
+          example: 7c2e3a4f-144d-4f23-932c-518b3d7f1a09
           format: uuid
           type: string
         statusUpdatedReason:
           description: "The reason provided for the last status update, omitted if\
             \ none was provided"
-          example: "False positive, callback is configured via a different mechanism"
+          example: "False positive, the API user only ever connects from a fixed,\
+            \ trusted network"
           type: string
         info:
           additionalProperties:
@@ -82411,10 +82596,17 @@ components:
           description: Additional structured context about the finding. Shape varies
             by finding type.
           example:
-            apiKey: e7c3f18c-3060-3748-3563-19c3dbb3fa88
-            apiUserName: Security admin api
-            cosignerId: 02f53cfa-34a3-4393-a451-e13dfab3c157
-            cosignerName: Production Co-Signer
+            id: 2a6f3c4e-9d33-437e-8f2a-2c9b4d3e1f35
+            createdAt: 2026-05-12T12:06:26.242Z
+            email: ""
+            enabled: true
+            firstName: Admin API
+            isWhitelisted: false
+            lastName: testd6
+            role: ADMIN
+            status: READY
+            tenantId: 6d13843c-4e2b-4a22-2c6f-3b8e3d4a7f52
+            userType: API
           type: object
         complianceReqs:
           description: Compliance requirements this finding relates to
@@ -82424,17 +82616,13 @@ components:
           type: array
         riskExplanation:
           description: Explanation of the risk this finding represents
-          example: "An API user that is paired with a co-signer and does not have\
-            \ a callback implementation is vulnerable to auto-approving, allowing\
-            \ malicious transactions to proceed without review."
+          example: "This API user has no IP allowlist, so it can be accessed from\
+            \ anywhere, increasing the risk of unauthorized activity."
           type: string
         mitigationGuidance:
           description: Guidance on how to mitigate this finding
-          example: "Add a callback implementation to the API user. Alternatively,\
-            \ if the API user is no longer needed, you can delete it. To do so, go\
-            \ to Developer Center > API Users, click the actions button (3 dots) next\
-            \ to the API user, and select Delete. Note that by default this action\
-            \ can only be performed by the workspace owner."
+          example: "Go to Developer Center > API Users, click the actions button (3\
+            \ dots) next to the API user, and select 'Allowlist IP address'."
           type: string
       required:
       - category
@@ -82447,7 +82635,6 @@ components:
       - severity
       - status
       - title
-      - type
       type: object
     AcceptFindingRequest:
       description: Request to accept a FSPM finding. A reason is required.
@@ -87464,6 +87651,230 @@ components:
       - outflow
       - totalActiveTickets
       - totalInactiveTickets
+      type: object
+    ContactApprovalRequest:
+      description: "An approval request awaiting a quorum decision. Null when none\
+        \ is open. Carried both by a contact, for a quorum-gated write on the contact\
+        \ itself, and by an individual tag, for a change to the tag's own definition.\
+        \ An attach or detach of that tag to this contact is carried by the tag's\
+        \ `pendingAttachment` instead."
+      nullable: true
+      properties:
+        id:
+          description: The approval request identifier
+          example: "12345"
+          type: string
+        type:
+          description: "The operation awaiting approval. Deliberately not an enumeration:\
+            \ the set is open across the surfaces that carry one, and includes contact\
+            \ operations such as CREATE_CONTACT and DELETE_CONTACT as well as changes\
+            \ to a tag itself."
+          example: CREATE_CONTACT
+          type: string
+      required:
+      - id
+      - type
+      type: object
+    ContactTagAttachmentPending:
+      description: "An attach or detach of this tag to this contact awaiting a quorum\
+        \ decision. Null when the attachment is settled. Distinct from the tag's own\
+        \ `pendingApprovalRequest`, which covers a change to the tag itself rather\
+        \ than to this pairing. When both are open, this is the one to act on from\
+        \ a contact: cancelling a change to the tag's own definition belongs to the\
+        \ tag surface, and `pendingApprovalRequest.id` must not be used to cancel\
+        \ an attachment."
+      nullable: true
+      properties:
+        action:
+          description: "The operation awaiting approval. ATTACH means the tag is not\
+            \ yet attached; DETACH means it is still attached, pending removal."
+          enum:
+          - ATTACH
+          - DETACH
+          example: ATTACH
+          type: string
+        approvalRequestId:
+          description: The identifier of the approval request gating the operation
+          example: "12345"
+          type: string
+      required:
+      - action
+      type: object
+    ContactTag:
+      description: "A tag attached to the contact, with the display details resolved\
+        \ from the tagging service."
+      properties:
+        id:
+          description: The unique identifier of the tag
+          example: df4c0987-30da-4976-8dcf-bc2dd41ae331
+          format: uuid
+          type: string
+        label:
+          description: The tag label
+          example: VIP
+          type: string
+        color:
+          description: The tag color in hex format. Absent when the tag has none.
+          example: "#FF5733"
+          type: string
+        description:
+          description: Description for the tag. Absent when the tag has none.
+          example: Tag for VIP counterparties
+          type: string
+        isProtected:
+          description: "Whether the tag is protected, meaning changes to it and to\
+            \ its attachments are approval-gated."
+          example: false
+          type: boolean
+        pendingApprovalRequest:
+          $ref: "#/components/schemas/ContactApprovalRequest"
+        pendingAttachment:
+          $ref: "#/components/schemas/ContactTagAttachmentPending"
+      required:
+      - id
+      - isProtected
+      - label
+      - pendingApprovalRequest
+      - pendingAttachment
+      type: object
+    Contact:
+      description: A contact in the workspace address book.
+      properties:
+        id:
+          description: The unique identifier of the contact
+          example: 2f78ac4f-c409-4c56-9553-bc603fc0c932
+          format: uuid
+          type: string
+        name:
+          description: "The contact name, unique across the workspace"
+          example: Acme Corp
+          type: string
+        type:
+          description: Whether the contact is an external party or an account the
+            workspace owns elsewhere
+          enum:
+          - COUNTERPARTY
+          - OWN_ACCOUNT
+          example: COUNTERPARTY
+          type: string
+        accessControl:
+          description: The access control applied to the contact. Absent when none
+            is set.
+          enum:
+          - WHITELIST
+          - BLACKLIST
+          example: WHITELIST
+          type: string
+        notes:
+          description: Free-text notes on the contact. Absent when none are set.
+          example: Primary OTC desk
+          type: string
+        externalRefId:
+          description: A customer-supplied reference id for the contact. Absent when
+            none is set.
+          example: crm-4471
+          type: string
+        containerId:
+          description: The container holding the contact. Absent when the contact
+            sits at the root.
+          example: 11111111-1111-1111-1111-111111111111
+          format: uuid
+          type: string
+        updatedAt:
+          description: "The date and time the contact was last modified, in ISO-8601"
+          example: 2026-08-06T12:00:00Z
+          format: date-time
+          type: string
+        archivedAt:
+          description: "The date and time the contact was archived, in ISO-8601. Absent\
+            \ for live contacts, so this only carries a value when the request passed\
+            \ archived=true."
+          example: 2026-08-07T11:00:00Z
+          format: date-time
+          type: string
+        tags:
+          description: The tags attached to the contact
+          example:
+          - id: df4c0987-30da-4976-8dcf-bc2dd41ae331
+            label: VIP
+            color: "#FF5733"
+            description: Tag for VIP counterparties
+            isProtected: false
+            pendingApprovalRequest: null
+            pendingAttachment: null
+          items:
+            $ref: "#/components/schemas/ContactTag"
+          type: array
+        pendingApprovalRequest:
+          $ref: "#/components/schemas/ContactApprovalRequest"
+      required:
+      - id
+      - name
+      - pendingApprovalRequest
+      - tags
+      - type
+      - updatedAt
+      type: object
+    ContactsPagedResponse:
+      example:
+        next: bmFtZS1BU0M=~QWNtZSBDb3Jw:NA==
+        total: 42
+        data:
+        - id: 2f78ac4f-c409-4c56-9553-bc603fc0c932
+          name: Acme Corp
+          type: COUNTERPARTY
+          accessControl: WHITELIST
+          notes: Primary OTC desk
+          externalRefId: crm-4471
+          containerId: 11111111-1111-1111-1111-111111111111
+          updatedAt: 2026-08-06T12:00:00.000Z
+          tags:
+          - id: df4c0987-30da-4976-8dcf-bc2dd41ae331
+            label: VIP
+            color: "#FF5733"
+            description: Tag for VIP counterparties
+            isProtected: false
+            pendingApprovalRequest: null
+            pendingAttachment: null
+          pendingApprovalRequest: null
+      properties:
+        data:
+          description: The page of contacts
+          example:
+          - id: 2f78ac4f-c409-4c56-9553-bc603fc0c932
+            name: Acme Corp
+            type: COUNTERPARTY
+            accessControl: WHITELIST
+            notes: Primary OTC desk
+            externalRefId: crm-4471
+            containerId: 11111111-1111-1111-1111-111111111111
+            updatedAt: 2026-08-06T12:00:00.000Z
+            tags:
+            - id: df4c0987-30da-4976-8dcf-bc2dd41ae331
+              label: VIP
+              color: "#FF5733"
+              description: Tag for VIP counterparties
+              isProtected: false
+              pendingApprovalRequest: null
+              pendingAttachment: null
+            pendingApprovalRequest: null
+          items:
+            $ref: "#/components/schemas/Contact"
+          type: array
+        next:
+          description: "Cursor to the next page; absent when the current page is the\
+            \ last. Opaque, and bound to the sort that minted it — replay it unchanged\
+            \ and keep sortBy/order steady across pages."
+          example: bmFtZS1BU0M=~QWNtZSBDb3Jw:NA==
+          type: string
+        total:
+          description: "The number of contacts matching the filters, ignoring pagination.\
+            \ Present only when the request passed `includeTotal=true`; the key is\
+            \ absent otherwise."
+          example: 42
+          type: integer
+      required:
+      - data
       type: object
     TagsPagedResponse:
       example:

@@ -43,6 +43,12 @@ class TransactionRequestTest {
         // TODO: test externalTxId
     }
 
+    /** Test the property 'feeCurrency' */
+    @Test
+    void feeCurrencyTest() {
+        // TODO: test feeCurrency
+    }
+
     /** Test the property 'assetId' */
     @Test
     void assetIdTest() {

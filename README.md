@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>28.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:28.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-28.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -218,6 +218,7 @@ Class | Method | HTTP request | Description
 *ConnectedAccountsBetaApi* | [**syncConnectedAccountAllowlist**](docs/ConnectedAccountsBetaApi.md#syncConnectedAccountAllowlist) | **POST** /connected_accounts/{accountId}/allowlist/sync | Sync allowlist for connected account
 *ConsoleUserApi* | [**createConsoleUser**](docs/ConsoleUserApi.md#createConsoleUser) | **POST** /management/users | Create console user
 *ConsoleUserApi* | [**getConsoleUsers**](docs/ConsoleUserApi.md#getConsoleUsers) | **GET** /management/users | Get console users
+*ContactsApi* | [**getContacts**](docs/ContactsApi.md#getContacts) | **GET** /contacts | List contacts
 *ContractInteractionsApi* | [**decodeContractData**](docs/ContractInteractionsApi.md#decodeContractData) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/decode | Decode a function call data, error, or event log
 *ContractInteractionsApi* | [**getContractAddress**](docs/ContractInteractionsApi.md#getContractAddress) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/tx_hash/{txHash} | Get contract address by transaction hash
 *ContractInteractionsApi* | [**getDeployedContractAbi**](docs/ContractInteractionsApi.md#getDeployedContractAbi) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions | Return deployed contract&#39;s ABI
@@ -819,6 +820,11 @@ Class | Method | HTTP request | Description
  - [ConnectedSingleAccount](docs/ConnectedSingleAccount.md)
  - [ConnectedSingleAccountResponse](docs/ConnectedSingleAccountResponse.md)
  - [ConsoleUser](docs/ConsoleUser.md)
+ - [Contact](docs/Contact.md)
+ - [ContactApprovalRequest](docs/ContactApprovalRequest.md)
+ - [ContactTag](docs/ContactTag.md)
+ - [ContactTagAttachmentPending](docs/ContactTagAttachmentPending.md)
+ - [ContactsPagedResponse](docs/ContactsPagedResponse.md)
  - [ContractAbiResponseDto](docs/ContractAbiResponseDto.md)
  - [ContractAbiResponseDtoAbiInner](docs/ContractAbiResponseDtoAbiInner.md)
  - [ContractAddressResponse](docs/ContractAddressResponse.md)

@@ -422,6 +422,14 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetContactsApi() {
+        setupFireblocks(true, null, null);
+        ContactsApi contacts = fireblocks.contacts();
+        Assert.assertNotNull(contacts);
+        Assert.assertSame(contacts, fireblocks.contacts());
+    }
+
+    @Test
     public void testGetContractInteractionsApi() {
         setupFireblocks(true, null, null);
         ContractInteractionsApi contractInteractions = fireblocks.contractInteractions();

@@ -27,8 +27,8 @@ TRLink post-screening rule definition
 |**isDefault** | **Boolean** | Whether this is a default rule |  [optional] |
 |**providerIdent** | **String** | Provider identifier |  [optional] |
 |**trmStatus** | **TRLinkTrmScreeningStatusEnum** |  |  [optional] |
-|**validBefore** | **BigDecimal** | Unix timestamp when rule expires |  [optional] |
-|**validAfter** | **BigDecimal** | Unix timestamp when rule becomes valid |  [optional] |
+|**validBefore** | **BigDecimal** | Rule expires once this many seconds have elapsed since the wait/screening step started |  [optional] |
+|**validAfter** | **BigDecimal** | Rule applies only after this many seconds have elapsed since the wait/screening step started |  [optional] |
 |**action** | **TRLinkVerdictEnum** |  |  |
 
 
