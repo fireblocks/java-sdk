@@ -44,7 +44,7 @@ public class OrderSummary {
     @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_VIA = "via";
-    @jakarta.annotation.Nonnull private AccessType via;
+    @jakarta.annotation.Nonnull private AccessTypeResponse via;
 
     public static final String JSON_PROPERTY_SIDE = "side";
     @jakarta.annotation.Nonnull private Side side;
@@ -78,7 +78,7 @@ public class OrderSummary {
     @JsonCreator
     public OrderSummary(
             @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
-            @JsonProperty(value = JSON_PROPERTY_VIA, required = true) AccessType via,
+            @JsonProperty(value = JSON_PROPERTY_VIA, required = true) AccessTypeResponse via,
             @JsonProperty(value = JSON_PROPERTY_SIDE, required = true) Side side,
             @JsonProperty(value = JSON_PROPERTY_BASE_AMOUNT, required = true) String baseAmount,
             @JsonProperty(value = JSON_PROPERTY_BASE_ASSET_ID, required = true) String baseAssetId,
@@ -123,7 +123,7 @@ public class OrderSummary {
         this.id = id;
     }
 
-    public OrderSummary via(@jakarta.annotation.Nonnull AccessType via) {
+    public OrderSummary via(@jakarta.annotation.Nonnull AccessTypeResponse via) {
         this.via = via;
         return this;
     }
@@ -136,13 +136,13 @@ public class OrderSummary {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_VIA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AccessType getVia() {
+    public AccessTypeResponse getVia() {
         return via;
     }
 
     @JsonProperty(JSON_PROPERTY_VIA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVia(@jakarta.annotation.Nonnull AccessType via) {
+    public void setVia(@jakarta.annotation.Nonnull AccessTypeResponse via) {
         this.via = via;
     }
 

@@ -163,6 +163,12 @@ class TransactionResponseTest {
         // TODO: test feeCurrency
     }
 
+    /** Test the property 'requestedFeeCurrency' */
+    @Test
+    void requestedFeeCurrencyTest() {
+        // TODO: test requestedFeeCurrency
+    }
+
     /** Test the property 'networkRecords' */
     @Test
     void networkRecordsTest() {

@@ -114,4 +114,10 @@ class UtxoOutputTest {
     void labelsTest() {
         // TODO: test labels
     }
+
+    /** Test the property 'hasNativeAssets' */
+    @Test
+    void hasNativeAssetsTest() {
+        // TODO: test hasNativeAssets
+    }
 }

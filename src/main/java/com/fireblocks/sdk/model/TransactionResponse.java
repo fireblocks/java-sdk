@@ -50,6 +50,7 @@ import java.util.StringJoiner;
     TransactionResponse.JSON_PROPERTY_TREAT_AS_GROSS_AMOUNT,
     TransactionResponse.JSON_PROPERTY_FEE_INFO,
     TransactionResponse.JSON_PROPERTY_FEE_CURRENCY,
+    TransactionResponse.JSON_PROPERTY_REQUESTED_FEE_CURRENCY,
     TransactionResponse.JSON_PROPERTY_NETWORK_RECORDS,
     TransactionResponse.JSON_PROPERTY_CREATED_AT,
     TransactionResponse.JSON_PROPERTY_LAST_UPDATED,
@@ -165,6 +166,9 @@ public class TransactionResponse {
 
     public static final String JSON_PROPERTY_FEE_CURRENCY = "feeCurrency";
     @jakarta.annotation.Nullable private String feeCurrency;
+
+    public static final String JSON_PROPERTY_REQUESTED_FEE_CURRENCY = "requestedFeeCurrency";
+    @jakarta.annotation.Nullable private String requestedFeeCurrency;
 
     public static final String JSON_PROPERTY_NETWORK_RECORDS = "networkRecords";
     @jakarta.annotation.Nullable private List<NetworkRecord> networkRecords;
@@ -923,6 +927,31 @@ public class TransactionResponse {
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setFeeCurrency(@jakarta.annotation.Nullable String feeCurrency) {
         this.feeCurrency = feeCurrency;
+    }
+
+    public TransactionResponse requestedFeeCurrency(
+            @jakarta.annotation.Nullable String requestedFeeCurrency) {
+        this.requestedFeeCurrency = requestedFeeCurrency;
+        return this;
+    }
+
+    /**
+     * The fee-paying asset requested at transaction creation via the &#x60;feeCurrency&#x60; field,
+     * if any.
+     *
+     * @return requestedFeeCurrency
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_REQUESTED_FEE_CURRENCY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRequestedFeeCurrency() {
+        return requestedFeeCurrency;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REQUESTED_FEE_CURRENCY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRequestedFeeCurrency(@jakarta.annotation.Nullable String requestedFeeCurrency) {
+        this.requestedFeeCurrency = requestedFeeCurrency;
     }
 
     public TransactionResponse networkRecords(
@@ -1943,6 +1972,8 @@ public class TransactionResponse {
                 && Objects.equals(this.treatAsGrossAmount, transactionResponse.treatAsGrossAmount)
                 && Objects.equals(this.feeInfo, transactionResponse.feeInfo)
                 && Objects.equals(this.feeCurrency, transactionResponse.feeCurrency)
+                && Objects.equals(
+                        this.requestedFeeCurrency, transactionResponse.requestedFeeCurrency)
                 && Objects.equals(this.networkRecords, transactionResponse.networkRecords)
                 && Objects.equals(this.createdAt, transactionResponse.createdAt)
                 && Objects.equals(this.lastUpdated, transactionResponse.lastUpdated)
@@ -2011,6 +2042,7 @@ public class TransactionResponse {
                 treatAsGrossAmount,
                 feeInfo,
                 feeCurrency,
+                requestedFeeCurrency,
                 networkRecords,
                 createdAt,
                 lastUpdated,
@@ -2089,6 +2121,9 @@ public class TransactionResponse {
                 .append("\n");
         sb.append("    feeInfo: ").append(toIndentedString(feeInfo)).append("\n");
         sb.append("    feeCurrency: ").append(toIndentedString(feeCurrency)).append("\n");
+        sb.append("    requestedFeeCurrency: ")
+                .append(toIndentedString(requestedFeeCurrency))
+                .append("\n");
         sb.append("    networkRecords: ").append(toIndentedString(networkRecords)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    lastUpdated: ").append(toIndentedString(lastUpdated)).append("\n");
@@ -2417,6 +2452,17 @@ public class TransactionResponse {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getFeeCurrency()))));
+        }
+
+        // add `requestedFeeCurrency` to the URL query string
+        if (getRequestedFeeCurrency() != null) {
+            joiner.add(
+                    String.format(
+                            "%srequestedFeeCurrency%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getRequestedFeeCurrency()))));
         }
 
         // add `networkRecords` to the URL query string

@@ -28,7 +28,7 @@ import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
 
-/** A single FSPM finding, redacted to the public field set */
+/** SecurityFindingDetailed */
 @JsonPropertyOrder({
     SecurityFindingDetailed.JSON_PROPERTY_ID,
     SecurityFindingDetailed.JSON_PROPERTY_STATUS,

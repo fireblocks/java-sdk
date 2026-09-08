@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** |  |  |
-|**via** | [**AccessType**](AccessType.md) |  |  |
+|**via** | [**AccessTypeResponse**](AccessTypeResponse.md) |  |  |
 |**status** | **OrderStatus** |  |  |
 |**createdAt** | **OffsetDateTime** |  |  |
 |**updatedAt** | **OffsetDateTime** |  |  [optional] |

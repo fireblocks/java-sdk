@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** |  |  |
-|**via** | [**AccessType**](AccessType.md) |  |  |
+|**via** | [**AccessTypeResponse**](AccessTypeResponse.md) |  |  |
 |**side** | **Side** |  |  |
 |**baseAmount** | **String** |  |  |
 |**quoteAmount** | **String** |  |  [optional] |

@@ -32,7 +32,8 @@ public class SecurityPostureManagementApiTest {
      * Get a FSPM security finding by ID
      *
      * <p>Returns a single FSPM security finding for the workspace, redacted to the public field
-     * set. Endpoint Roles: Security Admin, Security Auditor.
+     * set. Endpoint Roles: Security Admin, Security Auditor. **Note:** This endpoint is available
+     * only for the FSPM Pro package. It is not available for FSPM Basic.
      */
     @Test
     public void getSecurityFindingByIdTest() {
@@ -45,7 +46,8 @@ public class SecurityPostureManagementApiTest {
      * Get FSPM security findings
      *
      * <p>Returns a paginated list of FSPM security findings for the workspace. Endpoint Roles:
-     * Security Admin, Security Auditor.
+     * Security Admin, Security Auditor. **Note:** This endpoint is available only for the FSPM Pro
+     * package. It is not available for FSPM Basic.
      */
     @Test
     public void getSecurityFindingsTest() {
@@ -63,7 +65,8 @@ public class SecurityPostureManagementApiTest {
      *
      * <p>Accepts or reopens a finding for the workspace. When accepting a finding (&#x60;status:
      * \&quot;ACCEPTED\&quot;&#x60;), &#x60;statusUpdatedReason&#x60; is required. Endpoint Roles:
-     * Security Admin.
+     * Security Admin. **Note:** This endpoint is available only for the FSPM Pro package. It is not
+     * available for FSPM Basic.
      */
     @Test
     public void updateSecurityFindingByIdTest() {

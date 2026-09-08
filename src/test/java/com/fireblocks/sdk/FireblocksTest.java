@@ -364,6 +364,14 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetApprovalsBetaApi() {
+        setupFireblocks(true, null, null);
+        ApprovalsBetaApi approvalsBeta = fireblocks.approvalsBeta();
+        Assert.assertNotNull(approvalsBeta);
+        Assert.assertSame(approvalsBeta, fireblocks.approvalsBeta());
+    }
+
+    @Test
     public void testGetAuditLogsApi() {
         setupFireblocks(true, null, null);
         AuditLogsApi auditLogs = fireblocks.auditLogs();

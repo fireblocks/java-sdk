@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**via** | [**AccessType**](AccessType.md) |  |  |
+|**via** | [**AccessTypeResponse**](AccessTypeResponse.md) |  |  |
 |**baseAssetId** | **String** | The source asset identifier |  |
 |**baseAssetRail** | **TransferRail** |  |  [optional] |
 |**quoteAssetId** | **String** | The target asset identifier |  |

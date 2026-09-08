@@ -14,6 +14,7 @@
 |**status** | [**StatusEnum**](#StatusEnum) | Transaction outcome. |  |
 |**amount** | **String** | Portion of position amount this transaction moved (native units). Absent on legacy rows. |  [optional] |
 |**txNote** | **String** | User-provided note from the transfer request. Omitted when not set. |  [optional] |
+|**completionTime** | **OffsetDateTime** | ISO timestamp when Cosmos unbonding is scheduled to end. Absent on other chains. |  [optional] |
 
 
 

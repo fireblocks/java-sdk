@@ -138,8 +138,8 @@ public class VaultsApi {
 
     /**
      * Activate a wallet in a vault account Initiates activation for a wallet in a vault account.
-     * Activation is required for tokens that need an on-chain transaction for creation (XLM tokens,
-     * SOL tokens etc). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Activation is required for tokens that need an on-chain transaction for creation. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param vaultAccountId The ID of the vault account to return, or &#39;default&#39; for the
      *     default vault account (required)

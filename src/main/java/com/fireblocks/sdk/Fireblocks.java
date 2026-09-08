@@ -37,6 +37,7 @@ public class Fireblocks {
     private final String userAgent;
 
     private ApiUserApi apiUser;
+    private ApprovalsBetaApi approvalsBeta;
     private AuditLogsApi auditLogs;
     private BlockchainLinkBetaApi blockchainLinkBeta;
     private BlockchainsAssetsApi blockchainsAssets;
@@ -234,6 +235,13 @@ public class Fireblocks {
             apiUser = new ApiUserApi(apiClient);
         }
         return apiUser;
+    }
+
+    public ApprovalsBetaApi approvalsBeta() {
+        if (approvalsBeta == null) {
+            approvalsBeta = new ApprovalsBetaApi(apiClient);
+        }
+        return approvalsBeta;
     }
 
     public AuditLogsApi auditLogs() {

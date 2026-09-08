@@ -31,7 +31,8 @@ import java.util.StringJoiner;
     PositionRelatedTransaction.JSON_PROPERTY_TIMESTAMP,
     PositionRelatedTransaction.JSON_PROPERTY_STATUS,
     PositionRelatedTransaction.JSON_PROPERTY_AMOUNT,
-    PositionRelatedTransaction.JSON_PROPERTY_TX_NOTE
+    PositionRelatedTransaction.JSON_PROPERTY_TX_NOTE,
+    PositionRelatedTransaction.JSON_PROPERTY_COMPLETION_TIME
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -146,6 +147,9 @@ public class PositionRelatedTransaction {
 
     public static final String JSON_PROPERTY_TX_NOTE = "txNote";
     @jakarta.annotation.Nullable private String txNote;
+
+    public static final String JSON_PROPERTY_COMPLETION_TIME = "completionTime";
+    @jakarta.annotation.Nullable private OffsetDateTime completionTime;
 
     public PositionRelatedTransaction() {}
 
@@ -325,6 +329,30 @@ public class PositionRelatedTransaction {
         this.txNote = txNote;
     }
 
+    public PositionRelatedTransaction completionTime(
+            @jakarta.annotation.Nullable OffsetDateTime completionTime) {
+        this.completionTime = completionTime;
+        return this;
+    }
+
+    /**
+     * ISO timestamp when Cosmos unbonding is scheduled to end. Absent on other chains.
+     *
+     * @return completionTime
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_COMPLETION_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getCompletionTime() {
+        return completionTime;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COMPLETION_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCompletionTime(@jakarta.annotation.Nullable OffsetDateTime completionTime) {
+        this.completionTime = completionTime;
+    }
+
     /** Return true if this PositionRelatedTransaction object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -342,12 +370,14 @@ public class PositionRelatedTransaction {
                 && Objects.equals(this.timestamp, positionRelatedTransaction.timestamp)
                 && Objects.equals(this.status, positionRelatedTransaction.status)
                 && Objects.equals(this.amount, positionRelatedTransaction.amount)
-                && Objects.equals(this.txNote, positionRelatedTransaction.txNote);
+                && Objects.equals(this.txNote, positionRelatedTransaction.txNote)
+                && Objects.equals(this.completionTime, positionRelatedTransaction.completionTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(txId, txHash, stakingOperation, timestamp, status, amount, txNote);
+        return Objects.hash(
+                txId, txHash, stakingOperation, timestamp, status, amount, txNote, completionTime);
     }
 
     @Override
@@ -361,6 +391,7 @@ public class PositionRelatedTransaction {
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
         sb.append("    txNote: ").append(toIndentedString(txNote)).append("\n");
+        sb.append("    completionTime: ").append(toIndentedString(completionTime)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -476,6 +507,16 @@ public class PositionRelatedTransaction {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getTxNote()))));
+        }
+
+        // add `completionTime` to the URL query string
+        if (getCompletionTime() != null) {
+            joiner.add(
+                    String.format(
+                            "%scompletionTime%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getCompletionTime()))));
         }
 
         return joiner.toString();

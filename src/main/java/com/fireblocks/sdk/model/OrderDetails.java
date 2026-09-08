@@ -52,7 +52,7 @@ public class OrderDetails {
     @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_VIA = "via";
-    @jakarta.annotation.Nonnull private AccessType via;
+    @jakarta.annotation.Nonnull private AccessTypeResponse via;
 
     public static final String JSON_PROPERTY_STATUS = "status";
     @jakarta.annotation.Nonnull private OrderStatus status;
@@ -107,7 +107,7 @@ public class OrderDetails {
     @JsonCreator
     public OrderDetails(
             @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
-            @JsonProperty(value = JSON_PROPERTY_VIA, required = true) AccessType via,
+            @JsonProperty(value = JSON_PROPERTY_VIA, required = true) AccessTypeResponse via,
             @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) OrderStatus status,
             @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = true)
                     OffsetDateTime createdAt,
@@ -150,7 +150,7 @@ public class OrderDetails {
         this.id = id;
     }
 
-    public OrderDetails via(@jakarta.annotation.Nonnull AccessType via) {
+    public OrderDetails via(@jakarta.annotation.Nonnull AccessTypeResponse via) {
         this.via = via;
         return this;
     }
@@ -163,13 +163,13 @@ public class OrderDetails {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_VIA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AccessType getVia() {
+    public AccessTypeResponse getVia() {
         return via;
     }
 
     @JsonProperty(JSON_PROPERTY_VIA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVia(@jakarta.annotation.Nonnull AccessType via) {
+    public void setVia(@jakarta.annotation.Nonnull AccessTypeResponse via) {
         this.via = via;
     }
 
