@@ -2,7 +2,6 @@
 
 # SecurityFindingDetailed
 
-A single FSPM finding, redacted to the public field set
 
 ## Properties
 

@@ -30,6 +30,7 @@
 |**treatAsGrossAmount** | **Boolean** | For transactions initiated via this Fireblocks workspace, when set to &#x60;true&#x60;, the fee is deducted from the requested amount.  **Note**: This parameter can only be considered if a transaction&#39;s asset is a base asset, such as ETH or MATIC. If the asset can&#39;t be used for transaction fees, like USDC, this parameter is ignored and the fee is deducted from the relevant base asset wallet in the source account. |  [optional] |
 |**feeInfo** | [**FeeInfo**](FeeInfo.md) |  |  [optional] |
 |**feeCurrency** | **String** | The asset which was withdrawn to pay the transaction fee, for example ETH for EVM-based blockchains, BTC for Tether Omni. |  [optional] |
+|**requestedFeeCurrency** | **String** | The fee-paying asset requested at transaction creation via the &#x60;feeCurrency&#x60; field, if any. |  [optional] |
 |**networkRecords** | [**List&lt;NetworkRecord&gt;**](NetworkRecord.md) | In case a single transaction resulted with multiple transfers, for example a result of a contract call, then this parameter specifies each transfer that took place on the blockchain. In case of a single transfer transaction, this parameter is empty. |  [optional] |
 |**createdAt** | **BigDecimal** | The transaction’s creation date and time, in unix timestamp. |  [optional] |
 |**lastUpdated** | **BigDecimal** | The transaction’s last update date and time, in unix timestamp. |  [optional] |

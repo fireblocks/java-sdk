@@ -362,6 +362,227 @@ paths:
           \ idempotency_key);"
       x-accepts:
       - application/json
+  /approvals:
+    get:
+      description: |-
+        Retrieve the pending approval requests the authenticated API user is eligible to act on, including requests the user has already approved that are still pending overall.
+
+        The response is scoped to the authenticated user by default. Pass `userId` to read another user's queue, or `includeAllUsers=true` to read every pending request in the workspace. Both require an Admin, Non-Signing Admin, Security Admin or Security Auditor role and are rejected with 403 otherwise.
+
+        Set `quorumStatusMode=SUMMARY` to include each request's approval thresholds and counts. The per-approver breakdown is available only when fetching a single request — see `GET /approvals/{requestId}`.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin, Security Auditor.
+      operationId: getApprovals
+      parameters:
+      - description: "When true, also include requests the authenticated user has\
+          \ already approved that are still pending overall. Defaults to false (only\
+          \ requests the user has not yet acted on)."
+        explode: true
+        in: query
+        name: includeUserApproved
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: "Return the pending requests for this user instead of the authenticated\
+          \ user. Requires an Admin, Non-Signing Admin, Security Admin or Security\
+          \ Auditor role; other roles are rejected with 403. Cannot be combined with\
+          \ `includeAllUsers=true` — sending both is rejected with 400."
+        example: 8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94
+        explode: true
+        in: query
+        name: userId
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "When true, return every pending request in the workspace instead\
+          \ of a single user's queue. Defaults to false. Requires an Admin, Non-Signing\
+          \ Admin, Security Admin or Security Auditor role; other roles are rejected\
+          \ with 403. In this mode `userStatus` is always `USER_STATUS_NOT_APPLICABLE`,\
+          \ because the response is not scoped to one user, and `includeUserApproved`\
+          \ has no effect. Cannot be combined with `userId`."
+        explode: true
+        in: query
+        name: includeAllUsers
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: "How much quorum detail to include in each request's `quorumStatus`.\
+          \ `NONE` (the default) returns it as `null`. `SUMMARY` returns the approval\
+          \ thresholds, current counts and status. `FULL` is rejected with 400 on\
+          \ this endpoint because the per-approver breakdown requires a single request\
+          \ — use `GET /approvals/{requestId}` for it. Any other value is rejected\
+          \ with 400; the parameter is case-sensitive."
+        explode: true
+        in: query
+        name: quorumStatusMode
+        required: false
+        schema:
+          default: NONE
+          enum:
+          - NONE
+          - SUMMARY
+          type: string
+        style: form
+      - description: Number of results per page. Maximum 30. Defaults to 20.
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 20
+          maximum: 30
+          minimum: 1
+          type: integer
+        style: form
+      - description: Cursor returned from the previous response (the `next` field)
+          to fetch the next page.
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListApprovalsResponse"
+          description: Approval requests the authenticated user is eligible to act
+            on.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: List approval requests
+      tags:
+      - Approvals (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ListApprovalsResponse>>\
+            \ = fireblocks.approvalsBeta.getApprovals(approvalsBetaApiGetApprovalsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ListApprovalsResponse>> response =\
+            \ fireblocks.approvalsBeta().getApprovals(includeUserApproved, userId,\
+            \ includeAllUsers, quorumStatusMode, pageSize, pageCursor);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.approvals_beta.get_approvals(include_user_approved,\
+            \ user_id, include_all_users, quorum_status_mode, page_size, page_cursor);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ListApprovalsResponse>>\
+          \ = fireblocks.approvalsBeta.getApprovals(approvalsBetaApiGetApprovalsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ListApprovalsResponse>> response =\
+          \ fireblocks.approvalsBeta().getApprovals(includeUserApproved, userId, includeAllUsers,\
+          \ quorumStatusMode, pageSize, pageCursor);"
+      - lang: Python
+        source: "response = fireblocks.approvals_beta.get_approvals(include_user_approved,\
+          \ user_id, include_all_users, quorum_status_mode, page_size, page_cursor);"
+      x-accepts:
+      - application/json
+  /approvals/{requestId}:
+    get:
+      description: |-
+        Retrieve full detail for a single approval request by ID, including the payload to sign and, when requested, the request's `quorumStatus`.
+
+        Because this endpoint addresses one request, it accepts `quorumStatusMode=FULL`, which adds the participating approvers and their individual approval state.
+
+        `userStatus` reflects the authenticated user by default. Pass `userId` to report it for another user instead.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin, Security Auditor.
+      operationId: getApprovalById
+      parameters:
+      - description: The approval request ID.
+        explode: false
+        in: path
+        name: requestId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Report `userStatus` for this user instead of the authenticated\
+          \ user. This selects whose approval state is returned; it does not change\
+          \ which requests can be fetched. Requires an Admin, Non-Signing Admin, Security\
+          \ Admin or Security Auditor role; other roles are rejected with 403."
+        example: 8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94
+        explode: true
+        in: query
+        name: userId
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "How much quorum detail to include in `quorumStatus`. `NONE`\
+          \ (the default) returns it as `null`. `SUMMARY` returns the approval thresholds,\
+          \ current counts and status. `FULL` adds `users` and the per-group `members`\
+          \ indexes identifying who may approve and who already has. Any other value\
+          \ is rejected with 400; the parameter is case-sensitive."
+        explode: true
+        in: query
+        name: quorumStatusMode
+        required: false
+        schema:
+          default: NONE
+          enum:
+          - NONE
+          - SUMMARY
+          - FULL
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApprovalRequestItem"
+          description: The requested approval request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get a single approval request
+      tags:
+      - Approvals (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ApprovalRequestItem>>\
+            \ = fireblocks.approvalsBeta.getApprovalById(approvalsBetaApiGetApprovalByIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ApprovalRequestItem>> response = fireblocks.approvalsBeta().getApprovalById(requestId,\
+            \ userId, quorumStatusMode);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.approvals_beta.get_approval_by_id(request_id,\
+            \ user_id, quorum_status_mode);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ApprovalRequestItem>>\
+          \ = fireblocks.approvalsBeta.getApprovalById(approvalsBetaApiGetApprovalByIdRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ApprovalRequestItem>> response = fireblocks.approvalsBeta().getApprovalById(requestId,\
+          \ userId, quorumStatusMode);"
+      - lang: Python
+        source: "response = fireblocks.approvals_beta.get_approval_by_id(request_id,\
+          \ user_id, quorum_status_mode);"
+      x-accepts:
+      - application/json
   /management/audit_logs:
     get:
       description: |-
@@ -1954,6 +2175,183 @@ paths:
           fireblocks.blockchainsAssets().getSupportedAssets();
       - lang: Python
         source: response = fireblocks.blockchains_&_assets.get_supported_assets();
+      x-accepts:
+      - application/json
+  /operations/canton/calls:
+    post:
+      description: |-
+        Submits one Canton call. `type` names the call and selects the shape of `payload`.
+        An unknown or missing `type`, or a `payload` missing a required field, is a `400`. A field that does not belong to the selected `type` is ignored rather than rejected.
+        Four types are specified but not available in v1 and return `501`: `DTCC_END_INVESTOR_INVITE_CANCEL`, `DTCC_END_INVESTOR_OFFBOARD`, `DTCC_ALLOW_LIST_ADD`, `DTCC_ALLOW_LIST_REMOVE`. `TRANSFER_WITHDRAW` has no owning service at all.
+      operationId: createCantonCall
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CantonCall"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CallAccepted"
+          description: The outgoing transaction that carries the call.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Unknown or missing type, a missing required payload field,\
+            \ or an invalid party id, asset, or expiry"
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "No Canton wallet for this vault account and asset, or an unknown\
+            \ transaction id for this tenant"
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "The target is not in a state this call can act on, or more\
+            \ than one candidate contract matched the wallet"
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: This call type is not available in v1
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Make a Canton call
+      tags:
+      - Canton (Beta)
+      x-rate-limit-category: write
+      x-internal: true
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /operations/canton/offers/{offerId}/responses:
+    post:
+      description: |-
+        ONE endpoint for every offer domain. Two layers of discrimination, nested: `domain` selects `response`, and inside `response` the `responseType` selects the variant. Both layers are closed, so an onboarding response type sent under `domain: ALLOCATIONS` is a `400`.
+        {"domain":"ONBOARDING","response":{"responseType":"DTCC_…_REJECT","reason":"KYC"}}
+        `domain: TRANSFERS` is declared so the endpoint covers every offer domain. Transfer responses are not available yet — the domain is part of the contract, not of v1's behaviour.
+      operationId: respondToCantonOffer
+      parameters:
+      - description: The Fireblocks transaction id of the incoming offer being answered.
+        explode: false
+        in: path
+        name: offerId
+        required: true
+        schema:
+          example: 5a1d8b0f-2c31-4c7e-9d0a-118e7b6c4a21
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OfferResponse"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OfferResponseAccepted"
+          description: The outgoing transaction that carries the response. Its on-chain
+            outcome arrives by webhook as a status update on this transaction.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "The responseType does not belong to the declared domain, or\
+            \ a required argument is missing"
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Unknown offer id for this tenant
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "The responseType is not currently in availableResponses —\
+            \ already answered, expired, or a response is in flight"
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: No handler is implemented for this domain yet
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Answer an offer
+      tags:
+      - Canton (Beta)
+      x-rate-limit-category: write
+      x-internal: true
+      x-content-type: application/json
       x-accepts:
       - application/json
   /address_registry/legal_entities/{address}:
@@ -19515,6 +19913,8 @@ paths:
       description: |
         Returns a paginated list of FSPM security findings for the workspace.
         Endpoint Roles: Security Admin, Security Auditor.
+
+        **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic.
       operationId: getSecurityFindings
       parameters:
       - description: Cursor indicating the page position. Omit to fetch the first
@@ -19676,6 +20076,8 @@ paths:
       description: |
         Returns a single FSPM security finding for the workspace, redacted to the public field set.
         Endpoint Roles: Security Admin, Security Auditor.
+
+        **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic.
       operationId: getSecurityFindingById
       parameters:
       - description: Unique identifier of the finding
@@ -19733,6 +20135,8 @@ paths:
         Accepts or reopens a finding for the workspace. When accepting a finding
         (`status: "ACCEPTED"`), `statusUpdatedReason` is required.
         Endpoint Roles: Security Admin.
+
+        **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic.
       operationId: updateSecurityFindingById
       parameters:
       - description: Unique identifier of the finding
@@ -33101,9 +33505,8 @@ paths:
   /vault/accounts/{vaultAccountId}/{assetId}/activate:
     post:
       description: "Initiates activation for a wallet in a vault account. \nActivation\
-        \ is required for tokens that need an on-chain transaction for creation (XLM\
-        \ tokens, SOL tokens etc).\nEndpoint Permission: Admin, Non-Signing Admin,\
-        \ Signer, Approver, Editor."
+        \ is required for tokens that need an on-chain transaction for creation.\n\
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor."
       operationId: activateAssetForVaultAccount
       parameters:
       - description: "The ID of the vault account to return, or 'default' for the\
@@ -36372,6 +36775,332 @@ paths:
       - lang: Python
         source: "response = fireblocks.webhooks_v2.create_webhook(create_webhook_request,\
           \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /webhooks_settings/oauth:
+    get:
+      description: |
+        Lists every OAuth credential set for the workspace. Client secrets are never returned.
+      operationId: getWebhookOAuths
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookOAuthList"
+          description: The workspace's OAuth credentials
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get all OAuth credentials
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<WebhookOAuthList>> = fireblocks.webhooksV2.getWebhookOAuths();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<List<WebhookOAuthCredentials>>> response
+            = fireblocks.webhooksV2().getWebhookOAuths();
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.webhooks_v2.get_webhook_o_auths();
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<WebhookOAuthList>> = fireblocks.webhooksV2.getWebhookOAuths();"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<List<WebhookOAuthCredentials>>> response
+          = fireblocks.webhooksV2().getWebhookOAuths();
+      - lang: Python
+        source: response = fireblocks.webhooks_v2.get_webhook_o_auths();
+      x-accepts:
+      - application/json
+    post:
+      description: |
+        Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook's `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.
+
+        **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+      operationId: createWebhookOAuth
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateWebhookOAuthRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookOAuthCredentials"
+          description: created the OAuth credentials successfully
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Create OAuth credentials
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<WebhookOAuthCredentials>>\
+            \ = fireblocks.webhooksV2.createWebhookOAuth(webhooksV2ApiCreateWebhookOAuthRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response\
+            \ = fireblocks.webhooksV2().createWebhookOAuth(createWebhookOAuthRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2.create_webhook_o_auth(create_webhook_o_auth_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<WebhookOAuthCredentials>>\
+          \ = fireblocks.webhooksV2.createWebhookOAuth(webhooksV2ApiCreateWebhookOAuthRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response\
+          \ = fireblocks.webhooksV2().createWebhookOAuth(createWebhookOAuthRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2.create_webhook_o_auth(create_webhook_o_auth_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /webhooks_settings/oauth/{webhookOauthId}:
+    delete:
+      description: |
+        Deletes an OAuth credential set. By default the delete is refused while the credentials are still in use: if any webhook references them, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of the referencing webhooks. This protects a shared credential set from being removed out from under the webhooks that depend on it, since several webhooks may reference the same one.
+
+        Pass `forceDelete=true` to delete anyway. That detaches every referencing webhook — it clears each webhook's `webhookOauthId`, it does **not** delete the webhook — then deletes the credential set and returns the deleted resource together with `detachedWebhookIds`. The detached webhooks keep delivering notifications, but without an `Authorization` header, so their endpoints will see unauthenticated deliveries from that point on.
+
+        When nothing references the credentials the delete succeeds either way, and `detachedWebhookIds` comes back empty.
+
+        **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+      operationId: deleteWebhookOAuth
+      parameters:
+      - description: The unique identifier of the OAuth credentials
+        explode: false
+        in: path
+        name: webhookOauthId
+        required: true
+        schema:
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        style: simple
+      - description: "Delete the credentials even while webhooks still reference them,\
+          \ detaching those webhooks instead of refusing. Leave it unset, or `false`,\
+          \ to get a `409 Conflict` whenever anything still references the credentials."
+        example: true
+        explode: true
+        in: query
+        name: forceDelete
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteWebhookOAuthResponse"
+          description: "The deleted OAuth credentials, plus the ids of any webhooks\
+            \ that were detached from them"
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Webhooks still reference these credentials and `forceDelete`\
+            \ was not set. Nothing was deleted. The error message names the reason\
+            \ and the ids of the referencing webhooks — detach or delete those webhooks,\
+            \ or retry with `forceDelete=true`."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Delete OAuth credentials
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<DeleteWebhookOAuthResponse>>\
+            \ = fireblocks.webhooksV2.deleteWebhookOAuth(webhooksV2ApiDeleteWebhookOAuthRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<DeleteWebhookOAuthResponse>> response\
+            \ = fireblocks.webhooksV2().deleteWebhookOAuth(webhookOauthId, forceDelete);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2.delete_webhook_o_auth(webhook_oauth_id,\
+            \ force_delete);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<DeleteWebhookOAuthResponse>>\
+          \ = fireblocks.webhooksV2.deleteWebhookOAuth(webhooksV2ApiDeleteWebhookOAuthRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<DeleteWebhookOAuthResponse>> response\
+          \ = fireblocks.webhooksV2().deleteWebhookOAuth(webhookOauthId, forceDelete);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2.delete_webhook_o_auth(webhook_oauth_id,\
+          \ force_delete);"
+      x-accepts:
+      - application/json
+    get:
+      description: |
+        Retrieve an OAuth credential set by its id. The client secret is never returned.
+      operationId: getWebhookOAuth
+      parameters:
+      - description: The unique identifier of the OAuth credentials
+        explode: false
+        in: path
+        name: webhookOauthId
+        required: true
+        schema:
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookOAuthCredentials"
+          description: An OAuth credentials object
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get OAuth credentials by id
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<WebhookOAuthCredentials>>\
+            \ = fireblocks.webhooksV2.getWebhookOAuth(webhooksV2ApiGetWebhookOAuthRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response =
+            fireblocks.webhooksV2().getWebhookOAuth(webhookOauthId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.webhooks_v2.get_webhook_o_auth(webhook_oauth_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<WebhookOAuthCredentials>>\
+          \ = fireblocks.webhooksV2.getWebhookOAuth(webhooksV2ApiGetWebhookOAuthRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response =
+          fireblocks.webhooksV2().getWebhookOAuth(webhookOauthId);
+      - lang: Python
+        source: response = fireblocks.webhooks_v2.get_webhook_o_auth(webhook_oauth_id);
+      x-accepts:
+      - application/json
+    patch:
+      description: |
+        Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.
+
+        `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook's own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Since a `null` inside a map is the delete mechanism, none of the three accepts `null` for the whole field — `customJwtClaims: null`, `customBodyParams: null` or `customHeaders: null` is rejected with a `400` rather than ignored. Clear a map by listing each of its keys with a `null` value. Because `null` is spent on deletion, a claim cannot be set to JSON `null` either, on this endpoint or on create. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.
+
+        **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+      operationId: updateWebhookOAuth
+      parameters:
+      - description: The unique identifier of the OAuth credentials
+        explode: false
+        in: path
+        name: webhookOauthId
+        required: true
+        schema:
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateWebhookOAuthRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookOAuthCredentials"
+          description: Updated OAuth credentials object
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Update OAuth credentials
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<WebhookOAuthCredentials>>\
+            \ = fireblocks.webhooksV2.updateWebhookOAuth(webhooksV2ApiUpdateWebhookOAuthRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response\
+            \ = fireblocks.webhooksV2().updateWebhookOAuth(updateWebhookOAuthRequest,\
+            \ webhookOauthId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2.update_webhook_o_auth(update_webhook_o_auth_request,\
+            \ webhook_oauth_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<WebhookOAuthCredentials>>\
+          \ = fireblocks.webhooksV2.updateWebhookOAuth(webhooksV2ApiUpdateWebhookOAuthRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response\
+          \ = fireblocks.webhooksV2().updateWebhookOAuth(updateWebhookOAuthRequest,\
+          \ webhookOauthId);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2.update_webhook_o_auth(update_webhook_o_auth_request,\
+          \ webhook_oauth_id);"
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -48018,6 +48747,7 @@ components:
           - "{}"
           contractName: contractName
         errorDescription: errorDescription
+        requestedFeeCurrency: PATH_USD
         destinationTag: destinationTag
         destination:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -48853,6 +49583,11 @@ components:
         feeCurrency:
           description: "The asset which was withdrawn to pay the transaction fee,\
             \ for example ETH for EVM-based blockchains, BTC for Tether Omni."
+          type: string
+        requestedFeeCurrency:
+          description: "The fee-paying asset requested at transaction creation via\
+            \ the `feeCurrency` field, if any."
+          example: PATH_USD
           type: string
         networkRecords:
           description: "In case a single transaction resulted with multiple transfers,\
@@ -53316,6 +54051,8 @@ components:
             For Polkadot, Kusama and Westend transactions only. When set to true, Fireblocks will empty the asset wallet.
 
                **Note:** If set to true when the source account is exactly 1 DOT, the transaction will fail. Any amount more or less than 1 DOT succeeds. This is a Polkadot blockchain limitation.
+
+               **Note:** `forceSweep` and `treatAsGrossAmount` can also be used to empty a TON/GRAM wallet.
           example: false
           type: boolean
         feeLevel:
@@ -55233,6 +55970,358 @@ components:
           description: Deprecated. Use next instead.
           nullable: true
           type: string
+      type: object
+    QuorumRequestState:
+      description: The approval request's overall state. Anything other than `PENDING`
+        means the request is no longer awaiting approvals.
+      enum:
+      - PENDING
+      - APPROVED
+      - REJECTED
+      - CANCELLED
+      - TIMED_OUT
+      - FAILED
+      example: PENDING
+      type: string
+    QuorumApprovalState:
+      description: "Whether an approval requirement has been met. Treat this as authoritative\
+        \ rather than comparing the counts yourself: a group can show `currentApprovalCount`\
+        \ equal to `threshold` and still be `PENDING` when the request additionally\
+        \ requires the workspace owner's approval."
+      enum:
+      - APPROVED
+      - PENDING
+      example: PENDING
+      type: string
+    QuorumUser:
+      description: "A user who participates in this request's approval quorum, and\
+        \ their approval state."
+      properties:
+        index:
+          description: Zero-based position of this user within the `users` array.
+            The `members` arrays elsewhere in the document reference users by this
+            index rather than repeating the user ID.
+          example: 0
+          type: integer
+        userId:
+          description: The participating user's ID.
+          example: 6073c3d2-9f4b-4c1a-8f7d-2b1e5a9c4d80
+          type: string
+        status:
+          $ref: "#/components/schemas/QuorumApprovalState"
+        isMandatoryOwner:
+          description: "Present and `true` only for the workspace owner, when this\
+            \ request additionally requires the owner's approval. Absent for every\
+            \ other participant."
+          example: true
+          type: boolean
+      required:
+      - index
+      - status
+      - userId
+      type: object
+    SimpleQuorum:
+      description: "The flattened shape used when the request has a single sub-request\
+        \ with a single tier, which is the common case. The threshold and approval\
+        \ count sit directly on the quorum object instead of inside `rulesets`."
+      properties:
+        type:
+          description: Discriminator identifying the flattened single-tier shape.
+          enum:
+          - SIMPLE
+          example: SIMPLE
+          type: string
+        threshold:
+          description: Number of approvals this request requires.
+          example: 2
+          type: integer
+        currentApprovalCount:
+          description: Approvals collected so far toward `threshold`.
+          example: 1
+          type: integer
+        status:
+          $ref: "#/components/schemas/QuorumApprovalState"
+        isMandatoryOwnerApproved:
+          description: "Present only when this request additionally requires the workspace\
+            \ owner's approval. `false` means the owner has not approved yet, which\
+            \ is why `status` can remain `PENDING` even once `currentApprovalCount`\
+            \ reaches `threshold`. Absent when no owner approval is required."
+          example: false
+          type: boolean
+        members:
+          description: Indexes into the top-level `users` array identifying the users
+            who may approve. Returned only for `quorumStatusMode=FULL`; omitted otherwise.
+          example:
+          - 0
+          - 1
+          items:
+            type: integer
+          type: array
+      required:
+      - currentApprovalCount
+      - status
+      - threshold
+      - type
+      type: object
+    QuorumGroup:
+      description: "A single tier of a ruleset: a threshold and the approvals collected\
+        \ toward it."
+      properties:
+        threshold:
+          description: Number of approvals this tier requires.
+          example: 2
+          type: integer
+        currentApprovalCount:
+          description: Approvals collected so far toward `threshold`.
+          example: 1
+          type: integer
+        status:
+          $ref: "#/components/schemas/QuorumApprovalState"
+        members:
+          description: Indexes into the top-level `users` array identifying the users
+            who belong to this tier. Returned only for `quorumStatusMode=FULL`; omitted
+            otherwise.
+          example:
+          - 0
+          - 1
+          items:
+            type: integer
+          type: array
+      required:
+      - currentApprovalCount
+      - status
+      - threshold
+      type: object
+    QuorumRuleset:
+      description: "One sub-request of the approval criteria, made up of one or more\
+        \ tiers."
+      properties:
+        groupMatch:
+          description: Whether every tier in `groups` must be satisfied (`ALL`) or
+            any single one of them (`ANY`).
+          enum:
+          - ALL
+          - ANY
+          example: ALL
+          type: string
+        status:
+          $ref: "#/components/schemas/QuorumApprovalState"
+        groups:
+          description: "The tiers of this sub-request, evaluated according to `groupMatch`."
+          example:
+          - threshold: 1
+            currentApprovalCount: 1
+            status: APPROVED
+          - threshold: 2
+            currentApprovalCount: 1
+            status: PENDING
+          items:
+            $ref: "#/components/schemas/QuorumGroup"
+          type: array
+      required:
+      - groupMatch
+      - groups
+      - status
+      type: object
+    RulesetQuorum:
+      description: "The general shape, used when the request has more than one sub-request\
+        \ or a sub-request with more than one tier. Each entry in `rulesets` is a\
+        \ sub-request; each of its `groups` is a tier."
+      properties:
+        type:
+          description: Discriminator identifying the multi-tier shape.
+          enum:
+          - RULESET
+          example: RULESET
+          type: string
+        rulesetMatch:
+          description: Whether every sub-request in `rulesets` must be satisfied (`ALL`)
+            or any single one of them (`ANY`).
+          enum:
+          - ALL
+          - ANY
+          example: ALL
+          type: string
+        status:
+          $ref: "#/components/schemas/QuorumApprovalState"
+        isMandatoryOwnerApproved:
+          description: Present only when this request additionally requires the workspace
+            owner's approval. `false` means the owner has not approved yet. Absent
+            when no owner approval is required.
+          example: false
+          type: boolean
+        rulesets:
+          description: "The sub-requests of the approval criteria, evaluated according\
+            \ to `rulesetMatch`."
+          example:
+          - groupMatch: ALL
+            status: PENDING
+            groups:
+            - threshold: 1
+              currentApprovalCount: 1
+              status: APPROVED
+            - threshold: 2
+              currentApprovalCount: 1
+              status: PENDING
+          items:
+            $ref: "#/components/schemas/QuorumRuleset"
+          type: array
+      required:
+      - rulesetMatch
+      - rulesets
+      - status
+      - type
+      type: object
+    QuorumStatus:
+      description: |-
+        The approval quorum's structure and progress for this request.
+
+        `null` when `quorumStatusMode` is omitted or `NONE`. Also `null` on an otherwise successful response when the quorum cannot be reported faithfully — a multi-tier request in a workspace that does not maintain per-tier approval counts — so absence here does not imply the request has no quorum.
+
+        The object may carry additional backend-defined fields beyond those documented.
+      example:
+        quorum:
+          type: SIMPLE
+          threshold: 2
+          currentApprovalCount: 1
+          status: PENDING
+          isMandatoryOwnerApproved: false
+          members:
+          - 0
+          - 1
+        requestStatus: PENDING
+        users:
+        - index: 0
+          userId: 6073c3d2-9f4b-4c1a-8f7d-2b1e5a9c4d80
+          status: APPROVED
+        - index: 1
+          userId: a1b2c3d4-5e6f-4a7b-8c9d-0e1f2a3b4c5d
+          status: PENDING
+          isMandatoryOwner: true
+      nullable: true
+      properties:
+        requestStatus:
+          $ref: "#/components/schemas/QuorumRequestState"
+        users:
+          description: Every user participating in this request's quorum. Returned
+            only for `quorumStatusMode=FULL`; omitted otherwise.
+          example:
+          - index: 0
+            userId: 6073c3d2-9f4b-4c1a-8f7d-2b1e5a9c4d80
+            status: APPROVED
+          - index: 1
+            userId: a1b2c3d4-5e6f-4a7b-8c9d-0e1f2a3b4c5d
+            status: PENDING
+            isMandatoryOwner: true
+          items:
+            $ref: "#/components/schemas/QuorumUser"
+          type: array
+        quorum:
+          $ref: "#/components/schemas/QuorumStatus_quorum"
+      required:
+      - quorum
+      - requestStatus
+      type: object
+    ApprovalRequestItem:
+      example:
+        userStatus: USER_NOT_APPROVED
+        quorumStatus:
+          quorum:
+            type: SIMPLE
+            threshold: 2
+            currentApprovalCount: 1
+            status: PENDING
+            isMandatoryOwnerApproved: false
+            members:
+            - 0
+            - 1
+          requestStatus: PENDING
+          users:
+          - index: 0
+            userId: 6073c3d2-9f4b-4c1a-8f7d-2b1e5a9c4d80
+            status: APPROVED
+          - index: 1
+            userId: a1b2c3d4-5e6f-4a7b-8c9d-0e1f2a3b4c5d
+            status: PENDING
+            isMandatoryOwner: true
+        requestPayload: "{\"requestId\":\"ccr-1f2e3d4c\",\"requestType\":\"ADD_USER\"\
+          ,\"requestTimestamp\":1750000000000,\"expiresAt\":1750600000,\"requestData\"\
+          :{\"type\":\"ADD_USER\",\"creator\":\"user-1f2e3d4c\",\"id\":\"ccr-1f2e3d4c\"\
+          }}"
+        requestSignature: ""
+      properties:
+        requestPayload:
+          description: "The pending approval request as a JSON string, exactly as\
+            \ produced by the backend — this is the precise string to sign in order\
+            \ to approve the request (sign it as-is; do not re-serialize). The JSON\
+            \ has the shape { requestId, requestType, requestTimestamp (epoch ms),\
+            \ expiresAt (epoch seconds), requestData }, where requestData is the request-type-specific\
+            \ payload."
+          example: "{\"requestId\":\"ccr-1f2e3d4c\",\"requestType\":\"ADD_USER\",\"\
+            requestTimestamp\":1750000000000,\"expiresAt\":1750600000,\"requestData\"\
+            :{\"type\":\"ADD_USER\",\"creator\":\"user-1f2e3d4c\",\"id\":\"ccr-1f2e3d4c\"\
+            }}"
+          type: string
+        requestSignature:
+          description: Signature over the requestPayload. Empty until request signing
+            is implemented.
+          example: ""
+          type: string
+        userStatus:
+          description: The authenticated user's approval status for this request.
+          enum:
+          - USER_STATUS_NOT_APPLICABLE
+          - USER_NOT_ELIGIBLE_TO_APPROVE
+          - USER_NOT_APPROVED
+          - USER_APPROVED
+          example: USER_NOT_APPROVED
+          type: string
+        quorumStatus:
+          $ref: "#/components/schemas/QuorumStatus"
+      required:
+      - requestPayload
+      - userStatus
+      type: object
+    ListApprovalsResponse:
+      example:
+        next: cursor for the next page
+        data:
+        - requestPayload:
+            requestId: ccr-1f2e3d4c
+            requestType: ADD_USER
+            requestTimestamp: 1750000000000
+            expiresAt: 1750600000
+            requestData:
+              type: ADD_USER
+              creator: user-1f2e3d4c
+              id: ccr-1f2e3d4c
+          userStatus: USER_NOT_APPROVED
+      properties:
+        data:
+          description: The approval requests the authenticated user is eligible to
+            act on.
+          example:
+          - requestPayload:
+              requestId: ccr-1f2e3d4c
+              requestType: ADD_USER
+              requestTimestamp: 1750000000000
+              expiresAt: 1750600000
+              requestData:
+                type: ADD_USER
+                creator: user-1f2e3d4c
+                id: ccr-1f2e3d4c
+            userStatus: USER_NOT_APPROVED
+          items:
+            $ref: "#/components/schemas/ApprovalRequestItem"
+          type: array
+        next:
+          description: Cursor for the next page of results. Pass it back as the `pageCursor`
+            query param to fetch the next page. Empty or absent when this is the last
+            page.
+          example: cursor for the next page
+          type: string
+      required:
+      - data
       type: object
     AddCollateralRequestBody:
       example:
@@ -58029,6 +59118,7 @@ components:
       - transaction.status.updated
       - transaction.approval_status.updated
       - transaction.network_records.processing_completed
+      - transaction.alert.stuck
       - external_wallet.asset.added
       - external_wallet.asset.removed
       - internal_wallet.asset.added
@@ -58039,6 +59129,10 @@ components:
       - vault_account.asset.added
       - vault_account.asset.balance_updated
       - vault_account.nft.balance_updated
+      - vault_account.bulk_create_job_started
+      - vault_account.bulk_create_job_ended
+      - vault_account.asset.bulk_add_job_started
+      - vault_account.asset.bulk_add_job_ended
       - embedded_wallet.status.updated
       - embedded_wallet.created
       - embedded_wallet.asset.balance_updated
@@ -58344,23 +59438,25 @@ components:
       type: object
     WebhookCustomHeaders:
       additionalProperties:
-        description: Header value. Must not contain CR or LF characters.
-        maxLength: 1024
-        minLength: 1
-        pattern: "^[^\\r\\n]*$"
-        type: string
-      description: "Custom HTTP headers attached to every notification delivered by\
-        \ this webhook (max 10). Header names must be valid RFC 7230 tokens (printable\
-        \ ASCII, no separators), are treated case-insensitively (duplicate names differing\
-        \ only in case are rejected), and may not exceed 128 characters. The following\
-        \ names are reserved and cannot be used: Host, Content-Type, Content-Length,\
-        \ Transfer-Encoding, Connection, User-Agent, Accept, Accept-Encoding, Fireblocks-Signature,\
-        \ Fireblocks-Webhook-Signature. Header values are write-only — never returned\
-        \ in responses."
+        description: "A string, sent as one header line, or an array of strings, sent\
+          \ as one header line per element. A string may be empty: RFC 9110 §5.5 permits\
+          \ an empty field value, and it reaches your endpoint as an empty value rather\
+          \ than being dropped. Values are at most 1024 characters and must not contain\
+          \ control characters. An array must not be empty and is not accepted for\
+          \ `Cookie`."
+        example: abc123
+      description: |-
+        Custom HTTP headers attached to every notification delivered by this webhook.
+        A value is a string, sent as one header line, or an array of strings, sent as one header line per element under the same name. `Cookie` accepts only a string. An empty array is rejected — leave the name out instead.
+        At most 10 header lines in total, counted per array element rather than per name. Names must be valid HTTP header tokens, are case-insensitive, and are at most 128 characters. Values are at most 1024 characters and may be empty.
+        Reserved names: `Host`, `Content-Type`, `Content-Length`, `Transfer-Encoding`, `Connection`, `User-Agent`, `Accept`, `Accept-Encoding`, `Fireblocks-Signature`, `Fireblocks-Webhook-Signature`, `Authorization`. `Authorization` is reserved whether or not this webhook has OAuth credentials attached, because Fireblocks sets it once it does.
+        Values are write-only; responses return only the header names.
       example:
         X-Gateway-Key: abc123
         X-Region-Tag: eu
-      maxProperties: 10
+        X-Forwarded-For:
+        - 203.0.113.7
+        - 198.51.100.4
       type: object
     CreateWebhookRequest:
       example:
@@ -58386,6 +59482,9 @@ components:
         customHeaders:
           X-Gateway-Key: abc123
           X-Region-Tag: eu
+          X-Forwarded-For:
+          - 203.0.113.7
+          - 198.51.100.4
       properties:
         url:
           description: "The url of the webhook where notifications will be sent. URL\
@@ -58418,23 +59517,25 @@ components:
           $ref: "#/components/schemas/WebhookOAuth"
         customHeaders:
           additionalProperties:
-            description: Header value. Must not contain CR or LF characters.
-            maxLength: 1024
-            minLength: 1
-            pattern: "^[^\\r\\n]*$"
-            type: string
-          description: "Custom HTTP headers attached to every notification delivered\
-            \ by this webhook (max 10). Header names must be valid RFC 7230 tokens\
-            \ (printable ASCII, no separators), are treated case-insensitively (duplicate\
-            \ names differing only in case are rejected), and may not exceed 128 characters.\
-            \ The following names are reserved and cannot be used: Host, Content-Type,\
-            \ Content-Length, Transfer-Encoding, Connection, User-Agent, Accept, Accept-Encoding,\
-            \ Fireblocks-Signature, Fireblocks-Webhook-Signature. Header values are\
-            \ write-only — never returned in responses."
+            description: "A string, sent as one header line, or an array of strings,\
+              \ sent as one header line per element. A string may be empty: RFC 9110\
+              \ §5.5 permits an empty field value, and it reaches your endpoint as\
+              \ an empty value rather than being dropped. Values are at most 1024\
+              \ characters and must not contain control characters. An array must\
+              \ not be empty and is not accepted for `Cookie`."
+            example: abc123
+          description: |-
+            Custom HTTP headers attached to every notification delivered by this webhook.
+            A value is a string, sent as one header line, or an array of strings, sent as one header line per element under the same name. `Cookie` accepts only a string. An empty array is rejected — leave the name out instead.
+            At most 10 header lines in total, counted per array element rather than per name. Names must be valid HTTP header tokens, are case-insensitive, and are at most 128 characters. Values are at most 1024 characters and may be empty.
+            Reserved names: `Host`, `Content-Type`, `Content-Length`, `Transfer-Encoding`, `Connection`, `User-Agent`, `Accept`, `Accept-Encoding`, `Fireblocks-Signature`, `Fireblocks-Webhook-Signature`, `Authorization`. `Authorization` is reserved whether or not this webhook has OAuth credentials attached, because Fireblocks sets it once it does.
+            Values are write-only; responses return only the header names.
           example:
             X-Gateway-Key: abc123
             X-Region-Tag: eu
-          maxProperties: 10
+            X-Forwarded-For:
+            - 203.0.113.7
+            - 198.51.100.4
           type: object
       required:
       - events
@@ -58458,23 +59559,473 @@ components:
       required:
       - csr
       type: object
-    WebhookCustomHeadersUpdate:
+    WebhookOAuthCredentials:
+      description: "A stored OAuth 2.0 client credential set, referenced by webhooks\
+        \ through their `webhookOauthId`. When a webhook references one, the dispatcher\
+        \ fetches a bearer token from `url` before each delivery and attaches it as\
+        \ `Authorization: Bearer {token}`. Secret material is never returned: `clientSecret`\
+        \ is absent from this schema entirely, and the `customJwtClaims`, `customBodyParams`\
+        \ and `customHeaders` fields are reduced to their names, without the configured\
+        \ values."
+      example:
+        createdAt: 1625097600000
+        clientId: my-client-id
+        customBodyParams:
+        - scope
+        customJwtClaims:
+        - aud
+        - resource
+        name: Production treasury gateway
+        id: 123e4567-e89b-12d3-a456-426614174000
+        authMethod: client_secret_basic
+        url: https://auth.example.com/oauth/token
+        customHeaders:
+        - X-Api-Key
+        mtlsClientSignedCert: |-
+          -----BEGIN CERTIFICATE-----
+          ...
+          -----END CERTIFICATE-----
+        updatedAt: 1625097600000
+      properties:
+        id:
+          description: The id of the OAuth credentials. Pass this as a webhook's `webhookOauthId`
+            to attach them.
+          example: 123e4567-e89b-12d3-a456-426614174000
+          format: uuid
+          type: string
+        name:
+          description: The label given to this credential set.
+          example: Production treasury gateway
+          type: string
+        clientId:
+          description: OAuth client ID used to authenticate with the token endpoint.
+          example: my-client-id
+          type: string
+        url:
+          description: Token endpoint URL.
+          example: https://auth.example.com/oauth/token
+          type: string
+        authMethod:
+          default: client_secret_basic
+          description: "How the client credentials are presented to the token endpoint:\
+            \ `client_secret_basic`, `client_secret_post` or `client_secret_jwt`.\
+            \ Credentials created without this field report `client_secret_basic`,\
+            \ which is what they use."
+          example: client_secret_basic
+          type: string
+        customJwtClaims:
+          description: Names of the additional claims placed in the JWT assertion.
+            Claim values are write-only and are never returned. Absent when no custom
+            claims are configured.
+          example:
+          - aud
+          - resource
+          items:
+            type: string
+          type: array
+        customBodyParams:
+          description: Names of the additional parameters added to the token request
+            body. Parameter values are write-only and are never returned. Absent when
+            no custom parameters are configured.
+          example:
+          - scope
+          items:
+            type: string
+          type: array
+        customHeaders:
+          description: "Names of the additional HTTP headers added to **the token\
+            \ request sent to the authorization server** — not to the webhook delivery,\
+            \ which has its own separate `customHeaders`. Header values are write-only\
+            \ and are never returned. Absent when no custom headers are configured."
+          example:
+          - X-Api-Key
+          items:
+            type: string
+          type: array
+        mtlsClientSignedCert:
+          description: PEM-encoded client certificate used for mTLS when fetching
+            OAuth tokens.
+          example: |-
+            -----BEGIN CERTIFICATE-----
+            ...
+            -----END CERTIFICATE-----
+          type: string
+        createdAt:
+          description: "The date and time the OAuth credentials were created, in milliseconds."
+          example: 1625097600000
+          format: int64
+          type: integer
+        updatedAt:
+          description: "The date and time the OAuth credentials were last updated,\
+            \ in milliseconds."
+          example: 1625097600000
+          format: int64
+          type: integer
+      required:
+      - authMethod
+      - clientId
+      - createdAt
+      - id
+      - name
+      - updatedAt
+      - url
+      type: object
+    WebhookOAuthList:
+      description: Every OAuth credential set belonging to the workspace. Client secrets
+        are never returned.
+      items:
+        $ref: "#/components/schemas/WebhookOAuthCredentials"
+      type: array
+    WebhookOAuthCustomJwtClaims:
       additionalProperties:
-        maxLength: 1024
-        minLength: 1
+        description: Claim value. May be any JSON type except `null`.
+      description: |-
+        Extra claims for the JWT assertion. Used only when `authMethod` is `client_secret_jwt`. The usual one to set is `aud`, which defaults to the token endpoint URL; some authorization servers expect their own identifier instead.
+        A value may be any JSON type except `null` — `null` is reserved for deleting a claim on update. `iss`, `sub`, `jti`, `iat` and `exp` are set by Fireblocks and cannot be overridden. Names are case-sensitive. The whole object must be under 16 KB.
+        Values are write-only; responses return only the claim names. On update this merges claim by claim rather than replacing — see `WebhookOAuthCustomJwtClaimsUpdate`.
+      example:
+        aud: https://auth.example.com
+        email_verified: true
+      nullable: true
+      type: object
+    WebhookOAuthCustomBodyParams:
+      additionalProperties:
+        type: string
+      description: |-
+        Extra parameters for the token request body — `scope` most commonly, sometimes `audience` or `resource`. Applies to every authentication method.
+        Values must be strings, because the token request body is form-encoded rather than JSON. An empty string is allowed. `grant_type`, `client_id`, `client_secret`, `client_assertion` and `client_assertion_type` are set by Fireblocks and cannot be overridden. Names are case-sensitive. The whole object must be under 16 KB.
+        Values are write-only; responses return only the parameter names. On update this merges key by key rather than replacing — see `WebhookOAuthCustomBodyParamsUpdate`.
+      example:
+        scope: payments.read payments.write
+      nullable: true
+      type: object
+    WebhookOAuthCustomHeaders:
+      additionalProperties:
+        type: string
+      description: |-
+        Extra HTTP headers for **the token request to your authorization server** — not for the webhook delivery, which has its own separate `customHeaders`. A gateway API key is the usual case. Applies to every authentication method.
+        Values must be strings; an empty string is allowed. Names are matched case-insensitively, so two names differing only in case are a duplicate. Names are stored and returned lowercased, so `X-Api-Key` comes back as `x-api-key`. `Content-Type`, `Authorization`, `Content-Length` and `Host` are set by Fireblocks and cannot be overridden. The whole object must be under 16 KB.
+        Values are write-only; responses return only the header names. On update this merges name by name rather than replacing — see `WebhookOAuthCustomHeadersUpdate`.
+      example:
+        x-api-key: gateway-key
+      nullable: true
+      type: object
+    CreateWebhookOAuthRequest:
+      description: "A new reusable OAuth 2.0 client credential set. Attach it to a\
+        \ webhook by passing the returned id as that webhook's `webhookOauthId`. Several\
+        \ webhooks may share one credential set, so rotating its client secret covers\
+        \ all of them at once."
+      example:
+        clientId: my-client-id
+        customBodyParams:
+          scope: payments.read payments.write
+        customJwtClaims:
+          aud: https://auth.example.com
+          email_verified: true
+        name: Production treasury gateway
+        clientSecret: my-client-secret
+        authMethod: client_secret_basic
+        url: https://auth.example.com/oauth/token
+        customHeaders:
+          x-api-key: gateway-key
+        mtlsClientSignedCert: |-
+          -----BEGIN CERTIFICATE-----
+          ...
+          -----END CERTIFICATE-----
+      properties:
+        name:
+          description: "A label for this credential set, shown when listing them."
+          example: Production treasury gateway
+          maxLength: 128
+          minLength: 1
+          type: string
+        clientId:
+          description: OAuth client ID used to authenticate with the token endpoint.
+          example: my-client-id
+          maxLength: 255
+          minLength: 1
+          type: string
+        clientSecret:
+          description: OAuth client secret. Write-only — never returned. Limited to
+            480 bytes UTF-8 encoded. With `client_secret_jwt` it signs the assertion
+            rather than being sent.
+          example: my-client-secret
+          maxLength: 480
+          minLength: 1
+          type: string
+        url:
+          description: "Token endpoint URL. HTTPS on port 443 only, and the host must\
+            \ resolve publicly — localhost and private, link-local or loopback addresses\
+            \ are rejected."
+          example: https://auth.example.com/oauth/token
+          maxLength: 2048
+          pattern: ^https://
+          type: string
+        authMethod:
+          default: client_secret_basic
+          description: "How the client credentials reach the token endpoint. `client_secret_basic`\
+            \ uses an HTTP Basic header, `client_secret_post` uses form fields in\
+            \ the body, and `client_secret_jwt` sends a JWT assertion signed with\
+            \ the secret, so the secret itself is never transmitted. Defaults to `client_secret_basic`."
+          example: client_secret_basic
+          type: string
+        customJwtClaims:
+          additionalProperties:
+            description: Claim value. May be any JSON type except `null`.
+          description: |-
+            Extra claims for the JWT assertion. Used only when `authMethod` is `client_secret_jwt`. The usual one to set is `aud`, which defaults to the token endpoint URL; some authorization servers expect their own identifier instead.
+            A value may be any JSON type except `null` — `null` is reserved for deleting a claim on update. `iss`, `sub`, `jti`, `iat` and `exp` are set by Fireblocks and cannot be overridden. Names are case-sensitive. The whole object must be under 16 KB.
+            Values are write-only; responses return only the claim names. On update this merges claim by claim rather than replacing — see `WebhookOAuthCustomJwtClaimsUpdate`.
+          example:
+            aud: https://auth.example.com
+            email_verified: true
+          nullable: true
+          type: object
+        customBodyParams:
+          additionalProperties:
+            type: string
+          description: |-
+            Extra parameters for the token request body — `scope` most commonly, sometimes `audience` or `resource`. Applies to every authentication method.
+            Values must be strings, because the token request body is form-encoded rather than JSON. An empty string is allowed. `grant_type`, `client_id`, `client_secret`, `client_assertion` and `client_assertion_type` are set by Fireblocks and cannot be overridden. Names are case-sensitive. The whole object must be under 16 KB.
+            Values are write-only; responses return only the parameter names. On update this merges key by key rather than replacing — see `WebhookOAuthCustomBodyParamsUpdate`.
+          example:
+            scope: payments.read payments.write
+          nullable: true
+          type: object
+        customHeaders:
+          additionalProperties:
+            type: string
+          description: |-
+            Extra HTTP headers for **the token request to your authorization server** — not for the webhook delivery, which has its own separate `customHeaders`. A gateway API key is the usual case. Applies to every authentication method.
+            Values must be strings; an empty string is allowed. Names are matched case-insensitively, so two names differing only in case are a duplicate. Names are stored and returned lowercased, so `X-Api-Key` comes back as `x-api-key`. `Content-Type`, `Authorization`, `Content-Length` and `Host` are set by Fireblocks and cannot be overridden. The whole object must be under 16 KB.
+            Values are write-only; responses return only the header names. On update this merges name by name rather than replacing — see `WebhookOAuthCustomHeadersUpdate`.
+          example:
+            x-api-key: gateway-key
+          nullable: true
+          type: object
+        mtlsClientSignedCert:
+          description: PEM-encoded client certificate for mTLS when fetching tokens.
+            Must be a valid X.509 certificate inside its validity window.
+          example: |-
+            -----BEGIN CERTIFICATE-----
+            ...
+            -----END CERTIFICATE-----
+          type: string
+      required:
+      - clientId
+      - clientSecret
+      - name
+      - url
+      type: object
+    DeleteWebhookOAuthResponse:
+      allOf:
+      - $ref: "#/components/schemas/WebhookOAuthCredentials"
+      - properties:
+          detachedWebhookIds:
+            description: "Webhooks whose `webhookOauthId` was cleared. The webhooks\
+              \ themselves are not deleted and keep delivering, just without an `Authorization`\
+              \ header. Empty unless `forceDelete=true` detached something."
+            example:
+            - 44fcead0-7053-4831-a53a-df7fb90d440f
+            items:
+              format: uuid
+              type: string
+            type: array
+        required:
+        - detachedWebhookIds
+        type: object
+      description: "The deleted OAuth credential set, plus the ids of any webhooks\
+        \ the delete detached from it. Webhooks are only detached by `forceDelete=true`;\
+        \ without it a delete is refused with `409` while anything still references\
+        \ the credentials."
+      example:
+        createdAt: 1625097600000
+        clientId: my-client-id
+        customBodyParams:
+        - scope
+        detachedWebhookIds:
+        - 44fcead0-7053-4831-a53a-df7fb90d440f
+        customJwtClaims:
+        - aud
+        - resource
+        name: Production treasury gateway
+        id: 123e4567-e89b-12d3-a456-426614174000
+        authMethod: client_secret_basic
+        url: https://auth.example.com/oauth/token
+        customHeaders:
+        - X-Api-Key
+        mtlsClientSignedCert: |-
+          -----BEGIN CERTIFICATE-----
+          ...
+          -----END CERTIFICATE-----
+        updatedAt: 1625097600000
+    WebhookOAuthCustomJwtClaimsUpdate:
+      additionalProperties:
+        description: "Claim value. May be any JSON type, or `null` to delete the claim."
+      description: |-
+        A delta applied to the JWT assertion claims. A claim with a value is added or replaced, a claim with `null` is deleted, and a claim you leave out is untouched. So `{ "aud": "https://auth.example.com", "resource": null }` sets `aud`, drops `resource`, and changes nothing else.
+        Send `customJwtClaims: null` to clear every claim in one call. That does not collide with a `null` value on a name: one names the claim to delete, the other names the whole field.
+        Same rules as on create: any JSON type except `null`, `iss`/`sub`/`jti`/`iat`/`exp` reserved, names case-sensitive, resulting set under 16 KB, values write-only.
+      example:
+        aud: https://auth.example.com
+        resource: null
+      nullable: true
+      type: object
+    WebhookOAuthCustomBodyParamsUpdate:
+      additionalProperties:
         nullable: true
         type: string
-      description: "Custom headers delta: entries with a string value are added or\
-        \ updated, entries with a `null` value delete that header (no-op if absent),\
-        \ and header names omitted from the payload are left untouched. The resulting\
-        \ set is limited to 10 headers. Header names are case-insensitive, up to 128\
-        \ characters, and limited to valid HTTP header name characters. Some system\
-        \ header names are reserved and cannot be used. Values are write-only — never\
-        \ returned in responses."
+      description: |-
+        A delta applied to the token request body parameters. A parameter with a value is added or replaced, a parameter with `null` is deleted, and one you leave out is untouched. So `{ "scope": "payments.read", "audience": null }` sets `scope`, drops `audience`, and changes nothing else.
+        Send `customBodyParams: null` to clear every parameter in one call. That does not collide with a `null` value on a name: one names the parameter to delete, the other names the whole field.
+        Same rules as on create: string values only, `grant_type`/`client_id`/`client_secret`/ `client_assertion`/`client_assertion_type` reserved, names case-sensitive, resulting set under 16 KB, values write-only.
+      example:
+        scope: payments.read payments.write
+        audience: null
+      nullable: true
+      type: object
+    WebhookOAuthCustomHeadersUpdate:
+      additionalProperties:
+        nullable: true
+        type: string
+      description: |-
+        A delta applied to the token request headers — not the webhook delivery headers. A header with a value is added or replaced, a header with `null` is deleted, and one you leave out is untouched. So `{ "X-Api-Key": "new-key", "X-Tenant": null }` rotates `X-Api-Key`, drops `X-Tenant`, and changes nothing else.
+        Send `customHeaders: null` to clear every header in one call. That does not collide with a `null` value on a name: one names the header to delete, the other names the whole field. Names are case-insensitive, so a `null` under one casing deletes a header stored under another, and names are stored and returned lowercased.
+        Same rules as on create: string values only, `Content-Type`/`Authorization`/ `Content-Length`/`Host` reserved, resulting set under 16 KB, values write-only.
+      example:
+        x-api-key: gateway-key
+        x-tenant: null
+      nullable: true
+      type: object
+    UpdateWebhookOAuthRequest:
+      description: |-
+        A partial update. Every field is optional and an omitted field is left as it is, so `{ "clientSecret": "new-secret" }` rotates the secret and changes nothing else. A rotation applies to every webhook referencing these credentials.
+
+        The three custom maps merge: a key with a value is upserted, a key with `null` is deleted, a key you leave out is untouched. Because `null` inside a map means delete, none of the three is nullable as a whole — `customJwtClaims: null` and friends are rejected with a `400`. Clear a map by naming each key with a `null` value. `mtlsClientSignedCert` is a scalar, so `null` there does remove it.
+      example:
+        clientId: my-client-id
+        customBodyParams:
+          scope: payments.read payments.write
+          audience: null
+        customJwtClaims:
+          aud: https://auth.example.com
+          resource: null
+        name: Production treasury gateway
+        clientSecret: my-new-client-secret
+        authMethod: client_secret_jwt
+        url: https://auth.example.com/oauth/token
+        customHeaders:
+          x-api-key: gateway-key
+          x-tenant: null
+        mtlsClientSignedCert: |-
+          -----BEGIN CERTIFICATE-----
+          ...
+          -----END CERTIFICATE-----
+      properties:
+        name:
+          description: A label for this credential set. Omit to leave it unchanged.
+          example: Production treasury gateway
+          maxLength: 128
+          minLength: 1
+          type: string
+        clientId:
+          description: OAuth client ID. Omit to leave it unchanged.
+          example: my-client-id
+          maxLength: 255
+          minLength: 1
+          type: string
+        clientSecret:
+          description: "A new OAuth client secret. Limited to 480 bytes when UTF-8\
+            \ encoded, so a secret using non-ASCII characters fits fewer than 480\
+            \ of them. Write-only — never returned in any response. Send this on its\
+            \ own to rotate the secret without changing anything else. Omit to leave\
+            \ it unchanged."
+          example: my-new-client-secret
+          maxLength: 480
+          minLength: 1
+          type: string
+        url:
+          description: "Token endpoint URL. HTTPS on port 443 only, and the host must\
+            \ resolve publicly. Omit to leave it unchanged."
+          example: https://auth.example.com/oauth/token
+          maxLength: 2048
+          pattern: ^https://
+          type: string
+        authMethod:
+          description: "`client_secret_basic`, `client_secret_post` or `client_secret_jwt`.\
+            \ Omit to leave it unchanged — it does not revert to the default."
+          example: client_secret_jwt
+          type: string
+        customJwtClaims:
+          additionalProperties:
+            description: "Claim value. May be any JSON type, or `null` to delete the\
+              \ claim."
+          description: |-
+            A delta applied to the JWT assertion claims. A claim with a value is added or replaced, a claim with `null` is deleted, and a claim you leave out is untouched. So `{ "aud": "https://auth.example.com", "resource": null }` sets `aud`, drops `resource`, and changes nothing else.
+            Send `customJwtClaims: null` to clear every claim in one call. That does not collide with a `null` value on a name: one names the claim to delete, the other names the whole field.
+            Same rules as on create: any JSON type except `null`, `iss`/`sub`/`jti`/`iat`/`exp` reserved, names case-sensitive, resulting set under 16 KB, values write-only.
+          example:
+            aud: https://auth.example.com
+            resource: null
+          nullable: true
+          type: object
+        customBodyParams:
+          additionalProperties:
+            nullable: true
+            type: string
+          description: |-
+            A delta applied to the token request body parameters. A parameter with a value is added or replaced, a parameter with `null` is deleted, and one you leave out is untouched. So `{ "scope": "payments.read", "audience": null }` sets `scope`, drops `audience`, and changes nothing else.
+            Send `customBodyParams: null` to clear every parameter in one call. That does not collide with a `null` value on a name: one names the parameter to delete, the other names the whole field.
+            Same rules as on create: string values only, `grant_type`/`client_id`/`client_secret`/ `client_assertion`/`client_assertion_type` reserved, names case-sensitive, resulting set under 16 KB, values write-only.
+          example:
+            scope: payments.read payments.write
+            audience: null
+          nullable: true
+          type: object
+        customHeaders:
+          additionalProperties:
+            nullable: true
+            type: string
+          description: |-
+            A delta applied to the token request headers — not the webhook delivery headers. A header with a value is added or replaced, a header with `null` is deleted, and one you leave out is untouched. So `{ "X-Api-Key": "new-key", "X-Tenant": null }` rotates `X-Api-Key`, drops `X-Tenant`, and changes nothing else.
+            Send `customHeaders: null` to clear every header in one call. That does not collide with a `null` value on a name: one names the header to delete, the other names the whole field. Names are case-insensitive, so a `null` under one casing deletes a header stored under another, and names are stored and returned lowercased.
+            Same rules as on create: string values only, `Content-Type`/`Authorization`/ `Content-Length`/`Host` reserved, resulting set under 16 KB, values write-only.
+          example:
+            x-api-key: gateway-key
+            x-tenant: null
+          nullable: true
+          type: object
+        mtlsClientSignedCert:
+          description: "PEM-encoded client certificate for mTLS. Must be a valid X.509\
+            \ certificate inside its validity window. Omit to leave it unchanged,\
+            \ or send `null` to remove it."
+          example: |-
+            -----BEGIN CERTIFICATE-----
+            ...
+            -----END CERTIFICATE-----
+          nullable: true
+          type: string
+      type: object
+    WebhookCustomHeadersUpdate:
+      additionalProperties:
+        description: "A string, sent as one header line, or an array of strings, sent\
+          \ as one header line per element, or `null` to delete the header. A string\
+          \ may be empty. Values are at most 1024 characters and must not contain\
+          \ control characters. An array must not be empty and is not accepted for\
+          \ `Cookie`."
+        example: abc123
+      description: |-
+        A delta applied to the delivery headers. A header with a value is added or replaced, a header with `null` is deleted, and one you leave out is untouched. A value replaces what is stored under that name rather than adding to it, so an array is the complete new set of lines for that header.
+        Send `customHeaders: null` to clear every header in one call. That does not collide with a `null` value on a name: one names the header to delete, the other names the whole field.
+        Names are case-insensitive, so a `null` under one casing deletes a header stored under another.
+        Same rules as on create: string or non-empty array, `Cookie` string-only, 10 lines total in the resulting set, the same reserved names, and values write-only. Entries set to `null` do not count towards the limit.
       example:
         X-Gateway-Key: abc123
+        X-Forwarded-For:
+        - 203.0.113.7
+        - 198.51.100.4
         X-Region-Tag: null
-      maxProperties: 10
+      nullable: true
       type: object
     UpdateWebhookRequest:
       example:
@@ -58499,6 +60050,9 @@ components:
         enabled: false
         customHeaders:
           X-Gateway-Key: abc123
+          X-Forwarded-For:
+          - 203.0.113.7
+          - 198.51.100.4
           X-Region-Tag: null
       properties:
         url:
@@ -58531,21 +60085,24 @@ components:
           $ref: "#/components/schemas/WebhookOAuth"
         customHeaders:
           additionalProperties:
-            maxLength: 1024
-            minLength: 1
-            nullable: true
-            type: string
-          description: "Custom headers delta: entries with a string value are added\
-            \ or updated, entries with a `null` value delete that header (no-op if\
-            \ absent), and header names omitted from the payload are left untouched.\
-            \ The resulting set is limited to 10 headers. Header names are case-insensitive,\
-            \ up to 128 characters, and limited to valid HTTP header name characters.\
-            \ Some system header names are reserved and cannot be used. Values are\
-            \ write-only — never returned in responses."
+            description: "A string, sent as one header line, or an array of strings,\
+              \ sent as one header line per element, or `null` to delete the header.\
+              \ A string may be empty. Values are at most 1024 characters and must\
+              \ not contain control characters. An array must not be empty and is\
+              \ not accepted for `Cookie`."
+            example: abc123
+          description: |-
+            A delta applied to the delivery headers. A header with a value is added or replaced, a header with `null` is deleted, and one you leave out is untouched. A value replaces what is stored under that name rather than adding to it, so an array is the complete new set of lines for that header.
+            Send `customHeaders: null` to clear every header in one call. That does not collide with a `null` value on a name: one names the header to delete, the other names the whole field.
+            Names are case-insensitive, so a `null` under one casing deletes a header stored under another.
+            Same rules as on create: string or non-empty array, `Cookie` string-only, 10 lines total in the resulting set, the same reserved names, and values write-only. Entries set to `null` do not count towards the limit.
           example:
             X-Gateway-Key: abc123
+            X-Forwarded-For:
+            - 203.0.113.7
+            - 198.51.100.4
             X-Region-Tag: null
-          maxProperties: 10
+          nullable: true
           type: object
       type: object
     WebhookMetric:
@@ -64772,6 +66329,12 @@ components:
             not set.
           example: stake request of 32ETH created on 02.04.23
           type: string
+        completionTime:
+          description: ISO timestamp when Cosmos unbonding is scheduled to end. Absent
+            on other chains.
+          example: 2026-08-09T03:05:06.122864244Z
+          format: date-time
+          type: string
       required:
       - status
       - timestamp
@@ -66647,6 +68210,14 @@ components:
       - accountId
       - type
       type: object
+    AccountAccessResponse:
+      allOf:
+      - $ref: "#/components/schemas/AccountAccess"
+      description: Response-only counterpart of AccountAccess.
+      example:
+        type: PROVIDER_ACCOUNT
+        providerId: uniswap-v3-provider
+        accountId: account-123
     DirectAccess:
       example:
         type: PROVIDER
@@ -66664,15 +68235,46 @@ components:
       - providerId
       - type
       type: object
-    AccessType:
+    DirectAccessResponseInfo:
+      properties:
+        subProviders:
+          description: "The underlying providers or tools that this direct-access\
+            \ route is composed of, in execution order. Response-only: this field\
+            \ is populated by the server and is never accepted from client requests."
+          example:
+          - lifi-relay
+          - uniswap-v3
+          items:
+            type: string
+          type: array
+      type: object
+    DirectAccessResponse:
+      allOf:
+      - $ref: "#/components/schemas/DirectAccess"
+      - $ref: "#/components/schemas/DirectAccessResponseInfo"
+      description: Response-only counterpart of DirectAccess. Adds the server-populated
+        `subProviders` field. Never use this schema in a request body — requests must
+        keep using DirectAccess (via AccessType).
+      example:
+        type: PROVIDER
+        providerId: uniswap-v3-provider
+        subProviders:
+        - lifi-relay
+        - uniswap-v3
+    AccessTypeResponse:
+      description: "Response-only counterpart of AccessType. Used by the `via` field\
+        \ of response schemas (Quote, Rate, OrderDetails, OrderSummary — and therefore\
+        \ QuoteOffer, RateOffer and Offer) so that the PROVIDER variant can expose\
+        \ `subProviders` without that field ever becoming reachable from a request\
+        \ body. Request schemas (CreateOrderRequest.via) keep using AccessType."
       discriminator:
         mapping:
-          PROVIDER_ACCOUNT: "#/components/schemas/AccountAccess"
-          PROVIDER: "#/components/schemas/DirectAccess"
+          PROVIDER_ACCOUNT: "#/components/schemas/AccountAccessResponse"
+          PROVIDER: "#/components/schemas/DirectAccessResponse"
         propertyName: type
       oneOf:
-      - $ref: "#/components/schemas/AccountAccess"
-      - $ref: "#/components/schemas/DirectAccess"
+      - $ref: "#/components/schemas/AccountAccessResponse"
+      - $ref: "#/components/schemas/DirectAccessResponse"
     Rate:
       example:
         baseAssetId: baseAssetId
@@ -66682,11 +68284,11 @@ components:
         quoteAssetId: quoteAssetId
         via:
           type: PROVIDER_ACCOUNT
-          providerId: bridge-provider-001
-          accountId: acc_9f4e2d8b1c6a5e73
+          providerId: uniswap-v3-provider
+          accountId: account-123
       properties:
         via:
-          $ref: "#/components/schemas/AccessType"
+          $ref: "#/components/schemas/AccessTypeResponse"
         baseAssetId:
           description: The source asset identifier
           type: string
@@ -66742,8 +68344,8 @@ components:
           quoteAssetId: quoteAssetId
           via:
             type: PROVIDER_ACCOUNT
-            providerId: bridge-provider-001
-            accountId: acc_9f4e2d8b1c6a5e73
+            providerId: uniswap-v3-provider
+            accountId: account-123
         - baseAssetId: baseAssetId
           baseAssetRail: BLOCKCHAIN
           rate: "1.2345"
@@ -66751,8 +68353,8 @@ components:
           quoteAssetId: quoteAssetId
           via:
             type: PROVIDER_ACCOUNT
-            providerId: bridge-provider-001
-            accountId: acc_9f4e2d8b1c6a5e73
+            providerId: uniswap-v3-provider
+            accountId: account-123
         errors:
         - accountId: acc_9f4e2d8b1c6a5e73
           providerId: BRIDGE
@@ -67425,7 +69027,7 @@ components:
       description: A committed executable quote for a trading pair.
       properties:
         via:
-          $ref: "#/components/schemas/AccessType"
+          $ref: "#/components/schemas/AccessTypeResponse"
         id:
           description: The unique identifier of the quote.
           example: quote_8f2e4d1a9c5b7e3f
@@ -67631,8 +69233,8 @@ components:
         quoteAssetId: quoteAssetId
         via:
           type: PROVIDER_ACCOUNT
-          providerId: bridge-provider-001
-          accountId: acc_9f4e2d8b1c6a5e73
+          providerId: uniswap-v3-provider
+          accountId: account-123
     QuoteOfferType:
       properties:
         offerType:
@@ -67668,8 +69270,8 @@ components:
           quoteAssetId: quoteAssetId
           via:
             type: PROVIDER_ACCOUNT
-            providerId: bridge-provider-001
-            accountId: acc_9f4e2d8b1c6a5e73
+            providerId: uniswap-v3-provider
+            accountId: account-123
         - baseAssetId: baseAssetId
           offerType: RATE
           baseAssetRail: BLOCKCHAIN
@@ -67678,8 +69280,8 @@ components:
           quoteAssetId: quoteAssetId
           via:
             type: PROVIDER_ACCOUNT
-            providerId: bridge-provider-001
-            accountId: acc_9f4e2d8b1c6a5e73
+            providerId: uniswap-v3-provider
+            accountId: account-123
         errors:
         - accountId: acc_9f4e2d8b1c6a5e73
           providerId: BRIDGE
@@ -67743,7 +69345,7 @@ components:
         id:
           type: string
         via:
-          $ref: "#/components/schemas/AccessType"
+          $ref: "#/components/schemas/AccessTypeResponse"
         side:
           $ref: "#/components/schemas/Side"
         baseAmount:
@@ -67808,6 +69410,15 @@ components:
       - data
       - total
       type: object
+    AccessType:
+      discriminator:
+        mapping:
+          PROVIDER_ACCOUNT: "#/components/schemas/AccountAccess"
+          PROVIDER: "#/components/schemas/DirectAccess"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/AccountAccess"
+      - $ref: "#/components/schemas/DirectAccess"
     MarketTypeEnum:
       description: Order type for market orders
       enum:
@@ -69519,7 +71130,7 @@ components:
         id:
           type: string
         via:
-          $ref: "#/components/schemas/AccessType"
+          $ref: "#/components/schemas/AccessTypeResponse"
         status:
           $ref: "#/components/schemas/OrderStatus"
         createdAt:
@@ -82429,15 +84040,40 @@ components:
           type: string
       type: object
     GetFindingsExternalResponse:
-      description: A paginated list of FSPM findings
       example:
         next: eyJzZXZlcml0eVJhbmsiOjMsImNyZWF0ZWRBdCI6IjIwMjYtMDctMTRUMTA6MDU6NTYuMDAwWiIsImlkIjoiYjJmZTkwYjItMWZlMy00ZTczLTg1YTItNjZlMTlmN2RhYzY2In0=
         total: 42
-        data: []
+        data:
+        - id: d7ca3131-a35e-3a9c-36c1-38bd697e0cd2
+          status: OPEN
+          severity: HIGH
+          category: USER_MANAGEMENT
+          createdAt: 2026-07-28T11:37:05.000Z
+          title: The API user 'Admin API' is missing an IP allowlist
+        - id: 2f6a9c13-7b2d-4158-9a2f-6c3d8b4e0f37
+          status: RESOLVED
+          severity: HIGH
+          category: USER_MANAGEMENT
+          createdAt: 2026-08-30T13:36:35.000Z
+          title: The API user 'admin api callback' is paired with a co-signer and
+            has no callback
       properties:
         data:
           description: List of FSPM findings for the current page.
-          example: []
+          example:
+          - id: d7ca3131-a35e-3a9c-36c1-38bd697e0cd2
+            status: OPEN
+            severity: HIGH
+            category: USER_MANAGEMENT
+            createdAt: 2026-07-28T11:37:05.000Z
+            title: The API user 'Admin API' is missing an IP allowlist
+          - id: 2f6a9c13-7b2d-4158-9a2f-6c3d8b4e0f37
+            status: RESOLVED
+            severity: HIGH
+            category: USER_MANAGEMENT
+            createdAt: 2026-08-30T13:36:35.000Z
+            title: The API user 'admin api callback' is paired with a co-signer and
+              has no callback
           items:
             $ref: "#/components/schemas/SecurityFinding"
           type: array
@@ -82499,7 +84135,6 @@ components:
       - standard
       type: object
     SecurityFindingDetailed:
-      description: "A single FSPM finding, redacted to the public field set"
       example:
         severity: MEDIUM
         mitigationGuidance: "Go to Developer Center > API Users, click the actions\
@@ -82508,14 +84143,22 @@ components:
         riskExplanation: "This API user has no IP allowlist, so it can be accessed\
           \ from anywhere, increasing the risk of unauthorized activity."
         statusUpdatedAt: 2026-08-16T08:52:57Z
-        complianceReqs: []
+        complianceReqs:
+        - id: 8a1e6f19-1c4b-2d7e-2f1a-2b6c8d2e4f50
+          standard: SOC 2
+          criteria: CC6.2
+          description: Access provisioning and credential lifecycle
+        - id: 5e2b8e47-ea9c-ef36-8e2d-ea4b9c3e6f18
+          standard: SOC 2
+          criteria: CC6.3
+          description: "Least privilege and attack surface, roles and SoD"
         title: The API user 'Admin API' is missing an IP allowlist
         createdAt: 2026-07-21T07:49:28Z
         statusUpdatedReason: "False positive, the API user only ever connects from\
           \ a fixed, trusted network"
         id: 2f8a132e-623d-3a97-841f-2c5d9b7a3e60
         category: USER_MANAGEMENT
-        status: OPEN
+        status: ACCEPTED
         info:
           id: 2a6f3c4e-9d33-437e-8f2a-2c9b4d3e1f35
           createdAt: 2026-05-12T12:06:26.242Z
@@ -82540,7 +84183,7 @@ components:
           - OPEN
           - ACCEPTED
           - RESOLVED
-          example: OPEN
+          example: ACCEPTED
           type: string
         severity:
           description: Severity level of the finding
@@ -82610,7 +84253,15 @@ components:
           type: object
         complianceReqs:
           description: Compliance requirements this finding relates to
-          example: []
+          example:
+          - id: 8a1e6f19-1c4b-2d7e-2f1a-2b6c8d2e4f50
+            standard: SOC 2
+            criteria: CC6.2
+            description: Access provisioning and credential lifecycle
+          - id: 5e2b8e47-ea9c-ef36-8e2d-ea4b9c3e6f18
+            standard: SOC 2
+            criteria: CC6.3
+            description: "Least privilege and attack surface, roles and SoD"
           items:
             $ref: "#/components/schemas/ComplianceRequirement"
           type: array
@@ -88383,6 +90034,7 @@ components:
         address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
         isCoinbase: false
         createdByHash: 000000000000000000024bead8df69990852c202db0e0097c1a12ea637d7e96d
+        hasNativeAssets: true
         confirmations: 6
         labels:
         - cold-storage
@@ -88471,6 +90123,10 @@ components:
           items:
             type: string
           type: array
+        hasNativeAssets:
+          description: Whether this UTXO carries Cardano native assets (tokens)
+          example: true
+          type: boolean
       required:
       - address
       - amount
@@ -88487,6 +90143,7 @@ components:
           address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
           isCoinbase: false
           createdByHash: 000000000000000000024bead8df69990852c202db0e0097c1a12ea637d7e96d
+          hasNativeAssets: true
           confirmations: 6
           labels:
           - cold-storage
@@ -88507,6 +90164,7 @@ components:
           address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
           isCoinbase: false
           createdByHash: 000000000000000000024bead8df69990852c202db0e0097c1a12ea637d7e96d
+          hasNativeAssets: true
           confirmations: 6
           labels:
           - cold-storage
@@ -88623,6 +90281,7 @@ components:
           address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
           isCoinbase: false
           createdByHash: 000000000000000000024bead8df69990852c202db0e0097c1a12ea637d7e96d
+          hasNativeAssets: true
           confirmations: 6
           labels:
           - cold-storage
@@ -88643,6 +90302,7 @@ components:
           address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
           isCoinbase: false
           createdByHash: 000000000000000000024bead8df69990852c202db0e0097c1a12ea637d7e96d
+          hasNativeAssets: true
           confirmations: 6
           labels:
           - cold-storage
@@ -90006,6 +91666,537 @@ components:
       required:
       - message
       type: object
+    OnboardingResponseDtccAccept:
+      additionalProperties: false
+      description: Accept a DTCC end-investor onboarding offer. Carries no arguments.
+      properties:
+        responseType:
+          description: How you are answering the offer. Must be one of the values
+            currently listed in the transaction's `additionalInfo.cantonDetails.offerResponse.availableResponses`.
+          enum:
+          - DTCC_END_INVESTOR_ONBOARDING_ACCEPT
+          example: DTCC_END_INVESTOR_ONBOARDING_ACCEPT
+          type: string
+      required:
+      - responseType
+      type: object
+    OnboardingResponseDtccReject:
+      additionalProperties: false
+      description: Reject a DTCC end-investor onboarding offer.
+      properties:
+        responseType:
+          description: How you are answering the offer. Must be one of the values
+            currently listed in the transaction's `additionalInfo.cantonDetails.offerResponse.availableResponses`.
+          enum:
+          - DTCC_END_INVESTOR_ONBOARDING_REJECT
+          example: DTCC_END_INVESTOR_ONBOARDING_REJECT
+          type: string
+        reason:
+          description: "Why the offer is being rejected. Recorded on-chain, where\
+            \ the counterparty can read it."
+          example: KYC not completed
+          maxLength: 512
+          minLength: 1
+          type: string
+      required:
+      - reason
+      - responseType
+      type: object
+    OnboardingResponseTradewebAccept:
+      additionalProperties: false
+      description: Accept a Tradeweb co-signing delegation offer. Carries no arguments.
+      properties:
+        responseType:
+          description: How you are answering the offer. Must be one of the values
+            currently listed in the transaction's `additionalInfo.cantonDetails.offerResponse.availableResponses`.
+          enum:
+          - TRADEWEB_COSIGNING_DELEGATION_ACCEPT
+          example: TRADEWEB_COSIGNING_DELEGATION_ACCEPT
+          type: string
+      required:
+      - responseType
+      type: object
+    OnboardingResponseTradewebReject:
+      additionalProperties: false
+      description: "Reject a Tradeweb co-signing delegation offer. Carries no arguments\
+        \ — the DAR has nowhere on-ledger to record a reason, so none is accepted."
+      properties:
+        responseType:
+          description: How you are answering the offer. Must be one of the values
+            currently listed in the transaction's `additionalInfo.cantonDetails.offerResponse.availableResponses`.
+          enum:
+          - TRADEWEB_COSIGNING_DELEGATION_REJECT
+          example: TRADEWEB_COSIGNING_DELEGATION_REJECT
+          type: string
+      required:
+      - responseType
+      type: object
+    OnboardingResponse:
+      discriminator:
+        mapping:
+          DTCC_END_INVESTOR_ONBOARDING_ACCEPT: "#/components/schemas/OnboardingResponseDtccAccept"
+          DTCC_END_INVESTOR_ONBOARDING_REJECT: "#/components/schemas/OnboardingResponseDtccReject"
+          TRADEWEB_COSIGNING_DELEGATION_ACCEPT: "#/components/schemas/OnboardingResponseTradewebAccept"
+          TRADEWEB_COSIGNING_DELEGATION_REJECT: "#/components/schemas/OnboardingResponseTradewebReject"
+        propertyName: responseType
+      oneOf:
+      - $ref: "#/components/schemas/OnboardingResponseDtccAccept"
+      - $ref: "#/components/schemas/OnboardingResponseDtccReject"
+      - $ref: "#/components/schemas/OnboardingResponseTradewebAccept"
+      - $ref: "#/components/schemas/OnboardingResponseTradewebReject"
+    OfferResponseOnboarding:
+      additionalProperties: false
+      properties:
+        domain:
+          description: Which offer domain this response belongs to. Selects the shape
+            of `response`.
+          enum:
+          - ONBOARDING
+          example: ONBOARDING
+          type: string
+        response:
+          $ref: "#/components/schemas/OnboardingResponse"
+      required:
+      - domain
+      - response
+      type: object
+    AllocationResponseAccept:
+      additionalProperties: false
+      description: Accept a CIP-56 allocation request. Carries no arguments.
+      properties:
+        responseType:
+          description: How you are answering the allocation request.
+          enum:
+          - ALLOCATION_ACCEPT
+          example: ALLOCATION_ACCEPT
+          type: string
+      required:
+      - responseType
+      type: object
+    AllocationResponseReject:
+      additionalProperties: false
+      description: Reject a CIP-56 allocation request. Carries no arguments.
+      properties:
+        responseType:
+          description: How you are answering the allocation request.
+          enum:
+          - ALLOCATION_REJECT
+          example: ALLOCATION_REJECT
+          type: string
+      required:
+      - responseType
+      type: object
+    AllocationResponse:
+      discriminator:
+        mapping:
+          ALLOCATION_ACCEPT: "#/components/schemas/AllocationResponseAccept"
+          ALLOCATION_REJECT: "#/components/schemas/AllocationResponseReject"
+        propertyName: responseType
+      oneOf:
+      - $ref: "#/components/schemas/AllocationResponseAccept"
+      - $ref: "#/components/schemas/AllocationResponseReject"
+    OfferResponseAllocation:
+      additionalProperties: false
+      properties:
+        domain:
+          description: Which offer domain this response belongs to. Selects the shape
+            of `response`.
+          enum:
+          - ALLOCATIONS
+          example: ALLOCATIONS
+          type: string
+        response:
+          $ref: "#/components/schemas/AllocationResponse"
+      required:
+      - domain
+      - response
+      type: object
+    TransferResponseAccept:
+      additionalProperties: false
+      description: Accept an inbound 2-step transfer offer. Carries no arguments.
+      properties:
+        responseType:
+          description: How you are answering the transfer offer.
+          enum:
+          - TRANSFER_ACCEPT
+          example: TRANSFER_ACCEPT
+          type: string
+      required:
+      - responseType
+      type: object
+    TransferResponseReject:
+      additionalProperties: false
+      description: Reject an inbound 2-step transfer offer. Carries no arguments.
+      properties:
+        responseType:
+          description: How you are answering the transfer offer.
+          enum:
+          - TRANSFER_REJECT
+          example: TRANSFER_REJECT
+          type: string
+      required:
+      - responseType
+      type: object
+    TransferResponse:
+      discriminator:
+        mapping:
+          TRANSFER_ACCEPT: "#/components/schemas/TransferResponseAccept"
+          TRANSFER_REJECT: "#/components/schemas/TransferResponseReject"
+        propertyName: responseType
+      oneOf:
+      - $ref: "#/components/schemas/TransferResponseAccept"
+      - $ref: "#/components/schemas/TransferResponseReject"
+    OfferResponseTransfer:
+      additionalProperties: false
+      properties:
+        domain:
+          description: Which offer domain this response belongs to. Selects the shape
+            of `response`.
+          enum:
+          - TRANSFERS
+          example: TRANSFERS
+          type: string
+        response:
+          $ref: "#/components/schemas/TransferResponse"
+      required:
+      - domain
+      - response
+      type: object
+    OfferResponse:
+      discriminator:
+        mapping:
+          ONBOARDING: "#/components/schemas/OfferResponseOnboarding"
+          ALLOCATIONS: "#/components/schemas/OfferResponseAllocation"
+          TRANSFERS: "#/components/schemas/OfferResponseTransfer"
+        propertyName: domain
+      oneOf:
+      - $ref: "#/components/schemas/OfferResponseOnboarding"
+      - $ref: "#/components/schemas/OfferResponseAllocation"
+      - $ref: "#/components/schemas/OfferResponseTransfer"
+    OfferResponseAccepted:
+      description: The outgoing transaction that carries the response. Its on-chain
+        outcome arrives by webhook as a status update on this transaction.
+      properties:
+        transactionId:
+          description: The outgoing response transaction.
+          example: 5a1d8b0f-2c31-4c7e-9d0a-118e7b6c4a21
+          type: string
+        status:
+          description: The transaction's status at the time of this response — `SUBMITTED`.
+          example: SUBMITTED
+          type: string
+        responseType:
+          description: "The response type you sent, echoed back so you can correlate\
+            \ without re-reading."
+          example: DTCC_END_INVESTOR_ONBOARDING_REJECT
+          type: string
+      required:
+      - responseType
+      - status
+      - transactionId
+      type: object
+    ParticipantOnboardingPayload:
+      properties:
+        vaultAccountId:
+          description: The vault account that acts as the participant. Its Canton
+            party is derived for you.
+          example: "12"
+          type: string
+        asset:
+          description: Chain asset — CANTON or CANTON_TEST.
+          enum:
+          - CANTON
+          - CANTON_TEST
+          example: CANTON
+          type: string
+        expiresAt:
+          description: When the onboarding request expires if it has not been answered.
+            RFC 3339.
+          example: 2026-12-31T23:59:59Z
+          format: date-time
+          type: string
+        operator:
+          description: DTCC infra operator party id.
+          example: dtcc-operator::1220abc…
+          type: string
+        provider:
+          description: DTCC provider party id.
+          example: dtcc-provider::1220abc…
+          type: string
+        compliance:
+          description: DTCC compliance party id.
+          example: dtcc-compliance::1220abc…
+          type: string
+        registrar:
+          description: DTCC registrar party id — co-signs the accept.
+          example: dtcc-registrar::1220abc…
+          type: string
+        clientOnboarder:
+          description: DTCC client onboarder party id — co-signs the accept.
+          example: dtcc-onboarder::1220abc…
+          type: string
+      required:
+      - asset
+      - clientOnboarder
+      - compliance
+      - operator
+      - provider
+      - registrar
+      - vaultAccountId
+      type: object
+    CantonCallParticipantOnboarding:
+      additionalProperties: false
+      properties:
+        type:
+          description: Which call to make. Selects the shape of `payload`.
+          enum:
+          - DTCC_PARTICIPANT_ONBOARDING
+          example: DTCC_PARTICIPANT_ONBOARDING
+          type: string
+        payload:
+          $ref: "#/components/schemas/ParticipantOnboardingPayload"
+      required:
+      - payload
+      - type
+      type: object
+    EndInvestorPayload:
+      description: "Shared by invite / invite-cancel / offboard — identical wire shape,\
+        \ different verb."
+      properties:
+        vaultAccountId:
+          description: The vault account whose Canton wallet acts here.
+          example: "12"
+          type: string
+        asset:
+          description: Chain asset — `CANTON` or `CANTON_TEST`.
+          enum:
+          - CANTON
+          - CANTON_TEST
+          example: CANTON
+          type: string
+        endInvestor:
+          description: The end investor's Canton party id.
+          example: investor-party::1220abc…
+          type: string
+      required:
+      - asset
+      - endInvestor
+      - vaultAccountId
+      type: object
+    CantonCallEndInvestorInvite:
+      additionalProperties: false
+      properties:
+        type:
+          description: Which call to make. Selects the shape of `payload`.
+          enum:
+          - DTCC_END_INVESTOR_INVITE
+          example: DTCC_END_INVESTOR_INVITE
+          type: string
+        payload:
+          $ref: "#/components/schemas/EndInvestorPayload"
+      required:
+      - payload
+      - type
+      type: object
+    CantonCallEndInvestorInviteCancel:
+      additionalProperties: false
+      properties:
+        type:
+          description: Which call to make. Selects the shape of `payload`.
+          enum:
+          - DTCC_END_INVESTOR_INVITE_CANCEL
+          example: DTCC_END_INVESTOR_INVITE_CANCEL
+          type: string
+        payload:
+          $ref: "#/components/schemas/EndInvestorPayload"
+      required:
+      - payload
+      - type
+      type: object
+    CantonCallEndInvestorOffboard:
+      additionalProperties: false
+      properties:
+        type:
+          description: Which call to make. Selects the shape of `payload`.
+          enum:
+          - DTCC_END_INVESTOR_OFFBOARD
+          example: DTCC_END_INVESTOR_OFFBOARD
+          type: string
+        payload:
+          $ref: "#/components/schemas/EndInvestorPayload"
+      required:
+      - payload
+      - type
+      type: object
+    AllowListPayload:
+      properties:
+        vaultAccountId:
+          description: The vault account whose Canton wallet acts here.
+          example: "12"
+          type: string
+        asset:
+          description: Chain asset — `CANTON` or `CANTON_TEST`.
+          enum:
+          - CANTON
+          - CANTON_TEST
+          example: CANTON
+          type: string
+        wallets:
+          description: Canton party ids to add or remove.
+          example:
+          - investor-party::1220abc…
+          items:
+            type: string
+          minItems: 1
+          type: array
+      required:
+      - asset
+      - vaultAccountId
+      - wallets
+      type: object
+    CantonCallAllowListAdd:
+      additionalProperties: false
+      properties:
+        type:
+          description: Which call to make. Selects the shape of `payload`.
+          enum:
+          - DTCC_ALLOW_LIST_ADD
+          example: DTCC_ALLOW_LIST_ADD
+          type: string
+        payload:
+          $ref: "#/components/schemas/AllowListPayload"
+      required:
+      - payload
+      - type
+      type: object
+    CantonCallAllowListRemove:
+      additionalProperties: false
+      properties:
+        type:
+          description: Which call to make. Selects the shape of `payload`.
+          enum:
+          - DTCC_ALLOW_LIST_REMOVE
+          example: DTCC_ALLOW_LIST_REMOVE
+          type: string
+        payload:
+          $ref: "#/components/schemas/AllowListPayload"
+      required:
+      - payload
+      - type
+      type: object
+    AllocationWithdrawPayload:
+      properties:
+        vaultAccountId:
+          description: The vault account whose Canton wallet acts here.
+          example: "12"
+          type: string
+        asset:
+          description: Chain asset — `CANTON` or `CANTON_TEST`.
+          enum:
+          - CANTON
+          - CANTON_TEST
+          example: CANTON
+          type: string
+        allocationTransactionId:
+          description: The Fireblocks transaction id of the outgoing response that
+            created the allocation. The allocation is resolved from it — Canton contract
+            ids are never accepted here.
+          example: 5a1d8b0f-2c31-4c7e-9d0a-118e7b6c4a21
+          type: string
+      required:
+      - allocationTransactionId
+      - asset
+      - vaultAccountId
+      type: object
+    CantonCallAllocationWithdraw:
+      additionalProperties: false
+      properties:
+        type:
+          description: Which call to make. Selects the shape of `payload`.
+          enum:
+          - ALLOCATION_WITHDRAW
+          example: ALLOCATION_WITHDRAW
+          type: string
+        payload:
+          $ref: "#/components/schemas/AllocationWithdrawPayload"
+      required:
+      - payload
+      - type
+      type: object
+    TransferWithdrawPayload:
+      properties:
+        vaultAccountId:
+          description: The vault account whose Canton wallet acts here.
+          example: "12"
+          type: string
+        asset:
+          description: Chain asset — `CANTON` or `CANTON_TEST`.
+          enum:
+          - CANTON
+          - CANTON_TEST
+          example: CANTON
+          type: string
+        offerTransactionId:
+          description: The Fireblocks transaction id of the OUTGOING transfer offer
+            being withdrawn.
+          example: 2d47ae90-31bb-4f6c-8a17-7e0c5b9f2d63
+          type: string
+      required:
+      - asset
+      - offerTransactionId
+      - vaultAccountId
+      type: object
+    CantonCallTransferWithdraw:
+      additionalProperties: false
+      properties:
+        type:
+          description: Which call to make. Selects the shape of `payload`.
+          enum:
+          - TRANSFER_WITHDRAW
+          example: TRANSFER_WITHDRAW
+          type: string
+        payload:
+          $ref: "#/components/schemas/TransferWithdrawPayload"
+      required:
+      - payload
+      - type
+      type: object
+    CantonCall:
+      discriminator:
+        mapping:
+          DTCC_PARTICIPANT_ONBOARDING: "#/components/schemas/CantonCallParticipantOnboarding"
+          DTCC_END_INVESTOR_INVITE: "#/components/schemas/CantonCallEndInvestorInvite"
+          DTCC_END_INVESTOR_INVITE_CANCEL: "#/components/schemas/CantonCallEndInvestorInviteCancel"
+          DTCC_END_INVESTOR_OFFBOARD: "#/components/schemas/CantonCallEndInvestorOffboard"
+          DTCC_ALLOW_LIST_ADD: "#/components/schemas/CantonCallAllowListAdd"
+          DTCC_ALLOW_LIST_REMOVE: "#/components/schemas/CantonCallAllowListRemove"
+          ALLOCATION_WITHDRAW: "#/components/schemas/CantonCallAllocationWithdraw"
+          TRANSFER_WITHDRAW: "#/components/schemas/CantonCallTransferWithdraw"
+        propertyName: type
+      oneOf:
+      - $ref: "#/components/schemas/CantonCallParticipantOnboarding"
+      - $ref: "#/components/schemas/CantonCallEndInvestorInvite"
+      - $ref: "#/components/schemas/CantonCallEndInvestorInviteCancel"
+      - $ref: "#/components/schemas/CantonCallEndInvestorOffboard"
+      - $ref: "#/components/schemas/CantonCallAllowListAdd"
+      - $ref: "#/components/schemas/CantonCallAllowListRemove"
+      - $ref: "#/components/schemas/CantonCallAllocationWithdraw"
+      - $ref: "#/components/schemas/CantonCallTransferWithdraw"
+    CallAccepted:
+      description: The outgoing transaction that carries the call.
+      properties:
+        transactionId:
+          description: The outgoing transaction that carries the call.
+          example: 5a1d8b0f-2c31-4c7e-9d0a-118e7b6c4a21
+          type: string
+        status:
+          description: The transaction's status at the time of this response — `SUBMITTED`.
+          example: SUBMITTED
+          type: string
+      required:
+      - status
+      - transactionId
+      type: object
     get_filter_parameter:
       properties:
         id:
@@ -90357,6 +92548,27 @@ components:
         required:
         - timeSeconds
         type: object
+    QuorumStatus_quorum:
+      description: "The approval criteria and how far they have been met. `type` discriminates\
+        \ the two shapes: `SIMPLE` flattens the common single-tier case, `RULESET`\
+        \ is the general multi-tier form."
+      discriminator:
+        mapping:
+          SIMPLE: "#/components/schemas/SimpleQuorum"
+          RULESET: "#/components/schemas/RulesetQuorum"
+        propertyName: type
+      example:
+        type: SIMPLE
+        threshold: 2
+        currentApprovalCount: 1
+        status: PENDING
+        isMandatoryOwnerApproved: false
+        members:
+        - 0
+        - 1
+      oneOf:
+      - $ref: "#/components/schemas/SimpleQuorum"
+      - $ref: "#/components/schemas/RulesetQuorum"
     GasslessStandardConfigurations_gaslessStandardConfigurations_value:
       example:
         forwarderAddresses:

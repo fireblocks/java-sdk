@@ -20,7 +20,9 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
+import com.fireblocks.sdk.model.CreateWebhookOAuthRequest;
 import com.fireblocks.sdk.model.CreateWebhookRequest;
+import com.fireblocks.sdk.model.DeleteWebhookOAuthResponse;
 import com.fireblocks.sdk.model.NotificationAttemptsPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationStatus;
@@ -31,11 +33,13 @@ import com.fireblocks.sdk.model.ResendFailedNotificationsJobStatusResponse;
 import com.fireblocks.sdk.model.ResendFailedNotificationsRequest;
 import com.fireblocks.sdk.model.ResendFailedNotificationsResponse;
 import com.fireblocks.sdk.model.ResendNotificationsByResourceIdRequest;
+import com.fireblocks.sdk.model.UpdateWebhookOAuthRequest;
 import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
 import com.fireblocks.sdk.model.WebhookEvent;
 import com.fireblocks.sdk.model.WebhookMetric;
 import com.fireblocks.sdk.model.WebhookMtlsCsrResponse;
+import com.fireblocks.sdk.model.WebhookOAuthCredentials;
 import com.fireblocks.sdk.model.WebhookPaginatedResponse;
 import java.io.IOException;
 import java.io.InputStream;
@@ -205,6 +209,102 @@ public class WebhooksV2Api {
         return localVarRequestBuilder;
     }
     /**
+     * Create OAuth credentials Creates a reusable OAuth client credential set. Attach it to a
+     * webhook by passing the returned id as that webhook&#39;s &#x60;webhookOauthId&#x60;. Several
+     * webhooks may share one credential set, so rotating its client secret covers all of them at
+     * once. The client secret is write-only and is never returned. **Endpoint Permissions:** Owner,
+     * Admin, Non-Signing Admin.
+     *
+     * @param createWebhookOAuthRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookOAuthCredentials&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<WebhookOAuthCredentials>> createWebhookOAuth(
+            CreateWebhookOAuthRequest createWebhookOAuthRequest, String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    createWebhookOAuthRequestBuilder(createWebhookOAuthRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "createWebhookOAuth", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<WebhookOAuthCredentials>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            WebhookOAuthCredentials>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<WebhookOAuthCredentials>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder createWebhookOAuthRequestBuilder(
+            CreateWebhookOAuthRequest createWebhookOAuthRequest, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "createWebhookOAuth", "createWebhookOAuthRequest", createWebhookOAuthRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/webhooks_settings/oauth";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(createWebhookOAuthRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Delete webhook Delete a webhook by its id Endpoint Permission: Owner, Admin, Non-Signing
      * Admin.
      *
@@ -265,6 +365,118 @@ public class WebhooksV2Api {
                         .replace("{webhookId}", ApiClient.urlEncode(webhookId.toString()));
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Delete OAuth credentials Deletes an OAuth credential set. By default the delete is refused
+     * while the credentials are still in use: if any webhook references them, nothing is deleted
+     * and the request fails with &#x60;409 Conflict&#x60;, naming the reason and listing the ids of
+     * the referencing webhooks. This protects a shared credential set from being removed out from
+     * under the webhooks that depend on it, since several webhooks may reference the same one. Pass
+     * &#x60;forceDelete&#x3D;true&#x60; to delete anyway. That detaches every referencing webhook —
+     * it clears each webhook&#39;s &#x60;webhookOauthId&#x60;, it does **not** delete the webhook —
+     * then deletes the credential set and returns the deleted resource together with
+     * &#x60;detachedWebhookIds&#x60;. The detached webhooks keep delivering notifications, but
+     * without an &#x60;Authorization&#x60; header, so their endpoints will see unauthenticated
+     * deliveries from that point on. When nothing references the credentials the delete succeeds
+     * either way, and &#x60;detachedWebhookIds&#x60; comes back empty. **Endpoint Permissions:**
+     * Owner, Admin, Non-Signing Admin.
+     *
+     * @param webhookOauthId The unique identifier of the OAuth credentials (required)
+     * @param forceDelete Delete the credentials even while webhooks still reference them, detaching
+     *     those webhooks instead of refusing. Leave it unset, or &#x60;false&#x60;, to get a
+     *     &#x60;409 Conflict&#x60; whenever anything still references the credentials. (optional,
+     *     default to false)
+     * @return CompletableFuture&lt;ApiResponse&lt;DeleteWebhookOAuthResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<DeleteWebhookOAuthResponse>> deleteWebhookOAuth(
+            UUID webhookOauthId, Boolean forceDelete) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    deleteWebhookOAuthRequestBuilder(webhookOauthId, forceDelete);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "deleteWebhookOAuth", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<DeleteWebhookOAuthResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            DeleteWebhookOAuthResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<DeleteWebhookOAuthResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder deleteWebhookOAuthRequestBuilder(
+            UUID webhookOauthId, Boolean forceDelete) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "deleteWebhookOAuth", "webhookOauthId", webhookOauthId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks_settings/oauth/{webhookOauthId}"
+                        .replace(
+                                "{webhookOauthId}", ApiClient.urlEncode(webhookOauthId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "forceDelete";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("forceDelete", forceDelete));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
 
         localVarRequestBuilder.header("Accept", "application/json");
 
@@ -1029,6 +1241,158 @@ public class WebhooksV2Api {
         return localVarRequestBuilder;
     }
     /**
+     * Get OAuth credentials by id Retrieve an OAuth credential set by its id. The client secret is
+     * never returned.
+     *
+     * @param webhookOauthId The unique identifier of the OAuth credentials (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookOAuthCredentials&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<WebhookOAuthCredentials>> getWebhookOAuth(
+            UUID webhookOauthId) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getWebhookOAuthRequestBuilder(webhookOauthId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getWebhookOAuth", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<WebhookOAuthCredentials>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            WebhookOAuthCredentials>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<WebhookOAuthCredentials>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getWebhookOAuthRequestBuilder(UUID webhookOauthId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getWebhookOAuth", "webhookOauthId", webhookOauthId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks_settings/oauth/{webhookOauthId}"
+                        .replace(
+                                "{webhookOauthId}", ApiClient.urlEncode(webhookOauthId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get all OAuth credentials Lists every OAuth credential set for the workspace. Client secrets
+     * are never returned.
+     *
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;WebhookOAuthCredentials&gt;&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<List<WebhookOAuthCredentials>>> getWebhookOAuths() {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = getWebhookOAuthsRequestBuilder();
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getWebhookOAuths", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<List<WebhookOAuthCredentials>>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            List<
+                                                                                    WebhookOAuthCredentials>>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<WebhookOAuthCredentials>>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getWebhookOAuthsRequestBuilder() throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/webhooks_settings/oauth";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Get all webhooks Get all webhooks (paginated).
      *
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
@@ -1575,6 +1939,111 @@ public class WebhooksV2Api {
 
         try {
             byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(updateWebhookRequest);
+            localVarRequestBuilder.method(
+                    "PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Update OAuth credentials Updates only the fields present in the request; anything omitted is
+     * left as it is. Sending &#x60;clientSecret&#x60; on its own rotates the secret for every
+     * webhook using these credentials. &#x60;customJwtClaims&#x60;, &#x60;customBodyParams&#x60;
+     * and &#x60;customHeaders&#x60; are all merged key by key rather than replaced, the same way a
+     * webhook&#39;s own &#x60;customHeaders&#x60; behaves: a key sent with a value is added or
+     * overwritten, a key sent with a &#x60;null&#x60; value is deleted, and a key you omit is left
+     * alone. Since a &#x60;null&#x60; inside a map is the delete mechanism, none of the three
+     * accepts &#x60;null&#x60; for the whole field — &#x60;customJwtClaims: null&#x60;,
+     * &#x60;customBodyParams: null&#x60; or &#x60;customHeaders: null&#x60; is rejected with a
+     * &#x60;400&#x60; rather than ignored. Clear a map by listing each of its keys with a
+     * &#x60;null&#x60; value. Because &#x60;null&#x60; is spent on deletion, a claim cannot be set
+     * to JSON &#x60;null&#x60; either, on this endpoint or on create.
+     * &#x60;mtlsClientSignedCert&#x60; is a scalar rather than a map, so &#x60;null&#x60; there
+     * does remove it. **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+     *
+     * @param updateWebhookOAuthRequest (required)
+     * @param webhookOauthId The unique identifier of the OAuth credentials (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookOAuthCredentials&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<WebhookOAuthCredentials>> updateWebhookOAuth(
+            UpdateWebhookOAuthRequest updateWebhookOAuthRequest, UUID webhookOauthId) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    updateWebhookOAuthRequestBuilder(updateWebhookOAuthRequest, webhookOauthId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "updateWebhookOAuth", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<WebhookOAuthCredentials>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            WebhookOAuthCredentials>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<WebhookOAuthCredentials>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder updateWebhookOAuthRequestBuilder(
+            UpdateWebhookOAuthRequest updateWebhookOAuthRequest, UUID webhookOauthId)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "updateWebhookOAuth", "updateWebhookOAuthRequest", updateWebhookOAuthRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateWebhookOAuth", "webhookOauthId", webhookOauthId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks_settings/oauth/{webhookOauthId}"
+                        .replace(
+                                "{webhookOauthId}", ApiClient.urlEncode(webhookOauthId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(updateWebhookOAuthRequest);
             localVarRequestBuilder.method(
                     "PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {

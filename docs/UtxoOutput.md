@@ -22,6 +22,7 @@
 |**createdAt** | **OffsetDateTime** | The timestamp when this UTXO was created |  [optional] |
 |**updatedAt** | **OffsetDateTime** | The timestamp when this UTXO was last updated |  [optional] |
 |**labels** | **List&lt;String&gt;** | Labels attached to this UTXO |  [optional] |
+|**hasNativeAssets** | **Boolean** | Whether this UTXO carries Cardano native assets (tokens) |  [optional] |
 
 
 

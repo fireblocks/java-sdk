@@ -41,7 +41,8 @@ import java.util.StringJoiner;
     UtxoOutput.JSON_PROPERTY_CREATED_BY_HEIGHT,
     UtxoOutput.JSON_PROPERTY_CREATED_AT,
     UtxoOutput.JSON_PROPERTY_UPDATED_AT,
-    UtxoOutput.JSON_PROPERTY_LABELS
+    UtxoOutput.JSON_PROPERTY_LABELS,
+    UtxoOutput.JSON_PROPERTY_HAS_NATIVE_ASSETS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -128,6 +129,9 @@ public class UtxoOutput {
 
     public static final String JSON_PROPERTY_LABELS = "labels";
     @jakarta.annotation.Nullable private List<String> labels;
+
+    public static final String JSON_PROPERTY_HAS_NATIVE_ASSETS = "hasNativeAssets";
+    @jakarta.annotation.Nullable private Boolean hasNativeAssets;
 
     public UtxoOutput() {}
 
@@ -506,6 +510,29 @@ public class UtxoOutput {
         this.labels = labels;
     }
 
+    public UtxoOutput hasNativeAssets(@jakarta.annotation.Nullable Boolean hasNativeAssets) {
+        this.hasNativeAssets = hasNativeAssets;
+        return this;
+    }
+
+    /**
+     * Whether this UTXO carries Cardano native assets (tokens)
+     *
+     * @return hasNativeAssets
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_HAS_NATIVE_ASSETS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getHasNativeAssets() {
+        return hasNativeAssets;
+    }
+
+    @JsonProperty(JSON_PROPERTY_HAS_NATIVE_ASSETS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setHasNativeAssets(@jakarta.annotation.Nullable Boolean hasNativeAssets) {
+        this.hasNativeAssets = hasNativeAssets;
+    }
+
     /** Return true if this UtxoOutput object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -530,7 +557,8 @@ public class UtxoOutput {
                 && Objects.equals(this.createdByHeight, utxoOutput.createdByHeight)
                 && Objects.equals(this.createdAt, utxoOutput.createdAt)
                 && Objects.equals(this.updatedAt, utxoOutput.updatedAt)
-                && Objects.equals(this.labels, utxoOutput.labels);
+                && Objects.equals(this.labels, utxoOutput.labels)
+                && Objects.equals(this.hasNativeAssets, utxoOutput.hasNativeAssets);
     }
 
     @Override
@@ -550,7 +578,8 @@ public class UtxoOutput {
                 createdByHeight,
                 createdAt,
                 updatedAt,
-                labels);
+                labels,
+                hasNativeAssets);
     }
 
     @Override
@@ -572,6 +601,7 @@ public class UtxoOutput {
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
         sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
+        sb.append("    hasNativeAssets: ").append(toIndentedString(hasNativeAssets)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -775,6 +805,16 @@ public class UtxoOutput {
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
                                 ApiClient.urlEncode(ApiClient.valueToString(getLabels().get(i)))));
             }
+        }
+
+        // add `hasNativeAssets` to the URL query string
+        if (getHasNativeAssets() != null) {
+            joiner.add(
+                    String.format(
+                            "%shasNativeAssets%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getHasNativeAssets()))));
         }
 
         return joiner.toString();

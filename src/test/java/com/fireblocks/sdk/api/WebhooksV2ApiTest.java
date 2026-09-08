@@ -14,7 +14,9 @@ package com.fireblocks.sdk.api;
 
 
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.CreateWebhookOAuthRequest;
 import com.fireblocks.sdk.model.CreateWebhookRequest;
+import com.fireblocks.sdk.model.DeleteWebhookOAuthResponse;
 import com.fireblocks.sdk.model.NotificationAttemptsPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationStatus;
@@ -25,11 +27,13 @@ import com.fireblocks.sdk.model.ResendFailedNotificationsJobStatusResponse;
 import com.fireblocks.sdk.model.ResendFailedNotificationsRequest;
 import com.fireblocks.sdk.model.ResendFailedNotificationsResponse;
 import com.fireblocks.sdk.model.ResendNotificationsByResourceIdRequest;
+import com.fireblocks.sdk.model.UpdateWebhookOAuthRequest;
 import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
 import com.fireblocks.sdk.model.WebhookEvent;
 import com.fireblocks.sdk.model.WebhookMetric;
 import com.fireblocks.sdk.model.WebhookMtlsCsrResponse;
+import com.fireblocks.sdk.model.WebhookOAuthCredentials;
 import com.fireblocks.sdk.model.WebhookPaginatedResponse;
 import java.math.BigDecimal;
 import java.util.List;
@@ -59,6 +63,23 @@ public class WebhooksV2ApiTest {
     }
 
     /**
+     * Create OAuth credentials
+     *
+     * <p>Creates a reusable OAuth client credential set. Attach it to a webhook by passing the
+     * returned id as that webhook&#39;s &#x60;webhookOauthId&#x60;. Several webhooks may share one
+     * credential set, so rotating its client secret covers all of them at once. The client secret
+     * is write-only and is never returned. **Endpoint Permissions:** Owner, Admin, Non-Signing
+     * Admin.
+     */
+    @Test
+    public void createWebhookOAuthTest() {
+        CreateWebhookOAuthRequest createWebhookOAuthRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response =
+                api.createWebhookOAuth(createWebhookOAuthRequest, idempotencyKey);
+    }
+
+    /**
      * Delete webhook
      *
      * <p>Delete a webhook by its id Endpoint Permission: Owner, Admin, Non-Signing Admin.
@@ -67,6 +88,31 @@ public class WebhooksV2ApiTest {
     public void deleteWebhookTest() {
         UUID webhookId = null;
         CompletableFuture<ApiResponse<Webhook>> response = api.deleteWebhook(webhookId);
+    }
+
+    /**
+     * Delete OAuth credentials
+     *
+     * <p>Deletes an OAuth credential set. By default the delete is refused while the credentials
+     * are still in use: if any webhook references them, nothing is deleted and the request fails
+     * with &#x60;409 Conflict&#x60;, naming the reason and listing the ids of the referencing
+     * webhooks. This protects a shared credential set from being removed out from under the
+     * webhooks that depend on it, since several webhooks may reference the same one. Pass
+     * &#x60;forceDelete&#x3D;true&#x60; to delete anyway. That detaches every referencing webhook —
+     * it clears each webhook&#39;s &#x60;webhookOauthId&#x60;, it does **not** delete the webhook —
+     * then deletes the credential set and returns the deleted resource together with
+     * &#x60;detachedWebhookIds&#x60;. The detached webhooks keep delivering notifications, but
+     * without an &#x60;Authorization&#x60; header, so their endpoints will see unauthenticated
+     * deliveries from that point on. When nothing references the credentials the delete succeeds
+     * either way, and &#x60;detachedWebhookIds&#x60; comes back empty. **Endpoint Permissions:**
+     * Owner, Admin, Non-Signing Admin.
+     */
+    @Test
+    public void deleteWebhookOAuthTest() {
+        UUID webhookOauthId = null;
+        Boolean forceDelete = null;
+        CompletableFuture<ApiResponse<DeleteWebhookOAuthResponse>> response =
+                api.deleteWebhookOAuth(webhookOauthId, forceDelete);
     }
 
     /**
@@ -191,6 +237,29 @@ public class WebhooksV2ApiTest {
     }
 
     /**
+     * Get OAuth credentials by id
+     *
+     * <p>Retrieve an OAuth credential set by its id. The client secret is never returned.
+     */
+    @Test
+    public void getWebhookOAuthTest() {
+        UUID webhookOauthId = null;
+        CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response =
+                api.getWebhookOAuth(webhookOauthId);
+    }
+
+    /**
+     * Get all OAuth credentials
+     *
+     * <p>Lists every OAuth credential set for the workspace. Client secrets are never returned.
+     */
+    @Test
+    public void getWebhookOAuthsTest() {
+        CompletableFuture<ApiResponse<List<WebhookOAuthCredentials>>> response =
+                api.getWebhookOAuths();
+    }
+
+    /**
      * Get all webhooks
      *
      * <p>Get all webhooks (paginated).
@@ -279,5 +348,31 @@ public class WebhooksV2ApiTest {
         UUID webhookId = null;
         CompletableFuture<ApiResponse<Webhook>> response =
                 api.updateWebhook(updateWebhookRequest, webhookId);
+    }
+
+    /**
+     * Update OAuth credentials
+     *
+     * <p>Updates only the fields present in the request; anything omitted is left as it is. Sending
+     * &#x60;clientSecret&#x60; on its own rotates the secret for every webhook using these
+     * credentials. &#x60;customJwtClaims&#x60;, &#x60;customBodyParams&#x60; and
+     * &#x60;customHeaders&#x60; are all merged key by key rather than replaced, the same way a
+     * webhook&#39;s own &#x60;customHeaders&#x60; behaves: a key sent with a value is added or
+     * overwritten, a key sent with a &#x60;null&#x60; value is deleted, and a key you omit is left
+     * alone. Since a &#x60;null&#x60; inside a map is the delete mechanism, none of the three
+     * accepts &#x60;null&#x60; for the whole field — &#x60;customJwtClaims: null&#x60;,
+     * &#x60;customBodyParams: null&#x60; or &#x60;customHeaders: null&#x60; is rejected with a
+     * &#x60;400&#x60; rather than ignored. Clear a map by listing each of its keys with a
+     * &#x60;null&#x60; value. Because &#x60;null&#x60; is spent on deletion, a claim cannot be set
+     * to JSON &#x60;null&#x60; either, on this endpoint or on create.
+     * &#x60;mtlsClientSignedCert&#x60; is a scalar rather than a map, so &#x60;null&#x60; there
+     * does remove it. **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+     */
+    @Test
+    public void updateWebhookOAuthTest() {
+        UpdateWebhookOAuthRequest updateWebhookOAuthRequest = null;
+        UUID webhookOauthId = null;
+        CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response =
+                api.updateWebhookOAuth(updateWebhookOAuthRequest, webhookOauthId);
     }
 }

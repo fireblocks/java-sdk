@@ -8,7 +8,7 @@ A committed executable quote for a trading pair.
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**via** | [**AccessType**](AccessType.md) |  |  |
+|**via** | [**AccessTypeResponse**](AccessTypeResponse.md) |  |  |
 |**id** | **String** | The unique identifier of the quote. |  |
 |**quoteAssetId** | **String** | The target asset identifier. |  |
 |**quoteAssetRail** | **TransferRail** |  |  [optional] |

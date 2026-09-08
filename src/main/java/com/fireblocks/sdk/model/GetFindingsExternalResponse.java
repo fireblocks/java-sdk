@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** A paginated list of FSPM findings */
+/** GetFindingsExternalResponse */
 @JsonPropertyOrder({
     GetFindingsExternalResponse.JSON_PROPERTY_DATA,
     GetFindingsExternalResponse.JSON_PROPERTY_TOTAL,

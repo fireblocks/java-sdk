@@ -469,7 +469,8 @@ public class TransactionRequest {
      * For Polkadot, Kusama and Westend transactions only. When set to true, Fireblocks will empty
      * the asset wallet. **Note:** If set to true when the source account is exactly 1 DOT, the
      * transaction will fail. Any amount more or less than 1 DOT succeeds. This is a Polkadot
-     * blockchain limitation.
+     * blockchain limitation. **Note:** &#x60;forceSweep&#x60; and &#x60;treatAsGrossAmount&#x60;
+     * can also be used to empty a TON/GRAM wallet.
      *
      * @return forceSweep
      */

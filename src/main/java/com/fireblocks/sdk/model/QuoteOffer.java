@@ -51,7 +51,7 @@ import java.util.StringJoiner;
         comments = "Generator version: 7.14.0")
 public class QuoteOffer {
     public static final String JSON_PROPERTY_VIA = "via";
-    @jakarta.annotation.Nonnull private AccessType via;
+    @jakarta.annotation.Nonnull private AccessTypeResponse via;
 
     public static final String JSON_PROPERTY_ID = "id";
     @jakarta.annotation.Nonnull private String id;
@@ -173,7 +173,7 @@ public class QuoteOffer {
 
     @JsonCreator
     public QuoteOffer(
-            @JsonProperty(value = JSON_PROPERTY_VIA, required = true) AccessType via,
+            @JsonProperty(value = JSON_PROPERTY_VIA, required = true) AccessTypeResponse via,
             @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
             @JsonProperty(value = JSON_PROPERTY_QUOTE_ASSET_ID, required = true)
                     String quoteAssetId,
@@ -197,7 +197,7 @@ public class QuoteOffer {
         this.offerType = offerType;
     }
 
-    public QuoteOffer via(@jakarta.annotation.Nonnull AccessType via) {
+    public QuoteOffer via(@jakarta.annotation.Nonnull AccessTypeResponse via) {
         this.via = via;
         return this;
     }
@@ -210,13 +210,13 @@ public class QuoteOffer {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_VIA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AccessType getVia() {
+    public AccessTypeResponse getVia() {
         return via;
     }
 
     @JsonProperty(JSON_PROPERTY_VIA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVia(@jakarta.annotation.Nonnull AccessType via) {
+    public void setVia(@jakarta.annotation.Nonnull AccessTypeResponse via) {
         this.via = via;
     }
 

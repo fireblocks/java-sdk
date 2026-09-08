@@ -104,7 +104,8 @@ public class SecurityPostureManagementApi {
 
     /**
      * Get a FSPM security finding by ID Returns a single FSPM security finding for the workspace,
-     * redacted to the public field set. Endpoint Roles: Security Admin, Security Auditor.
+     * redacted to the public field set. Endpoint Roles: Security Admin, Security Auditor. **Note:**
+     * This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic.
      *
      * @param id Unique identifier of the finding (required)
      * @return CompletableFuture&lt;ApiResponse&lt;SecurityFindingDetailed&gt;&gt;, which completes
@@ -179,7 +180,8 @@ public class SecurityPostureManagementApi {
     }
     /**
      * Get FSPM security findings Returns a paginated list of FSPM security findings for the
-     * workspace. Endpoint Roles: Security Admin, Security Auditor.
+     * workspace. Endpoint Roles: Security Admin, Security Auditor. **Note:** This endpoint is
+     * available only for the FSPM Pro package. It is not available for FSPM Basic.
      *
      * @param pageCursor Cursor indicating the page position. Omit to fetch the first page.
      *     (optional)
@@ -287,7 +289,8 @@ public class SecurityPostureManagementApi {
     /**
      * Update a FSPM security finding by ID Accepts or reopens a finding for the workspace. When
      * accepting a finding (&#x60;status: \&quot;ACCEPTED\&quot;&#x60;),
-     * &#x60;statusUpdatedReason&#x60; is required. Endpoint Roles: Security Admin.
+     * &#x60;statusUpdatedReason&#x60; is required. Endpoint Roles: Security Admin. **Note:** This
+     * endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic.
      *
      * @param updateFindingExternalRequest (required)
      * @param id Unique identifier of the finding (required)

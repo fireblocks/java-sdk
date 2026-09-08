@@ -58,7 +58,7 @@ public class CreateWebhookRequest {
     @jakarta.annotation.Nullable private WebhookOAuth oauth;
 
     public static final String JSON_PROPERTY_CUSTOM_HEADERS = "customHeaders";
-    @jakarta.annotation.Nullable private Map<String, String> customHeaders;
+    @jakarta.annotation.Nullable private Map<String, Object> customHeaders;
 
     public CreateWebhookRequest() {}
 
@@ -218,12 +218,12 @@ public class CreateWebhookRequest {
     }
 
     public CreateWebhookRequest customHeaders(
-            @jakarta.annotation.Nullable Map<String, String> customHeaders) {
+            @jakarta.annotation.Nullable Map<String, Object> customHeaders) {
         this.customHeaders = customHeaders;
         return this;
     }
 
-    public CreateWebhookRequest putCustomHeadersItem(String key, String customHeadersItem) {
+    public CreateWebhookRequest putCustomHeadersItem(String key, Object customHeadersItem) {
         if (this.customHeaders == null) {
             this.customHeaders = new HashMap<>();
         }
@@ -232,26 +232,32 @@ public class CreateWebhookRequest {
     }
 
     /**
-     * Custom HTTP headers attached to every notification delivered by this webhook (max 10). Header
-     * names must be valid RFC 7230 tokens (printable ASCII, no separators), are treated
-     * case-insensitively (duplicate names differing only in case are rejected), and may not exceed
-     * 128 characters. The following names are reserved and cannot be used: Host, Content-Type,
-     * Content-Length, Transfer-Encoding, Connection, User-Agent, Accept, Accept-Encoding,
-     * Fireblocks-Signature, Fireblocks-Webhook-Signature. Header values are write-only — never
-     * returned in responses.
+     * Custom HTTP headers attached to every notification delivered by this webhook. A value is a
+     * string, sent as one header line, or an array of strings, sent as one header line per element
+     * under the same name. &#x60;Cookie&#x60; accepts only a string. An empty array is rejected —
+     * leave the name out instead. At most 10 header lines in total, counted per array element
+     * rather than per name. Names must be valid HTTP header tokens, are case-insensitive, and are
+     * at most 128 characters. Values are at most 1024 characters and may be empty. Reserved names:
+     * &#x60;Host&#x60;, &#x60;Content-Type&#x60;, &#x60;Content-Length&#x60;,
+     * &#x60;Transfer-Encoding&#x60;, &#x60;Connection&#x60;, &#x60;User-Agent&#x60;,
+     * &#x60;Accept&#x60;, &#x60;Accept-Encoding&#x60;, &#x60;Fireblocks-Signature&#x60;,
+     * &#x60;Fireblocks-Webhook-Signature&#x60;, &#x60;Authorization&#x60;.
+     * &#x60;Authorization&#x60; is reserved whether or not this webhook has OAuth credentials
+     * attached, because Fireblocks sets it once it does. Values are write-only; responses return
+     * only the header names.
      *
      * @return customHeaders
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Map<String, String> getCustomHeaders() {
+    @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+    public Map<String, Object> getCustomHeaders() {
         return customHeaders;
     }
 
     @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomHeaders(@jakarta.annotation.Nullable Map<String, String> customHeaders) {
+    @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCustomHeaders(@jakarta.annotation.Nullable Map<String, Object> customHeaders) {
         this.customHeaders = customHeaders;
     }
 

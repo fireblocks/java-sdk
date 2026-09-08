@@ -66,4 +66,10 @@ class PositionRelatedTransactionTest {
     void txNoteTest() {
         // TODO: test txNote
     }
+
+    /** Test the property 'completionTime' */
+    @Test
+    void completionTimeTest() {
+        // TODO: test completionTime
+    }
 }
