@@ -26,6 +26,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.JSON;
 import java.io.IOException;
 import java.util.Collections;
@@ -80,6 +81,8 @@ public class TokenLinkDtoTokenMetadata extends AbstractOpenApiSchema {
             boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
             int match = 0;
             JsonToken token = tree.traverse(jp.getCodec()).nextToken();
+            ObjectMapper objectMapper = new ObjectMapper();
+
             // deserialize AssetMetadataDto
             try {
                 boolean attemptParsing = true;
@@ -110,10 +113,7 @@ public class TokenLinkDtoTokenMetadata extends AbstractOpenApiSchema {
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(AssetMetadataDto.class);
-                    // TODO: there is no validation against JSON schema constraints
-                    // (min, max, enum, pattern...), this does not perform a strict JSON
-                    // validation, which means the 'match' count may be higher than it should be.
+                    deserialized = objectMapper.readValue(tree.traverse(jp.getCodec()), AssetMetadataDto.class);
                     match++;
                     log.log(Level.FINER, "Input data matches schema 'AssetMetadataDto'");
                 }
@@ -152,11 +152,7 @@ public class TokenLinkDtoTokenMetadata extends AbstractOpenApiSchema {
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec()).readValueAs(CollectionMetadataDto.class);
-                    // TODO: there is no validation against JSON schema constraints
-                    // (min, max, enum, pattern...), this does not perform a strict JSON
-                    // validation, which means the 'match' count may be higher than it should be.
+                    deserialized = objectMapper.readValue(tree.traverse(jp.getCodec()), CollectionMetadataDto.class);
                     match++;
                     log.log(Level.FINER, "Input data matches schema 'CollectionMetadataDto'");
                 }
@@ -195,11 +191,7 @@ public class TokenLinkDtoTokenMetadata extends AbstractOpenApiSchema {
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec()).readValueAs(ContractMetadataDto.class);
-                    // TODO: there is no validation against JSON schema constraints
-                    // (min, max, enum, pattern...), this does not perform a strict JSON
-                    // validation, which means the 'match' count may be higher than it should be.
+                    deserialized = objectMapper.readValue(tree.traverse(jp.getCodec()), ContractMetadataDto.class);
                     match++;
                     log.log(Level.FINER, "Input data matches schema 'ContractMetadataDto'");
                 }
