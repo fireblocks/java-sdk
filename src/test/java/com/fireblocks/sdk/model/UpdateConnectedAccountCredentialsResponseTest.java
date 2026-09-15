@@ -15,31 +15,20 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for WebhookOAuthResponse */
-class WebhookOAuthResponseTest {
-    private final WebhookOAuthResponse model = new WebhookOAuthResponse();
+/** Model tests for UpdateConnectedAccountCredentialsResponse */
+class UpdateConnectedAccountCredentialsResponseTest {
+    private final UpdateConnectedAccountCredentialsResponse model =
+            new UpdateConnectedAccountCredentialsResponse();
 
-    /** Model tests for WebhookOAuthResponse */
+    /** Model tests for UpdateConnectedAccountCredentialsResponse */
     @Test
-    void testWebhookOAuthResponse() {
-        // TODO: test WebhookOAuthResponse
+    void testUpdateConnectedAccountCredentialsResponse() {
+        // TODO: test UpdateConnectedAccountCredentialsResponse
     }
 
-    /** Test the property 'clientId' */
+    /** Test the property 'accounts' */
     @Test
-    void clientIdTest() {
-        // TODO: test clientId
-    }
-
-    /** Test the property 'url' */
-    @Test
-    void urlTest() {
-        // TODO: test url
-    }
-
-    /** Test the property 'mtlsClientSignedCert' */
-    @Test
-    void mtlsClientSignedCertTest() {
-        // TODO: test mtlsClientSignedCert
+    void accountsTest() {
+        // TODO: test accounts
     }
 }

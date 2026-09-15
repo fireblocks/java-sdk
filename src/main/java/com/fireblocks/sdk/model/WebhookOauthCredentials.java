@@ -18,79 +18,121 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.UUID;
 
 /**
- * A new reusable OAuth 2.0 client credential set. Attach it to a webhook by passing the returned id
- * as that webhook&#39;s &#x60;webhookOauthId&#x60;. Several webhooks may share one credential set,
- * so rotating its client secret covers all of them at once.
+ * A stored OAuth 2.0 client credential set, referenced by webhooks through their
+ * &#x60;webhookOauthId&#x60;. When a webhook references one, the dispatcher fetches a bearer token
+ * from &#x60;url&#x60; before each delivery and attaches it as &#x60;Authorization: Bearer
+ * {token}&#x60;. Secret material is never returned: &#x60;clientSecret&#x60; is absent from this
+ * schema entirely, and the &#x60;customJwtClaims&#x60;, &#x60;customBodyParams&#x60; and
+ * &#x60;customHeaders&#x60; fields are reduced to their names, without the configured values.
  */
 @JsonPropertyOrder({
-    CreateWebhookOAuthRequest.JSON_PROPERTY_NAME,
-    CreateWebhookOAuthRequest.JSON_PROPERTY_CLIENT_ID,
-    CreateWebhookOAuthRequest.JSON_PROPERTY_CLIENT_SECRET,
-    CreateWebhookOAuthRequest.JSON_PROPERTY_URL,
-    CreateWebhookOAuthRequest.JSON_PROPERTY_AUTH_METHOD,
-    CreateWebhookOAuthRequest.JSON_PROPERTY_CUSTOM_JWT_CLAIMS,
-    CreateWebhookOAuthRequest.JSON_PROPERTY_CUSTOM_BODY_PARAMS,
-    CreateWebhookOAuthRequest.JSON_PROPERTY_CUSTOM_HEADERS,
-    CreateWebhookOAuthRequest.JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT
+    WebhookOauthCredentials.JSON_PROPERTY_ID,
+    WebhookOauthCredentials.JSON_PROPERTY_NAME,
+    WebhookOauthCredentials.JSON_PROPERTY_CLIENT_ID,
+    WebhookOauthCredentials.JSON_PROPERTY_URL,
+    WebhookOauthCredentials.JSON_PROPERTY_AUTH_METHOD,
+    WebhookOauthCredentials.JSON_PROPERTY_CUSTOM_JWT_CLAIMS,
+    WebhookOauthCredentials.JSON_PROPERTY_CUSTOM_BODY_PARAMS,
+    WebhookOauthCredentials.JSON_PROPERTY_CUSTOM_HEADERS,
+    WebhookOauthCredentials.JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT,
+    WebhookOauthCredentials.JSON_PROPERTY_CREATED_AT,
+    WebhookOauthCredentials.JSON_PROPERTY_UPDATED_AT
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class CreateWebhookOAuthRequest {
+public class WebhookOauthCredentials {
+    public static final String JSON_PROPERTY_ID = "id";
+    @jakarta.annotation.Nonnull private UUID id;
+
     public static final String JSON_PROPERTY_NAME = "name";
     @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_CLIENT_ID = "clientId";
     @jakarta.annotation.Nonnull private String clientId;
 
-    public static final String JSON_PROPERTY_CLIENT_SECRET = "clientSecret";
-    @jakarta.annotation.Nonnull private String clientSecret;
-
     public static final String JSON_PROPERTY_URL = "url";
     @jakarta.annotation.Nonnull private String url;
 
     public static final String JSON_PROPERTY_AUTH_METHOD = "authMethod";
-    @jakarta.annotation.Nullable private String authMethod = "client_secret_basic";
+    @jakarta.annotation.Nonnull private String authMethod = "client_secret_basic";
 
     public static final String JSON_PROPERTY_CUSTOM_JWT_CLAIMS = "customJwtClaims";
-    @jakarta.annotation.Nullable private Map<String, Object> customJwtClaims;
+    @jakarta.annotation.Nullable private List<String> customJwtClaims;
 
     public static final String JSON_PROPERTY_CUSTOM_BODY_PARAMS = "customBodyParams";
-    @jakarta.annotation.Nullable private Map<String, String> customBodyParams;
+    @jakarta.annotation.Nullable private List<String> customBodyParams;
 
     public static final String JSON_PROPERTY_CUSTOM_HEADERS = "customHeaders";
-    @jakarta.annotation.Nullable private Map<String, String> customHeaders;
+    @jakarta.annotation.Nullable private List<String> customHeaders;
 
     public static final String JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT = "mtlsClientSignedCert";
     @jakarta.annotation.Nullable private String mtlsClientSignedCert;
 
-    public CreateWebhookOAuthRequest() {}
+    public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
+    @jakarta.annotation.Nonnull private Long createdAt;
+
+    public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
+    @jakarta.annotation.Nonnull private Long updatedAt;
+
+    public WebhookOauthCredentials() {}
 
     @JsonCreator
-    public CreateWebhookOAuthRequest(
+    public WebhookOauthCredentials(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id,
             @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
             @JsonProperty(value = JSON_PROPERTY_CLIENT_ID, required = true) String clientId,
-            @JsonProperty(value = JSON_PROPERTY_CLIENT_SECRET, required = true) String clientSecret,
-            @JsonProperty(value = JSON_PROPERTY_URL, required = true) String url) {
+            @JsonProperty(value = JSON_PROPERTY_URL, required = true) String url,
+            @JsonProperty(value = JSON_PROPERTY_AUTH_METHOD, required = true) String authMethod,
+            @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = true) Long createdAt,
+            @JsonProperty(value = JSON_PROPERTY_UPDATED_AT, required = true) Long updatedAt) {
+        this.id = id;
         this.name = name;
         this.clientId = clientId;
-        this.clientSecret = clientSecret;
         this.url = url;
+        this.authMethod = authMethod;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
-    public CreateWebhookOAuthRequest name(@jakarta.annotation.Nonnull String name) {
+    public WebhookOauthCredentials id(@jakarta.annotation.Nonnull UUID id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * The id of the OAuth credentials. Pass this as a webhook&#39;s &#x60;webhookOauthId&#x60; to
+     * attach them.
+     *
+     * @return id
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public UUID getId() {
+        return id;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setId(@jakarta.annotation.Nonnull UUID id) {
+        this.id = id;
+    }
+
+    public WebhookOauthCredentials name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
 
     /**
-     * A label for this credential set, shown when listing them.
+     * The label given to this credential set.
      *
      * @return name
      */
@@ -107,7 +149,7 @@ public class CreateWebhookOAuthRequest {
         this.name = name;
     }
 
-    public CreateWebhookOAuthRequest clientId(@jakarta.annotation.Nonnull String clientId) {
+    public WebhookOauthCredentials clientId(@jakarta.annotation.Nonnull String clientId) {
         this.clientId = clientId;
         return this;
     }
@@ -130,38 +172,13 @@ public class CreateWebhookOAuthRequest {
         this.clientId = clientId;
     }
 
-    public CreateWebhookOAuthRequest clientSecret(@jakarta.annotation.Nonnull String clientSecret) {
-        this.clientSecret = clientSecret;
-        return this;
-    }
-
-    /**
-     * OAuth client secret. Write-only — never returned. Limited to 480 bytes UTF-8 encoded. With
-     * &#x60;client_secret_jwt&#x60; it signs the assertion rather than being sent.
-     *
-     * @return clientSecret
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_CLIENT_SECRET)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getClientSecret() {
-        return clientSecret;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CLIENT_SECRET)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setClientSecret(@jakarta.annotation.Nonnull String clientSecret) {
-        this.clientSecret = clientSecret;
-    }
-
-    public CreateWebhookOAuthRequest url(@jakarta.annotation.Nonnull String url) {
+    public WebhookOauthCredentials url(@jakarta.annotation.Nonnull String url) {
         this.url = url;
         return this;
     }
 
     /**
-     * Token endpoint URL. HTTPS on port 443 only, and the host must resolve publicly — localhost
-     * and private, link-local or loopback addresses are rejected.
+     * Token endpoint URL.
      *
      * @return url
      */
@@ -178,165 +195,141 @@ public class CreateWebhookOAuthRequest {
         this.url = url;
     }
 
-    public CreateWebhookOAuthRequest authMethod(@jakarta.annotation.Nullable String authMethod) {
+    public WebhookOauthCredentials authMethod(@jakarta.annotation.Nonnull String authMethod) {
         this.authMethod = authMethod;
         return this;
     }
 
     /**
-     * How the client credentials reach the token endpoint. &#x60;client_secret_basic&#x60; uses an
-     * HTTP Basic header, &#x60;client_secret_post&#x60; uses form fields in the body, and
-     * &#x60;client_secret_jwt&#x60; sends a JWT assertion signed with the secret, so the secret
-     * itself is never transmitted. Defaults to &#x60;client_secret_basic&#x60;.
+     * How the client credentials are presented to the token endpoint:
+     * &#x60;client_secret_basic&#x60;, &#x60;client_secret_post&#x60; or
+     * &#x60;client_secret_jwt&#x60;. Credentials created without this field report
+     * &#x60;client_secret_basic&#x60;, which is what they use.
      *
      * @return authMethod
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_AUTH_METHOD)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getAuthMethod() {
         return authMethod;
     }
 
     @JsonProperty(JSON_PROPERTY_AUTH_METHOD)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAuthMethod(@jakarta.annotation.Nullable String authMethod) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAuthMethod(@jakarta.annotation.Nonnull String authMethod) {
         this.authMethod = authMethod;
     }
 
-    public CreateWebhookOAuthRequest customJwtClaims(
-            @jakarta.annotation.Nullable Map<String, Object> customJwtClaims) {
+    public WebhookOauthCredentials customJwtClaims(
+            @jakarta.annotation.Nullable List<String> customJwtClaims) {
         this.customJwtClaims = customJwtClaims;
         return this;
     }
 
-    public CreateWebhookOAuthRequest putCustomJwtClaimsItem(
-            String key, Object customJwtClaimsItem) {
+    public WebhookOauthCredentials addCustomJwtClaimsItem(String customJwtClaimsItem) {
         if (this.customJwtClaims == null) {
-            this.customJwtClaims = new HashMap<>();
+            this.customJwtClaims = new ArrayList<>();
         }
-        this.customJwtClaims.put(key, customJwtClaimsItem);
+        this.customJwtClaims.add(customJwtClaimsItem);
         return this;
     }
 
     /**
-     * Extra claims for the JWT assertion. Used only when &#x60;authMethod&#x60; is
-     * &#x60;client_secret_jwt&#x60;. The usual one to set is &#x60;aud&#x60;, which defaults to the
-     * token endpoint URL; some authorization servers expect their own identifier instead. A value
-     * may be any JSON type except &#x60;null&#x60; — &#x60;null&#x60; is reserved for deleting a
-     * claim on update. &#x60;iss&#x60;, &#x60;sub&#x60;, &#x60;jti&#x60;, &#x60;iat&#x60; and
-     * &#x60;exp&#x60; are set by Fireblocks and cannot be overridden. Names are case-sensitive. The
-     * whole object must be under 16 KB. Values are write-only; responses return only the claim
-     * names. On update this merges claim by claim rather than replacing — see
-     * &#x60;WebhookOAuthCustomJwtClaimsUpdate&#x60;.
+     * Names of the additional claims placed in the JWT assertion. Claim values are write-only and
+     * are never returned. Absent when no custom claims are configured.
      *
      * @return customJwtClaims
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_CUSTOM_JWT_CLAIMS)
-    @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
-    public Map<String, Object> getCustomJwtClaims() {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<String> getCustomJwtClaims() {
         return customJwtClaims;
     }
 
     @JsonProperty(JSON_PROPERTY_CUSTOM_JWT_CLAIMS)
-    @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomJwtClaims(
-            @jakarta.annotation.Nullable Map<String, Object> customJwtClaims) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCustomJwtClaims(@jakarta.annotation.Nullable List<String> customJwtClaims) {
         this.customJwtClaims = customJwtClaims;
     }
 
-    public CreateWebhookOAuthRequest customBodyParams(
-            @jakarta.annotation.Nullable Map<String, String> customBodyParams) {
+    public WebhookOauthCredentials customBodyParams(
+            @jakarta.annotation.Nullable List<String> customBodyParams) {
         this.customBodyParams = customBodyParams;
         return this;
     }
 
-    public CreateWebhookOAuthRequest putCustomBodyParamsItem(
-            String key, String customBodyParamsItem) {
+    public WebhookOauthCredentials addCustomBodyParamsItem(String customBodyParamsItem) {
         if (this.customBodyParams == null) {
-            this.customBodyParams = new HashMap<>();
+            this.customBodyParams = new ArrayList<>();
         }
-        this.customBodyParams.put(key, customBodyParamsItem);
+        this.customBodyParams.add(customBodyParamsItem);
         return this;
     }
 
     /**
-     * Extra parameters for the token request body — &#x60;scope&#x60; most commonly, sometimes
-     * &#x60;audience&#x60; or &#x60;resource&#x60;. Applies to every authentication method. Values
-     * must be strings, because the token request body is form-encoded rather than JSON. An empty
-     * string is allowed. &#x60;grant_type&#x60;, &#x60;client_id&#x60;, &#x60;client_secret&#x60;,
-     * &#x60;client_assertion&#x60; and &#x60;client_assertion_type&#x60; are set by Fireblocks and
-     * cannot be overridden. Names are case-sensitive. The whole object must be under 16 KB. Values
-     * are write-only; responses return only the parameter names. On update this merges key by key
-     * rather than replacing — see &#x60;WebhookOAuthCustomBodyParamsUpdate&#x60;.
+     * Names of the additional parameters added to the token request body. Parameter values are
+     * write-only and are never returned. Absent when no custom parameters are configured.
      *
      * @return customBodyParams
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_CUSTOM_BODY_PARAMS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Map<String, String> getCustomBodyParams() {
+    public List<String> getCustomBodyParams() {
         return customBodyParams;
     }
 
     @JsonProperty(JSON_PROPERTY_CUSTOM_BODY_PARAMS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomBodyParams(
-            @jakarta.annotation.Nullable Map<String, String> customBodyParams) {
+    public void setCustomBodyParams(@jakarta.annotation.Nullable List<String> customBodyParams) {
         this.customBodyParams = customBodyParams;
     }
 
-    public CreateWebhookOAuthRequest customHeaders(
-            @jakarta.annotation.Nullable Map<String, String> customHeaders) {
+    public WebhookOauthCredentials customHeaders(
+            @jakarta.annotation.Nullable List<String> customHeaders) {
         this.customHeaders = customHeaders;
         return this;
     }
 
-    public CreateWebhookOAuthRequest putCustomHeadersItem(String key, String customHeadersItem) {
+    public WebhookOauthCredentials addCustomHeadersItem(String customHeadersItem) {
         if (this.customHeaders == null) {
-            this.customHeaders = new HashMap<>();
+            this.customHeaders = new ArrayList<>();
         }
-        this.customHeaders.put(key, customHeadersItem);
+        this.customHeaders.add(customHeadersItem);
         return this;
     }
 
     /**
-     * Extra HTTP headers for **the token request to your authorization server** — not for the
-     * webhook delivery, which has its own separate &#x60;customHeaders&#x60;. A gateway API key is
-     * the usual case. Applies to every authentication method. Values must be strings; an empty
-     * string is allowed. Names are matched case-insensitively, so two names differing only in case
-     * are a duplicate. Names are stored and returned lowercased, so &#x60;X-Api-Key&#x60; comes
-     * back as &#x60;x-api-key&#x60;. &#x60;Content-Type&#x60;, &#x60;Authorization&#x60;,
-     * &#x60;Content-Length&#x60; and &#x60;Host&#x60; are set by Fireblocks and cannot be
-     * overridden. The whole object must be under 16 KB. Values are write-only; responses return
-     * only the header names. On update this merges name by name rather than replacing — see
-     * &#x60;WebhookOAuthCustomHeadersUpdate&#x60;.
+     * Names of the additional HTTP headers added to **the token request sent to the authorization
+     * server** — not to the webhook delivery, which has its own separate &#x60;customHeaders&#x60;.
+     * Header values are write-only and are never returned. Absent when no custom headers are
+     * configured.
      *
      * @return customHeaders
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Map<String, String> getCustomHeaders() {
+    public List<String> getCustomHeaders() {
         return customHeaders;
     }
 
     @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomHeaders(@jakarta.annotation.Nullable Map<String, String> customHeaders) {
+    public void setCustomHeaders(@jakarta.annotation.Nullable List<String> customHeaders) {
         this.customHeaders = customHeaders;
     }
 
-    public CreateWebhookOAuthRequest mtlsClientSignedCert(
+    public WebhookOauthCredentials mtlsClientSignedCert(
             @jakarta.annotation.Nullable String mtlsClientSignedCert) {
         this.mtlsClientSignedCert = mtlsClientSignedCert;
         return this;
     }
 
     /**
-     * PEM-encoded client certificate for mTLS when fetching tokens. Must be a valid X.509
-     * certificate inside its validity window.
+     * PEM-encoded client certificate used for mTLS when fetching OAuth tokens.
      *
      * @return mtlsClientSignedCert
      */
@@ -353,7 +346,53 @@ public class CreateWebhookOAuthRequest {
         this.mtlsClientSignedCert = mtlsClientSignedCert;
     }
 
-    /** Return true if this CreateWebhookOAuthRequest object is equal to o. */
+    public WebhookOauthCredentials createdAt(@jakarta.annotation.Nonnull Long createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * The date and time the OAuth credentials were created, in milliseconds.
+     *
+     * @return createdAt
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Long getCreatedAt() {
+        return createdAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CREATED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCreatedAt(@jakarta.annotation.Nonnull Long createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public WebhookOauthCredentials updatedAt(@jakarta.annotation.Nonnull Long updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    /**
+     * The date and time the OAuth credentials were last updated, in milliseconds.
+     *
+     * @return updatedAt
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Long getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @JsonProperty(JSON_PROPERTY_UPDATED_AT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setUpdatedAt(@jakarta.annotation.Nonnull Long updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    /** Return true if this WebhookOauthCredentials object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -362,40 +401,44 @@ public class CreateWebhookOAuthRequest {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CreateWebhookOAuthRequest createWebhookOAuthRequest = (CreateWebhookOAuthRequest) o;
-        return Objects.equals(this.name, createWebhookOAuthRequest.name)
-                && Objects.equals(this.clientId, createWebhookOAuthRequest.clientId)
-                && Objects.equals(this.clientSecret, createWebhookOAuthRequest.clientSecret)
-                && Objects.equals(this.url, createWebhookOAuthRequest.url)
-                && Objects.equals(this.authMethod, createWebhookOAuthRequest.authMethod)
-                && Objects.equals(this.customJwtClaims, createWebhookOAuthRequest.customJwtClaims)
-                && Objects.equals(this.customBodyParams, createWebhookOAuthRequest.customBodyParams)
-                && Objects.equals(this.customHeaders, createWebhookOAuthRequest.customHeaders)
+        WebhookOauthCredentials webhookOauthCredentials = (WebhookOauthCredentials) o;
+        return Objects.equals(this.id, webhookOauthCredentials.id)
+                && Objects.equals(this.name, webhookOauthCredentials.name)
+                && Objects.equals(this.clientId, webhookOauthCredentials.clientId)
+                && Objects.equals(this.url, webhookOauthCredentials.url)
+                && Objects.equals(this.authMethod, webhookOauthCredentials.authMethod)
+                && Objects.equals(this.customJwtClaims, webhookOauthCredentials.customJwtClaims)
+                && Objects.equals(this.customBodyParams, webhookOauthCredentials.customBodyParams)
+                && Objects.equals(this.customHeaders, webhookOauthCredentials.customHeaders)
                 && Objects.equals(
-                        this.mtlsClientSignedCert, createWebhookOAuthRequest.mtlsClientSignedCert);
+                        this.mtlsClientSignedCert, webhookOauthCredentials.mtlsClientSignedCert)
+                && Objects.equals(this.createdAt, webhookOauthCredentials.createdAt)
+                && Objects.equals(this.updatedAt, webhookOauthCredentials.updatedAt);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+                id,
                 name,
                 clientId,
-                clientSecret,
                 url,
                 authMethod,
                 customJwtClaims,
                 customBodyParams,
                 customHeaders,
-                mtlsClientSignedCert);
+                mtlsClientSignedCert,
+                createdAt,
+                updatedAt);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class CreateWebhookOAuthRequest {\n");
+        sb.append("class WebhookOauthCredentials {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    clientId: ").append(toIndentedString(clientId)).append("\n");
-        sb.append("    clientSecret: ").append(toIndentedString(clientSecret)).append("\n");
         sb.append("    url: ").append(toIndentedString(url)).append("\n");
         sb.append("    authMethod: ").append(toIndentedString(authMethod)).append("\n");
         sb.append("    customJwtClaims: ").append(toIndentedString(customJwtClaims)).append("\n");
@@ -404,6 +447,8 @@ public class CreateWebhookOAuthRequest {
         sb.append("    mtlsClientSignedCert: ")
                 .append(toIndentedString(mtlsClientSignedCert))
                 .append("\n");
+        sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+        sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -451,6 +496,14 @@ public class CreateWebhookOAuthRequest {
 
         StringJoiner joiner = new StringJoiner("&");
 
+        // add `id` to the URL query string
+        if (getId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sid%s=%s",
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
+        }
+
         // add `name` to the URL query string
         if (getName() != null) {
             joiner.add(
@@ -469,16 +522,6 @@ public class CreateWebhookOAuthRequest {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getClientId()))));
-        }
-
-        // add `clientSecret` to the URL query string
-        if (getClientSecret() != null) {
-            joiner.add(
-                    String.format(
-                            "%sclientSecret%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getClientSecret()))));
         }
 
         // add `url` to the URL query string
@@ -503,7 +546,7 @@ public class CreateWebhookOAuthRequest {
 
         // add `customJwtClaims` to the URL query string
         if (getCustomJwtClaims() != null) {
-            for (String _key : getCustomJwtClaims().keySet()) {
+            for (int i = 0; i < getCustomJwtClaims().size(); i++) {
                 joiner.add(
                         String.format(
                                 "%scustomJwtClaims%s%s=%s",
@@ -512,16 +555,15 @@ public class CreateWebhookOAuthRequest {
                                 "".equals(suffix)
                                         ? ""
                                         : String.format(
-                                                "%s%d%s", containerPrefix, _key, containerSuffix),
-                                getCustomJwtClaims().get(_key),
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
                                 ApiClient.urlEncode(
-                                        ApiClient.valueToString(getCustomJwtClaims().get(_key)))));
+                                        ApiClient.valueToString(getCustomJwtClaims().get(i)))));
             }
         }
 
         // add `customBodyParams` to the URL query string
         if (getCustomBodyParams() != null) {
-            for (String _key : getCustomBodyParams().keySet()) {
+            for (int i = 0; i < getCustomBodyParams().size(); i++) {
                 joiner.add(
                         String.format(
                                 "%scustomBodyParams%s%s=%s",
@@ -530,16 +572,15 @@ public class CreateWebhookOAuthRequest {
                                 "".equals(suffix)
                                         ? ""
                                         : String.format(
-                                                "%s%d%s", containerPrefix, _key, containerSuffix),
-                                getCustomBodyParams().get(_key),
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
                                 ApiClient.urlEncode(
-                                        ApiClient.valueToString(getCustomBodyParams().get(_key)))));
+                                        ApiClient.valueToString(getCustomBodyParams().get(i)))));
             }
         }
 
         // add `customHeaders` to the URL query string
         if (getCustomHeaders() != null) {
-            for (String _key : getCustomHeaders().keySet()) {
+            for (int i = 0; i < getCustomHeaders().size(); i++) {
                 joiner.add(
                         String.format(
                                 "%scustomHeaders%s%s=%s",
@@ -548,10 +589,9 @@ public class CreateWebhookOAuthRequest {
                                 "".equals(suffix)
                                         ? ""
                                         : String.format(
-                                                "%s%d%s", containerPrefix, _key, containerSuffix),
-                                getCustomHeaders().get(_key),
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
                                 ApiClient.urlEncode(
-                                        ApiClient.valueToString(getCustomHeaders().get(_key)))));
+                                        ApiClient.valueToString(getCustomHeaders().get(i)))));
             }
         }
 
@@ -564,6 +604,26 @@ public class CreateWebhookOAuthRequest {
                             suffix,
                             ApiClient.urlEncode(
                                     ApiClient.valueToString(getMtlsClientSignedCert()))));
+        }
+
+        // add `createdAt` to the URL query string
+        if (getCreatedAt() != null) {
+            joiner.add(
+                    String.format(
+                            "%screatedAt%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreatedAt()))));
+        }
+
+        // add `updatedAt` to the URL query string
+        if (getUpdatedAt() != null) {
+            joiner.add(
+                    String.format(
+                            "%supdatedAt%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getUpdatedAt()))));
         }
 
         return joiner.toString();

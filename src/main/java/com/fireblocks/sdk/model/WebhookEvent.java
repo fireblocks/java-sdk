@@ -85,6 +85,10 @@ public enum WebhookEvent {
 
     CONNECTED_ACCOUNT_CONNECTED("connected_account.connected"),
 
+    EXCHANGE_ACCOUNT_CREDENTIALS_REPLACED("exchange_account.credentials_replaced"),
+
+    CONNECTED_ACCOUNT_CREDENTIALS_REPLACED("connected_account.credentials_replaced"),
+
     TICKET_CREATED("ticket.created"),
 
     TICKET_SUBMITTED("ticket.submitted"),

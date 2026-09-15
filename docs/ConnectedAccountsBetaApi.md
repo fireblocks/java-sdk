@@ -16,6 +16,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getConnectedAccountsCredentialsPublicKey**](ConnectedAccountsBetaApi.md#getConnectedAccountsCredentialsPublicKey) | **GET** /connected_accounts/credentials/public_key | Get public key to encrypt connected account credentials |
 | [**renameConnectedAccount**](ConnectedAccountsBetaApi.md#renameConnectedAccount) | **POST** /connected_accounts/{accountId}/rename | Rename Connected Account |
 | [**syncConnectedAccountAllowlist**](ConnectedAccountsBetaApi.md#syncConnectedAccountAllowlist) | **POST** /connected_accounts/{accountId}/allowlist/sync | Sync allowlist for connected account |
+| [**updateConnectedAccountCredentials**](ConnectedAccountsBetaApi.md#updateConnectedAccountCredentials) | **POST** /connected_accounts/{accountId}/credentials | Update connected account credentials |
 
 
 
@@ -986,5 +987,91 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Sync request accepted and processing |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## updateConnectedAccountCredentials
+
+> CompletableFuture<ApiResponse<UpdateConnectedAccountCredentialsResponse>> updateConnectedAccountCredentials updateConnectedAccountCredentials(updateConnectedAccountCredentialsRequest, accountId, idempotencyKey)
+
+Update connected account credentials
+
+Replace the API credentials (secret + API key) of a connected account.  Credentials belong to an API key, which can back a single account or an entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.  The &#x60;creds&#x60; field must be a Base64-encoded RSA-encrypted credential blob; use &#x60;GET /connected_accounts/credentials/public_key&#x60; to retrieve the public key for encryption. Both &#x60;creds&#x60; and &#x60;apiKey&#x60; are mandatory.  Validation against the exchange is synchronous, but the update itself is **pending mobile approval** — the existing credentials stay live until the change is approved, so none of the affected accounts are disconnected in the meantime.  Endpoint Permission: Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ConnectedAccountsBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UpdateConnectedAccountCredentialsRequest updateConnectedAccountCredentialsRequest = new UpdateConnectedAccountCredentialsRequest(); // UpdateConnectedAccountCredentialsRequest | 
+        String accountId = "2c96e3aa-07ca-4524-a026-75579d25e24a"; // String | The unique identifier of the connected account whose API key credentials are being replaced.
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<UpdateConnectedAccountCredentialsResponse>> response = fireblocks.connectedAccountsBeta().updateConnectedAccountCredentials(updateConnectedAccountCredentialsRequest, accountId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ConnectedAccountsBetaApi#updateConnectedAccountCredentials");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **updateConnectedAccountCredentialsRequest** | [**UpdateConnectedAccountCredentialsRequest**](UpdateConnectedAccountCredentialsRequest.md)|  | |
+| **accountId** | **String**| The unique identifier of the connected account whose API key credentials are being replaced. | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**UpdateConnectedAccountCredentialsResponse**](UpdateConnectedAccountCredentialsResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Credential update initiated (pending approval). |  * X-Request-ID -  <br>  |
+| **400** | Bad request — credentials cannot be updated on a sub-account, or missing creds / apiKey. |  -  |
+| **403** | Insufficient permissions, or feature not enabled for this tenant. |  -  |
+| **404** | Connected account not found. |  -  |
+| **409** | Account is not in an updatable state, or the credentials belong to a different account. |  -  |
+| **422** | The provided credentials were rejected by the exchange. |  -  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 

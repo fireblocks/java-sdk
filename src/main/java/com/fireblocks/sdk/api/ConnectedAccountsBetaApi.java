@@ -33,6 +33,8 @@ import com.fireblocks.sdk.model.ConnectedSingleAccountResponse;
 import com.fireblocks.sdk.model.GetConnectedAccountsCredentialsPublicKeyResponse;
 import com.fireblocks.sdk.model.RenameConnectedAccountRequest;
 import com.fireblocks.sdk.model.RenameConnectedAccountResponse;
+import com.fireblocks.sdk.model.UpdateConnectedAccountCredentialsRequest;
+import com.fireblocks.sdk.model.UpdateConnectedAccountCredentialsResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -1248,6 +1250,128 @@ public class ConnectedAccountsBetaApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Update connected account credentials Replace the API credentials (secret + API key) of a
+     * connected account. Credentials belong to an API key, which can back a single account or an
+     * entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint
+     * returns an array of modified accounts. The &#x60;creds&#x60; field must be a Base64-encoded
+     * RSA-encrypted credential blob; use &#x60;GET /connected_accounts/credentials/public_key&#x60;
+     * to retrieve the public key for encryption. Both &#x60;creds&#x60; and &#x60;apiKey&#x60; are
+     * mandatory. Validation against the exchange is synchronous, but the update itself is **pending
+     * mobile approval** — the existing credentials stay live until the change is approved, so none
+     * of the affected accounts are disconnected in the meantime. Endpoint Permission: Admin,
+     * Non-Signing Admin. **Note:** This endpoint is currently in beta and might be subject to
+     * changes.
+     *
+     * @param updateConnectedAccountCredentialsRequest (required)
+     * @param accountId The unique identifier of the connected account whose API key credentials are
+     *     being replaced. (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return
+     *     CompletableFuture&lt;ApiResponse&lt;UpdateConnectedAccountCredentialsResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<UpdateConnectedAccountCredentialsResponse>>
+            updateConnectedAccountCredentials(
+                    UpdateConnectedAccountCredentialsRequest
+                            updateConnectedAccountCredentialsRequest,
+                    String accountId,
+                    String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    updateConnectedAccountCredentialsRequestBuilder(
+                            updateConnectedAccountCredentialsRequest, accountId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "updateConnectedAccountCredentials",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<
+                                                    UpdateConnectedAccountCredentialsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            UpdateConnectedAccountCredentialsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    UpdateConnectedAccountCredentialsResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder updateConnectedAccountCredentialsRequestBuilder(
+            UpdateConnectedAccountCredentialsRequest updateConnectedAccountCredentialsRequest,
+            String accountId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "updateConnectedAccountCredentials",
+                "updateConnectedAccountCredentialsRequest",
+                updateConnectedAccountCredentialsRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateConnectedAccountCredentials", "accountId", accountId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/connected_accounts/{accountId}/credentials"
+                        .replace("{accountId}", ApiClient.urlEncode(accountId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(
+                            updateConnectedAccountCredentialsRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

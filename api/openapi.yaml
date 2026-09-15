@@ -583,6 +583,70 @@ paths:
           \ user_id, quorum_status_mode);"
       x-accepts:
       - application/json
+  /approvals/{requestId}/reject:
+    post:
+      description: |-
+        Reject a pending approval request as the authenticated API user. No signature is required (unlike approve). The caller must be eligible to act on the request; rejecting finalizes the request as rejected per the approval policy.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+      operationId: rejectApproval
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The approval request ID.
+        example: "18055"
+        explode: false
+        in: path
+        name: requestId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: The approval request was rejected.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Reject an approval request
+      tags:
+      - Approvals (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.approvalsBeta.rejectApproval(approvalsBetaApiRejectApprovalRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.approvalsBeta().rejectApproval(requestId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.approvals_beta.reject_approval(request_id,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.approvalsBeta.rejectApproval(approvalsBetaApiRejectApprovalRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.approvalsBeta().rejectApproval(requestId,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.approvals_beta.reject_approval(request_id,\
+          \ idempotency_key);"
+      x-accepts:
+      - application/json
   /management/audit_logs:
     get:
       description: |-
@@ -5807,6 +5871,133 @@ paths:
       - lang: Python
         source: "response = fireblocks.connected_accounts_beta.get_connected_account_balances(account_id,\
           \ page_size, page_cursor);"
+      x-accepts:
+      - application/json
+  /connected_accounts/{accountId}/credentials:
+    post:
+      description: |
+        Replace the API credentials (secret + API key) of a connected account.
+
+        Credentials belong to an API key, which can back a single account or an entire hierarchy.
+        Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.
+
+        The `creds` field must be a Base64-encoded RSA-encrypted credential blob; use
+        `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption.
+        Both `creds` and `apiKey` are mandatory.
+
+        Validation against the exchange is synchronous, but the update itself is **pending mobile
+        approval** — the existing credentials stay live until the change is approved, so none of the
+        affected accounts are disconnected in the meantime.
+
+        Endpoint Permission: Admin, Non-Signing Admin.
+
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+      operationId: updateConnectedAccountCredentials
+      parameters:
+      - description: The unique identifier of the connected account whose API key
+          credentials are being replaced.
+        example: 2c96e3aa-07ca-4524-a026-75579d25e24a
+        explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          minLength: 1
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateConnectedAccountCredentialsRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateConnectedAccountCredentialsResponse"
+          description: Credential update initiated (pending approval).
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectedAccountErrorResponse"
+          description: "Bad request — credentials cannot be updated on a sub-account,\
+            \ or missing creds / apiKey."
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectedAccountErrorResponse"
+          description: "Insufficient permissions, or feature not enabled for this\
+            \ tenant."
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectedAccountErrorResponse"
+          description: Connected account not found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectedAccountErrorResponse"
+          description: "Account is not in an updatable state, or the credentials belong\
+            \ to a different account."
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectedAccountErrorResponse"
+          description: The provided credentials were rejected by the exchange.
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Update connected account credentials
+      tags:
+      - Connected Accounts (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UpdateConnectedAccountCredentialsResponse>>\
+            \ = fireblocks.connectedAccountsBeta.updateConnectedAccountCredentials(connectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<UpdateConnectedAccountCredentialsResponse>>\
+            \ response = fireblocks.connectedAccountsBeta().updateConnectedAccountCredentials(updateConnectedAccountCredentialsRequest,\
+            \ accountId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.connected_accounts_beta.update_connected_account_credentials(update_connected_account_credentials_request,\
+            \ account_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<UpdateConnectedAccountCredentialsResponse>>\
+          \ = fireblocks.connectedAccountsBeta.updateConnectedAccountCredentials(connectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<UpdateConnectedAccountCredentialsResponse>>\
+          \ response = fireblocks.connectedAccountsBeta().updateConnectedAccountCredentials(updateConnectedAccountCredentialsRequest,\
+          \ accountId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.connected_accounts_beta.update_connected_account_credentials(update_connected_account_credentials_request,\
+          \ account_id, idempotency_key);"
+      x-content-type: application/json
       x-accepts:
       - application/json
   /connected_accounts/{accountId}/manifest/capabilities/trading/pairs:
@@ -36782,13 +36973,13 @@ paths:
     get:
       description: |
         Lists every OAuth credential set for the workspace. Client secrets are never returned.
-      operationId: getWebhookOAuths
+      operationId: getWebhookOauths
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/WebhookOAuthList"
+                $ref: "#/components/schemas/WebhookOauthList"
           description: The workspace's OAuth credentials
           headers:
             X-Request-ID:
@@ -36802,23 +36993,23 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<WebhookOAuthList>> = fireblocks.webhooksV2.getWebhookOAuths();"
+          code: "const response: Promise<FireblocksResponse<WebhookOauthList>> = fireblocks.webhooksV2.getWebhookOauths();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<List<WebhookOAuthCredentials>>> response
-            = fireblocks.webhooksV2().getWebhookOAuths();
+          code: CompletableFuture<ApiResponse<List<WebhookOauthCredentials>>> response
+            = fireblocks.webhooksV2().getWebhookOauths();
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.webhooks_v2.get_webhook_o_auths();
+          code: response = fireblocks.webhooks_v2.get_webhook_oauths();
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<WebhookOAuthList>> = fireblocks.webhooksV2.getWebhookOAuths();"
+        source: "const response: Promise<FireblocksResponse<WebhookOauthList>> = fireblocks.webhooksV2.getWebhookOauths();"
       - lang: Java
-        source: CompletableFuture<ApiResponse<List<WebhookOAuthCredentials>>> response
-          = fireblocks.webhooksV2().getWebhookOAuths();
+        source: CompletableFuture<ApiResponse<List<WebhookOauthCredentials>>> response
+          = fireblocks.webhooksV2().getWebhookOauths();
       - lang: Python
-        source: response = fireblocks.webhooks_v2.get_webhook_o_auths();
+        source: response = fireblocks.webhooks_v2.get_webhook_oauths();
       x-accepts:
       - application/json
     post:
@@ -36826,7 +37017,7 @@ paths:
         Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook's `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.
 
         **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
-      operationId: createWebhookOAuth
+      operationId: createWebhookOauth
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
           \ multiple times with the same idempotency key, the server will return the\
@@ -36843,14 +37034,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateWebhookOAuthRequest"
+              $ref: "#/components/schemas/CreateWebhookOauthRequest"
         required: true
       responses:
         "201":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/WebhookOAuthCredentials"
+                $ref: "#/components/schemas/WebhookOauthCredentials"
           description: created the OAuth credentials successfully
           headers:
             X-Request-ID:
@@ -36864,28 +37055,28 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<WebhookOAuthCredentials>>\
-            \ = fireblocks.webhooksV2.createWebhookOAuth(webhooksV2ApiCreateWebhookOAuthRequest);"
+          code: "const response: Promise<FireblocksResponse<WebhookOauthCredentials>>\
+            \ = fireblocks.webhooksV2.createWebhookOauth(webhooksV2ApiCreateWebhookOauthRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response\
-            \ = fireblocks.webhooksV2().createWebhookOAuth(createWebhookOAuthRequest,\
+          code: "CompletableFuture<ApiResponse<WebhookOauthCredentials>> response\
+            \ = fireblocks.webhooksV2().createWebhookOauth(createWebhookOauthRequest,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.webhooks_v2.create_webhook_o_auth(create_webhook_o_auth_request,\
+          code: "response = fireblocks.webhooks_v2.create_webhook_oauth(create_webhook_oauth_request,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<WebhookOAuthCredentials>>\
-          \ = fireblocks.webhooksV2.createWebhookOAuth(webhooksV2ApiCreateWebhookOAuthRequest);"
+        source: "const response: Promise<FireblocksResponse<WebhookOauthCredentials>>\
+          \ = fireblocks.webhooksV2.createWebhookOauth(webhooksV2ApiCreateWebhookOauthRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response\
-          \ = fireblocks.webhooksV2().createWebhookOAuth(createWebhookOAuthRequest,\
+        source: "CompletableFuture<ApiResponse<WebhookOauthCredentials>> response\
+          \ = fireblocks.webhooksV2().createWebhookOauth(createWebhookOauthRequest,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.webhooks_v2.create_webhook_o_auth(create_webhook_o_auth_request,\
+        source: "response = fireblocks.webhooks_v2.create_webhook_oauth(create_webhook_oauth_request,\
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -36900,7 +37091,7 @@ paths:
         When nothing references the credentials the delete succeeds either way, and `detachedWebhookIds` comes back empty.
 
         **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
-      operationId: deleteWebhookOAuth
+      operationId: deleteWebhookOauth
       parameters:
       - description: The unique identifier of the OAuth credentials
         explode: false
@@ -36929,7 +37120,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DeleteWebhookOAuthResponse"
+                $ref: "#/components/schemas/DeleteWebhookOauthResponse"
           description: "The deleted OAuth credentials, plus the ids of any webhooks\
             \ that were detached from them"
           headers:
@@ -36956,33 +37147,33 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<DeleteWebhookOAuthResponse>>\
-            \ = fireblocks.webhooksV2.deleteWebhookOAuth(webhooksV2ApiDeleteWebhookOAuthRequest);"
+          code: "const response: Promise<FireblocksResponse<DeleteWebhookOauthResponse>>\
+            \ = fireblocks.webhooksV2.deleteWebhookOauth(webhooksV2ApiDeleteWebhookOauthRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<DeleteWebhookOAuthResponse>> response\
-            \ = fireblocks.webhooksV2().deleteWebhookOAuth(webhookOauthId, forceDelete);"
+          code: "CompletableFuture<ApiResponse<DeleteWebhookOauthResponse>> response\
+            \ = fireblocks.webhooksV2().deleteWebhookOauth(webhookOauthId, forceDelete);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.webhooks_v2.delete_webhook_o_auth(webhook_oauth_id,\
+          code: "response = fireblocks.webhooks_v2.delete_webhook_oauth(webhook_oauth_id,\
             \ force_delete);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<DeleteWebhookOAuthResponse>>\
-          \ = fireblocks.webhooksV2.deleteWebhookOAuth(webhooksV2ApiDeleteWebhookOAuthRequest);"
+        source: "const response: Promise<FireblocksResponse<DeleteWebhookOauthResponse>>\
+          \ = fireblocks.webhooksV2.deleteWebhookOauth(webhooksV2ApiDeleteWebhookOauthRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<DeleteWebhookOAuthResponse>> response\
-          \ = fireblocks.webhooksV2().deleteWebhookOAuth(webhookOauthId, forceDelete);"
+        source: "CompletableFuture<ApiResponse<DeleteWebhookOauthResponse>> response\
+          \ = fireblocks.webhooksV2().deleteWebhookOauth(webhookOauthId, forceDelete);"
       - lang: Python
-        source: "response = fireblocks.webhooks_v2.delete_webhook_o_auth(webhook_oauth_id,\
+        source: "response = fireblocks.webhooks_v2.delete_webhook_oauth(webhook_oauth_id,\
           \ force_delete);"
       x-accepts:
       - application/json
     get:
       description: |
         Retrieve an OAuth credential set by its id. The client secret is never returned.
-      operationId: getWebhookOAuth
+      operationId: getWebhookOauth
       parameters:
       - description: The unique identifier of the OAuth credentials
         explode: false
@@ -36999,7 +37190,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/WebhookOAuthCredentials"
+                $ref: "#/components/schemas/WebhookOauthCredentials"
           description: An OAuth credentials object
           headers:
             X-Request-ID:
@@ -37013,25 +37204,25 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<WebhookOAuthCredentials>>\
-            \ = fireblocks.webhooksV2.getWebhookOAuth(webhooksV2ApiGetWebhookOAuthRequest);"
+          code: "const response: Promise<FireblocksResponse<WebhookOauthCredentials>>\
+            \ = fireblocks.webhooksV2.getWebhookOauth(webhooksV2ApiGetWebhookOauthRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response =
-            fireblocks.webhooksV2().getWebhookOAuth(webhookOauthId);
+          code: CompletableFuture<ApiResponse<WebhookOauthCredentials>> response =
+            fireblocks.webhooksV2().getWebhookOauth(webhookOauthId);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.webhooks_v2.get_webhook_o_auth(webhook_oauth_id);
+          code: response = fireblocks.webhooks_v2.get_webhook_oauth(webhook_oauth_id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<WebhookOAuthCredentials>>\
-          \ = fireblocks.webhooksV2.getWebhookOAuth(webhooksV2ApiGetWebhookOAuthRequest);"
+        source: "const response: Promise<FireblocksResponse<WebhookOauthCredentials>>\
+          \ = fireblocks.webhooksV2.getWebhookOauth(webhooksV2ApiGetWebhookOauthRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response =
-          fireblocks.webhooksV2().getWebhookOAuth(webhookOauthId);
+        source: CompletableFuture<ApiResponse<WebhookOauthCredentials>> response =
+          fireblocks.webhooksV2().getWebhookOauth(webhookOauthId);
       - lang: Python
-        source: response = fireblocks.webhooks_v2.get_webhook_o_auth(webhook_oauth_id);
+        source: response = fireblocks.webhooks_v2.get_webhook_oauth(webhook_oauth_id);
       x-accepts:
       - application/json
     patch:
@@ -37041,7 +37232,7 @@ paths:
         `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook's own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Since a `null` inside a map is the delete mechanism, none of the three accepts `null` for the whole field — `customJwtClaims: null`, `customBodyParams: null` or `customHeaders: null` is rejected with a `400` rather than ignored. Clear a map by listing each of its keys with a `null` value. Because `null` is spent on deletion, a claim cannot be set to JSON `null` either, on this endpoint or on create. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.
 
         **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
-      operationId: updateWebhookOAuth
+      operationId: updateWebhookOauth
       parameters:
       - description: The unique identifier of the OAuth credentials
         explode: false
@@ -37057,14 +37248,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateWebhookOAuthRequest"
+              $ref: "#/components/schemas/UpdateWebhookOauthRequest"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/WebhookOAuthCredentials"
+                $ref: "#/components/schemas/WebhookOauthCredentials"
           description: Updated OAuth credentials object
           headers:
             X-Request-ID:
@@ -37078,28 +37269,28 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<WebhookOAuthCredentials>>\
-            \ = fireblocks.webhooksV2.updateWebhookOAuth(webhooksV2ApiUpdateWebhookOAuthRequest);"
+          code: "const response: Promise<FireblocksResponse<WebhookOauthCredentials>>\
+            \ = fireblocks.webhooksV2.updateWebhookOauth(webhooksV2ApiUpdateWebhookOauthRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response\
-            \ = fireblocks.webhooksV2().updateWebhookOAuth(updateWebhookOAuthRequest,\
+          code: "CompletableFuture<ApiResponse<WebhookOauthCredentials>> response\
+            \ = fireblocks.webhooksV2().updateWebhookOauth(updateWebhookOauthRequest,\
             \ webhookOauthId);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.webhooks_v2.update_webhook_o_auth(update_webhook_o_auth_request,\
+          code: "response = fireblocks.webhooks_v2.update_webhook_oauth(update_webhook_oauth_request,\
             \ webhook_oauth_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<WebhookOAuthCredentials>>\
-          \ = fireblocks.webhooksV2.updateWebhookOAuth(webhooksV2ApiUpdateWebhookOAuthRequest);"
+        source: "const response: Promise<FireblocksResponse<WebhookOauthCredentials>>\
+          \ = fireblocks.webhooksV2.updateWebhookOauth(webhooksV2ApiUpdateWebhookOauthRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response\
-          \ = fireblocks.webhooksV2().updateWebhookOAuth(updateWebhookOAuthRequest,\
+        source: "CompletableFuture<ApiResponse<WebhookOauthCredentials>> response\
+          \ = fireblocks.webhooksV2().updateWebhookOauth(updateWebhookOauthRequest,\
           \ webhookOauthId);"
       - lang: Python
-        source: "response = fireblocks.webhooks_v2.update_webhook_o_auth(update_webhook_o_auth_request,\
+        source: "response = fireblocks.webhooks_v2.update_webhook_oauth(update_webhook_oauth_request,\
           \ webhook_oauth_id);"
       x-content-type: application/json
       x-accepts:
@@ -41636,8 +41827,35 @@ components:
       - tenantId
       type: object
     FiatAccountType:
+      description: "OTHER indicates the underlying provider isn't representable by\
+        \ this API version's enum (e.g. a newly onboarded provider, or one removed\
+        \ from this list) — it does not identify a specific provider, so it should\
+        \ not be used to key any client-side logic."
       enum:
       - BLINC
+      - BLINC_TEST
+      - CROSSRIVER
+      - CROSSRIVER_TEST
+      - CUSTOMERSBANK
+      - CUSTOMERSBANK_TEST
+      - FIFTHTHIRD
+      - FIFTHTHIRD_TEST
+      - KINGDOM_BANK
+      - KINGDOM_BANK_TESTNET
+      - LYNQ
+      - LYNQ_DEV
+      - LYNQ_QA
+      - LYNQ_UAT
+      - N3XT
+      - N3XT_ALPHA
+      - N3XT_BETA
+      - N3XT_OMEGA
+      - SYGNUM_CONNECT
+      - SYGNUM_CONNECT_STAGING
+      - TRANSFERO
+      - TRANSFERO_STAGING
+      - ZENUS_DEV
+      - OTHER
       type: string
     FiatAsset:
       example:
@@ -42131,6 +42349,47 @@ components:
       - UNKNOWN_ERROR
       example: SUCCESS
       type: string
+    UpdateConnectedAccountCredentialsRequest:
+      example:
+        apiKey: api_key_new_abc123
+        creds: !!binary |-
+          YmFzZTY0ZW5jb2RlZGVuY3J5cHRlZGNyZWRlbnRpYWxzPT0=
+      properties:
+        creds:
+          description: Base64-encoded RSA-encrypted credential blob (the new secret).
+            Encrypt using the public key from GET /connected_accounts/credentials/public_key.
+          example: !!binary |-
+            YmFzZTY0ZW5jb2RlZGVuY3J5cHRlZGNyZWRlbnRpYWxzPT0=
+          format: byte
+          type: string
+        apiKey:
+          description: The new account-level API key. Mandatory for credential update.
+          example: api_key_new_abc123
+          type: string
+      required:
+      - apiKey
+      - creds
+      type: object
+    UpdateConnectedAccountCredentialsResponse:
+      example:
+        accounts:
+        - accountId: acc-789012
+          name: My Exchange Account
+          status: WAITING_FOR_APPROVAL
+      properties:
+        accounts:
+          description: The account whose credentials are pending update (status WAITING_FOR_APPROVAL).
+            Old credentials stay live until the change is approved.
+          example:
+          - accountId: acc-789012
+            name: My Exchange Account
+            status: WAITING_FOR_APPROVAL
+          items:
+            $ref: "#/components/schemas/AddedConnectedAccountItem"
+          type: array
+      required:
+      - accounts
+      type: object
     ConnectedAccountBalances:
       properties:
         assetId:
@@ -59147,6 +59406,8 @@ components:
       - exchange_account.connected
       - fiat_account.connected
       - connected_account.connected
+      - exchange_account.credentials_replaced
+      - connected_account.credentials_replaced
       - ticket.created
       - ticket.submitted
       - ticket.expired
@@ -59192,39 +59453,6 @@ components:
       required:
       - clientSignedCert
       type: object
-    WebhookOAuthResponse:
-      description: OAuth 2.0 client credentials configuration for the webhook. Present
-        only when OAuth is configured. The `clientSecret` is write-only and is never
-        returned.
-      example:
-        clientId: my-client-id
-        url: https://auth.example.com/oauth/token
-        mtlsClientSignedCert: |-
-          -----BEGIN CERTIFICATE-----
-          ...
-          -----END CERTIFICATE-----
-      properties:
-        clientId:
-          description: OAuth client ID used to authenticate with the token endpoint.
-          example: my-client-id
-          type: string
-        url:
-          description: Token endpoint URL.
-          example: https://auth.example.com/oauth/token
-          type: string
-        mtlsClientSignedCert:
-          description: Signed client certificate PEM used for mTLS when connecting
-            to the token endpoint.
-          example: |-
-            -----BEGIN CERTIFICATE-----
-            ...
-            -----END CERTIFICATE-----
-          nullable: true
-          type: string
-      required:
-      - clientId
-      - url
-      type: object
     WebhookCustomHeadersResponse:
       description: Names of the custom headers configured for this webhook. Header
         values are never returned.
@@ -59237,17 +59465,11 @@ components:
     Webhook:
       example:
         createdAt: 1625126400000
+        webhookOauthId: 123e4567-e89b-12d3-a456-426614174000
         description: This webhook is used for transactions notifications
         id: 123e4567-e89b-12d3-a456-426614174000
         mtls:
           clientSignedCert: |-
-            -----BEGIN CERTIFICATE-----
-            ...
-            -----END CERTIFICATE-----
-        oauth:
-          clientId: my-client-id
-          url: https://auth.example.com/oauth/token
-          mtlsClientSignedCert: |-
             -----BEGIN CERTIFICATE-----
             ...
             -----END CERTIFICATE-----
@@ -59305,8 +59527,13 @@ components:
           type: integer
         mtls:
           $ref: "#/components/schemas/WebhookMtls"
-        oauth:
-          $ref: "#/components/schemas/WebhookOAuthResponse"
+        webhookOauthId:
+          description: "The id of the OAuth credentials this webhook authenticates\
+            \ with. Absent when the webhook does not use OAuth. Read the credentials\
+            \ themselves from `/v1/webhooks_settings/oauth/{webhookOauthId}`."
+          example: 123e4567-e89b-12d3-a456-426614174000
+          format: uuid
+          type: string
         customHeaders:
           description: Names of the custom headers configured for this webhook. Header
             values are never returned.
@@ -59329,17 +59556,11 @@ components:
         next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
         data:
         - createdAt: 1625126400000
+          webhookOauthId: 123e4567-e89b-12d3-a456-426614174000
           description: This webhook is used for transactions notifications
           id: 123e4567-e89b-12d3-a456-426614174000
           mtls:
             clientSignedCert: |-
-              -----BEGIN CERTIFICATE-----
-              ...
-              -----END CERTIFICATE-----
-          oauth:
-            clientId: my-client-id
-            url: https://auth.example.com/oauth/token
-            mtlsClientSignedCert: |-
               -----BEGIN CERTIFICATE-----
               ...
               -----END CERTIFICATE-----
@@ -59353,17 +59574,11 @@ components:
           status: ENABLED
           updatedAt: 1625126400000
         - createdAt: 1625126400000
+          webhookOauthId: 123e4567-e89b-12d3-a456-426614174000
           description: This webhook is used for transactions notifications
           id: 123e4567-e89b-12d3-a456-426614174000
           mtls:
             clientSignedCert: |-
-              -----BEGIN CERTIFICATE-----
-              ...
-              -----END CERTIFICATE-----
-          oauth:
-            clientId: my-client-id
-            url: https://auth.example.com/oauth/token
-            mtlsClientSignedCert: |-
               -----BEGIN CERTIFICATE-----
               ...
               -----END CERTIFICATE-----
@@ -59390,66 +59605,20 @@ components:
       required:
       - data
       type: object
-    WebhookOAuth:
-      description: "OAuth 2.0 client credentials configuration for the webhook. When\
-        \ set, the webhook dispatcher fetches a bearer token from the configured token\
-        \ endpoint before each delivery and attaches it as `Authorization: Bearer\
-        \ {token}`. Send `null` to remove OAuth configuration entirely."
-      example:
-        clientId: my-client-id
-        clientSecret: my-client-secret
-        url: https://auth.example.com/oauth/token
-        mtlsClientSignedCert: |-
-          -----BEGIN CERTIFICATE-----
-          ...
-          -----END CERTIFICATE-----
-      nullable: true
-      properties:
-        clientId:
-          description: OAuth client ID used to authenticate with the token endpoint.
-          example: my-client-id
-          maxLength: 255
-          type: string
-        clientSecret:
-          description: OAuth client secret. Write-only — never returned in responses.
-          example: my-client-secret
-          maxLength: 480
-          type: string
-        url:
-          description: Token endpoint URL. Must be HTTPS.
-          example: https://auth.example.com/oauth/token
-          maxLength: 2048
-          pattern: ^https://
-          type: string
-        mtlsClientSignedCert:
-          description: Signed client certificate PEM used for mTLS when connecting
-            to the token endpoint. Same format as the webhook mTLS certificate. Send
-            `null` to remove.
-          example: |-
-            -----BEGIN CERTIFICATE-----
-            ...
-            -----END CERTIFICATE-----
-          nullable: true
-          type: string
-      required:
-      - clientId
-      - clientSecret
-      - url
-      type: object
     WebhookCustomHeaders:
       additionalProperties:
         description: "A string, sent as one header line, or an array of strings, sent\
           \ as one header line per element. A string may be empty: RFC 9110 §5.5 permits\
           \ an empty field value, and it reaches your endpoint as an empty value rather\
-          \ than being dropped. Values are at most 1024 characters and must not contain\
-          \ control characters. An array must not be empty and is not accepted for\
-          \ `Cookie`."
+          \ than being dropped. A value has no length limit of its own and must not\
+          \ contain control characters. An array must not be empty and is not accepted\
+          \ for `Cookie`."
         example: abc123
       description: |-
         Custom HTTP headers attached to every notification delivered by this webhook.
         A value is a string, sent as one header line, or an array of strings, sent as one header line per element under the same name. `Cookie` accepts only a string. An empty array is rejected — leave the name out instead.
-        At most 10 header lines in total, counted per array element rather than per name. Names must be valid HTTP header tokens, are case-insensitive, and are at most 128 characters. Values are at most 1024 characters and may be empty.
-        Reserved names: `Host`, `Content-Type`, `Content-Length`, `Transfer-Encoding`, `Connection`, `User-Agent`, `Accept`, `Accept-Encoding`, `Fireblocks-Signature`, `Fireblocks-Webhook-Signature`, `Authorization`. `Authorization` is reserved whether or not this webhook has OAuth credentials attached, because Fireblocks sets it once it does.
+        At most 10 header lines in total, counted per array element rather than per name. Names must be valid HTTP header tokens, are case-insensitive, and are at most 128 characters. A value may be empty and has no length limit of its own; the whole object must be under 16 KB when serialized as UTF-8. A value that large may still be refused by your own endpoint, since web servers commonly cap the whole request header block at around 8 KB.
+        Reserved names: `Host`, `Content-Type`, `Content-Length`, `Transfer-Encoding`, `Connection`, `User-Agent`, `Accept`, `Accept-Encoding`, `Fireblocks-Signature`, `Fireblocks-Webhook-Signature`. When this webhook has OAuth credentials attached, an `Authorization` value you set and the bearer token are both sent as separate header lines.
         Values are write-only; responses return only the header names.
       example:
         X-Gateway-Key: abc123
@@ -59460,17 +59629,10 @@ components:
       type: object
     CreateWebhookRequest:
       example:
+        webhookOauthId: 123e4567-e89b-12d3-a456-426614174000
         description: This webhook is used for transactions notifications
         mtls:
           clientSignedCert: |-
-            -----BEGIN CERTIFICATE-----
-            ...
-            -----END CERTIFICATE-----
-        oauth:
-          clientId: my-client-id
-          clientSecret: my-client-secret
-          url: https://auth.example.com/oauth/token
-          mtlsClientSignedCert: |-
             -----BEGIN CERTIFICATE-----
             ...
             -----END CERTIFICATE-----
@@ -59513,22 +59675,29 @@ components:
           type: boolean
         mtls:
           $ref: "#/components/schemas/WebhookMtls"
-        oauth:
-          $ref: "#/components/schemas/WebhookOAuth"
+        webhookOauthId:
+          description: "The id of the OAuth credentials this webhook authenticates\
+            \ with, from `/v1/webhooks_settings/oauth`. Several webhooks may share\
+            \ one credential set, so rotating its client secret covers all of them\
+            \ at once. Send `null` to stop using OAuth for this webhook."
+          example: 123e4567-e89b-12d3-a456-426614174000
+          format: uuid
+          nullable: true
+          type: string
         customHeaders:
           additionalProperties:
             description: "A string, sent as one header line, or an array of strings,\
               \ sent as one header line per element. A string may be empty: RFC 9110\
               \ §5.5 permits an empty field value, and it reaches your endpoint as\
-              \ an empty value rather than being dropped. Values are at most 1024\
-              \ characters and must not contain control characters. An array must\
+              \ an empty value rather than being dropped. A value has no length limit\
+              \ of its own and must not contain control characters. An array must\
               \ not be empty and is not accepted for `Cookie`."
             example: abc123
           description: |-
             Custom HTTP headers attached to every notification delivered by this webhook.
             A value is a string, sent as one header line, or an array of strings, sent as one header line per element under the same name. `Cookie` accepts only a string. An empty array is rejected — leave the name out instead.
-            At most 10 header lines in total, counted per array element rather than per name. Names must be valid HTTP header tokens, are case-insensitive, and are at most 128 characters. Values are at most 1024 characters and may be empty.
-            Reserved names: `Host`, `Content-Type`, `Content-Length`, `Transfer-Encoding`, `Connection`, `User-Agent`, `Accept`, `Accept-Encoding`, `Fireblocks-Signature`, `Fireblocks-Webhook-Signature`, `Authorization`. `Authorization` is reserved whether or not this webhook has OAuth credentials attached, because Fireblocks sets it once it does.
+            At most 10 header lines in total, counted per array element rather than per name. Names must be valid HTTP header tokens, are case-insensitive, and are at most 128 characters. A value may be empty and has no length limit of its own; the whole object must be under 16 KB when serialized as UTF-8. A value that large may still be refused by your own endpoint, since web servers commonly cap the whole request header block at around 8 KB.
+            Reserved names: `Host`, `Content-Type`, `Content-Length`, `Transfer-Encoding`, `Connection`, `User-Agent`, `Accept`, `Accept-Encoding`, `Fireblocks-Signature`, `Fireblocks-Webhook-Signature`. When this webhook has OAuth credentials attached, an `Authorization` value you set and the bearer token are both sent as separate header lines.
             Values are write-only; responses return only the header names.
           example:
             X-Gateway-Key: abc123
@@ -59559,7 +59728,7 @@ components:
       required:
       - csr
       type: object
-    WebhookOAuthCredentials:
+    WebhookOauthCredentials:
       description: "A stored OAuth 2.0 client credential set, referenced by webhooks\
         \ through their `webhookOauthId`. When a webhook references one, the dispatcher\
         \ fetches a bearer token from `url` before each delivery and attaches it as\
@@ -59670,47 +59839,47 @@ components:
       - updatedAt
       - url
       type: object
-    WebhookOAuthList:
+    WebhookOauthList:
       description: Every OAuth credential set belonging to the workspace. Client secrets
         are never returned.
       items:
-        $ref: "#/components/schemas/WebhookOAuthCredentials"
+        $ref: "#/components/schemas/WebhookOauthCredentials"
       type: array
-    WebhookOAuthCustomJwtClaims:
+    WebhookOauthCustomJwtClaims:
       additionalProperties:
         description: Claim value. May be any JSON type except `null`.
       description: |-
         Extra claims for the JWT assertion. Used only when `authMethod` is `client_secret_jwt`. The usual one to set is `aud`, which defaults to the token endpoint URL; some authorization servers expect their own identifier instead.
         A value may be any JSON type except `null` — `null` is reserved for deleting a claim on update. `iss`, `sub`, `jti`, `iat` and `exp` are set by Fireblocks and cannot be overridden. Names are case-sensitive. The whole object must be under 16 KB.
-        Values are write-only; responses return only the claim names. On update this merges claim by claim rather than replacing — see `WebhookOAuthCustomJwtClaimsUpdate`.
+        Values are write-only; responses return only the claim names. On update this merges claim by claim rather than replacing — see `WebhookOauthCustomJwtClaimsUpdate`.
       example:
         aud: https://auth.example.com
         email_verified: true
       nullable: true
       type: object
-    WebhookOAuthCustomBodyParams:
+    WebhookOauthCustomBodyParams:
       additionalProperties:
         type: string
       description: |-
         Extra parameters for the token request body — `scope` most commonly, sometimes `audience` or `resource`. Applies to every authentication method.
         Values must be strings, because the token request body is form-encoded rather than JSON. An empty string is allowed. `grant_type`, `client_id`, `client_secret`, `client_assertion` and `client_assertion_type` are set by Fireblocks and cannot be overridden. Names are case-sensitive. The whole object must be under 16 KB.
-        Values are write-only; responses return only the parameter names. On update this merges key by key rather than replacing — see `WebhookOAuthCustomBodyParamsUpdate`.
+        Values are write-only; responses return only the parameter names. On update this merges key by key rather than replacing — see `WebhookOauthCustomBodyParamsUpdate`.
       example:
         scope: payments.read payments.write
       nullable: true
       type: object
-    WebhookOAuthCustomHeaders:
+    WebhookOauthCustomHeaders:
       additionalProperties:
         type: string
       description: |-
         Extra HTTP headers for **the token request to your authorization server** — not for the webhook delivery, which has its own separate `customHeaders`. A gateway API key is the usual case. Applies to every authentication method.
-        Values must be strings; an empty string is allowed. Names are matched case-insensitively, so two names differing only in case are a duplicate. Names are stored and returned lowercased, so `X-Api-Key` comes back as `x-api-key`. `Content-Type`, `Authorization`, `Content-Length` and `Host` are set by Fireblocks and cannot be overridden. The whole object must be under 16 KB.
-        Values are write-only; responses return only the header names. On update this merges name by name rather than replacing — see `WebhookOAuthCustomHeadersUpdate`.
+        Values must be strings; an empty string is allowed. Names are matched case-insensitively, so two names differing only in case are a duplicate. Names are stored and returned lowercased, so `X-Api-Key` comes back as `x-api-key`. `Content-Type`, `Content-Length` and `Host` are set by Fireblocks and cannot be overridden. `Authorization` is not sent when `authMethod` is `client_secret_basic`. Values have no length limit of their own; the whole object must be under 16 KB when serialized as UTF-8.
+        Values are write-only; responses return only the header names. On update this merges name by name rather than replacing — see `WebhookOauthCustomHeadersUpdate`.
       example:
         x-api-key: gateway-key
       nullable: true
       type: object
-    CreateWebhookOAuthRequest:
+    CreateWebhookOauthRequest:
       description: "A new reusable OAuth 2.0 client credential set. Attach it to a\
         \ webhook by passing the returned id as that webhook's `webhookOauthId`. Several\
         \ webhooks may share one credential set, so rotating its client secret covers\
@@ -59775,7 +59944,7 @@ components:
           description: |-
             Extra claims for the JWT assertion. Used only when `authMethod` is `client_secret_jwt`. The usual one to set is `aud`, which defaults to the token endpoint URL; some authorization servers expect their own identifier instead.
             A value may be any JSON type except `null` — `null` is reserved for deleting a claim on update. `iss`, `sub`, `jti`, `iat` and `exp` are set by Fireblocks and cannot be overridden. Names are case-sensitive. The whole object must be under 16 KB.
-            Values are write-only; responses return only the claim names. On update this merges claim by claim rather than replacing — see `WebhookOAuthCustomJwtClaimsUpdate`.
+            Values are write-only; responses return only the claim names. On update this merges claim by claim rather than replacing — see `WebhookOauthCustomJwtClaimsUpdate`.
           example:
             aud: https://auth.example.com
             email_verified: true
@@ -59787,7 +59956,7 @@ components:
           description: |-
             Extra parameters for the token request body — `scope` most commonly, sometimes `audience` or `resource`. Applies to every authentication method.
             Values must be strings, because the token request body is form-encoded rather than JSON. An empty string is allowed. `grant_type`, `client_id`, `client_secret`, `client_assertion` and `client_assertion_type` are set by Fireblocks and cannot be overridden. Names are case-sensitive. The whole object must be under 16 KB.
-            Values are write-only; responses return only the parameter names. On update this merges key by key rather than replacing — see `WebhookOAuthCustomBodyParamsUpdate`.
+            Values are write-only; responses return only the parameter names. On update this merges key by key rather than replacing — see `WebhookOauthCustomBodyParamsUpdate`.
           example:
             scope: payments.read payments.write
           nullable: true
@@ -59797,8 +59966,8 @@ components:
             type: string
           description: |-
             Extra HTTP headers for **the token request to your authorization server** — not for the webhook delivery, which has its own separate `customHeaders`. A gateway API key is the usual case. Applies to every authentication method.
-            Values must be strings; an empty string is allowed. Names are matched case-insensitively, so two names differing only in case are a duplicate. Names are stored and returned lowercased, so `X-Api-Key` comes back as `x-api-key`. `Content-Type`, `Authorization`, `Content-Length` and `Host` are set by Fireblocks and cannot be overridden. The whole object must be under 16 KB.
-            Values are write-only; responses return only the header names. On update this merges name by name rather than replacing — see `WebhookOAuthCustomHeadersUpdate`.
+            Values must be strings; an empty string is allowed. Names are matched case-insensitively, so two names differing only in case are a duplicate. Names are stored and returned lowercased, so `X-Api-Key` comes back as `x-api-key`. `Content-Type`, `Content-Length` and `Host` are set by Fireblocks and cannot be overridden. `Authorization` is not sent when `authMethod` is `client_secret_basic`. Values have no length limit of their own; the whole object must be under 16 KB when serialized as UTF-8.
+            Values are write-only; responses return only the header names. On update this merges name by name rather than replacing — see `WebhookOauthCustomHeadersUpdate`.
           example:
             x-api-key: gateway-key
           nullable: true
@@ -59817,9 +59986,9 @@ components:
       - name
       - url
       type: object
-    DeleteWebhookOAuthResponse:
+    DeleteWebhookOauthResponse:
       allOf:
-      - $ref: "#/components/schemas/WebhookOAuthCredentials"
+      - $ref: "#/components/schemas/WebhookOauthCredentials"
       - properties:
           detachedWebhookIds:
             description: "Webhooks whose `webhookOauthId` was cleared. The webhooks\
@@ -59859,7 +60028,7 @@ components:
           ...
           -----END CERTIFICATE-----
         updatedAt: 1625097600000
-    WebhookOAuthCustomJwtClaimsUpdate:
+    WebhookOauthCustomJwtClaimsUpdate:
       additionalProperties:
         description: "Claim value. May be any JSON type, or `null` to delete the claim."
       description: |-
@@ -59871,7 +60040,7 @@ components:
         resource: null
       nullable: true
       type: object
-    WebhookOAuthCustomBodyParamsUpdate:
+    WebhookOauthCustomBodyParamsUpdate:
       additionalProperties:
         nullable: true
         type: string
@@ -59884,20 +60053,20 @@ components:
         audience: null
       nullable: true
       type: object
-    WebhookOAuthCustomHeadersUpdate:
+    WebhookOauthCustomHeadersUpdate:
       additionalProperties:
         nullable: true
         type: string
       description: |-
         A delta applied to the token request headers — not the webhook delivery headers. A header with a value is added or replaced, a header with `null` is deleted, and one you leave out is untouched. So `{ "X-Api-Key": "new-key", "X-Tenant": null }` rotates `X-Api-Key`, drops `X-Tenant`, and changes nothing else.
         Send `customHeaders: null` to clear every header in one call. That does not collide with a `null` value on a name: one names the header to delete, the other names the whole field. Names are case-insensitive, so a `null` under one casing deletes a header stored under another, and names are stored and returned lowercased.
-        Same rules as on create: string values only, `Content-Type`/`Authorization`/ `Content-Length`/`Host` reserved, resulting set under 16 KB, values write-only.
+        Same rules as on create: string values only, `Content-Type`/`Content-Length`/`Host` reserved, resulting set under 16 KB, values write-only.
       example:
         x-api-key: gateway-key
         x-tenant: null
       nullable: true
       type: object
-    UpdateWebhookOAuthRequest:
+    UpdateWebhookOauthRequest:
       description: |-
         A partial update. Every field is optional and an omitted field is left as it is, so `{ "clientSecret": "new-secret" }` rotates the secret and changes nothing else. A rotation applies to every webhook referencing these credentials.
 
@@ -59989,7 +60158,7 @@ components:
           description: |-
             A delta applied to the token request headers — not the webhook delivery headers. A header with a value is added or replaced, a header with `null` is deleted, and one you leave out is untouched. So `{ "X-Api-Key": "new-key", "X-Tenant": null }` rotates `X-Api-Key`, drops `X-Tenant`, and changes nothing else.
             Send `customHeaders: null` to clear every header in one call. That does not collide with a `null` value on a name: one names the header to delete, the other names the whole field. Names are case-insensitive, so a `null` under one casing deletes a header stored under another, and names are stored and returned lowercased.
-            Same rules as on create: string values only, `Content-Type`/`Authorization`/ `Content-Length`/`Host` reserved, resulting set under 16 KB, values write-only.
+            Same rules as on create: string values only, `Content-Type`/`Content-Length`/`Host` reserved, resulting set under 16 KB, values write-only.
           example:
             x-api-key: gateway-key
             x-tenant: null
@@ -60010,7 +60179,7 @@ components:
       additionalProperties:
         description: "A string, sent as one header line, or an array of strings, sent\
           \ as one header line per element, or `null` to delete the header. A string\
-          \ may be empty. Values are at most 1024 characters and must not contain\
+          \ may be empty. A value has no length limit of its own and must not contain\
           \ control characters. An array must not be empty and is not accepted for\
           \ `Cookie`."
         example: abc123
@@ -60018,7 +60187,7 @@ components:
         A delta applied to the delivery headers. A header with a value is added or replaced, a header with `null` is deleted, and one you leave out is untouched. A value replaces what is stored under that name rather than adding to it, so an array is the complete new set of lines for that header.
         Send `customHeaders: null` to clear every header in one call. That does not collide with a `null` value on a name: one names the header to delete, the other names the whole field.
         Names are case-insensitive, so a `null` under one casing deletes a header stored under another.
-        Same rules as on create: string or non-empty array, `Cookie` string-only, 10 lines total in the resulting set, the same reserved names, and values write-only. Entries set to `null` do not count towards the limit.
+        Same rules as on create: string or non-empty array, `Cookie` string-only, 10 lines total and under 16 KB in the resulting set, the same reserved names, and values write-only. Entries set to `null` do not count towards the limit.
       example:
         X-Gateway-Key: abc123
         X-Forwarded-For:
@@ -60029,17 +60198,10 @@ components:
       type: object
     UpdateWebhookRequest:
       example:
+        webhookOauthId: 123e4567-e89b-12d3-a456-426614174000
         description: This webhook is used for transactions notifications
         mtls:
           clientSignedCert: |-
-            -----BEGIN CERTIFICATE-----
-            ...
-            -----END CERTIFICATE-----
-        oauth:
-          clientId: my-client-id
-          clientSecret: my-client-secret
-          url: https://auth.example.com/oauth/token
-          mtlsClientSignedCert: |-
             -----BEGIN CERTIFICATE-----
             ...
             -----END CERTIFICATE-----
@@ -60081,21 +60243,28 @@ components:
           type: boolean
         mtls:
           $ref: "#/components/schemas/WebhookMtls"
-        oauth:
-          $ref: "#/components/schemas/WebhookOAuth"
+        webhookOauthId:
+          description: "The id of the OAuth credentials this webhook authenticates\
+            \ with, from `/v1/webhooks_settings/oauth`. Several webhooks may share\
+            \ one credential set, so rotating its client secret covers all of them\
+            \ at once. Send `null` to stop using OAuth for this webhook."
+          example: 123e4567-e89b-12d3-a456-426614174000
+          format: uuid
+          nullable: true
+          type: string
         customHeaders:
           additionalProperties:
             description: "A string, sent as one header line, or an array of strings,\
               \ sent as one header line per element, or `null` to delete the header.\
-              \ A string may be empty. Values are at most 1024 characters and must\
-              \ not contain control characters. An array must not be empty and is\
-              \ not accepted for `Cookie`."
+              \ A string may be empty. A value has no length limit of its own and\
+              \ must not contain control characters. An array must not be empty and\
+              \ is not accepted for `Cookie`."
             example: abc123
           description: |-
             A delta applied to the delivery headers. A header with a value is added or replaced, a header with `null` is deleted, and one you leave out is untouched. A value replaces what is stored under that name rather than adding to it, so an array is the complete new set of lines for that header.
             Send `customHeaders: null` to clear every header in one call. That does not collide with a `null` value on a name: one names the header to delete, the other names the whole field.
             Names are case-insensitive, so a `null` under one casing deletes a header stored under another.
-            Same rules as on create: string or non-empty array, `Cookie` string-only, 10 lines total in the resulting set, the same reserved names, and values write-only. Entries set to `null` do not count towards the limit.
+            Same rules as on create: string or non-empty array, `Cookie` string-only, 10 lines total and under 16 KB in the resulting set, the same reserved names, and values write-only. Entries set to `null` do not count towards the limit.
           example:
             X-Gateway-Key: abc123
             X-Forwarded-For:

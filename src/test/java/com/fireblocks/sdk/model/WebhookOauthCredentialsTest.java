@@ -15,14 +15,14 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for DeleteWebhookOAuthResponse */
-class DeleteWebhookOAuthResponseTest {
-    private final DeleteWebhookOAuthResponse model = new DeleteWebhookOAuthResponse();
+/** Model tests for WebhookOauthCredentials */
+class WebhookOauthCredentialsTest {
+    private final WebhookOauthCredentials model = new WebhookOauthCredentials();
 
-    /** Model tests for DeleteWebhookOAuthResponse */
+    /** Model tests for WebhookOauthCredentials */
     @Test
-    void testDeleteWebhookOAuthResponse() {
-        // TODO: test DeleteWebhookOAuthResponse
+    void testWebhookOauthCredentials() {
+        // TODO: test WebhookOauthCredentials
     }
 
     /** Test the property 'id' */
@@ -89,11 +89,5 @@ class DeleteWebhookOAuthResponseTest {
     @Test
     void updatedAtTest() {
         // TODO: test updatedAt
-    }
-
-    /** Test the property 'detachedWebhookIds' */
-    @Test
-    void detachedWebhookIdsTest() {
-        // TODO: test detachedWebhookIds
     }
 }

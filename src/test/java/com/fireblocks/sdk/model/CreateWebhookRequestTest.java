@@ -55,10 +55,10 @@ class CreateWebhookRequestTest {
         // TODO: test mtls
     }
 
-    /** Test the property 'oauth' */
+    /** Test the property 'webhookOauthId' */
     @Test
-    void oauthTest() {
-        // TODO: test oauth
+    void webhookOauthIdTest() {
+        // TODO: test webhookOauthId
     }
 
     /** Test the property 'customHeaders' */

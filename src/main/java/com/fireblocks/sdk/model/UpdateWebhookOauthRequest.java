@@ -33,20 +33,20 @@ import java.util.StringJoiner;
  * &#x60;mtlsClientSignedCert&#x60; is a scalar, so &#x60;null&#x60; there does remove it.
  */
 @JsonPropertyOrder({
-    UpdateWebhookOAuthRequest.JSON_PROPERTY_NAME,
-    UpdateWebhookOAuthRequest.JSON_PROPERTY_CLIENT_ID,
-    UpdateWebhookOAuthRequest.JSON_PROPERTY_CLIENT_SECRET,
-    UpdateWebhookOAuthRequest.JSON_PROPERTY_URL,
-    UpdateWebhookOAuthRequest.JSON_PROPERTY_AUTH_METHOD,
-    UpdateWebhookOAuthRequest.JSON_PROPERTY_CUSTOM_JWT_CLAIMS,
-    UpdateWebhookOAuthRequest.JSON_PROPERTY_CUSTOM_BODY_PARAMS,
-    UpdateWebhookOAuthRequest.JSON_PROPERTY_CUSTOM_HEADERS,
-    UpdateWebhookOAuthRequest.JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT
+    UpdateWebhookOauthRequest.JSON_PROPERTY_NAME,
+    UpdateWebhookOauthRequest.JSON_PROPERTY_CLIENT_ID,
+    UpdateWebhookOauthRequest.JSON_PROPERTY_CLIENT_SECRET,
+    UpdateWebhookOauthRequest.JSON_PROPERTY_URL,
+    UpdateWebhookOauthRequest.JSON_PROPERTY_AUTH_METHOD,
+    UpdateWebhookOauthRequest.JSON_PROPERTY_CUSTOM_JWT_CLAIMS,
+    UpdateWebhookOauthRequest.JSON_PROPERTY_CUSTOM_BODY_PARAMS,
+    UpdateWebhookOauthRequest.JSON_PROPERTY_CUSTOM_HEADERS,
+    UpdateWebhookOauthRequest.JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class UpdateWebhookOAuthRequest {
+public class UpdateWebhookOauthRequest {
     public static final String JSON_PROPERTY_NAME = "name";
     @jakarta.annotation.Nullable private String name;
 
@@ -74,9 +74,9 @@ public class UpdateWebhookOAuthRequest {
     public static final String JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT = "mtlsClientSignedCert";
     @jakarta.annotation.Nullable private String mtlsClientSignedCert;
 
-    public UpdateWebhookOAuthRequest() {}
+    public UpdateWebhookOauthRequest() {}
 
-    public UpdateWebhookOAuthRequest name(@jakarta.annotation.Nullable String name) {
+    public UpdateWebhookOauthRequest name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -99,7 +99,7 @@ public class UpdateWebhookOAuthRequest {
         this.name = name;
     }
 
-    public UpdateWebhookOAuthRequest clientId(@jakarta.annotation.Nullable String clientId) {
+    public UpdateWebhookOauthRequest clientId(@jakarta.annotation.Nullable String clientId) {
         this.clientId = clientId;
         return this;
     }
@@ -122,7 +122,7 @@ public class UpdateWebhookOAuthRequest {
         this.clientId = clientId;
     }
 
-    public UpdateWebhookOAuthRequest clientSecret(
+    public UpdateWebhookOauthRequest clientSecret(
             @jakarta.annotation.Nullable String clientSecret) {
         this.clientSecret = clientSecret;
         return this;
@@ -149,7 +149,7 @@ public class UpdateWebhookOAuthRequest {
         this.clientSecret = clientSecret;
     }
 
-    public UpdateWebhookOAuthRequest url(@jakarta.annotation.Nullable String url) {
+    public UpdateWebhookOauthRequest url(@jakarta.annotation.Nullable String url) {
         this.url = url;
         return this;
     }
@@ -173,7 +173,7 @@ public class UpdateWebhookOAuthRequest {
         this.url = url;
     }
 
-    public UpdateWebhookOAuthRequest authMethod(@jakarta.annotation.Nullable String authMethod) {
+    public UpdateWebhookOauthRequest authMethod(@jakarta.annotation.Nullable String authMethod) {
         this.authMethod = authMethod;
         return this;
     }
@@ -198,13 +198,13 @@ public class UpdateWebhookOAuthRequest {
         this.authMethod = authMethod;
     }
 
-    public UpdateWebhookOAuthRequest customJwtClaims(
+    public UpdateWebhookOauthRequest customJwtClaims(
             @jakarta.annotation.Nullable Map<String, Object> customJwtClaims) {
         this.customJwtClaims = customJwtClaims;
         return this;
     }
 
-    public UpdateWebhookOAuthRequest putCustomJwtClaimsItem(
+    public UpdateWebhookOauthRequest putCustomJwtClaimsItem(
             String key, Object customJwtClaimsItem) {
         if (this.customJwtClaims == null) {
             this.customJwtClaims = new HashMap<>();
@@ -240,13 +240,13 @@ public class UpdateWebhookOAuthRequest {
         this.customJwtClaims = customJwtClaims;
     }
 
-    public UpdateWebhookOAuthRequest customBodyParams(
+    public UpdateWebhookOauthRequest customBodyParams(
             @jakarta.annotation.Nullable Map<String, String> customBodyParams) {
         this.customBodyParams = customBodyParams;
         return this;
     }
 
-    public UpdateWebhookOAuthRequest putCustomBodyParamsItem(
+    public UpdateWebhookOauthRequest putCustomBodyParamsItem(
             String key, String customBodyParamsItem) {
         if (this.customBodyParams == null) {
             this.customBodyParams = new HashMap<>();
@@ -283,13 +283,13 @@ public class UpdateWebhookOAuthRequest {
         this.customBodyParams = customBodyParams;
     }
 
-    public UpdateWebhookOAuthRequest customHeaders(
+    public UpdateWebhookOauthRequest customHeaders(
             @jakarta.annotation.Nullable Map<String, String> customHeaders) {
         this.customHeaders = customHeaders;
         return this;
     }
 
-    public UpdateWebhookOAuthRequest putCustomHeadersItem(String key, String customHeadersItem) {
+    public UpdateWebhookOauthRequest putCustomHeadersItem(String key, String customHeadersItem) {
         if (this.customHeaders == null) {
             this.customHeaders = new HashMap<>();
         }
@@ -307,9 +307,8 @@ public class UpdateWebhookOAuthRequest {
      * names the header to delete, the other names the whole field. Names are case-insensitive, so a
      * &#x60;null&#x60; under one casing deletes a header stored under another, and names are stored
      * and returned lowercased. Same rules as on create: string values only,
-     * &#x60;Content-Type&#x60;/&#x60;Authorization&#x60;/
-     * &#x60;Content-Length&#x60;/&#x60;Host&#x60; reserved, resulting set under 16 KB, values
-     * write-only.
+     * &#x60;Content-Type&#x60;/&#x60;Content-Length&#x60;/&#x60;Host&#x60; reserved, resulting set
+     * under 16 KB, values write-only.
      *
      * @return customHeaders
      */
@@ -326,7 +325,7 @@ public class UpdateWebhookOAuthRequest {
         this.customHeaders = customHeaders;
     }
 
-    public UpdateWebhookOAuthRequest mtlsClientSignedCert(
+    public UpdateWebhookOauthRequest mtlsClientSignedCert(
             @jakarta.annotation.Nullable String mtlsClientSignedCert) {
         this.mtlsClientSignedCert = mtlsClientSignedCert;
         return this;
@@ -351,7 +350,7 @@ public class UpdateWebhookOAuthRequest {
         this.mtlsClientSignedCert = mtlsClientSignedCert;
     }
 
-    /** Return true if this UpdateWebhookOAuthRequest object is equal to o. */
+    /** Return true if this UpdateWebhookOauthRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -360,17 +359,17 @@ public class UpdateWebhookOAuthRequest {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        UpdateWebhookOAuthRequest updateWebhookOAuthRequest = (UpdateWebhookOAuthRequest) o;
-        return Objects.equals(this.name, updateWebhookOAuthRequest.name)
-                && Objects.equals(this.clientId, updateWebhookOAuthRequest.clientId)
-                && Objects.equals(this.clientSecret, updateWebhookOAuthRequest.clientSecret)
-                && Objects.equals(this.url, updateWebhookOAuthRequest.url)
-                && Objects.equals(this.authMethod, updateWebhookOAuthRequest.authMethod)
-                && Objects.equals(this.customJwtClaims, updateWebhookOAuthRequest.customJwtClaims)
-                && Objects.equals(this.customBodyParams, updateWebhookOAuthRequest.customBodyParams)
-                && Objects.equals(this.customHeaders, updateWebhookOAuthRequest.customHeaders)
+        UpdateWebhookOauthRequest updateWebhookOauthRequest = (UpdateWebhookOauthRequest) o;
+        return Objects.equals(this.name, updateWebhookOauthRequest.name)
+                && Objects.equals(this.clientId, updateWebhookOauthRequest.clientId)
+                && Objects.equals(this.clientSecret, updateWebhookOauthRequest.clientSecret)
+                && Objects.equals(this.url, updateWebhookOauthRequest.url)
+                && Objects.equals(this.authMethod, updateWebhookOauthRequest.authMethod)
+                && Objects.equals(this.customJwtClaims, updateWebhookOauthRequest.customJwtClaims)
+                && Objects.equals(this.customBodyParams, updateWebhookOauthRequest.customBodyParams)
+                && Objects.equals(this.customHeaders, updateWebhookOauthRequest.customHeaders)
                 && Objects.equals(
-                        this.mtlsClientSignedCert, updateWebhookOAuthRequest.mtlsClientSignedCert);
+                        this.mtlsClientSignedCert, updateWebhookOauthRequest.mtlsClientSignedCert);
     }
 
     @Override
@@ -390,7 +389,7 @@ public class UpdateWebhookOAuthRequest {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class UpdateWebhookOAuthRequest {\n");
+        sb.append("class UpdateWebhookOauthRequest {\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    clientId: ").append(toIndentedString(clientId)).append("\n");
         sb.append("    clientSecret: ").append(toIndentedString(clientSecret)).append("\n");

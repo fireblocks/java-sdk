@@ -360,4 +360,77 @@ public class ApprovalsBetaApi {
         }
         return localVarRequestBuilder;
     }
+    /**
+     * Reject an approval request Reject a pending approval request as the authenticated API user.
+     * No signature is required (unlike approve). The caller must be eligible to act on the request;
+     * rejecting finalizes the request as rejected per the approval policy. Endpoint Permission:
+     * Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+     *
+     * @param requestId The approval request ID. (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<Void>> rejectApproval(
+            String requestId, String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    rejectApprovalRequestBuilder(requestId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("rejectApproval", localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder rejectApprovalRequestBuilder(
+            String requestId, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("rejectApproval", "requestId", requestId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/approvals/{requestId}/reject"
+                        .replace("{requestId}", ApiClient.urlEncode(requestId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
 }

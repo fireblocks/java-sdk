@@ -77,4 +77,21 @@ public class ApprovalsBetaApiTest {
                         pageSize,
                         pageCursor);
     }
+
+    /**
+     * Reject an approval request
+     *
+     * <p>Reject a pending approval request as the authenticated API user. No signature is required
+     * (unlike approve). The caller must be eligible to act on the request; rejecting finalizes the
+     * request as rejected per the approval policy. Endpoint Permission: Owner, Admin, Non-Signing
+     * Admin, Approver, Signer, Security Admin.
+     */
+    @Test
+    public void rejectApprovalTest() {
+        String requestId = null;
+        String idempotencyKey = null;
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.rejectApproval(requestId, idempotencyKey);
+    }
 }

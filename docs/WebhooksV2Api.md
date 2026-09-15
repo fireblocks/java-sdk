@@ -5,9 +5,9 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**createWebhook**](WebhooksV2Api.md#createWebhook) | **POST** /webhooks | Create a new webhook |
-| [**createWebhookOAuth**](WebhooksV2Api.md#createWebhookOAuth) | **POST** /webhooks_settings/oauth | Create OAuth credentials |
+| [**createWebhookOauth**](WebhooksV2Api.md#createWebhookOauth) | **POST** /webhooks_settings/oauth | Create OAuth credentials |
 | [**deleteWebhook**](WebhooksV2Api.md#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook |
-| [**deleteWebhookOAuth**](WebhooksV2Api.md#deleteWebhookOAuth) | **DELETE** /webhooks_settings/oauth/{webhookOauthId} | Delete OAuth credentials |
+| [**deleteWebhookOauth**](WebhooksV2Api.md#deleteWebhookOauth) | **DELETE** /webhooks_settings/oauth/{webhookOauthId} | Delete OAuth credentials |
 | [**getMetrics**](WebhooksV2Api.md#getMetrics) | **GET** /webhooks/{webhookId}/metrics/{metricName} | Get webhook metrics |
 | [**getMtlsCsr**](WebhooksV2Api.md#getMtlsCsr) | **GET** /webhooks/mtls/csr | Get mTLS CSR |
 | [**getNotification**](WebhooksV2Api.md#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id |
@@ -16,15 +16,15 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getResendByQueryJobStatus**](WebhooksV2Api.md#getResendByQueryJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_by_query/jobs/{jobId} | Get resend by query job status |
 | [**getResendJobStatus**](WebhooksV2Api.md#getResendJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_failed/jobs/{jobId} | Get resend job status |
 | [**getWebhook**](WebhooksV2Api.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id |
-| [**getWebhookOAuth**](WebhooksV2Api.md#getWebhookOAuth) | **GET** /webhooks_settings/oauth/{webhookOauthId} | Get OAuth credentials by id |
-| [**getWebhookOAuths**](WebhooksV2Api.md#getWebhookOAuths) | **GET** /webhooks_settings/oauth | Get all OAuth credentials |
+| [**getWebhookOauth**](WebhooksV2Api.md#getWebhookOauth) | **GET** /webhooks_settings/oauth/{webhookOauthId} | Get OAuth credentials by id |
+| [**getWebhookOauths**](WebhooksV2Api.md#getWebhookOauths) | **GET** /webhooks_settings/oauth | Get all OAuth credentials |
 | [**getWebhooks**](WebhooksV2Api.md#getWebhooks) | **GET** /webhooks | Get all webhooks |
 | [**resendFailedNotifications**](WebhooksV2Api.md#resendFailedNotifications) | **POST** /webhooks/{webhookId}/notifications/resend_failed | Resend failed notifications |
 | [**resendNotificationById**](WebhooksV2Api.md#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id |
 | [**resendNotificationsByQuery**](WebhooksV2Api.md#resendNotificationsByQuery) | **POST** /webhooks/{webhookId}/notifications/resend_by_query | Resend notifications by query |
 | [**resendNotificationsByResourceId**](WebhooksV2Api.md#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id |
 | [**updateWebhook**](WebhooksV2Api.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook |
-| [**updateWebhookOAuth**](WebhooksV2Api.md#updateWebhookOAuth) | **PATCH** /webhooks_settings/oauth/{webhookOauthId} | Update OAuth credentials |
+| [**updateWebhookOauth**](WebhooksV2Api.md#updateWebhookOauth) | **PATCH** /webhooks_settings/oauth/{webhookOauthId} | Update OAuth credentials |
 
 
 
@@ -107,9 +107,9 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## createWebhookOAuth
+## createWebhookOauth
 
-> CompletableFuture<ApiResponse<WebhookOAuthCredentials>> createWebhookOAuth createWebhookOAuth(createWebhookOAuthRequest, idempotencyKey)
+> CompletableFuture<ApiResponse<WebhookOauthCredentials>> createWebhookOauth createWebhookOauth(createWebhookOauthRequest, idempotencyKey)
 
 Create OAuth credentials
 
@@ -138,16 +138,16 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        CreateWebhookOAuthRequest createWebhookOAuthRequest = new CreateWebhookOAuthRequest(); // CreateWebhookOAuthRequest | 
+        CreateWebhookOauthRequest createWebhookOauthRequest = new CreateWebhookOauthRequest(); // CreateWebhookOauthRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response = fireblocks.webhooksV2().createWebhookOAuth(createWebhookOAuthRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<WebhookOauthCredentials>> response = fireblocks.webhooksV2().createWebhookOauth(createWebhookOauthRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling WebhooksV2Api#createWebhookOAuth");
+            System.err.println("Exception when calling WebhooksV2Api#createWebhookOauth");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -162,12 +162,12 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **createWebhookOAuthRequest** | [**CreateWebhookOAuthRequest**](CreateWebhookOAuthRequest.md)|  | |
+| **createWebhookOauthRequest** | [**CreateWebhookOauthRequest**](CreateWebhookOauthRequest.md)|  | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**WebhookOAuthCredentials**](WebhookOAuthCredentials.md)>>
+CompletableFuture<ApiResponse<[**WebhookOauthCredentials**](WebhookOauthCredentials.md)>>
 
 
 ### Authorization
@@ -263,9 +263,9 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## deleteWebhookOAuth
+## deleteWebhookOauth
 
-> CompletableFuture<ApiResponse<DeleteWebhookOAuthResponse>> deleteWebhookOAuth deleteWebhookOAuth(webhookOauthId, forceDelete)
+> CompletableFuture<ApiResponse<DeleteWebhookOauthResponse>> deleteWebhookOauth deleteWebhookOauth(webhookOauthId, forceDelete)
 
 Delete OAuth credentials
 
@@ -297,13 +297,13 @@ public class Example {
         UUID webhookOauthId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the OAuth credentials
         Boolean forceDelete = false; // Boolean | Delete the credentials even while webhooks still reference them, detaching those webhooks instead of refusing. Leave it unset, or `false`, to get a `409 Conflict` whenever anything still references the credentials.
         try {
-            CompletableFuture<ApiResponse<DeleteWebhookOAuthResponse>> response = fireblocks.webhooksV2().deleteWebhookOAuth(webhookOauthId, forceDelete);
+            CompletableFuture<ApiResponse<DeleteWebhookOauthResponse>> response = fireblocks.webhooksV2().deleteWebhookOauth(webhookOauthId, forceDelete);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling WebhooksV2Api#deleteWebhookOAuth");
+            System.err.println("Exception when calling WebhooksV2Api#deleteWebhookOauth");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -323,7 +323,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**DeleteWebhookOAuthResponse**](DeleteWebhookOAuthResponse.md)>>
+CompletableFuture<ApiResponse<[**DeleteWebhookOauthResponse**](DeleteWebhookOauthResponse.md)>>
 
 
 ### Authorization
@@ -989,9 +989,9 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## getWebhookOAuth
+## getWebhookOauth
 
-> CompletableFuture<ApiResponse<WebhookOAuthCredentials>> getWebhookOAuth getWebhookOAuth(webhookOauthId)
+> CompletableFuture<ApiResponse<WebhookOauthCredentials>> getWebhookOauth getWebhookOauth(webhookOauthId)
 
 Get OAuth credentials by id
 
@@ -1022,13 +1022,13 @@ public class Example {
 
         UUID webhookOauthId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the OAuth credentials
         try {
-            CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response = fireblocks.webhooksV2().getWebhookOAuth(webhookOauthId);
+            CompletableFuture<ApiResponse<WebhookOauthCredentials>> response = fireblocks.webhooksV2().getWebhookOauth(webhookOauthId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling WebhooksV2Api#getWebhookOAuth");
+            System.err.println("Exception when calling WebhooksV2Api#getWebhookOauth");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -1047,7 +1047,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**WebhookOAuthCredentials**](WebhookOAuthCredentials.md)>>
+CompletableFuture<ApiResponse<[**WebhookOauthCredentials**](WebhookOauthCredentials.md)>>
 
 
 ### Authorization
@@ -1066,9 +1066,9 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## getWebhookOAuths
+## getWebhookOauths
 
-> CompletableFuture<ApiResponse<List<WebhookOAuthCredentials>>> getWebhookOAuths getWebhookOAuths()
+> CompletableFuture<ApiResponse<List<WebhookOauthCredentials>>> getWebhookOauths getWebhookOauths()
 
 Get all OAuth credentials
 
@@ -1098,13 +1098,13 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         try {
-            CompletableFuture<ApiResponse<List<WebhookOAuthCredentials>>> response = fireblocks.webhooksV2().getWebhookOAuths();
+            CompletableFuture<ApiResponse<List<WebhookOauthCredentials>>> response = fireblocks.webhooksV2().getWebhookOauths();
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling WebhooksV2Api#getWebhookOAuths");
+            System.err.println("Exception when calling WebhooksV2Api#getWebhookOauths");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -1120,7 +1120,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**List&lt;WebhookOAuthCredentials&gt;**](WebhookOAuthCredentials.md)>>
+CompletableFuture<ApiResponse<[**List&lt;WebhookOauthCredentials&gt;**](WebhookOauthCredentials.md)>>
 
 
 ### Authorization
@@ -1623,9 +1623,9 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## updateWebhookOAuth
+## updateWebhookOauth
 
-> CompletableFuture<ApiResponse<WebhookOAuthCredentials>> updateWebhookOAuth updateWebhookOAuth(updateWebhookOAuthRequest, webhookOauthId)
+> CompletableFuture<ApiResponse<WebhookOauthCredentials>> updateWebhookOauth updateWebhookOauth(updateWebhookOauthRequest, webhookOauthId)
 
 Update OAuth credentials
 
@@ -1654,16 +1654,16 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        UpdateWebhookOAuthRequest updateWebhookOAuthRequest = new UpdateWebhookOAuthRequest(); // UpdateWebhookOAuthRequest | 
+        UpdateWebhookOauthRequest updateWebhookOauthRequest = new UpdateWebhookOauthRequest(); // UpdateWebhookOauthRequest | 
         UUID webhookOauthId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the OAuth credentials
         try {
-            CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response = fireblocks.webhooksV2().updateWebhookOAuth(updateWebhookOAuthRequest, webhookOauthId);
+            CompletableFuture<ApiResponse<WebhookOauthCredentials>> response = fireblocks.webhooksV2().updateWebhookOauth(updateWebhookOauthRequest, webhookOauthId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling WebhooksV2Api#updateWebhookOAuth");
+            System.err.println("Exception when calling WebhooksV2Api#updateWebhookOauth");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -1678,12 +1678,12 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **updateWebhookOAuthRequest** | [**UpdateWebhookOAuthRequest**](UpdateWebhookOAuthRequest.md)|  | |
+| **updateWebhookOauthRequest** | [**UpdateWebhookOauthRequest**](UpdateWebhookOauthRequest.md)|  | |
 | **webhookOauthId** | **UUID**| The unique identifier of the OAuth credentials | |
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**WebhookOAuthCredentials**](WebhookOAuthCredentials.md)>>
+CompletableFuture<ApiResponse<[**WebhookOauthCredentials**](WebhookOauthCredentials.md)>>
 
 
 ### Authorization
