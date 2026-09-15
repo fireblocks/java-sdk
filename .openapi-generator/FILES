@@ -348,7 +348,7 @@ docs/CreateVaultAccountConnectionRequest.md
 docs/CreateVaultAccountRequest.md
 docs/CreateVaultAssetResponse.md
 docs/CreateWalletRequest.md
-docs/CreateWebhookOAuthRequest.md
+docs/CreateWebhookOauthRequest.md
 docs/CreateWebhookRequest.md
 docs/CreateWorkflowExecutionRequestParamsInner.md
 docs/CustomRoutingDest.md
@@ -362,7 +362,7 @@ docs/DelegationBlockchainPositionInfo.md
 docs/DelegationSummary.md
 docs/DeleteNetworkConnectionResponse.md
 docs/DeleteNetworkIdResponse.md
-docs/DeleteWebhookOAuthResponse.md
+docs/DeleteWebhookOauthResponse.md
 docs/DeployLayerZeroAdaptersRequest.md
 docs/DeployableAddressResponse.md
 docs/DeployedContractNotFoundError.md
@@ -1237,6 +1237,8 @@ docs/UpdateAutomationSettingsRequest.md
 docs/UpdateBlockchainResponse.md
 docs/UpdateCallbackHandlerRequest.md
 docs/UpdateCallbackHandlerResponse.md
+docs/UpdateConnectedAccountCredentialsRequest.md
+docs/UpdateConnectedAccountCredentialsResponse.md
 docs/UpdateCounterpartyGroupRequest.md
 docs/UpdateDraftRequest.md
 docs/UpdateFindingExternalRequest.md
@@ -1245,7 +1247,7 @@ docs/UpdateTagRequest.md
 docs/UpdateTokenOwnershipStatusDto.md
 docs/UpdateVaultAccountAssetAddressRequest.md
 docs/UpdateVaultAccountRequest.md
-docs/UpdateWebhookOAuthRequest.md
+docs/UpdateWebhookOauthRequest.md
 docs/UpdateWebhookRequest.md
 docs/UsWirePaymentInfo.md
 docs/UsdcGatewayWalletAsset.md
@@ -1296,9 +1298,7 @@ docs/WebhookEvent.md
 docs/WebhookMetric.md
 docs/WebhookMtls.md
 docs/WebhookMtlsCsrResponse.md
-docs/WebhookOAuth.md
-docs/WebhookOAuthCredentials.md
-docs/WebhookOAuthResponse.md
+docs/WebhookOauthCredentials.md
 docs/WebhookPaginatedResponse.md
 docs/WebhooksApi.md
 docs/WebhooksV2Api.md
@@ -1724,7 +1724,7 @@ src/main/java/com/fireblocks/sdk/model/CreateVaultAccountConnectionRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateVaultAccountRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateVaultAssetResponse.java
 src/main/java/com/fireblocks/sdk/model/CreateWalletRequest.java
-src/main/java/com/fireblocks/sdk/model/CreateWebhookOAuthRequest.java
+src/main/java/com/fireblocks/sdk/model/CreateWebhookOauthRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateWebhookRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateWorkflowExecutionRequestParamsInner.java
 src/main/java/com/fireblocks/sdk/model/CustomRoutingDest.java
@@ -1738,7 +1738,7 @@ src/main/java/com/fireblocks/sdk/model/DelegationBlockchainPositionInfo.java
 src/main/java/com/fireblocks/sdk/model/DelegationSummary.java
 src/main/java/com/fireblocks/sdk/model/DeleteNetworkConnectionResponse.java
 src/main/java/com/fireblocks/sdk/model/DeleteNetworkIdResponse.java
-src/main/java/com/fireblocks/sdk/model/DeleteWebhookOAuthResponse.java
+src/main/java/com/fireblocks/sdk/model/DeleteWebhookOauthResponse.java
 src/main/java/com/fireblocks/sdk/model/DeployLayerZeroAdaptersRequest.java
 src/main/java/com/fireblocks/sdk/model/DeployableAddressResponse.java
 src/main/java/com/fireblocks/sdk/model/DeployedContractNotFoundError.java
@@ -2582,6 +2582,8 @@ src/main/java/com/fireblocks/sdk/model/UpdateAutomationSettingsRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateBlockchainResponse.java
 src/main/java/com/fireblocks/sdk/model/UpdateCallbackHandlerRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateCallbackHandlerResponse.java
+src/main/java/com/fireblocks/sdk/model/UpdateConnectedAccountCredentialsRequest.java
+src/main/java/com/fireblocks/sdk/model/UpdateConnectedAccountCredentialsResponse.java
 src/main/java/com/fireblocks/sdk/model/UpdateCounterpartyGroupRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateDraftRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateFindingExternalRequest.java
@@ -2590,7 +2592,7 @@ src/main/java/com/fireblocks/sdk/model/UpdateTagRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateTokenOwnershipStatusDto.java
 src/main/java/com/fireblocks/sdk/model/UpdateVaultAccountAssetAddressRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateVaultAccountRequest.java
-src/main/java/com/fireblocks/sdk/model/UpdateWebhookOAuthRequest.java
+src/main/java/com/fireblocks/sdk/model/UpdateWebhookOauthRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateWebhookRequest.java
 src/main/java/com/fireblocks/sdk/model/UsWirePaymentInfo.java
 src/main/java/com/fireblocks/sdk/model/UsdcGatewayWalletAsset.java
@@ -2636,9 +2638,7 @@ src/main/java/com/fireblocks/sdk/model/WebhookEvent.java
 src/main/java/com/fireblocks/sdk/model/WebhookMetric.java
 src/main/java/com/fireblocks/sdk/model/WebhookMtls.java
 src/main/java/com/fireblocks/sdk/model/WebhookMtlsCsrResponse.java
-src/main/java/com/fireblocks/sdk/model/WebhookOAuth.java
-src/main/java/com/fireblocks/sdk/model/WebhookOAuthCredentials.java
-src/main/java/com/fireblocks/sdk/model/WebhookOAuthResponse.java
+src/main/java/com/fireblocks/sdk/model/WebhookOauthCredentials.java
 src/main/java/com/fireblocks/sdk/model/WebhookPaginatedResponse.java
 src/main/java/com/fireblocks/sdk/model/WithdrawRequest.java
 src/main/java/com/fireblocks/sdk/model/WorkflowConfigStatus.java
@@ -3037,7 +3037,7 @@ src/test/java/com/fireblocks/sdk/model/CreateVaultAccountConnectionRequestTest.j
 src/test/java/com/fireblocks/sdk/model/CreateVaultAccountRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateVaultAssetResponseTest.java
 src/test/java/com/fireblocks/sdk/model/CreateWalletRequestTest.java
-src/test/java/com/fireblocks/sdk/model/CreateWebhookOAuthRequestTest.java
+src/test/java/com/fireblocks/sdk/model/CreateWebhookOauthRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateWebhookRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateWorkflowExecutionRequestParamsInnerTest.java
 src/test/java/com/fireblocks/sdk/model/CustomRoutingDestTest.java
@@ -3051,7 +3051,7 @@ src/test/java/com/fireblocks/sdk/model/DelegationSummaryTest.java
 src/test/java/com/fireblocks/sdk/model/DelegationTest.java
 src/test/java/com/fireblocks/sdk/model/DeleteNetworkConnectionResponseTest.java
 src/test/java/com/fireblocks/sdk/model/DeleteNetworkIdResponseTest.java
-src/test/java/com/fireblocks/sdk/model/DeleteWebhookOAuthResponseTest.java
+src/test/java/com/fireblocks/sdk/model/DeleteWebhookOauthResponseTest.java
 src/test/java/com/fireblocks/sdk/model/DeployLayerZeroAdaptersRequestTest.java
 src/test/java/com/fireblocks/sdk/model/DeployableAddressResponseTest.java
 src/test/java/com/fireblocks/sdk/model/DeployedContractNotFoundErrorTest.java
@@ -3895,6 +3895,8 @@ src/test/java/com/fireblocks/sdk/model/UpdateAutomationSettingsRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateBlockchainResponseTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateCallbackHandlerRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateCallbackHandlerResponseTest.java
+src/test/java/com/fireblocks/sdk/model/UpdateConnectedAccountCredentialsRequestTest.java
+src/test/java/com/fireblocks/sdk/model/UpdateConnectedAccountCredentialsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateCounterpartyGroupRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateDraftRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateFindingExternalRequestTest.java
@@ -3903,7 +3905,7 @@ src/test/java/com/fireblocks/sdk/model/UpdateTagRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateTokenOwnershipStatusDtoTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateVaultAccountAssetAddressRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateVaultAccountRequestTest.java
-src/test/java/com/fireblocks/sdk/model/UpdateWebhookOAuthRequestTest.java
+src/test/java/com/fireblocks/sdk/model/UpdateWebhookOauthRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateWebhookRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UsWirePaymentInfoTest.java
 src/test/java/com/fireblocks/sdk/model/UsdcGatewayWalletAssetTest.java
@@ -3948,9 +3950,7 @@ src/test/java/com/fireblocks/sdk/model/WebhookEventTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookMetricTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookMtlsCsrResponseTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookMtlsTest.java
-src/test/java/com/fireblocks/sdk/model/WebhookOAuthCredentialsTest.java
-src/test/java/com/fireblocks/sdk/model/WebhookOAuthResponseTest.java
-src/test/java/com/fireblocks/sdk/model/WebhookOAuthTest.java
+src/test/java/com/fireblocks/sdk/model/WebhookOauthCredentialsTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookPaginatedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookTest.java
 src/test/java/com/fireblocks/sdk/model/WithdrawRequestTest.java

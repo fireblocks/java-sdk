@@ -14,9 +14,9 @@ package com.fireblocks.sdk.api;
 
 
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.model.CreateWebhookOAuthRequest;
+import com.fireblocks.sdk.model.CreateWebhookOauthRequest;
 import com.fireblocks.sdk.model.CreateWebhookRequest;
-import com.fireblocks.sdk.model.DeleteWebhookOAuthResponse;
+import com.fireblocks.sdk.model.DeleteWebhookOauthResponse;
 import com.fireblocks.sdk.model.NotificationAttemptsPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationStatus;
@@ -27,13 +27,13 @@ import com.fireblocks.sdk.model.ResendFailedNotificationsJobStatusResponse;
 import com.fireblocks.sdk.model.ResendFailedNotificationsRequest;
 import com.fireblocks.sdk.model.ResendFailedNotificationsResponse;
 import com.fireblocks.sdk.model.ResendNotificationsByResourceIdRequest;
-import com.fireblocks.sdk.model.UpdateWebhookOAuthRequest;
+import com.fireblocks.sdk.model.UpdateWebhookOauthRequest;
 import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
 import com.fireblocks.sdk.model.WebhookEvent;
 import com.fireblocks.sdk.model.WebhookMetric;
 import com.fireblocks.sdk.model.WebhookMtlsCsrResponse;
-import com.fireblocks.sdk.model.WebhookOAuthCredentials;
+import com.fireblocks.sdk.model.WebhookOauthCredentials;
 import com.fireblocks.sdk.model.WebhookPaginatedResponse;
 import java.math.BigDecimal;
 import java.util.List;
@@ -72,11 +72,11 @@ public class WebhooksV2ApiTest {
      * Admin.
      */
     @Test
-    public void createWebhookOAuthTest() {
-        CreateWebhookOAuthRequest createWebhookOAuthRequest = null;
+    public void createWebhookOauthTest() {
+        CreateWebhookOauthRequest createWebhookOauthRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response =
-                api.createWebhookOAuth(createWebhookOAuthRequest, idempotencyKey);
+        CompletableFuture<ApiResponse<WebhookOauthCredentials>> response =
+                api.createWebhookOauth(createWebhookOauthRequest, idempotencyKey);
     }
 
     /**
@@ -108,11 +108,11 @@ public class WebhooksV2ApiTest {
      * Owner, Admin, Non-Signing Admin.
      */
     @Test
-    public void deleteWebhookOAuthTest() {
+    public void deleteWebhookOauthTest() {
         UUID webhookOauthId = null;
         Boolean forceDelete = null;
-        CompletableFuture<ApiResponse<DeleteWebhookOAuthResponse>> response =
-                api.deleteWebhookOAuth(webhookOauthId, forceDelete);
+        CompletableFuture<ApiResponse<DeleteWebhookOauthResponse>> response =
+                api.deleteWebhookOauth(webhookOauthId, forceDelete);
     }
 
     /**
@@ -242,10 +242,10 @@ public class WebhooksV2ApiTest {
      * <p>Retrieve an OAuth credential set by its id. The client secret is never returned.
      */
     @Test
-    public void getWebhookOAuthTest() {
+    public void getWebhookOauthTest() {
         UUID webhookOauthId = null;
-        CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response =
-                api.getWebhookOAuth(webhookOauthId);
+        CompletableFuture<ApiResponse<WebhookOauthCredentials>> response =
+                api.getWebhookOauth(webhookOauthId);
     }
 
     /**
@@ -254,9 +254,9 @@ public class WebhooksV2ApiTest {
      * <p>Lists every OAuth credential set for the workspace. Client secrets are never returned.
      */
     @Test
-    public void getWebhookOAuthsTest() {
-        CompletableFuture<ApiResponse<List<WebhookOAuthCredentials>>> response =
-                api.getWebhookOAuths();
+    public void getWebhookOauthsTest() {
+        CompletableFuture<ApiResponse<List<WebhookOauthCredentials>>> response =
+                api.getWebhookOauths();
     }
 
     /**
@@ -369,10 +369,10 @@ public class WebhooksV2ApiTest {
      * does remove it. **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
      */
     @Test
-    public void updateWebhookOAuthTest() {
-        UpdateWebhookOAuthRequest updateWebhookOAuthRequest = null;
+    public void updateWebhookOauthTest() {
+        UpdateWebhookOauthRequest updateWebhookOauthRequest = null;
         UUID webhookOauthId = null;
-        CompletableFuture<ApiResponse<WebhookOAuthCredentials>> response =
-                api.updateWebhookOAuth(updateWebhookOAuthRequest, webhookOauthId);
+        CompletableFuture<ApiResponse<WebhookOauthCredentials>> response =
+                api.updateWebhookOauth(updateWebhookOauthRequest, webhookOauthId);
     }
 }

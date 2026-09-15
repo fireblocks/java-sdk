@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.UUID;
 
 /** CreateWebhookRequest */
 @JsonPropertyOrder({
@@ -32,7 +33,7 @@ import java.util.StringJoiner;
     CreateWebhookRequest.JSON_PROPERTY_EVENTS,
     CreateWebhookRequest.JSON_PROPERTY_ENABLED,
     CreateWebhookRequest.JSON_PROPERTY_MTLS,
-    CreateWebhookRequest.JSON_PROPERTY_OAUTH,
+    CreateWebhookRequest.JSON_PROPERTY_WEBHOOK_OAUTH_ID,
     CreateWebhookRequest.JSON_PROPERTY_CUSTOM_HEADERS
 })
 @jakarta.annotation.Generated(
@@ -54,8 +55,8 @@ public class CreateWebhookRequest {
     public static final String JSON_PROPERTY_MTLS = "mtls";
     @jakarta.annotation.Nullable private WebhookMtls mtls;
 
-    public static final String JSON_PROPERTY_OAUTH = "oauth";
-    @jakarta.annotation.Nullable private WebhookOAuth oauth;
+    public static final String JSON_PROPERTY_WEBHOOK_OAUTH_ID = "webhookOauthId";
+    @jakarta.annotation.Nullable private UUID webhookOauthId;
 
     public static final String JSON_PROPERTY_CUSTOM_HEADERS = "customHeaders";
     @jakarta.annotation.Nullable private Map<String, Object> customHeaders;
@@ -194,27 +195,30 @@ public class CreateWebhookRequest {
         this.mtls = mtls;
     }
 
-    public CreateWebhookRequest oauth(@jakarta.annotation.Nullable WebhookOAuth oauth) {
-        this.oauth = oauth;
+    public CreateWebhookRequest webhookOauthId(@jakarta.annotation.Nullable UUID webhookOauthId) {
+        this.webhookOauthId = webhookOauthId;
         return this;
     }
 
     /**
-     * Get oauth
+     * The id of the OAuth credentials this webhook authenticates with, from
+     * &#x60;/v1/webhooks_settings/oauth&#x60;. Several webhooks may share one credential set, so
+     * rotating its client secret covers all of them at once. Send &#x60;null&#x60; to stop using
+     * OAuth for this webhook.
      *
-     * @return oauth
+     * @return webhookOauthId
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_OAUTH)
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_OAUTH_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public WebhookOAuth getOauth() {
-        return oauth;
+    public UUID getWebhookOauthId() {
+        return webhookOauthId;
     }
 
-    @JsonProperty(JSON_PROPERTY_OAUTH)
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_OAUTH_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOauth(@jakarta.annotation.Nullable WebhookOAuth oauth) {
-        this.oauth = oauth;
+    public void setWebhookOauthId(@jakarta.annotation.Nullable UUID webhookOauthId) {
+        this.webhookOauthId = webhookOauthId;
     }
 
     public CreateWebhookRequest customHeaders(
@@ -237,14 +241,15 @@ public class CreateWebhookRequest {
      * under the same name. &#x60;Cookie&#x60; accepts only a string. An empty array is rejected —
      * leave the name out instead. At most 10 header lines in total, counted per array element
      * rather than per name. Names must be valid HTTP header tokens, are case-insensitive, and are
-     * at most 128 characters. Values are at most 1024 characters and may be empty. Reserved names:
-     * &#x60;Host&#x60;, &#x60;Content-Type&#x60;, &#x60;Content-Length&#x60;,
+     * at most 128 characters. A value may be empty and has no length limit of its own; the whole
+     * object must be under 16 KB when serialized as UTF-8. A value that large may still be refused
+     * by your own endpoint, since web servers commonly cap the whole request header block at around
+     * 8 KB. Reserved names: &#x60;Host&#x60;, &#x60;Content-Type&#x60;, &#x60;Content-Length&#x60;,
      * &#x60;Transfer-Encoding&#x60;, &#x60;Connection&#x60;, &#x60;User-Agent&#x60;,
      * &#x60;Accept&#x60;, &#x60;Accept-Encoding&#x60;, &#x60;Fireblocks-Signature&#x60;,
-     * &#x60;Fireblocks-Webhook-Signature&#x60;, &#x60;Authorization&#x60;.
-     * &#x60;Authorization&#x60; is reserved whether or not this webhook has OAuth credentials
-     * attached, because Fireblocks sets it once it does. Values are write-only; responses return
-     * only the header names.
+     * &#x60;Fireblocks-Webhook-Signature&#x60;. When this webhook has OAuth credentials attached,
+     * an &#x60;Authorization&#x60; value you set and the bearer token are both sent as separate
+     * header lines. Values are write-only; responses return only the header names.
      *
      * @return customHeaders
      */
@@ -276,13 +281,13 @@ public class CreateWebhookRequest {
                 && Objects.equals(this.events, createWebhookRequest.events)
                 && Objects.equals(this.enabled, createWebhookRequest.enabled)
                 && Objects.equals(this.mtls, createWebhookRequest.mtls)
-                && Objects.equals(this.oauth, createWebhookRequest.oauth)
+                && Objects.equals(this.webhookOauthId, createWebhookRequest.webhookOauthId)
                 && Objects.equals(this.customHeaders, createWebhookRequest.customHeaders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(url, description, events, enabled, mtls, oauth, customHeaders);
+        return Objects.hash(url, description, events, enabled, mtls, webhookOauthId, customHeaders);
     }
 
     @Override
@@ -294,7 +299,7 @@ public class CreateWebhookRequest {
         sb.append("    events: ").append(toIndentedString(events)).append("\n");
         sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
         sb.append("    mtls: ").append(toIndentedString(mtls)).append("\n");
-        sb.append("    oauth: ").append(toIndentedString(oauth)).append("\n");
+        sb.append("    webhookOauthId: ").append(toIndentedString(webhookOauthId)).append("\n");
         sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -397,9 +402,14 @@ public class CreateWebhookRequest {
             joiner.add(getMtls().toUrlQueryString(prefix + "mtls" + suffix));
         }
 
-        // add `oauth` to the URL query string
-        if (getOauth() != null) {
-            joiner.add(getOauth().toUrlQueryString(prefix + "oauth" + suffix));
+        // add `webhookOauthId` to the URL query string
+        if (getWebhookOauthId() != null) {
+            joiner.add(
+                    String.format(
+                            "%swebhookOauthId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getWebhookOauthId()))));
         }
 
         // add `customHeaders` to the URL query string

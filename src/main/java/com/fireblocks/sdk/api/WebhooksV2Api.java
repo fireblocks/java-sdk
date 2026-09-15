@@ -20,9 +20,9 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
-import com.fireblocks.sdk.model.CreateWebhookOAuthRequest;
+import com.fireblocks.sdk.model.CreateWebhookOauthRequest;
 import com.fireblocks.sdk.model.CreateWebhookRequest;
-import com.fireblocks.sdk.model.DeleteWebhookOAuthResponse;
+import com.fireblocks.sdk.model.DeleteWebhookOauthResponse;
 import com.fireblocks.sdk.model.NotificationAttemptsPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationStatus;
@@ -33,13 +33,13 @@ import com.fireblocks.sdk.model.ResendFailedNotificationsJobStatusResponse;
 import com.fireblocks.sdk.model.ResendFailedNotificationsRequest;
 import com.fireblocks.sdk.model.ResendFailedNotificationsResponse;
 import com.fireblocks.sdk.model.ResendNotificationsByResourceIdRequest;
-import com.fireblocks.sdk.model.UpdateWebhookOAuthRequest;
+import com.fireblocks.sdk.model.UpdateWebhookOauthRequest;
 import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
 import com.fireblocks.sdk.model.WebhookEvent;
 import com.fireblocks.sdk.model.WebhookMetric;
 import com.fireblocks.sdk.model.WebhookMtlsCsrResponse;
-import com.fireblocks.sdk.model.WebhookOAuthCredentials;
+import com.fireblocks.sdk.model.WebhookOauthCredentials;
 import com.fireblocks.sdk.model.WebhookPaginatedResponse;
 import java.io.IOException;
 import java.io.InputStream;
@@ -215,18 +215,18 @@ public class WebhooksV2Api {
      * once. The client secret is write-only and is never returned. **Endpoint Permissions:** Owner,
      * Admin, Non-Signing Admin.
      *
-     * @param createWebhookOAuthRequest (required)
+     * @param createWebhookOauthRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;WebhookOAuthCredentials&gt;&gt;, which completes
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookOauthCredentials&gt;&gt;, which completes
      *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<WebhookOAuthCredentials>> createWebhookOAuth(
-            CreateWebhookOAuthRequest createWebhookOAuthRequest, String idempotencyKey) {
+    public CompletableFuture<ApiResponse<WebhookOauthCredentials>> createWebhookOauth(
+            CreateWebhookOauthRequest createWebhookOauthRequest, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    createWebhookOAuthRequestBuilder(createWebhookOAuthRequest, idempotencyKey);
+                    createWebhookOauthRequestBuilder(createWebhookOauthRequest, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -237,12 +237,12 @@ public class WebhooksV2Api {
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
-                                                    "createWebhookOAuth", localVarResponse));
+                                                    "createWebhookOauth", localVarResponse));
                                 }
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<WebhookOAuthCredentials>(
+                                            new ApiResponse<WebhookOauthCredentials>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -250,7 +250,7 @@ public class WebhooksV2Api {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            WebhookOAuthCredentials>() {})));
+                                                                            WebhookOauthCredentials>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -260,7 +260,7 @@ public class WebhooksV2Api {
                                     localVarThrowable == null
                                             ? CompletableFuture.completedFuture(localVarApiResponse)
                                             : CompletableFuture
-                                                    .<ApiResponse<WebhookOAuthCredentials>>
+                                                    .<ApiResponse<WebhookOauthCredentials>>
                                                             failedFuture(
                                                                     toApiFailure(
                                                                             localVarThrowable)))
@@ -270,11 +270,11 @@ public class WebhooksV2Api {
         }
     }
 
-    private HttpRequest.Builder createWebhookOAuthRequestBuilder(
-            CreateWebhookOAuthRequest createWebhookOAuthRequest, String idempotencyKey)
+    private HttpRequest.Builder createWebhookOauthRequestBuilder(
+            CreateWebhookOauthRequest createWebhookOauthRequest, String idempotencyKey)
             throws ApiException {
         ValidationUtils.assertParamExists(
-                "createWebhookOAuth", "createWebhookOAuthRequest", createWebhookOAuthRequest);
+                "createWebhookOauth", "createWebhookOauthRequest", createWebhookOauthRequest);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -290,7 +290,7 @@ public class WebhooksV2Api {
 
         try {
             byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(createWebhookOAuthRequest);
+                    memberVarObjectMapper.writeValueAsBytes(createWebhookOauthRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {
@@ -397,14 +397,14 @@ public class WebhooksV2Api {
      *     those webhooks instead of refusing. Leave it unset, or &#x60;false&#x60;, to get a
      *     &#x60;409 Conflict&#x60; whenever anything still references the credentials. (optional,
      *     default to false)
-     * @return CompletableFuture&lt;ApiResponse&lt;DeleteWebhookOAuthResponse&gt;&gt;, which
+     * @return CompletableFuture&lt;ApiResponse&lt;DeleteWebhookOauthResponse&gt;&gt;, which
      *     completes exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<DeleteWebhookOAuthResponse>> deleteWebhookOAuth(
+    public CompletableFuture<ApiResponse<DeleteWebhookOauthResponse>> deleteWebhookOauth(
             UUID webhookOauthId, Boolean forceDelete) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    deleteWebhookOAuthRequestBuilder(webhookOauthId, forceDelete);
+                    deleteWebhookOauthRequestBuilder(webhookOauthId, forceDelete);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -415,12 +415,12 @@ public class WebhooksV2Api {
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
-                                                    "deleteWebhookOAuth", localVarResponse));
+                                                    "deleteWebhookOauth", localVarResponse));
                                 }
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<DeleteWebhookOAuthResponse>(
+                                            new ApiResponse<DeleteWebhookOauthResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -428,7 +428,7 @@ public class WebhooksV2Api {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            DeleteWebhookOAuthResponse>() {})));
+                                                                            DeleteWebhookOauthResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -438,7 +438,7 @@ public class WebhooksV2Api {
                                     localVarThrowable == null
                                             ? CompletableFuture.completedFuture(localVarApiResponse)
                                             : CompletableFuture
-                                                    .<ApiResponse<DeleteWebhookOAuthResponse>>
+                                                    .<ApiResponse<DeleteWebhookOauthResponse>>
                                                             failedFuture(
                                                                     toApiFailure(
                                                                             localVarThrowable)))
@@ -448,10 +448,10 @@ public class WebhooksV2Api {
         }
     }
 
-    private HttpRequest.Builder deleteWebhookOAuthRequestBuilder(
+    private HttpRequest.Builder deleteWebhookOauthRequestBuilder(
             UUID webhookOauthId, Boolean forceDelete) throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty(
-                "deleteWebhookOAuth", "webhookOauthId", webhookOauthId.toString());
+                "deleteWebhookOauth", "webhookOauthId", webhookOauthId.toString());
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1245,14 +1245,14 @@ public class WebhooksV2Api {
      * never returned.
      *
      * @param webhookOauthId The unique identifier of the OAuth credentials (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;WebhookOAuthCredentials&gt;&gt;, which completes
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookOauthCredentials&gt;&gt;, which completes
      *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<WebhookOAuthCredentials>> getWebhookOAuth(
+    public CompletableFuture<ApiResponse<WebhookOauthCredentials>> getWebhookOauth(
             UUID webhookOauthId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    getWebhookOAuthRequestBuilder(webhookOauthId);
+                    getWebhookOauthRequestBuilder(webhookOauthId);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -1262,12 +1262,12 @@ public class WebhooksV2Api {
                                 }
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
-                                            getApiException("getWebhookOAuth", localVarResponse));
+                                            getApiException("getWebhookOauth", localVarResponse));
                                 }
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<WebhookOAuthCredentials>(
+                                            new ApiResponse<WebhookOauthCredentials>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -1275,7 +1275,7 @@ public class WebhooksV2Api {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            WebhookOAuthCredentials>() {})));
+                                                                            WebhookOauthCredentials>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -1285,7 +1285,7 @@ public class WebhooksV2Api {
                                     localVarThrowable == null
                                             ? CompletableFuture.completedFuture(localVarApiResponse)
                                             : CompletableFuture
-                                                    .<ApiResponse<WebhookOAuthCredentials>>
+                                                    .<ApiResponse<WebhookOauthCredentials>>
                                                             failedFuture(
                                                                     toApiFailure(
                                                                             localVarThrowable)))
@@ -1295,10 +1295,10 @@ public class WebhooksV2Api {
         }
     }
 
-    private HttpRequest.Builder getWebhookOAuthRequestBuilder(UUID webhookOauthId)
+    private HttpRequest.Builder getWebhookOauthRequestBuilder(UUID webhookOauthId)
             throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty(
-                "getWebhookOAuth", "webhookOauthId", webhookOauthId.toString());
+                "getWebhookOauth", "webhookOauthId", webhookOauthId.toString());
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1324,12 +1324,12 @@ public class WebhooksV2Api {
      * Get all OAuth credentials Lists every OAuth credential set for the workspace. Client secrets
      * are never returned.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;WebhookOAuthCredentials&gt;&gt;&gt;,
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;WebhookOauthCredentials&gt;&gt;&gt;,
      *     which completes exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<List<WebhookOAuthCredentials>>> getWebhookOAuths() {
+    public CompletableFuture<ApiResponse<List<WebhookOauthCredentials>>> getWebhookOauths() {
         try {
-            HttpRequest.Builder localVarRequestBuilder = getWebhookOAuthsRequestBuilder();
+            HttpRequest.Builder localVarRequestBuilder = getWebhookOauthsRequestBuilder();
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -1339,12 +1339,12 @@ public class WebhooksV2Api {
                                 }
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
-                                            getApiException("getWebhookOAuths", localVarResponse));
+                                            getApiException("getWebhookOauths", localVarResponse));
                                 }
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<List<WebhookOAuthCredentials>>(
+                                            new ApiResponse<List<WebhookOauthCredentials>>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -1353,7 +1353,7 @@ public class WebhooksV2Api {
                                                                     responseBody,
                                                                     new TypeReference<
                                                                             List<
-                                                                                    WebhookOAuthCredentials>>() {})));
+                                                                                    WebhookOauthCredentials>>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -1363,7 +1363,7 @@ public class WebhooksV2Api {
                                     localVarThrowable == null
                                             ? CompletableFuture.completedFuture(localVarApiResponse)
                                             : CompletableFuture
-                                                    .<ApiResponse<List<WebhookOAuthCredentials>>>
+                                                    .<ApiResponse<List<WebhookOauthCredentials>>>
                                                             failedFuture(
                                                                     toApiFailure(
                                                                             localVarThrowable)))
@@ -1373,7 +1373,7 @@ public class WebhooksV2Api {
         }
     }
 
-    private HttpRequest.Builder getWebhookOAuthsRequestBuilder() throws ApiException {
+    private HttpRequest.Builder getWebhookOauthsRequestBuilder() throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1968,16 +1968,16 @@ public class WebhooksV2Api {
      * &#x60;mtlsClientSignedCert&#x60; is a scalar rather than a map, so &#x60;null&#x60; there
      * does remove it. **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
      *
-     * @param updateWebhookOAuthRequest (required)
+     * @param updateWebhookOauthRequest (required)
      * @param webhookOauthId The unique identifier of the OAuth credentials (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;WebhookOAuthCredentials&gt;&gt;, which completes
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookOauthCredentials&gt;&gt;, which completes
      *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<WebhookOAuthCredentials>> updateWebhookOAuth(
-            UpdateWebhookOAuthRequest updateWebhookOAuthRequest, UUID webhookOauthId) {
+    public CompletableFuture<ApiResponse<WebhookOauthCredentials>> updateWebhookOauth(
+            UpdateWebhookOauthRequest updateWebhookOauthRequest, UUID webhookOauthId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    updateWebhookOAuthRequestBuilder(updateWebhookOAuthRequest, webhookOauthId);
+                    updateWebhookOauthRequestBuilder(updateWebhookOauthRequest, webhookOauthId);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -1988,12 +1988,12 @@ public class WebhooksV2Api {
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
-                                                    "updateWebhookOAuth", localVarResponse));
+                                                    "updateWebhookOauth", localVarResponse));
                                 }
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<WebhookOAuthCredentials>(
+                                            new ApiResponse<WebhookOauthCredentials>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -2001,7 +2001,7 @@ public class WebhooksV2Api {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            WebhookOAuthCredentials>() {})));
+                                                                            WebhookOauthCredentials>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -2011,7 +2011,7 @@ public class WebhooksV2Api {
                                     localVarThrowable == null
                                             ? CompletableFuture.completedFuture(localVarApiResponse)
                                             : CompletableFuture
-                                                    .<ApiResponse<WebhookOAuthCredentials>>
+                                                    .<ApiResponse<WebhookOauthCredentials>>
                                                             failedFuture(
                                                                     toApiFailure(
                                                                             localVarThrowable)))
@@ -2021,13 +2021,13 @@ public class WebhooksV2Api {
         }
     }
 
-    private HttpRequest.Builder updateWebhookOAuthRequestBuilder(
-            UpdateWebhookOAuthRequest updateWebhookOAuthRequest, UUID webhookOauthId)
+    private HttpRequest.Builder updateWebhookOauthRequestBuilder(
+            UpdateWebhookOauthRequest updateWebhookOauthRequest, UUID webhookOauthId)
             throws ApiException {
         ValidationUtils.assertParamExists(
-                "updateWebhookOAuth", "updateWebhookOAuthRequest", updateWebhookOAuthRequest);
+                "updateWebhookOauth", "updateWebhookOauthRequest", updateWebhookOauthRequest);
         ValidationUtils.assertParamExistsAndNotEmpty(
-                "updateWebhookOAuth", "webhookOauthId", webhookOauthId.toString());
+                "updateWebhookOauth", "webhookOauthId", webhookOauthId.toString());
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -2043,7 +2043,7 @@ public class WebhooksV2Api {
 
         try {
             byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(updateWebhookOAuthRequest);
+                    memberVarObjectMapper.writeValueAsBytes(updateWebhookOauthRequest);
             localVarRequestBuilder.method(
                     "PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {

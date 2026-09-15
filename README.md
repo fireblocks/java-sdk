@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>30.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:30.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-30.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -146,6 +146,7 @@ Class | Method | HTTP request | Description
 *ApiUserApi* | [**issueApiUserPairingToken**](docs/ApiUserApi.md#issueApiUserPairingToken) | **POST** /management/api_users/{userId}/pairing_token | Issue API user pairing token
 *ApprovalsBetaApi* | [**getApprovalById**](docs/ApprovalsBetaApi.md#getApprovalById) | **GET** /approvals/{requestId} | Get a single approval request
 *ApprovalsBetaApi* | [**getApprovals**](docs/ApprovalsBetaApi.md#getApprovals) | **GET** /approvals | List approval requests
+*ApprovalsBetaApi* | [**rejectApproval**](docs/ApprovalsBetaApi.md#rejectApproval) | **POST** /approvals/{requestId}/reject | Reject an approval request
 *AuditLogsApi* | [**getAuditLogs**](docs/AuditLogsApi.md#getAuditLogs) | **GET** /management/audit_logs | Get audit logs
 *BlockchainLinkBetaApi* | [**activateBlockchainLinkChain**](docs/BlockchainLinkBetaApi.md#activateBlockchainLinkChain) | **POST** /blockchain_link/blockchains/{blockchainId}/activate | Activate a blockchain (triggers activation workflow)
 *BlockchainLinkBetaApi* | [**createBlockchainLinkChain**](docs/BlockchainLinkBetaApi.md#createBlockchainLinkChain) | **POST** /blockchain_link/blockchains | Create a new blockchain
@@ -218,6 +219,7 @@ Class | Method | HTTP request | Description
 *ConnectedAccountsBetaApi* | [**getConnectedAccountsCredentialsPublicKey**](docs/ConnectedAccountsBetaApi.md#getConnectedAccountsCredentialsPublicKey) | **GET** /connected_accounts/credentials/public_key | Get public key to encrypt connected account credentials
 *ConnectedAccountsBetaApi* | [**renameConnectedAccount**](docs/ConnectedAccountsBetaApi.md#renameConnectedAccount) | **POST** /connected_accounts/{accountId}/rename | Rename Connected Account
 *ConnectedAccountsBetaApi* | [**syncConnectedAccountAllowlist**](docs/ConnectedAccountsBetaApi.md#syncConnectedAccountAllowlist) | **POST** /connected_accounts/{accountId}/allowlist/sync | Sync allowlist for connected account
+*ConnectedAccountsBetaApi* | [**updateConnectedAccountCredentials**](docs/ConnectedAccountsBetaApi.md#updateConnectedAccountCredentials) | **POST** /connected_accounts/{accountId}/credentials | Update connected account credentials
 *ConsoleUserApi* | [**createConsoleUser**](docs/ConsoleUserApi.md#createConsoleUser) | **POST** /management/users | Create console user
 *ConsoleUserApi* | [**getConsoleUsers**](docs/ConsoleUserApi.md#getConsoleUsers) | **GET** /management/users | Get console users
 *ContactsApi* | [**getContacts**](docs/ContactsApi.md#getContacts) | **GET** /contacts | List contacts
@@ -580,9 +582,9 @@ Class | Method | HTTP request | Description
 *WebhooksApi* | [**resendTransactionWebhooks**](docs/WebhooksApi.md#resendTransactionWebhooks) | **POST** /webhooks/resend/{txId} | Resend webhooks for a transaction by ID
 *WebhooksApi* | [**resendWebhooks**](docs/WebhooksApi.md#resendWebhooks) | **POST** /webhooks/resend | Resend failed webhooks
 *WebhooksV2Api* | [**createWebhook**](docs/WebhooksV2Api.md#createWebhook) | **POST** /webhooks | Create a new webhook
-*WebhooksV2Api* | [**createWebhookOAuth**](docs/WebhooksV2Api.md#createWebhookOAuth) | **POST** /webhooks_settings/oauth | Create OAuth credentials
+*WebhooksV2Api* | [**createWebhookOauth**](docs/WebhooksV2Api.md#createWebhookOauth) | **POST** /webhooks_settings/oauth | Create OAuth credentials
 *WebhooksV2Api* | [**deleteWebhook**](docs/WebhooksV2Api.md#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook
-*WebhooksV2Api* | [**deleteWebhookOAuth**](docs/WebhooksV2Api.md#deleteWebhookOAuth) | **DELETE** /webhooks_settings/oauth/{webhookOauthId} | Delete OAuth credentials
+*WebhooksV2Api* | [**deleteWebhookOauth**](docs/WebhooksV2Api.md#deleteWebhookOauth) | **DELETE** /webhooks_settings/oauth/{webhookOauthId} | Delete OAuth credentials
 *WebhooksV2Api* | [**getMetrics**](docs/WebhooksV2Api.md#getMetrics) | **GET** /webhooks/{webhookId}/metrics/{metricName} | Get webhook metrics
 *WebhooksV2Api* | [**getMtlsCsr**](docs/WebhooksV2Api.md#getMtlsCsr) | **GET** /webhooks/mtls/csr | Get mTLS CSR
 *WebhooksV2Api* | [**getNotification**](docs/WebhooksV2Api.md#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id
@@ -591,15 +593,15 @@ Class | Method | HTTP request | Description
 *WebhooksV2Api* | [**getResendByQueryJobStatus**](docs/WebhooksV2Api.md#getResendByQueryJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_by_query/jobs/{jobId} | Get resend by query job status
 *WebhooksV2Api* | [**getResendJobStatus**](docs/WebhooksV2Api.md#getResendJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_failed/jobs/{jobId} | Get resend job status
 *WebhooksV2Api* | [**getWebhook**](docs/WebhooksV2Api.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
-*WebhooksV2Api* | [**getWebhookOAuth**](docs/WebhooksV2Api.md#getWebhookOAuth) | **GET** /webhooks_settings/oauth/{webhookOauthId} | Get OAuth credentials by id
-*WebhooksV2Api* | [**getWebhookOAuths**](docs/WebhooksV2Api.md#getWebhookOAuths) | **GET** /webhooks_settings/oauth | Get all OAuth credentials
+*WebhooksV2Api* | [**getWebhookOauth**](docs/WebhooksV2Api.md#getWebhookOauth) | **GET** /webhooks_settings/oauth/{webhookOauthId} | Get OAuth credentials by id
+*WebhooksV2Api* | [**getWebhookOauths**](docs/WebhooksV2Api.md#getWebhookOauths) | **GET** /webhooks_settings/oauth | Get all OAuth credentials
 *WebhooksV2Api* | [**getWebhooks**](docs/WebhooksV2Api.md#getWebhooks) | **GET** /webhooks | Get all webhooks
 *WebhooksV2Api* | [**resendFailedNotifications**](docs/WebhooksV2Api.md#resendFailedNotifications) | **POST** /webhooks/{webhookId}/notifications/resend_failed | Resend failed notifications
 *WebhooksV2Api* | [**resendNotificationById**](docs/WebhooksV2Api.md#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id
 *WebhooksV2Api* | [**resendNotificationsByQuery**](docs/WebhooksV2Api.md#resendNotificationsByQuery) | **POST** /webhooks/{webhookId}/notifications/resend_by_query | Resend notifications by query
 *WebhooksV2Api* | [**resendNotificationsByResourceId**](docs/WebhooksV2Api.md#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id
 *WebhooksV2Api* | [**updateWebhook**](docs/WebhooksV2Api.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
-*WebhooksV2Api* | [**updateWebhookOAuth**](docs/WebhooksV2Api.md#updateWebhookOAuth) | **PATCH** /webhooks_settings/oauth/{webhookOauthId} | Update OAuth credentials
+*WebhooksV2Api* | [**updateWebhookOauth**](docs/WebhooksV2Api.md#updateWebhookOauth) | **PATCH** /webhooks_settings/oauth/{webhookOauthId} | Update OAuth credentials
 *WhitelistIpAddressesApi* | [**getWhitelistIpAddresses**](docs/WhitelistIpAddressesApi.md#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | Get whitelisted ip addresses for an API Key
 *WorkspaceApi* | [**getWorkspace**](docs/WorkspaceApi.md#getWorkspace) | **GET** /workspace | Get workspace
 *WorkspaceStatusBetaApi* | [**getWorkspaceStatus**](docs/WorkspaceStatusBetaApi.md#getWorkspaceStatus) | **GET** /management/workspace_status | Returns current workspace status
@@ -933,7 +935,7 @@ Class | Method | HTTP request | Description
  - [CreateVaultAccountRequest](docs/CreateVaultAccountRequest.md)
  - [CreateVaultAssetResponse](docs/CreateVaultAssetResponse.md)
  - [CreateWalletRequest](docs/CreateWalletRequest.md)
- - [CreateWebhookOAuthRequest](docs/CreateWebhookOAuthRequest.md)
+ - [CreateWebhookOauthRequest](docs/CreateWebhookOauthRequest.md)
  - [CreateWebhookRequest](docs/CreateWebhookRequest.md)
  - [CreateWorkflowExecutionRequestParamsInner](docs/CreateWorkflowExecutionRequestParamsInner.md)
  - [CustomRoutingDest](docs/CustomRoutingDest.md)
@@ -947,7 +949,7 @@ Class | Method | HTTP request | Description
  - [DelegationSummary](docs/DelegationSummary.md)
  - [DeleteNetworkConnectionResponse](docs/DeleteNetworkConnectionResponse.md)
  - [DeleteNetworkIdResponse](docs/DeleteNetworkIdResponse.md)
- - [DeleteWebhookOAuthResponse](docs/DeleteWebhookOAuthResponse.md)
+ - [DeleteWebhookOauthResponse](docs/DeleteWebhookOauthResponse.md)
  - [DeployLayerZeroAdaptersRequest](docs/DeployLayerZeroAdaptersRequest.md)
  - [DeployableAddressResponse](docs/DeployableAddressResponse.md)
  - [DeployedContractNotFoundError](docs/DeployedContractNotFoundError.md)
@@ -1791,6 +1793,8 @@ Class | Method | HTTP request | Description
  - [UpdateBlockchainResponse](docs/UpdateBlockchainResponse.md)
  - [UpdateCallbackHandlerRequest](docs/UpdateCallbackHandlerRequest.md)
  - [UpdateCallbackHandlerResponse](docs/UpdateCallbackHandlerResponse.md)
+ - [UpdateConnectedAccountCredentialsRequest](docs/UpdateConnectedAccountCredentialsRequest.md)
+ - [UpdateConnectedAccountCredentialsResponse](docs/UpdateConnectedAccountCredentialsResponse.md)
  - [UpdateCounterpartyGroupRequest](docs/UpdateCounterpartyGroupRequest.md)
  - [UpdateDraftRequest](docs/UpdateDraftRequest.md)
  - [UpdateFindingExternalRequest](docs/UpdateFindingExternalRequest.md)
@@ -1799,7 +1803,7 @@ Class | Method | HTTP request | Description
  - [UpdateTokenOwnershipStatusDto](docs/UpdateTokenOwnershipStatusDto.md)
  - [UpdateVaultAccountAssetAddressRequest](docs/UpdateVaultAccountAssetAddressRequest.md)
  - [UpdateVaultAccountRequest](docs/UpdateVaultAccountRequest.md)
- - [UpdateWebhookOAuthRequest](docs/UpdateWebhookOAuthRequest.md)
+ - [UpdateWebhookOauthRequest](docs/UpdateWebhookOauthRequest.md)
  - [UpdateWebhookRequest](docs/UpdateWebhookRequest.md)
  - [UsWirePaymentInfo](docs/UsWirePaymentInfo.md)
  - [UsdcGatewayWalletAsset](docs/UsdcGatewayWalletAsset.md)
@@ -1845,9 +1849,7 @@ Class | Method | HTTP request | Description
  - [WebhookMetric](docs/WebhookMetric.md)
  - [WebhookMtls](docs/WebhookMtls.md)
  - [WebhookMtlsCsrResponse](docs/WebhookMtlsCsrResponse.md)
- - [WebhookOAuth](docs/WebhookOAuth.md)
- - [WebhookOAuthCredentials](docs/WebhookOAuthCredentials.md)
- - [WebhookOAuthResponse](docs/WebhookOAuthResponse.md)
+ - [WebhookOauthCredentials](docs/WebhookOauthCredentials.md)
  - [WebhookPaginatedResponse](docs/WebhookPaginatedResponse.md)
  - [WithdrawRequest](docs/WithdrawRequest.md)
  - [WorkflowConfigStatus](docs/WorkflowConfigStatus.md)

@@ -27,6 +27,8 @@ import com.fireblocks.sdk.model.ConnectedSingleAccountResponse;
 import com.fireblocks.sdk.model.GetConnectedAccountsCredentialsPublicKeyResponse;
 import com.fireblocks.sdk.model.RenameConnectedAccountRequest;
 import com.fireblocks.sdk.model.RenameConnectedAccountResponse;
+import com.fireblocks.sdk.model.UpdateConnectedAccountCredentialsRequest;
+import com.fireblocks.sdk.model.UpdateConnectedAccountCredentialsResponse;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -232,5 +234,29 @@ public class ConnectedAccountsBetaApiTest {
 
         CompletableFuture<ApiResponse<Void>> response =
                 api.syncConnectedAccountAllowlist(accountId, idempotencyKey);
+    }
+
+    /**
+     * Update connected account credentials
+     *
+     * <p>Replace the API credentials (secret + API key) of a connected account. Credentials belong
+     * to an API key, which can back a single account or an entire hierarchy. Updating them affects
+     * all accounts sharing that key, so the endpoint returns an array of modified accounts. The
+     * &#x60;creds&#x60; field must be a Base64-encoded RSA-encrypted credential blob; use &#x60;GET
+     * /connected_accounts/credentials/public_key&#x60; to retrieve the public key for encryption.
+     * Both &#x60;creds&#x60; and &#x60;apiKey&#x60; are mandatory. Validation against the exchange
+     * is synchronous, but the update itself is **pending mobile approval** — the existing
+     * credentials stay live until the change is approved, so none of the affected accounts are
+     * disconnected in the meantime. Endpoint Permission: Admin, Non-Signing Admin. **Note:** This
+     * endpoint is currently in beta and might be subject to changes.
+     */
+    @Test
+    public void updateConnectedAccountCredentialsTest() {
+        UpdateConnectedAccountCredentialsRequest updateConnectedAccountCredentialsRequest = null;
+        String accountId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<UpdateConnectedAccountCredentialsResponse>> response =
+                api.updateConnectedAccountCredentials(
+                        updateConnectedAccountCredentialsRequest, accountId, idempotencyKey);
     }
 }

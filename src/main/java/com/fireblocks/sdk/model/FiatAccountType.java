@@ -16,9 +16,59 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets FiatAccountType */
+/**
+ * OTHER indicates the underlying provider isn&#39;t representable by this API version&#39;s enum
+ * (e.g. a newly onboarded provider, or one removed from this list) — it does not identify a
+ * specific provider, so it should not be used to key any client-side logic.
+ */
 public enum FiatAccountType {
-    BLINC("BLINC");
+    BLINC("BLINC"),
+
+    BLINC_TEST("BLINC_TEST"),
+
+    CROSSRIVER("CROSSRIVER"),
+
+    CROSSRIVER_TEST("CROSSRIVER_TEST"),
+
+    CUSTOMERSBANK("CUSTOMERSBANK"),
+
+    CUSTOMERSBANK_TEST("CUSTOMERSBANK_TEST"),
+
+    FIFTHTHIRD("FIFTHTHIRD"),
+
+    FIFTHTHIRD_TEST("FIFTHTHIRD_TEST"),
+
+    KINGDOM_BANK("KINGDOM_BANK"),
+
+    KINGDOM_BANK_TESTNET("KINGDOM_BANK_TESTNET"),
+
+    LYNQ("LYNQ"),
+
+    LYNQ_DEV("LYNQ_DEV"),
+
+    LYNQ_QA("LYNQ_QA"),
+
+    LYNQ_UAT("LYNQ_UAT"),
+
+    N3_XT("N3XT"),
+
+    N3_XT_ALPHA("N3XT_ALPHA"),
+
+    N3_XT_BETA("N3XT_BETA"),
+
+    N3_XT_OMEGA("N3XT_OMEGA"),
+
+    SYGNUM_CONNECT("SYGNUM_CONNECT"),
+
+    SYGNUM_CONNECT_STAGING("SYGNUM_CONNECT_STAGING"),
+
+    TRANSFERO("TRANSFERO"),
+
+    TRANSFERO_STAGING("TRANSFERO_STAGING"),
+
+    ZENUS_DEV("ZENUS_DEV"),
+
+    OTHER("OTHER");
 
     private String value;
 

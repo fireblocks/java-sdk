@@ -35,7 +35,7 @@ import java.util.UUID;
     Webhook.JSON_PROPERTY_CREATED_AT,
     Webhook.JSON_PROPERTY_UPDATED_AT,
     Webhook.JSON_PROPERTY_MTLS,
-    Webhook.JSON_PROPERTY_OAUTH,
+    Webhook.JSON_PROPERTY_WEBHOOK_OAUTH_ID,
     Webhook.JSON_PROPERTY_CUSTOM_HEADERS
 })
 @jakarta.annotation.Generated(
@@ -101,8 +101,8 @@ public class Webhook {
     public static final String JSON_PROPERTY_MTLS = "mtls";
     @jakarta.annotation.Nullable private WebhookMtls mtls;
 
-    public static final String JSON_PROPERTY_OAUTH = "oauth";
-    @jakarta.annotation.Nullable private WebhookOAuthResponse oauth;
+    public static final String JSON_PROPERTY_WEBHOOK_OAUTH_ID = "webhookOauthId";
+    @jakarta.annotation.Nullable private UUID webhookOauthId;
 
     public static final String JSON_PROPERTY_CUSTOM_HEADERS = "customHeaders";
     @jakarta.annotation.Nullable private List<String> customHeaders;
@@ -317,27 +317,29 @@ public class Webhook {
         this.mtls = mtls;
     }
 
-    public Webhook oauth(@jakarta.annotation.Nullable WebhookOAuthResponse oauth) {
-        this.oauth = oauth;
+    public Webhook webhookOauthId(@jakarta.annotation.Nullable UUID webhookOauthId) {
+        this.webhookOauthId = webhookOauthId;
         return this;
     }
 
     /**
-     * Get oauth
+     * The id of the OAuth credentials this webhook authenticates with. Absent when the webhook does
+     * not use OAuth. Read the credentials themselves from
+     * &#x60;/v1/webhooks_settings/oauth/{webhookOauthId}&#x60;.
      *
-     * @return oauth
+     * @return webhookOauthId
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_OAUTH)
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_OAUTH_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public WebhookOAuthResponse getOauth() {
-        return oauth;
+    public UUID getWebhookOauthId() {
+        return webhookOauthId;
     }
 
-    @JsonProperty(JSON_PROPERTY_OAUTH)
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_OAUTH_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOauth(@jakarta.annotation.Nullable WebhookOAuthResponse oauth) {
-        this.oauth = oauth;
+    public void setWebhookOauthId(@jakarta.annotation.Nullable UUID webhookOauthId) {
+        this.webhookOauthId = webhookOauthId;
     }
 
     public Webhook customHeaders(@jakarta.annotation.Nullable List<String> customHeaders) {
@@ -389,7 +391,7 @@ public class Webhook {
                 && Objects.equals(this.createdAt, webhook.createdAt)
                 && Objects.equals(this.updatedAt, webhook.updatedAt)
                 && Objects.equals(this.mtls, webhook.mtls)
-                && Objects.equals(this.oauth, webhook.oauth)
+                && Objects.equals(this.webhookOauthId, webhook.webhookOauthId)
                 && Objects.equals(this.customHeaders, webhook.customHeaders);
     }
 
@@ -404,7 +406,7 @@ public class Webhook {
                 createdAt,
                 updatedAt,
                 mtls,
-                oauth,
+                webhookOauthId,
                 customHeaders);
     }
 
@@ -420,7 +422,7 @@ public class Webhook {
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
         sb.append("    mtls: ").append(toIndentedString(mtls)).append("\n");
-        sb.append("    oauth: ").append(toIndentedString(oauth)).append("\n");
+        sb.append("    webhookOauthId: ").append(toIndentedString(webhookOauthId)).append("\n");
         sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -551,9 +553,14 @@ public class Webhook {
             joiner.add(getMtls().toUrlQueryString(prefix + "mtls" + suffix));
         }
 
-        // add `oauth` to the URL query string
-        if (getOauth() != null) {
-            joiner.add(getOauth().toUrlQueryString(prefix + "oauth" + suffix));
+        // add `webhookOauthId` to the URL query string
+        if (getWebhookOauthId() != null) {
+            joiner.add(
+                    String.format(
+                            "%swebhookOauthId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getWebhookOauthId()))));
         }
 
         // add `customHeaders` to the URL query string

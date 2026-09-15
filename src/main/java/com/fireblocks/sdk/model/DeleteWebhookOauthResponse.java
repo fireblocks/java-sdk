@@ -30,23 +30,23 @@ import java.util.UUID;
  * with &#x60;409&#x60; while anything still references the credentials.
  */
 @JsonPropertyOrder({
-    DeleteWebhookOAuthResponse.JSON_PROPERTY_ID,
-    DeleteWebhookOAuthResponse.JSON_PROPERTY_NAME,
-    DeleteWebhookOAuthResponse.JSON_PROPERTY_CLIENT_ID,
-    DeleteWebhookOAuthResponse.JSON_PROPERTY_URL,
-    DeleteWebhookOAuthResponse.JSON_PROPERTY_AUTH_METHOD,
-    DeleteWebhookOAuthResponse.JSON_PROPERTY_CUSTOM_JWT_CLAIMS,
-    DeleteWebhookOAuthResponse.JSON_PROPERTY_CUSTOM_BODY_PARAMS,
-    DeleteWebhookOAuthResponse.JSON_PROPERTY_CUSTOM_HEADERS,
-    DeleteWebhookOAuthResponse.JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT,
-    DeleteWebhookOAuthResponse.JSON_PROPERTY_CREATED_AT,
-    DeleteWebhookOAuthResponse.JSON_PROPERTY_UPDATED_AT,
-    DeleteWebhookOAuthResponse.JSON_PROPERTY_DETACHED_WEBHOOK_IDS
+    DeleteWebhookOauthResponse.JSON_PROPERTY_ID,
+    DeleteWebhookOauthResponse.JSON_PROPERTY_NAME,
+    DeleteWebhookOauthResponse.JSON_PROPERTY_CLIENT_ID,
+    DeleteWebhookOauthResponse.JSON_PROPERTY_URL,
+    DeleteWebhookOauthResponse.JSON_PROPERTY_AUTH_METHOD,
+    DeleteWebhookOauthResponse.JSON_PROPERTY_CUSTOM_JWT_CLAIMS,
+    DeleteWebhookOauthResponse.JSON_PROPERTY_CUSTOM_BODY_PARAMS,
+    DeleteWebhookOauthResponse.JSON_PROPERTY_CUSTOM_HEADERS,
+    DeleteWebhookOauthResponse.JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT,
+    DeleteWebhookOauthResponse.JSON_PROPERTY_CREATED_AT,
+    DeleteWebhookOauthResponse.JSON_PROPERTY_UPDATED_AT,
+    DeleteWebhookOauthResponse.JSON_PROPERTY_DETACHED_WEBHOOK_IDS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class DeleteWebhookOAuthResponse {
+public class DeleteWebhookOauthResponse {
     public static final String JSON_PROPERTY_ID = "id";
     @jakarta.annotation.Nonnull private UUID id;
 
@@ -83,10 +83,10 @@ public class DeleteWebhookOAuthResponse {
     public static final String JSON_PROPERTY_DETACHED_WEBHOOK_IDS = "detachedWebhookIds";
     @jakarta.annotation.Nonnull private List<UUID> detachedWebhookIds;
 
-    public DeleteWebhookOAuthResponse() {}
+    public DeleteWebhookOauthResponse() {}
 
     @JsonCreator
-    public DeleteWebhookOAuthResponse(
+    public DeleteWebhookOauthResponse(
             @JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id,
             @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
             @JsonProperty(value = JSON_PROPERTY_CLIENT_ID, required = true) String clientId,
@@ -106,7 +106,7 @@ public class DeleteWebhookOAuthResponse {
         this.detachedWebhookIds = detachedWebhookIds;
     }
 
-    public DeleteWebhookOAuthResponse id(@jakarta.annotation.Nonnull UUID id) {
+    public DeleteWebhookOauthResponse id(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
         return this;
     }
@@ -130,7 +130,7 @@ public class DeleteWebhookOAuthResponse {
         this.id = id;
     }
 
-    public DeleteWebhookOAuthResponse name(@jakarta.annotation.Nonnull String name) {
+    public DeleteWebhookOauthResponse name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -153,7 +153,7 @@ public class DeleteWebhookOAuthResponse {
         this.name = name;
     }
 
-    public DeleteWebhookOAuthResponse clientId(@jakarta.annotation.Nonnull String clientId) {
+    public DeleteWebhookOauthResponse clientId(@jakarta.annotation.Nonnull String clientId) {
         this.clientId = clientId;
         return this;
     }
@@ -176,7 +176,7 @@ public class DeleteWebhookOAuthResponse {
         this.clientId = clientId;
     }
 
-    public DeleteWebhookOAuthResponse url(@jakarta.annotation.Nonnull String url) {
+    public DeleteWebhookOauthResponse url(@jakarta.annotation.Nonnull String url) {
         this.url = url;
         return this;
     }
@@ -199,7 +199,7 @@ public class DeleteWebhookOAuthResponse {
         this.url = url;
     }
 
-    public DeleteWebhookOAuthResponse authMethod(@jakarta.annotation.Nonnull String authMethod) {
+    public DeleteWebhookOauthResponse authMethod(@jakarta.annotation.Nonnull String authMethod) {
         this.authMethod = authMethod;
         return this;
     }
@@ -225,13 +225,13 @@ public class DeleteWebhookOAuthResponse {
         this.authMethod = authMethod;
     }
 
-    public DeleteWebhookOAuthResponse customJwtClaims(
+    public DeleteWebhookOauthResponse customJwtClaims(
             @jakarta.annotation.Nullable List<String> customJwtClaims) {
         this.customJwtClaims = customJwtClaims;
         return this;
     }
 
-    public DeleteWebhookOAuthResponse addCustomJwtClaimsItem(String customJwtClaimsItem) {
+    public DeleteWebhookOauthResponse addCustomJwtClaimsItem(String customJwtClaimsItem) {
         if (this.customJwtClaims == null) {
             this.customJwtClaims = new ArrayList<>();
         }
@@ -258,13 +258,13 @@ public class DeleteWebhookOAuthResponse {
         this.customJwtClaims = customJwtClaims;
     }
 
-    public DeleteWebhookOAuthResponse customBodyParams(
+    public DeleteWebhookOauthResponse customBodyParams(
             @jakarta.annotation.Nullable List<String> customBodyParams) {
         this.customBodyParams = customBodyParams;
         return this;
     }
 
-    public DeleteWebhookOAuthResponse addCustomBodyParamsItem(String customBodyParamsItem) {
+    public DeleteWebhookOauthResponse addCustomBodyParamsItem(String customBodyParamsItem) {
         if (this.customBodyParams == null) {
             this.customBodyParams = new ArrayList<>();
         }
@@ -291,13 +291,13 @@ public class DeleteWebhookOAuthResponse {
         this.customBodyParams = customBodyParams;
     }
 
-    public DeleteWebhookOAuthResponse customHeaders(
+    public DeleteWebhookOauthResponse customHeaders(
             @jakarta.annotation.Nullable List<String> customHeaders) {
         this.customHeaders = customHeaders;
         return this;
     }
 
-    public DeleteWebhookOAuthResponse addCustomHeadersItem(String customHeadersItem) {
+    public DeleteWebhookOauthResponse addCustomHeadersItem(String customHeadersItem) {
         if (this.customHeaders == null) {
             this.customHeaders = new ArrayList<>();
         }
@@ -326,7 +326,7 @@ public class DeleteWebhookOAuthResponse {
         this.customHeaders = customHeaders;
     }
 
-    public DeleteWebhookOAuthResponse mtlsClientSignedCert(
+    public DeleteWebhookOauthResponse mtlsClientSignedCert(
             @jakarta.annotation.Nullable String mtlsClientSignedCert) {
         this.mtlsClientSignedCert = mtlsClientSignedCert;
         return this;
@@ -350,7 +350,7 @@ public class DeleteWebhookOAuthResponse {
         this.mtlsClientSignedCert = mtlsClientSignedCert;
     }
 
-    public DeleteWebhookOAuthResponse createdAt(@jakarta.annotation.Nonnull Long createdAt) {
+    public DeleteWebhookOauthResponse createdAt(@jakarta.annotation.Nonnull Long createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -373,7 +373,7 @@ public class DeleteWebhookOAuthResponse {
         this.createdAt = createdAt;
     }
 
-    public DeleteWebhookOAuthResponse updatedAt(@jakarta.annotation.Nonnull Long updatedAt) {
+    public DeleteWebhookOauthResponse updatedAt(@jakarta.annotation.Nonnull Long updatedAt) {
         this.updatedAt = updatedAt;
         return this;
     }
@@ -396,13 +396,13 @@ public class DeleteWebhookOAuthResponse {
         this.updatedAt = updatedAt;
     }
 
-    public DeleteWebhookOAuthResponse detachedWebhookIds(
+    public DeleteWebhookOauthResponse detachedWebhookIds(
             @jakarta.annotation.Nonnull List<UUID> detachedWebhookIds) {
         this.detachedWebhookIds = detachedWebhookIds;
         return this;
     }
 
-    public DeleteWebhookOAuthResponse addDetachedWebhookIdsItem(UUID detachedWebhookIdsItem) {
+    public DeleteWebhookOauthResponse addDetachedWebhookIdsItem(UUID detachedWebhookIdsItem) {
         if (this.detachedWebhookIds == null) {
             this.detachedWebhookIds = new ArrayList<>();
         }
@@ -430,7 +430,7 @@ public class DeleteWebhookOAuthResponse {
         this.detachedWebhookIds = detachedWebhookIds;
     }
 
-    /** Return true if this DeleteWebhookOAuthResponse object is equal to o. */
+    /** Return true if this DeleteWebhookOauthResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -439,22 +439,22 @@ public class DeleteWebhookOAuthResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        DeleteWebhookOAuthResponse deleteWebhookOAuthResponse = (DeleteWebhookOAuthResponse) o;
-        return Objects.equals(this.id, deleteWebhookOAuthResponse.id)
-                && Objects.equals(this.name, deleteWebhookOAuthResponse.name)
-                && Objects.equals(this.clientId, deleteWebhookOAuthResponse.clientId)
-                && Objects.equals(this.url, deleteWebhookOAuthResponse.url)
-                && Objects.equals(this.authMethod, deleteWebhookOAuthResponse.authMethod)
-                && Objects.equals(this.customJwtClaims, deleteWebhookOAuthResponse.customJwtClaims)
+        DeleteWebhookOauthResponse deleteWebhookOauthResponse = (DeleteWebhookOauthResponse) o;
+        return Objects.equals(this.id, deleteWebhookOauthResponse.id)
+                && Objects.equals(this.name, deleteWebhookOauthResponse.name)
+                && Objects.equals(this.clientId, deleteWebhookOauthResponse.clientId)
+                && Objects.equals(this.url, deleteWebhookOauthResponse.url)
+                && Objects.equals(this.authMethod, deleteWebhookOauthResponse.authMethod)
+                && Objects.equals(this.customJwtClaims, deleteWebhookOauthResponse.customJwtClaims)
                 && Objects.equals(
-                        this.customBodyParams, deleteWebhookOAuthResponse.customBodyParams)
-                && Objects.equals(this.customHeaders, deleteWebhookOAuthResponse.customHeaders)
+                        this.customBodyParams, deleteWebhookOauthResponse.customBodyParams)
+                && Objects.equals(this.customHeaders, deleteWebhookOauthResponse.customHeaders)
                 && Objects.equals(
-                        this.mtlsClientSignedCert, deleteWebhookOAuthResponse.mtlsClientSignedCert)
-                && Objects.equals(this.createdAt, deleteWebhookOAuthResponse.createdAt)
-                && Objects.equals(this.updatedAt, deleteWebhookOAuthResponse.updatedAt)
+                        this.mtlsClientSignedCert, deleteWebhookOauthResponse.mtlsClientSignedCert)
+                && Objects.equals(this.createdAt, deleteWebhookOauthResponse.createdAt)
+                && Objects.equals(this.updatedAt, deleteWebhookOauthResponse.updatedAt)
                 && Objects.equals(
-                        this.detachedWebhookIds, deleteWebhookOAuthResponse.detachedWebhookIds);
+                        this.detachedWebhookIds, deleteWebhookOauthResponse.detachedWebhookIds);
     }
 
     @Override
@@ -477,7 +477,7 @@ public class DeleteWebhookOAuthResponse {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class DeleteWebhookOAuthResponse {\n");
+        sb.append("class DeleteWebhookOauthResponse {\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    clientId: ").append(toIndentedString(clientId)).append("\n");

@@ -15,14 +15,14 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for CreateWebhookOAuthRequest */
-class CreateWebhookOAuthRequestTest {
-    private final CreateWebhookOAuthRequest model = new CreateWebhookOAuthRequest();
+/** Model tests for CreateWebhookOauthRequest */
+class CreateWebhookOauthRequestTest {
+    private final CreateWebhookOauthRequest model = new CreateWebhookOauthRequest();
 
-    /** Model tests for CreateWebhookOAuthRequest */
+    /** Model tests for CreateWebhookOauthRequest */
     @Test
-    void testCreateWebhookOAuthRequest() {
-        // TODO: test CreateWebhookOAuthRequest
+    void testCreateWebhookOauthRequest() {
+        // TODO: test CreateWebhookOauthRequest
     }
 
     /** Test the property 'name' */

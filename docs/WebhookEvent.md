@@ -71,6 +71,10 @@
 
 * `CONNECTED_ACCOUNT_CONNECTED` (value: `"connected_account.connected"`)
 
+* `EXCHANGE_ACCOUNT_CREDENTIALS_REPLACED` (value: `"exchange_account.credentials_replaced"`)
+
+* `CONNECTED_ACCOUNT_CREDENTIALS_REPLACED` (value: `"connected_account.credentials_replaced"`)
+
 * `TICKET_CREATED` (value: `"ticket.created"`)
 
 * `TICKET_SUBMITTED` (value: `"ticket.submitted"`)

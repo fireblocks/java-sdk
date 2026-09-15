@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.UUID;
 
 /** UpdateWebhookRequest */
 @JsonPropertyOrder({
@@ -31,7 +32,7 @@ import java.util.StringJoiner;
     UpdateWebhookRequest.JSON_PROPERTY_EVENTS,
     UpdateWebhookRequest.JSON_PROPERTY_ENABLED,
     UpdateWebhookRequest.JSON_PROPERTY_MTLS,
-    UpdateWebhookRequest.JSON_PROPERTY_OAUTH,
+    UpdateWebhookRequest.JSON_PROPERTY_WEBHOOK_OAUTH_ID,
     UpdateWebhookRequest.JSON_PROPERTY_CUSTOM_HEADERS
 })
 @jakarta.annotation.Generated(
@@ -53,8 +54,8 @@ public class UpdateWebhookRequest {
     public static final String JSON_PROPERTY_MTLS = "mtls";
     @jakarta.annotation.Nullable private WebhookMtls mtls;
 
-    public static final String JSON_PROPERTY_OAUTH = "oauth";
-    @jakarta.annotation.Nullable private WebhookOAuth oauth;
+    public static final String JSON_PROPERTY_WEBHOOK_OAUTH_ID = "webhookOauthId";
+    @jakarta.annotation.Nullable private UUID webhookOauthId;
 
     public static final String JSON_PROPERTY_CUSTOM_HEADERS = "customHeaders";
     @jakarta.annotation.Nullable private Map<String, Object> customHeaders;
@@ -184,27 +185,30 @@ public class UpdateWebhookRequest {
         this.mtls = mtls;
     }
 
-    public UpdateWebhookRequest oauth(@jakarta.annotation.Nullable WebhookOAuth oauth) {
-        this.oauth = oauth;
+    public UpdateWebhookRequest webhookOauthId(@jakarta.annotation.Nullable UUID webhookOauthId) {
+        this.webhookOauthId = webhookOauthId;
         return this;
     }
 
     /**
-     * Get oauth
+     * The id of the OAuth credentials this webhook authenticates with, from
+     * &#x60;/v1/webhooks_settings/oauth&#x60;. Several webhooks may share one credential set, so
+     * rotating its client secret covers all of them at once. Send &#x60;null&#x60; to stop using
+     * OAuth for this webhook.
      *
-     * @return oauth
+     * @return webhookOauthId
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_OAUTH)
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_OAUTH_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public WebhookOAuth getOauth() {
-        return oauth;
+    public UUID getWebhookOauthId() {
+        return webhookOauthId;
     }
 
-    @JsonProperty(JSON_PROPERTY_OAUTH)
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_OAUTH_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOauth(@jakarta.annotation.Nullable WebhookOAuth oauth) {
-        this.oauth = oauth;
+    public void setWebhookOauthId(@jakarta.annotation.Nullable UUID webhookOauthId) {
+        this.webhookOauthId = webhookOauthId;
     }
 
     public UpdateWebhookRequest customHeaders(
@@ -229,9 +233,9 @@ public class UpdateWebhookRequest {
      * call. That does not collide with a &#x60;null&#x60; value on a name: one names the header to
      * delete, the other names the whole field. Names are case-insensitive, so a &#x60;null&#x60;
      * under one casing deletes a header stored under another. Same rules as on create: string or
-     * non-empty array, &#x60;Cookie&#x60; string-only, 10 lines total in the resulting set, the
-     * same reserved names, and values write-only. Entries set to &#x60;null&#x60; do not count
-     * towards the limit.
+     * non-empty array, &#x60;Cookie&#x60; string-only, 10 lines total and under 16 KB in the
+     * resulting set, the same reserved names, and values write-only. Entries set to
+     * &#x60;null&#x60; do not count towards the limit.
      *
      * @return customHeaders
      */
@@ -263,13 +267,13 @@ public class UpdateWebhookRequest {
                 && Objects.equals(this.events, updateWebhookRequest.events)
                 && Objects.equals(this.enabled, updateWebhookRequest.enabled)
                 && Objects.equals(this.mtls, updateWebhookRequest.mtls)
-                && Objects.equals(this.oauth, updateWebhookRequest.oauth)
+                && Objects.equals(this.webhookOauthId, updateWebhookRequest.webhookOauthId)
                 && Objects.equals(this.customHeaders, updateWebhookRequest.customHeaders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(url, description, events, enabled, mtls, oauth, customHeaders);
+        return Objects.hash(url, description, events, enabled, mtls, webhookOauthId, customHeaders);
     }
 
     @Override
@@ -281,7 +285,7 @@ public class UpdateWebhookRequest {
         sb.append("    events: ").append(toIndentedString(events)).append("\n");
         sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
         sb.append("    mtls: ").append(toIndentedString(mtls)).append("\n");
-        sb.append("    oauth: ").append(toIndentedString(oauth)).append("\n");
+        sb.append("    webhookOauthId: ").append(toIndentedString(webhookOauthId)).append("\n");
         sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -384,9 +388,14 @@ public class UpdateWebhookRequest {
             joiner.add(getMtls().toUrlQueryString(prefix + "mtls" + suffix));
         }
 
-        // add `oauth` to the URL query string
-        if (getOauth() != null) {
-            joiner.add(getOauth().toUrlQueryString(prefix + "oauth" + suffix));
+        // add `webhookOauthId` to the URL query string
+        if (getWebhookOauthId() != null) {
+            joiner.add(
+                    String.format(
+                            "%swebhookOauthId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getWebhookOauthId()))));
         }
 
         // add `customHeaders` to the URL query string
