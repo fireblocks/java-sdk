@@ -304,12 +304,14 @@ public class CreateWebhookOauthRequest {
     /**
      * Extra HTTP headers for **the token request to your authorization server** — not for the
      * webhook delivery, which has its own separate &#x60;customHeaders&#x60;. A gateway API key is
-     * the usual case. Applies to every authentication method. Values must be strings; an empty
-     * string is allowed. Names are matched case-insensitively, so two names differing only in case
-     * are a duplicate. Names are stored and returned lowercased, so &#x60;X-Api-Key&#x60; comes
-     * back as &#x60;x-api-key&#x60;. &#x60;Content-Type&#x60;, &#x60;Content-Length&#x60; and
-     * &#x60;Host&#x60; are set by Fireblocks and cannot be overridden. &#x60;Authorization&#x60; is
-     * not sent when &#x60;authMethod&#x60; is &#x60;client_secret_basic&#x60;. Values have no
+     * the usual case. Values must be strings; an empty string is allowed. Names are matched
+     * case-insensitively, so two names differing only in case are a duplicate. Names are stored and
+     * returned lowercased, so &#x60;X-Api-Key&#x60; comes back as &#x60;x-api-key&#x60;.
+     * &#x60;Content-Type&#x60;, &#x60;Content-Length&#x60; and &#x60;Host&#x60; are set by
+     * Fireblocks and cannot be overridden. &#x60;Authorization&#x60; can be set with
+     * &#x60;client_secret_post&#x60; or &#x60;client_secret_jwt&#x60;, which send the credentials
+     * in the body — useful when your token endpoint sits behind a gateway. It is rejected with
+     * &#x60;client_secret_basic&#x60;, which sends the credentials in that header. Values have no
      * length limit of their own; the whole object must be under 16 KB when serialized as UTF-8.
      * Values are write-only; responses return only the header names. On update this merges name by
      * name rather than replacing — see &#x60;WebhookOauthCustomHeadersUpdate&#x60;.

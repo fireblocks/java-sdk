@@ -18,13 +18,17 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** InternalTransferResponse */
 @JsonPropertyOrder({
     InternalTransferResponse.JSON_PROPERTY_SUCCESS,
-    InternalTransferResponse.JSON_PROPERTY_ID
+    InternalTransferResponse.JSON_PROPERTY_ID,
+    InternalTransferResponse.JSON_PROPERTY_STATUS,
+    InternalTransferResponse.JSON_PROPERTY_SYSTEM_MESSAGES
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -35,6 +39,12 @@ public class InternalTransferResponse {
 
     public static final String JSON_PROPERTY_ID = "id";
     @jakarta.annotation.Nullable private String id;
+
+    public static final String JSON_PROPERTY_STATUS = "status";
+    @jakarta.annotation.Nullable private String status;
+
+    public static final String JSON_PROPERTY_SYSTEM_MESSAGES = "systemMessages";
+    @jakarta.annotation.Nullable private List<SystemMessageInfo> systemMessages;
 
     public InternalTransferResponse() {}
 
@@ -90,6 +100,64 @@ public class InternalTransferResponse {
         this.id = id;
     }
 
+    public InternalTransferResponse status(@jakarta.annotation.Nullable String status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * The transfer status returned by the transaction manager. Only present when the transfer was
+     * processed via the transaction manager flow.
+     *
+     * @return status
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getStatus() {
+        return status;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStatus(@jakarta.annotation.Nullable String status) {
+        this.status = status;
+    }
+
+    public InternalTransferResponse systemMessages(
+            @jakarta.annotation.Nullable List<SystemMessageInfo> systemMessages) {
+        this.systemMessages = systemMessages;
+        return this;
+    }
+
+    public InternalTransferResponse addSystemMessagesItem(SystemMessageInfo systemMessagesItem) {
+        if (this.systemMessages == null) {
+            this.systemMessages = new ArrayList<>();
+        }
+        this.systemMessages.add(systemMessagesItem);
+        return this;
+    }
+
+    /**
+     * System messages returned by the transaction manager about the health of the transfer being
+     * performed. Only present when the transfer was processed via the transaction manager flow.
+     *
+     * @return systemMessages
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SYSTEM_MESSAGES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<SystemMessageInfo> getSystemMessages() {
+        return systemMessages;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SYSTEM_MESSAGES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSystemMessages(
+            @jakarta.annotation.Nullable List<SystemMessageInfo> systemMessages) {
+        this.systemMessages = systemMessages;
+    }
+
     /** Return true if this InternalTransferResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -101,12 +169,14 @@ public class InternalTransferResponse {
         }
         InternalTransferResponse internalTransferResponse = (InternalTransferResponse) o;
         return Objects.equals(this.success, internalTransferResponse.success)
-                && Objects.equals(this.id, internalTransferResponse.id);
+                && Objects.equals(this.id, internalTransferResponse.id)
+                && Objects.equals(this.status, internalTransferResponse.status)
+                && Objects.equals(this.systemMessages, internalTransferResponse.systemMessages);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(success, id);
+        return Objects.hash(success, id, status, systemMessages);
     }
 
     @Override
@@ -115,6 +185,8 @@ public class InternalTransferResponse {
         sb.append("class InternalTransferResponse {\n");
         sb.append("    success: ").append(toIndentedString(success)).append("\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb.append("    systemMessages: ").append(toIndentedString(systemMessages)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -178,6 +250,39 @@ public class InternalTransferResponse {
                     String.format(
                             "%sid%s=%s",
                             prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
+        }
+
+        // add `status` to the URL query string
+        if (getStatus() != null) {
+            joiner.add(
+                    String.format(
+                            "%sstatus%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
+        }
+
+        // add `systemMessages` to the URL query string
+        if (getSystemMessages() != null) {
+            for (int i = 0; i < getSystemMessages().size(); i++) {
+                if (getSystemMessages().get(i) != null) {
+                    joiner.add(
+                            getSystemMessages()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%ssystemMessages%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
         }
 
         return joiner.toString();

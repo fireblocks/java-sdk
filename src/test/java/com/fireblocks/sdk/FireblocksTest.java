@@ -404,6 +404,15 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetComplianceOrchestratorBetaApi() {
+        setupFireblocks(true, null, null);
+        ComplianceOrchestratorBetaApi complianceOrchestratorBeta =
+                fireblocks.complianceOrchestratorBeta();
+        Assert.assertNotNull(complianceOrchestratorBeta);
+        Assert.assertSame(complianceOrchestratorBeta, fireblocks.complianceOrchestratorBeta());
+    }
+
+    @Test
     public void testGetComplianceScreeningConfigurationApi() {
         setupFireblocks(true, null, null);
         ComplianceScreeningConfigurationApi complianceScreeningConfiguration =

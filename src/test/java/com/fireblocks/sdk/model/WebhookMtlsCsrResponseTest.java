@@ -30,4 +30,10 @@ class WebhookMtlsCsrResponseTest {
     void csrTest() {
         // TODO: test csr
     }
+
+    /** Test the property 'keyAlgorithm' */
+    @Test
+    void keyAlgorithmTest() {
+        // TODO: test keyAlgorithm
+    }
 }

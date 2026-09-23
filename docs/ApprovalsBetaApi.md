@@ -4,10 +4,255 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
+| [**approveApproval**](ApprovalsBetaApi.md#approveApproval) | **POST** /approvals/{requestId}/approve | Approve an approval request |
+| [**createApprovalKey**](ApprovalsBetaApi.md#createApprovalKey) | **POST** /management/api_users/{userId}/approval_keys | Register an approval key |
+| [**deleteApprovalKey**](ApprovalsBetaApi.md#deleteApprovalKey) | **DELETE** /management/api_users/{userId}/approval_keys/{keyId} | Delete an approval key |
 | [**getApprovalById**](ApprovalsBetaApi.md#getApprovalById) | **GET** /approvals/{requestId} | Get a single approval request |
+| [**getApprovalKeys**](ApprovalsBetaApi.md#getApprovalKeys) | **GET** /management/api_users/{userId}/approval_keys | List approval keys |
 | [**getApprovals**](ApprovalsBetaApi.md#getApprovals) | **GET** /approvals | List approval requests |
 | [**rejectApproval**](ApprovalsBetaApi.md#rejectApproval) | **POST** /approvals/{requestId}/reject | Reject an approval request |
 
+
+
+## approveApproval
+
+> CompletableFuture<ApiResponse<Void>> approveApproval approveApproval(approveApprovalRequest, requestId, idempotencyKey)
+
+Approve an approval request
+
+Approve a pending approval request as the authenticated API user. The caller signs the request&#39;s signable data with the private key of a registered approval API key and submits the base64url-encoded signature, optionally with the key ID. The server verifies the signature against the registered public key — using the given key ID, or matching against all of the user&#39;s registered keys when the key ID is omitted — and advances the approval quorum.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ApprovalsBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        ApproveApprovalRequest approveApprovalRequest = new ApproveApprovalRequest(); // ApproveApprovalRequest | 
+        String requestId = "18055"; // String | The approval request ID.
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.approvalsBeta().approveApproval(approveApprovalRequest, requestId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ApprovalsBetaApi#approveApproval");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **approveApprovalRequest** | [**ApproveApprovalRequest**](ApproveApprovalRequest.md)|  | |
+| **requestId** | **String**| The approval request ID. | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+
+CompletableFuture<ApiResponse<Void>>
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | The approval request was approved. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## createApprovalKey
+
+> CompletableFuture<ApiResponse<RegisterApprovalApiKeyResponse>> createApprovalKey createApprovalKey(registerApprovalApiKeyRequest, userId, idempotencyKey)
+
+Register an approval key
+
+Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.  The &#x60;userId&#x60; must be the authenticated API user&#39;s own ID. Registering a key for another user is not supported and is rejected.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ApprovalsBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        RegisterApprovalApiKeyRequest registerApprovalApiKeyRequest = new RegisterApprovalApiKeyRequest(); // RegisterApprovalApiKeyRequest | 
+        String userId = "8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94"; // String | The ID of the API user to register the approval key for.
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<RegisterApprovalApiKeyResponse>> response = fireblocks.approvalsBeta().createApprovalKey(registerApprovalApiKeyRequest, userId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ApprovalsBetaApi#createApprovalKey");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **registerApprovalApiKeyRequest** | [**RegisterApprovalApiKeyRequest**](RegisterApprovalApiKeyRequest.md)|  | |
+| **userId** | **String**| The ID of the API user to register the approval key for. | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**RegisterApprovalApiKeyResponse**](RegisterApprovalApiKeyResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The approval key was registered. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## deleteApprovalKey
+
+> CompletableFuture<ApiResponse<Void>> deleteApprovalKey deleteApprovalKey(userId, keyId, idempotencyKey)
+
+Delete an approval key
+
+Delete (revoke) an approval public key for the specified API user. Revoking the last key disables the API user&#39;s ability to sign approvals.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ApprovalsBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String userId = "8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94"; // String | The ID of the API user whose approval key to delete.
+        String keyId = "fab543c0-d6be-414c-aa05-5c6c84269d7a"; // String | The ID of the approval key to delete.
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.approvalsBeta().deleteApprovalKey(userId, keyId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ApprovalsBetaApi#deleteApprovalKey");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **userId** | **String**| The ID of the API user whose approval key to delete. | |
+| **keyId** | **String**| The ID of the approval key to delete. | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+
+CompletableFuture<ApiResponse<Void>>
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | The approval key was deleted. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
 ## getApprovalById
@@ -88,6 +333,87 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | The requested approval request. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getApprovalKeys
+
+> CompletableFuture<ApiResponse<ListApprovalApiKeysResponse>> getApprovalKeys getApprovalKeys(userId, pageSize, pageCursor)
+
+List approval keys
+
+List the approval public keys registered for the specified API user.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin, Security Auditor.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ApprovalsBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String userId = "8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94"; // String | The ID of the API user whose approval keys to list.
+        Integer pageSize = 10; // Integer | Number of results per page. Maximum 15. Defaults to 10.
+        String pageCursor = "pageCursor_example"; // String | Cursor returned from the previous response (the `next` field) to fetch the next page.
+        try {
+            CompletableFuture<ApiResponse<ListApprovalApiKeysResponse>> response = fireblocks.approvalsBeta().getApprovalKeys(userId, pageSize, pageCursor);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ApprovalsBetaApi#getApprovalKeys");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **userId** | **String**| The ID of the API user whose approval keys to list. | |
+| **pageSize** | **Integer**| Number of results per page. Maximum 15. Defaults to 10. | [optional] [default to 10] |
+| **pageCursor** | **String**| Cursor returned from the previous response (the &#x60;next&#x60; field) to fetch the next page. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**ListApprovalApiKeysResponse**](ListApprovalApiKeysResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The API user&#39;s approval keys. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

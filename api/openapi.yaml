@@ -583,6 +583,77 @@ paths:
           \ user_id, quorum_status_mode);"
       x-accepts:
       - application/json
+  /approvals/{requestId}/approve:
+    post:
+      description: |-
+        Approve a pending approval request as the authenticated API user. The caller signs the request's signable data with the private key of a registered approval API key and submits the base64url-encoded signature, optionally with the key ID. The server verifies the signature against the registered public key — using the given key ID, or matching against all of the user's registered keys when the key ID is omitted — and advances the approval quorum.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+      operationId: approveApproval
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The approval request ID.
+        example: "18055"
+        explode: false
+        in: path
+        name: requestId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApproveApprovalRequest"
+        required: true
+      responses:
+        "204":
+          description: The approval request was approved.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Approve an approval request
+      tags:
+      - Approvals (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.approvalsBeta.approveApproval(approvalsBetaApiApproveApprovalRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.approvalsBeta().approveApproval(approveApprovalRequest,\
+            \ requestId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.approvals_beta.approve_approval(approve_approval_request,\
+            \ request_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.approvalsBeta.approveApproval(approvalsBetaApiApproveApprovalRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.approvalsBeta().approveApproval(approveApprovalRequest,\
+          \ requestId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.approvals_beta.approve_approval(approve_approval_request,\
+          \ request_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
   /approvals/{requestId}/reject:
     post:
       description: |-
@@ -645,6 +716,238 @@ paths:
       - lang: Python
         source: "response = fireblocks.approvals_beta.reject_approval(request_id,\
           \ idempotency_key);"
+      x-accepts:
+      - application/json
+  /management/api_users/{userId}/approval_keys:
+    get:
+      description: |-
+        List the approval public keys registered for the specified API user.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin, Security Auditor.
+      operationId: getApprovalKeys
+      parameters:
+      - description: The ID of the API user whose approval keys to list.
+        example: 8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Number of results per page. Maximum 15. Defaults to 10.
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 10
+          maximum: 15
+          minimum: 1
+          type: integer
+        style: form
+      - description: Cursor returned from the previous response (the `next` field)
+          to fetch the next page.
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListApprovalApiKeysResponse"
+          description: The API user's approval keys.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: List approval keys
+      tags:
+      - Approvals (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ListApprovalApiKeysResponse>>\
+            \ = fireblocks.approvalsBeta.getApprovalKeys(approvalsBetaApiGetApprovalKeysRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ListApprovalApiKeysResponse>> response\
+            \ = fireblocks.approvalsBeta().getApprovalKeys(userId, pageSize, pageCursor);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.approvals_beta.get_approval_keys(user_id, page_size,\
+            \ page_cursor);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ListApprovalApiKeysResponse>>\
+          \ = fireblocks.approvalsBeta.getApprovalKeys(approvalsBetaApiGetApprovalKeysRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ListApprovalApiKeysResponse>> response\
+          \ = fireblocks.approvalsBeta().getApprovalKeys(userId, pageSize, pageCursor);"
+      - lang: Python
+        source: "response = fireblocks.approvals_beta.get_approval_keys(user_id, page_size,\
+          \ page_cursor);"
+      x-accepts:
+      - application/json
+    post:
+      description: |-
+        Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.
+
+        The `userId` must be the authenticated API user's own ID. Registering a key for another user is not supported and is rejected.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+      operationId: createApprovalKey
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the API user to register the approval key for.
+        example: 8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterApprovalApiKeyRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegisterApprovalApiKeyResponse"
+          description: The approval key was registered.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Register an approval key
+      tags:
+      - Approvals (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<RegisterApprovalApiKeyResponse>>\
+            \ = fireblocks.approvalsBeta.createApprovalKey(approvalsBetaApiCreateApprovalKeyRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<RegisterApprovalApiKeyResponse>> response\
+            \ = fireblocks.approvalsBeta().createApprovalKey(registerApprovalApiKeyRequest,\
+            \ userId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.approvals_beta.create_approval_key(register_approval_api_key_request,\
+            \ user_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<RegisterApprovalApiKeyResponse>>\
+          \ = fireblocks.approvalsBeta.createApprovalKey(approvalsBetaApiCreateApprovalKeyRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<RegisterApprovalApiKeyResponse>> response\
+          \ = fireblocks.approvalsBeta().createApprovalKey(registerApprovalApiKeyRequest,\
+          \ userId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.approvals_beta.create_approval_key(register_approval_api_key_request,\
+          \ user_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /management/api_users/{userId}/approval_keys/{keyId}:
+    delete:
+      description: |-
+        Delete (revoke) an approval public key for the specified API user. Revoking the last key disables the API user's ability to sign approvals.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+      operationId: deleteApprovalKey
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the API user whose approval key to delete.
+        example: 8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the approval key to delete.
+        example: fab543c0-d6be-414c-aa05-5c6c84269d7a
+        explode: false
+        in: path
+        name: keyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: The approval key was deleted.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Delete an approval key
+      tags:
+      - Approvals (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.approvalsBeta.deleteApprovalKey(approvalsBetaApiDeleteApprovalKeyRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.approvalsBeta().deleteApprovalKey(userId,\
+            \ keyId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.approvals_beta.delete_approval_key(user_id,\
+            \ key_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.approvalsBeta.deleteApprovalKey(approvalsBetaApiDeleteApprovalKeyRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.approvalsBeta().deleteApprovalKey(userId,\
+          \ keyId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.approvals_beta.delete_approval_key(user_id,\
+          \ key_id, idempotency_key);"
       x-accepts:
       - application/json
   /management/audit_logs:
@@ -5207,6 +5510,347 @@ paths:
           response = fireblocks.compliance().getScreeningPolicy();
       - lang: Python
         source: response = fireblocks.compliance.get_screening_policy();
+      x-accepts:
+      - application/json
+  /compliance/orchestrator/screenings:
+    post:
+      description: |-
+        Starts a compliance screening against an active workflow and returns a `screeningId`. The screening runs asynchronously — poll `GET /v1/compliance/orchestrator/screenings/{screeningId}` for the result.
+
+        Unlike the screening that applies automatically to submitted transactions under `/v1/screening`, this is called on demand, before anything exists on-chain.
+      operationId: triggerScreening
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TriggerScreeningRequest"
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TriggerScreeningResponse"
+          description: Screening accepted
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Invalid or missing required input fields.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Workflow not found.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Workflow is not active.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Trigger a Compliance Orchestrator screening
+      tags:
+      - Compliance Orchestrator (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TriggerScreeningResponse>>\
+            \ = fireblocks.complianceOrchestratorBeta.triggerScreening(complianceOrchestratorBetaApiTriggerScreeningRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TriggerScreeningResponse>> response\
+            \ = fireblocks.complianceOrchestratorBeta().triggerScreening(triggerScreeningRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.compliance_orchestrator_beta.trigger_screening(trigger_screening_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<TriggerScreeningResponse>>\
+          \ = fireblocks.complianceOrchestratorBeta.triggerScreening(complianceOrchestratorBetaApiTriggerScreeningRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<TriggerScreeningResponse>> response\
+          \ = fireblocks.complianceOrchestratorBeta().triggerScreening(triggerScreeningRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.compliance_orchestrator_beta.trigger_screening(trigger_screening_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /compliance/orchestrator/screenings/{screeningId}:
+    get:
+      description: "Returns the result of a screening started by `POST /v1/compliance/orchestrator/screenings`,\
+        \ with a result per workflow step and an audit log. Safe to poll: a screening\
+        \ still in flight reports `PENDING` or `RUNNING`. Only screenings owned by\
+        \ the requesting tenant are returned."
+      operationId: getScreeningResult
+      parameters:
+      - description: "The screening's identifier, returned by `POST /v1/compliance/orchestrator/screenings`."
+        example: a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d
+        explode: false
+        in: path
+        name: screeningId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetScreeningResultResponse"
+          description: Screening result
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Invalid request arguments.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Screening result not found.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get a Compliance Orchestrator screening's result
+      tags:
+      - Compliance Orchestrator (Beta)
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetScreeningResultResponse>>\
+            \ = fireblocks.complianceOrchestratorBeta.getScreeningResult(complianceOrchestratorBetaApiGetScreeningResultRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetScreeningResultResponse>> response
+            = fireblocks.complianceOrchestratorBeta().getScreeningResult(screeningId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.compliance_orchestrator_beta.get_screening_result(screening_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetScreeningResultResponse>>\
+          \ = fireblocks.complianceOrchestratorBeta.getScreeningResult(complianceOrchestratorBetaApiGetScreeningResultRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<GetScreeningResultResponse>> response
+          = fireblocks.complianceOrchestratorBeta().getScreeningResult(screeningId);
+      - lang: Python
+        source: response = fireblocks.compliance_orchestrator_beta.get_screening_result(screening_id);
+      x-accepts:
+      - application/json
+  /compliance/orchestrator/workflows/{workflowId}:
+    get:
+      description: "Returns a workflow's status and its steps in execution order.\
+        \ Read it to see what a given `workflowId` will screen, and which fields its\
+        \ rules may reference."
+      operationId: getWorkflow
+      parameters:
+      - description: The workflow's identifier.
+        example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+        explode: false
+        in: path
+        name: workflowId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetWorkflowResponse"
+          description: Workflow
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Invalid request arguments.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Workflow not found.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get a Compliance Orchestrator workflow
+      tags:
+      - Compliance Orchestrator (Beta)
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetWorkflowResponse>>\
+            \ = fireblocks.complianceOrchestratorBeta.getWorkflow(complianceOrchestratorBetaApiGetWorkflowRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetWorkflowResponse>> response = fireblocks.complianceOrchestratorBeta().getWorkflow(workflowId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.compliance_orchestrator_beta.get_workflow(workflow_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetWorkflowResponse>>\
+          \ = fireblocks.complianceOrchestratorBeta.getWorkflow(complianceOrchestratorBetaApiGetWorkflowRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<GetWorkflowResponse>> response = fireblocks.complianceOrchestratorBeta().getWorkflow(workflowId);
+      - lang: Python
+        source: response = fireblocks.compliance_orchestrator_beta.get_workflow(workflow_id);
+      x-accepts:
+      - application/json
+  /compliance/orchestrator/workflows/{workflowId}/status:
+    patch:
+      description: "Moves a workflow between `DRAFT` and `ACTIVE`. A workflow must\
+        \ be `ACTIVE` before `POST /v1/compliance/orchestrator/screenings` will accept\
+        \ a screening against it. Returns the workflow's id and new status, not its\
+        \ full configuration."
+      operationId: updateWorkflowStatus
+      parameters:
+      - description: The workflow's identifier.
+        example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+        explode: false
+        in: path
+        name: workflowId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateWorkflowStatusRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateWorkflowStatusResponse"
+          description: Workflow status updated
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Invalid request arguments.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Workflow not found.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Update a Compliance Orchestrator workflow's status
+      tags:
+      - Compliance Orchestrator (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UpdateWorkflowStatusResponse>>\
+            \ = fireblocks.complianceOrchestratorBeta.updateWorkflowStatus(complianceOrchestratorBetaApiUpdateWorkflowStatusRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<UpdateWorkflowStatusResponse>> response\
+            \ = fireblocks.complianceOrchestratorBeta().updateWorkflowStatus(updateWorkflowStatusRequest,\
+            \ workflowId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.compliance_orchestrator_beta.update_workflow_status(update_workflow_status_request,\
+            \ workflow_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<UpdateWorkflowStatusResponse>>\
+          \ = fireblocks.complianceOrchestratorBeta.updateWorkflowStatus(complianceOrchestratorBetaApiUpdateWorkflowStatusRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<UpdateWorkflowStatusResponse>> response\
+          \ = fireblocks.complianceOrchestratorBeta().updateWorkflowStatus(updateWorkflowStatusRequest,\
+          \ workflowId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.compliance_orchestrator_beta.update_workflow_status(update_workflow_status_request,\
+          \ workflow_id, idempotency_key);"
+      x-content-type: application/json
       x-accepts:
       - application/json
   /connected_accounts:
@@ -36969,6 +37613,71 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+  /webhooks_settings/mtls_csr:
+    get:
+      description: |
+        Returns the Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.
+
+        The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.
+
+        Pass `keyAlgorithm` to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time.
+      operationId: getMtlsCsr
+      parameters:
+      - description: "Algorithm of the private key the CSR is generated for. ECDSA\
+          \ keys are smaller and quicker to issue, but the certificate authority signing\
+          \ the request has to accept an EC subject key, which some do not by default."
+        explode: true
+        in: query
+        name: keyAlgorithm
+        required: false
+        schema:
+          default: RSA
+          enum:
+          - RSA
+          - ECDSA
+          example: RSA
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookMtlsCsrResponse"
+          description: The mTLS CSR PEM
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get mTLS CSR
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<WebhookMtlsCsrResponse>>\
+            \ = fireblocks.webhooksV2.getMtlsCsr(webhooksV2ApiGetMtlsCsrRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<WebhookMtlsCsrResponse>> response =
+            fireblocks.webhooksV2().getMtlsCsr(keyAlgorithm);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.webhooks_v2.get_mtls_csr(key_algorithm);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<WebhookMtlsCsrResponse>>\
+          \ = fireblocks.webhooksV2.getMtlsCsr(webhooksV2ApiGetMtlsCsrRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<WebhookMtlsCsrResponse>> response =
+          fireblocks.webhooksV2().getMtlsCsr(keyAlgorithm);
+      - lang: Python
+        source: response = fireblocks.webhooks_v2.get_mtls_csr(key_algorithm);
+      x-accepts:
+      - application/json
   /webhooks_settings/oauth:
     get:
       description: |
@@ -37229,7 +37938,7 @@ paths:
       description: |
         Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.
 
-        `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook's own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Since a `null` inside a map is the delete mechanism, none of the three accepts `null` for the whole field — `customJwtClaims: null`, `customBodyParams: null` or `customHeaders: null` is rejected with a `400` rather than ignored. Clear a map by listing each of its keys with a `null` value. Because `null` is spent on deletion, a claim cannot be set to JSON `null` either, on this endpoint or on create. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.
+        `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook's own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.
 
         **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
       operationId: updateWebhookOauth
@@ -38295,51 +39004,6 @@ paths:
       - lang: Python
         source: "response = fireblocks.webhooks_v2.get_resend_job_status(webhook_id,\
           \ job_id);"
-      x-accepts:
-      - application/json
-  /webhooks/mtls/csr:
-    get:
-      description: |
-        Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.
-      operationId: getMtlsCsr
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/WebhookMtlsCsrResponse"
-          description: The mTLS CSR PEM
-          headers:
-            X-Request-ID:
-              $ref: "#/components/headers/X-Request-ID"
-        default:
-          $ref: "#/components/responses/Error"
-      summary: Get mTLS CSR
-      tags:
-      - Webhooks V2
-      x-rate-limit-category: read
-      x-readme:
-        code-samples:
-        - language: typescript
-          code: "const response: Promise<FireblocksResponse<WebhookMtlsCsrResponse>>\
-            \ = fireblocks.webhooksV2.getMtlsCsr();"
-          name: Fireblocks SDK TypeScript example
-        - language: java
-          code: CompletableFuture<ApiResponse<WebhookMtlsCsrResponse>> response =
-            fireblocks.webhooksV2().getMtlsCsr();
-          name: Fireblocks SDK Java example
-        - language: python
-          code: response = fireblocks.webhooks_v2.get_mtls_csr();
-          name: Fireblocks SDK Python example
-      x-codeSamples:
-      - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<WebhookMtlsCsrResponse>>\
-          \ = fireblocks.webhooksV2.getMtlsCsr();"
-      - lang: Java
-        source: CompletableFuture<ApiResponse<WebhookMtlsCsrResponse>> response =
-          fireblocks.webhooksV2().getMtlsCsr();
-      - lang: Python
-        source: response = fireblocks.webhooks_v2.get_mtls_csr();
       x-accepts:
       - application/json
   /management/api_users/{userId}/whitelist_ip_addresses:
@@ -41762,10 +42426,30 @@ components:
       - destType
       - sourceType
       type: object
+    SystemMessageInfo:
+      example:
+        type: WARN
+        message: Slow transaction processing. Outgoing transactions might be stuck.
+      properties:
+        type:
+          enum:
+          - WARN
+          - BLOCK
+          type: string
+        message:
+          description: "A response from Fireblocks that communicates a message about\
+            \ the health of the process being performed. If this object is returned\
+            \ with data, you should expect potential delays or incomplete transaction\
+            \ statuses."
+          example: Slow transaction processing. Outgoing transactions might be stuck.
+          type: string
+      type: object
     InternalTransferResponse:
       example:
+        systemMessages: []
         success: true
         id: id
+        status: SUCCESS
       properties:
         success:
           description: Indicates whether the transfer was successful
@@ -41774,6 +42458,21 @@ components:
           description: The transaction ID of the internal transfer
           nullable: true
           type: string
+        status:
+          description: The transfer status returned by the transaction manager. Only
+            present when the transfer was processed via the transaction manager flow.
+          example: SUCCESS
+          nullable: true
+          type: string
+        systemMessages:
+          description: System messages returned by the transaction manager about the
+            health of the transfer being performed. Only present when the transfer
+            was processed via the transaction manager flow.
+          example: []
+          items:
+            $ref: "#/components/schemas/SystemMessageInfo"
+          nullable: true
+          type: array
       required:
       - success
       type: object
@@ -48730,24 +49429,6 @@ components:
           description: The vault account ID of the relay that sponsors the gas for
             the meta-transaction.
           example: "19"
-          type: string
-      type: object
-    SystemMessageInfo:
-      example:
-        type: WARN
-        message: Slow transaction processing. Outgoing transactions might be stuck.
-      properties:
-        type:
-          enum:
-          - WARN
-          - BLOCK
-          type: string
-        message:
-          description: "A response from Fireblocks that communicates a message about\
-            \ the health of the process being performed. If this object is returned\
-            \ with data, you should expect potential delays or incomplete transaction\
-            \ statuses."
-          example: Slow transaction processing. Outgoing transactions might be stuck.
           type: string
       type: object
     TransactionResponse:
@@ -56582,6 +57263,28 @@ components:
       required:
       - data
       type: object
+    ApproveApprovalRequest:
+      description: The signed approval of a pending request.
+      example:
+        signature: MEUCIQD...signature...Ok
+        keyId: 64e6b6a3-a607-40e0-8a1e-fe93976ffd46
+      properties:
+        keyId:
+          description: "The ID of the approval API key used to sign the request. Optional\
+            \ — if omitted, the signature is verified against all of the user's registered\
+            \ approval API keys."
+          example: 64e6b6a3-a607-40e0-8a1e-fe93976ffd46
+          type: string
+        signature:
+          description: "Base64url-encoded signature over the request's signable data,\
+            \ produced with the private key of a registered approval API key. If keyId\
+            \ is provided the signature must match that key; otherwise it is matched\
+            \ against all of the user's registered keys."
+          example: MEUCIQD...signature...Ok
+          type: string
+      required:
+      - signature
+      type: object
     AddCollateralRequestBody:
       example:
         isSrcCollateral: true
@@ -59612,13 +60315,13 @@ components:
           \ an empty field value, and it reaches your endpoint as an empty value rather\
           \ than being dropped. A value has no length limit of its own and must not\
           \ contain control characters. An array must not be empty and is not accepted\
-          \ for `Cookie`."
+          \ for `Cookie` or `Authorization`."
         example: abc123
       description: |-
         Custom HTTP headers attached to every notification delivered by this webhook.
-        A value is a string, sent as one header line, or an array of strings, sent as one header line per element under the same name. `Cookie` accepts only a string. An empty array is rejected — leave the name out instead.
-        At most 10 header lines in total, counted per array element rather than per name. Names must be valid HTTP header tokens, are case-insensitive, and are at most 128 characters. A value may be empty and has no length limit of its own; the whole object must be under 16 KB when serialized as UTF-8. A value that large may still be refused by your own endpoint, since web servers commonly cap the whole request header block at around 8 KB.
-        Reserved names: `Host`, `Content-Type`, `Content-Length`, `Transfer-Encoding`, `Connection`, `User-Agent`, `Accept`, `Accept-Encoding`, `Fireblocks-Signature`, `Fireblocks-Webhook-Signature`. When this webhook has OAuth credentials attached, an `Authorization` value you set and the bearer token are both sent as separate header lines.
+        A value is a string, sent as one header line, or an array of strings, sent as one header line per element under the same name. `Cookie` and `Authorization` accept only a string. An empty array is rejected — leave the name out instead.
+        At most 10 headers, counted by name — an array value counts once, however many lines it sends. Names must be valid HTTP header tokens, are case-insensitive, and are at most 128 characters. A value may be empty and has no length limit of its own; the whole object must be under 16 KB when serialized as UTF-8. A value that large may still be refused by your own endpoint, since web servers commonly cap the whole request header block at around 8 KB.
+        Reserved names: `Host`, `Content-Type`, `Content-Length`, `Transfer-Encoding`, `Connection`, `User-Agent`, `Accept`, `Accept-Encoding`, `Fireblocks-Signature`, `Fireblocks-Webhook-Signature`. `Authorization` may be set, but not together with `webhookOauthId`; a request that would leave both set is rejected.
         Values are write-only; responses return only the header names.
       example:
         X-Gateway-Key: abc123
@@ -59679,7 +60382,9 @@ components:
           description: "The id of the OAuth credentials this webhook authenticates\
             \ with, from `/v1/webhooks_settings/oauth`. Several webhooks may share\
             \ one credential set, so rotating its client secret covers all of them\
-            \ at once. Send `null` to stop using OAuth for this webhook."
+            \ at once. Send `null` to stop using OAuth for this webhook. Cannot be\
+            \ combined with an `authorization` custom header on the same webhook;\
+            \ a request that would leave both set is rejected."
           example: 123e4567-e89b-12d3-a456-426614174000
           format: uuid
           nullable: true
@@ -59691,13 +60396,13 @@ components:
               \ §5.5 permits an empty field value, and it reaches your endpoint as\
               \ an empty value rather than being dropped. A value has no length limit\
               \ of its own and must not contain control characters. An array must\
-              \ not be empty and is not accepted for `Cookie`."
+              \ not be empty and is not accepted for `Cookie` or `Authorization`."
             example: abc123
           description: |-
             Custom HTTP headers attached to every notification delivered by this webhook.
-            A value is a string, sent as one header line, or an array of strings, sent as one header line per element under the same name. `Cookie` accepts only a string. An empty array is rejected — leave the name out instead.
-            At most 10 header lines in total, counted per array element rather than per name. Names must be valid HTTP header tokens, are case-insensitive, and are at most 128 characters. A value may be empty and has no length limit of its own; the whole object must be under 16 KB when serialized as UTF-8. A value that large may still be refused by your own endpoint, since web servers commonly cap the whole request header block at around 8 KB.
-            Reserved names: `Host`, `Content-Type`, `Content-Length`, `Transfer-Encoding`, `Connection`, `User-Agent`, `Accept`, `Accept-Encoding`, `Fireblocks-Signature`, `Fireblocks-Webhook-Signature`. When this webhook has OAuth credentials attached, an `Authorization` value you set and the bearer token are both sent as separate header lines.
+            A value is a string, sent as one header line, or an array of strings, sent as one header line per element under the same name. `Cookie` and `Authorization` accept only a string. An empty array is rejected — leave the name out instead.
+            At most 10 headers, counted by name — an array value counts once, however many lines it sends. Names must be valid HTTP header tokens, are case-insensitive, and are at most 128 characters. A value may be empty and has no length limit of its own; the whole object must be under 16 KB when serialized as UTF-8. A value that large may still be refused by your own endpoint, since web servers commonly cap the whole request header block at around 8 KB.
+            Reserved names: `Host`, `Content-Type`, `Content-Length`, `Transfer-Encoding`, `Connection`, `User-Agent`, `Accept`, `Accept-Encoding`, `Fireblocks-Signature`, `Fireblocks-Webhook-Signature`. `Authorization` may be set, but not together with `webhookOauthId`; a request that would leave both set is rejected.
             Values are write-only; responses return only the header names.
           example:
             X-Gateway-Key: abc123
@@ -59710,6 +60415,17 @@ components:
       - events
       - url
       type: object
+    WebhookMtlsKeyAlgorithm:
+      description: "Algorithm of the Fireblocks-held mTLS private key. A workspace\
+        \ may hold one key of each type, so a CSR is always returned for the type\
+        \ requested, and the type is echoed back on the response. ECDSA keys are smaller\
+        \ and quicker to issue, but the certificate authority signing the request\
+        \ has to accept an EC subject key, which some do not by default."
+      enum:
+      - RSA
+      - ECDSA
+      example: RSA
+      type: string
     WebhookMtlsCsrResponse:
       description: mTLS Certificate Signing Request response
       example:
@@ -59717,6 +60433,7 @@ components:
           -----BEGIN CERTIFICATE REQUEST-----
           ...
           -----END CERTIFICATE REQUEST-----
+        keyAlgorithm: RSA
       properties:
         csr:
           description: The Fireblocks PEM-encoded Certificate Signing Request (CSR).
@@ -59725,14 +60442,18 @@ components:
             ...
             -----END CERTIFICATE REQUEST-----
           type: string
+        keyAlgorithm:
+          $ref: "#/components/schemas/WebhookMtlsKeyAlgorithm"
       required:
       - csr
+      - keyAlgorithm
       type: object
     WebhookOauthCredentials:
       description: "A stored OAuth 2.0 client credential set, referenced by webhooks\
-        \ through their `webhookOauthId`. When a webhook references one, the dispatcher\
-        \ fetches a bearer token from `url` before each delivery and attaches it as\
-        \ `Authorization: Bearer {token}`. Secret material is never returned: `clientSecret`\
+        \ through their `webhookOauthId`. Deliveries for a webhook that references\
+        \ one carry `Authorization: Bearer {token}`, using a token fetched from `url`\
+        \ and cached until it expires, so your authorization server sees far fewer\
+        \ token requests than deliveries. Secret material is never returned: `clientSecret`\
         \ is absent from this schema entirely, and the `customJwtClaims`, `customBodyParams`\
         \ and `customHeaders` fields are reduced to their names, without the configured\
         \ values."
@@ -59872,8 +60593,8 @@ components:
       additionalProperties:
         type: string
       description: |-
-        Extra HTTP headers for **the token request to your authorization server** — not for the webhook delivery, which has its own separate `customHeaders`. A gateway API key is the usual case. Applies to every authentication method.
-        Values must be strings; an empty string is allowed. Names are matched case-insensitively, so two names differing only in case are a duplicate. Names are stored and returned lowercased, so `X-Api-Key` comes back as `x-api-key`. `Content-Type`, `Content-Length` and `Host` are set by Fireblocks and cannot be overridden. `Authorization` is not sent when `authMethod` is `client_secret_basic`. Values have no length limit of their own; the whole object must be under 16 KB when serialized as UTF-8.
+        Extra HTTP headers for **the token request to your authorization server** — not for the webhook delivery, which has its own separate `customHeaders`. A gateway API key is the usual case.
+        Values must be strings; an empty string is allowed. Names are matched case-insensitively, so two names differing only in case are a duplicate. Names are stored and returned lowercased, so `X-Api-Key` comes back as `x-api-key`. `Content-Type`, `Content-Length` and `Host` are set by Fireblocks and cannot be overridden. `Authorization` can be set with `client_secret_post` or `client_secret_jwt`, which send the credentials in the body — useful when your token endpoint sits behind a gateway. It is rejected with `client_secret_basic`, which sends the credentials in that header. Values have no length limit of their own; the whole object must be under 16 KB when serialized as UTF-8.
         Values are write-only; responses return only the header names. On update this merges name by name rather than replacing — see `WebhookOauthCustomHeadersUpdate`.
       example:
         x-api-key: gateway-key
@@ -59965,8 +60686,8 @@ components:
           additionalProperties:
             type: string
           description: |-
-            Extra HTTP headers for **the token request to your authorization server** — not for the webhook delivery, which has its own separate `customHeaders`. A gateway API key is the usual case. Applies to every authentication method.
-            Values must be strings; an empty string is allowed. Names are matched case-insensitively, so two names differing only in case are a duplicate. Names are stored and returned lowercased, so `X-Api-Key` comes back as `x-api-key`. `Content-Type`, `Content-Length` and `Host` are set by Fireblocks and cannot be overridden. `Authorization` is not sent when `authMethod` is `client_secret_basic`. Values have no length limit of their own; the whole object must be under 16 KB when serialized as UTF-8.
+            Extra HTTP headers for **the token request to your authorization server** — not for the webhook delivery, which has its own separate `customHeaders`. A gateway API key is the usual case.
+            Values must be strings; an empty string is allowed. Names are matched case-insensitively, so two names differing only in case are a duplicate. Names are stored and returned lowercased, so `X-Api-Key` comes back as `x-api-key`. `Content-Type`, `Content-Length` and `Host` are set by Fireblocks and cannot be overridden. `Authorization` can be set with `client_secret_post` or `client_secret_jwt`, which send the credentials in the body — useful when your token endpoint sits behind a gateway. It is rejected with `client_secret_basic`, which sends the credentials in that header. Values have no length limit of their own; the whole object must be under 16 KB when serialized as UTF-8.
             Values are write-only; responses return only the header names. On update this merges name by name rather than replacing — see `WebhookOauthCustomHeadersUpdate`.
           example:
             x-api-key: gateway-key
@@ -60060,7 +60781,7 @@ components:
       description: |-
         A delta applied to the token request headers — not the webhook delivery headers. A header with a value is added or replaced, a header with `null` is deleted, and one you leave out is untouched. So `{ "X-Api-Key": "new-key", "X-Tenant": null }` rotates `X-Api-Key`, drops `X-Tenant`, and changes nothing else.
         Send `customHeaders: null` to clear every header in one call. That does not collide with a `null` value on a name: one names the header to delete, the other names the whole field. Names are case-insensitive, so a `null` under one casing deletes a header stored under another, and names are stored and returned lowercased.
-        Same rules as on create: string values only, `Content-Type`/`Content-Length`/`Host` reserved, resulting set under 16 KB, values write-only.
+        Same rules as on create: string values only, `Content-Type`, `Content-Length` and `Host` reserved, `Authorization` only with `client_secret_post` or `client_secret_jwt`, resulting set under 16 KB, values write-only.
       example:
         x-api-key: gateway-key
         x-tenant: null
@@ -60070,7 +60791,7 @@ components:
       description: |-
         A partial update. Every field is optional and an omitted field is left as it is, so `{ "clientSecret": "new-secret" }` rotates the secret and changes nothing else. A rotation applies to every webhook referencing these credentials.
 
-        The three custom maps merge: a key with a value is upserted, a key with `null` is deleted, a key you leave out is untouched. Because `null` inside a map means delete, none of the three is nullable as a whole — `customJwtClaims: null` and friends are rejected with a `400`. Clear a map by naming each key with a `null` value. `mtlsClientSignedCert` is a scalar, so `null` there does remove it.
+        The three custom maps merge. A key with a value is upserted, a key with `null` is deleted, a key you leave out is untouched, and the whole field set to `null` clears the map. There is no ambiguity between the two uses of `null` — one names an entry, the other names the field. `mtlsClientSignedCert` is a scalar, so `null` there removes it.
       example:
         clientId: my-client-id
         customBodyParams:
@@ -60158,7 +60879,7 @@ components:
           description: |-
             A delta applied to the token request headers — not the webhook delivery headers. A header with a value is added or replaced, a header with `null` is deleted, and one you leave out is untouched. So `{ "X-Api-Key": "new-key", "X-Tenant": null }` rotates `X-Api-Key`, drops `X-Tenant`, and changes nothing else.
             Send `customHeaders: null` to clear every header in one call. That does not collide with a `null` value on a name: one names the header to delete, the other names the whole field. Names are case-insensitive, so a `null` under one casing deletes a header stored under another, and names are stored and returned lowercased.
-            Same rules as on create: string values only, `Content-Type`/`Content-Length`/`Host` reserved, resulting set under 16 KB, values write-only.
+            Same rules as on create: string values only, `Content-Type`, `Content-Length` and `Host` reserved, `Authorization` only with `client_secret_post` or `client_secret_jwt`, resulting set under 16 KB, values write-only.
           example:
             x-api-key: gateway-key
             x-tenant: null
@@ -60181,13 +60902,13 @@ components:
           \ as one header line per element, or `null` to delete the header. A string\
           \ may be empty. A value has no length limit of its own and must not contain\
           \ control characters. An array must not be empty and is not accepted for\
-          \ `Cookie`."
+          \ `Cookie` or `Authorization`."
         example: abc123
       description: |-
         A delta applied to the delivery headers. A header with a value is added or replaced, a header with `null` is deleted, and one you leave out is untouched. A value replaces what is stored under that name rather than adding to it, so an array is the complete new set of lines for that header.
         Send `customHeaders: null` to clear every header in one call. That does not collide with a `null` value on a name: one names the header to delete, the other names the whole field.
         Names are case-insensitive, so a `null` under one casing deletes a header stored under another.
-        Same rules as on create: string or non-empty array, `Cookie` string-only, 10 lines total and under 16 KB in the resulting set, the same reserved names, and values write-only. Entries set to `null` do not count towards the limit.
+        Same rules as on create: string or non-empty array, `Cookie` and `Authorization` string-only, 10 headers and under 16 KB in the resulting set, the same reserved names, and values write-only. Entries set to `null` do not count towards the limit. `Authorization` cannot be combined with `webhookOauthId`, though one request may add it and detach the credentials together.
       example:
         X-Gateway-Key: abc123
         X-Forwarded-For:
@@ -60247,7 +60968,9 @@ components:
           description: "The id of the OAuth credentials this webhook authenticates\
             \ with, from `/v1/webhooks_settings/oauth`. Several webhooks may share\
             \ one credential set, so rotating its client secret covers all of them\
-            \ at once. Send `null` to stop using OAuth for this webhook."
+            \ at once. Send `null` to stop using OAuth for this webhook. Cannot be\
+            \ combined with an `authorization` custom header on the same webhook;\
+            \ a request that would leave both set is rejected."
           example: 123e4567-e89b-12d3-a456-426614174000
           format: uuid
           nullable: true
@@ -60258,13 +60981,13 @@ components:
               \ sent as one header line per element, or `null` to delete the header.\
               \ A string may be empty. A value has no length limit of its own and\
               \ must not contain control characters. An array must not be empty and\
-              \ is not accepted for `Cookie`."
+              \ is not accepted for `Cookie` or `Authorization`."
             example: abc123
           description: |-
             A delta applied to the delivery headers. A header with a value is added or replaced, a header with `null` is deleted, and one you leave out is untouched. A value replaces what is stored under that name rather than adding to it, so an array is the complete new set of lines for that header.
             Send `customHeaders: null` to clear every header in one call. That does not collide with a `null` value on a name: one names the header to delete, the other names the whole field.
             Names are case-insensitive, so a `null` under one casing deletes a header stored under another.
-            Same rules as on create: string or non-empty array, `Cookie` string-only, 10 lines total and under 16 KB in the resulting set, the same reserved names, and values write-only. Entries set to `null` do not count towards the limit.
+            Same rules as on create: string or non-empty array, `Cookie` and `Authorization` string-only, 10 headers and under 16 KB in the resulting set, the same reserved names, and values write-only. Entries set to `null` do not count towards the limit. `Authorization` cannot be combined with `webhookOauthId`, though one request may add it and detach the credentials together.
           example:
             X-Gateway-Key: abc123
             X-Forwarded-For:
@@ -61388,9 +62111,12 @@ components:
             $ref: "#/components/schemas/Parameter"
           type: array
         value:
-          description: The value of the parameter. can also be ParameterWithValue
+          description: "The value of the parameter. The shape follows the ABI `type`:\
+            \ a string for `string`/`address`/`bytes*`, a number for `uint*`/`int*`,\
+            \ a boolean for `bool`, an array for `T[]`, and for `tuple` an array of\
+            \ nested ParameterWithValue objects (one per entry in `components`, in\
+            \ ABI order)."
           example: "true"
-          type: string
         functionValue:
           allOf:
           - $ref: "#/components/schemas/LeanAbiFunction"
@@ -64938,10 +65664,12 @@ components:
         cumulativeGasUsed:
           description: The cumulative gas used in the transaction
           example: 21000
+          format: int64
           type: integer
         effectiveGasPrice:
           description: The effective gas price
           example: 1000000000
+          format: int64
           type: integer
         from:
           description: Sender address
@@ -64950,6 +65678,7 @@ components:
         gasUsed:
           description: Gas used by the transaction
           example: 21000
+          format: int64
           type: integer
         logs:
           description: Array of transaction logs
@@ -77620,6 +78349,742 @@ components:
             policy rule on tenant configuration.
           type: boolean
       type: object
+    ScreeningOperationEnum:
+      description: |
+        What the caller wants Compliance Orchestrator to do. The target workflow must
+        have a step configured for the operation; the error names the supported set
+        when it does not.
+
+        - `ADDRESS_SCREENING` — screen an address on its own, before anything exists
+          on-chain. Answers whether the address itself carries risk.
+        - `TRANSACTION_SCREENING` — screen a whole transfer: source and destination,
+          amount and direction, not the destination alone.
+        - `REGISTER_TRANSACTION` — record a confirmed transfer with the provider for
+          ongoing monitoring. Not a gate: it files the transfer so the provider's own
+          rules can raise alerts later, which is what feeds its AML model.
+      enum:
+      - ADDRESS_SCREENING
+      - TRANSACTION_SCREENING
+      - REGISTER_TRANSACTION
+      example: ADDRESS_SCREENING
+      type: string
+    TransferDirectionEnum:
+      description: "A transfer's direction relative to the workspace. Set for `TRANSACTION_SCREENING`\
+        \ and `REGISTER_TRANSACTION`; it has no meaning for `ADDRESS_SCREENING`, which\
+        \ screens an address on its own."
+      enum:
+      - INBOUND
+      - OUTBOUND
+      example: OUTBOUND
+      type: string
+    ScreeningPayload:
+      description: The subject of the screening. Which fields are required depends
+        on the operation and on the connectors configured on the workflow's step.
+      properties:
+        blockchain:
+          description: The blockchain network of the asset being screened.
+          example: ETH
+          type: string
+        asset:
+          description: The asset identifier being screened.
+          example: ETH
+          type: string
+        assetAmount:
+          description: "The amount of the asset involved in the transaction, as a\
+            \ string."
+          example: "1.5"
+          type: string
+        usdValue:
+          description: "The USD value of the transaction amount, as a string."
+          example: "3000.00"
+          type: string
+        customerRefId:
+          description: Customer-provided reference identifier for tracking.
+          example: customer_ref_789
+          type: string
+        externalId:
+          description: External identifier for the screening (provider-specific).
+          example: aml_screening_12345
+          type: string
+        address:
+          description: The blockchain address to screen. Used for the `ADDRESS_SCREENING`
+            operation.
+          example: 0x9876543210fedcba9876543210fedcba98765432
+          type: string
+        direction:
+          $ref: "#/components/schemas/TransferDirectionEnum"
+        sourceAddress:
+          description: The source blockchain address(es) of the transaction.
+          example:
+          - 0x9876543210fedcba9876543210fedcba98765432
+          items:
+            type: string
+          type: array
+        destinationAddress:
+          description: The destination blockchain address(es) of the transaction.
+          example:
+          - 0x1234567890abcdef1234567890abcdef12345678
+          items:
+            type: string
+          type: array
+        txHash:
+          description: The transaction hash on the blockchain.
+          example: 0xabc123...
+          type: string
+      type: object
+    ScreeningInput:
+      description: "What the caller wants screened, and how."
+      example:
+        payload:
+        - blockchain: ETH
+          asset: ETH
+          address: 0x9876543210fedcba9876543210fedcba98765432
+        operation: ADDRESS_SCREENING
+      properties:
+        operation:
+          $ref: "#/components/schemas/ScreeningOperationEnum"
+        payload:
+          description: The screening subjects. Up to 100 per request — the provider's
+            own batch limit for address screening — so a bulk check does not need
+            one call per address.
+          example:
+          - blockchain: ETH
+            asset: ETH
+            address: 0x9876543210fedcba9876543210fedcba98765432
+          items:
+            $ref: "#/components/schemas/ScreeningPayload"
+          maxItems: 100
+          minItems: 1
+          type: array
+      required:
+      - operation
+      - payload
+      type: object
+    TriggerScreeningRequest:
+      description: Request to trigger a screening against an active workflow.
+      example:
+        input:
+          payload:
+          - blockchain: ETH
+            asset: ETH
+            address: 0x9876543210fedcba9876543210fedcba98765432
+          operation: ADDRESS_SCREENING
+        workflowId: b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e
+      properties:
+        workflowId:
+          description: The workflow to screen against. Must be in `ACTIVE` status.
+          example: b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e
+          type: string
+        input:
+          $ref: "#/components/schemas/ScreeningInput"
+      required:
+      - input
+      - workflowId
+      type: object
+    ComplianceScreeningStatusEnum:
+      description: |
+        A screening's lifecycle status.
+
+        - `PENDING` — accepted, not started
+        - `RUNNING` — one or more steps in flight
+        - `COMPLETED` — every step finished and the workflow outcome is set
+        - `FAILED` — the screening could not be completed
+      enum:
+      - PENDING
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      example: COMPLETED
+      type: string
+    TriggerScreeningResponse:
+      description: Acknowledgement that a screening was accepted and is now running.
+      example:
+        screeningId: a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d
+        screeningStatus: COMPLETED
+      properties:
+        screeningId:
+          description: "Identifier of the screening that was created. Poll `GET /v1/compliance/orchestrator/screenings/{screeningId}`\
+            \ with it for the verdict."
+          example: a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d
+          type: string
+        screeningStatus:
+          $ref: "#/components/schemas/ComplianceScreeningStatusEnum"
+      required:
+      - screeningId
+      - screeningStatus
+      type: object
+    ScreeningOutcomeEnum:
+      description: "An `ACCEPT`/`REJECT` decision — the workflow's own outcome, a\
+        \ step's outcome, or the result of evaluating a step's outcome rules. `null`\
+        \ on a workflow outcome that is not decided yet."
+      enum:
+      - ACCEPT
+      - REJECT
+      example: ACCEPT
+      nullable: true
+      type: string
+    TriggerRuleOutcomeEnum:
+      description: |
+        Whether the step's trigger rules caused its connector to run. This is a
+        decision about running, not about risk — `ACCEPT`/`REJECT` belong to the
+        outcome fields.
+
+        - `EXECUTE` — a rule called for screening, so the connector ran
+        - `PASS` — a rule let the subject through without screening
+        - `FAIL` — the step could not run; see `bypassReason`
+      enum:
+      - EXECUTE
+      - PASS
+      - FAIL
+      example: EXECUTE
+      type: string
+    RuleConditionOperatorEnum:
+      description: The comparison applied between a rule condition's `field` and its
+        `value`.
+      enum:
+      - EQUALS
+      - NOT_EQUALS
+      - GT
+      - GTE
+      - LT
+      - LTE
+      example: EQUALS
+      type: string
+    RuleCondition:
+      description: A single condition within a rule. Conditions within a rule are
+        AND-ed together.
+      properties:
+        field:
+          description: The input context field this condition tests. Allowed values
+            depend on the rule set type (trigger vs. outcome) and the step's connector/operation.
+          example: blockchain
+          type: string
+        operator:
+          $ref: "#/components/schemas/RuleConditionOperatorEnum"
+        value:
+          description: "The value `field` is compared against, using `operator`."
+          example: ETH
+          type: string
+      required:
+      - field
+      - operator
+      - value
+      type: object
+    RuleActionEnum:
+      description: |
+        What happens when a rule matches. Which values are legal depends on the rule
+        set the rule belongs to — a trigger rule decides whether to screen, an
+        outcome rule decides what the answer means. The enum is the union of both
+        sets, so neither set accepts all of its values: `FREEZE` is the one value
+        shared by the two, and every other value belongs to exactly one of them.
+
+        Trigger rules:
+
+        - `SCREEN` — call the connector
+        - `PASS` — let the subject through without screening
+        - `FREEZE` — hold for manual action
+
+        Outcome rules:
+
+        - `ACCEPT` — the step passes
+        - `REJECT` — the step fails
+        - `ALERT` — the step passes but is flagged for review
+        - `FREEZE` — hold for manual action
+        - `WAIT` — come back later; refused once the deadline has passed
+      enum:
+      - SCREEN
+      - PASS
+      - FREEZE
+      - ACCEPT
+      - REJECT
+      - ALERT
+      - WAIT
+      example: SCREEN
+      type: string
+    Rule:
+      description: "A single rule within a rule set. The first rule whose conditions\
+        \ match wins, and its `ruleAction` is applied."
+      nullable: true
+      properties:
+        ruleId:
+          description: "UUID, unique within the rule set."
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          type: string
+        conditions:
+          description: Conditions AND-ed together within this rule.
+          example: []
+          items:
+            $ref: "#/components/schemas/RuleCondition"
+          type: array
+        ruleAction:
+          $ref: "#/components/schemas/RuleActionEnum"
+        order:
+          description: "Zero-based evaluation order among the rule set's rules, lowest\
+            \ first."
+          example: 0
+          type: integer
+        title:
+          description: User-facing label for the rule. Cosmetic only — not read by
+            rule evaluation.
+          example: High risk score
+          nullable: true
+          type: string
+      type: object
+    StepResultMetadata:
+      additionalProperties: true
+      description: "Connector-specific data, keyed by the connector's configured outcomeMetaParameters\
+        \ for this operation."
+      example:
+        address: 0x9876543210fedcba9876543210fedcba98765432
+        blockchain: ETH
+      type: object
+    ConnectorVerdictEnum:
+      description: "The connector's own verdict for a step, before the step's outcome\
+        \ rules are applied. `null` on a step that did not reach the provider."
+      enum:
+      - ACCEPT
+      - REJECT
+      - ALERT
+      example: ACCEPT
+      nullable: true
+      type: string
+    ConnectorStatusEnum:
+      description: |
+        The connector's own processing status for a step.
+
+        - `COMPLETED` — the provider answered
+        - `BYPASSED` — no provider call was made; see `bypassReason`
+        - `FAILED` — the provider call did not succeed
+        - `FROZEN` — the step is held pending manual action
+      enum:
+      - COMPLETED
+      - BYPASSED
+      - FAILED
+      - FROZEN
+      example: COMPLETED
+      nullable: true
+      type: string
+    BypassReasonEnum:
+      description: |
+        Why a step's screening did not run. A verbatim mirror of the platform's
+        `BypassReason` vocabulary, shared with the rest of Fireblocks screening.
+
+        Only `PASSED_BY_POLICY` is an approval — the policy deliberately let the
+        subject through. Every other value means the check could not be performed,
+        and the step is rejected rather than passed. A bypass is not a pass.
+
+        - `MANUAL` — a person bypassed it
+        - `UNSUPPORTED_ASSET` — the provider does not screen this asset or chain
+        - `UNSUPPORTED_ROUTE` — the provider does not screen this route
+        - `PASSED_BY_POLICY` — a policy rule let it through without screening
+        - `BYPASSED_FAILURE` — screening failed and policy allowed a bypass
+        - `TIMED_OUT` — the provider did not answer within the deadline
+        - `BAD_CREDENTIALS` — the tenant's provider credentials were rejected
+        - `CONFIGURATION_ERROR` — the connector is misconfigured for this tenant
+        - `DROPPED_BY_BLOCKCHAIN` — the transaction never confirmed
+        - `PROCESS_DISMISSED` — the surrounding process was cancelled
+      enum:
+      - MANUAL
+      - UNSUPPORTED_ASSET
+      - UNSUPPORTED_ROUTE
+      - PASSED_BY_POLICY
+      - BYPASSED_FAILURE
+      - TIMED_OUT
+      - BAD_CREDENTIALS
+      - CONFIGURATION_ERROR
+      - DROPPED_BY_BLOCKCHAIN
+      - PROCESS_DISMISSED
+      example: PASSED_BY_POLICY
+      nullable: true
+      type: string
+    RiskLevelEnum:
+      description: "The provider's risk assessment for a step, normalised across connectors.\
+        \ `null` on a step that did not reach the provider — the absence of a risk\
+        \ level is not the same as low risk."
+      enum:
+      - SEVERE
+      - HIGH
+      - MEDIUM
+      - LOW
+      - UNKNOWN
+      example: LOW
+      nullable: true
+      type: string
+    StepResult:
+      description: |-
+        The result of one workflow step's execution during a screening.
+
+        Carries the step's outcome next to the two rule evaluations that produced it — which trigger rule decided the connector should run, and which outcome rule read the response — plus the provider's own verdict and risk level.
+
+        A step that did not screen carries a `bypassReason` instead of a risk level. Only `PASSED_BY_POLICY` means the policy deliberately let it through; every other reason means the check could not be performed, and the step is rejected rather than passed. A bypass is not an approval.
+      properties:
+        stepId:
+          description: Identifier of this step within the workflow.
+          example: step-1
+          type: string
+        connectorId:
+          description: Identifier of the connector that executed this step.
+          example: connector-kyt
+          type: string
+        operation:
+          $ref: "#/components/schemas/ScreeningOperationEnum"
+        triggerRuleOutcome:
+          $ref: "#/components/schemas/TriggerRuleOutcomeEnum"
+        matchedTriggerRule:
+          $ref: "#/components/schemas/Rule"
+        outcomeRuleOutcome:
+          $ref: "#/components/schemas/ScreeningOutcomeEnum"
+        matchedOutcomeRule:
+          $ref: "#/components/schemas/Rule"
+        outcome:
+          $ref: "#/components/schemas/ScreeningOutcomeEnum"
+        metadata:
+          additionalProperties: true
+          description: "Connector-specific data, keyed by the connector's configured\
+            \ outcomeMetaParameters for this operation."
+          example:
+            address: 0x9876543210fedcba9876543210fedcba98765432
+            blockchain: ETH
+          type: object
+        ticketId:
+          description: The connector-side screening ticket identifier.
+          example: ticket-12345
+          nullable: true
+          type: string
+        verdict:
+          $ref: "#/components/schemas/ConnectorVerdictEnum"
+        connectorStatus:
+          $ref: "#/components/schemas/ConnectorStatusEnum"
+        bypassReason:
+          $ref: "#/components/schemas/BypassReasonEnum"
+        risk:
+          $ref: "#/components/schemas/RiskLevelEnum"
+      required:
+      - connectorId
+      - operation
+      - outcome
+      - outcomeRuleOutcome
+      - stepId
+      - triggerRuleOutcome
+      type: object
+    AuditEventTypeEnum:
+      description: |
+        The kind of event an audit entry records.
+
+        - `STATUS_TRANSITION` — the screening moved between statuses
+        - `STEP_TRIGGER_RULE_EVALUATED` — a step's trigger rules were evaluated
+        - `CONNECTOR_CALL` — a connector was called; `data.phase` distinguishes the
+          request from its terminal result
+        - `STEP_OUTCOME_RULE_EVALUATED` — a step's outcome rules read the response
+        - `STEP_METADATA_RECORDED` — connector metadata was attached to a step
+        - `WORKFLOW_OUTCOME` — the workflow outcome was derived from its steps.
+      enum:
+      - STATUS_TRANSITION
+      - STEP_TRIGGER_RULE_EVALUATED
+      - CONNECTOR_CALL
+      - STEP_OUTCOME_RULE_EVALUATED
+      - STEP_METADATA_RECORDED
+      - WORKFLOW_OUTCOME
+      example: STATUS_TRANSITION
+      type: string
+    AuditLogEntry:
+      description: One entry in a screening's append-only audit trail.
+      properties:
+        timestamp:
+          description: "Unix timestamp in seconds when the event occurred, encoded\
+            \ as a string."
+          example: "1700000000"
+          type: string
+        eventType:
+          $ref: "#/components/schemas/AuditEventTypeEnum"
+        data:
+          description: "The event payload, JSON serialised and then base64 encoded.\
+            \ Its shape depends on `eventType` — decode it to read the event."
+          example: !!binary |-
+            ZXlKMGJ5STZJbEJGVGtSSlRrY2lmUT09
+          format: byte
+          type: string
+      required:
+      - data
+      - eventType
+      - timestamp
+      type: object
+    GetScreeningResultResponse:
+      description: "The current status, outcome, per-step results, and audit log for\
+        \ a screening."
+      example:
+        auditLog: []
+        screeningId: a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d
+        screeningStatus: COMPLETED
+        steps: []
+        workflowId: b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e
+        outcome: ACCEPT
+      properties:
+        screeningId:
+          description: Identifier of the screening being queried.
+          example: a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d
+          type: string
+        workflowId:
+          description: Identifier of the workflow that produced this screening.
+          example: b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e
+          type: string
+        screeningStatus:
+          $ref: "#/components/schemas/ComplianceScreeningStatusEnum"
+        outcome:
+          $ref: "#/components/schemas/ScreeningOutcomeEnum"
+        steps:
+          description: Flat step list.
+          example: []
+          items:
+            $ref: "#/components/schemas/StepResult"
+          type: array
+        auditLog:
+          description: Append-only audit trail for this screening.
+          example: []
+          items:
+            $ref: "#/components/schemas/AuditLogEntry"
+          type: array
+      required:
+      - auditLog
+      - screeningId
+      - screeningStatus
+      - steps
+      - workflowId
+      type: object
+    WorkflowStatusEnum:
+      description: |
+        A workflow's status, which controls whether it can be screened against.
+
+        - `DRAFT` — the editing state. Rules can be changed while nothing is
+          screening against them, so a screening never runs against a half-finished
+          configuration.
+        - `ACTIVE` — `POST /v1/compliance/orchestrator/screenings` accepts screenings against this workflow.
+      enum:
+      - ACTIVE
+      - DRAFT
+      example: ACTIVE
+      type: string
+    RuleSet:
+      description: "An ordered set of rules. Rules are evaluated top to bottom, and\
+        \ the first one that matches wins."
+      properties:
+        rules:
+          description: "Ordered rule list, evaluated top to bottom; the first match\
+            \ wins."
+          example:
+          - ruleId: f47ac10b-58cc-4372-a567-0e02b2c3d479
+            conditions:
+            - field: blockchain
+              operator: EQUALS
+              value: ETH
+            ruleAction: SCREEN
+            order: 0
+          items:
+            $ref: "#/components/schemas/Rule"
+          type: array
+      type: object
+    StepOperationConfig:
+      description: |-
+        Configuration for one operation the step's connector handles. The operation arrives on the screening request; the connector decides how to handle it.
+
+        Two rule sets govern the step, and both are configured here rather than sent per request, so the same call behaves differently across workflows. Trigger rules decide whether the connector runs at all; outcome rules turn the provider's response into the step's verdict. With neither configured the step runs under the connector's own defaults, which for `kyt_trmlabs` are permissive: the screening completes without consulting the provider.
+
+        The four parameter lists are the contract for writing those rules: a rule naming a field outside `triggerRuleParameters` or `outcomeEvaluationParameters` is rejected. They are derived from the connector registry rather than stored, so a connector gaining a field is reflected here without a migration.
+      properties:
+        operation:
+          $ref: "#/components/schemas/ScreeningOperationEnum"
+        requiredParameters:
+          description: "Resolved server-side on every `GetWorkflow` call from the\
+            \ step's connector definition for this operation. Read-only: ignored on\
+            \ write."
+          example:
+          - address
+          - blockchain
+          items:
+            type: string
+          type: array
+        optionalParameters:
+          description: "Like `requiredParameters`, but optional inputs to the operation."
+          example:
+          - asset
+          - assetAmount
+          - usdValue
+          items:
+            type: string
+          type: array
+        triggerRuleParameters:
+          description: Fields a condition in `triggerRuleSetStruct` may reference.
+          example:
+          - address
+          - blockchain
+          - asset
+          items:
+            type: string
+          type: array
+        outcomeEvaluationParameters:
+          description: Provider response fields a condition in `outcomeRuleSetStruct`
+            may reference.
+          example:
+          - addressHighestRiskScoreLevel
+          items:
+            type: string
+          type: array
+        outcomeMetaParameters:
+          description: Additional provider response fields returned with the result;
+            not usable in `outcomeRuleSetStruct` conditions.
+          example:
+          - address
+          - blockchain
+          items:
+            type: string
+          type: array
+        triggerRuleSetStruct:
+          $ref: "#/components/schemas/RuleSet"
+        triggerRuleSetJson:
+          description: "The tenant's trigger rules, as a JSON-encoded string. Set\
+            \ for steps whose rules are still defined as a legacy screening policy\
+            \ rather than natively in Compliance Orchestrator, and refreshed on every\
+            \ read. Mutually exclusive with `triggerRuleSetStruct`."
+          example: "[{\"ruleId\":\"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\"action\"\
+            :\"REJECT\"}]"
+          nullable: true
+          type: string
+        outcomeRuleSetStruct:
+          $ref: "#/components/schemas/RuleSet"
+        outcomeRuleSetJson:
+          description: "The tenant's outcome rules, as a JSON-encoded string. Set\
+            \ for steps whose rules are still defined as a legacy screening policy\
+            \ rather than natively in Compliance Orchestrator, and refreshed on every\
+            \ read. Mutually exclusive with `outcomeRuleSetStruct`."
+          example: "[{\"ruleId\":\"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\"action\"\
+            :\"REJECT\"}]"
+          nullable: true
+          type: string
+      type: object
+    StepConfig:
+      description: |-
+        One step in a workflow, backed by a single connector.
+
+        A connector is the compliance provider integration that does the work — `kyt_trmlabs` is TRM Labs. The step declares which operations that connector handles; a screening naming an operation no step is configured for is refused, and the error reports the supported set.
+      properties:
+        stepId:
+          description: Unique within the workflow.
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          type: string
+        connectorId:
+          description: Identifies which connector this step invokes.
+          example: kyt_trmlabs
+          type: string
+        operations:
+          description: One entry per operation the step's connector handles.
+          example:
+          - operation: ADDRESS_SCREENING
+            requiredParameters:
+            - address
+            - blockchain
+            optionalParameters: []
+            triggerRuleParameters: []
+            outcomeEvaluationParameters: []
+            outcomeMetaParameters: []
+          items:
+            $ref: "#/components/schemas/StepOperationConfig"
+          type: array
+        order:
+          description: "Execution order among the workflow's steps, lowest first."
+          example: 0
+          type: integer
+      required:
+      - connectorId
+      - operations
+      - order
+      - stepId
+      type: object
+    GetWorkflowResponse:
+      description: |-
+        A workflow's current definition, including its steps and each step's rule sets.
+
+        A workflow is the configuration a screening runs against: an ordered list of steps, each backed by one connector. It must be `ACTIVE` before a screening will accept it — `DRAFT` is the editing state, so a screening never runs against a half-finished configuration.
+      example:
+        createdAt: "1735689600"
+        description: Screens EU customer addresses against KYT risk providers.
+        templateId: m1-kyt-workflow
+        title: KYT Screening - EU Customers
+        steps:
+        - stepId: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          connectorId: kyt_trmlabs
+          operations: []
+          order: 0
+        workflowId: f47ac10b-58cc-4372-a567-0e02b2c3d479
+        status: ACTIVE
+      properties:
+        workflowId:
+          description: Unique identifier of the workflow.
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          type: string
+        templateId:
+          description: "The template this workflow was provisioned from, if any."
+          example: m1-kyt-workflow
+          nullable: true
+          type: string
+        status:
+          $ref: "#/components/schemas/WorkflowStatusEnum"
+        title:
+          description: User-facing display name for the workflow.
+          example: KYT Screening - EU Customers
+          type: string
+        description:
+          description: User-facing free-text description of the workflow's purpose.
+          example: Screens EU customer addresses against KYT risk providers.
+          nullable: true
+          type: string
+        createdAt:
+          description: "Unix timestamp in seconds when the workflow was provisioned,\
+            \ encoded as a string."
+          example: "1735689600"
+          type: string
+        steps:
+          description: Flat list — one step per connector.
+          example:
+          - stepId: f47ac10b-58cc-4372-a567-0e02b2c3d479
+            connectorId: kyt_trmlabs
+            operations: []
+            order: 0
+          items:
+            $ref: "#/components/schemas/StepConfig"
+          type: array
+      required:
+      - createdAt
+      - status
+      - steps
+      - title
+      - workflowId
+      type: object
+    UpdateWorkflowStatusRequest:
+      description: Request to change a workflow's status.
+      example:
+        status: ACTIVE
+      properties:
+        status:
+          $ref: "#/components/schemas/WorkflowStatusEnum"
+      required:
+      - status
+      type: object
+    UpdateWorkflowStatusResponse:
+      description: The workflow's status after the update.
+      example:
+        workflowId: f47ac10b-58cc-4372-a567-0e02b2c3d479
+        status: ACTIVE
+      properties:
+        workflowId:
+          description: Unique identifier of the workflow.
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          type: string
+        status:
+          $ref: "#/components/schemas/WorkflowStatusEnum"
+      required:
+      - status
+      - workflowId
+      type: object
     RescreenTransactionRequest:
       example:
         resetTravelRuleMessage: false
@@ -88453,6 +89918,145 @@ components:
             type: string
           nullable: true
           type: array
+      type: object
+    ApprovalApiPublicKey:
+      description: The public key material and its signing algorithm.
+      example:
+        publicKeyPem: |-
+          -----BEGIN PUBLIC KEY-----
+          MFkwEwYHKoZIzj0CAQ...
+          -----END PUBLIC KEY-----
+        algorithm: ECDSA_SECP256R1
+      properties:
+        algorithm:
+          description: The signature algorithm of the public key.
+          enum:
+          - RSA_PS256
+          - ECDSA_SECP256R1
+          - ECDSA_SECP384R1
+          - EDDSA_ED25519
+          example: ECDSA_SECP256R1
+          type: string
+        publicKeyPem:
+          description: The PEM-encoded public key.
+          example: |-
+            -----BEGIN PUBLIC KEY-----
+            MFkwEwYHKoZIzj0CAQ...
+            -----END PUBLIC KEY-----
+          type: string
+      required:
+      - algorithm
+      - publicKeyPem
+      type: object
+    ApprovalApiKey:
+      description: A registered approval API key for an API user.
+      properties:
+        id:
+          description: "The unique key ID, used to delete the key."
+          example: fab543c0-d6be-414c-aa05-5c6c84269d7a
+          type: string
+        name:
+          description: A human-readable label for the key.
+          example: primary signing key
+          type: string
+        createdAt:
+          description: Creation time as epoch time in seconds.
+          example: "1750000000"
+          type: string
+        lastUsedAt:
+          description: "Last time the key was used to sign, as epoch time in seconds\
+            \ (0 if never used)."
+          example: "1750600000"
+          type: string
+        approvalApiPublicKey:
+          $ref: "#/components/schemas/ApprovalApiPublicKey"
+        userId:
+          description: The ID of the API user who owns this key.
+          example: 8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94
+          type: string
+      required:
+      - approvalApiPublicKey
+      - createdAt
+      - id
+      - lastUsedAt
+      - name
+      - userId
+      type: object
+    ListApprovalApiKeysResponse:
+      description: The approval API keys registered for the API user.
+      example:
+        next: cursor for the next page
+        data:
+        - id: fab543c0-d6be-414c-aa05-5c6c84269d7a
+          name: primary signing key
+          createdAt: "1750000000"
+          lastUsedAt: "1750600000"
+          approvalApiPublicKey:
+            algorithm: ECDSA_SECP256R1
+            publicKeyPem: |-
+              -----BEGIN PUBLIC KEY-----
+              MFkwEwYHKoZIzj0CAQ...
+              -----END PUBLIC KEY-----
+          userId: 8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94
+      properties:
+        data:
+          description: The registered approval API keys.
+          example:
+          - id: fab543c0-d6be-414c-aa05-5c6c84269d7a
+            name: primary signing key
+            createdAt: "1750000000"
+            lastUsedAt: "1750600000"
+            approvalApiPublicKey:
+              algorithm: ECDSA_SECP256R1
+              publicKeyPem: |-
+                -----BEGIN PUBLIC KEY-----
+                MFkwEwYHKoZIzj0CAQ...
+                -----END PUBLIC KEY-----
+            userId: 8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94
+          items:
+            $ref: "#/components/schemas/ApprovalApiKey"
+          type: array
+        next:
+          description: Cursor for the next page of results. Pass it back as the `pageCursor`
+            query param to fetch the next page. Empty or absent when this is the last
+            page.
+          example: cursor for the next page
+          type: string
+      required:
+      - data
+      type: object
+    RegisterApprovalApiKeyRequest:
+      description: The approval API key to register.
+      example:
+        approvalApiPublicKey:
+          publicKeyPem: |-
+            -----BEGIN PUBLIC KEY-----
+            MFkwEwYHKoZIzj0CAQ...
+            -----END PUBLIC KEY-----
+          algorithm: ECDSA_SECP256R1
+        name: primary signing key
+      properties:
+        name:
+          description: A human-readable label for the key.
+          example: primary signing key
+          type: string
+        approvalApiPublicKey:
+          $ref: "#/components/schemas/ApprovalApiPublicKey"
+      required:
+      - approvalApiPublicKey
+      - name
+      type: object
+    RegisterApprovalApiKeyResponse:
+      description: The result of registering an approval API key.
+      example:
+        keyId: fab543c0-d6be-414c-aa05-5c6c84269d7a
+      properties:
+        keyId:
+          description: "The server-generated ID of the registered key, used for deletion."
+          example: fab543c0-d6be-414c-aa05-5c6c84269d7a
+          type: string
+      required:
+      - keyId
       type: object
     SmartTransferTicketTerm:
       description: Data object with result data

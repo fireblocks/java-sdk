@@ -1,0 +1,29 @@
+
+
+# BypassReasonEnum
+
+## Enum
+
+
+* `MANUAL` (value: `"MANUAL"`)
+
+* `UNSUPPORTED_ASSET` (value: `"UNSUPPORTED_ASSET"`)
+
+* `UNSUPPORTED_ROUTE` (value: `"UNSUPPORTED_ROUTE"`)
+
+* `PASSED_BY_POLICY` (value: `"PASSED_BY_POLICY"`)
+
+* `BYPASSED_FAILURE` (value: `"BYPASSED_FAILURE"`)
+
+* `TIMED_OUT` (value: `"TIMED_OUT"`)
+
+* `BAD_CREDENTIALS` (value: `"BAD_CREDENTIALS"`)
+
+* `CONFIGURATION_ERROR` (value: `"CONFIGURATION_ERROR"`)
+
+* `DROPPED_BY_BLOCKCHAIN` (value: `"DROPPED_BY_BLOCKCHAIN"`)
+
+* `PROCESS_DISMISSED` (value: `"PROCESS_DISMISSED"`)
+
+
+

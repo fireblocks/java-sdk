@@ -53,7 +53,7 @@ public class ParameterWithValue {
     @jakarta.annotation.Nullable private List<Parameter> components;
 
     public static final String JSON_PROPERTY_VALUE = "value";
-    @jakarta.annotation.Nullable private String value;
+    @jakarta.annotation.Nullable private Object value = null;
 
     public static final String JSON_PROPERTY_FUNCTION_VALUE = "functionValue";
     @jakarta.annotation.Nullable private LeanAbiFunction functionValue;
@@ -191,26 +191,30 @@ public class ParameterWithValue {
         this.components = components;
     }
 
-    public ParameterWithValue value(@jakarta.annotation.Nullable String value) {
+    public ParameterWithValue value(@jakarta.annotation.Nullable Object value) {
         this.value = value;
         return this;
     }
 
     /**
-     * The value of the parameter. can also be ParameterWithValue
+     * The value of the parameter. The shape follows the ABI &#x60;type&#x60;: a string for
+     * &#x60;string&#x60;/&#x60;address&#x60;/&#x60;bytes*&#x60;, a number for
+     * &#x60;uint*&#x60;/&#x60;int*&#x60;, a boolean for &#x60;bool&#x60;, an array for
+     * &#x60;T[]&#x60;, and for &#x60;tuple&#x60; an array of nested ParameterWithValue objects (one
+     * per entry in &#x60;components&#x60;, in ABI order).
      *
      * @return value
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_VALUE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 
     @JsonProperty(JSON_PROPERTY_VALUE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setValue(@jakarta.annotation.Nullable String value) {
+    public void setValue(@jakarta.annotation.Nullable Object value) {
         this.value = value;
     }
 

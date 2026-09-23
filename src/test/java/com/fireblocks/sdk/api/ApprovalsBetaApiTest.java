@@ -15,7 +15,11 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ApprovalRequestItem;
+import com.fireblocks.sdk.model.ApproveApprovalRequest;
+import com.fireblocks.sdk.model.ListApprovalApiKeysResponse;
 import com.fireblocks.sdk.model.ListApprovalsResponse;
+import com.fireblocks.sdk.model.RegisterApprovalApiKeyRequest;
+import com.fireblocks.sdk.model.RegisterApprovalApiKeyResponse;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -25,6 +29,62 @@ import org.junit.Test;
 public class ApprovalsBetaApiTest {
 
     private final ApprovalsBetaApi api = new ApprovalsBetaApi();
+
+    /**
+     * Approve an approval request
+     *
+     * <p>Approve a pending approval request as the authenticated API user. The caller signs the
+     * request&#39;s signable data with the private key of a registered approval API key and submits
+     * the base64url-encoded signature, optionally with the key ID. The server verifies the
+     * signature against the registered public key — using the given key ID, or matching against all
+     * of the user&#39;s registered keys when the key ID is omitted — and advances the approval
+     * quorum. Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security
+     * Admin.
+     */
+    @Test
+    public void approveApprovalTest() {
+        ApproveApprovalRequest approveApprovalRequest = null;
+        String requestId = null;
+        String idempotencyKey = null;
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.approveApproval(approveApprovalRequest, requestId, idempotencyKey);
+    }
+
+    /**
+     * Register an approval key
+     *
+     * <p>Register an approval public key for an API user, used to sign approval requests. Up to 2
+     * active keys are supported per API user. Returns the server-generated key ID used for
+     * deletion. The &#x60;userId&#x60; must be the authenticated API user&#39;s own ID. Registering
+     * a key for another user is not supported and is rejected. Endpoint Permission: Owner, Admin,
+     * Non-Signing Admin, Approver, Signer, Security Admin.
+     */
+    @Test
+    public void createApprovalKeyTest() {
+        RegisterApprovalApiKeyRequest registerApprovalApiKeyRequest = null;
+        String userId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<RegisterApprovalApiKeyResponse>> response =
+                api.createApprovalKey(registerApprovalApiKeyRequest, userId, idempotencyKey);
+    }
+
+    /**
+     * Delete an approval key
+     *
+     * <p>Delete (revoke) an approval public key for the specified API user. Revoking the last key
+     * disables the API user&#39;s ability to sign approvals. Endpoint Permission: Owner, Admin,
+     * Non-Signing Admin, Approver, Signer, Security Admin.
+     */
+    @Test
+    public void deleteApprovalKeyTest() {
+        String userId = null;
+        String keyId = null;
+        String idempotencyKey = null;
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.deleteApprovalKey(userId, keyId, idempotencyKey);
+    }
 
     /**
      * Get a single approval request
@@ -44,6 +104,21 @@ public class ApprovalsBetaApiTest {
         String quorumStatusMode = null;
         CompletableFuture<ApiResponse<ApprovalRequestItem>> response =
                 api.getApprovalById(requestId, userId, quorumStatusMode);
+    }
+
+    /**
+     * List approval keys
+     *
+     * <p>List the approval public keys registered for the specified API user. Endpoint Permission:
+     * Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin, Security Auditor.
+     */
+    @Test
+    public void getApprovalKeysTest() {
+        String userId = null;
+        Integer pageSize = null;
+        String pageCursor = null;
+        CompletableFuture<ApiResponse<ListApprovalApiKeysResponse>> response =
+                api.getApprovalKeys(userId, pageSize, pageCursor);
     }
 
     /**
