@@ -131,12 +131,19 @@ public class WebhooksV2ApiTest {
     /**
      * Get mTLS CSR
      *
-     * <p>Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use to
-     * generate their signed client certificate.
+     * <p>Returns the Certificate Signing Request (CSR) PEM that customers use to generate their
+     * signed client certificate. The private key the CSR is built from is held by Fireblocks and is
+     * specific to this workspace. It is created on the first request for a given key type, and the
+     * same CSR is returned on subsequent requests for that type. Pass &#x60;keyAlgorithm&#x60; to
+     * choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one
+     * for the type requested, so a certificate signed against it matches the key used at delivery
+     * time.
      */
     @Test
     public void getMtlsCsrTest() {
-        CompletableFuture<ApiResponse<WebhookMtlsCsrResponse>> response = api.getMtlsCsr();
+        String keyAlgorithm = null;
+        CompletableFuture<ApiResponse<WebhookMtlsCsrResponse>> response =
+                api.getMtlsCsr(keyAlgorithm);
     }
 
     /**
@@ -359,14 +366,13 @@ public class WebhooksV2ApiTest {
      * &#x60;customHeaders&#x60; are all merged key by key rather than replaced, the same way a
      * webhook&#39;s own &#x60;customHeaders&#x60; behaves: a key sent with a value is added or
      * overwritten, a key sent with a &#x60;null&#x60; value is deleted, and a key you omit is left
-     * alone. Since a &#x60;null&#x60; inside a map is the delete mechanism, none of the three
-     * accepts &#x60;null&#x60; for the whole field — &#x60;customJwtClaims: null&#x60;,
-     * &#x60;customBodyParams: null&#x60; or &#x60;customHeaders: null&#x60; is rejected with a
-     * &#x60;400&#x60; rather than ignored. Clear a map by listing each of its keys with a
-     * &#x60;null&#x60; value. Because &#x60;null&#x60; is spent on deletion, a claim cannot be set
-     * to JSON &#x60;null&#x60; either, on this endpoint or on create.
-     * &#x60;mtlsClientSignedCert&#x60; is a scalar rather than a map, so &#x60;null&#x60; there
-     * does remove it. **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+     * alone. Setting one of the three to &#x60;null&#x60; as a whole clears that map, which is the
+     * quick way to empty it without naming every key. There is no ambiguity between the two uses of
+     * &#x60;null&#x60; — one names an entry to delete, the other names the field. A claim cannot be
+     * set to JSON &#x60;null&#x60;, though, on this endpoint or on create, because &#x60;null&#x60;
+     * is spent on deletion. &#x60;mtlsClientSignedCert&#x60; is a scalar rather than a map, so
+     * &#x60;null&#x60; there does remove it. **Endpoint Permissions:** Owner, Admin, Non-Signing
+     * Admin.
      */
     @Test
     public void updateWebhookOauthTest() {

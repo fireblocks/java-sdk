@@ -194,7 +194,8 @@ public class UpdateWebhookRequest {
      * The id of the OAuth credentials this webhook authenticates with, from
      * &#x60;/v1/webhooks_settings/oauth&#x60;. Several webhooks may share one credential set, so
      * rotating its client secret covers all of them at once. Send &#x60;null&#x60; to stop using
-     * OAuth for this webhook.
+     * OAuth for this webhook. Cannot be combined with an &#x60;authorization&#x60; custom header on
+     * the same webhook; a request that would leave both set is rejected.
      *
      * @return webhookOauthId
      */
@@ -233,9 +234,11 @@ public class UpdateWebhookRequest {
      * call. That does not collide with a &#x60;null&#x60; value on a name: one names the header to
      * delete, the other names the whole field. Names are case-insensitive, so a &#x60;null&#x60;
      * under one casing deletes a header stored under another. Same rules as on create: string or
-     * non-empty array, &#x60;Cookie&#x60; string-only, 10 lines total and under 16 KB in the
-     * resulting set, the same reserved names, and values write-only. Entries set to
-     * &#x60;null&#x60; do not count towards the limit.
+     * non-empty array, &#x60;Cookie&#x60; and &#x60;Authorization&#x60; string-only, 10 headers and
+     * under 16 KB in the resulting set, the same reserved names, and values write-only. Entries set
+     * to &#x60;null&#x60; do not count towards the limit. &#x60;Authorization&#x60; cannot be
+     * combined with &#x60;webhookOauthId&#x60;, though one request may add it and detach the
+     * credentials together.
      *
      * @return customHeaders
      */

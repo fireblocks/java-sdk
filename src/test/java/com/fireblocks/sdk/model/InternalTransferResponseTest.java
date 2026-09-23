@@ -36,4 +36,16 @@ class InternalTransferResponseTest {
     void idTest() {
         // TODO: test id
     }
+
+    /** Test the property 'status' */
+    @Test
+    void statusTest() {
+        // TODO: test status
+    }
+
+    /** Test the property 'systemMessages' */
+    @Test
+    void systemMessagesTest() {
+        // TODO: test systemMessages
+    }
 }

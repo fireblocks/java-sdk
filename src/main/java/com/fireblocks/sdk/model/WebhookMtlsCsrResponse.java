@@ -22,7 +22,10 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /** mTLS Certificate Signing Request response */
-@JsonPropertyOrder({WebhookMtlsCsrResponse.JSON_PROPERTY_CSR})
+@JsonPropertyOrder({
+    WebhookMtlsCsrResponse.JSON_PROPERTY_CSR,
+    WebhookMtlsCsrResponse.JSON_PROPERTY_KEY_ALGORITHM
+})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
@@ -30,12 +33,18 @@ public class WebhookMtlsCsrResponse {
     public static final String JSON_PROPERTY_CSR = "csr";
     @jakarta.annotation.Nonnull private String csr;
 
+    public static final String JSON_PROPERTY_KEY_ALGORITHM = "keyAlgorithm";
+    @jakarta.annotation.Nonnull private WebhookMtlsKeyAlgorithm keyAlgorithm;
+
     public WebhookMtlsCsrResponse() {}
 
     @JsonCreator
     public WebhookMtlsCsrResponse(
-            @JsonProperty(value = JSON_PROPERTY_CSR, required = true) String csr) {
+            @JsonProperty(value = JSON_PROPERTY_CSR, required = true) String csr,
+            @JsonProperty(value = JSON_PROPERTY_KEY_ALGORITHM, required = true)
+                    WebhookMtlsKeyAlgorithm keyAlgorithm) {
         this.csr = csr;
+        this.keyAlgorithm = keyAlgorithm;
     }
 
     public WebhookMtlsCsrResponse csr(@jakarta.annotation.Nonnull String csr) {
@@ -61,6 +70,30 @@ public class WebhookMtlsCsrResponse {
         this.csr = csr;
     }
 
+    public WebhookMtlsCsrResponse keyAlgorithm(
+            @jakarta.annotation.Nonnull WebhookMtlsKeyAlgorithm keyAlgorithm) {
+        this.keyAlgorithm = keyAlgorithm;
+        return this;
+    }
+
+    /**
+     * Get keyAlgorithm
+     *
+     * @return keyAlgorithm
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_KEY_ALGORITHM)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public WebhookMtlsKeyAlgorithm getKeyAlgorithm() {
+        return keyAlgorithm;
+    }
+
+    @JsonProperty(JSON_PROPERTY_KEY_ALGORITHM)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setKeyAlgorithm(@jakarta.annotation.Nonnull WebhookMtlsKeyAlgorithm keyAlgorithm) {
+        this.keyAlgorithm = keyAlgorithm;
+    }
+
     /** Return true if this WebhookMtlsCsrResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -71,12 +104,13 @@ public class WebhookMtlsCsrResponse {
             return false;
         }
         WebhookMtlsCsrResponse webhookMtlsCsrResponse = (WebhookMtlsCsrResponse) o;
-        return Objects.equals(this.csr, webhookMtlsCsrResponse.csr);
+        return Objects.equals(this.csr, webhookMtlsCsrResponse.csr)
+                && Objects.equals(this.keyAlgorithm, webhookMtlsCsrResponse.keyAlgorithm);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(csr);
+        return Objects.hash(csr, keyAlgorithm);
     }
 
     @Override
@@ -84,6 +118,7 @@ public class WebhookMtlsCsrResponse {
         StringBuilder sb = new StringBuilder();
         sb.append("class WebhookMtlsCsrResponse {\n");
         sb.append("    csr: ").append(toIndentedString(csr)).append("\n");
+        sb.append("    keyAlgorithm: ").append(toIndentedString(keyAlgorithm)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -139,6 +174,16 @@ public class WebhookMtlsCsrResponse {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getCsr()))));
+        }
+
+        // add `keyAlgorithm` to the URL query string
+        if (getKeyAlgorithm() != null) {
+            joiner.add(
+                    String.format(
+                            "%skeyAlgorithm%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getKeyAlgorithm()))));
         }
 
         return joiner.toString();

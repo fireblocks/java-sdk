@@ -26,11 +26,10 @@ import java.util.StringJoiner;
  * A partial update. Every field is optional and an omitted field is left as it is, so &#x60;{
  * \&quot;clientSecret\&quot;: \&quot;new-secret\&quot; }&#x60; rotates the secret and changes
  * nothing else. A rotation applies to every webhook referencing these credentials. The three custom
- * maps merge: a key with a value is upserted, a key with &#x60;null&#x60; is deleted, a key you
- * leave out is untouched. Because &#x60;null&#x60; inside a map means delete, none of the three is
- * nullable as a whole — &#x60;customJwtClaims: null&#x60; and friends are rejected with a
- * &#x60;400&#x60;. Clear a map by naming each key with a &#x60;null&#x60; value.
- * &#x60;mtlsClientSignedCert&#x60; is a scalar, so &#x60;null&#x60; there does remove it.
+ * maps merge. A key with a value is upserted, a key with &#x60;null&#x60; is deleted, a key you
+ * leave out is untouched, and the whole field set to &#x60;null&#x60; clears the map. There is no
+ * ambiguity between the two uses of &#x60;null&#x60; — one names an entry, the other names the
+ * field. &#x60;mtlsClientSignedCert&#x60; is a scalar, so &#x60;null&#x60; there removes it.
  */
 @JsonPropertyOrder({
     UpdateWebhookOauthRequest.JSON_PROPERTY_NAME,
@@ -307,8 +306,9 @@ public class UpdateWebhookOauthRequest {
      * names the header to delete, the other names the whole field. Names are case-insensitive, so a
      * &#x60;null&#x60; under one casing deletes a header stored under another, and names are stored
      * and returned lowercased. Same rules as on create: string values only,
-     * &#x60;Content-Type&#x60;/&#x60;Content-Length&#x60;/&#x60;Host&#x60; reserved, resulting set
-     * under 16 KB, values write-only.
+     * &#x60;Content-Type&#x60;, &#x60;Content-Length&#x60; and &#x60;Host&#x60; reserved,
+     * &#x60;Authorization&#x60; only with &#x60;client_secret_post&#x60; or
+     * &#x60;client_secret_jwt&#x60;, resulting set under 16 KB, values write-only.
      *
      * @return customHeaders
      */

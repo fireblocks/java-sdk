@@ -21,7 +21,11 @@ import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.ApprovalRequestItem;
+import com.fireblocks.sdk.model.ApproveApprovalRequest;
+import com.fireblocks.sdk.model.ListApprovalApiKeysResponse;
 import com.fireblocks.sdk.model.ListApprovalsResponse;
+import com.fireblocks.sdk.model.RegisterApprovalApiKeyRequest;
+import com.fireblocks.sdk.model.RegisterApprovalApiKeyResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -100,6 +104,278 @@ public class ApprovalsBetaApi {
         return operationId + " call failed with: " + statusCode + " - " + body;
     }
 
+    /**
+     * Approve an approval request Approve a pending approval request as the authenticated API user.
+     * The caller signs the request&#39;s signable data with the private key of a registered
+     * approval API key and submits the base64url-encoded signature, optionally with the key ID. The
+     * server verifies the signature against the registered public key — using the given key ID, or
+     * matching against all of the user&#39;s registered keys when the key ID is omitted — and
+     * advances the approval quorum. Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver,
+     * Signer, Security Admin.
+     *
+     * @param approveApprovalRequest (required)
+     * @param requestId The approval request ID. (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<Void>> approveApproval(
+            ApproveApprovalRequest approveApprovalRequest,
+            String requestId,
+            String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    approveApprovalRequestBuilder(
+                            approveApprovalRequest, requestId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("approveApproval", localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder approveApprovalRequestBuilder(
+            ApproveApprovalRequest approveApprovalRequest, String requestId, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "approveApproval", "approveApprovalRequest", approveApprovalRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty("approveApproval", "requestId", requestId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/approvals/{requestId}/approve"
+                        .replace("{requestId}", ApiClient.urlEncode(requestId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(approveApprovalRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Register an approval key Register an approval public key for an API user, used to sign
+     * approval requests. Up to 2 active keys are supported per API user. Returns the
+     * server-generated key ID used for deletion. The &#x60;userId&#x60; must be the authenticated
+     * API user&#39;s own ID. Registering a key for another user is not supported and is rejected.
+     * Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+     *
+     * @param registerApprovalApiKeyRequest (required)
+     * @param userId The ID of the API user to register the approval key for. (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;RegisterApprovalApiKeyResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<RegisterApprovalApiKeyResponse>> createApprovalKey(
+            RegisterApprovalApiKeyRequest registerApprovalApiKeyRequest,
+            String userId,
+            String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    createApprovalKeyRequestBuilder(
+                            registerApprovalApiKeyRequest, userId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("createApprovalKey", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<RegisterApprovalApiKeyResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            RegisterApprovalApiKeyResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<RegisterApprovalApiKeyResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder createApprovalKeyRequestBuilder(
+            RegisterApprovalApiKeyRequest registerApprovalApiKeyRequest,
+            String userId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "createApprovalKey",
+                "registerApprovalApiKeyRequest",
+                registerApprovalApiKeyRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty("createApprovalKey", "userId", userId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/management/api_users/{userId}/approval_keys"
+                        .replace("{userId}", ApiClient.urlEncode(userId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(registerApprovalApiKeyRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Delete an approval key Delete (revoke) an approval public key for the specified API user.
+     * Revoking the last key disables the API user&#39;s ability to sign approvals. Endpoint
+     * Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+     *
+     * @param userId The ID of the API user whose approval key to delete. (required)
+     * @param keyId The ID of the approval key to delete. (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
+     *     an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<Void>> deleteApprovalKey(
+            String userId, String keyId, String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    deleteApprovalKeyRequestBuilder(userId, keyId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("deleteApprovalKey", localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder deleteApprovalKeyRequestBuilder(
+            String userId, String keyId, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("deleteApprovalKey", "userId", userId);
+        ValidationUtils.assertParamExistsAndNotEmpty("deleteApprovalKey", "keyId", keyId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/management/api_users/{userId}/approval_keys/{keyId}"
+                        .replace("{userId}", ApiClient.urlEncode(userId.toString()))
+                        .replace("{keyId}", ApiClient.urlEncode(keyId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
     /**
      * Get a single approval request Retrieve full detail for a single approval request by ID,
      * including the payload to sign and, when requested, the request&#39;s
@@ -186,6 +462,107 @@ public class ApprovalsBetaApi {
         localVarQueryParameterBaseName = "quorumStatusMode";
         localVarQueryParams.addAll(
                 ApiClient.parameterToPairs("quorumStatusMode", quorumStatusMode));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * List approval keys List the approval public keys registered for the specified API user.
+     * Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin,
+     * Security Auditor.
+     *
+     * @param userId The ID of the API user whose approval keys to list. (required)
+     * @param pageSize Number of results per page. Maximum 15. Defaults to 10. (optional, default to
+     *     10)
+     * @param pageCursor Cursor returned from the previous response (the &#x60;next&#x60; field) to
+     *     fetch the next page. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;ListApprovalApiKeysResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<ListApprovalApiKeysResponse>> getApprovalKeys(
+            String userId, Integer pageSize, String pageCursor) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getApprovalKeysRequestBuilder(userId, pageSize, pageCursor);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getApprovalKeys", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ListApprovalApiKeysResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ListApprovalApiKeysResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ListApprovalApiKeysResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getApprovalKeysRequestBuilder(
+            String userId, Integer pageSize, String pageCursor) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getApprovalKeys", "userId", userId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/management/api_users/{userId}/approval_keys"
+                        .replace("{userId}", ApiClient.urlEncode(userId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");

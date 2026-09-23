@@ -26,11 +26,12 @@ import java.util.UUID;
 
 /**
  * A stored OAuth 2.0 client credential set, referenced by webhooks through their
- * &#x60;webhookOauthId&#x60;. When a webhook references one, the dispatcher fetches a bearer token
- * from &#x60;url&#x60; before each delivery and attaches it as &#x60;Authorization: Bearer
- * {token}&#x60;. Secret material is never returned: &#x60;clientSecret&#x60; is absent from this
- * schema entirely, and the &#x60;customJwtClaims&#x60;, &#x60;customBodyParams&#x60; and
- * &#x60;customHeaders&#x60; fields are reduced to their names, without the configured values.
+ * &#x60;webhookOauthId&#x60;. Deliveries for a webhook that references one carry
+ * &#x60;Authorization: Bearer {token}&#x60;, using a token fetched from &#x60;url&#x60; and cached
+ * until it expires, so your authorization server sees far fewer token requests than deliveries.
+ * Secret material is never returned: &#x60;clientSecret&#x60; is absent from this schema entirely,
+ * and the &#x60;customJwtClaims&#x60;, &#x60;customBodyParams&#x60; and &#x60;customHeaders&#x60;
+ * fields are reduced to their names, without the configured values.
  */
 @JsonPropertyOrder({
     WebhookOauthCredentials.JSON_PROPERTY_ID,

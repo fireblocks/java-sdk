@@ -2,7 +2,7 @@
 
 # WebhookOauthCredentials
 
-A stored OAuth 2.0 client credential set, referenced by webhooks through their `webhookOauthId`. When a webhook references one, the dispatcher fetches a bearer token from `url` before each delivery and attaches it as `Authorization: Bearer {token}`. Secret material is never returned: `clientSecret` is absent from this schema entirely, and the `customJwtClaims`, `customBodyParams` and `customHeaders` fields are reduced to their names, without the configured values.
+A stored OAuth 2.0 client credential set, referenced by webhooks through their `webhookOauthId`. Deliveries for a webhook that references one carry `Authorization: Bearer {token}`, using a token fetched from `url` and cached until it expires, so your authorization server sees far fewer token requests than deliveries. Secret material is never returned: `clientSecret` is absent from this schema entirely, and the `customJwtClaims`, `customBodyParams` and `customHeaders` fields are reduced to their names, without the configured values.
 
 ## Properties
 

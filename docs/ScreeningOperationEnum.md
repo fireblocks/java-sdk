@@ -1,0 +1,15 @@
+
+
+# ScreeningOperationEnum
+
+## Enum
+
+
+* `ADDRESS_SCREENING` (value: `"ADDRESS_SCREENING"`)
+
+* `TRANSACTION_SCREENING` (value: `"TRANSACTION_SCREENING"`)
+
+* `REGISTER_TRANSACTION` (value: `"REGISTER_TRANSACTION"`)
+
+
+

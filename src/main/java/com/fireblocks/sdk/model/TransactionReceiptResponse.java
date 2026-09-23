@@ -54,16 +54,16 @@ public class TransactionReceiptResponse {
     @jakarta.annotation.Nullable private String contractAddress;
 
     public static final String JSON_PROPERTY_CUMULATIVE_GAS_USED = "cumulativeGasUsed";
-    @jakarta.annotation.Nonnull private Integer cumulativeGasUsed;
+    @jakarta.annotation.Nonnull private Long cumulativeGasUsed;
 
     public static final String JSON_PROPERTY_EFFECTIVE_GAS_PRICE = "effectiveGasPrice";
-    @jakarta.annotation.Nonnull private Integer effectiveGasPrice;
+    @jakarta.annotation.Nonnull private Long effectiveGasPrice;
 
     public static final String JSON_PROPERTY_FROM = "from";
     @jakarta.annotation.Nonnull private String from;
 
     public static final String JSON_PROPERTY_GAS_USED = "gasUsed";
-    @jakarta.annotation.Nonnull private Integer gasUsed;
+    @jakarta.annotation.Nonnull private Long gasUsed;
 
     public static final String JSON_PROPERTY_LOGS = "logs";
     @jakarta.annotation.Nonnull private List<TxLog> logs;
@@ -93,11 +93,11 @@ public class TransactionReceiptResponse {
             @JsonProperty(value = JSON_PROPERTY_BLOCK_HASH, required = true) String blockHash,
             @JsonProperty(value = JSON_PROPERTY_BLOCK_NUMBER, required = true) Integer blockNumber,
             @JsonProperty(value = JSON_PROPERTY_CUMULATIVE_GAS_USED, required = true)
-                    Integer cumulativeGasUsed,
+                    Long cumulativeGasUsed,
             @JsonProperty(value = JSON_PROPERTY_EFFECTIVE_GAS_PRICE, required = true)
-                    Integer effectiveGasPrice,
+                    Long effectiveGasPrice,
             @JsonProperty(value = JSON_PROPERTY_FROM, required = true) String from,
-            @JsonProperty(value = JSON_PROPERTY_GAS_USED, required = true) Integer gasUsed,
+            @JsonProperty(value = JSON_PROPERTY_GAS_USED, required = true) Long gasUsed,
             @JsonProperty(value = JSON_PROPERTY_LOGS, required = true) List<TxLog> logs,
             @JsonProperty(value = JSON_PROPERTY_LOGS_BLOOM, required = true) String logsBloom,
             @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) Integer status,
@@ -191,7 +191,7 @@ public class TransactionReceiptResponse {
     }
 
     public TransactionReceiptResponse cumulativeGasUsed(
-            @jakarta.annotation.Nonnull Integer cumulativeGasUsed) {
+            @jakarta.annotation.Nonnull Long cumulativeGasUsed) {
         this.cumulativeGasUsed = cumulativeGasUsed;
         return this;
     }
@@ -204,18 +204,18 @@ public class TransactionReceiptResponse {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_CUMULATIVE_GAS_USED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Integer getCumulativeGasUsed() {
+    public Long getCumulativeGasUsed() {
         return cumulativeGasUsed;
     }
 
     @JsonProperty(JSON_PROPERTY_CUMULATIVE_GAS_USED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCumulativeGasUsed(@jakarta.annotation.Nonnull Integer cumulativeGasUsed) {
+    public void setCumulativeGasUsed(@jakarta.annotation.Nonnull Long cumulativeGasUsed) {
         this.cumulativeGasUsed = cumulativeGasUsed;
     }
 
     public TransactionReceiptResponse effectiveGasPrice(
-            @jakarta.annotation.Nonnull Integer effectiveGasPrice) {
+            @jakarta.annotation.Nonnull Long effectiveGasPrice) {
         this.effectiveGasPrice = effectiveGasPrice;
         return this;
     }
@@ -228,13 +228,13 @@ public class TransactionReceiptResponse {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_EFFECTIVE_GAS_PRICE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Integer getEffectiveGasPrice() {
+    public Long getEffectiveGasPrice() {
         return effectiveGasPrice;
     }
 
     @JsonProperty(JSON_PROPERTY_EFFECTIVE_GAS_PRICE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setEffectiveGasPrice(@jakarta.annotation.Nonnull Integer effectiveGasPrice) {
+    public void setEffectiveGasPrice(@jakarta.annotation.Nonnull Long effectiveGasPrice) {
         this.effectiveGasPrice = effectiveGasPrice;
     }
 
@@ -261,7 +261,7 @@ public class TransactionReceiptResponse {
         this.from = from;
     }
 
-    public TransactionReceiptResponse gasUsed(@jakarta.annotation.Nonnull Integer gasUsed) {
+    public TransactionReceiptResponse gasUsed(@jakarta.annotation.Nonnull Long gasUsed) {
         this.gasUsed = gasUsed;
         return this;
     }
@@ -274,13 +274,13 @@ public class TransactionReceiptResponse {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_GAS_USED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Integer getGasUsed() {
+    public Long getGasUsed() {
         return gasUsed;
     }
 
     @JsonProperty(JSON_PROPERTY_GAS_USED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setGasUsed(@jakarta.annotation.Nonnull Integer gasUsed) {
+    public void setGasUsed(@jakarta.annotation.Nonnull Long gasUsed) {
         this.gasUsed = gasUsed;
     }
 
