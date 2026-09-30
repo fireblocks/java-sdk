@@ -17,6 +17,8 @@ import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AttachDetachUtxoLabelsRequest;
 import com.fireblocks.sdk.model.AttachDetachUtxoLabelsResponse;
 import com.fireblocks.sdk.model.ListUtxosResponse;
+import com.fireblocks.sdk.model.UpsertUtxoSelectionConfigRequest;
+import com.fireblocks.sdk.model.UtxoSelectionConfigResponse;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -28,6 +30,22 @@ import org.junit.Test;
 public class UtxoManagementBetaApiTest {
 
     private final UtxoManagementBetaApi api = new UtxoManagementBetaApi();
+
+    /**
+     * Get UTXO selection config
+     *
+     * <p>Returns the workspace-level configured selection strategy and the effective strategy after
+     * runtime resolution. &#x60;ADAPTIVE&#x60; is the recommended strategy. When no row is stored
+     * (source &#x60;DEFAULT&#x60;), &#x60;effective&#x60; is &#x60;ADAPTIVE&#x60; if adaptive
+     * selection is serving for this workspace, otherwise &#x60;ASC&#x60;. **Note:** These endpoints
+     * are currently in beta and might be subject to changes. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     */
+    @Test
+    public void getUtxoSelectionConfigTest() {
+        CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response =
+                api.getUtxoSelectionConfig();
+    }
 
     /**
      * List unspent outputs (UTXOs)
@@ -74,13 +92,40 @@ public class UtxoManagementBetaApiTest {
     }
 
     /**
+     * Get vault and asset UTXO selection config
+     *
+     * <p>Returns the config stored at this vault-and-asset scope, if any, and the effective
+     * strategy after workspace fallback and runtime resolution. &#x60;ADAPTIVE&#x60; is the
+     * recommended strategy. When no row is stored at this scope and none is inherited from the
+     * workspace (source &#x60;DEFAULT&#x60;), &#x60;effective&#x60; is &#x60;ADAPTIVE&#x60; if
+     * adaptive selection is serving for this scope, otherwise &#x60;ASC&#x60;. **Note:** These
+     * endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     */
+    @Test
+    public void getVaultAssetUtxoSelectionConfigTest() {
+        String vaultAccountId = null;
+        String assetId = null;
+        CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response =
+                api.getVaultAssetUtxoSelectionConfig(vaultAccountId, assetId);
+    }
+
+    /**
      * Attach or detach labels to/from UTXOs
      *
      * <p>Attach or detach labels to/from UTXOs in a vault account. Labels can be used for
      * organizing and filtering UTXOs. Labels are applied additively — &#x60;labelsToAttach&#x60;
      * adds to the existing label set and &#x60;labelsToDetach&#x60; removes from it. Neither
-     * operation replaces the full set. **Note:** These endpoints are currently in beta and might be
-     * subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * operation replaces the full set. The request is all-or-nothing: if any identifier cannot be
+     * labelled, no UTXO is labelled and the request fails with &#x60;400&#x60;. The response lists
+     * every failed identifier in &#x60;failures&#x60;, each with its own &#x60;reason&#x60; — use
+     * it, not the status, to decide what to do: - &#x60;NOT_FOUND&#x60; — not found in this vault
+     * and asset. - &#x60;NOT_LABELLABLE&#x60; — spent, or removed, and can no longer be labelled. A
+     * UTXO removed within the last hour is reported as &#x60;NOT_FOUND&#x60; with &#x60;utxoStatus:
+     * REMOVED&#x60;; if it does not reappear, it becomes &#x60;NOT_LABELLABLE&#x60; after about an
+     * hour. A &#x60;400&#x60; without &#x60;failures&#x60; means the request itself is malformed.
+     * **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      */
     @Test
     public void updateUtxoLabelsTest() {
@@ -91,5 +136,38 @@ public class UtxoManagementBetaApiTest {
         CompletableFuture<ApiResponse<AttachDetachUtxoLabelsResponse>> response =
                 api.updateUtxoLabels(
                         attachDetachUtxoLabelsRequest, vaultAccountId, assetId, idempotencyKey);
+    }
+
+    /**
+     * Upsert UTXO selection config
+     *
+     * <p>Creates or updates the workspace-level UTXO selection strategy. &#x60;ADAPTIVE&#x60; is
+     * recommended. **Note:** These endpoints are currently in beta and might be subject to changes.
+     * Endpoint Permission: Admin, Non-Signing Admin.
+     */
+    @Test
+    public void upsertUtxoSelectionConfigTest() {
+        UpsertUtxoSelectionConfigRequest upsertUtxoSelectionConfigRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response =
+                api.upsertUtxoSelectionConfig(upsertUtxoSelectionConfigRequest, idempotencyKey);
+    }
+
+    /**
+     * Upsert vault and asset UTXO selection config
+     *
+     * <p>Creates or updates the UTXO selection strategy for this vault account and asset.
+     * &#x60;ADAPTIVE&#x60; is recommended. **Note:** These endpoints are currently in beta and
+     * might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin.
+     */
+    @Test
+    public void upsertVaultAssetUtxoSelectionConfigTest() {
+        UpsertUtxoSelectionConfigRequest upsertUtxoSelectionConfigRequest = null;
+        String vaultAccountId = null;
+        String assetId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response =
+                api.upsertVaultAssetUtxoSelectionConfig(
+                        upsertUtxoSelectionConfigRequest, vaultAccountId, assetId, idempotencyKey);
     }
 }

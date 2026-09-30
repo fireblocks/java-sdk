@@ -30,7 +30,8 @@ import java.util.StringJoiner;
     AddressRegistryLegalEntity.JSON_PROPERTY_JURISDICTION,
     AddressRegistryLegalEntity.JSON_PROPERTY_LEI,
     AddressRegistryLegalEntity.JSON_PROPERTY_TRAVEL_RULE_PROVIDERS,
-    AddressRegistryLegalEntity.JSON_PROPERTY_EMAIL
+    AddressRegistryLegalEntity.JSON_PROPERTY_EMAIL,
+    AddressRegistryLegalEntity.JSON_PROPERTY_PROOF_OF_OWNERSHIP_AVAILABLE
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -49,10 +50,14 @@ public class AddressRegistryLegalEntity {
     @jakarta.annotation.Nonnull private String lei;
 
     public static final String JSON_PROPERTY_TRAVEL_RULE_PROVIDERS = "travelRuleProviders";
-    @jakarta.annotation.Nonnull private List<AddressRegistryTravelRuleProvider> travelRuleProviders;
+    @jakarta.annotation.Nonnull private List<String> travelRuleProviders;
 
     public static final String JSON_PROPERTY_EMAIL = "email";
     @jakarta.annotation.Nonnull private String email;
+
+    public static final String JSON_PROPERTY_PROOF_OF_OWNERSHIP_AVAILABLE =
+            "proofOfOwnershipAvailable";
+    @jakarta.annotation.Nonnull private Boolean proofOfOwnershipAvailable;
 
     public AddressRegistryLegalEntity() {}
 
@@ -63,14 +68,17 @@ public class AddressRegistryLegalEntity {
             @JsonProperty(value = JSON_PROPERTY_JURISDICTION, required = true) String jurisdiction,
             @JsonProperty(value = JSON_PROPERTY_LEI, required = true) String lei,
             @JsonProperty(value = JSON_PROPERTY_TRAVEL_RULE_PROVIDERS, required = true)
-                    List<AddressRegistryTravelRuleProvider> travelRuleProviders,
-            @JsonProperty(value = JSON_PROPERTY_EMAIL, required = true) String email) {
+                    List<String> travelRuleProviders,
+            @JsonProperty(value = JSON_PROPERTY_EMAIL, required = true) String email,
+            @JsonProperty(value = JSON_PROPERTY_PROOF_OF_OWNERSHIP_AVAILABLE, required = true)
+                    Boolean proofOfOwnershipAvailable) {
         this.leiData = leiData;
         this.entityName = entityName;
         this.jurisdiction = jurisdiction;
         this.lei = lei;
         this.travelRuleProviders = travelRuleProviders;
         this.email = email;
+        this.proofOfOwnershipAvailable = proofOfOwnershipAvailable;
     }
 
     public AddressRegistryLegalEntity leiData(@jakarta.annotation.Nonnull Boolean leiData) {
@@ -168,14 +176,12 @@ public class AddressRegistryLegalEntity {
     }
 
     public AddressRegistryLegalEntity travelRuleProviders(
-            @jakarta.annotation.Nonnull
-                    List<AddressRegistryTravelRuleProvider> travelRuleProviders) {
+            @jakarta.annotation.Nonnull List<String> travelRuleProviders) {
         this.travelRuleProviders = travelRuleProviders;
         return this;
     }
 
-    public AddressRegistryLegalEntity addTravelRuleProvidersItem(
-            AddressRegistryTravelRuleProvider travelRuleProvidersItem) {
+    public AddressRegistryLegalEntity addTravelRuleProvidersItem(String travelRuleProvidersItem) {
         if (this.travelRuleProviders == null) {
             this.travelRuleProviders = new ArrayList<>();
         }
@@ -191,15 +197,14 @@ public class AddressRegistryLegalEntity {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_PROVIDERS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<AddressRegistryTravelRuleProvider> getTravelRuleProviders() {
+    public List<String> getTravelRuleProviders() {
         return travelRuleProviders;
     }
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_PROVIDERS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setTravelRuleProviders(
-            @jakarta.annotation.Nonnull
-                    List<AddressRegistryTravelRuleProvider> travelRuleProviders) {
+            @jakarta.annotation.Nonnull List<String> travelRuleProviders) {
         this.travelRuleProviders = travelRuleProviders;
     }
 
@@ -226,6 +231,32 @@ public class AddressRegistryLegalEntity {
         this.email = email;
     }
 
+    public AddressRegistryLegalEntity proofOfOwnershipAvailable(
+            @jakarta.annotation.Nonnull Boolean proofOfOwnershipAvailable) {
+        this.proofOfOwnershipAvailable = proofOfOwnershipAvailable;
+        return this;
+    }
+
+    /**
+     * Whether the caller can currently create a Proof of Ownership PDF for this address (&#x60;POST
+     * /v1/address_registry/proof_of_ownership_exports&#x60;).
+     *
+     * @return proofOfOwnershipAvailable
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_PROOF_OF_OWNERSHIP_AVAILABLE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Boolean getProofOfOwnershipAvailable() {
+        return proofOfOwnershipAvailable;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PROOF_OF_OWNERSHIP_AVAILABLE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setProofOfOwnershipAvailable(
+            @jakarta.annotation.Nonnull Boolean proofOfOwnershipAvailable) {
+        this.proofOfOwnershipAvailable = proofOfOwnershipAvailable;
+    }
+
     /** Return true if this AddressRegistryLegalEntity object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -242,12 +273,22 @@ public class AddressRegistryLegalEntity {
                 && Objects.equals(this.lei, addressRegistryLegalEntity.lei)
                 && Objects.equals(
                         this.travelRuleProviders, addressRegistryLegalEntity.travelRuleProviders)
-                && Objects.equals(this.email, addressRegistryLegalEntity.email);
+                && Objects.equals(this.email, addressRegistryLegalEntity.email)
+                && Objects.equals(
+                        this.proofOfOwnershipAvailable,
+                        addressRegistryLegalEntity.proofOfOwnershipAvailable);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(leiData, entityName, jurisdiction, lei, travelRuleProviders, email);
+        return Objects.hash(
+                leiData,
+                entityName,
+                jurisdiction,
+                lei,
+                travelRuleProviders,
+                email,
+                proofOfOwnershipAvailable);
     }
 
     @Override
@@ -262,6 +303,9 @@ public class AddressRegistryLegalEntity {
                 .append(toIndentedString(travelRuleProviders))
                 .append("\n");
         sb.append("    email: ").append(toIndentedString(email)).append("\n");
+        sb.append("    proofOfOwnershipAvailable: ")
+                .append(toIndentedString(proofOfOwnershipAvailable))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -352,20 +396,17 @@ public class AddressRegistryLegalEntity {
         // add `travelRuleProviders` to the URL query string
         if (getTravelRuleProviders() != null) {
             for (int i = 0; i < getTravelRuleProviders().size(); i++) {
-                if (getTravelRuleProviders().get(i) != null) {
-                    joiner.add(
-                            String.format(
-                                    "%stravelRuleProviders%s%s=%s",
-                                    prefix,
-                                    suffix,
-                                    "".equals(suffix)
-                                            ? ""
-                                            : String.format(
-                                                    "%s%d%s", containerPrefix, i, containerSuffix),
-                                    ApiClient.urlEncode(
-                                            ApiClient.valueToString(
-                                                    getTravelRuleProviders().get(i)))));
-                }
+                joiner.add(
+                        String.format(
+                                "%stravelRuleProviders%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getTravelRuleProviders().get(i)))));
             }
         }
 
@@ -377,6 +418,17 @@ public class AddressRegistryLegalEntity {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getEmail()))));
+        }
+
+        // add `proofOfOwnershipAvailable` to the URL query string
+        if (getProofOfOwnershipAvailable() != null) {
+            joiner.add(
+                    String.format(
+                            "%sproofOfOwnershipAvailable%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getProofOfOwnershipAvailable()))));
         }
 
         return joiner.toString();

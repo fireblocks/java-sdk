@@ -49,12 +49,6 @@ class ParticipantOnboardingPayloadTest {
         // TODO: test operator
     }
 
-    /** Test the property 'provider' */
-    @Test
-    void providerTest() {
-        // TODO: test provider
-    }
-
     /** Test the property 'compliance' */
     @Test
     void complianceTest() {
@@ -71,5 +65,11 @@ class ParticipantOnboardingPayloadTest {
     @Test
     void clientOnboarderTest() {
         // TODO: test clientOnboarder
+    }
+
+    /** Test the property 'upgrader' */
+    @Test
+    void upgraderTest() {
+        // TODO: test upgrader
     }
 }

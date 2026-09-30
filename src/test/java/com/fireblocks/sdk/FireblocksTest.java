@@ -423,11 +423,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetConnectedAccountsBetaApi() {
+    public void testGetConnectedAccountsApi() {
         setupFireblocks(true, null, null);
-        ConnectedAccountsBetaApi connectedAccountsBeta = fireblocks.connectedAccountsBeta();
-        Assert.assertNotNull(connectedAccountsBeta);
-        Assert.assertSame(connectedAccountsBeta, fireblocks.connectedAccountsBeta());
+        ConnectedAccountsApi connectedAccounts = fireblocks.connectedAccounts();
+        Assert.assertNotNull(connectedAccounts);
+        Assert.assertSame(connectedAccounts, fireblocks.connectedAccounts());
     }
 
     @Test

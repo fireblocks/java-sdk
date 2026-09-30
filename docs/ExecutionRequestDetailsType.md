@@ -9,5 +9,7 @@
 
 * `MARKET` (value: `"MARKET"`)
 
+* `LIMIT` (value: `"LIMIT"`)
+
 
 

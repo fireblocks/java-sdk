@@ -16,7 +16,7 @@
 
 | Name | Value |
 |---- | -----|
-| TRANSFERS | &quot;TRANSFERS&quot; |
+| TRANSFER | &quot;TRANSFER&quot; |
 
 
 

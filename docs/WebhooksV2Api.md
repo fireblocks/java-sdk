@@ -5,8 +5,10 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**createWebhook**](WebhooksV2Api.md#createWebhook) | **POST** /webhooks | Create a new webhook |
+| [**createWebhookMtlsConfig**](WebhooksV2Api.md#createWebhookMtlsConfig) | **POST** /webhooks_settings/mtls | Create an mTLS configuration |
 | [**createWebhookOauth**](WebhooksV2Api.md#createWebhookOauth) | **POST** /webhooks_settings/oauth | Create OAuth credentials |
 | [**deleteWebhook**](WebhooksV2Api.md#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook |
+| [**deleteWebhookMtlsConfig**](WebhooksV2Api.md#deleteWebhookMtlsConfig) | **DELETE** /webhooks_settings/mtls/{webhookMtlsId} | Delete an mTLS configuration |
 | [**deleteWebhookOauth**](WebhooksV2Api.md#deleteWebhookOauth) | **DELETE** /webhooks_settings/oauth/{webhookOauthId} | Delete OAuth credentials |
 | [**getMetrics**](WebhooksV2Api.md#getMetrics) | **GET** /webhooks/{webhookId}/metrics/{metricName} | Get webhook metrics |
 | [**getMtlsCsr**](WebhooksV2Api.md#getMtlsCsr) | **GET** /webhooks_settings/mtls_csr | Get mTLS CSR |
@@ -16,6 +18,8 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getResendByQueryJobStatus**](WebhooksV2Api.md#getResendByQueryJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_by_query/jobs/{jobId} | Get resend by query job status |
 | [**getResendJobStatus**](WebhooksV2Api.md#getResendJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_failed/jobs/{jobId} | Get resend job status |
 | [**getWebhook**](WebhooksV2Api.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id |
+| [**getWebhookMtlsConfig**](WebhooksV2Api.md#getWebhookMtlsConfig) | **GET** /webhooks_settings/mtls/{webhookMtlsId} | Get an mTLS configuration by id |
+| [**getWebhookMtlsConfigs**](WebhooksV2Api.md#getWebhookMtlsConfigs) | **GET** /webhooks_settings/mtls | List the uploaded mTLS configurations |
 | [**getWebhookOauth**](WebhooksV2Api.md#getWebhookOauth) | **GET** /webhooks_settings/oauth/{webhookOauthId} | Get OAuth credentials by id |
 | [**getWebhookOauths**](WebhooksV2Api.md#getWebhookOauths) | **GET** /webhooks_settings/oauth | Get all OAuth credentials |
 | [**getWebhooks**](WebhooksV2Api.md#getWebhooks) | **GET** /webhooks | Get all webhooks |
@@ -24,6 +28,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**resendNotificationsByQuery**](WebhooksV2Api.md#resendNotificationsByQuery) | **POST** /webhooks/{webhookId}/notifications/resend_by_query | Resend notifications by query |
 | [**resendNotificationsByResourceId**](WebhooksV2Api.md#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id |
 | [**updateWebhook**](WebhooksV2Api.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook |
+| [**updateWebhookMtlsConfig**](WebhooksV2Api.md#updateWebhookMtlsConfig) | **PATCH** /webhooks_settings/mtls/{webhookMtlsId} | Update an mTLS configuration |
 | [**updateWebhookOauth**](WebhooksV2Api.md#updateWebhookOauth) | **PATCH** /webhooks_settings/oauth/{webhookOauthId} | Update OAuth credentials |
 
 
@@ -104,6 +109,85 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | created new webhook successfully |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## createWebhookMtlsConfig
+
+> CompletableFuture<ApiResponse<WebhookMtlsConfig>> createWebhookMtlsConfig createWebhookMtlsConfig(createWebhookMtlsConfigRequest, idempotencyKey)
+
+Create an mTLS configuration
+
+Stores a certificate signed against the CSR from &#x60;GET /v1/webhooks_settings/mtls_csr&#x60; and returns its id, which is then set as &#x60;webhookMtlsId&#x60; on a webhook or on OAuth credentials. The private key the certificate was issued for is derived from the certificate, so it is never named by the caller.  Re-uploading a certificate already stored returns the existing id rather than creating a second configuration, so several webhooks and OAuth credentials can share one certificate.  A certificate that was not issued for a private key this workspace holds is rejected with a &#x60;400&#x60;.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WebhooksV2Api;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        CreateWebhookMtlsConfigRequest createWebhookMtlsConfigRequest = new CreateWebhookMtlsConfigRequest(); // CreateWebhookMtlsConfigRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<WebhookMtlsConfig>> response = fireblocks.webhooksV2().createWebhookMtlsConfig(createWebhookMtlsConfigRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WebhooksV2Api#createWebhookMtlsConfig");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **createWebhookMtlsConfigRequest** | [**CreateWebhookMtlsConfigRequest**](CreateWebhookMtlsConfigRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**WebhookMtlsConfig**](WebhookMtlsConfig.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | The stored mTLS configuration |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -260,6 +344,86 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Deleted webhook object |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## deleteWebhookMtlsConfig
+
+> CompletableFuture<ApiResponse<DeleteWebhookMtlsConfigResponse>> deleteWebhookMtlsConfig deleteWebhookMtlsConfig(webhookMtlsId, forceDelete)
+
+Delete an mTLS configuration
+
+Deletes an mTLS configuration. By default the delete is refused while the configuration is still in use: if any webhook or OAuth credentials reference it, nothing is deleted and the request fails with &#x60;409 Conflict&#x60;, naming the reason and listing the ids of what references it. This protects a shared configuration from being removed out from under the webhooks and token requests that depend on it.  Pass &#x60;forceDelete&#x3D;true&#x60; to delete anyway. That detaches everything referencing it — it clears &#x60;webhookMtlsId&#x60; on each webhook and OAuth credentials, it does **not** delete them — then deletes the configuration and returns the deleted resource together with &#x60;detachedWebhookIds&#x60; and &#x60;detachedWebhookOauthIds&#x60;. Detached webhooks keep delivering notifications, and detached OAuth credentials keep requesting tokens, but without a client certificate, so an endpoint that requires mTLS will reject them from that point on.  When nothing references the configuration the delete succeeds either way, and both lists come back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WebhooksV2Api;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID webhookMtlsId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the mTLS configuration
+        Boolean forceDelete = false; // Boolean | Delete the configuration even while webhooks or OAuth credentials still reference it, detaching them instead of refusing; their ids are returned in `detachedWebhookIds` and `detachedWebhookOauthIds`. Leave it unset, or `false`, to get a `409 Conflict` whenever anything still references the configuration.
+        try {
+            CompletableFuture<ApiResponse<DeleteWebhookMtlsConfigResponse>> response = fireblocks.webhooksV2().deleteWebhookMtlsConfig(webhookMtlsId, forceDelete);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WebhooksV2Api#deleteWebhookMtlsConfig");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **webhookMtlsId** | **UUID**| The unique identifier of the mTLS configuration | |
+| **forceDelete** | **Boolean**| Delete the configuration even while webhooks or OAuth credentials still reference it, detaching them instead of refusing; their ids are returned in &#x60;detachedWebhookIds&#x60; and &#x60;detachedWebhookOauthIds&#x60;. Leave it unset, or &#x60;false&#x60;, to get a &#x60;409 Conflict&#x60; whenever anything still references the configuration. | [optional] [default to false] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**DeleteWebhookMtlsConfigResponse**](DeleteWebhookMtlsConfigResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The deleted mTLS configuration, plus the ids of any webhooks and OAuth credentials that were detached from it |  * X-Request-ID -  <br>  |
+| **409** | Webhooks or OAuth credentials still reference this configuration and &#x60;forceDelete&#x60; was not set. Nothing was deleted. The error message names the reason and the ids of what references it — detach those webhooks and OAuth credentials, or retry with &#x60;forceDelete&#x3D;true&#x60;. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -993,6 +1157,160 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getWebhookMtlsConfig
+
+> CompletableFuture<ApiResponse<WebhookMtlsConfig>> getWebhookMtlsConfig getWebhookMtlsConfig(webhookMtlsId)
+
+Get an mTLS configuration by id
+
+Retrieve one stored mTLS configuration by its id. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WebhooksV2Api;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID webhookMtlsId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the mTLS configuration
+        try {
+            CompletableFuture<ApiResponse<WebhookMtlsConfig>> response = fireblocks.webhooksV2().getWebhookMtlsConfig(webhookMtlsId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WebhooksV2Api#getWebhookMtlsConfig");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **webhookMtlsId** | **UUID**| The unique identifier of the mTLS configuration | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**WebhookMtlsConfig**](WebhookMtlsConfig.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | An mTLS configuration |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getWebhookMtlsConfigs
+
+> CompletableFuture<ApiResponse<List<WebhookMtlsConfig>>> getWebhookMtlsConfigs getWebhookMtlsConfigs(ids)
+
+List the uploaded mTLS configurations
+
+Lists the workspace&#39;s mTLS configurations, newest first. Pass &#x60;ids&#x60; to ask about particular ones instead — useful for resolving the &#x60;webhookMtlsId&#x60; values on a set of webhooks in one call. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WebhooksV2Api;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        List<UUID> ids = Arrays.asList(); // List<UUID> | Return only the configurations with these ids, instead of all of them. Repeat the parameter for each id. An id belonging to another workspace, or to nothing, is left out of the response rather than failing the request.
+        try {
+            CompletableFuture<ApiResponse<List<WebhookMtlsConfig>>> response = fireblocks.webhooksV2().getWebhookMtlsConfigs(ids);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WebhooksV2Api#getWebhookMtlsConfigs");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **ids** | [**List&lt;UUID&gt;**](UUID.md)| Return only the configurations with these ids, instead of all of them. Repeat the parameter for each id. An id belonging to another workspace, or to nothing, is left out of the response rather than failing the request. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**List&lt;WebhookMtlsConfig&gt;**](WebhookMtlsConfig.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The workspace&#39;s mTLS configurations |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getWebhookOauth
 
 > CompletableFuture<ApiResponse<WebhookOauthCredentials>> getWebhookOauth getWebhookOauth(webhookOauthId)
@@ -1627,13 +1945,93 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## updateWebhookMtlsConfig
+
+> CompletableFuture<ApiResponse<WebhookMtlsConfig>> updateWebhookMtlsConfig updateWebhookMtlsConfig(updateWebhookMtlsConfigRequest, webhookMtlsId)
+
+Update an mTLS configuration
+
+Renames a configuration, replaces its certificate, or both. Only the fields present in the request are changed; anything omitted is left as it is, and a request with neither field is rejected with a &#x60;400&#x60;.  Replacing &#x60;signedCert&#x60; switches every webhook and OAuth credentials set using this configuration over to the new certificate in one write, and the private key it was issued for is re-derived from the certificate. A replacement that was not issued for a private key this workspace holds is rejected with a &#x60;400&#x60;.  Sending &#x60;name: null&#x60; removes the label.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WebhooksV2Api;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UpdateWebhookMtlsConfigRequest updateWebhookMtlsConfigRequest = new UpdateWebhookMtlsConfigRequest(); // UpdateWebhookMtlsConfigRequest | 
+        UUID webhookMtlsId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the mTLS configuration
+        try {
+            CompletableFuture<ApiResponse<WebhookMtlsConfig>> response = fireblocks.webhooksV2().updateWebhookMtlsConfig(updateWebhookMtlsConfigRequest, webhookMtlsId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WebhooksV2Api#updateWebhookMtlsConfig");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **updateWebhookMtlsConfigRequest** | [**UpdateWebhookMtlsConfigRequest**](UpdateWebhookMtlsConfigRequest.md)|  | |
+| **webhookMtlsId** | **UUID**| The unique identifier of the mTLS configuration | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**WebhookMtlsConfig**](WebhookMtlsConfig.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The updated mTLS configuration |  * X-Request-ID -  <br>  |
+| **400** | Neither &#x60;name&#x60; nor &#x60;signedCert&#x60; was provided, so there is nothing to change, or the replacement certificate was rejected — it is not valid X.509, or it was not issued for a private key this workspace holds. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## updateWebhookOauth
 
 > CompletableFuture<ApiResponse<WebhookOauthCredentials>> updateWebhookOauth updateWebhookOauth(updateWebhookOauthRequest, webhookOauthId)
 
 Update OAuth credentials
 
-Updates only the fields present in the request; anything omitted is left as it is. Sending &#x60;clientSecret&#x60; on its own rotates the secret for every webhook using these credentials.  &#x60;customJwtClaims&#x60;, &#x60;customBodyParams&#x60; and &#x60;customHeaders&#x60; are all merged key by key rather than replaced, the same way a webhook&#39;s own &#x60;customHeaders&#x60; behaves: a key sent with a value is added or overwritten, a key sent with a &#x60;null&#x60; value is deleted, and a key you omit is left alone. Setting one of the three to &#x60;null&#x60; as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of &#x60;null&#x60; — one names an entry to delete, the other names the field. A claim cannot be set to JSON &#x60;null&#x60;, though, on this endpoint or on create, because &#x60;null&#x60; is spent on deletion. &#x60;mtlsClientSignedCert&#x60; is a scalar rather than a map, so &#x60;null&#x60; there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+Updates only the fields present in the request; anything omitted is left as it is. Sending &#x60;clientSecret&#x60; on its own rotates the secret for every webhook using these credentials.  &#x60;customJwtClaims&#x60;, &#x60;customBodyParams&#x60; and &#x60;customHeaders&#x60; are all merged key by key rather than replaced, the same way a webhook&#39;s own &#x60;customHeaders&#x60; behaves: a key sent with a value is added or overwritten, a key sent with a &#x60;null&#x60; value is deleted, and a key you omit is left alone. Setting one of the three to &#x60;null&#x60; as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of &#x60;null&#x60; — one names an entry to delete, the other names the field. A claim cannot be set to JSON &#x60;null&#x60;, though, on this endpoint or on create, because &#x60;null&#x60; is spent on deletion. &#x60;webhookMtlsId&#x60; is a scalar rather than a map, so &#x60;null&#x60; there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
 
 ### Example
 

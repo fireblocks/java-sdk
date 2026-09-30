@@ -48,13 +48,13 @@ public class TravelRuleIssuers {
     @jakarta.annotation.Nonnull private TravelRuleIssuer isRegulated;
 
     public static final String JSON_PROPERTY_REGULATORY_AUTHORITIES = "regulatoryAuthorities";
-    @jakarta.annotation.Nonnull private TravelRuleIssuer regulatoryAuthorities;
+    @jakarta.annotation.Nullable private TravelRuleIssuer regulatoryAuthorities;
 
     public static final String JSON_PROPERTY_NAME = "name";
     @jakarta.annotation.Nonnull private TravelRuleIssuer name;
 
     public static final String JSON_PROPERTY_LOGO = "logo";
-    @jakarta.annotation.Nonnull private TravelRuleIssuer logo;
+    @jakarta.annotation.Nullable private TravelRuleIssuer logo;
 
     public static final String JSON_PROPERTY_WEBSITE = "website";
     @jakarta.annotation.Nonnull private TravelRuleIssuer website;
@@ -81,7 +81,7 @@ public class TravelRuleIssuers {
     @jakarta.annotation.Nonnull private TravelRuleIssuer country;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    @jakarta.annotation.Nonnull private TravelRuleIssuer description;
+    @jakarta.annotation.Nullable private TravelRuleIssuer description;
 
     public TravelRuleIssuers() {}
 
@@ -91,10 +91,7 @@ public class TravelRuleIssuers {
                     TravelRuleIssuer yearFounded,
             @JsonProperty(value = JSON_PROPERTY_IS_REGULATED, required = true)
                     TravelRuleIssuer isRegulated,
-            @JsonProperty(value = JSON_PROPERTY_REGULATORY_AUTHORITIES, required = true)
-                    TravelRuleIssuer regulatoryAuthorities,
             @JsonProperty(value = JSON_PROPERTY_NAME, required = true) TravelRuleIssuer name,
-            @JsonProperty(value = JSON_PROPERTY_LOGO, required = true) TravelRuleIssuer logo,
             @JsonProperty(value = JSON_PROPERTY_WEBSITE, required = true) TravelRuleIssuer website,
             @JsonProperty(value = JSON_PROPERTY_LEGAL_NAME, required = true)
                     TravelRuleIssuer legalName,
@@ -107,14 +104,11 @@ public class TravelRuleIssuers {
             @JsonProperty(value = JSON_PROPERTY_ADDRESS_LINE1, required = true)
                     TravelRuleIssuer addressLine1,
             @JsonProperty(value = JSON_PROPERTY_CITY, required = true) TravelRuleIssuer city,
-            @JsonProperty(value = JSON_PROPERTY_COUNTRY, required = true) TravelRuleIssuer country,
-            @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = true)
-                    TravelRuleIssuer description) {
+            @JsonProperty(value = JSON_PROPERTY_COUNTRY, required = true)
+                    TravelRuleIssuer country) {
         this.yearFounded = yearFounded;
         this.isRegulated = isRegulated;
-        this.regulatoryAuthorities = regulatoryAuthorities;
         this.name = name;
-        this.logo = logo;
         this.website = website;
         this.legalName = legalName;
         this.legalStructure = legalStructure;
@@ -123,7 +117,6 @@ public class TravelRuleIssuers {
         this.addressLine1 = addressLine1;
         this.city = city;
         this.country = country;
-        this.description = description;
     }
 
     public TravelRuleIssuers yearFounded(@jakarta.annotation.Nonnull TravelRuleIssuer yearFounded) {
@@ -173,7 +166,7 @@ public class TravelRuleIssuers {
     }
 
     public TravelRuleIssuers regulatoryAuthorities(
-            @jakarta.annotation.Nonnull TravelRuleIssuer regulatoryAuthorities) {
+            @jakarta.annotation.Nullable TravelRuleIssuer regulatoryAuthorities) {
         this.regulatoryAuthorities = regulatoryAuthorities;
         return this;
     }
@@ -183,17 +176,17 @@ public class TravelRuleIssuers {
      *
      * @return regulatoryAuthorities
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_REGULATORY_AUTHORITIES)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public TravelRuleIssuer getRegulatoryAuthorities() {
         return regulatoryAuthorities;
     }
 
     @JsonProperty(JSON_PROPERTY_REGULATORY_AUTHORITIES)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setRegulatoryAuthorities(
-            @jakarta.annotation.Nonnull TravelRuleIssuer regulatoryAuthorities) {
+            @jakarta.annotation.Nullable TravelRuleIssuer regulatoryAuthorities) {
         this.regulatoryAuthorities = regulatoryAuthorities;
     }
 
@@ -220,7 +213,7 @@ public class TravelRuleIssuers {
         this.name = name;
     }
 
-    public TravelRuleIssuers logo(@jakarta.annotation.Nonnull TravelRuleIssuer logo) {
+    public TravelRuleIssuers logo(@jakarta.annotation.Nullable TravelRuleIssuer logo) {
         this.logo = logo;
         return this;
     }
@@ -230,16 +223,16 @@ public class TravelRuleIssuers {
      *
      * @return logo
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_LOGO)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public TravelRuleIssuer getLogo() {
         return logo;
     }
 
     @JsonProperty(JSON_PROPERTY_LOGO)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLogo(@jakarta.annotation.Nonnull TravelRuleIssuer logo) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setLogo(@jakarta.annotation.Nullable TravelRuleIssuer logo) {
         this.logo = logo;
     }
 
@@ -432,7 +425,8 @@ public class TravelRuleIssuers {
         this.country = country;
     }
 
-    public TravelRuleIssuers description(@jakarta.annotation.Nonnull TravelRuleIssuer description) {
+    public TravelRuleIssuers description(
+            @jakarta.annotation.Nullable TravelRuleIssuer description) {
         this.description = description;
         return this;
     }
@@ -442,16 +436,16 @@ public class TravelRuleIssuers {
      *
      * @return description
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public TravelRuleIssuer getDescription() {
         return description;
     }
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDescription(@jakarta.annotation.Nonnull TravelRuleIssuer description) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDescription(@jakarta.annotation.Nullable TravelRuleIssuer description) {
         this.description = description;
     }
 

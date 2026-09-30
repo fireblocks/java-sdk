@@ -16,7 +16,7 @@
 
 | Name | Value |
 |---- | -----|
-| ALLOCATIONS | &quot;ALLOCATIONS&quot; |
+| ALLOCATION | &quot;ALLOCATION&quot; |
 
 
 

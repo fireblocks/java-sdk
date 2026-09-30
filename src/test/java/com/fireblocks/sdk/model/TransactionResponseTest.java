@@ -169,6 +169,12 @@ class TransactionResponseTest {
         // TODO: test requestedFeeCurrency
     }
 
+    /** Test the property 'cantonDetails' */
+    @Test
+    void cantonDetailsTest() {
+        // TODO: test cantonDetails
+    }
+
     /** Test the property 'networkRecords' */
     @Test
     void networkRecordsTest() {

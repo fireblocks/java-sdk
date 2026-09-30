@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.UUID;
 
 /**
  * A partial update. Every field is optional and an omitted field is left as it is, so &#x60;{
@@ -29,7 +30,7 @@ import java.util.StringJoiner;
  * maps merge. A key with a value is upserted, a key with &#x60;null&#x60; is deleted, a key you
  * leave out is untouched, and the whole field set to &#x60;null&#x60; clears the map. There is no
  * ambiguity between the two uses of &#x60;null&#x60; — one names an entry, the other names the
- * field. &#x60;mtlsClientSignedCert&#x60; is a scalar, so &#x60;null&#x60; there removes it.
+ * field. &#x60;webhookMtlsId&#x60; is a scalar, so &#x60;null&#x60; there removes it.
  */
 @JsonPropertyOrder({
     UpdateWebhookOauthRequest.JSON_PROPERTY_NAME,
@@ -40,7 +41,7 @@ import java.util.StringJoiner;
     UpdateWebhookOauthRequest.JSON_PROPERTY_CUSTOM_JWT_CLAIMS,
     UpdateWebhookOauthRequest.JSON_PROPERTY_CUSTOM_BODY_PARAMS,
     UpdateWebhookOauthRequest.JSON_PROPERTY_CUSTOM_HEADERS,
-    UpdateWebhookOauthRequest.JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT
+    UpdateWebhookOauthRequest.JSON_PROPERTY_WEBHOOK_MTLS_ID
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -70,8 +71,8 @@ public class UpdateWebhookOauthRequest {
     public static final String JSON_PROPERTY_CUSTOM_HEADERS = "customHeaders";
     @jakarta.annotation.Nullable private Map<String, String> customHeaders;
 
-    public static final String JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT = "mtlsClientSignedCert";
-    @jakarta.annotation.Nullable private String mtlsClientSignedCert;
+    public static final String JSON_PROPERTY_WEBHOOK_MTLS_ID = "webhookMtlsId";
+    @jakarta.annotation.Nullable private UUID webhookMtlsId;
 
     public UpdateWebhookOauthRequest() {}
 
@@ -325,29 +326,32 @@ public class UpdateWebhookOauthRequest {
         this.customHeaders = customHeaders;
     }
 
-    public UpdateWebhookOauthRequest mtlsClientSignedCert(
-            @jakarta.annotation.Nullable String mtlsClientSignedCert) {
-        this.mtlsClientSignedCert = mtlsClientSignedCert;
+    public UpdateWebhookOauthRequest webhookMtlsId(
+            @jakarta.annotation.Nullable UUID webhookMtlsId) {
+        this.webhookMtlsId = webhookMtlsId;
         return this;
     }
 
     /**
-     * PEM-encoded client certificate for mTLS. Must be a valid X.509 certificate inside its
-     * validity window. Omit to leave it unchanged, or send &#x60;null&#x60; to remove it.
+     * The id of the mTLS configuration presented to the token endpoint, from
+     * &#x60;/v1/webhooks_settings/mtls&#x60;. Omit to leave it unchanged, or send &#x60;null&#x60;
+     * to stop using mTLS for the token request. Requires the mTLS feature to be enabled for the
+     * workspace (&#x60;403&#x60; otherwise), a configuration of this workspace (&#x60;404&#x60;
+     * otherwise), and one linked to a private key (&#x60;400&#x60; otherwise).
      *
-     * @return mtlsClientSignedCert
+     * @return webhookMtlsId
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT)
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_MTLS_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getMtlsClientSignedCert() {
-        return mtlsClientSignedCert;
+    public UUID getWebhookMtlsId() {
+        return webhookMtlsId;
     }
 
-    @JsonProperty(JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT)
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_MTLS_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMtlsClientSignedCert(@jakarta.annotation.Nullable String mtlsClientSignedCert) {
-        this.mtlsClientSignedCert = mtlsClientSignedCert;
+    public void setWebhookMtlsId(@jakarta.annotation.Nullable UUID webhookMtlsId) {
+        this.webhookMtlsId = webhookMtlsId;
     }
 
     /** Return true if this UpdateWebhookOauthRequest object is equal to o. */
@@ -368,8 +372,7 @@ public class UpdateWebhookOauthRequest {
                 && Objects.equals(this.customJwtClaims, updateWebhookOauthRequest.customJwtClaims)
                 && Objects.equals(this.customBodyParams, updateWebhookOauthRequest.customBodyParams)
                 && Objects.equals(this.customHeaders, updateWebhookOauthRequest.customHeaders)
-                && Objects.equals(
-                        this.mtlsClientSignedCert, updateWebhookOauthRequest.mtlsClientSignedCert);
+                && Objects.equals(this.webhookMtlsId, updateWebhookOauthRequest.webhookMtlsId);
     }
 
     @Override
@@ -383,7 +386,7 @@ public class UpdateWebhookOauthRequest {
                 customJwtClaims,
                 customBodyParams,
                 customHeaders,
-                mtlsClientSignedCert);
+                webhookMtlsId);
     }
 
     @Override
@@ -398,9 +401,7 @@ public class UpdateWebhookOauthRequest {
         sb.append("    customJwtClaims: ").append(toIndentedString(customJwtClaims)).append("\n");
         sb.append("    customBodyParams: ").append(toIndentedString(customBodyParams)).append("\n");
         sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
-        sb.append("    mtlsClientSignedCert: ")
-                .append(toIndentedString(mtlsClientSignedCert))
-                .append("\n");
+        sb.append("    webhookMtlsId: ").append(toIndentedString(webhookMtlsId)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -552,15 +553,14 @@ public class UpdateWebhookOauthRequest {
             }
         }
 
-        // add `mtlsClientSignedCert` to the URL query string
-        if (getMtlsClientSignedCert() != null) {
+        // add `webhookMtlsId` to the URL query string
+        if (getWebhookMtlsId() != null) {
             joiner.add(
                     String.format(
-                            "%smtlsClientSignedCert%s=%s",
+                            "%swebhookMtlsId%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(
-                                    ApiClient.valueToString(getMtlsClientSignedCert()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getWebhookMtlsId()))));
         }
 
         return joiner.toString();

@@ -262,9 +262,9 @@ public class OfferResponse extends AbstractOpenApiSchema {
         JSON.registerDescendants(OfferResponse.class, Collections.unmodifiableMap(schemas));
         // Initialize and register the discriminator mappings.
         Map<String, Class<?>> mappings = new HashMap<String, Class<?>>();
-        mappings.put("ALLOCATIONS", OfferResponseAllocation.class);
+        mappings.put("ALLOCATION", OfferResponseAllocation.class);
         mappings.put("ONBOARDING", OfferResponseOnboarding.class);
-        mappings.put("TRANSFERS", OfferResponseTransfer.class);
+        mappings.put("TRANSFER", OfferResponseTransfer.class);
         mappings.put("OfferResponseAllocation", OfferResponseAllocation.class);
         mappings.put("OfferResponseOnboarding", OfferResponseOnboarding.class);
         mappings.put("OfferResponseTransfer", OfferResponseTransfer.class);

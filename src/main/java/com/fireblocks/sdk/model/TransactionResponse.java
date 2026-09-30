@@ -51,6 +51,7 @@ import java.util.StringJoiner;
     TransactionResponse.JSON_PROPERTY_FEE_INFO,
     TransactionResponse.JSON_PROPERTY_FEE_CURRENCY,
     TransactionResponse.JSON_PROPERTY_REQUESTED_FEE_CURRENCY,
+    TransactionResponse.JSON_PROPERTY_CANTON_DETAILS,
     TransactionResponse.JSON_PROPERTY_NETWORK_RECORDS,
     TransactionResponse.JSON_PROPERTY_CREATED_AT,
     TransactionResponse.JSON_PROPERTY_LAST_UPDATED,
@@ -169,6 +170,9 @@ public class TransactionResponse {
 
     public static final String JSON_PROPERTY_REQUESTED_FEE_CURRENCY = "requestedFeeCurrency";
     @jakarta.annotation.Nullable private String requestedFeeCurrency;
+
+    public static final String JSON_PROPERTY_CANTON_DETAILS = "cantonDetails";
+    @jakarta.annotation.Nullable private CantonDetails cantonDetails;
 
     public static final String JSON_PROPERTY_NETWORK_RECORDS = "networkRecords";
     @jakarta.annotation.Nullable private List<NetworkRecord> networkRecords;
@@ -952,6 +956,30 @@ public class TransactionResponse {
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setRequestedFeeCurrency(@jakarta.annotation.Nullable String requestedFeeCurrency) {
         this.requestedFeeCurrency = requestedFeeCurrency;
+    }
+
+    public TransactionResponse cantonDetails(
+            @jakarta.annotation.Nullable CantonDetails cantonDetails) {
+        this.cantonDetails = cantonDetails;
+        return this;
+    }
+
+    /**
+     * Get cantonDetails
+     *
+     * @return cantonDetails
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CANTON_DETAILS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public CantonDetails getCantonDetails() {
+        return cantonDetails;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CANTON_DETAILS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCantonDetails(@jakarta.annotation.Nullable CantonDetails cantonDetails) {
+        this.cantonDetails = cantonDetails;
     }
 
     public TransactionResponse networkRecords(
@@ -1974,6 +2002,7 @@ public class TransactionResponse {
                 && Objects.equals(this.feeCurrency, transactionResponse.feeCurrency)
                 && Objects.equals(
                         this.requestedFeeCurrency, transactionResponse.requestedFeeCurrency)
+                && Objects.equals(this.cantonDetails, transactionResponse.cantonDetails)
                 && Objects.equals(this.networkRecords, transactionResponse.networkRecords)
                 && Objects.equals(this.createdAt, transactionResponse.createdAt)
                 && Objects.equals(this.lastUpdated, transactionResponse.lastUpdated)
@@ -2043,6 +2072,7 @@ public class TransactionResponse {
                 feeInfo,
                 feeCurrency,
                 requestedFeeCurrency,
+                cantonDetails,
                 networkRecords,
                 createdAt,
                 lastUpdated,
@@ -2124,6 +2154,7 @@ public class TransactionResponse {
         sb.append("    requestedFeeCurrency: ")
                 .append(toIndentedString(requestedFeeCurrency))
                 .append("\n");
+        sb.append("    cantonDetails: ").append(toIndentedString(cantonDetails)).append("\n");
         sb.append("    networkRecords: ").append(toIndentedString(networkRecords)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    lastUpdated: ").append(toIndentedString(lastUpdated)).append("\n");
@@ -2463,6 +2494,11 @@ public class TransactionResponse {
                             suffix,
                             ApiClient.urlEncode(
                                     ApiClient.valueToString(getRequestedFeeCurrency()))));
+        }
+
+        // add `cantonDetails` to the URL query string
+        if (getCantonDetails() != null) {
+            joiner.add(getCantonDetails().toUrlQueryString(prefix + "cantonDetails" + suffix));
         }
 
         // add `networkRecords` to the URL query string

@@ -22,6 +22,8 @@ import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsRequest;
 import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsResponse;
+import com.fireblocks.sdk.model.AddressRegistryCreateProofOfOwnershipRequest;
+import com.fireblocks.sdk.model.AddressRegistryCreateProofOfOwnershipResponse;
 import com.fireblocks.sdk.model.AddressRegistryGetVaultOptOutResponse;
 import com.fireblocks.sdk.model.AddressRegistryLegalEntity;
 import com.fireblocks.sdk.model.AddressRegistryListVaultOptOutsResponse;
@@ -29,6 +31,8 @@ import com.fireblocks.sdk.model.AddressRegistryRemoveAllVaultOptOutsResponse;
 import com.fireblocks.sdk.model.AddressRegistryRemoveVaultOptOutResponse;
 import com.fireblocks.sdk.model.AddressRegistryTenantRegistryResponse;
 import com.fireblocks.sdk.model.AddressRegistryVaultListOrder;
+import com.fireblocks.sdk.model.AddressRegistryVerifyProofOfOwnershipRequest;
+import com.fireblocks.sdk.model.AddressRegistryVerifyProofOfOwnershipResponse;
 import com.fireblocks.sdk.model.AmlVerdictManualRequest;
 import com.fireblocks.sdk.model.AmlVerdictManualResponse;
 import com.fireblocks.sdk.model.ArsConfigResponse;
@@ -490,6 +494,117 @@ public class ComplianceApi {
         try {
             byte[] localVarPostBody =
                     memberVarObjectMapper.writeValueAsBytes(assignVaultsToLegalEntityRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Create a Proof of Ownership PDF for an address Creates a Proof of Ownership PDF for a
+     * blockchain address owned by the authenticated workspace — for example, to share with a
+     * counterparty or bank as compliance evidence. Recipients can confirm it with &#x60;POST
+     * /v1/address_registry/proof_of_ownership_exports/verify&#x60;. Check
+     * &#x60;proofOfOwnershipAvailable&#x60; on &#x60;GET
+     * /v1/address_registry/legal_entities/{address}&#x60; first if you want to know whether create
+     * is likely to succeed.
+     *
+     * @param addressRegistryCreateProofOfOwnershipRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return
+     *     CompletableFuture&lt;ApiResponse&lt;AddressRegistryCreateProofOfOwnershipResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<AddressRegistryCreateProofOfOwnershipResponse>>
+            createAddressRegistryProofOfOwnership(
+                    AddressRegistryCreateProofOfOwnershipRequest
+                            addressRegistryCreateProofOfOwnershipRequest,
+                    String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    createAddressRegistryProofOfOwnershipRequestBuilder(
+                            addressRegistryCreateProofOfOwnershipRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "createAddressRegistryProofOfOwnership",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<
+                                                    AddressRegistryCreateProofOfOwnershipResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressRegistryCreateProofOfOwnershipResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    AddressRegistryCreateProofOfOwnershipResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder createAddressRegistryProofOfOwnershipRequestBuilder(
+            AddressRegistryCreateProofOfOwnershipRequest
+                    addressRegistryCreateProofOfOwnershipRequest,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "createAddressRegistryProofOfOwnership",
+                "addressRegistryCreateProofOfOwnershipRequest",
+                addressRegistryCreateProofOfOwnershipRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/address_registry/proof_of_ownership_exports";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(
+                            addressRegistryCreateProofOfOwnershipRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {
@@ -3582,6 +3697,114 @@ public class ComplianceApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Verify a Proof of Ownership export Verifies a Proof of Ownership export against the record
+     * Fireblocks stored at creation. Returns &#x60;valid: false&#x60; (not 404) for an unknown,
+     * expired, or mismatched export. Available to any authenticated Fireblocks workspace, not just
+     * the export&#39;s original owner.
+     *
+     * @param addressRegistryVerifyProofOfOwnershipRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return
+     *     CompletableFuture&lt;ApiResponse&lt;AddressRegistryVerifyProofOfOwnershipResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<AddressRegistryVerifyProofOfOwnershipResponse>>
+            verifyAddressRegistryProofOfOwnership(
+                    AddressRegistryVerifyProofOfOwnershipRequest
+                            addressRegistryVerifyProofOfOwnershipRequest,
+                    String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    verifyAddressRegistryProofOfOwnershipRequestBuilder(
+                            addressRegistryVerifyProofOfOwnershipRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "verifyAddressRegistryProofOfOwnership",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<
+                                                    AddressRegistryVerifyProofOfOwnershipResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressRegistryVerifyProofOfOwnershipResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    AddressRegistryVerifyProofOfOwnershipResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder verifyAddressRegistryProofOfOwnershipRequestBuilder(
+            AddressRegistryVerifyProofOfOwnershipRequest
+                    addressRegistryVerifyProofOfOwnershipRequest,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "verifyAddressRegistryProofOfOwnership",
+                "addressRegistryVerifyProofOfOwnershipRequest",
+                addressRegistryVerifyProofOfOwnershipRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/address_registry/proof_of_ownership_exports/verify";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(
+                            addressRegistryVerifyProofOfOwnershipRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

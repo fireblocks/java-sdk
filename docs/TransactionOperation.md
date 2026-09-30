@@ -23,5 +23,7 @@
 
 * `ENABLE_ASSET` (value: `"ENABLE_ASSET"`)
 
+* `CANTON_CALL` (value: `"CANTON_CALL"`)
+
 
 

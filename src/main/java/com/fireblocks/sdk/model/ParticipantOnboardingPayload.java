@@ -29,10 +29,10 @@ import java.util.StringJoiner;
     ParticipantOnboardingPayload.JSON_PROPERTY_ASSET,
     ParticipantOnboardingPayload.JSON_PROPERTY_EXPIRES_AT,
     ParticipantOnboardingPayload.JSON_PROPERTY_OPERATOR,
-    ParticipantOnboardingPayload.JSON_PROPERTY_PROVIDER,
     ParticipantOnboardingPayload.JSON_PROPERTY_COMPLIANCE,
     ParticipantOnboardingPayload.JSON_PROPERTY_REGISTRAR,
-    ParticipantOnboardingPayload.JSON_PROPERTY_CLIENT_ONBOARDER
+    ParticipantOnboardingPayload.JSON_PROPERTY_CLIENT_ONBOARDER,
+    ParticipantOnboardingPayload.JSON_PROPERTY_UPGRADER
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -83,9 +83,6 @@ public class ParticipantOnboardingPayload {
     public static final String JSON_PROPERTY_OPERATOR = "operator";
     @jakarta.annotation.Nonnull private String operator;
 
-    public static final String JSON_PROPERTY_PROVIDER = "provider";
-    @jakarta.annotation.Nonnull private String provider;
-
     public static final String JSON_PROPERTY_COMPLIANCE = "compliance";
     @jakarta.annotation.Nonnull private String compliance;
 
@@ -95,6 +92,9 @@ public class ParticipantOnboardingPayload {
     public static final String JSON_PROPERTY_CLIENT_ONBOARDER = "clientOnboarder";
     @jakarta.annotation.Nonnull private String clientOnboarder;
 
+    public static final String JSON_PROPERTY_UPGRADER = "upgrader";
+    @jakarta.annotation.Nonnull private String upgrader;
+
     public ParticipantOnboardingPayload() {}
 
     @JsonCreator
@@ -103,18 +103,18 @@ public class ParticipantOnboardingPayload {
                     String vaultAccountId,
             @JsonProperty(value = JSON_PROPERTY_ASSET, required = true) AssetEnum asset,
             @JsonProperty(value = JSON_PROPERTY_OPERATOR, required = true) String operator,
-            @JsonProperty(value = JSON_PROPERTY_PROVIDER, required = true) String provider,
             @JsonProperty(value = JSON_PROPERTY_COMPLIANCE, required = true) String compliance,
             @JsonProperty(value = JSON_PROPERTY_REGISTRAR, required = true) String registrar,
             @JsonProperty(value = JSON_PROPERTY_CLIENT_ONBOARDER, required = true)
-                    String clientOnboarder) {
+                    String clientOnboarder,
+            @JsonProperty(value = JSON_PROPERTY_UPGRADER, required = true) String upgrader) {
         this.vaultAccountId = vaultAccountId;
         this.asset = asset;
         this.operator = operator;
-        this.provider = provider;
         this.compliance = compliance;
         this.registrar = registrar;
         this.clientOnboarder = clientOnboarder;
+        this.upgrader = upgrader;
     }
 
     public ParticipantOnboardingPayload vaultAccountId(
@@ -211,29 +211,6 @@ public class ParticipantOnboardingPayload {
         this.operator = operator;
     }
 
-    public ParticipantOnboardingPayload provider(@jakarta.annotation.Nonnull String provider) {
-        this.provider = provider;
-        return this;
-    }
-
-    /**
-     * DTCC provider party id.
-     *
-     * @return provider
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_PROVIDER)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getProvider() {
-        return provider;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PROVIDER)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProvider(@jakarta.annotation.Nonnull String provider) {
-        this.provider = provider;
-    }
-
     public ParticipantOnboardingPayload compliance(@jakarta.annotation.Nonnull String compliance) {
         this.compliance = compliance;
         return this;
@@ -304,6 +281,30 @@ public class ParticipantOnboardingPayload {
         this.clientOnboarder = clientOnboarder;
     }
 
+    public ParticipantOnboardingPayload upgrader(@jakarta.annotation.Nonnull String upgrader) {
+        this.upgrader = upgrader;
+        return this;
+    }
+
+    /**
+     * DTCC upgrader party id — the Model Upgrade Tool authority. Supplied by DTCC during the
+     * off-chain registration, alongside the other party ids.
+     *
+     * @return upgrader
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_UPGRADER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getUpgrader() {
+        return upgrader;
+    }
+
+    @JsonProperty(JSON_PROPERTY_UPGRADER)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setUpgrader(@jakarta.annotation.Nonnull String upgrader) {
+        this.upgrader = upgrader;
+    }
+
     /** Return true if this ParticipantOnboardingPayload object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -319,11 +320,11 @@ public class ParticipantOnboardingPayload {
                 && Objects.equals(this.asset, participantOnboardingPayload.asset)
                 && Objects.equals(this.expiresAt, participantOnboardingPayload.expiresAt)
                 && Objects.equals(this.operator, participantOnboardingPayload.operator)
-                && Objects.equals(this.provider, participantOnboardingPayload.provider)
                 && Objects.equals(this.compliance, participantOnboardingPayload.compliance)
                 && Objects.equals(this.registrar, participantOnboardingPayload.registrar)
                 && Objects.equals(
-                        this.clientOnboarder, participantOnboardingPayload.clientOnboarder);
+                        this.clientOnboarder, participantOnboardingPayload.clientOnboarder)
+                && Objects.equals(this.upgrader, participantOnboardingPayload.upgrader);
     }
 
     @Override
@@ -333,10 +334,10 @@ public class ParticipantOnboardingPayload {
                 asset,
                 expiresAt,
                 operator,
-                provider,
                 compliance,
                 registrar,
-                clientOnboarder);
+                clientOnboarder,
+                upgrader);
     }
 
     @Override
@@ -347,10 +348,10 @@ public class ParticipantOnboardingPayload {
         sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
         sb.append("    expiresAt: ").append(toIndentedString(expiresAt)).append("\n");
         sb.append("    operator: ").append(toIndentedString(operator)).append("\n");
-        sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
         sb.append("    compliance: ").append(toIndentedString(compliance)).append("\n");
         sb.append("    registrar: ").append(toIndentedString(registrar)).append("\n");
         sb.append("    clientOnboarder: ").append(toIndentedString(clientOnboarder)).append("\n");
+        sb.append("    upgrader: ").append(toIndentedString(upgrader)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -438,16 +439,6 @@ public class ParticipantOnboardingPayload {
                             ApiClient.urlEncode(ApiClient.valueToString(getOperator()))));
         }
 
-        // add `provider` to the URL query string
-        if (getProvider() != null) {
-            joiner.add(
-                    String.format(
-                            "%sprovider%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getProvider()))));
-        }
-
         // add `compliance` to the URL query string
         if (getCompliance() != null) {
             joiner.add(
@@ -476,6 +467,16 @@ public class ParticipantOnboardingPayload {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getClientOnboarder()))));
+        }
+
+        // add `upgrader` to the URL query string
+        if (getUpgrader() != null) {
+            joiner.add(
+                    String.format(
+                            "%supgrader%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getUpgrader()))));
         }
 
         return joiner.toString();

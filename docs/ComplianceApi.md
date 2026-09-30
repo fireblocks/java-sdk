@@ -8,6 +8,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**activateByorkConfig**](ComplianceApi.md#activateByorkConfig) | **POST** /screening/byork/config/activate | Activate BYORK Light |
 | [**addAddressRegistryVaultOptOuts**](ComplianceApi.md#addAddressRegistryVaultOptOuts) | **POST** /address_registry/vaults | Add vault accounts to the address registry opt-out list |
 | [**assignVaultsToLegalEntity**](ComplianceApi.md#assignVaultsToLegalEntity) | **POST** /legal_entities/{legalEntityId}/vaults | Assign vault accounts to a legal entity |
+| [**createAddressRegistryProofOfOwnership**](ComplianceApi.md#createAddressRegistryProofOfOwnership) | **POST** /address_registry/proof_of_ownership_exports | Create a Proof of Ownership PDF for an address |
 | [**createCounterpartyGroup**](ComplianceApi.md#createCounterpartyGroup) | **POST** /counterparty_groups | Create a counterparty group |
 | [**deactivateArsConfig**](ComplianceApi.md#deactivateArsConfig) | **POST** /screening/ars/config/deactivate | Deactivate ARS (Address Registry Screening) |
 | [**deactivateByorkConfig**](ComplianceApi.md#deactivateByorkConfig) | **POST** /screening/byork/config/deactivate | Deactivate BYORK Light |
@@ -44,6 +45,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**updateLegalEntity**](ComplianceApi.md#updateLegalEntity) | **PUT** /legal_entities/{legalEntityId} | Update legal entity |
 | [**updateScreeningConfiguration**](ComplianceApi.md#updateScreeningConfiguration) | **PUT** /screening/configurations | Tenant - Screening Configuration |
 | [**updateTravelRuleConfig**](ComplianceApi.md#updateTravelRuleConfig) | **PUT** /screening/travel_rule/policy_configuration | Update Travel Rule Configuration |
+| [**verifyAddressRegistryProofOfOwnership**](ComplianceApi.md#verifyAddressRegistryProofOfOwnership) | **POST** /address_registry/proof_of_ownership_exports/verify | Verify a Proof of Ownership export |
 
 
 
@@ -362,6 +364,91 @@ No authorization required
 |-------------|-------------|------------------|
 | **201** | Vault accounts assigned successfully |  * X-Request-ID -  <br>  |
 | **404** | Legal entity registration not found |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## createAddressRegistryProofOfOwnership
+
+> CompletableFuture<ApiResponse<AddressRegistryCreateProofOfOwnershipResponse>> createAddressRegistryProofOfOwnership createAddressRegistryProofOfOwnership(addressRegistryCreateProofOfOwnershipRequest, idempotencyKey)
+
+Create a Proof of Ownership PDF for an address
+
+Creates a Proof of Ownership PDF for a blockchain address owned by the authenticated workspace — for example, to share with a counterparty or bank as compliance evidence. Recipients can confirm it with &#x60;POST /v1/address_registry/proof_of_ownership_exports/verify&#x60;.  Check &#x60;proofOfOwnershipAvailable&#x60; on &#x60;GET /v1/address_registry/legal_entities/{address}&#x60; first if you want to know whether create is likely to succeed.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        AddressRegistryCreateProofOfOwnershipRequest addressRegistryCreateProofOfOwnershipRequest = new AddressRegistryCreateProofOfOwnershipRequest(); // AddressRegistryCreateProofOfOwnershipRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<AddressRegistryCreateProofOfOwnershipResponse>> response = fireblocks.compliance().createAddressRegistryProofOfOwnership(addressRegistryCreateProofOfOwnershipRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#createAddressRegistryProofOfOwnership");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **addressRegistryCreateProofOfOwnershipRequest** | [**AddressRegistryCreateProofOfOwnershipRequest**](AddressRegistryCreateProofOfOwnershipRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**AddressRegistryCreateProofOfOwnershipResponse**](AddressRegistryCreateProofOfOwnershipResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | PDF export created |  * X-Request-ID -  <br>  |
+| **400** | - Missing, empty, or whitespace-only &#x60;address&#x60;. Error code 4100. - Workspace not opted in to the address registry. Error code 2140.  |  * X-Request-ID -  <br>  |
+| **403** | This workspace is blocked from creating Proof of Ownership exports. Error code 2146. |  * X-Request-ID -  <br>  |
+| **404** | Address not found, not owned by this workspace, or not usable for export. Error code 2142. |  * X-Request-ID -  <br>  |
+| **429** | Rate limited. Error code 2145. Retry-safe after backing off. |  * X-Request-ID -  <br>  |
+| **500** | Internal error. No PDF is returned. Not retry-safe. Error code 2143. |  * X-Request-ID -  <br>  |
+| **503** | Rate-limit infrastructure temporarily unavailable. Safe to retry with backoff. Error code 2143 — same as the 500 case; use the HTTP status to tell them apart. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -1434,8 +1521,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Legal entity found |  * X-Request-ID -  <br>  |
-| **400** | Bad request — either request validation (path &#x60;{address}&#x60; empty or whitespace-only after trim, e.g. encoded spaces only; numeric code 4100), or the authenticated workspace is not opted in to the address registry (numeric code 2140). The &#x60;message&#x60; field describes the failure; use &#x60;code&#x60; to distinguish. |  * X-Request-ID -  <br>  |
-| **404** | Not found (error code 2142) — unresolved address, no legal entity for a resolved address, or the same not-found outcome in other cases. |  * X-Request-ID -  <br>  |
+| **400** | - &#x60;{address}&#x60; empty or whitespace-only after trim. Error code 4100. - Workspace not opted in to the address registry. Error code 2140.  |  * X-Request-ID -  <br>  |
+| **403** | This workspace is blocked from Address Registry public lookup. Error code 2146. |  * X-Request-ID -  <br>  |
+| **404** | Address not found, owner not opted in, or legal entity not usable for lookup. Error code 2142. |  * X-Request-ID -  <br>  |
+| **429** | Rate limited. Error code 2145. Retry-safe after backing off. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -3166,4 +3255,84 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Configuration updated successfully. |  -  |
+
+
+## verifyAddressRegistryProofOfOwnership
+
+> CompletableFuture<ApiResponse<AddressRegistryVerifyProofOfOwnershipResponse>> verifyAddressRegistryProofOfOwnership verifyAddressRegistryProofOfOwnership(addressRegistryVerifyProofOfOwnershipRequest, idempotencyKey)
+
+Verify a Proof of Ownership export
+
+Verifies a Proof of Ownership export against the record Fireblocks stored at creation. Returns &#x60;valid: false&#x60; (not 404) for an unknown, expired, or mismatched export. Available to any authenticated Fireblocks workspace, not just the export&#39;s original owner.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        AddressRegistryVerifyProofOfOwnershipRequest addressRegistryVerifyProofOfOwnershipRequest = new AddressRegistryVerifyProofOfOwnershipRequest(); // AddressRegistryVerifyProofOfOwnershipRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<AddressRegistryVerifyProofOfOwnershipResponse>> response = fireblocks.compliance().verifyAddressRegistryProofOfOwnership(addressRegistryVerifyProofOfOwnershipRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#verifyAddressRegistryProofOfOwnership");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **addressRegistryVerifyProofOfOwnershipRequest** | [**AddressRegistryVerifyProofOfOwnershipRequest**](AddressRegistryVerifyProofOfOwnershipRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**AddressRegistryVerifyProofOfOwnershipResponse**](AddressRegistryVerifyProofOfOwnershipResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Verification result |  * X-Request-ID -  <br>  |
+| **400** | Missing, empty, or whitespace-only &#x60;exportId&#x60;, &#x60;verificationHash&#x60;, or &#x60;address&#x60;, or &#x60;expiresAt&#x60; not empty and not a valid &#x60;YYYY-MM-DD&#x60; date. Error code 4100. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
 

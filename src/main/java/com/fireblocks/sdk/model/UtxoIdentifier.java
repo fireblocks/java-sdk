@@ -73,7 +73,8 @@ public class UtxoIdentifier {
     }
 
     /**
-     * On-chain transaction hash
+     * On-chain transaction hash, in lowercase hex as the chain reports it. Matched
+     * case-sensitively, so an uppercase hash is never found.
      *
      * @return txHash
      */

@@ -44,7 +44,7 @@ public class Fireblocks {
     private ComplianceApi compliance;
     private ComplianceOrchestratorBetaApi complianceOrchestratorBeta;
     private ComplianceScreeningConfigurationApi complianceScreeningConfiguration;
-    private ConnectedAccountsBetaApi connectedAccountsBeta;
+    private ConnectedAccountsApi connectedAccounts;
     private ConsoleUserApi consoleUser;
     private ContactsApi contacts;
     private ContractInteractionsApi contractInteractions;
@@ -287,11 +287,11 @@ public class Fireblocks {
         return complianceScreeningConfiguration;
     }
 
-    public ConnectedAccountsBetaApi connectedAccountsBeta() {
-        if (connectedAccountsBeta == null) {
-            connectedAccountsBeta = new ConnectedAccountsBetaApi(apiClient);
+    public ConnectedAccountsApi connectedAccounts() {
+        if (connectedAccounts == null) {
+            connectedAccounts = new ConnectedAccountsApi(apiClient);
         }
-        return connectedAccountsBeta;
+        return connectedAccounts;
     }
 
     public ConsoleUserApi consoleUser() {

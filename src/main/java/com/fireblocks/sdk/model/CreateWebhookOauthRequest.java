@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.UUID;
 
 /**
  * A new reusable OAuth 2.0 client credential set. Attach it to a webhook by passing the returned id
@@ -37,7 +38,7 @@ import java.util.StringJoiner;
     CreateWebhookOauthRequest.JSON_PROPERTY_CUSTOM_JWT_CLAIMS,
     CreateWebhookOauthRequest.JSON_PROPERTY_CUSTOM_BODY_PARAMS,
     CreateWebhookOauthRequest.JSON_PROPERTY_CUSTOM_HEADERS,
-    CreateWebhookOauthRequest.JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT
+    CreateWebhookOauthRequest.JSON_PROPERTY_WEBHOOK_MTLS_ID
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -67,8 +68,8 @@ public class CreateWebhookOauthRequest {
     public static final String JSON_PROPERTY_CUSTOM_HEADERS = "customHeaders";
     @jakarta.annotation.Nullable private Map<String, String> customHeaders;
 
-    public static final String JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT = "mtlsClientSignedCert";
-    @jakarta.annotation.Nullable private String mtlsClientSignedCert;
+    public static final String JSON_PROPERTY_WEBHOOK_MTLS_ID = "webhookMtlsId";
+    @jakarta.annotation.Nullable private UUID webhookMtlsId;
 
     public CreateWebhookOauthRequest() {}
 
@@ -331,29 +332,34 @@ public class CreateWebhookOauthRequest {
         this.customHeaders = customHeaders;
     }
 
-    public CreateWebhookOauthRequest mtlsClientSignedCert(
-            @jakarta.annotation.Nullable String mtlsClientSignedCert) {
-        this.mtlsClientSignedCert = mtlsClientSignedCert;
+    public CreateWebhookOauthRequest webhookMtlsId(
+            @jakarta.annotation.Nullable UUID webhookMtlsId) {
+        this.webhookMtlsId = webhookMtlsId;
         return this;
     }
 
     /**
-     * PEM-encoded client certificate for mTLS when fetching tokens. Must be a valid X.509
-     * certificate inside its validity window.
+     * The id of the mTLS configuration presented to the token endpoint, from
+     * &#x60;/v1/webhooks_settings/mtls&#x60;. It can be the same configuration a webhook uses, so
+     * one certificate, signed from &#x60;GET /v1/webhooks_settings/mtls_csr&#x60;, serves both the
+     * token endpoint and the receiver. Omit, or send &#x60;null&#x60;, for a token request without
+     * mTLS. Requires the mTLS feature to be enabled for the workspace (&#x60;403&#x60; otherwise),
+     * a configuration of this workspace (&#x60;404&#x60; otherwise), and one linked to a private
+     * key (&#x60;400&#x60; otherwise).
      *
-     * @return mtlsClientSignedCert
+     * @return webhookMtlsId
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT)
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_MTLS_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getMtlsClientSignedCert() {
-        return mtlsClientSignedCert;
+    public UUID getWebhookMtlsId() {
+        return webhookMtlsId;
     }
 
-    @JsonProperty(JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT)
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_MTLS_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMtlsClientSignedCert(@jakarta.annotation.Nullable String mtlsClientSignedCert) {
-        this.mtlsClientSignedCert = mtlsClientSignedCert;
+    public void setWebhookMtlsId(@jakarta.annotation.Nullable UUID webhookMtlsId) {
+        this.webhookMtlsId = webhookMtlsId;
     }
 
     /** Return true if this CreateWebhookOauthRequest object is equal to o. */
@@ -374,8 +380,7 @@ public class CreateWebhookOauthRequest {
                 && Objects.equals(this.customJwtClaims, createWebhookOauthRequest.customJwtClaims)
                 && Objects.equals(this.customBodyParams, createWebhookOauthRequest.customBodyParams)
                 && Objects.equals(this.customHeaders, createWebhookOauthRequest.customHeaders)
-                && Objects.equals(
-                        this.mtlsClientSignedCert, createWebhookOauthRequest.mtlsClientSignedCert);
+                && Objects.equals(this.webhookMtlsId, createWebhookOauthRequest.webhookMtlsId);
     }
 
     @Override
@@ -389,7 +394,7 @@ public class CreateWebhookOauthRequest {
                 customJwtClaims,
                 customBodyParams,
                 customHeaders,
-                mtlsClientSignedCert);
+                webhookMtlsId);
     }
 
     @Override
@@ -404,9 +409,7 @@ public class CreateWebhookOauthRequest {
         sb.append("    customJwtClaims: ").append(toIndentedString(customJwtClaims)).append("\n");
         sb.append("    customBodyParams: ").append(toIndentedString(customBodyParams)).append("\n");
         sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
-        sb.append("    mtlsClientSignedCert: ")
-                .append(toIndentedString(mtlsClientSignedCert))
-                .append("\n");
+        sb.append("    webhookMtlsId: ").append(toIndentedString(webhookMtlsId)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -558,15 +561,14 @@ public class CreateWebhookOauthRequest {
             }
         }
 
-        // add `mtlsClientSignedCert` to the URL query string
-        if (getMtlsClientSignedCert() != null) {
+        // add `webhookMtlsId` to the URL query string
+        if (getWebhookMtlsId() != null) {
             joiner.add(
                     String.format(
-                            "%smtlsClientSignedCert%s=%s",
+                            "%swebhookMtlsId%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(
-                                    ApiClient.valueToString(getMtlsClientSignedCert()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getWebhookMtlsId()))));
         }
 
         return joiner.toString();

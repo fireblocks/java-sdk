@@ -33,7 +33,7 @@ import java.util.StringJoiner;
 public class OfferResponseAllocation {
     /** Which offer domain this response belongs to. Selects the shape of &#x60;response&#x60;. */
     public enum DomainEnum {
-        ALLOCATIONS(String.valueOf("ALLOCATIONS"));
+        ALLOCATION(String.valueOf("ALLOCATION"));
 
         private String value;
 

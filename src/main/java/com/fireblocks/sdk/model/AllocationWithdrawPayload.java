@@ -17,60 +17,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** AllocationWithdrawPayload */
-@JsonPropertyOrder({
-    AllocationWithdrawPayload.JSON_PROPERTY_VAULT_ACCOUNT_ID,
-    AllocationWithdrawPayload.JSON_PROPERTY_ASSET,
-    AllocationWithdrawPayload.JSON_PROPERTY_ALLOCATION_TRANSACTION_ID
-})
+@JsonPropertyOrder({AllocationWithdrawPayload.JSON_PROPERTY_ALLOCATION_TRANSACTION_ID})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class AllocationWithdrawPayload {
-    public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    @jakarta.annotation.Nonnull private String vaultAccountId;
-
-    /** Chain asset — &#x60;CANTON&#x60; or &#x60;CANTON_TEST&#x60;. */
-    public enum AssetEnum {
-        CANTON(String.valueOf("CANTON")),
-
-        CANTON_TEST(String.valueOf("CANTON_TEST"));
-
-        private String value;
-
-        AssetEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static AssetEnum fromValue(String value) {
-            for (AssetEnum b : AssetEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_ASSET = "asset";
-    @jakarta.annotation.Nonnull private AssetEnum asset;
-
     public static final String JSON_PROPERTY_ALLOCATION_TRANSACTION_ID = "allocationTransactionId";
     @jakarta.annotation.Nonnull private String allocationTransactionId;
 
@@ -78,61 +34,9 @@ public class AllocationWithdrawPayload {
 
     @JsonCreator
     public AllocationWithdrawPayload(
-            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
-                    String vaultAccountId,
-            @JsonProperty(value = JSON_PROPERTY_ASSET, required = true) AssetEnum asset,
             @JsonProperty(value = JSON_PROPERTY_ALLOCATION_TRANSACTION_ID, required = true)
                     String allocationTransactionId) {
-        this.vaultAccountId = vaultAccountId;
-        this.asset = asset;
         this.allocationTransactionId = allocationTransactionId;
-    }
-
-    public AllocationWithdrawPayload vaultAccountId(
-            @jakarta.annotation.Nonnull String vaultAccountId) {
-        this.vaultAccountId = vaultAccountId;
-        return this;
-    }
-
-    /**
-     * The vault account whose Canton wallet acts here.
-     *
-     * @return vaultAccountId
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getVaultAccountId() {
-        return vaultAccountId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
-        this.vaultAccountId = vaultAccountId;
-    }
-
-    public AllocationWithdrawPayload asset(@jakarta.annotation.Nonnull AssetEnum asset) {
-        this.asset = asset;
-        return this;
-    }
-
-    /**
-     * Chain asset — &#x60;CANTON&#x60; or &#x60;CANTON_TEST&#x60;.
-     *
-     * @return asset
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ASSET)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AssetEnum getAsset() {
-        return asset;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ASSET)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAsset(@jakarta.annotation.Nonnull AssetEnum asset) {
-        this.asset = asset;
     }
 
     public AllocationWithdrawPayload allocationTransactionId(
@@ -171,24 +75,19 @@ public class AllocationWithdrawPayload {
             return false;
         }
         AllocationWithdrawPayload allocationWithdrawPayload = (AllocationWithdrawPayload) o;
-        return Objects.equals(this.vaultAccountId, allocationWithdrawPayload.vaultAccountId)
-                && Objects.equals(this.asset, allocationWithdrawPayload.asset)
-                && Objects.equals(
-                        this.allocationTransactionId,
-                        allocationWithdrawPayload.allocationTransactionId);
+        return Objects.equals(
+                this.allocationTransactionId, allocationWithdrawPayload.allocationTransactionId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(vaultAccountId, asset, allocationTransactionId);
+        return Objects.hash(allocationTransactionId);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class AllocationWithdrawPayload {\n");
-        sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
-        sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
         sb.append("    allocationTransactionId: ")
                 .append(toIndentedString(allocationTransactionId))
                 .append("\n");
@@ -238,26 +137,6 @@ public class AllocationWithdrawPayload {
         }
 
         StringJoiner joiner = new StringJoiner("&");
-
-        // add `vaultAccountId` to the URL query string
-        if (getVaultAccountId() != null) {
-            joiner.add(
-                    String.format(
-                            "%svaultAccountId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
-        }
-
-        // add `asset` to the URL query string
-        if (getAsset() != null) {
-            joiner.add(
-                    String.format(
-                            "%sasset%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getAsset()))));
-        }
 
         // add `allocationTransactionId` to the URL query string
         if (getAllocationTransactionId() != null) {

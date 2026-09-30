@@ -60,4 +60,10 @@ class AddressRegistryLegalEntityTest {
     void emailTest() {
         // TODO: test email
     }
+
+    /** Test the property 'proofOfOwnershipAvailable' */
+    @Test
+    void proofOfOwnershipAvailableTest() {
+        // TODO: test proofOfOwnershipAvailable
+    }
 }

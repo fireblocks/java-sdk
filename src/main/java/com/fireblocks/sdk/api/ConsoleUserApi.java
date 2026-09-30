@@ -18,6 +18,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.ValidationUtils;
+import com.fireblocks.sdk.model.ConsoleUser;
 import com.fireblocks.sdk.model.CreateConsoleUser;
 import com.fireblocks.sdk.model.GetConsoleUsersResponse;
 import java.io.IOException;
@@ -27,6 +30,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringJoiner;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
@@ -165,6 +171,104 @@ public class ConsoleUserApi {
         } catch (IOException e) {
             throw new ApiException(e);
         }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Request deletion of a console user Requests deletion of a console user. The request is
+     * asynchronous: it goes through the workspace&#39;s configured \&quot;Delete users\&quot;
+     * approval policy (Settings &gt; Quorums), exactly as deleting a user from the console does,
+     * and the user is removed only once that approval completes. - Track progress by polling GET
+     * /management/users; deletion is complete when the user is disabled. - Please note that this
+     * endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint
+     * Permission: Admin, Non-Signing Admin. **Note:** This endpoint is currently in beta and might
+     * be subject to changes.
+     *
+     * @param id The ID of the console user to delete (required)
+     * @param force Acknowledges the impact of removing this user and proceeds anyway. Overrides
+     *     both USER_REFERENCED_IN_TAP and QUORUM_INTEGRITY, the same way the acknowledgement
+     *     checkbox does in the console. (optional, default to false)
+     * @return CompletableFuture&lt;ApiResponse&lt;ConsoleUser&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<ConsoleUser>> deleteConsoleUser(String id, Boolean force) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = deleteConsoleUserRequestBuilder(id, force);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("deleteConsoleUser", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ConsoleUser>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ConsoleUser>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ConsoleUser>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder deleteConsoleUserRequestBuilder(String id, Boolean force)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("deleteConsoleUser", "id", id);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/management/users/{id}".replace("{id}", ApiClient.urlEncode(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "force";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("force", force));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

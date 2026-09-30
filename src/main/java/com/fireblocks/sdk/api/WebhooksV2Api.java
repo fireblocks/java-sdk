@@ -20,8 +20,10 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
+import com.fireblocks.sdk.model.CreateWebhookMtlsConfigRequest;
 import com.fireblocks.sdk.model.CreateWebhookOauthRequest;
 import com.fireblocks.sdk.model.CreateWebhookRequest;
+import com.fireblocks.sdk.model.DeleteWebhookMtlsConfigResponse;
 import com.fireblocks.sdk.model.DeleteWebhookOauthResponse;
 import com.fireblocks.sdk.model.NotificationAttemptsPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationPaginatedResponse;
@@ -33,11 +35,13 @@ import com.fireblocks.sdk.model.ResendFailedNotificationsJobStatusResponse;
 import com.fireblocks.sdk.model.ResendFailedNotificationsRequest;
 import com.fireblocks.sdk.model.ResendFailedNotificationsResponse;
 import com.fireblocks.sdk.model.ResendNotificationsByResourceIdRequest;
+import com.fireblocks.sdk.model.UpdateWebhookMtlsConfigRequest;
 import com.fireblocks.sdk.model.UpdateWebhookOauthRequest;
 import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
 import com.fireblocks.sdk.model.WebhookEvent;
 import com.fireblocks.sdk.model.WebhookMetric;
+import com.fireblocks.sdk.model.WebhookMtlsConfig;
 import com.fireblocks.sdk.model.WebhookMtlsCsrResponse;
 import com.fireblocks.sdk.model.WebhookOauthCredentials;
 import com.fireblocks.sdk.model.WebhookPaginatedResponse;
@@ -209,6 +213,106 @@ public class WebhooksV2Api {
         return localVarRequestBuilder;
     }
     /**
+     * Create an mTLS configuration Stores a certificate signed against the CSR from &#x60;GET
+     * /v1/webhooks_settings/mtls_csr&#x60; and returns its id, which is then set as
+     * &#x60;webhookMtlsId&#x60; on a webhook or on OAuth credentials. The private key the
+     * certificate was issued for is derived from the certificate, so it is never named by the
+     * caller. Re-uploading a certificate already stored returns the existing id rather than
+     * creating a second configuration, so several webhooks and OAuth credentials can share one
+     * certificate. A certificate that was not issued for a private key this workspace holds is
+     * rejected with a &#x60;400&#x60;. **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+     *
+     * @param createWebhookMtlsConfigRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookMtlsConfig&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<WebhookMtlsConfig>> createWebhookMtlsConfig(
+            CreateWebhookMtlsConfigRequest createWebhookMtlsConfigRequest, String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    createWebhookMtlsConfigRequestBuilder(
+                            createWebhookMtlsConfigRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "createWebhookMtlsConfig", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<WebhookMtlsConfig>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            WebhookMtlsConfig>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<WebhookMtlsConfig>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder createWebhookMtlsConfigRequestBuilder(
+            CreateWebhookMtlsConfigRequest createWebhookMtlsConfigRequest, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "createWebhookMtlsConfig",
+                "createWebhookMtlsConfigRequest",
+                createWebhookMtlsConfigRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/webhooks_settings/mtls";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(createWebhookMtlsConfigRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Create OAuth credentials Creates a reusable OAuth client credential set. Attach it to a
      * webhook by passing the returned id as that webhook&#39;s &#x60;webhookOauthId&#x60;. Several
      * webhooks may share one credential set, so rotating its client secret covers all of them at
@@ -365,6 +469,118 @@ public class WebhooksV2Api {
                         .replace("{webhookId}", ApiClient.urlEncode(webhookId.toString()));
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Delete an mTLS configuration Deletes an mTLS configuration. By default the delete is refused
+     * while the configuration is still in use: if any webhook or OAuth credentials reference it,
+     * nothing is deleted and the request fails with &#x60;409 Conflict&#x60;, naming the reason and
+     * listing the ids of what references it. This protects a shared configuration from being
+     * removed out from under the webhooks and token requests that depend on it. Pass
+     * &#x60;forceDelete&#x3D;true&#x60; to delete anyway. That detaches everything referencing it —
+     * it clears &#x60;webhookMtlsId&#x60; on each webhook and OAuth credentials, it does **not**
+     * delete them — then deletes the configuration and returns the deleted resource together with
+     * &#x60;detachedWebhookIds&#x60; and &#x60;detachedWebhookOauthIds&#x60;. Detached webhooks
+     * keep delivering notifications, and detached OAuth credentials keep requesting tokens, but
+     * without a client certificate, so an endpoint that requires mTLS will reject them from that
+     * point on. When nothing references the configuration the delete succeeds either way, and both
+     * lists come back empty. **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+     *
+     * @param webhookMtlsId The unique identifier of the mTLS configuration (required)
+     * @param forceDelete Delete the configuration even while webhooks or OAuth credentials still
+     *     reference it, detaching them instead of refusing; their ids are returned in
+     *     &#x60;detachedWebhookIds&#x60; and &#x60;detachedWebhookOauthIds&#x60;. Leave it unset,
+     *     or &#x60;false&#x60;, to get a &#x60;409 Conflict&#x60; whenever anything still
+     *     references the configuration. (optional, default to false)
+     * @return CompletableFuture&lt;ApiResponse&lt;DeleteWebhookMtlsConfigResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<DeleteWebhookMtlsConfigResponse>> deleteWebhookMtlsConfig(
+            UUID webhookMtlsId, Boolean forceDelete) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    deleteWebhookMtlsConfigRequestBuilder(webhookMtlsId, forceDelete);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "deleteWebhookMtlsConfig", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<DeleteWebhookMtlsConfigResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            DeleteWebhookMtlsConfigResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<DeleteWebhookMtlsConfigResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder deleteWebhookMtlsConfigRequestBuilder(
+            UUID webhookMtlsId, Boolean forceDelete) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "deleteWebhookMtlsConfig", "webhookMtlsId", webhookMtlsId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks_settings/mtls/{webhookMtlsId}"
+                        .replace("{webhookMtlsId}", ApiClient.urlEncode(webhookMtlsId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "forceDelete";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("forceDelete", forceDelete));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
 
         localVarRequestBuilder.header("Accept", "application/json");
 
@@ -1265,6 +1481,178 @@ public class WebhooksV2Api {
         return localVarRequestBuilder;
     }
     /**
+     * Get an mTLS configuration by id Retrieve one stored mTLS configuration by its id.
+     *
+     * @param webhookMtlsId The unique identifier of the mTLS configuration (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookMtlsConfig&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<WebhookMtlsConfig>> getWebhookMtlsConfig(
+            UUID webhookMtlsId) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getWebhookMtlsConfigRequestBuilder(webhookMtlsId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getWebhookMtlsConfig", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<WebhookMtlsConfig>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            WebhookMtlsConfig>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<WebhookMtlsConfig>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getWebhookMtlsConfigRequestBuilder(UUID webhookMtlsId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getWebhookMtlsConfig", "webhookMtlsId", webhookMtlsId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks_settings/mtls/{webhookMtlsId}"
+                        .replace("{webhookMtlsId}", ApiClient.urlEncode(webhookMtlsId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * List the uploaded mTLS configurations Lists the workspace&#39;s mTLS configurations, newest
+     * first. Pass &#x60;ids&#x60; to ask about particular ones instead — useful for resolving the
+     * &#x60;webhookMtlsId&#x60; values on a set of webhooks in one call.
+     *
+     * @param ids Return only the configurations with these ids, instead of all of them. Repeat the
+     *     parameter for each id. An id belonging to another workspace, or to nothing, is left out
+     *     of the response rather than failing the request. (optional
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;WebhookMtlsConfig&gt;&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<List<WebhookMtlsConfig>>> getWebhookMtlsConfigs(
+            List<UUID> ids) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = getWebhookMtlsConfigsRequestBuilder(ids);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getWebhookMtlsConfigs", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<List<WebhookMtlsConfig>>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            List<
+                                                                                    WebhookMtlsConfig>>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<WebhookMtlsConfig>>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getWebhookMtlsConfigsRequestBuilder(List<UUID> ids)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/webhooks_settings/mtls";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "ids";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "ids", ids));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Get OAuth credentials by id Retrieve an OAuth credential set by its id. The client secret is
      * never returned.
      *
@@ -1977,6 +2365,105 @@ public class WebhooksV2Api {
         return localVarRequestBuilder;
     }
     /**
+     * Update an mTLS configuration Renames a configuration, replaces its certificate, or both. Only
+     * the fields present in the request are changed; anything omitted is left as it is, and a
+     * request with neither field is rejected with a &#x60;400&#x60;. Replacing
+     * &#x60;signedCert&#x60; switches every webhook and OAuth credentials set using this
+     * configuration over to the new certificate in one write, and the private key it was issued for
+     * is re-derived from the certificate. A replacement that was not issued for a private key this
+     * workspace holds is rejected with a &#x60;400&#x60;. Sending &#x60;name: null&#x60; removes
+     * the label. **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+     *
+     * @param updateWebhookMtlsConfigRequest (required)
+     * @param webhookMtlsId The unique identifier of the mTLS configuration (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookMtlsConfig&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<WebhookMtlsConfig>> updateWebhookMtlsConfig(
+            UpdateWebhookMtlsConfigRequest updateWebhookMtlsConfigRequest, UUID webhookMtlsId) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    updateWebhookMtlsConfigRequestBuilder(
+                            updateWebhookMtlsConfigRequest, webhookMtlsId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "updateWebhookMtlsConfig", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<WebhookMtlsConfig>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            WebhookMtlsConfig>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<WebhookMtlsConfig>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder updateWebhookMtlsConfigRequestBuilder(
+            UpdateWebhookMtlsConfigRequest updateWebhookMtlsConfigRequest, UUID webhookMtlsId)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "updateWebhookMtlsConfig",
+                "updateWebhookMtlsConfigRequest",
+                updateWebhookMtlsConfigRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateWebhookMtlsConfig", "webhookMtlsId", webhookMtlsId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks_settings/mtls/{webhookMtlsId}"
+                        .replace("{webhookMtlsId}", ApiClient.urlEncode(webhookMtlsId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(updateWebhookMtlsConfigRequest);
+            localVarRequestBuilder.method(
+                    "PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Update OAuth credentials Updates only the fields present in the request; anything omitted is
      * left as it is. Sending &#x60;clientSecret&#x60; on its own rotates the secret for every
      * webhook using these credentials. &#x60;customJwtClaims&#x60;, &#x60;customBodyParams&#x60;
@@ -1987,7 +2474,7 @@ public class WebhooksV2Api {
      * quick way to empty it without naming every key. There is no ambiguity between the two uses of
      * &#x60;null&#x60; — one names an entry to delete, the other names the field. A claim cannot be
      * set to JSON &#x60;null&#x60;, though, on this endpoint or on create, because &#x60;null&#x60;
-     * is spent on deletion. &#x60;mtlsClientSignedCert&#x60; is a scalar rather than a map, so
+     * is spent on deletion. &#x60;webhookMtlsId&#x60; is a scalar rather than a map, so
      * &#x60;null&#x60; there does remove it. **Endpoint Permissions:** Owner, Admin, Non-Signing
      * Admin.
      *
