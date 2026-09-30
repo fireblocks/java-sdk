@@ -2549,7 +2549,9 @@ paths:
       description: |-
         Submits one Canton call. `type` names the call and selects the shape of `payload`.
         An unknown or missing `type`, or a `payload` missing a required field, is a `400`. A field that does not belong to the selected `type` is ignored rather than rejected.
-        Four types are specified but not available in v1 and return `501`: `DTCC_END_INVESTOR_INVITE_CANCEL`, `DTCC_END_INVESTOR_OFFBOARD`, `DTCC_ALLOW_LIST_ADD`, `DTCC_ALLOW_LIST_REMOVE`. `TRANSFER_WITHDRAW` has no owning service at all.
+        A `501` has two different causes, and the distinction is permanent rather than a build-order detail, so it belongs in the published spec:
+        NO CANTON CAPABILITY — specified so the contract is complete, but not available in v1: `DTCC_END_INVESTOR_INVITE_CANCEL`, `DTCC_END_INVESTOR_OFFBOARD`, `DTCC_ALLOW_LIST_ADD`, `DTCC_ALLOW_LIST_REMOVE`. `TRANSFER_WITHDRAW` has no owning service at all. NO HANDLER YET — the capability exists and the type is being wired one slice at a time.
+        `ALLOCATION_WITHDRAW` is implemented and answers `201` / `400` / `404` / `409`.
       operationId: createCantonCall
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -2631,9 +2633,9 @@ paths:
   /operations/canton/offers/{offerId}/responses:
     post:
       description: |-
-        ONE endpoint for every offer domain. Two layers of discrimination, nested: `domain` selects `response`, and inside `response` the `responseType` selects the variant. Both layers are closed, so an onboarding response type sent under `domain: ALLOCATIONS` is a `400`.
+        ONE endpoint for every offer domain. Two layers of discrimination, nested: `domain` selects `response`, and inside `response` the `responseType` selects the variant. Both layers are closed, so an onboarding response type sent under `domain: ALLOCATION` is a `400`.
         {"domain":"ONBOARDING","response":{"responseType":"DTCC_…_REJECT","reason":"KYC"}}
-        `domain: TRANSFERS` is declared so the endpoint covers every offer domain. Transfer responses are not available yet — the domain is part of the contract, not of v1's behaviour.
+        `domain: TRANSFER` is declared so the endpoint covers every offer domain. Transfer responses are not available yet — the domain is part of the contract, not of v1's behaviour.
       operationId: respondToCantonOffer
       parameters:
       - description: The Fireblocks transaction id of the incoming offer being answered.
@@ -2697,8 +2699,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorSchema"
-          description: "The responseType is not currently in availableResponses —\
-            \ already answered, expired, or a response is in flight"
+          description: "The offer is not answerable — already answered, expired, or\
+            \ a response is in flight"
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -2751,12 +2753,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AddressRegistryError"
-          description: "Bad request — either request validation (path `{address}`\
-            \ empty or whitespace-only after trim, e.g. encoded spaces only; numeric\
-            \ code 4100), or the authenticated workspace is not opted in to the address\
-            \ registry (numeric code 2140). The `message` field describes the failure;\
-            \ use `code` to distinguish."
+                $ref: "#/components/schemas/ErrorSchema"
+          description: |
+            - `{address}` empty or whitespace-only after trim. Error code 4100.
+            - Workspace not opted in to the address registry. Error code 2140.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: This workspace is blocked from Address Registry public lookup.
+            Error code 2146.
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -2764,10 +2774,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AddressRegistryError"
-          description: "Not found (error code 2142) — unresolved address, no legal\
-            \ entity for a resolved address, or the same not-found outcome in other\
-            \ cases."
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Address not found, owner not opted in, or legal entity not\
+            \ usable for lookup. Error code 2142."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Rate limited. Error code 2145. Retry-safe after backing off.
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -2799,6 +2817,218 @@ paths:
           = fireblocks.compliance().getLegalEntityForAddress(address);
       - lang: Python
         source: response = fireblocks.compliance.get_legal_entity_for_address(address);
+      x-accepts:
+      - application/json
+  /address_registry/proof_of_ownership_exports:
+    post:
+      description: |-
+        Creates a Proof of Ownership PDF for a blockchain address owned by the authenticated workspace — for example, to share with a counterparty or bank as compliance evidence. Recipients can confirm it with `POST /v1/address_registry/proof_of_ownership_exports/verify`.
+
+        Check `proofOfOwnershipAvailable` on `GET /v1/address_registry/legal_entities/{address}` first if you want to know whether create is likely to succeed.
+      operationId: createAddressRegistryProofOfOwnership
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddressRegistryCreateProofOfOwnershipRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressRegistryCreateProofOfOwnershipResponse"
+          description: PDF export created
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: |
+            - Missing, empty, or whitespace-only `address`. Error code 4100.
+            - Workspace not opted in to the address registry. Error code 2140.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: This workspace is blocked from creating Proof of Ownership
+            exports. Error code 2146.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Address not found, not owned by this workspace, or not usable\
+            \ for export. Error code 2142."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Rate limited. Error code 2145. Retry-safe after backing off.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Internal error. No PDF is returned. Not retry-safe. Error code
+            2143.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Rate-limit infrastructure temporarily unavailable. Safe to
+            retry with backoff. Error code 2143 — same as the 500 case; use the HTTP
+            status to tell them apart.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Create a Proof of Ownership PDF for an address
+      tags:
+      - Compliance
+      x-rate-limit-category: high_compute
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AddressRegistryCreateProofOfOwnershipResponse>>\
+            \ = fireblocks.compliance.createAddressRegistryProofOfOwnership(complianceApiCreateAddressRegistryProofOfOwnershipRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<AddressRegistryCreateProofOfOwnershipResponse>>\
+            \ response = fireblocks.compliance().createAddressRegistryProofOfOwnership(addressRegistryCreateProofOfOwnershipRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.compliance.create_address_registry_proof_of_ownership(address_registry_create_proof_of_ownership_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<AddressRegistryCreateProofOfOwnershipResponse>>\
+          \ = fireblocks.compliance.createAddressRegistryProofOfOwnership(complianceApiCreateAddressRegistryProofOfOwnershipRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<AddressRegistryCreateProofOfOwnershipResponse>>\
+          \ response = fireblocks.compliance().createAddressRegistryProofOfOwnership(addressRegistryCreateProofOfOwnershipRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.compliance.create_address_registry_proof_of_ownership(address_registry_create_proof_of_ownership_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /address_registry/proof_of_ownership_exports/verify:
+    post:
+      description: "Verifies a Proof of Ownership export against the record Fireblocks\
+        \ stored at creation. Returns `valid: false` (not 404) for an unknown, expired,\
+        \ or mismatched export. Available to any authenticated Fireblocks workspace,\
+        \ not just the export's original owner."
+      operationId: verifyAddressRegistryProofOfOwnership
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddressRegistryVerifyProofOfOwnershipRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressRegistryVerifyProofOfOwnershipResponse"
+          description: Verification result
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Missing, empty, or whitespace-only `exportId`, `verificationHash`,\
+            \ or `address`, or `expiresAt` not empty and not a valid `YYYY-MM-DD`\
+            \ date. Error code 4100."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Verify a Proof of Ownership export
+      tags:
+      - Compliance
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AddressRegistryVerifyProofOfOwnershipResponse>>\
+            \ = fireblocks.compliance.verifyAddressRegistryProofOfOwnership(complianceApiVerifyAddressRegistryProofOfOwnershipRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<AddressRegistryVerifyProofOfOwnershipResponse>>\
+            \ response = fireblocks.compliance().verifyAddressRegistryProofOfOwnership(addressRegistryVerifyProofOfOwnershipRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.compliance.verify_address_registry_proof_of_ownership(address_registry_verify_proof_of_ownership_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<AddressRegistryVerifyProofOfOwnershipResponse>>\
+          \ = fireblocks.compliance.verifyAddressRegistryProofOfOwnership(complianceApiVerifyAddressRegistryProofOfOwnershipRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<AddressRegistryVerifyProofOfOwnershipResponse>>\
+          \ response = fireblocks.compliance().verifyAddressRegistryProofOfOwnership(addressRegistryVerifyProofOfOwnershipRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.compliance.verify_address_registry_proof_of_ownership(address_registry_verify_proof_of_ownership_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
       x-accepts:
       - application/json
   /address_registry/tenant:
@@ -3044,7 +3274,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AddressRegistryError"
+                $ref: "#/components/schemas/ErrorSchema"
           description: Validation error (e.g. invalid or malformed pageCursor)
           headers:
             X-Request-ID:
@@ -3119,7 +3349,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AddressRegistryError"
+                $ref: "#/components/schemas/ErrorSchema"
           description: Validation error (e.g. empty list or invalid vault ids)
           headers:
             X-Request-ID:
@@ -3192,7 +3422,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AddressRegistryError"
+                $ref: "#/components/schemas/ErrorSchema"
           description: Invalid path parameter (e.g. negative or out-of-range vault
             account id)
           headers:
@@ -3259,7 +3489,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AddressRegistryError"
+                $ref: "#/components/schemas/ErrorSchema"
           description: Invalid path parameter (e.g. negative or out-of-range vault
             account id)
           headers:
@@ -5857,8 +6087,6 @@ paths:
     get:
       description: |
         Returns all connected accounts.
-
-        **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: getConnectedAccounts
       parameters:
       - description: Whether to include only main accounts in the response.
@@ -5902,33 +6130,33 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get connected accounts
       tags:
-      - Connected Accounts (Beta)
+      - Connected Accounts
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<ConnectedAccountsResponse>>\
-            \ = fireblocks.connectedAccountsBeta.getConnectedAccounts(connectedAccountsBetaApiGetConnectedAccountsRequest);"
+            \ = fireblocks.connectedAccounts.getConnectedAccounts(connectedAccountsApiGetConnectedAccountsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<ConnectedAccountsResponse>> response\
-            \ = fireblocks.connectedAccountsBeta().getConnectedAccounts(mainAccounts,\
+            \ = fireblocks.connectedAccounts().getConnectedAccounts(mainAccounts,\
             \ pageSize, pageCursor);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.connected_accounts_beta.get_connected_accounts(main_accounts,\
+          code: "response = fireblocks.connected_accounts.get_connected_accounts(main_accounts,\
             \ page_size, page_cursor);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<ConnectedAccountsResponse>>\
-          \ = fireblocks.connectedAccountsBeta.getConnectedAccounts(connectedAccountsBetaApiGetConnectedAccountsRequest);"
+          \ = fireblocks.connectedAccounts.getConnectedAccounts(connectedAccountsApiGetConnectedAccountsRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<ConnectedAccountsResponse>> response\
-          \ = fireblocks.connectedAccountsBeta().getConnectedAccounts(mainAccounts,\
-          \ pageSize, pageCursor);"
+          \ = fireblocks.connectedAccounts().getConnectedAccounts(mainAccounts, pageSize,\
+          \ pageCursor);"
       - lang: Python
-        source: "response = fireblocks.connected_accounts_beta.get_connected_accounts(main_accounts,\
+        source: "response = fireblocks.connected_accounts.get_connected_accounts(main_accounts,\
           \ page_size, page_cursor);"
       x-accepts:
       - application/json
@@ -5942,8 +6170,6 @@ paths:
         The `providerType` is derived server-side from the `providerId` — callers do not supply it.
 
         Endpoint Permission: Editor, Admin, Non-Signing Admin.
-
-        **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: addConnectedAccount
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -6023,33 +6249,33 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Add a connected account
       tags:
-      - Connected Accounts (Beta)
+      - Connected Accounts
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<AddConnectedAccountResponse>>\
-            \ = fireblocks.connectedAccountsBeta.addConnectedAccount(connectedAccountsBetaApiAddConnectedAccountRequest);"
+            \ = fireblocks.connectedAccounts.addConnectedAccount(connectedAccountsApiAddConnectedAccountRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<AddConnectedAccountResponse>> response\
-            \ = fireblocks.connectedAccountsBeta().addConnectedAccount(addConnectedAccountRequest,\
+            \ = fireblocks.connectedAccounts().addConnectedAccount(addConnectedAccountRequest,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.connected_accounts_beta.add_connected_account(add_connected_account_request,\
+          code: "response = fireblocks.connected_accounts.add_connected_account(add_connected_account_request,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<AddConnectedAccountResponse>>\
-          \ = fireblocks.connectedAccountsBeta.addConnectedAccount(connectedAccountsBetaApiAddConnectedAccountRequest);"
+          \ = fireblocks.connectedAccounts.addConnectedAccount(connectedAccountsApiAddConnectedAccountRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<AddConnectedAccountResponse>> response\
-          \ = fireblocks.connectedAccountsBeta().addConnectedAccount(addConnectedAccountRequest,\
+          \ = fireblocks.connectedAccounts().addConnectedAccount(addConnectedAccountRequest,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.connected_accounts_beta.add_connected_account(add_connected_account_request,\
+        source: "response = fireblocks.connected_accounts.add_connected_account(add_connected_account_request,\
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -6058,9 +6284,6 @@ paths:
     delete:
       description: |
         Disconnect a connected account by ID.
-
-        **Note**:
-        - This endpoint is currently in beta and might be subject to changes.
       operationId: disconnectConnectedAccount
       parameters:
       - description: The ID of the account to disconnect.
@@ -6082,33 +6305,31 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Disconnect connected account
       tags:
-      - Connected Accounts (Beta)
+      - Connected Accounts
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.connectedAccountsBeta.disconnectConnectedAccount(connectedAccountsBetaApiDisconnectConnectedAccountRequest);"
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.connectedAccounts.disconnectConnectedAccount(connectedAccountsApiDisconnectConnectedAccountRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.connectedAccountsBeta().disconnectConnectedAccount(accountId);
+          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.connectedAccounts().disconnectConnectedAccount(accountId);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.connected_accounts_beta.disconnect_connected_account(account_id);
+          code: response = fireblocks.connected_accounts.disconnect_connected_account(account_id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.connectedAccountsBeta.disconnectConnectedAccount(connectedAccountsBetaApiDisconnectConnectedAccountRequest);"
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.connectedAccounts.disconnectConnectedAccount(connectedAccountsApiDisconnectConnectedAccountRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<Void>> response = fireblocks.connectedAccountsBeta().disconnectConnectedAccount(accountId);
+        source: CompletableFuture<ApiResponse<Void>> response = fireblocks.connectedAccounts().disconnectConnectedAccount(accountId);
       - lang: Python
-        source: response = fireblocks.connected_accounts_beta.disconnect_connected_account(account_id);
+        source: response = fireblocks.connected_accounts.disconnect_connected_account(account_id);
       x-accepts:
       - application/json
     get:
       description: |
         Retrieve detailed information about a specific connected account by ID.
-
-        **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: getConnectedAccount
       parameters:
       - description: The ID of the account to fetch.
@@ -6134,30 +6355,30 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get connected account
       tags:
-      - Connected Accounts (Beta)
+      - Connected Accounts
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<ConnectedSingleAccountResponse>>\
-            \ = fireblocks.connectedAccountsBeta.getConnectedAccount(connectedAccountsBetaApiGetConnectedAccountRequest);"
+            \ = fireblocks.connectedAccounts.getConnectedAccount(connectedAccountsApiGetConnectedAccountRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: CompletableFuture<ApiResponse<ConnectedSingleAccountResponse>> response
-            = fireblocks.connectedAccountsBeta().getConnectedAccount(accountId);
+            = fireblocks.connectedAccounts().getConnectedAccount(accountId);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.connected_accounts_beta.get_connected_account(account_id);
+          code: response = fireblocks.connected_accounts.get_connected_account(account_id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<ConnectedSingleAccountResponse>>\
-          \ = fireblocks.connectedAccountsBeta.getConnectedAccount(connectedAccountsBetaApiGetConnectedAccountRequest);"
+          \ = fireblocks.connectedAccounts.getConnectedAccount(connectedAccountsApiGetConnectedAccountRequest);"
       - lang: Java
         source: CompletableFuture<ApiResponse<ConnectedSingleAccountResponse>> response
-          = fireblocks.connectedAccountsBeta().getConnectedAccount(accountId);
+          = fireblocks.connectedAccounts().getConnectedAccount(accountId);
       - lang: Python
-        source: response = fireblocks.connected_accounts_beta.get_connected_account(account_id);
+        source: response = fireblocks.connected_accounts.get_connected_account(account_id);
       x-accepts:
       - application/json
   /connected_accounts/{accountId}/allowlist:
@@ -6165,7 +6386,7 @@ paths:
       description: |
         Retrieves the address allowlist for a specified connected account.
 
-        **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only.
+        **Note:** Currently supports CoinbaseExchange/Binance accounts only.
       operationId: getConnectedAccountAllowlist
       parameters:
       - description: The connected account identifier
@@ -6268,31 +6489,31 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get allowlist for connected account
       tags:
-      - Connected Accounts (Beta)
+      - Connected Accounts
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<AllowlistResponse>> =\
-            \ fireblocks.connectedAccountsBeta.getConnectedAccountAllowlist(connectedAccountsBetaApiGetConnectedAccountAllowlistRequest);"
+            \ fireblocks.connectedAccounts.getConnectedAccountAllowlist(connectedAccountsApiGetConnectedAccountAllowlistRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<AllowlistResponse>> response = fireblocks.connectedAccountsBeta().getConnectedAccountAllowlist(accountId,\
+          code: "CompletableFuture<ApiResponse<AllowlistResponse>> response = fireblocks.connectedAccounts().getConnectedAccountAllowlist(accountId,\
             \ status, assetId, networkId, address, pageCursor, pageSize, order);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.connected_accounts_beta.get_connected_account_allowlist(account_id,\
+          code: "response = fireblocks.connected_accounts.get_connected_account_allowlist(account_id,\
             \ status, asset_id, network_id, address, page_cursor, page_size, order);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<AllowlistResponse>> =\
-          \ fireblocks.connectedAccountsBeta.getConnectedAccountAllowlist(connectedAccountsBetaApiGetConnectedAccountAllowlistRequest);"
+          \ fireblocks.connectedAccounts.getConnectedAccountAllowlist(connectedAccountsApiGetConnectedAccountAllowlistRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<AllowlistResponse>> response = fireblocks.connectedAccountsBeta().getConnectedAccountAllowlist(accountId,\
+        source: "CompletableFuture<ApiResponse<AllowlistResponse>> response = fireblocks.connectedAccounts().getConnectedAccountAllowlist(accountId,\
           \ status, assetId, networkId, address, pageCursor, pageSize, order);"
       - lang: Python
-        source: "response = fireblocks.connected_accounts_beta.get_connected_account_allowlist(account_id,\
+        source: "response = fireblocks.connected_accounts.get_connected_account_allowlist(account_id,\
           \ status, asset_id, network_id, address, page_cursor, page_size, order);"
       x-accepts:
       - application/json
@@ -6301,7 +6522,7 @@ paths:
       description: |
         Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.
 
-        **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only.
+        **Note:** Currently supports CoinbaseExchange/Binance accounts only.
       operationId: getConnectedAccountAllowlistEntry
       parameters:
       - description: The connected account identifier
@@ -6343,33 +6564,33 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get a single allowlist entry for a connected account
       tags:
-      - Connected Accounts (Beta)
+      - Connected Accounts
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<AllowlistEntryResponse>>\
-            \ = fireblocks.connectedAccountsBeta.getConnectedAccountAllowlistEntry(connectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest);"
+            \ = fireblocks.connectedAccounts.getConnectedAccountAllowlistEntry(connectedAccountsApiGetConnectedAccountAllowlistEntryRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<AllowlistEntryResponse>> response =\
-            \ fireblocks.connectedAccountsBeta().getConnectedAccountAllowlistEntry(accountId,\
+            \ fireblocks.connectedAccounts().getConnectedAccountAllowlistEntry(accountId,\
             \ allowlistId);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.connected_accounts_beta.get_connected_account_allowlist_entry(account_id,\
+          code: "response = fireblocks.connected_accounts.get_connected_account_allowlist_entry(account_id,\
             \ allowlist_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<AllowlistEntryResponse>>\
-          \ = fireblocks.connectedAccountsBeta.getConnectedAccountAllowlistEntry(connectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest);"
+          \ = fireblocks.connectedAccounts.getConnectedAccountAllowlistEntry(connectedAccountsApiGetConnectedAccountAllowlistEntryRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<AllowlistEntryResponse>> response =\
-          \ fireblocks.connectedAccountsBeta().getConnectedAccountAllowlistEntry(accountId,\
+          \ fireblocks.connectedAccounts().getConnectedAccountAllowlistEntry(accountId,\
           \ allowlistId);"
       - lang: Python
-        source: "response = fireblocks.connected_accounts_beta.get_connected_account_allowlist_entry(account_id,\
+        source: "response = fireblocks.connected_accounts.get_connected_account_allowlist_entry(account_id,\
           \ allowlist_id);"
       x-accepts:
       - application/json
@@ -6380,7 +6601,7 @@ paths:
 
         **Rate limit:** 1 request per minute per connected account.
 
-        **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only.
+        **Note:** Currently supports CoinbaseExchange/Binance accounts only.
       operationId: syncConnectedAccountAllowlist
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -6412,29 +6633,29 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Sync allowlist for connected account
       tags:
-      - Connected Accounts (Beta)
+      - Connected Accounts
       x-rate-limit-category: async
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.connectedAccountsBeta.syncConnectedAccountAllowlist(connectedAccountsBetaApiSyncConnectedAccountAllowlistRequest);"
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.connectedAccounts.syncConnectedAccountAllowlist(connectedAccountsApiSyncConnectedAccountAllowlistRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.connectedAccountsBeta().syncConnectedAccountAllowlist(accountId,\
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.connectedAccounts().syncConnectedAccountAllowlist(accountId,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.connected_accounts_beta.sync_connected_account_allowlist(account_id,\
+          code: "response = fireblocks.connected_accounts.sync_connected_account_allowlist(account_id,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.connectedAccountsBeta.syncConnectedAccountAllowlist(connectedAccountsBetaApiSyncConnectedAccountAllowlistRequest);"
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.connectedAccounts.syncConnectedAccountAllowlist(connectedAccountsApiSyncConnectedAccountAllowlistRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.connectedAccountsBeta().syncConnectedAccountAllowlist(accountId,\
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.connectedAccounts().syncConnectedAccountAllowlist(accountId,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.connected_accounts_beta.sync_connected_account_allowlist(account_id,\
+        source: "response = fireblocks.connected_accounts.sync_connected_account_allowlist(account_id,\
           \ idempotency_key);"
       x-accepts:
       - application/json
@@ -6442,8 +6663,6 @@ paths:
     get:
       description: |
         Retrieve current asset balances for a specific connected account as a flat list (one row per `assetId`, `balanceType`).
-
-        **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: getConnectedAccountBalances
       parameters:
       - description: The ID of the account to fetch balances for.
@@ -6487,33 +6706,33 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get balances for an account
       tags:
-      - Connected Accounts (Beta)
+      - Connected Accounts
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<ConnectedAccountBalancesResponse>>\
-            \ = fireblocks.connectedAccountsBeta.getConnectedAccountBalances(connectedAccountsBetaApiGetConnectedAccountBalancesRequest);"
+            \ = fireblocks.connectedAccounts.getConnectedAccountBalances(connectedAccountsApiGetConnectedAccountBalancesRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<ConnectedAccountBalancesResponse>>\
-            \ response = fireblocks.connectedAccountsBeta().getConnectedAccountBalances(accountId,\
+            \ response = fireblocks.connectedAccounts().getConnectedAccountBalances(accountId,\
             \ pageSize, pageCursor);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.connected_accounts_beta.get_connected_account_balances(account_id,\
+          code: "response = fireblocks.connected_accounts.get_connected_account_balances(account_id,\
             \ page_size, page_cursor);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<ConnectedAccountBalancesResponse>>\
-          \ = fireblocks.connectedAccountsBeta.getConnectedAccountBalances(connectedAccountsBetaApiGetConnectedAccountBalancesRequest);"
+          \ = fireblocks.connectedAccounts.getConnectedAccountBalances(connectedAccountsApiGetConnectedAccountBalancesRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<ConnectedAccountBalancesResponse>>\
-          \ response = fireblocks.connectedAccountsBeta().getConnectedAccountBalances(accountId,\
+          \ response = fireblocks.connectedAccounts().getConnectedAccountBalances(accountId,\
           \ pageSize, pageCursor);"
       - lang: Python
-        source: "response = fireblocks.connected_accounts_beta.get_connected_account_balances(account_id,\
+        source: "response = fireblocks.connected_accounts.get_connected_account_balances(account_id,\
           \ page_size, page_cursor);"
       x-accepts:
       - application/json
@@ -6534,8 +6753,6 @@ paths:
         affected accounts are disconnected in the meantime.
 
         Endpoint Permission: Admin, Non-Signing Admin.
-
-        **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: updateConnectedAccountCredentials
       parameters:
       - description: The unique identifier of the connected account whose API key
@@ -6613,33 +6830,33 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Update connected account credentials
       tags:
-      - Connected Accounts (Beta)
+      - Connected Accounts
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<UpdateConnectedAccountCredentialsResponse>>\
-            \ = fireblocks.connectedAccountsBeta.updateConnectedAccountCredentials(connectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest);"
+            \ = fireblocks.connectedAccounts.updateConnectedAccountCredentials(connectedAccountsApiUpdateConnectedAccountCredentialsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<UpdateConnectedAccountCredentialsResponse>>\
-            \ response = fireblocks.connectedAccountsBeta().updateConnectedAccountCredentials(updateConnectedAccountCredentialsRequest,\
+            \ response = fireblocks.connectedAccounts().updateConnectedAccountCredentials(updateConnectedAccountCredentialsRequest,\
             \ accountId, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.connected_accounts_beta.update_connected_account_credentials(update_connected_account_credentials_request,\
+          code: "response = fireblocks.connected_accounts.update_connected_account_credentials(update_connected_account_credentials_request,\
             \ account_id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<UpdateConnectedAccountCredentialsResponse>>\
-          \ = fireblocks.connectedAccountsBeta.updateConnectedAccountCredentials(connectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest);"
+          \ = fireblocks.connectedAccounts.updateConnectedAccountCredentials(connectedAccountsApiUpdateConnectedAccountCredentialsRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<UpdateConnectedAccountCredentialsResponse>>\
-          \ response = fireblocks.connectedAccountsBeta().updateConnectedAccountCredentials(updateConnectedAccountCredentialsRequest,\
+          \ response = fireblocks.connectedAccounts().updateConnectedAccountCredentials(updateConnectedAccountCredentialsRequest,\
           \ accountId, idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.connected_accounts_beta.update_connected_account_credentials(update_connected_account_credentials_request,\
+        source: "response = fireblocks.connected_accounts.update_connected_account_credentials(update_connected_account_credentials_request,\
           \ account_id, idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -6648,8 +6865,6 @@ paths:
     get:
       description: |
         Retrieve all asset trading pairs supported by a specific connected account, including the pair type (`quote`, `market`, `onOffRamp`).
-
-        **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: getConnectedAccountTradingPairs
       parameters:
       - description: The ID of the account to fetch supported pairs for.
@@ -6694,33 +6909,33 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get supported trading pairs for an account
       tags:
-      - Connected Accounts (Beta)
+      - Connected Accounts
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<ConnectedAccountTradingPairsResponse>>\
-            \ = fireblocks.connectedAccountsBeta.getConnectedAccountTradingPairs(connectedAccountsBetaApiGetConnectedAccountTradingPairsRequest);"
+            \ = fireblocks.connectedAccounts.getConnectedAccountTradingPairs(connectedAccountsApiGetConnectedAccountTradingPairsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<ConnectedAccountTradingPairsResponse>>\
-            \ response = fireblocks.connectedAccountsBeta().getConnectedAccountTradingPairs(accountId,\
+            \ response = fireblocks.connectedAccounts().getConnectedAccountTradingPairs(accountId,\
             \ pageSize, pageCursor);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.connected_accounts_beta.get_connected_account_trading_pairs(account_id,\
+          code: "response = fireblocks.connected_accounts.get_connected_account_trading_pairs(account_id,\
             \ page_size, page_cursor);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<ConnectedAccountTradingPairsResponse>>\
-          \ = fireblocks.connectedAccountsBeta.getConnectedAccountTradingPairs(connectedAccountsBetaApiGetConnectedAccountTradingPairsRequest);"
+          \ = fireblocks.connectedAccounts.getConnectedAccountTradingPairs(connectedAccountsApiGetConnectedAccountTradingPairsRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<ConnectedAccountTradingPairsResponse>>\
-          \ response = fireblocks.connectedAccountsBeta().getConnectedAccountTradingPairs(accountId,\
+          \ response = fireblocks.connectedAccounts().getConnectedAccountTradingPairs(accountId,\
           \ pageSize, pageCursor);"
       - lang: Python
-        source: "response = fireblocks.connected_accounts_beta.get_connected_account_trading_pairs(account_id,\
+        source: "response = fireblocks.connected_accounts.get_connected_account_trading_pairs(account_id,\
           \ page_size, page_cursor);"
       x-accepts:
       - application/json
@@ -6728,8 +6943,6 @@ paths:
     get:
       description: |
         Retrieve current exchange rates for converting between specific assets in a connected account.
-
-        **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: getConnectedAccountRates
       parameters:
       - description: The ID of the account to fetch rates for.
@@ -6773,33 +6986,33 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get exchange rates for an account
       tags:
-      - Connected Accounts (Beta)
+      - Connected Accounts
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<ConnectedAccountRateResponse>>\
-            \ = fireblocks.connectedAccountsBeta.getConnectedAccountRates(connectedAccountsBetaApiGetConnectedAccountRatesRequest);"
+            \ = fireblocks.connectedAccounts.getConnectedAccountRates(connectedAccountsApiGetConnectedAccountRatesRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<ConnectedAccountRateResponse>> response\
-            \ = fireblocks.connectedAccountsBeta().getConnectedAccountRates(accountId,\
+            \ = fireblocks.connectedAccounts().getConnectedAccountRates(accountId,\
             \ baseAssetId, quoteAssetId);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.connected_accounts_beta.get_connected_account_rates(account_id,\
+          code: "response = fireblocks.connected_accounts.get_connected_account_rates(account_id,\
             \ base_asset_id, quote_asset_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<ConnectedAccountRateResponse>>\
-          \ = fireblocks.connectedAccountsBeta.getConnectedAccountRates(connectedAccountsBetaApiGetConnectedAccountRatesRequest);"
+          \ = fireblocks.connectedAccounts.getConnectedAccountRates(connectedAccountsApiGetConnectedAccountRatesRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<ConnectedAccountRateResponse>> response\
-          \ = fireblocks.connectedAccountsBeta().getConnectedAccountRates(accountId,\
-          \ baseAssetId, quoteAssetId);"
+          \ = fireblocks.connectedAccounts().getConnectedAccountRates(accountId, baseAssetId,\
+          \ quoteAssetId);"
       - lang: Python
-        source: "response = fireblocks.connected_accounts_beta.get_connected_account_rates(account_id,\
+        source: "response = fireblocks.connected_accounts.get_connected_account_rates(account_id,\
           \ base_asset_id, quote_asset_id);"
       x-accepts:
       - application/json
@@ -6807,8 +7020,6 @@ paths:
     post:
       description: |
         Rename a connected account by account ID.
-
-        **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: renameConnectedAccount
       parameters:
       - description: The unique identifier of the connected account
@@ -6882,33 +7093,33 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Rename Connected Account
       tags:
-      - Connected Accounts (Beta)
+      - Connected Accounts
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<RenameConnectedAccountResponse>>\
-            \ = fireblocks.connectedAccountsBeta.renameConnectedAccount(connectedAccountsBetaApiRenameConnectedAccountRequest);"
+            \ = fireblocks.connectedAccounts.renameConnectedAccount(connectedAccountsApiRenameConnectedAccountRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<RenameConnectedAccountResponse>> response\
-            \ = fireblocks.connectedAccountsBeta().renameConnectedAccount(renameConnectedAccountRequest,\
+            \ = fireblocks.connectedAccounts().renameConnectedAccount(renameConnectedAccountRequest,\
             \ accountId, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.connected_accounts_beta.rename_connected_account(rename_connected_account_request,\
+          code: "response = fireblocks.connected_accounts.rename_connected_account(rename_connected_account_request,\
             \ account_id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<RenameConnectedAccountResponse>>\
-          \ = fireblocks.connectedAccountsBeta.renameConnectedAccount(connectedAccountsBetaApiRenameConnectedAccountRequest);"
+          \ = fireblocks.connectedAccounts.renameConnectedAccount(connectedAccountsApiRenameConnectedAccountRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<RenameConnectedAccountResponse>> response\
-          \ = fireblocks.connectedAccountsBeta().renameConnectedAccount(renameConnectedAccountRequest,\
+          \ = fireblocks.connectedAccounts().renameConnectedAccount(renameConnectedAccountRequest,\
           \ accountId, idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.connected_accounts_beta.rename_connected_account(rename_connected_account_request,\
+        source: "response = fireblocks.connected_accounts.rename_connected_account(rename_connected_account_request,\
           \ account_id, idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -6919,8 +7130,6 @@ paths:
         Returns the RSA public key used to encrypt the `creds` field before calling `POST /connected_accounts`.
 
         The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context.
-
-        **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: getConnectedAccountsCredentialsPublicKey
       responses:
         "200":
@@ -6936,30 +7145,30 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get public key to encrypt connected account credentials
       tags:
-      - Connected Accounts (Beta)
+      - Connected Accounts
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<GetConnectedAccountsCredentialsPublicKeyResponse>>\
-            \ = fireblocks.connectedAccountsBeta.getConnectedAccountsCredentialsPublicKey();"
+            \ = fireblocks.connectedAccounts.getConnectedAccountsCredentialsPublicKey();"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: CompletableFuture<ApiResponse<GetConnectedAccountsCredentialsPublicKeyResponse>>
-            response = fireblocks.connectedAccountsBeta().getConnectedAccountsCredentialsPublicKey();
+            response = fireblocks.connectedAccounts().getConnectedAccountsCredentialsPublicKey();
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.connected_accounts_beta.get_connected_accounts_credentials_public_key();
+          code: response = fireblocks.connected_accounts.get_connected_accounts_credentials_public_key();
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<GetConnectedAccountsCredentialsPublicKeyResponse>>\
-          \ = fireblocks.connectedAccountsBeta.getConnectedAccountsCredentialsPublicKey();"
+          \ = fireblocks.connectedAccounts.getConnectedAccountsCredentialsPublicKey();"
       - lang: Java
         source: CompletableFuture<ApiResponse<GetConnectedAccountsCredentialsPublicKeyResponse>>
-          response = fireblocks.connectedAccountsBeta().getConnectedAccountsCredentialsPublicKey();
+          response = fireblocks.connectedAccounts().getConnectedAccountsCredentialsPublicKey();
       - lang: Python
-        source: response = fireblocks.connected_accounts_beta.get_connected_accounts_credentials_public_key();
+        source: response = fireblocks.connected_accounts.get_connected_accounts_credentials_public_key();
       x-accepts:
       - application/json
   /management/users:
@@ -7143,6 +7352,144 @@ paths:
         source: "response = fireblocks.console_user.create_console_user(create_console_user,\
           \ idempotency_key);"
       x-content-type: application/json
+      x-accepts:
+      - application/json
+  /management/users/{id}:
+    delete:
+      description: |-
+        Requests deletion of a console user. The request is asynchronous: it goes through the workspace's configured "Delete users" approval policy (Settings > Quorums), exactly as deleting a user from the console does, and the user is removed only once that approval completes.
+        - Track progress by polling GET /management/users; deletion is complete when the user is disabled.
+        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
+        Endpoint Permission: Admin, Non-Signing Admin.
+        **Note:** This endpoint is currently in beta and might be subject to changes.
+      operationId: deleteConsoleUser
+      parameters:
+      - description: The ID of the console user to delete
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Acknowledges the impact of removing this user and proceeds anyway.\
+          \ Overrides both USER_REFERENCED_IN_TAP and QUORUM_INTEGRITY, the same way\
+          \ the acknowledgement checkbox does in the console."
+        explode: true
+        in: query
+        name: force
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConsoleUser"
+          description: Deletion request accepted. Returns the console user that will
+            be removed once the workspace's configured approval completes.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Unauthorized. Missing / invalid JWT token in Authorization
+            header.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Lacking permissions, or the target cannot be deleted: the\
+            \ user is the workspace Owner, or the caller is the target."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Console user not found. Also returned for users in other workspaces\
+            \ and for API users, so the endpoint does not reveal whether an ID exists."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "PENDING_REQUEST_EXISTS - a deletion request for this user\
+            \ is already awaiting approval; USER_REFERENCED_IN_TAP - the user is referenced\
+            \ by the workspace transaction authorization policy (can be overridden\
+            \ with force=true); or USER_PENDING_ONBOARDING - the user has not completed\
+            \ onboarding, so there is nothing to delete yet. Revoke the invitation\
+            \ from the console instead."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "QUORUM_INTEGRITY - the user is required to complete the workspace's\
+            \ admin approval quorum. Can be overridden with force=true, matching the\
+            \ console's acknowledgement checkbox."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Internal error.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Request deletion of a console user
+      tags:
+      - Console User
+      x-rate-limit-category: write
+      x-lifecycle:
+        state: private_beta
+        feature_flag: management.ff.delete-console-user
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: const res = await fireblocks.deleteConsoleUser(consoleUserId);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ConsoleUser>> = fireblocks.consoleUser.deleteConsoleUser(consoleUserApiDeleteConsoleUserRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ConsoleUser>> response = fireblocks.consoleUser().deleteConsoleUser(id,\
+            \ force);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.console_user.delete_console_user(id, force);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ConsoleUser>> = fireblocks.consoleUser.deleteConsoleUser(consoleUserApiDeleteConsoleUserRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ConsoleUser>> response = fireblocks.consoleUser().deleteConsoleUser(id,\
+          \ force);"
+      - lang: Python
+        source: "response = fireblocks.console_user.delete_console_user(id, force);"
       x-accepts:
       - application/json
   /contacts:
@@ -33311,10 +33658,30 @@ paths:
   /utxo_management/{vaultAccountId}/{assetId}/labels:
     patch:
       description: |-
-        Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs.
-        Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set.
-        **Note:** These endpoints are currently in beta and might be subject to changes.
-        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+        Attach or detach labels to/from UTXOs in a vault account. Labels can be
+        used for organizing and filtering UTXOs.
+
+        Labels are applied additively — `labelsToAttach` adds to the existing
+        label set and `labelsToDetach` removes from it. Neither operation
+        replaces the full set.
+
+        The request is all-or-nothing: if any identifier cannot be labelled, no
+        UTXO is labelled and the request fails with `400`. The response lists
+        every failed identifier in `failures`, each with its own `reason` — use
+        it, not the status, to decide what to do:
+        - `NOT_FOUND` — not found in this vault and asset.
+        - `NOT_LABELLABLE` — spent, or removed, and can no longer be labelled.
+
+        A UTXO removed within the last hour is reported as `NOT_FOUND` with
+        `utxoStatus: REMOVED`; if it does not reappear, it becomes
+        `NOT_LABELLABLE` after about an hour. A `400` without `failures` means
+        the request itself is malformed.
+
+        **Note:** These endpoints are currently in beta and might be subject to
+        changes.
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
+        Editor.
       operationId: updateUtxoLabels
       parameters:
       - description: The ID of the vault account
@@ -33363,6 +33730,16 @@ paths:
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UtxoLabelsErrorResponse"
+          description: "Some identifiers could not be labelled (listed in `failures`),\
+            \ or the request is malformed. No UTXO was labelled."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Attach or detach labels to/from UTXOs
@@ -33395,6 +33772,161 @@ paths:
       - lang: Python
         source: "response = fireblocks.u_t_x_o_management_beta.update_utxo_labels(attach_detach_utxo_labels_request,\
           \ vault_account_id, asset_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /utxo_management/{vaultAccountId}/{assetId}/selection_config:
+    get:
+      description: |-
+        Returns the config stored at this vault-and-asset scope, if any, and the effective strategy after workspace fallback and runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored at this scope and none is inherited from the workspace (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this scope, otherwise `ASC`.
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+      operationId: getVaultAssetUtxoSelectionConfig
+      parameters:
+      - description: The ID of the vault account.
+        explode: false
+        in: path
+        name: vaultAccountId
+        required: true
+        schema:
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        style: simple
+      - description: The ID of the asset
+        explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+          x-fb-entity: asset
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UtxoSelectionConfigResponse"
+          description: Current UTXO selection config
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get vault and asset UTXO selection config
+      tags:
+      - UTXO Management (Beta)
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UtxoSelectionConfigResponse>>\
+            \ = fireblocks.uTXOManagementBeta.getVaultAssetUtxoSelectionConfig();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response
+            = fireblocks.uTXOManagementBeta().getVaultAssetUtxoSelectionConfig();
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.u_t_x_o_management_beta.get_vault_asset_utxo_selection_config();
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<UtxoSelectionConfigResponse>>\
+          \ = fireblocks.uTXOManagementBeta.getVaultAssetUtxoSelectionConfig();"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response
+          = fireblocks.uTXOManagementBeta().getVaultAssetUtxoSelectionConfig();
+      - lang: Python
+        source: response = fireblocks.u_t_x_o_management_beta.get_vault_asset_utxo_selection_config();
+      x-accepts:
+      - application/json
+    put:
+      description: |-
+        Creates or updates the UTXO selection strategy for this vault account and asset. `ADAPTIVE` is recommended.
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+        Endpoint Permission: Admin, Non-Signing Admin.
+      operationId: upsertVaultAssetUtxoSelectionConfig
+      parameters:
+      - description: The ID of the vault account.
+        explode: false
+        in: path
+        name: vaultAccountId
+        required: true
+        schema:
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        style: simple
+      - description: The ID of the asset
+        explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+          x-fb-entity: asset
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpsertUtxoSelectionConfigRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UtxoSelectionConfigResponse"
+          description: Updated UTXO selection config
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Upsert vault and asset UTXO selection config
+      tags:
+      - UTXO Management (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UtxoSelectionConfigResponse>>\
+            \ = fireblocks.uTXOManagementBeta.upsertVaultAssetUtxoSelectionConfig(uTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfigRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response\
+            \ = fireblocks.uTXOManagementBeta().upsertVaultAssetUtxoSelectionConfig(upsertUtxoSelectionConfigRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.u_t_x_o_management_beta.upsert_vault_asset_utxo_selection_config(upsert_utxo_selection_config_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<UtxoSelectionConfigResponse>>\
+          \ = fireblocks.uTXOManagementBeta.upsertVaultAssetUtxoSelectionConfig(uTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfigRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response\
+          \ = fireblocks.uTXOManagementBeta().upsertVaultAssetUtxoSelectionConfig(upsertUtxoSelectionConfigRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.u_t_x_o_management_beta.upsert_vault_asset_utxo_selection_config(upsert_utxo_selection_config_request,\
+          \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -33614,6 +34146,122 @@ paths:
           \ asset_id, page_cursor, page_size, sort, order, include_all_labels, include_any_labels,\
           \ exclude_any_labels, include_statuses, address, tx_hash, tx_id, min_amount,\
           \ max_amount);"
+      x-accepts:
+      - application/json
+  /utxo_management/selection_config:
+    get:
+      description: |-
+        Returns the workspace-level configured selection strategy and the effective strategy after runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this workspace, otherwise `ASC`.
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+      operationId: getUtxoSelectionConfig
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UtxoSelectionConfigResponse"
+          description: Current UTXO selection config
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get UTXO selection config
+      tags:
+      - UTXO Management (Beta)
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UtxoSelectionConfigResponse>>\
+            \ = fireblocks.uTXOManagementBeta.getUtxoSelectionConfig();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response
+            = fireblocks.uTXOManagementBeta().getUtxoSelectionConfig();
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.u_t_x_o_management_beta.get_utxo_selection_config();
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<UtxoSelectionConfigResponse>>\
+          \ = fireblocks.uTXOManagementBeta.getUtxoSelectionConfig();"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response
+          = fireblocks.uTXOManagementBeta().getUtxoSelectionConfig();
+      - lang: Python
+        source: response = fireblocks.u_t_x_o_management_beta.get_utxo_selection_config();
+      x-accepts:
+      - application/json
+    put:
+      description: |-
+        Creates or updates the workspace-level UTXO selection strategy. `ADAPTIVE` is recommended.
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+        Endpoint Permission: Admin, Non-Signing Admin.
+      operationId: upsertUtxoSelectionConfig
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpsertUtxoSelectionConfigRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UtxoSelectionConfigResponse"
+          description: Updated UTXO selection config
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Upsert UTXO selection config
+      tags:
+      - UTXO Management (Beta)
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UtxoSelectionConfigResponse>>\
+            \ = fireblocks.uTXOManagementBeta.upsertUtxoSelectionConfig(uTXOManagementBetaApiUpsertUtxoSelectionConfigRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response\
+            \ = fireblocks.uTXOManagementBeta().upsertUtxoSelectionConfig(upsertUtxoSelectionConfigRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.u_t_x_o_management_beta.upsert_utxo_selection_config(upsert_utxo_selection_config_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<UtxoSelectionConfigResponse>>\
+          \ = fireblocks.uTXOManagementBeta.upsertUtxoSelectionConfig(uTXOManagementBetaApiUpsertUtxoSelectionConfigRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response\
+          \ = fireblocks.uTXOManagementBeta().upsertUtxoSelectionConfig(upsertUtxoSelectionConfigRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.u_t_x_o_management_beta.upsert_utxo_selection_config(upsert_utxo_selection_config_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
       x-accepts:
       - application/json
   /vault/accounts:
@@ -37613,6 +38261,142 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+  /webhooks_settings/mtls:
+    get:
+      description: |
+        Lists the workspace's mTLS configurations, newest first. Pass `ids` to ask about
+        particular ones instead — useful for resolving the `webhookMtlsId` values on a set of
+        webhooks in one call.
+      operationId: getWebhookMtlsConfigs
+      parameters:
+      - description: "Return only the configurations with these ids, instead of all\
+          \ of them. Repeat the parameter for each id. An id belonging to another\
+          \ workspace, or to nothing, is left out of the response rather than failing\
+          \ the request."
+        example:
+        - 6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f
+        explode: true
+        in: query
+        name: ids
+        required: false
+        schema:
+          items:
+            format: uuid
+            type: string
+          maxItems: 100
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookMtlsConfigsList"
+          description: The workspace's mTLS configurations
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: List the uploaded mTLS configurations
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<WebhookMtlsConfigsList>>\
+            \ = fireblocks.webhooksV2.getWebhookMtlsConfigs(webhooksV2ApiGetWebhookMtlsConfigsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<List<WebhookMtlsConfig>>> response =
+            fireblocks.webhooksV2().getWebhookMtlsConfigs(ids);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.webhooks_v2.get_webhook_mtls_configs(ids);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<WebhookMtlsConfigsList>>\
+          \ = fireblocks.webhooksV2.getWebhookMtlsConfigs(webhooksV2ApiGetWebhookMtlsConfigsRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<List<WebhookMtlsConfig>>> response =
+          fireblocks.webhooksV2().getWebhookMtlsConfigs(ids);
+      - lang: Python
+        source: response = fireblocks.webhooks_v2.get_webhook_mtls_configs(ids);
+      x-accepts:
+      - application/json
+    post:
+      description: |
+        Stores a certificate signed against the CSR from `GET /v1/webhooks_settings/mtls_csr` and returns its id, which is then set as `webhookMtlsId` on a webhook or on OAuth credentials. The private key the certificate was issued for is derived from the certificate, so it is never named by the caller.
+
+        Re-uploading a certificate already stored returns the existing id rather than creating a second configuration, so several webhooks and OAuth credentials can share one certificate.
+
+        A certificate that was not issued for a private key this workspace holds is rejected with a `400`.
+
+        **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+      operationId: createWebhookMtlsConfig
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateWebhookMtlsConfigRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookMtlsConfig"
+          description: The stored mTLS configuration
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Create an mTLS configuration
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<WebhookMtlsConfig>> =\
+            \ fireblocks.webhooksV2.createWebhookMtlsConfig(webhooksV2ApiCreateWebhookMtlsConfigRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<WebhookMtlsConfig>> response = fireblocks.webhooksV2().createWebhookMtlsConfig(createWebhookMtlsConfigRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2.create_webhook_mtls_config(create_webhook_mtls_config_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<WebhookMtlsConfig>> =\
+          \ fireblocks.webhooksV2.createWebhookMtlsConfig(webhooksV2ApiCreateWebhookMtlsConfigRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<WebhookMtlsConfig>> response = fireblocks.webhooksV2().createWebhookMtlsConfig(createWebhookMtlsConfigRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2.create_webhook_mtls_config(create_webhook_mtls_config_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
   /webhooks_settings/mtls_csr:
     get:
       description: |
@@ -37676,6 +38460,232 @@ paths:
           fireblocks.webhooksV2().getMtlsCsr(keyAlgorithm);
       - lang: Python
         source: response = fireblocks.webhooks_v2.get_mtls_csr(key_algorithm);
+      x-accepts:
+      - application/json
+  /webhooks_settings/mtls/{webhookMtlsId}:
+    delete:
+      description: |
+        Deletes an mTLS configuration. By default the delete is refused while the configuration is still in use: if any webhook or OAuth credentials reference it, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of what references it. This protects a shared configuration from being removed out from under the webhooks and token requests that depend on it.
+
+        Pass `forceDelete=true` to delete anyway. That detaches everything referencing it — it clears `webhookMtlsId` on each webhook and OAuth credentials, it does **not** delete them — then deletes the configuration and returns the deleted resource together with `detachedWebhookIds` and `detachedWebhookOauthIds`. Detached webhooks keep delivering notifications, and detached OAuth credentials keep requesting tokens, but without a client certificate, so an endpoint that requires mTLS will reject them from that point on.
+
+        When nothing references the configuration the delete succeeds either way, and both lists come back empty.
+
+        **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+      operationId: deleteWebhookMtlsConfig
+      parameters:
+      - description: The unique identifier of the mTLS configuration
+        explode: false
+        in: path
+        name: webhookMtlsId
+        required: true
+        schema:
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        style: simple
+      - description: "Delete the configuration even while webhooks or OAuth credentials\
+          \ still reference it, detaching them instead of refusing; their ids are\
+          \ returned in `detachedWebhookIds` and `detachedWebhookOauthIds`. Leave\
+          \ it unset, or `false`, to get a `409 Conflict` whenever anything still\
+          \ references the configuration."
+        example: true
+        explode: true
+        in: query
+        name: forceDelete
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteWebhookMtlsConfigResponse"
+          description: "The deleted mTLS configuration, plus the ids of any webhooks\
+            \ and OAuth credentials that were detached from it"
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Webhooks or OAuth credentials still reference this configuration\
+            \ and `forceDelete` was not set. Nothing was deleted. The error message\
+            \ names the reason and the ids of what references it — detach those webhooks\
+            \ and OAuth credentials, or retry with `forceDelete=true`."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Delete an mTLS configuration
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<DeleteWebhookMtlsConfigResponse>>\
+            \ = fireblocks.webhooksV2.deleteWebhookMtlsConfig(webhooksV2ApiDeleteWebhookMtlsConfigRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<DeleteWebhookMtlsConfigResponse>> response\
+            \ = fireblocks.webhooksV2().deleteWebhookMtlsConfig(webhookMtlsId, forceDelete);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2.delete_webhook_mtls_config(webhook_mtls_id,\
+            \ force_delete);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<DeleteWebhookMtlsConfigResponse>>\
+          \ = fireblocks.webhooksV2.deleteWebhookMtlsConfig(webhooksV2ApiDeleteWebhookMtlsConfigRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<DeleteWebhookMtlsConfigResponse>> response\
+          \ = fireblocks.webhooksV2().deleteWebhookMtlsConfig(webhookMtlsId, forceDelete);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2.delete_webhook_mtls_config(webhook_mtls_id,\
+          \ force_delete);"
+      x-accepts:
+      - application/json
+    get:
+      description: |
+        Retrieve one stored mTLS configuration by its id.
+      operationId: getWebhookMtlsConfig
+      parameters:
+      - description: The unique identifier of the mTLS configuration
+        explode: false
+        in: path
+        name: webhookMtlsId
+        required: true
+        schema:
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookMtlsConfig"
+          description: An mTLS configuration
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get an mTLS configuration by id
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<WebhookMtlsConfig>> =\
+            \ fireblocks.webhooksV2.getWebhookMtlsConfig(webhooksV2ApiGetWebhookMtlsConfigRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<WebhookMtlsConfig>> response = fireblocks.webhooksV2().getWebhookMtlsConfig(webhookMtlsId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.webhooks_v2.get_webhook_mtls_config(webhook_mtls_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<WebhookMtlsConfig>> =\
+          \ fireblocks.webhooksV2.getWebhookMtlsConfig(webhooksV2ApiGetWebhookMtlsConfigRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<WebhookMtlsConfig>> response = fireblocks.webhooksV2().getWebhookMtlsConfig(webhookMtlsId);
+      - lang: Python
+        source: response = fireblocks.webhooks_v2.get_webhook_mtls_config(webhook_mtls_id);
+      x-accepts:
+      - application/json
+    patch:
+      description: |
+        Renames a configuration, replaces its certificate, or both. Only the fields present in the request are changed; anything omitted is left as it is, and a request with neither field is rejected with a `400`.
+
+        Replacing `signedCert` switches every webhook and OAuth credentials set using this configuration over to the new certificate in one write, and the private key it was issued for is re-derived from the certificate. A replacement that was not issued for a private key this workspace holds is rejected with a `400`.
+
+        Sending `name: null` removes the label.
+
+        **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+      operationId: updateWebhookMtlsConfig
+      parameters:
+      - description: The unique identifier of the mTLS configuration
+        explode: false
+        in: path
+        name: webhookMtlsId
+        required: true
+        schema:
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateWebhookMtlsConfigRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookMtlsConfig"
+          description: The updated mTLS configuration
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Neither `name` nor `signedCert` was provided, so there is\
+            \ nothing to change, or the replacement certificate was rejected — it\
+            \ is not valid X.509, or it was not issued for a private key this workspace\
+            \ holds."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Update an mTLS configuration
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<WebhookMtlsConfig>> =\
+            \ fireblocks.webhooksV2.updateWebhookMtlsConfig(webhooksV2ApiUpdateWebhookMtlsConfigRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<WebhookMtlsConfig>> response = fireblocks.webhooksV2().updateWebhookMtlsConfig(updateWebhookMtlsConfigRequest,\
+            \ webhookMtlsId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2.update_webhook_mtls_config(update_webhook_mtls_config_request,\
+            \ webhook_mtls_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<WebhookMtlsConfig>> =\
+          \ fireblocks.webhooksV2.updateWebhookMtlsConfig(webhooksV2ApiUpdateWebhookMtlsConfigRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<WebhookMtlsConfig>> response = fireblocks.webhooksV2().updateWebhookMtlsConfig(updateWebhookMtlsConfigRequest,\
+          \ webhookMtlsId);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2.update_webhook_mtls_config(update_webhook_mtls_config_request,\
+          \ webhook_mtls_id);"
+      x-content-type: application/json
       x-accepts:
       - application/json
   /webhooks_settings/oauth:
@@ -37938,7 +38948,7 @@ paths:
       description: |
         Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.
 
-        `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook's own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.
+        `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook's own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `webhookMtlsId` is a scalar rather than a map, so `null` there does remove it.
 
         **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
       operationId: updateWebhookOauth
@@ -47336,6 +48346,159 @@ components:
           example: "0.0013"
           type: string
       type: object
+    CantonDomainEnum:
+      description: "The Canton domain a transaction belongs to. Singular, and it matches\
+        \ the prefix of the `type` / `responseType` values in the same domain character\
+        \ for character."
+      enum:
+      - ONBOARDING
+      - ALLOCATION
+      - TRANSFER
+      example: ALLOCATION
+      type: string
+    CantonVendorEnum:
+      description: The vendor whose flow this is. Present only where the flow is vendor-specific
+        — absent on vendor-neutral Splice operations such as allocation withdraw.
+      enum:
+      - DTCC
+      - TRADEWEB
+      example: DTCC
+      type: string
+    CantonOfferResponseDetails:
+      description: "The transaction belongs to an offer conversation: the offer itself,\
+        \ the response to it, or a leg that carries no answer of its own. The only\
+        \ block that changes over a transaction's lifetime."
+      example:
+        version: 1
+        domain: ONBOARDING
+        vendor: DTCC
+        availableResponses:
+        - DTCC_END_INVESTOR_ONBOARDING_ACCEPT
+        - DTCC_END_INVESTOR_ONBOARDING_REJECT
+        expiresAt: 2026-12-31T23:59:59Z
+      properties:
+        version:
+          description: "The shape of this block. Stamped at creation and never changed,\
+            \ so a reader always knows which version it is holding."
+          example: 1
+          type: integer
+        domain:
+          $ref: "#/components/schemas/CantonDomainEnum"
+        vendor:
+          $ref: "#/components/schemas/CantonVendorEnum"
+        availableResponses:
+          description: The responses that can be sent for this offer right now. An
+            empty array means nothing is answerable on this transaction — which is
+            the difference between an actionable offer and a linked leg that shares
+            its sub-status.
+          example:
+          - DTCC_END_INVESTOR_ONBOARDING_ACCEPT
+          - DTCC_END_INVESTOR_ONBOARDING_REJECT
+          items:
+            description: A response type that may be sent for this offer.
+            example: DTCC_END_INVESTOR_ONBOARDING_ACCEPT
+            type: string
+          type: array
+        expiresAt:
+          description: "When the offer expires, where it has a deadline."
+          example: 2026-12-31T23:59:59Z
+          format: date-time
+          type: string
+        approvalTransactionId:
+          description: "The response transaction, once one has been dispatched for\
+            \ this offer."
+          example: 2a7f4c31-9d08-4b52-8e6a-1f3c70b9d485
+          type: string
+        originalTransactionId:
+          description: The transaction this one relates to — the offer a response
+            answered.
+          example: 9f2b7c14-8d55-4a02-b6e1-5c3f90a7d488
+          type: string
+        verdict:
+          description: "The outcome, set once the transaction reaches a terminal status."
+          enum:
+          - ACCEPTED
+          - REJECTED
+          example: ACCEPTED
+          type: string
+      type: object
+    CantonCallDetails:
+      description: A call made through the Canton calls endpoint. Written once and
+        never changed.
+      example:
+        version: 1
+        domain: ALLOCATION
+        type: ALLOCATION_WITHDRAW
+        originalTransactionId: 9f2b7c14-8d55-4a02-b6e1-5c3f90a7d488
+      properties:
+        version:
+          description: "The shape of this block. Stamped at creation and never changed,\
+            \ so a reader always knows which version it is holding."
+          example: 1
+          type: integer
+        domain:
+          $ref: "#/components/schemas/CantonDomainEnum"
+        type:
+          description: "The call type, matching the `type` sent when the call was\
+            \ created."
+          example: ALLOCATION_WITHDRAW
+          type: string
+        vendor:
+          $ref: "#/components/schemas/CantonVendorEnum"
+        originalTransactionId:
+          description: "The transaction this call acts on. On a withdraw it is the\
+            \ allocation that was withdrawn, so the withdraw transaction read on its\
+            \ own still says what it withdrew."
+          example: 9f2b7c14-8d55-4a02-b6e1-5c3f90a7d488
+          type: string
+      type: object
+    CantonSettlementDetails:
+      description: "The credit side of a delivery-versus-payment: a venue settled\
+        \ an allocation. Written once, at creation — the transaction is already complete\
+        \ when it appears."
+      example:
+        version: 1
+        domain: ALLOCATION
+        type: ALLOCATION_SETTLEMENT
+        originalTransactionId: 9f2b7c14-8d55-4a02-b6e1-5c3f90a7d488
+      properties:
+        version:
+          description: "The shape of this block. Stamped at creation and never changed,\
+            \ so a reader always knows which version it is holding."
+          example: 1
+          type: integer
+        domain:
+          $ref: "#/components/schemas/CantonDomainEnum"
+        type:
+          description: The settlement type.
+          example: ALLOCATION_SETTLEMENT
+          type: string
+        originalTransactionId:
+          description: The allocation this receipt settles.
+          example: 9f2b7c14-8d55-4a02-b6e1-5c3f90a7d488
+          type: string
+      type: object
+    CantonDetails:
+      description: |-
+        Canton transaction context. Present on transactions that belong to a Canton flow, and the authoritative signal that a transaction IS one — do not branch on `operation`, which is `CANTON_CALL` for customer-initiated calls but `TRANSFER` for an incoming Canton transfer offer. **No `cantonDetails` at all means the transaction is not a Canton item.**
+
+        The service sets exactly one of `offerResponse`, `call` or `settlement`. That is a guarantee about what is sent, NOT a constraint this schema enforces: the three are declared as independent optional properties on purpose, so that a response carrying a block a client does not yet know about — or a row written before a block type existed — still validates. Response schemas here stay additive. Read the block you recognise; do not reject a payload for the shape of the others.
+
+        Every block carries `version`, stamped when the transaction is created and never changed — a transaction written today keeps its shape, so `version` is how you know which shape you are reading.
+      example:
+        call:
+          version: 1
+          domain: ALLOCATION
+          type: ALLOCATION_WITHDRAW
+          originalTransactionId: 9f2b7c14-8d55-4a02-b6e1-5c3f90a7d488
+      properties:
+        offerResponse:
+          $ref: "#/components/schemas/CantonOfferResponseDetails"
+        call:
+          $ref: "#/components/schemas/CantonCallDetails"
+        settlement:
+          $ref: "#/components/schemas/CantonSettlementDetails"
+      type: object
     RewardInfo:
       description: "This field is relevant only for Algorand transactions. Both `srcRewards`\
         \ and `destRewards` will appear only for Vault to Vault transactions, otherwise\
@@ -49676,6 +50839,12 @@ components:
           screeningStatus: COMPLETED
           categoryId: 5
           timestamp: 1774363599908
+        cantonDetails:
+          call:
+            version: 1
+            domain: ALLOCATION
+            type: ALLOCATION_WITHDRAW
+            originalTransactionId: 9f2b7c14-8d55-4a02-b6e1-5c3f90a7d488
         requestedAmount: 3.616076749251911
         status: status
         note: note
@@ -50529,6 +51698,8 @@ components:
             \ the `feeCurrency` field, if any."
           example: PATH_USD
           type: string
+        cantonDetails:
+          $ref: "#/components/schemas/CantonDetails"
         networkRecords:
           description: "In case a single transaction resulted with multiple transfers,\
             \ for example a result of a contract call, then this parameter specifies\
@@ -50706,6 +51877,7 @@ components:
         * `RAW` - An off-chain message with no predefined format. Use it to sign any message with your private key, including protocols such as blockchains and custom transaction types that are not natively supported by Fireblocks. [Learn more about raw signing transactions.](https://developers.fireblocks.com/docs/raw-message-signing)
         * `APPROVE` - Enables the approve function for a smart contract or wallet to  withdraw from a designated wallet. [Learn more](https://support.fireblocks.io/hc/en-us/articles/4404616097426-Amount-Cap-for-Approve-transactions).
         * `ENABLE_ASSET` - Algorand, DigitalBits, Solana, and Stellar require an on-chain transaction to create an asset wallet and enable the deposit address. This transaction is automatically created when adding assets on these blockchains at a vault account.
+        * `CANTON_CALL` - A customer-initiated Canton operation, such as withdrawing an allocation or responding to an onboarding offer. Note that not every Canton transaction carries this operation — an incoming Canton transfer offer is a `TRANSFER` — so use the top-level `cantonDetails` rather than `operation` to identify a Canton transaction.
       enum:
       - TRANSFER
       - BURN
@@ -50716,6 +51888,7 @@ components:
       - TYPED_MESSAGE
       - APPROVE
       - ENABLE_ASSET
+      - CANTON_CALL
       type: string
     TransferPeerPathSubType:
       enum:
@@ -60134,28 +61307,6 @@ components:
       - order.updated
       - automation_execution.update
       type: string
-    WebhookMtls:
-      description: "mTLS configuration for the webhook. On responses, present only\
-        \ when a signed client certificate is set. On requests, provide a signed client\
-        \ certificate to enable mTLS, or null to remove it."
-      example:
-        clientSignedCert: |-
-          -----BEGIN CERTIFICATE-----
-          ...
-          -----END CERTIFICATE-----
-      nullable: true
-      properties:
-        clientSignedCert:
-          description: Signed client certificate PEM used for mTLS when delivering
-            notifications.
-          example: |-
-            -----BEGIN CERTIFICATE-----
-            ...
-            -----END CERTIFICATE-----
-          type: string
-      required:
-      - clientSignedCert
-      type: object
     WebhookCustomHeadersResponse:
       description: Names of the custom headers configured for this webhook. Header
         values are never returned.
@@ -60168,14 +61319,10 @@ components:
     Webhook:
       example:
         createdAt: 1625126400000
+        webhookMtlsId: 6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f
         webhookOauthId: 123e4567-e89b-12d3-a456-426614174000
         description: This webhook is used for transactions notifications
         id: 123e4567-e89b-12d3-a456-426614174000
-        mtls:
-          clientSignedCert: |-
-            -----BEGIN CERTIFICATE-----
-            ...
-            -----END CERTIFICATE-----
         url: https://example.com/webhook
         events:
         - transaction.created
@@ -60228,8 +61375,13 @@ components:
           example: 1625126400000
           format: int64
           type: integer
-        mtls:
-          $ref: "#/components/schemas/WebhookMtls"
+        webhookMtlsId:
+          description: "The id of the mTLS configuration this webhook presents when\
+            \ delivering, from `/v1/webhooks_settings/mtls`. Absent when the webhook\
+            \ does not use mTLS."
+          example: 6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f
+          format: uuid
+          type: string
         webhookOauthId:
           description: "The id of the OAuth credentials this webhook authenticates\
             \ with. Absent when the webhook does not use OAuth. Read the credentials\
@@ -60259,14 +61411,10 @@ components:
         next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
         data:
         - createdAt: 1625126400000
+          webhookMtlsId: 6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f
           webhookOauthId: 123e4567-e89b-12d3-a456-426614174000
           description: This webhook is used for transactions notifications
           id: 123e4567-e89b-12d3-a456-426614174000
-          mtls:
-            clientSignedCert: |-
-              -----BEGIN CERTIFICATE-----
-              ...
-              -----END CERTIFICATE-----
           url: https://example.com/webhook
           events:
           - transaction.created
@@ -60277,14 +61425,10 @@ components:
           status: ENABLED
           updatedAt: 1625126400000
         - createdAt: 1625126400000
+          webhookMtlsId: 6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f
           webhookOauthId: 123e4567-e89b-12d3-a456-426614174000
           description: This webhook is used for transactions notifications
           id: 123e4567-e89b-12d3-a456-426614174000
-          mtls:
-            clientSignedCert: |-
-              -----BEGIN CERTIFICATE-----
-              ...
-              -----END CERTIFICATE-----
           url: https://example.com/webhook
           events:
           - transaction.created
@@ -60332,13 +61476,9 @@ components:
       type: object
     CreateWebhookRequest:
       example:
+        webhookMtlsId: 6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f
         webhookOauthId: 123e4567-e89b-12d3-a456-426614174000
         description: This webhook is used for transactions notifications
-        mtls:
-          clientSignedCert: |-
-            -----BEGIN CERTIFICATE-----
-            ...
-            -----END CERTIFICATE-----
         url: https://example.com/webhook
         events:
         - transaction.created
@@ -60376,8 +61516,15 @@ components:
             \ receive notifications."
           example: false
           type: boolean
-        mtls:
-          $ref: "#/components/schemas/WebhookMtls"
+        webhookMtlsId:
+          description: "The id of the mTLS configuration this webhook presents when\
+            \ delivering, from `/v1/webhooks_settings/mtls`. Several webhooks may\
+            \ share one configuration, so replacing its certificate covers all of\
+            \ them at once. Send `null` to stop using mTLS for this webhook."
+          example: 6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f
+          format: uuid
+          nullable: true
+          type: string
         webhookOauthId:
           description: "The id of the OAuth credentials this webhook authenticates\
             \ with, from `/v1/webhooks_settings/oauth`. Several webhooks may share\
@@ -60448,6 +61595,171 @@ components:
       - csr
       - keyAlgorithm
       type: object
+    WebhookMtlsConfig:
+      description: "A signed client certificate stored for the workspace, and the\
+        \ id a webhook or OAuth credentials set references to use it. Several of them\
+        \ may share one configuration, so replacing the certificate here switches\
+        \ all of them at once."
+      example:
+        signedCert: |-
+          -----BEGIN CERTIFICATE-----
+          ...
+          -----END CERTIFICATE-----
+        createdAt: 1694572200000
+        name: Production gateway 2026
+        id: 44fcead0-7053-4831-a53a-df7fb90d440f
+        expiresAt: 1726108200000
+        updatedAt: 1726108200000
+      properties:
+        id:
+          description: "The unique identifier of the mTLS configuration, to be set\
+            \ as `webhookMtlsId` on a webhook or on OAuth credentials."
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        name:
+          description: The label given to this mTLS configuration.
+          example: Production gateway 2026
+          type: string
+        signedCert:
+          description: The signed client certificate PEM.
+          example: |-
+            -----BEGIN CERTIFICATE-----
+            ...
+            -----END CERTIFICATE-----
+          type: string
+        expiresAt:
+          description: "When the certificate itself expires, in milliseconds since\
+            \ the epoch."
+          example: 1726108200000
+          format: int64
+          type: integer
+        createdAt:
+          description: "When the certificate was uploaded, in milliseconds since the\
+            \ epoch."
+          example: 1694572200000
+          format: int64
+          type: integer
+        updatedAt:
+          description: "When this configuration was last changed, in milliseconds\
+            \ since the epoch. Differs from createdAt once the certificate has been\
+            \ replaced or the configuration renamed."
+          example: 1726108200000
+          format: int64
+          type: integer
+      required:
+      - createdAt
+      - expiresAt
+      - id
+      - signedCert
+      - updatedAt
+      type: object
+    WebhookMtlsConfigsList:
+      description: "Every mTLS configuration belonging to the workspace, newest first."
+      items:
+        $ref: "#/components/schemas/WebhookMtlsConfig"
+      type: array
+    CreateWebhookMtlsConfigRequest:
+      example:
+        signedCert: |-
+          -----BEGIN CERTIFICATE-----
+          ...
+          -----END CERTIFICATE-----
+        name: Production gateway 2026
+      properties:
+        name:
+          description: "A label for this mTLS configuration, to tell several certificates\
+            \ apart. Letters, digits and spaces only."
+          example: Production gateway 2026
+          maxLength: 255
+          pattern: "^[a-zA-Z0-9 ]*$"
+          type: string
+        signedCert:
+          description: "Signed client certificate PEM, issued for the CSR from `GET\
+            \ /v1/webhooks_settings/mtls_csr`. The private key it belongs to is derived\
+            \ from the certificate itself."
+          example: |-
+            -----BEGIN CERTIFICATE-----
+            ...
+            -----END CERTIFICATE-----
+          type: string
+      required:
+      - signedCert
+      type: object
+    DeleteWebhookMtlsConfigResponse:
+      allOf:
+      - $ref: "#/components/schemas/WebhookMtlsConfig"
+      - properties:
+          detachedWebhookIds:
+            description: "Webhooks whose `webhookMtlsId` was cleared. The webhooks\
+              \ themselves are not deleted and keep delivering, just without a client\
+              \ certificate. Empty unless `forceDelete=true` detached something."
+            example:
+            - 44fcead0-7053-4831-a53a-df7fb90d440f
+            items:
+              format: uuid
+              type: string
+            type: array
+          detachedWebhookOauthIds:
+            description: OAuth credentials whose `webhookMtlsId` was cleared. Their
+              token requests continue without a client certificate. Empty unless `forceDelete=true`
+              detached something.
+            example:
+            - 6e5daa9a-56cd-4975-ac16-bb9d1b48dff5
+            items:
+              format: uuid
+              type: string
+            type: array
+        required:
+        - detachedWebhookIds
+        - detachedWebhookOauthIds
+        type: object
+      description: "The deleted mTLS configuration, plus the ids of any webhooks and\
+        \ OAuth credentials the delete detached from it. They are only detached by\
+        \ `forceDelete=true`; without it a delete is refused with `409` while anything\
+        \ still references the configuration."
+      example:
+        signedCert: |-
+          -----BEGIN CERTIFICATE-----
+          ...
+          -----END CERTIFICATE-----
+        createdAt: 1694572200000
+        detachedWebhookIds:
+        - 44fcead0-7053-4831-a53a-df7fb90d440f
+        name: Production gateway 2026
+        detachedWebhookOauthIds:
+        - 6e5daa9a-56cd-4975-ac16-bb9d1b48dff5
+        id: 44fcead0-7053-4831-a53a-df7fb90d440f
+        expiresAt: 1726108200000
+        updatedAt: 1726108200000
+    UpdateWebhookMtlsConfigRequest:
+      description: At least one property must be provided.
+      example:
+        signedCert: |-
+          -----BEGIN CERTIFICATE-----
+          ...
+          -----END CERTIFICATE-----
+        name: Production gateway 2027
+      minProperties: 1
+      properties:
+        name:
+          description: "A new label for this mTLS configuration, or `null` to remove\
+            \ it. Letters, digits and spaces only."
+          example: Production gateway 2027
+          maxLength: 255
+          nullable: true
+          pattern: "^[a-zA-Z0-9 ]*$"
+          type: string
+        signedCert:
+          description: "A replacement signed certificate PEM. Every webhook and OAuth\
+            \ credentials set using this configuration switches to it, and the private\
+            \ key it was issued for is re-derived from the certificate."
+          example: |-
+            -----BEGIN CERTIFICATE-----
+            ...
+            -----END CERTIFICATE-----
+          type: string
+      type: object
     WebhookOauthCredentials:
       description: "A stored OAuth 2.0 client credential set, referenced by webhooks\
         \ through their `webhookOauthId`. Deliveries for a webhook that references\
@@ -60462,6 +61774,7 @@ components:
         clientId: my-client-id
         customBodyParams:
         - scope
+        webhookMtlsId: 6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f
         customJwtClaims:
         - aud
         - resource
@@ -60471,10 +61784,6 @@ components:
         url: https://auth.example.com/oauth/token
         customHeaders:
         - X-Api-Key
-        mtlsClientSignedCert: |-
-          -----BEGIN CERTIFICATE-----
-          ...
-          -----END CERTIFICATE-----
         updatedAt: 1625097600000
       properties:
         id:
@@ -60532,13 +61841,12 @@ components:
           items:
             type: string
           type: array
-        mtlsClientSignedCert:
-          description: PEM-encoded client certificate used for mTLS when fetching
-            OAuth tokens.
-          example: |-
-            -----BEGIN CERTIFICATE-----
-            ...
-            -----END CERTIFICATE-----
+        webhookMtlsId:
+          description: "The id of the mTLS configuration presented to the token endpoint.\
+            \ Absent when the token request does not use mTLS. Read the certificate\
+            \ from `/v1/webhooks_settings/mtls/{id}`."
+          example: 6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f
+          format: uuid
           type: string
         createdAt:
           description: "The date and time the OAuth credentials were created, in milliseconds."
@@ -60609,6 +61917,7 @@ components:
         clientId: my-client-id
         customBodyParams:
           scope: payments.read payments.write
+        webhookMtlsId: 6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f
         customJwtClaims:
           aud: https://auth.example.com
           email_verified: true
@@ -60618,10 +61927,6 @@ components:
         url: https://auth.example.com/oauth/token
         customHeaders:
           x-api-key: gateway-key
-        mtlsClientSignedCert: |-
-          -----BEGIN CERTIFICATE-----
-          ...
-          -----END CERTIFICATE-----
       properties:
         name:
           description: "A label for this credential set, shown when listing them."
@@ -60693,13 +61998,17 @@ components:
             x-api-key: gateway-key
           nullable: true
           type: object
-        mtlsClientSignedCert:
-          description: PEM-encoded client certificate for mTLS when fetching tokens.
-            Must be a valid X.509 certificate inside its validity window.
-          example: |-
-            -----BEGIN CERTIFICATE-----
-            ...
-            -----END CERTIFICATE-----
+        webhookMtlsId:
+          description: "The id of the mTLS configuration presented to the token endpoint,\
+            \ from `/v1/webhooks_settings/mtls`. It can be the same configuration\
+            \ a webhook uses, so one certificate, signed from `GET /v1/webhooks_settings/mtls_csr`,\
+            \ serves both the token endpoint and the receiver. Omit, or send `null`,\
+            \ for a token request without mTLS. Requires the mTLS feature to be enabled\
+            \ for the workspace (`403` otherwise), a configuration of this workspace\
+            \ (`404` otherwise), and one linked to a private key (`400` otherwise)."
+          example: 6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f
+          format: uuid
+          nullable: true
           type: string
       required:
       - clientId
@@ -60735,6 +62044,7 @@ components:
         - scope
         detachedWebhookIds:
         - 44fcead0-7053-4831-a53a-df7fb90d440f
+        webhookMtlsId: 6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f
         customJwtClaims:
         - aud
         - resource
@@ -60744,10 +62054,6 @@ components:
         url: https://auth.example.com/oauth/token
         customHeaders:
         - X-Api-Key
-        mtlsClientSignedCert: |-
-          -----BEGIN CERTIFICATE-----
-          ...
-          -----END CERTIFICATE-----
         updatedAt: 1625097600000
     WebhookOauthCustomJwtClaimsUpdate:
       additionalProperties:
@@ -60791,12 +62097,13 @@ components:
       description: |-
         A partial update. Every field is optional and an omitted field is left as it is, so `{ "clientSecret": "new-secret" }` rotates the secret and changes nothing else. A rotation applies to every webhook referencing these credentials.
 
-        The three custom maps merge. A key with a value is upserted, a key with `null` is deleted, a key you leave out is untouched, and the whole field set to `null` clears the map. There is no ambiguity between the two uses of `null` — one names an entry, the other names the field. `mtlsClientSignedCert` is a scalar, so `null` there removes it.
+        The three custom maps merge. A key with a value is upserted, a key with `null` is deleted, a key you leave out is untouched, and the whole field set to `null` clears the map. There is no ambiguity between the two uses of `null` — one names an entry, the other names the field. `webhookMtlsId` is a scalar, so `null` there removes it.
       example:
         clientId: my-client-id
         customBodyParams:
           scope: payments.read payments.write
           audience: null
+        webhookMtlsId: 6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f
         customJwtClaims:
           aud: https://auth.example.com
           resource: null
@@ -60807,10 +62114,6 @@ components:
         customHeaders:
           x-api-key: gateway-key
           x-tenant: null
-        mtlsClientSignedCert: |-
-          -----BEGIN CERTIFICATE-----
-          ...
-          -----END CERTIFICATE-----
       properties:
         name:
           description: A label for this credential set. Omit to leave it unchanged.
@@ -60885,14 +62188,15 @@ components:
             x-tenant: null
           nullable: true
           type: object
-        mtlsClientSignedCert:
-          description: "PEM-encoded client certificate for mTLS. Must be a valid X.509\
-            \ certificate inside its validity window. Omit to leave it unchanged,\
-            \ or send `null` to remove it."
-          example: |-
-            -----BEGIN CERTIFICATE-----
-            ...
-            -----END CERTIFICATE-----
+        webhookMtlsId:
+          description: "The id of the mTLS configuration presented to the token endpoint,\
+            \ from `/v1/webhooks_settings/mtls`. Omit to leave it unchanged, or send\
+            \ `null` to stop using mTLS for the token request. Requires the mTLS feature\
+            \ to be enabled for the workspace (`403` otherwise), a configuration of\
+            \ this workspace (`404` otherwise), and one linked to a private key (`400`\
+            \ otherwise)."
+          example: 6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f
+          format: uuid
           nullable: true
           type: string
       type: object
@@ -60919,13 +62223,9 @@ components:
       type: object
     UpdateWebhookRequest:
       example:
+        webhookMtlsId: 6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f
         webhookOauthId: 123e4567-e89b-12d3-a456-426614174000
         description: This webhook is used for transactions notifications
-        mtls:
-          clientSignedCert: |-
-            -----BEGIN CERTIFICATE-----
-            ...
-            -----END CERTIFICATE-----
         url: https://example.com/webhook
         events:
         - transaction.created
@@ -60962,8 +62262,15 @@ components:
           description: The status of the webhook
           example: false
           type: boolean
-        mtls:
-          $ref: "#/components/schemas/WebhookMtls"
+        webhookMtlsId:
+          description: "The id of the mTLS configuration this webhook presents when\
+            \ delivering, from `/v1/webhooks_settings/mtls`. Several webhooks may\
+            \ share one configuration, so replacing its certificate covers all of\
+            \ them at once. Send `null` to stop using mTLS for this webhook."
+          example: 6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f
+          format: uuid
+          nullable: true
+          type: string
         webhookOauthId:
           description: "The id of the OAuth credentials this webhook authenticates\
             \ with, from `/v1/webhooks_settings/oauth`. Several webhooks may share\
@@ -68737,12 +70044,14 @@ components:
       enum:
       - DVP
       - PREFUNDED
+      - POST_TRADE
       type: string
     ExecutionRequestDetailsType:
       description: Execution type supported by the provider
       enum:
       - QUOTE
       - MARKET
+      - LIMIT
       type: string
     ManifestOrderInfo:
       description: Defines requirements for the POST /orders endpoint.
@@ -69066,6 +70375,7 @@ components:
         - providerId: prov_8c3f1a4b2d6e9f7c
           accountId: acc_5e9a2d1c4b7f3e8a
         quoteAssetId: USD
+        baseAmount: "100.00"
       properties:
         scope:
           description: One or more providers/accounts to request rates from. At least
@@ -69081,6 +70391,11 @@ components:
         quoteAssetId:
           description: The target asset identifier.
           example: USD
+          type: string
+        baseAmount:
+          description: The amount to convert from
+          example: "100.00"
+          pattern: ^\d+(\.\d+)?$
           type: string
       required:
       - baseAssetId
@@ -69975,7 +71290,8 @@ components:
         side:
           $ref: "#/components/schemas/Side"
         expiresAt:
-          description: The expiration time of the quote in ISO 8601 format.
+          description: |
+            The expiration time of the quote in ISO 8601 format, taken verbatim from the provider. This is not safety-margined by the server — integrators must apply their own margin if one is needed.
           example: 2024-01-15T10:35:00.000Z
           type: string
         requiredParticipantsIdentificationOnOrder:
@@ -70450,16 +71766,68 @@ components:
           type: RETRY
           count: 1
           slippageBps: 50
+    LimitTypeEnum:
+      description: Order type for limit orders
+      enum:
+      - LIMIT
+      type: string
+    FokTimeInForce:
+      description: "Fill-or-kill - the order must be filled in full at the limit price\
+        \ immediately, or not at all."
+      example:
+        type: FOK
+      properties:
+        type:
+          description: Discriminator for the fill-or-kill time-in-force type.
+          enum:
+          - FOK
+          example: FOK
+          type: string
+      required:
+      - type
+      type: object
+    TimeInForce:
+      $ref: "#/components/schemas/FokTimeInForce"
+    LimitTypeDetails:
+      properties:
+        type:
+          $ref: "#/components/schemas/LimitTypeEnum"
+        price:
+          description: Limit price for the order
+          example: "60000.00"
+          type: string
+        timeInForce:
+          $ref: "#/components/schemas/FokTimeInForce"
+      required:
+      - price
+      - timeInForce
+      - type
+      type: object
+    LimitExecutionRequestDetails:
+      allOf:
+      - $ref: "#/components/schemas/LimitTypeDetails"
+      - $ref: "#/components/schemas/ExecutionRequestBaseDetails"
+      example:
+        type: LIMIT
+        price: "60000.00"
+        timeInForce:
+          type: FOK
+        baseAssetId: USD
+        quoteAssetId: BTC
+        side: BUY
+        baseAmount: "1000.00"
     ExecutionRequestDetails:
       description: Order execution details
       discriminator:
         mapping:
           MARKET: "#/components/schemas/MarketExecutionRequestDetails"
           QUOTE: "#/components/schemas/QuoteExecutionWithRequoteRequestDetails"
+          LIMIT: "#/components/schemas/LimitExecutionRequestDetails"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/MarketExecutionRequestDetails"
       - $ref: "#/components/schemas/QuoteExecutionWithRequoteRequestDetails"
+      - $ref: "#/components/schemas/LimitExecutionRequestDetails"
     PrefundedSettlementType:
       enum:
       - PREFUNDED
@@ -70479,16 +71847,33 @@ components:
       - destinationAccount
       - type
       type: object
+    PostTradeSettlementType:
+      enum:
+      - POST_TRADE
+      type: string
+    PostTradeSettlement:
+      description: |
+        Nothing moves on-platform; settlement happens bilaterally, provider-side, after execution.
+      example:
+        type: POST_TRADE
+      properties:
+        type:
+          $ref: "#/components/schemas/PostTradeSettlementType"
+      required:
+      - type
+      type: object
     Settlement:
       description: Settlement configuration for the order
       discriminator:
         mapping:
           PREFUNDED: "#/components/schemas/PrefundedSettlement"
           DVP: "#/components/schemas/DVPSettlement"
+          POST_TRADE: "#/components/schemas/PostTradeSettlement"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/PrefundedSettlement"
       - $ref: "#/components/schemas/DVPSettlement"
+      - $ref: "#/components/schemas/PostTradeSettlement"
     ReasonForPaymentEnum:
       description: |
         The reason or purpose of the payment. Used by providers (e.g. CPN) that require a categorical reason for cross-border payment compliance and reporting. Optional at the API level; runtime enforcement is handled by the calling service against the provider's requirements.
@@ -70752,15 +72137,32 @@ components:
           type: RETRY
           count: 1
           slippageBps: 50
+    LimitExecutionResponseDetails:
+      allOf:
+      - $ref: "#/components/schemas/LimitTypeDetails"
+      - $ref: "#/components/schemas/ExecutionResponseBaseDetails"
+      example:
+        type: LIMIT
+        price: "60000.00"
+        timeInForce:
+          type: FOK
+        side: BUY
+        baseAmount: "1000.00"
+        baseAssetId: USDC
+        baseAssetRail: BLOCKCHAIN
+        quoteAssetId: BTC
+        quoteAssetRail: BLOCKCHAIN
     ExecutionResponseDetails:
       discriminator:
         mapping:
           MARKET: "#/components/schemas/MarketExecutionResponseDetails"
           QUOTE: "#/components/schemas/QuoteExecutionWithRequoteResponseDetails"
+          LIMIT: "#/components/schemas/LimitExecutionResponseDetails"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/MarketExecutionResponseDetails"
       - $ref: "#/components/schemas/QuoteExecutionWithRequoteResponseDetails"
+      - $ref: "#/components/schemas/LimitExecutionResponseDetails"
     BlockchainAddress:
       description: The blockchain address information.
       example:
@@ -71974,6 +73376,11 @@ components:
       - DESTINATION_NOT_WHITELISTED
       - MISSING_DESTINATION_DETAILS
       - MISSING_WORKSPACE_DETAILS
+      - CREDIT_LIMIT_EXCEEDED
+      - QUOTE_EXPIRED
+      - DESK_REJECTED
+      - REQUOTE_WORSE_PRICE
+      - FOK_KILLED
       type: string
     Failure:
       properties:
@@ -73089,13 +74496,11 @@ components:
       - approve
       type: object
     AddressRegistryTravelRuleProvider:
-      description: Travel Rule provider identifier (string enum value).
-      enum:
-      - TRAVEL_RULE_PROVIDER_NOTABENE
-      - TRAVEL_RULE_PROVIDER_SYGNA
-      - TRAVEL_RULE_PROVIDER_TRISA
-      - TRAVEL_RULE_PROVIDER_OPENVASP
-      example: TRAVEL_RULE_PROVIDER_NOTABENE
+      description: "Travel Rule provider short code (e.g. `NOTABENE`, `SYGNA`, `TRISA`,\
+        \ `OPENVASP`). Plain string, not a fixed enum: the underlying provider list\
+        \ is sourced from legal-entity-service and can grow over time without a spec\
+        \ change here."
+      example: NOTABENE
       type: string
     AddressRegistryLegalEntity:
       description: Legal entity details for a blockchain address.
@@ -73104,9 +74509,10 @@ components:
         entityName: ACME Corporation
         jurisdiction: US
         leiData: true
+        proofOfOwnershipAvailable: false
         travelRuleProviders:
-        - TRAVEL_RULE_PROVIDER_NOTABENE
-        - TRAVEL_RULE_PROVIDER_SYGNA
+        - NOTABENE
+        - SYGNA
         email: compliance@example.com
       properties:
         leiData:
@@ -73130,8 +74536,8 @@ components:
           type: string
         travelRuleProviders:
           example:
-          - TRAVEL_RULE_PROVIDER_NOTABENE
-          - TRAVEL_RULE_PROVIDER_SYGNA
+          - NOTABENE
+          - SYGNA
           items:
             $ref: "#/components/schemas/AddressRegistryTravelRuleProvider"
           type: array
@@ -73139,31 +74545,131 @@ components:
           description: Travel Rule contact email when available.
           example: compliance@example.com
           type: string
+        proofOfOwnershipAvailable:
+          description: Whether the caller can currently create a Proof of Ownership
+            PDF for this address (`POST /v1/address_registry/proof_of_ownership_exports`).
+          example: false
+          type: boolean
       required:
       - email
       - entityName
       - jurisdiction
       - lei
       - leiData
+      - proofOfOwnershipAvailable
       - travelRuleProviders
       type: object
-    AddressRegistryError:
-      description: Error body for address registry operations (4xx and 5xx).
+    AddressRegistryCreateProofOfOwnershipRequest:
+      description: Request body for creating an Address Registry Proof of Ownership
+        PDF export.
       example:
-        code: 2140
-        message: Address registry opt-in required for this workspace.
+        address: 0x742d35cc6634c0532925a3b844bc9e7595f0beb0
       properties:
-        code:
-          description: |
-            Application error code when present. For HTTP 400 on legal-entity lookup, distinguish: 4100 — request validation (e.g. missing, empty, or whitespace-only `address` after trim); 2140 — workspace not opted in to the address registry (`AR_OPT_IN_REQUIRED`). 2142 — not found (404). Other codes may appear, including on server errors.
-          example: 2140
-          type: integer
-        message:
-          description: Human-readable error message
-          example: Address registry opt-in required for this workspace.
+        address:
+          description: "Blockchain address to prove ownership for (must resolve to\
+            \ the caller's workspace). Same format expectations as the `address` path\
+            \ parameter on `GET /v1/address_registry/legal_entities/{address}`."
+          example: 0x742d35cc6634c0532925a3b844bc9e7595f0beb0
           type: string
       required:
-      - message
+      - address
+      type: object
+    AddressRegistryCreateProofOfOwnershipResponse:
+      description: "Address Registry Proof of Ownership PDF export, created successfully."
+      example:
+        verificationHash: BHS2QaqGyYegvLBy5qrGhrES3A2n5JPD7ubpgJozRgeA
+        pdf: !!binary |-
+          SlZCRVJpMHhMalFLLi4u
+        exportId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        expiresAt: 2027-08-17
+      properties:
+        pdf:
+          description: "Base64-encoded Proof of Ownership PDF bytes. Fireblocks does\
+            \ not store the PDF: save it immediately, there is no re-download route."
+          example: !!binary |-
+            SlZCRVJpMHhMalFLLi4u
+          format: byte
+          type: string
+        exportId:
+          description: Stable id of the online-verifiable export record.
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          format: uuid
+          type: string
+        verificationHash:
+          description: Verification hash bound to the export (also printed on the
+            PDF).
+          example: BHS2QaqGyYegvLBy5qrGhrES3A2n5JPD7ubpgJozRgeA
+          type: string
+        expiresAt:
+          description: Inclusive last UTC calendar day online verification is available
+            (`YYYY-MM-DD`).
+          example: 2027-08-17
+          type: string
+      required:
+      - expiresAt
+      - exportId
+      - pdf
+      - verificationHash
+      type: object
+    AddressRegistryVerifyProofOfOwnershipRequest:
+      description: Request body for verifying an Address Registry Proof of Ownership
+        export.
+      example:
+        verificationHash: BHS2QaqGyYegvLBy5qrGhrES3A2n5JPD7ubpgJozRgeA
+        address: 0x742d35cc6634c0532925a3b844bc9e7595f0beb0
+        exportId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        expiresAt: 2027-08-17
+      properties:
+        exportId:
+          description: Export id from create / the PDF.
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          format: uuid
+          minLength: 1
+          type: string
+        verificationHash:
+          description: Verification hash from create / the PDF (exact match required).
+          example: BHS2QaqGyYegvLBy5qrGhrES3A2n5JPD7ubpgJozRgeA
+          minLength: 1
+          type: string
+        address:
+          description: Address from the PDF (exact UTF-8 match to the stored export).
+          example: 0x742d35cc6634c0532925a3b844bc9e7595f0beb0
+          minLength: 1
+          type: string
+        expiresAt:
+          description: "Optional but recommended: the PDF's \"Online verification\
+            \ available until\" date (`YYYY-MM-DD`), which speeds up the lookup. A\
+            \ wrong value yields `valid: false` even if the export exists — copy it\
+            \ exactly from the PDF, or omit it."
+          example: 2027-08-17
+          pattern: "^$|^\\d{4}-\\d{2}-\\d{2}$"
+          type: string
+      required:
+      - address
+      - exportId
+      - verificationHash
+      type: object
+    AddressRegistryVerifyProofOfOwnershipResponse:
+      description: "Online verification result. Authenticated calls always return\
+        \ HTTP 200 with this body (`valid: true` or `valid: false`); unknown/expired\
+        \ exports do not use 404."
+      example:
+        valid: true
+        expiresAt: 2027-08-17
+      properties:
+        valid:
+          description: Whether the stored export matches the supplied verification
+            hash and address within retention.
+          example: true
+          type: boolean
+        expiresAt:
+          description: Inclusive last UTC calendar day (`YYYY-MM-DD`) when `valid`
+            is true; empty string when `valid` is false.
+          example: 2027-08-17
+          type: string
+      required:
+      - expiresAt
+      - valid
       type: object
     AddressRegistryTenantRegistryResponse:
       description: "Workspace participation in the address registry. Same shape for\
@@ -77135,14 +78641,11 @@ components:
       - businessNumber
       - city
       - country
-      - description
       - incorporationCountry
       - isRegulated
       - legalName
       - legalStructure
-      - logo
       - name
-      - regulatoryAuthorities
       - website
       - yearFounded
       type: object
@@ -77330,6 +78833,7 @@ components:
           description: The second line of the VASP's address (if applicable). May
             be null.
           example: Suite 10
+          nullable: true
           type: string
         city:
           description: The city where the VASP is located.
@@ -77353,6 +78857,7 @@ components:
         logo:
           description: URL to the logo of the VASP. May be null.
           example: https://fireblocks.com/logo.png
+          nullable: true
           type: string
         legalStructure:
           description: "The legal structure of the VASP (e.g., Corporation, LLC)."
@@ -77379,6 +78884,7 @@ components:
         otherNames:
           description: Other names the VASP is known by. May be null.
           example: Fireblocks Test VASP
+          nullable: true
           type: string
         identificationType:
           description: The type of identification used by the VASP.
@@ -77388,6 +78894,7 @@ components:
           description: The country of identification for the VASP (ISO-3166 Alpha-2
             code). May be null.
           example: US
+          nullable: true
           type: string
         businessNumber:
           description: The business registration number of the VASP.
@@ -77396,6 +78903,7 @@ components:
         regulatoryAuthorities:
           description: The regulatory authorities overseeing the VASP. May be null.
           example: "SEC, FINCEN"
+          nullable: true
           type: string
         jurisdictions:
           description: The jurisdictions where the VASP operates.
@@ -77409,6 +78917,7 @@ components:
         street:
           description: The street name where the VASP is located. May be null.
           example: Wall Street
+          nullable: true
           type: string
         number:
           description: The building number of the VASP's address. May be returned
@@ -77418,6 +78927,7 @@ components:
         unit:
           description: The unit or suite number of the VASP's address. May be null.
           example: Apt 2B
+          nullable: true
           type: string
         postCode:
           description: The postal code of the VASP's location.
@@ -77516,25 +79026,30 @@ components:
         certificates:
           description: Certificates or licenses held by the VASP. May be null.
           example: ISO 27001
+          nullable: true
           type: string
         description:
           description: A brief description of the VASP. May be null.
           example: A leading provider of crypto security solutions.
+          nullable: true
           type: string
         travelRule_OPENVASP:
           description: Travel rule compliance status for OpenVASP. Null when the VASP
             does not support this protocol.
           example: active
+          nullable: true
           type: string
         travelRule_SYGNA:
           description: Travel rule compliance status for Sygna. Null when the VASP
             does not support this protocol.
           example: inactive
+          nullable: true
           type: string
         travelRule_TRISA:
           description: Travel rule compliance status for TRISA. Null when the VASP
             does not support this protocol.
           example: pending
+          nullable: true
           type: string
         travelRule_TRLIGHT:
           description: Travel rule compliance status for TRLight.
@@ -77544,21 +79059,25 @@ components:
           description: Travel rule compliance status for EMAIL. Null when the VASP
             does not support this protocol.
           example: inactive
+          nullable: true
           type: string
         travelRule_TRP:
           description: Travel rule compliance status for TRP. Null when the VASP does
             not support this protocol.
           example: active
+          nullable: true
           type: string
         travelRule_SHYFT:
           description: Travel rule compliance status for Shyft. Null when the VASP
             does not support this protocol.
           example: inactive
+          nullable: true
           type: string
         travelRule_USTRAVELRULEWG:
           description: Travel rule compliance status for US Travel Rule WG. Null when
             the VASP does not support this protocol.
           example: pending
+          nullable: true
           type: string
         createdAt:
           description: Timestamp when the VASP record was created.
@@ -77567,6 +79086,7 @@ components:
         createdBy:
           description: The DID of the party that created the VASP record. May be null.
           example: did:ethr:0x19b5ff8440019b635a86bbb632db854f2ea80423
+          nullable: true
           type: string
         updatedAt:
           description: Timestamp of the last update to the VASP record.
@@ -77587,6 +79107,7 @@ components:
         documents:
           description: Documents associated with the VASP. May be null.
           example: "['license.pdf', 'compliance.pdf']"
+          nullable: true
           type: string
         hasAdmin:
           description: Indicates if the VASP has an admin.
@@ -91786,6 +93307,86 @@ components:
       - status
       - type
       type: object
+    UtxoSelectionStrategyEnum:
+      description: "UTXO selection strategy. `ADAPTIVE` is recommended: the engine\
+        \ chooses inputs at selection time. `ASC` spends smallest UTXOs first. `DESC`\
+        \ spends largest first."
+      enum:
+      - ASC
+      - DESC
+      - ADAPTIVE
+      example: ADAPTIVE
+      type: string
+    UtxoSelectionConfigEntry:
+      description: Config row stored at exactly the requested scope. Omitted from
+        the parent object when none exists; the server does not emit JSON `null`.
+      example:
+        strategy: ADAPTIVE
+        updatedAt: 2026-09-09T15:00:00Z
+      properties:
+        strategy:
+          $ref: "#/components/schemas/UtxoSelectionStrategyEnum"
+        updatedAt:
+          description: Time at which this configured row was last updated.
+          example: 2026-09-09T15:00:00Z
+          format: date-time
+          type: string
+      required:
+      - strategy
+      - updatedAt
+      type: object
+    UtxoSelectionConfigSourceEnum:
+      description: Where the effective strategy was resolved from. `DEFAULT` means
+        no stored row applies at this scope or any scope it inherits from - `effective.strategy`
+        reports whichever strategy currently applies. `WORKSPACE` and `VAULT_ASSET`
+        are stored rows.
+      enum:
+      - DEFAULT
+      - WORKSPACE
+      - VAULT_ASSET
+      example: DEFAULT
+      type: string
+    EffectiveUtxoSelectionConfig:
+      example:
+        source: DEFAULT
+        strategy: ADAPTIVE
+      properties:
+        strategy:
+          $ref: "#/components/schemas/UtxoSelectionStrategyEnum"
+        source:
+          $ref: "#/components/schemas/UtxoSelectionConfigSourceEnum"
+      required:
+      - source
+      - strategy
+      type: object
+    UtxoSelectionConfigResponse:
+      description: "`effective` is always present. `configured` is omitted when no\
+        \ row is stored at the requested scope (the server does not emit `\"configured\"\
+        : null`). PUT responses always include `configured`."
+      example:
+        configured:
+          strategy: ADAPTIVE
+          updatedAt: 2026-09-09T15:00:00Z
+        effective:
+          source: DEFAULT
+          strategy: ADAPTIVE
+      properties:
+        configured:
+          $ref: "#/components/schemas/UtxoSelectionConfigEntry"
+        effective:
+          $ref: "#/components/schemas/EffectiveUtxoSelectionConfig"
+      required:
+      - effective
+      type: object
+    UpsertUtxoSelectionConfigRequest:
+      example:
+        strategy: ADAPTIVE
+      properties:
+        strategy:
+          $ref: "#/components/schemas/UtxoSelectionStrategyEnum"
+      required:
+      - strategy
+      type: object
     UtxoInput-2:
       example:
         index: 0
@@ -91981,8 +93582,11 @@ components:
           example: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
           type: string
         txHash:
-          description: On-chain transaction hash
+          description: "On-chain transaction hash, in lowercase hex as the chain reports\
+            \ it. Matched case-sensitively, so an uppercase hash is never found."
           example: b34f0c3ce612f1e5a5c19d6b1e6b5e3e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c
+          maxLength: 64
+          pattern: "^[0-9a-fA-F]{1,64}$"
           type: string
         index:
           description: Output index (vout)
@@ -92017,7 +93621,7 @@ components:
           description: List of UTXO identifiers to apply label changes to
           items:
             $ref: "#/components/schemas/UtxoIdentifier"
-          maxItems: 200
+          maxItems: 50
           minItems: 1
           type: array
         labelsToAttach:
@@ -92097,6 +93701,75 @@ components:
           items:
             $ref: "#/components/schemas/UtxoOutput"
           type: array
+      type: object
+    UtxoLabelFailure:
+      description: "A requested identifier that blocked the label request, with the\
+        \ reason it could not be labelled."
+      properties:
+        identifier:
+          allOf:
+          - $ref: "#/components/schemas/UtxoIdentifier"
+          description: The identifier exactly as it was sent in the request.
+          example:
+            txId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+        reason:
+          description: |-
+            Why the identifier could not be labelled:
+            - `NOT_FOUND` — no UTXO for it in this vault and asset. Retrying can work once it is indexed.
+            - `NOT_LABELLABLE` — the UTXO exists but can no longer be labelled (spent, or removed; for a transaction ID, every output). Retrying will not help.
+          enum:
+          - NOT_FOUND
+          - NOT_LABELLABLE
+          - UNUSABLE_IDENTIFIER
+          example: NOT_LABELLABLE
+          type: string
+        utxoStatus:
+          description: |-
+            The UTXO status behind the reason, when one explains it.
+            With `NOT_FOUND`, `REMOVED` means the UTXO was removed within the last hour and may still reappear;
+            if it does not, the same request returns `NOT_LABELLABLE` after about an hour.
+          enum:
+          - SPENT
+          - REMOVED
+          example: SPENT
+          type: string
+      required:
+      - identifier
+      - reason
+      type: object
+    UtxoLabelsErrorResponse:
+      description: "Returned when a label request is rejected. The request is all-or-nothing,\
+        \ so no UTXO was labelled."
+      example:
+        failures:
+        - identifier:
+            txId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+          reason: NOT_LABELLABLE
+          utxoStatus: SPENT
+        message: "Cannot label the requested UTXOs: not labellable in its current\
+          \ status: b70701f4-d7b1-4795-a8ee-b09cdb5b850e"
+      properties:
+        message:
+          description: "Summary of the rejection. When `failures` is present, it names\
+            \ the identifiers that blocked the request."
+          example: "Cannot label the requested UTXOs: not labellable in its current\
+            \ status: b70701f4-d7b1-4795-a8ee-b09cdb5b850e"
+          type: string
+        failures:
+          description: |-
+            Every identifier that blocked the request, each with its own reason.
+            Identifiers not listed were valid; resend them without the failed ones.
+            Absent when the request itself was invalid (e.g. a malformed label).
+          example:
+          - identifier:
+              txId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+            reason: NOT_LABELLABLE
+            utxoStatus: SPENT
+          items:
+            $ref: "#/components/schemas/UtxoLabelFailure"
+          type: array
+      required:
+      - message
       type: object
     LeiStatus:
       description: Approval status of a legal entity registration
@@ -93444,8 +95117,9 @@ components:
       description: Accept a DTCC end-investor onboarding offer. Carries no arguments.
       properties:
         responseType:
-          description: How you are answering the offer. Must be one of the values
-            currently listed in the transaction's `additionalInfo.cantonDetails.offerResponse.availableResponses`.
+          description: |-
+            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
+            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
           enum:
           - DTCC_END_INVESTOR_ONBOARDING_ACCEPT
           example: DTCC_END_INVESTOR_ONBOARDING_ACCEPT
@@ -93458,8 +95132,9 @@ components:
       description: Reject a DTCC end-investor onboarding offer.
       properties:
         responseType:
-          description: How you are answering the offer. Must be one of the values
-            currently listed in the transaction's `additionalInfo.cantonDetails.offerResponse.availableResponses`.
+          description: |-
+            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
+            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
           enum:
           - DTCC_END_INVESTOR_ONBOARDING_REJECT
           example: DTCC_END_INVESTOR_ONBOARDING_REJECT
@@ -93480,8 +95155,9 @@ components:
       description: Accept a Tradeweb co-signing delegation offer. Carries no arguments.
       properties:
         responseType:
-          description: How you are answering the offer. Must be one of the values
-            currently listed in the transaction's `additionalInfo.cantonDetails.offerResponse.availableResponses`.
+          description: |-
+            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
+            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
           enum:
           - TRADEWEB_COSIGNING_DELEGATION_ACCEPT
           example: TRADEWEB_COSIGNING_DELEGATION_ACCEPT
@@ -93495,8 +95171,9 @@ components:
         \ — the DAR has nowhere on-ledger to record a reason, so none is accepted."
       properties:
         responseType:
-          description: How you are answering the offer. Must be one of the values
-            currently listed in the transaction's `additionalInfo.cantonDetails.offerResponse.availableResponses`.
+          description: |-
+            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
+            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
           enum:
           - TRADEWEB_COSIGNING_DELEGATION_REJECT
           example: TRADEWEB_COSIGNING_DELEGATION_REJECT
@@ -93575,8 +95252,8 @@ components:
           description: Which offer domain this response belongs to. Selects the shape
             of `response`.
           enum:
-          - ALLOCATIONS
-          example: ALLOCATIONS
+          - ALLOCATION
+          example: ALLOCATION
           type: string
         response:
           $ref: "#/components/schemas/AllocationResponse"
@@ -93626,8 +95303,8 @@ components:
           description: Which offer domain this response belongs to. Selects the shape
             of `response`.
           enum:
-          - TRANSFERS
-          example: TRANSFERS
+          - TRANSFER
+          example: TRANSFER
           type: string
         response:
           $ref: "#/components/schemas/TransferResponse"
@@ -93639,8 +95316,8 @@ components:
       discriminator:
         mapping:
           ONBOARDING: "#/components/schemas/OfferResponseOnboarding"
-          ALLOCATIONS: "#/components/schemas/OfferResponseAllocation"
-          TRANSFERS: "#/components/schemas/OfferResponseTransfer"
+          ALLOCATION: "#/components/schemas/OfferResponseAllocation"
+          TRANSFER: "#/components/schemas/OfferResponseTransfer"
         propertyName: domain
       oneOf:
       - $ref: "#/components/schemas/OfferResponseOnboarding"
@@ -93692,10 +95369,6 @@ components:
           description: DTCC infra operator party id.
           example: dtcc-operator::1220abc…
           type: string
-        provider:
-          description: DTCC provider party id.
-          example: dtcc-provider::1220abc…
-          type: string
         compliance:
           description: DTCC compliance party id.
           example: dtcc-compliance::1220abc…
@@ -93708,13 +95381,19 @@ components:
           description: DTCC client onboarder party id — co-signs the accept.
           example: dtcc-onboarder::1220abc…
           type: string
+        upgrader:
+          description: "DTCC upgrader party id — the Model Upgrade Tool authority.\
+            \ Supplied by DTCC during the off-chain registration, alongside the other\
+            \ party ids."
+          example: dtcc-upgrader::1220abc…
+          type: string
       required:
       - asset
       - clientOnboarder
       - compliance
       - operator
-      - provider
       - registrar
+      - upgrader
       - vaultAccountId
       type: object
     CantonCallParticipantOnboarding:
@@ -93859,17 +95538,6 @@ components:
       type: object
     AllocationWithdrawPayload:
       properties:
-        vaultAccountId:
-          description: The vault account whose Canton wallet acts here.
-          example: "12"
-          type: string
-        asset:
-          description: Chain asset — `CANTON` or `CANTON_TEST`.
-          enum:
-          - CANTON
-          - CANTON_TEST
-          example: CANTON
-          type: string
         allocationTransactionId:
           description: The Fireblocks transaction id of the outgoing response that
             created the allocation. The allocation is resolved from it — Canton contract
@@ -93878,8 +95546,6 @@ components:
           type: string
       required:
       - allocationTransactionId
-      - asset
-      - vaultAccountId
       type: object
     CantonCallAllocationWithdraw:
       additionalProperties: false

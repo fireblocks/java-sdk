@@ -16,6 +16,8 @@ package com.fireblocks.sdk.api;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsRequest;
 import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsResponse;
+import com.fireblocks.sdk.model.AddressRegistryCreateProofOfOwnershipRequest;
+import com.fireblocks.sdk.model.AddressRegistryCreateProofOfOwnershipResponse;
 import com.fireblocks.sdk.model.AddressRegistryGetVaultOptOutResponse;
 import com.fireblocks.sdk.model.AddressRegistryLegalEntity;
 import com.fireblocks.sdk.model.AddressRegistryListVaultOptOutsResponse;
@@ -23,6 +25,8 @@ import com.fireblocks.sdk.model.AddressRegistryRemoveAllVaultOptOutsResponse;
 import com.fireblocks.sdk.model.AddressRegistryRemoveVaultOptOutResponse;
 import com.fireblocks.sdk.model.AddressRegistryTenantRegistryResponse;
 import com.fireblocks.sdk.model.AddressRegistryVaultListOrder;
+import com.fireblocks.sdk.model.AddressRegistryVerifyProofOfOwnershipRequest;
+import com.fireblocks.sdk.model.AddressRegistryVerifyProofOfOwnershipResponse;
 import com.fireblocks.sdk.model.AmlVerdictManualRequest;
 import com.fireblocks.sdk.model.AmlVerdictManualResponse;
 import com.fireblocks.sdk.model.ArsConfigResponse;
@@ -117,6 +121,27 @@ public class ComplianceApiTest {
         CompletableFuture<ApiResponse<AssignVaultsToLegalEntityResponse>> response =
                 api.assignVaultsToLegalEntity(
                         assignVaultsToLegalEntityRequest, legalEntityId, idempotencyKey);
+    }
+
+    /**
+     * Create a Proof of Ownership PDF for an address
+     *
+     * <p>Creates a Proof of Ownership PDF for a blockchain address owned by the authenticated
+     * workspace — for example, to share with a counterparty or bank as compliance evidence.
+     * Recipients can confirm it with &#x60;POST
+     * /v1/address_registry/proof_of_ownership_exports/verify&#x60;. Check
+     * &#x60;proofOfOwnershipAvailable&#x60; on &#x60;GET
+     * /v1/address_registry/legal_entities/{address}&#x60; first if you want to know whether create
+     * is likely to succeed.
+     */
+    @Test
+    public void createAddressRegistryProofOfOwnershipTest() {
+        AddressRegistryCreateProofOfOwnershipRequest addressRegistryCreateProofOfOwnershipRequest =
+                null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<AddressRegistryCreateProofOfOwnershipResponse>> response =
+                api.createAddressRegistryProofOfOwnership(
+                        addressRegistryCreateProofOfOwnershipRequest, idempotencyKey);
     }
 
     /**
@@ -614,5 +639,23 @@ public class ComplianceApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response =
                 api.updateTravelRuleConfig(idempotencyKey);
+    }
+
+    /**
+     * Verify a Proof of Ownership export
+     *
+     * <p>Verifies a Proof of Ownership export against the record Fireblocks stored at creation.
+     * Returns &#x60;valid: false&#x60; (not 404) for an unknown, expired, or mismatched export.
+     * Available to any authenticated Fireblocks workspace, not just the export&#39;s original
+     * owner.
+     */
+    @Test
+    public void verifyAddressRegistryProofOfOwnershipTest() {
+        AddressRegistryVerifyProofOfOwnershipRequest addressRegistryVerifyProofOfOwnershipRequest =
+                null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<AddressRegistryVerifyProofOfOwnershipResponse>> response =
+                api.verifyAddressRegistryProofOfOwnership(
+                        addressRegistryVerifyProofOfOwnershipRequest, idempotencyKey);
     }
 }

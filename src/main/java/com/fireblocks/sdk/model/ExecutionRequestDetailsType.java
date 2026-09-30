@@ -20,7 +20,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum ExecutionRequestDetailsType {
     QUOTE("QUOTE"),
 
-    MARKET("MARKET");
+    MARKET("MARKET"),
+
+    LIMIT("LIMIT");
 
     private String value;
 

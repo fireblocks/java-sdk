@@ -42,4 +42,10 @@ class RatesRequestTest {
     void quoteAssetIdTest() {
         // TODO: test quoteAssetId
     }
+
+    /** Test the property 'baseAmount' */
+    @Test
+    void baseAmountTest() {
+        // TODO: test baseAmount
+    }
 }

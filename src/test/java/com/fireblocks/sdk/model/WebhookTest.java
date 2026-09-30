@@ -67,10 +67,10 @@ class WebhookTest {
         // TODO: test updatedAt
     }
 
-    /** Test the property 'mtls' */
+    /** Test the property 'webhookMtlsId' */
     @Test
-    void mtlsTest() {
-        // TODO: test mtls
+    void webhookMtlsIdTest() {
+        // TODO: test webhookMtlsId
     }
 
     /** Test the property 'webhookOauthId' */

@@ -33,7 +33,7 @@ import java.util.StringJoiner;
 public class OfferResponseTransfer {
     /** Which offer domain this response belongs to. Selects the shape of &#x60;response&#x60;. */
     public enum DomainEnum {
-        TRANSFERS(String.valueOf("TRANSFERS"));
+        TRANSFER(String.valueOf("TRANSFER"));
 
         private String value;
 

@@ -119,6 +119,49 @@ public class Settlement extends AbstractOpenApiSchema {
                 log.log(Level.FINER, "Input data does not match schema 'DVPSettlement'", e);
             }
 
+            // deserialize PostTradeSettlement
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (PostTradeSettlement.class.equals(Integer.class)
+                        || PostTradeSettlement.class.equals(Long.class)
+                        || PostTradeSettlement.class.equals(Float.class)
+                        || PostTradeSettlement.class.equals(Double.class)
+                        || PostTradeSettlement.class.equals(Boolean.class)
+                        || PostTradeSettlement.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((PostTradeSettlement.class.equals(Integer.class)
+                                                || PostTradeSettlement.class.equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((PostTradeSettlement.class.equals(Float.class)
+                                                || PostTradeSettlement.class.equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (PostTradeSettlement.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (PostTradeSettlement.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized =
+                            tree.traverse(jp.getCodec()).readValueAs(PostTradeSettlement.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'PostTradeSettlement'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(Level.FINER, "Input data does not match schema 'PostTradeSettlement'", e);
+            }
+
             // deserialize PrefundedSettlement
             try {
                 boolean attemptParsing = true;
@@ -193,6 +236,11 @@ public class Settlement extends AbstractOpenApiSchema {
         setActualInstance(o);
     }
 
+    public Settlement(PostTradeSettlement o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
     public Settlement(PrefundedSettlement o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
@@ -200,13 +248,16 @@ public class Settlement extends AbstractOpenApiSchema {
 
     static {
         schemas.put("DVPSettlement", DVPSettlement.class);
+        schemas.put("PostTradeSettlement", PostTradeSettlement.class);
         schemas.put("PrefundedSettlement", PrefundedSettlement.class);
         JSON.registerDescendants(Settlement.class, Collections.unmodifiableMap(schemas));
         // Initialize and register the discriminator mappings.
         Map<String, Class<?>> mappings = new HashMap<String, Class<?>>();
         mappings.put("DVP", DVPSettlement.class);
+        mappings.put("POST_TRADE", PostTradeSettlement.class);
         mappings.put("PREFUNDED", PrefundedSettlement.class);
         mappings.put("DVPSettlement", DVPSettlement.class);
+        mappings.put("PostTradeSettlement", PostTradeSettlement.class);
         mappings.put("PrefundedSettlement", PrefundedSettlement.class);
         mappings.put("Settlement", Settlement.class);
         JSON.registerDiscriminator(Settlement.class, "type", mappings);
@@ -219,7 +270,7 @@ public class Settlement extends AbstractOpenApiSchema {
 
     /**
      * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: DVPSettlement, PrefundedSettlement
+     * against the oneOf child schemas: DVPSettlement, PostTradeSettlement, PrefundedSettlement
      *
      * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
      * a composed schema (allOf, anyOf, oneOf).
@@ -231,19 +282,26 @@ public class Settlement extends AbstractOpenApiSchema {
             return;
         }
 
+        if (JSON.isInstanceOf(PostTradeSettlement.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
         if (JSON.isInstanceOf(PrefundedSettlement.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
         throw new RuntimeException(
-                "Invalid instance type. Must be DVPSettlement, PrefundedSettlement");
+                "Invalid instance type. Must be DVPSettlement, PostTradeSettlement,"
+                        + " PrefundedSettlement");
     }
 
     /**
-     * Get the actual instance, which can be the following: DVPSettlement, PrefundedSettlement
+     * Get the actual instance, which can be the following: DVPSettlement, PostTradeSettlement,
+     * PrefundedSettlement
      *
-     * @return The actual instance (DVPSettlement, PrefundedSettlement)
+     * @return The actual instance (DVPSettlement, PostTradeSettlement, PrefundedSettlement)
      */
     @Override
     public Object getActualInstance() {
@@ -259,6 +317,17 @@ public class Settlement extends AbstractOpenApiSchema {
      */
     public DVPSettlement getDVPSettlement() throws ClassCastException {
         return (DVPSettlement) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `PostTradeSettlement`. If the actual instance is not
+     * `PostTradeSettlement`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `PostTradeSettlement`
+     * @throws ClassCastException if the instance is not `PostTradeSettlement`
+     */
+    public PostTradeSettlement getPostTradeSettlement() throws ClassCastException {
+        return (PostTradeSettlement) super.getActualInstance();
     }
 
     /**
@@ -317,6 +386,14 @@ public class Settlement extends AbstractOpenApiSchema {
                 joiner.add(
                         ((DVPSettlement) getActualInstance())
                                 .toUrlQueryString(prefix + "one_of_1" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof PostTradeSettlement) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((PostTradeSettlement) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_2" + suffix));
             }
             return joiner.toString();
         }

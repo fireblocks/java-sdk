@@ -73,10 +73,10 @@ class WebhookOauthCredentialsTest {
         // TODO: test customHeaders
     }
 
-    /** Test the property 'mtlsClientSignedCert' */
+    /** Test the property 'webhookMtlsId' */
     @Test
-    void mtlsClientSignedCertTest() {
-        // TODO: test mtlsClientSignedCert
+    void webhookMtlsIdTest() {
+        // TODO: test webhookMtlsId
     }
 
     /** Test the property 'createdAt' */

@@ -14,8 +14,10 @@ package com.fireblocks.sdk.api;
 
 
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.CreateWebhookMtlsConfigRequest;
 import com.fireblocks.sdk.model.CreateWebhookOauthRequest;
 import com.fireblocks.sdk.model.CreateWebhookRequest;
+import com.fireblocks.sdk.model.DeleteWebhookMtlsConfigResponse;
 import com.fireblocks.sdk.model.DeleteWebhookOauthResponse;
 import com.fireblocks.sdk.model.NotificationAttemptsPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationPaginatedResponse;
@@ -27,11 +29,13 @@ import com.fireblocks.sdk.model.ResendFailedNotificationsJobStatusResponse;
 import com.fireblocks.sdk.model.ResendFailedNotificationsRequest;
 import com.fireblocks.sdk.model.ResendFailedNotificationsResponse;
 import com.fireblocks.sdk.model.ResendNotificationsByResourceIdRequest;
+import com.fireblocks.sdk.model.UpdateWebhookMtlsConfigRequest;
 import com.fireblocks.sdk.model.UpdateWebhookOauthRequest;
 import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
 import com.fireblocks.sdk.model.WebhookEvent;
 import com.fireblocks.sdk.model.WebhookMetric;
+import com.fireblocks.sdk.model.WebhookMtlsConfig;
 import com.fireblocks.sdk.model.WebhookMtlsCsrResponse;
 import com.fireblocks.sdk.model.WebhookOauthCredentials;
 import com.fireblocks.sdk.model.WebhookPaginatedResponse;
@@ -63,6 +67,26 @@ public class WebhooksV2ApiTest {
     }
 
     /**
+     * Create an mTLS configuration
+     *
+     * <p>Stores a certificate signed against the CSR from &#x60;GET
+     * /v1/webhooks_settings/mtls_csr&#x60; and returns its id, which is then set as
+     * &#x60;webhookMtlsId&#x60; on a webhook or on OAuth credentials. The private key the
+     * certificate was issued for is derived from the certificate, so it is never named by the
+     * caller. Re-uploading a certificate already stored returns the existing id rather than
+     * creating a second configuration, so several webhooks and OAuth credentials can share one
+     * certificate. A certificate that was not issued for a private key this workspace holds is
+     * rejected with a &#x60;400&#x60;. **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+     */
+    @Test
+    public void createWebhookMtlsConfigTest() {
+        CreateWebhookMtlsConfigRequest createWebhookMtlsConfigRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<WebhookMtlsConfig>> response =
+                api.createWebhookMtlsConfig(createWebhookMtlsConfigRequest, idempotencyKey);
+    }
+
+    /**
      * Create OAuth credentials
      *
      * <p>Creates a reusable OAuth client credential set. Attach it to a webhook by passing the
@@ -88,6 +112,31 @@ public class WebhooksV2ApiTest {
     public void deleteWebhookTest() {
         UUID webhookId = null;
         CompletableFuture<ApiResponse<Webhook>> response = api.deleteWebhook(webhookId);
+    }
+
+    /**
+     * Delete an mTLS configuration
+     *
+     * <p>Deletes an mTLS configuration. By default the delete is refused while the configuration is
+     * still in use: if any webhook or OAuth credentials reference it, nothing is deleted and the
+     * request fails with &#x60;409 Conflict&#x60;, naming the reason and listing the ids of what
+     * references it. This protects a shared configuration from being removed out from under the
+     * webhooks and token requests that depend on it. Pass &#x60;forceDelete&#x3D;true&#x60; to
+     * delete anyway. That detaches everything referencing it — it clears &#x60;webhookMtlsId&#x60;
+     * on each webhook and OAuth credentials, it does **not** delete them — then deletes the
+     * configuration and returns the deleted resource together with &#x60;detachedWebhookIds&#x60;
+     * and &#x60;detachedWebhookOauthIds&#x60;. Detached webhooks keep delivering notifications, and
+     * detached OAuth credentials keep requesting tokens, but without a client certificate, so an
+     * endpoint that requires mTLS will reject them from that point on. When nothing references the
+     * configuration the delete succeeds either way, and both lists come back empty. **Endpoint
+     * Permissions:** Owner, Admin, Non-Signing Admin.
+     */
+    @Test
+    public void deleteWebhookMtlsConfigTest() {
+        UUID webhookMtlsId = null;
+        Boolean forceDelete = null;
+        CompletableFuture<ApiResponse<DeleteWebhookMtlsConfigResponse>> response =
+                api.deleteWebhookMtlsConfig(webhookMtlsId, forceDelete);
     }
 
     /**
@@ -244,6 +293,32 @@ public class WebhooksV2ApiTest {
     }
 
     /**
+     * Get an mTLS configuration by id
+     *
+     * <p>Retrieve one stored mTLS configuration by its id.
+     */
+    @Test
+    public void getWebhookMtlsConfigTest() {
+        UUID webhookMtlsId = null;
+        CompletableFuture<ApiResponse<WebhookMtlsConfig>> response =
+                api.getWebhookMtlsConfig(webhookMtlsId);
+    }
+
+    /**
+     * List the uploaded mTLS configurations
+     *
+     * <p>Lists the workspace&#39;s mTLS configurations, newest first. Pass &#x60;ids&#x60; to ask
+     * about particular ones instead — useful for resolving the &#x60;webhookMtlsId&#x60; values on
+     * a set of webhooks in one call.
+     */
+    @Test
+    public void getWebhookMtlsConfigsTest() {
+        List<UUID> ids = null;
+        CompletableFuture<ApiResponse<List<WebhookMtlsConfig>>> response =
+                api.getWebhookMtlsConfigs(ids);
+    }
+
+    /**
      * Get OAuth credentials by id
      *
      * <p>Retrieve an OAuth credential set by its id. The client secret is never returned.
@@ -358,6 +433,26 @@ public class WebhooksV2ApiTest {
     }
 
     /**
+     * Update an mTLS configuration
+     *
+     * <p>Renames a configuration, replaces its certificate, or both. Only the fields present in the
+     * request are changed; anything omitted is left as it is, and a request with neither field is
+     * rejected with a &#x60;400&#x60;. Replacing &#x60;signedCert&#x60; switches every webhook and
+     * OAuth credentials set using this configuration over to the new certificate in one write, and
+     * the private key it was issued for is re-derived from the certificate. A replacement that was
+     * not issued for a private key this workspace holds is rejected with a &#x60;400&#x60;. Sending
+     * &#x60;name: null&#x60; removes the label. **Endpoint Permissions:** Owner, Admin, Non-Signing
+     * Admin.
+     */
+    @Test
+    public void updateWebhookMtlsConfigTest() {
+        UpdateWebhookMtlsConfigRequest updateWebhookMtlsConfigRequest = null;
+        UUID webhookMtlsId = null;
+        CompletableFuture<ApiResponse<WebhookMtlsConfig>> response =
+                api.updateWebhookMtlsConfig(updateWebhookMtlsConfigRequest, webhookMtlsId);
+    }
+
+    /**
      * Update OAuth credentials
      *
      * <p>Updates only the fields present in the request; anything omitted is left as it is. Sending
@@ -370,7 +465,7 @@ public class WebhooksV2ApiTest {
      * quick way to empty it without naming every key. There is no ambiguity between the two uses of
      * &#x60;null&#x60; — one names an entry to delete, the other names the field. A claim cannot be
      * set to JSON &#x60;null&#x60;, though, on this endpoint or on create, because &#x60;null&#x60;
-     * is spent on deletion. &#x60;mtlsClientSignedCert&#x60; is a scalar rather than a map, so
+     * is spent on deletion. &#x60;webhookMtlsId&#x60; is a scalar rather than a map, so
      * &#x60;null&#x60; there does remove it. **Endpoint Permissions:** Owner, Admin, Non-Signing
      * Admin.
      */

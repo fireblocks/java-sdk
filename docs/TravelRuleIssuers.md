@@ -9,9 +9,9 @@
 |------------ | ------------- | ------------- | -------------|
 |**yearFounded** | [**TravelRuleIssuer**](TravelRuleIssuer.md) |  |  |
 |**isRegulated** | [**TravelRuleIssuer**](TravelRuleIssuer.md) |  |  |
-|**regulatoryAuthorities** | [**TravelRuleIssuer**](TravelRuleIssuer.md) |  |  |
+|**regulatoryAuthorities** | [**TravelRuleIssuer**](TravelRuleIssuer.md) |  |  [optional] |
 |**name** | [**TravelRuleIssuer**](TravelRuleIssuer.md) |  |  |
-|**logo** | [**TravelRuleIssuer**](TravelRuleIssuer.md) |  |  |
+|**logo** | [**TravelRuleIssuer**](TravelRuleIssuer.md) |  |  [optional] |
 |**website** | [**TravelRuleIssuer**](TravelRuleIssuer.md) |  |  |
 |**legalName** | [**TravelRuleIssuer**](TravelRuleIssuer.md) |  |  |
 |**legalStructure** | [**TravelRuleIssuer**](TravelRuleIssuer.md) |  |  |
@@ -20,7 +20,7 @@
 |**addressLine1** | [**TravelRuleIssuer**](TravelRuleIssuer.md) |  |  |
 |**city** | [**TravelRuleIssuer**](TravelRuleIssuer.md) |  |  |
 |**country** | [**TravelRuleIssuer**](TravelRuleIssuer.md) |  |  |
-|**description** | [**TravelRuleIssuer**](TravelRuleIssuer.md) |  |  |
+|**description** | [**TravelRuleIssuer**](TravelRuleIssuer.md) |  |  [optional] |
 
 
 

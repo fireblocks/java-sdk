@@ -80,6 +80,57 @@ public class ExecutionResponseDetails extends AbstractOpenApiSchema {
             boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
             int match = 0;
             JsonToken token = tree.traverse(jp.getCodec()).nextToken();
+            // deserialize LimitExecutionResponseDetails
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (LimitExecutionResponseDetails.class.equals(Integer.class)
+                        || LimitExecutionResponseDetails.class.equals(Long.class)
+                        || LimitExecutionResponseDetails.class.equals(Float.class)
+                        || LimitExecutionResponseDetails.class.equals(Double.class)
+                        || LimitExecutionResponseDetails.class.equals(Boolean.class)
+                        || LimitExecutionResponseDetails.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((LimitExecutionResponseDetails.class.equals(Integer.class)
+                                                || LimitExecutionResponseDetails.class.equals(
+                                                        Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((LimitExecutionResponseDetails.class.equals(Float.class)
+                                                || LimitExecutionResponseDetails.class.equals(
+                                                        Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (LimitExecutionResponseDetails.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (LimitExecutionResponseDetails.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized =
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(LimitExecutionResponseDetails.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(
+                            Level.FINER,
+                            "Input data matches schema 'LimitExecutionResponseDetails'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(
+                        Level.FINER,
+                        "Input data does not match schema 'LimitExecutionResponseDetails'",
+                        e);
+            }
+
             // deserialize MarketExecutionResponseDetails
             try {
                 boolean attemptParsing = true;
@@ -213,6 +264,11 @@ public class ExecutionResponseDetails extends AbstractOpenApiSchema {
         super("oneOf", Boolean.FALSE);
     }
 
+    public ExecutionResponseDetails(LimitExecutionResponseDetails o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
     public ExecutionResponseDetails(MarketExecutionResponseDetails o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
@@ -224,6 +280,7 @@ public class ExecutionResponseDetails extends AbstractOpenApiSchema {
     }
 
     static {
+        schemas.put("LimitExecutionResponseDetails", LimitExecutionResponseDetails.class);
         schemas.put("MarketExecutionResponseDetails", MarketExecutionResponseDetails.class);
         schemas.put(
                 "QuoteExecutionWithRequoteResponseDetails",
@@ -232,8 +289,10 @@ public class ExecutionResponseDetails extends AbstractOpenApiSchema {
                 ExecutionResponseDetails.class, Collections.unmodifiableMap(schemas));
         // Initialize and register the discriminator mappings.
         Map<String, Class<?>> mappings = new HashMap<String, Class<?>>();
+        mappings.put("LIMIT", LimitExecutionResponseDetails.class);
         mappings.put("MARKET", MarketExecutionResponseDetails.class);
         mappings.put("QUOTE", QuoteExecutionWithRequoteResponseDetails.class);
+        mappings.put("LimitExecutionResponseDetails", LimitExecutionResponseDetails.class);
         mappings.put("MarketExecutionResponseDetails", MarketExecutionResponseDetails.class);
         mappings.put(
                 "QuoteExecutionWithRequoteResponseDetails",
@@ -249,14 +308,20 @@ public class ExecutionResponseDetails extends AbstractOpenApiSchema {
 
     /**
      * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: MarketExecutionResponseDetails,
-     * QuoteExecutionWithRequoteResponseDetails
+     * against the oneOf child schemas: LimitExecutionResponseDetails,
+     * MarketExecutionResponseDetails, QuoteExecutionWithRequoteResponseDetails
      *
      * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
      * a composed schema (allOf, anyOf, oneOf).
      */
     @Override
     public void setActualInstance(Object instance) {
+        if (JSON.isInstanceOf(
+                LimitExecutionResponseDetails.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
         if (JSON.isInstanceOf(
                 MarketExecutionResponseDetails.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
@@ -272,20 +337,32 @@ public class ExecutionResponseDetails extends AbstractOpenApiSchema {
         }
 
         throw new RuntimeException(
-                "Invalid instance type. Must be MarketExecutionResponseDetails,"
-                        + " QuoteExecutionWithRequoteResponseDetails");
+                "Invalid instance type. Must be LimitExecutionResponseDetails,"
+                    + " MarketExecutionResponseDetails, QuoteExecutionWithRequoteResponseDetails");
     }
 
     /**
-     * Get the actual instance, which can be the following: MarketExecutionResponseDetails,
-     * QuoteExecutionWithRequoteResponseDetails
+     * Get the actual instance, which can be the following: LimitExecutionResponseDetails,
+     * MarketExecutionResponseDetails, QuoteExecutionWithRequoteResponseDetails
      *
-     * @return The actual instance (MarketExecutionResponseDetails,
+     * @return The actual instance (LimitExecutionResponseDetails, MarketExecutionResponseDetails,
      *     QuoteExecutionWithRequoteResponseDetails)
      */
     @Override
     public Object getActualInstance() {
         return super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `LimitExecutionResponseDetails`. If the actual instance is not
+     * `LimitExecutionResponseDetails`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `LimitExecutionResponseDetails`
+     * @throws ClassCastException if the instance is not `LimitExecutionResponseDetails`
+     */
+    public LimitExecutionResponseDetails getLimitExecutionResponseDetails()
+            throws ClassCastException {
+        return (LimitExecutionResponseDetails) super.getActualInstance();
     }
 
     /**
@@ -357,6 +434,14 @@ public class ExecutionResponseDetails extends AbstractOpenApiSchema {
                 joiner.add(
                         ((QuoteExecutionWithRequoteResponseDetails) getActualInstance())
                                 .toUrlQueryString(prefix + "one_of_1" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof LimitExecutionResponseDetails) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((LimitExecutionResponseDetails) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_2" + suffix));
             }
             return joiner.toString();
         }

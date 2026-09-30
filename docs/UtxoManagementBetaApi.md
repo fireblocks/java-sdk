@@ -4,9 +4,86 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
+| [**getUtxoSelectionConfig**](UtxoManagementBetaApi.md#getUtxoSelectionConfig) | **GET** /utxo_management/selection_config | Get UTXO selection config |
 | [**getUtxos**](UtxoManagementBetaApi.md#getUtxos) | **GET** /utxo_management/{vaultAccountId}/{assetId}/unspent_outputs | List unspent outputs (UTXOs) |
+| [**getVaultAssetUtxoSelectionConfig**](UtxoManagementBetaApi.md#getVaultAssetUtxoSelectionConfig) | **GET** /utxo_management/{vaultAccountId}/{assetId}/selection_config | Get vault and asset UTXO selection config |
 | [**updateUtxoLabels**](UtxoManagementBetaApi.md#updateUtxoLabels) | **PATCH** /utxo_management/{vaultAccountId}/{assetId}/labels | Attach or detach labels to/from UTXOs |
+| [**upsertUtxoSelectionConfig**](UtxoManagementBetaApi.md#upsertUtxoSelectionConfig) | **PUT** /utxo_management/selection_config | Upsert UTXO selection config |
+| [**upsertVaultAssetUtxoSelectionConfig**](UtxoManagementBetaApi.md#upsertVaultAssetUtxoSelectionConfig) | **PUT** /utxo_management/{vaultAccountId}/{assetId}/selection_config | Upsert vault and asset UTXO selection config |
 
+
+
+## getUtxoSelectionConfig
+
+> CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> getUtxoSelectionConfig getUtxoSelectionConfig()
+
+Get UTXO selection config
+
+Returns the workspace-level configured selection strategy and the effective strategy after runtime resolution. &#x60;ADAPTIVE&#x60; is the recommended strategy. When no row is stored (source &#x60;DEFAULT&#x60;), &#x60;effective&#x60; is &#x60;ADAPTIVE&#x60; if adaptive selection is serving for this workspace, otherwise &#x60;ASC&#x60;. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.UtxoManagementBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        try {
+            CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response = fireblocks.utxoManagementBeta().getUtxoSelectionConfig();
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling UtxoManagementBetaApi#getUtxoSelectionConfig");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+CompletableFuture<ApiResponse<[**UtxoSelectionConfigResponse**](UtxoSelectionConfigResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Current UTXO selection config |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
 ## getUtxos
@@ -114,13 +191,92 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getVaultAssetUtxoSelectionConfig
+
+> CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> getVaultAssetUtxoSelectionConfig getVaultAssetUtxoSelectionConfig(vaultAccountId, assetId)
+
+Get vault and asset UTXO selection config
+
+Returns the config stored at this vault-and-asset scope, if any, and the effective strategy after workspace fallback and runtime resolution. &#x60;ADAPTIVE&#x60; is the recommended strategy. When no row is stored at this scope and none is inherited from the workspace (source &#x60;DEFAULT&#x60;), &#x60;effective&#x60; is &#x60;ADAPTIVE&#x60; if adaptive selection is serving for this scope, otherwise &#x60;ASC&#x60;. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.UtxoManagementBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account.
+        String assetId = "assetId_example"; // String | The ID of the asset
+        try {
+            CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response = fireblocks.utxoManagementBeta().getVaultAssetUtxoSelectionConfig(vaultAccountId, assetId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling UtxoManagementBetaApi#getVaultAssetUtxoSelectionConfig");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **vaultAccountId** | **String**| The ID of the vault account. | |
+| **assetId** | **String**| The ID of the asset | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**UtxoSelectionConfigResponse**](UtxoSelectionConfigResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Current UTXO selection config |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## updateUtxoLabels
 
 > CompletableFuture<ApiResponse<AttachDetachUtxoLabelsResponse>> updateUtxoLabels updateUtxoLabels(attachDetachUtxoLabelsRequest, vaultAccountId, assetId, idempotencyKey)
 
 Attach or detach labels to/from UTXOs
 
-Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs. Labels are applied additively — &#x60;labelsToAttach&#x60; adds to the existing label set and &#x60;labelsToDetach&#x60; removes from it. Neither operation replaces the full set. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs.  Labels are applied additively — &#x60;labelsToAttach&#x60; adds to the existing label set and &#x60;labelsToDetach&#x60; removes from it. Neither operation replaces the full set.  The request is all-or-nothing: if any identifier cannot be labelled, no UTXO is labelled and the request fails with &#x60;400&#x60;. The response lists every failed identifier in &#x60;failures&#x60;, each with its own &#x60;reason&#x60; — use it, not the status, to decide what to do: - &#x60;NOT_FOUND&#x60; — not found in this vault and asset. - &#x60;NOT_LABELLABLE&#x60; — spent, or removed, and can no longer be labelled.  A UTXO removed within the last hour is reported as &#x60;NOT_FOUND&#x60; with &#x60;utxoStatus: REMOVED&#x60;; if it does not reappear, it becomes &#x60;NOT_LABELLABLE&#x60; after about an hour. A &#x60;400&#x60; without &#x60;failures&#x60; means the request itself is malformed.  **Note:** These endpoints are currently in beta and might be subject to changes.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -194,5 +350,168 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | UTXOs with updated labels |  * X-Request-ID -  <br>  |
+| **400** | Some identifiers could not be labelled (listed in &#x60;failures&#x60;), or the request is malformed. No UTXO was labelled. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## upsertUtxoSelectionConfig
+
+> CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> upsertUtxoSelectionConfig upsertUtxoSelectionConfig(upsertUtxoSelectionConfigRequest, idempotencyKey)
+
+Upsert UTXO selection config
+
+Creates or updates the workspace-level UTXO selection strategy. &#x60;ADAPTIVE&#x60; is recommended. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.UtxoManagementBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UpsertUtxoSelectionConfigRequest upsertUtxoSelectionConfigRequest = new UpsertUtxoSelectionConfigRequest(); // UpsertUtxoSelectionConfigRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response = fireblocks.utxoManagementBeta().upsertUtxoSelectionConfig(upsertUtxoSelectionConfigRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling UtxoManagementBetaApi#upsertUtxoSelectionConfig");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **upsertUtxoSelectionConfigRequest** | [**UpsertUtxoSelectionConfigRequest**](UpsertUtxoSelectionConfigRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**UtxoSelectionConfigResponse**](UtxoSelectionConfigResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Updated UTXO selection config |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## upsertVaultAssetUtxoSelectionConfig
+
+> CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> upsertVaultAssetUtxoSelectionConfig upsertVaultAssetUtxoSelectionConfig(upsertUtxoSelectionConfigRequest, vaultAccountId, assetId, idempotencyKey)
+
+Upsert vault and asset UTXO selection config
+
+Creates or updates the UTXO selection strategy for this vault account and asset. &#x60;ADAPTIVE&#x60; is recommended. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.UtxoManagementBetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UpsertUtxoSelectionConfigRequest upsertUtxoSelectionConfigRequest = new UpsertUtxoSelectionConfigRequest(); // UpsertUtxoSelectionConfigRequest | 
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account.
+        String assetId = "assetId_example"; // String | The ID of the asset
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response = fireblocks.utxoManagementBeta().upsertVaultAssetUtxoSelectionConfig(upsertUtxoSelectionConfigRequest, vaultAccountId, assetId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling UtxoManagementBetaApi#upsertVaultAssetUtxoSelectionConfig");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **upsertUtxoSelectionConfigRequest** | [**UpsertUtxoSelectionConfigRequest**](UpsertUtxoSelectionConfigRequest.md)|  | |
+| **vaultAccountId** | **String**| The ID of the vault account. | |
+| **assetId** | **String**| The ID of the asset | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**UtxoSelectionConfigResponse**](UtxoSelectionConfigResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Updated UTXO selection config |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 

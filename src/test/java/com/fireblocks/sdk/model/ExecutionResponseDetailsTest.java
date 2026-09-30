@@ -84,4 +84,16 @@ class ExecutionResponseDetailsTest {
     void reQuoteTest() {
         // TODO: test reQuote
     }
+
+    /** Test the property 'price' */
+    @Test
+    void priceTest() {
+        // TODO: test price
+    }
+
+    /** Test the property 'timeInForce' */
+    @Test
+    void timeInForceTest() {
+        // TODO: test timeInForce
+    }
 }

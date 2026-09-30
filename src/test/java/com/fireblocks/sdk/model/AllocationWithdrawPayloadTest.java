@@ -25,18 +25,6 @@ class AllocationWithdrawPayloadTest {
         // TODO: test AllocationWithdrawPayload
     }
 
-    /** Test the property 'vaultAccountId' */
-    @Test
-    void vaultAccountIdTest() {
-        // TODO: test vaultAccountId
-    }
-
-    /** Test the property 'asset' */
-    @Test
-    void assetTest() {
-        // TODO: test asset
-    }
-
     /** Test the property 'allocationTransactionId' */
     @Test
     void allocationTransactionIdTest() {

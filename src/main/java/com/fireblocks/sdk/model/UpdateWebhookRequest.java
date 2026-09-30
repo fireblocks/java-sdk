@@ -31,7 +31,7 @@ import java.util.UUID;
     UpdateWebhookRequest.JSON_PROPERTY_DESCRIPTION,
     UpdateWebhookRequest.JSON_PROPERTY_EVENTS,
     UpdateWebhookRequest.JSON_PROPERTY_ENABLED,
-    UpdateWebhookRequest.JSON_PROPERTY_MTLS,
+    UpdateWebhookRequest.JSON_PROPERTY_WEBHOOK_MTLS_ID,
     UpdateWebhookRequest.JSON_PROPERTY_WEBHOOK_OAUTH_ID,
     UpdateWebhookRequest.JSON_PROPERTY_CUSTOM_HEADERS
 })
@@ -51,8 +51,8 @@ public class UpdateWebhookRequest {
     public static final String JSON_PROPERTY_ENABLED = "enabled";
     @jakarta.annotation.Nullable private Boolean enabled;
 
-    public static final String JSON_PROPERTY_MTLS = "mtls";
-    @jakarta.annotation.Nullable private WebhookMtls mtls;
+    public static final String JSON_PROPERTY_WEBHOOK_MTLS_ID = "webhookMtlsId";
+    @jakarta.annotation.Nullable private UUID webhookMtlsId;
 
     public static final String JSON_PROPERTY_WEBHOOK_OAUTH_ID = "webhookOauthId";
     @jakarta.annotation.Nullable private UUID webhookOauthId;
@@ -162,27 +162,30 @@ public class UpdateWebhookRequest {
         this.enabled = enabled;
     }
 
-    public UpdateWebhookRequest mtls(@jakarta.annotation.Nullable WebhookMtls mtls) {
-        this.mtls = mtls;
+    public UpdateWebhookRequest webhookMtlsId(@jakarta.annotation.Nullable UUID webhookMtlsId) {
+        this.webhookMtlsId = webhookMtlsId;
         return this;
     }
 
     /**
-     * Get mtls
+     * The id of the mTLS configuration this webhook presents when delivering, from
+     * &#x60;/v1/webhooks_settings/mtls&#x60;. Several webhooks may share one configuration, so
+     * replacing its certificate covers all of them at once. Send &#x60;null&#x60; to stop using
+     * mTLS for this webhook.
      *
-     * @return mtls
+     * @return webhookMtlsId
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_MTLS)
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_MTLS_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public WebhookMtls getMtls() {
-        return mtls;
+    public UUID getWebhookMtlsId() {
+        return webhookMtlsId;
     }
 
-    @JsonProperty(JSON_PROPERTY_MTLS)
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_MTLS_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMtls(@jakarta.annotation.Nullable WebhookMtls mtls) {
-        this.mtls = mtls;
+    public void setWebhookMtlsId(@jakarta.annotation.Nullable UUID webhookMtlsId) {
+        this.webhookMtlsId = webhookMtlsId;
     }
 
     public UpdateWebhookRequest webhookOauthId(@jakarta.annotation.Nullable UUID webhookOauthId) {
@@ -269,14 +272,15 @@ public class UpdateWebhookRequest {
                 && Objects.equals(this.description, updateWebhookRequest.description)
                 && Objects.equals(this.events, updateWebhookRequest.events)
                 && Objects.equals(this.enabled, updateWebhookRequest.enabled)
-                && Objects.equals(this.mtls, updateWebhookRequest.mtls)
+                && Objects.equals(this.webhookMtlsId, updateWebhookRequest.webhookMtlsId)
                 && Objects.equals(this.webhookOauthId, updateWebhookRequest.webhookOauthId)
                 && Objects.equals(this.customHeaders, updateWebhookRequest.customHeaders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(url, description, events, enabled, mtls, webhookOauthId, customHeaders);
+        return Objects.hash(
+                url, description, events, enabled, webhookMtlsId, webhookOauthId, customHeaders);
     }
 
     @Override
@@ -287,7 +291,7 @@ public class UpdateWebhookRequest {
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    events: ").append(toIndentedString(events)).append("\n");
         sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
-        sb.append("    mtls: ").append(toIndentedString(mtls)).append("\n");
+        sb.append("    webhookMtlsId: ").append(toIndentedString(webhookMtlsId)).append("\n");
         sb.append("    webhookOauthId: ").append(toIndentedString(webhookOauthId)).append("\n");
         sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
         sb.append("}");
@@ -386,9 +390,14 @@ public class UpdateWebhookRequest {
                             ApiClient.urlEncode(ApiClient.valueToString(getEnabled()))));
         }
 
-        // add `mtls` to the URL query string
-        if (getMtls() != null) {
-            joiner.add(getMtls().toUrlQueryString(prefix + "mtls" + suffix));
+        // add `webhookMtlsId` to the URL query string
+        if (getWebhookMtlsId() != null) {
+            joiner.add(
+                    String.format(
+                            "%swebhookMtlsId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getWebhookMtlsId()))));
         }
 
         // add `webhookOauthId` to the URL query string

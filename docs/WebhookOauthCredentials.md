@@ -16,7 +16,7 @@ A stored OAuth 2.0 client credential set, referenced by webhooks through their `
 |**customJwtClaims** | **List&lt;String&gt;** | Names of the additional claims placed in the JWT assertion. Claim values are write-only and are never returned. Absent when no custom claims are configured. |  [optional] |
 |**customBodyParams** | **List&lt;String&gt;** | Names of the additional parameters added to the token request body. Parameter values are write-only and are never returned. Absent when no custom parameters are configured. |  [optional] |
 |**customHeaders** | **List&lt;String&gt;** | Names of the additional HTTP headers added to **the token request sent to the authorization server** — not to the webhook delivery, which has its own separate &#x60;customHeaders&#x60;. Header values are write-only and are never returned. Absent when no custom headers are configured. |  [optional] |
-|**mtlsClientSignedCert** | **String** | PEM-encoded client certificate used for mTLS when fetching OAuth tokens. |  [optional] |
+|**webhookMtlsId** | **UUID** | The id of the mTLS configuration presented to the token endpoint. Absent when the token request does not use mTLS. Read the certificate from &#x60;/v1/webhooks_settings/mtls/{id}&#x60;. |  [optional] |
 |**createdAt** | **Long** | The date and time the OAuth credentials were created, in milliseconds. |  |
 |**updatedAt** | **Long** | The date and time the OAuth credentials were last updated, in milliseconds. |  |
 

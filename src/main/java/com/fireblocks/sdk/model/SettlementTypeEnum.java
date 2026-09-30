@@ -20,7 +20,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum SettlementTypeEnum {
     DVP("DVP"),
 
-    PREFUNDED("PREFUNDED");
+    PREFUNDED("PREFUNDED"),
+
+    POST_TRADE("POST_TRADE");
 
     private String value;
 

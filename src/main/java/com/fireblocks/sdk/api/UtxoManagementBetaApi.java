@@ -23,6 +23,8 @@ import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.AttachDetachUtxoLabelsRequest;
 import com.fireblocks.sdk.model.AttachDetachUtxoLabelsResponse;
 import com.fireblocks.sdk.model.ListUtxosResponse;
+import com.fireblocks.sdk.model.UpsertUtxoSelectionConfigRequest;
+import com.fireblocks.sdk.model.UtxoSelectionConfigResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -102,6 +104,82 @@ public class UtxoManagementBetaApi {
         return operationId + " call failed with: " + statusCode + " - " + body;
     }
 
+    /**
+     * Get UTXO selection config Returns the workspace-level configured selection strategy and the
+     * effective strategy after runtime resolution. &#x60;ADAPTIVE&#x60; is the recommended
+     * strategy. When no row is stored (source &#x60;DEFAULT&#x60;), &#x60;effective&#x60; is
+     * &#x60;ADAPTIVE&#x60; if adaptive selection is serving for this workspace, otherwise
+     * &#x60;ASC&#x60;. **Note:** These endpoints are currently in beta and might be subject to
+     * changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     *
+     * @return CompletableFuture&lt;ApiResponse&lt;UtxoSelectionConfigResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> getUtxoSelectionConfig() {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = getUtxoSelectionConfigRequestBuilder();
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getUtxoSelectionConfig", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<UtxoSelectionConfigResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            UtxoSelectionConfigResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<UtxoSelectionConfigResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getUtxoSelectionConfigRequestBuilder() throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/utxo_management/selection_config";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
     /**
      * List unspent outputs (UTXOs) Returns a paginated list of unspent transaction outputs (UTXOs)
      * for a UTXO-based asset in a vault account, with optional filters for labels, statuses,
@@ -287,12 +365,110 @@ public class UtxoManagementBetaApi {
         return localVarRequestBuilder;
     }
     /**
+     * Get vault and asset UTXO selection config Returns the config stored at this vault-and-asset
+     * scope, if any, and the effective strategy after workspace fallback and runtime resolution.
+     * &#x60;ADAPTIVE&#x60; is the recommended strategy. When no row is stored at this scope and
+     * none is inherited from the workspace (source &#x60;DEFAULT&#x60;), &#x60;effective&#x60; is
+     * &#x60;ADAPTIVE&#x60; if adaptive selection is serving for this scope, otherwise
+     * &#x60;ASC&#x60;. **Note:** These endpoints are currently in beta and might be subject to
+     * changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     *
+     * @param vaultAccountId The ID of the vault account. (required)
+     * @param assetId The ID of the asset (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;UtxoSelectionConfigResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>>
+            getVaultAssetUtxoSelectionConfig(String vaultAccountId, String assetId) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getVaultAssetUtxoSelectionConfigRequestBuilder(vaultAccountId, assetId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getVaultAssetUtxoSelectionConfig",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<UtxoSelectionConfigResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            UtxoSelectionConfigResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<UtxoSelectionConfigResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getVaultAssetUtxoSelectionConfigRequestBuilder(
+            String vaultAccountId, String assetId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getVaultAssetUtxoSelectionConfig", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getVaultAssetUtxoSelectionConfig", "assetId", assetId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/utxo_management/{vaultAccountId}/{assetId}/selection_config"
+                        .replace("{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()))
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Attach or detach labels to/from UTXOs Attach or detach labels to/from UTXOs in a vault
      * account. Labels can be used for organizing and filtering UTXOs. Labels are applied additively
      * — &#x60;labelsToAttach&#x60; adds to the existing label set and &#x60;labelsToDetach&#x60;
-     * removes from it. Neither operation replaces the full set. **Note:** These endpoints are
-     * currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver, Editor.
+     * removes from it. Neither operation replaces the full set. The request is all-or-nothing: if
+     * any identifier cannot be labelled, no UTXO is labelled and the request fails with
+     * &#x60;400&#x60;. The response lists every failed identifier in &#x60;failures&#x60;, each
+     * with its own &#x60;reason&#x60; — use it, not the status, to decide what to do: -
+     * &#x60;NOT_FOUND&#x60; — not found in this vault and asset. - &#x60;NOT_LABELLABLE&#x60; —
+     * spent, or removed, and can no longer be labelled. A UTXO removed within the last hour is
+     * reported as &#x60;NOT_FOUND&#x60; with &#x60;utxoStatus: REMOVED&#x60;; if it does not
+     * reappear, it becomes &#x60;NOT_LABELLABLE&#x60; after about an hour. A &#x60;400&#x60;
+     * without &#x60;failures&#x60; means the request itself is malformed. **Note:** These endpoints
+     * are currently in beta and might be subject to changes. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param attachDetachUtxoLabelsRequest (required)
      * @param vaultAccountId The ID of the vault account (required)
@@ -386,6 +562,223 @@ public class UtxoManagementBetaApi {
                     memberVarObjectMapper.writeValueAsBytes(attachDetachUtxoLabelsRequest);
             localVarRequestBuilder.method(
                     "PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Upsert UTXO selection config Creates or updates the workspace-level UTXO selection strategy.
+     * &#x60;ADAPTIVE&#x60; is recommended. **Note:** These endpoints are currently in beta and
+     * might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin.
+     *
+     * @param upsertUtxoSelectionConfigRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;UtxoSelectionConfigResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> upsertUtxoSelectionConfig(
+            UpsertUtxoSelectionConfigRequest upsertUtxoSelectionConfigRequest,
+            String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    upsertUtxoSelectionConfigRequestBuilder(
+                            upsertUtxoSelectionConfigRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "upsertUtxoSelectionConfig", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<UtxoSelectionConfigResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            UtxoSelectionConfigResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<UtxoSelectionConfigResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder upsertUtxoSelectionConfigRequestBuilder(
+            UpsertUtxoSelectionConfigRequest upsertUtxoSelectionConfigRequest,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "upsertUtxoSelectionConfig",
+                "upsertUtxoSelectionConfigRequest",
+                upsertUtxoSelectionConfigRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/utxo_management/selection_config";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(upsertUtxoSelectionConfigRequest);
+            localVarRequestBuilder.method(
+                    "PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Upsert vault and asset UTXO selection config Creates or updates the UTXO selection strategy
+     * for this vault account and asset. &#x60;ADAPTIVE&#x60; is recommended. **Note:** These
+     * endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin,
+     * Non-Signing Admin.
+     *
+     * @param upsertUtxoSelectionConfigRequest (required)
+     * @param vaultAccountId The ID of the vault account. (required)
+     * @param assetId The ID of the asset (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;UtxoSelectionConfigResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>>
+            upsertVaultAssetUtxoSelectionConfig(
+                    UpsertUtxoSelectionConfigRequest upsertUtxoSelectionConfigRequest,
+                    String vaultAccountId,
+                    String assetId,
+                    String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    upsertVaultAssetUtxoSelectionConfigRequestBuilder(
+                            upsertUtxoSelectionConfigRequest,
+                            vaultAccountId,
+                            assetId,
+                            idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "upsertVaultAssetUtxoSelectionConfig",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<UtxoSelectionConfigResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            UtxoSelectionConfigResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<UtxoSelectionConfigResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder upsertVaultAssetUtxoSelectionConfigRequestBuilder(
+            UpsertUtxoSelectionConfigRequest upsertUtxoSelectionConfigRequest,
+            String vaultAccountId,
+            String assetId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "upsertVaultAssetUtxoSelectionConfig",
+                "upsertUtxoSelectionConfigRequest",
+                upsertUtxoSelectionConfigRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "upsertVaultAssetUtxoSelectionConfig", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "upsertVaultAssetUtxoSelectionConfig", "assetId", assetId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/utxo_management/{vaultAccountId}/{assetId}/selection_config"
+                        .replace("{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()))
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(upsertUtxoSelectionConfigRequest);
+            localVarRequestBuilder.method(
+                    "PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {
             throw new ApiException(e);
         }

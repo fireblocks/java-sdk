@@ -40,7 +40,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * more](https://support.fireblocks.io/hc/en-us/articles/4404616097426-Amount-Cap-for-Approve-transactions).
  * * &#x60;ENABLE_ASSET&#x60; - Algorand, DigitalBits, Solana, and Stellar require an on-chain
  * transaction to create an asset wallet and enable the deposit address. This transaction is
- * automatically created when adding assets on these blockchains at a vault account.
+ * automatically created when adding assets on these blockchains at a vault account. *
+ * &#x60;CANTON_CALL&#x60; - A customer-initiated Canton operation, such as withdrawing an
+ * allocation or responding to an onboarding offer. Note that not every Canton transaction carries
+ * this operation — an incoming Canton transfer offer is a &#x60;TRANSFER&#x60; — so use the
+ * top-level &#x60;cantonDetails&#x60; rather than &#x60;operation&#x60; to identify a Canton
+ * transaction.
  */
 public enum TransactionOperation {
     TRANSFER("TRANSFER"),
@@ -59,7 +64,9 @@ public enum TransactionOperation {
 
     APPROVE("APPROVE"),
 
-    ENABLE_ASSET("ENABLE_ASSET");
+    ENABLE_ASSET("ENABLE_ASSET"),
+
+    CANTON_CALL("CANTON_CALL");
 
     private String value;
 

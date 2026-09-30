@@ -38,7 +38,7 @@ import java.util.UUID;
     DeleteWebhookOauthResponse.JSON_PROPERTY_CUSTOM_JWT_CLAIMS,
     DeleteWebhookOauthResponse.JSON_PROPERTY_CUSTOM_BODY_PARAMS,
     DeleteWebhookOauthResponse.JSON_PROPERTY_CUSTOM_HEADERS,
-    DeleteWebhookOauthResponse.JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT,
+    DeleteWebhookOauthResponse.JSON_PROPERTY_WEBHOOK_MTLS_ID,
     DeleteWebhookOauthResponse.JSON_PROPERTY_CREATED_AT,
     DeleteWebhookOauthResponse.JSON_PROPERTY_UPDATED_AT,
     DeleteWebhookOauthResponse.JSON_PROPERTY_DETACHED_WEBHOOK_IDS
@@ -71,8 +71,8 @@ public class DeleteWebhookOauthResponse {
     public static final String JSON_PROPERTY_CUSTOM_HEADERS = "customHeaders";
     @jakarta.annotation.Nullable private List<String> customHeaders;
 
-    public static final String JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT = "mtlsClientSignedCert";
-    @jakarta.annotation.Nullable private String mtlsClientSignedCert;
+    public static final String JSON_PROPERTY_WEBHOOK_MTLS_ID = "webhookMtlsId";
+    @jakarta.annotation.Nullable private UUID webhookMtlsId;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
     @jakarta.annotation.Nonnull private Long createdAt;
@@ -326,28 +326,30 @@ public class DeleteWebhookOauthResponse {
         this.customHeaders = customHeaders;
     }
 
-    public DeleteWebhookOauthResponse mtlsClientSignedCert(
-            @jakarta.annotation.Nullable String mtlsClientSignedCert) {
-        this.mtlsClientSignedCert = mtlsClientSignedCert;
+    public DeleteWebhookOauthResponse webhookMtlsId(
+            @jakarta.annotation.Nullable UUID webhookMtlsId) {
+        this.webhookMtlsId = webhookMtlsId;
         return this;
     }
 
     /**
-     * PEM-encoded client certificate used for mTLS when fetching OAuth tokens.
+     * The id of the mTLS configuration presented to the token endpoint. Absent when the token
+     * request does not use mTLS. Read the certificate from
+     * &#x60;/v1/webhooks_settings/mtls/{id}&#x60;.
      *
-     * @return mtlsClientSignedCert
+     * @return webhookMtlsId
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT)
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_MTLS_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getMtlsClientSignedCert() {
-        return mtlsClientSignedCert;
+    public UUID getWebhookMtlsId() {
+        return webhookMtlsId;
     }
 
-    @JsonProperty(JSON_PROPERTY_MTLS_CLIENT_SIGNED_CERT)
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_MTLS_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMtlsClientSignedCert(@jakarta.annotation.Nullable String mtlsClientSignedCert) {
-        this.mtlsClientSignedCert = mtlsClientSignedCert;
+    public void setWebhookMtlsId(@jakarta.annotation.Nullable UUID webhookMtlsId) {
+        this.webhookMtlsId = webhookMtlsId;
     }
 
     public DeleteWebhookOauthResponse createdAt(@jakarta.annotation.Nonnull Long createdAt) {
@@ -449,8 +451,7 @@ public class DeleteWebhookOauthResponse {
                 && Objects.equals(
                         this.customBodyParams, deleteWebhookOauthResponse.customBodyParams)
                 && Objects.equals(this.customHeaders, deleteWebhookOauthResponse.customHeaders)
-                && Objects.equals(
-                        this.mtlsClientSignedCert, deleteWebhookOauthResponse.mtlsClientSignedCert)
+                && Objects.equals(this.webhookMtlsId, deleteWebhookOauthResponse.webhookMtlsId)
                 && Objects.equals(this.createdAt, deleteWebhookOauthResponse.createdAt)
                 && Objects.equals(this.updatedAt, deleteWebhookOauthResponse.updatedAt)
                 && Objects.equals(
@@ -468,7 +469,7 @@ public class DeleteWebhookOauthResponse {
                 customJwtClaims,
                 customBodyParams,
                 customHeaders,
-                mtlsClientSignedCert,
+                webhookMtlsId,
                 createdAt,
                 updatedAt,
                 detachedWebhookIds);
@@ -486,9 +487,7 @@ public class DeleteWebhookOauthResponse {
         sb.append("    customJwtClaims: ").append(toIndentedString(customJwtClaims)).append("\n");
         sb.append("    customBodyParams: ").append(toIndentedString(customBodyParams)).append("\n");
         sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
-        sb.append("    mtlsClientSignedCert: ")
-                .append(toIndentedString(mtlsClientSignedCert))
-                .append("\n");
+        sb.append("    webhookMtlsId: ").append(toIndentedString(webhookMtlsId)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
         sb.append("    detachedWebhookIds: ")
@@ -640,15 +639,14 @@ public class DeleteWebhookOauthResponse {
             }
         }
 
-        // add `mtlsClientSignedCert` to the URL query string
-        if (getMtlsClientSignedCert() != null) {
+        // add `webhookMtlsId` to the URL query string
+        if (getWebhookMtlsId() != null) {
             joiner.add(
                     String.format(
-                            "%smtlsClientSignedCert%s=%s",
+                            "%swebhookMtlsId%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(
-                                    ApiClient.valueToString(getMtlsClientSignedCert()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getWebhookMtlsId()))));
         }
 
         // add `createdAt` to the URL query string

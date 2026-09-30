@@ -6,6 +6,7 @@ Settlement configuration for the order
 
 ## oneOf schemas
 * [DVPSettlement](DVPSettlement.md)
+* [PostTradeSettlement](PostTradeSettlement.md)
 * [PrefundedSettlement](PrefundedSettlement.md)
 
 ## Example
@@ -13,6 +14,7 @@ Settlement configuration for the order
 // Import classes:
 import com.fireblocks.sdk.model.Settlement;
 import com.fireblocks.sdk.model.DVPSettlement;
+import com.fireblocks.sdk.model.PostTradeSettlement;
 import com.fireblocks.sdk.model.PrefundedSettlement;
 
 public class Example {
@@ -25,6 +27,13 @@ public class Example {
         exampleSettlement.setActualInstance(exampleDVPSettlement);
         // to get back the DVPSettlement set earlier
         DVPSettlement testDVPSettlement = (DVPSettlement) exampleSettlement.getActualInstance();
+
+        // create a new PostTradeSettlement
+        PostTradeSettlement examplePostTradeSettlement = new PostTradeSettlement();
+        // set Settlement to PostTradeSettlement
+        exampleSettlement.setActualInstance(examplePostTradeSettlement);
+        // to get back the PostTradeSettlement set earlier
+        PostTradeSettlement testPostTradeSettlement = (PostTradeSettlement) exampleSettlement.getActualInstance();
 
         // create a new PrefundedSettlement
         PrefundedSettlement examplePrefundedSettlement = new PrefundedSettlement();
