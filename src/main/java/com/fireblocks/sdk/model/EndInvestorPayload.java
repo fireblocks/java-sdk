@@ -25,7 +25,7 @@ import java.util.StringJoiner;
 /** Shared by invite / invite-cancel / offboard — identical wire shape, different verb. */
 @JsonPropertyOrder({
     EndInvestorPayload.JSON_PROPERTY_VAULT_ACCOUNT_ID,
-    EndInvestorPayload.JSON_PROPERTY_ASSET,
+    EndInvestorPayload.JSON_PROPERTY_BLOCKCHAIN_ID,
     EndInvestorPayload.JSON_PROPERTY_END_INVESTOR
 })
 @jakarta.annotation.Generated(
@@ -35,15 +35,17 @@ public class EndInvestorPayload {
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
     @jakarta.annotation.Nonnull private String vaultAccountId;
 
-    /** Chain asset — &#x60;CANTON&#x60; or &#x60;CANTON_TEST&#x60;. */
-    public enum AssetEnum {
+    /**
+     * The blockchain this party is connected to — &#x60;CANTON&#x60; or &#x60;CANTON_TEST&#x60;.
+     */
+    public enum BlockchainIdEnum {
         CANTON(String.valueOf("CANTON")),
 
         CANTON_TEST(String.valueOf("CANTON_TEST"));
 
         private String value;
 
-        AssetEnum(String value) {
+        BlockchainIdEnum(String value) {
             this.value = value;
         }
 
@@ -58,8 +60,8 @@ public class EndInvestorPayload {
         }
 
         @JsonCreator
-        public static AssetEnum fromValue(String value) {
-            for (AssetEnum b : AssetEnum.values()) {
+        public static BlockchainIdEnum fromValue(String value) {
+            for (BlockchainIdEnum b : BlockchainIdEnum.values()) {
                 if (b.value.equals(value)) {
                     return b;
                 }
@@ -68,8 +70,8 @@ public class EndInvestorPayload {
         }
     }
 
-    public static final String JSON_PROPERTY_ASSET = "asset";
-    @jakarta.annotation.Nonnull private AssetEnum asset;
+    public static final String JSON_PROPERTY_BLOCKCHAIN_ID = "blockchainId";
+    @jakarta.annotation.Nonnull private BlockchainIdEnum blockchainId;
 
     public static final String JSON_PROPERTY_END_INVESTOR = "endInvestor";
     @jakarta.annotation.Nonnull private String endInvestor;
@@ -80,10 +82,11 @@ public class EndInvestorPayload {
     public EndInvestorPayload(
             @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
                     String vaultAccountId,
-            @JsonProperty(value = JSON_PROPERTY_ASSET, required = true) AssetEnum asset,
+            @JsonProperty(value = JSON_PROPERTY_BLOCKCHAIN_ID, required = true)
+                    BlockchainIdEnum blockchainId,
             @JsonProperty(value = JSON_PROPERTY_END_INVESTOR, required = true) String endInvestor) {
         this.vaultAccountId = vaultAccountId;
-        this.asset = asset;
+        this.blockchainId = blockchainId;
         this.endInvestor = endInvestor;
     }
 
@@ -110,27 +113,28 @@ public class EndInvestorPayload {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public EndInvestorPayload asset(@jakarta.annotation.Nonnull AssetEnum asset) {
-        this.asset = asset;
+    public EndInvestorPayload blockchainId(
+            @jakarta.annotation.Nonnull BlockchainIdEnum blockchainId) {
+        this.blockchainId = blockchainId;
         return this;
     }
 
     /**
-     * Chain asset — &#x60;CANTON&#x60; or &#x60;CANTON_TEST&#x60;.
+     * The blockchain this party is connected to — &#x60;CANTON&#x60; or &#x60;CANTON_TEST&#x60;.
      *
-     * @return asset
+     * @return blockchainId
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ASSET)
+    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AssetEnum getAsset() {
-        return asset;
+    public BlockchainIdEnum getBlockchainId() {
+        return blockchainId;
     }
 
-    @JsonProperty(JSON_PROPERTY_ASSET)
+    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAsset(@jakarta.annotation.Nonnull AssetEnum asset) {
-        this.asset = asset;
+    public void setBlockchainId(@jakarta.annotation.Nonnull BlockchainIdEnum blockchainId) {
+        this.blockchainId = blockchainId;
     }
 
     public EndInvestorPayload endInvestor(@jakarta.annotation.Nonnull String endInvestor) {
@@ -167,13 +171,13 @@ public class EndInvestorPayload {
         }
         EndInvestorPayload endInvestorPayload = (EndInvestorPayload) o;
         return Objects.equals(this.vaultAccountId, endInvestorPayload.vaultAccountId)
-                && Objects.equals(this.asset, endInvestorPayload.asset)
+                && Objects.equals(this.blockchainId, endInvestorPayload.blockchainId)
                 && Objects.equals(this.endInvestor, endInvestorPayload.endInvestor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(vaultAccountId, asset, endInvestor);
+        return Objects.hash(vaultAccountId, blockchainId, endInvestor);
     }
 
     @Override
@@ -181,7 +185,7 @@ public class EndInvestorPayload {
         StringBuilder sb = new StringBuilder();
         sb.append("class EndInvestorPayload {\n");
         sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
-        sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+        sb.append("    blockchainId: ").append(toIndentedString(blockchainId)).append("\n");
         sb.append("    endInvestor: ").append(toIndentedString(endInvestor)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -240,14 +244,14 @@ public class EndInvestorPayload {
                             ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
-        // add `asset` to the URL query string
-        if (getAsset() != null) {
+        // add `blockchainId` to the URL query string
+        if (getBlockchainId() != null) {
             joiner.add(
                     String.format(
-                            "%sasset%s=%s",
+                            "%sblockchainId%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getAsset()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockchainId()))));
         }
 
         // add `endInvestor` to the URL query string

@@ -16,6 +16,7 @@ package com.fireblocks.sdk.api;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ApprovalRequestItem;
 import com.fireblocks.sdk.model.ApproveApprovalRequest;
+import com.fireblocks.sdk.model.DeleteApprovalApiKeyResponse;
 import com.fireblocks.sdk.model.ListApprovalApiKeysResponse;
 import com.fireblocks.sdk.model.ListApprovalsResponse;
 import com.fireblocks.sdk.model.RegisterApprovalApiKeyRequest;
@@ -57,8 +58,11 @@ public class ApprovalsBetaApiTest {
      * <p>Register an approval public key for an API user, used to sign approval requests. Up to 2
      * active keys are supported per API user. Returns the server-generated key ID used for
      * deletion. The &#x60;userId&#x60; must be the authenticated API user&#39;s own ID. Registering
-     * a key for another user is not supported and is rejected. Endpoint Permission: Owner, Admin,
-     * Non-Signing Admin, Approver, Signer, Security Admin.
+     * a key for another user is not supported and is rejected. Registration may require approval.
+     * In that case the response carries &#x60;ccrIdPendingRegistration&#x60;, the key reads as
+     * &#x60;APPROVAL_API_KEY_STATUS_PENDING_REGISTRATION&#x60; and cannot sign until the request is
+     * approved. A rejected request removes the key. Endpoint Permission: Owner, Admin, Non-Signing
+     * Admin, Approver, Signer, Security Admin.
      */
     @Test
     public void createApprovalKeyTest() {
@@ -72,8 +76,11 @@ public class ApprovalsBetaApiTest {
     /**
      * Delete an approval key
      *
-     * <p>Delete (revoke) an approval public key for the specified API user. Revoking the last key
-     * disables the API user&#39;s ability to sign approvals. Endpoint Permission: Owner, Admin,
+     * <p>Delete (revoke) an approval public key for the specified API user. The deletion may
+     * require approval: it always does for the API user&#39;s last key or another user&#39;s key.
+     * In that case the response carries &#x60;ccrIdPendingDeletion&#x60;, the key reads as
+     * &#x60;APPROVAL_API_KEY_STATUS_PENDING_DELETION&#x60; and stays active until the request is
+     * approved. A rejected request leaves the key enabled. Endpoint Permission: Owner, Admin,
      * Non-Signing Admin, Approver, Signer, Security Admin.
      */
     @Test
@@ -81,8 +88,7 @@ public class ApprovalsBetaApiTest {
         String userId = null;
         String keyId = null;
         String idempotencyKey = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
+        CompletableFuture<ApiResponse<DeleteApprovalApiKeyResponse>> response =
                 api.deleteApprovalKey(userId, keyId, idempotencyKey);
     }
 

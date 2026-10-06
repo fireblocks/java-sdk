@@ -77,6 +77,7 @@ public class Fireblocks {
     private SmartTransferApi smartTransfer;
     private StakingApi staking;
     private TagsApi tags;
+    private TempoBetaApi tempoBeta;
     private TokenizationApi tokenization;
     private TrLinkApi trLink;
     private TradingBetaApi tradingBeta;
@@ -516,6 +517,13 @@ public class Fireblocks {
             tags = new TagsApi(apiClient);
         }
         return tags;
+    }
+
+    public TempoBetaApi tempoBeta() {
+        if (tempoBeta == null) {
+            tempoBeta = new TempoBetaApi(apiClient);
+        }
+        return tempoBeta;
     }
 
     public TokenizationApi tokenization() {

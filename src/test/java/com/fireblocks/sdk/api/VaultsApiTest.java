@@ -559,6 +559,22 @@ public class VaultsApiTest {
     }
 
     /**
+     * Register a Tempo omnibus wallet
+     *
+     * <p>Registers a Tempo omnibus wallet for the requested vault account. Triggering this flow
+     * requires the vault account to hold PATH_USD with a balance sufficient to cover the gas fee.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     */
+    @Test
+    public void registerTempoOmnibusWalletTest() {
+        String vaultAccountId = null;
+        String assetId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response =
+                api.registerTempoOmnibusWallet(vaultAccountId, assetId, idempotencyKey);
+    }
+
+    /**
      * Assign AML customer reference ID
      *
      * <p>Sets an AML/KYT customer reference ID for a specific address. Endpoint Permission: Admin,

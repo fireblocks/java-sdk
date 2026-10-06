@@ -688,6 +688,14 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetTempoBetaApi() {
+        setupFireblocks(true, null, null);
+        TempoBetaApi tempoBeta = fireblocks.tempoBeta();
+        Assert.assertNotNull(tempoBeta);
+        Assert.assertSame(tempoBeta, fireblocks.tempoBeta());
+    }
+
+    @Test
     public void testGetTokenizationApi() {
         setupFireblocks(true, null, null);
         TokenizationApi tokenization = fireblocks.tokenization();

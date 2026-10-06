@@ -52,8 +52,9 @@ public class ConsoleUserApiTest {
      * Quorums), exactly as deleting a user from the console does, and the user is removed only once
      * that approval completes. - Track progress by polling GET /management/users; deletion is
      * complete when the user is disabled. - Please note that this endpoint is available only for
-     * API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing
-     * Admin. **Note:** This endpoint is currently in beta and might be subject to changes.
+     * API keys with Admin/Non Signing Admin/Security Admin permissions. Endpoint Permission: Admin,
+     * Non-Signing Admin, Security Admin. **Note:** This endpoint is currently in beta and might be
+     * subject to changes.
      */
     @Test
     public void deleteConsoleUserTest() {

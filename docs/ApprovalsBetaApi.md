@@ -100,7 +100,7 @@ No authorization required
 
 Register an approval key
 
-Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.  The &#x60;userId&#x60; must be the authenticated API user&#39;s own ID. Registering a key for another user is not supported and is rejected.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.  The &#x60;userId&#x60; must be the authenticated API user&#39;s own ID. Registering a key for another user is not supported and is rejected.  Registration may require approval. In that case the response carries &#x60;ccrIdPendingRegistration&#x60;, the key reads as &#x60;APPROVAL_API_KEY_STATUS_PENDING_REGISTRATION&#x60; and cannot sign until the request is approved. A rejected request removes the key.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
 
 ### Example
 
@@ -172,16 +172,17 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | The approval key was registered. |  * X-Request-ID -  <br>  |
+| **409** | Another approval key request for this API user is already pending approval. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
 ## deleteApprovalKey
 
-> CompletableFuture<ApiResponse<Void>> deleteApprovalKey deleteApprovalKey(userId, keyId, idempotencyKey)
+> CompletableFuture<ApiResponse<DeleteApprovalApiKeyResponse>> deleteApprovalKey deleteApprovalKey(userId, keyId, idempotencyKey)
 
 Delete an approval key
 
-Delete (revoke) an approval public key for the specified API user. Revoking the last key disables the API user&#39;s ability to sign approvals.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+Delete (revoke) an approval public key for the specified API user. The deletion may require approval: it always does for the API user&#39;s last key or another user&#39;s key. In that case the response carries &#x60;ccrIdPendingDeletion&#x60;, the key reads as &#x60;APPROVAL_API_KEY_STATUS_PENDING_DELETION&#x60; and stays active until the request is approved. A rejected request leaves the key enabled.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
 
 ### Example
 
@@ -210,9 +211,10 @@ public class Example {
         String keyId = "fab543c0-d6be-414c-aa05-5c6c84269d7a"; // String | The ID of the approval key to delete.
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = fireblocks.approvalsBeta().deleteApprovalKey(userId, keyId, idempotencyKey);
+            CompletableFuture<ApiResponse<DeleteApprovalApiKeyResponse>> response = fireblocks.approvalsBeta().deleteApprovalKey(userId, keyId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
             System.err.println("Exception when calling ApprovalsBetaApi#deleteApprovalKey");
@@ -236,8 +238,8 @@ public class Example {
 
 ### Return type
 
+CompletableFuture<ApiResponse<[**DeleteApprovalApiKeyResponse**](DeleteApprovalApiKeyResponse.md)>>
 
-CompletableFuture<ApiResponse<Void>>
 
 ### Authorization
 
@@ -251,7 +253,8 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | The approval key was deleted. |  * X-Request-ID -  <br>  |
+| **200** | The approval key was deleted, or its deletion is pending approval. |  * X-Request-ID -  <br>  |
+| **409** | Another approval key request for this API user is already pending approval. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

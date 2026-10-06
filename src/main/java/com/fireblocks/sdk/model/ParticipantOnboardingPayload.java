@@ -26,7 +26,7 @@ import java.util.StringJoiner;
 /** ParticipantOnboardingPayload */
 @JsonPropertyOrder({
     ParticipantOnboardingPayload.JSON_PROPERTY_VAULT_ACCOUNT_ID,
-    ParticipantOnboardingPayload.JSON_PROPERTY_ASSET,
+    ParticipantOnboardingPayload.JSON_PROPERTY_BLOCKCHAIN_ID,
     ParticipantOnboardingPayload.JSON_PROPERTY_EXPIRES_AT,
     ParticipantOnboardingPayload.JSON_PROPERTY_OPERATOR,
     ParticipantOnboardingPayload.JSON_PROPERTY_COMPLIANCE,
@@ -41,15 +41,17 @@ public class ParticipantOnboardingPayload {
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
     @jakarta.annotation.Nonnull private String vaultAccountId;
 
-    /** Chain asset — CANTON or CANTON_TEST. */
-    public enum AssetEnum {
+    /**
+     * The blockchain this party is connected to — &#x60;CANTON&#x60; or &#x60;CANTON_TEST&#x60;.
+     */
+    public enum BlockchainIdEnum {
         CANTON(String.valueOf("CANTON")),
 
         CANTON_TEST(String.valueOf("CANTON_TEST"));
 
         private String value;
 
-        AssetEnum(String value) {
+        BlockchainIdEnum(String value) {
             this.value = value;
         }
 
@@ -64,8 +66,8 @@ public class ParticipantOnboardingPayload {
         }
 
         @JsonCreator
-        public static AssetEnum fromValue(String value) {
-            for (AssetEnum b : AssetEnum.values()) {
+        public static BlockchainIdEnum fromValue(String value) {
+            for (BlockchainIdEnum b : BlockchainIdEnum.values()) {
                 if (b.value.equals(value)) {
                     return b;
                 }
@@ -74,8 +76,8 @@ public class ParticipantOnboardingPayload {
         }
     }
 
-    public static final String JSON_PROPERTY_ASSET = "asset";
-    @jakarta.annotation.Nonnull private AssetEnum asset;
+    public static final String JSON_PROPERTY_BLOCKCHAIN_ID = "blockchainId";
+    @jakarta.annotation.Nonnull private BlockchainIdEnum blockchainId;
 
     public static final String JSON_PROPERTY_EXPIRES_AT = "expiresAt";
     @jakarta.annotation.Nullable private OffsetDateTime expiresAt;
@@ -101,7 +103,8 @@ public class ParticipantOnboardingPayload {
     public ParticipantOnboardingPayload(
             @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
                     String vaultAccountId,
-            @JsonProperty(value = JSON_PROPERTY_ASSET, required = true) AssetEnum asset,
+            @JsonProperty(value = JSON_PROPERTY_BLOCKCHAIN_ID, required = true)
+                    BlockchainIdEnum blockchainId,
             @JsonProperty(value = JSON_PROPERTY_OPERATOR, required = true) String operator,
             @JsonProperty(value = JSON_PROPERTY_COMPLIANCE, required = true) String compliance,
             @JsonProperty(value = JSON_PROPERTY_REGISTRAR, required = true) String registrar,
@@ -109,7 +112,7 @@ public class ParticipantOnboardingPayload {
                     String clientOnboarder,
             @JsonProperty(value = JSON_PROPERTY_UPGRADER, required = true) String upgrader) {
         this.vaultAccountId = vaultAccountId;
-        this.asset = asset;
+        this.blockchainId = blockchainId;
         this.operator = operator;
         this.compliance = compliance;
         this.registrar = registrar;
@@ -141,27 +144,28 @@ public class ParticipantOnboardingPayload {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public ParticipantOnboardingPayload asset(@jakarta.annotation.Nonnull AssetEnum asset) {
-        this.asset = asset;
+    public ParticipantOnboardingPayload blockchainId(
+            @jakarta.annotation.Nonnull BlockchainIdEnum blockchainId) {
+        this.blockchainId = blockchainId;
         return this;
     }
 
     /**
-     * Chain asset — CANTON or CANTON_TEST.
+     * The blockchain this party is connected to — &#x60;CANTON&#x60; or &#x60;CANTON_TEST&#x60;.
      *
-     * @return asset
+     * @return blockchainId
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ASSET)
+    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AssetEnum getAsset() {
-        return asset;
+    public BlockchainIdEnum getBlockchainId() {
+        return blockchainId;
     }
 
-    @JsonProperty(JSON_PROPERTY_ASSET)
+    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAsset(@jakarta.annotation.Nonnull AssetEnum asset) {
-        this.asset = asset;
+    public void setBlockchainId(@jakarta.annotation.Nonnull BlockchainIdEnum blockchainId) {
+        this.blockchainId = blockchainId;
     }
 
     public ParticipantOnboardingPayload expiresAt(
@@ -317,7 +321,7 @@ public class ParticipantOnboardingPayload {
         ParticipantOnboardingPayload participantOnboardingPayload =
                 (ParticipantOnboardingPayload) o;
         return Objects.equals(this.vaultAccountId, participantOnboardingPayload.vaultAccountId)
-                && Objects.equals(this.asset, participantOnboardingPayload.asset)
+                && Objects.equals(this.blockchainId, participantOnboardingPayload.blockchainId)
                 && Objects.equals(this.expiresAt, participantOnboardingPayload.expiresAt)
                 && Objects.equals(this.operator, participantOnboardingPayload.operator)
                 && Objects.equals(this.compliance, participantOnboardingPayload.compliance)
@@ -331,7 +335,7 @@ public class ParticipantOnboardingPayload {
     public int hashCode() {
         return Objects.hash(
                 vaultAccountId,
-                asset,
+                blockchainId,
                 expiresAt,
                 operator,
                 compliance,
@@ -345,7 +349,7 @@ public class ParticipantOnboardingPayload {
         StringBuilder sb = new StringBuilder();
         sb.append("class ParticipantOnboardingPayload {\n");
         sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
-        sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+        sb.append("    blockchainId: ").append(toIndentedString(blockchainId)).append("\n");
         sb.append("    expiresAt: ").append(toIndentedString(expiresAt)).append("\n");
         sb.append("    operator: ").append(toIndentedString(operator)).append("\n");
         sb.append("    compliance: ").append(toIndentedString(compliance)).append("\n");
@@ -409,14 +413,14 @@ public class ParticipantOnboardingPayload {
                             ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
-        // add `asset` to the URL query string
-        if (getAsset() != null) {
+        // add `blockchainId` to the URL query string
+        if (getBlockchainId() != null) {
             joiner.add(
                     String.format(
-                            "%sasset%s=%s",
+                            "%sblockchainId%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getAsset()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockchainId()))));
         }
 
         // add `expiresAt` to the URL query string

@@ -803,6 +803,8 @@ paths:
 
         The `userId` must be the authenticated API user's own ID. Registering a key for another user is not supported and is rejected.
 
+        Registration may require approval. In that case the response carries `ccrIdPendingRegistration`, the key reads as `APPROVAL_API_KEY_STATUS_PENDING_REGISTRATION` and cannot sign until the request is approved. A rejected request removes the key.
+
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
       operationId: createApprovalKey
       parameters:
@@ -839,6 +841,16 @@ paths:
               schema:
                 $ref: "#/components/schemas/RegisterApprovalApiKeyResponse"
           description: The approval key was registered.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Another approval key request for this API user is already pending
+            approval.
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -880,7 +892,7 @@ paths:
   /management/api_users/{userId}/approval_keys/{keyId}:
     delete:
       description: |-
-        Delete (revoke) an approval public key for the specified API user. Revoking the last key disables the API user's ability to sign approvals.
+        Delete (revoke) an approval public key for the specified API user. The deletion may require approval: it always does for the API user's last key or another user's key. In that case the response carries `ccrIdPendingDeletion`, the key reads as `APPROVAL_API_KEY_STATUS_PENDING_DELETION` and stays active until the request is approved. A rejected request leaves the key enabled.
 
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
       operationId: deleteApprovalKey
@@ -915,8 +927,22 @@ paths:
           type: string
         style: simple
       responses:
-        "204":
-          description: The approval key was deleted.
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteApprovalApiKeyResponse"
+          description: "The approval key was deleted, or its deletion is pending approval."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Another approval key request for this API user is already pending
+            approval.
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -929,11 +955,12 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.approvalsBeta.deleteApprovalKey(approvalsBetaApiDeleteApprovalKeyRequest);"
+          code: "const response: Promise<FireblocksResponse<DeleteApprovalApiKeyResponse>>\
+            \ = fireblocks.approvalsBeta.deleteApprovalKey(approvalsBetaApiDeleteApprovalKeyRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.approvalsBeta().deleteApprovalKey(userId,\
-            \ keyId, idempotencyKey);"
+          code: "CompletableFuture<ApiResponse<DeleteApprovalApiKeyResponse>> response\
+            \ = fireblocks.approvalsBeta().deleteApprovalKey(userId, keyId, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.approvals_beta.delete_approval_key(user_id,\
@@ -941,10 +968,11 @@ paths:
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.approvalsBeta.deleteApprovalKey(approvalsBetaApiDeleteApprovalKeyRequest);"
+        source: "const response: Promise<FireblocksResponse<DeleteApprovalApiKeyResponse>>\
+          \ = fireblocks.approvalsBeta.deleteApprovalKey(approvalsBetaApiDeleteApprovalKeyRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.approvalsBeta().deleteApprovalKey(userId,\
-          \ keyId, idempotencyKey);"
+        source: "CompletableFuture<ApiResponse<DeleteApprovalApiKeyResponse>> response\
+          \ = fireblocks.approvalsBeta().deleteApprovalKey(userId, keyId, idempotencyKey);"
       - lang: Python
         source: "response = fireblocks.approvals_beta.delete_approval_key(user_id,\
           \ key_id, idempotency_key);"
@@ -2550,7 +2578,7 @@ paths:
         Submits one Canton call. `type` names the call and selects the shape of `payload`.
         An unknown or missing `type`, or a `payload` missing a required field, is a `400`. A field that does not belong to the selected `type` is ignored rather than rejected.
         A `501` has two different causes, and the distinction is permanent rather than a build-order detail, so it belongs in the published spec:
-        NO CANTON CAPABILITY — specified so the contract is complete, but not available in v1: `DTCC_END_INVESTOR_INVITE_CANCEL`, `DTCC_END_INVESTOR_OFFBOARD`, `DTCC_ALLOW_LIST_ADD`, `DTCC_ALLOW_LIST_REMOVE`. `TRANSFER_WITHDRAW` has no owning service at all. NO HANDLER YET — the capability exists and the type is being wired one slice at a time.
+        NO CANTON CAPABILITY — specified so the contract is complete, but not available in v1: `DTCC_END_INVESTOR_INVITE_CANCEL`, `DTCC_ALLOW_LIST_ADD`, `DTCC_ALLOW_LIST_REMOVE`. NO HANDLER YET — the capability exists and the type is being wired one slice at a time.
         `ALLOCATION_WITHDRAW` is implemented and answers `201` / `400` / `404` / `409`.
       operationId: createCantonCall
       parameters:
@@ -2587,7 +2615,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorSchema"
           description: "Unknown or missing type, a missing required payload field,\
-            \ or an invalid party id, asset, or expiry"
+            \ or an invalid party id, blockchainId, or expiry"
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -2596,8 +2624,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorSchema"
-          description: "No Canton wallet for this vault account and asset, or an unknown\
-            \ transaction id for this tenant"
+          description: "No Canton wallet for this vault account and blockchainId,\
+            \ or an unknown transaction id for this tenant"
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -2633,9 +2661,10 @@ paths:
   /operations/canton/offers/{offerId}/responses:
     post:
       description: |-
-        ONE endpoint for every offer domain. Two layers of discrimination, nested: `domain` selects `response`, and inside `response` the `responseType` selects the variant. Both layers are closed, so an onboarding response type sent under `domain: ALLOCATION` is a `400`.
-        {"domain":"ONBOARDING","response":{"responseType":"DTCC_…_REJECT","reason":"KYC"}}
-        `domain: TRANSFER` is declared so the endpoint covers every offer domain. Transfer responses are not available yet — the domain is part of the contract, not of v1's behaviour.
+        ONE endpoint for every offer. `responseType` selects the variant, and `payload` carries that variant's arguments — the same `{discriminator, payload}` shape `/calls` uses. The union is closed, so an unknown `responseType` is a `400`.
+        {"responseType":"DTCC_END_INVESTOR_ONBOARDING_REJECT","payload":{"reason":"KYC"}} {"responseType":"ALLOCATION_ACCEPT"}
+        `payload` appears ONLY on the variants that take arguments. A variant with no arguments has no `payload` property at all, rather than an empty object — so the schema says what the ledger says, and a future type that needs fields declares its own instead of widening this envelope.
+        `responseType` is a direct copy of a value the caller already read off the offer, in `cantonDetails.offerResponse.availableResponses`. Both sides share one flat vocabulary, so there is nothing to translate; the previous shape required pairing that value with a matching `domain` string, which carried no information `responseType` did not already determine.
       operationId: respondToCantonOffer
       parameters:
       - description: The Fireblocks transaction id of the incoming offer being answered.
@@ -2680,8 +2709,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorSchema"
-          description: "The responseType does not belong to the declared domain, or\
-            \ a required argument is missing"
+          description: "Unknown or missing responseType, or a missing required payload\
+            \ field, or the response is not available to this workspace's side of\
+            \ the offer (a sender sending accept/reject, a receiver sending withdraw)"
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -2709,7 +2739,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorSchema"
-          description: No handler is implemented for this domain yet
+          description: No handler is implemented for this responseType yet
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -7359,8 +7389,8 @@ paths:
       description: |-
         Requests deletion of a console user. The request is asynchronous: it goes through the workspace's configured "Delete users" approval policy (Settings > Quorums), exactly as deleting a user from the console does, and the user is removed only once that approval completes.
         - Track progress by polling GET /management/users; deletion is complete when the user is disabled.
-        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.
-        Endpoint Permission: Admin, Non-Signing Admin.
+        - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin/Security Admin permissions.
+        Endpoint Permission: Admin, Non-Signing Admin, Security Admin.
         **Note:** This endpoint is currently in beta and might be subject to changes.
       operationId: deleteConsoleUser
       parameters:
@@ -7394,6 +7424,17 @@ paths:
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "Bad request: invalid parameters (for example a non-boolean\
+            \ `force`), or TARGET_IS_API_USER - the ID belongs to an API user in this\
+            \ workspace; this endpoint deletes console users only."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         "401":
           content:
             application/json:
@@ -7419,8 +7460,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorSchema"
-          description: "Console user not found. Also returned for users in other workspaces\
-            \ and for API users, so the endpoint does not reveal whether an ID exists."
+          description: Console user not found. Also returned for users in other workspaces
+            (so the endpoint does not reveal whether an ID exists there) and for users
+            that were already deleted.
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -7466,7 +7508,6 @@ paths:
       x-rate-limit-category: write
       x-lifecycle:
         state: private_beta
-        feature_flag: management.ff.delete-console-user
       x-readme:
         code-samples:
         - language: javascript
@@ -25391,6 +25432,73 @@ paths:
         source: response = fireblocks.tags.get_approval_request(id);
       x-accepts:
       - application/json
+  /operations/tempo/transfer:
+    post:
+      description: Creates a new Tempo transfer transaction.
+      operationId: createTempoTransfer
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTempoTransferRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateTempoTransferResponse"
+          description: Transaction created.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Create a Tempo transfer transaction
+      tags:
+      - Tempo (Beta)
+      x-rate-limit-category: async
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateTempoTransferResponse>>\
+            \ = fireblocks.tempoBeta.createTempoTransfer(tempoBetaApiCreateTempoTransferRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CreateTempoTransferResponse>> response\
+            \ = fireblocks.tempoBeta().createTempoTransfer(createTempoTransferRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tempo_beta.create_tempo_transfer(create_tempo_transfer_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CreateTempoTransferResponse>>\
+          \ = fireblocks.tempoBeta.createTempoTransfer(tempoBetaApiCreateTempoTransferRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<CreateTempoTransferResponse>> response\
+          \ = fireblocks.tempoBeta().createTempoTransfer(createTempoTransferRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.tempo_beta.create_tempo_transfer(create_tempo_transfer_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
   /tokenization/access_registries/{id}/addresses:
     get:
       description: Returns the currently active addresses in the access registry (added
@@ -35941,6 +36049,88 @@ paths:
         source: "response = fireblocks.vaults.get_max_spendable_amount(vault_account_id,\
           \ asset_id, manual_signging, include_all_labels, include_any_labels, exclude_any_labels,\
           \ address, min_amount, max_amount);"
+      x-accepts:
+      - application/json
+  /vault/accounts/{vaultAccountId}/{assetId}/omnibus/tempo/register:
+    post:
+      description: |-
+        Registers a Tempo omnibus wallet for the requested vault account.
+        Triggering this flow requires the vault account to hold PATH_USD with a balance sufficient to cover the gas fee.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+      operationId: registerTempoOmnibusWallet
+      parameters:
+      - description: The ID of the vault account for which to register the Tempo wallet.
+        explode: false
+        in: path
+        name: vaultAccountId
+        required: true
+        schema:
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        style: simple
+      - description: The Tempo network asset to register for the vault account.
+        explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+          x-fb-entity: asset
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateVaultAssetResponse"
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Register a Tempo omnibus wallet
+      tags:
+      - Vaults
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateVaultAssetResponse>>\
+            \ = fireblocks.vaults.registerTempoOmnibusWallet(vaultsApiRegisterTempoOmnibusWalletRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response\
+            \ = fireblocks.vaults().registerTempoOmnibusWallet(vaultAccountId, assetId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.vaults.register_tempo_omnibus_wallet(vault_account_id,\
+            \ asset_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CreateVaultAssetResponse>>\
+          \ = fireblocks.vaults.registerTempoOmnibusWallet(vaultsApiRegisterTempoOmnibusWalletRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response\
+          \ = fireblocks.vaults().registerTempoOmnibusWallet(vaultAccountId, assetId,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.vaults.register_tempo_omnibus_wallet(vault_account_id,\
+          \ asset_id, idempotency_key);"
       x-accepts:
       - application/json
   /vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs:
@@ -56483,6 +56673,266 @@ components:
           type: boolean
         requiresTag:
           type: boolean
+      type: object
+    TempoTransferSource:
+      description: The transfer's source.
+      example:
+        type: VAULT_ACCOUNT
+        id: "0"
+      properties:
+        type:
+          description: The kind of source.
+          enum:
+          - VAULT_ACCOUNT
+          - EMBEDDED_WALLET
+          example: VAULT_ACCOUNT
+          type: string
+        id:
+          description: Required when type is VAULT_ACCOUNT — the vault account ID.
+          example: "0"
+          type: string
+        walletId:
+          description: Required when type is EMBEDDED_WALLET.
+          example: wallet-1
+          type: string
+      required:
+      - type
+      type: object
+    TempoTransferDestination:
+      description: The transfer's destination. Mutually exclusive with `destinations`.
+      example:
+        type: VAULT_ACCOUNT
+        id: "1"
+      properties:
+        type:
+          description: The kind of destination.
+          enum:
+          - VAULT_ACCOUNT
+          - ONE_TIME_ADDRESS
+          - UNMANAGED_WALLET
+          example: VAULT_ACCOUNT
+          type: string
+        id:
+          description: Required when type is VAULT_ACCOUNT or UNMANAGED_WALLET.
+          example: "1"
+          type: string
+        oneTimeAddress:
+          $ref: "#/components/schemas/OneTimeAddress"
+      required:
+      - type
+      type: object
+    TempoTransferDestinationItem:
+      description: One destination in a multi-destination transfer. `destination.type`
+        is narrowed the same way as the top-level `destination` field.
+      properties:
+        amount:
+          description: "The amount to transfer to this destination, as a numeric string."
+          example: "0.01"
+          type: string
+        destination:
+          $ref: "#/components/schemas/TempoTransferDestination"
+        travelRuleMessageId:
+          description: "Beta. An identifier of a TravelRule message, already sent\
+            \ to the TravelRule provider."
+          example: trm_12345678-1234-1234-1234-123456789012
+          type: string
+        customerRefId:
+          description: The ID for AML providers to associate the owner of funds with
+            transactions.
+          example: abcdef
+          type: string
+      type: object
+    CreateTempoTransferRequest:
+      allOf:
+      - description: Chain-agnostic core fields.
+        properties:
+          note:
+            description: A custom note that can be associated with the transaction.
+            example: Created via API
+            type: string
+          externalTxId:
+            description: "Unique ID provided by the customer, used to identify the\
+              \ transaction."
+            example: unique-id-123
+            type: string
+          feeCurrency:
+            description: "The asset ID used to pay the transaction fee, if different\
+              \ from assetId. Maps to FeeParams.feeCurrency. Must be a valid fee token\
+              \ for `assetId` (e.g. a TIP-20 gas token for the base asset); an invalid\
+              \ pairing surfaces as 400 INVALID_FEE_CURRENCY_PARAM."
+            example: PATHUSD_TEMPO_54V8
+            type: string
+            x-fb-entity: asset
+          assetId:
+            description: "The ID of the asset to transfer. Must be a non-deprecated\
+              \ asset supported on a Tempo-eligible blockchain; an unknown, deprecated,\
+              \ or unsupported asset surfaces as 400 UNSUPPORTED_ASSET."
+            example: PATHUSD_TEMPO_54V8
+            type: string
+            x-fb-entity: asset
+          source:
+            $ref: "#/components/schemas/TempoTransferSource"
+          destination:
+            $ref: "#/components/schemas/TempoTransferDestination"
+          amount:
+            description: "The amount to transfer, as a numeric string. Required when\
+              \ `destination` is set; must be omitted when `destinations` is set (each\
+              \ entry carries its own amount instead)."
+            example: "0.01"
+            type: string
+          treatAsGrossAmount:
+            description: "If true, the specified amount includes the fee (fee is deducted\
+              \ from amount)."
+            example: false
+            type: boolean
+          feeLevel:
+            description: "The fee level to use, mutually exclusive with an explicit\
+              \ custom fee."
+            enum:
+            - LOW
+            - MEDIUM
+            - HIGH
+            example: MEDIUM
+            type: string
+          travelRuleMessage:
+            description: Beta. An opaque travel-rule payload.
+            example: "{}"
+            type: string
+          travelRuleMessageId:
+            description: "Beta. An identifier of a TravelRule message, already sent\
+              \ to the TravelRule provider."
+            example: trm_12345678-1234-1234-1234-123456789012
+            type: string
+          useGasless:
+            description: Opt in to fee-payer-sponsored (gasless) transfer.
+            example: true
+            type: boolean
+          configurations:
+            $ref: "#/components/schemas/TransactionConfigurations"
+        required:
+        - assetId
+        - source
+        type: object
+      - allOf:
+        - description: EIP-1559 fee parameters.
+          properties:
+            maxFeePerGas:
+              description: "The maximum total fee per gas the sender is willing to\
+                \ pay, in wei."
+              example: "50"
+              type: string
+            maxPriorityFeePerGas:
+              description: "The maximum priority fee (tip) per gas the sender is willing\
+                \ to pay, in wei."
+              example: "2"
+              type: string
+          type: object
+        - properties:
+            destinations:
+              description: Multiple destinations for a single transfer. Mutually exclusive
+                with `destination`.
+              example:
+              - destination:
+                  type: VAULT_ACCOUNT
+                  id: "2"
+                amount: "0.01"
+              items:
+                $ref: "#/components/schemas/TempoTransferDestinationItem"
+              type: array
+            failOnLowFee:
+              description: "Beta. If true, fail the transaction rather than sending\
+                \ it with a low fee."
+              example: false
+              type: boolean
+            gasLimit:
+              description: The gas limit for the transaction.
+              example: "21000"
+              type: string
+            replaceTxByHash:
+              description: Beta. The hash of the EVM transaction to replace (RBF).
+              example: 0x9fc76417374aa880d4449a1f7f31ec597f00b1f6f3dd2d66f4c9c6c445836d8
+              type: string
+            feePayerAccountId:
+              description: Vault account ID of the fee payer sponsoring this transfer.
+              example: "3"
+              type: string
+          type: object
+        description: EVM-specific fields.  maxFeePerGas/maxPriorityFeePerGas are EIP-1559
+          fee parameters.
+      - description: Tempo-specific fields.
+        properties:
+          nonceStrategy:
+            description: "Tempo's 2-dimensional nonce strategy: `SEQUENTIAL` runs\
+              \ under a single nonce lane (lane 0); `USER_DEFINED_LANE` runs in parallel\
+              \ under a specified lane (1–16), and requires `nonceLane`; `EXPIRING`\
+              \ marks the transaction with an expiry of up to 5 minutes (Tempo-defined)\
+              \ and does not use `nonceLane`."
+            enum:
+            - SEQUENTIAL
+            - USER_DEFINED_LANE
+            - EXPIRING
+            example: SEQUENTIAL
+            type: string
+          nonceLane:
+            description: "The nonce lane to use, 1–16. Required and only meaningful\
+              \ when nonceStrategy is USER_DEFINED_LANE; not used for SEQUENTIAL or\
+              \ EXPIRING."
+            example: 1
+            maximum: 16
+            minimum: 1
+            type: integer
+          memo:
+            description: Beta. Tempo TIP-20 memo (max 32 bytes).
+            example: invoice-1234
+            type: string
+        type: object
+      description: Request body for creating a Tempo transfer transaction.
+      example:
+        note: Created via API
+        nonceLane: 1
+        amount: "0.01"
+        configurations:
+          expiresAfterSeconds: 3600
+        useGasless: true
+        destinations:
+        - destination:
+            type: VAULT_ACCOUNT
+            id: "2"
+          amount: "0.01"
+        destination:
+          type: VAULT_ACCOUNT
+          id: "1"
+        feeCurrency: PATHUSD_TEMPO_54V8
+        memo: invoice-1234
+        nonceStrategy: SEQUENTIAL
+        source:
+          type: VAULT_ACCOUNT
+          id: "0"
+        travelRuleMessage: "{}"
+        feePayerAccountId: "3"
+        travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
+        externalTxId: unique-id-123
+        treatAsGrossAmount: false
+        gasLimit: "21000"
+        failOnLowFee: false
+        assetId: PATHUSD_TEMPO_54V8
+        maxPriorityFeePerGas: "2"
+        feeLevel: MEDIUM
+        maxFeePerGas: "50"
+        replaceTxByHash: 0x9fc76417374aa880d4449a1f7f31ec597f00b1f6f3dd2d66f4c9c6c445836d8
+    CreateTempoTransferResponse:
+      example:
+        id: d5c9a1b2-3e4f-4a5b-8c6d-7e8f9a0b1c2d
+        status: SUBMITTED
+      properties:
+        id:
+          description: The Fireblocks transaction ID.
+          example: d5c9a1b2-3e4f-4a5b-8c6d-7e8f9a0b1c2d
+          type: string
+        status:
+          description: The current status of the transaction.
+          example: SUBMITTED
+          type: string
       type: object
     NetworkFee:
       example:
@@ -91495,12 +91945,26 @@ components:
           description: The ID of the API user who owns this key.
           example: 8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94
           type: string
+        status:
+          description: "The state of the key. `APPROVAL_API_KEY_STATUS_PENDING_REGISTRATION`\
+            \ - registered but waiting for approval, cannot sign yet. `APPROVAL_API_KEY_STATUS_ENABLED`\
+            \ - active. `APPROVAL_API_KEY_STATUS_PENDING_DELETION` - removal is waiting\
+            \ for approval, the key stays active until then. `APPROVAL_API_KEY_STATUS_UNSPECIFIED`\
+            \ - unknown."
+          enum:
+          - APPROVAL_API_KEY_STATUS_UNSPECIFIED
+          - APPROVAL_API_KEY_STATUS_PENDING_REGISTRATION
+          - APPROVAL_API_KEY_STATUS_ENABLED
+          - APPROVAL_API_KEY_STATUS_PENDING_DELETION
+          example: APPROVAL_API_KEY_STATUS_ENABLED
+          type: string
       required:
       - approvalApiPublicKey
       - createdAt
       - id
       - lastUsedAt
       - name
+      - status
       - userId
       type: object
     ListApprovalApiKeysResponse:
@@ -91519,6 +91983,7 @@ components:
               MFkwEwYHKoZIzj0CAQ...
               -----END PUBLIC KEY-----
           userId: 8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94
+          status: APPROVAL_API_KEY_STATUS_ENABLED
       properties:
         data:
           description: The registered approval API keys.
@@ -91534,6 +91999,7 @@ components:
                 MFkwEwYHKoZIzj0CAQ...
                 -----END PUBLIC KEY-----
             userId: 8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94
+            status: APPROVAL_API_KEY_STATUS_ENABLED
           items:
             $ref: "#/components/schemas/ApprovalApiKey"
           type: array
@@ -91570,14 +92036,37 @@ components:
     RegisterApprovalApiKeyResponse:
       description: The result of registering an approval API key.
       example:
+        ccrIdPendingRegistration: "19331"
         keyId: fab543c0-d6be-414c-aa05-5c6c84269d7a
       properties:
         keyId:
           description: "The server-generated ID of the registered key, used for deletion."
           example: fab543c0-d6be-414c-aa05-5c6c84269d7a
           type: string
+        ccrIdPendingRegistration:
+          description: "Always returned. An empty string when the key is active immediately.\
+            \ Otherwise, the ID of the approval request that must be approved before\
+            \ the key becomes active. The request appears in `GET /v1/approvals`."
+          example: "19331"
+          type: string
       required:
+      - ccrIdPendingRegistration
       - keyId
+      type: object
+    DeleteApprovalApiKeyResponse:
+      description: The result of deleting an approval API key.
+      example:
+        ccrIdPendingDeletion: "19332"
+      properties:
+        ccrIdPendingDeletion:
+          description: "Always returned. An empty string when the key was deleted\
+            \ immediately. Otherwise, the ID of the approval request that must be\
+            \ approved before the key is removed; the key stays active until then.\
+            \ The request appears in `GET /v1/approvals`."
+          example: "19332"
+          type: string
+      required:
+      - ccrIdPendingDeletion
       type: object
     SmartTransferTicketTerm:
       description: Data object with result data
@@ -95112,7 +95601,7 @@ components:
       required:
       - message
       type: object
-    OnboardingResponseDtccAccept:
+    OfferResponseDtccOnboardingAccept:
       additionalProperties: false
       description: Accept a DTCC end-investor onboarding offer. Carries no arguments.
       properties:
@@ -95127,7 +95616,19 @@ components:
       required:
       - responseType
       type: object
-    OnboardingResponseDtccReject:
+    DtccOnboardingRejectPayload:
+      properties:
+        reason:
+          description: "Why the offer is being rejected. Recorded on-chain, where\
+            \ the counterparty can read it."
+          example: KYC not completed
+          maxLength: 512
+          minLength: 1
+          type: string
+      required:
+      - reason
+      type: object
+    OfferResponseDtccOnboardingReject:
       additionalProperties: false
       description: Reject a DTCC end-investor onboarding offer.
       properties:
@@ -95139,18 +95640,13 @@ components:
           - DTCC_END_INVESTOR_ONBOARDING_REJECT
           example: DTCC_END_INVESTOR_ONBOARDING_REJECT
           type: string
-        reason:
-          description: "Why the offer is being rejected. Recorded on-chain, where\
-            \ the counterparty can read it."
-          example: KYC not completed
-          maxLength: 512
-          minLength: 1
-          type: string
+        payload:
+          $ref: "#/components/schemas/DtccOnboardingRejectPayload"
       required:
-      - reason
+      - payload
       - responseType
       type: object
-    OnboardingResponseTradewebAccept:
+    OfferResponseTradewebAccept:
       additionalProperties: false
       description: Accept a Tradeweb co-signing delegation offer. Carries no arguments.
       properties:
@@ -95165,7 +95661,7 @@ components:
       required:
       - responseType
       type: object
-    OnboardingResponseTradewebReject:
+    OfferResponseTradewebReject:
       additionalProperties: false
       description: "Reject a Tradeweb co-signing delegation offer. Carries no arguments\
         \ — the DAR has nowhere on-ledger to record a reason, so none is accepted."
@@ -95181,41 +95677,14 @@ components:
       required:
       - responseType
       type: object
-    OnboardingResponse:
-      discriminator:
-        mapping:
-          DTCC_END_INVESTOR_ONBOARDING_ACCEPT: "#/components/schemas/OnboardingResponseDtccAccept"
-          DTCC_END_INVESTOR_ONBOARDING_REJECT: "#/components/schemas/OnboardingResponseDtccReject"
-          TRADEWEB_COSIGNING_DELEGATION_ACCEPT: "#/components/schemas/OnboardingResponseTradewebAccept"
-          TRADEWEB_COSIGNING_DELEGATION_REJECT: "#/components/schemas/OnboardingResponseTradewebReject"
-        propertyName: responseType
-      oneOf:
-      - $ref: "#/components/schemas/OnboardingResponseDtccAccept"
-      - $ref: "#/components/schemas/OnboardingResponseDtccReject"
-      - $ref: "#/components/schemas/OnboardingResponseTradewebAccept"
-      - $ref: "#/components/schemas/OnboardingResponseTradewebReject"
-    OfferResponseOnboarding:
-      additionalProperties: false
-      properties:
-        domain:
-          description: Which offer domain this response belongs to. Selects the shape
-            of `response`.
-          enum:
-          - ONBOARDING
-          example: ONBOARDING
-          type: string
-        response:
-          $ref: "#/components/schemas/OnboardingResponse"
-      required:
-      - domain
-      - response
-      type: object
-    AllocationResponseAccept:
+    OfferResponseAllocationAccept:
       additionalProperties: false
       description: Accept a CIP-56 allocation request. Carries no arguments.
       properties:
         responseType:
-          description: How you are answering the allocation request.
+          description: |-
+            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
+            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
           enum:
           - ALLOCATION_ACCEPT
           example: ALLOCATION_ACCEPT
@@ -95223,12 +95692,14 @@ components:
       required:
       - responseType
       type: object
-    AllocationResponseReject:
+    OfferResponseAllocationReject:
       additionalProperties: false
       description: Reject a CIP-56 allocation request. Carries no arguments.
       properties:
         responseType:
-          description: How you are answering the allocation request.
+          description: |-
+            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
+            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
           enum:
           - ALLOCATION_REJECT
           example: ALLOCATION_REJECT
@@ -95236,37 +95707,14 @@ components:
       required:
       - responseType
       type: object
-    AllocationResponse:
-      discriminator:
-        mapping:
-          ALLOCATION_ACCEPT: "#/components/schemas/AllocationResponseAccept"
-          ALLOCATION_REJECT: "#/components/schemas/AllocationResponseReject"
-        propertyName: responseType
-      oneOf:
-      - $ref: "#/components/schemas/AllocationResponseAccept"
-      - $ref: "#/components/schemas/AllocationResponseReject"
-    OfferResponseAllocation:
-      additionalProperties: false
-      properties:
-        domain:
-          description: Which offer domain this response belongs to. Selects the shape
-            of `response`.
-          enum:
-          - ALLOCATION
-          example: ALLOCATION
-          type: string
-        response:
-          $ref: "#/components/schemas/AllocationResponse"
-      required:
-      - domain
-      - response
-      type: object
-    TransferResponseAccept:
+    OfferResponseTransferAccept:
       additionalProperties: false
       description: Accept an inbound 2-step transfer offer. Carries no arguments.
       properties:
         responseType:
-          description: How you are answering the transfer offer.
+          description: |-
+            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
+            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
           enum:
           - TRANSFER_ACCEPT
           example: TRANSFER_ACCEPT
@@ -95274,12 +95722,14 @@ components:
       required:
       - responseType
       type: object
-    TransferResponseReject:
+    OfferResponseTransferReject:
       additionalProperties: false
       description: Reject an inbound 2-step transfer offer. Carries no arguments.
       properties:
         responseType:
-          description: How you are answering the transfer offer.
+          description: |-
+            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
+            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
           enum:
           - TRANSFER_REJECT
           example: TRANSFER_REJECT
@@ -95287,42 +95737,47 @@ components:
       required:
       - responseType
       type: object
-    TransferResponse:
-      discriminator:
-        mapping:
-          TRANSFER_ACCEPT: "#/components/schemas/TransferResponseAccept"
-          TRANSFER_REJECT: "#/components/schemas/TransferResponseReject"
-        propertyName: responseType
-      oneOf:
-      - $ref: "#/components/schemas/TransferResponseAccept"
-      - $ref: "#/components/schemas/TransferResponseReject"
-    OfferResponseTransfer:
+    OfferResponseTransferWithdraw:
       additionalProperties: false
+      description: "Withdraw your own OUTGOING transfer offer. Carries no arguments\
+        \ — `offerId` in the path is the offer, so the vault account and blockchain\
+        \ are resolved from it rather than restated. Was `CantonCallType.TRANSFER_WITHDRAW`\
+        \ with a 3-field payload until FA-10624."
       properties:
-        domain:
-          description: Which offer domain this response belongs to. Selects the shape
-            of `response`.
+        responseType:
+          description: |-
+            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
+            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
           enum:
-          - TRANSFER
-          example: TRANSFER
+          - TRANSFER_WITHDRAW
+          example: TRANSFER_WITHDRAW
           type: string
-        response:
-          $ref: "#/components/schemas/TransferResponse"
       required:
-      - domain
-      - response
+      - responseType
       type: object
     OfferResponse:
       discriminator:
         mapping:
-          ONBOARDING: "#/components/schemas/OfferResponseOnboarding"
-          ALLOCATION: "#/components/schemas/OfferResponseAllocation"
-          TRANSFER: "#/components/schemas/OfferResponseTransfer"
-        propertyName: domain
+          DTCC_END_INVESTOR_ONBOARDING_ACCEPT: "#/components/schemas/OfferResponseDtccOnboardingAccept"
+          DTCC_END_INVESTOR_ONBOARDING_REJECT: "#/components/schemas/OfferResponseDtccOnboardingReject"
+          TRADEWEB_COSIGNING_DELEGATION_ACCEPT: "#/components/schemas/OfferResponseTradewebAccept"
+          TRADEWEB_COSIGNING_DELEGATION_REJECT: "#/components/schemas/OfferResponseTradewebReject"
+          ALLOCATION_ACCEPT: "#/components/schemas/OfferResponseAllocationAccept"
+          ALLOCATION_REJECT: "#/components/schemas/OfferResponseAllocationReject"
+          TRANSFER_ACCEPT: "#/components/schemas/OfferResponseTransferAccept"
+          TRANSFER_REJECT: "#/components/schemas/OfferResponseTransferReject"
+          TRANSFER_WITHDRAW: "#/components/schemas/OfferResponseTransferWithdraw"
+        propertyName: responseType
       oneOf:
-      - $ref: "#/components/schemas/OfferResponseOnboarding"
-      - $ref: "#/components/schemas/OfferResponseAllocation"
-      - $ref: "#/components/schemas/OfferResponseTransfer"
+      - $ref: "#/components/schemas/OfferResponseDtccOnboardingAccept"
+      - $ref: "#/components/schemas/OfferResponseDtccOnboardingReject"
+      - $ref: "#/components/schemas/OfferResponseTradewebAccept"
+      - $ref: "#/components/schemas/OfferResponseTradewebReject"
+      - $ref: "#/components/schemas/OfferResponseAllocationAccept"
+      - $ref: "#/components/schemas/OfferResponseAllocationReject"
+      - $ref: "#/components/schemas/OfferResponseTransferAccept"
+      - $ref: "#/components/schemas/OfferResponseTransferReject"
+      - $ref: "#/components/schemas/OfferResponseTransferWithdraw"
     OfferResponseAccepted:
       description: The outgoing transaction that carries the response. Its on-chain
         outcome arrives by webhook as a status update on this transaction.
@@ -95352,8 +95807,8 @@ components:
             party is derived for you.
           example: "12"
           type: string
-        asset:
-          description: Chain asset — CANTON or CANTON_TEST.
+        blockchainId:
+          description: The blockchain this party is connected to — `CANTON` or `CANTON_TEST`.
           enum:
           - CANTON
           - CANTON_TEST
@@ -95388,7 +95843,7 @@ components:
           example: dtcc-upgrader::1220abc…
           type: string
       required:
-      - asset
+      - blockchainId
       - clientOnboarder
       - compliance
       - operator
@@ -95419,8 +95874,8 @@ components:
           description: The vault account whose Canton wallet acts here.
           example: "12"
           type: string
-        asset:
-          description: Chain asset — `CANTON` or `CANTON_TEST`.
+        blockchainId:
+          description: The blockchain this party is connected to — `CANTON` or `CANTON_TEST`.
           enum:
           - CANTON
           - CANTON_TEST
@@ -95431,7 +95886,7 @@ components:
           example: investor-party::1220abc…
           type: string
       required:
-      - asset
+      - blockchainId
       - endInvestor
       - vaultAccountId
       type: object
@@ -95486,8 +95941,8 @@ components:
           description: The vault account whose Canton wallet acts here.
           example: "12"
           type: string
-        asset:
-          description: Chain asset — `CANTON` or `CANTON_TEST`.
+        blockchainId:
+          description: The blockchain this party is connected to — `CANTON` or `CANTON_TEST`.
           enum:
           - CANTON
           - CANTON_TEST
@@ -95502,7 +95957,7 @@ components:
           minItems: 1
           type: array
       required:
-      - asset
+      - blockchainId
       - vaultAccountId
       - wallets
       type: object
@@ -95562,44 +96017,6 @@ components:
       - payload
       - type
       type: object
-    TransferWithdrawPayload:
-      properties:
-        vaultAccountId:
-          description: The vault account whose Canton wallet acts here.
-          example: "12"
-          type: string
-        asset:
-          description: Chain asset — `CANTON` or `CANTON_TEST`.
-          enum:
-          - CANTON
-          - CANTON_TEST
-          example: CANTON
-          type: string
-        offerTransactionId:
-          description: The Fireblocks transaction id of the OUTGOING transfer offer
-            being withdrawn.
-          example: 2d47ae90-31bb-4f6c-8a17-7e0c5b9f2d63
-          type: string
-      required:
-      - asset
-      - offerTransactionId
-      - vaultAccountId
-      type: object
-    CantonCallTransferWithdraw:
-      additionalProperties: false
-      properties:
-        type:
-          description: Which call to make. Selects the shape of `payload`.
-          enum:
-          - TRANSFER_WITHDRAW
-          example: TRANSFER_WITHDRAW
-          type: string
-        payload:
-          $ref: "#/components/schemas/TransferWithdrawPayload"
-      required:
-      - payload
-      - type
-      type: object
     CantonCall:
       discriminator:
         mapping:
@@ -95610,7 +96027,6 @@ components:
           DTCC_ALLOW_LIST_ADD: "#/components/schemas/CantonCallAllowListAdd"
           DTCC_ALLOW_LIST_REMOVE: "#/components/schemas/CantonCallAllowListRemove"
           ALLOCATION_WITHDRAW: "#/components/schemas/CantonCallAllocationWithdraw"
-          TRANSFER_WITHDRAW: "#/components/schemas/CantonCallTransferWithdraw"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/CantonCallParticipantOnboarding"
@@ -95620,7 +96036,6 @@ components:
       - $ref: "#/components/schemas/CantonCallAllowListAdd"
       - $ref: "#/components/schemas/CantonCallAllowListRemove"
       - $ref: "#/components/schemas/CantonCallAllocationWithdraw"
-      - $ref: "#/components/schemas/CantonCallTransferWithdraw"
     CallAccepted:
       description: The outgoing transaction that carries the call.
       properties:

@@ -25,15 +25,15 @@ class OfferResponseTest {
         // TODO: test OfferResponse
     }
 
-    /** Test the property 'domain' */
+    /** Test the property 'responseType' */
     @Test
-    void domainTest() {
-        // TODO: test domain
+    void responseTypeTest() {
+        // TODO: test responseType
     }
 
-    /** Test the property 'response' */
+    /** Test the property 'payload' */
     @Test
-    void responseTest() {
-        // TODO: test response
+    void payloadTest() {
+        // TODO: test payload
     }
 }

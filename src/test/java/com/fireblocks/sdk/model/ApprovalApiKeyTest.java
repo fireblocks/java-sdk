@@ -60,4 +60,10 @@ class ApprovalApiKeyTest {
     void userIdTest() {
         // TODO: test userId
     }
+
+    /** Test the property 'status' */
+    @Test
+    void statusTest() {
+        // TODO: test status
+    }
 }

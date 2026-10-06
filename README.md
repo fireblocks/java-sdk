@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>33.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:33.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-33.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -446,6 +446,7 @@ Class | Method | HTTP request | Description
 *TagsApi* | [**getTag**](docs/TagsApi.md#getTag) | **GET** /tags/{tagId} | Get a tag
 *TagsApi* | [**getTags**](docs/TagsApi.md#getTags) | **GET** /tags | Get list of tags
 *TagsApi* | [**updateTag**](docs/TagsApi.md#updateTag) | **PATCH** /tags/{tagId} | Update a tag
+*TempoBetaApi* | [**createTempoTransfer**](docs/TempoBetaApi.md#createTempoTransfer) | **POST** /operations/tempo/transfer | Create a Tempo transfer transaction
 *TokenizationApi* | [**burnCollectionToken**](docs/TokenizationApi.md#burnCollectionToken) | **POST** /tokenization/collections/{id}/tokens/burn | Burn tokens
 *TokenizationApi* | [**createNewCollection**](docs/TokenizationApi.md#createNewCollection) | **POST** /tokenization/collections | Create a new collection
 *TokenizationApi* | [**deactivateAndUnlinkAdapters**](docs/TokenizationApi.md#deactivateAndUnlinkAdapters) | **DELETE** /tokenization/multichain/bridge/layerzero | Remove LayerZero adapters
@@ -581,6 +582,7 @@ Class | Method | HTTP request | Description
 *VaultsApi* | [**getVaultBalanceByAsset**](docs/VaultsApi.md#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by an asset
 *VaultsApi* | [**hideVaultAccount**](docs/VaultsApi.md#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console
 *VaultsApi* | [**lookupVaultByAddress**](docs/VaultsApi.md#lookupVaultByAddress) | **GET** /vault/lookup_by_address | Look up a vault account by blockchain address
+*VaultsApi* | [**registerTempoOmnibusWallet**](docs/VaultsApi.md#registerTempoOmnibusWallet) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/omnibus/tempo/register | Register a Tempo omnibus wallet
 *VaultsApi* | [**setCustomerRefIdForAddress**](docs/VaultsApi.md#setCustomerRefIdForAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id | Assign AML customer reference ID
 *VaultsApi* | [**setUsdcGatewayDepositAutomationBeta**](docs/VaultsApi.md#setUsdcGatewayDepositAutomationBeta) | **POST** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation | Set up a USDC Gateway deposit automation for a vault account
 *VaultsApi* | [**setVaultAccountAutoFuel**](docs/VaultsApi.md#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Set auto fueling to on or off
@@ -696,9 +698,6 @@ Class | Method | HTTP request | Description
  - [AddressesFilters](docs/AddressesFilters.md)
  - [AlertExposureTypeEnum](docs/AlertExposureTypeEnum.md)
  - [AlertLevelEnum](docs/AlertLevelEnum.md)
- - [AllocationResponse](docs/AllocationResponse.md)
- - [AllocationResponseAccept](docs/AllocationResponseAccept.md)
- - [AllocationResponseReject](docs/AllocationResponseReject.md)
  - [AllocationWithdrawPayload](docs/AllocationWithdrawPayload.md)
  - [AllowListPayload](docs/AllowListPayload.md)
  - [AllowlistEntry](docs/AllowlistEntry.md)
@@ -823,7 +822,6 @@ Class | Method | HTTP request | Description
  - [CantonCallEndInvestorInviteCancel](docs/CantonCallEndInvestorInviteCancel.md)
  - [CantonCallEndInvestorOffboard](docs/CantonCallEndInvestorOffboard.md)
  - [CantonCallParticipantOnboarding](docs/CantonCallParticipantOnboarding.md)
- - [CantonCallTransferWithdraw](docs/CantonCallTransferWithdraw.md)
  - [CantonDetails](docs/CantonDetails.md)
  - [CantonDomainEnum](docs/CantonDomainEnum.md)
  - [CantonOfferResponseDetails](docs/CantonOfferResponseDetails.md)
@@ -961,6 +959,8 @@ Class | Method | HTTP request | Description
  - [CreateSigningKeyDto](docs/CreateSigningKeyDto.md)
  - [CreateSigningKeyDtoProofOfOwnership](docs/CreateSigningKeyDtoProofOfOwnership.md)
  - [CreateTagRequest](docs/CreateTagRequest.md)
+ - [CreateTempoTransferRequest](docs/CreateTempoTransferRequest.md)
+ - [CreateTempoTransferResponse](docs/CreateTempoTransferResponse.md)
  - [CreateTokenRequestDto](docs/CreateTokenRequestDto.md)
  - [CreateTokenRequestDtoCreateParams](docs/CreateTokenRequestDtoCreateParams.md)
  - [CreateTransactionResponse](docs/CreateTransactionResponse.md)
@@ -985,6 +985,7 @@ Class | Method | HTTP request | Description
  - [Delegation](docs/Delegation.md)
  - [DelegationBlockchainPositionInfo](docs/DelegationBlockchainPositionInfo.md)
  - [DelegationSummary](docs/DelegationSummary.md)
+ - [DeleteApprovalApiKeyResponse](docs/DeleteApprovalApiKeyResponse.md)
  - [DeleteNetworkConnectionResponse](docs/DeleteNetworkConnectionResponse.md)
  - [DeleteNetworkIdResponse](docs/DeleteNetworkIdResponse.md)
  - [DeleteWebhookMtlsConfigResponse](docs/DeleteWebhookMtlsConfigResponse.md)
@@ -1027,6 +1028,7 @@ Class | Method | HTTP request | Description
  - [DraftReviewAndValidationResponse](docs/DraftReviewAndValidationResponse.md)
  - [DropTransactionRequest](docs/DropTransactionRequest.md)
  - [DropTransactionResponse](docs/DropTransactionResponse.md)
+ - [DtccOnboardingRejectPayload](docs/DtccOnboardingRejectPayload.md)
  - [DvnConfig](docs/DvnConfig.md)
  - [DvnConfigWithConfirmations](docs/DvnConfigWithConfirmations.md)
  - [EVMTokenCreateParamsDto](docs/EVMTokenCreateParamsDto.md)
@@ -1296,15 +1298,16 @@ Class | Method | HTTP request | Description
  - [Offer](docs/Offer.md)
  - [OfferResponse](docs/OfferResponse.md)
  - [OfferResponseAccepted](docs/OfferResponseAccepted.md)
- - [OfferResponseAllocation](docs/OfferResponseAllocation.md)
- - [OfferResponseOnboarding](docs/OfferResponseOnboarding.md)
- - [OfferResponseTransfer](docs/OfferResponseTransfer.md)
+ - [OfferResponseAllocationAccept](docs/OfferResponseAllocationAccept.md)
+ - [OfferResponseAllocationReject](docs/OfferResponseAllocationReject.md)
+ - [OfferResponseDtccOnboardingAccept](docs/OfferResponseDtccOnboardingAccept.md)
+ - [OfferResponseDtccOnboardingReject](docs/OfferResponseDtccOnboardingReject.md)
+ - [OfferResponseTradewebAccept](docs/OfferResponseTradewebAccept.md)
+ - [OfferResponseTradewebReject](docs/OfferResponseTradewebReject.md)
+ - [OfferResponseTransferAccept](docs/OfferResponseTransferAccept.md)
+ - [OfferResponseTransferReject](docs/OfferResponseTransferReject.md)
+ - [OfferResponseTransferWithdraw](docs/OfferResponseTransferWithdraw.md)
  - [OffersResponse](docs/OffersResponse.md)
- - [OnboardingResponse](docs/OnboardingResponse.md)
- - [OnboardingResponseDtccAccept](docs/OnboardingResponseDtccAccept.md)
- - [OnboardingResponseDtccReject](docs/OnboardingResponseDtccReject.md)
- - [OnboardingResponseTradewebAccept](docs/OnboardingResponseTradewebAccept.md)
- - [OnboardingResponseTradewebReject](docs/OnboardingResponseTradewebReject.md)
  - [OnchainTransaction](docs/OnchainTransaction.md)
  - [OnchainTransactionsPagedResponse](docs/OnchainTransactionsPagedResponse.md)
  - [OnchainTransactionsPagedResponse2](docs/OnchainTransactionsPagedResponse2.md)
@@ -1725,6 +1728,9 @@ Class | Method | HTTP request | Description
  - [TagType](docs/TagType.md)
  - [TagsPagedResponse](docs/TagsPagedResponse.md)
  - [TemplatesPaginatedResponse](docs/TemplatesPaginatedResponse.md)
+ - [TempoTransferDestination](docs/TempoTransferDestination.md)
+ - [TempoTransferDestinationItem](docs/TempoTransferDestinationItem.md)
+ - [TempoTransferSource](docs/TempoTransferSource.md)
  - [ThirdPartyRouting](docs/ThirdPartyRouting.md)
  - [TimeBasedTrigger](docs/TimeBasedTrigger.md)
  - [TimePeriodConfig](docs/TimePeriodConfig.md)
@@ -1789,11 +1795,7 @@ Class | Method | HTTP request | Description
  - [TransferPeerTypeEnum2](docs/TransferPeerTypeEnum2.md)
  - [TransferRail](docs/TransferRail.md)
  - [TransferReceipt](docs/TransferReceipt.md)
- - [TransferResponse](docs/TransferResponse.md)
- - [TransferResponseAccept](docs/TransferResponseAccept.md)
- - [TransferResponseReject](docs/TransferResponseReject.md)
  - [TransferValidationFailure](docs/TransferValidationFailure.md)
- - [TransferWithdrawPayload](docs/TransferWithdrawPayload.md)
  - [TravelRuleActionEnum](docs/TravelRuleActionEnum.md)
  - [TravelRuleAddress](docs/TravelRuleAddress.md)
  - [TravelRuleCreateTransactionRequest](docs/TravelRuleCreateTransactionRequest.md)

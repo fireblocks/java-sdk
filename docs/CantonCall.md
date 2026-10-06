@@ -10,7 +10,6 @@
 * [CantonCallEndInvestorInviteCancel](CantonCallEndInvestorInviteCancel.md)
 * [CantonCallEndInvestorOffboard](CantonCallEndInvestorOffboard.md)
 * [CantonCallParticipantOnboarding](CantonCallParticipantOnboarding.md)
-* [CantonCallTransferWithdraw](CantonCallTransferWithdraw.md)
 
 ## Example
 ```java
@@ -23,7 +22,6 @@ import com.fireblocks.sdk.model.CantonCallEndInvestorInvite;
 import com.fireblocks.sdk.model.CantonCallEndInvestorInviteCancel;
 import com.fireblocks.sdk.model.CantonCallEndInvestorOffboard;
 import com.fireblocks.sdk.model.CantonCallParticipantOnboarding;
-import com.fireblocks.sdk.model.CantonCallTransferWithdraw;
 
 public class Example {
     public static void main(String[] args) {
@@ -77,13 +75,6 @@ public class Example {
         exampleCantonCall.setActualInstance(exampleCantonCallParticipantOnboarding);
         // to get back the CantonCallParticipantOnboarding set earlier
         CantonCallParticipantOnboarding testCantonCallParticipantOnboarding = (CantonCallParticipantOnboarding) exampleCantonCall.getActualInstance();
-
-        // create a new CantonCallTransferWithdraw
-        CantonCallTransferWithdraw exampleCantonCallTransferWithdraw = new CantonCallTransferWithdraw();
-        // set CantonCall to CantonCallTransferWithdraw
-        exampleCantonCall.setActualInstance(exampleCantonCallTransferWithdraw);
-        // to get back the CantonCallTransferWithdraw set earlier
-        CantonCallTransferWithdraw testCantonCallTransferWithdraw = (CantonCallTransferWithdraw) exampleCantonCall.getActualInstance();
     }
 }
 ```

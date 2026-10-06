@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -28,7 +29,8 @@ import java.util.StringJoiner;
     ApprovalApiKey.JSON_PROPERTY_CREATED_AT,
     ApprovalApiKey.JSON_PROPERTY_LAST_USED_AT,
     ApprovalApiKey.JSON_PROPERTY_APPROVAL_API_PUBLIC_KEY,
-    ApprovalApiKey.JSON_PROPERTY_USER_ID
+    ApprovalApiKey.JSON_PROPERTY_USER_ID,
+    ApprovalApiKey.JSON_PROPERTY_STATUS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -52,6 +54,54 @@ public class ApprovalApiKey {
     public static final String JSON_PROPERTY_USER_ID = "userId";
     @jakarta.annotation.Nonnull private String userId;
 
+    /**
+     * The state of the key. &#x60;APPROVAL_API_KEY_STATUS_PENDING_REGISTRATION&#x60; - registered
+     * but waiting for approval, cannot sign yet. &#x60;APPROVAL_API_KEY_STATUS_ENABLED&#x60; -
+     * active. &#x60;APPROVAL_API_KEY_STATUS_PENDING_DELETION&#x60; - removal is waiting for
+     * approval, the key stays active until then. &#x60;APPROVAL_API_KEY_STATUS_UNSPECIFIED&#x60; -
+     * unknown.
+     */
+    public enum StatusEnum {
+        APPROVAL_API_KEY_STATUS_UNSPECIFIED(String.valueOf("APPROVAL_API_KEY_STATUS_UNSPECIFIED")),
+
+        APPROVAL_API_KEY_STATUS_PENDING_REGISTRATION(
+                String.valueOf("APPROVAL_API_KEY_STATUS_PENDING_REGISTRATION")),
+
+        APPROVAL_API_KEY_STATUS_ENABLED(String.valueOf("APPROVAL_API_KEY_STATUS_ENABLED")),
+
+        APPROVAL_API_KEY_STATUS_PENDING_DELETION(
+                String.valueOf("APPROVAL_API_KEY_STATUS_PENDING_DELETION"));
+
+        private String value;
+
+        StatusEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static StatusEnum fromValue(String value) {
+            for (StatusEnum b : StatusEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    public static final String JSON_PROPERTY_STATUS = "status";
+    @jakarta.annotation.Nonnull private StatusEnum status;
+
     public ApprovalApiKey() {}
 
     @JsonCreator
@@ -62,13 +112,15 @@ public class ApprovalApiKey {
             @JsonProperty(value = JSON_PROPERTY_LAST_USED_AT, required = true) String lastUsedAt,
             @JsonProperty(value = JSON_PROPERTY_APPROVAL_API_PUBLIC_KEY, required = true)
                     ApprovalApiPublicKey approvalApiPublicKey,
-            @JsonProperty(value = JSON_PROPERTY_USER_ID, required = true) String userId) {
+            @JsonProperty(value = JSON_PROPERTY_USER_ID, required = true) String userId,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status) {
         this.id = id;
         this.name = name;
         this.createdAt = createdAt;
         this.lastUsedAt = lastUsedAt;
         this.approvalApiPublicKey = approvalApiPublicKey;
         this.userId = userId;
+        this.status = status;
     }
 
     public ApprovalApiKey id(@jakarta.annotation.Nonnull String id) {
@@ -211,6 +263,33 @@ public class ApprovalApiKey {
         this.userId = userId;
     }
 
+    public ApprovalApiKey status(@jakarta.annotation.Nonnull StatusEnum status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * The state of the key. &#x60;APPROVAL_API_KEY_STATUS_PENDING_REGISTRATION&#x60; - registered
+     * but waiting for approval, cannot sign yet. &#x60;APPROVAL_API_KEY_STATUS_ENABLED&#x60; -
+     * active. &#x60;APPROVAL_API_KEY_STATUS_PENDING_DELETION&#x60; - removal is waiting for
+     * approval, the key stays active until then. &#x60;APPROVAL_API_KEY_STATUS_UNSPECIFIED&#x60; -
+     * unknown.
+     *
+     * @return status
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
+        this.status = status;
+    }
+
     /** Return true if this ApprovalApiKey object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -226,12 +305,13 @@ public class ApprovalApiKey {
                 && Objects.equals(this.createdAt, approvalApiKey.createdAt)
                 && Objects.equals(this.lastUsedAt, approvalApiKey.lastUsedAt)
                 && Objects.equals(this.approvalApiPublicKey, approvalApiKey.approvalApiPublicKey)
-                && Objects.equals(this.userId, approvalApiKey.userId);
+                && Objects.equals(this.userId, approvalApiKey.userId)
+                && Objects.equals(this.status, approvalApiKey.status);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, createdAt, lastUsedAt, approvalApiPublicKey, userId);
+        return Objects.hash(id, name, createdAt, lastUsedAt, approvalApiPublicKey, userId, status);
     }
 
     @Override
@@ -246,6 +326,7 @@ public class ApprovalApiKey {
                 .append(toIndentedString(approvalApiPublicKey))
                 .append("\n");
         sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -346,6 +427,16 @@ public class ApprovalApiKey {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getUserId()))));
+        }
+
+        // add `status` to the URL query string
+        if (getStatus() != null) {
+            joiner.add(
+                    String.format(
+                            "%sstatus%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         return joiner.toString();

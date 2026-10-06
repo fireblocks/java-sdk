@@ -3047,6 +3047,101 @@ public class VaultsApi {
         return localVarRequestBuilder;
     }
     /**
+     * Register a Tempo omnibus wallet Registers a Tempo omnibus wallet for the requested vault
+     * account. Triggering this flow requires the vault account to hold PATH_USD with a balance
+     * sufficient to cover the gas fee. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor.
+     *
+     * @param vaultAccountId The ID of the vault account for which to register the Tempo wallet.
+     *     (required)
+     * @param assetId The Tempo network asset to register for the vault account. (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateVaultAssetResponse&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<CreateVaultAssetResponse>> registerTempoOmnibusWallet(
+            String vaultAccountId, String assetId, String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    registerTempoOmnibusWalletRequestBuilder(
+                            vaultAccountId, assetId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "registerTempoOmnibusWallet",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<CreateVaultAssetResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            CreateVaultAssetResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CreateVaultAssetResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder registerTempoOmnibusWalletRequestBuilder(
+            String vaultAccountId, String assetId, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "registerTempoOmnibusWallet", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "registerTempoOmnibusWallet", "assetId", assetId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/vault/accounts/{vaultAccountId}/{assetId}/omnibus/tempo/register"
+                        .replace("{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()))
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Assign AML customer reference ID Sets an AML/KYT customer reference ID for a specific
      * address. Endpoint Permission: Admin, Non-Signing Admin.
      *
