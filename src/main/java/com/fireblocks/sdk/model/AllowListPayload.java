@@ -27,7 +27,7 @@ import java.util.StringJoiner;
 /** AllowListPayload */
 @JsonPropertyOrder({
     AllowListPayload.JSON_PROPERTY_VAULT_ACCOUNT_ID,
-    AllowListPayload.JSON_PROPERTY_ASSET,
+    AllowListPayload.JSON_PROPERTY_BLOCKCHAIN_ID,
     AllowListPayload.JSON_PROPERTY_WALLETS
 })
 @jakarta.annotation.Generated(
@@ -37,15 +37,17 @@ public class AllowListPayload {
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
     @jakarta.annotation.Nonnull private String vaultAccountId;
 
-    /** Chain asset — &#x60;CANTON&#x60; or &#x60;CANTON_TEST&#x60;. */
-    public enum AssetEnum {
+    /**
+     * The blockchain this party is connected to — &#x60;CANTON&#x60; or &#x60;CANTON_TEST&#x60;.
+     */
+    public enum BlockchainIdEnum {
         CANTON(String.valueOf("CANTON")),
 
         CANTON_TEST(String.valueOf("CANTON_TEST"));
 
         private String value;
 
-        AssetEnum(String value) {
+        BlockchainIdEnum(String value) {
             this.value = value;
         }
 
@@ -60,8 +62,8 @@ public class AllowListPayload {
         }
 
         @JsonCreator
-        public static AssetEnum fromValue(String value) {
-            for (AssetEnum b : AssetEnum.values()) {
+        public static BlockchainIdEnum fromValue(String value) {
+            for (BlockchainIdEnum b : BlockchainIdEnum.values()) {
                 if (b.value.equals(value)) {
                     return b;
                 }
@@ -70,8 +72,8 @@ public class AllowListPayload {
         }
     }
 
-    public static final String JSON_PROPERTY_ASSET = "asset";
-    @jakarta.annotation.Nonnull private AssetEnum asset;
+    public static final String JSON_PROPERTY_BLOCKCHAIN_ID = "blockchainId";
+    @jakarta.annotation.Nonnull private BlockchainIdEnum blockchainId;
 
     public static final String JSON_PROPERTY_WALLETS = "wallets";
     @jakarta.annotation.Nonnull private List<String> wallets;
@@ -82,10 +84,11 @@ public class AllowListPayload {
     public AllowListPayload(
             @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
                     String vaultAccountId,
-            @JsonProperty(value = JSON_PROPERTY_ASSET, required = true) AssetEnum asset,
+            @JsonProperty(value = JSON_PROPERTY_BLOCKCHAIN_ID, required = true)
+                    BlockchainIdEnum blockchainId,
             @JsonProperty(value = JSON_PROPERTY_WALLETS, required = true) List<String> wallets) {
         this.vaultAccountId = vaultAccountId;
-        this.asset = asset;
+        this.blockchainId = blockchainId;
         this.wallets = wallets;
     }
 
@@ -112,27 +115,28 @@ public class AllowListPayload {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public AllowListPayload asset(@jakarta.annotation.Nonnull AssetEnum asset) {
-        this.asset = asset;
+    public AllowListPayload blockchainId(
+            @jakarta.annotation.Nonnull BlockchainIdEnum blockchainId) {
+        this.blockchainId = blockchainId;
         return this;
     }
 
     /**
-     * Chain asset — &#x60;CANTON&#x60; or &#x60;CANTON_TEST&#x60;.
+     * The blockchain this party is connected to — &#x60;CANTON&#x60; or &#x60;CANTON_TEST&#x60;.
      *
-     * @return asset
+     * @return blockchainId
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ASSET)
+    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AssetEnum getAsset() {
-        return asset;
+    public BlockchainIdEnum getBlockchainId() {
+        return blockchainId;
     }
 
-    @JsonProperty(JSON_PROPERTY_ASSET)
+    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAsset(@jakarta.annotation.Nonnull AssetEnum asset) {
-        this.asset = asset;
+    public void setBlockchainId(@jakarta.annotation.Nonnull BlockchainIdEnum blockchainId) {
+        this.blockchainId = blockchainId;
     }
 
     public AllowListPayload wallets(@jakarta.annotation.Nonnull List<String> wallets) {
@@ -177,13 +181,13 @@ public class AllowListPayload {
         }
         AllowListPayload allowListPayload = (AllowListPayload) o;
         return Objects.equals(this.vaultAccountId, allowListPayload.vaultAccountId)
-                && Objects.equals(this.asset, allowListPayload.asset)
+                && Objects.equals(this.blockchainId, allowListPayload.blockchainId)
                 && Objects.equals(this.wallets, allowListPayload.wallets);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(vaultAccountId, asset, wallets);
+        return Objects.hash(vaultAccountId, blockchainId, wallets);
     }
 
     @Override
@@ -191,7 +195,7 @@ public class AllowListPayload {
         StringBuilder sb = new StringBuilder();
         sb.append("class AllowListPayload {\n");
         sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
-        sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+        sb.append("    blockchainId: ").append(toIndentedString(blockchainId)).append("\n");
         sb.append("    wallets: ").append(toIndentedString(wallets)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -250,14 +254,14 @@ public class AllowListPayload {
                             ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
-        // add `asset` to the URL query string
-        if (getAsset() != null) {
+        // add `blockchainId` to the URL query string
+        if (getBlockchainId() != null) {
             joiner.add(
                     String.format(
-                            "%sasset%s=%s",
+                            "%sblockchainId%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getAsset()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockchainId()))));
         }
 
         // add `wallets` to the URL query string

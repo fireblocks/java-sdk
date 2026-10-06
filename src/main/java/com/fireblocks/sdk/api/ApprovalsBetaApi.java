@@ -22,6 +22,7 @@ import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.ApprovalRequestItem;
 import com.fireblocks.sdk.model.ApproveApprovalRequest;
+import com.fireblocks.sdk.model.DeleteApprovalApiKeyResponse;
 import com.fireblocks.sdk.model.ListApprovalApiKeysResponse;
 import com.fireblocks.sdk.model.ListApprovalsResponse;
 import com.fireblocks.sdk.model.RegisterApprovalApiKeyRequest;
@@ -200,7 +201,11 @@ public class ApprovalsBetaApi {
      * approval requests. Up to 2 active keys are supported per API user. Returns the
      * server-generated key ID used for deletion. The &#x60;userId&#x60; must be the authenticated
      * API user&#39;s own ID. Registering a key for another user is not supported and is rejected.
-     * Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+     * Registration may require approval. In that case the response carries
+     * &#x60;ccrIdPendingRegistration&#x60;, the key reads as
+     * &#x60;APPROVAL_API_KEY_STATUS_PENDING_REGISTRATION&#x60; and cannot sign until the request is
+     * approved. A rejected request removes the key. Endpoint Permission: Owner, Admin, Non-Signing
+     * Admin, Approver, Signer, Security Admin.
      *
      * @param registerApprovalApiKeyRequest (required)
      * @param userId The ID of the API user to register the approval key for. (required)
@@ -302,19 +307,22 @@ public class ApprovalsBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Delete an approval key Delete (revoke) an approval public key for the specified API user.
-     * Revoking the last key disables the API user&#39;s ability to sign approvals. Endpoint
-     * Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+     * Delete an approval key Delete (revoke) an approval public key for the specified API user. The
+     * deletion may require approval: it always does for the API user&#39;s last key or another
+     * user&#39;s key. In that case the response carries &#x60;ccrIdPendingDeletion&#x60;, the key
+     * reads as &#x60;APPROVAL_API_KEY_STATUS_PENDING_DELETION&#x60; and stays active until the
+     * request is approved. A rejected request leaves the key enabled. Endpoint Permission: Owner,
+     * Admin, Non-Signing Admin, Approver, Signer, Security Admin.
      *
      * @param userId The ID of the API user whose approval key to delete. (required)
      * @param keyId The ID of the approval key to delete. (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;, which completes exceptionally with
-     *     an {@link ApiException} if the API call fails
+     * @return CompletableFuture&lt;ApiResponse&lt;DeleteApprovalApiKeyResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<Void>> deleteApprovalKey(
+    public CompletableFuture<ApiResponse<DeleteApprovalApiKeyResponse>> deleteApprovalKey(
             String userId, String keyId, String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
@@ -330,18 +338,31 @@ public class ApprovalsBetaApi {
                                     return CompletableFuture.failedFuture(
                                             getApiException("deleteApprovalKey", localVarResponse));
                                 }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<DeleteApprovalApiKeyResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            DeleteApprovalApiKeyResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
                             })
                     .handle(
                             (localVarApiResponse, localVarThrowable) ->
                                     localVarThrowable == null
                                             ? CompletableFuture.completedFuture(localVarApiResponse)
-                                            : CompletableFuture.<ApiResponse<Void>>failedFuture(
-                                                    toApiFailure(localVarThrowable)))
+                                            : CompletableFuture
+                                                    .<ApiResponse<DeleteApprovalApiKeyResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
                     .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);

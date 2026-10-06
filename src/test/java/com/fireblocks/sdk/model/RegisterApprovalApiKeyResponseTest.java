@@ -30,4 +30,10 @@ class RegisterApprovalApiKeyResponseTest {
     void keyIdTest() {
         // TODO: test keyId
     }
+
+    /** Test the property 'ccrIdPendingRegistration' */
+    @Test
+    void ccrIdPendingRegistrationTest() {
+        // TODO: test ccrIdPendingRegistration
+    }
 }

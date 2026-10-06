@@ -77,141 +77,455 @@ public class OfferResponse extends AbstractOpenApiSchema {
             boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
             int match = 0;
             JsonToken token = tree.traverse(jp.getCodec()).nextToken();
-            // deserialize OfferResponseAllocation
+            // deserialize OfferResponseAllocationAccept
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (OfferResponseAllocation.class.equals(Integer.class)
-                        || OfferResponseAllocation.class.equals(Long.class)
-                        || OfferResponseAllocation.class.equals(Float.class)
-                        || OfferResponseAllocation.class.equals(Double.class)
-                        || OfferResponseAllocation.class.equals(Boolean.class)
-                        || OfferResponseAllocation.class.equals(String.class)) {
+                if (OfferResponseAllocationAccept.class.equals(Integer.class)
+                        || OfferResponseAllocationAccept.class.equals(Long.class)
+                        || OfferResponseAllocationAccept.class.equals(Float.class)
+                        || OfferResponseAllocationAccept.class.equals(Double.class)
+                        || OfferResponseAllocationAccept.class.equals(Boolean.class)
+                        || OfferResponseAllocationAccept.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
                         attemptParsing |=
-                                ((OfferResponseAllocation.class.equals(Integer.class)
-                                                || OfferResponseAllocation.class.equals(Long.class))
+                                ((OfferResponseAllocationAccept.class.equals(Integer.class)
+                                                || OfferResponseAllocationAccept.class.equals(
+                                                        Long.class))
                                         && token == JsonToken.VALUE_NUMBER_INT);
                         attemptParsing |=
-                                ((OfferResponseAllocation.class.equals(Float.class)
-                                                || OfferResponseAllocation.class.equals(
+                                ((OfferResponseAllocationAccept.class.equals(Float.class)
+                                                || OfferResponseAllocationAccept.class.equals(
                                                         Double.class))
                                         && token == JsonToken.VALUE_NUMBER_FLOAT);
                         attemptParsing |=
-                                (OfferResponseAllocation.class.equals(Boolean.class)
+                                (OfferResponseAllocationAccept.class.equals(Boolean.class)
                                         && (token == JsonToken.VALUE_FALSE
                                                 || token == JsonToken.VALUE_TRUE));
                         attemptParsing |=
-                                (OfferResponseAllocation.class.equals(String.class)
+                                (OfferResponseAllocationAccept.class.equals(String.class)
                                         && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
                     deserialized =
-                            tree.traverse(jp.getCodec()).readValueAs(OfferResponseAllocation.class);
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(OfferResponseAllocationAccept.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(Level.FINER, "Input data matches schema 'OfferResponseAllocation'");
+                    log.log(
+                            Level.FINER,
+                            "Input data matches schema 'OfferResponseAllocationAccept'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
                 log.log(
                         Level.FINER,
-                        "Input data does not match schema 'OfferResponseAllocation'",
+                        "Input data does not match schema 'OfferResponseAllocationAccept'",
                         e);
             }
 
-            // deserialize OfferResponseOnboarding
+            // deserialize OfferResponseAllocationReject
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (OfferResponseOnboarding.class.equals(Integer.class)
-                        || OfferResponseOnboarding.class.equals(Long.class)
-                        || OfferResponseOnboarding.class.equals(Float.class)
-                        || OfferResponseOnboarding.class.equals(Double.class)
-                        || OfferResponseOnboarding.class.equals(Boolean.class)
-                        || OfferResponseOnboarding.class.equals(String.class)) {
+                if (OfferResponseAllocationReject.class.equals(Integer.class)
+                        || OfferResponseAllocationReject.class.equals(Long.class)
+                        || OfferResponseAllocationReject.class.equals(Float.class)
+                        || OfferResponseAllocationReject.class.equals(Double.class)
+                        || OfferResponseAllocationReject.class.equals(Boolean.class)
+                        || OfferResponseAllocationReject.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
                         attemptParsing |=
-                                ((OfferResponseOnboarding.class.equals(Integer.class)
-                                                || OfferResponseOnboarding.class.equals(Long.class))
+                                ((OfferResponseAllocationReject.class.equals(Integer.class)
+                                                || OfferResponseAllocationReject.class.equals(
+                                                        Long.class))
                                         && token == JsonToken.VALUE_NUMBER_INT);
                         attemptParsing |=
-                                ((OfferResponseOnboarding.class.equals(Float.class)
-                                                || OfferResponseOnboarding.class.equals(
+                                ((OfferResponseAllocationReject.class.equals(Float.class)
+                                                || OfferResponseAllocationReject.class.equals(
                                                         Double.class))
                                         && token == JsonToken.VALUE_NUMBER_FLOAT);
                         attemptParsing |=
-                                (OfferResponseOnboarding.class.equals(Boolean.class)
+                                (OfferResponseAllocationReject.class.equals(Boolean.class)
                                         && (token == JsonToken.VALUE_FALSE
                                                 || token == JsonToken.VALUE_TRUE));
                         attemptParsing |=
-                                (OfferResponseOnboarding.class.equals(String.class)
+                                (OfferResponseAllocationReject.class.equals(String.class)
                                         && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
                     deserialized =
-                            tree.traverse(jp.getCodec()).readValueAs(OfferResponseOnboarding.class);
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(OfferResponseAllocationReject.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(Level.FINER, "Input data matches schema 'OfferResponseOnboarding'");
+                    log.log(
+                            Level.FINER,
+                            "Input data matches schema 'OfferResponseAllocationReject'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
                 log.log(
                         Level.FINER,
-                        "Input data does not match schema 'OfferResponseOnboarding'",
+                        "Input data does not match schema 'OfferResponseAllocationReject'",
                         e);
             }
 
-            // deserialize OfferResponseTransfer
+            // deserialize OfferResponseDtccOnboardingAccept
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (OfferResponseTransfer.class.equals(Integer.class)
-                        || OfferResponseTransfer.class.equals(Long.class)
-                        || OfferResponseTransfer.class.equals(Float.class)
-                        || OfferResponseTransfer.class.equals(Double.class)
-                        || OfferResponseTransfer.class.equals(Boolean.class)
-                        || OfferResponseTransfer.class.equals(String.class)) {
+                if (OfferResponseDtccOnboardingAccept.class.equals(Integer.class)
+                        || OfferResponseDtccOnboardingAccept.class.equals(Long.class)
+                        || OfferResponseDtccOnboardingAccept.class.equals(Float.class)
+                        || OfferResponseDtccOnboardingAccept.class.equals(Double.class)
+                        || OfferResponseDtccOnboardingAccept.class.equals(Boolean.class)
+                        || OfferResponseDtccOnboardingAccept.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
                         attemptParsing |=
-                                ((OfferResponseTransfer.class.equals(Integer.class)
-                                                || OfferResponseTransfer.class.equals(Long.class))
+                                ((OfferResponseDtccOnboardingAccept.class.equals(Integer.class)
+                                                || OfferResponseDtccOnboardingAccept.class.equals(
+                                                        Long.class))
                                         && token == JsonToken.VALUE_NUMBER_INT);
                         attemptParsing |=
-                                ((OfferResponseTransfer.class.equals(Float.class)
-                                                || OfferResponseTransfer.class.equals(Double.class))
+                                ((OfferResponseDtccOnboardingAccept.class.equals(Float.class)
+                                                || OfferResponseDtccOnboardingAccept.class.equals(
+                                                        Double.class))
                                         && token == JsonToken.VALUE_NUMBER_FLOAT);
                         attemptParsing |=
-                                (OfferResponseTransfer.class.equals(Boolean.class)
+                                (OfferResponseDtccOnboardingAccept.class.equals(Boolean.class)
                                         && (token == JsonToken.VALUE_FALSE
                                                 || token == JsonToken.VALUE_TRUE));
                         attemptParsing |=
-                                (OfferResponseTransfer.class.equals(String.class)
+                                (OfferResponseDtccOnboardingAccept.class.equals(String.class)
                                         && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
                     deserialized =
-                            tree.traverse(jp.getCodec()).readValueAs(OfferResponseTransfer.class);
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(OfferResponseDtccOnboardingAccept.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(Level.FINER, "Input data matches schema 'OfferResponseTransfer'");
+                    log.log(
+                            Level.FINER,
+                            "Input data matches schema 'OfferResponseDtccOnboardingAccept'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'OfferResponseTransfer'", e);
+                log.log(
+                        Level.FINER,
+                        "Input data does not match schema 'OfferResponseDtccOnboardingAccept'",
+                        e);
+            }
+
+            // deserialize OfferResponseDtccOnboardingReject
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (OfferResponseDtccOnboardingReject.class.equals(Integer.class)
+                        || OfferResponseDtccOnboardingReject.class.equals(Long.class)
+                        || OfferResponseDtccOnboardingReject.class.equals(Float.class)
+                        || OfferResponseDtccOnboardingReject.class.equals(Double.class)
+                        || OfferResponseDtccOnboardingReject.class.equals(Boolean.class)
+                        || OfferResponseDtccOnboardingReject.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((OfferResponseDtccOnboardingReject.class.equals(Integer.class)
+                                                || OfferResponseDtccOnboardingReject.class.equals(
+                                                        Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((OfferResponseDtccOnboardingReject.class.equals(Float.class)
+                                                || OfferResponseDtccOnboardingReject.class.equals(
+                                                        Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (OfferResponseDtccOnboardingReject.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (OfferResponseDtccOnboardingReject.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized =
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(OfferResponseDtccOnboardingReject.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(
+                            Level.FINER,
+                            "Input data matches schema 'OfferResponseDtccOnboardingReject'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(
+                        Level.FINER,
+                        "Input data does not match schema 'OfferResponseDtccOnboardingReject'",
+                        e);
+            }
+
+            // deserialize OfferResponseTradewebAccept
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (OfferResponseTradewebAccept.class.equals(Integer.class)
+                        || OfferResponseTradewebAccept.class.equals(Long.class)
+                        || OfferResponseTradewebAccept.class.equals(Float.class)
+                        || OfferResponseTradewebAccept.class.equals(Double.class)
+                        || OfferResponseTradewebAccept.class.equals(Boolean.class)
+                        || OfferResponseTradewebAccept.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((OfferResponseTradewebAccept.class.equals(Integer.class)
+                                                || OfferResponseTradewebAccept.class.equals(
+                                                        Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((OfferResponseTradewebAccept.class.equals(Float.class)
+                                                || OfferResponseTradewebAccept.class.equals(
+                                                        Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (OfferResponseTradewebAccept.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (OfferResponseTradewebAccept.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized =
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(OfferResponseTradewebAccept.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'OfferResponseTradewebAccept'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(
+                        Level.FINER,
+                        "Input data does not match schema 'OfferResponseTradewebAccept'",
+                        e);
+            }
+
+            // deserialize OfferResponseTradewebReject
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (OfferResponseTradewebReject.class.equals(Integer.class)
+                        || OfferResponseTradewebReject.class.equals(Long.class)
+                        || OfferResponseTradewebReject.class.equals(Float.class)
+                        || OfferResponseTradewebReject.class.equals(Double.class)
+                        || OfferResponseTradewebReject.class.equals(Boolean.class)
+                        || OfferResponseTradewebReject.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((OfferResponseTradewebReject.class.equals(Integer.class)
+                                                || OfferResponseTradewebReject.class.equals(
+                                                        Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((OfferResponseTradewebReject.class.equals(Float.class)
+                                                || OfferResponseTradewebReject.class.equals(
+                                                        Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (OfferResponseTradewebReject.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (OfferResponseTradewebReject.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized =
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(OfferResponseTradewebReject.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'OfferResponseTradewebReject'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(
+                        Level.FINER,
+                        "Input data does not match schema 'OfferResponseTradewebReject'",
+                        e);
+            }
+
+            // deserialize OfferResponseTransferAccept
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (OfferResponseTransferAccept.class.equals(Integer.class)
+                        || OfferResponseTransferAccept.class.equals(Long.class)
+                        || OfferResponseTransferAccept.class.equals(Float.class)
+                        || OfferResponseTransferAccept.class.equals(Double.class)
+                        || OfferResponseTransferAccept.class.equals(Boolean.class)
+                        || OfferResponseTransferAccept.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((OfferResponseTransferAccept.class.equals(Integer.class)
+                                                || OfferResponseTransferAccept.class.equals(
+                                                        Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((OfferResponseTransferAccept.class.equals(Float.class)
+                                                || OfferResponseTransferAccept.class.equals(
+                                                        Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (OfferResponseTransferAccept.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (OfferResponseTransferAccept.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized =
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(OfferResponseTransferAccept.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'OfferResponseTransferAccept'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(
+                        Level.FINER,
+                        "Input data does not match schema 'OfferResponseTransferAccept'",
+                        e);
+            }
+
+            // deserialize OfferResponseTransferReject
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (OfferResponseTransferReject.class.equals(Integer.class)
+                        || OfferResponseTransferReject.class.equals(Long.class)
+                        || OfferResponseTransferReject.class.equals(Float.class)
+                        || OfferResponseTransferReject.class.equals(Double.class)
+                        || OfferResponseTransferReject.class.equals(Boolean.class)
+                        || OfferResponseTransferReject.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((OfferResponseTransferReject.class.equals(Integer.class)
+                                                || OfferResponseTransferReject.class.equals(
+                                                        Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((OfferResponseTransferReject.class.equals(Float.class)
+                                                || OfferResponseTransferReject.class.equals(
+                                                        Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (OfferResponseTransferReject.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (OfferResponseTransferReject.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized =
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(OfferResponseTransferReject.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'OfferResponseTransferReject'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(
+                        Level.FINER,
+                        "Input data does not match schema 'OfferResponseTransferReject'",
+                        e);
+            }
+
+            // deserialize OfferResponseTransferWithdraw
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (OfferResponseTransferWithdraw.class.equals(Integer.class)
+                        || OfferResponseTransferWithdraw.class.equals(Long.class)
+                        || OfferResponseTransferWithdraw.class.equals(Float.class)
+                        || OfferResponseTransferWithdraw.class.equals(Double.class)
+                        || OfferResponseTransferWithdraw.class.equals(Boolean.class)
+                        || OfferResponseTransferWithdraw.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((OfferResponseTransferWithdraw.class.equals(Integer.class)
+                                                || OfferResponseTransferWithdraw.class.equals(
+                                                        Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((OfferResponseTransferWithdraw.class.equals(Float.class)
+                                                || OfferResponseTransferWithdraw.class.equals(
+                                                        Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (OfferResponseTransferWithdraw.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (OfferResponseTransferWithdraw.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized =
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(OfferResponseTransferWithdraw.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(
+                            Level.FINER,
+                            "Input data matches schema 'OfferResponseTransferWithdraw'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(
+                        Level.FINER,
+                        "Input data does not match schema 'OfferResponseTransferWithdraw'",
+                        e);
             }
 
             if (match == 1) {
@@ -240,36 +554,86 @@ public class OfferResponse extends AbstractOpenApiSchema {
         super("oneOf", Boolean.FALSE);
     }
 
-    public OfferResponse(OfferResponseAllocation o) {
+    public OfferResponse(OfferResponseAllocationAccept o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
 
-    public OfferResponse(OfferResponseOnboarding o) {
+    public OfferResponse(OfferResponseAllocationReject o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
 
-    public OfferResponse(OfferResponseTransfer o) {
+    public OfferResponse(OfferResponseDtccOnboardingAccept o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
+    public OfferResponse(OfferResponseDtccOnboardingReject o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
+    public OfferResponse(OfferResponseTradewebAccept o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
+    public OfferResponse(OfferResponseTradewebReject o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
+    public OfferResponse(OfferResponseTransferAccept o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
+    public OfferResponse(OfferResponseTransferReject o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
+    public OfferResponse(OfferResponseTransferWithdraw o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
 
     static {
-        schemas.put("OfferResponseAllocation", OfferResponseAllocation.class);
-        schemas.put("OfferResponseOnboarding", OfferResponseOnboarding.class);
-        schemas.put("OfferResponseTransfer", OfferResponseTransfer.class);
+        schemas.put("OfferResponseAllocationAccept", OfferResponseAllocationAccept.class);
+        schemas.put("OfferResponseAllocationReject", OfferResponseAllocationReject.class);
+        schemas.put("OfferResponseDtccOnboardingAccept", OfferResponseDtccOnboardingAccept.class);
+        schemas.put("OfferResponseDtccOnboardingReject", OfferResponseDtccOnboardingReject.class);
+        schemas.put("OfferResponseTradewebAccept", OfferResponseTradewebAccept.class);
+        schemas.put("OfferResponseTradewebReject", OfferResponseTradewebReject.class);
+        schemas.put("OfferResponseTransferAccept", OfferResponseTransferAccept.class);
+        schemas.put("OfferResponseTransferReject", OfferResponseTransferReject.class);
+        schemas.put("OfferResponseTransferWithdraw", OfferResponseTransferWithdraw.class);
         JSON.registerDescendants(OfferResponse.class, Collections.unmodifiableMap(schemas));
         // Initialize and register the discriminator mappings.
         Map<String, Class<?>> mappings = new HashMap<String, Class<?>>();
-        mappings.put("ALLOCATION", OfferResponseAllocation.class);
-        mappings.put("ONBOARDING", OfferResponseOnboarding.class);
-        mappings.put("TRANSFER", OfferResponseTransfer.class);
-        mappings.put("OfferResponseAllocation", OfferResponseAllocation.class);
-        mappings.put("OfferResponseOnboarding", OfferResponseOnboarding.class);
-        mappings.put("OfferResponseTransfer", OfferResponseTransfer.class);
+        mappings.put("ALLOCATION_ACCEPT", OfferResponseAllocationAccept.class);
+        mappings.put("ALLOCATION_REJECT", OfferResponseAllocationReject.class);
+        mappings.put(
+                "DTCC_END_INVESTOR_ONBOARDING_ACCEPT", OfferResponseDtccOnboardingAccept.class);
+        mappings.put(
+                "DTCC_END_INVESTOR_ONBOARDING_REJECT", OfferResponseDtccOnboardingReject.class);
+        mappings.put("TRADEWEB_COSIGNING_DELEGATION_ACCEPT", OfferResponseTradewebAccept.class);
+        mappings.put("TRADEWEB_COSIGNING_DELEGATION_REJECT", OfferResponseTradewebReject.class);
+        mappings.put("TRANSFER_ACCEPT", OfferResponseTransferAccept.class);
+        mappings.put("TRANSFER_REJECT", OfferResponseTransferReject.class);
+        mappings.put("TRANSFER_WITHDRAW", OfferResponseTransferWithdraw.class);
+        mappings.put("OfferResponseAllocationAccept", OfferResponseAllocationAccept.class);
+        mappings.put("OfferResponseAllocationReject", OfferResponseAllocationReject.class);
+        mappings.put("OfferResponseDtccOnboardingAccept", OfferResponseDtccOnboardingAccept.class);
+        mappings.put("OfferResponseDtccOnboardingReject", OfferResponseDtccOnboardingReject.class);
+        mappings.put("OfferResponseTradewebAccept", OfferResponseTradewebAccept.class);
+        mappings.put("OfferResponseTradewebReject", OfferResponseTradewebReject.class);
+        mappings.put("OfferResponseTransferAccept", OfferResponseTransferAccept.class);
+        mappings.put("OfferResponseTransferReject", OfferResponseTransferReject.class);
+        mappings.put("OfferResponseTransferWithdraw", OfferResponseTransferWithdraw.class);
         mappings.put("OfferResponse", OfferResponse.class);
-        JSON.registerDiscriminator(OfferResponse.class, "domain", mappings);
+        JSON.registerDiscriminator(OfferResponse.class, "responseType", mappings);
     }
 
     @Override
@@ -279,40 +643,88 @@ public class OfferResponse extends AbstractOpenApiSchema {
 
     /**
      * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: OfferResponseAllocation, OfferResponseOnboarding,
-     * OfferResponseTransfer
+     * against the oneOf child schemas: OfferResponseAllocationAccept,
+     * OfferResponseAllocationReject, OfferResponseDtccOnboardingAccept,
+     * OfferResponseDtccOnboardingReject, OfferResponseTradewebAccept, OfferResponseTradewebReject,
+     * OfferResponseTransferAccept, OfferResponseTransferReject, OfferResponseTransferWithdraw
      *
      * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
      * a composed schema (allOf, anyOf, oneOf).
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(OfferResponseAllocation.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(
+                OfferResponseAllocationAccept.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(OfferResponseOnboarding.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(
+                OfferResponseAllocationReject.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(OfferResponseTransfer.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(
+                OfferResponseDtccOnboardingAccept.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (JSON.isInstanceOf(
+                OfferResponseDtccOnboardingReject.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (JSON.isInstanceOf(
+                OfferResponseTradewebAccept.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (JSON.isInstanceOf(
+                OfferResponseTradewebReject.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (JSON.isInstanceOf(
+                OfferResponseTransferAccept.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (JSON.isInstanceOf(
+                OfferResponseTransferReject.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (JSON.isInstanceOf(
+                OfferResponseTransferWithdraw.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
         throw new RuntimeException(
-                "Invalid instance type. Must be OfferResponseAllocation, OfferResponseOnboarding,"
-                        + " OfferResponseTransfer");
+                "Invalid instance type. Must be OfferResponseAllocationAccept,"
+                        + " OfferResponseAllocationReject, OfferResponseDtccOnboardingAccept,"
+                        + " OfferResponseDtccOnboardingReject, OfferResponseTradewebAccept,"
+                        + " OfferResponseTradewebReject, OfferResponseTransferAccept,"
+                        + " OfferResponseTransferReject, OfferResponseTransferWithdraw");
     }
 
     /**
-     * Get the actual instance, which can be the following: OfferResponseAllocation,
-     * OfferResponseOnboarding, OfferResponseTransfer
+     * Get the actual instance, which can be the following: OfferResponseAllocationAccept,
+     * OfferResponseAllocationReject, OfferResponseDtccOnboardingAccept,
+     * OfferResponseDtccOnboardingReject, OfferResponseTradewebAccept, OfferResponseTradewebReject,
+     * OfferResponseTransferAccept, OfferResponseTransferReject, OfferResponseTransferWithdraw
      *
-     * @return The actual instance (OfferResponseAllocation, OfferResponseOnboarding,
-     *     OfferResponseTransfer)
+     * @return The actual instance (OfferResponseAllocationAccept, OfferResponseAllocationReject,
+     *     OfferResponseDtccOnboardingAccept, OfferResponseDtccOnboardingReject,
+     *     OfferResponseTradewebAccept, OfferResponseTradewebReject, OfferResponseTransferAccept,
+     *     OfferResponseTransferReject, OfferResponseTransferWithdraw)
      */
     @Override
     public Object getActualInstance() {
@@ -320,36 +732,107 @@ public class OfferResponse extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `OfferResponseAllocation`. If the actual instance is not
-     * `OfferResponseAllocation`, the ClassCastException will be thrown.
+     * Get the actual instance of `OfferResponseAllocationAccept`. If the actual instance is not
+     * `OfferResponseAllocationAccept`, the ClassCastException will be thrown.
      *
-     * @return The actual instance of `OfferResponseAllocation`
-     * @throws ClassCastException if the instance is not `OfferResponseAllocation`
+     * @return The actual instance of `OfferResponseAllocationAccept`
+     * @throws ClassCastException if the instance is not `OfferResponseAllocationAccept`
      */
-    public OfferResponseAllocation getOfferResponseAllocation() throws ClassCastException {
-        return (OfferResponseAllocation) super.getActualInstance();
+    public OfferResponseAllocationAccept getOfferResponseAllocationAccept()
+            throws ClassCastException {
+        return (OfferResponseAllocationAccept) super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `OfferResponseOnboarding`. If the actual instance is not
-     * `OfferResponseOnboarding`, the ClassCastException will be thrown.
+     * Get the actual instance of `OfferResponseAllocationReject`. If the actual instance is not
+     * `OfferResponseAllocationReject`, the ClassCastException will be thrown.
      *
-     * @return The actual instance of `OfferResponseOnboarding`
-     * @throws ClassCastException if the instance is not `OfferResponseOnboarding`
+     * @return The actual instance of `OfferResponseAllocationReject`
+     * @throws ClassCastException if the instance is not `OfferResponseAllocationReject`
      */
-    public OfferResponseOnboarding getOfferResponseOnboarding() throws ClassCastException {
-        return (OfferResponseOnboarding) super.getActualInstance();
+    public OfferResponseAllocationReject getOfferResponseAllocationReject()
+            throws ClassCastException {
+        return (OfferResponseAllocationReject) super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `OfferResponseTransfer`. If the actual instance is not
-     * `OfferResponseTransfer`, the ClassCastException will be thrown.
+     * Get the actual instance of `OfferResponseDtccOnboardingAccept`. If the actual instance is not
+     * `OfferResponseDtccOnboardingAccept`, the ClassCastException will be thrown.
      *
-     * @return The actual instance of `OfferResponseTransfer`
-     * @throws ClassCastException if the instance is not `OfferResponseTransfer`
+     * @return The actual instance of `OfferResponseDtccOnboardingAccept`
+     * @throws ClassCastException if the instance is not `OfferResponseDtccOnboardingAccept`
      */
-    public OfferResponseTransfer getOfferResponseTransfer() throws ClassCastException {
-        return (OfferResponseTransfer) super.getActualInstance();
+    public OfferResponseDtccOnboardingAccept getOfferResponseDtccOnboardingAccept()
+            throws ClassCastException {
+        return (OfferResponseDtccOnboardingAccept) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `OfferResponseDtccOnboardingReject`. If the actual instance is not
+     * `OfferResponseDtccOnboardingReject`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `OfferResponseDtccOnboardingReject`
+     * @throws ClassCastException if the instance is not `OfferResponseDtccOnboardingReject`
+     */
+    public OfferResponseDtccOnboardingReject getOfferResponseDtccOnboardingReject()
+            throws ClassCastException {
+        return (OfferResponseDtccOnboardingReject) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `OfferResponseTradewebAccept`. If the actual instance is not
+     * `OfferResponseTradewebAccept`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `OfferResponseTradewebAccept`
+     * @throws ClassCastException if the instance is not `OfferResponseTradewebAccept`
+     */
+    public OfferResponseTradewebAccept getOfferResponseTradewebAccept() throws ClassCastException {
+        return (OfferResponseTradewebAccept) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `OfferResponseTradewebReject`. If the actual instance is not
+     * `OfferResponseTradewebReject`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `OfferResponseTradewebReject`
+     * @throws ClassCastException if the instance is not `OfferResponseTradewebReject`
+     */
+    public OfferResponseTradewebReject getOfferResponseTradewebReject() throws ClassCastException {
+        return (OfferResponseTradewebReject) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `OfferResponseTransferAccept`. If the actual instance is not
+     * `OfferResponseTransferAccept`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `OfferResponseTransferAccept`
+     * @throws ClassCastException if the instance is not `OfferResponseTransferAccept`
+     */
+    public OfferResponseTransferAccept getOfferResponseTransferAccept() throws ClassCastException {
+        return (OfferResponseTransferAccept) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `OfferResponseTransferReject`. If the actual instance is not
+     * `OfferResponseTransferReject`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `OfferResponseTransferReject`
+     * @throws ClassCastException if the instance is not `OfferResponseTransferReject`
+     */
+    public OfferResponseTransferReject getOfferResponseTransferReject() throws ClassCastException {
+        return (OfferResponseTransferReject) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `OfferResponseTransferWithdraw`. If the actual instance is not
+     * `OfferResponseTransferWithdraw`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `OfferResponseTransferWithdraw`
+     * @throws ClassCastException if the instance is not `OfferResponseTransferWithdraw`
+     */
+    public OfferResponseTransferWithdraw getOfferResponseTransferWithdraw()
+            throws ClassCastException {
+        return (OfferResponseTransferWithdraw) super.getActualInstance();
     }
 
     /**
@@ -384,27 +867,75 @@ public class OfferResponse extends AbstractOpenApiSchema {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        if (getActualInstance() instanceof OfferResponseOnboarding) {
+        if (getActualInstance() instanceof OfferResponseDtccOnboardingAccept) {
             if (getActualInstance() != null) {
                 joiner.add(
-                        ((OfferResponseOnboarding) getActualInstance())
+                        ((OfferResponseDtccOnboardingAccept) getActualInstance())
                                 .toUrlQueryString(prefix + "one_of_0" + suffix));
             }
             return joiner.toString();
         }
-        if (getActualInstance() instanceof OfferResponseAllocation) {
+        if (getActualInstance() instanceof OfferResponseDtccOnboardingReject) {
             if (getActualInstance() != null) {
                 joiner.add(
-                        ((OfferResponseAllocation) getActualInstance())
+                        ((OfferResponseDtccOnboardingReject) getActualInstance())
                                 .toUrlQueryString(prefix + "one_of_1" + suffix));
             }
             return joiner.toString();
         }
-        if (getActualInstance() instanceof OfferResponseTransfer) {
+        if (getActualInstance() instanceof OfferResponseTradewebAccept) {
             if (getActualInstance() != null) {
                 joiner.add(
-                        ((OfferResponseTransfer) getActualInstance())
+                        ((OfferResponseTradewebAccept) getActualInstance())
                                 .toUrlQueryString(prefix + "one_of_2" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof OfferResponseTradewebReject) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((OfferResponseTradewebReject) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_3" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof OfferResponseAllocationAccept) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((OfferResponseAllocationAccept) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_4" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof OfferResponseAllocationReject) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((OfferResponseAllocationReject) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_5" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof OfferResponseTransferAccept) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((OfferResponseTransferAccept) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_6" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof OfferResponseTransferReject) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((OfferResponseTransferReject) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_7" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof OfferResponseTransferWithdraw) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((OfferResponseTransferWithdraw) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_8" + suffix));
             }
             return joiner.toString();
         }

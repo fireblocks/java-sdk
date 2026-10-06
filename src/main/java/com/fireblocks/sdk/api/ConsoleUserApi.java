@@ -185,9 +185,9 @@ public class ConsoleUserApi {
      * approval policy (Settings &gt; Quorums), exactly as deleting a user from the console does,
      * and the user is removed only once that approval completes. - Track progress by polling GET
      * /management/users; deletion is complete when the user is disabled. - Please note that this
-     * endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint
-     * Permission: Admin, Non-Signing Admin. **Note:** This endpoint is currently in beta and might
-     * be subject to changes.
+     * endpoint is available only for API keys with Admin/Non Signing Admin/Security Admin
+     * permissions. Endpoint Permission: Admin, Non-Signing Admin, Security Admin. **Note:** This
+     * endpoint is currently in beta and might be subject to changes.
      *
      * @param id The ID of the console user to delete (required)
      * @param force Acknowledges the impact of removing this user and proceeds anyway. Overrides

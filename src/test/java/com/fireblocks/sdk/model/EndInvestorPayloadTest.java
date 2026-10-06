@@ -31,10 +31,10 @@ class EndInvestorPayloadTest {
         // TODO: test vaultAccountId
     }
 
-    /** Test the property 'asset' */
+    /** Test the property 'blockchainId' */
     @Test
-    void assetTest() {
-        // TODO: test asset
+    void blockchainIdTest() {
+        // TODO: test blockchainId
     }
 
     /** Test the property 'endInvestor' */

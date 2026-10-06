@@ -22,7 +22,10 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /** The result of registering an approval API key. */
-@JsonPropertyOrder({RegisterApprovalApiKeyResponse.JSON_PROPERTY_KEY_ID})
+@JsonPropertyOrder({
+    RegisterApprovalApiKeyResponse.JSON_PROPERTY_KEY_ID,
+    RegisterApprovalApiKeyResponse.JSON_PROPERTY_CCR_ID_PENDING_REGISTRATION
+})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
@@ -30,12 +33,19 @@ public class RegisterApprovalApiKeyResponse {
     public static final String JSON_PROPERTY_KEY_ID = "keyId";
     @jakarta.annotation.Nonnull private String keyId;
 
+    public static final String JSON_PROPERTY_CCR_ID_PENDING_REGISTRATION =
+            "ccrIdPendingRegistration";
+    @jakarta.annotation.Nonnull private String ccrIdPendingRegistration;
+
     public RegisterApprovalApiKeyResponse() {}
 
     @JsonCreator
     public RegisterApprovalApiKeyResponse(
-            @JsonProperty(value = JSON_PROPERTY_KEY_ID, required = true) String keyId) {
+            @JsonProperty(value = JSON_PROPERTY_KEY_ID, required = true) String keyId,
+            @JsonProperty(value = JSON_PROPERTY_CCR_ID_PENDING_REGISTRATION, required = true)
+                    String ccrIdPendingRegistration) {
         this.keyId = keyId;
+        this.ccrIdPendingRegistration = ccrIdPendingRegistration;
     }
 
     public RegisterApprovalApiKeyResponse keyId(@jakarta.annotation.Nonnull String keyId) {
@@ -61,6 +71,33 @@ public class RegisterApprovalApiKeyResponse {
         this.keyId = keyId;
     }
 
+    public RegisterApprovalApiKeyResponse ccrIdPendingRegistration(
+            @jakarta.annotation.Nonnull String ccrIdPendingRegistration) {
+        this.ccrIdPendingRegistration = ccrIdPendingRegistration;
+        return this;
+    }
+
+    /**
+     * Always returned. An empty string when the key is active immediately. Otherwise, the ID of the
+     * approval request that must be approved before the key becomes active. The request appears in
+     * &#x60;GET /v1/approvals&#x60;.
+     *
+     * @return ccrIdPendingRegistration
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_CCR_ID_PENDING_REGISTRATION)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getCcrIdPendingRegistration() {
+        return ccrIdPendingRegistration;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CCR_ID_PENDING_REGISTRATION)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setCcrIdPendingRegistration(
+            @jakarta.annotation.Nonnull String ccrIdPendingRegistration) {
+        this.ccrIdPendingRegistration = ccrIdPendingRegistration;
+    }
+
     /** Return true if this RegisterApprovalApiKeyResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -72,12 +109,15 @@ public class RegisterApprovalApiKeyResponse {
         }
         RegisterApprovalApiKeyResponse registerApprovalApiKeyResponse =
                 (RegisterApprovalApiKeyResponse) o;
-        return Objects.equals(this.keyId, registerApprovalApiKeyResponse.keyId);
+        return Objects.equals(this.keyId, registerApprovalApiKeyResponse.keyId)
+                && Objects.equals(
+                        this.ccrIdPendingRegistration,
+                        registerApprovalApiKeyResponse.ccrIdPendingRegistration);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(keyId);
+        return Objects.hash(keyId, ccrIdPendingRegistration);
     }
 
     @Override
@@ -85,6 +125,9 @@ public class RegisterApprovalApiKeyResponse {
         StringBuilder sb = new StringBuilder();
         sb.append("class RegisterApprovalApiKeyResponse {\n");
         sb.append("    keyId: ").append(toIndentedString(keyId)).append("\n");
+        sb.append("    ccrIdPendingRegistration: ")
+                .append(toIndentedString(ccrIdPendingRegistration))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -140,6 +183,17 @@ public class RegisterApprovalApiKeyResponse {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getKeyId()))));
+        }
+
+        // add `ccrIdPendingRegistration` to the URL query string
+        if (getCcrIdPendingRegistration() != null) {
+            joiner.add(
+                    String.format(
+                            "%sccrIdPendingRegistration%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getCcrIdPendingRegistration()))));
         }
 
         return joiner.toString();

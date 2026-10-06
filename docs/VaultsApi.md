@@ -33,6 +33,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getVaultBalanceByAsset**](VaultsApi.md#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by an asset |
 | [**hideVaultAccount**](VaultsApi.md#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console |
 | [**lookupVaultByAddress**](VaultsApi.md#lookupVaultByAddress) | **GET** /vault/lookup_by_address | Look up a vault account by blockchain address |
+| [**registerTempoOmnibusWallet**](VaultsApi.md#registerTempoOmnibusWallet) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/omnibus/tempo/register | Register a Tempo omnibus wallet |
 | [**setCustomerRefIdForAddress**](VaultsApi.md#setCustomerRefIdForAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id | Assign AML customer reference ID |
 | [**setUsdcGatewayDepositAutomationBeta**](VaultsApi.md#setUsdcGatewayDepositAutomationBeta) | **POST** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation | Set up a USDC Gateway deposit automation for a vault account |
 | [**setVaultAccountAutoFuel**](VaultsApi.md#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Set auto fueling to on or off |
@@ -2392,6 +2393,87 @@ No authorization required
 | **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 | **403** | Feature is not enabled for the workspace. |  * X-Request-ID -  <br>  |
 | **404** | Vault account not found for the supplied address |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## registerTempoOmnibusWallet
+
+> CompletableFuture<ApiResponse<CreateVaultAssetResponse>> registerTempoOmnibusWallet registerTempoOmnibusWallet(vaultAccountId, assetId, idempotencyKey)
+
+Register a Tempo omnibus wallet
+
+Registers a Tempo omnibus wallet for the requested vault account. Triggering this flow requires the vault account to hold PATH_USD with a balance sufficient to cover the gas fee. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.VaultsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account for which to register the Tempo wallet.
+        String assetId = "assetId_example"; // String | The Tempo network asset to register for the vault account.
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response = fireblocks.vaults().registerTempoOmnibusWallet(vaultAccountId, assetId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling VaultsApi#registerTempoOmnibusWallet");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **vaultAccountId** | **String**| The ID of the vault account for which to register the Tempo wallet. | |
+| **assetId** | **String**| The Tempo network asset to register for the vault account. | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**CreateVaultAssetResponse**](CreateVaultAssetResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

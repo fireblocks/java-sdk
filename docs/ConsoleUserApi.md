@@ -98,7 +98,7 @@ No authorization required
 
 Request deletion of a console user
 
-Requests deletion of a console user. The request is asynchronous: it goes through the workspace&#39;s configured \&quot;Delete users\&quot; approval policy (Settings &gt; Quorums), exactly as deleting a user from the console does, and the user is removed only once that approval completes. - Track progress by polling GET /management/users; deletion is complete when the user is disabled. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin. **Note:** This endpoint is currently in beta and might be subject to changes.
+Requests deletion of a console user. The request is asynchronous: it goes through the workspace&#39;s configured \&quot;Delete users\&quot; approval policy (Settings &gt; Quorums), exactly as deleting a user from the console does, and the user is removed only once that approval completes. - Track progress by polling GET /management/users; deletion is complete when the user is disabled. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin/Security Admin permissions. Endpoint Permission: Admin, Non-Signing Admin, Security Admin. **Note:** This endpoint is currently in beta and might be subject to changes.
 
 ### Example
 
@@ -168,9 +168,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Deletion request accepted. Returns the console user that will be removed once the workspace&#39;s configured approval completes. |  * X-Request-ID -  <br>  |
+| **400** | Bad request: invalid parameters (for example a non-boolean &#x60;force&#x60;), or TARGET_IS_API_USER - the ID belongs to an API user in this workspace; this endpoint deletes console users only. |  * X-Request-ID -  <br>  |
 | **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 | **403** | Lacking permissions, or the target cannot be deleted: the user is the workspace Owner, or the caller is the target. |  * X-Request-ID -  <br>  |
-| **404** | Console user not found. Also returned for users in other workspaces and for API users, so the endpoint does not reveal whether an ID exists. |  * X-Request-ID -  <br>  |
+| **404** | Console user not found. Also returned for users in other workspaces (so the endpoint does not reveal whether an ID exists there) and for users that were already deleted. |  * X-Request-ID -  <br>  |
 | **409** | PENDING_REQUEST_EXISTS - a deletion request for this user is already awaiting approval; USER_REFERENCED_IN_TAP - the user is referenced by the workspace transaction authorization policy (can be overridden with force&#x3D;true); or USER_PENDING_ONBOARDING - the user has not completed onboarding, so there is nothing to delete yet. Revoke the invitation from the console instead. |  * X-Request-ID -  <br>  |
 | **422** | QUORUM_INTEGRITY - the user is required to complete the workspace&#39;s admin approval quorum. Can be overridden with force&#x3D;true, matching the console&#39;s acknowledgement checkbox. |  * X-Request-ID -  <br>  |
 | **5XX** | Internal error. |  * X-Request-ID -  <br>  |
