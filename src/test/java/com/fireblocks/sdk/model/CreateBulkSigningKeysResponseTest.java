@@ -15,19 +15,19 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for AllocationWithdrawPayload */
-class AllocationWithdrawPayloadTest {
-    private final AllocationWithdrawPayload model = new AllocationWithdrawPayload();
+/** Model tests for CreateBulkSigningKeysResponse */
+class CreateBulkSigningKeysResponseTest {
+    private final CreateBulkSigningKeysResponse model = new CreateBulkSigningKeysResponse();
 
-    /** Model tests for AllocationWithdrawPayload */
+    /** Model tests for CreateBulkSigningKeysResponse */
     @Test
-    void testAllocationWithdrawPayload() {
-        // TODO: test AllocationWithdrawPayload
+    void testCreateBulkSigningKeysResponse() {
+        // TODO: test CreateBulkSigningKeysResponse
     }
 
-    /** Test the property 'allocationTransactionId' */
+    /** Test the property 'jobId' */
     @Test
-    void allocationTransactionIdTest() {
-        // TODO: test allocationTransactionId
+    void jobIdTest() {
+        // TODO: test jobId
     }
 }

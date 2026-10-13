@@ -22,22 +22,32 @@ import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** CantonCallAllocationWithdraw */
-@JsonPropertyOrder({
-    CantonCallAllocationWithdraw.JSON_PROPERTY_TYPE,
-    CantonCallAllocationWithdraw.JSON_PROPERTY_PAYLOAD
-})
+/**
+ * Withdraw the allocation you made by accepting this offer, unlocking the holding. Carries no
+ * arguments — the allocation is resolved from the offer. Answers &#x60;409&#x60; until the accept
+ * has settled.
+ */
+@JsonPropertyOrder({OfferResponseAllocationWithdraw.JSON_PROPERTY_RESPONSE_TYPE})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class CantonCallAllocationWithdraw {
-    /** Which call to make. Selects the shape of &#x60;payload&#x60;. */
-    public enum TypeEnum {
+public class OfferResponseAllocationWithdraw {
+    /**
+     * How you are answering the offer. Must be one of the values listed in the transaction&#39;s
+     * &#x60;cantonDetails.offerResponse.availableResponses&#x60; — TOP-LEVEL on the transaction,
+     * not nested under an &#x60;additionalInfo&#x60; envelope, which does not exist on
+     * &#x60;TransactionResponse&#x60;. &#x60;availableResponses&#x60; states what this offer TYPE
+     * accepts. It is set when the offer arrives and does not change, so it does NOT tell you
+     * whether the offer is still answerable — check &#x60;expiresAt&#x60; and the transaction&#39;s
+     * status for that, and expect this endpoint to be the authority: it re-checks state and expiry
+     * on every call and answers 409 when either has moved.
+     */
+    public enum ResponseTypeEnum {
         ALLOCATION_WITHDRAW(String.valueOf("ALLOCATION_WITHDRAW"));
 
         private String value;
 
-        TypeEnum(String value) {
+        ResponseTypeEnum(String value) {
             this.value = value;
         }
 
@@ -52,8 +62,8 @@ public class CantonCallAllocationWithdraw {
         }
 
         @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
+        public static ResponseTypeEnum fromValue(String value) {
+            for (ResponseTypeEnum b : ResponseTypeEnum.values()) {
                 if (b.value.equals(value)) {
                     return b;
                 }
@@ -62,71 +72,50 @@ public class CantonCallAllocationWithdraw {
         }
     }
 
-    public static final String JSON_PROPERTY_TYPE = "type";
-    @jakarta.annotation.Nonnull private TypeEnum type;
+    public static final String JSON_PROPERTY_RESPONSE_TYPE = "responseType";
+    @jakarta.annotation.Nonnull private ResponseTypeEnum responseType;
 
-    public static final String JSON_PROPERTY_PAYLOAD = "payload";
-    @jakarta.annotation.Nonnull private AllocationWithdrawPayload payload;
-
-    public CantonCallAllocationWithdraw() {}
+    public OfferResponseAllocationWithdraw() {}
 
     @JsonCreator
-    public CantonCallAllocationWithdraw(
-            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
-            @JsonProperty(value = JSON_PROPERTY_PAYLOAD, required = true)
-                    AllocationWithdrawPayload payload) {
-        this.type = type;
-        this.payload = payload;
+    public OfferResponseAllocationWithdraw(
+            @JsonProperty(value = JSON_PROPERTY_RESPONSE_TYPE, required = true)
+                    ResponseTypeEnum responseType) {
+        this.responseType = responseType;
     }
 
-    public CantonCallAllocationWithdraw type(@jakarta.annotation.Nonnull TypeEnum type) {
-        this.type = type;
+    public OfferResponseAllocationWithdraw responseType(
+            @jakarta.annotation.Nonnull ResponseTypeEnum responseType) {
+        this.responseType = responseType;
         return this;
     }
 
     /**
-     * Which call to make. Selects the shape of &#x60;payload&#x60;.
+     * How you are answering the offer. Must be one of the values listed in the transaction&#39;s
+     * &#x60;cantonDetails.offerResponse.availableResponses&#x60; — TOP-LEVEL on the transaction,
+     * not nested under an &#x60;additionalInfo&#x60; envelope, which does not exist on
+     * &#x60;TransactionResponse&#x60;. &#x60;availableResponses&#x60; states what this offer TYPE
+     * accepts. It is set when the offer arrives and does not change, so it does NOT tell you
+     * whether the offer is still answerable — check &#x60;expiresAt&#x60; and the transaction&#39;s
+     * status for that, and expect this endpoint to be the authority: it re-checks state and expiry
+     * on every call and answers 409 when either has moved.
      *
-     * @return type
+     * @return responseType
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonProperty(JSON_PROPERTY_RESPONSE_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TypeEnum getType() {
-        return type;
+    public ResponseTypeEnum getResponseType() {
+        return responseType;
     }
 
-    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonProperty(JSON_PROPERTY_RESPONSE_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
-        this.type = type;
+    public void setResponseType(@jakarta.annotation.Nonnull ResponseTypeEnum responseType) {
+        this.responseType = responseType;
     }
 
-    public CantonCallAllocationWithdraw payload(
-            @jakarta.annotation.Nonnull AllocationWithdrawPayload payload) {
-        this.payload = payload;
-        return this;
-    }
-
-    /**
-     * Get payload
-     *
-     * @return payload
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_PAYLOAD)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AllocationWithdrawPayload getPayload() {
-        return payload;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PAYLOAD)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPayload(@jakarta.annotation.Nonnull AllocationWithdrawPayload payload) {
-        this.payload = payload;
-    }
-
-    /** Return true if this CantonCallAllocationWithdraw object is equal to o. */
+    /** Return true if this OfferResponseAllocationWithdraw object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -135,23 +124,21 @@ public class CantonCallAllocationWithdraw {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CantonCallAllocationWithdraw cantonCallAllocationWithdraw =
-                (CantonCallAllocationWithdraw) o;
-        return Objects.equals(this.type, cantonCallAllocationWithdraw.type)
-                && Objects.equals(this.payload, cantonCallAllocationWithdraw.payload);
+        OfferResponseAllocationWithdraw offerResponseAllocationWithdraw =
+                (OfferResponseAllocationWithdraw) o;
+        return Objects.equals(this.responseType, offerResponseAllocationWithdraw.responseType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, payload);
+        return Objects.hash(responseType);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class CantonCallAllocationWithdraw {\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
-        sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
+        sb.append("class OfferResponseAllocationWithdraw {\n");
+        sb.append("    responseType: ").append(toIndentedString(responseType)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -199,19 +186,14 @@ public class CantonCallAllocationWithdraw {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `type` to the URL query string
-        if (getType() != null) {
+        // add `responseType` to the URL query string
+        if (getResponseType() != null) {
             joiner.add(
                     String.format(
-                            "%stype%s=%s",
+                            "%sresponseType%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
-        }
-
-        // add `payload` to the URL query string
-        if (getPayload() != null) {
-            joiner.add(getPayload().toUrlQueryString(prefix + "payload" + suffix));
+                            ApiClient.urlEncode(ApiClient.valueToString(getResponseType()))));
         }
 
         return joiner.toString();

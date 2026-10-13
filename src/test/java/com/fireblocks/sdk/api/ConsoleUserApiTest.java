@@ -50,11 +50,15 @@ public class ConsoleUserApiTest {
      * <p>Requests deletion of a console user. The request is asynchronous: it goes through the
      * workspace&#39;s configured \&quot;Delete users\&quot; approval policy (Settings &gt;
      * Quorums), exactly as deleting a user from the console does, and the user is removed only once
-     * that approval completes. - Track progress by polling GET /management/users; deletion is
-     * complete when the user is disabled. - Please note that this endpoint is available only for
-     * API keys with Admin/Non Signing Admin/Security Admin permissions. Endpoint Permission: Admin,
-     * Non-Signing Admin, Security Admin. **Note:** This endpoint is currently in beta and might be
-     * subject to changes.
+     * that approval completes. - The workspace must have a \&quot;Delete users\&quot; approval
+     * policy (admin quorum or approval group). If \&quot;Delete users\&quot; is Owner-only, which
+     * is the default, the request is refused with OWNER_ONLY (2760) and the Owner deletes users in
+     * the Console. With an admin quorum, the requesting API user&#39;s own approval counts toward
+     * the quorum. - Track progress by polling GET /management/users; deletion is complete when the
+     * user is disabled. - Please note that this endpoint is available only for API keys with
+     * Admin/Non Signing Admin/Security Admin permissions. Endpoint Permission: Admin, Non-Signing
+     * Admin, Security Admin. **Note:** This endpoint is currently in beta and might be subject to
+     * changes.
      */
     @Test
     public void deleteConsoleUserTest() {

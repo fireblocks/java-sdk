@@ -5,6 +5,7 @@
 ## oneOf schemas
 * [OfferResponseAllocationAccept](OfferResponseAllocationAccept.md)
 * [OfferResponseAllocationReject](OfferResponseAllocationReject.md)
+* [OfferResponseAllocationWithdraw](OfferResponseAllocationWithdraw.md)
 * [OfferResponseDtccOnboardingAccept](OfferResponseDtccOnboardingAccept.md)
 * [OfferResponseDtccOnboardingReject](OfferResponseDtccOnboardingReject.md)
 * [OfferResponseTradewebAccept](OfferResponseTradewebAccept.md)
@@ -19,6 +20,7 @@
 import com.fireblocks.sdk.model.OfferResponse;
 import com.fireblocks.sdk.model.OfferResponseAllocationAccept;
 import com.fireblocks.sdk.model.OfferResponseAllocationReject;
+import com.fireblocks.sdk.model.OfferResponseAllocationWithdraw;
 import com.fireblocks.sdk.model.OfferResponseDtccOnboardingAccept;
 import com.fireblocks.sdk.model.OfferResponseDtccOnboardingReject;
 import com.fireblocks.sdk.model.OfferResponseTradewebAccept;
@@ -44,6 +46,13 @@ public class Example {
         exampleOfferResponse.setActualInstance(exampleOfferResponseAllocationReject);
         // to get back the OfferResponseAllocationReject set earlier
         OfferResponseAllocationReject testOfferResponseAllocationReject = (OfferResponseAllocationReject) exampleOfferResponse.getActualInstance();
+
+        // create a new OfferResponseAllocationWithdraw
+        OfferResponseAllocationWithdraw exampleOfferResponseAllocationWithdraw = new OfferResponseAllocationWithdraw();
+        // set OfferResponse to OfferResponseAllocationWithdraw
+        exampleOfferResponse.setActualInstance(exampleOfferResponseAllocationWithdraw);
+        // to get back the OfferResponseAllocationWithdraw set earlier
+        OfferResponseAllocationWithdraw testOfferResponseAllocationWithdraw = (OfferResponseAllocationWithdraw) exampleOfferResponse.getActualInstance();
 
         // create a new OfferResponseDtccOnboardingAccept
         OfferResponseDtccOnboardingAccept exampleOfferResponseDtccOnboardingAccept = new OfferResponseDtccOnboardingAccept();

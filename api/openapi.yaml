@@ -2575,11 +2575,13 @@ paths:
   /operations/canton/calls:
     post:
       description: |-
-        Submits one Canton call. `type` names the call and selects the shape of `payload`.
+        Submits one Canton call. `type` names the call and selects the shape of `payload`; `vaultAccountId` and `blockchainId` name the wallet that makes it, and are the same for every `type`.
+        {"type":"DTCC_END_INVESTOR_INVITE","vaultAccountId":"12","blockchainId":"CANTON", "payload":{"endInvestor":"investor-party::1220abc…"}}
+        `payload` is optional on `DTCC_PARTICIPANT_ONBOARDING`, where every field it holds is.
         An unknown or missing `type`, or a `payload` missing a required field, is a `400`. A field that does not belong to the selected `type` is ignored rather than rejected.
         A `501` has two different causes, and the distinction is permanent rather than a build-order detail, so it belongs in the published spec:
         NO CANTON CAPABILITY — specified so the contract is complete, but not available in v1: `DTCC_END_INVESTOR_INVITE_CANCEL`, `DTCC_ALLOW_LIST_ADD`, `DTCC_ALLOW_LIST_REMOVE`. NO HANDLER YET — the capability exists and the type is being wired one slice at a time.
-        `ALLOCATION_WITHDRAW` is implemented and answers `201` / `400` / `404` / `409`.
+        To withdraw an allocation, answer the allocation offer with `ALLOCATION_WITHDRAW` on `/offers/{offerId}/responses` — it is not a call.
       operationId: createCantonCall
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -2625,7 +2627,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorSchema"
           description: "No Canton wallet for this vault account and blockchainId,\
-            \ or an unknown transaction id for this tenant"
+            \ or an unknown end investor for this tenant"
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -2663,6 +2665,7 @@ paths:
       description: |-
         ONE endpoint for every offer. `responseType` selects the variant, and `payload` carries that variant's arguments — the same `{discriminator, payload}` shape `/calls` uses. The union is closed, so an unknown `responseType` is a `400`.
         {"responseType":"DTCC_END_INVESTOR_ONBOARDING_REJECT","payload":{"reason":"KYC"}} {"responseType":"ALLOCATION_ACCEPT"}
+        An allocation offer takes three answers, all on the offer's own id: `ALLOCATION_ACCEPT`, `ALLOCATION_REJECT`, and — once the accept has settled — `ALLOCATION_WITHDRAW`, which unlocks the holding the accept allocated. Sent earlier, the withdraw is a `409`.
         `payload` appears ONLY on the variants that take arguments. A variant with no arguments has no `payload` property at all, rather than an empty object — so the schema says what the ledger says, and a future type that needs fields declares its own instead of widening this envelope.
         `responseType` is a direct copy of a value the caller already read off the offer, in `cantonDetails.offerResponse.availableResponses`. Both sides share one flat vocabulary, so there is nothing to translate; the previous shape required pairing that value with a matching `domain` string, which carried no information `responseType` did not already determine.
       operationId: respondToCantonOffer
@@ -2729,8 +2732,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorSchema"
-          description: "The offer is not answerable — already answered, expired, or\
-            \ a response is in flight"
+          description: "The offer cannot take this response now. An accept or reject:\
+            \ the offer is already answered, expired, or a response is in flight.\
+            \ ALLOCATION_WITHDRAW — which is sent AFTER the accept, on the same offer:\
+            \ the allocation is not ALLOCATED, because the accept has not settled\
+            \ yet, or it was already withdrawn or settled by the venue. The message\
+            \ names the state."
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -7388,6 +7395,7 @@ paths:
     delete:
       description: |-
         Requests deletion of a console user. The request is asynchronous: it goes through the workspace's configured "Delete users" approval policy (Settings > Quorums), exactly as deleting a user from the console does, and the user is removed only once that approval completes.
+        - The workspace must have a "Delete users" approval policy (admin quorum or approval group). If "Delete users" is Owner-only, which is the default, the request is refused with OWNER_ONLY (2760) and the Owner deletes users in the Console. With an admin quorum, the requesting API user's own approval counts toward the quorum.
         - Track progress by polling GET /management/users; deletion is complete when the user is disabled.
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin/Security Admin permissions.
         Endpoint Permission: Admin, Non-Signing Admin, Security Admin.
@@ -7451,7 +7459,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorSchema"
           description: "Lacking permissions, or the target cannot be deleted: the\
-            \ user is the workspace Owner, or the caller is the target."
+            \ user is the workspace Owner, or the caller is the target. Also returned\
+            \ as OWNER_ONLY (2760) when the workspace's \"Delete users\" approval\
+            \ is Owner-only; set an approval policy in the Console under Settings\
+            \ > Quorums."
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -7507,7 +7518,7 @@ paths:
       - Console User
       x-rate-limit-category: write
       x-lifecycle:
-        state: private_beta
+        state: beta
       x-readme:
         code-samples:
         - language: javascript
@@ -15786,6 +15797,204 @@ paths:
         source: "response = fireblocks.key_link_beta.set_agent_id(modify_signing_key_agent_id_dto,\
           \ key_id);"
       x-content-type: application/json
+      x-accepts:
+      - application/json
+  /key_link/signing_keys/bulk:
+    post:
+      description: "Accepts a set of signing keys certified by a single validation\
+        \ key and queues them for registration in the background. Returns a job id\
+        \ to poll. A workspace can have one bulk registration at a time; submitting\
+        \ another while one is QUEUED or IN_PROGRESS is rejected with 409. Bulk registrations\
+        \ from different workspaces share a limited number of slots, so a job may\
+        \ wait QUEUED behind another workspace's before it starts. Keys already registered\
+        \ in the workspace are recognized and skipped, so resubmitting the same request\
+        \ after a failure is safe and only processes what is missing. Every key must\
+        \ carry its own proof of ownership; a bulk registration has no interactive\
+        \ step in which one can arrive later."
+      operationId: createBulkSigningKeys
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBulkSigningKeys"
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateBulkSigningKeysResponse"
+          description: Registration is queued
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "409":
+          $ref: "#/components/responses/Error"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Register signing keys in bulk
+      tags:
+      - Key Link (Beta)
+      x-rate-limit-category: async
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateBulkSigningKeysResponse>>\
+            \ = fireblocks.keyLinkBeta.createBulkSigningKeys(keyLinkBetaApiCreateBulkSigningKeysRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CreateBulkSigningKeysResponse>> response\
+            \ = fireblocks.keyLinkBeta().createBulkSigningKeys(createBulkSigningKeys,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.key_link_beta.create_bulk_signing_keys(create_bulk_signing_keys,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CreateBulkSigningKeysResponse>>\
+          \ = fireblocks.keyLinkBeta.createBulkSigningKeys(keyLinkBetaApiCreateBulkSigningKeysRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<CreateBulkSigningKeysResponse>> response\
+          \ = fireblocks.keyLinkBeta().createBulkSigningKeys(createBulkSigningKeys,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.key_link_beta.create_bulk_signing_keys(create_bulk_signing_keys,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /key_link/signing_keys/bulk/jobs:
+    get:
+      description: "Returns the workspace's bulk registration jobs, newest first,\
+        \ a page at a time."
+      operationId: getBulkSigningKeysJobs
+      parameters:
+      - description: Cursor to the next page
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Amount of results to return in the next page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 10
+          maximum: 50
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetBulkSigningKeysJobsResponse"
+          description: Bulk registration jobs for the workspace
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get bulk registration jobs
+      tags:
+      - Key Link (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetBulkSigningKeysJobsResponse>>\
+            \ = fireblocks.keyLinkBeta.getBulkSigningKeysJobs(keyLinkBetaApiGetBulkSigningKeysJobsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<GetBulkSigningKeysJobsResponse>> response\
+            \ = fireblocks.keyLinkBeta().getBulkSigningKeysJobs(pageCursor, pageSize);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.key_link_beta.get_bulk_signing_keys_jobs(page_cursor,\
+            \ page_size);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetBulkSigningKeysJobsResponse>>\
+          \ = fireblocks.keyLinkBeta.getBulkSigningKeysJobs(keyLinkBetaApiGetBulkSigningKeysJobsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<GetBulkSigningKeysJobsResponse>> response\
+          \ = fireblocks.keyLinkBeta().getBulkSigningKeysJobs(pageCursor, pageSize);"
+      - lang: Python
+        source: "response = fireblocks.key_link_beta.get_bulk_signing_keys_jobs(page_cursor,\
+          \ page_size);"
+      x-accepts:
+      - application/json
+  /key_link/signing_keys/bulk/jobs/{jobId}:
+    get:
+      description: Returns the progress and outcome of a bulk registration job. `created
+        + alreadyRegistered` reaching `total` means every submitted key is present.
+      operationId: getBulkSigningKeysJob
+      parameters:
+      - description: The id of the bulk registration job
+        example: 46a92767-5f93-4a46-9eed-f012196bb4fc
+        explode: false
+        in: path
+        name: jobId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BulkSigningKeyJob"
+          description: The bulk registration job
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get a bulk registration job
+      tags:
+      - Key Link (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<BulkSigningKeyJob>> =\
+            \ fireblocks.keyLinkBeta.getBulkSigningKeysJob(keyLinkBetaApiGetBulkSigningKeysJobRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<BulkSigningKeyJob>> response = fireblocks.keyLinkBeta().getBulkSigningKeysJob(jobId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.key_link_beta.get_bulk_signing_keys_job(job_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<BulkSigningKeyJob>> =\
+          \ fireblocks.keyLinkBeta.getBulkSigningKeysJob(keyLinkBetaApiGetBulkSigningKeysJobRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<BulkSigningKeyJob>> response = fireblocks.keyLinkBeta().getBulkSigningKeysJob(jobId);
+      - lang: Python
+        source: response = fireblocks.key_link_beta.get_bulk_signing_keys_job(job_id);
       x-accepts:
       - application/json
   /key_link/validation_keys:
@@ -28264,10 +28473,6 @@ paths:
         If no slippageBps is provided, it defaults to 50 bps (0.5%).
         Slippage and settlement configuration do not affect the returned rate.
 
-        Note: These endpoints are currently in beta and might be subject to changes.
-
-        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
-
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
 
         For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
@@ -28352,29 +28557,29 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get all offers
       tags:
-      - Trading (Beta)
+      - Trading
       x-rate-limit-category: external_query
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<OffersResponse>> = fireblocks.tradingBeta.fetchAllOffers(tradingBetaApiFetchAllOffersRequest);"
+          code: "const response: Promise<FireblocksResponse<OffersResponse>> = fireblocks.trading.fetchAllOffers(tradingApiFetchAllOffersRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<OffersResponse>> response = fireblocks.tradingBeta().fetchAllOffers(createOffersRequest,\
+          code: "CompletableFuture<ApiResponse<OffersResponse>> response = fireblocks.trading().fetchAllOffers(createOffersRequest,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.trading_beta.fetch_all_offers(create_offers_request,\
+          code: "response = fireblocks.trading.fetch_all_offers(create_offers_request,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<OffersResponse>> = fireblocks.tradingBeta.fetchAllOffers(tradingBetaApiFetchAllOffersRequest);"
+        source: "const response: Promise<FireblocksResponse<OffersResponse>> = fireblocks.trading.fetchAllOffers(tradingApiFetchAllOffersRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<OffersResponse>> response = fireblocks.tradingBeta().fetchAllOffers(createOffersRequest,\
+        source: "CompletableFuture<ApiResponse<OffersResponse>> response = fireblocks.trading().fetchAllOffers(createOffersRequest,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.trading_beta.fetch_all_offers(create_offers_request,\
+        source: "response = fireblocks.trading.fetch_all_offers(create_offers_request,\
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -28383,10 +28588,6 @@ paths:
     get:
       description: |-
         Retrieve a paginated list of orders with optional filtering by account, provider, status, and time range.
-
-        Note:These endpoints are currently in beta and might be subject to changes.
-
-        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
 
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
@@ -28534,43 +28735,39 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get orders
       tags:
-      - Trading (Beta)
+      - Trading
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<GetOrdersResponse>> =\
-            \ fireblocks.tradingBeta.getOrders(tradingBetaApiGetOrdersRequest);"
+            \ fireblocks.trading.getOrders(tradingApiGetOrdersRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<GetOrdersResponse>> response = fireblocks.tradingBeta().getOrders(pageSize,\
+          code: "CompletableFuture<ApiResponse<GetOrdersResponse>> response = fireblocks.trading().getOrders(pageSize,\
             \ pageCursor, order, accountId, providerId, statuses, startTime, endTime,\
             \ assetConversionType);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.trading_beta.get_orders(page_size, page_cursor,\
+          code: "response = fireblocks.trading.get_orders(page_size, page_cursor,\
             \ order, account_id, provider_id, statuses, start_time, end_time, asset_conversion_type);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<GetOrdersResponse>> =\
-          \ fireblocks.tradingBeta.getOrders(tradingBetaApiGetOrdersRequest);"
+          \ fireblocks.trading.getOrders(tradingApiGetOrdersRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<GetOrdersResponse>> response = fireblocks.tradingBeta().getOrders(pageSize,\
+        source: "CompletableFuture<ApiResponse<GetOrdersResponse>> response = fireblocks.trading().getOrders(pageSize,\
           \ pageCursor, order, accountId, providerId, statuses, startTime, endTime,\
           \ assetConversionType);"
       - lang: Python
-        source: "response = fireblocks.trading_beta.get_orders(page_size, page_cursor,\
+        source: "response = fireblocks.trading.get_orders(page_size, page_cursor,\
           \ order, account_id, provider_id, statuses, start_time, end_time, asset_conversion_type);"
       x-accepts:
       - application/json
     post:
       description: |-
         Create an order to buy or sell an asset. If no source is given, an external source will be use.
-
-        Note: These endpoints are currently in beta and might be subject to changes.
-
-        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
 
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
 
@@ -28656,29 +28853,29 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Create an order
       tags:
-      - Trading (Beta)
+      - Trading
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<OrderDetails>> = fireblocks.tradingBeta.createOrder(tradingBetaApiCreateOrderRequest);"
+          code: "const response: Promise<FireblocksResponse<OrderDetails>> = fireblocks.trading.createOrder(tradingApiCreateOrderRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.tradingBeta().createOrder(createOrderRequest,\
+          code: "CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.trading().createOrder(createOrderRequest,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.trading_beta.create_order(create_order_request,\
+          code: "response = fireblocks.trading.create_order(create_order_request,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<OrderDetails>> = fireblocks.tradingBeta.createOrder(tradingBetaApiCreateOrderRequest);"
+        source: "const response: Promise<FireblocksResponse<OrderDetails>> = fireblocks.trading.createOrder(tradingApiCreateOrderRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.tradingBeta().createOrder(createOrderRequest,\
+        source: "CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.trading().createOrder(createOrderRequest,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.trading_beta.create_order(create_order_request,\
+        source: "response = fireblocks.trading.create_order(create_order_request,\
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -28687,10 +28884,6 @@ paths:
     get:
       description: |-
         Retrieve detailed information about a specific order by its ID.
-
-        Note:These endpoints are currently in beta and might be subject to changes.
-
-        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
 
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
@@ -28767,26 +28960,26 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get order details
       tags:
-      - Trading (Beta)
+      - Trading
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<OrderDetails>> = fireblocks.tradingBeta.getOrder(tradingBetaApiGetOrderRequest);"
+          code: "const response: Promise<FireblocksResponse<OrderDetails>> = fireblocks.trading.getOrder(tradingApiGetOrderRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.tradingBeta().getOrder(orderId);
+          code: CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.trading().getOrder(orderId);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.trading_beta.get_order(order_id);
+          code: response = fireblocks.trading.get_order(order_id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<OrderDetails>> = fireblocks.tradingBeta.getOrder(tradingBetaApiGetOrderRequest);"
+        source: "const response: Promise<FireblocksResponse<OrderDetails>> = fireblocks.trading.getOrder(tradingApiGetOrderRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.tradingBeta().getOrder(orderId);
+        source: CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.trading().getOrder(orderId);
       - lang: Python
-        source: response = fireblocks.trading_beta.get_order(order_id);
+        source: response = fireblocks.trading.get_order(order_id);
       x-accepts:
       - application/json
   /trading/orders/{orderId}/requirement:
@@ -28798,10 +28991,6 @@ paths:
         `requiredData` JSON Schema (Draft-7) describing the shape of the `data` object expected on
         `POST /trading/orders/{orderId}/requirement/data`, and `requiredFiles` descriptors for any files the
         provider requires (uploaded via `POST /trading/orders/{orderId}/requirement/file`).
-
-        Note: These endpoints are currently in beta and might be subject to changes.
-
-        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
 
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
@@ -28888,30 +29077,30 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get order requirement details for an order
       tags:
-      - Trading (Beta)
+      - Trading
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<OrderRequirementDetails>>\
-            \ = fireblocks.tradingBeta.getOrderRequirements(tradingBetaApiGetOrderRequirementsRequest);"
+            \ = fireblocks.trading.getOrderRequirements(tradingApiGetOrderRequirementsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: CompletableFuture<ApiResponse<OrderRequirementDetails>> response =
-            fireblocks.tradingBeta().getOrderRequirements(orderId);
+            fireblocks.trading().getOrderRequirements(orderId);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.trading_beta.get_order_requirements(order_id);
+          code: response = fireblocks.trading.get_order_requirements(order_id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<OrderRequirementDetails>>\
-          \ = fireblocks.tradingBeta.getOrderRequirements(tradingBetaApiGetOrderRequirementsRequest);"
+          \ = fireblocks.trading.getOrderRequirements(tradingApiGetOrderRequirementsRequest);"
       - lang: Java
         source: CompletableFuture<ApiResponse<OrderRequirementDetails>> response =
-          fireblocks.tradingBeta().getOrderRequirements(orderId);
+          fireblocks.trading().getOrderRequirements(orderId);
       - lang: Python
-        source: response = fireblocks.trading_beta.get_order_requirements(order_id);
+        source: response = fireblocks.trading.get_order_requirements(order_id);
       x-accepts:
       - application/json
   /trading/orders/{orderId}/requirement/data:
@@ -28922,10 +29111,6 @@ paths:
         The request body carries `data` — a free-form object conforming to the `requiredData` JSON Schema
         returned by the GET endpoint. Any required files are uploaded separately via
         `POST /trading/orders/{orderId}/requirement/file`.
-
-        Note: These endpoints are currently in beta and might be subject to changes.
-
-        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
 
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
 
@@ -29036,29 +29221,29 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Submit a response to an order requirement
       tags:
-      - Trading (Beta)
+      - Trading
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.tradingBeta.submitOrderRequirements(tradingBetaApiSubmitOrderRequirementsRequest);"
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.trading.submitOrderRequirements(tradingApiSubmitOrderRequirementsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.tradingBeta().submitOrderRequirements(submitOrderRequirementRequest,\
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.trading().submitOrderRequirements(submitOrderRequirementRequest,\
             \ orderId, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.trading_beta.submit_order_requirements(submit_order_requirement_request,\
+          code: "response = fireblocks.trading.submit_order_requirements(submit_order_requirement_request,\
             \ order_id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.tradingBeta.submitOrderRequirements(tradingBetaApiSubmitOrderRequirementsRequest);"
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.trading.submitOrderRequirements(tradingApiSubmitOrderRequirementsRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.tradingBeta().submitOrderRequirements(submitOrderRequirementRequest,\
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.trading().submitOrderRequirements(submitOrderRequirementRequest,\
           \ orderId, idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.trading_beta.submit_order_requirements(submit_order_requirement_request,\
+        source: "response = fireblocks.trading.submit_order_requirements(submit_order_requirement_request,\
           \ order_id, idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -29073,10 +29258,6 @@ paths:
         must be one of the supported file formats. Fireblocks encrypts each file and uploads it individually to the
         underlying provider. The textual response is submitted separately via
         `POST /trading/orders/{orderId}/requirement/data`.
-
-        Note: These endpoints are currently in beta and might be subject to changes.
-
-        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
 
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
 
@@ -29186,29 +29367,29 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Upload a file for an order requirement
       tags:
-      - Trading (Beta)
+      - Trading
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.tradingBeta.uploadOrderRequirementFile(tradingBetaApiUploadOrderRequirementFileRequest);"
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.trading.uploadOrderRequirementFile(tradingApiUploadOrderRequirementFileRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.tradingBeta().uploadOrderRequirementFile(orderId,\
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.trading().uploadOrderRequirementFile(orderId,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.trading_beta.upload_order_requirement_file(order_id,\
+          code: "response = fireblocks.trading.upload_order_requirement_file(order_id,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.tradingBeta.uploadOrderRequirementFile(tradingBetaApiUploadOrderRequirementFileRequest);"
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.trading.uploadOrderRequirementFile(tradingApiUploadOrderRequirementFileRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.tradingBeta().uploadOrderRequirementFile(orderId,\
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.trading().uploadOrderRequirementFile(orderId,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.trading_beta.upload_order_requirement_file(order_id,\
+        source: "response = fireblocks.trading.upload_order_requirement_file(order_id,\
           \ idempotency_key);"
       x-content-type: multipart/form-data
       x-accepts:
@@ -29217,8 +29398,6 @@ paths:
     get:
       description: |
         Retrieve a list of all available external providers supporting trading activities through the platform.
-
-        **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
 
         **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
@@ -29296,40 +29475,36 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get providers
       tags:
-      - Trading (Beta)
+      - Trading
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<ProvidersListResponse>>\
-            \ = fireblocks.tradingBeta.getTradingProviders(tradingBetaApiGetTradingProvidersRequest);"
+            \ = fireblocks.trading.getTradingProviders(tradingApiGetTradingProvidersRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<ProvidersListResponse>> response =\
-            \ fireblocks.tradingBeta().getTradingProviders(pageSize, pageCursor);"
+            \ fireblocks.trading().getTradingProviders(pageSize, pageCursor);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.trading_beta.get_trading_providers(page_size,\
-            \ page_cursor);"
+          code: "response = fireblocks.trading.get_trading_providers(page_size, page_cursor);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<ProvidersListResponse>>\
-          \ = fireblocks.tradingBeta.getTradingProviders(tradingBetaApiGetTradingProvidersRequest);"
+          \ = fireblocks.trading.getTradingProviders(tradingApiGetTradingProvidersRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<ProvidersListResponse>> response =\
-          \ fireblocks.tradingBeta().getTradingProviders(pageSize, pageCursor);"
+          \ fireblocks.trading().getTradingProviders(pageSize, pageCursor);"
       - lang: Python
-        source: "response = fireblocks.trading_beta.get_trading_providers(page_size,\
-          \ page_cursor);"
+        source: "response = fireblocks.trading.get_trading_providers(page_size, page_cursor);"
       x-accepts:
       - application/json
   /trading/providers/{providerId}:
     get:
       description: |
         Retrieve a single provider by ID.
-
-        **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
 
         **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
@@ -29406,36 +29581,32 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get trading provider by ID
       tags:
-      - Trading (Beta)
+      - Trading
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<TradingProvider>> = fireblocks.tradingBeta.getTradingProviderById(tradingBetaApiGetTradingProviderByIdRequest);"
+          code: "const response: Promise<FireblocksResponse<TradingProvider>> = fireblocks.trading.getTradingProviderById(tradingApiGetTradingProviderByIdRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<TradingProvider>> response = fireblocks.tradingBeta().getTradingProviderById(providerId);
+          code: CompletableFuture<ApiResponse<TradingProvider>> response = fireblocks.trading().getTradingProviderById(providerId);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.trading_beta.get_trading_provider_by_id(provider_id);
+          code: response = fireblocks.trading.get_trading_provider_by_id(provider_id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<TradingProvider>> = fireblocks.tradingBeta.getTradingProviderById(tradingBetaApiGetTradingProviderByIdRequest);"
+        source: "const response: Promise<FireblocksResponse<TradingProvider>> = fireblocks.trading.getTradingProviderById(tradingApiGetTradingProviderByIdRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<TradingProvider>> response = fireblocks.tradingBeta().getTradingProviderById(providerId);
+        source: CompletableFuture<ApiResponse<TradingProvider>> response = fireblocks.trading().getTradingProviderById(providerId);
       - lang: Python
-        source: response = fireblocks.trading_beta.get_trading_provider_by_id(provider_id);
+        source: response = fireblocks.trading.get_trading_provider_by_id(provider_id);
       x-accepts:
       - application/json
   /trading/quotes:
     post:
       description: |-
         Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.
-
-        Note: These endpoints are currently in beta and might be subject to changes.
-
-        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
 
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
 
@@ -29521,28 +29692,28 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Create a quote
       tags:
-      - Trading (Beta)
+      - Trading
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<QuotesResponse>> = fireblocks.tradingBeta.createQuote(tradingBetaApiCreateQuoteRequest);"
+          code: "const response: Promise<FireblocksResponse<QuotesResponse>> = fireblocks.trading.createQuote(tradingApiCreateQuoteRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<QuotesResponse>> response = fireblocks.tradingBeta().createQuote(createQuote,\
+          code: "CompletableFuture<ApiResponse<QuotesResponse>> response = fireblocks.trading().createQuote(createQuote,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.trading_beta.create_quote(create_quote, idempotency_key);"
+          code: "response = fireblocks.trading.create_quote(create_quote, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<QuotesResponse>> = fireblocks.tradingBeta.createQuote(tradingBetaApiCreateQuoteRequest);"
+        source: "const response: Promise<FireblocksResponse<QuotesResponse>> = fireblocks.trading.createQuote(tradingApiCreateQuoteRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<QuotesResponse>> response = fireblocks.tradingBeta().createQuote(createQuote,\
+        source: "CompletableFuture<ApiResponse<QuotesResponse>> response = fireblocks.trading().createQuote(createQuote,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.trading_beta.create_quote(create_quote, idempotency_key);"
+        source: "response = fireblocks.trading.create_quote(create_quote, idempotency_key);"
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -29551,10 +29722,6 @@ paths:
       description: |-
         Retrieve indicative exchange rate from specified providers for a given asset pair.
         Rates are non-executable price signals intended for discovery and display purposes.
-
-        Note: These endpoints are currently in beta and might be subject to changes.
-
-        If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
 
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
@@ -29640,28 +29807,28 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get rates
       tags:
-      - Trading (Beta)
+      - Trading
       x-rate-limit-category: external_query
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<RatesResponse>> = fireblocks.tradingBeta.fetchRates(tradingBetaApiFetchRatesRequest);"
+          code: "const response: Promise<FireblocksResponse<RatesResponse>> = fireblocks.trading.fetchRates(tradingApiFetchRatesRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<RatesResponse>> response = fireblocks.tradingBeta().fetchRates(ratesRequest,\
+          code: "CompletableFuture<ApiResponse<RatesResponse>> response = fireblocks.trading().fetchRates(ratesRequest,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.trading_beta.fetch_rates(rates_request, idempotency_key);"
+          code: "response = fireblocks.trading.fetch_rates(rates_request, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<RatesResponse>> = fireblocks.tradingBeta.fetchRates(tradingBetaApiFetchRatesRequest);"
+        source: "const response: Promise<FireblocksResponse<RatesResponse>> = fireblocks.trading.fetchRates(tradingApiFetchRatesRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<RatesResponse>> response = fireblocks.tradingBeta().fetchRates(ratesRequest,\
+        source: "CompletableFuture<ApiResponse<RatesResponse>> response = fireblocks.trading().fetchRates(ratesRequest,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.trading_beta.fetch_rates(rates_request, idempotency_key);"
+        source: "response = fireblocks.trading.fetch_rates(rates_request, idempotency_key);"
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -36049,88 +36216,6 @@ paths:
         source: "response = fireblocks.vaults.get_max_spendable_amount(vault_account_id,\
           \ asset_id, manual_signging, include_all_labels, include_any_labels, exclude_any_labels,\
           \ address, min_amount, max_amount);"
-      x-accepts:
-      - application/json
-  /vault/accounts/{vaultAccountId}/{assetId}/omnibus/tempo/register:
-    post:
-      description: |-
-        Registers a Tempo omnibus wallet for the requested vault account.
-        Triggering this flow requires the vault account to hold PATH_USD with a balance sufficient to cover the gas fee.
-        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-      operationId: registerTempoOmnibusWallet
-      parameters:
-      - description: The ID of the vault account for which to register the Tempo wallet.
-        explode: false
-        in: path
-        name: vaultAccountId
-        required: true
-        schema:
-          format: numeric
-          type: string
-          x-fb-entity: vault_account
-        style: simple
-      - description: The Tempo network asset to register for the vault account.
-        explode: false
-        in: path
-        name: assetId
-        required: true
-        schema:
-          type: string
-          x-fb-entity: asset
-        style: simple
-      - description: "A unique identifier for the request. If the request is sent\
-          \ multiple times with the same idempotency key, the server will return the\
-          \ same response as the first request. The idempotency key is valid for 24\
-          \ hours."
-        explode: false
-        in: header
-        name: Idempotency-Key
-        required: false
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CreateVaultAssetResponse"
-          description: OK
-          headers:
-            X-Request-ID:
-              $ref: "#/components/headers/X-Request-ID"
-        default:
-          $ref: "#/components/responses/Error"
-      summary: Register a Tempo omnibus wallet
-      tags:
-      - Vaults
-      x-rate-limit-category: write
-      x-readme:
-        code-samples:
-        - language: typescript
-          code: "const response: Promise<FireblocksResponse<CreateVaultAssetResponse>>\
-            \ = fireblocks.vaults.registerTempoOmnibusWallet(vaultsApiRegisterTempoOmnibusWalletRequest);"
-          name: Fireblocks SDK TypeScript example
-        - language: java
-          code: "CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response\
-            \ = fireblocks.vaults().registerTempoOmnibusWallet(vaultAccountId, assetId,\
-            \ idempotencyKey);"
-          name: Fireblocks SDK Java example
-        - language: python
-          code: "response = fireblocks.vaults.register_tempo_omnibus_wallet(vault_account_id,\
-            \ asset_id, idempotency_key);"
-          name: Fireblocks SDK Python example
-      x-codeSamples:
-      - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<CreateVaultAssetResponse>>\
-          \ = fireblocks.vaults.registerTempoOmnibusWallet(vaultsApiRegisterTempoOmnibusWalletRequest);"
-      - lang: Java
-        source: "CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response\
-          \ = fireblocks.vaults().registerTempoOmnibusWallet(vaultAccountId, assetId,\
-          \ idempotencyKey);"
-      - lang: Python
-        source: "response = fireblocks.vaults.register_tempo_omnibus_wallet(vault_account_id,\
-          \ asset_id, idempotency_key);"
       x-accepts:
       - application/json
   /vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs:
@@ -45479,6 +45564,189 @@ components:
       required:
       - agentUserId
       type: object
+    BulkProofOfOwnership:
+      description: "Proof that the customer holds the private key. Required for every\
+        \ key, unlike the single key endpoint: bulk registration has no interactive\
+        \ step in which a proof can arrive later."
+      properties:
+        message:
+          description: The message to be signed by the key as proof of ownership.
+            64 to 1024 bytes in hexadecimal format.
+          example: 46697265626c6f636b737c50726f6f66206f66204f776e6572736869702e2e2e
+          maxLength: 2048
+          minLength: 64
+          type: string
+        signature:
+          description: The signature of the message. 64 bytes in hexadecimal format.
+          example: 67bf2628888b677a249c694fe03c90bcb160de5b1c0ad9a6bbd6ab5f3f7c1f9d0a2e4c6b8d0f2a4c6e8b0d2f4a6c8e0b2d4f6a8c0e2b4d6f8a0c2e4b6d8f0a2c4
+          maxLength: 128
+          minLength: 128
+          type: string
+      required:
+      - message
+      - signature
+      type: object
+    BulkSigningKey:
+      properties:
+        signingDeviceKeyId:
+          description: "The ID, name or label of the key specified on the customer's\
+            \ signing device."
+          example: MyKey1
+          maxLength: 256
+          type: string
+        signedCertPem:
+          description: "The signed certificate that includes the public key PEM of\
+            \ the signing key, signed by the validation key declared for the request."
+          example: '-----BEGIN CERTIFICATE ... END CERTIFICATE-----'
+          type: string
+        agentUserId:
+          description: Id of user to which this key belongs
+          example: d18847b5-1df6-4c46-8f99-5cce47284529
+          maxLength: 36
+          minLength: 36
+          type: string
+        proofOfOwnership:
+          $ref: "#/components/schemas/BulkProofOfOwnership"
+      required:
+      - agentUserId
+      - proofOfOwnership
+      - signedCertPem
+      - signingDeviceKeyId
+      type: object
+    CreateBulkSigningKeys:
+      example:
+        validationKeyId: fb5d0a66-ca01-44f0-9080-8c3282964a23
+        keys: []
+      properties:
+        validationKeyId:
+          description: "The id of the validation key that signed every certificate\
+            \ in this request, as returned when the validation key was registered.\
+            \ Not the signingDeviceKeyId of any signing key."
+          example: fb5d0a66-ca01-44f0-9080-8c3282964a23
+          maxLength: 64
+          type: string
+        keys:
+          description: The signing keys to register.
+          example: []
+          items:
+            $ref: "#/components/schemas/BulkSigningKey"
+          maxItems: 10000
+          minItems: 1
+          type: array
+      required:
+      - keys
+      - validationKeyId
+      type: object
+    CreateBulkSigningKeysResponse:
+      example:
+        jobId: 46a92767-5f93-4a46-9eed-f012196bb4fc
+      properties:
+        jobId:
+          description: Id of the registration job. Poll it for progress.
+          example: 46a92767-5f93-4a46-9eed-f012196bb4fc
+          type: string
+      required:
+      - jobId
+      type: object
+    BulkSigningKeyJob:
+      example:
+        jobId: 46a92767-5f93-4a46-9eed-f012196bb4fc
+        reason: reason
+        createdAt: 124757537
+        total: 10000
+        created: 5700
+        alreadyRegistered: 4300
+        fileHash: 2fbd1d6db47ea4d7599c81a30b6f31ff6728661c842414d4510718e109253d98
+        failed: 0
+        status: COMPLETED
+        updatedAt: 124757537
+      properties:
+        jobId:
+          description: Id of the registration job.
+          example: 46a92767-5f93-4a46-9eed-f012196bb4fc
+          type: string
+        status:
+          description: "QUEUED means the job is waiting for another bulk registration\
+            \ to finish, since only a limited number run at once. IN_PROGRESS means\
+            \ it is running. COMPLETED means every submitted key is present in the\
+            \ workspace. FAILED means the request was refused before any key was registered,\
+            \ so `reason` has to be acted on before resubmitting is worth anything.\
+            \ INCOMPLETE means some keys are not registered; resubmitting the same\
+            \ request retries exactly those, and `reason` says whether that is likely\
+            \ to help -- keys not registered because of a transient failure will succeed,\
+            \ a key whose certificate or proof was rejected will be rejected again."
+          enum:
+          - QUEUED
+          - IN_PROGRESS
+          - COMPLETED
+          - INCOMPLETE
+          - FAILED
+          example: COMPLETED
+          type: string
+        total:
+          description: Keys in the submitted request.
+          example: 10000
+          type: number
+        created:
+          description: Keys registered by this job.
+          example: 5700
+          type: number
+        alreadyRegistered:
+          description: "Keys already present in the workspace, recognized and skipped."
+          example: 4300
+          type: number
+        failed:
+          description: Keys rejected. See `reason`.
+          example: 0
+          type: number
+        reason:
+          description: Free text describing what went wrong. Null while the job is
+            healthy.
+          nullable: true
+          type: string
+          example: null
+        fileHash:
+          description: "Hex digest over the submitted keys. Two jobs sharing a digest\
+            \ were the same set of keys, which makes a sequence of resubmissions recognizable."
+          example: 2fbd1d6db47ea4d7599c81a30b6f31ff6728661c842414d4510718e109253d98
+          nullable: true
+          type: string
+        createdAt:
+          description: Creation date (timestamp) in milliseconds.
+          example: 124757537
+          type: number
+        updatedAt:
+          description: Last progress update (timestamp) in milliseconds.
+          example: 124757537
+          type: number
+      required:
+      - alreadyRegistered
+      - created
+      - createdAt
+      - failed
+      - jobId
+      - status
+      - total
+      - updatedAt
+      type: object
+    GetBulkSigningKeysJobsResponse:
+      example:
+        next: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        data: []
+      properties:
+        data:
+          description: "Registration jobs for the workspace, newest first."
+          example: []
+          items:
+            $ref: "#/components/schemas/BulkSigningKeyJob"
+          type: array
+        next:
+          description: Cursor to the next page. Absent on the last page.
+          example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+          type: string
+      required:
+      - data
+      type: object
     ValidationKeyDto:
       example:
         createdAt: 12345633
@@ -48556,16 +48824,16 @@ components:
       type: string
     CantonOfferResponseDetails:
       description: "The transaction belongs to an offer conversation: the offer itself,\
-        \ the response to it, or a leg that carries no answer of its own. The only\
-        \ block that changes over a transaction's lifetime."
+        \ a response to it, or a leg that carries no answer of its own. The only block\
+        \ that changes over a transaction's lifetime. An offer can have more than\
+        \ one response — an allocation offer is accepted and later withdrawn — so\
+        \ every response transaction states which answer it is in `responseType`."
       example:
         version: 1
-        domain: ONBOARDING
-        vendor: DTCC
-        availableResponses:
-        - DTCC_END_INVESTOR_ONBOARDING_ACCEPT
-        - DTCC_END_INVESTOR_ONBOARDING_REJECT
-        expiresAt: 2026-12-31T23:59:59Z
+        domain: ALLOCATION
+        responseType: ALLOCATION_WITHDRAW
+        originalTransactionId: 9f2b7c14-8d55-4a02-b6e1-5c3f90a7d488
+        allocationTransactionId: 5a1d8b0f-2c31-4c7e-9d0a-118e7b6c4a21
       properties:
         version:
           description: "The shape of this block. Stamped at creation and never changed,\
@@ -48577,10 +48845,14 @@ components:
         vendor:
           $ref: "#/components/schemas/CantonVendorEnum"
         availableResponses:
-          description: The responses that can be sent for this offer right now. An
-            empty array means nothing is answerable on this transaction — which is
-            the difference between an actionable offer and a linked leg that shares
-            its sub-status.
+          description: "The responses this offer accepts — copy one into `responseType`\
+            \ to answer it. Present on the offer only, set when it arrives and never\
+            \ changed: it states what the offer TYPE accepts, not whether it is answerable\
+            \ right now. The respond endpoint is the authority on that, and answers\
+            \ `409` when the offer's state or expiry rules a response out — for example\
+            \ an `ALLOCATION_WITHDRAW` sent before the accept has settled. An empty\
+            \ array means nothing is answerable on this transaction — the difference\
+            \ between an actionable offer and a linked leg that shares its sub-status."
           example:
           - DTCC_END_INVESTOR_ONBOARDING_ACCEPT
           - DTCC_END_INVESTOR_ONBOARDING_REJECT
@@ -48604,6 +48876,17 @@ components:
             answered.
           example: 9f2b7c14-8d55-4a02-b6e1-5c3f90a7d488
           type: string
+        responseType:
+          description: "On a response transaction, which answer it is — the `responseType`\
+            \ that was sent. Absent on the offer itself."
+          example: ALLOCATION_ACCEPT
+          type: string
+        allocationTransactionId:
+          description: "On an `ALLOCATION_WITHDRAW` response only — the accept whose\
+            \ allocation this withdraw released, so the withdraw transaction read\
+            \ on its own says what it undid."
+          example: 5a1d8b0f-2c31-4c7e-9d0a-118e7b6c4a21
+          type: string
         verdict:
           description: "The outcome, set once the transaction reaches a terminal status."
           enum:
@@ -48617,9 +48900,9 @@ components:
         never changed.
       example:
         version: 1
-        domain: ALLOCATION
-        type: ALLOCATION_WITHDRAW
-        originalTransactionId: 9f2b7c14-8d55-4a02-b6e1-5c3f90a7d488
+        domain: ONBOARDING
+        type: DTCC_END_INVESTOR_INVITE
+        vendor: DTCC
       properties:
         version:
           description: "The shape of this block. Stamped at creation and never changed,\
@@ -48630,15 +48913,15 @@ components:
           $ref: "#/components/schemas/CantonDomainEnum"
         type:
           description: "The call type, matching the `type` sent when the call was\
-            \ created."
-          example: ALLOCATION_WITHDRAW
+            \ created. Transactions created before a type moved to the offers endpoint\
+            \ keep the value they were written with — `ALLOCATION_WITHDRAW` is one;\
+            \ new withdraws are offer responses."
+          example: DTCC_END_INVESTOR_INVITE
           type: string
         vendor:
           $ref: "#/components/schemas/CantonVendorEnum"
         originalTransactionId:
-          description: "The transaction this call acts on. On a withdraw it is the\
-            \ allocation that was withdrawn, so the withdraw transaction read on its\
-            \ own still says what it withdrew."
+          description: "The transaction this call acts on, where it acts on one."
           example: 9f2b7c14-8d55-4a02-b6e1-5c3f90a7d488
           type: string
       type: object
@@ -48676,11 +48959,12 @@ components:
 
         Every block carries `version`, stamped when the transaction is created and never changed — a transaction written today keeps its shape, so `version` is how you know which shape you are reading.
       example:
-        call:
+        offerResponse:
           version: 1
           domain: ALLOCATION
-          type: ALLOCATION_WITHDRAW
+          responseType: ALLOCATION_WITHDRAW
           originalTransactionId: 9f2b7c14-8d55-4a02-b6e1-5c3f90a7d488
+          allocationTransactionId: 5a1d8b0f-2c31-4c7e-9d0a-118e7b6c4a21
       properties:
         offerResponse:
           $ref: "#/components/schemas/CantonOfferResponseDetails"
@@ -51030,11 +51314,12 @@ components:
           categoryId: 5
           timestamp: 1774363599908
         cantonDetails:
-          call:
+          offerResponse:
             version: 1
             domain: ALLOCATION
-            type: ALLOCATION_WITHDRAW
+            responseType: ALLOCATION_WITHDRAW
             originalTransactionId: 9f2b7c14-8d55-4a02-b6e1-5c3f90a7d488
+            allocationTransactionId: 5a1d8b0f-2c31-4c7e-9d0a-118e7b6c4a21
         requestedAmount: 3.616076749251911
         status: status
         note: note
@@ -95755,6 +96040,23 @@ components:
       required:
       - responseType
       type: object
+    OfferResponseAllocationWithdraw:
+      additionalProperties: false
+      description: "Withdraw the allocation you made by accepting this offer, unlocking\
+        \ the holding. Carries no arguments — the allocation is resolved from the\
+        \ offer. Answers `409` until the accept has settled."
+      properties:
+        responseType:
+          description: |-
+            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
+            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
+          enum:
+          - ALLOCATION_WITHDRAW
+          example: ALLOCATION_WITHDRAW
+          type: string
+      required:
+      - responseType
+      type: object
     OfferResponse:
       discriminator:
         mapping:
@@ -95767,6 +96069,7 @@ components:
           TRANSFER_ACCEPT: "#/components/schemas/OfferResponseTransferAccept"
           TRANSFER_REJECT: "#/components/schemas/OfferResponseTransferReject"
           TRANSFER_WITHDRAW: "#/components/schemas/OfferResponseTransferWithdraw"
+          ALLOCATION_WITHDRAW: "#/components/schemas/OfferResponseAllocationWithdraw"
         propertyName: responseType
       oneOf:
       - $ref: "#/components/schemas/OfferResponseDtccOnboardingAccept"
@@ -95778,6 +96081,7 @@ components:
       - $ref: "#/components/schemas/OfferResponseTransferAccept"
       - $ref: "#/components/schemas/OfferResponseTransferReject"
       - $ref: "#/components/schemas/OfferResponseTransferWithdraw"
+      - $ref: "#/components/schemas/OfferResponseAllocationWithdraw"
     OfferResponseAccepted:
       description: The outgoing transaction that carries the response. Its on-chain
         outcome arrives by webhook as a status update on this transaction.
@@ -95801,19 +96105,10 @@ components:
       - transactionId
       type: object
     ParticipantOnboardingPayload:
+      description: "Optional, and so is every field in it: omit `payload` entirely\
+        \ to onboard with DTCC's published parties for the blockchain and the default\
+        \ expiry."
       properties:
-        vaultAccountId:
-          description: The vault account that acts as the participant. Its Canton
-            party is derived for you.
-          example: "12"
-          type: string
-        blockchainId:
-          description: The blockchain this party is connected to — `CANTON` or `CANTON_TEST`.
-          enum:
-          - CANTON
-          - CANTON_TEST
-          example: CANTON
-          type: string
         expiresAt:
           description: When the onboarding request expires if it has not been answered.
             RFC 3339.
@@ -95821,35 +96116,30 @@ components:
           format: date-time
           type: string
         operator:
-          description: DTCC infra operator party id.
+          description: DTCC infra operator party id. Optional — overrides the service's
+            default for the blockchain.
           example: dtcc-operator::1220abc…
           type: string
         compliance:
-          description: DTCC compliance party id.
+          description: DTCC compliance party id. Optional — overrides the service's
+            default for the blockchain.
           example: dtcc-compliance::1220abc…
           type: string
         registrar:
-          description: DTCC registrar party id — co-signs the accept.
+          description: DTCC registrar party id — co-signs the accept. Optional — overrides
+            the service's default for the blockchain.
           example: dtcc-registrar::1220abc…
           type: string
         clientOnboarder:
-          description: DTCC client onboarder party id — co-signs the accept.
+          description: DTCC client onboarder party id — co-signs the accept. Optional
+            — overrides the service's default for the blockchain.
           example: dtcc-onboarder::1220abc…
           type: string
         upgrader:
-          description: "DTCC upgrader party id — the Model Upgrade Tool authority.\
-            \ Supplied by DTCC during the off-chain registration, alongside the other\
-            \ party ids."
+          description: DTCC upgrader party id — the Model Upgrade Tool authority.
+            Optional — overrides the service's default for the blockchain.
           example: dtcc-upgrader::1220abc…
           type: string
-      required:
-      - blockchainId
-      - clientOnboarder
-      - compliance
-      - operator
-      - registrar
-      - upgrader
-      - vaultAccountId
       type: object
     CantonCallParticipantOnboarding:
       additionalProperties: false
@@ -95860,35 +96150,35 @@ components:
           - DTCC_PARTICIPANT_ONBOARDING
           example: DTCC_PARTICIPANT_ONBOARDING
           type: string
-        payload:
-          $ref: "#/components/schemas/ParticipantOnboardingPayload"
-      required:
-      - payload
-      - type
-      type: object
-    EndInvestorPayload:
-      description: "Shared by invite / invite-cancel / offboard — identical wire shape,\
-        \ different verb."
-      properties:
         vaultAccountId:
-          description: The vault account whose Canton wallet acts here.
+          description: The vault account whose Canton wallet makes this call.
           example: "12"
           type: string
         blockchainId:
-          description: The blockchain this party is connected to — `CANTON` or `CANTON_TEST`.
+          description: The blockchain the vault account's Canton party is connected
+            to — `CANTON` or `CANTON_TEST`.
           enum:
           - CANTON
           - CANTON_TEST
           example: CANTON
           type: string
+        payload:
+          $ref: "#/components/schemas/ParticipantOnboardingPayload"
+      required:
+      - blockchainId
+      - type
+      - vaultAccountId
+      type: object
+    EndInvestorPayload:
+      description: "Shared by invite / invite-cancel / offboard — identical wire shape,\
+        \ different verb."
+      properties:
         endInvestor:
           description: The end investor's Canton party id.
           example: investor-party::1220abc…
           type: string
       required:
-      - blockchainId
       - endInvestor
-      - vaultAccountId
       type: object
     CantonCallEndInvestorInvite:
       additionalProperties: false
@@ -95899,11 +96189,25 @@ components:
           - DTCC_END_INVESTOR_INVITE
           example: DTCC_END_INVESTOR_INVITE
           type: string
+        vaultAccountId:
+          description: The vault account whose Canton wallet makes this call.
+          example: "12"
+          type: string
+        blockchainId:
+          description: The blockchain the vault account's Canton party is connected
+            to — `CANTON` or `CANTON_TEST`.
+          enum:
+          - CANTON
+          - CANTON_TEST
+          example: CANTON
+          type: string
         payload:
           $ref: "#/components/schemas/EndInvestorPayload"
       required:
+      - blockchainId
       - payload
       - type
+      - vaultAccountId
       type: object
     CantonCallEndInvestorInviteCancel:
       additionalProperties: false
@@ -95914,11 +96218,25 @@ components:
           - DTCC_END_INVESTOR_INVITE_CANCEL
           example: DTCC_END_INVESTOR_INVITE_CANCEL
           type: string
+        vaultAccountId:
+          description: The vault account whose Canton wallet makes this call.
+          example: "12"
+          type: string
+        blockchainId:
+          description: The blockchain the vault account's Canton party is connected
+            to — `CANTON` or `CANTON_TEST`.
+          enum:
+          - CANTON
+          - CANTON_TEST
+          example: CANTON
+          type: string
         payload:
           $ref: "#/components/schemas/EndInvestorPayload"
       required:
+      - blockchainId
       - payload
       - type
+      - vaultAccountId
       type: object
     CantonCallEndInvestorOffboard:
       additionalProperties: false
@@ -95929,25 +96247,28 @@ components:
           - DTCC_END_INVESTOR_OFFBOARD
           example: DTCC_END_INVESTOR_OFFBOARD
           type: string
-        payload:
-          $ref: "#/components/schemas/EndInvestorPayload"
-      required:
-      - payload
-      - type
-      type: object
-    AllowListPayload:
-      properties:
         vaultAccountId:
-          description: The vault account whose Canton wallet acts here.
+          description: The vault account whose Canton wallet makes this call.
           example: "12"
           type: string
         blockchainId:
-          description: The blockchain this party is connected to — `CANTON` or `CANTON_TEST`.
+          description: The blockchain the vault account's Canton party is connected
+            to — `CANTON` or `CANTON_TEST`.
           enum:
           - CANTON
           - CANTON_TEST
           example: CANTON
           type: string
+        payload:
+          $ref: "#/components/schemas/EndInvestorPayload"
+      required:
+      - blockchainId
+      - payload
+      - type
+      - vaultAccountId
+      type: object
+    AllowListPayload:
+      properties:
         wallets:
           description: Canton party ids to add or remove.
           example:
@@ -95957,8 +96278,6 @@ components:
           minItems: 1
           type: array
       required:
-      - blockchainId
-      - vaultAccountId
       - wallets
       type: object
     CantonCallAllowListAdd:
@@ -95970,11 +96289,25 @@ components:
           - DTCC_ALLOW_LIST_ADD
           example: DTCC_ALLOW_LIST_ADD
           type: string
+        vaultAccountId:
+          description: The vault account whose Canton wallet makes this call.
+          example: "12"
+          type: string
+        blockchainId:
+          description: The blockchain the vault account's Canton party is connected
+            to — `CANTON` or `CANTON_TEST`.
+          enum:
+          - CANTON
+          - CANTON_TEST
+          example: CANTON
+          type: string
         payload:
           $ref: "#/components/schemas/AllowListPayload"
       required:
+      - blockchainId
       - payload
       - type
+      - vaultAccountId
       type: object
     CantonCallAllowListRemove:
       additionalProperties: false
@@ -95985,37 +96318,25 @@ components:
           - DTCC_ALLOW_LIST_REMOVE
           example: DTCC_ALLOW_LIST_REMOVE
           type: string
+        vaultAccountId:
+          description: The vault account whose Canton wallet makes this call.
+          example: "12"
+          type: string
+        blockchainId:
+          description: The blockchain the vault account's Canton party is connected
+            to — `CANTON` or `CANTON_TEST`.
+          enum:
+          - CANTON
+          - CANTON_TEST
+          example: CANTON
+          type: string
         payload:
           $ref: "#/components/schemas/AllowListPayload"
       required:
+      - blockchainId
       - payload
       - type
-      type: object
-    AllocationWithdrawPayload:
-      properties:
-        allocationTransactionId:
-          description: The Fireblocks transaction id of the outgoing response that
-            created the allocation. The allocation is resolved from it — Canton contract
-            ids are never accepted here.
-          example: 5a1d8b0f-2c31-4c7e-9d0a-118e7b6c4a21
-          type: string
-      required:
-      - allocationTransactionId
-      type: object
-    CantonCallAllocationWithdraw:
-      additionalProperties: false
-      properties:
-        type:
-          description: Which call to make. Selects the shape of `payload`.
-          enum:
-          - ALLOCATION_WITHDRAW
-          example: ALLOCATION_WITHDRAW
-          type: string
-        payload:
-          $ref: "#/components/schemas/AllocationWithdrawPayload"
-      required:
-      - payload
-      - type
+      - vaultAccountId
       type: object
     CantonCall:
       discriminator:
@@ -96026,7 +96347,6 @@ components:
           DTCC_END_INVESTOR_OFFBOARD: "#/components/schemas/CantonCallEndInvestorOffboard"
           DTCC_ALLOW_LIST_ADD: "#/components/schemas/CantonCallAllowListAdd"
           DTCC_ALLOW_LIST_REMOVE: "#/components/schemas/CantonCallAllowListRemove"
-          ALLOCATION_WITHDRAW: "#/components/schemas/CantonCallAllocationWithdraw"
         propertyName: type
       oneOf:
       - $ref: "#/components/schemas/CantonCallParticipantOnboarding"
@@ -96035,7 +96355,6 @@ components:
       - $ref: "#/components/schemas/CantonCallEndInvestorOffboard"
       - $ref: "#/components/schemas/CantonCallAllowListAdd"
       - $ref: "#/components/schemas/CantonCallAllowListRemove"
-      - $ref: "#/components/schemas/CantonCallAllocationWithdraw"
     CallAccepted:
       description: The outgoing transaction that carries the call.
       properties:

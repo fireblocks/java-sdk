@@ -80,7 +80,7 @@ public class Fireblocks {
     private TempoBetaApi tempoBeta;
     private TokenizationApi tokenization;
     private TrLinkApi trLink;
-    private TradingBetaApi tradingBeta;
+    private TradingApi trading;
     private TransactionsApi transactions;
     private TravelRuleApi travelRule;
     private UserGroupsBetaApi userGroupsBeta;
@@ -540,11 +540,11 @@ public class Fireblocks {
         return trLink;
     }
 
-    public TradingBetaApi tradingBeta() {
-        if (tradingBeta == null) {
-            tradingBeta = new TradingBetaApi(apiClient);
+    public TradingApi trading() {
+        if (trading == null) {
+            trading = new TradingApi(apiClient);
         }
-        return tradingBeta;
+        return trading;
     }
 
     public TransactionsApi transactions() {

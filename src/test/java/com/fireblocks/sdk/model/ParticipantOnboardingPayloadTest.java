@@ -25,18 +25,6 @@ class ParticipantOnboardingPayloadTest {
         // TODO: test ParticipantOnboardingPayload
     }
 
-    /** Test the property 'vaultAccountId' */
-    @Test
-    void vaultAccountIdTest() {
-        // TODO: test vaultAccountId
-    }
-
-    /** Test the property 'blockchainId' */
-    @Test
-    void blockchainIdTest() {
-        // TODO: test blockchainId
-    }
-
     /** Test the property 'expiresAt' */
     @Test
     void expiresAtTest() {

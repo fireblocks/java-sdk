@@ -21,51 +21,47 @@ import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** AllocationWithdrawPayload */
-@JsonPropertyOrder({AllocationWithdrawPayload.JSON_PROPERTY_ALLOCATION_TRANSACTION_ID})
+/** CreateBulkSigningKeysResponse */
+@JsonPropertyOrder({CreateBulkSigningKeysResponse.JSON_PROPERTY_JOB_ID})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class AllocationWithdrawPayload {
-    public static final String JSON_PROPERTY_ALLOCATION_TRANSACTION_ID = "allocationTransactionId";
-    @jakarta.annotation.Nonnull private String allocationTransactionId;
+public class CreateBulkSigningKeysResponse {
+    public static final String JSON_PROPERTY_JOB_ID = "jobId";
+    @jakarta.annotation.Nonnull private String jobId;
 
-    public AllocationWithdrawPayload() {}
+    public CreateBulkSigningKeysResponse() {}
 
     @JsonCreator
-    public AllocationWithdrawPayload(
-            @JsonProperty(value = JSON_PROPERTY_ALLOCATION_TRANSACTION_ID, required = true)
-                    String allocationTransactionId) {
-        this.allocationTransactionId = allocationTransactionId;
+    public CreateBulkSigningKeysResponse(
+            @JsonProperty(value = JSON_PROPERTY_JOB_ID, required = true) String jobId) {
+        this.jobId = jobId;
     }
 
-    public AllocationWithdrawPayload allocationTransactionId(
-            @jakarta.annotation.Nonnull String allocationTransactionId) {
-        this.allocationTransactionId = allocationTransactionId;
+    public CreateBulkSigningKeysResponse jobId(@jakarta.annotation.Nonnull String jobId) {
+        this.jobId = jobId;
         return this;
     }
 
     /**
-     * The Fireblocks transaction id of the outgoing response that created the allocation. The
-     * allocation is resolved from it — Canton contract ids are never accepted here.
+     * Id of the registration job. Poll it for progress.
      *
-     * @return allocationTransactionId
+     * @return jobId
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ALLOCATION_TRANSACTION_ID)
+    @JsonProperty(JSON_PROPERTY_JOB_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getAllocationTransactionId() {
-        return allocationTransactionId;
+    public String getJobId() {
+        return jobId;
     }
 
-    @JsonProperty(JSON_PROPERTY_ALLOCATION_TRANSACTION_ID)
+    @JsonProperty(JSON_PROPERTY_JOB_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAllocationTransactionId(
-            @jakarta.annotation.Nonnull String allocationTransactionId) {
-        this.allocationTransactionId = allocationTransactionId;
+    public void setJobId(@jakarta.annotation.Nonnull String jobId) {
+        this.jobId = jobId;
     }
 
-    /** Return true if this AllocationWithdrawPayload object is equal to o. */
+    /** Return true if this CreateBulkSigningKeysResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -74,23 +70,21 @@ public class AllocationWithdrawPayload {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AllocationWithdrawPayload allocationWithdrawPayload = (AllocationWithdrawPayload) o;
-        return Objects.equals(
-                this.allocationTransactionId, allocationWithdrawPayload.allocationTransactionId);
+        CreateBulkSigningKeysResponse createBulkSigningKeysResponse =
+                (CreateBulkSigningKeysResponse) o;
+        return Objects.equals(this.jobId, createBulkSigningKeysResponse.jobId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(allocationTransactionId);
+        return Objects.hash(jobId);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class AllocationWithdrawPayload {\n");
-        sb.append("    allocationTransactionId: ")
-                .append(toIndentedString(allocationTransactionId))
-                .append("\n");
+        sb.append("class CreateBulkSigningKeysResponse {\n");
+        sb.append("    jobId: ").append(toIndentedString(jobId)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -138,15 +132,14 @@ public class AllocationWithdrawPayload {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `allocationTransactionId` to the URL query string
-        if (getAllocationTransactionId() != null) {
+        // add `jobId` to the URL query string
+        if (getJobId() != null) {
             joiner.add(
                     String.format(
-                            "%sallocationTransactionId%s=%s",
+                            "%sjobId%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(
-                                    ApiClient.valueToString(getAllocationTransactionId()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getJobId()))));
         }
 
         return joiner.toString();

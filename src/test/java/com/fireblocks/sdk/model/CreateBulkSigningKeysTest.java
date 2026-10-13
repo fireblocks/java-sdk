@@ -15,25 +15,25 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for CantonCallAllocationWithdraw */
-class CantonCallAllocationWithdrawTest {
-    private final CantonCallAllocationWithdraw model = new CantonCallAllocationWithdraw();
+/** Model tests for CreateBulkSigningKeys */
+class CreateBulkSigningKeysTest {
+    private final CreateBulkSigningKeys model = new CreateBulkSigningKeys();
 
-    /** Model tests for CantonCallAllocationWithdraw */
+    /** Model tests for CreateBulkSigningKeys */
     @Test
-    void testCantonCallAllocationWithdraw() {
-        // TODO: test CantonCallAllocationWithdraw
+    void testCreateBulkSigningKeys() {
+        // TODO: test CreateBulkSigningKeys
     }
 
-    /** Test the property 'type' */
+    /** Test the property 'validationKeyId' */
     @Test
-    void typeTest() {
-        // TODO: test type
+    void validationKeyIdTest() {
+        // TODO: test validationKeyId
     }
 
-    /** Test the property 'payload' */
+    /** Test the property 'keys' */
     @Test
-    void payloadTest() {
-        // TODO: test payload
+    void keysTest() {
+        // TODO: test keys
     }
 }

@@ -3,7 +3,6 @@
 # CantonCall
 
 ## oneOf schemas
-* [CantonCallAllocationWithdraw](CantonCallAllocationWithdraw.md)
 * [CantonCallAllowListAdd](CantonCallAllowListAdd.md)
 * [CantonCallAllowListRemove](CantonCallAllowListRemove.md)
 * [CantonCallEndInvestorInvite](CantonCallEndInvestorInvite.md)
@@ -15,7 +14,6 @@
 ```java
 // Import classes:
 import com.fireblocks.sdk.model.CantonCall;
-import com.fireblocks.sdk.model.CantonCallAllocationWithdraw;
 import com.fireblocks.sdk.model.CantonCallAllowListAdd;
 import com.fireblocks.sdk.model.CantonCallAllowListRemove;
 import com.fireblocks.sdk.model.CantonCallEndInvestorInvite;
@@ -26,13 +24,6 @@ import com.fireblocks.sdk.model.CantonCallParticipantOnboarding;
 public class Example {
     public static void main(String[] args) {
         CantonCall exampleCantonCall = new CantonCall();
-
-        // create a new CantonCallAllocationWithdraw
-        CantonCallAllocationWithdraw exampleCantonCallAllocationWithdraw = new CantonCallAllocationWithdraw();
-        // set CantonCall to CantonCallAllocationWithdraw
-        exampleCantonCall.setActualInstance(exampleCantonCallAllocationWithdraw);
-        // to get back the CantonCallAllocationWithdraw set earlier
-        CantonCallAllocationWithdraw testCantonCallAllocationWithdraw = (CantonCallAllocationWithdraw) exampleCantonCall.getActualInstance();
 
         // create a new CantonCallAllowListAdd
         CantonCallAllowListAdd exampleCantonCallAllowListAdd = new CantonCallAllowListAdd();

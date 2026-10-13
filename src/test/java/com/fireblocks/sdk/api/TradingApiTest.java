@@ -34,21 +34,18 @@ import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
 
-/** API tests for TradingBetaApi */
+/** API tests for TradingApi */
 @Ignore
-public class TradingBetaApiTest {
+public class TradingApiTest {
 
-    private final TradingBetaApi api = new TradingBetaApi();
+    private final TradingApi api = new TradingApi();
 
     /**
      * Create an order
      *
      * <p>Create an order to buy or sell an asset. If no source is given, an external source will be
-     * use. Note: These endpoints are currently in beta and might be subject to changes. If you want
-     * to participate and learn more about the Fireblocks Trading, please contact your Fireblocks
-     * Customer Success Manager or send an email to CSM@fireblocks.com. Endpoint Permission: Owner,
-     * Admin, Non-Signing Admin, Signer, Editor. For detailed information about error codes and
-     * troubleshooting, please refer to our [API Error Codes
+     * use. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor. For detailed
+     * information about error codes and troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      */
     @Test
@@ -63,12 +60,9 @@ public class TradingBetaApiTest {
      * Create a quote
      *
      * <p>Generate a time-limited quote for asset conversion, providing exchange rate and amount
-     * calculations. Note: These endpoints are currently in beta and might be subject to changes. If
-     * you want to participate and learn more about the Fireblocks Trading, please contact your
-     * Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. Endpoint
-     * Permission: Owner, Admin, Non-Signing Admin, Signer, Editor. For detailed information about
-     * error codes and troubleshooting, please refer to our [API Error Codes
-     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * calculations. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor. For
+     * detailed information about error codes and troubleshooting, please refer to our [API Error
+     * Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
      */
     @Test
     public void createQuoteTest() {
@@ -85,11 +79,8 @@ public class TradingBetaApiTest {
      * in open scope — no provider or account selection required. Returns a mix of indicative rates
      * and committed quotes as applicable per provider. If no slippageBps is provided, it defaults
      * to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.
-     * Note: These endpoints are currently in beta and might be subject to changes. If you want to
-     * participate and learn more about the Fireblocks Trading, please contact your Fireblocks
-     * Customer Success Manager or send an email to CSM@fireblocks.com. Endpoint Permission: Owner,
-     * Admin, Non-Signing Admin, Signer, Editor. For detailed information about error codes and
-     * troubleshooting, please refer to our [API Error Codes
+     * Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor. For detailed
+     * information about error codes and troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      */
     @Test
@@ -104,12 +95,9 @@ public class TradingBetaApiTest {
      * Get rates
      *
      * <p>Retrieve indicative exchange rate from specified providers for a given asset pair. Rates
-     * are non-executable price signals intended for discovery and display purposes. Note: These
-     * endpoints are currently in beta and might be subject to changes. If you want to participate
-     * and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success
-     * Manager or send an email to CSM@fireblocks.com. Endpoint Permission: Owner, Admin,
-     * Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed information about error
-     * codes and troubleshooting, please refer to our [API Error Codes
+     * are non-executable price signals intended for discovery and display purposes. Endpoint
+     * Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed
+     * information about error codes and troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      */
     @Test
@@ -123,12 +111,9 @@ public class TradingBetaApiTest {
     /**
      * Get order details
      *
-     * <p>Retrieve detailed information about a specific order by its ID. Note:These endpoints are
-     * currently in beta and might be subject to changes. If you want to participate and learn more
-     * about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send
-     * an email to CSM@fireblocks.com. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer,
-     * Approver, Editor, Viewer. For detailed information about error codes and troubleshooting,
-     * please refer to our [API Error Codes
+     * <p>Retrieve detailed information about a specific order by its ID. Endpoint Permission:
+     * Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed information
+     * about error codes and troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      */
     @Test
@@ -145,12 +130,9 @@ public class TradingBetaApiTest {
      * &#x60;requiredData&#x60; JSON Schema (Draft-7) describing the shape of the &#x60;data&#x60;
      * object expected on &#x60;POST /trading/orders/{orderId}/requirement/data&#x60;, and
      * &#x60;requiredFiles&#x60; descriptors for any files the provider requires (uploaded via
-     * &#x60;POST /trading/orders/{orderId}/requirement/file&#x60;). Note: These endpoints are
-     * currently in beta and might be subject to changes. If you want to participate and learn more
-     * about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send
-     * an email to CSM@fireblocks.com. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer,
-     * Approver, Editor, Viewer. For detailed information about error codes and troubleshooting,
-     * please refer to our [API Error Codes
+     * &#x60;POST /trading/orders/{orderId}/requirement/file&#x60;). Endpoint Permission: Owner,
+     * Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed information about
+     * error codes and troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      */
     @Test
@@ -164,11 +146,9 @@ public class TradingBetaApiTest {
      * Get orders
      *
      * <p>Retrieve a paginated list of orders with optional filtering by account, provider, status,
-     * and time range. Note:These endpoints are currently in beta and might be subject to changes.
-     * If you want to participate and learn more about the Fireblocks Trading, please contact your
-     * Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. Endpoint
-     * Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed
-     * information about error codes and troubleshooting, please refer to our [API Error Codes
+     * and time range. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver,
+     * Editor, Viewer. For detailed information about error codes and troubleshooting, please refer
+     * to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      */
     @Test
@@ -198,12 +178,9 @@ public class TradingBetaApiTest {
     /**
      * Get trading provider by ID
      *
-     * <p>Retrieve a single provider by ID. **Note:** These endpoints are currently in beta and
-     * might be subject to changes. If you want to participate and learn more about the Fireblocks
-     * Trading, please contact your Fireblocks Customer Success Manager or send an email to
-     * CSM@fireblocks.com. **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer,
-     * Approver, Editor, Viewer. For detailed information about error codes and troubleshooting,
-     * please refer to our [API Error Codes
+     * <p>Retrieve a single provider by ID. **Endpoint Permission:** Owner, Admin, Non-Signing
+     * Admin, Signer, Approver, Editor, Viewer. For detailed information about error codes and
+     * troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      */
     @Test
@@ -217,12 +194,10 @@ public class TradingBetaApiTest {
      * Get providers
      *
      * <p>Retrieve a list of all available external providers supporting trading activities through
-     * the platform. **Note:** These endpoints are currently in beta and might be subject to
-     * changes. If you want to participate and learn more about the Fireblocks Trading, please
-     * contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
-     * **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     * For detailed information about error codes and troubleshooting, please refer to our [API
-     * Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * the platform. **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver,
+     * Editor, Viewer. For detailed information about error codes and troubleshooting, please refer
+     * to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      */
     @Test
     public void getTradingProvidersTest() {
@@ -239,12 +214,10 @@ public class TradingBetaApiTest {
      * &#x60;AWAITING_INFORMATION&#x60; status. The request body carries &#x60;data&#x60; — a
      * free-form object conforming to the &#x60;requiredData&#x60; JSON Schema returned by the GET
      * endpoint. Any required files are uploaded separately via &#x60;POST
-     * /trading/orders/{orderId}/requirement/file&#x60;. Note: These endpoints are currently in beta
-     * and might be subject to changes. If you want to participate and learn more about the
-     * Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email
-     * to CSM@fireblocks.com. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
-     * For detailed information about error codes and troubleshooting, please refer to our [API
-     * Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * /trading/orders/{orderId}/requirement/file&#x60;. Endpoint Permission: Owner, Admin,
+     * Non-Signing Admin, Signer, Editor. For detailed information about error codes and
+     * troubleshooting, please refer to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      */
     @Test
     public void submitOrderRequirementsTest() {
@@ -265,12 +238,10 @@ public class TradingBetaApiTest {
      * on the GET response) and the binary &#x60;file&#x60;. Its type must be one of the supported
      * file formats. Fireblocks encrypts each file and uploads it individually to the underlying
      * provider. The textual response is submitted separately via &#x60;POST
-     * /trading/orders/{orderId}/requirement/data&#x60;. Note: These endpoints are currently in beta
-     * and might be subject to changes. If you want to participate and learn more about the
-     * Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email
-     * to CSM@fireblocks.com. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
-     * For detailed information about error codes and troubleshooting, please refer to our [API
-     * Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * /trading/orders/{orderId}/requirement/data&#x60;. Endpoint Permission: Owner, Admin,
+     * Non-Signing Admin, Signer, Editor. For detailed information about error codes and
+     * troubleshooting, please refer to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      */
     @Test
     public void uploadOrderRequirementFileTest() {

@@ -1,20 +1,20 @@
-# TradingBetaApi
+# TradingApi
 
 All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createOrder**](TradingBetaApi.md#createOrder) | **POST** /trading/orders | Create an order |
-| [**createQuote**](TradingBetaApi.md#createQuote) | **POST** /trading/quotes | Create a quote |
-| [**fetchAllOffers**](TradingBetaApi.md#fetchAllOffers) | **POST** /trading/offers | Get all offers |
-| [**fetchRates**](TradingBetaApi.md#fetchRates) | **POST** /trading/rates | Get rates |
-| [**getOrder**](TradingBetaApi.md#getOrder) | **GET** /trading/orders/{orderId} | Get order details |
-| [**getOrderRequirements**](TradingBetaApi.md#getOrderRequirements) | **GET** /trading/orders/{orderId}/requirement | Get order requirement details for an order |
-| [**getOrders**](TradingBetaApi.md#getOrders) | **GET** /trading/orders | Get orders |
-| [**getTradingProviderById**](TradingBetaApi.md#getTradingProviderById) | **GET** /trading/providers/{providerId} | Get trading provider by ID |
-| [**getTradingProviders**](TradingBetaApi.md#getTradingProviders) | **GET** /trading/providers | Get providers |
-| [**submitOrderRequirements**](TradingBetaApi.md#submitOrderRequirements) | **POST** /trading/orders/{orderId}/requirement/data | Submit a response to an order requirement |
-| [**uploadOrderRequirementFile**](TradingBetaApi.md#uploadOrderRequirementFile) | **POST** /trading/orders/{orderId}/requirement/file | Upload a file for an order requirement |
+| [**createOrder**](TradingApi.md#createOrder) | **POST** /trading/orders | Create an order |
+| [**createQuote**](TradingApi.md#createQuote) | **POST** /trading/quotes | Create a quote |
+| [**fetchAllOffers**](TradingApi.md#fetchAllOffers) | **POST** /trading/offers | Get all offers |
+| [**fetchRates**](TradingApi.md#fetchRates) | **POST** /trading/rates | Get rates |
+| [**getOrder**](TradingApi.md#getOrder) | **GET** /trading/orders/{orderId} | Get order details |
+| [**getOrderRequirements**](TradingApi.md#getOrderRequirements) | **GET** /trading/orders/{orderId}/requirement | Get order requirement details for an order |
+| [**getOrders**](TradingApi.md#getOrders) | **GET** /trading/orders | Get orders |
+| [**getTradingProviderById**](TradingApi.md#getTradingProviderById) | **GET** /trading/providers/{providerId} | Get trading provider by ID |
+| [**getTradingProviders**](TradingApi.md#getTradingProviders) | **GET** /trading/providers | Get providers |
+| [**submitOrderRequirements**](TradingApi.md#submitOrderRequirements) | **POST** /trading/orders/{orderId}/requirement/data | Submit a response to an order requirement |
+| [**uploadOrderRequirementFile**](TradingApi.md#uploadOrderRequirementFile) | **POST** /trading/orders/{orderId}/requirement/file | Upload a file for an order requirement |
 
 
 
@@ -24,7 +24,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Create an order
 
-Create an order to buy or sell an asset. If no source is given, an external source will be use.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Create an order to buy or sell an asset. If no source is given, an external source will be use.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -37,7 +37,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.TradingBetaApi;
+import com.fireblocks.sdk.api.TradingApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -52,13 +52,13 @@ public class Example {
         CreateOrderRequest createOrderRequest = new CreateOrderRequest(); // CreateOrderRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.tradingBeta().createOrder(createOrderRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.trading().createOrder(createOrderRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling TradingBetaApi#createOrder");
+            System.err.println("Exception when calling TradingApi#createOrder");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -108,7 +108,7 @@ No authorization required
 
 Create a quote
 
-Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -121,7 +121,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.TradingBetaApi;
+import com.fireblocks.sdk.api.TradingApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -136,13 +136,13 @@ public class Example {
         CreateQuote createQuote = new CreateQuote(); // CreateQuote | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<QuotesResponse>> response = fireblocks.tradingBeta().createQuote(createQuote, idempotencyKey);
+            CompletableFuture<ApiResponse<QuotesResponse>> response = fireblocks.trading().createQuote(createQuote, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling TradingBetaApi#createQuote");
+            System.err.println("Exception when calling TradingApi#createQuote");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -192,7 +192,7 @@ No authorization required
 
 Get all offers
 
-Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -205,7 +205,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.TradingBetaApi;
+import com.fireblocks.sdk.api.TradingApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -220,13 +220,13 @@ public class Example {
         CreateOffersRequest createOffersRequest = new CreateOffersRequest(); // CreateOffersRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<OffersResponse>> response = fireblocks.tradingBeta().fetchAllOffers(createOffersRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<OffersResponse>> response = fireblocks.trading().fetchAllOffers(createOffersRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling TradingBetaApi#fetchAllOffers");
+            System.err.println("Exception when calling TradingApi#fetchAllOffers");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -276,7 +276,7 @@ No authorization required
 
 Get rates
 
-Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -289,7 +289,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.TradingBetaApi;
+import com.fireblocks.sdk.api.TradingApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -304,13 +304,13 @@ public class Example {
         RatesRequest ratesRequest = new RatesRequest(); // RatesRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<RatesResponse>> response = fireblocks.tradingBeta().fetchRates(ratesRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<RatesResponse>> response = fireblocks.trading().fetchRates(ratesRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling TradingBetaApi#fetchRates");
+            System.err.println("Exception when calling TradingApi#fetchRates");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -360,7 +360,7 @@ No authorization required
 
 Get order details
 
-Retrieve detailed information about a specific order by its ID.  Note:These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Retrieve detailed information about a specific order by its ID.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -373,7 +373,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.TradingBetaApi;
+import com.fireblocks.sdk.api.TradingApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -387,13 +387,13 @@ public class Example {
 
         String orderId = "orderId_example"; // String | The ID of the order to fetch.
         try {
-            CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.tradingBeta().getOrder(orderId);
+            CompletableFuture<ApiResponse<OrderDetails>> response = fireblocks.trading().getOrder(orderId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling TradingBetaApi#getOrder");
+            System.err.println("Exception when calling TradingApi#getOrder");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -442,7 +442,7 @@ No authorization required
 
 Get order requirement details for an order
 
-Fetch order requirement details for an order that is in &#x60;AWAITING_INFORMATION&#x60; status.  The response includes &#x60;requirementId&#x60; and &#x60;dueBy&#x60; metadata, a &#x60;requiredData&#x60; JSON Schema (Draft-7) describing the shape of the &#x60;data&#x60; object expected on &#x60;POST /trading/orders/{orderId}/requirement/data&#x60;, and &#x60;requiredFiles&#x60; descriptors for any files the provider requires (uploaded via &#x60;POST /trading/orders/{orderId}/requirement/file&#x60;).  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Fetch order requirement details for an order that is in &#x60;AWAITING_INFORMATION&#x60; status.  The response includes &#x60;requirementId&#x60; and &#x60;dueBy&#x60; metadata, a &#x60;requiredData&#x60; JSON Schema (Draft-7) describing the shape of the &#x60;data&#x60; object expected on &#x60;POST /trading/orders/{orderId}/requirement/data&#x60;, and &#x60;requiredFiles&#x60; descriptors for any files the provider requires (uploaded via &#x60;POST /trading/orders/{orderId}/requirement/file&#x60;).  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -455,7 +455,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.TradingBetaApi;
+import com.fireblocks.sdk.api.TradingApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -469,13 +469,13 @@ public class Example {
 
         String orderId = "orderId_example"; // String | The ID of the order for which the order requirement is issued.
         try {
-            CompletableFuture<ApiResponse<OrderRequirementDetails>> response = fireblocks.tradingBeta().getOrderRequirements(orderId);
+            CompletableFuture<ApiResponse<OrderRequirementDetails>> response = fireblocks.trading().getOrderRequirements(orderId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling TradingBetaApi#getOrderRequirements");
+            System.err.println("Exception when calling TradingApi#getOrderRequirements");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -525,7 +525,7 @@ No authorization required
 
 Get orders
 
-Retrieve a paginated list of orders with optional filtering by account, provider, status, and time range.  Note:These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Retrieve a paginated list of orders with optional filtering by account, provider, status, and time range.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -538,7 +538,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.TradingBetaApi;
+import com.fireblocks.sdk.api.TradingApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -560,13 +560,13 @@ public class Example {
         Integer endTime = 56; // Integer | 
         String assetConversionType = "DIGITAL_ONLY"; // String | 
         try {
-            CompletableFuture<ApiResponse<GetOrdersResponse>> response = fireblocks.tradingBeta().getOrders(pageSize, pageCursor, order, accountId, providerId, statuses, startTime, endTime, assetConversionType);
+            CompletableFuture<ApiResponse<GetOrdersResponse>> response = fireblocks.trading().getOrders(pageSize, pageCursor, order, accountId, providerId, statuses, startTime, endTime, assetConversionType);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling TradingBetaApi#getOrders");
+            System.err.println("Exception when calling TradingApi#getOrders");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -622,7 +622,7 @@ No authorization required
 
 Get trading provider by ID
 
-Retrieve a single provider by ID.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+Retrieve a single provider by ID.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
 
 ### Example
 
@@ -635,7 +635,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.TradingBetaApi;
+import com.fireblocks.sdk.api.TradingApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -649,13 +649,13 @@ public class Example {
 
         String providerId = "providerId_example"; // String | The unique identifier of the provider.
         try {
-            CompletableFuture<ApiResponse<TradingProvider>> response = fireblocks.tradingBeta().getTradingProviderById(providerId);
+            CompletableFuture<ApiResponse<TradingProvider>> response = fireblocks.trading().getTradingProviderById(providerId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling TradingBetaApi#getTradingProviderById");
+            System.err.println("Exception when calling TradingApi#getTradingProviderById");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -704,7 +704,7 @@ No authorization required
 
 Get providers
 
-Retrieve a list of all available external providers supporting trading activities through the platform.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+Retrieve a list of all available external providers supporting trading activities through the platform.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
 
 ### Example
 
@@ -717,7 +717,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.TradingBetaApi;
+import com.fireblocks.sdk.api.TradingApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -732,13 +732,13 @@ public class Example {
         Integer pageSize = 20; // Integer | Page size for pagination.
         String pageCursor = "pageCursor_example"; // String | Page cursor for pagination.
         try {
-            CompletableFuture<ApiResponse<ProvidersListResponse>> response = fireblocks.tradingBeta().getTradingProviders(pageSize, pageCursor);
+            CompletableFuture<ApiResponse<ProvidersListResponse>> response = fireblocks.trading().getTradingProviders(pageSize, pageCursor);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling TradingBetaApi#getTradingProviders");
+            System.err.println("Exception when calling TradingApi#getTradingProviders");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -787,7 +787,7 @@ No authorization required
 
 Submit a response to an order requirement
 
-Submit the user&#39;s textual response to an order requirement on an order that is in &#x60;AWAITING_INFORMATION&#x60; status.  The request body carries &#x60;data&#x60; — a free-form object conforming to the &#x60;requiredData&#x60; JSON Schema returned by the GET endpoint. Any required files are uploaded separately via &#x60;POST /trading/orders/{orderId}/requirement/file&#x60;.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Submit the user&#39;s textual response to an order requirement on an order that is in &#x60;AWAITING_INFORMATION&#x60; status.  The request body carries &#x60;data&#x60; — a free-form object conforming to the &#x60;requiredData&#x60; JSON Schema returned by the GET endpoint. Any required files are uploaded separately via &#x60;POST /trading/orders/{orderId}/requirement/file&#x60;.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -800,7 +800,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.TradingBetaApi;
+import com.fireblocks.sdk.api.TradingApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -816,12 +816,12 @@ public class Example {
         String orderId = "orderId_example"; // String | The ID of the order to submit the order requirement response for.
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = fireblocks.tradingBeta().submitOrderRequirements(submitOrderRequirementRequest, orderId, idempotencyKey);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.trading().submitOrderRequirements(submitOrderRequirementRequest, orderId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling TradingBetaApi#submitOrderRequirements");
+            System.err.println("Exception when calling TradingApi#submitOrderRequirements");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -874,7 +874,7 @@ No authorization required
 
 Upload a file for an order requirement
 
-Upload a single file (multipart/form-data) in response to an order requirement on an order that is in &#x60;AWAITING_INFORMATION&#x60; status. Call this endpoint once per required file.  Send &#x60;fileKey&#x60; (matching a &#x60;fileKey&#x60; from &#x60;requiredFiles&#x60; on the GET response) and the binary &#x60;file&#x60;. Its type must be one of the supported file formats. Fireblocks encrypts each file and uploads it individually to the underlying provider. The textual response is submitted separately via &#x60;POST /trading/orders/{orderId}/requirement/data&#x60;.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Upload a single file (multipart/form-data) in response to an order requirement on an order that is in &#x60;AWAITING_INFORMATION&#x60; status. Call this endpoint once per required file.  Send &#x60;fileKey&#x60; (matching a &#x60;fileKey&#x60; from &#x60;requiredFiles&#x60; on the GET response) and the binary &#x60;file&#x60;. Its type must be one of the supported file formats. Fireblocks encrypts each file and uploads it individually to the underlying provider. The textual response is submitted separately via &#x60;POST /trading/orders/{orderId}/requirement/data&#x60;.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -887,7 +887,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.TradingBetaApi;
+import com.fireblocks.sdk.api.TradingApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -904,12 +904,12 @@ public class Example {
         String orderId = "orderId_example"; // String | The ID of the order to upload the order requirement file for.
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = fireblocks.tradingBeta().uploadOrderRequirementFile(fileKey, _file, orderId, idempotencyKey);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.trading().uploadOrderRequirementFile(fileKey, _file, orderId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling TradingBetaApi#uploadOrderRequirementFile");
+            System.err.println("Exception when calling TradingApi#uploadOrderRequirementFile");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());

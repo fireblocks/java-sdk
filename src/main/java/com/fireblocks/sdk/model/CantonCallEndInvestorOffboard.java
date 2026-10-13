@@ -25,6 +25,8 @@ import java.util.StringJoiner;
 /** CantonCallEndInvestorOffboard */
 @JsonPropertyOrder({
     CantonCallEndInvestorOffboard.JSON_PROPERTY_TYPE,
+    CantonCallEndInvestorOffboard.JSON_PROPERTY_VAULT_ACCOUNT_ID,
+    CantonCallEndInvestorOffboard.JSON_PROPERTY_BLOCKCHAIN_ID,
     CantonCallEndInvestorOffboard.JSON_PROPERTY_PAYLOAD
 })
 @jakarta.annotation.Generated(
@@ -65,6 +67,48 @@ public class CantonCallEndInvestorOffboard {
     public static final String JSON_PROPERTY_TYPE = "type";
     @jakarta.annotation.Nonnull private TypeEnum type;
 
+    public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
+    @jakarta.annotation.Nonnull private String vaultAccountId;
+
+    /**
+     * The blockchain the vault account&#39;s Canton party is connected to — &#x60;CANTON&#x60; or
+     * &#x60;CANTON_TEST&#x60;.
+     */
+    public enum BlockchainIdEnum {
+        CANTON(String.valueOf("CANTON")),
+
+        CANTON_TEST(String.valueOf("CANTON_TEST"));
+
+        private String value;
+
+        BlockchainIdEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static BlockchainIdEnum fromValue(String value) {
+            for (BlockchainIdEnum b : BlockchainIdEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    public static final String JSON_PROPERTY_BLOCKCHAIN_ID = "blockchainId";
+    @jakarta.annotation.Nonnull private BlockchainIdEnum blockchainId;
+
     public static final String JSON_PROPERTY_PAYLOAD = "payload";
     @jakarta.annotation.Nonnull private EndInvestorPayload payload;
 
@@ -73,9 +117,15 @@ public class CantonCallEndInvestorOffboard {
     @JsonCreator
     public CantonCallEndInvestorOffboard(
             @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    String vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_BLOCKCHAIN_ID, required = true)
+                    BlockchainIdEnum blockchainId,
             @JsonProperty(value = JSON_PROPERTY_PAYLOAD, required = true)
                     EndInvestorPayload payload) {
         this.type = type;
+        this.vaultAccountId = vaultAccountId;
+        this.blockchainId = blockchainId;
         this.payload = payload;
     }
 
@@ -100,6 +150,55 @@ public class CantonCallEndInvestorOffboard {
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
+    }
+
+    public CantonCallEndInvestorOffboard vaultAccountId(
+            @jakarta.annotation.Nonnull String vaultAccountId) {
+        this.vaultAccountId = vaultAccountId;
+        return this;
+    }
+
+    /**
+     * The vault account whose Canton wallet makes this call.
+     *
+     * @return vaultAccountId
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getVaultAccountId() {
+        return vaultAccountId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
+        this.vaultAccountId = vaultAccountId;
+    }
+
+    public CantonCallEndInvestorOffboard blockchainId(
+            @jakarta.annotation.Nonnull BlockchainIdEnum blockchainId) {
+        this.blockchainId = blockchainId;
+        return this;
+    }
+
+    /**
+     * The blockchain the vault account&#39;s Canton party is connected to — &#x60;CANTON&#x60; or
+     * &#x60;CANTON_TEST&#x60;.
+     *
+     * @return blockchainId
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public BlockchainIdEnum getBlockchainId() {
+        return blockchainId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setBlockchainId(@jakarta.annotation.Nonnull BlockchainIdEnum blockchainId) {
+        this.blockchainId = blockchainId;
     }
 
     public CantonCallEndInvestorOffboard payload(
@@ -138,12 +237,14 @@ public class CantonCallEndInvestorOffboard {
         CantonCallEndInvestorOffboard cantonCallEndInvestorOffboard =
                 (CantonCallEndInvestorOffboard) o;
         return Objects.equals(this.type, cantonCallEndInvestorOffboard.type)
+                && Objects.equals(this.vaultAccountId, cantonCallEndInvestorOffboard.vaultAccountId)
+                && Objects.equals(this.blockchainId, cantonCallEndInvestorOffboard.blockchainId)
                 && Objects.equals(this.payload, cantonCallEndInvestorOffboard.payload);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, payload);
+        return Objects.hash(type, vaultAccountId, blockchainId, payload);
     }
 
     @Override
@@ -151,6 +252,8 @@ public class CantonCallEndInvestorOffboard {
         StringBuilder sb = new StringBuilder();
         sb.append("class CantonCallEndInvestorOffboard {\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
+        sb.append("    blockchainId: ").append(toIndentedString(blockchainId)).append("\n");
         sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -207,6 +310,26 @@ public class CantonCallEndInvestorOffboard {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getType()))));
+        }
+
+        // add `vaultAccountId` to the URL query string
+        if (getVaultAccountId() != null) {
+            joiner.add(
+                    String.format(
+                            "%svaultAccountId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
+        }
+
+        // add `blockchainId` to the URL query string
+        if (getBlockchainId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sblockchainId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockchainId()))));
         }
 
         // add `payload` to the URL query string

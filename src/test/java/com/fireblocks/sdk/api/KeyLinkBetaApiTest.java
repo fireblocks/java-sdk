@@ -14,9 +14,13 @@ package com.fireblocks.sdk.api;
 
 
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.BulkSigningKeyJob;
+import com.fireblocks.sdk.model.CreateBulkSigningKeys;
+import com.fireblocks.sdk.model.CreateBulkSigningKeysResponse;
 import com.fireblocks.sdk.model.CreateSigningKeyDto;
 import com.fireblocks.sdk.model.CreateValidationKeyDto;
 import com.fireblocks.sdk.model.CreateValidationKeyResponseDto;
+import com.fireblocks.sdk.model.GetBulkSigningKeysJobsResponse;
 import com.fireblocks.sdk.model.GetSigningKeyResponseDto;
 import com.fireblocks.sdk.model.GetValidationKeyResponseDto;
 import com.fireblocks.sdk.model.ModifySigningKeyAgentIdDto;
@@ -34,6 +38,26 @@ import org.junit.Test;
 public class KeyLinkBetaApiTest {
 
     private final KeyLinkBetaApi api = new KeyLinkBetaApi();
+
+    /**
+     * Register signing keys in bulk
+     *
+     * <p>Accepts a set of signing keys certified by a single validation key and queues them for
+     * registration in the background. Returns a job id to poll. A workspace can have one bulk
+     * registration at a time; submitting another while one is QUEUED or IN_PROGRESS is rejected
+     * with 409. Bulk registrations from different workspaces share a limited number of slots, so a
+     * job may wait QUEUED behind another workspace&#39;s before it starts. Keys already registered
+     * in the workspace are recognized and skipped, so resubmitting the same request after a failure
+     * is safe and only processes what is missing. Every key must carry its own proof of ownership;
+     * a bulk registration has no interactive step in which one can arrive later.
+     */
+    @Test
+    public void createBulkSigningKeysTest() {
+        CreateBulkSigningKeys createBulkSigningKeys = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<CreateBulkSigningKeysResponse>> response =
+                api.createBulkSigningKeys(createBulkSigningKeys, idempotencyKey);
+    }
 
     /**
      * Add a new signing key
@@ -76,6 +100,32 @@ public class KeyLinkBetaApiTest {
         String keyId = null;
         CompletableFuture<ApiResponse<ValidationKeyDto>> response =
                 api.disableValidationKey(modifyValidationKeyDto, keyId);
+    }
+
+    /**
+     * Get a bulk registration job
+     *
+     * <p>Returns the progress and outcome of a bulk registration job. &#x60;created +
+     * alreadyRegistered&#x60; reaching &#x60;total&#x60; means every submitted key is present.
+     */
+    @Test
+    public void getBulkSigningKeysJobTest() {
+        String jobId = null;
+        CompletableFuture<ApiResponse<BulkSigningKeyJob>> response =
+                api.getBulkSigningKeysJob(jobId);
+    }
+
+    /**
+     * Get bulk registration jobs
+     *
+     * <p>Returns the workspace&#39;s bulk registration jobs, newest first, a page at a time.
+     */
+    @Test
+    public void getBulkSigningKeysJobsTest() {
+        String pageCursor = null;
+        Integer pageSize = null;
+        CompletableFuture<ApiResponse<GetBulkSigningKeysJobsResponse>> response =
+                api.getBulkSigningKeysJobs(pageCursor, pageSize);
     }
 
     /**

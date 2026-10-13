@@ -77,57 +77,6 @@ public class CantonCall extends AbstractOpenApiSchema {
             boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
             int match = 0;
             JsonToken token = tree.traverse(jp.getCodec()).nextToken();
-            // deserialize CantonCallAllocationWithdraw
-            try {
-                boolean attemptParsing = true;
-                // ensure that we respect type coercion as set on the client ObjectMapper
-                if (CantonCallAllocationWithdraw.class.equals(Integer.class)
-                        || CantonCallAllocationWithdraw.class.equals(Long.class)
-                        || CantonCallAllocationWithdraw.class.equals(Float.class)
-                        || CantonCallAllocationWithdraw.class.equals(Double.class)
-                        || CantonCallAllocationWithdraw.class.equals(Boolean.class)
-                        || CantonCallAllocationWithdraw.class.equals(String.class)) {
-                    attemptParsing = typeCoercion;
-                    if (!attemptParsing) {
-                        attemptParsing |=
-                                ((CantonCallAllocationWithdraw.class.equals(Integer.class)
-                                                || CantonCallAllocationWithdraw.class.equals(
-                                                        Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((CantonCallAllocationWithdraw.class.equals(Float.class)
-                                                || CantonCallAllocationWithdraw.class.equals(
-                                                        Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (CantonCallAllocationWithdraw.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (CantonCallAllocationWithdraw.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
-                    }
-                }
-                if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(CantonCallAllocationWithdraw.class);
-                    // TODO: there is no validation against JSON schema constraints
-                    // (min, max, enum, pattern...), this does not perform a strict JSON
-                    // validation, which means the 'match' count may be higher than it should be.
-                    match++;
-                    log.log(
-                            Level.FINER,
-                            "Input data matches schema 'CantonCallAllocationWithdraw'");
-                }
-            } catch (Exception e) {
-                // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'CantonCallAllocationWithdraw'",
-                        e);
-            }
-
             // deserialize CantonCallAllowListAdd
             try {
                 boolean attemptParsing = true;
@@ -452,11 +401,6 @@ public class CantonCall extends AbstractOpenApiSchema {
         super("oneOf", Boolean.FALSE);
     }
 
-    public CantonCall(CantonCallAllocationWithdraw o) {
-        super("oneOf", Boolean.FALSE);
-        setActualInstance(o);
-    }
-
     public CantonCall(CantonCallAllowListAdd o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
@@ -488,7 +432,6 @@ public class CantonCall extends AbstractOpenApiSchema {
     }
 
     static {
-        schemas.put("CantonCallAllocationWithdraw", CantonCallAllocationWithdraw.class);
         schemas.put("CantonCallAllowListAdd", CantonCallAllowListAdd.class);
         schemas.put("CantonCallAllowListRemove", CantonCallAllowListRemove.class);
         schemas.put("CantonCallEndInvestorInvite", CantonCallEndInvestorInvite.class);
@@ -498,14 +441,12 @@ public class CantonCall extends AbstractOpenApiSchema {
         JSON.registerDescendants(CantonCall.class, Collections.unmodifiableMap(schemas));
         // Initialize and register the discriminator mappings.
         Map<String, Class<?>> mappings = new HashMap<String, Class<?>>();
-        mappings.put("ALLOCATION_WITHDRAW", CantonCallAllocationWithdraw.class);
         mappings.put("DTCC_ALLOW_LIST_ADD", CantonCallAllowListAdd.class);
         mappings.put("DTCC_ALLOW_LIST_REMOVE", CantonCallAllowListRemove.class);
         mappings.put("DTCC_END_INVESTOR_INVITE", CantonCallEndInvestorInvite.class);
         mappings.put("DTCC_END_INVESTOR_INVITE_CANCEL", CantonCallEndInvestorInviteCancel.class);
         mappings.put("DTCC_END_INVESTOR_OFFBOARD", CantonCallEndInvestorOffboard.class);
         mappings.put("DTCC_PARTICIPANT_ONBOARDING", CantonCallParticipantOnboarding.class);
-        mappings.put("CantonCallAllocationWithdraw", CantonCallAllocationWithdraw.class);
         mappings.put("CantonCallAllowListAdd", CantonCallAllowListAdd.class);
         mappings.put("CantonCallAllowListRemove", CantonCallAllowListRemove.class);
         mappings.put("CantonCallEndInvestorInvite", CantonCallEndInvestorInvite.class);
@@ -523,8 +464,8 @@ public class CantonCall extends AbstractOpenApiSchema {
 
     /**
      * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: CantonCallAllocationWithdraw, CantonCallAllowListAdd,
-     * CantonCallAllowListRemove, CantonCallEndInvestorInvite, CantonCallEndInvestorInviteCancel,
+     * against the oneOf child schemas: CantonCallAllowListAdd, CantonCallAllowListRemove,
+     * CantonCallEndInvestorInvite, CantonCallEndInvestorInviteCancel,
      * CantonCallEndInvestorOffboard, CantonCallParticipantOnboarding
      *
      * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
@@ -532,12 +473,6 @@ public class CantonCall extends AbstractOpenApiSchema {
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(
-                CantonCallAllocationWithdraw.class, instance, new HashSet<Class<?>>())) {
-            super.setActualInstance(instance);
-            return;
-        }
-
         if (JSON.isInstanceOf(CantonCallAllowListAdd.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
@@ -573,38 +508,23 @@ public class CantonCall extends AbstractOpenApiSchema {
         }
 
         throw new RuntimeException(
-                "Invalid instance type. Must be CantonCallAllocationWithdraw,"
-                        + " CantonCallAllowListAdd, CantonCallAllowListRemove,"
+                "Invalid instance type. Must be CantonCallAllowListAdd, CantonCallAllowListRemove,"
                         + " CantonCallEndInvestorInvite, CantonCallEndInvestorInviteCancel,"
                         + " CantonCallEndInvestorOffboard, CantonCallParticipantOnboarding");
     }
 
     /**
-     * Get the actual instance, which can be the following: CantonCallAllocationWithdraw,
-     * CantonCallAllowListAdd, CantonCallAllowListRemove, CantonCallEndInvestorInvite,
-     * CantonCallEndInvestorInviteCancel, CantonCallEndInvestorOffboard,
-     * CantonCallParticipantOnboarding
+     * Get the actual instance, which can be the following: CantonCallAllowListAdd,
+     * CantonCallAllowListRemove, CantonCallEndInvestorInvite, CantonCallEndInvestorInviteCancel,
+     * CantonCallEndInvestorOffboard, CantonCallParticipantOnboarding
      *
-     * @return The actual instance (CantonCallAllocationWithdraw, CantonCallAllowListAdd,
-     *     CantonCallAllowListRemove, CantonCallEndInvestorInvite,
-     *     CantonCallEndInvestorInviteCancel, CantonCallEndInvestorOffboard,
-     *     CantonCallParticipantOnboarding)
+     * @return The actual instance (CantonCallAllowListAdd, CantonCallAllowListRemove,
+     *     CantonCallEndInvestorInvite, CantonCallEndInvestorInviteCancel,
+     *     CantonCallEndInvestorOffboard, CantonCallParticipantOnboarding)
      */
     @Override
     public Object getActualInstance() {
         return super.getActualInstance();
-    }
-
-    /**
-     * Get the actual instance of `CantonCallAllocationWithdraw`. If the actual instance is not
-     * `CantonCallAllocationWithdraw`, the ClassCastException will be thrown.
-     *
-     * @return The actual instance of `CantonCallAllocationWithdraw`
-     * @throws ClassCastException if the instance is not `CantonCallAllocationWithdraw`
-     */
-    public CantonCallAllocationWithdraw getCantonCallAllocationWithdraw()
-            throws ClassCastException {
-        return (CantonCallAllocationWithdraw) super.getActualInstance();
     }
 
     /**
@@ -753,14 +673,6 @@ public class CantonCall extends AbstractOpenApiSchema {
                 joiner.add(
                         ((CantonCallAllowListRemove) getActualInstance())
                                 .toUrlQueryString(prefix + "one_of_5" + suffix));
-            }
-            return joiner.toString();
-        }
-        if (getActualInstance() instanceof CantonCallAllocationWithdraw) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((CantonCallAllocationWithdraw) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_6" + suffix));
             }
             return joiner.toString();
         }

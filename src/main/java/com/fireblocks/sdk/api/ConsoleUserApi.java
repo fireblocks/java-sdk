@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.LifecycleWarning;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.ConsoleUser;
@@ -127,6 +128,13 @@ public class ConsoleUserApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "createConsoleUser",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("createConsoleUser", localVarResponse));
@@ -183,7 +191,11 @@ public class ConsoleUserApi {
      * Request deletion of a console user Requests deletion of a console user. The request is
      * asynchronous: it goes through the workspace&#39;s configured \&quot;Delete users\&quot;
      * approval policy (Settings &gt; Quorums), exactly as deleting a user from the console does,
-     * and the user is removed only once that approval completes. - Track progress by polling GET
+     * and the user is removed only once that approval completes. - The workspace must have a
+     * \&quot;Delete users\&quot; approval policy (admin quorum or approval group). If \&quot;Delete
+     * users\&quot; is Owner-only, which is the default, the request is refused with OWNER_ONLY
+     * (2760) and the Owner deletes users in the Console. With an admin quorum, the requesting API
+     * user&#39;s own approval counts toward the quorum. - Track progress by polling GET
      * /management/users; deletion is complete when the user is disabled. - Please note that this
      * endpoint is available only for API keys with Admin/Non Signing Admin/Security Admin
      * permissions. Endpoint Permission: Admin, Non-Signing Admin, Security Admin. **Note:** This
@@ -206,6 +218,13 @@ public class ConsoleUserApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "deleteConsoleUser",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("deleteConsoleUser", localVarResponse));
@@ -295,6 +314,13 @@ public class ConsoleUserApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getConsoleUsers",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getConsoleUsers", localVarResponse));

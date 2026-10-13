@@ -25,18 +25,6 @@ class AllowListPayloadTest {
         // TODO: test AllowListPayload
     }
 
-    /** Test the property 'vaultAccountId' */
-    @Test
-    void vaultAccountIdTest() {
-        // TODO: test vaultAccountId
-    }
-
-    /** Test the property 'blockchainId' */
-    @Test
-    void blockchainIdTest() {
-        // TODO: test blockchainId
-    }
-
     /** Test the property 'wallets' */
     @Test
     void walletsTest() {
