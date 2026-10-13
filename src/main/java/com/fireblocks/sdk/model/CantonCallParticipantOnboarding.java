@@ -25,6 +25,8 @@ import java.util.StringJoiner;
 /** CantonCallParticipantOnboarding */
 @JsonPropertyOrder({
     CantonCallParticipantOnboarding.JSON_PROPERTY_TYPE,
+    CantonCallParticipantOnboarding.JSON_PROPERTY_VAULT_ACCOUNT_ID,
+    CantonCallParticipantOnboarding.JSON_PROPERTY_BLOCKCHAIN_ID,
     CantonCallParticipantOnboarding.JSON_PROPERTY_PAYLOAD
 })
 @jakarta.annotation.Generated(
@@ -65,18 +67,63 @@ public class CantonCallParticipantOnboarding {
     public static final String JSON_PROPERTY_TYPE = "type";
     @jakarta.annotation.Nonnull private TypeEnum type;
 
+    public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
+    @jakarta.annotation.Nonnull private String vaultAccountId;
+
+    /**
+     * The blockchain the vault account&#39;s Canton party is connected to — &#x60;CANTON&#x60; or
+     * &#x60;CANTON_TEST&#x60;.
+     */
+    public enum BlockchainIdEnum {
+        CANTON(String.valueOf("CANTON")),
+
+        CANTON_TEST(String.valueOf("CANTON_TEST"));
+
+        private String value;
+
+        BlockchainIdEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static BlockchainIdEnum fromValue(String value) {
+            for (BlockchainIdEnum b : BlockchainIdEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    public static final String JSON_PROPERTY_BLOCKCHAIN_ID = "blockchainId";
+    @jakarta.annotation.Nonnull private BlockchainIdEnum blockchainId;
+
     public static final String JSON_PROPERTY_PAYLOAD = "payload";
-    @jakarta.annotation.Nonnull private ParticipantOnboardingPayload payload;
+    @jakarta.annotation.Nullable private ParticipantOnboardingPayload payload;
 
     public CantonCallParticipantOnboarding() {}
 
     @JsonCreator
     public CantonCallParticipantOnboarding(
             @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
-            @JsonProperty(value = JSON_PROPERTY_PAYLOAD, required = true)
-                    ParticipantOnboardingPayload payload) {
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    String vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_BLOCKCHAIN_ID, required = true)
+                    BlockchainIdEnum blockchainId) {
         this.type = type;
-        this.payload = payload;
+        this.vaultAccountId = vaultAccountId;
+        this.blockchainId = blockchainId;
     }
 
     public CantonCallParticipantOnboarding type(@jakarta.annotation.Nonnull TypeEnum type) {
@@ -102,8 +149,57 @@ public class CantonCallParticipantOnboarding {
         this.type = type;
     }
 
+    public CantonCallParticipantOnboarding vaultAccountId(
+            @jakarta.annotation.Nonnull String vaultAccountId) {
+        this.vaultAccountId = vaultAccountId;
+        return this;
+    }
+
+    /**
+     * The vault account whose Canton wallet makes this call.
+     *
+     * @return vaultAccountId
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getVaultAccountId() {
+        return vaultAccountId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
+        this.vaultAccountId = vaultAccountId;
+    }
+
+    public CantonCallParticipantOnboarding blockchainId(
+            @jakarta.annotation.Nonnull BlockchainIdEnum blockchainId) {
+        this.blockchainId = blockchainId;
+        return this;
+    }
+
+    /**
+     * The blockchain the vault account&#39;s Canton party is connected to — &#x60;CANTON&#x60; or
+     * &#x60;CANTON_TEST&#x60;.
+     *
+     * @return blockchainId
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public BlockchainIdEnum getBlockchainId() {
+        return blockchainId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setBlockchainId(@jakarta.annotation.Nonnull BlockchainIdEnum blockchainId) {
+        this.blockchainId = blockchainId;
+    }
+
     public CantonCallParticipantOnboarding payload(
-            @jakarta.annotation.Nonnull ParticipantOnboardingPayload payload) {
+            @jakarta.annotation.Nullable ParticipantOnboardingPayload payload) {
         this.payload = payload;
         return this;
     }
@@ -113,16 +209,16 @@ public class CantonCallParticipantOnboarding {
      *
      * @return payload
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_PAYLOAD)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public ParticipantOnboardingPayload getPayload() {
         return payload;
     }
 
     @JsonProperty(JSON_PROPERTY_PAYLOAD)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPayload(@jakarta.annotation.Nonnull ParticipantOnboardingPayload payload) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPayload(@jakarta.annotation.Nullable ParticipantOnboardingPayload payload) {
         this.payload = payload;
     }
 
@@ -138,12 +234,15 @@ public class CantonCallParticipantOnboarding {
         CantonCallParticipantOnboarding cantonCallParticipantOnboarding =
                 (CantonCallParticipantOnboarding) o;
         return Objects.equals(this.type, cantonCallParticipantOnboarding.type)
+                && Objects.equals(
+                        this.vaultAccountId, cantonCallParticipantOnboarding.vaultAccountId)
+                && Objects.equals(this.blockchainId, cantonCallParticipantOnboarding.blockchainId)
                 && Objects.equals(this.payload, cantonCallParticipantOnboarding.payload);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, payload);
+        return Objects.hash(type, vaultAccountId, blockchainId, payload);
     }
 
     @Override
@@ -151,6 +250,8 @@ public class CantonCallParticipantOnboarding {
         StringBuilder sb = new StringBuilder();
         sb.append("class CantonCallParticipantOnboarding {\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
+        sb.append("    blockchainId: ").append(toIndentedString(blockchainId)).append("\n");
         sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -207,6 +308,26 @@ public class CantonCallParticipantOnboarding {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getType()))));
+        }
+
+        // add `vaultAccountId` to the URL query string
+        if (getVaultAccountId() != null) {
+            joiner.add(
+                    String.format(
+                            "%svaultAccountId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
+        }
+
+        // add `blockchainId` to the URL query string
+        if (getBlockchainId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sblockchainId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockchainId()))));
         }
 
         // add `payload` to the URL query string

@@ -26,8 +26,10 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * The transaction belongs to an offer conversation: the offer itself, the response to it, or a leg
+ * The transaction belongs to an offer conversation: the offer itself, a response to it, or a leg
  * that carries no answer of its own. The only block that changes over a transaction&#39;s lifetime.
+ * An offer can have more than one response — an allocation offer is accepted and later withdrawn —
+ * so every response transaction states which answer it is in &#x60;responseType&#x60;.
  */
 @JsonPropertyOrder({
     CantonOfferResponseDetails.JSON_PROPERTY_VERSION,
@@ -37,6 +39,8 @@ import java.util.StringJoiner;
     CantonOfferResponseDetails.JSON_PROPERTY_EXPIRES_AT,
     CantonOfferResponseDetails.JSON_PROPERTY_APPROVAL_TRANSACTION_ID,
     CantonOfferResponseDetails.JSON_PROPERTY_ORIGINAL_TRANSACTION_ID,
+    CantonOfferResponseDetails.JSON_PROPERTY_RESPONSE_TYPE,
+    CantonOfferResponseDetails.JSON_PROPERTY_ALLOCATION_TRANSACTION_ID,
     CantonOfferResponseDetails.JSON_PROPERTY_VERDICT
 })
 @jakarta.annotation.Generated(
@@ -63,6 +67,12 @@ public class CantonOfferResponseDetails {
 
     public static final String JSON_PROPERTY_ORIGINAL_TRANSACTION_ID = "originalTransactionId";
     @jakarta.annotation.Nullable private String originalTransactionId;
+
+    public static final String JSON_PROPERTY_RESPONSE_TYPE = "responseType";
+    @jakarta.annotation.Nullable private String responseType;
+
+    public static final String JSON_PROPERTY_ALLOCATION_TRANSACTION_ID = "allocationTransactionId";
+    @jakarta.annotation.Nullable private String allocationTransactionId;
 
     /** The outcome, set once the transaction reaches a terminal status. */
     public enum VerdictEnum {
@@ -187,9 +197,13 @@ public class CantonOfferResponseDetails {
     }
 
     /**
-     * The responses that can be sent for this offer right now. An empty array means nothing is
-     * answerable on this transaction — which is the difference between an actionable offer and a
-     * linked leg that shares its sub-status.
+     * The responses this offer accepts — copy one into &#x60;responseType&#x60; to answer it.
+     * Present on the offer only, set when it arrives and never changed: it states what the offer
+     * TYPE accepts, not whether it is answerable right now. The respond endpoint is the authority
+     * on that, and answers &#x60;409&#x60; when the offer&#39;s state or expiry rules a response
+     * out — for example an &#x60;ALLOCATION_WITHDRAW&#x60; sent before the accept has settled. An
+     * empty array means nothing is answerable on this transaction — the difference between an
+     * actionable offer and a linked leg that shares its sub-status.
      *
      * @return availableResponses
      */
@@ -281,6 +295,57 @@ public class CantonOfferResponseDetails {
         this.originalTransactionId = originalTransactionId;
     }
 
+    public CantonOfferResponseDetails responseType(
+            @jakarta.annotation.Nullable String responseType) {
+        this.responseType = responseType;
+        return this;
+    }
+
+    /**
+     * On a response transaction, which answer it is — the &#x60;responseType&#x60; that was sent.
+     * Absent on the offer itself.
+     *
+     * @return responseType
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_RESPONSE_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getResponseType() {
+        return responseType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RESPONSE_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setResponseType(@jakarta.annotation.Nullable String responseType) {
+        this.responseType = responseType;
+    }
+
+    public CantonOfferResponseDetails allocationTransactionId(
+            @jakarta.annotation.Nullable String allocationTransactionId) {
+        this.allocationTransactionId = allocationTransactionId;
+        return this;
+    }
+
+    /**
+     * On an &#x60;ALLOCATION_WITHDRAW&#x60; response only — the accept whose allocation this
+     * withdraw released, so the withdraw transaction read on its own says what it undid.
+     *
+     * @return allocationTransactionId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ALLOCATION_TRANSACTION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAllocationTransactionId() {
+        return allocationTransactionId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ALLOCATION_TRANSACTION_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAllocationTransactionId(
+            @jakarta.annotation.Nullable String allocationTransactionId) {
+        this.allocationTransactionId = allocationTransactionId;
+    }
+
     public CantonOfferResponseDetails verdict(@jakarta.annotation.Nullable VerdictEnum verdict) {
         this.verdict = verdict;
         return this;
@@ -326,6 +391,10 @@ public class CantonOfferResponseDetails {
                 && Objects.equals(
                         this.originalTransactionId,
                         cantonOfferResponseDetails.originalTransactionId)
+                && Objects.equals(this.responseType, cantonOfferResponseDetails.responseType)
+                && Objects.equals(
+                        this.allocationTransactionId,
+                        cantonOfferResponseDetails.allocationTransactionId)
                 && Objects.equals(this.verdict, cantonOfferResponseDetails.verdict);
     }
 
@@ -339,6 +408,8 @@ public class CantonOfferResponseDetails {
                 expiresAt,
                 approvalTransactionId,
                 originalTransactionId,
+                responseType,
+                allocationTransactionId,
                 verdict);
     }
 
@@ -358,6 +429,10 @@ public class CantonOfferResponseDetails {
                 .append("\n");
         sb.append("    originalTransactionId: ")
                 .append(toIndentedString(originalTransactionId))
+                .append("\n");
+        sb.append("    responseType: ").append(toIndentedString(responseType)).append("\n");
+        sb.append("    allocationTransactionId: ")
+                .append(toIndentedString(allocationTransactionId))
                 .append("\n");
         sb.append("    verdict: ").append(toIndentedString(verdict)).append("\n");
         sb.append("}");
@@ -484,6 +559,27 @@ public class CantonOfferResponseDetails {
                             suffix,
                             ApiClient.urlEncode(
                                     ApiClient.valueToString(getOriginalTransactionId()))));
+        }
+
+        // add `responseType` to the URL query string
+        if (getResponseType() != null) {
+            joiner.add(
+                    String.format(
+                            "%sresponseType%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getResponseType()))));
+        }
+
+        // add `allocationTransactionId` to the URL query string
+        if (getAllocationTransactionId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sallocationTransactionId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getAllocationTransactionId()))));
         }
 
         // add `verdict` to the URL query string

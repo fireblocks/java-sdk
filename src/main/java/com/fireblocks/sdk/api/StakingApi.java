@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.LifecycleWarning;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.ChainDescriptor;
@@ -139,6 +140,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "approveTermsOfServiceByProviderId",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -219,6 +227,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "claimRewards",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("claimRewards", localVarResponse));
@@ -312,6 +327,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "consolidate",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("consolidate", localVarResponse));
@@ -412,6 +434,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getAllDelegations",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getAllDelegations", localVarResponse));
@@ -506,6 +535,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getChainInfo",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getChainInfo", localVarResponse));
@@ -582,6 +618,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getChains",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getChains", localVarResponse));
@@ -655,6 +698,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getDelegationById",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getDelegationById", localVarResponse));
@@ -738,6 +788,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getPositionRelatedTransactions",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -856,6 +913,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getPositions",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getPositions", localVarResponse));
@@ -960,6 +1024,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getProviders",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getProviders", localVarResponse));
@@ -1029,6 +1100,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getSummary",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getSummary", localVarResponse));
@@ -1098,6 +1176,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getSummaryByVault",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getSummaryByVault", localVarResponse));
@@ -1184,6 +1269,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "mergeStakeAccounts",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -1287,6 +1379,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "split",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("split", localVarResponse));
@@ -1388,6 +1487,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "stake",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("stake", localVarResponse));
@@ -1482,6 +1588,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "unstake",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("unstake", localVarResponse));
@@ -1572,6 +1685,13 @@ public class StakingApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "withdraw",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("withdraw", localVarResponse));

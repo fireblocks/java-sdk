@@ -712,11 +712,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetTradingBetaApi() {
+    public void testGetTradingApi() {
         setupFireblocks(true, null, null);
-        TradingBetaApi tradingBeta = fireblocks.tradingBeta();
-        Assert.assertNotNull(tradingBeta);
-        Assert.assertSame(tradingBeta, fireblocks.tradingBeta());
+        TradingApi trading = fireblocks.trading();
+        Assert.assertNotNull(trading);
+        Assert.assertSame(trading, fireblocks.trading());
     }
 
     @Test

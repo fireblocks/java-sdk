@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.LifecycleWarning;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsRequest;
@@ -162,6 +163,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "activateArsConfig",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("activateArsConfig", localVarResponse));
@@ -241,6 +249,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "activateByorkConfig",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -324,6 +339,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "addAddressRegistryVaultOptOuts",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -428,6 +450,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "assignVaultsToLegalEntity",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -540,6 +569,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "createAddressRegistryProofOfOwnership",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -642,6 +678,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "createCounterpartyGroup",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -735,6 +778,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "deactivateArsConfig",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -815,6 +865,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "deactivateByorkConfig",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -891,6 +948,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "deleteCounterpartyGroup",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -957,6 +1021,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "deleteLegalEntity",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("deleteLegalEntity", localVarResponse));
@@ -1022,6 +1093,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getAddressRegistryTenantParticipationStatus",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -1102,6 +1180,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getAddressRegistryVaultOptOut",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -1181,6 +1266,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getAmlPostScreeningPolicy",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -1254,6 +1346,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getAmlScreeningPolicy",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -1329,6 +1428,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getByorkConfig",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getByorkConfig", localVarResponse));
@@ -1401,6 +1507,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getByorkVerdict",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getByorkVerdict", localVarResponse));
@@ -1491,6 +1604,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getCounterpartyGroup",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -1570,6 +1690,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getLegalEntity",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getLegalEntity", localVarResponse));
@@ -1651,6 +1778,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getLegalEntityForAddress",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -1727,6 +1861,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getPostScreeningPolicy",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -1802,6 +1943,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getScreeningFullDetails",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -1879,6 +2027,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getScreeningPolicy",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -1964,6 +2119,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "listAddressRegistryVaultOptOuts",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -2065,6 +2227,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "listCounterpartyGroups",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -2169,6 +2338,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "listLegalEntities",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("listLegalEntities", localVarResponse));
@@ -2268,6 +2444,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "listVaultsForLegalEntity",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -2369,6 +2552,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "optInAddressRegistryTenant",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -2449,6 +2639,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "optOutAddressRegistryTenant",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -2531,6 +2728,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "registerLegalEntity",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -2623,6 +2827,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "removeAddressRegistryVaultOptOut",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -2707,6 +2918,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "removeAllAddressRegistryVaultOptOuts",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -2795,6 +3013,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "rescreenRejectedTransaction",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -2894,6 +3119,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "retryRejectedTransactionBypassScreeningChecks",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -2983,6 +3215,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "setAmlVerdict",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("setAmlVerdict", localVarResponse));
@@ -3078,6 +3317,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "setByorkTimeouts",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("setByorkTimeouts", localVarResponse));
@@ -3171,6 +3417,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "setByorkVerdict",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("setByorkVerdict", localVarResponse));
@@ -3260,6 +3513,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "updateAmlScreeningConfiguration",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -3347,6 +3607,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "updateCounterpartyGroup",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -3451,6 +3718,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "updateLegalEntity",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("updateLegalEntity", localVarResponse));
@@ -3551,6 +3825,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "updateScreeningConfiguration",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -3646,6 +3927,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "updateTravelRuleConfig",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -3735,6 +4023,13 @@ public class ComplianceApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "verifyAddressRegistryProofOfOwnership",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(

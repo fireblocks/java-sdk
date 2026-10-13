@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.LifecycleWarning;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreateOffersRequest;
@@ -61,7 +62,7 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class TradingBetaApi {
+public class TradingApi {
     private final HttpClient memberVarHttpClient;
     private final ObjectMapper memberVarObjectMapper;
     private final String memberVarBaseUri;
@@ -70,11 +71,11 @@ public class TradingBetaApi {
     private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
     private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-    public TradingBetaApi() {
+    public TradingApi() {
         this(new ApiClient());
     }
 
-    public TradingBetaApi(ApiClient apiClient) {
+    public TradingApi(ApiClient apiClient) {
         memberVarHttpClient = apiClient.getHttpClient();
         memberVarObjectMapper = apiClient.getObjectMapper();
         memberVarBaseUri = apiClient.getBaseUri();
@@ -122,12 +123,9 @@ public class TradingBetaApi {
 
     /**
      * Create an order Create an order to buy or sell an asset. If no source is given, an external
-     * source will be use. Note: These endpoints are currently in beta and might be subject to
-     * changes. If you want to participate and learn more about the Fireblocks Trading, please
-     * contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
-     * Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor. For detailed
-     * information about error codes and troubleshooting, please refer to our [API Error Codes
-     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * source will be use. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor. For
+     * detailed information about error codes and troubleshooting, please refer to our [API Error
+     * Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
      *
      * @param createOrderRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -148,6 +146,13 @@ public class TradingBetaApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "createOrder",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("createOrder", localVarResponse));
@@ -214,12 +219,9 @@ public class TradingBetaApi {
     }
     /**
      * Create a quote Generate a time-limited quote for asset conversion, providing exchange rate
-     * and amount calculations. Note: These endpoints are currently in beta and might be subject to
-     * changes. If you want to participate and learn more about the Fireblocks Trading, please
-     * contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
-     * Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor. For detailed
-     * information about error codes and troubleshooting, please refer to our [API Error Codes
-     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * and amount calculations. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer,
+     * Editor. For detailed information about error codes and troubleshooting, please refer to our
+     * [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
      *
      * @param createQuote (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -240,6 +242,13 @@ public class TradingBetaApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "createQuote",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("createQuote", localVarResponse));
@@ -309,12 +318,9 @@ public class TradingBetaApi {
      * Always operates in open scope — no provider or account selection required. Returns a mix of
      * indicative rates and committed quotes as applicable per provider. If no slippageBps is
      * provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect
-     * the returned rate. Note: These endpoints are currently in beta and might be subject to
-     * changes. If you want to participate and learn more about the Fireblocks Trading, please
-     * contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
-     * Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor. For detailed
-     * information about error codes and troubleshooting, please refer to our [API Error Codes
-     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * the returned rate. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor. For
+     * detailed information about error codes and troubleshooting, please refer to our [API Error
+     * Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
      *
      * @param createOffersRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -335,6 +341,13 @@ public class TradingBetaApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "fetchAllOffers",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("fetchAllOffers", localVarResponse));
@@ -402,12 +415,9 @@ public class TradingBetaApi {
     }
     /**
      * Get rates Retrieve indicative exchange rate from specified providers for a given asset pair.
-     * Rates are non-executable price signals intended for discovery and display purposes. Note:
-     * These endpoints are currently in beta and might be subject to changes. If you want to
-     * participate and learn more about the Fireblocks Trading, please contact your Fireblocks
-     * Customer Success Manager or send an email to CSM@fireblocks.com. Endpoint Permission: Owner,
-     * Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed information about
-     * error codes and troubleshooting, please refer to our [API Error Codes
+     * Rates are non-executable price signals intended for discovery and display purposes. Endpoint
+     * Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed
+     * information about error codes and troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      *
      * @param ratesRequest (required)
@@ -429,6 +439,13 @@ public class TradingBetaApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "fetchRates",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("fetchRates", localVarResponse));
@@ -494,12 +511,9 @@ public class TradingBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get order details Retrieve detailed information about a specific order by its ID. Note:These
-     * endpoints are currently in beta and might be subject to changes. If you want to participate
-     * and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success
-     * Manager or send an email to CSM@fireblocks.com. Endpoint Permission: Owner, Admin,
-     * Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed information about error
-     * codes and troubleshooting, please refer to our [API Error Codes
+     * Get order details Retrieve detailed information about a specific order by its ID. Endpoint
+     * Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed
+     * information about error codes and troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      *
      * @param orderId The ID of the order to fetch. (required)
@@ -516,6 +530,13 @@ public class TradingBetaApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getOrder",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getOrder", localVarResponse));
@@ -578,12 +599,9 @@ public class TradingBetaApi {
      * Schema (Draft-7) describing the shape of the &#x60;data&#x60; object expected on &#x60;POST
      * /trading/orders/{orderId}/requirement/data&#x60;, and &#x60;requiredFiles&#x60; descriptors
      * for any files the provider requires (uploaded via &#x60;POST
-     * /trading/orders/{orderId}/requirement/file&#x60;). Note: These endpoints are currently in
-     * beta and might be subject to changes. If you want to participate and learn more about the
-     * Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email
-     * to CSM@fireblocks.com. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer,
-     * Approver, Editor, Viewer. For detailed information about error codes and troubleshooting,
-     * please refer to our [API Error Codes
+     * /trading/orders/{orderId}/requirement/file&#x60;). Endpoint Permission: Owner, Admin,
+     * Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed information about error
+     * codes and troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      *
      * @param orderId The ID of the order for which the order requirement is issued. (required)
@@ -602,6 +620,13 @@ public class TradingBetaApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getOrderRequirements",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -663,12 +688,10 @@ public class TradingBetaApi {
     }
     /**
      * Get orders Retrieve a paginated list of orders with optional filtering by account, provider,
-     * status, and time range. Note:These endpoints are currently in beta and might be subject to
-     * changes. If you want to participate and learn more about the Fireblocks Trading, please
-     * contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
-     * Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. For
-     * detailed information about error codes and troubleshooting, please refer to our [API Error
-     * Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * status, and time range. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, Viewer. For detailed information about error codes and troubleshooting,
+     * please refer to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      *
      * @param pageSize pageSize for pagination. (required)
      * @param pageCursor (optional)
@@ -711,6 +734,13 @@ public class TradingBetaApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getOrders",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getOrders", localVarResponse));
@@ -808,12 +838,9 @@ public class TradingBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get trading provider by ID Retrieve a single provider by ID. **Note:** These endpoints are
-     * currently in beta and might be subject to changes. If you want to participate and learn more
-     * about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send
-     * an email to CSM@fireblocks.com. **Endpoint Permission:** Owner, Admin, Non-Signing Admin,
-     * Signer, Approver, Editor, Viewer. For detailed information about error codes and
-     * troubleshooting, please refer to our [API Error Codes
+     * Get trading provider by ID Retrieve a single provider by ID. **Endpoint Permission:** Owner,
+     * Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed information about
+     * error codes and troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      *
      * @param providerId The unique identifier of the provider. (required)
@@ -832,6 +859,13 @@ public class TradingBetaApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getTradingProviderById",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -892,12 +926,9 @@ public class TradingBetaApi {
     }
     /**
      * Get providers Retrieve a list of all available external providers supporting trading
-     * activities through the platform. **Note:** These endpoints are currently in beta and might be
-     * subject to changes. If you want to participate and learn more about the Fireblocks Trading,
-     * please contact your Fireblocks Customer Success Manager or send an email to
-     * CSM@fireblocks.com. **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer,
-     * Approver, Editor, Viewer. For detailed information about error codes and troubleshooting,
-     * please refer to our [API Error Codes
+     * activities through the platform. **Endpoint Permission:** Owner, Admin, Non-Signing Admin,
+     * Signer, Approver, Editor, Viewer. For detailed information about error codes and
+     * troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      *
      * @param pageSize Page size for pagination. (optional, default to 20)
@@ -917,6 +948,13 @@ public class TradingBetaApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getTradingProviders",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -996,12 +1034,10 @@ public class TradingBetaApi {
      * requirement on an order that is in &#x60;AWAITING_INFORMATION&#x60; status. The request body
      * carries &#x60;data&#x60; — a free-form object conforming to the &#x60;requiredData&#x60; JSON
      * Schema returned by the GET endpoint. Any required files are uploaded separately via
-     * &#x60;POST /trading/orders/{orderId}/requirement/file&#x60;. Note: These endpoints are
-     * currently in beta and might be subject to changes. If you want to participate and learn more
-     * about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send
-     * an email to CSM@fireblocks.com. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer,
-     * Editor. For detailed information about error codes and troubleshooting, please refer to our
-     * [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * &#x60;POST /trading/orders/{orderId}/requirement/file&#x60;. Endpoint Permission: Owner,
+     * Admin, Non-Signing Admin, Signer, Editor. For detailed information about error codes and
+     * troubleshooting, please refer to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      *
      * @param submitOrderRequirementRequest (required)
      * @param orderId The ID of the order to submit the order requirement response for. (required)
@@ -1026,6 +1062,13 @@ public class TradingBetaApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "submitOrderRequirements",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -1097,12 +1140,9 @@ public class TradingBetaApi {
      * &#x60;fileKey&#x60; from &#x60;requiredFiles&#x60; on the GET response) and the binary
      * &#x60;file&#x60;. Its type must be one of the supported file formats. Fireblocks encrypts
      * each file and uploads it individually to the underlying provider. The textual response is
-     * submitted separately via &#x60;POST /trading/orders/{orderId}/requirement/data&#x60;. Note:
-     * These endpoints are currently in beta and might be subject to changes. If you want to
-     * participate and learn more about the Fireblocks Trading, please contact your Fireblocks
-     * Customer Success Manager or send an email to CSM@fireblocks.com. Endpoint Permission: Owner,
-     * Admin, Non-Signing Admin, Signer, Editor. For detailed information about error codes and
-     * troubleshooting, please refer to our [API Error Codes
+     * submitted separately via &#x60;POST /trading/orders/{orderId}/requirement/data&#x60;.
+     * Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor. For detailed
+     * information about error codes and troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      *
      * @param fileKey Identifier of the required file this upload satisfies. Must match a
@@ -1130,6 +1170,13 @@ public class TradingBetaApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "uploadOrderRequirementFile",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(

@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.LifecycleWarning;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreateInternalWalletAssetRequest;
@@ -129,6 +130,13 @@ public class InternalWalletsApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "createInternalWallet",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -221,6 +229,13 @@ public class InternalWalletsApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "createInternalWalletAsset",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -315,6 +330,13 @@ public class InternalWalletsApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "deleteInternalWallet",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -382,6 +404,13 @@ public class InternalWalletsApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "deleteInternalWalletAsset",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -449,6 +478,13 @@ public class InternalWalletsApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getInternalWallet",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getInternalWallet", localVarResponse));
@@ -525,6 +561,13 @@ public class InternalWalletsApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getInternalWalletAsset",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -607,6 +650,13 @@ public class InternalWalletsApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getInternalWalletAssetsPaginated",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -702,6 +752,13 @@ public class InternalWalletsApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getInternalWallets",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -785,6 +842,13 @@ public class InternalWalletsApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "setCustomerRefIdForInternalWallet",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(

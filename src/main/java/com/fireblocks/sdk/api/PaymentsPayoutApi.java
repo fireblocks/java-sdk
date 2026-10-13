@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.LifecycleWarning;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreatePayoutRequest;
 import com.fireblocks.sdk.model.DispatchPayoutResponse;
@@ -131,6 +132,13 @@ public class PaymentsPayoutApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "createPayout",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("createPayout", localVarResponse));
@@ -225,6 +233,13 @@ public class PaymentsPayoutApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "executePayoutAction",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
@@ -310,6 +325,13 @@ public class PaymentsPayoutApi {
                                 if (memberVarAsyncResponseInterceptor != null) {
                                     memberVarAsyncResponseInterceptor.accept(localVarResponse);
                                 }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getPayout",
+                                        localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getPayout", localVarResponse));

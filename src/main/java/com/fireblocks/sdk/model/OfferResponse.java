@@ -179,6 +179,57 @@ public class OfferResponse extends AbstractOpenApiSchema {
                         e);
             }
 
+            // deserialize OfferResponseAllocationWithdraw
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (OfferResponseAllocationWithdraw.class.equals(Integer.class)
+                        || OfferResponseAllocationWithdraw.class.equals(Long.class)
+                        || OfferResponseAllocationWithdraw.class.equals(Float.class)
+                        || OfferResponseAllocationWithdraw.class.equals(Double.class)
+                        || OfferResponseAllocationWithdraw.class.equals(Boolean.class)
+                        || OfferResponseAllocationWithdraw.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((OfferResponseAllocationWithdraw.class.equals(Integer.class)
+                                                || OfferResponseAllocationWithdraw.class.equals(
+                                                        Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((OfferResponseAllocationWithdraw.class.equals(Float.class)
+                                                || OfferResponseAllocationWithdraw.class.equals(
+                                                        Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (OfferResponseAllocationWithdraw.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (OfferResponseAllocationWithdraw.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized =
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(OfferResponseAllocationWithdraw.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(
+                            Level.FINER,
+                            "Input data matches schema 'OfferResponseAllocationWithdraw'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(
+                        Level.FINER,
+                        "Input data does not match schema 'OfferResponseAllocationWithdraw'",
+                        e);
+            }
+
             // deserialize OfferResponseDtccOnboardingAccept
             try {
                 boolean attemptParsing = true;
@@ -564,6 +615,11 @@ public class OfferResponse extends AbstractOpenApiSchema {
         setActualInstance(o);
     }
 
+    public OfferResponse(OfferResponseAllocationWithdraw o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
     public OfferResponse(OfferResponseDtccOnboardingAccept o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
@@ -602,6 +658,7 @@ public class OfferResponse extends AbstractOpenApiSchema {
     static {
         schemas.put("OfferResponseAllocationAccept", OfferResponseAllocationAccept.class);
         schemas.put("OfferResponseAllocationReject", OfferResponseAllocationReject.class);
+        schemas.put("OfferResponseAllocationWithdraw", OfferResponseAllocationWithdraw.class);
         schemas.put("OfferResponseDtccOnboardingAccept", OfferResponseDtccOnboardingAccept.class);
         schemas.put("OfferResponseDtccOnboardingReject", OfferResponseDtccOnboardingReject.class);
         schemas.put("OfferResponseTradewebAccept", OfferResponseTradewebAccept.class);
@@ -614,6 +671,7 @@ public class OfferResponse extends AbstractOpenApiSchema {
         Map<String, Class<?>> mappings = new HashMap<String, Class<?>>();
         mappings.put("ALLOCATION_ACCEPT", OfferResponseAllocationAccept.class);
         mappings.put("ALLOCATION_REJECT", OfferResponseAllocationReject.class);
+        mappings.put("ALLOCATION_WITHDRAW", OfferResponseAllocationWithdraw.class);
         mappings.put(
                 "DTCC_END_INVESTOR_ONBOARDING_ACCEPT", OfferResponseDtccOnboardingAccept.class);
         mappings.put(
@@ -625,6 +683,7 @@ public class OfferResponse extends AbstractOpenApiSchema {
         mappings.put("TRANSFER_WITHDRAW", OfferResponseTransferWithdraw.class);
         mappings.put("OfferResponseAllocationAccept", OfferResponseAllocationAccept.class);
         mappings.put("OfferResponseAllocationReject", OfferResponseAllocationReject.class);
+        mappings.put("OfferResponseAllocationWithdraw", OfferResponseAllocationWithdraw.class);
         mappings.put("OfferResponseDtccOnboardingAccept", OfferResponseDtccOnboardingAccept.class);
         mappings.put("OfferResponseDtccOnboardingReject", OfferResponseDtccOnboardingReject.class);
         mappings.put("OfferResponseTradewebAccept", OfferResponseTradewebAccept.class);
@@ -644,9 +703,10 @@ public class OfferResponse extends AbstractOpenApiSchema {
     /**
      * Set the instance that matches the oneOf child schema, check the instance parameter is valid
      * against the oneOf child schemas: OfferResponseAllocationAccept,
-     * OfferResponseAllocationReject, OfferResponseDtccOnboardingAccept,
-     * OfferResponseDtccOnboardingReject, OfferResponseTradewebAccept, OfferResponseTradewebReject,
-     * OfferResponseTransferAccept, OfferResponseTransferReject, OfferResponseTransferWithdraw
+     * OfferResponseAllocationReject, OfferResponseAllocationWithdraw,
+     * OfferResponseDtccOnboardingAccept, OfferResponseDtccOnboardingReject,
+     * OfferResponseTradewebAccept, OfferResponseTradewebReject, OfferResponseTransferAccept,
+     * OfferResponseTransferReject, OfferResponseTransferWithdraw
      *
      * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
      * a composed schema (allOf, anyOf, oneOf).
@@ -661,6 +721,12 @@ public class OfferResponse extends AbstractOpenApiSchema {
 
         if (JSON.isInstanceOf(
                 OfferResponseAllocationReject.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (JSON.isInstanceOf(
+                OfferResponseAllocationWithdraw.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
@@ -709,22 +775,25 @@ public class OfferResponse extends AbstractOpenApiSchema {
 
         throw new RuntimeException(
                 "Invalid instance type. Must be OfferResponseAllocationAccept,"
-                        + " OfferResponseAllocationReject, OfferResponseDtccOnboardingAccept,"
-                        + " OfferResponseDtccOnboardingReject, OfferResponseTradewebAccept,"
-                        + " OfferResponseTradewebReject, OfferResponseTransferAccept,"
-                        + " OfferResponseTransferReject, OfferResponseTransferWithdraw");
+                        + " OfferResponseAllocationReject, OfferResponseAllocationWithdraw,"
+                        + " OfferResponseDtccOnboardingAccept, OfferResponseDtccOnboardingReject,"
+                        + " OfferResponseTradewebAccept, OfferResponseTradewebReject,"
+                        + " OfferResponseTransferAccept, OfferResponseTransferReject,"
+                        + " OfferResponseTransferWithdraw");
     }
 
     /**
      * Get the actual instance, which can be the following: OfferResponseAllocationAccept,
-     * OfferResponseAllocationReject, OfferResponseDtccOnboardingAccept,
-     * OfferResponseDtccOnboardingReject, OfferResponseTradewebAccept, OfferResponseTradewebReject,
-     * OfferResponseTransferAccept, OfferResponseTransferReject, OfferResponseTransferWithdraw
+     * OfferResponseAllocationReject, OfferResponseAllocationWithdraw,
+     * OfferResponseDtccOnboardingAccept, OfferResponseDtccOnboardingReject,
+     * OfferResponseTradewebAccept, OfferResponseTradewebReject, OfferResponseTransferAccept,
+     * OfferResponseTransferReject, OfferResponseTransferWithdraw
      *
      * @return The actual instance (OfferResponseAllocationAccept, OfferResponseAllocationReject,
-     *     OfferResponseDtccOnboardingAccept, OfferResponseDtccOnboardingReject,
-     *     OfferResponseTradewebAccept, OfferResponseTradewebReject, OfferResponseTransferAccept,
-     *     OfferResponseTransferReject, OfferResponseTransferWithdraw)
+     *     OfferResponseAllocationWithdraw, OfferResponseDtccOnboardingAccept,
+     *     OfferResponseDtccOnboardingReject, OfferResponseTradewebAccept,
+     *     OfferResponseTradewebReject, OfferResponseTransferAccept, OfferResponseTransferReject,
+     *     OfferResponseTransferWithdraw)
      */
     @Override
     public Object getActualInstance() {
@@ -753,6 +822,18 @@ public class OfferResponse extends AbstractOpenApiSchema {
     public OfferResponseAllocationReject getOfferResponseAllocationReject()
             throws ClassCastException {
         return (OfferResponseAllocationReject) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `OfferResponseAllocationWithdraw`. If the actual instance is not
+     * `OfferResponseAllocationWithdraw`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `OfferResponseAllocationWithdraw`
+     * @throws ClassCastException if the instance is not `OfferResponseAllocationWithdraw`
+     */
+    public OfferResponseAllocationWithdraw getOfferResponseAllocationWithdraw()
+            throws ClassCastException {
+        return (OfferResponseAllocationWithdraw) super.getActualInstance();
     }
 
     /**
@@ -936,6 +1017,14 @@ public class OfferResponse extends AbstractOpenApiSchema {
                 joiner.add(
                         ((OfferResponseTransferWithdraw) getActualInstance())
                                 .toUrlQueryString(prefix + "one_of_8" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof OfferResponseAllocationWithdraw) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((OfferResponseAllocationWithdraw) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_9" + suffix));
             }
             return joiner.toString();
         }

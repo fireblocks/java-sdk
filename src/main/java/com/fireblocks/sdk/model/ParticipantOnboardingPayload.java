@@ -13,20 +13,19 @@
 package com.fireblocks.sdk.model;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.ApiClient;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** ParticipantOnboardingPayload */
+/**
+ * Optional, and so is every field in it: omit &#x60;payload&#x60; entirely to onboard with
+ * DTCC&#39;s published parties for the blockchain and the default expiry.
+ */
 @JsonPropertyOrder({
-    ParticipantOnboardingPayload.JSON_PROPERTY_VAULT_ACCOUNT_ID,
-    ParticipantOnboardingPayload.JSON_PROPERTY_BLOCKCHAIN_ID,
     ParticipantOnboardingPayload.JSON_PROPERTY_EXPIRES_AT,
     ParticipantOnboardingPayload.JSON_PROPERTY_OPERATOR,
     ParticipantOnboardingPayload.JSON_PROPERTY_COMPLIANCE,
@@ -38,135 +37,25 @@ import java.util.StringJoiner;
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class ParticipantOnboardingPayload {
-    public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    @jakarta.annotation.Nonnull private String vaultAccountId;
-
-    /**
-     * The blockchain this party is connected to — &#x60;CANTON&#x60; or &#x60;CANTON_TEST&#x60;.
-     */
-    public enum BlockchainIdEnum {
-        CANTON(String.valueOf("CANTON")),
-
-        CANTON_TEST(String.valueOf("CANTON_TEST"));
-
-        private String value;
-
-        BlockchainIdEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static BlockchainIdEnum fromValue(String value) {
-            for (BlockchainIdEnum b : BlockchainIdEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_BLOCKCHAIN_ID = "blockchainId";
-    @jakarta.annotation.Nonnull private BlockchainIdEnum blockchainId;
-
     public static final String JSON_PROPERTY_EXPIRES_AT = "expiresAt";
     @jakarta.annotation.Nullable private OffsetDateTime expiresAt;
 
     public static final String JSON_PROPERTY_OPERATOR = "operator";
-    @jakarta.annotation.Nonnull private String operator;
+    @jakarta.annotation.Nullable private String operator;
 
     public static final String JSON_PROPERTY_COMPLIANCE = "compliance";
-    @jakarta.annotation.Nonnull private String compliance;
+    @jakarta.annotation.Nullable private String compliance;
 
     public static final String JSON_PROPERTY_REGISTRAR = "registrar";
-    @jakarta.annotation.Nonnull private String registrar;
+    @jakarta.annotation.Nullable private String registrar;
 
     public static final String JSON_PROPERTY_CLIENT_ONBOARDER = "clientOnboarder";
-    @jakarta.annotation.Nonnull private String clientOnboarder;
+    @jakarta.annotation.Nullable private String clientOnboarder;
 
     public static final String JSON_PROPERTY_UPGRADER = "upgrader";
-    @jakarta.annotation.Nonnull private String upgrader;
+    @jakarta.annotation.Nullable private String upgrader;
 
     public ParticipantOnboardingPayload() {}
-
-    @JsonCreator
-    public ParticipantOnboardingPayload(
-            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
-                    String vaultAccountId,
-            @JsonProperty(value = JSON_PROPERTY_BLOCKCHAIN_ID, required = true)
-                    BlockchainIdEnum blockchainId,
-            @JsonProperty(value = JSON_PROPERTY_OPERATOR, required = true) String operator,
-            @JsonProperty(value = JSON_PROPERTY_COMPLIANCE, required = true) String compliance,
-            @JsonProperty(value = JSON_PROPERTY_REGISTRAR, required = true) String registrar,
-            @JsonProperty(value = JSON_PROPERTY_CLIENT_ONBOARDER, required = true)
-                    String clientOnboarder,
-            @JsonProperty(value = JSON_PROPERTY_UPGRADER, required = true) String upgrader) {
-        this.vaultAccountId = vaultAccountId;
-        this.blockchainId = blockchainId;
-        this.operator = operator;
-        this.compliance = compliance;
-        this.registrar = registrar;
-        this.clientOnboarder = clientOnboarder;
-        this.upgrader = upgrader;
-    }
-
-    public ParticipantOnboardingPayload vaultAccountId(
-            @jakarta.annotation.Nonnull String vaultAccountId) {
-        this.vaultAccountId = vaultAccountId;
-        return this;
-    }
-
-    /**
-     * The vault account that acts as the participant. Its Canton party is derived for you.
-     *
-     * @return vaultAccountId
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getVaultAccountId() {
-        return vaultAccountId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
-        this.vaultAccountId = vaultAccountId;
-    }
-
-    public ParticipantOnboardingPayload blockchainId(
-            @jakarta.annotation.Nonnull BlockchainIdEnum blockchainId) {
-        this.blockchainId = blockchainId;
-        return this;
-    }
-
-    /**
-     * The blockchain this party is connected to — &#x60;CANTON&#x60; or &#x60;CANTON_TEST&#x60;.
-     *
-     * @return blockchainId
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public BlockchainIdEnum getBlockchainId() {
-        return blockchainId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBlockchainId(@jakarta.annotation.Nonnull BlockchainIdEnum blockchainId) {
-        this.blockchainId = blockchainId;
-    }
 
     public ParticipantOnboardingPayload expiresAt(
             @jakarta.annotation.Nullable OffsetDateTime expiresAt) {
@@ -192,120 +81,123 @@ public class ParticipantOnboardingPayload {
         this.expiresAt = expiresAt;
     }
 
-    public ParticipantOnboardingPayload operator(@jakarta.annotation.Nonnull String operator) {
+    public ParticipantOnboardingPayload operator(@jakarta.annotation.Nullable String operator) {
         this.operator = operator;
         return this;
     }
 
     /**
-     * DTCC infra operator party id.
+     * DTCC infra operator party id. Optional — overrides the service&#39;s default for the
+     * blockchain.
      *
      * @return operator
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_OPERATOR)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public String getOperator() {
         return operator;
     }
 
     @JsonProperty(JSON_PROPERTY_OPERATOR)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOperator(@jakarta.annotation.Nonnull String operator) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOperator(@jakarta.annotation.Nullable String operator) {
         this.operator = operator;
     }
 
-    public ParticipantOnboardingPayload compliance(@jakarta.annotation.Nonnull String compliance) {
+    public ParticipantOnboardingPayload compliance(@jakarta.annotation.Nullable String compliance) {
         this.compliance = compliance;
         return this;
     }
 
     /**
-     * DTCC compliance party id.
+     * DTCC compliance party id. Optional — overrides the service&#39;s default for the blockchain.
      *
      * @return compliance
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_COMPLIANCE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public String getCompliance() {
         return compliance;
     }
 
     @JsonProperty(JSON_PROPERTY_COMPLIANCE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCompliance(@jakarta.annotation.Nonnull String compliance) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCompliance(@jakarta.annotation.Nullable String compliance) {
         this.compliance = compliance;
     }
 
-    public ParticipantOnboardingPayload registrar(@jakarta.annotation.Nonnull String registrar) {
+    public ParticipantOnboardingPayload registrar(@jakarta.annotation.Nullable String registrar) {
         this.registrar = registrar;
         return this;
     }
 
     /**
-     * DTCC registrar party id — co-signs the accept.
+     * DTCC registrar party id — co-signs the accept. Optional — overrides the service&#39;s default
+     * for the blockchain.
      *
      * @return registrar
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_REGISTRAR)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public String getRegistrar() {
         return registrar;
     }
 
     @JsonProperty(JSON_PROPERTY_REGISTRAR)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRegistrar(@jakarta.annotation.Nonnull String registrar) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRegistrar(@jakarta.annotation.Nullable String registrar) {
         this.registrar = registrar;
     }
 
     public ParticipantOnboardingPayload clientOnboarder(
-            @jakarta.annotation.Nonnull String clientOnboarder) {
+            @jakarta.annotation.Nullable String clientOnboarder) {
         this.clientOnboarder = clientOnboarder;
         return this;
     }
 
     /**
-     * DTCC client onboarder party id — co-signs the accept.
+     * DTCC client onboarder party id — co-signs the accept. Optional — overrides the service&#39;s
+     * default for the blockchain.
      *
      * @return clientOnboarder
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_CLIENT_ONBOARDER)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public String getClientOnboarder() {
         return clientOnboarder;
     }
 
     @JsonProperty(JSON_PROPERTY_CLIENT_ONBOARDER)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setClientOnboarder(@jakarta.annotation.Nonnull String clientOnboarder) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setClientOnboarder(@jakarta.annotation.Nullable String clientOnboarder) {
         this.clientOnboarder = clientOnboarder;
     }
 
-    public ParticipantOnboardingPayload upgrader(@jakarta.annotation.Nonnull String upgrader) {
+    public ParticipantOnboardingPayload upgrader(@jakarta.annotation.Nullable String upgrader) {
         this.upgrader = upgrader;
         return this;
     }
 
     /**
-     * DTCC upgrader party id — the Model Upgrade Tool authority. Supplied by DTCC during the
-     * off-chain registration, alongside the other party ids.
+     * DTCC upgrader party id — the Model Upgrade Tool authority. Optional — overrides the
+     * service&#39;s default for the blockchain.
      *
      * @return upgrader
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_UPGRADER)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public String getUpgrader() {
         return upgrader;
     }
 
     @JsonProperty(JSON_PROPERTY_UPGRADER)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUpgrader(@jakarta.annotation.Nonnull String upgrader) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUpgrader(@jakarta.annotation.Nullable String upgrader) {
         this.upgrader = upgrader;
     }
 
@@ -320,9 +212,7 @@ public class ParticipantOnboardingPayload {
         }
         ParticipantOnboardingPayload participantOnboardingPayload =
                 (ParticipantOnboardingPayload) o;
-        return Objects.equals(this.vaultAccountId, participantOnboardingPayload.vaultAccountId)
-                && Objects.equals(this.blockchainId, participantOnboardingPayload.blockchainId)
-                && Objects.equals(this.expiresAt, participantOnboardingPayload.expiresAt)
+        return Objects.equals(this.expiresAt, participantOnboardingPayload.expiresAt)
                 && Objects.equals(this.operator, participantOnboardingPayload.operator)
                 && Objects.equals(this.compliance, participantOnboardingPayload.compliance)
                 && Objects.equals(this.registrar, participantOnboardingPayload.registrar)
@@ -333,23 +223,13 @@ public class ParticipantOnboardingPayload {
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                vaultAccountId,
-                blockchainId,
-                expiresAt,
-                operator,
-                compliance,
-                registrar,
-                clientOnboarder,
-                upgrader);
+        return Objects.hash(expiresAt, operator, compliance, registrar, clientOnboarder, upgrader);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class ParticipantOnboardingPayload {\n");
-        sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
-        sb.append("    blockchainId: ").append(toIndentedString(blockchainId)).append("\n");
         sb.append("    expiresAt: ").append(toIndentedString(expiresAt)).append("\n");
         sb.append("    operator: ").append(toIndentedString(operator)).append("\n");
         sb.append("    compliance: ").append(toIndentedString(compliance)).append("\n");
@@ -402,26 +282,6 @@ public class ParticipantOnboardingPayload {
         }
 
         StringJoiner joiner = new StringJoiner("&");
-
-        // add `vaultAccountId` to the URL query string
-        if (getVaultAccountId() != null) {
-            joiner.add(
-                    String.format(
-                            "%svaultAccountId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
-        }
-
-        // add `blockchainId` to the URL query string
-        if (getBlockchainId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sblockchainId%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getBlockchainId()))));
-        }
 
         // add `expiresAt` to the URL query string
         if (getExpiresAt() != null) {

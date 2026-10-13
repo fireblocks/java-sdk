@@ -67,6 +67,18 @@ class CantonOfferResponseDetailsTest {
         // TODO: test originalTransactionId
     }
 
+    /** Test the property 'responseType' */
+    @Test
+    void responseTypeTest() {
+        // TODO: test responseType
+    }
+
+    /** Test the property 'allocationTransactionId' */
+    @Test
+    void allocationTransactionIdTest() {
+        // TODO: test allocationTransactionId
+    }
+
     /** Test the property 'verdict' */
     @Test
     void verdictTest() {
