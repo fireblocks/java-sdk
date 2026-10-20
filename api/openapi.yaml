@@ -251,7 +251,7 @@ paths:
         Issues a device pairing token for the given user and returns the user's info along with the token.
         - The API user must be in PENDING_ACTIVATION status. If the user is already set up (enabled), the request is rejected with a 409 Conflict.
         - Please note that this endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions.
-        Endpoint Permission: Owner, Admin, Non-Signing Admin.
+        - This is the same pairing token that the API Co-signer requests during installation and when you pair an additional API user with an existing Co-signer. You can use this endpoint instead of copying the token from Pair API user in the Console. The token is valid for one hour.
       operationId: issueApiUserPairingToken
       parameters:
       - description: The ID of the api user
@@ -2574,14 +2574,8 @@ paths:
       - application/json
   /operations/canton/calls:
     post:
-      description: |-
-        Submits one Canton call. `type` names the call and selects the shape of `payload`; `vaultAccountId` and `blockchainId` name the wallet that makes it, and are the same for every `type`.
-        {"type":"DTCC_END_INVESTOR_INVITE","vaultAccountId":"12","blockchainId":"CANTON", "payload":{"endInvestor":"investor-party::1220abc…"}}
-        `payload` is optional on `DTCC_PARTICIPANT_ONBOARDING`, where every field it holds is.
-        An unknown or missing `type`, or a `payload` missing a required field, is a `400`. A field that does not belong to the selected `type` is ignored rather than rejected.
-        A `501` has two different causes, and the distinction is permanent rather than a build-order detail, so it belongs in the published spec:
-        NO CANTON CAPABILITY — specified so the contract is complete, but not available in v1: `DTCC_END_INVESTOR_INVITE_CANCEL`, `DTCC_ALLOW_LIST_ADD`, `DTCC_ALLOW_LIST_REMOVE`. NO HANDLER YET — the capability exists and the type is being wired one slice at a time.
-        To withdraw an allocation, answer the allocation offer with `ALLOCATION_WITHDRAW` on `/offers/{offerId}/responses` — it is not a call.
+      description: Submits a Canton call from a vault account's Canton wallet. `type`
+        selects the call and the shape of `payload`.
       operationId: createCantonCall
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -2646,7 +2640,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorSchema"
-          description: This call type is not available in v1
+          description: "This call type is not yet available: DTCC_END_INVESTOR_INVITE_CANCEL,\
+            \ DTCC_ALLOW_LIST_ADD, DTCC_ALLOW_LIST_REMOVE"
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -2656,18 +2651,35 @@ paths:
       tags:
       - Canton (Beta)
       x-rate-limit-category: write
-      x-internal: true
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CallAccepted>> = fireblocks.cantonBeta.createCantonCall(cantonBetaApiCreateCantonCallRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CallAccepted>> response = fireblocks.cantonBeta().createCantonCall(cantonCall,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.canton_beta.create_canton_call(canton_call,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CallAccepted>> = fireblocks.cantonBeta.createCantonCall(cantonBetaApiCreateCantonCallRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<CallAccepted>> response = fireblocks.cantonBeta().createCantonCall(cantonCall,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.canton_beta.create_canton_call(canton_call,\
+          \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
       - application/json
   /operations/canton/offers/{offerId}/responses:
     post:
-      description: |-
-        ONE endpoint for every offer. `responseType` selects the variant, and `payload` carries that variant's arguments — the same `{discriminator, payload}` shape `/calls` uses. The union is closed, so an unknown `responseType` is a `400`.
-        {"responseType":"DTCC_END_INVESTOR_ONBOARDING_REJECT","payload":{"reason":"KYC"}} {"responseType":"ALLOCATION_ACCEPT"}
-        An allocation offer takes three answers, all on the offer's own id: `ALLOCATION_ACCEPT`, `ALLOCATION_REJECT`, and — once the accept has settled — `ALLOCATION_WITHDRAW`, which unlocks the holding the accept allocated. Sent earlier, the withdraw is a `409`.
-        `payload` appears ONLY on the variants that take arguments. A variant with no arguments has no `payload` property at all, rather than an empty object — so the schema says what the ledger says, and a future type that needs fields declares its own instead of widening this envelope.
-        `responseType` is a direct copy of a value the caller already read off the offer, in `cantonDetails.offerResponse.availableResponses`. Both sides share one flat vocabulary, so there is nothing to translate; the previous shape required pairing that value with a matching `domain` string, which carried no information `responseType` did not already determine.
+      description: Responds to an incoming Canton offer. Set `responseType` to one
+        of the values in the offer transaction's `cantonDetails.offerResponse.availableResponses`.
       operationId: respondToCantonOffer
       parameters:
       - description: The Fireblocks transaction id of the incoming offer being answered.
@@ -2746,7 +2758,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorSchema"
-          description: No handler is implemented for this responseType yet
+          description: This responseType is not yet available
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -2756,7 +2768,31 @@ paths:
       tags:
       - Canton (Beta)
       x-rate-limit-category: write
-      x-internal: true
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<OfferResponseAccepted>>\
+            \ = fireblocks.cantonBeta.respondToCantonOffer(cantonBetaApiRespondToCantonOfferRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<OfferResponseAccepted>> response =\
+            \ fireblocks.cantonBeta().respondToCantonOffer(offerResponse, offerId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.canton_beta.respond_to_canton_offer(offer_response,\
+            \ offer_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<OfferResponseAccepted>>\
+          \ = fireblocks.cantonBeta.respondToCantonOffer(cantonBetaApiRespondToCantonOfferRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<OfferResponseAccepted>> response =\
+          \ fireblocks.cantonBeta().respondToCantonOffer(offerResponse, offerId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.canton_beta.respond_to_canton_offer(offer_response,\
+          \ offer_id, idempotency_key);"
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -38680,6 +38716,8 @@ paths:
         The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.
 
         Pass `keyAlgorithm` to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time.
+
+        **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
       operationId: getMtlsCsr
       parameters:
       - description: "Algorithm of the private key the CSR is generated for. ECDSA\
@@ -80497,6 +80535,7 @@ components:
       description: Request to create a cryptographic proof of address ownership for
         TRUST network compliance
       example:
+        address: bc1qexampleexampleexampleexampleexampleexample
         prefix: trust_verification
         vaultAccountId: "0"
         trustUuid: 550e8400-e29b-41d4-a716-446655440000
@@ -80522,6 +80561,15 @@ components:
           description: A unique identifier (UUID) obtained from TRUST (CreateAddressOwnership)
           example: 550e8400-e29b-41d4-a716-446655440000
           format: uuid
+          type: string
+        address:
+          description: |
+            Optional non-default (derived) address of the vault account to prove.
+            Supported for UTXO assets only (`BTC`, `BTC_TEST`). The address must belong to the vault account for the given asset.
+            Both SegWit and Legacy address forms are accepted.
+            When omitted, the proof is created for the default (index 0) address of the vault account.
+          example: bc1qexampleexampleexampleexampleexampleexample
+          maxLength: 255
           type: string
       required:
       - asset
@@ -80572,6 +80620,7 @@ components:
       description: Response containing the TRUST-compatible encoded signature
       example:
         signature: 0x6e6e0da016d49d2eaeefb2ce49efcde627151ce03d3e525963aa541ce07fb41c0f1f70d131f160480b4a68aaefbdae1b6fe3765eee3ceff0a8b47a8c979ccd961c
+        publicKey: 0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798
         transactionId: 550e8400-e29b-41d4-a716-446655440000
         status: PENDING_SIGNATURE
       properties:
@@ -80586,6 +80635,13 @@ components:
           description: |
             TRUST-compatible encoded signature for proof of address verification.
           example: 0x6e6e0da016d49d2eaeefb2ce49efcde627151ce03d3e525963aa541ce07fb41c0f1f70d131f160480b4a68aaefbdae1b6fe3765eee3ceff0a8b47a8c979ccd961c
+          type: string
+        publicKey:
+          description: |
+            Hex public key of the Fireblocks vault key that produced the signature.
+            Present only when `status` is `SIGNED` or `COMPLETED`, and only if Fireblocks returned it.
+            TRUST requires this key for SUI, TON and XTZ (as `auxProofData.encryptedPublicKey`).
+          example: 0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798
           type: string
       required:
       - signature
@@ -95889,11 +95945,14 @@ components:
     OfferResponseDtccOnboardingAccept:
       additionalProperties: false
       description: Accept a DTCC end-investor onboarding offer. Carries no arguments.
+      example:
+        responseType: DTCC_END_INVESTOR_ONBOARDING_ACCEPT
       properties:
         responseType:
-          description: |-
-            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
-            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
+          description: How you are answering the offer — one of the offer transaction's
+            `cantonDetails.offerResponse.availableResponses`. That list does not change
+            after the offer arrives; check `expiresAt` and the transaction status
+            to see whether it is still answerable.
           enum:
           - DTCC_END_INVESTOR_ONBOARDING_ACCEPT
           example: DTCC_END_INVESTOR_ONBOARDING_ACCEPT
@@ -95918,9 +95977,10 @@ components:
       description: Reject a DTCC end-investor onboarding offer.
       properties:
         responseType:
-          description: |-
-            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
-            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
+          description: How you are answering the offer — one of the offer transaction's
+            `cantonDetails.offerResponse.availableResponses`. That list does not change
+            after the offer arrives; check `expiresAt` and the transaction status
+            to see whether it is still answerable.
           enum:
           - DTCC_END_INVESTOR_ONBOARDING_REJECT
           example: DTCC_END_INVESTOR_ONBOARDING_REJECT
@@ -95936,9 +95996,10 @@ components:
       description: Accept a Tradeweb co-signing delegation offer. Carries no arguments.
       properties:
         responseType:
-          description: |-
-            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
-            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
+          description: How you are answering the offer — one of the offer transaction's
+            `cantonDetails.offerResponse.availableResponses`. That list does not change
+            after the offer arrives; check `expiresAt` and the transaction status
+            to see whether it is still answerable.
           enum:
           - TRADEWEB_COSIGNING_DELEGATION_ACCEPT
           example: TRADEWEB_COSIGNING_DELEGATION_ACCEPT
@@ -95949,12 +96010,13 @@ components:
     OfferResponseTradewebReject:
       additionalProperties: false
       description: "Reject a Tradeweb co-signing delegation offer. Carries no arguments\
-        \ — the DAR has nowhere on-ledger to record a reason, so none is accepted."
+        \ — Tradeweb does not record a reject reason on the ledger, so none is accepted."
       properties:
         responseType:
-          description: |-
-            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
-            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
+          description: How you are answering the offer — one of the offer transaction's
+            `cantonDetails.offerResponse.availableResponses`. That list does not change
+            after the offer arrives; check `expiresAt` and the transaction status
+            to see whether it is still answerable.
           enum:
           - TRADEWEB_COSIGNING_DELEGATION_REJECT
           example: TRADEWEB_COSIGNING_DELEGATION_REJECT
@@ -95967,9 +96029,10 @@ components:
       description: Accept a CIP-56 allocation request. Carries no arguments.
       properties:
         responseType:
-          description: |-
-            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
-            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
+          description: How you are answering the offer — one of the offer transaction's
+            `cantonDetails.offerResponse.availableResponses`. That list does not change
+            after the offer arrives; check `expiresAt` and the transaction status
+            to see whether it is still answerable.
           enum:
           - ALLOCATION_ACCEPT
           example: ALLOCATION_ACCEPT
@@ -95982,9 +96045,10 @@ components:
       description: Reject a CIP-56 allocation request. Carries no arguments.
       properties:
         responseType:
-          description: |-
-            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
-            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
+          description: How you are answering the offer — one of the offer transaction's
+            `cantonDetails.offerResponse.availableResponses`. That list does not change
+            after the offer arrives; check `expiresAt` and the transaction status
+            to see whether it is still answerable.
           enum:
           - ALLOCATION_REJECT
           example: ALLOCATION_REJECT
@@ -95997,9 +96061,10 @@ components:
       description: Accept an inbound 2-step transfer offer. Carries no arguments.
       properties:
         responseType:
-          description: |-
-            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
-            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
+          description: How you are answering the offer — one of the offer transaction's
+            `cantonDetails.offerResponse.availableResponses`. That list does not change
+            after the offer arrives; check `expiresAt` and the transaction status
+            to see whether it is still answerable.
           enum:
           - TRANSFER_ACCEPT
           example: TRANSFER_ACCEPT
@@ -96012,9 +96077,10 @@ components:
       description: Reject an inbound 2-step transfer offer. Carries no arguments.
       properties:
         responseType:
-          description: |-
-            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
-            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
+          description: How you are answering the offer — one of the offer transaction's
+            `cantonDetails.offerResponse.availableResponses`. That list does not change
+            after the offer arrives; check `expiresAt` and the transaction status
+            to see whether it is still answerable.
           enum:
           - TRANSFER_REJECT
           example: TRANSFER_REJECT
@@ -96024,15 +96090,15 @@ components:
       type: object
     OfferResponseTransferWithdraw:
       additionalProperties: false
-      description: "Withdraw your own OUTGOING transfer offer. Carries no arguments\
-        \ — `offerId` in the path is the offer, so the vault account and blockchain\
-        \ are resolved from it rather than restated. Was `CantonCallType.TRANSFER_WITHDRAW`\
-        \ with a 3-field payload until FA-10624."
+      description: "Withdraw your own outgoing transfer offer. Carries no arguments\
+        \ — `offerId` in the path identifies the offer, and the vault account and\
+        \ blockchain are resolved from it."
       properties:
         responseType:
-          description: |-
-            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
-            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
+          description: How you are answering the offer — one of the offer transaction's
+            `cantonDetails.offerResponse.availableResponses`. That list does not change
+            after the offer arrives; check `expiresAt` and the transaction status
+            to see whether it is still answerable.
           enum:
           - TRANSFER_WITHDRAW
           example: TRANSFER_WITHDRAW
@@ -96047,9 +96113,10 @@ components:
         \ offer. Answers `409` until the accept has settled."
       properties:
         responseType:
-          description: |-
-            How you are answering the offer. Must be one of the values listed in the transaction's `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`.
-            `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction's status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
+          description: How you are answering the offer — one of the offer transaction's
+            `cantonDetails.offerResponse.availableResponses`. That list does not change
+            after the offer arrives; check `expiresAt` and the transaction status
+            to see whether it is still answerable.
           enum:
           - ALLOCATION_WITHDRAW
           example: ALLOCATION_WITHDRAW
@@ -96085,6 +96152,10 @@ components:
     OfferResponseAccepted:
       description: The outgoing transaction that carries the response. Its on-chain
         outcome arrives by webhook as a status update on this transaction.
+      example:
+        responseType: DTCC_END_INVESTOR_ONBOARDING_REJECT
+        transactionId: 5a1d8b0f-2c31-4c7e-9d0a-118e7b6c4a21
+        status: SUBMITTED
       properties:
         transactionId:
           description: The outgoing response transaction.
@@ -96108,6 +96179,13 @@ components:
       description: "Optional, and so is every field in it: omit `payload` entirely\
         \ to onboard with DTCC's published parties for the blockchain and the default\
         \ expiry."
+      example:
+        registrar: dtcc-registrar::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
+        compliance: dtcc-compliance::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
+        clientOnboarder: dtcc-onboarder::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
+        upgrader: dtcc-upgrader::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
+        expiresAt: 2026-12-31T23:59:59Z
+        operator: dtcc-operator::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
       properties:
         expiresAt:
           description: When the onboarding request expires if it has not been answered.
@@ -96118,31 +96196,42 @@ components:
         operator:
           description: DTCC infra operator party id. Optional — overrides the service's
             default for the blockchain.
-          example: dtcc-operator::1220abc…
+          example: dtcc-operator::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
           type: string
         compliance:
           description: DTCC compliance party id. Optional — overrides the service's
             default for the blockchain.
-          example: dtcc-compliance::1220abc…
+          example: dtcc-compliance::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
           type: string
         registrar:
           description: DTCC registrar party id — co-signs the accept. Optional — overrides
             the service's default for the blockchain.
-          example: dtcc-registrar::1220abc…
+          example: dtcc-registrar::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
           type: string
         clientOnboarder:
           description: DTCC client onboarder party id — co-signs the accept. Optional
             — overrides the service's default for the blockchain.
-          example: dtcc-onboarder::1220abc…
+          example: dtcc-onboarder::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
           type: string
         upgrader:
           description: DTCC upgrader party id — the Model Upgrade Tool authority.
             Optional — overrides the service's default for the blockchain.
-          example: dtcc-upgrader::1220abc…
+          example: dtcc-upgrader::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
           type: string
       type: object
     CantonCallParticipantOnboarding:
       additionalProperties: false
+      example:
+        payload:
+          registrar: dtcc-registrar::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
+          compliance: dtcc-compliance::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
+          clientOnboarder: dtcc-onboarder::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
+          upgrader: dtcc-upgrader::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
+          expiresAt: 2026-12-31T23:59:59Z
+          operator: dtcc-operator::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
+        vaultAccountId: "12"
+        type: DTCC_PARTICIPANT_ONBOARDING
+        blockchainId: CANTON
       properties:
         type:
           description: Which call to make. Selects the shape of `payload`.
@@ -96170,12 +96259,11 @@ components:
       - vaultAccountId
       type: object
     EndInvestorPayload:
-      description: "Shared by invite / invite-cancel / offboard — identical wire shape,\
-        \ different verb."
+      description: The end investor a call acts on.
       properties:
         endInvestor:
           description: The end investor's Canton party id.
-          example: investor-party::1220abc…
+          example: investor-party::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
           type: string
       required:
       - endInvestor
@@ -96272,7 +96360,7 @@ components:
         wallets:
           description: Canton party ids to add or remove.
           example:
-          - investor-party::1220abc…
+          - investor-party::1220abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
           items:
             type: string
           minItems: 1
@@ -96357,6 +96445,9 @@ components:
       - $ref: "#/components/schemas/CantonCallAllowListRemove"
     CallAccepted:
       description: The outgoing transaction that carries the call.
+      example:
+        transactionId: 5a1d8b0f-2c31-4c7e-9d0a-118e7b6c4a21
+        status: SUBMITTED
       properties:
         transactionId:
           description: The outgoing transaction that carries the call.

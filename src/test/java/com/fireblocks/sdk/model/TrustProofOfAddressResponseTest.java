@@ -42,4 +42,10 @@ class TrustProofOfAddressResponseTest {
     void signatureTest() {
         // TODO: test signature
     }
+
+    /** Test the property 'publicKey' */
+    @Test
+    void publicKeyTest() {
+        // TODO: test publicKey
+    }
 }

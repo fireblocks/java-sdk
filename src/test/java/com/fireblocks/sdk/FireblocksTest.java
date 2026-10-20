@@ -396,6 +396,14 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetCantonBetaApi() {
+        setupFireblocks(true, null, null);
+        CantonBetaApi cantonBeta = fireblocks.cantonBeta();
+        Assert.assertNotNull(cantonBeta);
+        Assert.assertSame(cantonBeta, fireblocks.cantonBeta());
+    }
+
+    @Test
     public void testGetComplianceApi() {
         setupFireblocks(true, null, null);
         ComplianceApi compliance = fireblocks.compliance();

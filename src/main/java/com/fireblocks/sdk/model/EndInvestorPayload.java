@@ -21,7 +21,7 @@ import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** Shared by invite / invite-cancel / offboard — identical wire shape, different verb. */
+/** The end investor a call acts on. */
 @JsonPropertyOrder({EndInvestorPayload.JSON_PROPERTY_END_INVESTOR})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",

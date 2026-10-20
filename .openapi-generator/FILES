@@ -197,6 +197,7 @@ docs/CallAccepted.md
 docs/CallbackHandler.md
 docs/CallbackHandlerRequest.md
 docs/CancelTransactionResponse.md
+docs/CantonBetaApi.md
 docs/CantonCall.md
 docs/CantonCallAllowListAdd.md
 docs/CantonCallAllowListRemove.md
@@ -1416,6 +1417,7 @@ src/main/java/com/fireblocks/sdk/api/ApprovalsBetaApi.java
 src/main/java/com/fireblocks/sdk/api/AuditLogsApi.java
 src/main/java/com/fireblocks/sdk/api/BlockchainLinkBetaApi.java
 src/main/java/com/fireblocks/sdk/api/BlockchainsAssetsApi.java
+src/main/java/com/fireblocks/sdk/api/CantonBetaApi.java
 src/main/java/com/fireblocks/sdk/api/ComplianceApi.java
 src/main/java/com/fireblocks/sdk/api/ComplianceOrchestratorBetaApi.java
 src/main/java/com/fireblocks/sdk/api/ComplianceScreeningConfigurationApi.java
@@ -2799,6 +2801,7 @@ src/test/java/com/fireblocks/sdk/api/ApprovalsBetaApiTest.java
 src/test/java/com/fireblocks/sdk/api/AuditLogsApiTest.java
 src/test/java/com/fireblocks/sdk/api/BlockchainLinkBetaApiTest.java
 src/test/java/com/fireblocks/sdk/api/BlockchainsAssetsApiTest.java
+src/test/java/com/fireblocks/sdk/api/CantonBetaApiTest.java
 src/test/java/com/fireblocks/sdk/api/ComplianceApiTest.java
 src/test/java/com/fireblocks/sdk/api/ComplianceOrchestratorBetaApiTest.java
 src/test/java/com/fireblocks/sdk/api/ComplianceScreeningConfigurationApiTest.java

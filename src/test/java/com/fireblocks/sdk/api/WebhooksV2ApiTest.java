@@ -186,7 +186,7 @@ public class WebhooksV2ApiTest {
      * same CSR is returned on subsequent requests for that type. Pass &#x60;keyAlgorithm&#x60; to
      * choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one
      * for the type requested, so a certificate signed against it matches the key used at delivery
-     * time.
+     * time. **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
      */
     @Test
     public void getMtlsCsrTest() {
