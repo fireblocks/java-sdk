@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>35.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:35.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-35.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 ## Versioning
@@ -213,6 +213,8 @@ Class | Method | HTTP request | Description
 *BlockchainsAssetsApi* | [**registerNewAsset**](docs/BlockchainsAssetsApi.md#registerNewAsset) | **POST** /assets | Register an asset
 *BlockchainsAssetsApi* | [**setAssetPrice**](docs/BlockchainsAssetsApi.md#setAssetPrice) | **POST** /assets/prices/{id} | Set asset price
 *BlockchainsAssetsApi* | [**updateAssetUserMetadata**](docs/BlockchainsAssetsApi.md#updateAssetUserMetadata) | **PATCH** /assets/{id} | Update the user’s metadata for an asset
+*CantonBetaApi* | [**createCantonCall**](docs/CantonBetaApi.md#createCantonCall) | **POST** /operations/canton/calls | Make a Canton call
+*CantonBetaApi* | [**respondToCantonOffer**](docs/CantonBetaApi.md#respondToCantonOffer) | **POST** /operations/canton/offers/{offerId}/responses | Answer an offer
 *ComplianceApi* | [**activateArsConfig**](docs/ComplianceApi.md#activateArsConfig) | **POST** /screening/ars/config/activate | Activate ARS (Address Registry Screening)
 *ComplianceApi* | [**activateByorkConfig**](docs/ComplianceApi.md#activateByorkConfig) | **POST** /screening/byork/config/activate | Activate BYORK Light
 *ComplianceApi* | [**addAddressRegistryVaultOptOuts**](docs/ComplianceApi.md#addAddressRegistryVaultOptOuts) | **POST** /address_registry/vaults | Add vault accounts to the address registry opt-out list

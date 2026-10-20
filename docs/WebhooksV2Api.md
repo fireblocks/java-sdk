@@ -592,7 +592,7 @@ No authorization required
 
 Get mTLS CSR
 
-Returns the Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.  The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.  Pass &#x60;keyAlgorithm&#x60; to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time. 
+Returns the Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.  The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.  Pass &#x60;keyAlgorithm&#x60; to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
 
 ### Example
 

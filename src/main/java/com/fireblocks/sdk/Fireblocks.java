@@ -41,6 +41,7 @@ public class Fireblocks {
     private AuditLogsApi auditLogs;
     private BlockchainLinkBetaApi blockchainLinkBeta;
     private BlockchainsAssetsApi blockchainsAssets;
+    private CantonBetaApi cantonBeta;
     private ComplianceApi compliance;
     private ComplianceOrchestratorBetaApi complianceOrchestratorBeta;
     private ComplianceScreeningConfigurationApi complianceScreeningConfiguration;
@@ -265,6 +266,13 @@ public class Fireblocks {
             blockchainsAssets = new BlockchainsAssetsApi(apiClient);
         }
         return blockchainsAssets;
+    }
+
+    public CantonBetaApi cantonBeta() {
+        if (cantonBeta == null) {
+            cantonBeta = new CantonBetaApi(apiClient);
+        }
+        return cantonBeta;
     }
 
     public ComplianceApi compliance() {

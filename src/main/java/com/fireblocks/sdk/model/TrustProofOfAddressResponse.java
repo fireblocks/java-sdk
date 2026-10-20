@@ -26,7 +26,8 @@ import java.util.UUID;
 @JsonPropertyOrder({
     TrustProofOfAddressResponse.JSON_PROPERTY_TRANSACTION_ID,
     TrustProofOfAddressResponse.JSON_PROPERTY_STATUS,
-    TrustProofOfAddressResponse.JSON_PROPERTY_SIGNATURE
+    TrustProofOfAddressResponse.JSON_PROPERTY_SIGNATURE,
+    TrustProofOfAddressResponse.JSON_PROPERTY_PUBLIC_KEY
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -40,6 +41,9 @@ public class TrustProofOfAddressResponse {
 
     public static final String JSON_PROPERTY_SIGNATURE = "signature";
     @jakarta.annotation.Nonnull private String signature;
+
+    public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
+    @jakarta.annotation.Nullable private String publicKey;
 
     public TrustProofOfAddressResponse() {}
 
@@ -125,6 +129,32 @@ public class TrustProofOfAddressResponse {
         this.signature = signature;
     }
 
+    public TrustProofOfAddressResponse publicKey(@jakarta.annotation.Nullable String publicKey) {
+        this.publicKey = publicKey;
+        return this;
+    }
+
+    /**
+     * Hex public key of the Fireblocks vault key that produced the signature. Present only when
+     * &#x60;status&#x60; is &#x60;SIGNED&#x60; or &#x60;COMPLETED&#x60;, and only if Fireblocks
+     * returned it. TRUST requires this key for SUI, TON and XTZ (as
+     * &#x60;auxProofData.encryptedPublicKey&#x60;).
+     *
+     * @return publicKey
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPublicKey(@jakarta.annotation.Nullable String publicKey) {
+        this.publicKey = publicKey;
+    }
+
     /** Return true if this TrustProofOfAddressResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -137,12 +167,13 @@ public class TrustProofOfAddressResponse {
         TrustProofOfAddressResponse trustProofOfAddressResponse = (TrustProofOfAddressResponse) o;
         return Objects.equals(this.transactionId, trustProofOfAddressResponse.transactionId)
                 && Objects.equals(this.status, trustProofOfAddressResponse.status)
-                && Objects.equals(this.signature, trustProofOfAddressResponse.signature);
+                && Objects.equals(this.signature, trustProofOfAddressResponse.signature)
+                && Objects.equals(this.publicKey, trustProofOfAddressResponse.publicKey);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(transactionId, status, signature);
+        return Objects.hash(transactionId, status, signature, publicKey);
     }
 
     @Override
@@ -152,6 +183,7 @@ public class TrustProofOfAddressResponse {
         sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    signature: ").append(toIndentedString(signature)).append("\n");
+        sb.append("    publicKey: ").append(toIndentedString(publicKey)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -227,6 +259,16 @@ public class TrustProofOfAddressResponse {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getSignature()))));
+        }
+
+        // add `publicKey` to the URL query string
+        if (getPublicKey() != null) {
+            joiner.add(
+                    String.format(
+                            "%spublicKey%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getPublicKey()))));
         }
 
         return joiner.toString();

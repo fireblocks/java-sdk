@@ -61,8 +61,10 @@ public class ApiUserApiTest {
      * <p>Issues a device pairing token for the given user and returns the user&#39;s info along
      * with the token. - The API user must be in PENDING_ACTIVATION status. If the user is already
      * set up (enabled), the request is rejected with a 409 Conflict. - Please note that this
-     * endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions.
-     * Endpoint Permission: Owner, Admin, Non-Signing Admin.
+     * endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions. -
+     * This is the same pairing token that the API Co-signer requests during installation and when
+     * you pair an additional API user with an existing Co-signer. You can use this endpoint instead
+     * of copying the token from Pair API user in the Console. The token is valid for one hour.
      */
     @Test
     public void issueApiUserPairingTokenTest() {

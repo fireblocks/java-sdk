@@ -841,7 +841,8 @@ public class WebhooksV2Api {
      * and the same CSR is returned on subsequent requests for that type. Pass
      * &#x60;keyAlgorithm&#x60; to choose RSA or ECDSA. A workspace may hold one key of each: the
      * CSR returned is always the one for the type requested, so a certificate signed against it
-     * matches the key used at delivery time.
+     * matches the key used at delivery time. **Endpoint Permissions:** Owner, Admin, Non-Signing
+     * Admin.
      *
      * @param keyAlgorithm Algorithm of the private key the CSR is generated for. ECDSA keys are
      *     smaller and quicker to issue, but the certificate authority signing the request has to

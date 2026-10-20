@@ -27,7 +27,8 @@ import java.util.UUID;
     TrustProofOfAddressRequest.JSON_PROPERTY_VAULT_ACCOUNT_ID,
     TrustProofOfAddressRequest.JSON_PROPERTY_ASSET,
     TrustProofOfAddressRequest.JSON_PROPERTY_PREFIX,
-    TrustProofOfAddressRequest.JSON_PROPERTY_TRUST_UUID
+    TrustProofOfAddressRequest.JSON_PROPERTY_TRUST_UUID,
+    TrustProofOfAddressRequest.JSON_PROPERTY_ADDRESS
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -44,6 +45,9 @@ public class TrustProofOfAddressRequest {
 
     public static final String JSON_PROPERTY_TRUST_UUID = "trustUuid";
     @jakarta.annotation.Nonnull private UUID trustUuid;
+
+    public static final String JSON_PROPERTY_ADDRESS = "address";
+    @jakarta.annotation.Nullable private String address;
 
     public TrustProofOfAddressRequest() {}
 
@@ -153,6 +157,32 @@ public class TrustProofOfAddressRequest {
         this.trustUuid = trustUuid;
     }
 
+    public TrustProofOfAddressRequest address(@jakarta.annotation.Nullable String address) {
+        this.address = address;
+        return this;
+    }
+
+    /**
+     * Optional non-default (derived) address of the vault account to prove. Supported for UTXO
+     * assets only (&#x60;BTC&#x60;, &#x60;BTC_TEST&#x60;). The address must belong to the vault
+     * account for the given asset. Both SegWit and Legacy address forms are accepted. When omitted,
+     * the proof is created for the default (index 0) address of the vault account.
+     *
+     * @return address
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAddress() {
+        return address;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAddress(@jakarta.annotation.Nullable String address) {
+        this.address = address;
+    }
+
     /** Return true if this TrustProofOfAddressRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -166,12 +196,13 @@ public class TrustProofOfAddressRequest {
         return Objects.equals(this.vaultAccountId, trustProofOfAddressRequest.vaultAccountId)
                 && Objects.equals(this.asset, trustProofOfAddressRequest.asset)
                 && Objects.equals(this.prefix, trustProofOfAddressRequest.prefix)
-                && Objects.equals(this.trustUuid, trustProofOfAddressRequest.trustUuid);
+                && Objects.equals(this.trustUuid, trustProofOfAddressRequest.trustUuid)
+                && Objects.equals(this.address, trustProofOfAddressRequest.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(vaultAccountId, asset, prefix, trustUuid);
+        return Objects.hash(vaultAccountId, asset, prefix, trustUuid, address);
     }
 
     @Override
@@ -182,6 +213,7 @@ public class TrustProofOfAddressRequest {
         sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
         sb.append("    prefix: ").append(toIndentedString(prefix)).append("\n");
         sb.append("    trustUuid: ").append(toIndentedString(trustUuid)).append("\n");
+        sb.append("    address: ").append(toIndentedString(address)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -267,6 +299,16 @@ public class TrustProofOfAddressRequest {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getTrustUuid()))));
+        }
+
+        // add `address` to the URL query string
+        if (getAddress() != null) {
+            joiner.add(
+                    String.format(
+                            "%saddress%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         return joiner.toString();

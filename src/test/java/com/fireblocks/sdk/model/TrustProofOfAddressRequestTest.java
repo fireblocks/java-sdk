@@ -48,4 +48,10 @@ class TrustProofOfAddressRequestTest {
     void trustUuidTest() {
         // TODO: test trustUuid
     }
+
+    /** Test the property 'address' */
+    @Test
+    void addressTest() {
+        // TODO: test address
+    }
 }
