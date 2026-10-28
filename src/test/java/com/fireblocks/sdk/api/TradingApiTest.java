@@ -60,9 +60,13 @@ public class TradingApiTest {
      * Create a quote
      *
      * <p>Generate a time-limited quote for asset conversion, providing exchange rate and amount
-     * calculations. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor. For
-     * detailed information about error codes and troubleshooting, please refer to our [API Error
-     * Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * calculations. If &#x60;side&#x60; is omitted it defaults to &#x60;SELL&#x60;. Use &#x60;side:
+     * BOTH&#x60; to get quotes for each side the provider supports in a single call; providers that
+     * support only one side return that side only. Every returned quote carries a concrete
+     * &#x60;BUY&#x60; or &#x60;SELL&#x60; side, never &#x60;BOTH&#x60;. Endpoint Permission: Owner,
+     * Admin, Non-Signing Admin, Signer, Editor. For detailed information about error codes and
+     * troubleshooting, please refer to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      */
     @Test
     public void createQuoteTest() {
@@ -77,10 +81,14 @@ public class TradingApiTest {
      *
      * <p>Retrieve all available offers across the workspace for a given asset pair. Always operates
      * in open scope — no provider or account selection required. Returns a mix of indicative rates
-     * and committed quotes as applicable per provider. If no slippageBps is provided, it defaults
-     * to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.
-     * Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor. For detailed
-     * information about error codes and troubleshooting, please refer to our [API Error Codes
+     * and committed quotes as applicable per provider. If &#x60;side&#x60; is omitted it defaults
+     * to &#x60;SELL&#x60;. Use &#x60;side: BOTH&#x60; to get offers for each side the provider
+     * supports in a single call; providers that support only one side return that side only. Every
+     * returned offer carries a concrete &#x60;BUY&#x60; or &#x60;SELL&#x60; side, never
+     * &#x60;BOTH&#x60;. If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and
+     * settlement configuration do not affect the returned rate. Endpoint Permission: Owner, Admin,
+     * Non-Signing Admin, Signer, Editor. For detailed information about error codes and
+     * troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      */
     @Test
@@ -95,9 +103,13 @@ public class TradingApiTest {
      * Get rates
      *
      * <p>Retrieve indicative exchange rate from specified providers for a given asset pair. Rates
-     * are non-executable price signals intended for discovery and display purposes. Endpoint
-     * Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed
-     * information about error codes and troubleshooting, please refer to our [API Error Codes
+     * are non-executable price signals intended for discovery and display purposes. If
+     * &#x60;side&#x60; is omitted it defaults to &#x60;SELL&#x60;. Use &#x60;side: BOTH&#x60; to
+     * get rates for each side the provider supports in a single call; providers that support only
+     * one side return that side only. Every returned rate carries a concrete &#x60;BUY&#x60; or
+     * &#x60;SELL&#x60; side, never &#x60;BOTH&#x60;. Endpoint Permission: Owner, Admin, Non-Signing
+     * Admin, Signer, Approver, Editor, Viewer. For detailed information about error codes and
+     * troubleshooting, please refer to our [API Error Codes
      * documentation](https://developers.fireblocks.com/reference/api-error-codes).
      */
     @Test

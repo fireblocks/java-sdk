@@ -28,7 +28,8 @@ import java.util.StringJoiner;
     RatesRequest.JSON_PROPERTY_SCOPE,
     RatesRequest.JSON_PROPERTY_BASE_ASSET_ID,
     RatesRequest.JSON_PROPERTY_QUOTE_ASSET_ID,
-    RatesRequest.JSON_PROPERTY_BASE_AMOUNT
+    RatesRequest.JSON_PROPERTY_BASE_AMOUNT,
+    RatesRequest.JSON_PROPERTY_SIDE
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -45,6 +46,9 @@ public class RatesRequest {
 
     public static final String JSON_PROPERTY_BASE_AMOUNT = "baseAmount";
     @jakarta.annotation.Nullable private String baseAmount;
+
+    public static final String JSON_PROPERTY_SIDE = "side";
+    @jakarta.annotation.Nullable private PricingSide side = PricingSide.SELL;
 
     public RatesRequest() {}
 
@@ -159,6 +163,29 @@ public class RatesRequest {
         this.baseAmount = baseAmount;
     }
 
+    public RatesRequest side(@jakarta.annotation.Nullable PricingSide side) {
+        this.side = side;
+        return this;
+    }
+
+    /**
+     * Get side
+     *
+     * @return side
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SIDE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public PricingSide getSide() {
+        return side;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SIDE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSide(@jakarta.annotation.Nullable PricingSide side) {
+        this.side = side;
+    }
+
     /** Return true if this RatesRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -172,12 +199,13 @@ public class RatesRequest {
         return Objects.equals(this.scope, ratesRequest.scope)
                 && Objects.equals(this.baseAssetId, ratesRequest.baseAssetId)
                 && Objects.equals(this.quoteAssetId, ratesRequest.quoteAssetId)
-                && Objects.equals(this.baseAmount, ratesRequest.baseAmount);
+                && Objects.equals(this.baseAmount, ratesRequest.baseAmount)
+                && Objects.equals(this.side, ratesRequest.side);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(scope, baseAssetId, quoteAssetId, baseAmount);
+        return Objects.hash(scope, baseAssetId, quoteAssetId, baseAmount, side);
     }
 
     @Override
@@ -188,6 +216,7 @@ public class RatesRequest {
         sb.append("    baseAssetId: ").append(toIndentedString(baseAssetId)).append("\n");
         sb.append("    quoteAssetId: ").append(toIndentedString(quoteAssetId)).append("\n");
         sb.append("    baseAmount: ").append(toIndentedString(baseAmount)).append("\n");
+        sb.append("    side: ").append(toIndentedString(side)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -286,6 +315,16 @@ public class RatesRequest {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getBaseAmount()))));
+        }
+
+        // add `side` to the URL query string
+        if (getSide() != null) {
+            joiner.add(
+                    String.format(
+                            "%sside%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getSide()))));
         }
 
         return joiner.toString();

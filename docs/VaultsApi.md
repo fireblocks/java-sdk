@@ -1282,7 +1282,7 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account, or 'default' for the default vault account
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
         String assetId = "assetId_example"; // String | The ID of the asset
         Boolean manualSignging = true; // Boolean | False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device.
         List<String> includeAllLabels = Arrays.asList(); // List<String> | Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
@@ -1313,7 +1313,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **vaultAccountId** | **String**| The ID of the vault account, or &#39;default&#39; for the default vault account | |
+| **vaultAccountId** | **String**| The ID of the vault account | |
 | **assetId** | **String**| The ID of the asset | |
 | **manualSignging** | **Boolean**| False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device. | [optional] |
 | **includeAllLabels** | [**List&lt;String&gt;**](String.md)| Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | [optional] |

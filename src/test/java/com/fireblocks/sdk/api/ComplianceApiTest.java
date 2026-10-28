@@ -18,6 +18,7 @@ import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsRequest;
 import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsResponse;
 import com.fireblocks.sdk.model.AddressRegistryCreateProofOfOwnershipRequest;
 import com.fireblocks.sdk.model.AddressRegistryCreateProofOfOwnershipResponse;
+import com.fireblocks.sdk.model.AddressRegistryCustomerRegistryResponse;
 import com.fireblocks.sdk.model.AddressRegistryGetVaultOptOutResponse;
 import com.fireblocks.sdk.model.AddressRegistryLegalEntity;
 import com.fireblocks.sdk.model.AddressRegistryListVaultOptOutsResponse;
@@ -212,10 +213,26 @@ public class ComplianceApiTest {
     }
 
     /**
-     * Get address registry participation status for the authenticated workspace
+     * Get your customer&#39;s address registry default
      *
-     * <p>Returns whether the workspace is &#x60;OPTED_IN&#x60; or &#x60;OPTED_OUT&#x60; of the
-     * address registry.
+     * <p>Read your customer&#39;s organization-wide address registry setting. Workspaces without
+     * their own choice use this as the default. Returns &#x60;NOT_SET&#x60; when no choice has been
+     * made yet, or &#x60;OPTED_IN&#x60; / &#x60;OPTED_OUT&#x60; when one has.
+     */
+    @Test
+    public void getAddressRegistryCustomerParticipationStatusTest() {
+        CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>> response =
+                api.getAddressRegistryCustomerParticipationStatus();
+    }
+
+    /**
+     * Get address registry status for this workspace
+     *
+     * <p>Check whether this workspace uses the address registry. The response is
+     * &#x60;OPTED_IN&#x60; or &#x60;OPTED_OUT&#x60;. If this workspace has not been configured yet,
+     * it follows your customer&#39;s default (see &#x60;GET /v1/address_registry/customer&#x60;)
+     * when that default is &#x60;OPTED_IN&#x60; or &#x60;OPTED_OUT&#x60;; otherwise the workspace
+     * is opted in by default.
      */
     @Test
     public void getAddressRegistryTenantParticipationStatusTest() {
@@ -427,10 +444,24 @@ public class ComplianceApiTest {
     }
 
     /**
-     * Opt the workspace in to the address registry
+     * Opt your customer in to the address registry
      *
-     * <p>Opts the workspace in. No request body. Response uses the same JSON shape as GET; status
-     * is OPTED_IN.
+     * <p>Set your customer&#39;s default to opted in. Workspaces without their own setting will
+     * follow this default. No request body. Returns &#x60;OPTED_IN&#x60;. If the customer for this
+     * workspace cannot be determined, returns HTTP 404 with error code **2147**.
+     */
+    @Test
+    public void optInAddressRegistryCustomerTest() {
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>> response =
+                api.optInAddressRegistryCustomer(idempotencyKey);
+    }
+
+    /**
+     * Opt this workspace in to the address registry
+     *
+     * <p>Turn on the address registry for this workspace. No request body. Returns
+     * &#x60;OPTED_IN&#x60;.
      */
     @Test
     public void optInAddressRegistryTenantTest() {
@@ -440,10 +471,23 @@ public class ComplianceApiTest {
     }
 
     /**
-     * Opt the workspace out of the address registry
+     * Opt your customer out of the address registry
      *
-     * <p>Opts the workspace out. No request body. Response uses the same JSON shape as GET; status
-     * is OPTED_OUT.
+     * <p>Set your customer&#39;s default to opted out. Workspaces without their own setting will
+     * follow this default. No request body. Returns &#x60;OPTED_OUT&#x60;. If the customer for this
+     * workspace cannot be determined, returns HTTP 404 with error code **2147**.
+     */
+    @Test
+    public void optOutAddressRegistryCustomerTest() {
+        CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>> response =
+                api.optOutAddressRegistryCustomer();
+    }
+
+    /**
+     * Opt this workspace out of the address registry
+     *
+     * <p>Turn off the address registry for this workspace. No request body. Returns
+     * &#x60;OPTED_OUT&#x60;.
      */
     @Test
     public void optOutAddressRegistryTenantTest() {

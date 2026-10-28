@@ -58,7 +58,7 @@ public class CreateOffersRequest {
     @jakarta.annotation.Nullable private DVPSettlement settlement;
 
     public static final String JSON_PROPERTY_SIDE = "side";
-    @jakarta.annotation.Nonnull private Side side;
+    @jakarta.annotation.Nullable private PricingSide side = PricingSide.SELL;
 
     public CreateOffersRequest() {}
 
@@ -67,12 +67,10 @@ public class CreateOffersRequest {
             @JsonProperty(value = JSON_PROPERTY_BASE_ASSET_ID, required = true) String baseAssetId,
             @JsonProperty(value = JSON_PROPERTY_QUOTE_ASSET_ID, required = true)
                     String quoteAssetId,
-            @JsonProperty(value = JSON_PROPERTY_BASE_AMOUNT, required = true) String baseAmount,
-            @JsonProperty(value = JSON_PROPERTY_SIDE, required = true) Side side) {
+            @JsonProperty(value = JSON_PROPERTY_BASE_AMOUNT, required = true) String baseAmount) {
         this.baseAssetId = baseAssetId;
         this.quoteAssetId = quoteAssetId;
         this.baseAmount = baseAmount;
-        this.side = side;
     }
 
     public CreateOffersRequest baseAssetId(@jakarta.annotation.Nonnull String baseAssetId) {
@@ -239,7 +237,7 @@ public class CreateOffersRequest {
         this.settlement = settlement;
     }
 
-    public CreateOffersRequest side(@jakarta.annotation.Nonnull Side side) {
+    public CreateOffersRequest side(@jakarta.annotation.Nullable PricingSide side) {
         this.side = side;
         return this;
     }
@@ -249,16 +247,16 @@ public class CreateOffersRequest {
      *
      * @return side
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_SIDE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Side getSide() {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public PricingSide getSide() {
         return side;
     }
 
     @JsonProperty(JSON_PROPERTY_SIDE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSide(@jakarta.annotation.Nonnull Side side) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSide(@jakarta.annotation.Nullable PricingSide side) {
         this.side = side;
     }
 

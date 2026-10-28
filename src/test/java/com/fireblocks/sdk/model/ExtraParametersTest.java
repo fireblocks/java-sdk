@@ -49,6 +49,12 @@ class ExtraParametersTest {
         // TODO: test programCallData
     }
 
+    /** Test the property 'sorobanCallData' */
+    @Test
+    void sorobanCallDataTest() {
+        // TODO: test sorobanCallData
+    }
+
     /** Test the property 'inputsSelection' */
     @Test
     void inputsSelectionTest() {

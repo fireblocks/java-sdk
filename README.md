@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>35.1.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:35.1.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-35.1.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 ## Versioning
@@ -225,7 +225,8 @@ Class | Method | HTTP request | Description
 *ComplianceApi* | [**deactivateByorkConfig**](docs/ComplianceApi.md#deactivateByorkConfig) | **POST** /screening/byork/config/deactivate | Deactivate BYORK Light
 *ComplianceApi* | [**deleteCounterpartyGroup**](docs/ComplianceApi.md#deleteCounterpartyGroup) | **DELETE** /counterparty_groups/{groupId} | Delete a counterparty group
 *ComplianceApi* | [**deleteLegalEntity**](docs/ComplianceApi.md#deleteLegalEntity) | **DELETE** /legal_entities/{legalEntityId} | Delete a legal entity
-*ComplianceApi* | [**getAddressRegistryTenantParticipationStatus**](docs/ComplianceApi.md#getAddressRegistryTenantParticipationStatus) | **GET** /address_registry/tenant | Get address registry participation status for the authenticated workspace
+*ComplianceApi* | [**getAddressRegistryCustomerParticipationStatus**](docs/ComplianceApi.md#getAddressRegistryCustomerParticipationStatus) | **GET** /address_registry/customer | Get your customer&#39;s address registry default
+*ComplianceApi* | [**getAddressRegistryTenantParticipationStatus**](docs/ComplianceApi.md#getAddressRegistryTenantParticipationStatus) | **GET** /address_registry/tenant | Get address registry status for this workspace
 *ComplianceApi* | [**getAddressRegistryVaultOptOut**](docs/ComplianceApi.md#getAddressRegistryVaultOptOut) | **GET** /address_registry/vaults/{vaultAccountId} | Get whether a vault account is opted out of the address registry
 *ComplianceApi* | [**getAmlPostScreeningPolicy**](docs/ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
 *ComplianceApi* | [**getAmlScreeningPolicy**](docs/ComplianceApi.md#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy
@@ -241,8 +242,10 @@ Class | Method | HTTP request | Description
 *ComplianceApi* | [**listCounterpartyGroups**](docs/ComplianceApi.md#listCounterpartyGroups) | **GET** /counterparty_groups | List counterparty groups
 *ComplianceApi* | [**listLegalEntities**](docs/ComplianceApi.md#listLegalEntities) | **GET** /legal_entities | List legal entities (Paginated)
 *ComplianceApi* | [**listVaultsForLegalEntity**](docs/ComplianceApi.md#listVaultsForLegalEntity) | **GET** /legal_entities/{legalEntityId}/vaults | List vault accounts for a legal entity (Paginated)
-*ComplianceApi* | [**optInAddressRegistryTenant**](docs/ComplianceApi.md#optInAddressRegistryTenant) | **POST** /address_registry/tenant | Opt the workspace in to the address registry
-*ComplianceApi* | [**optOutAddressRegistryTenant**](docs/ComplianceApi.md#optOutAddressRegistryTenant) | **DELETE** /address_registry/tenant | Opt the workspace out of the address registry
+*ComplianceApi* | [**optInAddressRegistryCustomer**](docs/ComplianceApi.md#optInAddressRegistryCustomer) | **POST** /address_registry/customer | Opt your customer in to the address registry
+*ComplianceApi* | [**optInAddressRegistryTenant**](docs/ComplianceApi.md#optInAddressRegistryTenant) | **POST** /address_registry/tenant | Opt this workspace in to the address registry
+*ComplianceApi* | [**optOutAddressRegistryCustomer**](docs/ComplianceApi.md#optOutAddressRegistryCustomer) | **DELETE** /address_registry/customer | Opt your customer out of the address registry
+*ComplianceApi* | [**optOutAddressRegistryTenant**](docs/ComplianceApi.md#optOutAddressRegistryTenant) | **DELETE** /address_registry/tenant | Opt this workspace out of the address registry
 *ComplianceApi* | [**registerLegalEntity**](docs/ComplianceApi.md#registerLegalEntity) | **POST** /legal_entities | Register a new legal entity
 *ComplianceApi* | [**removeAddressRegistryVaultOptOut**](docs/ComplianceApi.md#removeAddressRegistryVaultOptOut) | **DELETE** /address_registry/vaults/{vaultAccountId} | Remove a single vault account from the address registry opt-out list
 *ComplianceApi* | [**removeAllAddressRegistryVaultOptOuts**](docs/ComplianceApi.md#removeAllAddressRegistryVaultOptOuts) | **DELETE** /address_registry/vaults | Remove all vault-level address registry opt-outs for the workspace
@@ -732,6 +735,7 @@ Class | Method | HTTP request | Description
  - [AddressRegistryAddVaultOptOutsResponse](docs/AddressRegistryAddVaultOptOutsResponse.md)
  - [AddressRegistryCreateProofOfOwnershipRequest](docs/AddressRegistryCreateProofOfOwnershipRequest.md)
  - [AddressRegistryCreateProofOfOwnershipResponse](docs/AddressRegistryCreateProofOfOwnershipResponse.md)
+ - [AddressRegistryCustomerRegistryResponse](docs/AddressRegistryCustomerRegistryResponse.md)
  - [AddressRegistryGetVaultOptOutResponse](docs/AddressRegistryGetVaultOptOutResponse.md)
  - [AddressRegistryLegalEntity](docs/AddressRegistryLegalEntity.md)
  - [AddressRegistryListVaultOptOutsResponse](docs/AddressRegistryListVaultOptOutsResponse.md)
@@ -1456,6 +1460,7 @@ Class | Method | HTTP request | Description
  - [PreScreening](docs/PreScreening.md)
  - [PrefundedSettlement](docs/PrefundedSettlement.md)
  - [PrefundedSettlementType](docs/PrefundedSettlementType.md)
+ - [PricingSide](docs/PricingSide.md)
  - [ProgramCallConfig](docs/ProgramCallConfig.md)
  - [ProgramCallDecodedDataItem](docs/ProgramCallDecodedDataItem.md)
  - [Provider](docs/Provider.md)
@@ -1656,6 +1661,7 @@ Class | Method | HTTP request | Description
  - [SolanaInstructionWithValue](docs/SolanaInstructionWithValue.md)
  - [SolanaRewardsBreakdown](docs/SolanaRewardsBreakdown.md)
  - [SolanaSimpleCreateParams](docs/SolanaSimpleCreateParams.md)
+ - [SorobanCallData](docs/SorobanCallData.md)
  - [SourceConfig](docs/SourceConfig.md)
  - [SourceOfFunds](docs/SourceOfFunds.md)
  - [SourceTransferPeerPath](docs/SourceTransferPeerPath.md)

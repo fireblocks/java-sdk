@@ -50,7 +50,9 @@ public enum TransferPeerPathType {
 
     OEC_PARTNER("OEC_PARTNER"),
 
-    WALLET_POOL("WALLET_POOL");
+    WALLET_POOL("WALLET_POOL"),
+
+    SOROBAN_CONTRACT("SOROBAN_CONTRACT");
 
     private String value;
 

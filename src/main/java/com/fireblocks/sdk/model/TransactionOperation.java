@@ -27,9 +27,19 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are
  * recommended for building contract call transactions. * &#x60;PROGRAM_CALL&#x60; - Execute
  * multiple instructions on Solana blockchain. The @solana/web3.js library is recommended for
- * building program call transactions. * &#x60;TYPED_MESSAGE&#x60; - An off-chain message in either
- * Ethereum Personal Message or EIP712 format. Use it to sign specific readable messages that are
- * not actual transactions. [Learn more about typed
+ * building program call transactions. * &#x60;SOROBAN_CALL&#x60; - Invokes a Soroban smart contract
+ * on the Stellar blockchain. The call is submitted as a base64-encoded, unsigned Stellar
+ * &#x60;TransactionEnvelope&#x60; in &#x60;extraParameters.sorobanCallData.envelopeXdr&#x60;, which
+ * is the same artifact a Soroban dApp hands a wallet. Fireblocks decodes the envelope, determines
+ * the footprint, resource fee, sequence number and authorization entries itself, and signs a
+ * transaction it rebuilt - the submitted envelope must therefore carry no signatures and no
+ * authorization entries. &#x60;assetId&#x60; is the fee asset (&#x60;XLM&#x60; or
+ * &#x60;XLM_TEST&#x60;), not the token being moved, and &#x60;destination&#x60; is the contract
+ * wallet or, when enabled for your workspace, a &#x60;ONE_TIME_ADDRESS&#x60; holding a Stellar
+ * contract address (&#x60;C...&#x60;). &#x60;amount&#x60; must be omitted or &#x60;0&#x60;. Fee
+ * estimation is not supported for this operation. * &#x60;TYPED_MESSAGE&#x60; - An off-chain
+ * message in either Ethereum Personal Message or EIP712 format. Use it to sign specific readable
+ * messages that are not actual transactions. [Learn more about typed
  * messages](https://developers.fireblocks.com/docs/typed-message-signing). * &#x60;RAW&#x60; - An
  * off-chain message with no predefined format. Use it to sign any message with your private key,
  * including protocols such as blockchains and custom transaction types that are not natively
@@ -55,6 +65,8 @@ public enum TransactionOperation {
     CONTRACT_CALL("CONTRACT_CALL"),
 
     PROGRAM_CALL("PROGRAM_CALL"),
+
+    SOROBAN_CALL("SOROBAN_CALL"),
 
     MINT("MINT"),
 

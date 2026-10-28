@@ -28,7 +28,8 @@ import java.util.StringJoiner;
     Rate.JSON_PROPERTY_BASE_ASSET_RAIL,
     Rate.JSON_PROPERTY_QUOTE_ASSET_ID,
     Rate.JSON_PROPERTY_QUOTE_ASSET_RAIL,
-    Rate.JSON_PROPERTY_RATE
+    Rate.JSON_PROPERTY_RATE,
+    Rate.JSON_PROPERTY_SIDE
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -51,6 +52,9 @@ public class Rate {
 
     public static final String JSON_PROPERTY_RATE = "rate";
     @jakarta.annotation.Nonnull private String rate;
+
+    public static final String JSON_PROPERTY_SIDE = "side";
+    @jakarta.annotation.Nullable private Side side;
 
     public Rate() {}
 
@@ -207,6 +211,29 @@ public class Rate {
         this.rate = rate;
     }
 
+    public Rate side(@jakarta.annotation.Nullable Side side) {
+        this.side = side;
+        return this;
+    }
+
+    /**
+     * Get side
+     *
+     * @return side
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SIDE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Side getSide() {
+        return side;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SIDE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSide(@jakarta.annotation.Nullable Side side) {
+        this.side = side;
+    }
+
     /** Return true if this Rate object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -222,12 +249,14 @@ public class Rate {
                 && Objects.equals(this.baseAssetRail, rate.baseAssetRail)
                 && Objects.equals(this.quoteAssetId, rate.quoteAssetId)
                 && Objects.equals(this.quoteAssetRail, rate.quoteAssetRail)
-                && Objects.equals(this.rate, rate.rate);
+                && Objects.equals(this.rate, rate.rate)
+                && Objects.equals(this.side, rate.side);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(via, baseAssetId, baseAssetRail, quoteAssetId, quoteAssetRail, rate);
+        return Objects.hash(
+                via, baseAssetId, baseAssetRail, quoteAssetId, quoteAssetRail, rate, side);
     }
 
     @Override
@@ -240,6 +269,7 @@ public class Rate {
         sb.append("    quoteAssetId: ").append(toIndentedString(quoteAssetId)).append("\n");
         sb.append("    quoteAssetRail: ").append(toIndentedString(quoteAssetRail)).append("\n");
         sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
+        sb.append("    side: ").append(toIndentedString(side)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -340,6 +370,16 @@ public class Rate {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getRate()))));
+        }
+
+        // add `side` to the URL query string
+        if (getSide() != null) {
+            joiner.add(
+                    String.format(
+                            "%sside%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getSide()))));
         }
 
         return joiner.toString();

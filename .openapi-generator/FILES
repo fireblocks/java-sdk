@@ -61,6 +61,7 @@ docs/AddressRegistryAddVaultOptOutsRequestVaultAccountIdsInner.md
 docs/AddressRegistryAddVaultOptOutsResponse.md
 docs/AddressRegistryCreateProofOfOwnershipRequest.md
 docs/AddressRegistryCreateProofOfOwnershipResponse.md
+docs/AddressRegistryCustomerRegistryResponse.md
 docs/AddressRegistryGetVaultOptOutResponse.md
 docs/AddressRegistryLegalEntity.md
 docs/AddressRegistryListVaultOptOutsResponse.md
@@ -821,6 +822,7 @@ docs/PostalAddress.md
 docs/PreScreening.md
 docs/PrefundedSettlement.md
 docs/PrefundedSettlementType.md
+docs/PricingSide.md
 docs/ProgramCallConfig.md
 docs/ProgramCallDecodedDataItem.md
 docs/Provider.md
@@ -1025,6 +1027,7 @@ docs/SolanaInstruction.md
 docs/SolanaInstructionWithValue.md
 docs/SolanaRewardsBreakdown.md
 docs/SolanaSimpleCreateParams.md
+docs/SorobanCallData.md
 docs/SourceConfig.md
 docs/SourceOfFunds.md
 docs/SourceTransferPeerPath.md
@@ -1524,6 +1527,7 @@ src/main/java/com/fireblocks/sdk/model/AddressRegistryAddVaultOptOutsRequestVaul
 src/main/java/com/fireblocks/sdk/model/AddressRegistryAddVaultOptOutsResponse.java
 src/main/java/com/fireblocks/sdk/model/AddressRegistryCreateProofOfOwnershipRequest.java
 src/main/java/com/fireblocks/sdk/model/AddressRegistryCreateProofOfOwnershipResponse.java
+src/main/java/com/fireblocks/sdk/model/AddressRegistryCustomerRegistryResponse.java
 src/main/java/com/fireblocks/sdk/model/AddressRegistryGetVaultOptOutResponse.java
 src/main/java/com/fireblocks/sdk/model/AddressRegistryLegalEntity.java
 src/main/java/com/fireblocks/sdk/model/AddressRegistryListVaultOptOutsResponse.java
@@ -2248,6 +2252,7 @@ src/main/java/com/fireblocks/sdk/model/PostalAddress.java
 src/main/java/com/fireblocks/sdk/model/PreScreening.java
 src/main/java/com/fireblocks/sdk/model/PrefundedSettlement.java
 src/main/java/com/fireblocks/sdk/model/PrefundedSettlementType.java
+src/main/java/com/fireblocks/sdk/model/PricingSide.java
 src/main/java/com/fireblocks/sdk/model/ProgramCallConfig.java
 src/main/java/com/fireblocks/sdk/model/ProgramCallDecodedDataItem.java
 src/main/java/com/fireblocks/sdk/model/Provider.java
@@ -2448,6 +2453,7 @@ src/main/java/com/fireblocks/sdk/model/SolanaInstruction.java
 src/main/java/com/fireblocks/sdk/model/SolanaInstructionWithValue.java
 src/main/java/com/fireblocks/sdk/model/SolanaRewardsBreakdown.java
 src/main/java/com/fireblocks/sdk/model/SolanaSimpleCreateParams.java
+src/main/java/com/fireblocks/sdk/model/SorobanCallData.java
 src/main/java/com/fireblocks/sdk/model/SourceConfig.java
 src/main/java/com/fireblocks/sdk/model/SourceOfFunds.java
 src/main/java/com/fireblocks/sdk/model/SourceTransferPeerPath.java
@@ -2907,6 +2913,7 @@ src/test/java/com/fireblocks/sdk/model/AddressRegistryAddVaultOptOutsRequestVaul
 src/test/java/com/fireblocks/sdk/model/AddressRegistryAddVaultOptOutsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AddressRegistryCreateProofOfOwnershipRequestTest.java
 src/test/java/com/fireblocks/sdk/model/AddressRegistryCreateProofOfOwnershipResponseTest.java
+src/test/java/com/fireblocks/sdk/model/AddressRegistryCustomerRegistryResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AddressRegistryGetVaultOptOutResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AddressRegistryLegalEntityTest.java
 src/test/java/com/fireblocks/sdk/model/AddressRegistryListVaultOptOutsResponseTest.java
@@ -3631,6 +3638,7 @@ src/test/java/com/fireblocks/sdk/model/PostalAddressTest.java
 src/test/java/com/fireblocks/sdk/model/PreScreeningTest.java
 src/test/java/com/fireblocks/sdk/model/PrefundedSettlementTest.java
 src/test/java/com/fireblocks/sdk/model/PrefundedSettlementTypeTest.java
+src/test/java/com/fireblocks/sdk/model/PricingSideTest.java
 src/test/java/com/fireblocks/sdk/model/ProgramCallConfigTest.java
 src/test/java/com/fireblocks/sdk/model/ProgramCallDecodedDataItemTest.java
 src/test/java/com/fireblocks/sdk/model/ProviderTest.java
@@ -3831,6 +3839,7 @@ src/test/java/com/fireblocks/sdk/model/SolanaInstructionTest.java
 src/test/java/com/fireblocks/sdk/model/SolanaInstructionWithValueTest.java
 src/test/java/com/fireblocks/sdk/model/SolanaRewardsBreakdownTest.java
 src/test/java/com/fireblocks/sdk/model/SolanaSimpleCreateParamsTest.java
+src/test/java/com/fireblocks/sdk/model/SorobanCallDataTest.java
 src/test/java/com/fireblocks/sdk/model/SourceConfigTest.java
 src/test/java/com/fireblocks/sdk/model/SourceOfFundsTest.java
 src/test/java/com/fireblocks/sdk/model/SourceTransferPeerPathResponseTest.java

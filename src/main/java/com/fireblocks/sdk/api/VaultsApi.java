@@ -1735,8 +1735,7 @@ public class VaultsApi {
      * account. **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor,
      * Viewer.
      *
-     * @param vaultAccountId The ID of the vault account, or &#39;default&#39; for the default vault
-     *     account (required)
+     * @param vaultAccountId The ID of the vault account (required)
      * @param assetId The ID of the asset (required)
      * @param manualSignging False by default. The maximum number of inputs depends if the
      *     transaction will be signed by an automated co-signer server or on a mobile device.

@@ -14,7 +14,8 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**deactivateByorkConfig**](ComplianceApi.md#deactivateByorkConfig) | **POST** /screening/byork/config/deactivate | Deactivate BYORK Light |
 | [**deleteCounterpartyGroup**](ComplianceApi.md#deleteCounterpartyGroup) | **DELETE** /counterparty_groups/{groupId} | Delete a counterparty group |
 | [**deleteLegalEntity**](ComplianceApi.md#deleteLegalEntity) | **DELETE** /legal_entities/{legalEntityId} | Delete a legal entity |
-| [**getAddressRegistryTenantParticipationStatus**](ComplianceApi.md#getAddressRegistryTenantParticipationStatus) | **GET** /address_registry/tenant | Get address registry participation status for the authenticated workspace |
+| [**getAddressRegistryCustomerParticipationStatus**](ComplianceApi.md#getAddressRegistryCustomerParticipationStatus) | **GET** /address_registry/customer | Get your customer&#39;s address registry default |
+| [**getAddressRegistryTenantParticipationStatus**](ComplianceApi.md#getAddressRegistryTenantParticipationStatus) | **GET** /address_registry/tenant | Get address registry status for this workspace |
 | [**getAddressRegistryVaultOptOut**](ComplianceApi.md#getAddressRegistryVaultOptOut) | **GET** /address_registry/vaults/{vaultAccountId} | Get whether a vault account is opted out of the address registry |
 | [**getAmlPostScreeningPolicy**](ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy |
 | [**getAmlScreeningPolicy**](ComplianceApi.md#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy |
@@ -30,8 +31,10 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**listCounterpartyGroups**](ComplianceApi.md#listCounterpartyGroups) | **GET** /counterparty_groups | List counterparty groups |
 | [**listLegalEntities**](ComplianceApi.md#listLegalEntities) | **GET** /legal_entities | List legal entities (Paginated) |
 | [**listVaultsForLegalEntity**](ComplianceApi.md#listVaultsForLegalEntity) | **GET** /legal_entities/{legalEntityId}/vaults | List vault accounts for a legal entity (Paginated) |
-| [**optInAddressRegistryTenant**](ComplianceApi.md#optInAddressRegistryTenant) | **POST** /address_registry/tenant | Opt the workspace in to the address registry |
-| [**optOutAddressRegistryTenant**](ComplianceApi.md#optOutAddressRegistryTenant) | **DELETE** /address_registry/tenant | Opt the workspace out of the address registry |
+| [**optInAddressRegistryCustomer**](ComplianceApi.md#optInAddressRegistryCustomer) | **POST** /address_registry/customer | Opt your customer in to the address registry |
+| [**optInAddressRegistryTenant**](ComplianceApi.md#optInAddressRegistryTenant) | **POST** /address_registry/tenant | Opt this workspace in to the address registry |
+| [**optOutAddressRegistryCustomer**](ComplianceApi.md#optOutAddressRegistryCustomer) | **DELETE** /address_registry/customer | Opt your customer out of the address registry |
+| [**optOutAddressRegistryTenant**](ComplianceApi.md#optOutAddressRegistryTenant) | **DELETE** /address_registry/tenant | Opt this workspace out of the address registry |
 | [**registerLegalEntity**](ComplianceApi.md#registerLegalEntity) | **POST** /legal_entities | Register a new legal entity |
 | [**removeAddressRegistryVaultOptOut**](ComplianceApi.md#removeAddressRegistryVaultOptOut) | **DELETE** /address_registry/vaults/{vaultAccountId} | Remove a single vault account from the address registry opt-out list |
 | [**removeAllAddressRegistryVaultOptOuts**](ComplianceApi.md#removeAllAddressRegistryVaultOptOuts) | **DELETE** /address_registry/vaults | Remove all vault-level address registry opt-outs for the workspace |
@@ -842,13 +845,86 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getAddressRegistryCustomerParticipationStatus
+
+> CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>> getAddressRegistryCustomerParticipationStatus getAddressRegistryCustomerParticipationStatus()
+
+Get your customer&#39;s address registry default
+
+Read your customer&#39;s organization-wide address registry setting. Workspaces without their own choice use this as the default. Returns &#x60;NOT_SET&#x60; when no choice has been made yet, or &#x60;OPTED_IN&#x60; / &#x60;OPTED_OUT&#x60; when one has.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        try {
+            CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>> response = fireblocks.compliance().getAddressRegistryCustomerParticipationStatus();
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#getAddressRegistryCustomerParticipationStatus");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+CompletableFuture<ApiResponse<[**AddressRegistryCustomerRegistryResponse**](AddressRegistryCustomerRegistryResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Customer registry status in the response body |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getAddressRegistryTenantParticipationStatus
 
 > CompletableFuture<ApiResponse<AddressRegistryTenantRegistryResponse>> getAddressRegistryTenantParticipationStatus getAddressRegistryTenantParticipationStatus()
 
-Get address registry participation status for the authenticated workspace
+Get address registry status for this workspace
 
-Returns whether the workspace is &#x60;OPTED_IN&#x60; or &#x60;OPTED_OUT&#x60; of the address registry.
+Check whether this workspace uses the address registry. The response is &#x60;OPTED_IN&#x60; or &#x60;OPTED_OUT&#x60;. If this workspace has not been configured yet, it follows your customer&#39;s default (see &#x60;GET /v1/address_registry/customer&#x60;) when that default is &#x60;OPTED_IN&#x60; or &#x60;OPTED_OUT&#x60;; otherwise the workspace is opted in by default.
 
 ### Example
 
@@ -2073,13 +2149,91 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## optInAddressRegistryCustomer
+
+> CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>> optInAddressRegistryCustomer optInAddressRegistryCustomer(idempotencyKey)
+
+Opt your customer in to the address registry
+
+Set your customer&#39;s default to opted in. Workspaces without their own setting will follow this default. No request body. Returns &#x60;OPTED_IN&#x60;. If the customer for this workspace cannot be determined, returns HTTP 404 with error code **2147**.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>> response = fireblocks.compliance().optInAddressRegistryCustomer(idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#optInAddressRegistryCustomer");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**AddressRegistryCustomerRegistryResponse**](AddressRegistryCustomerRegistryResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Success; response body includes status OPTED_IN |  * X-Request-ID -  <br>  |
+| **404** | The customer for this workspace could not be determined (error code 2147) |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## optInAddressRegistryTenant
 
 > CompletableFuture<ApiResponse<AddressRegistryTenantRegistryResponse>> optInAddressRegistryTenant optInAddressRegistryTenant(idempotencyKey)
 
-Opt the workspace in to the address registry
+Opt this workspace in to the address registry
 
-Opts the workspace in. No request body. Response uses the same JSON shape as GET; status is OPTED_IN.
+Turn on the address registry for this workspace. No request body. Returns &#x60;OPTED_IN&#x60;.
 
 ### Example
 
@@ -2150,13 +2304,87 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## optOutAddressRegistryCustomer
+
+> CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>> optOutAddressRegistryCustomer optOutAddressRegistryCustomer()
+
+Opt your customer out of the address registry
+
+Set your customer&#39;s default to opted out. Workspaces without their own setting will follow this default. No request body. Returns &#x60;OPTED_OUT&#x60;. If the customer for this workspace cannot be determined, returns HTTP 404 with error code **2147**.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ComplianceApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        try {
+            CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>> response = fireblocks.compliance().optOutAddressRegistryCustomer();
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ComplianceApi#optOutAddressRegistryCustomer");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+CompletableFuture<ApiResponse<[**AddressRegistryCustomerRegistryResponse**](AddressRegistryCustomerRegistryResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Success; response body includes status OPTED_OUT |  * X-Request-ID -  <br>  |
+| **404** | The customer for this workspace could not be determined (error code 2147) |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## optOutAddressRegistryTenant
 
 > CompletableFuture<ApiResponse<AddressRegistryTenantRegistryResponse>> optOutAddressRegistryTenant optOutAddressRegistryTenant()
 
-Opt the workspace out of the address registry
+Opt this workspace out of the address registry
 
-Opts the workspace out. No request body. Response uses the same JSON shape as GET; status is OPTED_OUT.
+Turn off the address registry for this workspace. No request body. Returns &#x60;OPTED_OUT&#x60;.
 
 ### Example
 

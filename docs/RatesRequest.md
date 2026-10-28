@@ -11,6 +11,7 @@
 |**baseAssetId** | **String** | The source asset identifier. |  |
 |**quoteAssetId** | **String** | The target asset identifier. |  |
 |**baseAmount** | **String** | The amount to convert from |  [optional] |
+|**side** | **PricingSide** |  |  [optional] |
 
 
 

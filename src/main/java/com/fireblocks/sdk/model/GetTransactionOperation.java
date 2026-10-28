@@ -47,6 +47,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * blockchain. * &#x60;APPROVE&#x60; - Enables the approve function for a smart contract or wallet
  * to withdraw from a designated wallet. [Learn
  * more](https://support.fireblocks.io/hc/en-us/articles/4404616097426-Amount-Cap-for-Approve-transactions).
+ * * &#x60;SOROBAN_CALL&#x60; - Invokes a Soroban smart contract on the Stellar blockchain.
  */
 public enum GetTransactionOperation {
     TRANSFER("TRANSFER"),
@@ -71,7 +72,9 @@ public enum GetTransactionOperation {
 
     PROGRAM_CALL("PROGRAM_CALL"),
 
-    APPROVE("APPROVE");
+    APPROVE("APPROVE"),
+
+    SOROBAN_CALL("SOROBAN_CALL");
 
     private String value;
 

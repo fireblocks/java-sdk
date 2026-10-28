@@ -30,6 +30,7 @@ import java.util.StringJoiner;
     RateOffer.JSON_PROPERTY_QUOTE_ASSET_ID,
     RateOffer.JSON_PROPERTY_QUOTE_ASSET_RAIL,
     RateOffer.JSON_PROPERTY_RATE,
+    RateOffer.JSON_PROPERTY_SIDE,
     RateOffer.JSON_PROPERTY_OFFER_TYPE
 })
 @jakarta.annotation.Generated(
@@ -53,6 +54,9 @@ public class RateOffer {
 
     public static final String JSON_PROPERTY_RATE = "rate";
     @jakarta.annotation.Nonnull private String rate;
+
+    public static final String JSON_PROPERTY_SIDE = "side";
+    @jakarta.annotation.Nullable private Side side;
 
     /** The type of offer — RATE for indicative pricing. */
     public enum OfferTypeEnum {
@@ -246,6 +250,29 @@ public class RateOffer {
         this.rate = rate;
     }
 
+    public RateOffer side(@jakarta.annotation.Nullable Side side) {
+        this.side = side;
+        return this;
+    }
+
+    /**
+     * Get side
+     *
+     * @return side
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SIDE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Side getSide() {
+        return side;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SIDE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSide(@jakarta.annotation.Nullable Side side) {
+        this.side = side;
+    }
+
     public RateOffer offerType(@jakarta.annotation.Nonnull OfferTypeEnum offerType) {
         this.offerType = offerType;
         return this;
@@ -285,13 +312,21 @@ public class RateOffer {
                 && Objects.equals(this.quoteAssetId, rateOffer.quoteAssetId)
                 && Objects.equals(this.quoteAssetRail, rateOffer.quoteAssetRail)
                 && Objects.equals(this.rate, rateOffer.rate)
+                && Objects.equals(this.side, rateOffer.side)
                 && Objects.equals(this.offerType, rateOffer.offerType);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                via, baseAssetId, baseAssetRail, quoteAssetId, quoteAssetRail, rate, offerType);
+                via,
+                baseAssetId,
+                baseAssetRail,
+                quoteAssetId,
+                quoteAssetRail,
+                rate,
+                side,
+                offerType);
     }
 
     @Override
@@ -304,6 +339,7 @@ public class RateOffer {
         sb.append("    quoteAssetId: ").append(toIndentedString(quoteAssetId)).append("\n");
         sb.append("    quoteAssetRail: ").append(toIndentedString(quoteAssetRail)).append("\n");
         sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
+        sb.append("    side: ").append(toIndentedString(side)).append("\n");
         sb.append("    offerType: ").append(toIndentedString(offerType)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -405,6 +441,16 @@ public class RateOffer {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getRate()))));
+        }
+
+        // add `side` to the URL query string
+        if (getSide() != null) {
+            joiner.add(
+                    String.format(
+                            "%sside%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getSide()))));
         }
 
         // add `offerType` to the URL query string
