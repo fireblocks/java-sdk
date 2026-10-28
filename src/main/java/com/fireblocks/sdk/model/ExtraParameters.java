@@ -32,9 +32,11 @@ import java.util.StringJoiner;
  * endpoint.](https://developers.fireblocks.com/reference/getunspentinputs) For &#x60;RAW&#x60;
  * operations, add the key &#x60;rawMessageData&#x60; with the value set to the [raw message data
  * structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata) For
- * &#x60;CONTRACT_CALL&#x60; operations, add the key &#x60;contractCallData&#x60; with the value set
- * to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks
- * [development
+ * &#x60;SOROBAN_CALL&#x60; operations, add the key &#x60;sorobanCallData&#x60; with the value set
+ * to an object containing &#x60;envelopeXdr&#x60; - a base64 encoded, unsigned Stellar
+ * &#x60;TransactionEnvelope&#x60; holding the contract invocation. For &#x60;CONTRACT_CALL&#x60;
+ * operations, add the key &#x60;contractCallData&#x60; with the value set to the Ethereum smart
+ * contract Application Binary Interface (ABI) payload. The Fireblocks [development
  * libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are
  * recommended for building contract call transactions. For **exchange compliance (e.g., Binance)
  * and Travel Rule purposes**, include the key &#x60;piiData&#x60; containing a **custom JSON
@@ -43,14 +45,15 @@ import java.util.StringJoiner;
  * recommended encryption method is **hybrid encryption** using AES-256-GCM for the payload and
  * RSA-OAEP for key exchange, with the recipient exchange&#39;s public key. [development
  * libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks)
- * **Note:** &#x60;rawMessageData&#x60;, &#x60;contractCallData&#x60;, and
- * &#x60;inputsSelection&#x60; cannot be used together in the same call.
+ * **Note:** &#x60;rawMessageData&#x60;, &#x60;contractCallData&#x60;, &#x60;sorobanCallData&#x60;,
+ * and &#x60;inputsSelection&#x60; cannot be used together in the same call.
  */
 @JsonPropertyOrder({
     ExtraParameters.JSON_PROPERTY_NODE_CONTROLS,
     ExtraParameters.JSON_PROPERTY_RAW_MESSAGE_DATA,
     ExtraParameters.JSON_PROPERTY_CONTRACT_CALL_DATA,
     ExtraParameters.JSON_PROPERTY_PROGRAM_CALL_DATA,
+    ExtraParameters.JSON_PROPERTY_SOROBAN_CALL_DATA,
     ExtraParameters.JSON_PROPERTY_INPUTS_SELECTION,
     ExtraParameters.JSON_PROPERTY_ALLOW_BASE_ASSET_ADDRESS,
     ExtraParameters.JSON_PROPERTY_PII_DATA
@@ -70,6 +73,9 @@ public class ExtraParameters extends HashMap<String, Object> {
 
     public static final String JSON_PROPERTY_PROGRAM_CALL_DATA = "programCallData";
     @jakarta.annotation.Nullable private String programCallData;
+
+    public static final String JSON_PROPERTY_SOROBAN_CALL_DATA = "sorobanCallData";
+    @jakarta.annotation.Nullable private SorobanCallData sorobanCallData;
 
     public static final String JSON_PROPERTY_INPUTS_SELECTION = "inputsSelection";
     @jakarta.annotation.Nullable private Map<String, Object> inputsSelection;
@@ -190,6 +196,30 @@ public class ExtraParameters extends HashMap<String, Object> {
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setProgramCallData(@jakarta.annotation.Nullable String programCallData) {
         this.programCallData = programCallData;
+    }
+
+    public ExtraParameters sorobanCallData(
+            @jakarta.annotation.Nullable SorobanCallData sorobanCallData) {
+        this.sorobanCallData = sorobanCallData;
+        return this;
+    }
+
+    /**
+     * Get sorobanCallData
+     *
+     * @return sorobanCallData
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SOROBAN_CALL_DATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public SorobanCallData getSorobanCallData() {
+        return sorobanCallData;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SOROBAN_CALL_DATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSorobanCallData(@jakarta.annotation.Nullable SorobanCallData sorobanCallData) {
+        this.sorobanCallData = sorobanCallData;
     }
 
     public ExtraParameters inputsSelection(
@@ -341,6 +371,7 @@ public class ExtraParameters extends HashMap<String, Object> {
                 && Objects.equals(this.rawMessageData, extraParameters.rawMessageData)
                 && Objects.equals(this.contractCallData, extraParameters.contractCallData)
                 && Objects.equals(this.programCallData, extraParameters.programCallData)
+                && Objects.equals(this.sorobanCallData, extraParameters.sorobanCallData)
                 && Objects.equals(this.inputsSelection, extraParameters.inputsSelection)
                 && Objects.equals(this.allowBaseAssetAddress, extraParameters.allowBaseAssetAddress)
                 && Objects.equals(this.piiData, extraParameters.piiData)
@@ -355,6 +386,7 @@ public class ExtraParameters extends HashMap<String, Object> {
                 rawMessageData,
                 contractCallData,
                 programCallData,
+                sorobanCallData,
                 inputsSelection,
                 allowBaseAssetAddress,
                 piiData,
@@ -371,6 +403,7 @@ public class ExtraParameters extends HashMap<String, Object> {
         sb.append("    rawMessageData: ").append(toIndentedString(rawMessageData)).append("\n");
         sb.append("    contractCallData: ").append(toIndentedString(contractCallData)).append("\n");
         sb.append("    programCallData: ").append(toIndentedString(programCallData)).append("\n");
+        sb.append("    sorobanCallData: ").append(toIndentedString(sorobanCallData)).append("\n");
         sb.append("    inputsSelection: ").append(toIndentedString(inputsSelection)).append("\n");
         sb.append("    allowBaseAssetAddress: ")
                 .append(toIndentedString(allowBaseAssetAddress))
@@ -480,6 +513,11 @@ public class ExtraParameters extends HashMap<String, Object> {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getProgramCallData()))));
+        }
+
+        // add `sorobanCallData` to the URL query string
+        if (getSorobanCallData() != null) {
+            joiner.add(getSorobanCallData().toUrlQueryString(prefix + "sorobanCallData" + suffix));
         }
 
         // add `inputsSelection` to the URL query string

@@ -23,15 +23,21 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * Workspace participation in the address registry. Same shape for GET, POST (opt in), and DELETE
- * (opt out).
+ * Whether this workspace uses the address registry. GET, POST (opt in), and DELETE (opt out) all
+ * return this object. On GET, if this workspace has no explicit choice, &#x60;status&#x60; follows
+ * the customer default when one is set, otherwise the workspace is opted in by default.
  */
 @JsonPropertyOrder({AddressRegistryTenantRegistryResponse.JSON_PROPERTY_STATUS})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class AddressRegistryTenantRegistryResponse {
-    /** OPTED_IN or OPTED_OUT. */
+    /**
+     * &#x60;OPTED_IN&#x60; or &#x60;OPTED_OUT&#x60;. On GET, uses the customer default when this
+     * workspace has no setting of its own and the customer has made an explicit choice; is
+     * &#x60;OPTED_IN&#x60; when neither is set. On POST or DELETE, reflects the choice you just
+     * made for this workspace.
+     */
     public enum StatusEnum {
         OPTED_IN(String.valueOf("OPTED_IN")),
 
@@ -82,7 +88,10 @@ public class AddressRegistryTenantRegistryResponse {
     }
 
     /**
-     * OPTED_IN or OPTED_OUT.
+     * &#x60;OPTED_IN&#x60; or &#x60;OPTED_OUT&#x60;. On GET, uses the customer default when this
+     * workspace has no setting of its own and the customer has made an explicit choice; is
+     * &#x60;OPTED_IN&#x60; when neither is set. On POST or DELETE, reflects the choice you just
+     * made for this workspace.
      *
      * @return status
      */

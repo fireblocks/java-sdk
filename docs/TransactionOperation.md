@@ -13,6 +13,8 @@
 
 * `PROGRAM_CALL` (value: `"PROGRAM_CALL"`)
 
+* `SOROBAN_CALL` (value: `"SOROBAN_CALL"`)
+
 * `MINT` (value: `"MINT"`)
 
 * `RAW` (value: `"RAW"`)

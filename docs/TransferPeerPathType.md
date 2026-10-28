@@ -39,5 +39,7 @@
 
 * `WALLET_POOL` (value: `"WALLET_POOL"`)
 
+* `SOROBAN_CONTRACT` (value: `"SOROBAN_CONTRACT"`)
+
 
 

@@ -25,6 +25,7 @@ import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsRequest;
 import com.fireblocks.sdk.model.AddressRegistryAddVaultOptOutsResponse;
 import com.fireblocks.sdk.model.AddressRegistryCreateProofOfOwnershipRequest;
 import com.fireblocks.sdk.model.AddressRegistryCreateProofOfOwnershipResponse;
+import com.fireblocks.sdk.model.AddressRegistryCustomerRegistryResponse;
 import com.fireblocks.sdk.model.AddressRegistryGetVaultOptOutResponse;
 import com.fireblocks.sdk.model.AddressRegistryLegalEntity;
 import com.fireblocks.sdk.model.AddressRegistryListVaultOptOutsResponse;
@@ -1075,8 +1076,98 @@ public class ComplianceApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get address registry participation status for the authenticated workspace Returns whether the
-     * workspace is &#x60;OPTED_IN&#x60; or &#x60;OPTED_OUT&#x60; of the address registry.
+     * Get your customer&#39;s address registry default Read your customer&#39;s organization-wide
+     * address registry setting. Workspaces without their own choice use this as the default.
+     * Returns &#x60;NOT_SET&#x60; when no choice has been made yet, or &#x60;OPTED_IN&#x60; /
+     * &#x60;OPTED_OUT&#x60; when one has.
+     *
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryCustomerRegistryResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>>
+            getAddressRegistryCustomerParticipationStatus() {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getAddressRegistryCustomerParticipationStatusRequestBuilder();
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getAddressRegistryCustomerParticipationStatus",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getAddressRegistryCustomerParticipationStatus",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<
+                                                    AddressRegistryCustomerRegistryResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressRegistryCustomerRegistryResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    AddressRegistryCustomerRegistryResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getAddressRegistryCustomerParticipationStatusRequestBuilder()
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/address_registry/customer";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get address registry status for this workspace Check whether this workspace uses the address
+     * registry. The response is &#x60;OPTED_IN&#x60; or &#x60;OPTED_OUT&#x60;. If this workspace
+     * has not been configured yet, it follows your customer&#39;s default (see &#x60;GET
+     * /v1/address_registry/customer&#x60;) when that default is &#x60;OPTED_IN&#x60; or
+     * &#x60;OPTED_OUT&#x60;; otherwise the workspace is opted in by default.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryTenantRegistryResponse&gt;&gt;,
      *     which completes exceptionally with an {@link ApiException} if the API call fails
@@ -2531,8 +2622,101 @@ public class ComplianceApi {
         return localVarRequestBuilder;
     }
     /**
-     * Opt the workspace in to the address registry Opts the workspace in. No request body. Response
-     * uses the same JSON shape as GET; status is OPTED_IN.
+     * Opt your customer in to the address registry Set your customer&#39;s default to opted in.
+     * Workspaces without their own setting will follow this default. No request body. Returns
+     * &#x60;OPTED_IN&#x60;. If the customer for this workspace cannot be determined, returns HTTP
+     * 404 with error code **2147**.
+     *
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryCustomerRegistryResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>>
+            optInAddressRegistryCustomer(String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    optInAddressRegistryCustomerRequestBuilder(idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "optInAddressRegistryCustomer",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "optInAddressRegistryCustomer",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<
+                                                    AddressRegistryCustomerRegistryResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressRegistryCustomerRegistryResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    AddressRegistryCustomerRegistryResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder optInAddressRegistryCustomerRequestBuilder(String idempotencyKey)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/address_registry/customer";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Opt this workspace in to the address registry Turn on the address registry for this
+     * workspace. No request body. Returns &#x60;OPTED_IN&#x60;.
      *
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
@@ -2621,8 +2805,94 @@ public class ComplianceApi {
         return localVarRequestBuilder;
     }
     /**
-     * Opt the workspace out of the address registry Opts the workspace out. No request body.
-     * Response uses the same JSON shape as GET; status is OPTED_OUT.
+     * Opt your customer out of the address registry Set your customer&#39;s default to opted out.
+     * Workspaces without their own setting will follow this default. No request body. Returns
+     * &#x60;OPTED_OUT&#x60;. If the customer for this workspace cannot be determined, returns HTTP
+     * 404 with error code **2147**.
+     *
+     * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryCustomerRegistryResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>>
+            optOutAddressRegistryCustomer() {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    optOutAddressRegistryCustomerRequestBuilder();
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "optOutAddressRegistryCustomer",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "optOutAddressRegistryCustomer",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<
+                                                    AddressRegistryCustomerRegistryResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            AddressRegistryCustomerRegistryResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    AddressRegistryCustomerRegistryResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder optOutAddressRegistryCustomerRequestBuilder() throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/address_registry/customer";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Opt this workspace out of the address registry Turn off the address registry for this
+     * workspace. No request body. Returns &#x60;OPTED_OUT&#x60;.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;AddressRegistryTenantRegistryResponse&gt;&gt;,
      *     which completes exceptionally with an {@link ApiException} if the API call fails

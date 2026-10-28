@@ -116,6 +116,8 @@ paths:
       tags:
       - Api User
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -212,6 +214,8 @@ paths:
       tags:
       - Api User
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -336,6 +340,8 @@ paths:
       tags:
       - Api User
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -1134,6 +1140,8 @@ paths:
       tags:
       - Audit Logs
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -1893,6 +1901,8 @@ paths:
       tags:
       - Blockchains & assets
       x-rate-limit-category: external_query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -2018,6 +2028,8 @@ paths:
       tags:
       - Blockchains & assets
       x-rate-limit-category: high_compute
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -2111,6 +2123,8 @@ paths:
       tags:
       - Blockchains & assets
       x-rate-limit-category: external_query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -2201,6 +2215,8 @@ paths:
       tags:
       - Blockchains & assets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -2290,6 +2306,8 @@ paths:
       tags:
       - Blockchains & assets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -2411,6 +2429,8 @@ paths:
       tags:
       - Blockchains & assets
       x-rate-limit-category: external_query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -2489,6 +2509,8 @@ paths:
       tags:
       - Blockchains & assets
       x-rate-limit-category: external_query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -2542,6 +2564,8 @@ paths:
       tags:
       - Blockchains & assets
       x-rate-limit-category: external_query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -2796,6 +2820,182 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+  /address_registry/customer:
+    delete:
+      description: "Set your customer's default to opted out. Workspaces without their\
+        \ own setting will follow this default. No request body. Returns `OPTED_OUT`.\
+        \ If the customer for this workspace cannot be determined, returns HTTP 404\
+        \ with error code **2147**."
+      operationId: optOutAddressRegistryCustomer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressRegistryCustomerRegistryResponse"
+          description: Success; response body includes status OPTED_OUT
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              example:
+                code: 2147
+                message: The customer for this workspace could not be determined.
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: The customer for this workspace could not be determined (error
+            code 2147)
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Opt your customer out of the address registry
+      tags:
+      - Compliance
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AddressRegistryCustomerRegistryResponse>>\
+            \ = fireblocks.compliance.optOutAddressRegistryCustomer();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>>
+            response = fireblocks.compliance().optOutAddressRegistryCustomer();
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.compliance.opt_out_address_registry_customer();
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<AddressRegistryCustomerRegistryResponse>>\
+          \ = fireblocks.compliance.optOutAddressRegistryCustomer();"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>>
+          response = fireblocks.compliance().optOutAddressRegistryCustomer();
+      - lang: Python
+        source: response = fireblocks.compliance.opt_out_address_registry_customer();
+      x-accepts:
+      - application/json
+    get:
+      description: "Read your customer's organization-wide address registry setting.\
+        \ Workspaces without their own choice use this as the default. Returns `NOT_SET`\
+        \ when no choice has been made yet, or `OPTED_IN` / `OPTED_OUT` when one has."
+      operationId: getAddressRegistryCustomerParticipationStatus
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressRegistryCustomerRegistryResponse"
+          description: Customer registry status in the response body
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get your customer's address registry default
+      tags:
+      - Compliance
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AddressRegistryCustomerRegistryResponse>>\
+            \ = fireblocks.compliance.getAddressRegistryCustomerParticipationStatus();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>>
+            response = fireblocks.compliance().getAddressRegistryCustomerParticipationStatus();
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.compliance.get_address_registry_customer_participation_status();
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<AddressRegistryCustomerRegistryResponse>>\
+          \ = fireblocks.compliance.getAddressRegistryCustomerParticipationStatus();"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>>
+          response = fireblocks.compliance().getAddressRegistryCustomerParticipationStatus();
+      - lang: Python
+        source: response = fireblocks.compliance.get_address_registry_customer_participation_status();
+      x-accepts:
+      - application/json
+    post:
+      description: "Set your customer's default to opted in. Workspaces without their\
+        \ own setting will follow this default. No request body. Returns `OPTED_IN`.\
+        \ If the customer for this workspace cannot be determined, returns HTTP 404\
+        \ with error code **2147**."
+      operationId: optInAddressRegistryCustomer
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressRegistryCustomerRegistryResponse"
+          description: Success; response body includes status OPTED_IN
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              example:
+                code: 2147
+                message: The customer for this workspace could not be determined.
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: The customer for this workspace could not be determined (error
+            code 2147)
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Opt your customer in to the address registry
+      tags:
+      - Compliance
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AddressRegistryCustomerRegistryResponse>>\
+            \ = fireblocks.compliance.optInAddressRegistryCustomer(complianceApiOptInAddressRegistryCustomerRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>>
+            response = fireblocks.compliance().optInAddressRegistryCustomer(idempotencyKey);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.compliance.opt_in_address_registry_customer(idempotency_key);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<AddressRegistryCustomerRegistryResponse>>\
+          \ = fireblocks.compliance.optInAddressRegistryCustomer(complianceApiOptInAddressRegistryCustomerRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<AddressRegistryCustomerRegistryResponse>>
+          response = fireblocks.compliance().optInAddressRegistryCustomer(idempotencyKey);
+      - lang: Python
+        source: response = fireblocks.compliance.opt_in_address_registry_customer(idempotency_key);
+      x-accepts:
+      - application/json
   /address_registry/legal_entities/{address}:
     get:
       description: "Returns legal entity information for the given blockchain address\
@@ -2868,6 +3068,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: high_compute
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -2994,6 +3196,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: high_compute
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -3075,6 +3279,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -3106,8 +3312,8 @@ paths:
       - application/json
   /address_registry/tenant:
     delete:
-      description: Opts the workspace out. No request body. Response uses the same
-        JSON shape as GET; status is OPTED_OUT.
+      description: Turn off the address registry for this workspace. No request body.
+        Returns `OPTED_OUT`.
       operationId: optOutAddressRegistryTenant
       responses:
         "200":
@@ -3121,10 +3327,12 @@ paths:
               $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
-      summary: Opt the workspace out of the address registry
+      summary: Opt this workspace out of the address registry
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -3150,8 +3358,11 @@ paths:
       x-accepts:
       - application/json
     get:
-      description: Returns whether the workspace is `OPTED_IN` or `OPTED_OUT` of the
-        address registry.
+      description: "Check whether this workspace uses the address registry. The response\
+        \ is `OPTED_IN` or `OPTED_OUT`. If this workspace has not been configured\
+        \ yet, it follows your customer's default (see `GET /v1/address_registry/customer`)\
+        \ when that default is `OPTED_IN` or `OPTED_OUT`; otherwise the workspace\
+        \ is opted in by default."
       operationId: getAddressRegistryTenantParticipationStatus
       responses:
         "200":
@@ -3165,10 +3376,12 @@ paths:
               $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
-      summary: Get address registry participation status for the authenticated workspace
+      summary: Get address registry status for this workspace
       tags:
       - Compliance
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -3194,8 +3407,8 @@ paths:
       x-accepts:
       - application/json
     post:
-      description: Opts the workspace in. No request body. Response uses the same
-        JSON shape as GET; status is OPTED_IN.
+      description: Turn on the address registry for this workspace. No request body.
+        Returns `OPTED_IN`.
       operationId: optInAddressRegistryTenant
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -3221,10 +3434,12 @@ paths:
               $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
-      summary: Opt the workspace in to the address registry
+      summary: Opt this workspace in to the address registry
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -3269,6 +3484,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -3358,6 +3575,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -3433,6 +3652,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -3507,6 +3728,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -3574,6 +3797,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -3641,6 +3866,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -3709,6 +3936,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -3774,6 +4003,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -3835,6 +4066,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -3915,6 +4148,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -4000,6 +4235,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -4104,6 +4341,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -4179,6 +4418,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -4239,6 +4480,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -4329,6 +4572,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -4418,6 +4663,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -4503,6 +4750,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -4548,6 +4797,8 @@ paths:
       tags:
       - Compliance Screening Configuration
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -4599,6 +4850,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -4639,6 +4892,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -4679,6 +4934,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -4769,6 +5026,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -4839,6 +5098,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -4904,6 +5165,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -4957,6 +5220,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -5022,6 +5287,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -5088,6 +5355,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -5162,6 +5431,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -5249,6 +5520,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -5351,6 +5624,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -5411,6 +5686,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -5470,6 +5747,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -5537,6 +5816,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -5615,6 +5896,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -5660,6 +5943,8 @@ paths:
       tags:
       - Compliance Screening Configuration
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -5711,6 +5996,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -5751,6 +6038,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -5791,6 +6080,8 @@ paths:
       tags:
       - Compliance
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -7295,6 +7586,8 @@ paths:
       tags:
       - Console User
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -7394,6 +7687,8 @@ paths:
       tags:
       - Console User
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -7759,6 +8054,8 @@ paths:
       tags:
       - Contacts
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -7851,6 +8148,8 @@ paths:
       tags:
       - Contract Interactions
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -7936,6 +8235,8 @@ paths:
       tags:
       - Contract Interactions
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -8047,6 +8348,8 @@ paths:
             \ contract_address, base_asset_id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<ParameterWithValueList>>\
@@ -8138,6 +8441,8 @@ paths:
             \ contract_address, base_asset_id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-rate-limit-category: async
+      x-lifecycle:
+        state: ga
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<WriteCallFunctionResponseDto>>\
@@ -8200,6 +8505,8 @@ paths:
       tags:
       - Contract Interactions
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -8275,6 +8582,8 @@ paths:
       tags:
       - Contract Interactions
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -8399,6 +8708,8 @@ paths:
       tags:
       - Contract Templates
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -8468,6 +8779,8 @@ paths:
       tags:
       - Contract Templates
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -8531,6 +8844,8 @@ paths:
       tags:
       - Contract Templates
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -8589,6 +8904,8 @@ paths:
       tags:
       - Contract Templates
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -8659,6 +8976,8 @@ paths:
       tags:
       - Contract Templates
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -8740,6 +9059,8 @@ paths:
       tags:
       - Contract Templates
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -8815,6 +9136,8 @@ paths:
       tags:
       - Contract Templates
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -8872,6 +9195,8 @@ paths:
       tags:
       - Contract Templates
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -8923,6 +9248,8 @@ paths:
       tags:
       - Contracts
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -8982,6 +9309,8 @@ paths:
       tags:
       - Contracts
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -9033,6 +9362,8 @@ paths:
       tags:
       - Contracts
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -9082,6 +9413,8 @@ paths:
       tags:
       - Contracts
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -9137,6 +9470,8 @@ paths:
       tags:
       - Contracts
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -9199,6 +9534,8 @@ paths:
       tags:
       - Contracts
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -9277,6 +9614,8 @@ paths:
       tags:
       - Contracts
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -10099,6 +10438,8 @@ paths:
       tags:
       - Deployed Contracts
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -10168,6 +10509,8 @@ paths:
       tags:
       - Deployed Contracts
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -10231,6 +10574,8 @@ paths:
       tags:
       - Deployed Contracts
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -10298,6 +10643,8 @@ paths:
       tags:
       - Deployed Contracts
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -10362,6 +10709,8 @@ paths:
       tags:
       - Deployed Contracts
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -10492,6 +10841,8 @@ paths:
       tags:
       - Earn
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -10605,6 +10956,8 @@ paths:
       tags:
       - Earn
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -10701,6 +11054,8 @@ paths:
       tags:
       - Earn
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -10823,6 +11178,8 @@ paths:
       tags:
       - Earn
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -10970,6 +11327,8 @@ paths:
       tags:
       - Earn
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -11096,6 +11455,8 @@ paths:
       tags:
       - Earn
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -11202,6 +11563,8 @@ paths:
       tags:
       - Earn
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -11400,6 +11763,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -11459,6 +11824,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -11509,6 +11876,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -11571,6 +11940,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -11636,6 +12007,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -11747,6 +12120,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -11825,6 +12200,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -11910,6 +12287,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -12026,6 +12405,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -12159,6 +12540,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -12233,6 +12616,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -12320,6 +12705,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: async
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -12389,6 +12776,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -12444,6 +12833,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -12552,6 +12943,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -12619,6 +13012,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -12685,6 +13080,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -12766,6 +13163,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -12869,6 +13268,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -12931,6 +13332,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -12999,6 +13402,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -13074,6 +13479,8 @@ paths:
       tags:
       - Embedded Wallets
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -13177,6 +13584,8 @@ paths:
       tags:
       - Exchange accounts
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -13237,6 +13646,8 @@ paths:
       tags:
       - Exchange accounts
       x-rate-limit-category: external_query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -13302,6 +13713,8 @@ paths:
       tags:
       - Exchange accounts
       x-rate-limit-category: external_query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -13383,6 +13796,8 @@ paths:
       tags:
       - Exchange accounts
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -13460,6 +13875,8 @@ paths:
       tags:
       - Exchange accounts
       x-rate-limit-category: high_compute
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -13509,6 +13926,8 @@ paths:
       tags:
       - Exchange accounts
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -13580,6 +13999,8 @@ paths:
       tags:
       - Exchange accounts
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -13641,6 +14062,8 @@ paths:
       tags:
       - External wallets
       x-rate-limit-category: external_query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -13712,6 +14135,8 @@ paths:
       tags:
       - External wallets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -13771,6 +14196,8 @@ paths:
       tags:
       - External wallets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -13827,6 +14254,8 @@ paths:
       tags:
       - External wallets
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -13888,6 +14317,8 @@ paths:
       tags:
       - External wallets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -13959,6 +14390,8 @@ paths:
       tags:
       - External wallets
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -14047,6 +14480,8 @@ paths:
       tags:
       - External wallets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -14127,6 +14562,8 @@ paths:
       tags:
       - External wallets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -14182,6 +14619,8 @@ paths:
       tags:
       - Fiat accounts
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -14241,6 +14680,8 @@ paths:
       tags:
       - Fiat accounts
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -14312,6 +14753,8 @@ paths:
       tags:
       - Fiat accounts
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -14393,6 +14836,8 @@ paths:
       tags:
       - Fiat accounts
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -14450,6 +14895,8 @@ paths:
       tags:
       - Gas stations
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -14512,6 +14959,8 @@ paths:
       tags:
       - Gas stations
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -14583,6 +15032,8 @@ paths:
       tags:
       - Gas stations
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -14670,6 +15121,8 @@ paths:
       tags:
       - Gas stations
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -14858,6 +15311,8 @@ paths:
       tags:
       - Internal wallets
       x-rate-limit-category: high_compute
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -14918,6 +15373,8 @@ paths:
       tags:
       - Internal wallets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -14975,6 +15432,8 @@ paths:
       tags:
       - Internal wallets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -15029,6 +15488,8 @@ paths:
       tags:
       - Internal wallets
       x-rate-limit-category: external_query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -15089,6 +15550,8 @@ paths:
       tags:
       - Internal wallets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -15157,6 +15620,8 @@ paths:
       tags:
       - Internal wallets
       x-rate-limit-category: external_query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -15242,6 +15707,8 @@ paths:
       tags:
       - Internal wallets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -15324,6 +15791,8 @@ paths:
       tags:
       - Internal wallets
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -15403,6 +15872,8 @@ paths:
       tags:
       - Internal wallets
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -16439,6 +16910,8 @@ paths:
       tags:
       - Network connections
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -16523,6 +16996,8 @@ paths:
       tags:
       - Network connections
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -16582,6 +17057,8 @@ paths:
       tags:
       - Network connections
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -16634,6 +17111,8 @@ paths:
       tags:
       - Network connections
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -16704,6 +17183,8 @@ paths:
       tags:
       - Network connections
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -16764,6 +17245,8 @@ paths:
       tags:
       - Network connections
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -16870,6 +17353,8 @@ paths:
       tags:
       - Network connections
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -16923,6 +17408,8 @@ paths:
       tags:
       - Network connections
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -16975,6 +17462,8 @@ paths:
       tags:
       - Network connections
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -17032,6 +17521,8 @@ paths:
       tags:
       - Network connections
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -17094,6 +17585,8 @@ paths:
       tags:
       - Network connections
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -17155,6 +17648,8 @@ paths:
       tags:
       - Network connections
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -17202,6 +17697,8 @@ paths:
       tags:
       - Network connections
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -17298,6 +17795,8 @@ paths:
       tags:
       - Network connections
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -17443,6 +17942,8 @@ paths:
       tags:
       - NFTs
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -17577,6 +18078,8 @@ paths:
       tags:
       - NFTs
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -17803,6 +18306,8 @@ paths:
       tags:
       - NFTs
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -17903,6 +18408,8 @@ paths:
       tags:
       - NFTs
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -17979,6 +18486,8 @@ paths:
       tags:
       - NFTs
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -18057,6 +18566,8 @@ paths:
       tags:
       - NFTs
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -18134,6 +18645,8 @@ paths:
       tags:
       - NFTs
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -18234,6 +18747,8 @@ paths:
       tags:
       - NFTs
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -18287,6 +18802,8 @@ paths:
       tags:
       - NFTs
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -18352,6 +18869,8 @@ paths:
       tags:
       - NFTs
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -18413,6 +18932,8 @@ paths:
       tags:
       - Off exchanges
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -18474,6 +18995,8 @@ paths:
       tags:
       - Off exchanges
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -18531,6 +19054,8 @@ paths:
       tags:
       - Off exchanges
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -18597,6 +19122,8 @@ paths:
       tags:
       - Off exchanges
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -18652,6 +19179,8 @@ paths:
       tags:
       - Off exchanges
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -18757,6 +19286,8 @@ paths:
       tags:
       - Onchain Data
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -18822,6 +19353,8 @@ paths:
       tags:
       - Onchain Data
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -18973,6 +19506,8 @@ paths:
       tags:
       - Onchain Data
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -19096,6 +19631,8 @@ paths:
       tags:
       - Onchain Data
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -19162,6 +19699,8 @@ paths:
       tags:
       - Onchain Data
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -19225,6 +19764,8 @@ paths:
       tags:
       - Onchain Data
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -19367,6 +19908,8 @@ paths:
       tags:
       - Onchain Data
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -19500,6 +20043,8 @@ paths:
       tags:
       - Onchain Data
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -20662,6 +21207,8 @@ paths:
       tags:
       - Policy Editor V2
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -20724,6 +21271,8 @@ paths:
       tags:
       - Policy Editor V2
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -20799,6 +21348,8 @@ paths:
       tags:
       - Policy Editor V2
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -20870,6 +21421,8 @@ paths:
       tags:
       - Policy Editor V2
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -21348,6 +21901,8 @@ paths:
       tags:
       - Reset device
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -21511,6 +22066,8 @@ paths:
       tags:
       - Security Posture Management
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -21574,6 +22131,8 @@ paths:
       tags:
       - Security Posture Management
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -21650,6 +22209,8 @@ paths:
       tags:
       - Security Posture Management
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -21738,6 +22299,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -21833,6 +22396,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -21885,6 +22450,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -22065,6 +22632,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -22146,6 +22715,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: async
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -22210,6 +22781,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -22287,6 +22860,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -22370,6 +22945,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -22458,6 +23035,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -22541,6 +23120,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -22625,6 +23206,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -22709,6 +23292,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -22776,6 +23361,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -22842,6 +23429,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -22926,6 +23515,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -23022,6 +23613,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -23118,6 +23711,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -23177,6 +23772,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -23247,6 +23844,8 @@ paths:
       tags:
       - Smart Transfer
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -23336,6 +23935,8 @@ paths:
       tags:
       - Staking
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -23438,6 +24039,8 @@ paths:
       tags:
       - Staking
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -23560,6 +24163,8 @@ paths:
       tags:
       - Staking
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -23816,6 +24421,8 @@ paths:
       tags:
       - Staking
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -23945,6 +24552,8 @@ paths:
       tags:
       - Staking
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -24072,6 +24681,8 @@ paths:
       tags:
       - Staking
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -24188,6 +24799,8 @@ paths:
       tags:
       - Staking
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -24307,6 +24920,8 @@ paths:
       tags:
       - Staking
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -24423,6 +25038,8 @@ paths:
       tags:
       - Staking
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -24579,6 +25196,8 @@ paths:
       tags:
       - Staking
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -24685,6 +25304,8 @@ paths:
       tags:
       - Staking
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -24822,6 +25443,8 @@ paths:
       tags:
       - Staking
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -24930,6 +25553,8 @@ paths:
       tags:
       - Staking
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -25046,6 +25671,8 @@ paths:
       tags:
       - Staking
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -25130,6 +25757,8 @@ paths:
       tags:
       - Staking
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -25237,6 +25866,8 @@ paths:
       tags:
       - Staking
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -25357,6 +25988,8 @@ paths:
       tags:
       - Tags
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -25422,6 +26055,8 @@ paths:
       tags:
       - Tags
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -25471,6 +26106,8 @@ paths:
       tags:
       - Tags
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -25518,6 +26155,8 @@ paths:
       tags:
       - Tags
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -25584,6 +26223,8 @@ paths:
       tags:
       - Tags
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -25657,6 +26298,8 @@ paths:
       tags:
       - Tags
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -25817,6 +26460,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -25872,6 +26517,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -25945,6 +26592,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -26009,6 +26658,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -26061,6 +26712,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -26107,6 +26760,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -26165,6 +26820,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -26235,6 +26892,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -26308,6 +26967,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: async
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -26379,6 +27040,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -26458,6 +27121,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -26545,6 +27210,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -26612,6 +27279,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -26685,6 +27354,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -26773,6 +27444,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -26856,6 +27529,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -26940,6 +27615,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -27023,6 +27700,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -27135,6 +27814,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -27216,6 +27897,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -27313,6 +27996,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -27385,6 +28070,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -27451,6 +28138,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -27503,6 +28192,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -27608,6 +28299,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -27678,6 +28371,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -27826,6 +28521,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -27889,6 +28586,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -27945,6 +28644,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -28082,6 +28783,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -28210,6 +28913,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -28354,6 +29059,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -28399,6 +29106,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -28476,6 +29185,8 @@ paths:
       tags:
       - Tokenization
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -28505,6 +29216,8 @@ paths:
         Retrieve all available offers across the workspace for a given asset pair.
         Always operates in open scope — no provider or account selection required.
         Returns a mix of indicative rates and committed quotes as applicable per provider.
+
+        If `side` is omitted it defaults to `SELL`. Use `side: BOTH` to get offers for each side the provider supports in a single call; providers that support only one side return that side only. Every returned offer carries a concrete `BUY` or `SELL` side, never `BOTH`.
 
         If no slippageBps is provided, it defaults to 50 bps (0.5%).
         Slippage and settlement configuration do not affect the returned rate.
@@ -29644,6 +30357,8 @@ paths:
       description: |-
         Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.
 
+        If `side` is omitted it defaults to `SELL`. Use `side: BOTH` to get quotes for each side the provider supports in a single call; providers that support only one side return that side only. Every returned quote carries a concrete `BUY` or `SELL` side, never `BOTH`.
+
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
 
         For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
@@ -29758,6 +30473,8 @@ paths:
       description: |-
         Retrieve indicative exchange rate from specified providers for a given asset pair.
         Rates are non-executable price signals intended for discovery and display purposes.
+
+        If `side` is omitted it defaults to `SELL`. Use `side: BOTH` to get rates for each side the provider supports in a single call; providers that support only one side return that side only. Every returned rate carries a concrete `BUY` or `SELL` side, never `BOTH`.
 
         Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
@@ -29911,6 +30628,8 @@ paths:
       tags:
       - Transactions
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -30143,6 +30862,8 @@ paths:
       tags:
       - Transactions
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -30234,6 +30955,8 @@ paths:
       tags:
       - Transactions
       x-rate-limit-category: async
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -30305,6 +31028,8 @@ paths:
       tags:
       - Transactions
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -30387,6 +31112,8 @@ paths:
       tags:
       - Transactions
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -30478,6 +31205,8 @@ paths:
       tags:
       - Transactions
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -30565,6 +31294,8 @@ paths:
       tags:
       - Transactions
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -30646,6 +31377,8 @@ paths:
       tags:
       - Transactions
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -30731,6 +31464,8 @@ paths:
       tags:
       - Transactions
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -30772,6 +31507,7 @@ paths:
         This endpoint simulates a transaction which means that the system will expect to have the requested asset and balance in the specified wallet.
         **Note**: Supports all Fireblocks assets except ZCash (ZEC).
         The PROGRAM_CALL operation is not supported by this endpoint — fee estimation for Solana program calls is not available.
+        The SOROBAN_CALL operation is not supported by this endpoint - fee estimation for Stellar Soroban contract calls is not available.
         Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee).
         Endpoint Permission: Admin, Signer, Approver, Editor.
       operationId: estimateTransactionFee
@@ -30808,6 +31544,8 @@ paths:
       tags:
       - Transactions
       x-rate-limit-category: async
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -30877,6 +31615,8 @@ paths:
       tags:
       - Transactions
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -30945,6 +31685,8 @@ paths:
       tags:
       - Transactions
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -31022,6 +31764,8 @@ paths:
       tags:
       - Transactions
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -31095,6 +31839,8 @@ paths:
       tags:
       - Travel Rule
       x-rate-limit-category: async
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -31156,6 +31902,8 @@ paths:
       tags:
       - Travel Rule
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -31284,6 +32032,8 @@ paths:
       tags:
       - Travel Rule
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -31409,6 +32159,8 @@ paths:
       tags:
       - Travel Rule
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -31484,6 +32236,8 @@ paths:
       tags:
       - Travel Rule
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -31546,6 +32300,8 @@ paths:
       tags:
       - Travel Rule
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -31606,6 +32362,8 @@ paths:
       tags:
       - Travel Rule
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -31681,6 +32439,8 @@ paths:
       tags:
       - Travel Rule
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -31735,6 +32495,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -31798,6 +32560,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -31855,6 +32619,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -31906,6 +32672,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -31978,6 +32746,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -32039,6 +32809,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -32104,6 +32876,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -32174,6 +32948,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -32234,6 +33010,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -32302,6 +33080,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -32382,6 +33162,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -32450,6 +33232,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -32510,6 +33294,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -32579,6 +33365,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -32663,6 +33451,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -32741,6 +33531,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -32810,6 +33602,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -32892,6 +33686,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -32977,6 +33773,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -33042,6 +33840,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -33123,6 +33923,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -33201,6 +34003,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -33280,6 +34084,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -33346,6 +34152,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -33392,6 +34200,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -33440,6 +34250,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -33511,6 +34323,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -33588,6 +34402,8 @@ paths:
       tags:
       - TRLink
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -33940,6 +34756,8 @@ paths:
       tags:
       - Users
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -34680,6 +35498,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -34842,6 +35662,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: external_query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -34912,6 +35734,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: external_query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -34987,6 +35811,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -35065,6 +35891,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -35165,6 +35993,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -35262,6 +36092,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -35358,6 +36190,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -35509,6 +36343,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -35609,6 +36445,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -35713,6 +36551,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -35809,6 +36649,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -35905,6 +36747,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -35997,6 +36841,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: high_compute
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -36070,6 +36916,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -36106,8 +36954,7 @@ paths:
         **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getMaxSpendableAmount
       parameters:
-      - description: "The ID of the vault account, or 'default' for the default vault\
-          \ account"
+      - description: The ID of the vault account
         explode: false
         in: path
         name: vaultAccountId
@@ -36214,6 +37061,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -36297,6 +37146,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -36378,6 +37229,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -36462,6 +37315,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -36539,6 +37394,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -36618,6 +37475,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -37188,6 +38047,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: async
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -37246,6 +38107,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -37331,6 +38194,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -37460,6 +38325,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: async
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -37567,6 +38434,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -37639,6 +38508,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -37705,6 +38576,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -37850,6 +38723,8 @@ paths:
       tags:
       - Vaults
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -37997,6 +38872,8 @@ paths:
       tags:
       - Web3 connections
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -38084,6 +38961,8 @@ paths:
       tags:
       - Web3 connections
       x-rate-limit-category: high_compute
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -38156,6 +39035,8 @@ paths:
       tags:
       - Web3 connections
       x-rate-limit-category: high_compute
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -38246,6 +39127,8 @@ paths:
       tags:
       - Web3 connections
       x-rate-limit-category: high_compute
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -38308,6 +39191,8 @@ paths:
       tags:
       - Webhooks
       x-rate-limit-category: async
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -38389,6 +39274,8 @@ paths:
       tags:
       - Webhooks
       x-rate-limit-category: async
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: python
@@ -38481,6 +39368,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -38547,6 +39436,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -38613,6 +39504,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -38681,6 +39574,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -38751,6 +39646,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -38840,6 +39737,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -38897,6 +39796,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -38974,6 +39875,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -39022,6 +39925,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -39084,6 +39989,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -39176,6 +40083,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -39233,6 +40142,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -39298,6 +40209,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -39361,6 +40274,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -39412,6 +40327,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -39471,6 +40388,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: write
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -39538,6 +40457,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -39690,6 +40611,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -39766,6 +40689,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -39850,6 +40775,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: query
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -39925,6 +40852,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: async
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -40009,6 +40938,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: high_compute
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -40076,6 +41007,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -40150,6 +41083,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: async
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -40236,6 +41171,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: high_compute
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -40303,6 +41240,8 @@ paths:
       tags:
       - Webhooks V2
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -40389,6 +41328,8 @@ paths:
       tags:
       - whitelist ip addresses
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: javascript
@@ -40440,6 +41381,8 @@ paths:
       tags:
       - Workspace
       x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
       x-readme:
         code-samples:
         - language: typescript
@@ -48191,6 +49134,7 @@ components:
         * `REDEEM_FROM_COMPOUND` - Deprecated since April 1st, 2023. Older transactions may have this as their operation, in case users in the workspace have used the direct integration between Fireblocks and the Compound DeFI protocol.
         * `PROGRAM_CALL` - In Solana refers to invoking on-chain programs (smart contracts) to execute transactions and interact with the blockchain.
         * `APPROVE` - Enables the approve function for a smart contract or wallet to  withdraw from a designated wallet. [Learn more](https://support.fireblocks.io/hc/en-us/articles/4404616097426-Amount-Cap-for-Approve-transactions).
+        * `SOROBAN_CALL` - Invokes a Soroban smart contract on the Stellar blockchain.
       enum:
       - TRANSFER
       - BURN
@@ -48204,6 +49148,7 @@ components:
       - SUPPLY_TO_COMPOUND
       - PROGRAM_CALL
       - APPROVE
+      - SOROBAN_CALL
       type: string
     TransferPeerPathType:
       enum:
@@ -48224,6 +49169,7 @@ components:
       - MULTI_DESTINATION
       - OEC_PARTNER
       - WALLET_POOL
+      - SOROBAN_CONTRACT
       type: string
     TransactionTag:
       properties:
@@ -50966,6 +51912,39 @@ components:
             $ref: "#/components/schemas/TRLinkResult"
           type: array
       type: object
+    SorobanCallData:
+      description: |-
+        The Soroban contract invocation to execute, for `SOROBAN_CALL` operations.
+
+        Fireblocks decodes the submitted envelope, determines the footprint, resource fee, sequence number and authorization entries from its own simulation, and signs a transaction it rebuilt from the invocation. Only the contract invocation itself is carried through unchanged.
+      example:
+        envelopeXdr: !!binary |-
+          QUFBQUFnQUFBQURZOURzbTBsM2pHQVRFWHJQZUMwaFArRzkvNDBwK1NQamVDaThXcHhQaE5nQUFB
+          R1FBQUFBQUFBQUFBZ0FBQUFFQUFBQUFBQUFBQUFBQUFBQnFuZGxRQUFBQUFBQUFBQUVBQUFBQUFB
+          QUFHQUFBQUFBQUFBQUJDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1Fr
+          QUFBQUhaR1Z3YjNOcGRBQUFBQUFCQUFBQUNnQUFBQUFBQUFBQUFBQUFBQUMrdkNBQUFBQUFBQUFB
+          QUFBQUFBQT0=
+      properties:
+        envelopeXdr:
+          description: |-
+            A base64 encoded, unsigned Stellar `TransactionEnvelope` carrying exactly one `invokeHostFunction` operation that invokes a contract.
+
+            The API only checks that the value is present. The envelope is decoded and validated after the transaction is created, and a transaction whose envelope fails validation is not signed and ends as `FAILED`. An envelope is rejected if it carries signatures or authorization entries, a memo or a fee-bump wrapper, if its source account is not the Stellar address of the vault account, or if it has no bounded time window.
+
+            A Stellar transaction cannot exceed 132096 bytes, about 176128 base64 characters.
+          example: !!binary |-
+            QUFBQUFnQUFBQURZOURzbTBsM2pHQVRFWHJQZUMwaFArRzkvNDBwK1NQamVDaThXcHhQaE5nQUFB
+            R1FBQUFBQUFBQUFBZ0FBQUFFQUFBQUFBQUFBQUFBQUFBQnFuZGxRQUFBQUFBQUFBQUVBQUFBQUFB
+            QUFHQUFBQUFBQUFBQUJDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1Fr
+            QUFBQUhaR1Z3YjNOcGRBQUFBQUFCQUFBQUNnQUFBQUFBQUFBQUFBQUFBQUMrdkNBQUFBQUFBQUFB
+            QUFBQUFBQT0=
+          format: byte
+          maxLength: 176128
+          minLength: 1
+          type: string
+      required:
+      - envelopeXdr
+      type: object
     ExtraParameters:
       additionalProperties: true
       description: |
@@ -50975,13 +51954,22 @@ components:
 
         For `RAW` operations, add the key `rawMessageData` with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)
 
+        For `SOROBAN_CALL` operations, add the key `sorobanCallData` with the value set to an object containing `envelopeXdr` - a base64 encoded, unsigned Stellar `TransactionEnvelope` holding the contract invocation.
+
         For `CONTRACT_CALL` operations, add the key `contractCallData` with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions.
         For **exchange compliance (e.g., Binance) and Travel Rule purposes**, include the key `piiData` containing a **custom JSON structure** with Personally Identifiable Information (PII) relevant to the transaction. This data must be fully **encrypted by the sender** before being submitted to the Fireblocks API. The recommended encryption method is **hybrid encryption** using AES-256-GCM for the payload and RSA-OAEP for key exchange, with the recipient exchange's public key. [development libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks)
 
-        **Note:** `rawMessageData`, `contractCallData`, and `inputsSelection` cannot be used together in the same call.
+        **Note:** `rawMessageData`, `contractCallData`, `sorobanCallData`, and `inputsSelection` cannot be used together in the same call.
       example:
         piiData:
           key: ""
+        sorobanCallData:
+          envelopeXdr: !!binary |-
+            QUFBQUFnQUFBQURZOURzbTBsM2pHQVRFWHJQZUMwaFArRzkvNDBwK1NQamVDaThXcHhQaE5nQUFB
+            R1FBQUFBQUFBQUFBZ0FBQUFFQUFBQUFBQUFBQUFBQUFBQnFuZGxRQUFBQUFBQUFBQUVBQUFBQUFB
+            QUFHQUFBQUFBQUFBQUJDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1Fr
+            QUFBQUhaR1Z3YjNOcGRBQUFBQUFCQUFBQUNnQUFBQUFBQUFBQUFBQUFBQUMrdkNBQUFBQUFBQUFB
+            QUFBQUFBQT0=
         nodeControls:
           key: ""
         contractCallData: contractCallData
@@ -51006,6 +51994,8 @@ components:
         programCallData:
           nullable: true
           type: string
+        sorobanCallData:
+          $ref: "#/components/schemas/SorobanCallData"
         inputsSelection:
           additionalProperties: true
           nullable: true
@@ -51384,6 +52374,13 @@ components:
         extraParameters:
           piiData:
             key: ""
+          sorobanCallData:
+            envelopeXdr: !!binary |-
+              QUFBQUFnQUFBQURZOURzbTBsM2pHQVRFWHJQZUMwaFArRzkvNDBwK1NQamVDaThXcHhQaE5nQUFB
+              R1FBQUFBQUFBQUFBZ0FBQUFFQUFBQUFBQUFBQUFBQUFBQnFuZGxRQUFBQUFBQUFBQUVBQUFBQUFB
+              QUFHQUFBQUFBQUFBQUJDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1Fr
+              QUFBQUhaR1Z3YjNOcGRBQUFBQUFCQUFBQUNnQUFBQUFBQUFBQUFBQUFBQUMrdkNBQUFBQUFBQUFB
+              QUFBQUFBQT0=
           nodeControls:
             key: ""
           contractCallData: contractCallData
@@ -52386,6 +53383,8 @@ components:
         * `CONTRACT_CALL` - Calls a smart contract method for web3 operations on any EVM blockchain. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions.
         * `PROGRAM_CALL` - Execute multiple instructions on Solana blockchain. The @solana/web3.js library is recommended for building program call transactions.
 
+        * `SOROBAN_CALL` - Invokes a Soroban smart contract on the Stellar blockchain. The call is submitted as a base64-encoded, unsigned Stellar `TransactionEnvelope` in `extraParameters.sorobanCallData.envelopeXdr`, which is the same artifact a Soroban dApp hands a wallet. Fireblocks decodes the envelope, determines the footprint, resource fee, sequence number and authorization entries itself, and signs a transaction it rebuilt - the submitted envelope must therefore carry no signatures and no authorization entries. `assetId` is the fee asset (`XLM` or `XLM_TEST`), not the token being moved, and `destination` is the contract wallet or, when enabled for your workspace, a `ONE_TIME_ADDRESS` holding a Stellar contract address (`C...`). `amount` must be omitted or `0`. Fee estimation is not supported for this operation.
+
         * `TYPED_MESSAGE` - An off-chain message in either Ethereum Personal Message or EIP712 format. Use it to sign specific readable messages that are not actual transactions. [Learn more about typed messages](https://developers.fireblocks.com/docs/typed-message-signing).
         * `RAW` - An off-chain message with no predefined format. Use it to sign any message with your private key, including protocols such as blockchains and custom transaction types that are not natively supported by Fireblocks. [Learn more about raw signing transactions.](https://developers.fireblocks.com/docs/raw-message-signing)
         * `APPROVE` - Enables the approve function for a smart contract or wallet to  withdraw from a designated wallet. [Learn more](https://support.fireblocks.io/hc/en-us/articles/4404616097426-Amount-Cap-for-Approve-transactions).
@@ -52396,6 +53395,7 @@ components:
       - BURN
       - CONTRACT_CALL
       - PROGRAM_CALL
+      - SOROBAN_CALL
       - MINT
       - RAW
       - TYPED_MESSAGE
@@ -55332,6 +56332,13 @@ components:
         extraParameters:
           piiData:
             key: ""
+          sorobanCallData:
+            envelopeXdr: !!binary |-
+              QUFBQUFnQUFBQURZOURzbTBsM2pHQVRFWHJQZUMwaFArRzkvNDBwK1NQamVDaThXcHhQaE5nQUFB
+              R1FBQUFBQUFBQUFBZ0FBQUFFQUFBQUFBQUFBQUFBQUFBQnFuZGxRQUFBQUFBQUFBQUVBQUFBQUFB
+              QUFHQUFBQUFBQUFBQUJDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1Fr
+              QUFBQUhaR1Z3YjNOcGRBQUFBQUFCQUFBQUNnQUFBQUFBQUFBQUFBQUFBQUMrdkNBQUFBQUFBQUFB
+              QUFBQUFBQT0=
           nodeControls:
             key: ""
           contractCallData: contractCallData
@@ -59255,6 +60262,13 @@ components:
           extraParameters:
             piiData:
               key: ""
+            sorobanCallData:
+              envelopeXdr: !!binary |-
+                QUFBQUFnQUFBQURZOURzbTBsM2pHQVRFWHJQZUMwaFArRzkvNDBwK1NQamVDaThXcHhQaE5nQUFB
+                R1FBQUFBQUFBQUFBZ0FBQUFFQUFBQUFBQUFBQUFBQUFBQnFuZGxRQUFBQUFBQUFBQUVBQUFBQUFB
+                QUFHQUFBQUFBQUFBQUJDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1Fr
+                QUFBQUhaR1Z3YjNOcGRBQUFBQUFCQUFBQUNnQUFBQUFBQUFBQUFBQUFBQUMrdkNBQUFBQUFBQUFB
+                QUFBQUFBQT0=
             nodeControls:
               key: ""
             contractCallData: contractCallData
@@ -60577,6 +61591,13 @@ components:
           extraParameters:
             piiData:
               key: ""
+            sorobanCallData:
+              envelopeXdr: !!binary |-
+                QUFBQUFnQUFBQURZOURzbTBsM2pHQVRFWHJQZUMwaFArRzkvNDBwK1NQamVDaThXcHhQaE5nQUFB
+                R1FBQUFBQUFBQUFBZ0FBQUFFQUFBQUFBQUFBQUFBQUFBQnFuZGxRQUFBQUFBQUFBQUVBQUFBQUFB
+                QUFHQUFBQUFBQUFBQUJDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1Fr
+                QUFBQUhaR1Z3YjNOcGRBQUFBQUFCQUFBQUNnQUFBQUFBQUFBQUFBQUFBQUMrdkNBQUFBQUFBQUFB
+                QUFBQUFBQT0=
             nodeControls:
               key: ""
             contractCallData: contractCallData
@@ -71139,9 +72160,24 @@ components:
       required:
       - providerId
       type: object
+    PricingSide:
+      default: SELL
+      description: "Side to price on a quote, rate or offer request. BUY: receive\
+        \ base / pay quote; SELL: give base / receive quote; BOTH: request pricing\
+        \ for both sides at once. Providers that support only one of the sides return\
+        \ entries for that side only. BOTH is accepted on requests only, never on\
+        \ order execution requests, and responses never return it: every returned\
+        \ quote, rate or offer carries a concrete BUY or SELL. When omitted, defaults\
+        \ to SELL."
+      enum:
+      - BUY
+      - SELL
+      - BOTH
+      type: string
     RatesRequest:
       example:
         baseAssetId: BTC
+        side: SELL
         scope:
         - providerId: prov_8c3f1a4b2d6e9f7c
           accountId: acc_5e9a2d1c4b7f3e8a
@@ -71170,6 +72206,8 @@ components:
           example: "100.00"
           pattern: ^\d+(\.\d+)?$
           type: string
+        side:
+          $ref: "#/components/schemas/PricingSide"
       required:
       - baseAssetId
       - quoteAssetId
@@ -71261,9 +72299,16 @@ components:
       oneOf:
       - $ref: "#/components/schemas/AccountAccessResponse"
       - $ref: "#/components/schemas/DirectAccessResponse"
+    Side:
+      description: "BUY: receive base / pay quote; SELL: give base / receive quote."
+      enum:
+      - BUY
+      - SELL
+      type: string
     Rate:
       example:
         baseAssetId: baseAssetId
+        side: BUY
         baseAssetRail: BLOCKCHAIN
         rate: "1.2345"
         quoteAssetRail: BLOCKCHAIN
@@ -71292,6 +72337,8 @@ components:
           example: "1.2345"
           pattern: ^\d+(\.\d+)?$
           type: string
+        side:
+          $ref: "#/components/schemas/Side"
       required:
       - baseAssetId
       - quoteAssetId
@@ -71324,6 +72371,7 @@ components:
       example:
         rates:
         - baseAssetId: baseAssetId
+          side: BUY
           baseAssetRail: BLOCKCHAIN
           rate: "1.2345"
           quoteAssetRail: BLOCKCHAIN
@@ -71333,6 +72381,7 @@ components:
             providerId: uniswap-v3-provider
             accountId: account-123
         - baseAssetId: baseAssetId
+          side: BUY
           baseAssetRail: BLOCKCHAIN
           rate: "1.2345"
           quoteAssetRail: BLOCKCHAIN
@@ -71550,12 +72599,6 @@ components:
       - sourceAccount
       - type
       type: object
-    Side:
-      description: "BUY: receive base / pay quote; SELL: give base / receive quote."
-      enum:
-      - BUY
-      - SELL
-      type: string
     PersonalEntityTypeEnum:
       enum:
       - INDIVIDUAL
@@ -71902,7 +72945,7 @@ components:
         settlement:
           $ref: "#/components/schemas/DVPSettlement"
         side:
-          $ref: "#/components/schemas/Side"
+          $ref: "#/components/schemas/PricingSide"
         participantsIdentification:
           $ref: "#/components/schemas/ParticipantsIdentification"
       required:
@@ -71910,7 +72953,6 @@ components:
       - baseAssetId
       - quoteAssetId
       - scope
-      - side
       type: object
     ExecutionStepType:
       enum:
@@ -72148,7 +73190,7 @@ components:
       example:
         baseAssetId: BTC
         slippageBps: 801
-        side: BUY
+        side: SELL
         baseAssetRail: BLOCKCHAIN
         quoteAssetRail: BLOCKCHAIN
         quoteAssetId: USD
@@ -72189,12 +73231,11 @@ components:
         settlement:
           $ref: "#/components/schemas/DVPSettlement"
         side:
-          $ref: "#/components/schemas/Side"
+          $ref: "#/components/schemas/PricingSide"
       required:
       - baseAmount
       - baseAssetId
       - quoteAssetId
-      - side
       type: object
     RateOfferType:
       properties:
@@ -72214,6 +73255,7 @@ components:
       example:
         baseAssetId: baseAssetId
         offerType: RATE
+        side: BUY
         baseAssetRail: BLOCKCHAIN
         rate: "1.2345"
         quoteAssetRail: BLOCKCHAIN
@@ -72251,6 +73293,7 @@ components:
         offers:
         - baseAssetId: baseAssetId
           offerType: RATE
+          side: BUY
           baseAssetRail: BLOCKCHAIN
           rate: "1.2345"
           quoteAssetRail: BLOCKCHAIN
@@ -72261,6 +73304,7 @@ components:
             accountId: account-123
         - baseAssetId: baseAssetId
           offerType: RATE
+          side: BUY
           baseAssetRail: BLOCKCHAIN
           rate: "1.2345"
           quoteAssetRail: BLOCKCHAIN
@@ -75332,6 +76376,26 @@ components:
       - proofOfOwnershipAvailable
       - travelRuleProviders
       type: object
+    AddressRegistryCustomerRegistryResponse:
+      description: "Your customer's organization-wide address registry default. Workspaces\
+        \ without their own setting use this value. GET, POST (opt in), and DELETE\
+        \ (opt out) all return this object."
+      example:
+        status: NOT_SET
+      properties:
+        status:
+          description: "`NOT_SET`, `OPTED_IN`, or `OPTED_OUT`. On GET, `NOT_SET` means\
+            \ no default has been chosen yet. On POST or DELETE, returns `OPTED_IN`\
+            \ or `OPTED_OUT` after a successful change."
+          enum:
+          - NOT_SET
+          - OPTED_IN
+          - OPTED_OUT
+          example: NOT_SET
+          type: string
+      required:
+      - status
+      type: object
     AddressRegistryCreateProofOfOwnershipRequest:
       description: Request body for creating an Address Registry Proof of Ownership
         PDF export.
@@ -75445,13 +76509,18 @@ components:
       - valid
       type: object
     AddressRegistryTenantRegistryResponse:
-      description: "Workspace participation in the address registry. Same shape for\
-        \ GET, POST (opt in), and DELETE (opt out)."
+      description: "Whether this workspace uses the address registry. GET, POST (opt\
+        \ in), and DELETE (opt out) all return this object. On GET, if this workspace\
+        \ has no explicit choice, `status` follows the customer default when one is\
+        \ set, otherwise the workspace is opted in by default."
       example:
         status: OPTED_IN
       properties:
         status:
-          description: OPTED_IN or OPTED_OUT.
+          description: "`OPTED_IN` or `OPTED_OUT`. On GET, uses the customer default\
+            \ when this workspace has no setting of its own and the customer has made\
+            \ an explicit choice; is `OPTED_IN` when neither is set. On POST or DELETE,\
+            \ reflects the choice you just made for this workspace."
           enum:
           - OPTED_IN
           - OPTED_OUT

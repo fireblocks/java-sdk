@@ -122,7 +122,9 @@ public class TransactionsApiTest {
      * a transaction which means that the system will expect to have the requested asset and balance
      * in the specified wallet. **Note**: Supports all Fireblocks assets except ZCash (ZEC). The
      * PROGRAM_CALL operation is not supported by this endpoint — fee estimation for Solana program
-     * calls is not available. Learn more about Fireblocks Fee Management in the following
+     * calls is not available. The SOROBAN_CALL operation is not supported by this endpoint - fee
+     * estimation for Stellar Soroban contract calls is not available. Learn more about Fireblocks
+     * Fee Management in the following
      * [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint
      * Permission: Admin, Signer, Approver, Editor.
      */

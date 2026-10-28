@@ -48,4 +48,10 @@ class RatesRequestTest {
     void baseAmountTest() {
         // TODO: test baseAmount
     }
+
+    /** Test the property 'side' */
+    @Test
+    void sideTest() {
+        // TODO: test side
+    }
 }

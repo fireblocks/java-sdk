@@ -29,5 +29,7 @@
 
 * `APPROVE` (value: `"APPROVE"`)
 
+* `SOROBAN_CALL` (value: `"SOROBAN_CALL"`)
+
 
 

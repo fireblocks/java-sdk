@@ -60,4 +60,10 @@ class RateTest {
     void rateTest() {
         // TODO: test rate
     }
+
+    /** Test the property 'side' */
+    @Test
+    void sideTest() {
+        // TODO: test side
+    }
 }
