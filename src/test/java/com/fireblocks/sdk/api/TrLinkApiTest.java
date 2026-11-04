@@ -138,8 +138,11 @@ public class TrLinkApiTest {
     /**
      * Manual decision for missing TRM
      *
-     * <p>Accept or reject destinations stuck in NoTRM step without waiting for TRP webhook or
-     * policy timeout.
+     * <p>Accept or reject destinations waiting for a Travel Rule message (missing TRM), without
+     * waiting for a TRP webhook or the missing-TRM policy timeout. You can submit before a
+     * destination enters the missing-TRM wait; if it can&#39;t be updated immediately, the decision
+     * is applied on the next processing attempt instead (status ACCEPTED). Check &#x60;status&#x60;
+     * in the response to see whether the decision has been applied.
      */
     @Test
     public void createTRLinkManualDecisionTest() {
@@ -257,6 +260,20 @@ public class TrLinkApiTest {
         UUID customerIntegrationId = null;
         CompletableFuture<ApiResponse<TRLinkPublicKeyResponse>> response =
                 api.getTRLinkIntegrationPublicKey(customerIntegrationId);
+    }
+
+    /**
+     * Get manual decision for missing TRM
+     *
+     * <p>Returns the current manual missing-TRM decision for a transaction. Use to follow a
+     * decision that is not yet applied, or to check status at any time.
+     */
+    @Test
+    public void getTRLinkManualDecisionTest() {
+        UUID customerIntegrationId = null;
+        UUID txId = null;
+        CompletableFuture<ApiResponse<TRLinkManualDecisionResponse>> response =
+                api.getTRLinkManualDecision(customerIntegrationId, txId);
     }
 
     /**

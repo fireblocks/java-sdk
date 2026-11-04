@@ -52,7 +52,13 @@ public final class LifecycleWarning {
     /** Dedicated child namespace, so these can be muted on their own. */
     public static final String LOGGER_NAME = "com.fireblocks.sdk.lifecycle";
 
-    public static final String BETA_STATE = "beta";
+    public static final String EA_STATE = "ea";
+    /**
+     * @deprecated Use {@link #EA_STATE}. The beta lifecycle state was renamed to ea and no longer
+     *     warns.
+     */
+    @Deprecated public static final String BETA_STATE = "beta";
+
     public static final String DEPRECATED_STATE = "deprecated";
     public static final String CLOSED_STATE = "closed";
 
@@ -63,7 +69,7 @@ public final class LifecycleWarning {
     public static final int GONE_STATUS = 410;
 
     private static final Set<String> WARNING_STATES =
-            new HashSet<>(Arrays.asList("beta", "deprecated", "closed"));
+            new HashSet<>(Arrays.asList(EA_STATE, "deprecated", "closed"));
 
     private static final String REL_DEPRECATION = "deprecation";
     private static final String REL_SUCCESSOR_VERSION = "successor-version";
@@ -133,11 +139,11 @@ public final class LifecycleWarning {
             return null;
         }
 
-        if (BETA_STATE.equals(state)) {
+        if (EA_STATE.equals(state)) {
             return "Operation '"
                     + operationId
-                    + "' is in 'beta' lifecycle state and is not generally available."
-                    + " It may change or be removed without notice.";
+                    + "' is in EA (Early Availability) and is not generally available."
+                    + " It may change or break before it reaches GA.";
         }
 
         if (CLOSED_STATE.equals(state)) {

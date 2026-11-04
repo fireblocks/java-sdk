@@ -21,7 +21,9 @@ import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** Request to manually accept or reject destinations stuck in NoTRM status */
+/**
+ * Request to manually accept or reject destinations waiting for a Travel Rule message (missing TRM)
+ */
 @JsonPropertyOrder({
     TRLinkManualDecisionRequest.JSON_PROPERTY_ACTION,
     TRLinkManualDecisionRequest.JSON_PROPERTY_REASON

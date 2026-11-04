@@ -51,7 +51,7 @@ public class Fireblocks {
     private ContractInteractionsApi contractInteractions;
     private ContractTemplatesApi contractTemplates;
     private ContractsApi contracts;
-    private CosignersBetaApi cosignersBeta;
+    private CosignersApi cosigners;
     private DeployedContractsApi deployedContracts;
     private EarnApi earn;
     private EmbeddedWalletsApi embeddedWallets;
@@ -61,8 +61,8 @@ public class Fireblocks {
     private GasStationsApi gasStations;
     private GenieBetaApi genieBeta;
     private InternalWalletsApi internalWallets;
-    private KeyLinkBetaApi keyLinkBeta;
-    private KeysBetaApi keysBeta;
+    private KeyLinkApi keyLink;
+    private KeysApi keys;
     private NetworkConnectionsApi networkConnections;
     private NftsApi nfts;
     private OffExchangesApi offExchanges;
@@ -338,11 +338,11 @@ public class Fireblocks {
         return contracts;
     }
 
-    public CosignersBetaApi cosignersBeta() {
-        if (cosignersBeta == null) {
-            cosignersBeta = new CosignersBetaApi(apiClient);
+    public CosignersApi cosigners() {
+        if (cosigners == null) {
+            cosigners = new CosignersApi(apiClient);
         }
-        return cosignersBeta;
+        return cosigners;
     }
 
     public DeployedContractsApi deployedContracts() {
@@ -408,18 +408,18 @@ public class Fireblocks {
         return internalWallets;
     }
 
-    public KeyLinkBetaApi keyLinkBeta() {
-        if (keyLinkBeta == null) {
-            keyLinkBeta = new KeyLinkBetaApi(apiClient);
+    public KeyLinkApi keyLink() {
+        if (keyLink == null) {
+            keyLink = new KeyLinkApi(apiClient);
         }
-        return keyLinkBeta;
+        return keyLink;
     }
 
-    public KeysBetaApi keysBeta() {
-        if (keysBeta == null) {
-            keysBeta = new KeysBetaApi(apiClient);
+    public KeysApi keys() {
+        if (keys == null) {
+            keys = new KeysApi(apiClient);
         }
-        return keysBeta;
+        return keys;
     }
 
     public NetworkConnectionsApi networkConnections() {

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -106,25 +107,25 @@ public class LifecycleWarningTest {
     @Test
     public void emitsOneWarningForNonGaState() {
         assumeSuppressionNotSet();
-        warn(state("beta"), "createTransaction");
+        warn(state("ea"), "createTransaction");
         Assert.assertEquals(1, records.size());
         Assert.assertTrue(records.get(0).getMessage().contains("createTransaction"));
-        Assert.assertTrue(records.get(0).getMessage().contains("beta"));
+        Assert.assertTrue(records.get(0).getMessage().contains("EA (Early Availability)"));
         Assert.assertEquals(Level.WARNING, records.get(0).getLevel());
     }
 
     @Test
     public void emitsPerExecutionNotOncePerOperation() {
         assumeSuppressionNotSet();
-        warn(state("beta"), "createTransaction");
-        warn(state("beta"), "createTransaction");
+        warn(state("ea"), "createTransaction");
+        warn(state("ea"), "createTransaction");
         Assert.assertEquals(2, records.size());
     }
 
     @Test
     public void emitsForEachDistinctOperation() {
         assumeSuppressionNotSet();
-        warn(state("beta"), "createTransaction");
+        warn(state("ea"), "createTransaction");
         LifecycleWarning.warn(state("closed"), "getVaultAccount", 200);
         Assert.assertEquals(2, records.size());
     }
@@ -132,11 +133,20 @@ public class LifecycleWarningTest {
     // --- silence ------------------------------------------------------------
 
     @Test
+    @SuppressWarnings("deprecation")
+    public void deprecatedBetaStateAliasNeverWarns() {
+        Assert.assertEquals("beta", LifecycleWarning.BETA_STATE);
+        Assert.assertNull(buildMessage(state(LifecycleWarning.BETA_STATE), "op"));
+        Assert.assertNotNull(buildMessage(state(LifecycleWarning.EA_STATE), "op"));
+    }
+
+    @Test
     public void staysSilentForGaAndUnrecognisedStates() {
         String[] silent = {
             "ga",
             "internal",
             "unlisted",
+            "beta",
             "private_beta",
             "quantum_preview",
             "",
@@ -158,8 +168,8 @@ public class LifecycleWarningTest {
 
     @Test
     public void staysSilentWithoutAnOperationId() {
-        warn(state("beta"), null);
-        warn(state("beta"), "");
+        warn(state("ea"), null);
+        warn(state("ea"), "");
         Assert.assertTrue(records.isEmpty());
     }
 
@@ -181,15 +191,16 @@ public class LifecycleWarningTest {
     @Test
     public void headerNameLookupIsCaseInsensitive() {
         Map<String, List<String>> values = new LinkedHashMap<>();
-        values.put("fireblocks-lifecycle-state", Collections.singletonList("beta"));
+        values.put("fireblocks-lifecycle-state", Collections.singletonList("ea"));
         Assert.assertNotNull(buildMessage(headers(values), "op"));
     }
 
     @Test
-    public void rendersStateVerbatimAsSnakeCase() {
-        String message = buildMessage(state("beta"), "op");
-        Assert.assertTrue(message.contains("'beta'"));
-        Assert.assertFalse(message.contains("Private Beta"));
+    public void namesTheStateAsEa() {
+        String message = buildMessage(state("ea"), "op");
+        Assert.assertTrue(message.contains("EA (Early Availability)"));
+        Assert.assertFalse(message.contains("'ea'"));
+        Assert.assertFalse(message.toLowerCase(Locale.ROOT).contains("beta"));
     }
 
     // --- deprecated message shapes ------------------------------------------
@@ -365,32 +376,32 @@ public class LifecycleWarningTest {
     @Test
     public void mutingTheNamespaceSilencesWarnings() {
         lifecycleLogger.setLevel(Level.SEVERE);
-        warn(state("beta"), "createTransaction");
+        warn(state("ea"), "createTransaction");
         Assert.assertTrue(records.isEmpty());
     }
 
-    // --- beta wording, closed handling and HTTP status ----------------
+    // --- EA wording, closed handling and HTTP status ----------------
 
-    private static final String BETA_TEXT =
-            "Operation 'op' is in 'beta' lifecycle state and is not generally available."
-                    + " It may change or be removed without notice.";
+    private static final String EA_TEXT =
+            "Operation 'op' is in EA (Early Availability) and is not generally available."
+                    + " It may change or break before it reaches GA.";
     private static final String CLOSED_TEXT =
             "Operation 'op' has been closed and is no longer supported."
                     + " Your access is provided under a temporary exception and may be revoked."
                     + " Contact your Customer Success Manager for migration support";
 
     @Test
-    public void betaMessageText() {
-        Assert.assertEquals(BETA_TEXT, LifecycleWarning.buildMessage(state("beta"), "op", 200));
+    public void eaMessageText() {
+        Assert.assertEquals(EA_TEXT, LifecycleWarning.buildMessage(state("ea"), "op", 200));
     }
 
     @Test
-    public void betaWarnsRegardlessOfStatus() {
+    public void eaWarnsRegardlessOfStatus() {
         for (int status : new int[] {200, 400, 403, 500}) {
             Assert.assertEquals(
                     "status " + status,
-                    BETA_TEXT,
-                    LifecycleWarning.buildMessage(state("beta"), "op", status));
+                    EA_TEXT,
+                    LifecycleWarning.buildMessage(state("ea"), "op", status));
         }
     }
 

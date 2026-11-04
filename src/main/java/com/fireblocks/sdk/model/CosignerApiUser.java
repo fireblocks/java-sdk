@@ -23,16 +23,16 @@ import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
 
-/** ApiKey */
+/** CosignerApiUser */
 @JsonPropertyOrder({
-    ApiKey.JSON_PROPERTY_ID,
-    ApiKey.JSON_PROPERTY_LAST_SEEN,
-    ApiKey.JSON_PROPERTY_CALLBACK_HANDLER
+    CosignerApiUser.JSON_PROPERTY_ID,
+    CosignerApiUser.JSON_PROPERTY_LAST_SEEN,
+    CosignerApiUser.JSON_PROPERTY_CALLBACK_HANDLER
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class ApiKey {
+public class CosignerApiUser {
     public static final String JSON_PROPERTY_ID = "id";
     @jakarta.annotation.Nonnull private UUID id;
 
@@ -42,20 +42,20 @@ public class ApiKey {
     public static final String JSON_PROPERTY_CALLBACK_HANDLER = "callbackHandler";
     @jakarta.annotation.Nullable private CallbackHandler callbackHandler;
 
-    public ApiKey() {}
+    public CosignerApiUser() {}
 
     @JsonCreator
-    public ApiKey(@JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id) {
+    public CosignerApiUser(@JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id) {
         this.id = id;
     }
 
-    public ApiKey id(@jakarta.annotation.Nonnull UUID id) {
+    public CosignerApiUser id(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
         return this;
     }
 
     /**
-     * The unique identifier of the API key
+     * The unique identifier of the API user
      *
      * @return id
      */
@@ -72,13 +72,13 @@ public class ApiKey {
         this.id = id;
     }
 
-    public ApiKey lastSeen(@jakarta.annotation.Nullable OffsetDateTime lastSeen) {
+    public CosignerApiUser lastSeen(@jakarta.annotation.Nullable OffsetDateTime lastSeen) {
         this.lastSeen = lastSeen;
         return this;
     }
 
     /**
-     * The date the API key was last seen
+     * The date the API user was last seen
      *
      * @return lastSeen
      */
@@ -95,7 +95,8 @@ public class ApiKey {
         this.lastSeen = lastSeen;
     }
 
-    public ApiKey callbackHandler(@jakarta.annotation.Nullable CallbackHandler callbackHandler) {
+    public CosignerApiUser callbackHandler(
+            @jakarta.annotation.Nullable CallbackHandler callbackHandler) {
         this.callbackHandler = callbackHandler;
         return this;
     }
@@ -118,7 +119,7 @@ public class ApiKey {
         this.callbackHandler = callbackHandler;
     }
 
-    /** Return true if this ApiKey object is equal to o. */
+    /** Return true if this CosignerApiUser object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -127,10 +128,10 @@ public class ApiKey {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ApiKey apiKey = (ApiKey) o;
-        return Objects.equals(this.id, apiKey.id)
-                && Objects.equals(this.lastSeen, apiKey.lastSeen)
-                && Objects.equals(this.callbackHandler, apiKey.callbackHandler);
+        CosignerApiUser cosignerApiUser = (CosignerApiUser) o;
+        return Objects.equals(this.id, cosignerApiUser.id)
+                && Objects.equals(this.lastSeen, cosignerApiUser.lastSeen)
+                && Objects.equals(this.callbackHandler, cosignerApiUser.callbackHandler);
     }
 
     @Override
@@ -141,7 +142,7 @@ public class ApiKey {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class ApiKey {\n");
+        sb.append("class CosignerApiUser {\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    lastSeen: ").append(toIndentedString(lastSeen)).append("\n");
         sb.append("    callbackHandler: ").append(toIndentedString(callbackHandler)).append("\n");

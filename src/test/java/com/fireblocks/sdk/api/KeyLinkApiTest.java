@@ -33,11 +33,11 @@ import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
 
-/** API tests for KeyLinkBetaApi */
+/** API tests for KeyLinkApi */
 @Ignore
-public class KeyLinkBetaApiTest {
+public class KeyLinkApiTest {
 
-    private final KeyLinkBetaApi api = new KeyLinkBetaApi();
+    private final KeyLinkApi api = new KeyLinkApi();
 
     /**
      * Register signing keys in bulk
@@ -91,8 +91,9 @@ public class KeyLinkBetaApiTest {
     /**
      * Disables a validation key
      *
-     * <p>Allows disabling validation key even if it has not expired yet. It is not allowed to
-     * enable the validation key back. Another key has to be used for future validations.
+     * <p>DEPRECATED - Please use &#x60;POST /key_link/validation_keys/{keyId}/revoke&#x60; instead.
+     * Allows disabling validation key even if it has not expired yet. It is not allowed to enable
+     * the validation key back. Another key has to be used for future validations.
      */
     @Test
     public void disableValidationKeyTest() {
@@ -186,7 +187,8 @@ public class KeyLinkBetaApiTest {
     /**
      * Get list of registered validation keys
      *
-     * <p>Returns the list of validation keys in the workspace
+     * <p>Returns the list of validation keys in the workspace. By default, revoked keys are
+     * filtered out. Use &#x60;includeRevoked&#x3D;true&#x60; to show all keys.
      */
     @Test
     public void getValidationKeysListTest() {
@@ -194,8 +196,23 @@ public class KeyLinkBetaApiTest {
         BigDecimal pageSize = null;
         String sortBy = null;
         String order = null;
+        Boolean includeRevoked = null;
         CompletableFuture<ApiResponse<GetValidationKeyResponseDto>> response =
-                api.getValidationKeysList(pageCursor, pageSize, sortBy, order);
+                api.getValidationKeysList(pageCursor, pageSize, sortBy, order, includeRevoked);
+    }
+
+    /**
+     * Revokes a validation key
+     *
+     * <p>Revokes a validation key, making it permanently unusable for validation. Once revoked, a
+     * key cannot be un-revoked. Another key has to be used for future validations.
+     */
+    @Test
+    public void revokeValidationKeyTest() {
+        String keyId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<ValidationKeyDto>> response =
+                api.revokeValidationKey(keyId, idempotencyKey);
     }
 
     /**

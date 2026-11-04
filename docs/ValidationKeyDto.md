@@ -12,6 +12,8 @@
 |**daysTillExpired** | **BigDecimal** |  |  |
 |**enabled** | **Boolean** | True if the validation key is enabled. |  |
 |**createdAt** | **BigDecimal** | Creation date (timestamp) in milliseconds. |  |
+|**expirationTime** | **BigDecimal** | Expiration date (Unix timestamp) in milliseconds. |  |
+|**revoked** | **Boolean** | True if the validation key is revoked. |  |
 
 
 

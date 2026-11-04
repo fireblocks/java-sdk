@@ -579,7 +579,10 @@ public class VaultsApi {
      * Bulk creation of new vault accounts Create multiple vault accounts by running an async job. -
      * The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are
      * currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts
-     * per operation. **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * per operation. - With &#x60;vaultType: KEY_LINK&#x60;, creates Key Link vault accounts; set
+     * &#x60;autoAssign: true&#x60; to bind them to the workspace&#39;s signing keys (see
+     * &#x60;vaultType&#x60; and &#x60;autoAssign&#x60;). **Endpoint Permissions:** Admin,
+     * Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param createMultipleAccountsRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple

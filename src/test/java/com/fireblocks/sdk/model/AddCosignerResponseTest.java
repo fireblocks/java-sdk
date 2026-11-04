@@ -25,10 +25,10 @@ class AddCosignerResponseTest {
         // TODO: test AddCosignerResponse
     }
 
-    /** Test the property 'apiKeyId' */
+    /** Test the property 'apiUserId' */
     @Test
-    void apiKeyIdTest() {
-        // TODO: test apiKeyId
+    void apiUserIdTest() {
+        // TODO: test apiUserId
     }
 
     /** Test the property 'name' */

@@ -19,18 +19,17 @@ import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
 
-/** API tests for KeysBetaApi */
+/** API tests for KeysApi */
 @Ignore
-public class KeysBetaApiTest {
+public class KeysApiTest {
 
-    private final KeysBetaApi api = new KeysBetaApi();
+    private final KeysApi api = new KeysApi();
 
     /**
      * Get list of mpc keys
      *
      * <p>Returns a list of MPC signing keys of the workspace. For each key, the list of players
-     * associated with it is attached. **Note:** This endpoint is currently in beta and might be
-     * subject to changes.
+     * associated with it is attached.
      */
     @Test
     public void getMpcKeysListTest() {
@@ -41,8 +40,7 @@ public class KeysBetaApiTest {
      * Get list of mpc keys by &#x60;userId&#x60;
      *
      * <p>Returns a list of MPC signing keys of a specific user. For each key, the list of players
-     * associated with it is attached. **Note:** This endpoint is currently in beta and might be
-     * subject to changes.
+     * associated with it is attached.
      */
     @Test
     public void getMpcKeysListByUserTest() {

@@ -24,7 +24,7 @@ import java.util.UUID;
 
 /** AddCosignerRequest */
 @JsonPropertyOrder({
-    AddCosignerRequest.JSON_PROPERTY_API_KEY_ID,
+    AddCosignerRequest.JSON_PROPERTY_API_USER_ID,
     AddCosignerRequest.JSON_PROPERTY_NAME,
     AddCosignerRequest.JSON_PROPERTY_EXISTING_COSIGNER
 })
@@ -32,8 +32,8 @@ import java.util.UUID;
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class AddCosignerRequest {
-    public static final String JSON_PROPERTY_API_KEY_ID = "apiKeyId";
-    @jakarta.annotation.Nonnull private UUID apiKeyId;
+    public static final String JSON_PROPERTY_API_USER_ID = "apiUserId";
+    @jakarta.annotation.Nonnull private UUID apiUserId;
 
     public static final String JSON_PROPERTY_NAME = "name";
     @jakarta.annotation.Nonnull private String name;
@@ -45,33 +45,33 @@ public class AddCosignerRequest {
 
     @JsonCreator
     public AddCosignerRequest(
-            @JsonProperty(value = JSON_PROPERTY_API_KEY_ID, required = true) UUID apiKeyId,
+            @JsonProperty(value = JSON_PROPERTY_API_USER_ID, required = true) UUID apiUserId,
             @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name) {
-        this.apiKeyId = apiKeyId;
+        this.apiUserId = apiUserId;
         this.name = name;
     }
 
-    public AddCosignerRequest apiKeyId(@jakarta.annotation.Nonnull UUID apiKeyId) {
-        this.apiKeyId = apiKeyId;
+    public AddCosignerRequest apiUserId(@jakarta.annotation.Nonnull UUID apiUserId) {
+        this.apiUserId = apiUserId;
         return this;
     }
 
     /**
-     * The id of the API key to be paired with the cosigner
+     * The id of the API user to be paired with the cosigner
      *
-     * @return apiKeyId
+     * @return apiUserId
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_API_KEY_ID)
+    @JsonProperty(JSON_PROPERTY_API_USER_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public UUID getApiKeyId() {
-        return apiKeyId;
+    public UUID getApiUserId() {
+        return apiUserId;
     }
 
-    @JsonProperty(JSON_PROPERTY_API_KEY_ID)
+    @JsonProperty(JSON_PROPERTY_API_USER_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setApiKeyId(@jakarta.annotation.Nonnull UUID apiKeyId) {
-        this.apiKeyId = apiKeyId;
+    public void setApiUserId(@jakarta.annotation.Nonnull UUID apiUserId) {
+        this.apiUserId = apiUserId;
     }
 
     public AddCosignerRequest name(@jakarta.annotation.Nonnull String name) {
@@ -131,21 +131,21 @@ public class AddCosignerRequest {
             return false;
         }
         AddCosignerRequest addCosignerRequest = (AddCosignerRequest) o;
-        return Objects.equals(this.apiKeyId, addCosignerRequest.apiKeyId)
+        return Objects.equals(this.apiUserId, addCosignerRequest.apiUserId)
                 && Objects.equals(this.name, addCosignerRequest.name)
                 && Objects.equals(this.existingCosigner, addCosignerRequest.existingCosigner);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(apiKeyId, name, existingCosigner);
+        return Objects.hash(apiUserId, name, existingCosigner);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class AddCosignerRequest {\n");
-        sb.append("    apiKeyId: ").append(toIndentedString(apiKeyId)).append("\n");
+        sb.append("    apiUserId: ").append(toIndentedString(apiUserId)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    existingCosigner: ").append(toIndentedString(existingCosigner)).append("\n");
         sb.append("}");
@@ -195,14 +195,14 @@ public class AddCosignerRequest {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `apiKeyId` to the URL query string
-        if (getApiKeyId() != null) {
+        // add `apiUserId` to the URL query string
+        if (getApiUserId() != null) {
             joiner.add(
                     String.format(
-                            "%sapiKeyId%s=%s",
+                            "%sapiUserId%s=%s",
                             prefix,
                             suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getApiKeyId()))));
+                            ApiClient.urlEncode(ApiClient.valueToString(getApiUserId()))));
         }
 
         // add `name` to the URL query string

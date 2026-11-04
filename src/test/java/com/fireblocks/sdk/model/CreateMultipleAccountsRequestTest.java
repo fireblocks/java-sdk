@@ -60,4 +60,16 @@ class CreateMultipleAccountsRequestTest {
     void tagIdsTest() {
         // TODO: test tagIds
     }
+
+    /** Test the property 'vaultType' */
+    @Test
+    void vaultTypeTest() {
+        // TODO: test vaultType
+    }
+
+    /** Test the property 'autoAssign' */
+    @Test
+    void autoAssignTest() {
+        // TODO: test autoAssign
+    }
 }

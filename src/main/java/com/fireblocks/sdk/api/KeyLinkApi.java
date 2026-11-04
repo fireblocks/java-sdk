@@ -55,7 +55,7 @@ import java.util.function.Consumer;
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class KeyLinkBetaApi {
+public class KeyLinkApi {
     private final HttpClient memberVarHttpClient;
     private final ObjectMapper memberVarObjectMapper;
     private final String memberVarBaseUri;
@@ -64,11 +64,11 @@ public class KeyLinkBetaApi {
     private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
     private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-    public KeyLinkBetaApi() {
+    public KeyLinkApi() {
         this(new ApiClient());
     }
 
-    public KeyLinkBetaApi(ApiClient apiClient) {
+    public KeyLinkApi(ApiClient apiClient) {
         memberVarHttpClient = apiClient.getHttpClient();
         memberVarObjectMapper = apiClient.getObjectMapper();
         memberVarBaseUri = apiClient.getBaseUri();
@@ -418,15 +418,18 @@ public class KeyLinkBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Disables a validation key Allows disabling validation key even if it has not expired yet. It
-     * is not allowed to enable the validation key back. Another key has to be used for future
-     * validations.
+     * Disables a validation key DEPRECATED - Please use &#x60;POST
+     * /key_link/validation_keys/{keyId}/revoke&#x60; instead. Allows disabling validation key even
+     * if it has not expired yet. It is not allowed to enable the validation key back. Another key
+     * has to be used for future validations.
      *
      * @param modifyValidationKeyDto (required)
      * @param keyId The unique identifier for the validation key provided by Fireblocks (required)
      * @return CompletableFuture&lt;ApiResponse&lt;ValidationKeyDto&gt;&gt;, which completes
      *     exceptionally with an {@link ApiException} if the API call fails
+     * @deprecated
      */
+    @Deprecated
     public CompletableFuture<ApiResponse<ValidationKeyDto>> disableValidationKey(
             ModifyValidationKeyDto modifyValidationKeyDto, String keyId) {
         try {
@@ -1021,20 +1024,29 @@ public class KeyLinkBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get list of registered validation keys Returns the list of validation keys in the workspace
+     * Get list of registered validation keys Returns the list of validation keys in the workspace.
+     * By default, revoked keys are filtered out. Use &#x60;includeRevoked&#x3D;true&#x60; to show
+     * all keys.
      *
      * @param pageCursor Cursor to the next page (optional)
      * @param pageSize Amount of results to return in the next page (optional, default to 10)
      * @param sortBy Field(s) to use for sorting (optional, default to createdAt)
      * @param order Is the order ascending or descending (optional, default to ASC)
+     * @param includeRevoked Include revoked validation keys in the response (optional, default to
+     *     false)
      * @return CompletableFuture&lt;ApiResponse&lt;GetValidationKeyResponseDto&gt;&gt;, which
      *     completes exceptionally with an {@link ApiException} if the API call fails
      */
     public CompletableFuture<ApiResponse<GetValidationKeyResponseDto>> getValidationKeysList(
-            String pageCursor, BigDecimal pageSize, String sortBy, String order) {
+            String pageCursor,
+            BigDecimal pageSize,
+            String sortBy,
+            String order,
+            Boolean includeRevoked) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    getValidationKeysListRequestBuilder(pageCursor, pageSize, sortBy, order);
+                    getValidationKeysListRequestBuilder(
+                            pageCursor, pageSize, sortBy, order, includeRevoked);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -1086,7 +1098,11 @@ public class KeyLinkBetaApi {
     }
 
     private HttpRequest.Builder getValidationKeysListRequestBuilder(
-            String pageCursor, BigDecimal pageSize, String sortBy, String order)
+            String pageCursor,
+            BigDecimal pageSize,
+            String sortBy,
+            String order,
+            Boolean includeRevoked)
             throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -1104,6 +1120,8 @@ public class KeyLinkBetaApi {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("sortBy", sortBy));
         localVarQueryParameterBaseName = "order";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+        localVarQueryParameterBaseName = "includeRevoked";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("includeRevoked", includeRevoked));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");
@@ -1120,6 +1138,97 @@ public class KeyLinkBetaApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Revokes a validation key Revokes a validation key, making it permanently unusable for
+     * validation. Once revoked, a key cannot be un-revoked. Another key has to be used for future
+     * validations.
+     *
+     * @param keyId The unique identifier for the validation key provided by Fireblocks (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;ValidationKeyDto&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<ValidationKeyDto>> revokeValidationKey(
+            String keyId, String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    revokeValidationKeyRequestBuilder(keyId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "revokeValidationKey",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "revokeValidationKey", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ValidationKeyDto>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ValidationKeyDto>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ValidationKeyDto>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder revokeValidationKeyRequestBuilder(
+            String keyId, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("revokeValidationKey", "keyId", keyId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/key_link/validation_keys/{keyId}/revoke"
+                        .replace("{keyId}", ApiClient.urlEncode(keyId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

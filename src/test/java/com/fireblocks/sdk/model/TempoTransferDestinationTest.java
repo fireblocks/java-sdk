@@ -42,4 +42,10 @@ class TempoTransferDestinationTest {
     void oneTimeAddressTest() {
         // TODO: test oneTimeAddress
     }
+
+    /** Test the property 'memo' */
+    @Test
+    void memoTest() {
+        // TODO: test memo
+    }
 }

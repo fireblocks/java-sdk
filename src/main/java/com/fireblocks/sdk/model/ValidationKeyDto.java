@@ -28,7 +28,9 @@ import java.util.StringJoiner;
     ValidationKeyDto.JSON_PROPERTY_PUBLIC_KEY_PEM,
     ValidationKeyDto.JSON_PROPERTY_DAYS_TILL_EXPIRED,
     ValidationKeyDto.JSON_PROPERTY_ENABLED,
-    ValidationKeyDto.JSON_PROPERTY_CREATED_AT
+    ValidationKeyDto.JSON_PROPERTY_CREATED_AT,
+    ValidationKeyDto.JSON_PROPERTY_EXPIRATION_TIME,
+    ValidationKeyDto.JSON_PROPERTY_REVOKED
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -49,6 +51,12 @@ public class ValidationKeyDto {
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
     @jakarta.annotation.Nonnull private BigDecimal createdAt;
 
+    public static final String JSON_PROPERTY_EXPIRATION_TIME = "expirationTime";
+    @jakarta.annotation.Nonnull private BigDecimal expirationTime;
+
+    public static final String JSON_PROPERTY_REVOKED = "revoked";
+    @jakarta.annotation.Nonnull private Boolean revoked = false;
+
     public ValidationKeyDto() {}
 
     @JsonCreator
@@ -59,12 +67,17 @@ public class ValidationKeyDto {
             @JsonProperty(value = JSON_PROPERTY_DAYS_TILL_EXPIRED, required = true)
                     BigDecimal daysTillExpired,
             @JsonProperty(value = JSON_PROPERTY_ENABLED, required = true) Boolean enabled,
-            @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = true) BigDecimal createdAt) {
+            @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = true) BigDecimal createdAt,
+            @JsonProperty(value = JSON_PROPERTY_EXPIRATION_TIME, required = true)
+                    BigDecimal expirationTime,
+            @JsonProperty(value = JSON_PROPERTY_REVOKED, required = true) Boolean revoked) {
         this.keyId = keyId;
         this.publicKeyPem = publicKeyPem;
         this.daysTillExpired = daysTillExpired;
         this.enabled = enabled;
         this.createdAt = createdAt;
+        this.expirationTime = expirationTime;
+        this.revoked = revoked;
     }
 
     public ValidationKeyDto keyId(@jakarta.annotation.Nonnull String keyId) {
@@ -183,6 +196,52 @@ public class ValidationKeyDto {
         this.createdAt = createdAt;
     }
 
+    public ValidationKeyDto expirationTime(@jakarta.annotation.Nonnull BigDecimal expirationTime) {
+        this.expirationTime = expirationTime;
+        return this;
+    }
+
+    /**
+     * Expiration date (Unix timestamp) in milliseconds.
+     *
+     * @return expirationTime
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_EXPIRATION_TIME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public BigDecimal getExpirationTime() {
+        return expirationTime;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EXPIRATION_TIME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setExpirationTime(@jakarta.annotation.Nonnull BigDecimal expirationTime) {
+        this.expirationTime = expirationTime;
+    }
+
+    public ValidationKeyDto revoked(@jakarta.annotation.Nonnull Boolean revoked) {
+        this.revoked = revoked;
+        return this;
+    }
+
+    /**
+     * True if the validation key is revoked.
+     *
+     * @return revoked
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_REVOKED)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Boolean getRevoked() {
+        return revoked;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REVOKED)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setRevoked(@jakarta.annotation.Nonnull Boolean revoked) {
+        this.revoked = revoked;
+    }
+
     /** Return true if this ValidationKeyDto object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -197,12 +256,15 @@ public class ValidationKeyDto {
                 && Objects.equals(this.publicKeyPem, validationKeyDto.publicKeyPem)
                 && Objects.equals(this.daysTillExpired, validationKeyDto.daysTillExpired)
                 && Objects.equals(this.enabled, validationKeyDto.enabled)
-                && Objects.equals(this.createdAt, validationKeyDto.createdAt);
+                && Objects.equals(this.createdAt, validationKeyDto.createdAt)
+                && Objects.equals(this.expirationTime, validationKeyDto.expirationTime)
+                && Objects.equals(this.revoked, validationKeyDto.revoked);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(keyId, publicKeyPem, daysTillExpired, enabled, createdAt);
+        return Objects.hash(
+                keyId, publicKeyPem, daysTillExpired, enabled, createdAt, expirationTime, revoked);
     }
 
     @Override
@@ -214,6 +276,8 @@ public class ValidationKeyDto {
         sb.append("    daysTillExpired: ").append(toIndentedString(daysTillExpired)).append("\n");
         sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+        sb.append("    expirationTime: ").append(toIndentedString(expirationTime)).append("\n");
+        sb.append("    revoked: ").append(toIndentedString(revoked)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -309,6 +373,26 @@ public class ValidationKeyDto {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getCreatedAt()))));
+        }
+
+        // add `expirationTime` to the URL query string
+        if (getExpirationTime() != null) {
+            joiner.add(
+                    String.format(
+                            "%sexpirationTime%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getExpirationTime()))));
+        }
+
+        // add `revoked` to the URL query string
+        if (getRevoked() != null) {
+            joiner.add(
+                    String.format(
+                            "%srevoked%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getRevoked()))));
         }
 
         return joiner.toString();

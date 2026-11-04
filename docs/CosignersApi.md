@@ -1,19 +1,19 @@
-# CosignersBetaApi
+# CosignersApi
 
 All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**addCosigner**](CosignersBetaApi.md#addCosigner) | **POST** /cosigners | Add cosigner |
-| [**getApiKey**](CosignersBetaApi.md#getApiKey) | **GET** /cosigners/{cosignerId}/api_keys/{apiKeyId} | Get API key |
-| [**getApiKeys**](CosignersBetaApi.md#getApiKeys) | **GET** /cosigners/{cosignerId}/api_keys | Get all API keys |
-| [**getCosigner**](CosignersBetaApi.md#getCosigner) | **GET** /cosigners/{cosignerId} | Get cosigner |
-| [**getCosigners**](CosignersBetaApi.md#getCosigners) | **GET** /cosigners | Get all cosigners |
-| [**getRequestStatus**](CosignersBetaApi.md#getRequestStatus) | **GET** /cosigners/{cosignerId}/api_keys/{apiKeyId}/{requestId} | Get request status |
-| [**pairApiKey**](CosignersBetaApi.md#pairApiKey) | **PUT** /cosigners/{cosignerId}/api_keys/{apiKeyId} | Pair API key |
-| [**renameCosigner**](CosignersBetaApi.md#renameCosigner) | **PATCH** /cosigners/{cosignerId} | Rename cosigner |
-| [**unpairApiKey**](CosignersBetaApi.md#unpairApiKey) | **DELETE** /cosigners/{cosignerId}/api_keys/{apiKeyId} | Unpair API key |
-| [**updateCallbackHandler**](CosignersBetaApi.md#updateCallbackHandler) | **PATCH** /cosigners/{cosignerId}/api_keys/{apiKeyId} | Update API key callback handler |
+| [**addCosigner**](CosignersApi.md#addCosigner) | **POST** /cosigners | Add cosigner |
+| [**getCosigner**](CosignersApi.md#getCosigner) | **GET** /cosigners/{cosignerId} | Get cosigner |
+| [**getCosignerApiUser**](CosignersApi.md#getCosignerApiUser) | **GET** /cosigners/{cosignerId}/api_users/{apiUserId} | Get API user |
+| [**getCosignerApiUserRequestStatus**](CosignersApi.md#getCosignerApiUserRequestStatus) | **GET** /cosigners/{cosignerId}/api_users/{apiUserId}/{requestId} | Get API user request status |
+| [**getCosignerApiUsers**](CosignersApi.md#getCosignerApiUsers) | **GET** /cosigners/{cosignerId}/api_users | Get all API users |
+| [**getCosigners**](CosignersApi.md#getCosigners) | **GET** /cosigners | Get all cosigners |
+| [**pairCosignerApiUser**](CosignersApi.md#pairCosignerApiUser) | **PUT** /cosigners/{cosignerId}/api_users/{apiUserId} | Pair API user |
+| [**renameCosigner**](CosignersApi.md#renameCosigner) | **PATCH** /cosigners/{cosignerId} | Rename cosigner |
+| [**unpairCosignerApiUser**](CosignersApi.md#unpairCosignerApiUser) | **DELETE** /cosigners/{cosignerId}/api_users/{apiUserId} | Unpair API user |
+| [**updateCosignerApiUserCallbackHandler**](CosignersApi.md#updateCosignerApiUserCallbackHandler) | **PATCH** /cosigners/{cosignerId}/api_users/{apiUserId} | Update API user callback handler |
 
 
 
@@ -23,7 +23,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Add cosigner
 
-Add a new cosigner. The cosigner will be pending pairing until the API key is manually paired Endpoint Permission: Admin and Non-Signing Admin.
+Add a new cosigner. The cosigner will be pending pairing until the API user is manually paired (see &#x60;pairCosignerApiUser&#x60;). Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 
@@ -36,7 +36,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.CosignersBetaApi;
+import com.fireblocks.sdk.api.CosignersApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -51,13 +51,13 @@ public class Example {
         AddCosignerRequest addCosignerRequest = new AddCosignerRequest(); // AddCosignerRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<AddCosignerResponse>> response = fireblocks.cosignersBeta().addCosigner(addCosignerRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<AddCosignerResponse>> response = fireblocks.cosigners().addCosigner(addCosignerRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling CosignersBetaApi#addCosigner");
+            System.err.println("Exception when calling CosignersApi#addCosigner");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -96,175 +96,13 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## getApiKey
-
-> CompletableFuture<ApiResponse<ApiKey>> getApiKey getApiKey(cosignerId, apiKeyId)
-
-Get API key
-
-Get an API key by ID. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.CosignersBetaApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        UUID cosignerId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the cosigner
-        String apiKeyId = "44fcead0-7053-4831-a53a-df7fb90d440f"; // String | The unique identifier of the API key
-        try {
-            CompletableFuture<ApiResponse<ApiKey>> response = fireblocks.cosignersBeta().getApiKey(cosignerId, apiKeyId);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-            System.out.println("Response body: " + response.get().getData());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling CosignersBetaApi#getApiKey");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **cosignerId** | **UUID**| The unique identifier of the cosigner | |
-| **apiKeyId** | **String**| The unique identifier of the API key | |
-
-### Return type
-
-CompletableFuture<ApiResponse<[**ApiKey**](ApiKey.md)>>
-
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | An ApiKey object |  * X-Request-ID -  <br>  |
-| **0** | Error Response |  * X-Request-ID -  <br>  |
-
-
-## getApiKeys
-
-> CompletableFuture<ApiResponse<ApiKeysPaginatedResponse>> getApiKeys getApiKeys(cosignerId, order, pageCursor, pageSize)
-
-Get all API keys
-
-Get all cosigner paired API keys (paginated). **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.CosignersBetaApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        UUID cosignerId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the cosigner
-        String order = "ASC"; // String | ASC / DESC ordering (default DESC)
-        String pageCursor = "pageCursor_example"; // String | Cursor of the required page
-        BigDecimal pageSize = new BigDecimal("10"); // BigDecimal | Maximum number of items in the page
-        try {
-            CompletableFuture<ApiResponse<ApiKeysPaginatedResponse>> response = fireblocks.cosignersBeta().getApiKeys(cosignerId, order, pageCursor, pageSize);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-            System.out.println("Response body: " + response.get().getData());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling CosignersBetaApi#getApiKeys");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **cosignerId** | **UUID**| The unique identifier of the cosigner | |
-| **order** | **String**| ASC / DESC ordering (default DESC) | [optional] [default to DESC] [enum: ASC, DESC] |
-| **pageCursor** | **String**| Cursor of the required page | [optional] |
-| **pageSize** | **BigDecimal**| Maximum number of items in the page | [optional] [default to 10] |
-
-### Return type
-
-CompletableFuture<ApiResponse<[**ApiKeysPaginatedResponse**](ApiKeysPaginatedResponse.md)>>
-
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | A paginated response containing ApiKey objects |  * X-Request-ID -  <br>  |
-| **0** | Error Response |  * X-Request-ID -  <br>  |
-
-
 ## getCosigner
 
 > CompletableFuture<ApiResponse<Cosigner>> getCosigner getCosigner(cosignerId)
 
 Get cosigner
 
-Get a cosigner by ID. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
+Get a cosigner by ID. Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 
@@ -277,7 +115,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.CosignersBetaApi;
+import com.fireblocks.sdk.api.CosignersApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -291,13 +129,13 @@ public class Example {
 
         UUID cosignerId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the cosigner
         try {
-            CompletableFuture<ApiResponse<Cosigner>> response = fireblocks.cosignersBeta().getCosigner(cosignerId);
+            CompletableFuture<ApiResponse<Cosigner>> response = fireblocks.cosigners().getCosigner(cosignerId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling CosignersBetaApi#getCosigner");
+            System.err.println("Exception when calling CosignersApi#getCosigner");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -335,13 +173,13 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## getCosigners
+## getCosignerApiUser
 
-> CompletableFuture<ApiResponse<CosignersPaginatedResponse>> getCosigners getCosigners(order, pageCursor, pageSize)
+> CompletableFuture<ApiResponse<CosignerApiUser>> getCosignerApiUser getCosignerApiUser(cosignerId, apiUserId)
 
-Get all cosigners
+Get API user
 
-Get all workspace cosigners (paginated). **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
+Get an API user by ID. Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 
@@ -354,7 +192,250 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.CosignersBetaApi;
+import com.fireblocks.sdk.api.CosignersApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID cosignerId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the cosigner
+        String apiUserId = "44fcead0-7053-4831-a53a-df7fb90d440f"; // String | The unique identifier of the API user
+        try {
+            CompletableFuture<ApiResponse<CosignerApiUser>> response = fireblocks.cosigners().getCosignerApiUser(cosignerId, apiUserId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling CosignersApi#getCosignerApiUser");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **cosignerId** | **UUID**| The unique identifier of the cosigner | |
+| **apiUserId** | **String**| The unique identifier of the API user | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**CosignerApiUser**](CosignerApiUser.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A CosignerApiUser object |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getCosignerApiUserRequestStatus
+
+> CompletableFuture<ApiResponse<Status>> getCosignerApiUserRequestStatus getCosignerApiUserRequestStatus(cosignerId, apiUserId, requestId)
+
+Get API user request status
+
+Get the status of an asynchronous request Endpoint Permission: Admin and Non-Signing Admin.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.CosignersApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID cosignerId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the cosigner
+        String apiUserId = "44fcead0-7053-4831-a53a-df7fb90d440f"; // String | The unique identifier of the API user
+        String requestId = "requestId_example"; // String | 
+        try {
+            CompletableFuture<ApiResponse<Status>> response = fireblocks.cosigners().getCosignerApiUserRequestStatus(cosignerId, apiUserId, requestId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling CosignersApi#getCosignerApiUserRequestStatus");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **cosignerId** | **UUID**| The unique identifier of the cosigner | |
+| **apiUserId** | **String**| The unique identifier of the API user | |
+| **requestId** | **String**|  | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**Status**](Status.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The status of the request |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getCosignerApiUsers
+
+> CompletableFuture<ApiResponse<ApiUsersPaginatedResponse>> getCosignerApiUsers getCosignerApiUsers(cosignerId, order, pageCursor, pageSize)
+
+Get all API users
+
+Get all cosigner paired API users (paginated). Endpoint Permission: Admin and Non-Signing Admin.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.CosignersApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID cosignerId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the cosigner
+        String order = "ASC"; // String | ASC / DESC ordering (default DESC)
+        String pageCursor = "pageCursor_example"; // String | Cursor of the required page
+        BigDecimal pageSize = new BigDecimal("10"); // BigDecimal | Maximum number of items in the page
+        try {
+            CompletableFuture<ApiResponse<ApiUsersPaginatedResponse>> response = fireblocks.cosigners().getCosignerApiUsers(cosignerId, order, pageCursor, pageSize);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling CosignersApi#getCosignerApiUsers");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **cosignerId** | **UUID**| The unique identifier of the cosigner | |
+| **order** | **String**| ASC / DESC ordering (default DESC) | [optional] [default to DESC] [enum: ASC, DESC] |
+| **pageCursor** | **String**| Cursor of the required page | [optional] |
+| **pageSize** | **BigDecimal**| Maximum number of items in the page | [optional] [default to 10] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**ApiUsersPaginatedResponse**](ApiUsersPaginatedResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A paginated response containing CosignerApiUser objects |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getCosigners
+
+> CompletableFuture<ApiResponse<CosignersPaginatedResponse>> getCosigners getCosigners(order, pageCursor, pageSize)
+
+Get all cosigners
+
+Get all workspace cosigners (paginated). Endpoint Permission: Admin and Non-Signing Admin.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.CosignersApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -370,13 +451,13 @@ public class Example {
         String pageCursor = "pageCursor_example"; // String | Cursor of the required page
         BigDecimal pageSize = new BigDecimal("10"); // BigDecimal | Maximum number of items in the page
         try {
-            CompletableFuture<ApiResponse<CosignersPaginatedResponse>> response = fireblocks.cosignersBeta().getCosigners(order, pageCursor, pageSize);
+            CompletableFuture<ApiResponse<CosignersPaginatedResponse>> response = fireblocks.cosigners().getCosigners(order, pageCursor, pageSize);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling CosignersBetaApi#getCosigners");
+            System.err.println("Exception when calling CosignersApi#getCosigners");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -416,94 +497,13 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## getRequestStatus
+## pairCosignerApiUser
 
-> CompletableFuture<ApiResponse<Status>> getRequestStatus getRequestStatus(cosignerId, apiKeyId, requestId)
+> CompletableFuture<ApiResponse<PairApiUserResponse>> pairCosignerApiUser pairCosignerApiUser(pairApiUserRequest, cosignerId, apiUserId, idempotencyKey)
 
-Get request status
+Pair API user
 
-Get the status of an asynchronous request Endpoint Permission: Admin and Non-Signing Admin.
-
-### Example
-
-```java
-// Import classes:
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.BasePath;
-import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.ConfigurationOptions;
-import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.CosignersBetaApi;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class Example {
-    public static void main(String[] args) {
-        ConfigurationOptions configurationOptions = new ConfigurationOptions()
-            .basePath(BasePath.Sandbox)
-            .apiKey("my-api-key")
-            .secretKey("my-secret-key");
-        Fireblocks fireblocks = new Fireblocks(configurationOptions);
-
-        UUID cosignerId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the cosigner
-        String apiKeyId = "44fcead0-7053-4831-a53a-df7fb90d440f"; // String | The unique identifier of the API key
-        String requestId = "requestId_example"; // String | 
-        try {
-            CompletableFuture<ApiResponse<Status>> response = fireblocks.cosignersBeta().getRequestStatus(cosignerId, apiKeyId, requestId);
-            System.out.println("Status code: " + response.get().getStatusCode());
-            System.out.println("Response headers: " + response.get().getHeaders());
-            System.out.println("Response body: " + response.get().getData());
-        } catch (InterruptedException | ExecutionException e) {
-            ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling CosignersBetaApi#getRequestStatus");
-            System.err.println("Status code: " + apiException.getCode());
-            System.err.println("Response headers: " + apiException.getResponseHeaders());
-            System.err.println("Reason: " + apiException.getResponseBody());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **cosignerId** | **UUID**| The unique identifier of the cosigner | |
-| **apiKeyId** | **String**| The unique identifier of the API key | |
-| **requestId** | **String**|  | |
-
-### Return type
-
-CompletableFuture<ApiResponse<[**Status**](Status.md)>>
-
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | The status of the request |  * X-Request-ID -  <br>  |
-| **0** | Error Response |  * X-Request-ID -  <br>  |
-
-
-## pairApiKey
-
-> CompletableFuture<ApiResponse<PairApiKeyResponse>> pairApiKey pairApiKey(pairApiKeyRequest, cosignerId, apiKeyId, idempotencyKey)
-
-Pair API key
-
-Pair an API key to a cosigner Endpoint Permission: Admin and Non-Signing Admin.
+Pair an API user to a cosigner Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 
@@ -516,7 +516,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.CosignersBetaApi;
+import com.fireblocks.sdk.api.CosignersApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -528,18 +528,18 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        PairApiKeyRequest pairApiKeyRequest = new PairApiKeyRequest(); // PairApiKeyRequest | 
+        PairApiUserRequest pairApiUserRequest = new PairApiUserRequest(); // PairApiUserRequest | 
         UUID cosignerId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the cosigner
-        String apiKeyId = "44fcead0-7053-4831-a53a-df7fb90d440f"; // String | The unique identifier of the API key
+        String apiUserId = "44fcead0-7053-4831-a53a-df7fb90d440f"; // String | The unique identifier of the API user
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<PairApiKeyResponse>> response = fireblocks.cosignersBeta().pairApiKey(pairApiKeyRequest, cosignerId, apiKeyId, idempotencyKey);
+            CompletableFuture<ApiResponse<PairApiUserResponse>> response = fireblocks.cosigners().pairCosignerApiUser(pairApiUserRequest, cosignerId, apiUserId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling CosignersBetaApi#pairApiKey");
+            System.err.println("Exception when calling CosignersApi#pairCosignerApiUser");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -554,14 +554,14 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **pairApiKeyRequest** | [**PairApiKeyRequest**](PairApiKeyRequest.md)|  | |
+| **pairApiUserRequest** | [**PairApiUserRequest**](PairApiUserRequest.md)|  | |
 | **cosignerId** | **UUID**| The unique identifier of the cosigner | |
-| **apiKeyId** | **String**| The unique identifier of the API key | |
+| **apiUserId** | **String**| The unique identifier of the API user | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**PairApiKeyResponse**](PairApiKeyResponse.md)>>
+CompletableFuture<ApiResponse<[**PairApiUserResponse**](PairApiUserResponse.md)>>
 
 
 ### Authorization
@@ -576,7 +576,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | The API key object to be paired |  * X-Request-ID -  <br>  * Location -  <br>  |
+| **202** | The API user object to be paired |  * X-Request-ID -  <br>  * Location -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -586,7 +586,7 @@ No authorization required
 
 Rename cosigner
 
-Rename a cosigner by ID. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
+Rename a cosigner by ID. Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 
@@ -599,7 +599,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.CosignersBetaApi;
+import com.fireblocks.sdk.api.CosignersApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -614,13 +614,13 @@ public class Example {
         RenameCosigner renameCosigner = new RenameCosigner(); // RenameCosigner | 
         UUID cosignerId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the cosigner
         try {
-            CompletableFuture<ApiResponse<Cosigner>> response = fireblocks.cosignersBeta().renameCosigner(renameCosigner, cosignerId);
+            CompletableFuture<ApiResponse<Cosigner>> response = fireblocks.cosigners().renameCosigner(renameCosigner, cosignerId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling CosignersBetaApi#renameCosigner");
+            System.err.println("Exception when calling CosignersApi#renameCosigner");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -659,13 +659,13 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## unpairApiKey
+## unpairCosignerApiUser
 
-> CompletableFuture<ApiResponse<ApiKey>> unpairApiKey unpairApiKey(cosignerId, apiKeyId)
+> CompletableFuture<ApiResponse<CosignerApiUser>> unpairCosignerApiUser unpairCosignerApiUser(cosignerId, apiUserId)
 
-Unpair API key
+Unpair API user
 
-Unpair an API key from a cosigner Endpoint Permission: Admin and Non-Signing Admin.
+Unpair an API user from a cosigner Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 
@@ -678,7 +678,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.CosignersBetaApi;
+import com.fireblocks.sdk.api.CosignersApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -691,15 +691,15 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         UUID cosignerId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the cosigner
-        String apiKeyId = "44fcead0-7053-4831-a53a-df7fb90d440f"; // String | The unique identifier of the API key
+        String apiUserId = "44fcead0-7053-4831-a53a-df7fb90d440f"; // String | The unique identifier of the API user
         try {
-            CompletableFuture<ApiResponse<ApiKey>> response = fireblocks.cosignersBeta().unpairApiKey(cosignerId, apiKeyId);
+            CompletableFuture<ApiResponse<CosignerApiUser>> response = fireblocks.cosigners().unpairCosignerApiUser(cosignerId, apiUserId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling CosignersBetaApi#unpairApiKey");
+            System.err.println("Exception when calling CosignersApi#unpairCosignerApiUser");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -715,11 +715,11 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **cosignerId** | **UUID**| The unique identifier of the cosigner | |
-| **apiKeyId** | **String**| The unique identifier of the API key | |
+| **apiUserId** | **String**| The unique identifier of the API user | |
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**ApiKey**](ApiKey.md)>>
+CompletableFuture<ApiResponse<[**CosignerApiUser**](CosignerApiUser.md)>>
 
 
 ### Authorization
@@ -734,17 +734,17 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | The API key object to be unpaired |  * X-Request-ID -  <br>  * Location -  <br>  |
+| **202** | The API user object to be unpaired |  * X-Request-ID -  <br>  * Location -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
-## updateCallbackHandler
+## updateCosignerApiUserCallbackHandler
 
-> CompletableFuture<ApiResponse<UpdateCallbackHandlerResponse>> updateCallbackHandler updateCallbackHandler(updateCallbackHandlerRequest, cosignerId, apiKeyId)
+> CompletableFuture<ApiResponse<UpdateCallbackHandlerResponse>> updateCosignerApiUserCallbackHandler updateCosignerApiUserCallbackHandler(updateCallbackHandlerRequest, cosignerId, apiUserId)
 
-Update API key callback handler
+Update API user callback handler
 
-Update the callback handler of an API key Endpoint Permission: Admin and Non-Signing Admin.
+Update the callback handler of an API user Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 
@@ -757,7 +757,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.CosignersBetaApi;
+import com.fireblocks.sdk.api.CosignersApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -771,15 +771,15 @@ public class Example {
 
         UpdateCallbackHandlerRequest updateCallbackHandlerRequest = new UpdateCallbackHandlerRequest(); // UpdateCallbackHandlerRequest | 
         UUID cosignerId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the cosigner
-        String apiKeyId = "44fcead0-7053-4831-a53a-df7fb90d440f"; // String | The unique identifier of the API key
+        String apiUserId = "44fcead0-7053-4831-a53a-df7fb90d440f"; // String | The unique identifier of the API user
         try {
-            CompletableFuture<ApiResponse<UpdateCallbackHandlerResponse>> response = fireblocks.cosignersBeta().updateCallbackHandler(updateCallbackHandlerRequest, cosignerId, apiKeyId);
+            CompletableFuture<ApiResponse<UpdateCallbackHandlerResponse>> response = fireblocks.cosigners().updateCosignerApiUserCallbackHandler(updateCallbackHandlerRequest, cosignerId, apiUserId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling CosignersBetaApi#updateCallbackHandler");
+            System.err.println("Exception when calling CosignersApi#updateCosignerApiUserCallbackHandler");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -796,7 +796,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **updateCallbackHandlerRequest** | [**UpdateCallbackHandlerRequest**](UpdateCallbackHandlerRequest.md)|  | |
 | **cosignerId** | **UUID**| The unique identifier of the cosigner | |
-| **apiKeyId** | **String**| The unique identifier of the API key | |
+| **apiUserId** | **String**| The unique identifier of the API user | |
 
 ### Return type
 
@@ -815,6 +815,6 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | The API key object with the new callback handler |  * X-Request-ID -  <br>  * Location -  <br>  |
+| **202** | The API user object with the new callback handler |  * X-Request-ID -  <br>  * Location -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 

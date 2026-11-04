@@ -1,11 +1,11 @@
-# KeysBetaApi
+# KeysApi
 
 All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**getMpcKeysList**](KeysBetaApi.md#getMpcKeysList) | **GET** /keys/mpc/list | Get list of mpc keys |
-| [**getMpcKeysListByUser**](KeysBetaApi.md#getMpcKeysListByUser) | **GET** /keys/mpc/list/{userId} | Get list of mpc keys by &#x60;userId&#x60; |
+| [**getMpcKeysList**](KeysApi.md#getMpcKeysList) | **GET** /keys/mpc/list | Get list of mpc keys |
+| [**getMpcKeysListByUser**](KeysApi.md#getMpcKeysListByUser) | **GET** /keys/mpc/list/{userId} | Get list of mpc keys by &#x60;userId&#x60; |
 
 
 
@@ -15,7 +15,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Get list of mpc keys
 
-Returns a list of MPC signing keys of the workspace. For each key, the list of players associated with it is attached. **Note:**  This endpoint is currently in beta and might be subject to changes.
+Returns a list of MPC signing keys of the workspace. For each key, the list of players associated with it is attached.
 
 ### Example
 
@@ -28,7 +28,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.KeysBetaApi;
+import com.fireblocks.sdk.api.KeysApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -41,13 +41,13 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         try {
-            CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = fireblocks.keysBeta().getMpcKeysList();
+            CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = fireblocks.keys().getMpcKeysList();
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling KeysBetaApi#getMpcKeysList");
+            System.err.println("Exception when calling KeysApi#getMpcKeysList");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -88,7 +88,7 @@ No authorization required
 
 Get list of mpc keys by &#x60;userId&#x60;
 
-Returns a list of MPC signing keys of a specific user. For each key, the list of players associated with it is attached. **Note:** This endpoint is currently in beta and might be subject to changes.
+Returns a list of MPC signing keys of a specific user. For each key, the list of players associated with it is attached.
 
 ### Example
 
@@ -101,7 +101,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.KeysBetaApi;
+import com.fireblocks.sdk.api.KeysApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -115,13 +115,13 @@ public class Example {
 
         String userId = "46a92767-5f93-4a46-9eed-f012196bb4fc"; // String | The id for the user
         try {
-            CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = fireblocks.keysBeta().getMpcKeysListByUser(userId);
+            CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = fireblocks.keys().getMpcKeysListByUser(userId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling KeysBetaApi#getMpcKeysListByUser");
+            System.err.println("Exception when calling KeysApi#getMpcKeysListByUser");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());

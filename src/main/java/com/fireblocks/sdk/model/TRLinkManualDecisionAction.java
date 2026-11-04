@@ -16,7 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Decision action for destinations in NoTRM status */
+/** Decision action for destinations waiting for a Travel Rule message (missing TRM) */
 public enum TRLinkManualDecisionAction {
     ACCEPT("ACCEPT"),
 

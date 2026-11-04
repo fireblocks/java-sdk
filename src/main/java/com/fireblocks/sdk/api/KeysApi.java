@@ -37,7 +37,7 @@ import java.util.function.Consumer;
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class KeysBetaApi {
+public class KeysApi {
     private final HttpClient memberVarHttpClient;
     private final ObjectMapper memberVarObjectMapper;
     private final String memberVarBaseUri;
@@ -46,11 +46,11 @@ public class KeysBetaApi {
     private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
     private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-    public KeysBetaApi() {
+    public KeysApi() {
         this(new ApiClient());
     }
 
-    public KeysBetaApi(ApiClient apiClient) {
+    public KeysApi(ApiClient apiClient) {
         memberVarHttpClient = apiClient.getHttpClient();
         memberVarObjectMapper = apiClient.getObjectMapper();
         memberVarBaseUri = apiClient.getBaseUri();
@@ -98,8 +98,7 @@ public class KeysBetaApi {
 
     /**
      * Get list of mpc keys Returns a list of MPC signing keys of the workspace. For each key, the
-     * list of players associated with it is attached. **Note:** This endpoint is currently in beta
-     * and might be subject to changes.
+     * list of players associated with it is attached.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;GetMpcKeysResponse&gt;&gt;, which completes
      *     exceptionally with an {@link ApiException} if the API call fails
@@ -175,8 +174,7 @@ public class KeysBetaApi {
     }
     /**
      * Get list of mpc keys by &#x60;userId&#x60; Returns a list of MPC signing keys of a specific
-     * user. For each key, the list of players associated with it is attached. **Note:** This
-     * endpoint is currently in beta and might be subject to changes.
+     * user. For each key, the list of players associated with it is attached.
      *
      * @param userId The id for the user (required)
      * @return CompletableFuture&lt;ApiResponse&lt;GetMpcKeysResponse&gt;&gt;, which completes

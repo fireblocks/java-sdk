@@ -57,8 +57,8 @@ public class ConsoleUserApiTest {
      * the quorum. - Track progress by polling GET /management/users; deletion is complete when the
      * user is disabled. - Please note that this endpoint is available only for API keys with
      * Admin/Non Signing Admin/Security Admin permissions. Endpoint Permission: Admin, Non-Signing
-     * Admin, Security Admin. **Note:** This endpoint is currently in beta and might be subject to
-     * changes.
+     * Admin, Security Admin. **Note:** This endpoint is in Early Availability (EA) and may change
+     * or break before it reaches GA.
      */
     @Test
     public void deleteConsoleUserTest() {

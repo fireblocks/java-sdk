@@ -18,6 +18,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getTRLinkCustomerIntegrations**](TrLinkApi.md#getTRLinkCustomerIntegrations) | **GET** /screening/trlink/customers/{customerId}/integrations | Get customer integrations |
 | [**getTRLinkCustomers**](TrLinkApi.md#getTRLinkCustomers) | **GET** /screening/trlink/customers | Get all customers |
 | [**getTRLinkIntegrationPublicKey**](TrLinkApi.md#getTRLinkIntegrationPublicKey) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/public_key | Get public key for PII encryption |
+| [**getTRLinkManualDecision**](TrLinkApi.md#getTRLinkManualDecision) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/transactions/{txId}/manual_decision | Get manual decision for missing TRM |
 | [**getTRLinkPartners**](TrLinkApi.md#getTRLinkPartners) | **GET** /screening/trlink/partners | List available TRSupport partners |
 | [**getTRLinkPolicy**](TrLinkApi.md#getTRLinkPolicy) | **GET** /screening/trlink/policy | Get TRLink policy |
 | [**getTRLinkSupportedAsset**](TrLinkApi.md#getTRLinkSupportedAsset) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/assets/{assetId} | Get supported asset by ID |
@@ -444,7 +445,7 @@ No authorization required
 
 Manual decision for missing TRM
 
-Accept or reject destinations stuck in NoTRM step without waiting for TRP webhook or policy timeout.
+Accept or reject destinations waiting for a Travel Rule message (missing TRM), without waiting for a TRP webhook or the missing-TRM policy timeout. You can submit before a destination enters the missing-TRM wait; if it can&#39;t be updated immediately, the decision is applied on the next processing attempt instead (status ACCEPTED). Check &#x60;status&#x60; in the response to see whether the decision has been applied.
 
 ### Example
 
@@ -517,7 +518,10 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Decision applied successfully |  -  |
+| **200** | Decision applied (status APPLIED), accepted for the next processing attempt (status ACCEPTED), or accepted early (status PRE_ACCEPTED). |  * X-Request-ID -  <br>  |
+| **404** | Customer integration not found or not owned by tenant (code 2125). |  * X-Request-ID -  <br>  |
+| **409** | Manual decision already final for this transaction (code 2127) or transaction screening already completed (code 2129). |  * X-Request-ID -  <br>  |
+| **425** | Too Early - screening has not started for this transaction yet. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -1134,6 +1138,86 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Public key retrieved successfully |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getTRLinkManualDecision
+
+> CompletableFuture<ApiResponse<TRLinkManualDecisionResponse>> getTRLinkManualDecision getTRLinkManualDecision(customerIntegrationId, txId)
+
+Get manual decision for missing TRM
+
+Returns the current manual missing-TRM decision for a transaction. Use to follow a decision that is not yet applied, or to check status at any time.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TrLinkApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID customerIntegrationId = UUID.fromString("3fa85f64-5717-4562-b3fc-2c963f66afa6"); // UUID | Customer integration unique identifier
+        UUID txId = UUID.fromString("b70701f4-d7b1-4795-a8ee-b09cdb5b850e"); // UUID | Fireblocks transaction unique identifier
+        try {
+            CompletableFuture<ApiResponse<TRLinkManualDecisionResponse>> response = fireblocks.trLink().getTRLinkManualDecision(customerIntegrationId, txId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TrLinkApi#getTRLinkManualDecision");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **customerIntegrationId** | **UUID**| Customer integration unique identifier | |
+| **txId** | **UUID**| Fireblocks transaction unique identifier | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**TRLinkManualDecisionResponse**](TRLinkManualDecisionResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Current manual decision (status APPLIED, ACCEPTED, or PRE_ACCEPTED). |  * X-Request-ID -  <br>  |
+| **404** | No manual decision for this transaction (code 2128), or customer integration not found or not owned by tenant (code 2125). |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

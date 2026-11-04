@@ -11,6 +11,7 @@ The transfer's destination. Mutually exclusive with `destinations`.
 |**type** | [**TypeEnum**](#TypeEnum) | The kind of destination. |  |
 |**id** | **String** | Required when type is VAULT_ACCOUNT or UNMANAGED_WALLET. |  [optional] |
 |**oneTimeAddress** | [**OneTimeAddress**](OneTimeAddress.md) |  |  [optional] |
+|**memo** | **String** | Tempo TIP-20 memo, sent on-chain with the transfer to this destination. Exactly 32 bytes once UTF-8 encoded.  NOTES:     - The memo is public and permanent on-chain, so do not put sensitive data in it.     - A memo is currently supported only for a transfer with a single destination |  [optional] |
 
 
 
