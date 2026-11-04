@@ -47,8 +47,7 @@ import java.util.StringJoiner;
     CreateTempoTransferRequest.JSON_PROPERTY_REPLACE_TX_BY_HASH,
     CreateTempoTransferRequest.JSON_PROPERTY_FEE_PAYER_ACCOUNT_ID,
     CreateTempoTransferRequest.JSON_PROPERTY_NONCE_STRATEGY,
-    CreateTempoTransferRequest.JSON_PROPERTY_NONCE_LANE,
-    CreateTempoTransferRequest.JSON_PROPERTY_MEMO
+    CreateTempoTransferRequest.JSON_PROPERTY_NONCE_LANE
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -194,9 +193,6 @@ public class CreateTempoTransferRequest {
 
     public static final String JSON_PROPERTY_NONCE_LANE = "nonceLane";
     @jakarta.annotation.Nullable private Integer nonceLane;
-
-    public static final String JSON_PROPERTY_MEMO = "memo";
-    @jakarta.annotation.Nullable private String memo;
 
     public CreateTempoTransferRequest() {}
 
@@ -749,29 +745,6 @@ public class CreateTempoTransferRequest {
         this.nonceLane = nonceLane;
     }
 
-    public CreateTempoTransferRequest memo(@jakarta.annotation.Nullable String memo) {
-        this.memo = memo;
-        return this;
-    }
-
-    /**
-     * Beta. Tempo TIP-20 memo (max 32 bytes).
-     *
-     * @return memo
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_MEMO)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getMemo() {
-        return memo;
-    }
-
-    @JsonProperty(JSON_PROPERTY_MEMO)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMemo(@jakarta.annotation.Nullable String memo) {
-        this.memo = memo;
-    }
-
     /** Return true if this CreateTempoTransferRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -808,8 +781,7 @@ public class CreateTempoTransferRequest {
                 && Objects.equals(
                         this.feePayerAccountId, createTempoTransferRequest.feePayerAccountId)
                 && Objects.equals(this.nonceStrategy, createTempoTransferRequest.nonceStrategy)
-                && Objects.equals(this.nonceLane, createTempoTransferRequest.nonceLane)
-                && Objects.equals(this.memo, createTempoTransferRequest.memo);
+                && Objects.equals(this.nonceLane, createTempoTransferRequest.nonceLane);
     }
 
     @Override
@@ -836,8 +808,7 @@ public class CreateTempoTransferRequest {
                 replaceTxByHash,
                 feePayerAccountId,
                 nonceStrategy,
-                nonceLane,
-                memo);
+                nonceLane);
     }
 
     @Override
@@ -876,7 +847,6 @@ public class CreateTempoTransferRequest {
                 .append("\n");
         sb.append("    nonceStrategy: ").append(toIndentedString(nonceStrategy)).append("\n");
         sb.append("    nonceLane: ").append(toIndentedString(nonceLane)).append("\n");
-        sb.append("    memo: ").append(toIndentedString(memo)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -1142,16 +1112,6 @@ public class CreateTempoTransferRequest {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getNonceLane()))));
-        }
-
-        // add `memo` to the URL query string
-        if (getMemo() != null) {
-            joiner.add(
-                    String.format(
-                            "%smemo%s=%s",
-                            prefix,
-                            suffix,
-                            ApiClient.urlEncode(ApiClient.valueToString(getMemo()))));
         }
 
         return joiner.toString();

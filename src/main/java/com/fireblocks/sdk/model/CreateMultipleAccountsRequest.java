@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,9 @@ import java.util.UUID;
     CreateMultipleAccountsRequest.JSON_PROPERTY_NAMES,
     CreateMultipleAccountsRequest.JSON_PROPERTY_VAULT_ACCOUNT_NAMES_STARTING_INDEX,
     CreateMultipleAccountsRequest.JSON_PROPERTY_PREFIX,
-    CreateMultipleAccountsRequest.JSON_PROPERTY_TAG_IDS
+    CreateMultipleAccountsRequest.JSON_PROPERTY_TAG_IDS,
+    CreateMultipleAccountsRequest.JSON_PROPERTY_VAULT_TYPE,
+    CreateMultipleAccountsRequest.JSON_PROPERTY_AUTO_ASSIGN
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -55,6 +58,54 @@ public class CreateMultipleAccountsRequest {
 
     public static final String JSON_PROPERTY_TAG_IDS = "tagIds";
     @jakarta.annotation.Nullable private List<UUID> tagIds;
+
+    /**
+     * Type of vault accounts to create. The default type is MPC. KEY_LINK creates Key Link vault
+     * accounts. It requires a Key Link workspace. With autoAssign set to true, the vault accounts
+     * are bound to the workspace&#39;s Key Link signing keys, assigned automatically from the
+     * available keys, and only one KEY_LINK bulk creation with autoAssign set to true can run per
+     * workspace at a time. With autoAssign set to false (the default), the vault accounts are
+     * created without keys. With KEY_LINK, names, vaultAccountNamesStartingIndex, prefix and tagIds
+     * work as they do for MPC, and baseAssetIds may be empty to create vault accounts without
+     * wallets.
+     */
+    public enum VaultTypeEnum {
+        MPC(String.valueOf("MPC")),
+
+        KEY_LINK(String.valueOf("KEY_LINK"));
+
+        private String value;
+
+        VaultTypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static VaultTypeEnum fromValue(String value) {
+            for (VaultTypeEnum b : VaultTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    public static final String JSON_PROPERTY_VAULT_TYPE = "vaultType";
+    @jakarta.annotation.Nullable private VaultTypeEnum vaultType = VaultTypeEnum.MPC;
+
+    public static final String JSON_PROPERTY_AUTO_ASSIGN = "autoAssign";
+    @jakarta.annotation.Nullable private Boolean autoAssign = false;
 
     public CreateMultipleAccountsRequest() {}
 
@@ -234,6 +285,65 @@ public class CreateMultipleAccountsRequest {
         this.tagIds = tagIds;
     }
 
+    public CreateMultipleAccountsRequest vaultType(
+            @jakarta.annotation.Nullable VaultTypeEnum vaultType) {
+        this.vaultType = vaultType;
+        return this;
+    }
+
+    /**
+     * Type of vault accounts to create. The default type is MPC. KEY_LINK creates Key Link vault
+     * accounts. It requires a Key Link workspace. With autoAssign set to true, the vault accounts
+     * are bound to the workspace&#39;s Key Link signing keys, assigned automatically from the
+     * available keys, and only one KEY_LINK bulk creation with autoAssign set to true can run per
+     * workspace at a time. With autoAssign set to false (the default), the vault accounts are
+     * created without keys. With KEY_LINK, names, vaultAccountNamesStartingIndex, prefix and tagIds
+     * work as they do for MPC, and baseAssetIds may be empty to create vault accounts without
+     * wallets.
+     *
+     * @return vaultType
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_VAULT_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public VaultTypeEnum getVaultType() {
+        return vaultType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VAULT_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setVaultType(@jakarta.annotation.Nullable VaultTypeEnum vaultType) {
+        this.vaultType = vaultType;
+    }
+
+    public CreateMultipleAccountsRequest autoAssign(
+            @jakarta.annotation.Nullable Boolean autoAssign) {
+        this.autoAssign = autoAssign;
+        return this;
+    }
+
+    /**
+     * Applicable only when vaultType is KEY_LINK. For MPC, this parameter is ignored. If set to
+     * true, keys are assigned to every created vault account. If there are not enough available
+     * keys to assign, the request returns an error and no vault accounts are created. If set to
+     * false, the vault accounts are created without any keys, and baseAssetIds must be empty
+     * because wallets can only be created for vault accounts that have keys.
+     *
+     * @return autoAssign
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_AUTO_ASSIGN)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getAutoAssign() {
+        return autoAssign;
+    }
+
+    @JsonProperty(JSON_PROPERTY_AUTO_ASSIGN)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAutoAssign(@jakarta.annotation.Nullable Boolean autoAssign) {
+        this.autoAssign = autoAssign;
+    }
+
     /** Return true if this CreateMultipleAccountsRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -252,13 +362,22 @@ public class CreateMultipleAccountsRequest {
                         this.vaultAccountNamesStartingIndex,
                         createMultipleAccountsRequest.vaultAccountNamesStartingIndex)
                 && Objects.equals(this.prefix, createMultipleAccountsRequest.prefix)
-                && Objects.equals(this.tagIds, createMultipleAccountsRequest.tagIds);
+                && Objects.equals(this.tagIds, createMultipleAccountsRequest.tagIds)
+                && Objects.equals(this.vaultType, createMultipleAccountsRequest.vaultType)
+                && Objects.equals(this.autoAssign, createMultipleAccountsRequest.autoAssign);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                count, baseAssetIds, names, vaultAccountNamesStartingIndex, prefix, tagIds);
+                count,
+                baseAssetIds,
+                names,
+                vaultAccountNamesStartingIndex,
+                prefix,
+                tagIds,
+                vaultType,
+                autoAssign);
     }
 
     @Override
@@ -273,6 +392,8 @@ public class CreateMultipleAccountsRequest {
                 .append("\n");
         sb.append("    prefix: ").append(toIndentedString(prefix)).append("\n");
         sb.append("    tagIds: ").append(toIndentedString(tagIds)).append("\n");
+        sb.append("    vaultType: ").append(toIndentedString(vaultType)).append("\n");
+        sb.append("    autoAssign: ").append(toIndentedString(autoAssign)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -401,6 +522,26 @@ public class CreateMultipleAccountsRequest {
                                             ApiClient.valueToString(getTagIds().get(i)))));
                 }
             }
+        }
+
+        // add `vaultType` to the URL query string
+        if (getVaultType() != null) {
+            joiner.add(
+                    String.format(
+                            "%svaultType%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultType()))));
+        }
+
+        // add `autoAssign` to the URL query string
+        if (getAutoAssign() != null) {
+            joiner.add(
+                    String.format(
+                            "%sautoAssign%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getAutoAssign()))));
         }
 
         return joiner.toString();

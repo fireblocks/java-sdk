@@ -26,7 +26,8 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
     TempoTransferDestination.JSON_PROPERTY_TYPE,
     TempoTransferDestination.JSON_PROPERTY_ID,
-    TempoTransferDestination.JSON_PROPERTY_ONE_TIME_ADDRESS
+    TempoTransferDestination.JSON_PROPERTY_ONE_TIME_ADDRESS,
+    TempoTransferDestination.JSON_PROPERTY_MEMO
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -75,6 +76,9 @@ public class TempoTransferDestination {
 
     public static final String JSON_PROPERTY_ONE_TIME_ADDRESS = "oneTimeAddress";
     @jakarta.annotation.Nullable private OneTimeAddress oneTimeAddress;
+
+    public static final String JSON_PROPERTY_MEMO = "memo";
+    @jakarta.annotation.Nullable private String memo;
 
     public TempoTransferDestination() {}
 
@@ -154,6 +158,31 @@ public class TempoTransferDestination {
         this.oneTimeAddress = oneTimeAddress;
     }
 
+    public TempoTransferDestination memo(@jakarta.annotation.Nullable String memo) {
+        this.memo = memo;
+        return this;
+    }
+
+    /**
+     * Tempo TIP-20 memo, sent on-chain with the transfer to this destination. Exactly 32 bytes once
+     * UTF-8 encoded. NOTES: - The memo is public and permanent on-chain, so do not put sensitive
+     * data in it. - A memo is currently supported only for a transfer with a single destination
+     *
+     * @return memo
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_MEMO)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getMemo() {
+        return memo;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MEMO)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMemo(@jakarta.annotation.Nullable String memo) {
+        this.memo = memo;
+    }
+
     /** Return true if this TempoTransferDestination object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -166,12 +195,13 @@ public class TempoTransferDestination {
         TempoTransferDestination tempoTransferDestination = (TempoTransferDestination) o;
         return Objects.equals(this.type, tempoTransferDestination.type)
                 && Objects.equals(this.id, tempoTransferDestination.id)
-                && Objects.equals(this.oneTimeAddress, tempoTransferDestination.oneTimeAddress);
+                && Objects.equals(this.oneTimeAddress, tempoTransferDestination.oneTimeAddress)
+                && Objects.equals(this.memo, tempoTransferDestination.memo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, id, oneTimeAddress);
+        return Objects.hash(type, id, oneTimeAddress, memo);
     }
 
     @Override
@@ -181,6 +211,7 @@ public class TempoTransferDestination {
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    oneTimeAddress: ").append(toIndentedString(oneTimeAddress)).append("\n");
+        sb.append("    memo: ").append(toIndentedString(memo)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -249,6 +280,16 @@ public class TempoTransferDestination {
         // add `oneTimeAddress` to the URL query string
         if (getOneTimeAddress() != null) {
             joiner.add(getOneTimeAddress().toUrlQueryString(prefix + "oneTimeAddress" + suffix));
+        }
+
+        // add `memo` to the URL query string
+        if (getMemo() != null) {
+            joiner.add(
+                    String.format(
+                            "%smemo%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getMemo()))));
         }
 
         return joiner.toString();

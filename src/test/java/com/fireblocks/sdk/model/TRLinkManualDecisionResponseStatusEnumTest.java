@@ -15,25 +15,11 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for ApiKeysPaginatedResponse */
-class ApiKeysPaginatedResponseTest {
-    private final ApiKeysPaginatedResponse model = new ApiKeysPaginatedResponse();
-
-    /** Model tests for ApiKeysPaginatedResponse */
+/** Model tests for TRLinkManualDecisionResponseStatusEnum */
+class TRLinkManualDecisionResponseStatusEnumTest {
+    /** Model tests for TRLinkManualDecisionResponseStatusEnum */
     @Test
-    void testApiKeysPaginatedResponse() {
-        // TODO: test ApiKeysPaginatedResponse
-    }
-
-    /** Test the property 'data' */
-    @Test
-    void dataTest() {
-        // TODO: test data
-    }
-
-    /** Test the property 'next' */
-    @Test
-    void nextTest() {
-        // TODO: test next
+    void testTRLinkManualDecisionResponseStatusEnum() {
+        // TODO: test TRLinkManualDecisionResponseStatusEnum
     }
 }

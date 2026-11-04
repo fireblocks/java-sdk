@@ -479,11 +479,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetCosignersBetaApi() {
+    public void testGetCosignersApi() {
         setupFireblocks(true, null, null);
-        CosignersBetaApi cosignersBeta = fireblocks.cosignersBeta();
-        Assert.assertNotNull(cosignersBeta);
-        Assert.assertSame(cosignersBeta, fireblocks.cosignersBeta());
+        CosignersApi cosigners = fireblocks.cosigners();
+        Assert.assertNotNull(cosigners);
+        Assert.assertSame(cosigners, fireblocks.cosigners());
     }
 
     @Test
@@ -559,19 +559,19 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetKeyLinkBetaApi() {
+    public void testGetKeyLinkApi() {
         setupFireblocks(true, null, null);
-        KeyLinkBetaApi keyLinkBeta = fireblocks.keyLinkBeta();
-        Assert.assertNotNull(keyLinkBeta);
-        Assert.assertSame(keyLinkBeta, fireblocks.keyLinkBeta());
+        KeyLinkApi keyLink = fireblocks.keyLink();
+        Assert.assertNotNull(keyLink);
+        Assert.assertSame(keyLink, fireblocks.keyLink());
     }
 
     @Test
-    public void testGetKeysBetaApi() {
+    public void testGetKeysApi() {
         setupFireblocks(true, null, null);
-        KeysBetaApi keysBeta = fireblocks.keysBeta();
-        Assert.assertNotNull(keysBeta);
-        Assert.assertSame(keysBeta, fireblocks.keysBeta());
+        KeysApi keys = fireblocks.keys();
+        Assert.assertNotNull(keys);
+        Assert.assertSame(keys, fireblocks.keys());
     }
 
     @Test

@@ -23,8 +23,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** Response containing the result of the manual decision */
+/** Response containing the result of a manual missing-TRM decision (POST write or GET read). */
 @JsonPropertyOrder({
+    TRLinkManualDecisionResponse.JSON_PROPERTY_STATUS,
     TRLinkManualDecisionResponse.JSON_PROPERTY_ACTION,
     TRLinkManualDecisionResponse.JSON_PROPERTY_SOURCE,
     TRLinkManualDecisionResponse.JSON_PROPERTY_TX_ID,
@@ -36,6 +37,9 @@ import java.util.StringJoiner;
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
 public class TRLinkManualDecisionResponse {
+    public static final String JSON_PROPERTY_STATUS = "status";
+    @jakarta.annotation.Nonnull private TRLinkManualDecisionResponseStatusEnum status;
+
     public static final String JSON_PROPERTY_ACTION = "action";
     @jakarta.annotation.Nonnull private TRLinkManualDecisionAction action;
 
@@ -58,6 +62,8 @@ public class TRLinkManualDecisionResponse {
 
     @JsonCreator
     public TRLinkManualDecisionResponse(
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true)
+                    TRLinkManualDecisionResponseStatusEnum status,
             @JsonProperty(value = JSON_PROPERTY_ACTION, required = true)
                     TRLinkManualDecisionAction action,
             @JsonProperty(value = JSON_PROPERTY_SOURCE, required = true)
@@ -69,12 +75,38 @@ public class TRLinkManualDecisionResponse {
                     Integer destinationsSkipped,
             @JsonProperty(value = JSON_PROPERTY_DETAILS, required = true)
                     List<TRLinkManualDecisionDestinationDetail> details) {
+        this.status = status;
         this.action = action;
         this.source = source;
         this.txId = txId;
         this.destinationsAffected = destinationsAffected;
         this.destinationsSkipped = destinationsSkipped;
         this.details = details;
+    }
+
+    public TRLinkManualDecisionResponse status(
+            @jakarta.annotation.Nonnull TRLinkManualDecisionResponseStatusEnum status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return status
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public TRLinkManualDecisionResponseStatusEnum getStatus() {
+        return status;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setStatus(
+            @jakarta.annotation.Nonnull TRLinkManualDecisionResponseStatusEnum status) {
+        this.status = status;
     }
 
     public TRLinkManualDecisionResponse action(
@@ -241,7 +273,8 @@ public class TRLinkManualDecisionResponse {
         }
         TRLinkManualDecisionResponse trLinkManualDecisionResponse =
                 (TRLinkManualDecisionResponse) o;
-        return Objects.equals(this.action, trLinkManualDecisionResponse.action)
+        return Objects.equals(this.status, trLinkManualDecisionResponse.status)
+                && Objects.equals(this.action, trLinkManualDecisionResponse.action)
                 && Objects.equals(this.source, trLinkManualDecisionResponse.source)
                 && Objects.equals(this.txId, trLinkManualDecisionResponse.txId)
                 && Objects.equals(
@@ -255,13 +288,14 @@ public class TRLinkManualDecisionResponse {
     @Override
     public int hashCode() {
         return Objects.hash(
-                action, source, txId, destinationsAffected, destinationsSkipped, details);
+                status, action, source, txId, destinationsAffected, destinationsSkipped, details);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TRLinkManualDecisionResponse {\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    action: ").append(toIndentedString(action)).append("\n");
         sb.append("    source: ").append(toIndentedString(source)).append("\n");
         sb.append("    txId: ").append(toIndentedString(txId)).append("\n");
@@ -318,6 +352,16 @@ public class TRLinkManualDecisionResponse {
         }
 
         StringJoiner joiner = new StringJoiner("&");
+
+        // add `status` to the URL query string
+        if (getStatus() != null) {
+            joiner.add(
+                    String.format(
+                            "%sstatus%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
+        }
 
         // add `action` to the URL query string
         if (getAction() != null) {

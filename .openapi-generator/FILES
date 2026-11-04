@@ -100,9 +100,8 @@ docs/AmountOverTimeConfig.md
 docs/AmountRange.md
 docs/AmountRangeMinMax.md
 docs/AmountRangeMinMax2.md
-docs/ApiKey.md
-docs/ApiKeysPaginatedResponse.md
 docs/ApiUserApi.md
+docs/ApiUsersPaginatedResponse.md
 docs/ApprovalApiKey.md
 docs/ApprovalApiPublicKey.md
 docs/ApprovalRequest.md
@@ -315,7 +314,8 @@ docs/ConversionValidationFailure.md
 docs/ConvertAssetsRequest.md
 docs/ConvertAssetsResponse.md
 docs/Cosigner.md
-docs/CosignersBetaApi.md
+docs/CosignerApiUser.md
+docs/CosignersApi.md
 docs/CosignersPaginatedResponse.md
 docs/CounterpartyGroup.md
 docs/CounterpartyGroupsPaginatedResponse.md
@@ -605,8 +605,8 @@ docs/InternalWalletsApi.md
 docs/InvalidParamaterValueError.md
 docs/IssueApiUserPairingTokenResponse.md
 docs/JobCreated.md
-docs/KeyLinkBetaApi.md
-docs/KeysBetaApi.md
+docs/KeyLinkApi.md
+docs/KeysApi.md
 docs/LayerZeroAdapterCreateParams.md
 docs/LbtPaymentInfo.md
 docs/LeanAbiFunction.md
@@ -748,8 +748,8 @@ docs/PaginatedAssetWalletResponse.md
 docs/PaginatedAssetWalletResponsePaging.md
 docs/PaginatedAssetsResponse.md
 docs/Paging.md
-docs/PairApiKeyRequest.md
-docs/PairApiKeyResponse.md
+docs/PairApiUserRequest.md
+docs/PairApiUserResponse.md
 docs/Parameter.md
 docs/ParameterWithValue.md
 docs/ParticipantOnboardingPayload.md
@@ -1089,6 +1089,7 @@ docs/TRLinkManualDecisionAction.md
 docs/TRLinkManualDecisionDestinationDetail.md
 docs/TRLinkManualDecisionRequest.md
 docs/TRLinkManualDecisionResponse.md
+docs/TRLinkManualDecisionResponseStatusEnum.md
 docs/TRLinkManualDecisionSource.md
 docs/TRLinkMissingTrmAction.md
 docs/TRLinkMissingTrmAction2.md
@@ -1430,7 +1431,7 @@ src/main/java/com/fireblocks/sdk/api/ContactsApi.java
 src/main/java/com/fireblocks/sdk/api/ContractInteractionsApi.java
 src/main/java/com/fireblocks/sdk/api/ContractTemplatesApi.java
 src/main/java/com/fireblocks/sdk/api/ContractsApi.java
-src/main/java/com/fireblocks/sdk/api/CosignersBetaApi.java
+src/main/java/com/fireblocks/sdk/api/CosignersApi.java
 src/main/java/com/fireblocks/sdk/api/DeployedContractsApi.java
 src/main/java/com/fireblocks/sdk/api/EarnApi.java
 src/main/java/com/fireblocks/sdk/api/EmbeddedWalletsApi.java
@@ -1440,8 +1441,8 @@ src/main/java/com/fireblocks/sdk/api/FiatAccountsApi.java
 src/main/java/com/fireblocks/sdk/api/GasStationsApi.java
 src/main/java/com/fireblocks/sdk/api/GenieBetaApi.java
 src/main/java/com/fireblocks/sdk/api/InternalWalletsApi.java
-src/main/java/com/fireblocks/sdk/api/KeyLinkBetaApi.java
-src/main/java/com/fireblocks/sdk/api/KeysBetaApi.java
+src/main/java/com/fireblocks/sdk/api/KeyLinkApi.java
+src/main/java/com/fireblocks/sdk/api/KeysApi.java
 src/main/java/com/fireblocks/sdk/api/NetworkConnectionsApi.java
 src/main/java/com/fireblocks/sdk/api/NftsApi.java
 src/main/java/com/fireblocks/sdk/api/OffExchangesApi.java
@@ -1566,8 +1567,7 @@ src/main/java/com/fireblocks/sdk/model/AmountOverTimeConfig.java
 src/main/java/com/fireblocks/sdk/model/AmountRange.java
 src/main/java/com/fireblocks/sdk/model/AmountRangeMinMax.java
 src/main/java/com/fireblocks/sdk/model/AmountRangeMinMax2.java
-src/main/java/com/fireblocks/sdk/model/ApiKey.java
-src/main/java/com/fireblocks/sdk/model/ApiKeysPaginatedResponse.java
+src/main/java/com/fireblocks/sdk/model/ApiUsersPaginatedResponse.java
 src/main/java/com/fireblocks/sdk/model/ApprovalApiKey.java
 src/main/java/com/fireblocks/sdk/model/ApprovalApiPublicKey.java
 src/main/java/com/fireblocks/sdk/model/ApprovalRequest.java
@@ -1766,6 +1766,7 @@ src/main/java/com/fireblocks/sdk/model/ConversionValidationFailure.java
 src/main/java/com/fireblocks/sdk/model/ConvertAssetsRequest.java
 src/main/java/com/fireblocks/sdk/model/ConvertAssetsResponse.java
 src/main/java/com/fireblocks/sdk/model/Cosigner.java
+src/main/java/com/fireblocks/sdk/model/CosignerApiUser.java
 src/main/java/com/fireblocks/sdk/model/CosignersPaginatedResponse.java
 src/main/java/com/fireblocks/sdk/model/CounterpartyGroup.java
 src/main/java/com/fireblocks/sdk/model/CounterpartyGroupsPaginatedResponse.java
@@ -2182,8 +2183,8 @@ src/main/java/com/fireblocks/sdk/model/PaginatedAssetWalletResponse.java
 src/main/java/com/fireblocks/sdk/model/PaginatedAssetWalletResponsePaging.java
 src/main/java/com/fireblocks/sdk/model/PaginatedAssetsResponse.java
 src/main/java/com/fireblocks/sdk/model/Paging.java
-src/main/java/com/fireblocks/sdk/model/PairApiKeyRequest.java
-src/main/java/com/fireblocks/sdk/model/PairApiKeyResponse.java
+src/main/java/com/fireblocks/sdk/model/PairApiUserRequest.java
+src/main/java/com/fireblocks/sdk/model/PairApiUserResponse.java
 src/main/java/com/fireblocks/sdk/model/Parameter.java
 src/main/java/com/fireblocks/sdk/model/ParameterWithValue.java
 src/main/java/com/fireblocks/sdk/model/ParticipantOnboardingPayload.java
@@ -2514,6 +2515,7 @@ src/main/java/com/fireblocks/sdk/model/TRLinkManualDecisionAction.java
 src/main/java/com/fireblocks/sdk/model/TRLinkManualDecisionDestinationDetail.java
 src/main/java/com/fireblocks/sdk/model/TRLinkManualDecisionRequest.java
 src/main/java/com/fireblocks/sdk/model/TRLinkManualDecisionResponse.java
+src/main/java/com/fireblocks/sdk/model/TRLinkManualDecisionResponseStatusEnum.java
 src/main/java/com/fireblocks/sdk/model/TRLinkManualDecisionSource.java
 src/main/java/com/fireblocks/sdk/model/TRLinkMissingTrmAction.java
 src/main/java/com/fireblocks/sdk/model/TRLinkMissingTrmAction2.java
@@ -2817,7 +2819,7 @@ src/test/java/com/fireblocks/sdk/api/ContactsApiTest.java
 src/test/java/com/fireblocks/sdk/api/ContractInteractionsApiTest.java
 src/test/java/com/fireblocks/sdk/api/ContractTemplatesApiTest.java
 src/test/java/com/fireblocks/sdk/api/ContractsApiTest.java
-src/test/java/com/fireblocks/sdk/api/CosignersBetaApiTest.java
+src/test/java/com/fireblocks/sdk/api/CosignersApiTest.java
 src/test/java/com/fireblocks/sdk/api/DeployedContractsApiTest.java
 src/test/java/com/fireblocks/sdk/api/EarnApiTest.java
 src/test/java/com/fireblocks/sdk/api/EmbeddedWalletsApiTest.java
@@ -2827,8 +2829,8 @@ src/test/java/com/fireblocks/sdk/api/FiatAccountsApiTest.java
 src/test/java/com/fireblocks/sdk/api/GasStationsApiTest.java
 src/test/java/com/fireblocks/sdk/api/GenieBetaApiTest.java
 src/test/java/com/fireblocks/sdk/api/InternalWalletsApiTest.java
-src/test/java/com/fireblocks/sdk/api/KeyLinkBetaApiTest.java
-src/test/java/com/fireblocks/sdk/api/KeysBetaApiTest.java
+src/test/java/com/fireblocks/sdk/api/KeyLinkApiTest.java
+src/test/java/com/fireblocks/sdk/api/KeysApiTest.java
 src/test/java/com/fireblocks/sdk/api/NetworkConnectionsApiTest.java
 src/test/java/com/fireblocks/sdk/api/NftsApiTest.java
 src/test/java/com/fireblocks/sdk/api/OffExchangesApiTest.java
@@ -2952,8 +2954,7 @@ src/test/java/com/fireblocks/sdk/model/AmountOverTimeConfigTest.java
 src/test/java/com/fireblocks/sdk/model/AmountRangeMinMax2Test.java
 src/test/java/com/fireblocks/sdk/model/AmountRangeMinMaxTest.java
 src/test/java/com/fireblocks/sdk/model/AmountRangeTest.java
-src/test/java/com/fireblocks/sdk/model/ApiKeyTest.java
-src/test/java/com/fireblocks/sdk/model/ApiKeysPaginatedResponseTest.java
+src/test/java/com/fireblocks/sdk/model/ApiUsersPaginatedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ApprovalApiKeyTest.java
 src/test/java/com/fireblocks/sdk/model/ApprovalApiPublicKeyTest.java
 src/test/java/com/fireblocks/sdk/model/ApprovalRequestItemTest.java
@@ -3151,6 +3152,7 @@ src/test/java/com/fireblocks/sdk/model/ConversionOperationTypeTest.java
 src/test/java/com/fireblocks/sdk/model/ConversionValidationFailureTest.java
 src/test/java/com/fireblocks/sdk/model/ConvertAssetsRequestTest.java
 src/test/java/com/fireblocks/sdk/model/ConvertAssetsResponseTest.java
+src/test/java/com/fireblocks/sdk/model/CosignerApiUserTest.java
 src/test/java/com/fireblocks/sdk/model/CosignerTest.java
 src/test/java/com/fireblocks/sdk/model/CosignersPaginatedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/CounterpartyGroupTest.java
@@ -3568,8 +3570,8 @@ src/test/java/com/fireblocks/sdk/model/PaginatedAssetWalletResponsePagingTest.ja
 src/test/java/com/fireblocks/sdk/model/PaginatedAssetWalletResponseTest.java
 src/test/java/com/fireblocks/sdk/model/PaginatedAssetsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/PagingTest.java
-src/test/java/com/fireblocks/sdk/model/PairApiKeyRequestTest.java
-src/test/java/com/fireblocks/sdk/model/PairApiKeyResponseTest.java
+src/test/java/com/fireblocks/sdk/model/PairApiUserRequestTest.java
+src/test/java/com/fireblocks/sdk/model/PairApiUserResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ParameterTest.java
 src/test/java/com/fireblocks/sdk/model/ParameterWithValueTest.java
 src/test/java/com/fireblocks/sdk/model/ParticipantOnboardingPayloadTest.java
@@ -3899,6 +3901,7 @@ src/test/java/com/fireblocks/sdk/model/TRLinkJwkPublicKeyTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkManualDecisionActionTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkManualDecisionDestinationDetailTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkManualDecisionRequestTest.java
+src/test/java/com/fireblocks/sdk/model/TRLinkManualDecisionResponseStatusEnumTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkManualDecisionResponseTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkManualDecisionSourceTest.java
 src/test/java/com/fireblocks/sdk/model/TRLinkMissingTrmAction2Test.java

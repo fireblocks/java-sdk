@@ -19,18 +19,18 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** PairApiKeyRequest */
-@JsonPropertyOrder({PairApiKeyRequest.JSON_PROPERTY_CALLBACK_HANDLER})
+/** PairApiUserRequest */
+@JsonPropertyOrder({PairApiUserRequest.JSON_PROPERTY_CALLBACK_HANDLER})
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class PairApiKeyRequest {
+public class PairApiUserRequest {
     public static final String JSON_PROPERTY_CALLBACK_HANDLER = "callbackHandler";
     @jakarta.annotation.Nullable private CallbackHandlerRequest callbackHandler;
 
-    public PairApiKeyRequest() {}
+    public PairApiUserRequest() {}
 
-    public PairApiKeyRequest callbackHandler(
+    public PairApiUserRequest callbackHandler(
             @jakarta.annotation.Nullable CallbackHandlerRequest callbackHandler) {
         this.callbackHandler = callbackHandler;
         return this;
@@ -55,7 +55,7 @@ public class PairApiKeyRequest {
         this.callbackHandler = callbackHandler;
     }
 
-    /** Return true if this PairApiKeyRequest object is equal to o. */
+    /** Return true if this PairApiUserRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -64,8 +64,8 @@ public class PairApiKeyRequest {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        PairApiKeyRequest pairApiKeyRequest = (PairApiKeyRequest) o;
-        return Objects.equals(this.callbackHandler, pairApiKeyRequest.callbackHandler);
+        PairApiUserRequest pairApiUserRequest = (PairApiUserRequest) o;
+        return Objects.equals(this.callbackHandler, pairApiUserRequest.callbackHandler);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class PairApiKeyRequest {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class PairApiKeyRequest {\n");
+        sb.append("class PairApiUserRequest {\n");
         sb.append("    callbackHandler: ").append(toIndentedString(callbackHandler)).append("\n");
         sb.append("}");
         return sb.toString();

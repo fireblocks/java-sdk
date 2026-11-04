@@ -22,35 +22,35 @@ import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
 
-/** PairApiKeyResponse */
+/** PairApiUserResponse */
 @JsonPropertyOrder({
-    PairApiKeyResponse.JSON_PROPERTY_ID,
-    PairApiKeyResponse.JSON_PROPERTY_CALLBACK_HANDLER
+    PairApiUserResponse.JSON_PROPERTY_ID,
+    PairApiUserResponse.JSON_PROPERTY_CALLBACK_HANDLER
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class PairApiKeyResponse {
+public class PairApiUserResponse {
     public static final String JSON_PROPERTY_ID = "id";
     @jakarta.annotation.Nonnull private UUID id;
 
     public static final String JSON_PROPERTY_CALLBACK_HANDLER = "callbackHandler";
     @jakarta.annotation.Nullable private CallbackHandlerRequest callbackHandler;
 
-    public PairApiKeyResponse() {}
+    public PairApiUserResponse() {}
 
     @JsonCreator
-    public PairApiKeyResponse(@JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id) {
+    public PairApiUserResponse(@JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id) {
         this.id = id;
     }
 
-    public PairApiKeyResponse id(@jakarta.annotation.Nonnull UUID id) {
+    public PairApiUserResponse id(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
         return this;
     }
 
     /**
-     * The unique identifier of the API key
+     * The unique identifier of the API user
      *
      * @return id
      */
@@ -67,7 +67,7 @@ public class PairApiKeyResponse {
         this.id = id;
     }
 
-    public PairApiKeyResponse callbackHandler(
+    public PairApiUserResponse callbackHandler(
             @jakarta.annotation.Nullable CallbackHandlerRequest callbackHandler) {
         this.callbackHandler = callbackHandler;
         return this;
@@ -92,7 +92,7 @@ public class PairApiKeyResponse {
         this.callbackHandler = callbackHandler;
     }
 
-    /** Return true if this PairApiKeyResponse object is equal to o. */
+    /** Return true if this PairApiUserResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -101,9 +101,9 @@ public class PairApiKeyResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        PairApiKeyResponse pairApiKeyResponse = (PairApiKeyResponse) o;
-        return Objects.equals(this.id, pairApiKeyResponse.id)
-                && Objects.equals(this.callbackHandler, pairApiKeyResponse.callbackHandler);
+        PairApiUserResponse pairApiUserResponse = (PairApiUserResponse) o;
+        return Objects.equals(this.id, pairApiUserResponse.id)
+                && Objects.equals(this.callbackHandler, pairApiUserResponse.callbackHandler);
     }
 
     @Override
@@ -114,7 +114,7 @@ public class PairApiKeyResponse {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class PairApiKeyResponse {\n");
+        sb.append("class PairApiUserResponse {\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    callbackHandler: ").append(toIndentedString(callbackHandler)).append("\n");
         sb.append("}");

@@ -23,12 +23,12 @@ import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.AddCosignerRequest;
 import com.fireblocks.sdk.model.AddCosignerResponse;
-import com.fireblocks.sdk.model.ApiKey;
-import com.fireblocks.sdk.model.ApiKeysPaginatedResponse;
+import com.fireblocks.sdk.model.ApiUsersPaginatedResponse;
 import com.fireblocks.sdk.model.Cosigner;
+import com.fireblocks.sdk.model.CosignerApiUser;
 import com.fireblocks.sdk.model.CosignersPaginatedResponse;
-import com.fireblocks.sdk.model.PairApiKeyRequest;
-import com.fireblocks.sdk.model.PairApiKeyResponse;
+import com.fireblocks.sdk.model.PairApiUserRequest;
+import com.fireblocks.sdk.model.PairApiUserResponse;
 import com.fireblocks.sdk.model.RenameCosigner;
 import com.fireblocks.sdk.model.Status;
 import com.fireblocks.sdk.model.UpdateCallbackHandlerRequest;
@@ -54,7 +54,7 @@ import java.util.function.Consumer;
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class CosignersBetaApi {
+public class CosignersApi {
     private final HttpClient memberVarHttpClient;
     private final ObjectMapper memberVarObjectMapper;
     private final String memberVarBaseUri;
@@ -63,11 +63,11 @@ public class CosignersBetaApi {
     private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
     private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-    public CosignersBetaApi() {
+    public CosignersApi() {
         this(new ApiClient());
     }
 
-    public CosignersBetaApi(ApiClient apiClient) {
+    public CosignersApi(ApiClient apiClient) {
         memberVarHttpClient = apiClient.getHttpClient();
         memberVarObjectMapper = apiClient.getObjectMapper();
         memberVarBaseUri = apiClient.getBaseUri();
@@ -114,8 +114,9 @@ public class CosignersBetaApi {
     }
 
     /**
-     * Add cosigner Add a new cosigner. The cosigner will be pending pairing until the API key is
-     * manually paired Endpoint Permission: Admin and Non-Signing Admin.
+     * Add cosigner Add a new cosigner. The cosigner will be pending pairing until the API user is
+     * manually paired (see &#x60;pairCosignerApiUser&#x60;). Endpoint Permission: Admin and
+     * Non-Signing Admin.
      *
      * @param addCosignerRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -208,204 +209,7 @@ public class CosignersBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get API key Get an API key by ID. **Note:** These endpoints are currently in beta and might
-     * be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
-     *
-     * @param cosignerId The unique identifier of the cosigner (required)
-     * @param apiKeyId The unique identifier of the API key (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ApiKey&gt;&gt;, which completes exceptionally
-     *     with an {@link ApiException} if the API call fails
-     */
-    public CompletableFuture<ApiResponse<ApiKey>> getApiKey(UUID cosignerId, String apiKeyId) {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    getApiKeyRequestBuilder(cosignerId, apiKeyId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                // Ahead of the status check, which fails the future: the lifecycle
-                                // header
-                                // is present on allowed error responses too.
-                                LifecycleWarning.warn(
-                                        localVarResponse.headers(),
-                                        "getApiKey",
-                                        localVarResponse.statusCode());
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("getApiKey", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<ApiKey>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            ApiKey>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            })
-                    .handle(
-                            (localVarApiResponse, localVarThrowable) ->
-                                    localVarThrowable == null
-                                            ? CompletableFuture.completedFuture(localVarApiResponse)
-                                            : CompletableFuture.<ApiResponse<ApiKey>>failedFuture(
-                                                    toApiFailure(localVarThrowable)))
-                    .thenCompose(localVarNormalized -> localVarNormalized);
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getApiKeyRequestBuilder(UUID cosignerId, String apiKeyId)
-            throws ApiException {
-        ValidationUtils.assertParamExistsAndNotEmpty(
-                "getApiKey", "cosignerId", cosignerId.toString());
-        ValidationUtils.assertParamExistsAndNotEmpty("getApiKey", "apiKeyId", apiKeyId);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/cosigners/{cosignerId}/api_keys/{apiKeyId}"
-                        .replace("{cosignerId}", ApiClient.urlEncode(cosignerId.toString()))
-                        .replace("{apiKeyId}", ApiClient.urlEncode(apiKeyId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Get all API keys Get all cosigner paired API keys (paginated). **Note:** These endpoints are
-     * currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing
-     * Admin.
-     *
-     * @param cosignerId The unique identifier of the cosigner (required)
-     * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
-     * @param pageCursor Cursor of the required page (optional)
-     * @param pageSize Maximum number of items in the page (optional, default to 10)
-     * @return CompletableFuture&lt;ApiResponse&lt;ApiKeysPaginatedResponse&gt;&gt;, which completes
-     *     exceptionally with an {@link ApiException} if the API call fails
-     */
-    public CompletableFuture<ApiResponse<ApiKeysPaginatedResponse>> getApiKeys(
-            UUID cosignerId, String order, String pageCursor, BigDecimal pageSize) {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    getApiKeysRequestBuilder(cosignerId, order, pageCursor, pageSize);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                // Ahead of the status check, which fails the future: the lifecycle
-                                // header
-                                // is present on allowed error responses too.
-                                LifecycleWarning.warn(
-                                        localVarResponse.headers(),
-                                        "getApiKeys",
-                                        localVarResponse.statusCode());
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("getApiKeys", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<ApiKeysPaginatedResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            ApiKeysPaginatedResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            })
-                    .handle(
-                            (localVarApiResponse, localVarThrowable) ->
-                                    localVarThrowable == null
-                                            ? CompletableFuture.completedFuture(localVarApiResponse)
-                                            : CompletableFuture
-                                                    .<ApiResponse<ApiKeysPaginatedResponse>>
-                                                            failedFuture(
-                                                                    toApiFailure(
-                                                                            localVarThrowable)))
-                    .thenCompose(localVarNormalized -> localVarNormalized);
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getApiKeysRequestBuilder(
-            UUID cosignerId, String order, String pageCursor, BigDecimal pageSize)
-            throws ApiException {
-        ValidationUtils.assertParamExistsAndNotEmpty(
-                "getApiKeys", "cosignerId", cosignerId.toString());
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/cosigners/{cosignerId}/api_keys"
-                        .replace("{cosignerId}", ApiClient.urlEncode(cosignerId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-        String localVarQueryParameterBaseName;
-        localVarQueryParameterBaseName = "order";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
-        localVarQueryParameterBaseName = "pageCursor";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
-        localVarQueryParameterBaseName = "pageSize";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
-
-        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
-            StringJoiner queryJoiner = new StringJoiner("&");
-            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
-            if (localVarQueryStringJoiner.length() != 0) {
-                queryJoiner.add(localVarQueryStringJoiner.toString());
-            }
-            localVarRequestBuilder.uri(
-                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
-        } else {
-            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-        }
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Get cosigner Get a cosigner by ID. **Note:** These endpoints are currently in beta and might
-     * be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
+     * Get cosigner Get a cosigner by ID. Endpoint Permission: Admin and Non-Signing Admin.
      *
      * @param cosignerId The unique identifier of the cosigner (required)
      * @return CompletableFuture&lt;ApiResponse&lt;Cosigner&gt;&gt;, which completes exceptionally
@@ -484,9 +288,299 @@ public class CosignersBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get all cosigners Get all workspace cosigners (paginated). **Note:** These endpoints are
-     * currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing
-     * Admin.
+     * Get API user Get an API user by ID. Endpoint Permission: Admin and Non-Signing Admin.
+     *
+     * @param cosignerId The unique identifier of the cosigner (required)
+     * @param apiUserId The unique identifier of the API user (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;CosignerApiUser&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<CosignerApiUser>> getCosignerApiUser(
+            UUID cosignerId, String apiUserId) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getCosignerApiUserRequestBuilder(cosignerId, apiUserId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getCosignerApiUser",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getCosignerApiUser", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<CosignerApiUser>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            CosignerApiUser>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CosignerApiUser>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getCosignerApiUserRequestBuilder(UUID cosignerId, String apiUserId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getCosignerApiUser", "cosignerId", cosignerId.toString());
+        ValidationUtils.assertParamExistsAndNotEmpty("getCosignerApiUser", "apiUserId", apiUserId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/cosigners/{cosignerId}/api_users/{apiUserId}"
+                        .replace("{cosignerId}", ApiClient.urlEncode(cosignerId.toString()))
+                        .replace("{apiUserId}", ApiClient.urlEncode(apiUserId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get API user request status Get the status of an asynchronous request Endpoint Permission:
+     * Admin and Non-Signing Admin.
+     *
+     * @param cosignerId The unique identifier of the cosigner (required)
+     * @param apiUserId The unique identifier of the API user (required)
+     * @param requestId (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;Status&gt;&gt;, which completes exceptionally
+     *     with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<Status>> getCosignerApiUserRequestStatus(
+            UUID cosignerId, String apiUserId, String requestId) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getCosignerApiUserRequestStatusRequestBuilder(cosignerId, apiUserId, requestId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getCosignerApiUserRequestStatus",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getCosignerApiUserRequestStatus",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<Status>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            Status>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture.<ApiResponse<Status>>failedFuture(
+                                                    toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getCosignerApiUserRequestStatusRequestBuilder(
+            UUID cosignerId, String apiUserId, String requestId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getCosignerApiUserRequestStatus", "cosignerId", cosignerId.toString());
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getCosignerApiUserRequestStatus", "apiUserId", apiUserId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getCosignerApiUserRequestStatus", "requestId", requestId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/cosigners/{cosignerId}/api_users/{apiUserId}/{requestId}"
+                        .replace("{cosignerId}", ApiClient.urlEncode(cosignerId.toString()))
+                        .replace("{apiUserId}", ApiClient.urlEncode(apiUserId.toString()))
+                        .replace("{requestId}", ApiClient.urlEncode(requestId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get all API users Get all cosigner paired API users (paginated). Endpoint Permission: Admin
+     * and Non-Signing Admin.
+     *
+     * @param cosignerId The unique identifier of the cosigner (required)
+     * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
+     * @param pageCursor Cursor of the required page (optional)
+     * @param pageSize Maximum number of items in the page (optional, default to 10)
+     * @return CompletableFuture&lt;ApiResponse&lt;ApiUsersPaginatedResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<ApiUsersPaginatedResponse>> getCosignerApiUsers(
+            UUID cosignerId, String order, String pageCursor, BigDecimal pageSize) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getCosignerApiUsersRequestBuilder(cosignerId, order, pageCursor, pageSize);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getCosignerApiUsers",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getCosignerApiUsers", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ApiUsersPaginatedResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ApiUsersPaginatedResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ApiUsersPaginatedResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getCosignerApiUsersRequestBuilder(
+            UUID cosignerId, String order, String pageCursor, BigDecimal pageSize)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getCosignerApiUsers", "cosignerId", cosignerId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/cosigners/{cosignerId}/api_users"
+                        .replace("{cosignerId}", ApiClient.urlEncode(cosignerId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get all cosigners Get all workspace cosigners (paginated). Endpoint Permission: Admin and
+     * Non-Signing Admin.
      *
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
      * @param pageCursor Cursor of the required page (optional)
@@ -589,115 +683,27 @@ public class CosignersBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get request status Get the status of an asynchronous request Endpoint Permission: Admin and
-     * Non-Signing Admin.
+     * Pair API user Pair an API user to a cosigner Endpoint Permission: Admin and Non-Signing
+     * Admin.
      *
+     * @param pairApiUserRequest (required)
      * @param cosignerId The unique identifier of the cosigner (required)
-     * @param apiKeyId The unique identifier of the API key (required)
-     * @param requestId (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Status&gt;&gt;, which completes exceptionally
-     *     with an {@link ApiException} if the API call fails
-     */
-    public CompletableFuture<ApiResponse<Status>> getRequestStatus(
-            UUID cosignerId, String apiKeyId, String requestId) {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    getRequestStatusRequestBuilder(cosignerId, apiKeyId, requestId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                // Ahead of the status check, which fails the future: the lifecycle
-                                // header
-                                // is present on allowed error responses too.
-                                LifecycleWarning.warn(
-                                        localVarResponse.headers(),
-                                        "getRequestStatus",
-                                        localVarResponse.statusCode());
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("getRequestStatus", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<Status>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            Status>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            })
-                    .handle(
-                            (localVarApiResponse, localVarThrowable) ->
-                                    localVarThrowable == null
-                                            ? CompletableFuture.completedFuture(localVarApiResponse)
-                                            : CompletableFuture.<ApiResponse<Status>>failedFuture(
-                                                    toApiFailure(localVarThrowable)))
-                    .thenCompose(localVarNormalized -> localVarNormalized);
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getRequestStatusRequestBuilder(
-            UUID cosignerId, String apiKeyId, String requestId) throws ApiException {
-        ValidationUtils.assertParamExistsAndNotEmpty(
-                "getRequestStatus", "cosignerId", cosignerId.toString());
-        ValidationUtils.assertParamExistsAndNotEmpty("getRequestStatus", "apiKeyId", apiKeyId);
-        ValidationUtils.assertParamExistsAndNotEmpty("getRequestStatus", "requestId", requestId);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/cosigners/{cosignerId}/api_keys/{apiKeyId}/{requestId}"
-                        .replace("{cosignerId}", ApiClient.urlEncode(cosignerId.toString()))
-                        .replace("{apiKeyId}", ApiClient.urlEncode(apiKeyId.toString()))
-                        .replace("{requestId}", ApiClient.urlEncode(requestId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Pair API key Pair an API key to a cosigner Endpoint Permission: Admin and Non-Signing Admin.
-     *
-     * @param pairApiKeyRequest (required)
-     * @param cosignerId The unique identifier of the cosigner (required)
-     * @param apiKeyId The unique identifier of the API key (required)
+     * @param apiUserId The unique identifier of the API user (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;PairApiKeyResponse&gt;&gt;, which completes
+     * @return CompletableFuture&lt;ApiResponse&lt;PairApiUserResponse&gt;&gt;, which completes
      *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<PairApiKeyResponse>> pairApiKey(
-            PairApiKeyRequest pairApiKeyRequest,
+    public CompletableFuture<ApiResponse<PairApiUserResponse>> pairCosignerApiUser(
+            PairApiUserRequest pairApiUserRequest,
             UUID cosignerId,
-            String apiKeyId,
+            String apiUserId,
             String idempotencyKey) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    pairApiKeyRequestBuilder(
-                            pairApiKeyRequest, cosignerId, apiKeyId, idempotencyKey);
+                    pairCosignerApiUserRequestBuilder(
+                            pairApiUserRequest, cosignerId, apiUserId, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -710,16 +716,17 @@ public class CosignersBetaApi {
                                 // is present on allowed error responses too.
                                 LifecycleWarning.warn(
                                         localVarResponse.headers(),
-                                        "pairApiKey",
+                                        "pairCosignerApiUser",
                                         localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
-                                            getApiException("pairApiKey", localVarResponse));
+                                            getApiException(
+                                                    "pairCosignerApiUser", localVarResponse));
                                 }
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<PairApiKeyResponse>(
+                                            new ApiResponse<PairApiUserResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -727,7 +734,7 @@ public class CosignersBetaApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            PairApiKeyResponse>() {})));
+                                                                            PairApiUserResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -737,7 +744,7 @@ public class CosignersBetaApi {
                                     localVarThrowable == null
                                             ? CompletableFuture.completedFuture(localVarApiResponse)
                                             : CompletableFuture
-                                                    .<ApiResponse<PairApiKeyResponse>>failedFuture(
+                                                    .<ApiResponse<PairApiUserResponse>>failedFuture(
                                                             toApiFailure(localVarThrowable)))
                     .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
@@ -745,23 +752,24 @@ public class CosignersBetaApi {
         }
     }
 
-    private HttpRequest.Builder pairApiKeyRequestBuilder(
-            PairApiKeyRequest pairApiKeyRequest,
+    private HttpRequest.Builder pairCosignerApiUserRequestBuilder(
+            PairApiUserRequest pairApiUserRequest,
             UUID cosignerId,
-            String apiKeyId,
+            String apiUserId,
             String idempotencyKey)
             throws ApiException {
-        ValidationUtils.assertParamExists("pairApiKey", "pairApiKeyRequest", pairApiKeyRequest);
+        ValidationUtils.assertParamExists(
+                "pairCosignerApiUser", "pairApiUserRequest", pairApiUserRequest);
         ValidationUtils.assertParamExistsAndNotEmpty(
-                "pairApiKey", "cosignerId", cosignerId.toString());
-        ValidationUtils.assertParamExistsAndNotEmpty("pairApiKey", "apiKeyId", apiKeyId);
+                "pairCosignerApiUser", "cosignerId", cosignerId.toString());
+        ValidationUtils.assertParamExistsAndNotEmpty("pairCosignerApiUser", "apiUserId", apiUserId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
         String localVarPath =
-                "/cosigners/{cosignerId}/api_keys/{apiKeyId}"
+                "/cosigners/{cosignerId}/api_users/{apiUserId}"
                         .replace("{cosignerId}", ApiClient.urlEncode(cosignerId.toString()))
-                        .replace("{apiKeyId}", ApiClient.urlEncode(apiKeyId.toString()));
+                        .replace("{apiUserId}", ApiClient.urlEncode(apiUserId.toString()));
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
@@ -772,7 +780,7 @@ public class CosignersBetaApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         try {
-            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(pairApiKeyRequest);
+            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(pairApiUserRequest);
             localVarRequestBuilder.method(
                     "PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {
@@ -787,8 +795,7 @@ public class CosignersBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Rename cosigner Rename a cosigner by ID. **Note:** These endpoints are currently in beta and
-     * might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
+     * Rename cosigner Rename a cosigner by ID. Endpoint Permission: Admin and Non-Signing Admin.
      *
      * @param renameCosigner (required)
      * @param cosignerId The unique identifier of the cosigner (required)
@@ -879,18 +886,19 @@ public class CosignersBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Unpair API key Unpair an API key from a cosigner Endpoint Permission: Admin and Non-Signing
+     * Unpair API user Unpair an API user from a cosigner Endpoint Permission: Admin and Non-Signing
      * Admin.
      *
      * @param cosignerId The unique identifier of the cosigner (required)
-     * @param apiKeyId The unique identifier of the API key (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ApiKey&gt;&gt;, which completes exceptionally
-     *     with an {@link ApiException} if the API call fails
+     * @param apiUserId The unique identifier of the API user (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;CosignerApiUser&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<ApiKey>> unpairApiKey(UUID cosignerId, String apiKeyId) {
+    public CompletableFuture<ApiResponse<CosignerApiUser>> unpairCosignerApiUser(
+            UUID cosignerId, String apiUserId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    unpairApiKeyRequestBuilder(cosignerId, apiKeyId);
+                    unpairCosignerApiUserRequestBuilder(cosignerId, apiUserId);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -903,16 +911,17 @@ public class CosignersBetaApi {
                                 // is present on allowed error responses too.
                                 LifecycleWarning.warn(
                                         localVarResponse.headers(),
-                                        "unpairApiKey",
+                                        "unpairCosignerApiUser",
                                         localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
-                                            getApiException("unpairApiKey", localVarResponse));
+                                            getApiException(
+                                                    "unpairCosignerApiUser", localVarResponse));
                                 }
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<ApiKey>(
+                                            new ApiResponse<CosignerApiUser>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -920,7 +929,7 @@ public class CosignersBetaApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            ApiKey>() {})));
+                                                                            CosignerApiUser>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -929,26 +938,28 @@ public class CosignersBetaApi {
                             (localVarApiResponse, localVarThrowable) ->
                                     localVarThrowable == null
                                             ? CompletableFuture.completedFuture(localVarApiResponse)
-                                            : CompletableFuture.<ApiResponse<ApiKey>>failedFuture(
-                                                    toApiFailure(localVarThrowable)))
+                                            : CompletableFuture
+                                                    .<ApiResponse<CosignerApiUser>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
                     .thenCompose(localVarNormalized -> localVarNormalized);
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
         }
     }
 
-    private HttpRequest.Builder unpairApiKeyRequestBuilder(UUID cosignerId, String apiKeyId)
-            throws ApiException {
+    private HttpRequest.Builder unpairCosignerApiUserRequestBuilder(
+            UUID cosignerId, String apiUserId) throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty(
-                "unpairApiKey", "cosignerId", cosignerId.toString());
-        ValidationUtils.assertParamExistsAndNotEmpty("unpairApiKey", "apiKeyId", apiKeyId);
+                "unpairCosignerApiUser", "cosignerId", cosignerId.toString());
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "unpairCosignerApiUser", "apiUserId", apiUserId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
         String localVarPath =
-                "/cosigners/{cosignerId}/api_keys/{apiKeyId}"
+                "/cosigners/{cosignerId}/api_users/{apiUserId}"
                         .replace("{cosignerId}", ApiClient.urlEncode(cosignerId.toString()))
-                        .replace("{apiKeyId}", ApiClient.urlEncode(apiKeyId.toString()));
+                        .replace("{apiUserId}", ApiClient.urlEncode(apiUserId.toString()));
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
@@ -964,23 +975,24 @@ public class CosignersBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Update API key callback handler Update the callback handler of an API key Endpoint
+     * Update API user callback handler Update the callback handler of an API user Endpoint
      * Permission: Admin and Non-Signing Admin.
      *
      * @param updateCallbackHandlerRequest (required)
      * @param cosignerId The unique identifier of the cosigner (required)
-     * @param apiKeyId The unique identifier of the API key (required)
+     * @param apiUserId The unique identifier of the API user (required)
      * @return CompletableFuture&lt;ApiResponse&lt;UpdateCallbackHandlerResponse&gt;&gt;, which
      *     completes exceptionally with an {@link ApiException} if the API call fails
      */
-    public CompletableFuture<ApiResponse<UpdateCallbackHandlerResponse>> updateCallbackHandler(
-            UpdateCallbackHandlerRequest updateCallbackHandlerRequest,
-            UUID cosignerId,
-            String apiKeyId) {
+    public CompletableFuture<ApiResponse<UpdateCallbackHandlerResponse>>
+            updateCosignerApiUserCallbackHandler(
+                    UpdateCallbackHandlerRequest updateCallbackHandlerRequest,
+                    UUID cosignerId,
+                    String apiUserId) {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    updateCallbackHandlerRequestBuilder(
-                            updateCallbackHandlerRequest, cosignerId, apiKeyId);
+                    updateCosignerApiUserCallbackHandlerRequestBuilder(
+                            updateCallbackHandlerRequest, cosignerId, apiUserId);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -993,12 +1005,13 @@ public class CosignersBetaApi {
                                 // is present on allowed error responses too.
                                 LifecycleWarning.warn(
                                         localVarResponse.headers(),
-                                        "updateCallbackHandler",
+                                        "updateCosignerApiUserCallbackHandler",
                                         localVarResponse.statusCode());
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
-                                                    "updateCallbackHandler", localVarResponse));
+                                                    "updateCosignerApiUserCallbackHandler",
+                                                    localVarResponse));
                                 }
                                 try {
                                     String responseBody = localVarResponse.body();
@@ -1031,25 +1044,26 @@ public class CosignersBetaApi {
         }
     }
 
-    private HttpRequest.Builder updateCallbackHandlerRequestBuilder(
+    private HttpRequest.Builder updateCosignerApiUserCallbackHandlerRequestBuilder(
             UpdateCallbackHandlerRequest updateCallbackHandlerRequest,
             UUID cosignerId,
-            String apiKeyId)
+            String apiUserId)
             throws ApiException {
         ValidationUtils.assertParamExists(
-                "updateCallbackHandler",
+                "updateCosignerApiUserCallbackHandler",
                 "updateCallbackHandlerRequest",
                 updateCallbackHandlerRequest);
         ValidationUtils.assertParamExistsAndNotEmpty(
-                "updateCallbackHandler", "cosignerId", cosignerId.toString());
-        ValidationUtils.assertParamExistsAndNotEmpty("updateCallbackHandler", "apiKeyId", apiKeyId);
+                "updateCosignerApiUserCallbackHandler", "cosignerId", cosignerId.toString());
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateCosignerApiUserCallbackHandler", "apiUserId", apiUserId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
         String localVarPath =
-                "/cosigners/{cosignerId}/api_keys/{apiKeyId}"
+                "/cosigners/{cosignerId}/api_users/{apiUserId}"
                         .replace("{cosignerId}", ApiClient.urlEncode(cosignerId.toString()))
-                        .replace("{apiKeyId}", ApiClient.urlEncode(apiKeyId.toString()));
+                        .replace("{apiUserId}", ApiClient.urlEncode(apiUserId.toString()));
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 

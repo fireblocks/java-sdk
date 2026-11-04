@@ -54,4 +54,16 @@ class ValidationKeyDtoTest {
     void createdAtTest() {
         // TODO: test createdAt
     }
+
+    /** Test the property 'expirationTime' */
+    @Test
+    void expirationTimeTest() {
+        // TODO: test expirationTime
+    }
+
+    /** Test the property 'revoked' */
+    @Test
+    void revokedTest() {
+        // TODO: test revoked
+    }
 }

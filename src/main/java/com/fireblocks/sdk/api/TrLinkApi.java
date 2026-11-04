@@ -692,8 +692,12 @@ public class TrLinkApi {
         return localVarRequestBuilder;
     }
     /**
-     * Manual decision for missing TRM Accept or reject destinations stuck in NoTRM step without
-     * waiting for TRP webhook or policy timeout.
+     * Manual decision for missing TRM Accept or reject destinations waiting for a Travel Rule
+     * message (missing TRM), without waiting for a TRP webhook or the missing-TRM policy timeout.
+     * You can submit before a destination enters the missing-TRM wait; if it can&#39;t be updated
+     * immediately, the decision is applied on the next processing attempt instead (status
+     * ACCEPTED). Check &#x60;status&#x60; in the response to see whether the decision has been
+     * applied.
      *
      * @param trLinkManualDecisionRequest (required)
      * @param customerIntegrationId Customer integration unique identifier (required)
@@ -1520,6 +1524,102 @@ public class TrLinkApi {
                         .replace(
                                 "{customerIntegrationId}",
                                 ApiClient.urlEncode(customerIntegrationId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get manual decision for missing TRM Returns the current manual missing-TRM decision for a
+     * transaction. Use to follow a decision that is not yet applied, or to check status at any
+     * time.
+     *
+     * @param customerIntegrationId Customer integration unique identifier (required)
+     * @param txId Fireblocks transaction unique identifier (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;TRLinkManualDecisionResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<TRLinkManualDecisionResponse>> getTRLinkManualDecision(
+            UUID customerIntegrationId, UUID txId) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getTRLinkManualDecisionRequestBuilder(customerIntegrationId, txId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getTRLinkManualDecision",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getTRLinkManualDecision", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<TRLinkManualDecisionResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            TRLinkManualDecisionResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TRLinkManualDecisionResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTRLinkManualDecisionRequestBuilder(
+            UUID customerIntegrationId, UUID txId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getTRLinkManualDecision",
+                "customerIntegrationId",
+                customerIntegrationId.toString());
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getTRLinkManualDecision", "txId", txId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/screening/trlink/customers/integration/{customerIntegrationId}/transactions/{txId}/manual_decision"
+                        .replace(
+                                "{customerIntegrationId}",
+                                ApiClient.urlEncode(customerIntegrationId.toString()))
+                        .replace("{txId}", ApiClient.urlEncode(txId.toString()));
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 

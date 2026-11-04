@@ -1,21 +1,22 @@
-# KeyLinkBetaApi
+# KeyLinkApi
 
 All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createBulkSigningKeys**](KeyLinkBetaApi.md#createBulkSigningKeys) | **POST** /key_link/signing_keys/bulk | Register signing keys in bulk |
-| [**createSigningKey**](KeyLinkBetaApi.md#createSigningKey) | **POST** /key_link/signing_keys | Add a new signing key |
-| [**createValidationKey**](KeyLinkBetaApi.md#createValidationKey) | **POST** /key_link/validation_keys | Add a new validation key |
-| [**disableValidationKey**](KeyLinkBetaApi.md#disableValidationKey) | **PATCH** /key_link/validation_keys/{keyId} | Disables a validation key |
-| [**getBulkSigningKeysJob**](KeyLinkBetaApi.md#getBulkSigningKeysJob) | **GET** /key_link/signing_keys/bulk/jobs/{jobId} | Get a bulk registration job |
-| [**getBulkSigningKeysJobs**](KeyLinkBetaApi.md#getBulkSigningKeysJobs) | **GET** /key_link/signing_keys/bulk/jobs | Get bulk registration jobs |
-| [**getSigningKey**](KeyLinkBetaApi.md#getSigningKey) | **GET** /key_link/signing_keys/{keyId} | Get a signing key by &#x60;keyId&#x60; |
-| [**getSigningKeysList**](KeyLinkBetaApi.md#getSigningKeysList) | **GET** /key_link/signing_keys | Get list of signing keys |
-| [**getValidationKey**](KeyLinkBetaApi.md#getValidationKey) | **GET** /key_link/validation_keys/{keyId} | Get a validation key by &#x60;keyId&#x60; |
-| [**getValidationKeysList**](KeyLinkBetaApi.md#getValidationKeysList) | **GET** /key_link/validation_keys | Get list of registered validation keys |
-| [**setAgentId**](KeyLinkBetaApi.md#setAgentId) | **PATCH** /key_link/signing_keys/{keyId}/agent_user_id | Set agent user id |
-| [**updateSigningKey**](KeyLinkBetaApi.md#updateSigningKey) | **PATCH** /key_link/signing_keys/{keyId} | Modify the signing keyId |
+| [**createBulkSigningKeys**](KeyLinkApi.md#createBulkSigningKeys) | **POST** /key_link/signing_keys/bulk | Register signing keys in bulk |
+| [**createSigningKey**](KeyLinkApi.md#createSigningKey) | **POST** /key_link/signing_keys | Add a new signing key |
+| [**createValidationKey**](KeyLinkApi.md#createValidationKey) | **POST** /key_link/validation_keys | Add a new validation key |
+| [**disableValidationKey**](KeyLinkApi.md#disableValidationKey) | **PATCH** /key_link/validation_keys/{keyId} | Disables a validation key |
+| [**getBulkSigningKeysJob**](KeyLinkApi.md#getBulkSigningKeysJob) | **GET** /key_link/signing_keys/bulk/jobs/{jobId} | Get a bulk registration job |
+| [**getBulkSigningKeysJobs**](KeyLinkApi.md#getBulkSigningKeysJobs) | **GET** /key_link/signing_keys/bulk/jobs | Get bulk registration jobs |
+| [**getSigningKey**](KeyLinkApi.md#getSigningKey) | **GET** /key_link/signing_keys/{keyId} | Get a signing key by &#x60;keyId&#x60; |
+| [**getSigningKeysList**](KeyLinkApi.md#getSigningKeysList) | **GET** /key_link/signing_keys | Get list of signing keys |
+| [**getValidationKey**](KeyLinkApi.md#getValidationKey) | **GET** /key_link/validation_keys/{keyId} | Get a validation key by &#x60;keyId&#x60; |
+| [**getValidationKeysList**](KeyLinkApi.md#getValidationKeysList) | **GET** /key_link/validation_keys | Get list of registered validation keys |
+| [**revokeValidationKey**](KeyLinkApi.md#revokeValidationKey) | **POST** /key_link/validation_keys/{keyId}/revoke | Revokes a validation key |
+| [**setAgentId**](KeyLinkApi.md#setAgentId) | **PATCH** /key_link/signing_keys/{keyId}/agent_user_id | Set agent user id |
+| [**updateSigningKey**](KeyLinkApi.md#updateSigningKey) | **PATCH** /key_link/signing_keys/{keyId} | Modify the signing keyId |
 
 
 
@@ -38,7 +39,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.KeyLinkBetaApi;
+import com.fireblocks.sdk.api.KeyLinkApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -53,13 +54,13 @@ public class Example {
         CreateBulkSigningKeys createBulkSigningKeys = new CreateBulkSigningKeys(); // CreateBulkSigningKeys | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<CreateBulkSigningKeysResponse>> response = fireblocks.keyLinkBeta().createBulkSigningKeys(createBulkSigningKeys, idempotencyKey);
+            CompletableFuture<ApiResponse<CreateBulkSigningKeysResponse>> response = fireblocks.keyLink().createBulkSigningKeys(createBulkSigningKeys, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling KeyLinkBetaApi#createBulkSigningKeys");
+            System.err.println("Exception when calling KeyLinkApi#createBulkSigningKeys");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -118,7 +119,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.KeyLinkBetaApi;
+import com.fireblocks.sdk.api.KeyLinkApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -133,13 +134,13 @@ public class Example {
         CreateSigningKeyDto createSigningKeyDto = new CreateSigningKeyDto(); // CreateSigningKeyDto | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLinkBeta().createSigningKey(createSigningKeyDto, idempotencyKey);
+            CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLink().createSigningKey(createSigningKeyDto, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling KeyLinkBetaApi#createSigningKey");
+            System.err.println("Exception when calling KeyLinkApi#createSigningKey");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -197,7 +198,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.KeyLinkBetaApi;
+import com.fireblocks.sdk.api.KeyLinkApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -212,13 +213,13 @@ public class Example {
         CreateValidationKeyDto createValidationKeyDto = new CreateValidationKeyDto(); // CreateValidationKeyDto | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<CreateValidationKeyResponseDto>> response = fireblocks.keyLinkBeta().createValidationKey(createValidationKeyDto, idempotencyKey);
+            CompletableFuture<ApiResponse<CreateValidationKeyResponseDto>> response = fireblocks.keyLink().createValidationKey(createValidationKeyDto, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling KeyLinkBetaApi#createValidationKey");
+            System.err.println("Exception when calling KeyLinkApi#createValidationKey");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -263,7 +264,7 @@ No authorization required
 
 Disables a validation key
 
-Allows disabling validation key even if it has not expired yet. It is not allowed to enable the validation key back. Another key has to be used for future validations.
+DEPRECATED - Please use &#x60;POST /key_link/validation_keys/{keyId}/revoke&#x60; instead. Allows disabling validation key even if it has not expired yet. It is not allowed to enable the validation key back. Another key has to be used for future validations.
 
 ### Example
 
@@ -276,7 +277,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.KeyLinkBetaApi;
+import com.fireblocks.sdk.api.KeyLinkApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -291,13 +292,13 @@ public class Example {
         ModifyValidationKeyDto modifyValidationKeyDto = new ModifyValidationKeyDto(); // ModifyValidationKeyDto | 
         String keyId = "46a92767-5f93-4a46-9eed-f012196bb4fc"; // String | The unique identifier for the validation key provided by Fireblocks
         try {
-            CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLinkBeta().disableValidationKey(modifyValidationKeyDto, keyId);
+            CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLink().disableValidationKey(modifyValidationKeyDto, keyId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling KeyLinkBetaApi#disableValidationKey");
+            System.err.println("Exception when calling KeyLinkApi#disableValidationKey");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -355,7 +356,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.KeyLinkBetaApi;
+import com.fireblocks.sdk.api.KeyLinkApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -369,13 +370,13 @@ public class Example {
 
         String jobId = "46a92767-5f93-4a46-9eed-f012196bb4fc"; // String | The id of the bulk registration job
         try {
-            CompletableFuture<ApiResponse<BulkSigningKeyJob>> response = fireblocks.keyLinkBeta().getBulkSigningKeysJob(jobId);
+            CompletableFuture<ApiResponse<BulkSigningKeyJob>> response = fireblocks.keyLink().getBulkSigningKeysJob(jobId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling KeyLinkBetaApi#getBulkSigningKeysJob");
+            System.err.println("Exception when calling KeyLinkApi#getBulkSigningKeysJob");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -432,7 +433,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.KeyLinkBetaApi;
+import com.fireblocks.sdk.api.KeyLinkApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -447,13 +448,13 @@ public class Example {
         String pageCursor = "pageCursor_example"; // String | Cursor to the next page
         Integer pageSize = 10; // Integer | Amount of results to return in the next page
         try {
-            CompletableFuture<ApiResponse<GetBulkSigningKeysJobsResponse>> response = fireblocks.keyLinkBeta().getBulkSigningKeysJobs(pageCursor, pageSize);
+            CompletableFuture<ApiResponse<GetBulkSigningKeysJobsResponse>> response = fireblocks.keyLink().getBulkSigningKeysJobs(pageCursor, pageSize);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling KeyLinkBetaApi#getBulkSigningKeysJobs");
+            System.err.println("Exception when calling KeyLinkApi#getBulkSigningKeysJobs");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -511,7 +512,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.KeyLinkBetaApi;
+import com.fireblocks.sdk.api.KeyLinkApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -525,13 +526,13 @@ public class Example {
 
         String keyId = "46a92767-5f93-4a46-9eed-f012196bb4fc"; // String | The unique identifier for the signing key provided by Fireblocks
         try {
-            CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLinkBeta().getSigningKey(keyId);
+            CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLink().getSigningKey(keyId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling KeyLinkBetaApi#getSigningKey");
+            System.err.println("Exception when calling KeyLinkApi#getSigningKey");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -588,7 +589,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.KeyLinkBetaApi;
+import com.fireblocks.sdk.api.KeyLinkApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -612,13 +613,13 @@ public class Example {
         Boolean isAssigned = true; // Boolean | Return keys that are assigned to a vault account
         String keyPrefix = "keyPrefix_example"; // String | A case-insensitive prefix filter that matches records where either keyId or signingDeviceKeyID starts with the specified value.
         try {
-            CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response = fireblocks.keyLinkBeta().getSigningKeysList(pageCursor, pageSize, sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned, keyPrefix);
+            CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response = fireblocks.keyLink().getSigningKeysList(pageCursor, pageSize, sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned, keyPrefix);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling KeyLinkBetaApi#getSigningKeysList");
+            System.err.println("Exception when calling KeyLinkApi#getSigningKeysList");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -685,7 +686,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.KeyLinkBetaApi;
+import com.fireblocks.sdk.api.KeyLinkApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -699,13 +700,13 @@ public class Example {
 
         String keyId = "keyId_example"; // String | 
         try {
-            CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLinkBeta().getValidationKey(keyId);
+            CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLink().getValidationKey(keyId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling KeyLinkBetaApi#getValidationKey");
+            System.err.println("Exception when calling KeyLinkApi#getValidationKey");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -745,11 +746,11 @@ No authorization required
 
 ## getValidationKeysList
 
-> CompletableFuture<ApiResponse<GetValidationKeyResponseDto>> getValidationKeysList getValidationKeysList(pageCursor, pageSize, sortBy, order)
+> CompletableFuture<ApiResponse<GetValidationKeyResponseDto>> getValidationKeysList getValidationKeysList(pageCursor, pageSize, sortBy, order, includeRevoked)
 
 Get list of registered validation keys
 
-Returns the list of validation keys in the workspace
+Returns the list of validation keys in the workspace. By default, revoked keys are filtered out. Use &#x60;includeRevoked&#x3D;true&#x60; to show all keys.
 
 ### Example
 
@@ -762,7 +763,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.KeyLinkBetaApi;
+import com.fireblocks.sdk.api.KeyLinkApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -778,14 +779,15 @@ public class Example {
         BigDecimal pageSize = new BigDecimal("10"); // BigDecimal | Amount of results to return in the next page
         String sortBy = "createdAt"; // String | Field(s) to use for sorting
         String order = "ASC"; // String | Is the order ascending or descending
+        Boolean includeRevoked = false; // Boolean | Include revoked validation keys in the response
         try {
-            CompletableFuture<ApiResponse<GetValidationKeyResponseDto>> response = fireblocks.keyLinkBeta().getValidationKeysList(pageCursor, pageSize, sortBy, order);
+            CompletableFuture<ApiResponse<GetValidationKeyResponseDto>> response = fireblocks.keyLink().getValidationKeysList(pageCursor, pageSize, sortBy, order, includeRevoked);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling KeyLinkBetaApi#getValidationKeysList");
+            System.err.println("Exception when calling KeyLinkApi#getValidationKeysList");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -804,6 +806,7 @@ public class Example {
 | **pageSize** | **BigDecimal**| Amount of results to return in the next page | [optional] [default to 10] |
 | **sortBy** | **String**| Field(s) to use for sorting | [optional] [default to createdAt] [enum: createdAt] |
 | **order** | **String**| Is the order ascending or descending | [optional] [default to ASC] [enum: ASC, DESC] |
+| **includeRevoked** | **Boolean**| Include revoked validation keys in the response | [optional] [default to false] |
 
 ### Return type
 
@@ -826,6 +829,85 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## revokeValidationKey
+
+> CompletableFuture<ApiResponse<ValidationKeyDto>> revokeValidationKey revokeValidationKey(keyId, idempotencyKey)
+
+Revokes a validation key
+
+Revokes a validation key, making it permanently unusable for validation. Once revoked, a key cannot be un-revoked. Another key has to be used for future validations.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.KeyLinkApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String keyId = "46a92767-5f93-4a46-9eed-f012196bb4fc"; // String | The unique identifier for the validation key provided by Fireblocks
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLink().revokeValidationKey(keyId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling KeyLinkApi#revokeValidationKey");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **keyId** | **String**| The unique identifier for the validation key provided by Fireblocks | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**ValidationKeyDto**](ValidationKeyDto.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Revoked validation key data |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## setAgentId
 
 > CompletableFuture<ApiResponse<Void>> setAgentId setAgentId(modifySigningKeyAgentIdDto, keyId)
@@ -845,7 +927,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.KeyLinkBetaApi;
+import com.fireblocks.sdk.api.KeyLinkApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -860,12 +942,12 @@ public class Example {
         ModifySigningKeyAgentIdDto modifySigningKeyAgentIdDto = new ModifySigningKeyAgentIdDto(); // ModifySigningKeyAgentIdDto | 
         String keyId = "46a92767-5f93-4a46-9eed-f012196bb4fc"; // String | The unique identifier for the signing key provided by Fireblocks
         try {
-            CompletableFuture<ApiResponse<Void>> response = fireblocks.keyLinkBeta().setAgentId(modifySigningKeyAgentIdDto, keyId);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.keyLink().setAgentId(modifySigningKeyAgentIdDto, keyId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling KeyLinkBetaApi#setAgentId");
+            System.err.println("Exception when calling KeyLinkApi#setAgentId");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());
@@ -923,7 +1005,7 @@ import com.fireblocks.sdk.BasePath;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.model.*;
-import com.fireblocks.sdk.api.KeyLinkBetaApi;
+import com.fireblocks.sdk.api.KeyLinkApi;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -938,13 +1020,13 @@ public class Example {
         ModifySigningKeyDto modifySigningKeyDto = new ModifySigningKeyDto(); // ModifySigningKeyDto | 
         String keyId = "46a92767-5f93-4a46-9eed-f012196bb4fc"; // String | The unique identifier for the signing key provided by Fireblocks
         try {
-            CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLinkBeta().updateSigningKey(modifySigningKeyDto, keyId);
+            CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLink().updateSigningKey(modifySigningKeyDto, keyId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
-            System.err.println("Exception when calling KeyLinkBetaApi#updateSigningKey");
+            System.err.println("Exception when calling KeyLinkApi#updateSigningKey");
             System.err.println("Status code: " + apiException.getCode());
             System.err.println("Response headers: " + apiException.getResponseHeaders());
             System.err.println("Reason: " + apiException.getResponseBody());

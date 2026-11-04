@@ -23,35 +23,35 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** ApiKeysPaginatedResponse */
+/** ApiUsersPaginatedResponse */
 @JsonPropertyOrder({
-    ApiKeysPaginatedResponse.JSON_PROPERTY_DATA,
-    ApiKeysPaginatedResponse.JSON_PROPERTY_NEXT
+    ApiUsersPaginatedResponse.JSON_PROPERTY_DATA,
+    ApiUsersPaginatedResponse.JSON_PROPERTY_NEXT
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class ApiKeysPaginatedResponse {
+public class ApiUsersPaginatedResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    @jakarta.annotation.Nonnull private List<ApiKey> data;
+    @jakarta.annotation.Nonnull private List<CosignerApiUser> data;
 
     public static final String JSON_PROPERTY_NEXT = "next";
     @jakarta.annotation.Nullable private String next;
 
-    public ApiKeysPaginatedResponse() {}
+    public ApiUsersPaginatedResponse() {}
 
     @JsonCreator
-    public ApiKeysPaginatedResponse(
-            @JsonProperty(value = JSON_PROPERTY_DATA, required = true) List<ApiKey> data) {
+    public ApiUsersPaginatedResponse(
+            @JsonProperty(value = JSON_PROPERTY_DATA, required = true) List<CosignerApiUser> data) {
         this.data = data;
     }
 
-    public ApiKeysPaginatedResponse data(@jakarta.annotation.Nonnull List<ApiKey> data) {
+    public ApiUsersPaginatedResponse data(@jakarta.annotation.Nonnull List<CosignerApiUser> data) {
         this.data = data;
         return this;
     }
 
-    public ApiKeysPaginatedResponse addDataItem(ApiKey dataItem) {
+    public ApiUsersPaginatedResponse addDataItem(CosignerApiUser dataItem) {
         if (this.data == null) {
             this.data = new ArrayList<>();
         }
@@ -67,17 +67,17 @@ public class ApiKeysPaginatedResponse {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<ApiKey> getData() {
+    public List<CosignerApiUser> getData() {
         return data;
     }
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setData(@jakarta.annotation.Nonnull List<ApiKey> data) {
+    public void setData(@jakarta.annotation.Nonnull List<CosignerApiUser> data) {
         this.data = data;
     }
 
-    public ApiKeysPaginatedResponse next(@jakarta.annotation.Nullable String next) {
+    public ApiUsersPaginatedResponse next(@jakarta.annotation.Nullable String next) {
         this.next = next;
         return this;
     }
@@ -100,7 +100,7 @@ public class ApiKeysPaginatedResponse {
         this.next = next;
     }
 
-    /** Return true if this ApiKeysPaginatedResponse object is equal to o. */
+    /** Return true if this ApiUsersPaginatedResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -109,9 +109,9 @@ public class ApiKeysPaginatedResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ApiKeysPaginatedResponse apiKeysPaginatedResponse = (ApiKeysPaginatedResponse) o;
-        return Objects.equals(this.data, apiKeysPaginatedResponse.data)
-                && Objects.equals(this.next, apiKeysPaginatedResponse.next);
+        ApiUsersPaginatedResponse apiUsersPaginatedResponse = (ApiUsersPaginatedResponse) o;
+        return Objects.equals(this.data, apiUsersPaginatedResponse.data)
+                && Objects.equals(this.next, apiUsersPaginatedResponse.next);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class ApiKeysPaginatedResponse {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class ApiKeysPaginatedResponse {\n");
+        sb.append("class ApiUsersPaginatedResponse {\n");
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
         sb.append("    next: ").append(toIndentedString(next)).append("\n");
         sb.append("}");

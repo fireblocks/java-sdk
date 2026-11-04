@@ -7730,7 +7730,7 @@ paths:
         - Track progress by polling GET /management/users; deletion is complete when the user is disabled.
         - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin/Security Admin permissions.
         Endpoint Permission: Admin, Non-Signing Admin, Security Admin.
-        **Note:** This endpoint is currently in beta and might be subject to changes.
+        **Note:** This endpoint is in Early Availability (EA) and may change or break before it reaches GA.
       operationId: deleteConsoleUser
       parameters:
       - description: The ID of the console user to delete
@@ -7849,7 +7849,7 @@ paths:
       - Console User
       x-rate-limit-category: write
       x-lifecycle:
-        state: beta
+        state: ea
       x-readme:
         code-samples:
         - language: javascript
@@ -9647,7 +9647,6 @@ paths:
     get:
       description: |-
         Get all workspace cosigners (paginated).
-        **Note:** These endpoints are currently in beta and might be subject to changes.
         Endpoint Permission: Admin and Non-Signing Admin.
       operationId: getCosigners
       parameters:
@@ -9698,37 +9697,37 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get all cosigners
       tags:
-      - Cosigners (Beta)
+      - Cosigners
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<CosignersPaginatedResponse>>\
-            \ = fireblocks.cosignersBeta.getCosigners(cosignersBetaApiGetCosignersRequest);"
+            \ = fireblocks.cosigners.getCosigners(cosignersApiGetCosignersRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<CosignersPaginatedResponse>> response\
-            \ = fireblocks.cosignersBeta().getCosigners(order, pageCursor, pageSize);"
+            \ = fireblocks.cosigners().getCosigners(order, pageCursor, pageSize);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.cosigners_beta.get_cosigners(order, page_cursor,\
+          code: "response = fireblocks.cosigners.get_cosigners(order, page_cursor,\
             \ page_size);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<CosignersPaginatedResponse>>\
-          \ = fireblocks.cosignersBeta.getCosigners(cosignersBetaApiGetCosignersRequest);"
+          \ = fireblocks.cosigners.getCosigners(cosignersApiGetCosignersRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<CosignersPaginatedResponse>> response\
-          \ = fireblocks.cosignersBeta().getCosigners(order, pageCursor, pageSize);"
+          \ = fireblocks.cosigners().getCosigners(order, pageCursor, pageSize);"
       - lang: Python
-        source: "response = fireblocks.cosigners_beta.get_cosigners(order, page_cursor,\
+        source: "response = fireblocks.cosigners.get_cosigners(order, page_cursor,\
           \ page_size);"
       x-accepts:
       - application/json
     post:
       description: |-
-        Add a new cosigner. The cosigner will be pending pairing until the API key is manually paired
+        Add a new cosigner. The cosigner will be pending pairing until the API user is manually paired (see `pairCosignerApiUser`).
         Endpoint Permission: Admin and Non-Signing Admin.
       operationId: addCosigner
       parameters:
@@ -9763,31 +9762,31 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Add cosigner
       tags:
-      - Cosigners (Beta)
+      - Cosigners
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<AddCosignerResponse>>\
-            \ = fireblocks.cosignersBeta.addCosigner(cosignersBetaApiAddCosignerRequest);"
+            \ = fireblocks.cosigners.addCosigner(cosignersApiAddCosignerRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<AddCosignerResponse>> response = fireblocks.cosignersBeta().addCosigner(addCosignerRequest,\
+          code: "CompletableFuture<ApiResponse<AddCosignerResponse>> response = fireblocks.cosigners().addCosigner(addCosignerRequest,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.cosigners_beta.add_cosigner(add_cosigner_request,\
+          code: "response = fireblocks.cosigners.add_cosigner(add_cosigner_request,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<AddCosignerResponse>>\
-          \ = fireblocks.cosignersBeta.addCosigner(cosignersBetaApiAddCosignerRequest);"
+          \ = fireblocks.cosigners.addCosigner(cosignersApiAddCosignerRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<AddCosignerResponse>> response = fireblocks.cosignersBeta().addCosigner(addCosignerRequest,\
+        source: "CompletableFuture<ApiResponse<AddCosignerResponse>> response = fireblocks.cosigners().addCosigner(addCosignerRequest,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.cosigners_beta.add_cosigner(add_cosigner_request,\
+        source: "response = fireblocks.cosigners.add_cosigner(add_cosigner_request,\
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -9796,7 +9795,6 @@ paths:
     get:
       description: |-
         Get a cosigner by ID.
-        **Note:** These endpoints are currently in beta and might be subject to changes.
         Endpoint Permission: Admin and Non-Signing Admin.
       operationId: getCosigner
       parameters:
@@ -9824,32 +9822,31 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get cosigner
       tags:
-      - Cosigners (Beta)
+      - Cosigners
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<Cosigner>> = fireblocks.cosignersBeta.getCosigner(cosignersBetaApiGetCosignerRequest);"
+          code: "const response: Promise<FireblocksResponse<Cosigner>> = fireblocks.cosigners.getCosigner(cosignersApiGetCosignerRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Cosigner>> response = fireblocks.cosignersBeta().getCosigner(cosignerId);
+          code: CompletableFuture<ApiResponse<Cosigner>> response = fireblocks.cosigners().getCosigner(cosignerId);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.cosigners_beta.get_cosigner(cosigner_id);
+          code: response = fireblocks.cosigners.get_cosigner(cosigner_id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<Cosigner>> = fireblocks.cosignersBeta.getCosigner(cosignersBetaApiGetCosignerRequest);"
+        source: "const response: Promise<FireblocksResponse<Cosigner>> = fireblocks.cosigners.getCosigner(cosignersApiGetCosignerRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<Cosigner>> response = fireblocks.cosignersBeta().getCosigner(cosignerId);
+        source: CompletableFuture<ApiResponse<Cosigner>> response = fireblocks.cosigners().getCosigner(cosignerId);
       - lang: Python
-        source: response = fireblocks.cosigners_beta.get_cosigner(cosigner_id);
+        source: response = fireblocks.cosigners.get_cosigner(cosigner_id);
       x-accepts:
       - application/json
     patch:
       description: |-
         Rename a cosigner by ID.
-        **Note:** These endpoints are currently in beta and might be subject to changes.
         Endpoint Permission: Admin and Non-Signing Admin.
       operationId: renameCosigner
       parameters:
@@ -9883,40 +9880,39 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Rename cosigner
       tags:
-      - Cosigners (Beta)
+      - Cosigners
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<Cosigner>> = fireblocks.cosignersBeta.renameCosigner(cosignersBetaApiRenameCosignerRequest);"
+          code: "const response: Promise<FireblocksResponse<Cosigner>> = fireblocks.cosigners.renameCosigner(cosignersApiRenameCosignerRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Cosigner>> response = fireblocks.cosignersBeta().renameCosigner(renameCosigner,\
+          code: "CompletableFuture<ApiResponse<Cosigner>> response = fireblocks.cosigners().renameCosigner(renameCosigner,\
             \ cosignerId);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.cosigners_beta.rename_cosigner(rename_cosigner,\
+          code: "response = fireblocks.cosigners.rename_cosigner(rename_cosigner,\
             \ cosigner_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<Cosigner>> = fireblocks.cosignersBeta.renameCosigner(cosignersBetaApiRenameCosignerRequest);"
+        source: "const response: Promise<FireblocksResponse<Cosigner>> = fireblocks.cosigners.renameCosigner(cosignersApiRenameCosignerRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<Cosigner>> response = fireblocks.cosignersBeta().renameCosigner(renameCosigner,\
+        source: "CompletableFuture<ApiResponse<Cosigner>> response = fireblocks.cosigners().renameCosigner(renameCosigner,\
           \ cosignerId);"
       - lang: Python
-        source: "response = fireblocks.cosigners_beta.rename_cosigner(rename_cosigner,\
+        source: "response = fireblocks.cosigners.rename_cosigner(rename_cosigner,\
           \ cosigner_id);"
       x-content-type: application/json
       x-accepts:
       - application/json
-  /cosigners/{cosignerId}/api_keys:
+  /cosigners/{cosignerId}/api_users:
     get:
       description: |-
-        Get all cosigner paired API keys (paginated).
-        **Note:** These endpoints are currently in beta and might be subject to changes.
+        Get all cosigner paired API users (paginated).
         Endpoint Permission: Admin and Non-Signing Admin.
-      operationId: getApiKeys
+      operationId: getCosignerApiUsers
       parameters:
       - description: The unique identifier of the cosigner
         example: 44fcead0-7053-4831-a53a-df7fb90d440f
@@ -9966,51 +9962,51 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiKeysPaginatedResponse"
-          description: A paginated response containing ApiKey objects
+                $ref: "#/components/schemas/ApiUsersPaginatedResponse"
+          description: A paginated response containing CosignerApiUser objects
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
-      summary: Get all API keys
+      summary: Get all API users
       tags:
-      - Cosigners (Beta)
+      - Cosigners
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<ApiKeysPaginatedResponse>>\
-            \ = fireblocks.cosignersBeta.getApiKeys(cosignersBetaApiGetApiKeysRequest);"
+          code: "const response: Promise<FireblocksResponse<ApiUsersPaginatedResponse>>\
+            \ = fireblocks.cosigners.getCosignerApiUsers(cosignersApiGetCosignerApiUsersRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<ApiKeysPaginatedResponse>> response\
-            \ = fireblocks.cosignersBeta().getApiKeys(cosignerId, order, pageCursor,\
+          code: "CompletableFuture<ApiResponse<ApiUsersPaginatedResponse>> response\
+            \ = fireblocks.cosigners().getCosignerApiUsers(cosignerId, order, pageCursor,\
             \ pageSize);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.cosigners_beta.get_api_keys(cosigner_id, order,\
-            \ page_cursor, page_size);"
+          code: "response = fireblocks.cosigners.get_cosigner_api_users(cosigner_id,\
+            \ order, page_cursor, page_size);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<ApiKeysPaginatedResponse>>\
-          \ = fireblocks.cosignersBeta.getApiKeys(cosignersBetaApiGetApiKeysRequest);"
+        source: "const response: Promise<FireblocksResponse<ApiUsersPaginatedResponse>>\
+          \ = fireblocks.cosigners.getCosignerApiUsers(cosignersApiGetCosignerApiUsersRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<ApiKeysPaginatedResponse>> response\
-          \ = fireblocks.cosignersBeta().getApiKeys(cosignerId, order, pageCursor,\
+        source: "CompletableFuture<ApiResponse<ApiUsersPaginatedResponse>> response\
+          \ = fireblocks.cosigners().getCosignerApiUsers(cosignerId, order, pageCursor,\
           \ pageSize);"
       - lang: Python
-        source: "response = fireblocks.cosigners_beta.get_api_keys(cosigner_id, order,\
-          \ page_cursor, page_size);"
+        source: "response = fireblocks.cosigners.get_cosigner_api_users(cosigner_id,\
+          \ order, page_cursor, page_size);"
       x-accepts:
       - application/json
-  /cosigners/{cosignerId}/api_keys/{apiKeyId}:
+  /cosigners/{cosignerId}/api_users/{apiUserId}:
     delete:
       description: |-
-        Unpair an API key from a cosigner
+        Unpair an API user from a cosigner
         Endpoint Permission: Admin and Non-Signing Admin.
-      operationId: unpairApiKey
+      operationId: unpairCosignerApiUser
       parameters:
       - description: The unique identifier of the cosigner
         example: 44fcead0-7053-4831-a53a-df7fb90d440f
@@ -10022,11 +10018,11 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: The unique identifier of the API key
+      - description: The unique identifier of the API user
         example: 44fcead0-7053-4831-a53a-df7fb90d440f
         explode: false
         in: path
-        name: apiKeyId
+        name: apiUserId
         required: true
         schema:
           type: string
@@ -10036,8 +10032,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiKey"
-          description: The API key object to be unpaired
+                $ref: "#/components/schemas/CosignerApiUser"
+          description: The API user object to be unpaired
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -10045,40 +10041,39 @@ paths:
               $ref: "#/components/headers/Location"
         default:
           $ref: "#/components/responses/Error"
-      summary: Unpair API key
+      summary: Unpair API user
       tags:
-      - Cosigners (Beta)
+      - Cosigners
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<ApiKey>> = fireblocks.cosignersBeta.unpairApiKey(cosignersBetaApiUnpairApiKeyRequest);"
+          code: "const response: Promise<FireblocksResponse<CosignerApiUser>> = fireblocks.cosigners.unpairCosignerApiUser(cosignersApiUnpairCosignerApiUserRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<ApiKey>> response = fireblocks.cosignersBeta().unpairApiKey(cosignerId,\
-            \ apiKeyId);"
+          code: "CompletableFuture<ApiResponse<CosignerApiUser>> response = fireblocks.cosigners().unpairCosignerApiUser(cosignerId,\
+            \ apiUserId);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.cosigners_beta.unpair_api_key(cosigner_id,\
-            \ api_key_id);"
+          code: "response = fireblocks.cosigners.unpair_cosigner_api_user(cosigner_id,\
+            \ api_user_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<ApiKey>> = fireblocks.cosignersBeta.unpairApiKey(cosignersBetaApiUnpairApiKeyRequest);"
+        source: "const response: Promise<FireblocksResponse<CosignerApiUser>> = fireblocks.cosigners.unpairCosignerApiUser(cosignersApiUnpairCosignerApiUserRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<ApiKey>> response = fireblocks.cosignersBeta().unpairApiKey(cosignerId,\
-          \ apiKeyId);"
+        source: "CompletableFuture<ApiResponse<CosignerApiUser>> response = fireblocks.cosigners().unpairCosignerApiUser(cosignerId,\
+          \ apiUserId);"
       - lang: Python
-        source: "response = fireblocks.cosigners_beta.unpair_api_key(cosigner_id,\
-          \ api_key_id);"
+        source: "response = fireblocks.cosigners.unpair_cosigner_api_user(cosigner_id,\
+          \ api_user_id);"
       x-accepts:
       - application/json
     get:
       description: |-
-        Get an API key by ID.
-        **Note:** These endpoints are currently in beta and might be subject to changes.
+        Get an API user by ID.
         Endpoint Permission: Admin and Non-Signing Admin.
-      operationId: getApiKey
+      operationId: getCosignerApiUser
       parameters:
       - description: The unique identifier of the cosigner
         example: 44fcead0-7053-4831-a53a-df7fb90d440f
@@ -10090,11 +10085,11 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: The unique identifier of the API key
+      - description: The unique identifier of the API user
         example: 44fcead0-7053-4831-a53a-df7fb90d440f
         explode: false
         in: path
-        name: apiKeyId
+        name: apiUserId
         required: true
         schema:
           type: string
@@ -10104,44 +10099,46 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiKey"
-          description: An ApiKey object
+                $ref: "#/components/schemas/CosignerApiUser"
+          description: A CosignerApiUser object
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
-      summary: Get API key
+      summary: Get API user
       tags:
-      - Cosigners (Beta)
+      - Cosigners
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<ApiKey>> = fireblocks.cosignersBeta.getApiKey(cosignersBetaApiGetApiKeyRequest);"
+          code: "const response: Promise<FireblocksResponse<CosignerApiUser>> = fireblocks.cosigners.getCosignerApiUser(cosignersApiGetCosignerApiUserRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<ApiKey>> response = fireblocks.cosignersBeta().getApiKey(cosignerId,\
-            \ apiKeyId);"
+          code: "CompletableFuture<ApiResponse<CosignerApiUser>> response = fireblocks.cosigners().getCosignerApiUser(cosignerId,\
+            \ apiUserId);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.cosigners_beta.get_api_key(cosigner_id, api_key_id);"
+          code: "response = fireblocks.cosigners.get_cosigner_api_user(cosigner_id,\
+            \ api_user_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<ApiKey>> = fireblocks.cosignersBeta.getApiKey(cosignersBetaApiGetApiKeyRequest);"
+        source: "const response: Promise<FireblocksResponse<CosignerApiUser>> = fireblocks.cosigners.getCosignerApiUser(cosignersApiGetCosignerApiUserRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<ApiKey>> response = fireblocks.cosignersBeta().getApiKey(cosignerId,\
-          \ apiKeyId);"
+        source: "CompletableFuture<ApiResponse<CosignerApiUser>> response = fireblocks.cosigners().getCosignerApiUser(cosignerId,\
+          \ apiUserId);"
       - lang: Python
-        source: "response = fireblocks.cosigners_beta.get_api_key(cosigner_id, api_key_id);"
+        source: "response = fireblocks.cosigners.get_cosigner_api_user(cosigner_id,\
+          \ api_user_id);"
       x-accepts:
       - application/json
     patch:
       description: |-
-        Update the callback handler of an API key
+        Update the callback handler of an API user
         Endpoint Permission: Admin and Non-Signing Admin.
-      operationId: updateCallbackHandler
+      operationId: updateCosignerApiUserCallbackHandler
       parameters:
       - description: The unique identifier of the cosigner
         example: 44fcead0-7053-4831-a53a-df7fb90d440f
@@ -10153,11 +10150,11 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: The unique identifier of the API key
+      - description: The unique identifier of the API user
         example: 44fcead0-7053-4831-a53a-df7fb90d440f
         explode: false
         in: path
-        name: apiKeyId
+        name: apiUserId
         required: true
         schema:
           type: string
@@ -10174,7 +10171,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UpdateCallbackHandlerResponse"
-          description: The API key object with the new callback handler
+          description: The API user object with the new callback handler
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -10182,44 +10179,44 @@ paths:
               $ref: "#/components/headers/Location"
         default:
           $ref: "#/components/responses/Error"
-      summary: Update API key callback handler
+      summary: Update API user callback handler
       tags:
-      - Cosigners (Beta)
+      - Cosigners
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<UpdateCallbackHandlerResponse>>\
-            \ = fireblocks.cosignersBeta.updateCallbackHandler(cosignersBetaApiUpdateCallbackHandlerRequest);"
+            \ = fireblocks.cosigners.updateCosignerApiUserCallbackHandler(cosignersApiUpdateCosignerApiUserCallbackHandlerRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<UpdateCallbackHandlerResponse>> response\
-            \ = fireblocks.cosignersBeta().updateCallbackHandler(updateCallbackHandlerRequest,\
-            \ cosignerId, apiKeyId);"
+            \ = fireblocks.cosigners().updateCosignerApiUserCallbackHandler(updateCallbackHandlerRequest,\
+            \ cosignerId, apiUserId);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.cosigners_beta.update_callback_handler(update_callback_handler_request,\
-            \ cosigner_id, api_key_id);"
+          code: "response = fireblocks.cosigners.update_cosigner_api_user_callback_handler(update_callback_handler_request,\
+            \ cosigner_id, api_user_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<UpdateCallbackHandlerResponse>>\
-          \ = fireblocks.cosignersBeta.updateCallbackHandler(cosignersBetaApiUpdateCallbackHandlerRequest);"
+          \ = fireblocks.cosigners.updateCosignerApiUserCallbackHandler(cosignersApiUpdateCosignerApiUserCallbackHandlerRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<UpdateCallbackHandlerResponse>> response\
-          \ = fireblocks.cosignersBeta().updateCallbackHandler(updateCallbackHandlerRequest,\
-          \ cosignerId, apiKeyId);"
+          \ = fireblocks.cosigners().updateCosignerApiUserCallbackHandler(updateCallbackHandlerRequest,\
+          \ cosignerId, apiUserId);"
       - lang: Python
-        source: "response = fireblocks.cosigners_beta.update_callback_handler(update_callback_handler_request,\
-          \ cosigner_id, api_key_id);"
+        source: "response = fireblocks.cosigners.update_cosigner_api_user_callback_handler(update_callback_handler_request,\
+          \ cosigner_id, api_user_id);"
       x-content-type: application/json
       x-accepts:
       - application/json
     put:
       description: |-
-        Pair an API key to a cosigner
+        Pair an API user to a cosigner
         Endpoint Permission: Admin and Non-Signing Admin.
-      operationId: pairApiKey
+      operationId: pairCosignerApiUser
       parameters:
       - description: The unique identifier of the cosigner
         example: 44fcead0-7053-4831-a53a-df7fb90d440f
@@ -10231,11 +10228,11 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: The unique identifier of the API key
+      - description: The unique identifier of the API user
         example: 44fcead0-7053-4831-a53a-df7fb90d440f
         explode: false
         in: path
-        name: apiKeyId
+        name: apiUserId
         required: true
         schema:
           type: string
@@ -10255,15 +10252,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PairApiKeyRequest"
+              $ref: "#/components/schemas/PairApiUserRequest"
         required: true
       responses:
         "202":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PairApiKeyResponse"
-          description: The API key object to be paired
+                $ref: "#/components/schemas/PairApiUserResponse"
+          description: The API user object to be paired
           headers:
             X-Request-ID:
               $ref: "#/components/headers/X-Request-ID"
@@ -10271,43 +10268,43 @@ paths:
               $ref: "#/components/headers/Location"
         default:
           $ref: "#/components/responses/Error"
-      summary: Pair API key
+      summary: Pair API user
       tags:
-      - Cosigners (Beta)
+      - Cosigners
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<PairApiKeyResponse>> =\
-            \ fireblocks.cosignersBeta.pairApiKey(cosignersBetaApiPairApiKeyRequest);"
+          code: "const response: Promise<FireblocksResponse<PairApiUserResponse>>\
+            \ = fireblocks.cosigners.pairCosignerApiUser(cosignersApiPairCosignerApiUserRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<PairApiKeyResponse>> response = fireblocks.cosignersBeta().pairApiKey(pairApiKeyRequest,\
-            \ cosignerId, apiKeyId, idempotencyKey);"
+          code: "CompletableFuture<ApiResponse<PairApiUserResponse>> response = fireblocks.cosigners().pairCosignerApiUser(pairApiUserRequest,\
+            \ cosignerId, apiUserId, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.cosigners_beta.pair_api_key(pair_api_key_request,\
-            \ cosigner_id, api_key_id, idempotency_key);"
+          code: "response = fireblocks.cosigners.pair_cosigner_api_user(pair_api_user_request,\
+            \ cosigner_id, api_user_id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<PairApiKeyResponse>> =\
-          \ fireblocks.cosignersBeta.pairApiKey(cosignersBetaApiPairApiKeyRequest);"
+        source: "const response: Promise<FireblocksResponse<PairApiUserResponse>>\
+          \ = fireblocks.cosigners.pairCosignerApiUser(cosignersApiPairCosignerApiUserRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<PairApiKeyResponse>> response = fireblocks.cosignersBeta().pairApiKey(pairApiKeyRequest,\
-          \ cosignerId, apiKeyId, idempotencyKey);"
+        source: "CompletableFuture<ApiResponse<PairApiUserResponse>> response = fireblocks.cosigners().pairCosignerApiUser(pairApiUserRequest,\
+          \ cosignerId, apiUserId, idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.cosigners_beta.pair_api_key(pair_api_key_request,\
-          \ cosigner_id, api_key_id, idempotency_key);"
+        source: "response = fireblocks.cosigners.pair_cosigner_api_user(pair_api_user_request,\
+          \ cosigner_id, api_user_id, idempotency_key);"
       x-content-type: application/json
       x-accepts:
       - application/json
-  /cosigners/{cosignerId}/api_keys/{apiKeyId}/{requestId}:
+  /cosigners/{cosignerId}/api_users/{apiUserId}/{requestId}:
     get:
       description: |-
         Get the status of an asynchronous request
         Endpoint Permission: Admin and Non-Signing Admin.
-      operationId: getRequestStatus
+      operationId: getCosignerApiUserRequestStatus
       parameters:
       - description: The unique identifier of the cosigner
         example: 44fcead0-7053-4831-a53a-df7fb90d440f
@@ -10319,11 +10316,11 @@ paths:
           format: uuid
           type: string
         style: simple
-      - description: The unique identifier of the API key
+      - description: The unique identifier of the API user
         example: 44fcead0-7053-4831-a53a-df7fb90d440f
         explode: false
         in: path
-        name: apiKeyId
+        name: apiUserId
         required: true
         schema:
           type: string
@@ -10347,32 +10344,32 @@ paths:
               $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
-      summary: Get request status
+      summary: Get API user request status
       tags:
-      - Cosigners (Beta)
+      - Cosigners
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<Status>> = fireblocks.cosignersBeta.getRequestStatus(cosignersBetaApiGetRequestStatusRequest);"
+          code: "const response: Promise<FireblocksResponse<Status>> = fireblocks.cosigners.getCosignerApiUserRequestStatus(cosignersApiGetCosignerApiUserRequestStatusRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Status>> response = fireblocks.cosignersBeta().getRequestStatus(cosignerId,\
-            \ apiKeyId, requestId);"
+          code: "CompletableFuture<ApiResponse<Status>> response = fireblocks.cosigners().getCosignerApiUserRequestStatus(cosignerId,\
+            \ apiUserId, requestId);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.cosigners_beta.get_request_status(cosigner_id,\
-            \ api_key_id, request_id);"
+          code: "response = fireblocks.cosigners.get_cosigner_api_user_request_status(cosigner_id,\
+            \ api_user_id, request_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<Status>> = fireblocks.cosignersBeta.getRequestStatus(cosignersBetaApiGetRequestStatusRequest);"
+        source: "const response: Promise<FireblocksResponse<Status>> = fireblocks.cosigners.getCosignerApiUserRequestStatus(cosignersApiGetCosignerApiUserRequestStatusRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<Status>> response = fireblocks.cosignersBeta().getRequestStatus(cosignerId,\
-          \ apiKeyId, requestId);"
+        source: "CompletableFuture<ApiResponse<Status>> response = fireblocks.cosigners().getCosignerApiUserRequestStatus(cosignerId,\
+          \ apiUserId, requestId);"
       - lang: Python
-        source: "response = fireblocks.cosigners_beta.get_request_status(cosigner_id,\
-          \ api_key_id, request_id);"
+        source: "response = fireblocks.cosigners.get_cosigner_api_user_request_status(cosigner_id,\
+          \ api_user_id, request_id);"
       x-accepts:
       - application/json
   /tokenization/contracts:
@@ -16036,36 +16033,36 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get list of signing keys
       tags:
-      - Key Link (Beta)
+      - Key Link
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<GetSigningKeyResponseDto>>\
-            \ = fireblocks.keyLinkBeta.getSigningKeysList(keyLinkBetaApiGetSigningKeysListRequest);"
+            \ = fireblocks.keyLink.getSigningKeysList(keyLinkApiGetSigningKeysListRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response\
-            \ = fireblocks.keyLinkBeta().getSigningKeysList(pageCursor, pageSize,\
-            \ sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available,\
-            \ isAssigned, keyPrefix);"
+            \ = fireblocks.keyLink().getSigningKeysList(pageCursor, pageSize, sortBy,\
+            \ order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned,\
+            \ keyPrefix);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.key_link_beta.get_signing_keys_list(page_cursor,\
+          code: "response = fireblocks.key_link.get_signing_keys_list(page_cursor,\
             \ page_size, sort_by, order, vault_account_id, agent_user_id, algorithm,\
             \ enabled, available, is_assigned, key_prefix);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<GetSigningKeyResponseDto>>\
-          \ = fireblocks.keyLinkBeta.getSigningKeysList(keyLinkBetaApiGetSigningKeysListRequest);"
+          \ = fireblocks.keyLink.getSigningKeysList(keyLinkApiGetSigningKeysListRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response\
-          \ = fireblocks.keyLinkBeta().getSigningKeysList(pageCursor, pageSize, sortBy,\
+          \ = fireblocks.keyLink().getSigningKeysList(pageCursor, pageSize, sortBy,\
           \ order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned,\
           \ keyPrefix);"
       - lang: Python
-        source: "response = fireblocks.key_link_beta.get_signing_keys_list(page_cursor,\
+        source: "response = fireblocks.key_link.get_signing_keys_list(page_cursor,\
           \ page_size, sort_by, order, vault_account_id, agent_user_id, algorithm,\
           \ enabled, available, is_assigned, key_prefix);"
       x-accepts:
@@ -16108,29 +16105,29 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Add a new signing key
       tags:
-      - Key Link (Beta)
+      - Key Link
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<SigningKeyDto>> = fireblocks.keyLinkBeta.createSigningKey(keyLinkBetaApiCreateSigningKeyRequest);"
+          code: "const response: Promise<FireblocksResponse<SigningKeyDto>> = fireblocks.keyLink.createSigningKey(keyLinkApiCreateSigningKeyRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLinkBeta().createSigningKey(createSigningKeyDto,\
+          code: "CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLink().createSigningKey(createSigningKeyDto,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.key_link_beta.create_signing_key(create_signing_key_dto,\
+          code: "response = fireblocks.key_link.create_signing_key(create_signing_key_dto,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<SigningKeyDto>> = fireblocks.keyLinkBeta.createSigningKey(keyLinkBetaApiCreateSigningKeyRequest);"
+        source: "const response: Promise<FireblocksResponse<SigningKeyDto>> = fireblocks.keyLink.createSigningKey(keyLinkApiCreateSigningKeyRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLinkBeta().createSigningKey(createSigningKeyDto,\
+        source: "CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLink().createSigningKey(createSigningKeyDto,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.key_link_beta.create_signing_key(create_signing_key_dto,\
+        source: "response = fireblocks.key_link.create_signing_key(create_signing_key_dto,\
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -16164,26 +16161,26 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get a signing key by `keyId`
       tags:
-      - Key Link (Beta)
+      - Key Link
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<SigningKeyDto>> = fireblocks.keyLinkBeta.getSigningKey(keyLinkBetaApiGetSigningKeyRequest);"
+          code: "const response: Promise<FireblocksResponse<SigningKeyDto>> = fireblocks.keyLink.getSigningKey(keyLinkApiGetSigningKeyRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLinkBeta().getSigningKey(keyId);
+          code: CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLink().getSigningKey(keyId);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.key_link_beta.get_signing_key(key_id);
+          code: response = fireblocks.key_link.get_signing_key(key_id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<SigningKeyDto>> = fireblocks.keyLinkBeta.getSigningKey(keyLinkBetaApiGetSigningKeyRequest);"
+        source: "const response: Promise<FireblocksResponse<SigningKeyDto>> = fireblocks.keyLink.getSigningKey(keyLinkApiGetSigningKeyRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLinkBeta().getSigningKey(keyId);
+        source: CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLink().getSigningKey(keyId);
       - lang: Python
-        source: response = fireblocks.key_link_beta.get_signing_key(key_id);
+        source: response = fireblocks.key_link.get_signing_key(key_id);
       x-accepts:
       - application/json
     patch:
@@ -16220,29 +16217,29 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Modify the signing keyId
       tags:
-      - Key Link (Beta)
+      - Key Link
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<SigningKeyDto>> = fireblocks.keyLinkBeta.updateSigningKey(keyLinkBetaApiUpdateSigningKeyRequest);"
+          code: "const response: Promise<FireblocksResponse<SigningKeyDto>> = fireblocks.keyLink.updateSigningKey(keyLinkApiUpdateSigningKeyRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLinkBeta().updateSigningKey(modifySigningKeyDto,\
+          code: "CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLink().updateSigningKey(modifySigningKeyDto,\
             \ keyId);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.key_link_beta.update_signing_key(modify_signing_key_dto,\
+          code: "response = fireblocks.key_link.update_signing_key(modify_signing_key_dto,\
             \ key_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<SigningKeyDto>> = fireblocks.keyLinkBeta.updateSigningKey(keyLinkBetaApiUpdateSigningKeyRequest);"
+        source: "const response: Promise<FireblocksResponse<SigningKeyDto>> = fireblocks.keyLink.updateSigningKey(keyLinkApiUpdateSigningKeyRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLinkBeta().updateSigningKey(modifySigningKeyDto,\
+        source: "CompletableFuture<ApiResponse<SigningKeyDto>> response = fireblocks.keyLink().updateSigningKey(modifySigningKeyDto,\
           \ keyId);"
       - lang: Python
-        source: "response = fireblocks.key_link_beta.update_signing_key(modify_signing_key_dto,\
+        source: "response = fireblocks.key_link.update_signing_key(modify_signing_key_dto,\
           \ key_id);"
       x-content-type: application/json
       x-accepts:
@@ -16279,29 +16276,29 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Set agent user id
       tags:
-      - Key Link (Beta)
+      - Key Link
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.keyLinkBeta.setAgentId(keyLinkBetaApiSetAgentIdRequest);"
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.keyLink.setAgentId(keyLinkApiSetAgentIdRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.keyLinkBeta().setAgentId(modifySigningKeyAgentIdDto,\
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.keyLink().setAgentId(modifySigningKeyAgentIdDto,\
             \ keyId);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.key_link_beta.set_agent_id(modify_signing_key_agent_id_dto,\
+          code: "response = fireblocks.key_link.set_agent_id(modify_signing_key_agent_id_dto,\
             \ key_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.keyLinkBeta.setAgentId(keyLinkBetaApiSetAgentIdRequest);"
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.keyLink.setAgentId(keyLinkApiSetAgentIdRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.keyLinkBeta().setAgentId(modifySigningKeyAgentIdDto,\
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.keyLink().setAgentId(modifySigningKeyAgentIdDto,\
           \ keyId);"
       - lang: Python
-        source: "response = fireblocks.key_link_beta.set_agent_id(modify_signing_key_agent_id_dto,\
+        source: "response = fireblocks.key_link.set_agent_id(modify_signing_key_agent_id_dto,\
           \ key_id);"
       x-content-type: application/json
       x-accepts:
@@ -16353,33 +16350,32 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Register signing keys in bulk
       tags:
-      - Key Link (Beta)
+      - Key Link
       x-rate-limit-category: async
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<CreateBulkSigningKeysResponse>>\
-            \ = fireblocks.keyLinkBeta.createBulkSigningKeys(keyLinkBetaApiCreateBulkSigningKeysRequest);"
+            \ = fireblocks.keyLink.createBulkSigningKeys(keyLinkApiCreateBulkSigningKeysRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<CreateBulkSigningKeysResponse>> response\
-            \ = fireblocks.keyLinkBeta().createBulkSigningKeys(createBulkSigningKeys,\
+            \ = fireblocks.keyLink().createBulkSigningKeys(createBulkSigningKeys,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.key_link_beta.create_bulk_signing_keys(create_bulk_signing_keys,\
+          code: "response = fireblocks.key_link.create_bulk_signing_keys(create_bulk_signing_keys,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<CreateBulkSigningKeysResponse>>\
-          \ = fireblocks.keyLinkBeta.createBulkSigningKeys(keyLinkBetaApiCreateBulkSigningKeysRequest);"
+          \ = fireblocks.keyLink.createBulkSigningKeys(keyLinkApiCreateBulkSigningKeysRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<CreateBulkSigningKeysResponse>> response\
-          \ = fireblocks.keyLinkBeta().createBulkSigningKeys(createBulkSigningKeys,\
-          \ idempotencyKey);"
+          \ = fireblocks.keyLink().createBulkSigningKeys(createBulkSigningKeys, idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.key_link_beta.create_bulk_signing_keys(create_bulk_signing_keys,\
+        source: "response = fireblocks.key_link.create_bulk_signing_keys(create_bulk_signing_keys,\
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -16423,31 +16419,31 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get bulk registration jobs
       tags:
-      - Key Link (Beta)
+      - Key Link
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<GetBulkSigningKeysJobsResponse>>\
-            \ = fireblocks.keyLinkBeta.getBulkSigningKeysJobs(keyLinkBetaApiGetBulkSigningKeysJobsRequest);"
+            \ = fireblocks.keyLink.getBulkSigningKeysJobs(keyLinkApiGetBulkSigningKeysJobsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<GetBulkSigningKeysJobsResponse>> response\
-            \ = fireblocks.keyLinkBeta().getBulkSigningKeysJobs(pageCursor, pageSize);"
+            \ = fireblocks.keyLink().getBulkSigningKeysJobs(pageCursor, pageSize);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.key_link_beta.get_bulk_signing_keys_jobs(page_cursor,\
+          code: "response = fireblocks.key_link.get_bulk_signing_keys_jobs(page_cursor,\
             \ page_size);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<GetBulkSigningKeysJobsResponse>>\
-          \ = fireblocks.keyLinkBeta.getBulkSigningKeysJobs(keyLinkBetaApiGetBulkSigningKeysJobsRequest);"
+          \ = fireblocks.keyLink.getBulkSigningKeysJobs(keyLinkApiGetBulkSigningKeysJobsRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<GetBulkSigningKeysJobsResponse>> response\
-          \ = fireblocks.keyLinkBeta().getBulkSigningKeysJobs(pageCursor, pageSize);"
+          \ = fireblocks.keyLink().getBulkSigningKeysJobs(pageCursor, pageSize);"
       - lang: Python
-        source: "response = fireblocks.key_link_beta.get_bulk_signing_keys_jobs(page_cursor,\
+        source: "response = fireblocks.key_link.get_bulk_signing_keys_jobs(page_cursor,\
           \ page_size);"
       x-accepts:
       - application/json
@@ -16480,33 +16476,34 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get a bulk registration job
       tags:
-      - Key Link (Beta)
+      - Key Link
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<BulkSigningKeyJob>> =\
-            \ fireblocks.keyLinkBeta.getBulkSigningKeysJob(keyLinkBetaApiGetBulkSigningKeysJobRequest);"
+            \ fireblocks.keyLink.getBulkSigningKeysJob(keyLinkApiGetBulkSigningKeysJobRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<BulkSigningKeyJob>> response = fireblocks.keyLinkBeta().getBulkSigningKeysJob(jobId);
+          code: CompletableFuture<ApiResponse<BulkSigningKeyJob>> response = fireblocks.keyLink().getBulkSigningKeysJob(jobId);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.key_link_beta.get_bulk_signing_keys_job(job_id);
+          code: response = fireblocks.key_link.get_bulk_signing_keys_job(job_id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<BulkSigningKeyJob>> =\
-          \ fireblocks.keyLinkBeta.getBulkSigningKeysJob(keyLinkBetaApiGetBulkSigningKeysJobRequest);"
+          \ fireblocks.keyLink.getBulkSigningKeysJob(keyLinkApiGetBulkSigningKeysJobRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<BulkSigningKeyJob>> response = fireblocks.keyLinkBeta().getBulkSigningKeysJob(jobId);
+        source: CompletableFuture<ApiResponse<BulkSigningKeyJob>> response = fireblocks.keyLink().getBulkSigningKeysJob(jobId);
       - lang: Python
-        source: response = fireblocks.key_link_beta.get_bulk_signing_keys_job(job_id);
+        source: response = fireblocks.key_link.get_bulk_signing_keys_job(job_id);
       x-accepts:
       - application/json
   /key_link/validation_keys:
     get:
-      description: Returns the list of validation keys in the workspace
+      description: "Returns the list of validation keys in the workspace. By default,\
+        \ revoked keys are filtered out. Use `includeRevoked=true` to show all keys."
       operationId: getValidationKeysList
       parameters:
       - description: Cursor to the next page
@@ -16552,6 +16549,15 @@ paths:
           - DESC
           type: string
         style: form
+      - description: Include revoked validation keys in the response
+        explode: true
+        in: query
+        name: includeRevoked
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -16567,34 +16573,34 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get list of registered validation keys
       tags:
-      - Key Link (Beta)
+      - Key Link
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<GetValidationKeyResponseDto>>\
-            \ = fireblocks.keyLinkBeta.getValidationKeysList(keyLinkBetaApiGetValidationKeysListRequest);"
+            \ = fireblocks.keyLink.getValidationKeysList(keyLinkApiGetValidationKeysListRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<GetValidationKeyResponseDto>> response\
-            \ = fireblocks.keyLinkBeta().getValidationKeysList(pageCursor, pageSize,\
-            \ sortBy, order);"
+            \ = fireblocks.keyLink().getValidationKeysList(pageCursor, pageSize, sortBy,\
+            \ order, includeRevoked);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.key_link_beta.get_validation_keys_list(page_cursor,\
-            \ page_size, sort_by, order);"
+          code: "response = fireblocks.key_link.get_validation_keys_list(page_cursor,\
+            \ page_size, sort_by, order, include_revoked);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<GetValidationKeyResponseDto>>\
-          \ = fireblocks.keyLinkBeta.getValidationKeysList(keyLinkBetaApiGetValidationKeysListRequest);"
+          \ = fireblocks.keyLink.getValidationKeysList(keyLinkApiGetValidationKeysListRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<GetValidationKeyResponseDto>> response\
-          \ = fireblocks.keyLinkBeta().getValidationKeysList(pageCursor, pageSize,\
-          \ sortBy, order);"
+          \ = fireblocks.keyLink().getValidationKeysList(pageCursor, pageSize, sortBy,\
+          \ order, includeRevoked);"
       - lang: Python
-        source: "response = fireblocks.key_link_beta.get_validation_keys_list(page_cursor,\
-          \ page_size, sort_by, order);"
+        source: "response = fireblocks.key_link.get_validation_keys_list(page_cursor,\
+          \ page_size, sort_by, order, include_revoked);"
       x-accepts:
       - application/json
     post:
@@ -16633,33 +16639,31 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Add a new validation key
       tags:
-      - Key Link (Beta)
+      - Key Link
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<CreateValidationKeyResponseDto>>\
-            \ = fireblocks.keyLinkBeta.createValidationKey(keyLinkBetaApiCreateValidationKeyRequest);"
+            \ = fireblocks.keyLink.createValidationKey(keyLinkApiCreateValidationKeyRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<CreateValidationKeyResponseDto>> response\
-            \ = fireblocks.keyLinkBeta().createValidationKey(createValidationKeyDto,\
-            \ idempotencyKey);"
+            \ = fireblocks.keyLink().createValidationKey(createValidationKeyDto, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.key_link_beta.create_validation_key(create_validation_key_dto,\
+          code: "response = fireblocks.key_link.create_validation_key(create_validation_key_dto,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<CreateValidationKeyResponseDto>>\
-          \ = fireblocks.keyLinkBeta.createValidationKey(keyLinkBetaApiCreateValidationKeyRequest);"
+          \ = fireblocks.keyLink.createValidationKey(keyLinkApiCreateValidationKeyRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<CreateValidationKeyResponseDto>> response\
-          \ = fireblocks.keyLinkBeta().createValidationKey(createValidationKeyDto,\
-          \ idempotencyKey);"
+          \ = fireblocks.keyLink().createValidationKey(createValidationKeyDto, idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.key_link_beta.create_validation_key(create_validation_key_dto,\
+        source: "response = fireblocks.key_link.create_validation_key(create_validation_key_dto,\
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -16691,32 +16695,33 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get a validation key by `keyId`
       tags:
-      - Key Link (Beta)
+      - Key Link
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<ValidationKeyDto>> = fireblocks.keyLinkBeta.getValidationKey(keyLinkBetaApiGetValidationKeyRequest);"
+          code: "const response: Promise<FireblocksResponse<ValidationKeyDto>> = fireblocks.keyLink.getValidationKey(keyLinkApiGetValidationKeyRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLinkBeta().getValidationKey(keyId);
+          code: CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLink().getValidationKey(keyId);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.key_link_beta.get_validation_key(key_id);
+          code: response = fireblocks.key_link.get_validation_key(key_id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<ValidationKeyDto>> = fireblocks.keyLinkBeta.getValidationKey(keyLinkBetaApiGetValidationKeyRequest);"
+        source: "const response: Promise<FireblocksResponse<ValidationKeyDto>> = fireblocks.keyLink.getValidationKey(keyLinkApiGetValidationKeyRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLinkBeta().getValidationKey(keyId);
+        source: CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLink().getValidationKey(keyId);
       - lang: Python
-        source: response = fireblocks.key_link_beta.get_validation_key(key_id);
+        source: response = fireblocks.key_link.get_validation_key(key_id);
       x-accepts:
       - application/json
     patch:
-      description: Allows disabling validation key even if it has not expired yet.
-        It is not allowed to enable the validation key back. Another key has to be
-        used for future validations.
+      deprecated: true
+      description: |-
+        DEPRECATED - Please use `POST /key_link/validation_keys/{keyId}/revoke` instead.
+        Allows disabling validation key even if it has not expired yet. It is not allowed to enable the validation key back. Another key has to be used for future validations.
       operationId: disableValidationKey
       parameters:
       - description: The unique identifier for the validation key provided by Fireblocks
@@ -16748,38 +16753,108 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Disables a validation key
       tags:
-      - Key Link (Beta)
+      - Key Link
       x-rate-limit-category: write
+      x-lifecycle:
+        state: deprecated
+        deprecated_at: 2026-11-01T00:00:00Z
+        sunset_at: 2027-01-01T00:00:00Z
+        migration_guide: https://developers.fireblocks.com/reference/revokevalidationkey
+        replacement_endpoint: "/v1/key_link/validation_keys/{keyId}/revoke"
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<ValidationKeyDto>> = fireblocks.keyLinkBeta.disableValidationKey(keyLinkBetaApiDisableValidationKeyRequest);"
+          code: "const response: Promise<FireblocksResponse<ValidationKeyDto>> = fireblocks.keyLink.disableValidationKey(keyLinkApiDisableValidationKeyRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLinkBeta().disableValidationKey(modifyValidationKeyDto,\
+          code: "CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLink().disableValidationKey(modifyValidationKeyDto,\
             \ keyId);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.key_link_beta.disable_validation_key(modify_validation_key_dto,\
+          code: "response = fireblocks.key_link.disable_validation_key(modify_validation_key_dto,\
             \ key_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<ValidationKeyDto>> = fireblocks.keyLinkBeta.disableValidationKey(keyLinkBetaApiDisableValidationKeyRequest);"
+        source: "const response: Promise<FireblocksResponse<ValidationKeyDto>> = fireblocks.keyLink.disableValidationKey(keyLinkApiDisableValidationKeyRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLinkBeta().disableValidationKey(modifyValidationKeyDto,\
+        source: "CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLink().disableValidationKey(modifyValidationKeyDto,\
           \ keyId);"
       - lang: Python
-        source: "response = fireblocks.key_link_beta.disable_validation_key(modify_validation_key_dto,\
+        source: "response = fireblocks.key_link.disable_validation_key(modify_validation_key_dto,\
           \ key_id);"
       x-content-type: application/json
+      x-accepts:
+      - application/json
+  /key_link/validation_keys/{keyId}/revoke:
+    post:
+      description: "Revokes a validation key, making it permanently unusable for validation.\
+        \ Once revoked, a key cannot be un-revoked. Another key has to be used for\
+        \ future validations."
+      operationId: revokeValidationKey
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The unique identifier for the validation key provided by Fireblocks
+        explode: false
+        in: path
+        name: keyId
+        required: true
+        schema:
+          example: 46a92767-5f93-4a46-9eed-f012196bb4fc
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationKeyDto"
+          description: Revoked validation key data
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Revokes a validation key
+      tags:
+      - Key Link
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ValidationKeyDto>> = fireblocks.keyLink.revokeValidationKey(keyLinkApiRevokeValidationKeyRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLink().revokeValidationKey(keyId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.key_link.revoke_validation_key(key_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ValidationKeyDto>> = fireblocks.keyLink.revokeValidationKey(keyLinkApiRevokeValidationKeyRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ValidationKeyDto>> response = fireblocks.keyLink().revokeValidationKey(keyId,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.key_link.revoke_validation_key(key_id, idempotency_key);"
       x-accepts:
       - application/json
   /keys/mpc/list:
     get:
       description: "Returns a list of MPC signing keys of the workspace. For each\
-        \ key, the list of players associated with it is attached.\n**Note:** \nThis\
-        \ endpoint is currently in beta and might be subject to changes."
+        \ key, the list of players associated with it is attached."
       operationId: getMpcKeysList
       parameters: []
       responses:
@@ -16796,36 +16871,34 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get list of mpc keys
       tags:
-      - Keys (Beta)
+      - Keys
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<GetMpcKeysResponse>> =\
-            \ fireblocks.keysBeta.getMpcKeysList();"
+            \ fireblocks.keys.getMpcKeysList();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = fireblocks.keysBeta().getMpcKeysList();
+          code: CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = fireblocks.keys().getMpcKeysList();
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.keys_beta.get_mpc_keys_list();
+          code: response = fireblocks.keys.get_mpc_keys_list();
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<GetMpcKeysResponse>> =\
-          \ fireblocks.keysBeta.getMpcKeysList();"
+          \ fireblocks.keys.getMpcKeysList();"
       - lang: Java
-        source: CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = fireblocks.keysBeta().getMpcKeysList();
+        source: CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = fireblocks.keys().getMpcKeysList();
       - lang: Python
-        source: response = fireblocks.keys_beta.get_mpc_keys_list();
+        source: response = fireblocks.keys.get_mpc_keys_list();
       x-accepts:
       - application/json
   /keys/mpc/list/{userId}:
     get:
-      description: |-
-        Returns a list of MPC signing keys of a specific user. For each key, the list of players associated with it is attached.
-        **Note:**
-        This endpoint is currently in beta and might be subject to changes.
+      description: "Returns a list of MPC signing keys of a specific user. For each\
+        \ key, the list of players associated with it is attached."
       operationId: getMpcKeysListByUser
       parameters:
       - description: The id for the user
@@ -16851,28 +16924,28 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get list of mpc keys by `userId`
       tags:
-      - Keys (Beta)
+      - Keys
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<GetMpcKeysResponse>> =\
-            \ fireblocks.keysBeta.getMpcKeysListByUser(keysBetaApiGetMpcKeysListByUserRequest);"
+            \ fireblocks.keys.getMpcKeysListByUser(keysApiGetMpcKeysListByUserRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = fireblocks.keysBeta().getMpcKeysListByUser(userId);
+          code: CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = fireblocks.keys().getMpcKeysListByUser(userId);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.keys_beta.get_mpc_keys_list_by_user(user_id);
+          code: response = fireblocks.keys.get_mpc_keys_list_by_user(user_id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<GetMpcKeysResponse>> =\
-          \ fireblocks.keysBeta.getMpcKeysListByUser(keysBetaApiGetMpcKeysListByUserRequest);"
+          \ fireblocks.keys.getMpcKeysListByUser(keysApiGetMpcKeysListByUserRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = fireblocks.keysBeta().getMpcKeysListByUser(userId);
+        source: CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = fireblocks.keys().getMpcKeysListByUser(userId);
       - lang: Python
-        source: response = fireblocks.keys_beta.get_mpc_keys_list_by_user(user_id);
+        source: response = fireblocks.keys.get_mpc_keys_list_by_user(user_id);
       x-accepts:
       - application/json
   /network_connections:
@@ -17295,6 +17368,11 @@ paths:
       tags:
       - Network connections
       x-rate-limit-category: query
+      x-lifecycle:
+        state: deprecated
+        deprecated_at: 2024-11-04T00:00:00Z
+        sunset_at: 2027-06-01T00:00:00Z
+        replacement_endpoint: /v1/network_ids/search
       x-readme:
         code-samples:
         - language: typescript
@@ -33396,9 +33474,94 @@ paths:
       x-accepts:
       - application/json
   /screening/trlink/customers/integration/{customerIntegrationId}/transactions/{txId}/manual_decision:
+    get:
+      description: "Returns the current manual missing-TRM decision for a transaction.\
+        \ Use to follow a decision that is not yet applied, or to check status at\
+        \ any time."
+      operationId: getTRLinkManualDecision
+      parameters:
+      - description: Customer integration unique identifier
+        example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        explode: false
+        in: path
+        name: customerIntegrationId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Fireblocks transaction unique identifier
+        example: b70701f4-d7b1-4795-a8ee-b09cdb5b850e
+        explode: false
+        in: path
+        name: txId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TRLinkManualDecisionResponse"
+          description: "Current manual decision (status APPLIED, ACCEPTED, or PRE_ACCEPTED)."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: "No manual decision for this transaction (code 2128), or customer\
+            \ integration not found or not owned by tenant (code 2125)."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get manual decision for missing TRM
+      tags:
+      - TRLink
+      x-rate-limit-category: read
+      x-lifecycle:
+        state: ga
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TRLinkManualDecisionResponse>>\
+            \ = fireblocks.tRLink.getTRLinkManualDecision(tRLinkApiGetTRLinkManualDecisionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TRLinkManualDecisionResponse>> response\
+            \ = fireblocks.tRLink().getTRLinkManualDecision(customerIntegrationId,\
+            \ txId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.t_r_link.get_t_r_link_manual_decision(customer_integration_id,\
+            \ tx_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<TRLinkManualDecisionResponse>>\
+          \ = fireblocks.tRLink.getTRLinkManualDecision(tRLinkApiGetTRLinkManualDecisionRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<TRLinkManualDecisionResponse>> response\
+          \ = fireblocks.tRLink().getTRLinkManualDecision(customerIntegrationId, txId);"
+      - lang: Python
+        source: "response = fireblocks.t_r_link.get_t_r_link_manual_decision(customer_integration_id,\
+          \ tx_id);"
+      x-accepts:
+      - application/json
     post:
-      description: Accept or reject destinations stuck in NoTRM step without waiting
-        for TRP webhook or policy timeout.
+      description: "Accept or reject destinations waiting for a Travel Rule message\
+        \ (missing TRM), without waiting for a TRP webhook or the missing-TRM policy\
+        \ timeout. You can submit before a destination enters the missing-TRM wait;\
+        \ if it can't be updated immediately, the decision is applied on the next\
+        \ processing attempt instead (status ACCEPTED). Check `status` in the response\
+        \ to see whether the decision has been applied."
       operationId: createTRLinkManualDecision
       parameters:
       - description: Customer integration unique identifier
@@ -33444,7 +33607,41 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TRLinkManualDecisionResponse"
-          description: Decision applied successfully
+          description: "Decision applied (status APPLIED), accepted for the next processing\
+            \ attempt (status ACCEPTED), or accepted early (status PRE_ACCEPTED)."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Customer integration not found or not owned by tenant (code
+            2125).
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Manual decision already final for this transaction (code 2127)
+            or transaction screening already completed (code 2129).
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "425":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+          description: Too Early - screening has not started for this transaction
+            yet.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
         default:
           $ref: "#/components/responses/Error"
       summary: Manual decision for missing TRM
@@ -38230,8 +38427,10 @@ paths:
       description: "Create multiple vault accounts by running an async job.      \n\
         - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported.\n\
         - These endpoints are currently in beta and might be subject to changes.\n\
-        - Limited to a maximum of 10,000 accounts per operation.\n\n**Endpoint Permissions:**\
-        \ Admin, Non-Signing Admin, Signer, Approver, Editor.\n"
+        - Limited to a maximum of 10,000 accounts per operation.\n- With `vaultType:\
+        \ KEY_LINK`, creates Key Link vault accounts; set `autoAssign: true` to bind\
+        \ them to the workspace's signing keys (see `vaultType` and `autoAssign`).\n\
+        \n**Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor.\n"
       operationId: createMultipleAccounts
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -43021,6 +43220,8 @@ components:
       type: array
     CreateMultipleAccountsRequest:
       example:
+        vaultType: KEY_LINK
+        autoAssign: true
         names:
         - first va
         - client 65502e71-ecdf-48da-a074-c1753befc7fb
@@ -43077,6 +43278,25 @@ components:
             type: string
           maxItems: 20
           type: array
+        vaultType:
+          default: MPC
+          description: |
+            Type of vault accounts to create. The default type is MPC.
+            KEY_LINK creates Key Link vault accounts. It requires a Key Link workspace. With autoAssign set to true, the vault accounts are bound to the workspace's Key Link signing keys, assigned automatically from the available keys, and only one KEY_LINK bulk creation with autoAssign set to true can run per workspace at a time. With autoAssign set to false (the default), the vault accounts are created without keys.
+            With KEY_LINK, names, vaultAccountNamesStartingIndex, prefix and tagIds work as they do for MPC, and baseAssetIds may be empty to create vault accounts without wallets.
+          enum:
+          - MPC
+          - KEY_LINK
+          example: KEY_LINK
+          type: string
+        autoAssign:
+          default: false
+          description: |
+            Applicable only when vaultType is KEY_LINK. For MPC, this parameter is ignored.
+            If set to true, keys are assigned to every created vault account. If there are not enough available keys to assign, the request returns an error and no vault accounts are created.
+            If set to false, the vault accounts are created without any keys, and baseAssetIds must be empty because wallets can only be created for vault accounts that have keys.
+          example: true
+          type: boolean
       required:
       - baseAssetIds
       - count
@@ -46732,8 +46952,10 @@ components:
       example:
         createdAt: 12345633
         publicKeyPem: '-----BEGIN PUBLIC KEY ...  END PUBLIC KEY-----'
+        expirationTime: 17098568
         daysTillExpired: 365
         keyId: 46a92767-5f93-4a46-9eed-f012196bb4fc
+        revoked: false
         enabled: false
       properties:
         keyId:
@@ -46758,12 +46980,23 @@ components:
           description: Creation date (timestamp) in milliseconds.
           example: 12345633
           type: number
+        expirationTime:
+          description: Expiration date (Unix timestamp) in milliseconds.
+          example: 17098568
+          type: number
+        revoked:
+          default: false
+          description: True if the validation key is revoked.
+          example: false
+          type: boolean
       required:
       - createdAt
       - daysTillExpired
       - enabled
+      - expirationTime
       - keyId
       - publicKeyPem
+      - revoked
       type: object
     GetValidationKeyResponseDto:
       example:
@@ -46771,13 +47004,17 @@ components:
         data:
         - createdAt: 12345633
           publicKeyPem: '-----BEGIN PUBLIC KEY ...  END PUBLIC KEY-----'
+          expirationTime: 17098568
           daysTillExpired: 365
           keyId: 46a92767-5f93-4a46-9eed-f012196bb4fc
+          revoked: false
           enabled: false
         - createdAt: 12345633
           publicKeyPem: '-----BEGIN PUBLIC KEY ...  END PUBLIC KEY-----'
+          expirationTime: 17098568
           daysTillExpired: 365
           keyId: 46a92767-5f93-4a46-9eed-f012196bb4fc
+          revoked: false
           enabled: false
       properties:
         data:
@@ -58048,6 +58285,13 @@ components:
           type: string
         oneTimeAddress:
           $ref: "#/components/schemas/OneTimeAddress"
+        memo:
+          description: |-
+            Tempo TIP-20 memo, sent on-chain with the transfer to this destination. Exactly 32 bytes once UTF-8 encoded.  NOTES:
+                - The memo is public and permanent on-chain, so do not put sensitive data in it.
+                - A memo is currently supported only for a transfer with a single destination
+          example: invoice-4968-reference-83b4-7adc
+          type: string
       required:
       - type
       type: object
@@ -58211,10 +58455,6 @@ components:
             maximum: 16
             minimum: 1
             type: integer
-          memo:
-            description: Beta. Tempo TIP-20 memo (max 32 bytes).
-            example: invoice-1234
-            type: string
         type: object
       description: Request body for creating a Tempo transfer transaction.
       example:
@@ -58233,7 +58473,6 @@ components:
           type: VAULT_ACCOUNT
           id: "1"
         feeCurrency: PATHUSD_TEMPO_54V8
-        memo: invoice-1234
         nonceStrategy: SEQUENTIAL
         source:
           type: VAULT_ACCOUNT
@@ -81656,9 +81895,11 @@ components:
       - PENDING_AUTHORIZATION
       - PENDING_3RD_PARTY_MANUAL_APPROVAL
       - PENDING_3RD_PARTY
+      - SIGNED
       - BROADCASTING
       - PENDING_AML_SCREENING
       - CONFIRMING
+      - COMPLETED
       - PARTIALLY_COMPLETED
       - PENDING_EMAIL_APPROVAL
       - CANCELLED
@@ -86140,44 +86381,36 @@ components:
       required:
       - subsidiaryVaspId
       type: object
+    TRLinkManualDecisionResponseStatusEnum:
+      description: |
+        APPLIED - Decision applied to at least one destination immediately. ACCEPTED - Intent stored for deferred apply on the next processing attempt. PRE_ACCEPTED - Intent stored on the transaction before destinations entered the missing-TRM wait.
+      enum:
+      - APPLIED
+      - ACCEPTED
+      - PRE_ACCEPTED
+      example: APPLIED
+      type: string
     TRLinkManualDecisionAction:
-      description: Decision action for destinations in NoTRM status
+      description: Decision action for destinations waiting for a Travel Rule message
+        (missing TRM)
       enum:
       - ACCEPT
       - REJECT
       example: ACCEPT
       type: string
-    TRLinkManualDecisionRequest:
-      description: Request to manually accept or reject destinations stuck in NoTRM
-        status
-      example:
-        reason: Internal KYC approved
-        action: ACCEPT
-      properties:
-        action:
-          $ref: "#/components/schemas/TRLinkManualDecisionAction"
-        reason:
-          description: Optional reason for the manual decision (e.g. 'Internal KYC
-            approved'). Do not include PII.
-          example: Internal KYC approved
-          maxLength: 500
-          type: string
-      required:
-      - action
-      type: object
     TRLinkManualDecisionSource:
-      description: Source of the manual decision
+      description: Source of the manual decision. Values are lowercase.
       enum:
-      - MANUAL
-      - POLICY
-      example: MANUAL
+      - manual
+      - policy
+      example: manual
       type: string
     TRLinkManualDecisionDestinationDetail:
       description: Per-destination result of the manual decision
       example:
         destinationScreeningId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
         applied: true
-        skipReason: skipReason
+        skipReason: deferred apply
       properties:
         destinationScreeningId:
           description: Destination screening record ID
@@ -86188,16 +86421,19 @@ components:
           example: true
           type: boolean
         skipReason:
-          description: Reason if the destination was skipped
+          description: "Reason when applied is false. Common values: deferred apply\
+            \ (destination could not be updated immediately), already applied, status\
+            \ changed, trmId exists, destination not found."
+          example: deferred apply
           nullable: true
           type: string
-          example: null
       required:
       - applied
       - destinationScreeningId
       type: object
     TRLinkManualDecisionResponse:
-      description: Response containing the result of the manual decision
+      description: Response containing the result of a manual missing-TRM decision
+        (POST write or GET read).
       example:
         destinationsSkipped: 0
         destinationsAffected: 2
@@ -86206,21 +86442,24 @@ components:
         details:
         - destinationScreeningId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
           applied: true
-          skipReason: skipReason
+          skipReason: deferred apply
         - destinationScreeningId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
           applied: true
-          skipReason: skipReason
+          skipReason: deferred apply
         - destinationScreeningId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
           applied: true
-          skipReason: skipReason
+          skipReason: deferred apply
         - destinationScreeningId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
           applied: true
-          skipReason: skipReason
+          skipReason: deferred apply
         - destinationScreeningId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
           applied: true
-          skipReason: skipReason
-        source: MANUAL
+          skipReason: deferred apply
+        source: manual
+        status: APPLIED
       properties:
+        status:
+          $ref: "#/components/schemas/TRLinkManualDecisionResponseStatusEnum"
         action:
           $ref: "#/components/schemas/TRLinkManualDecisionAction"
         source:
@@ -86250,7 +86489,26 @@ components:
       - destinationsSkipped
       - details
       - source
+      - status
       - txId
+      type: object
+    TRLinkManualDecisionRequest:
+      description: Request to manually accept or reject destinations waiting for a
+        Travel Rule message (missing TRM)
+      example:
+        reason: Internal KYC approved
+        action: ACCEPT
+      properties:
+        action:
+          $ref: "#/components/schemas/TRLinkManualDecisionAction"
+        reason:
+          description: Optional reason for the manual decision (e.g. 'Internal KYC
+            approved'). Do not include PII.
+          example: Internal KYC approved
+          maxLength: 500
+          type: string
+      required:
+      - action
       type: object
     TRLinkRequiredField:
       description: An IVMS101 field requirement with its type and path
@@ -94918,12 +95176,12 @@ components:
       type: object
     AddCosignerRequest:
       example:
+        apiUserId: 123e4567-e89b-12d3-a456-426614174000
         existingCosigner: false
         name: My Cosigner 1
-        apiKeyId: 123e4567-e89b-12d3-a456-426614174000
       properties:
-        apiKeyId:
-          description: The id of the API key to be paired with the cosigner
+        apiUserId:
+          description: The id of the API user to be paired with the cosigner
           example: 123e4567-e89b-12d3-a456-426614174000
           format: uuid
           type: string
@@ -94938,18 +95196,18 @@ components:
           example: false
           type: boolean
       required:
-      - apiKeyId
+      - apiUserId
       - name
       type: object
     AddCosignerResponse:
       example:
+        apiUserId: 123e4567-e89b-12d3-a456-426614174000
         pendingCosignerId: 44fcead0-7053-4831-a53a-df7fb90d440f
         existingCosigner: false
         name: My Cosigner 1
-        apiKeyId: 123e4567-e89b-12d3-a456-426614174000
       properties:
-        apiKeyId:
-          description: The id of the API key to be paired with the cosigner
+        apiUserId:
+          description: The id of the API user to be paired with the cosigner
           example: 123e4567-e89b-12d3-a456-426614174000
           format: uuid
           type: string
@@ -94969,7 +95227,7 @@ components:
           format: uuid
           type: string
       required:
-      - apiKeyId
+      - apiUserId
       - name
       - pendingCosignerId
       type: object
@@ -95009,7 +95267,7 @@ components:
       required:
       - url
       type: object
-    ApiKey:
+    CosignerApiUser:
       example:
         callbackHandler:
           certPublicKeyHash: certPublicKeyHash
@@ -95022,12 +95280,12 @@ components:
         id: 44fcead0-7053-4831-a53a-df7fb90d440f
       properties:
         id:
-          description: The unique identifier of the API key
+          description: The unique identifier of the API user
           example: 44fcead0-7053-4831-a53a-df7fb90d440f
           format: uuid
           type: string
         lastSeen:
-          description: The date the API key was last seen
+          description: The date the API user was last seen
           example: 2021-07-01T00:00:00Z
           format: date-time
           type: string
@@ -95036,33 +95294,20 @@ components:
       required:
       - id
       type: object
-    ApiKeysPaginatedResponse:
+    ApiUsersPaginatedResponse:
       example:
         next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
         data:
-        - callbackHandler:
-            certPublicKeyHash: certPublicKeyHash
-            publicKey: |-
-              -----BEGIN PUBLIC KEY-----
-              ... truncated ...
-              -----END PUBLIC KEY-----
-            url: https://example.com/callback-handler
-          lastSeen: 2021-07-01T00:00:00Z
-          id: 44fcead0-7053-4831-a53a-df7fb90d440f
-        - callbackHandler:
-            certPublicKeyHash: certPublicKeyHash
-            publicKey: |-
-              -----BEGIN PUBLIC KEY-----
-              ... truncated ...
-              -----END PUBLIC KEY-----
-            url: https://example.com/callback-handler
-          lastSeen: 2021-07-01T00:00:00Z
-          id: 44fcead0-7053-4831-a53a-df7fb90d440f
+        - id: 44fcead0-7053-4831-a53a-df7fb90d440f
+          lastSeen: 2021-07-01T00:00:00.000Z
       properties:
         data:
           description: The data of the current page
+          example:
+          - id: 44fcead0-7053-4831-a53a-df7fb90d440f
+            lastSeen: 2021-07-01T00:00:00.000Z
           items:
-            $ref: "#/components/schemas/ApiKey"
+            $ref: "#/components/schemas/CosignerApiUser"
           type: array
         next:
           description: The ID of the next page
@@ -95103,7 +95348,7 @@ components:
       required:
       - url
       type: object
-    PairApiKeyRequest:
+    PairApiUserRequest:
       example:
         callbackHandler:
           cert: |-
@@ -95118,7 +95363,7 @@ components:
         callbackHandler:
           $ref: "#/components/schemas/CallbackHandlerRequest"
       type: object
-    PairApiKeyResponse:
+    PairApiUserResponse:
       example:
         callbackHandler:
           cert: |-
@@ -95132,7 +95377,7 @@ components:
         id: 44fcead0-7053-4831-a53a-df7fb90d440f
       properties:
         id:
-          description: The unique identifier of the API key
+          description: The unique identifier of the API user
           example: 44fcead0-7053-4831-a53a-df7fb90d440f
           format: uuid
           type: string

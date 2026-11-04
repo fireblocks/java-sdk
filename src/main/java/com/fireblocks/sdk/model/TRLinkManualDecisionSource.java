@@ -16,11 +16,11 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Source of the manual decision */
+/** Source of the manual decision. Values are lowercase. */
 public enum TRLinkManualDecisionSource {
-    MANUAL("MANUAL"),
+    MANUAL("manual"),
 
-    POLICY("POLICY");
+    POLICY("policy");
 
     private String value;
 

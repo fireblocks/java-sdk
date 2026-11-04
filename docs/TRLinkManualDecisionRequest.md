@@ -2,7 +2,7 @@
 
 # TRLinkManualDecisionRequest
 
-Request to manually accept or reject destinations stuck in NoTRM status
+Request to manually accept or reject destinations waiting for a Travel Rule message (missing TRM)
 
 ## Properties
 

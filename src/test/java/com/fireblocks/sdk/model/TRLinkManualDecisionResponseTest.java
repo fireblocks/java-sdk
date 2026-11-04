@@ -25,6 +25,12 @@ class TRLinkManualDecisionResponseTest {
         // TODO: test TRLinkManualDecisionResponse
     }
 
+    /** Test the property 'status' */
+    @Test
+    void statusTest() {
+        // TODO: test status
+    }
+
     /** Test the property 'action' */
     @Test
     void actionTest() {

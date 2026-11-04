@@ -156,10 +156,4 @@ class CreateTempoTransferRequestTest {
     void nonceLaneTest() {
         // TODO: test nonceLane
     }
-
-    /** Test the property 'memo' */
-    @Test
-    void memoTest() {
-        // TODO: test memo
-    }
 }

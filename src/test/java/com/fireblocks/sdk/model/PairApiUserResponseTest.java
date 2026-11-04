@@ -15,26 +15,20 @@ package com.fireblocks.sdk.model;
 
 import org.junit.jupiter.api.Test;
 
-/** Model tests for ApiKey */
-class ApiKeyTest {
-    private final ApiKey model = new ApiKey();
+/** Model tests for PairApiUserResponse */
+class PairApiUserResponseTest {
+    private final PairApiUserResponse model = new PairApiUserResponse();
 
-    /** Model tests for ApiKey */
+    /** Model tests for PairApiUserResponse */
     @Test
-    void testApiKey() {
-        // TODO: test ApiKey
+    void testPairApiUserResponse() {
+        // TODO: test PairApiUserResponse
     }
 
     /** Test the property 'id' */
     @Test
     void idTest() {
         // TODO: test id
-    }
-
-    /** Test the property 'lastSeen' */
-    @Test
-    void lastSeenTest() {
-        // TODO: test lastSeen
     }
 
     /** Test the property 'callbackHandler' */
