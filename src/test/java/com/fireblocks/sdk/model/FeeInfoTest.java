@@ -84,4 +84,16 @@ class FeeInfoTest {
     void feeUSDTest() {
         // TODO: test feeUSD
     }
+
+    /** Test the property 'sender' */
+    @Test
+    void senderTest() {
+        // TODO: test sender
+    }
+
+    /** Test the property 'recipient' */
+    @Test
+    void recipientTest() {
+        // TODO: test recipient
+    }
 }

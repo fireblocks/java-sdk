@@ -1744,19 +1744,17 @@ public class VaultsApi {
      *     transaction will be signed by an automated co-signer server or on a mobile device.
      *     (optional)
      * @param includeAllLabels Only include UTXOs that have ALL of these labels (AND logic).
-     *     Requires the UTXO Manager. This feature is currently in beta and might be subject to
-     *     changes. (optional
+     *     Requires the UTXO Manager. (optional
      * @param includeAnyLabels Only include UTXOs that have ANY of these labels (OR logic). Requires
-     *     the UTXO Manager. This feature is currently in beta and might be subject to changes.
-     *     (optional
+     *     the UTXO Manager. (optional
      * @param excludeAnyLabels Exclude UTXOs that have ANY of these labels. Requires the UTXO
-     *     Manager. This feature is currently in beta and might be subject to changes. (optional
-     * @param address Only include UTXOs from this specific address. Requires the UTXO Manager. This
-     *     feature is currently in beta and might be subject to changes. (optional)
+     *     Manager. (optional
+     * @param address Only include UTXOs from this specific address. Requires the UTXO Manager.
+     *     (optional)
      * @param minAmount Minimum UTXO amount in the asset&#39;s base unit. Requires the UTXO Manager.
-     *     This feature is currently in beta and might be subject to changes. (optional)
+     *     (optional)
      * @param maxAmount Maximum UTXO amount in the asset&#39;s base unit. Requires the UTXO Manager.
-     *     This feature is currently in beta and might be subject to changes. (optional)
+     *     (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;GetMaxSpendableAmountResponse&gt;&gt;, which
      *     completes exceptionally with an {@link ApiException} if the API call fails
      */

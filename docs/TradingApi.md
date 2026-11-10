@@ -11,6 +11,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getOrder**](TradingApi.md#getOrder) | **GET** /trading/orders/{orderId} | Get order details |
 | [**getOrderRequirements**](TradingApi.md#getOrderRequirements) | **GET** /trading/orders/{orderId}/requirement | Get order requirement details for an order |
 | [**getOrders**](TradingApi.md#getOrders) | **GET** /trading/orders | Get orders |
+| [**getTradingPairs**](TradingApi.md#getTradingPairs) | **GET** /trading/pairs | Get trading pairs |
 | [**getTradingProviderById**](TradingApi.md#getTradingProviderById) | **GET** /trading/providers/{providerId} | Get trading provider by ID |
 | [**getTradingProviders**](TradingApi.md#getTradingProviders) | **GET** /trading/providers | Get providers |
 | [**submitOrderRequirements**](TradingApi.md#submitOrderRequirements) | **POST** /trading/orders/{orderId}/requirement/data | Submit a response to an order requirement |
@@ -609,6 +610,116 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Orders response |  * X-Request-ID -  <br>  |
+| **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
+| **403** | Forbidden: insufficient permissions, disabled feature, or restricted access. |  * X-Request-ID -  <br>  |
+| **429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+| **5XX** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getTradingPairs
+
+> CompletableFuture<ApiResponse<TradingPairsListPage>> getTradingPairs getTradingPairs(baseAsset, quoteAsset, baseChain, quoteChain, baseRail, quoteRail, side, tradeClass, providerId, accountId, prefunded, min, max, pageSize, pageCursor)
+
+Get trading pairs
+
+Retrieve the base/quote trading pairs supported by the tenant&#39;s trading providers. All filters are optional and combined with AND.  A provider can return several rows for one pair, one per side and per connected account, each with its own &#x60;tradeClass&#x60;. Rows may use the wildcard &#x60;*&#x60; asset ID or the &#x60;BOTH&#x60; side and are returned unexpanded (see the &#x60;baseAsset&#x60;, &#x60;side&#x60; and &#x60;baseChain&#x60; filters for how they match).  **Examples**   - Which providers support ETH/USDC: &#x60;?baseAsset&#x3D;ETH&amp;quoteAsset&#x3D;USDC&#x60;. Add &#x60;providerId&#x60; to check one provider; an empty &#x60;data&#x60; array means it does not support the pair.   - All pairs of one account: &#x60;?providerId&#x3D;ACME&amp;accountId&#x3D;&lt;ACCOUNT_ID&gt;&#x60;. Page through large results with &#x60;pageSize&#x60; and &#x60;pageCursor&#x60;.   - Everything you can buy with euro: &#x60;?baseAsset&#x3D;EUR&amp;tradeClass&#x3D;ON_RAMP&#x60;.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TradingApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String baseAsset = "baseAsset_example"; // String | Filter by base asset ID. Also matches `*` rows on the chain of this asset.
+        String quoteAsset = "quoteAsset_example"; // String | Filter by quote asset ID. Also matches `*` rows on the chain of this asset.
+        String baseChain = "baseChain_example"; // String | Filter by base asset blockchain `legacyId` (e.g. `ETH`, `BASECHAIN_ETH`, `SOL`). Matches both concrete-asset rows and `*` rows on that chain.
+        String quoteChain = "quoteChain_example"; // String | Filter by quote asset blockchain `legacyId` (e.g. `ETH`, `BASECHAIN_ETH`, `SOL`). Matches both concrete-asset rows and `*` rows on that chain.
+        TransferRail baseRail = TransferRail.fromValue("BLOCKCHAIN"); // TransferRail | Filter by base asset transfer rail.
+        TransferRail quoteRail = TransferRail.fromValue("BLOCKCHAIN"); // TransferRail | Filter by quote asset transfer rail.
+        TradingPairSide side = TradingPairSide.fromValue("BUY"); // TradingPairSide | Filter by trading side. `BUY` or `SELL` also matches rows whose side is `BOTH`; `BOTH` matches rows of any side.
+        TradeClass tradeClass = TradeClass.fromValue("SWAP_DEFI"); // TradeClass | Filter by trade class.
+        List<String> providerId = Arrays.asList(); // List<String> | Filter by provider ID. Repeat the parameter to match any of several providers, up to 50.
+        List<String> accountId = Arrays.asList(); // List<String> | Filter by connected account ID. Repeat the parameter to match any of several accounts, up to 50.
+        Boolean prefunded = true; // Boolean | Filter by whether the pair requires prefunding.
+        String min = "min_example"; // String | An order-size filter, not a bound on the result. Only returns pairs whose own `min` field (the smallest base-asset amount the pair accepts) is at most this value, i.e. pairs that can serve an order of this size. For example, `min=10` returns pairs with a `min` of 10 or less.
+        String max = "max_example"; // String | An order-size filter, not a bound on the result. Only returns pairs whose own `max` field (the largest base-asset amount the pair accepts) is at least this value. For example, `max=1000` returns pairs with a `max` of 1000 or more.
+        Integer pageSize = 100; // Integer | Page size for pagination.
+        String pageCursor = "pageCursor_example"; // String | Page cursor for pagination.
+        try {
+            CompletableFuture<ApiResponse<TradingPairsListPage>> response = fireblocks.trading().getTradingPairs(baseAsset, quoteAsset, baseChain, quoteChain, baseRail, quoteRail, side, tradeClass, providerId, accountId, prefunded, min, max, pageSize, pageCursor);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TradingApi#getTradingPairs");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **baseAsset** | **String**| Filter by base asset ID. Also matches &#x60;*&#x60; rows on the chain of this asset. | [optional] |
+| **quoteAsset** | **String**| Filter by quote asset ID. Also matches &#x60;*&#x60; rows on the chain of this asset. | [optional] |
+| **baseChain** | **String**| Filter by base asset blockchain &#x60;legacyId&#x60; (e.g. &#x60;ETH&#x60;, &#x60;BASECHAIN_ETH&#x60;, &#x60;SOL&#x60;). Matches both concrete-asset rows and &#x60;*&#x60; rows on that chain. | [optional] |
+| **quoteChain** | **String**| Filter by quote asset blockchain &#x60;legacyId&#x60; (e.g. &#x60;ETH&#x60;, &#x60;BASECHAIN_ETH&#x60;, &#x60;SOL&#x60;). Matches both concrete-asset rows and &#x60;*&#x60; rows on that chain. | [optional] |
+| **baseRail** | [**TransferRail**](.md)| Filter by base asset transfer rail. | [optional] [enum: BLOCKCHAIN, INTERNAL, SWIFT, IBAN, US_WIRE, ACH, SEPA, SPEI, PIX, LBT, MOMO, CHAPS, PAYID, INTERAC, INTERNAL_TRANSFER, CIPS, NEQUI, FPS_UK, FPS_HK, INSTA_PAY, PESONET] |
+| **quoteRail** | [**TransferRail**](.md)| Filter by quote asset transfer rail. | [optional] [enum: BLOCKCHAIN, INTERNAL, SWIFT, IBAN, US_WIRE, ACH, SEPA, SPEI, PIX, LBT, MOMO, CHAPS, PAYID, INTERAC, INTERNAL_TRANSFER, CIPS, NEQUI, FPS_UK, FPS_HK, INSTA_PAY, PESONET] |
+| **side** | [**TradingPairSide**](.md)| Filter by trading side. &#x60;BUY&#x60; or &#x60;SELL&#x60; also matches rows whose side is &#x60;BOTH&#x60;; &#x60;BOTH&#x60; matches rows of any side. | [optional] [enum: BUY, SELL, BOTH] |
+| **tradeClass** | [**TradeClass**](.md)| Filter by trade class. | [optional] [enum: SWAP_DEFI, SWAP_CEFI, BRIDGE_DEFI, BRIDGE_CEFI, INTERNAL_LEDGER, ON_RAMP, OFF_RAMP, FX, OTC, UNKNOWN] |
+| **providerId** | [**List&lt;String&gt;**](String.md)| Filter by provider ID. Repeat the parameter to match any of several providers, up to 50. | [optional] |
+| **accountId** | [**List&lt;String&gt;**](String.md)| Filter by connected account ID. Repeat the parameter to match any of several accounts, up to 50. | [optional] |
+| **prefunded** | **Boolean**| Filter by whether the pair requires prefunding. | [optional] |
+| **min** | **String**| An order-size filter, not a bound on the result. Only returns pairs whose own &#x60;min&#x60; field (the smallest base-asset amount the pair accepts) is at most this value, i.e. pairs that can serve an order of this size. For example, &#x60;min&#x3D;10&#x60; returns pairs with a &#x60;min&#x60; of 10 or less. | [optional] |
+| **max** | **String**| An order-size filter, not a bound on the result. Only returns pairs whose own &#x60;max&#x60; field (the largest base-asset amount the pair accepts) is at least this value. For example, &#x60;max&#x3D;1000&#x60; returns pairs with a &#x60;max&#x60; of 1000 or more. | [optional] |
+| **pageSize** | **Integer**| Page size for pagination. | [optional] [default to 100] |
+| **pageCursor** | **String**| Page cursor for pagination. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**TradingPairsListPage**](TradingPairsListPage.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Trading pairs response |  * X-Request-ID -  <br>  |
+| **400** | Bad request: invalid input parameters, malformed request body, or validation failure. |  * X-Request-ID -  <br>  |
 | **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 | **403** | Forbidden: insufficient permissions, disabled feature, or restricted access. |  * X-Request-ID -  <br>  |
 | **429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |

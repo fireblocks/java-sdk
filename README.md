@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>36.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:36.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-36.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 ## Versioning
@@ -570,6 +570,7 @@ Class | Method | HTTP request | Description
 *TradingApi* | [**getOrder**](docs/TradingApi.md#getOrder) | **GET** /trading/orders/{orderId} | Get order details
 *TradingApi* | [**getOrderRequirements**](docs/TradingApi.md#getOrderRequirements) | **GET** /trading/orders/{orderId}/requirement | Get order requirement details for an order
 *TradingApi* | [**getOrders**](docs/TradingApi.md#getOrders) | **GET** /trading/orders | Get orders
+*TradingApi* | [**getTradingPairs**](docs/TradingApi.md#getTradingPairs) | **GET** /trading/pairs | Get trading pairs
 *TradingApi* | [**getTradingProviderById**](docs/TradingApi.md#getTradingProviderById) | **GET** /trading/providers/{providerId} | Get trading provider by ID
 *TradingApi* | [**getTradingProviders**](docs/TradingApi.md#getTradingProviders) | **GET** /trading/providers | Get providers
 *TradingApi* | [**submitOrderRequirements**](docs/TradingApi.md#submitOrderRequirements) | **POST** /trading/orders/{orderId}/requirement/data | Submit a response to an order requirement
@@ -601,12 +602,12 @@ Class | Method | HTTP request | Description
 *UserGroupsBetaApi* | [**getUserGroups**](docs/UserGroupsBetaApi.md#getUserGroups) | **GET** /management/user_groups | List user groups
 *UserGroupsBetaApi* | [**updateUserGroup**](docs/UserGroupsBetaApi.md#updateUserGroup) | **PUT** /management/user_groups/{groupId} | Update user group
 *UsersApi* | [**getUsers**](docs/UsersApi.md#getUsers) | **GET** /users | List users
-*UtxoManagementBetaApi* | [**getUtxoSelectionConfig**](docs/UtxoManagementBetaApi.md#getUtxoSelectionConfig) | **GET** /utxo_management/selection_config | Get UTXO selection config
-*UtxoManagementBetaApi* | [**getUtxos**](docs/UtxoManagementBetaApi.md#getUtxos) | **GET** /utxo_management/{vaultAccountId}/{assetId}/unspent_outputs | List unspent outputs (UTXOs)
-*UtxoManagementBetaApi* | [**getVaultAssetUtxoSelectionConfig**](docs/UtxoManagementBetaApi.md#getVaultAssetUtxoSelectionConfig) | **GET** /utxo_management/{vaultAccountId}/{assetId}/selection_config | Get vault and asset UTXO selection config
-*UtxoManagementBetaApi* | [**updateUtxoLabels**](docs/UtxoManagementBetaApi.md#updateUtxoLabels) | **PATCH** /utxo_management/{vaultAccountId}/{assetId}/labels | Attach or detach labels to/from UTXOs
-*UtxoManagementBetaApi* | [**upsertUtxoSelectionConfig**](docs/UtxoManagementBetaApi.md#upsertUtxoSelectionConfig) | **PUT** /utxo_management/selection_config | Upsert UTXO selection config
-*UtxoManagementBetaApi* | [**upsertVaultAssetUtxoSelectionConfig**](docs/UtxoManagementBetaApi.md#upsertVaultAssetUtxoSelectionConfig) | **PUT** /utxo_management/{vaultAccountId}/{assetId}/selection_config | Upsert vault and asset UTXO selection config
+*UtxoManagementApi* | [**getUtxoSelectionConfig**](docs/UtxoManagementApi.md#getUtxoSelectionConfig) | **GET** /utxo_management/selection_config | Get UTXO selection config
+*UtxoManagementApi* | [**getUtxos**](docs/UtxoManagementApi.md#getUtxos) | **GET** /utxo_management/{vaultAccountId}/{assetId}/unspent_outputs | List unspent outputs (UTXOs)
+*UtxoManagementApi* | [**getVaultAssetUtxoSelectionConfig**](docs/UtxoManagementApi.md#getVaultAssetUtxoSelectionConfig) | **GET** /utxo_management/{vaultAccountId}/{assetId}/selection_config | Get vault and asset UTXO selection config
+*UtxoManagementApi* | [**updateUtxoLabels**](docs/UtxoManagementApi.md#updateUtxoLabels) | **PATCH** /utxo_management/{vaultAccountId}/{assetId}/labels | Attach or detach labels to/from UTXOs
+*UtxoManagementApi* | [**upsertUtxoSelectionConfig**](docs/UtxoManagementApi.md#upsertUtxoSelectionConfig) | **PUT** /utxo_management/selection_config | Upsert UTXO selection config
+*UtxoManagementApi* | [**upsertVaultAssetUtxoSelectionConfig**](docs/UtxoManagementApi.md#upsertVaultAssetUtxoSelectionConfig) | **PUT** /utxo_management/{vaultAccountId}/{assetId}/selection_config | Upsert vault and asset UTXO selection config
 *VaultsApi* | [**activateAssetForVaultAccount**](docs/VaultsApi.md#activateAssetForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/activate | Activate a wallet in a vault account
 *VaultsApi* | [**activateUsdcGatewayWalletBeta**](docs/VaultsApi.md#activateUsdcGatewayWalletBeta) | **POST** /vault/accounts/{vaultAccountId}/usdc_gateway/activate | Activate a USDC Gateway wallet
 *VaultsApi* | [**attachOrDetachTagsFromVaultAccounts**](docs/VaultsApi.md#attachOrDetachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags | Attach or detach tags from vault accounts
@@ -1545,6 +1546,7 @@ Class | Method | HTTP request | Description
  - [RiskLevelEnum](docs/RiskLevelEnum.md)
  - [RoleDetails](docs/RoleDetails.md)
  - [RoleDetails2](docs/RoleDetails2.md)
+ - [RoleFeeInfo](docs/RoleFeeInfo.md)
  - [RoleGrantee](docs/RoleGrantee.md)
  - [Rule](docs/Rule.md)
  - [RuleActionEnum](docs/RuleActionEnum.md)
@@ -1815,8 +1817,12 @@ Class | Method | HTTP request | Description
  - [TotalSupplyItemDto](docs/TotalSupplyItemDto.md)
  - [TotalSupplyPagedResponse](docs/TotalSupplyPagedResponse.md)
  - [TotalSupplyPagedResponse2](docs/TotalSupplyPagedResponse2.md)
+ - [TradeClass](docs/TradeClass.md)
  - [TradingAccountType](docs/TradingAccountType.md)
  - [TradingErrorSchema](docs/TradingErrorSchema.md)
+ - [TradingPair](docs/TradingPair.md)
+ - [TradingPairSide](docs/TradingPairSide.md)
+ - [TradingPairsListPage](docs/TradingPairsListPage.md)
  - [TradingProvider](docs/TradingProvider.md)
  - [Transaction](docs/Transaction.md)
  - [TransactionConfigurations](docs/TransactionConfigurations.md)

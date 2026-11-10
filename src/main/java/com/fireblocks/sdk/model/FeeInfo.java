@@ -33,7 +33,9 @@ import java.util.StringJoiner;
     FeeInfo.JSON_PROPERTY_RELAY_TYPE,
     FeeInfo.JSON_PROPERTY_RELAY_ID,
     FeeInfo.JSON_PROPERTY_RELAY_NAME,
-    FeeInfo.JSON_PROPERTY_FEE_U_S_D
+    FeeInfo.JSON_PROPERTY_FEE_U_S_D,
+    FeeInfo.JSON_PROPERTY_SENDER,
+    FeeInfo.JSON_PROPERTY_RECIPIENT
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -101,6 +103,12 @@ public class FeeInfo {
 
     public static final String JSON_PROPERTY_FEE_U_S_D = "feeUSD";
     @jakarta.annotation.Nullable private String feeUSD;
+
+    public static final String JSON_PROPERTY_SENDER = "sender";
+    @jakarta.annotation.Nullable private RoleFeeInfo sender;
+
+    public static final String JSON_PROPERTY_RECIPIENT = "recipient";
+    @jakarta.annotation.Nullable private RoleFeeInfo recipient;
 
     public FeeInfo() {}
 
@@ -335,6 +343,52 @@ public class FeeInfo {
         this.feeUSD = feeUSD;
     }
 
+    public FeeInfo sender(@jakarta.annotation.Nullable RoleFeeInfo sender) {
+        this.sender = sender;
+        return this;
+    }
+
+    /**
+     * Get sender
+     *
+     * @return sender
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SENDER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public RoleFeeInfo getSender() {
+        return sender;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SENDER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSender(@jakarta.annotation.Nullable RoleFeeInfo sender) {
+        this.sender = sender;
+    }
+
+    public FeeInfo recipient(@jakarta.annotation.Nullable RoleFeeInfo recipient) {
+        this.recipient = recipient;
+        return this;
+    }
+
+    /**
+     * Get recipient
+     *
+     * @return recipient
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_RECIPIENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public RoleFeeInfo getRecipient() {
+        return recipient;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RECIPIENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRecipient(@jakarta.annotation.Nullable RoleFeeInfo recipient) {
+        this.recipient = recipient;
+    }
+
     /** Return true if this FeeInfo object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -354,7 +408,9 @@ public class FeeInfo {
                 && Objects.equals(this.relayType, feeInfo.relayType)
                 && Objects.equals(this.relayId, feeInfo.relayId)
                 && Objects.equals(this.relayName, feeInfo.relayName)
-                && Objects.equals(this.feeUSD, feeInfo.feeUSD);
+                && Objects.equals(this.feeUSD, feeInfo.feeUSD)
+                && Objects.equals(this.sender, feeInfo.sender)
+                && Objects.equals(this.recipient, feeInfo.recipient);
     }
 
     @Override
@@ -369,7 +425,9 @@ public class FeeInfo {
                 relayType,
                 relayId,
                 relayName,
-                feeUSD);
+                feeUSD,
+                sender,
+                recipient);
     }
 
     @Override
@@ -386,6 +444,8 @@ public class FeeInfo {
         sb.append("    relayId: ").append(toIndentedString(relayId)).append("\n");
         sb.append("    relayName: ").append(toIndentedString(relayName)).append("\n");
         sb.append("    feeUSD: ").append(toIndentedString(feeUSD)).append("\n");
+        sb.append("    sender: ").append(toIndentedString(sender)).append("\n");
+        sb.append("    recipient: ").append(toIndentedString(recipient)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -531,6 +591,16 @@ public class FeeInfo {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getFeeUSD()))));
+        }
+
+        // add `sender` to the URL query string
+        if (getSender() != null) {
+            joiner.add(getSender().toUrlQueryString(prefix + "sender" + suffix));
+        }
+
+        // add `recipient` to the URL query string
+        if (getRecipient() != null) {
+            joiner.add(getRecipient().toUrlQueryString(prefix + "recipient" + suffix));
         }
 
         return joiner.toString();

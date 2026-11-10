@@ -1285,12 +1285,12 @@ public class Example {
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
         String assetId = "assetId_example"; // String | The ID of the asset
         Boolean manualSignging = true; // Boolean | False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device.
-        List<String> includeAllLabels = Arrays.asList(); // List<String> | Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
-        List<String> includeAnyLabels = Arrays.asList(); // List<String> | Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
-        List<String> excludeAnyLabels = Arrays.asList(); // List<String> | Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
-        String address = "address_example"; // String | Only include UTXOs from this specific address. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
-        String minAmount = "minAmount_example"; // String | Minimum UTXO amount in the asset's base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
-        String maxAmount = "maxAmount_example"; // String | Maximum UTXO amount in the asset's base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+        List<String> includeAllLabels = Arrays.asList(); // List<String> | Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager.
+        List<String> includeAnyLabels = Arrays.asList(); // List<String> | Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager.
+        List<String> excludeAnyLabels = Arrays.asList(); // List<String> | Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager.
+        String address = "address_example"; // String | Only include UTXOs from this specific address. Requires the UTXO Manager.
+        String minAmount = "minAmount_example"; // String | Minimum UTXO amount in the asset's base unit. Requires the UTXO Manager.
+        String maxAmount = "maxAmount_example"; // String | Maximum UTXO amount in the asset's base unit. Requires the UTXO Manager.
         try {
             CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> response = fireblocks.vaults().getMaxSpendableAmount(vaultAccountId, assetId, manualSignging, includeAllLabels, includeAnyLabels, excludeAnyLabels, address, minAmount, maxAmount);
             System.out.println("Status code: " + response.get().getStatusCode());
@@ -1316,12 +1316,12 @@ public class Example {
 | **vaultAccountId** | **String**| The ID of the vault account | |
 | **assetId** | **String**| The ID of the asset | |
 | **manualSignging** | **Boolean**| False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device. | [optional] |
-| **includeAllLabels** | [**List&lt;String&gt;**](String.md)| Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | [optional] |
-| **includeAnyLabels** | [**List&lt;String&gt;**](String.md)| Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | [optional] |
-| **excludeAnyLabels** | [**List&lt;String&gt;**](String.md)| Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | [optional] |
-| **address** | **String**| Only include UTXOs from this specific address. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | [optional] |
-| **minAmount** | **String**| Minimum UTXO amount in the asset&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | [optional] |
-| **maxAmount** | **String**| Maximum UTXO amount in the asset&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | [optional] |
+| **includeAllLabels** | [**List&lt;String&gt;**](String.md)| Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. | [optional] |
+| **includeAnyLabels** | [**List&lt;String&gt;**](String.md)| Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. | [optional] |
+| **excludeAnyLabels** | [**List&lt;String&gt;**](String.md)| Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. | [optional] |
+| **address** | **String**| Only include UTXOs from this specific address. Requires the UTXO Manager. | [optional] |
+| **minAmount** | **String**| Minimum UTXO amount in the asset&#39;s base unit. Requires the UTXO Manager. | [optional] |
+| **maxAmount** | **String**| Maximum UTXO amount in the asset&#39;s base unit. Requires the UTXO Manager. | [optional] |
 
 ### Return type
 

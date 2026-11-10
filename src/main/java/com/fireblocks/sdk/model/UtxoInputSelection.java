@@ -22,10 +22,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/**
- * Explicitly control which UTXOs to include or exclude. This feature is currently in beta and might
- * be subject to changes.
- */
+/** Explicitly control which UTXOs to include or exclude. */
 @JsonPropertyOrder({
     UtxoInputSelection.JSON_PROPERTY_INPUTS_TO_SPEND,
     UtxoInputSelection.JSON_PROPERTY_INPUTS_TO_EXCLUDE,

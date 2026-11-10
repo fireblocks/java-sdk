@@ -86,7 +86,7 @@ public class Fireblocks {
     private TravelRuleApi travelRule;
     private UserGroupsBetaApi userGroupsBeta;
     private UsersApi users;
-    private UtxoManagementBetaApi utxoManagementBeta;
+    private UtxoManagementApi utxoManagement;
     private VaultsApi vaults;
     private Web3ConnectionsApi web3Connections;
     private WebhooksApi webhooks;
@@ -583,11 +583,11 @@ public class Fireblocks {
         return users;
     }
 
-    public UtxoManagementBetaApi utxoManagementBeta() {
-        if (utxoManagementBeta == null) {
-            utxoManagementBeta = new UtxoManagementBetaApi(apiClient);
+    public UtxoManagementApi utxoManagement() {
+        if (utxoManagement == null) {
+            utxoManagement = new UtxoManagementApi(apiClient);
         }
-        return utxoManagementBeta;
+        return utxoManagement;
     }
 
     public VaultsApi vaults() {

@@ -22,10 +22,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/**
- * Narrow the UTXO candidate pool. All specified filters are AND-ed together. This feature is
- * currently in beta and might be subject to changes.
- */
+/** Narrow the UTXO candidate pool. All specified filters are AND-ed together. */
 @JsonPropertyOrder({
     UtxoSelectionFilters.JSON_PROPERTY_INCLUDE_ALL_LABELS,
     UtxoSelectionFilters.JSON_PROPERTY_INCLUDE_ANY_LABELS,

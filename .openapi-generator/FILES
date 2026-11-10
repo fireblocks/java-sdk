@@ -907,6 +907,7 @@ docs/RewardsInfo.md
 docs/RiskLevelEnum.md
 docs/RoleDetails.md
 docs/RoleDetails2.md
+docs/RoleFeeInfo.md
 docs/RoleGrantee.md
 docs/Rule.md
 docs/RuleActionEnum.md
@@ -1184,9 +1185,13 @@ docs/TotalSupplyItemDto.md
 docs/TotalSupplyPagedResponse.md
 docs/TotalSupplyPagedResponse2.md
 docs/TrLinkApi.md
+docs/TradeClass.md
 docs/TradingAccountType.md
 docs/TradingApi.md
 docs/TradingErrorSchema.md
+docs/TradingPair.md
+docs/TradingPairSide.md
+docs/TradingPairsListPage.md
 docs/TradingProvider.md
 docs/Transaction.md
 docs/TransactionConfigurations.md
@@ -1334,7 +1339,7 @@ docs/UtxoInput2.md
 docs/UtxoInputSelection.md
 docs/UtxoLabelFailure.md
 docs/UtxoLabelsErrorResponse.md
-docs/UtxoManagementBetaApi.md
+docs/UtxoManagementApi.md
 docs/UtxoOutput.md
 docs/UtxoSelectionConfigEntry.md
 docs/UtxoSelectionConfigResponse.md
@@ -1466,7 +1471,7 @@ src/main/java/com/fireblocks/sdk/api/TransactionsApi.java
 src/main/java/com/fireblocks/sdk/api/TravelRuleApi.java
 src/main/java/com/fireblocks/sdk/api/UserGroupsBetaApi.java
 src/main/java/com/fireblocks/sdk/api/UsersApi.java
-src/main/java/com/fireblocks/sdk/api/UtxoManagementBetaApi.java
+src/main/java/com/fireblocks/sdk/api/UtxoManagementApi.java
 src/main/java/com/fireblocks/sdk/api/VaultsApi.java
 src/main/java/com/fireblocks/sdk/api/Web3ConnectionsApi.java
 src/main/java/com/fireblocks/sdk/api/WebhooksApi.java
@@ -2336,6 +2341,7 @@ src/main/java/com/fireblocks/sdk/model/RewardsInfo.java
 src/main/java/com/fireblocks/sdk/model/RiskLevelEnum.java
 src/main/java/com/fireblocks/sdk/model/RoleDetails.java
 src/main/java/com/fireblocks/sdk/model/RoleDetails2.java
+src/main/java/com/fireblocks/sdk/model/RoleFeeInfo.java
 src/main/java/com/fireblocks/sdk/model/RoleGrantee.java
 src/main/java/com/fireblocks/sdk/model/Rule.java
 src/main/java/com/fireblocks/sdk/model/RuleActionEnum.java
@@ -2606,8 +2612,12 @@ src/main/java/com/fireblocks/sdk/model/TokensPaginatedResponse.java
 src/main/java/com/fireblocks/sdk/model/TotalSupplyItemDto.java
 src/main/java/com/fireblocks/sdk/model/TotalSupplyPagedResponse.java
 src/main/java/com/fireblocks/sdk/model/TotalSupplyPagedResponse2.java
+src/main/java/com/fireblocks/sdk/model/TradeClass.java
 src/main/java/com/fireblocks/sdk/model/TradingAccountType.java
 src/main/java/com/fireblocks/sdk/model/TradingErrorSchema.java
+src/main/java/com/fireblocks/sdk/model/TradingPair.java
+src/main/java/com/fireblocks/sdk/model/TradingPairSide.java
+src/main/java/com/fireblocks/sdk/model/TradingPairsListPage.java
 src/main/java/com/fireblocks/sdk/model/TradingProvider.java
 src/main/java/com/fireblocks/sdk/model/Transaction.java
 src/main/java/com/fireblocks/sdk/model/TransactionConfigurations.java
@@ -2854,7 +2864,7 @@ src/test/java/com/fireblocks/sdk/api/TransactionsApiTest.java
 src/test/java/com/fireblocks/sdk/api/TravelRuleApiTest.java
 src/test/java/com/fireblocks/sdk/api/UserGroupsBetaApiTest.java
 src/test/java/com/fireblocks/sdk/api/UsersApiTest.java
-src/test/java/com/fireblocks/sdk/api/UtxoManagementBetaApiTest.java
+src/test/java/com/fireblocks/sdk/api/UtxoManagementApiTest.java
 src/test/java/com/fireblocks/sdk/api/VaultsApiTest.java
 src/test/java/com/fireblocks/sdk/api/Web3ConnectionsApiTest.java
 src/test/java/com/fireblocks/sdk/api/WebhooksApiTest.java
@@ -3723,6 +3733,7 @@ src/test/java/com/fireblocks/sdk/model/RewardsInfoTest.java
 src/test/java/com/fireblocks/sdk/model/RiskLevelEnumTest.java
 src/test/java/com/fireblocks/sdk/model/RoleDetails2Test.java
 src/test/java/com/fireblocks/sdk/model/RoleDetailsTest.java
+src/test/java/com/fireblocks/sdk/model/RoleFeeInfoTest.java
 src/test/java/com/fireblocks/sdk/model/RoleGranteeTest.java
 src/test/java/com/fireblocks/sdk/model/RuleActionEnumTest.java
 src/test/java/com/fireblocks/sdk/model/RuleConditionOperatorEnumTest.java
@@ -3993,8 +4004,12 @@ src/test/java/com/fireblocks/sdk/model/TokensPaginatedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/TotalSupplyItemDtoTest.java
 src/test/java/com/fireblocks/sdk/model/TotalSupplyPagedResponse2Test.java
 src/test/java/com/fireblocks/sdk/model/TotalSupplyPagedResponseTest.java
+src/test/java/com/fireblocks/sdk/model/TradeClassTest.java
 src/test/java/com/fireblocks/sdk/model/TradingAccountTypeTest.java
 src/test/java/com/fireblocks/sdk/model/TradingErrorSchemaTest.java
+src/test/java/com/fireblocks/sdk/model/TradingPairSideTest.java
+src/test/java/com/fireblocks/sdk/model/TradingPairTest.java
+src/test/java/com/fireblocks/sdk/model/TradingPairsListPageTest.java
 src/test/java/com/fireblocks/sdk/model/TradingProviderTest.java
 src/test/java/com/fireblocks/sdk/model/TransactionConfigurationsTest.java
 src/test/java/com/fireblocks/sdk/model/TransactionDirectionTest.java
