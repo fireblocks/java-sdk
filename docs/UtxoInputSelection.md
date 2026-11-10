@@ -2,7 +2,7 @@
 
 # UtxoInputSelection
 
-Explicitly control which UTXOs to include or exclude. This feature is currently in beta and might be subject to changes. 
+Explicitly control which UTXOs to include or exclude. 
 
 ## Properties
 

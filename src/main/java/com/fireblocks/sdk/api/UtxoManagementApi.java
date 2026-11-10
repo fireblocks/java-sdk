@@ -46,7 +46,7 @@ import java.util.function.Consumer;
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.14.0")
-public class UtxoManagementBetaApi {
+public class UtxoManagementApi {
     private final HttpClient memberVarHttpClient;
     private final ObjectMapper memberVarObjectMapper;
     private final String memberVarBaseUri;
@@ -55,11 +55,11 @@ public class UtxoManagementBetaApi {
     private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
     private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-    public UtxoManagementBetaApi() {
+    public UtxoManagementApi() {
         this(new ApiClient());
     }
 
-    public UtxoManagementBetaApi(ApiClient apiClient) {
+    public UtxoManagementApi(ApiClient apiClient) {
         memberVarHttpClient = apiClient.getHttpClient();
         memberVarObjectMapper = apiClient.getObjectMapper();
         memberVarBaseUri = apiClient.getBaseUri();
@@ -110,8 +110,8 @@ public class UtxoManagementBetaApi {
      * effective strategy after runtime resolution. &#x60;ADAPTIVE&#x60; is the recommended
      * strategy. When no row is stored (source &#x60;DEFAULT&#x60;), &#x60;effective&#x60; is
      * &#x60;ADAPTIVE&#x60; if adaptive selection is serving for this workspace, otherwise
-     * &#x60;ASC&#x60;. **Note:** These endpoints are currently in beta and might be subject to
-     * changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * &#x60;ASC&#x60;. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
+     * Viewer.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;UtxoSelectionConfigResponse&gt;&gt;, which
      *     completes exceptionally with an {@link ApiException} if the API call fails
@@ -191,8 +191,8 @@ public class UtxoManagementBetaApi {
     /**
      * List unspent outputs (UTXOs) Returns a paginated list of unspent transaction outputs (UTXOs)
      * for a UTXO-based asset in a vault account, with optional filters for labels, statuses,
-     * amounts, and more. **Note:** These endpoints are currently in beta and might be subject to
-     * changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * amounts, and more. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
+     * Viewer.
      *
      * @param vaultAccountId The ID of the vault account (required)
      * @param assetId The ID of the asset (required)
@@ -385,8 +385,8 @@ public class UtxoManagementBetaApi {
      * &#x60;ADAPTIVE&#x60; is the recommended strategy. When no row is stored at this scope and
      * none is inherited from the workspace (source &#x60;DEFAULT&#x60;), &#x60;effective&#x60; is
      * &#x60;ADAPTIVE&#x60; if adaptive selection is serving for this scope, otherwise
-     * &#x60;ASC&#x60;. **Note:** These endpoints are currently in beta and might be subject to
-     * changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * &#x60;ASC&#x60;. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
+     * Viewer.
      *
      * @param vaultAccountId The ID of the vault account. (required)
      * @param assetId The ID of the asset (required)
@@ -488,9 +488,8 @@ public class UtxoManagementBetaApi {
      * spent, or removed, and can no longer be labelled. A UTXO removed within the last hour is
      * reported as &#x60;NOT_FOUND&#x60; with &#x60;utxoStatus: REMOVED&#x60;; if it does not
      * reappear, it becomes &#x60;NOT_LABELLABLE&#x60; after about an hour. A &#x60;400&#x60;
-     * without &#x60;failures&#x60; means the request itself is malformed. **Note:** These endpoints
-     * are currently in beta and might be subject to changes. Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor.
+     * without &#x60;failures&#x60; means the request itself is malformed. Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param attachDetachUtxoLabelsRequest (required)
      * @param vaultAccountId The ID of the vault account (required)
@@ -604,8 +603,7 @@ public class UtxoManagementBetaApi {
     }
     /**
      * Upsert UTXO selection config Creates or updates the workspace-level UTXO selection strategy.
-     * &#x60;ADAPTIVE&#x60; is recommended. **Note:** These endpoints are currently in beta and
-     * might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin.
+     * &#x60;ADAPTIVE&#x60; is recommended. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param upsertUtxoSelectionConfigRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -710,9 +708,8 @@ public class UtxoManagementBetaApi {
     }
     /**
      * Upsert vault and asset UTXO selection config Creates or updates the UTXO selection strategy
-     * for this vault account and asset. &#x60;ADAPTIVE&#x60; is recommended. **Note:** These
-     * endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin,
-     * Non-Signing Admin.
+     * for this vault account and asset. &#x60;ADAPTIVE&#x60; is recommended. Endpoint Permission:
+     * Admin, Non-Signing Admin.
      *
      * @param upsertUtxoSelectionConfigRequest (required)
      * @param vaultAccountId The ID of the vault account. (required)

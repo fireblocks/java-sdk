@@ -34,7 +34,11 @@ import com.fireblocks.sdk.model.QuotesResponse;
 import com.fireblocks.sdk.model.RatesRequest;
 import com.fireblocks.sdk.model.RatesResponse;
 import com.fireblocks.sdk.model.SubmitOrderRequirementRequest;
+import com.fireblocks.sdk.model.TradeClass;
+import com.fireblocks.sdk.model.TradingPairSide;
+import com.fireblocks.sdk.model.TradingPairsListPage;
 import com.fireblocks.sdk.model.TradingProvider;
+import com.fireblocks.sdk.model.TransferRail;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -825,6 +829,218 @@ public class TradingApi {
         localVarQueryParameterBaseName = "assetConversionType";
         localVarQueryParams.addAll(
                 ApiClient.parameterToPairs("assetConversionType", assetConversionType));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get trading pairs Retrieve the base/quote trading pairs supported by the tenant&#39;s trading
+     * providers. All filters are optional and combined with AND. A provider can return several rows
+     * for one pair, one per side and per connected account, each with its own
+     * &#x60;tradeClass&#x60;. Rows may use the wildcard &#x60;*&#x60; asset ID or the
+     * &#x60;BOTH&#x60; side and are returned unexpanded (see the &#x60;baseAsset&#x60;,
+     * &#x60;side&#x60; and &#x60;baseChain&#x60; filters for how they match). **Examples** - Which
+     * providers support ETH/USDC: &#x60;?baseAsset&#x3D;ETH&amp;quoteAsset&#x3D;USDC&#x60;. Add
+     * &#x60;providerId&#x60; to check one provider; an empty &#x60;data&#x60; array means it does
+     * not support the pair. - All pairs of one account:
+     * &#x60;?providerId&#x3D;ACME&amp;accountId&#x3D;&lt;ACCOUNT_ID&gt;&#x60;. Page through large
+     * results with &#x60;pageSize&#x60; and &#x60;pageCursor&#x60;. - Everything you can buy with
+     * euro: &#x60;?baseAsset&#x3D;EUR&amp;tradeClass&#x3D;ON_RAMP&#x60;. **Endpoint Permission:**
+     * Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed information
+     * about error codes and troubleshooting, please refer to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     *
+     * @param baseAsset Filter by base asset ID. Also matches &#x60;*&#x60; rows on the chain of
+     *     this asset. (optional)
+     * @param quoteAsset Filter by quote asset ID. Also matches &#x60;*&#x60; rows on the chain of
+     *     this asset. (optional)
+     * @param baseChain Filter by base asset blockchain &#x60;legacyId&#x60; (e.g. &#x60;ETH&#x60;,
+     *     &#x60;BASECHAIN_ETH&#x60;, &#x60;SOL&#x60;). Matches both concrete-asset rows and
+     *     &#x60;*&#x60; rows on that chain. (optional)
+     * @param quoteChain Filter by quote asset blockchain &#x60;legacyId&#x60; (e.g.
+     *     &#x60;ETH&#x60;, &#x60;BASECHAIN_ETH&#x60;, &#x60;SOL&#x60;). Matches both concrete-asset
+     *     rows and &#x60;*&#x60; rows on that chain. (optional)
+     * @param baseRail Filter by base asset transfer rail. (optional)
+     * @param quoteRail Filter by quote asset transfer rail. (optional)
+     * @param side Filter by trading side. &#x60;BUY&#x60; or &#x60;SELL&#x60; also matches rows
+     *     whose side is &#x60;BOTH&#x60;; &#x60;BOTH&#x60; matches rows of any side. (optional)
+     * @param tradeClass Filter by trade class. (optional)
+     * @param providerId Filter by provider ID. Repeat the parameter to match any of several
+     *     providers, up to 50. (optional
+     * @param accountId Filter by connected account ID. Repeat the parameter to match any of several
+     *     accounts, up to 50. (optional
+     * @param prefunded Filter by whether the pair requires prefunding. (optional)
+     * @param min An order-size filter, not a bound on the result. Only returns pairs whose own
+     *     &#x60;min&#x60; field (the smallest base-asset amount the pair accepts) is at most this
+     *     value, i.e. pairs that can serve an order of this size. For example,
+     *     &#x60;min&#x3D;10&#x60; returns pairs with a &#x60;min&#x60; of 10 or less. (optional)
+     * @param max An order-size filter, not a bound on the result. Only returns pairs whose own
+     *     &#x60;max&#x60; field (the largest base-asset amount the pair accepts) is at least this
+     *     value. For example, &#x60;max&#x3D;1000&#x60; returns pairs with a &#x60;max&#x60; of
+     *     1000 or more. (optional)
+     * @param pageSize Page size for pagination. (optional, default to 100)
+     * @param pageCursor Page cursor for pagination. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;TradingPairsListPage&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<TradingPairsListPage>> getTradingPairs(
+            String baseAsset,
+            String quoteAsset,
+            String baseChain,
+            String quoteChain,
+            TransferRail baseRail,
+            TransferRail quoteRail,
+            TradingPairSide side,
+            TradeClass tradeClass,
+            List<String> providerId,
+            List<String> accountId,
+            Boolean prefunded,
+            String min,
+            String max,
+            Integer pageSize,
+            String pageCursor) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getTradingPairsRequestBuilder(
+                            baseAsset,
+                            quoteAsset,
+                            baseChain,
+                            quoteChain,
+                            baseRail,
+                            quoteRail,
+                            side,
+                            tradeClass,
+                            providerId,
+                            accountId,
+                            prefunded,
+                            min,
+                            max,
+                            pageSize,
+                            pageCursor);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getTradingPairs",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getTradingPairs", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<TradingPairsListPage>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            TradingPairsListPage>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<TradingPairsListPage>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTradingPairsRequestBuilder(
+            String baseAsset,
+            String quoteAsset,
+            String baseChain,
+            String quoteChain,
+            TransferRail baseRail,
+            TransferRail quoteRail,
+            TradingPairSide side,
+            TradeClass tradeClass,
+            List<String> providerId,
+            List<String> accountId,
+            Boolean prefunded,
+            String min,
+            String max,
+            Integer pageSize,
+            String pageCursor)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/trading/pairs";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "baseAsset";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("baseAsset", baseAsset));
+        localVarQueryParameterBaseName = "quoteAsset";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("quoteAsset", quoteAsset));
+        localVarQueryParameterBaseName = "baseChain";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("baseChain", baseChain));
+        localVarQueryParameterBaseName = "quoteChain";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("quoteChain", quoteChain));
+        localVarQueryParameterBaseName = "baseRail";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("baseRail", baseRail));
+        localVarQueryParameterBaseName = "quoteRail";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("quoteRail", quoteRail));
+        localVarQueryParameterBaseName = "side";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("side", side));
+        localVarQueryParameterBaseName = "tradeClass";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("tradeClass", tradeClass));
+        localVarQueryParameterBaseName = "providerId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "providerId", providerId));
+        localVarQueryParameterBaseName = "accountId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "accountId", accountId));
+        localVarQueryParameterBaseName = "prefunded";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("prefunded", prefunded));
+        localVarQueryParameterBaseName = "min";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("min", min));
+        localVarQueryParameterBaseName = "max";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("max", max));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");

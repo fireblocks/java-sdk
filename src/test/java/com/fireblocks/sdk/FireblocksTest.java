@@ -760,11 +760,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetUtxoManagementBetaApi() {
+    public void testGetUtxoManagementApi() {
         setupFireblocks(true, null, null);
-        UtxoManagementBetaApi utxoManagementBeta = fireblocks.utxoManagementBeta();
-        Assert.assertNotNull(utxoManagementBeta);
-        Assert.assertSame(utxoManagementBeta, fireblocks.utxoManagementBeta());
+        UtxoManagementApi utxoManagement = fireblocks.utxoManagement();
+        Assert.assertNotNull(utxoManagement);
+        Assert.assertSame(utxoManagement, fireblocks.utxoManagement());
     }
 
     @Test

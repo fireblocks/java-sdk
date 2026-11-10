@@ -25,11 +25,11 @@ import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
 
-/** API tests for UtxoManagementBetaApi */
+/** API tests for UtxoManagementApi */
 @Ignore
-public class UtxoManagementBetaApiTest {
+public class UtxoManagementApiTest {
 
-    private final UtxoManagementBetaApi api = new UtxoManagementBetaApi();
+    private final UtxoManagementApi api = new UtxoManagementApi();
 
     /**
      * Get UTXO selection config
@@ -37,9 +37,8 @@ public class UtxoManagementBetaApiTest {
      * <p>Returns the workspace-level configured selection strategy and the effective strategy after
      * runtime resolution. &#x60;ADAPTIVE&#x60; is the recommended strategy. When no row is stored
      * (source &#x60;DEFAULT&#x60;), &#x60;effective&#x60; is &#x60;ADAPTIVE&#x60; if adaptive
-     * selection is serving for this workspace, otherwise &#x60;ASC&#x60;. **Note:** These endpoints
-     * are currently in beta and might be subject to changes. Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * selection is serving for this workspace, otherwise &#x60;ASC&#x60;. Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      */
     @Test
     public void getUtxoSelectionConfigTest() {
@@ -51,9 +50,8 @@ public class UtxoManagementBetaApiTest {
      * List unspent outputs (UTXOs)
      *
      * <p>Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in
-     * a vault account, with optional filters for labels, statuses, amounts, and more. **Note:**
-     * These endpoints are currently in beta and might be subject to changes. Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * a vault account, with optional filters for labels, statuses, amounts, and more. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      */
     @Test
     public void getUtxosTest() {
@@ -98,9 +96,8 @@ public class UtxoManagementBetaApiTest {
      * strategy after workspace fallback and runtime resolution. &#x60;ADAPTIVE&#x60; is the
      * recommended strategy. When no row is stored at this scope and none is inherited from the
      * workspace (source &#x60;DEFAULT&#x60;), &#x60;effective&#x60; is &#x60;ADAPTIVE&#x60; if
-     * adaptive selection is serving for this scope, otherwise &#x60;ASC&#x60;. **Note:** These
-     * endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * adaptive selection is serving for this scope, otherwise &#x60;ASC&#x60;. Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      */
     @Test
     public void getVaultAssetUtxoSelectionConfigTest() {
@@ -124,8 +121,7 @@ public class UtxoManagementBetaApiTest {
      * UTXO removed within the last hour is reported as &#x60;NOT_FOUND&#x60; with &#x60;utxoStatus:
      * REMOVED&#x60;; if it does not reappear, it becomes &#x60;NOT_LABELLABLE&#x60; after about an
      * hour. A &#x60;400&#x60; without &#x60;failures&#x60; means the request itself is malformed.
-     * **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      */
     @Test
     public void updateUtxoLabelsTest() {
@@ -142,8 +138,7 @@ public class UtxoManagementBetaApiTest {
      * Upsert UTXO selection config
      *
      * <p>Creates or updates the workspace-level UTXO selection strategy. &#x60;ADAPTIVE&#x60; is
-     * recommended. **Note:** These endpoints are currently in beta and might be subject to changes.
-     * Endpoint Permission: Admin, Non-Signing Admin.
+     * recommended. Endpoint Permission: Admin, Non-Signing Admin.
      */
     @Test
     public void upsertUtxoSelectionConfigTest() {
@@ -157,8 +152,7 @@ public class UtxoManagementBetaApiTest {
      * Upsert vault and asset UTXO selection config
      *
      * <p>Creates or updates the UTXO selection strategy for this vault account and asset.
-     * &#x60;ADAPTIVE&#x60; is recommended. **Note:** These endpoints are currently in beta and
-     * might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin.
+     * &#x60;ADAPTIVE&#x60; is recommended. Endpoint Permission: Admin, Non-Signing Admin.
      */
     @Test
     public void upsertVaultAssetUtxoSelectionConfigTest() {

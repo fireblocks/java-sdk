@@ -24,8 +24,7 @@ import java.util.StringJoiner;
 
 /**
  * For UTXO-based blockchains only. Controls which UTXOs are used for automatic selection. Cannot be
- * used together with extraParameters.inputsSelection. This feature is currently in beta and might
- * be subject to changes.
+ * used together with extraParameters.inputsSelection.
  */
 @JsonPropertyOrder({
     UtxoSelectionParams.JSON_PROPERTY_SELECTION_STRATEGY,

@@ -27,7 +27,11 @@ import com.fireblocks.sdk.model.QuotesResponse;
 import com.fireblocks.sdk.model.RatesRequest;
 import com.fireblocks.sdk.model.RatesResponse;
 import com.fireblocks.sdk.model.SubmitOrderRequirementRequest;
+import com.fireblocks.sdk.model.TradeClass;
+import com.fireblocks.sdk.model.TradingPairSide;
+import com.fireblocks.sdk.model.TradingPairsListPage;
 import com.fireblocks.sdk.model.TradingProvider;
+import com.fireblocks.sdk.model.TransferRail;
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -185,6 +189,60 @@ public class TradingApiTest {
                         startTime,
                         endTime,
                         assetConversionType);
+    }
+
+    /**
+     * Get trading pairs
+     *
+     * <p>Retrieve the base/quote trading pairs supported by the tenant&#39;s trading providers. All
+     * filters are optional and combined with AND. A provider can return several rows for one pair,
+     * one per side and per connected account, each with its own &#x60;tradeClass&#x60;. Rows may
+     * use the wildcard &#x60;*&#x60; asset ID or the &#x60;BOTH&#x60; side and are returned
+     * unexpanded (see the &#x60;baseAsset&#x60;, &#x60;side&#x60; and &#x60;baseChain&#x60; filters
+     * for how they match). **Examples** - Which providers support ETH/USDC:
+     * &#x60;?baseAsset&#x3D;ETH&amp;quoteAsset&#x3D;USDC&#x60;. Add &#x60;providerId&#x60; to check
+     * one provider; an empty &#x60;data&#x60; array means it does not support the pair. - All pairs
+     * of one account: &#x60;?providerId&#x3D;ACME&amp;accountId&#x3D;&lt;ACCOUNT_ID&gt;&#x60;. Page
+     * through large results with &#x60;pageSize&#x60; and &#x60;pageCursor&#x60;. - Everything you
+     * can buy with euro: &#x60;?baseAsset&#x3D;EUR&amp;tradeClass&#x3D;ON_RAMP&#x60;. **Endpoint
+     * Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. For detailed
+     * information about error codes and troubleshooting, please refer to our [API Error Codes
+     * documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     */
+    @Test
+    public void getTradingPairsTest() {
+        String baseAsset = null;
+        String quoteAsset = null;
+        String baseChain = null;
+        String quoteChain = null;
+        TransferRail baseRail = null;
+        TransferRail quoteRail = null;
+        TradingPairSide side = null;
+        TradeClass tradeClass = null;
+        List<String> providerId = null;
+        List<String> accountId = null;
+        Boolean prefunded = null;
+        String min = null;
+        String max = null;
+        Integer pageSize = null;
+        String pageCursor = null;
+        CompletableFuture<ApiResponse<TradingPairsListPage>> response =
+                api.getTradingPairs(
+                        baseAsset,
+                        quoteAsset,
+                        baseChain,
+                        quoteChain,
+                        baseRail,
+                        quoteRail,
+                        side,
+                        tradeClass,
+                        providerId,
+                        accountId,
+                        prefunded,
+                        min,
+                        max,
+                        pageSize,
+                        pageCursor);
     }
 
     /**

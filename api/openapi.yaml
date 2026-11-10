@@ -30221,6 +30221,268 @@ paths:
       x-content-type: multipart/form-data
       x-accepts:
       - application/json
+  /trading/pairs:
+    get:
+      description: |
+        Retrieve the base/quote trading pairs supported by the tenant's trading providers. All filters are optional and combined with AND.
+
+        A provider can return several rows for one pair, one per side and per connected account, each with its own `tradeClass`. Rows may use the wildcard `*` asset ID or the `BOTH` side and are returned unexpanded (see the `baseAsset`, `side` and `baseChain` filters for how they match).
+
+        **Examples**
+          - Which providers support ETH/USDC: `?baseAsset=ETH&quoteAsset=USDC`. Add `providerId` to check one provider; an empty `data` array means it does not support the pair.
+          - All pairs of one account: `?providerId=ACME&accountId=<ACCOUNT_ID>`. Page through large results with `pageSize` and `pageCursor`.
+          - Everything you can buy with euro: `?baseAsset=EUR&tradeClass=ON_RAMP`.
+
+        **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+        For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+      operationId: getTradingPairs
+      parameters:
+      - description: Filter by base asset ID. Also matches `*` rows on the chain of
+          this asset.
+        explode: true
+        in: query
+        name: baseAsset
+        required: false
+        schema:
+          minLength: 1
+          type: string
+        style: form
+      - description: Filter by quote asset ID. Also matches `*` rows on the chain
+          of this asset.
+        explode: true
+        in: query
+        name: quoteAsset
+        required: false
+        schema:
+          minLength: 1
+          type: string
+        style: form
+      - description: "Filter by base asset blockchain `legacyId` (e.g. `ETH`, `BASECHAIN_ETH`,\
+          \ `SOL`). Matches both concrete-asset rows and `*` rows on that chain."
+        explode: true
+        in: query
+        name: baseChain
+        required: false
+        schema:
+          minLength: 1
+          type: string
+        style: form
+      - description: "Filter by quote asset blockchain `legacyId` (e.g. `ETH`, `BASECHAIN_ETH`,\
+          \ `SOL`). Matches both concrete-asset rows and `*` rows on that chain."
+        explode: true
+        in: query
+        name: quoteChain
+        required: false
+        schema:
+          minLength: 1
+          type: string
+        style: form
+      - description: Filter by base asset transfer rail.
+        explode: true
+        in: query
+        name: baseRail
+        required: false
+        schema:
+          $ref: "#/components/schemas/TransferRail"
+        style: form
+      - description: Filter by quote asset transfer rail.
+        explode: true
+        in: query
+        name: quoteRail
+        required: false
+        schema:
+          $ref: "#/components/schemas/TransferRail"
+        style: form
+      - description: Filter by trading side. `BUY` or `SELL` also matches rows whose
+          side is `BOTH`; `BOTH` matches rows of any side.
+        explode: true
+        in: query
+        name: side
+        required: false
+        schema:
+          $ref: "#/components/schemas/TradingPairSide"
+        style: form
+      - description: Filter by trade class.
+        explode: true
+        in: query
+        name: tradeClass
+        required: false
+        schema:
+          $ref: "#/components/schemas/TradeClass"
+        style: form
+      - description: "Filter by provider ID. Repeat the parameter to match any of\
+          \ several providers, up to 50."
+        explode: true
+        in: query
+        name: providerId
+        required: false
+        schema:
+          items:
+            minLength: 1
+            type: string
+          maxItems: 50
+          type: array
+        style: form
+      - description: "Filter by connected account ID. Repeat the parameter to match\
+          \ any of several accounts, up to 50."
+        explode: true
+        in: query
+        name: accountId
+        required: false
+        schema:
+          items:
+            minLength: 1
+            type: string
+          maxItems: 50
+          type: array
+        style: form
+      - description: Filter by whether the pair requires prefunding.
+        explode: true
+        in: query
+        name: prefunded
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: "An order-size filter, not a bound on the result. Only returns\
+          \ pairs whose own `min` field (the smallest base-asset amount the pair accepts)\
+          \ is at most this value, i.e. pairs that can serve an order of this size.\
+          \ For example, `min=10` returns pairs with a `min` of 10 or less."
+        explode: true
+        in: query
+        name: min
+        required: false
+        schema:
+          pattern: ^\d+(\.\d+)?$
+          type: string
+        style: form
+      - description: "An order-size filter, not a bound on the result. Only returns\
+          \ pairs whose own `max` field (the largest base-asset amount the pair accepts)\
+          \ is at least this value. For example, `max=1000` returns pairs with a `max`\
+          \ of 1000 or more."
+        explode: true
+        in: query
+        name: max
+        required: false
+        schema:
+          pattern: ^\d+(\.\d+)?$
+          type: string
+        style: form
+      - description: Page size for pagination.
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 100
+          format: int32
+          maximum: 1000
+          minimum: 1
+          type: integer
+        style: form
+      - description: Page cursor for pagination.
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingPairsListPage"
+          description: Trading pairs response
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Bad request: invalid input parameters, malformed request body,\
+            \ or validation failure."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: Unauthorized. Missing / invalid JWT token in Authorization
+            header.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Forbidden: insufficient permissions, disabled feature, or\
+            \ restricted access."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: "Rate limit exceeded: slow down and retry later."
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradingErrorSchema"
+          description: Internal error while processing the request.
+          headers:
+            X-Request-ID:
+              $ref: "#/components/headers/X-Request-ID"
+        default:
+          $ref: "#/components/responses/Error"
+      summary: Get trading pairs
+      tags:
+      - Trading
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TradingPairsListPage>>\
+            \ = fireblocks.trading.getTradingPairs(tradingApiGetTradingPairsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TradingPairsListPage>> response = fireblocks.trading().getTradingPairs(baseAsset,\
+            \ quoteAsset, baseChain, quoteChain, baseRail, quoteRail, side, tradeClass,\
+            \ providerId, accountId, prefunded, min, max, pageSize, pageCursor);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.trading.get_trading_pairs(base_asset, quote_asset,\
+            \ base_chain, quote_chain, base_rail, quote_rail, side, trade_class, provider_id,\
+            \ account_id, prefunded, min, max, page_size, page_cursor);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<TradingPairsListPage>>\
+          \ = fireblocks.trading.getTradingPairs(tradingApiGetTradingPairsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<TradingPairsListPage>> response = fireblocks.trading().getTradingPairs(baseAsset,\
+          \ quoteAsset, baseChain, quoteChain, baseRail, quoteRail, side, tradeClass,\
+          \ providerId, accountId, prefunded, min, max, pageSize, pageCursor);"
+      - lang: Python
+        source: "response = fireblocks.trading.get_trading_pairs(base_asset, quote_asset,\
+          \ base_chain, quote_chain, base_rail, quote_rail, side, trade_class, provider_id,\
+          \ account_id, prefunded, min, max, page_size, page_cursor);"
+      x-accepts:
+      - application/json
   /trading/providers:
     get:
       description: |
@@ -35003,9 +35265,6 @@ paths:
         `NOT_LABELLABLE` after about an hour. A `400` without `failures` means
         the request itself is malformed.
 
-        **Note:** These endpoints are currently in beta and might be subject to
-        changes.
-
         Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver,
         Editor.
       operationId: updateUtxoLabels
@@ -35070,33 +35329,33 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Attach or detach labels to/from UTXOs
       tags:
-      - UTXO Management (Beta)
+      - UTXO Management
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<AttachDetachUtxoLabelsResponse>>\
-            \ = fireblocks.uTXOManagementBeta.updateUtxoLabels(uTXOManagementBetaApiUpdateUtxoLabelsRequest);"
+            \ = fireblocks.uTXOManagement.updateUtxoLabels(uTXOManagementApiUpdateUtxoLabelsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<AttachDetachUtxoLabelsResponse>> response\
-            \ = fireblocks.uTXOManagementBeta().updateUtxoLabels(attachDetachUtxoLabelsRequest,\
+            \ = fireblocks.uTXOManagement().updateUtxoLabels(attachDetachUtxoLabelsRequest,\
             \ vaultAccountId, assetId, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.u_t_x_o_management_beta.update_utxo_labels(attach_detach_utxo_labels_request,\
+          code: "response = fireblocks.u_t_x_o_management.update_utxo_labels(attach_detach_utxo_labels_request,\
             \ vault_account_id, asset_id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<AttachDetachUtxoLabelsResponse>>\
-          \ = fireblocks.uTXOManagementBeta.updateUtxoLabels(uTXOManagementBetaApiUpdateUtxoLabelsRequest);"
+          \ = fireblocks.uTXOManagement.updateUtxoLabels(uTXOManagementApiUpdateUtxoLabelsRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<AttachDetachUtxoLabelsResponse>> response\
-          \ = fireblocks.uTXOManagementBeta().updateUtxoLabels(attachDetachUtxoLabelsRequest,\
+          \ = fireblocks.uTXOManagement().updateUtxoLabels(attachDetachUtxoLabelsRequest,\
           \ vaultAccountId, assetId, idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.u_t_x_o_management_beta.update_utxo_labels(attach_detach_utxo_labels_request,\
+        source: "response = fireblocks.u_t_x_o_management.update_utxo_labels(attach_detach_utxo_labels_request,\
           \ vault_account_id, asset_id, idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -35105,7 +35364,6 @@ paths:
     get:
       description: |-
         Returns the config stored at this vault-and-asset scope, if any, and the effective strategy after workspace fallback and runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored at this scope and none is inherited from the workspace (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this scope, otherwise `ASC`.
-        **Note:** These endpoints are currently in beta and might be subject to changes.
         Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getVaultAssetUtxoSelectionConfig
       parameters:
@@ -35142,36 +35400,35 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get vault and asset UTXO selection config
       tags:
-      - UTXO Management (Beta)
+      - UTXO Management
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<UtxoSelectionConfigResponse>>\
-            \ = fireblocks.uTXOManagementBeta.getVaultAssetUtxoSelectionConfig();"
+            \ = fireblocks.uTXOManagement.getVaultAssetUtxoSelectionConfig();"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response
-            = fireblocks.uTXOManagementBeta().getVaultAssetUtxoSelectionConfig();
+            = fireblocks.uTXOManagement().getVaultAssetUtxoSelectionConfig();
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.u_t_x_o_management_beta.get_vault_asset_utxo_selection_config();
+          code: response = fireblocks.u_t_x_o_management.get_vault_asset_utxo_selection_config();
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<UtxoSelectionConfigResponse>>\
-          \ = fireblocks.uTXOManagementBeta.getVaultAssetUtxoSelectionConfig();"
+          \ = fireblocks.uTXOManagement.getVaultAssetUtxoSelectionConfig();"
       - lang: Java
         source: CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response
-          = fireblocks.uTXOManagementBeta().getVaultAssetUtxoSelectionConfig();
+          = fireblocks.uTXOManagement().getVaultAssetUtxoSelectionConfig();
       - lang: Python
-        source: response = fireblocks.u_t_x_o_management_beta.get_vault_asset_utxo_selection_config();
+        source: response = fireblocks.u_t_x_o_management.get_vault_asset_utxo_selection_config();
       x-accepts:
       - application/json
     put:
       description: |-
         Creates or updates the UTXO selection strategy for this vault account and asset. `ADAPTIVE` is recommended.
-        **Note:** These endpoints are currently in beta and might be subject to changes.
         Endpoint Permission: Admin, Non-Signing Admin.
       operationId: upsertVaultAssetUtxoSelectionConfig
       parameters:
@@ -35225,33 +35482,33 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Upsert vault and asset UTXO selection config
       tags:
-      - UTXO Management (Beta)
+      - UTXO Management
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<UtxoSelectionConfigResponse>>\
-            \ = fireblocks.uTXOManagementBeta.upsertVaultAssetUtxoSelectionConfig(uTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfigRequest);"
+            \ = fireblocks.uTXOManagement.upsertVaultAssetUtxoSelectionConfig(uTXOManagementApiUpsertVaultAssetUtxoSelectionConfigRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response\
-            \ = fireblocks.uTXOManagementBeta().upsertVaultAssetUtxoSelectionConfig(upsertUtxoSelectionConfigRequest,\
+            \ = fireblocks.uTXOManagement().upsertVaultAssetUtxoSelectionConfig(upsertUtxoSelectionConfigRequest,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.u_t_x_o_management_beta.upsert_vault_asset_utxo_selection_config(upsert_utxo_selection_config_request,\
+          code: "response = fireblocks.u_t_x_o_management.upsert_vault_asset_utxo_selection_config(upsert_utxo_selection_config_request,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<UtxoSelectionConfigResponse>>\
-          \ = fireblocks.uTXOManagementBeta.upsertVaultAssetUtxoSelectionConfig(uTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfigRequest);"
+          \ = fireblocks.uTXOManagement.upsertVaultAssetUtxoSelectionConfig(uTXOManagementApiUpsertVaultAssetUtxoSelectionConfigRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response\
-          \ = fireblocks.uTXOManagementBeta().upsertVaultAssetUtxoSelectionConfig(upsertUtxoSelectionConfigRequest,\
+          \ = fireblocks.uTXOManagement().upsertVaultAssetUtxoSelectionConfig(upsertUtxoSelectionConfigRequest,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.u_t_x_o_management_beta.upsert_vault_asset_utxo_selection_config(upsert_utxo_selection_config_request,\
+        source: "response = fireblocks.u_t_x_o_management.upsert_vault_asset_utxo_selection_config(upsert_utxo_selection_config_request,\
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -35260,7 +35517,6 @@ paths:
     get:
       description: |-
         Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more.
-        **Note:** These endpoints are currently in beta and might be subject to changes.
         Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getUtxos
       parameters:
@@ -35439,22 +35695,22 @@ paths:
           $ref: "#/components/responses/Error"
       summary: List unspent outputs (UTXOs)
       tags:
-      - UTXO Management (Beta)
+      - UTXO Management
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<ListUtxosResponse>> =\
-            \ fireblocks.uTXOManagementBeta.getUtxos(uTXOManagementBetaApiGetUtxosRequest);"
+            \ fireblocks.uTXOManagement.getUtxos(uTXOManagementApiGetUtxosRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<ListUtxosResponse>> response = fireblocks.uTXOManagementBeta().getUtxos(vaultAccountId,\
+          code: "CompletableFuture<ApiResponse<ListUtxosResponse>> response = fireblocks.uTXOManagement().getUtxos(vaultAccountId,\
             \ assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels,\
             \ excludeAnyLabels, includeStatuses, address, txHash, txId, minAmount,\
             \ maxAmount);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.u_t_x_o_management_beta.get_utxos(vault_account_id,\
+          code: "response = fireblocks.u_t_x_o_management.get_utxos(vault_account_id,\
             \ asset_id, page_cursor, page_size, sort, order, include_all_labels, include_any_labels,\
             \ exclude_any_labels, include_statuses, address, tx_hash, tx_id, min_amount,\
             \ max_amount);"
@@ -35462,13 +35718,13 @@ paths:
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<ListUtxosResponse>> =\
-          \ fireblocks.uTXOManagementBeta.getUtxos(uTXOManagementBetaApiGetUtxosRequest);"
+          \ fireblocks.uTXOManagement.getUtxos(uTXOManagementApiGetUtxosRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<ListUtxosResponse>> response = fireblocks.uTXOManagementBeta().getUtxos(vaultAccountId,\
+        source: "CompletableFuture<ApiResponse<ListUtxosResponse>> response = fireblocks.uTXOManagement().getUtxos(vaultAccountId,\
           \ assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels,\
           \ excludeAnyLabels, includeStatuses, address, txHash, txId, minAmount, maxAmount);"
       - lang: Python
-        source: "response = fireblocks.u_t_x_o_management_beta.get_utxos(vault_account_id,\
+        source: "response = fireblocks.u_t_x_o_management.get_utxos(vault_account_id,\
           \ asset_id, page_cursor, page_size, sort, order, include_all_labels, include_any_labels,\
           \ exclude_any_labels, include_statuses, address, tx_hash, tx_id, min_amount,\
           \ max_amount);"
@@ -35478,7 +35734,6 @@ paths:
     get:
       description: |-
         Returns the workspace-level configured selection strategy and the effective strategy after runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this workspace, otherwise `ASC`.
-        **Note:** These endpoints are currently in beta and might be subject to changes.
         Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getUtxoSelectionConfig
       responses:
@@ -35495,36 +35750,35 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Get UTXO selection config
       tags:
-      - UTXO Management (Beta)
+      - UTXO Management
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<UtxoSelectionConfigResponse>>\
-            \ = fireblocks.uTXOManagementBeta.getUtxoSelectionConfig();"
+            \ = fireblocks.uTXOManagement.getUtxoSelectionConfig();"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response
-            = fireblocks.uTXOManagementBeta().getUtxoSelectionConfig();
+            = fireblocks.uTXOManagement().getUtxoSelectionConfig();
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.u_t_x_o_management_beta.get_utxo_selection_config();
+          code: response = fireblocks.u_t_x_o_management.get_utxo_selection_config();
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<UtxoSelectionConfigResponse>>\
-          \ = fireblocks.uTXOManagementBeta.getUtxoSelectionConfig();"
+          \ = fireblocks.uTXOManagement.getUtxoSelectionConfig();"
       - lang: Java
         source: CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response
-          = fireblocks.uTXOManagementBeta().getUtxoSelectionConfig();
+          = fireblocks.uTXOManagement().getUtxoSelectionConfig();
       - lang: Python
-        source: response = fireblocks.u_t_x_o_management_beta.get_utxo_selection_config();
+        source: response = fireblocks.u_t_x_o_management.get_utxo_selection_config();
       x-accepts:
       - application/json
     put:
       description: |-
         Creates or updates the workspace-level UTXO selection strategy. `ADAPTIVE` is recommended.
-        **Note:** These endpoints are currently in beta and might be subject to changes.
         Endpoint Permission: Admin, Non-Signing Admin.
       operationId: upsertUtxoSelectionConfig
       parameters:
@@ -35559,33 +35813,33 @@ paths:
           $ref: "#/components/responses/Error"
       summary: Upsert UTXO selection config
       tags:
-      - UTXO Management (Beta)
+      - UTXO Management
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<UtxoSelectionConfigResponse>>\
-            \ = fireblocks.uTXOManagementBeta.upsertUtxoSelectionConfig(uTXOManagementBetaApiUpsertUtxoSelectionConfigRequest);"
+            \ = fireblocks.uTXOManagement.upsertUtxoSelectionConfig(uTXOManagementApiUpsertUtxoSelectionConfigRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response\
-            \ = fireblocks.uTXOManagementBeta().upsertUtxoSelectionConfig(upsertUtxoSelectionConfigRequest,\
+            \ = fireblocks.uTXOManagement().upsertUtxoSelectionConfig(upsertUtxoSelectionConfigRequest,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.u_t_x_o_management_beta.upsert_utxo_selection_config(upsert_utxo_selection_config_request,\
+          code: "response = fireblocks.u_t_x_o_management.upsert_utxo_selection_config(upsert_utxo_selection_config_request,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<UtxoSelectionConfigResponse>>\
-          \ = fireblocks.uTXOManagementBeta.upsertUtxoSelectionConfig(uTXOManagementBetaApiUpsertUtxoSelectionConfigRequest);"
+          \ = fireblocks.uTXOManagement.upsertUtxoSelectionConfig(uTXOManagementApiUpsertUtxoSelectionConfigRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<UtxoSelectionConfigResponse>> response\
-          \ = fireblocks.uTXOManagementBeta().upsertUtxoSelectionConfig(upsertUtxoSelectionConfigRequest,\
+          \ = fireblocks.uTXOManagement().upsertUtxoSelectionConfig(upsertUtxoSelectionConfigRequest,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.u_t_x_o_management_beta.upsert_utxo_selection_config(upsert_utxo_selection_config_request,\
+        source: "response = fireblocks.u_t_x_o_management.upsert_utxo_selection_config(upsert_utxo_selection_config_request,\
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts:
@@ -37181,8 +37435,7 @@ paths:
           type: boolean
         style: form
       - description: Only include UTXOs that have ALL of these labels (AND logic).
-          Requires the UTXO Manager. This feature is currently in beta and might be
-          subject to changes.
+          Requires the UTXO Manager.
         explode: true
         in: query
         name: includeAllLabels
@@ -37193,8 +37446,7 @@ paths:
           type: array
         style: form
       - description: Only include UTXOs that have ANY of these labels (OR logic).
-          Requires the UTXO Manager. This feature is currently in beta and might be
-          subject to changes.
+          Requires the UTXO Manager.
         explode: true
         in: query
         name: includeAnyLabels
@@ -37205,7 +37457,7 @@ paths:
           type: array
         style: form
       - description: Exclude UTXOs that have ANY of these labels. Requires the UTXO
-          Manager. This feature is currently in beta and might be subject to changes.
+          Manager.
         explode: true
         in: query
         name: excludeAnyLabels
@@ -37216,7 +37468,7 @@ paths:
           type: array
         style: form
       - description: Only include UTXOs from this specific address. Requires the UTXO
-          Manager. This feature is currently in beta and might be subject to changes.
+          Manager.
         explode: true
         in: query
         name: address
@@ -37225,7 +37477,7 @@ paths:
           type: string
         style: form
       - description: Minimum UTXO amount in the asset's base unit. Requires the UTXO
-          Manager. This feature is currently in beta and might be subject to changes.
+          Manager.
         explode: true
         in: query
         name: minAmount
@@ -37234,7 +37486,7 @@ paths:
           type: string
         style: form
       - description: Maximum UTXO amount in the asset's base unit. Requires the UTXO
-          Manager. This feature is currently in beta and might be subject to changes.
+          Manager.
         explode: true
         in: query
         name: maxAmount
@@ -49969,14 +50221,47 @@ components:
           description: The USD value of the requested amount.
           type: string
       type: object
+    RoleFeeInfo:
+      description: |-
+        **Early Access.** What the transfer cost the Fireblocks wallet of one role (`sender` or `recipient`). Currently reported for TON only.
+
+        Unlike `networkFee`, which describes the transfer as a whole, these amounts are always the cost to the wallet of that role, so the two can differ, for example for a `recipient`.
+      example:
+        valueCredited: "0.000000001"
+        feesDeducted: "0.017686415"
+      properties:
+        feesDeducted:
+          description: |-
+            The total amount of TON deducted from the wallet because of the transfer, in TON, as a decimal string with nine decimals (like `networkFee`).
+
+            - `sender` of a native TON transfer: the wallet's own fees plus the forwarding fees of the messages it sent.
+            - `sender` of a Jetton (token) transfer: what the wallet actually lost. This is its own fees plus the TON it attached to cover the token wallets, minus any excess returned to it. If the excess is returned to the sender, the fee of receiving it is included. If the excess goes to any other wallet, the full attached TON is counted. When one external message carries several Jetton transfers (a multi-send), the loss is that of the whole message: every excess that came back to the wallet is subtracted.
+            - `recipient` of a native TON transfer: the fees of the transaction that received the transfer, including gas.
+            - `recipient` of a Jetton transfer: the fees of the notification transaction, usually a few nanoTON of storage fees. `"0.000000000"` when the transfer carried no forward amount, because the wallet then has no transaction of its own and pays nothing.
+          example: "0.017686415"
+          type: string
+        valueCredited:
+          description: |-
+            The gross amount of TON that arrived at the wallet together with the token notification (the forward amount), in TON, as a decimal string with nine decimals. Set only for the `recipient` of a Jetton (token) transfer, and omitted when the amount is zero or the notification bounced.
+
+            `valueCredited` is not subtracted from `feesDeducted`. The net change of the wallet's TON balance caused by the transfer is `valueCredited` minus `feesDeducted`.
+          example: "0.000000001"
+          type: string
+      type: object
     FeeInfo:
       description: Details of the transaction's fee.
       example:
         serviceFee: serviceFee
         relayType: LOCAL
         relayId: "1"
+        sender:
+          valueCredited: "0.000000001"
+          feesDeducted: "0.017686415"
         networkFee: networkFee
         L2networkFee: "0.0005"
+        recipient:
+          valueCredited: "0.000000001"
+          feesDeducted: "0.017686415"
         relayName: Tenant Name
         L1networkFee: "0.003955"
         feeUSD: "0.0013"
@@ -50024,6 +50309,10 @@ components:
           description: The USD value of the fee
           example: "0.0013"
           type: string
+        sender:
+          $ref: "#/components/schemas/RoleFeeInfo"
+        recipient:
+          $ref: "#/components/schemas/RoleFeeInfo"
       type: object
     CantonDomainEnum:
       description: "The Canton domain a transaction belongs to. Singular, and it matches\
@@ -52370,8 +52659,14 @@ components:
           serviceFee: serviceFee
           relayType: LOCAL
           relayId: "1"
+          sender:
+            valueCredited: "0.000000001"
+            feesDeducted: "0.017686415"
           networkFee: networkFee
           L2networkFee: "0.0005"
+          recipient:
+            valueCredited: "0.000000001"
+            feesDeducted: "0.017686415"
           relayName: Tenant Name
           L1networkFee: "0.003955"
           feeUSD: "0.0013"
@@ -53602,7 +53897,71 @@ components:
           example: "11228"
           type: string
         blockchainInfo:
-          description: A JSON used to store additional data that is blockchain-specific.
+          description: |-
+            A JSON used to store additional data that is blockchain-specific.
+
+            **TON (Early Access).** For TON transfers the object contains:
+
+            | Field | Description |
+            | --- | --- |
+            | `tonTransferType` | `NATIVE` for a TON transfer, `JETTON` for a token transfer. |
+            | `hashes` | Hex hashes of the transfer: `externalIncoming`, and either `tonTransfer` (native) or `jettonTransfer` (Jetton). |
+            | `messageContent` | The message body (comment) of the transfer, as a base64 string. |
+            | `isFeeExcess` | `true` only on the transaction that records the excess TON returned by a Jetton transfer to one of your wallets other than the sender. That transaction is a plain native transfer to the wallet, its top-level `feeInfo` has only a `recipient` struct, like any regular recipient. Omitted otherwise. |
+            | `feeBreakdowns` | The fee details of the wallets of your workspace in the transfer: one entry per wallet. Available when the feature is enabled for your workspace. The totals of each wallet are in the top-level `feeInfo` of the transaction, in its `sender` and `recipient` structs (`feesDeducted`, `valueCredited`). |
+
+            All amounts inside `feeBreakdowns` are integer strings in **nanoTON** (1 TON = 1,000,000,000 nanoTON), unlike the top-level `feeInfo`, which is in TON.
+
+            Each entry of `feeBreakdowns` contains:
+
+            | Field | Description |
+            | --- | --- |
+            | `role` | `SENDER` or `RECIPIENT`: the role of the wallet in the transfer. |
+            | `address` | The wallet, as `raw` and `userFriendly` addresses. |
+            | `txHash` | The hash of the wallet's own on-chain transaction. Omitted for a Jetton `recipient` with no transaction of its own (see below). |
+            | `feeBreakdown.totalOutMsgsForwardFees` | The sum of the forwarding fees of the messages sent by the wallet's transaction. |
+            | `feeBreakdown.chainReported` | The fee components reported by the blockchain for the wallet's transaction: `totalFees`, `storageFees`, `gasFees`, `actionFees` and `forwardFees`, and, when applicable, `importFee`, `bounceFees` and `actionFine`. `totalFees` is the sum of `storageFees`, `importFee`, `gasFees`, `actionFees` and `bounceFees`. |
+            | `feeBreakdown.fundingSpent` | The rest of the sender's loss beyond the fees in this entry: for a Jetton `sender`, the TON the wallet attached to fund the token wallets and did not get back; for a wallet that sends through a second transaction of its own (a Highload wallet), also the fees of that transaction. For the same wallet, `feeInfo.<role>.feesDeducted` = `totalFees` + `totalOutMsgsForwardFees` + `fundingSpent` (`fundingSpent` is 0 when absent), converted from nanoTON to TON. |
+
+            A Jetton transfer sent without a forward amount sends the recipient no notification, so the recipient wallet has no transaction and pays nothing: its entry has no `txHash`, all its figures are `"0"` and `feeInfo.recipient.feesDeducted` is `"0.000000000"`. An amount that could not be established from on-chain data is reported as no entry and no struct in `feeInfo` for that role.
+
+            Only the wallets that belong to the notified workspace appear in `feeBreakdowns`. A transfer between two wallets of your own workspace is a single transaction and carries an entry for each wallet (tell them apart by `role`), and the top-level `feeInfo` has both a `sender` and a `recipient` struct.
+
+            `blockchainInfo` is kept to 2,048 characters. When a very long message pushes a TON transfer over that, the optional details are dropped to make it fit: `feeBreakdowns` go first when the message fits without them, `messageContent` goes when the breakdowns fit without it, and both go when neither does. The `hashes`, `tonTransferType`, `isFeeExcess` and the top-level `feeInfo` are always kept.
+
+            Example of a Jetton transfer sent from one of your wallets (addresses and hashes are placeholders):
+
+            ```json
+            {
+              "tonTransferType": "JETTON",
+              "hashes": {
+                "externalIncoming": "0000000000000000000000000000000000000000000000000000000000000001",
+                "jettonTransfer": "0000000000000000000000000000000000000000000000000000000000000002"
+              },
+              "messageContent": "te6cckEBAQEAAgAAAEysuc0=",
+              "feeBreakdowns": [
+                {
+                  "address": {
+                    "raw": "0:0000000000000000000000000000000000000000000000000000000000000003",
+                    "userFriendly": "0QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "txHash": "0000000000000000000000000000000000000000000000000000000000000004",
+                  "feeBreakdown": {
+                    "totalOutMsgsForwardFees": "86046",
+                    "chainReported": {
+                      "totalFees": "475291",
+                      "storageFees": "1",
+                      "gasFees": "220534",
+                      "actionFees": "43022",
+                      "forwardFees": "129068",
+                      "importFee": "211734"
+                    },
+                    "fundingSpent": "17125078"
+                  }
+                }
+              ]
+            }
+            ```
           example:
             evmTransferType: NATIVE
           type: object
@@ -53783,7 +54142,7 @@ components:
       type: object
     UtxoSelectionFilters:
       description: |
-        Narrow the UTXO candidate pool. All specified filters are AND-ed together. This feature is currently in beta and might be subject to changes.
+        Narrow the UTXO candidate pool. All specified filters are AND-ed together.
       example:
         minAmount: "0.001"
         includeAnyLabels:
@@ -53849,7 +54208,7 @@ components:
       type: object
     UtxoInputSelection:
       description: |
-        Explicitly control which UTXOs to include or exclude. This feature is currently in beta and might be subject to changes.
+        Explicitly control which UTXOs to include or exclude.
       example:
         inputsToExclude:
         - index: 0
@@ -53881,7 +54240,7 @@ components:
       type: object
     UtxoSelectionParams:
       description: |
-        For UTXO-based blockchains only. Controls which UTXOs are used for automatic selection. Cannot be used together with extraParameters.inputsSelection. This feature is currently in beta and might be subject to changes.
+        For UTXO-based blockchains only. Controls which UTXOs are used for automatic selection. Cannot be used together with extraParameters.inputsSelection.
       example:
         selectionStrategy: AMOUNT_ASC
         inputSelection:
@@ -72383,6 +72742,199 @@ components:
       required:
       - code
       - message
+      type: object
+    TradingPairSide:
+      description: "Side of a trading pair. Same as `Side`, plus `BOTH`, meaning the\
+        \ pair applies to both BUY and SELL."
+      enum:
+      - BUY
+      - SELL
+      - BOTH
+      example: BUY
+      type: string
+    TradeClass:
+      description: |
+        The class of trade a pair represents, derived from the asset class of each leg, the chains those assets settle on, where the trade executes, and the trading side:
+        * **SWAP_DEFI** - Exchange between two crypto assets on the same chain, executed on-chain
+        * **SWAP_CEFI** - Exchange between two crypto assets on the same chain, executed through a provider account
+        * **BRIDGE_DEFI** - Exchange between two crypto assets on different chains, executed on-chain
+        * **BRIDGE_CEFI** - Exchange between two crypto assets on different chains, executed through a provider account
+        * **INTERNAL_LEDGER** - Exchange between two crypto assets settled on a provider's internal ledger, within a single provider account. Not split by chain, because neither leg settles on-chain while the trade executes
+        * **ON_RAMP** - Buying a crypto asset with a fiat asset
+        * **OFF_RAMP** - Selling a crypto asset for a fiat asset
+        * **FX** - Exchange between two fiat assets
+        * **OTC** - A pair quoted by an OTC desk: firm, short-lived RFQ commitments against a dealer, executed on credit rather than against an order book. Takes precedence over the asset-class values, so an OTC desk selling USDC for USD is `OTC`, not `OFF_RAMP`
+        * **UNKNOWN** - The class could not be resolved, e.g. when the chain of an asset could not be determined. Callers should not route on a pair with this class
+      enum:
+      - SWAP_DEFI
+      - SWAP_CEFI
+      - BRIDGE_DEFI
+      - BRIDGE_CEFI
+      - INTERNAL_LEDGER
+      - ON_RAMP
+      - OFF_RAMP
+      - FX
+      - OTC
+      - UNKNOWN
+      example: SWAP_DEFI
+      type: string
+    TradingPair:
+      description: "A supported base/quote asset pair for a provider, optionally scoped\
+        \ to a specific connected account, for a given trading side (BUY/SELL, or\
+        \ `BOTH`), with the transfer rails and amount limits that apply to it. `baseAssetId`\
+        \ / `quoteAssetId` may be the wildcard `*`, meaning any asset on `baseChain`\
+        \ / `quoteChain`; such a row is not expanded."
+      example:
+        providerId: ACME
+        baseAssetId: ETH
+        quoteAssetId: USDC
+        baseChain: ETH
+        quoteChain: ETH
+        side: BUY
+        tradeClass: SWAP_DEFI
+        baseAssetRail: BLOCKCHAIN
+        quoteAssetRail: BLOCKCHAIN
+        prefunded: false
+        min: "0.01"
+        max: "100"
+      properties:
+        providerId:
+          description: The provider that supports this pair.
+          example: ACME
+          minLength: 1
+          type: string
+        accountId:
+          description: "The connected account the pair is scoped to. Absent for direct-access\
+            \ providers, and for provider-level pairs that describe what a provider\
+            \ supports before any account is connected. Its absence therefore does\
+            \ not imply the provider is direct-access."
+          example: 7f1a2b3c-9d4e-4a5b-8c6d-1e2f3a4b5c6d
+          type: string
+        baseAssetId:
+          description: "Fireblocks asset ID of the base asset, or `*` for any asset\
+            \ on `baseChain`. A `*` value always comes with `baseChain` set."
+          example: ETH
+          minLength: 1
+          type: string
+        quoteAssetId:
+          description: "Fireblocks asset ID of the quote asset, or `*` for any asset\
+            \ on `quoteChain`. A `*` value always comes with `quoteChain` set."
+          example: USDC
+          minLength: 1
+          type: string
+        baseChain:
+          description: "Blockchain `legacyId` of the base asset (e.g. `ETH`, `BASECHAIN_ETH`,\
+            \ `ETH-AETH`, `SOL`). Set for leaf crypto assets; absent for fiat and\
+            \ virtual assets."
+          example: ETH
+          minLength: 1
+          type: string
+        quoteChain:
+          description: "Blockchain `legacyId` of the quote asset (e.g. `ETH`, `BASECHAIN_ETH`,\
+            \ `ETH-AETH`, `SOL`). Set for leaf crypto assets; absent for fiat and\
+            \ virtual assets."
+          example: ETH
+          minLength: 1
+          type: string
+        side:
+          $ref: "#/components/schemas/TradingPairSide"
+        tradeClass:
+          $ref: "#/components/schemas/TradeClass"
+        baseAssetRail:
+          $ref: "#/components/schemas/TransferRail"
+        quoteAssetRail:
+          $ref: "#/components/schemas/TransferRail"
+        prefunded:
+          description: Whether the provider requires the funds to be prefunded on
+            the provider account before the order can execute.
+          example: false
+          type: boolean
+        min:
+          description: "Minimum amount of the base asset for this pair/side, as a\
+            \ decimal string."
+          example: "0.01"
+          pattern: ^\d+(\.\d+)?$
+          type: string
+        max:
+          description: "Maximum amount of the base asset for this pair/side, as a\
+            \ decimal string."
+          example: "100"
+          pattern: ^\d+(\.\d+)?$
+          type: string
+      required:
+      - baseAssetId
+      - providerId
+      - quoteAssetId
+      - side
+      - tradeClass
+      type: object
+    TradingPairsListPage:
+      example:
+        next: cursor_abc123def456
+        total: 2
+        data:
+        - providerId: ACME
+          accountId: 7f1a2b3c-9d4e-4a5b-8c6d-1e2f3a4b5c6d
+          baseAssetId: EUR
+          quoteAssetId: BTC
+          quoteChain: BTC
+          side: SELL
+          tradeClass: ON_RAMP
+          baseAssetRail: SEPA
+          quoteAssetRail: BLOCKCHAIN
+          prefunded: false
+          min: "10"
+          max: "100000"
+        - providerId: ACME
+          baseAssetId: '*'
+          quoteAssetId: '*'
+          baseChain: ETH
+          quoteChain: ETH
+          side: BOTH
+          tradeClass: SWAP_DEFI
+          baseAssetRail: BLOCKCHAIN
+          quoteAssetRail: BLOCKCHAIN
+      properties:
+        data:
+          description: List of trading pairs.
+          example:
+          - providerId: ACME
+            accountId: 7f1a2b3c-9d4e-4a5b-8c6d-1e2f3a4b5c6d
+            baseAssetId: EUR
+            quoteAssetId: BTC
+            quoteChain: BTC
+            side: SELL
+            tradeClass: ON_RAMP
+            baseAssetRail: SEPA
+            quoteAssetRail: BLOCKCHAIN
+            prefunded: false
+            min: "10"
+            max: "100000"
+          - providerId: ACME
+            baseAssetId: '*'
+            quoteAssetId: '*'
+            baseChain: ETH
+            quoteChain: ETH
+            side: BOTH
+            tradeClass: SWAP_DEFI
+            baseAssetRail: BLOCKCHAIN
+            quoteAssetRail: BLOCKCHAIN
+          items:
+            $ref: "#/components/schemas/TradingPair"
+          type: array
+        total:
+          description: Total number of trading pairs matching the query. Best-effort
+            count; may be absent when results are aggregated across multiple providers.
+          example: 2
+          format: int32
+          type: integer
+        next:
+          description: "A cursor for the next page of results, if available."
+          example: cursor_abc123def456
+          nullable: true
+          type: string
+      required:
+      - data
       type: object
     ScopeItem:
       additionalProperties: false
