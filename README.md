@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>36.1.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:36.1.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-36.1.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 ## Versioning
@@ -440,11 +440,6 @@ Class | Method | HTTP request | Description
 *PaymentsPayoutApi* | [**createPayout**](docs/PaymentsPayoutApi.md#createPayout) | **POST** /payments/payout | Create a payout instruction set
 *PaymentsPayoutApi* | [**executePayoutAction**](docs/PaymentsPayoutApi.md#executePayoutAction) | **POST** /payments/payout/{payoutId}/actions/execute | Execute a payout instruction set
 *PaymentsPayoutApi* | [**getPayout**](docs/PaymentsPayoutApi.md#getPayout) | **GET** /payments/payout/{payoutId} | Get the status of a payout instruction set
-*PolicyEditorBetaApi* | [**getActivePolicyLegacy**](docs/PolicyEditorBetaApi.md#getActivePolicyLegacy) | **GET** /tap/active_policy | Get the active policy and its validation
-*PolicyEditorBetaApi* | [**getDraftLegacy**](docs/PolicyEditorBetaApi.md#getDraftLegacy) | **GET** /tap/draft | Get the active draft
-*PolicyEditorBetaApi* | [**publishDraftLegacy**](docs/PolicyEditorBetaApi.md#publishDraftLegacy) | **POST** /tap/draft | Send publish request for a certain draft id
-*PolicyEditorBetaApi* | [**publishPolicyRules**](docs/PolicyEditorBetaApi.md#publishPolicyRules) | **POST** /tap/publish | Send publish request for a set of policy rules
-*PolicyEditorBetaApi* | [**updateDraftLegacy**](docs/PolicyEditorBetaApi.md#updateDraftLegacy) | **PUT** /tap/draft | Update the draft with a new set of rules
 *PolicyEditorV2Api* | [**getActivePolicy**](docs/PolicyEditorV2Api.md#getActivePolicy) | **GET** /policy/active_policy | Get the active policy and its validation by policy type
 *PolicyEditorV2Api* | [**getDraft**](docs/PolicyEditorV2Api.md#getDraft) | **GET** /policy/draft | Get the active draft by policy type
 *PolicyEditorV2Api* | [**publishDraft**](docs/PolicyEditorV2Api.md#publishDraft) | **POST** /policy/draft | Send publish request for a certain draft id
@@ -1262,34 +1257,6 @@ Class | Method | HTTP request | Description
  - [LeanAbiFunction](docs/LeanAbiFunction.md)
  - [LeanContractDto](docs/LeanContractDto.md)
  - [LeanDeployedContractResponseDto](docs/LeanDeployedContractResponseDto.md)
- - [LegacyAmountAggregationTimePeriodMethod](docs/LegacyAmountAggregationTimePeriodMethod.md)
- - [LegacyDraftResponse](docs/LegacyDraftResponse.md)
- - [LegacyDraftReviewAndValidationResponse](docs/LegacyDraftReviewAndValidationResponse.md)
- - [LegacyPolicyAndValidationResponse](docs/LegacyPolicyAndValidationResponse.md)
- - [LegacyPolicyCheckResult](docs/LegacyPolicyCheckResult.md)
- - [LegacyPolicyMetadata](docs/LegacyPolicyMetadata.md)
- - [LegacyPolicyResponse](docs/LegacyPolicyResponse.md)
- - [LegacyPolicyRule](docs/LegacyPolicyRule.md)
- - [LegacyPolicyRuleAmount](docs/LegacyPolicyRuleAmount.md)
- - [LegacyPolicyRuleAmountAggregation](docs/LegacyPolicyRuleAmountAggregation.md)
- - [LegacyPolicyRuleAuthorizationGroups](docs/LegacyPolicyRuleAuthorizationGroups.md)
- - [LegacyPolicyRuleAuthorizationGroupsGroupsInner](docs/LegacyPolicyRuleAuthorizationGroupsGroupsInner.md)
- - [LegacyPolicyRuleCheckResult](docs/LegacyPolicyRuleCheckResult.md)
- - [LegacyPolicyRuleDesignatedSigners](docs/LegacyPolicyRuleDesignatedSigners.md)
- - [LegacyPolicyRuleDst](docs/LegacyPolicyRuleDst.md)
- - [LegacyPolicyRuleError](docs/LegacyPolicyRuleError.md)
- - [LegacyPolicyRuleOperators](docs/LegacyPolicyRuleOperators.md)
- - [LegacyPolicyRuleRawMessageSigning](docs/LegacyPolicyRuleRawMessageSigning.md)
- - [LegacyPolicyRuleRawMessageSigningDerivationPath](docs/LegacyPolicyRuleRawMessageSigningDerivationPath.md)
- - [LegacyPolicyRuleSrc](docs/LegacyPolicyRuleSrc.md)
- - [LegacyPolicyRules](docs/LegacyPolicyRules.md)
- - [LegacyPolicySrcOrDestSubType](docs/LegacyPolicySrcOrDestSubType.md)
- - [LegacyPolicySrcOrDestType](docs/LegacyPolicySrcOrDestType.md)
- - [LegacyPolicyStatus](docs/LegacyPolicyStatus.md)
- - [LegacyPolicyValidation](docs/LegacyPolicyValidation.md)
- - [LegacyPublishDraftRequest](docs/LegacyPublishDraftRequest.md)
- - [LegacyPublishResult](docs/LegacyPublishResult.md)
- - [LegacySrcOrDestAttributesInner](docs/LegacySrcOrDestAttributesInner.md)
  - [LegalEntityRegistration](docs/LegalEntityRegistration.md)
  - [LeiStatus](docs/LeiStatus.md)
  - [LimitExecutionRequestDetails](docs/LimitExecutionRequestDetails.md)
@@ -1601,8 +1568,6 @@ Class | Method | HTTP request | Description
  - [SepaPaymentInfo](docs/SepaPaymentInfo.md)
  - [SessionDTO](docs/SessionDTO.md)
  - [SessionMetadata](docs/SessionMetadata.md)
- - [SetAdminQuorumThresholdRequest](docs/SetAdminQuorumThresholdRequest.md)
- - [SetAdminQuorumThresholdResponse](docs/SetAdminQuorumThresholdResponse.md)
  - [SetAssetPriceRequest](docs/SetAssetPriceRequest.md)
  - [SetAutoFuelRequest](docs/SetAutoFuelRequest.md)
  - [SetConfirmationsThresholdRequest](docs/SetConfirmationsThresholdRequest.md)

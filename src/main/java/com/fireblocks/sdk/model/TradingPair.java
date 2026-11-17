@@ -33,6 +33,8 @@ import java.util.StringJoiner;
     TradingPair.JSON_PROPERTY_ACCOUNT_ID,
     TradingPair.JSON_PROPERTY_BASE_ASSET_ID,
     TradingPair.JSON_PROPERTY_QUOTE_ASSET_ID,
+    TradingPair.JSON_PROPERTY_BASE_SYMBOL,
+    TradingPair.JSON_PROPERTY_QUOTE_SYMBOL,
     TradingPair.JSON_PROPERTY_BASE_CHAIN,
     TradingPair.JSON_PROPERTY_QUOTE_CHAIN,
     TradingPair.JSON_PROPERTY_SIDE,
@@ -58,6 +60,12 @@ public class TradingPair {
 
     public static final String JSON_PROPERTY_QUOTE_ASSET_ID = "quoteAssetId";
     @jakarta.annotation.Nonnull private String quoteAssetId;
+
+    public static final String JSON_PROPERTY_BASE_SYMBOL = "baseSymbol";
+    @jakarta.annotation.Nullable private String baseSymbol;
+
+    public static final String JSON_PROPERTY_QUOTE_SYMBOL = "quoteSymbol";
+    @jakarta.annotation.Nullable private String quoteSymbol;
 
     public static final String JSON_PROPERTY_BASE_CHAIN = "baseChain";
     @jakarta.annotation.Nullable private String baseChain;
@@ -198,6 +206,58 @@ public class TradingPair {
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setQuoteAssetId(@jakarta.annotation.Nonnull String quoteAssetId) {
         this.quoteAssetId = quoteAssetId;
+    }
+
+    public TradingPair baseSymbol(@jakarta.annotation.Nullable String baseSymbol) {
+        this.baseSymbol = baseSymbol;
+        return this;
+    }
+
+    /**
+     * Display symbol of the base asset, for readability when &#x60;baseAssetId&#x60; is not
+     * self-explanatory (a privately listed asset or a UUID). &#x60;*&#x60; when
+     * &#x60;baseAssetId&#x60; is &#x60;*&#x60;. Absent when the asset could not be resolved.
+     * Informational only, not an identifier.
+     *
+     * @return baseSymbol
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_BASE_SYMBOL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getBaseSymbol() {
+        return baseSymbol;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BASE_SYMBOL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBaseSymbol(@jakarta.annotation.Nullable String baseSymbol) {
+        this.baseSymbol = baseSymbol;
+    }
+
+    public TradingPair quoteSymbol(@jakarta.annotation.Nullable String quoteSymbol) {
+        this.quoteSymbol = quoteSymbol;
+        return this;
+    }
+
+    /**
+     * Display symbol of the quote asset, for readability when &#x60;quoteAssetId&#x60; is not
+     * self-explanatory (a privately listed asset or a UUID). &#x60;*&#x60; when
+     * &#x60;quoteAssetId&#x60; is &#x60;*&#x60;. Absent when the asset could not be resolved.
+     * Informational only, not an identifier.
+     *
+     * @return quoteSymbol
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_QUOTE_SYMBOL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getQuoteSymbol() {
+        return quoteSymbol;
+    }
+
+    @JsonProperty(JSON_PROPERTY_QUOTE_SYMBOL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setQuoteSymbol(@jakarta.annotation.Nullable String quoteSymbol) {
+        this.quoteSymbol = quoteSymbol;
     }
 
     public TradingPair baseChain(@jakarta.annotation.Nullable String baseChain) {
@@ -426,6 +486,8 @@ public class TradingPair {
                 && Objects.equals(this.accountId, tradingPair.accountId)
                 && Objects.equals(this.baseAssetId, tradingPair.baseAssetId)
                 && Objects.equals(this.quoteAssetId, tradingPair.quoteAssetId)
+                && Objects.equals(this.baseSymbol, tradingPair.baseSymbol)
+                && Objects.equals(this.quoteSymbol, tradingPair.quoteSymbol)
                 && Objects.equals(this.baseChain, tradingPair.baseChain)
                 && Objects.equals(this.quoteChain, tradingPair.quoteChain)
                 && Objects.equals(this.side, tradingPair.side)
@@ -444,6 +506,8 @@ public class TradingPair {
                 accountId,
                 baseAssetId,
                 quoteAssetId,
+                baseSymbol,
+                quoteSymbol,
                 baseChain,
                 quoteChain,
                 side,
@@ -463,6 +527,8 @@ public class TradingPair {
         sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
         sb.append("    baseAssetId: ").append(toIndentedString(baseAssetId)).append("\n");
         sb.append("    quoteAssetId: ").append(toIndentedString(quoteAssetId)).append("\n");
+        sb.append("    baseSymbol: ").append(toIndentedString(baseSymbol)).append("\n");
+        sb.append("    quoteSymbol: ").append(toIndentedString(quoteSymbol)).append("\n");
         sb.append("    baseChain: ").append(toIndentedString(baseChain)).append("\n");
         sb.append("    quoteChain: ").append(toIndentedString(quoteChain)).append("\n");
         sb.append("    side: ").append(toIndentedString(side)).append("\n");
@@ -557,6 +623,26 @@ public class TradingPair {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getQuoteAssetId()))));
+        }
+
+        // add `baseSymbol` to the URL query string
+        if (getBaseSymbol() != null) {
+            joiner.add(
+                    String.format(
+                            "%sbaseSymbol%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getBaseSymbol()))));
+        }
+
+        // add `quoteSymbol` to the URL query string
+        if (getQuoteSymbol() != null) {
+            joiner.add(
+                    String.format(
+                            "%squoteSymbol%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getQuoteSymbol()))));
         }
 
         // add `baseChain` to the URL query string

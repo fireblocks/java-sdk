@@ -119,7 +119,9 @@ public class PaymentsPayoutApi {
      *     first request. The idempotency key is valid for 24 hours. (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;PayoutResponse&gt;&gt;, which completes
      *     exceptionally with an {@link ApiException} if the API call fails
+     * @deprecated
      */
+    @Deprecated
     public CompletableFuture<ApiResponse<PayoutResponse>> createPayout(
             CreatePayoutRequest createPayoutRequest, String idempotencyKey) {
         try {
@@ -220,7 +222,9 @@ public class PaymentsPayoutApi {
      *     first request. The idempotency key is valid for 24 hours. (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;DispatchPayoutResponse&gt;&gt;, which completes
      *     exceptionally with an {@link ApiException} if the API call fails
+     * @deprecated
      */
+    @Deprecated
     public CompletableFuture<ApiResponse<DispatchPayoutResponse>> executePayoutAction(
             String payoutId, String idempotencyKey) {
         try {
@@ -314,7 +318,9 @@ public class PaymentsPayoutApi {
      *     (required)
      * @return CompletableFuture&lt;ApiResponse&lt;PayoutResponse&gt;&gt;, which completes
      *     exceptionally with an {@link ApiException} if the API call fails
+     * @deprecated
      */
+    @Deprecated
     public CompletableFuture<ApiResponse<PayoutResponse>> getPayout(String payoutId) {
         try {
             HttpRequest.Builder localVarRequestBuilder = getPayoutRequestBuilder(payoutId);

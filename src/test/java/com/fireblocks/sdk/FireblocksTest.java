@@ -623,14 +623,6 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetPolicyEditorBetaApi() {
-        setupFireblocks(true, null, null);
-        PolicyEditorBetaApi policyEditorBeta = fireblocks.policyEditorBeta();
-        Assert.assertNotNull(policyEditorBeta);
-        Assert.assertSame(policyEditorBeta, fireblocks.policyEditorBeta());
-    }
-
-    @Test
     public void testGetPolicyEditorV2Api() {
         setupFireblocks(true, null, null);
         PolicyEditorV2Api policyEditorV2 = fireblocks.policyEditorV2();
