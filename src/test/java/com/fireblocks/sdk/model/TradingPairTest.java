@@ -49,6 +49,18 @@ class TradingPairTest {
         // TODO: test quoteAssetId
     }
 
+    /** Test the property 'baseSymbol' */
+    @Test
+    void baseSymbolTest() {
+        // TODO: test baseSymbol
+    }
+
+    /** Test the property 'quoteSymbol' */
+    @Test
+    void quoteSymbolTest() {
+        // TODO: test quoteSymbol
+    }
+
     /** Test the property 'baseChain' */
     @Test
     void baseChainTest() {

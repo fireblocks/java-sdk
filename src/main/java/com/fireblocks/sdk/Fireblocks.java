@@ -69,7 +69,6 @@ public class Fireblocks {
     private OnchainDataApi onchainData;
     private OtaBetaApi otaBeta;
     private PaymentsPayoutApi paymentsPayout;
-    private PolicyEditorBetaApi policyEditorBeta;
     private PolicyEditorV2Api policyEditorV2;
     private PolicyEditorV2BetaApi policyEditorV2Beta;
     private ReportsBetaApi reportsBeta;
@@ -462,13 +461,6 @@ public class Fireblocks {
             paymentsPayout = new PaymentsPayoutApi(apiClient);
         }
         return paymentsPayout;
-    }
-
-    public PolicyEditorBetaApi policyEditorBeta() {
-        if (policyEditorBeta == null) {
-            policyEditorBeta = new PolicyEditorBetaApi(apiClient);
-        }
-        return policyEditorBeta;
     }
 
     public PolicyEditorV2Api policyEditorV2() {
