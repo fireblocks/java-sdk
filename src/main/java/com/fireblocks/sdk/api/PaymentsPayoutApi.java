@@ -101,15 +101,14 @@ public class PaymentsPayoutApi {
     /**
      * Create a payout instruction set **Note:** The reference content in this section documents the
      * Payments Engine endpoint. The Payments Engine endpoints include APIs available only for
-     * customers with Payments Engine enabled on their accounts. These endpoints are currently in
-     * beta and might be subject to changes. If you want to learn more about Fireblocks Payments
-     * Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com.
-     * **Create a payout instruction set.** A payout instruction set is a set of instructions for
-     * distributing payments from a single payment account to a list of payee accounts. The
-     * instruction set defines: - the payment account and its account type (vault, exchange, or
-     * fiat). - the account type (vault account, exchange account, whitelisted address, network
-     * connection, fiat account, or merchant account), the amount, and the asset of payment for each
-     * payee account. Learn more about Fireblocks Payments - Payouts in the following
+     * customers with Payments Engine enabled on their accounts. If you want to learn more about
+     * Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email
+     * CSM@fireblocks.com. **Create a payout instruction set.** A payout instruction set is a set of
+     * instructions for distributing payments from a single payment account to a list of payee
+     * accounts. The instruction set defines: - the payment account and its account type (vault,
+     * exchange, or fiat). - the account type (vault account, exchange account, whitelisted address,
+     * network connection, fiat account, or merchant account), the amount, and the asset of payment
+     * for each payee account. Learn more about Fireblocks Payments - Payouts in the following
      * [guide](https://developers.fireblocks.com/docs/create-payouts). Endpoint Permission: Admin,
      * Non-Signing Admin.
      *
@@ -207,13 +206,13 @@ public class PaymentsPayoutApi {
     /**
      * Execute a payout instruction set **Note:** The reference content in this section documents
      * the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for
-     * customers with Payments Engine enabled on their accounts. These endpoints are currently in
-     * beta and might be subject to changes. If you want to learn more about Fireblocks Payments
-     * Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com.
-     * **Execute a payout instruction set.** The instruction set will be verified and executed.
-     * **Source locking** If you are executing a payout instruction set from a payment account with
-     * an already active payout the active payout will complete before the new payout instruction
-     * set can be executed. You cannot execute the same payout instruction set more than once.
+     * customers with Payments Engine enabled on their accounts. If you want to learn more about
+     * Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email
+     * CSM@fireblocks.com. **Execute a payout instruction set.** The instruction set will be
+     * verified and executed. **Source locking** If you are executing a payout instruction set from
+     * a payment account with an already active payout the active payout will complete before the
+     * new payout instruction set can be executed. You cannot execute the same payout instruction
+     * set more than once.
      *
      * @param payoutId the payout id received from the creation of the payout instruction set
      *     (required)
@@ -309,10 +308,9 @@ public class PaymentsPayoutApi {
     /**
      * Get the status of a payout instruction set **Note:** The reference content in this section
      * documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available
-     * only for customers with Payments Engine enabled on their accounts. These endpoints are
-     * currently in beta and might be subject to changes. If you want to learn more about Fireblocks
-     * Payments Engine, please contact your Fireblocks Customer Success Manager or email
-     * CSM@fireblocks.com. Endpoint Permission: Admin, Non-Signing Admin.
+     * only for customers with Payments Engine enabled on their accounts. If you want to learn more
+     * about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or
+     * email CSM@fireblocks.com. Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param payoutId the payout id received from the creation of the payout instruction set
      *     (required)

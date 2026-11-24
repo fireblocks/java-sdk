@@ -24,15 +24,19 @@ import com.fireblocks.sdk.model.CreateMultipleAccountsRequest;
 import com.fireblocks.sdk.model.CreateMultipleDepositAddressesJobStatus;
 import com.fireblocks.sdk.model.CreateMultipleDepositAddressesRequest;
 import com.fireblocks.sdk.model.CreateMultipleVaultAccountsJobStatus;
+import com.fireblocks.sdk.model.CreateOmnibusAddressesRequest;
+import com.fireblocks.sdk.model.CreateOmnibusAddressesResponse;
 import com.fireblocks.sdk.model.CreateVaultAccountRequest;
 import com.fireblocks.sdk.model.CreateVaultAssetResponse;
 import com.fireblocks.sdk.model.GetAutomationSettingsResponse;
 import com.fireblocks.sdk.model.GetMaxBipIndexUsedResponse;
 import com.fireblocks.sdk.model.GetMaxSpendableAmountResponse;
 import com.fireblocks.sdk.model.JobCreated;
+import com.fireblocks.sdk.model.ListOmnibusAddressesResponse;
 import com.fireblocks.sdk.model.PaginatedAddressResponse;
 import com.fireblocks.sdk.model.PaginatedAssetWalletResponse;
 import com.fireblocks.sdk.model.PublicKeyInformation;
+import com.fireblocks.sdk.model.RegisterTempoOmnibusResponse;
 import com.fireblocks.sdk.model.RenameVaultAccountResponse;
 import com.fireblocks.sdk.model.SaveAutomationSettingsResponse;
 import com.fireblocks.sdk.model.SetAutoFuelRequest;
@@ -50,6 +54,7 @@ import com.fireblocks.sdk.model.VaultAccountsTagAttachmentOperationsRequest;
 import com.fireblocks.sdk.model.VaultAccountsTagAttachmentOperationsResponse;
 import com.fireblocks.sdk.model.VaultActionStatus;
 import com.fireblocks.sdk.model.VaultAsset;
+import com.fireblocks.sdk.model.VaultWalletAddress;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -85,9 +90,8 @@ public class VaultsApiTest {
      * Activate a USDC Gateway wallet
      *
      * <p>Activates the USDC Gateway wallet associated with the given vault account. If the wallet
-     * does not yet exist it is created in an activated state. **Note:** This endpoint is currently
-     * in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin,
-     * Signer, Approver.
+     * does not yet exist it is created in an activated state. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver.
      */
     @Test
     public void activateUsdcGatewayWalletBetaTest() {
@@ -134,12 +138,11 @@ public class VaultsApiTest {
      * Bulk creation of new vault accounts
      *
      * <p>Create multiple vault accounts by running an async job. - The HBAR, TON, SUI, TERRA, ALGO,
-     * and DOT blockchains are not supported. - These endpoints are currently in beta and might be
-     * subject to changes. - Limited to a maximum of 10,000 accounts per operation. - With
-     * &#x60;vaultType: KEY_LINK&#x60;, creates Key Link vault accounts; set &#x60;autoAssign:
-     * true&#x60; to bind them to the workspace&#39;s signing keys (see &#x60;vaultType&#x60; and
-     * &#x60;autoAssign&#x60;). **Endpoint Permissions:** Admin, Non-Signing Admin, Signer,
-     * Approver, Editor.
+     * and DOT blockchains are not supported. - Limited to a maximum of 10,000 accounts per
+     * operation. - With &#x60;vaultType: KEY_LINK&#x60;, creates Key Link vault accounts; set
+     * &#x60;autoAssign: true&#x60; to bind them to the workspace&#39;s signing keys (see
+     * &#x60;vaultType&#x60; and &#x60;autoAssign&#x60;). **Endpoint Permissions:** Admin,
+     * Non-Signing Admin, Signer, Approver, Editor.
      */
     @Test
     public void createMultipleAccountsTest() {
@@ -165,6 +168,29 @@ public class VaultsApiTest {
         CompletableFuture<ApiResponse<JobCreated>> response =
                 api.createMultipleDepositAddresses(
                         createMultipleDepositAddressesRequest, idempotencyKey);
+    }
+
+    /**
+     * Create omnibus deposit addresses
+     *
+     * <p>Creates a batch of deposit addresses for the omnibus account of the given vault account,
+     * protocol and asset. **Note:** This endpoint is currently in beta and might be subject to
+     * changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     */
+    @Test
+    public void createOmnibusAddressesTest() {
+        CreateOmnibusAddressesRequest createOmnibusAddressesRequest = null;
+        String vaultAccountId = null;
+        String protocol = null;
+        String assetId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<CreateOmnibusAddressesResponse>> response =
+                api.createOmnibusAddresses(
+                        createOmnibusAddressesRequest,
+                        vaultAccountId,
+                        protocol,
+                        assetId,
+                        idempotencyKey);
     }
 
     /**
@@ -228,9 +254,8 @@ public class VaultsApiTest {
     /**
      * Deactivate a USDC Gateway wallet
      *
-     * <p>Deactivates the USDC Gateway wallet associated with the given vault account. **Note:**
-     * This endpoint is currently in beta and might be subject to changes. Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver.
+     * <p>Deactivates the USDC Gateway wallet associated with the given vault account. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver.
      */
     @Test
     public void deactivateUsdcGatewayWalletBetaTest() {
@@ -245,8 +270,8 @@ public class VaultsApiTest {
      *
      * <p>Stops the schedule for an existing deposit automation. The automation itself stays
      * configured, only its schedule stops. Turn it back on later with PATCH, without setting up the
-     * automation again from scratch. **Note:** This endpoint is currently in beta and might be
-     * subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * automation again from scratch. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver.
      */
     @Test
     public void disableUsdcGatewayDepositAutomationScheduleBetaTest() {
@@ -349,6 +374,28 @@ public class VaultsApiTest {
     }
 
     /**
+     * List omnibus deposit addresses
+     *
+     * <p>Returns a page of the deposit addresses of the omnibus account of the given vault account,
+     * protocol and asset, ordered by index, highest first. **Note:** This endpoint is currently in
+     * beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor, Viewer.
+     */
+    @Test
+    public void getOmnibusAddressesTest() {
+        String vaultAccountId = null;
+        String protocol = null;
+        String assetId = null;
+        Integer fromIndex = null;
+        String search = null;
+        String pageCursor = null;
+        Integer pageSize = null;
+        CompletableFuture<ApiResponse<ListOmnibusAddressesResponse>> response =
+                api.getOmnibusAddresses(
+                        vaultAccountId, protocol, assetId, fromIndex, search, pageCursor, pageSize);
+    }
+
+    /**
      * Get vault accounts (Paginated)
      *
      * <p>Gets all vault accounts in your workspace. This endpoint returns a limited amount of
@@ -434,8 +481,7 @@ public class VaultsApiTest {
      * Read the USDC Gateway deposit automations for a vault account
      *
      * <p>Returns the USDC Gateway deposit automations configured for the given vault account.
-     * **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      */
     @Test
     public void getUsdcGatewayDepositAutomationBetaTest() {
@@ -448,8 +494,7 @@ public class VaultsApiTest {
      * Get USDC Gateway wallet info
      *
      * <p>Returns the USDC Gateway wallet information associated with the given vault account.
-     * **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint
-     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      */
     @Test
     public void getUsdcGatewayWalletInfoBetaTest() {
@@ -485,6 +530,27 @@ public class VaultsApiTest {
     }
 
     /**
+     * Get asset addresses
+     *
+     * <p>DEPRECATED! - If your application logic or scripts rely on the deprecated endpoint, you
+     * should update to account for
+     * GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. -
+     * All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your
+     * workspace and you attempt to use it, you will receive the following error message:
+     * \&quot;This endpoint is unavailable. - Please use the GET
+     * /v1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the
+     * wallet addresses associated with the specified vault account and asset in a paginated list.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     */
+    @Test
+    public void getVaultAccountAssetAddressesTest() {
+        String vaultAccountId = null;
+        String assetId = null;
+        CompletableFuture<ApiResponse<List<VaultWalletAddress>>> response =
+                api.getVaultAccountAssetAddresses(vaultAccountId, assetId);
+    }
+
+    /**
      * Get addresses (Paginated)
      *
      * <p>Returns a paginated response of the addresses for a given vault account and asset.
@@ -500,6 +566,22 @@ public class VaultsApiTest {
         CompletableFuture<ApiResponse<PaginatedAddressResponse>> response =
                 api.getVaultAccountAssetAddressesPaginated(
                         vaultAccountId, assetId, limit, before, after);
+    }
+
+    /**
+     * Get vault accounts
+     *
+     * <p>DEPRECATED - Please use &#x60;/vault/accounts_paged&#x60; endpoint instead. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     */
+    @Test
+    public void getVaultAccountsTest() {
+        String namePrefix = null;
+        String nameSuffix = null;
+        BigDecimal minAmountThreshold = null;
+        String assetId = null;
+        CompletableFuture<ApiResponse<List<VaultAccount>>> response =
+                api.getVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId);
     }
 
     /**
@@ -551,14 +633,29 @@ public class VaultsApiTest {
      * Look up a vault account by blockchain address
      *
      * <p>Resolves a blockchain address to the vault account that owns it. Returns the vault account
-     * ID and the blockchains associated with the address. **Note:** This endpoint is currently in
-     * beta and might be subject to changes.
+     * ID and the blockchains associated with the address.
      */
     @Test
     public void lookupVaultByAddressTest() {
         String address = null;
         CompletableFuture<ApiResponse<AddressReverseLookupResponse>> response =
                 api.lookupVaultByAddress(address);
+    }
+
+    /**
+     * Register a Tempo omnibus wallet
+     *
+     * <p>Registers a Tempo omnibus wallet for the given vault account and asset. Triggering this
+     * flow requires the vault account to hold PATH_USD with a balance sufficient to cover the gas
+     * fee. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     */
+    @Test
+    public void registerTempoOmnibusWalletTest() {
+        String vaultAccountId = null;
+        String assetId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<RegisterTempoOmnibusResponse>> response =
+                api.registerTempoOmnibusWallet(vaultAccountId, assetId, idempotencyKey);
     }
 
     /**
@@ -588,9 +685,8 @@ public class VaultsApiTest {
      *
      * <p>Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on
      * the schedule you choose. Returns an error if an automation already exists for this vault
-     * account and asset. Use PATCH to change it instead. **Note:** This endpoint is currently in
-     * beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer,
-     * Approver.
+     * account and asset. Use PATCH to change it instead. Endpoint Permission: Admin, Non-Signing
+     * Admin, Signer, Approver.
      */
     @Test
     public void setUsdcGatewayDepositAutomationBetaTest() {
@@ -655,9 +751,8 @@ public class VaultsApiTest {
     /**
      * Change a USDC Gateway deposit automation
      *
-     * <p>Changes an existing USDC Gateway deposit automation for a vault account. **Note:** This
-     * endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin,
-     * Non-Signing Admin, Signer, Approver.
+     * <p>Changes an existing USDC Gateway deposit automation for a vault account. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver.
      */
     @Test
     public void updateUsdcGatewayDepositAutomationBetaTest() {

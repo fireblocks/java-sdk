@@ -16,7 +16,7 @@
 |**updatedAt** | **Long** | The date and time the webhook was last updated in milliseconds |  |
 |**webhookMtlsId** | **UUID** | The id of the mTLS configuration this webhook presents when delivering, from &#x60;/v1/webhooks_settings/mtls&#x60;. Absent when the webhook does not use mTLS. |  [optional] |
 |**webhookOauthId** | **UUID** | The id of the OAuth credentials this webhook authenticates with. Absent when the webhook does not use OAuth. Read the credentials themselves from &#x60;/v1/webhooks_settings/oauth/{webhookOauthId}&#x60;. |  [optional] |
-|**customHeaders** | **List&lt;String&gt;** | Names of the custom headers configured for this webhook. Header values are never returned. |  [optional] |
+|**webhookCustomHeadersId** | **UUID** | The id of the set of custom headers sent with this webhook&#39;s notifications. Absent when the webhook sends none. Read the set itself from &#x60;/v1/webhooks_settings/custom_headers/{webhookCustomHeadersId}&#x60;. |  [optional] |
 
 
 

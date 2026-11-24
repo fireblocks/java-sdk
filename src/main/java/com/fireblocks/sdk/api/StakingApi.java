@@ -200,12 +200,12 @@ public class StakingApi {
     }
     /**
      * Claim accrued rewards Claims available staking rewards for the specified chain and vault.
-     * Supported chains: Solana and Polygon (POL/Matic). Behavior depends on protocol reward
-     * distribution.
+     * Supported chains: Solana, Polygon (POL/Matic) and Celestia. Behavior depends on protocol
+     * reward distribution.
      *
      * @param claimRewardsRequest (required)
      * @param chainDescriptor Protocol identifier for the claim rewards staking operation (e.g.,
-     *     POL/MATIC/SOL). (required)
+     *     POL/MATIC/SOL/CELESTIA). (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
@@ -302,7 +302,7 @@ public class StakingApi {
      * withdrawal credentials). On chain, this translates into a consolidation transaction, where
      * the source validator is consolidated into the destination validator. Supported chains:
      * Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver,
-     * Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
+     * Editor.
      *
      * @param mergeStakeAccountsRequest (required)
      * @param chainDescriptor Protocol identifier for the staking operation (e.g., ETH). (required)

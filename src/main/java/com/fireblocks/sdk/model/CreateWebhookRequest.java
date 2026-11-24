@@ -19,9 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
@@ -34,7 +32,7 @@ import java.util.UUID;
     CreateWebhookRequest.JSON_PROPERTY_ENABLED,
     CreateWebhookRequest.JSON_PROPERTY_WEBHOOK_MTLS_ID,
     CreateWebhookRequest.JSON_PROPERTY_WEBHOOK_OAUTH_ID,
-    CreateWebhookRequest.JSON_PROPERTY_CUSTOM_HEADERS
+    CreateWebhookRequest.JSON_PROPERTY_WEBHOOK_CUSTOM_HEADERS_ID
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -58,8 +56,8 @@ public class CreateWebhookRequest {
     public static final String JSON_PROPERTY_WEBHOOK_OAUTH_ID = "webhookOauthId";
     @jakarta.annotation.Nullable private UUID webhookOauthId;
 
-    public static final String JSON_PROPERTY_CUSTOM_HEADERS = "customHeaders";
-    @jakarta.annotation.Nullable private Map<String, Object> customHeaders;
+    public static final String JSON_PROPERTY_WEBHOOK_CUSTOM_HEADERS_ID = "webhookCustomHeadersId";
+    @jakarta.annotation.Nullable private UUID webhookCustomHeadersId;
 
     public CreateWebhookRequest() {}
 
@@ -181,7 +179,8 @@ public class CreateWebhookRequest {
      * The id of the mTLS configuration this webhook presents when delivering, from
      * &#x60;/v1/webhooks_settings/mtls&#x60;. Several webhooks may share one configuration, so
      * replacing its certificate covers all of them at once. Send &#x60;null&#x60; to stop using
-     * mTLS for this webhook.
+     * mTLS for this webhook. Requires advanced webhook controls to be enabled for the workspace
+     * (&#x60;403&#x60; otherwise).
      *
      * @return webhookMtlsId
      */
@@ -207,8 +206,10 @@ public class CreateWebhookRequest {
      * The id of the OAuth credentials this webhook authenticates with, from
      * &#x60;/v1/webhooks_settings/oauth&#x60;. Several webhooks may share one credential set, so
      * rotating its client secret covers all of them at once. Send &#x60;null&#x60; to stop using
-     * OAuth for this webhook. Cannot be combined with an &#x60;authorization&#x60; custom header on
-     * the same webhook; a request that would leave both set is rejected.
+     * OAuth for this webhook. When the webhook has OAuth credentials, Fireblocks sends its own
+     * &#x60;Authorization&#x60; header (the bearer token), and a custom &#x60;Authorization&#x60;
+     * header from the attached set is not sent. Requires advanced webhook controls to be enabled
+     * for the workspace (&#x60;403&#x60; otherwise).
      *
      * @return webhookOauthId
      */
@@ -225,50 +226,36 @@ public class CreateWebhookRequest {
         this.webhookOauthId = webhookOauthId;
     }
 
-    public CreateWebhookRequest customHeaders(
-            @jakarta.annotation.Nullable Map<String, Object> customHeaders) {
-        this.customHeaders = customHeaders;
-        return this;
-    }
-
-    public CreateWebhookRequest putCustomHeadersItem(String key, Object customHeadersItem) {
-        if (this.customHeaders == null) {
-            this.customHeaders = new HashMap<>();
-        }
-        this.customHeaders.put(key, customHeadersItem);
+    public CreateWebhookRequest webhookCustomHeadersId(
+            @jakarta.annotation.Nullable UUID webhookCustomHeadersId) {
+        this.webhookCustomHeadersId = webhookCustomHeadersId;
         return this;
     }
 
     /**
-     * Custom HTTP headers attached to every notification delivered by this webhook. A value is a
-     * string, sent as one header line, or an array of strings, sent as one header line per element
-     * under the same name. &#x60;Cookie&#x60; and &#x60;Authorization&#x60; accept only a string.
-     * An empty array is rejected — leave the name out instead. At most 10 headers, counted by name
-     * — an array value counts once, however many lines it sends. Names must be valid HTTP header
-     * tokens, are case-insensitive, and are at most 128 characters. A value may be empty and has no
-     * length limit of its own; the whole object must be under 16 KB when serialized as UTF-8. A
-     * value that large may still be refused by your own endpoint, since web servers commonly cap
-     * the whole request header block at around 8 KB. Reserved names: &#x60;Host&#x60;,
-     * &#x60;Content-Type&#x60;, &#x60;Content-Length&#x60;, &#x60;Transfer-Encoding&#x60;,
-     * &#x60;Connection&#x60;, &#x60;User-Agent&#x60;, &#x60;Accept&#x60;,
-     * &#x60;Accept-Encoding&#x60;, &#x60;Fireblocks-Signature&#x60;,
-     * &#x60;Fireblocks-Webhook-Signature&#x60;. &#x60;Authorization&#x60; may be set, but not
-     * together with &#x60;webhookOauthId&#x60;; a request that would leave both set is rejected.
-     * Values are write-only; responses return only the header names.
+     * The id of the set of custom HTTP headers sent with this webhook&#39;s notifications, from
+     * &#x60;/v1/webhooks_settings/custom_headers&#x60;. Several webhooks, and OAuth credentials,
+     * may share one set, so changing it covers all of them at once. Validated when the set is
+     * created or changed; attaching checks only that it exists in your workspace. Replaces the
+     * inline &#x60;customHeaders&#x60; field, which is now refused with a &#x60;400&#x60;, so use
+     * &#x60;webhookCustomHeadersId&#x60;. Requires advanced webhook controls to be enabled for the
+     * workspace (&#x60;403&#x60; otherwise). An unknown id, or one belonging to another workspace,
+     * is a &#x60;404&#x60;.
      *
-     * @return customHeaders
+     * @return webhookCustomHeadersId
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
-    @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
-    public Map<String, Object> getCustomHeaders() {
-        return customHeaders;
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_CUSTOM_HEADERS_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getWebhookCustomHeadersId() {
+        return webhookCustomHeadersId;
     }
 
-    @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
-    @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomHeaders(@jakarta.annotation.Nullable Map<String, Object> customHeaders) {
-        this.customHeaders = customHeaders;
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_CUSTOM_HEADERS_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setWebhookCustomHeadersId(
+            @jakarta.annotation.Nullable UUID webhookCustomHeadersId) {
+        this.webhookCustomHeadersId = webhookCustomHeadersId;
     }
 
     /** Return true if this CreateWebhookRequest object is equal to o. */
@@ -287,13 +274,20 @@ public class CreateWebhookRequest {
                 && Objects.equals(this.enabled, createWebhookRequest.enabled)
                 && Objects.equals(this.webhookMtlsId, createWebhookRequest.webhookMtlsId)
                 && Objects.equals(this.webhookOauthId, createWebhookRequest.webhookOauthId)
-                && Objects.equals(this.customHeaders, createWebhookRequest.customHeaders);
+                && Objects.equals(
+                        this.webhookCustomHeadersId, createWebhookRequest.webhookCustomHeadersId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                url, description, events, enabled, webhookMtlsId, webhookOauthId, customHeaders);
+                url,
+                description,
+                events,
+                enabled,
+                webhookMtlsId,
+                webhookOauthId,
+                webhookCustomHeadersId);
     }
 
     @Override
@@ -306,7 +300,9 @@ public class CreateWebhookRequest {
         sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
         sb.append("    webhookMtlsId: ").append(toIndentedString(webhookMtlsId)).append("\n");
         sb.append("    webhookOauthId: ").append(toIndentedString(webhookOauthId)).append("\n");
-        sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
+        sb.append("    webhookCustomHeadersId: ")
+                .append(toIndentedString(webhookCustomHeadersId))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -423,22 +419,15 @@ public class CreateWebhookRequest {
                             ApiClient.urlEncode(ApiClient.valueToString(getWebhookOauthId()))));
         }
 
-        // add `customHeaders` to the URL query string
-        if (getCustomHeaders() != null) {
-            for (String _key : getCustomHeaders().keySet()) {
-                joiner.add(
-                        String.format(
-                                "%scustomHeaders%s%s=%s",
-                                prefix,
-                                suffix,
-                                "".equals(suffix)
-                                        ? ""
-                                        : String.format(
-                                                "%s%d%s", containerPrefix, _key, containerSuffix),
-                                getCustomHeaders().get(_key),
-                                ApiClient.urlEncode(
-                                        ApiClient.valueToString(getCustomHeaders().get(_key)))));
-            }
+        // add `webhookCustomHeadersId` to the URL query string
+        if (getWebhookCustomHeadersId() != null) {
+            joiner.add(
+                    String.format(
+                            "%swebhookCustomHeadersId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getWebhookCustomHeadersId()))));
         }
 
         return joiner.toString();

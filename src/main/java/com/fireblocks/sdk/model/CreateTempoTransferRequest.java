@@ -428,7 +428,7 @@ public class CreateTempoTransferRequest {
     }
 
     /**
-     * Beta. An opaque travel-rule payload.
+     * Early availability. An opaque travel-rule payload.
      *
      * @return travelRuleMessage
      */
@@ -452,7 +452,8 @@ public class CreateTempoTransferRequest {
     }
 
     /**
-     * Beta. An identifier of a TravelRule message, already sent to the TravelRule provider.
+     * Early availability. An identifier of a TravelRule message, already sent to the TravelRule
+     * provider.
      *
      * @return travelRuleMessageId
      */
@@ -606,7 +607,7 @@ public class CreateTempoTransferRequest {
     }
 
     /**
-     * Beta. If true, fail the transaction rather than sending it with a low fee.
+     * Early availability. If true, fail the transaction rather than sending it with a low fee.
      *
      * @return failOnLowFee
      */
@@ -653,7 +654,7 @@ public class CreateTempoTransferRequest {
     }
 
     /**
-     * Beta. The hash of the EVM transaction to replace (RBF).
+     * Early availability. The hash of the EVM transaction to replace (RBF).
      *
      * @return replaceTxByHash
      */

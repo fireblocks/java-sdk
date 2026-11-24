@@ -37,7 +37,7 @@ public class AssetConfig {
     @jakarta.annotation.Nonnull private Boolean nftTransfer;
 
     public static final String JSON_PROPERTY_ASSET_TYPES = "assetTypes";
-    @jakarta.annotation.Nullable private List<AssetTypesConfigInner> assetTypes;
+    @jakarta.annotation.Nullable private List<String> assetTypes;
 
     public static final String JSON_PROPERTY_OPERATOR = "operator";
     @jakarta.annotation.Nullable private PolicyOperator operator;
@@ -74,13 +74,12 @@ public class AssetConfig {
         this.nftTransfer = nftTransfer;
     }
 
-    public AssetConfig assetTypes(
-            @jakarta.annotation.Nullable List<AssetTypesConfigInner> assetTypes) {
+    public AssetConfig assetTypes(@jakarta.annotation.Nullable List<String> assetTypes) {
         this.assetTypes = assetTypes;
         return this;
     }
 
-    public AssetConfig addAssetTypesItem(AssetTypesConfigInner assetTypesItem) {
+    public AssetConfig addAssetTypesItem(String assetTypesItem) {
         if (this.assetTypes == null) {
             this.assetTypes = new ArrayList<>();
         }
@@ -89,20 +88,20 @@ public class AssetConfig {
     }
 
     /**
-     * List of asset types
+     * List of asset IDs the rule applies to
      *
      * @return assetTypes
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_ASSET_TYPES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<AssetTypesConfigInner> getAssetTypes() {
+    public List<String> getAssetTypes() {
         return assetTypes;
     }
 
     @JsonProperty(JSON_PROPERTY_ASSET_TYPES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssetTypes(@jakarta.annotation.Nullable List<AssetTypesConfigInner> assetTypes) {
+    public void setAssetTypes(@jakarta.annotation.Nullable List<String> assetTypes) {
         this.assetTypes = assetTypes;
     }
 
@@ -216,23 +215,17 @@ public class AssetConfig {
         // add `assetTypes` to the URL query string
         if (getAssetTypes() != null) {
             for (int i = 0; i < getAssetTypes().size(); i++) {
-                if (getAssetTypes().get(i) != null) {
-                    joiner.add(
-                            getAssetTypes()
-                                    .get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%sassetTypes%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
+                joiner.add(
+                        String.format(
+                                "%sassetTypes%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getAssetTypes().get(i)))));
             }
         }
 

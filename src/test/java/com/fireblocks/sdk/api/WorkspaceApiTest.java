@@ -26,6 +26,23 @@ public class WorkspaceApiTest {
     private final WorkspaceApi api = new WorkspaceApi();
 
     /**
+     * Freeze
+     *
+     * <p>Freezes a Workspace so that ALL operations by ANY user are blocked. You should only
+     * perform this action when the workspace faces imminent risk, such as when you have a security
+     * breach. To unfreeze a workspace, the workspace Owner must submit a request to Fireblocks
+     * Support. **NOTE:** - This operation can only be performed by the workspace Admins - Your
+     * workspace continues to receive incoming transfers during this time. Endpoint Permission:
+     * Admin, Non-Signing Admin.
+     */
+    @Test
+    public void freezeWorkspaceTest() {
+        String idempotencyKey = null;
+
+        CompletableFuture<ApiResponse<Void>> response = api.freezeWorkspace(idempotencyKey);
+    }
+
+    /**
      * Get workspace
      *
      * <p>Returns the workspace ID and name for the authenticated user.

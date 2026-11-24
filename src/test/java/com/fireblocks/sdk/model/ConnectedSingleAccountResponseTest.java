@@ -90,4 +90,16 @@ class ConnectedSingleAccountResponseTest {
     void subAccountsIdsTest() {
         // TODO: test subAccountsIds
     }
+
+    /** Test the property 'totalCredit' */
+    @Test
+    void totalCreditTest() {
+        // TODO: test totalCredit
+    }
+
+    /** Test the property 'availableCredit' */
+    @Test
+    void availableCreditTest() {
+        // TODO: test availableCredit
+    }
 }

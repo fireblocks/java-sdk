@@ -37,13 +37,13 @@ public class Fireblocks {
     private final String userAgent;
 
     private ApiUserApi apiUser;
-    private ApprovalsBetaApi approvalsBeta;
+    private ApprovalsApi approvals;
     private AuditLogsApi auditLogs;
-    private BlockchainLinkBetaApi blockchainLinkBeta;
+    private BlockchainLinkApi blockchainLink;
     private BlockchainsAssetsApi blockchainsAssets;
-    private CantonBetaApi cantonBeta;
+    private CantonApi canton;
     private ComplianceApi compliance;
-    private ComplianceOrchestratorBetaApi complianceOrchestratorBeta;
+    private ComplianceOrchestratorApi complianceOrchestrator;
     private ComplianceScreeningConfigurationApi complianceScreeningConfiguration;
     private ConnectedAccountsApi connectedAccounts;
     private ConsoleUserApi consoleUser;
@@ -59,7 +59,7 @@ public class Fireblocks {
     private ExternalWalletsApi externalWallets;
     private FiatAccountsApi fiatAccounts;
     private GasStationsApi gasStations;
-    private GenieBetaApi genieBeta;
+    private GenieApi genie;
     private InternalWalletsApi internalWallets;
     private KeyLinkApi keyLink;
     private KeysApi keys;
@@ -67,23 +67,22 @@ public class Fireblocks {
     private NftsApi nfts;
     private OffExchangesApi offExchanges;
     private OnchainDataApi onchainData;
-    private OtaBetaApi otaBeta;
+    private OtaApi ota;
     private PaymentsPayoutApi paymentsPayout;
     private PolicyEditorV2Api policyEditorV2;
-    private PolicyEditorV2BetaApi policyEditorV2Beta;
-    private ReportsBetaApi reportsBeta;
+    private ReportsApi reports;
     private ResetDeviceApi resetDevice;
     private SecurityPostureManagementApi securityPostureManagement;
     private SmartTransferApi smartTransfer;
     private StakingApi staking;
     private TagsApi tags;
-    private TempoBetaApi tempoBeta;
+    private TempoApi tempo;
     private TokenizationApi tokenization;
     private TrLinkApi trLink;
     private TradingApi trading;
     private TransactionsApi transactions;
     private TravelRuleApi travelRule;
-    private UserGroupsBetaApi userGroupsBeta;
+    private UserGroupsApi userGroups;
     private UsersApi users;
     private UtxoManagementApi utxoManagement;
     private VaultsApi vaults;
@@ -92,7 +91,7 @@ public class Fireblocks {
     private WebhooksV2Api webhooksV2;
     private WhitelistIpAddressesApi whitelistIpAddresses;
     private WorkspaceApi workspace;
-    private WorkspaceStatusBetaApi workspaceStatusBeta;
+    private WorkspaceStatusApi workspaceStatus;
 
     public Fireblocks(ConfigurationOptions conf) {
         apiKey = Optional.ofNullable(conf.getApiKey()).orElse(System.getenv("FIREBLOCKS_API_KEY"));
@@ -239,11 +238,11 @@ public class Fireblocks {
         return apiUser;
     }
 
-    public ApprovalsBetaApi approvalsBeta() {
-        if (approvalsBeta == null) {
-            approvalsBeta = new ApprovalsBetaApi(apiClient);
+    public ApprovalsApi approvals() {
+        if (approvals == null) {
+            approvals = new ApprovalsApi(apiClient);
         }
-        return approvalsBeta;
+        return approvals;
     }
 
     public AuditLogsApi auditLogs() {
@@ -253,11 +252,11 @@ public class Fireblocks {
         return auditLogs;
     }
 
-    public BlockchainLinkBetaApi blockchainLinkBeta() {
-        if (blockchainLinkBeta == null) {
-            blockchainLinkBeta = new BlockchainLinkBetaApi(apiClient);
+    public BlockchainLinkApi blockchainLink() {
+        if (blockchainLink == null) {
+            blockchainLink = new BlockchainLinkApi(apiClient);
         }
-        return blockchainLinkBeta;
+        return blockchainLink;
     }
 
     public BlockchainsAssetsApi blockchainsAssets() {
@@ -267,11 +266,11 @@ public class Fireblocks {
         return blockchainsAssets;
     }
 
-    public CantonBetaApi cantonBeta() {
-        if (cantonBeta == null) {
-            cantonBeta = new CantonBetaApi(apiClient);
+    public CantonApi canton() {
+        if (canton == null) {
+            canton = new CantonApi(apiClient);
         }
-        return cantonBeta;
+        return canton;
     }
 
     public ComplianceApi compliance() {
@@ -281,11 +280,11 @@ public class Fireblocks {
         return compliance;
     }
 
-    public ComplianceOrchestratorBetaApi complianceOrchestratorBeta() {
-        if (complianceOrchestratorBeta == null) {
-            complianceOrchestratorBeta = new ComplianceOrchestratorBetaApi(apiClient);
+    public ComplianceOrchestratorApi complianceOrchestrator() {
+        if (complianceOrchestrator == null) {
+            complianceOrchestrator = new ComplianceOrchestratorApi(apiClient);
         }
-        return complianceOrchestratorBeta;
+        return complianceOrchestrator;
     }
 
     public ComplianceScreeningConfigurationApi complianceScreeningConfiguration() {
@@ -393,11 +392,11 @@ public class Fireblocks {
         return gasStations;
     }
 
-    public GenieBetaApi genieBeta() {
-        if (genieBeta == null) {
-            genieBeta = new GenieBetaApi(apiClient);
+    public GenieApi genie() {
+        if (genie == null) {
+            genie = new GenieApi(apiClient);
         }
-        return genieBeta;
+        return genie;
     }
 
     public InternalWalletsApi internalWallets() {
@@ -449,11 +448,11 @@ public class Fireblocks {
         return onchainData;
     }
 
-    public OtaBetaApi otaBeta() {
-        if (otaBeta == null) {
-            otaBeta = new OtaBetaApi(apiClient);
+    public OtaApi ota() {
+        if (ota == null) {
+            ota = new OtaApi(apiClient);
         }
-        return otaBeta;
+        return ota;
     }
 
     public PaymentsPayoutApi paymentsPayout() {
@@ -470,18 +469,11 @@ public class Fireblocks {
         return policyEditorV2;
     }
 
-    public PolicyEditorV2BetaApi policyEditorV2Beta() {
-        if (policyEditorV2Beta == null) {
-            policyEditorV2Beta = new PolicyEditorV2BetaApi(apiClient);
+    public ReportsApi reports() {
+        if (reports == null) {
+            reports = new ReportsApi(apiClient);
         }
-        return policyEditorV2Beta;
-    }
-
-    public ReportsBetaApi reportsBeta() {
-        if (reportsBeta == null) {
-            reportsBeta = new ReportsBetaApi(apiClient);
-        }
-        return reportsBeta;
+        return reports;
     }
 
     public ResetDeviceApi resetDevice() {
@@ -519,11 +511,11 @@ public class Fireblocks {
         return tags;
     }
 
-    public TempoBetaApi tempoBeta() {
-        if (tempoBeta == null) {
-            tempoBeta = new TempoBetaApi(apiClient);
+    public TempoApi tempo() {
+        if (tempo == null) {
+            tempo = new TempoApi(apiClient);
         }
-        return tempoBeta;
+        return tempo;
     }
 
     public TokenizationApi tokenization() {
@@ -561,11 +553,11 @@ public class Fireblocks {
         return travelRule;
     }
 
-    public UserGroupsBetaApi userGroupsBeta() {
-        if (userGroupsBeta == null) {
-            userGroupsBeta = new UserGroupsBetaApi(apiClient);
+    public UserGroupsApi userGroups() {
+        if (userGroups == null) {
+            userGroups = new UserGroupsApi(apiClient);
         }
-        return userGroupsBeta;
+        return userGroups;
     }
 
     public UsersApi users() {
@@ -624,10 +616,10 @@ public class Fireblocks {
         return workspace;
     }
 
-    public WorkspaceStatusBetaApi workspaceStatusBeta() {
-        if (workspaceStatusBeta == null) {
-            workspaceStatusBeta = new WorkspaceStatusBetaApi(apiClient);
+    public WorkspaceStatusApi workspaceStatus() {
+        if (workspaceStatus == null) {
+            workspaceStatus = new WorkspaceStatusApi(apiClient);
         }
-        return workspaceStatusBeta;
+        return workspaceStatus;
     }
 }

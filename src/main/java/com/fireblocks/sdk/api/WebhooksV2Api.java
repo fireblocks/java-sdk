@@ -21,9 +21,11 @@ import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.LifecycleWarning;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
+import com.fireblocks.sdk.model.CreateWebhookCustomHeadersRequest;
 import com.fireblocks.sdk.model.CreateWebhookMtlsConfigRequest;
 import com.fireblocks.sdk.model.CreateWebhookOauthRequest;
 import com.fireblocks.sdk.model.CreateWebhookRequest;
+import com.fireblocks.sdk.model.DeleteWebhookCustomHeadersResponse;
 import com.fireblocks.sdk.model.DeleteWebhookMtlsConfigResponse;
 import com.fireblocks.sdk.model.DeleteWebhookOauthResponse;
 import com.fireblocks.sdk.model.NotificationAttemptsPaginatedResponse;
@@ -36,10 +38,15 @@ import com.fireblocks.sdk.model.ResendFailedNotificationsJobStatusResponse;
 import com.fireblocks.sdk.model.ResendFailedNotificationsRequest;
 import com.fireblocks.sdk.model.ResendFailedNotificationsResponse;
 import com.fireblocks.sdk.model.ResendNotificationsByResourceIdRequest;
+import com.fireblocks.sdk.model.RevokeWebhookOauthKeyRequest;
+import com.fireblocks.sdk.model.RevokeWebhookOauthKeyResponse;
+import com.fireblocks.sdk.model.RotateWebhookOauthKeyResponse;
+import com.fireblocks.sdk.model.UpdateWebhookCustomHeadersRequest;
 import com.fireblocks.sdk.model.UpdateWebhookMtlsConfigRequest;
 import com.fireblocks.sdk.model.UpdateWebhookOauthRequest;
 import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
+import com.fireblocks.sdk.model.WebhookCustomHeadersSet;
 import com.fireblocks.sdk.model.WebhookEvent;
 import com.fireblocks.sdk.model.WebhookMetric;
 import com.fireblocks.sdk.model.WebhookMtlsConfig;
@@ -221,6 +228,123 @@ public class WebhooksV2Api {
         return localVarRequestBuilder;
     }
     /**
+     * Create a custom headers set Creates a reusable set of custom HTTP headers. Attach it to a
+     * webhook by passing the returned id as that webhook&#39;s &#x60;webhookCustomHeadersId&#x60;,
+     * to send the headers with that webhook&#39;s notifications, or to OAuth credentials as their
+     * &#x60;webhookCustomHeadersId&#x60;, to send them on the token request to your authorization
+     * server. Several webhooks and OAuth credentials may share one set, so changing it covers all
+     * of them at once. Header values are write-only and are never returned. One set of rules
+     * applies to every use of a set, whether a webhook or OAuth credentials attach it: a value is a
+     * string or an array of strings (one header line per element), except &#x60;Cookie&#x60; and
+     * &#x60;Authorization&#x60;, which take a single string. Where Fireblocks sends its own
+     * &#x60;Authorization&#x60; header (an OAuth bearer token on a delivery,
+     * &#x60;client_secret_basic&#x60; on a token request), a custom &#x60;Authorization&#x60;
+     * header is not sent. Attaching a set checks only that it exists in your workspace. **Endpoint
+     * Permissions:** Owner, Admin, Non-Signing Admin.
+     *
+     * @param createWebhookCustomHeadersRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookCustomHeadersSet&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<WebhookCustomHeadersSet>> createWebhookCustomHeaders(
+            CreateWebhookCustomHeadersRequest createWebhookCustomHeadersRequest,
+            String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    createWebhookCustomHeadersRequestBuilder(
+                            createWebhookCustomHeadersRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "createWebhookCustomHeaders",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "createWebhookCustomHeaders",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<WebhookCustomHeadersSet>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            WebhookCustomHeadersSet>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<WebhookCustomHeadersSet>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder createWebhookCustomHeadersRequestBuilder(
+            CreateWebhookCustomHeadersRequest createWebhookCustomHeadersRequest,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "createWebhookCustomHeaders",
+                "createWebhookCustomHeadersRequest",
+                createWebhookCustomHeadersRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/webhooks_settings/custom_headers";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(createWebhookCustomHeadersRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Create an mTLS configuration Stores a certificate signed against the CSR from &#x60;GET
      * /v1/webhooks_settings/mtls_csr&#x60; and returns its id, which is then set as
      * &#x60;webhookMtlsId&#x60; on a webhook or on OAuth credentials. The private key the
@@ -331,8 +455,12 @@ public class WebhooksV2Api {
      * Create OAuth credentials Creates a reusable OAuth client credential set. Attach it to a
      * webhook by passing the returned id as that webhook&#39;s &#x60;webhookOauthId&#x60;. Several
      * webhooks may share one credential set, so rotating its client secret covers all of them at
-     * once. The client secret is write-only and is never returned. **Endpoint Permissions:** Owner,
-     * Admin, Non-Signing Admin.
+     * once. The client secret is write-only and is never returned. With &#x60;authMethod&#x60;
+     * &#x60;private_key_jwt&#x60; no client secret is sent: Fireblocks generates two key pairs for
+     * the credentials, the signing key and its successor, and keeps the private halves. The public
+     * halves are published at the &#x60;jwksUri&#x60; returned with the credentials; register that
+     * URL as the client&#39;s &#x60;jwks_uri&#x60; on your authorization server. **Endpoint
+     * Permissions:** Owner, Admin, Non-Signing Admin.
      *
      * @param createWebhookOauthRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -498,6 +626,129 @@ public class WebhooksV2Api {
                         .replace("{webhookId}", ApiClient.urlEncode(webhookId.toString()));
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Delete a custom headers set Deletes a custom headers set. By default the delete is refused
+     * while the set is still in use: if any webhook or OAuth credentials use it, nothing is deleted
+     * and the request fails with &#x60;409 Conflict&#x60;, naming the reason and listing the ids of
+     * the webhooks and OAuth credentials using it. This protects a shared set from being removed
+     * out from under the things that depend on it. Pass &#x60;forceDelete&#x3D;true&#x60; to delete
+     * anyway. That detaches everything using the set — it clears each webhook&#39;s and each OAuth
+     * credential set&#39;s &#x60;webhookCustomHeadersId&#x60;, it does **not** delete the webhook
+     * or the credentials — then deletes the set and returns the deleted resource together with
+     * &#x60;detachedWebhookIds&#x60; and &#x60;detachedWebhookOauthIds&#x60;. A detached webhook
+     * stops sending these headers with its notifications, and detached OAuth credentials stop
+     * sending them on the token request. When nothing uses the set the delete succeeds either way,
+     * and both lists come back empty. **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+     *
+     * @param webhookCustomHeadersId The unique identifier of the custom headers set (required)
+     * @param forceDelete Delete the set even while webhooks or OAuth credentials still use it,
+     *     detaching them instead of refusing. Leave it unset, or &#x60;false&#x60;, to get a
+     *     &#x60;409 Conflict&#x60; whenever anything still uses the set. (optional, default to
+     *     false)
+     * @return CompletableFuture&lt;ApiResponse&lt;DeleteWebhookCustomHeadersResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<DeleteWebhookCustomHeadersResponse>>
+            deleteWebhookCustomHeaders(UUID webhookCustomHeadersId, Boolean forceDelete) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    deleteWebhookCustomHeadersRequestBuilder(webhookCustomHeadersId, forceDelete);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "deleteWebhookCustomHeaders",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "deleteWebhookCustomHeaders",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<DeleteWebhookCustomHeadersResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            DeleteWebhookCustomHeadersResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    DeleteWebhookCustomHeadersResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder deleteWebhookCustomHeadersRequestBuilder(
+            UUID webhookCustomHeadersId, Boolean forceDelete) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "deleteWebhookCustomHeaders",
+                "webhookCustomHeadersId",
+                webhookCustomHeadersId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks_settings/custom_headers/{webhookCustomHeadersId}"
+                        .replace(
+                                "{webhookCustomHeadersId}",
+                                ApiClient.urlEncode(webhookCustomHeadersId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "forceDelete";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("forceDelete", forceDelete));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
 
         localVarRequestBuilder.header("Accept", "application/json");
 
@@ -1581,6 +1832,180 @@ public class WebhooksV2Api {
         return localVarRequestBuilder;
     }
     /**
+     * Get a custom headers set by id Retrieve a custom headers set by its id. Header values are
+     * never returned, only the header names.
+     *
+     * @param webhookCustomHeadersId The unique identifier of the custom headers set (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookCustomHeadersSet&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<WebhookCustomHeadersSet>> getWebhookCustomHeaders(
+            UUID webhookCustomHeadersId) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getWebhookCustomHeadersRequestBuilder(webhookCustomHeadersId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getWebhookCustomHeaders",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getWebhookCustomHeaders", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<WebhookCustomHeadersSet>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            WebhookCustomHeadersSet>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<WebhookCustomHeadersSet>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getWebhookCustomHeadersRequestBuilder(UUID webhookCustomHeadersId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getWebhookCustomHeaders",
+                "webhookCustomHeadersId",
+                webhookCustomHeadersId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks_settings/custom_headers/{webhookCustomHeadersId}"
+                        .replace(
+                                "{webhookCustomHeadersId}",
+                                ApiClient.urlEncode(webhookCustomHeadersId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get all custom headers sets Lists every custom headers set for the workspace. Header values
+     * are never returned, only the header names.
+     *
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;WebhookCustomHeadersSet&gt;&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<List<WebhookCustomHeadersSet>>>
+            getWebhookCustomHeadersList() {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getWebhookCustomHeadersListRequestBuilder();
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getWebhookCustomHeadersList",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getWebhookCustomHeadersList",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<List<WebhookCustomHeadersSet>>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            List<
+                                                                                    WebhookCustomHeadersSet>>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<WebhookCustomHeadersSet>>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getWebhookCustomHeadersListRequestBuilder() throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/webhooks_settings/custom_headers";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Get an mTLS configuration by id Retrieve one stored mTLS configuration by its id.
      *
      * @param webhookMtlsId The unique identifier of the mTLS configuration (required)
@@ -2442,6 +2867,238 @@ public class WebhooksV2Api {
         return localVarRequestBuilder;
     }
     /**
+     * Revoke a signing key of OAuth credentials Deletes a key of OAuth credentials at once, for
+     * when a key may have leaked: it drops out of the published set immediately rather than being
+     * kept for 30 days. Revoking never causes an outage. Without a &#x60;kid&#x60;, revokes the key
+     * Fireblocks is signing with: signing switches to the successor, which your authorization
+     * server already holds, and a new successor is generated. A cached access token is discarded,
+     * so the next delivery fetches a new one. With the successor&#39;s &#x60;kid&#x60;, deletes the
+     * successor and generates a new one; signing is unchanged. With the &#x60;kid&#x60; of a key
+     * rotated out by &#x60;rotate_key&#x60; and still published, deletes that key, and a cached
+     * access token is discarded as well. Keys left behind by a &#x60;signingAlg&#x60; change drop
+     * out of the published set after 5 minutes but are kept for 30 days, and can be revoked by
+     * &#x60;kid&#x60; until then. Credentials using &#x60;private_key_jwt&#x60; always keep a key
+     * to sign with. On credentials that no longer use &#x60;private_key_jwt&#x60;, whose keys stay
+     * published for 30 days after the switch, a &#x60;kid&#x60; is required: that key is deleted
+     * and nothing is generated. The last key they hold can be revoked too, leaving an empty set.
+     * Returns the &#x60;kid&#x60; of the key revoked, which without a &#x60;kid&#x60; in the
+     * request is the key Fireblocks was signing with. The public keys are at the
+     * &#x60;jwksUri&#x60; of the credentials: fetch them again, or register the new successor with
+     * your authorization server. Use &#x60;rotate_key&#x60; for a routine rotation, which keeps the
+     * replaced key published for 30 days. **Endpoint Permissions:** Owner, Admin, Non-Signing
+     * Admin.
+     *
+     * @param webhookOauthId The unique identifier of the OAuth credentials (required)
+     * @param revokeWebhookOauthKeyRequest (optional)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;RevokeWebhookOauthKeyResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<RevokeWebhookOauthKeyResponse>> revokeWebhookOauthKey(
+            UUID webhookOauthId,
+            RevokeWebhookOauthKeyRequest revokeWebhookOauthKeyRequest,
+            String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    revokeWebhookOauthKeyRequestBuilder(
+                            webhookOauthId, revokeWebhookOauthKeyRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "revokeWebhookOauthKey",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "revokeWebhookOauthKey", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<RevokeWebhookOauthKeyResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            RevokeWebhookOauthKeyResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<RevokeWebhookOauthKeyResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder revokeWebhookOauthKeyRequestBuilder(
+            UUID webhookOauthId,
+            RevokeWebhookOauthKeyRequest revokeWebhookOauthKeyRequest,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "revokeWebhookOauthKey", "webhookOauthId", webhookOauthId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks_settings/oauth/{webhookOauthId}/revoke_key"
+                        .replace(
+                                "{webhookOauthId}", ApiClient.urlEncode(webhookOauthId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(revokeWebhookOauthKeyRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Rotate the signing key of OAuth credentials Switches the OAuth credentials to their successor
+     * key and generates a new successor, for credentials using &#x60;private_key_jwt&#x60;. Takes
+     * no body. The new signing key is one your authorization server already holds, since the
+     * successor is published from the start, so the switch causes no outage. The key replaced is no
+     * longer used to sign, but stays in the published set for 30 days and is then deleted. Rotating
+     * again within those 30 days is allowed: each key rotated out keeps its own 30 days, and any of
+     * them can be revoked by &#x60;kid&#x60;. The credentials can hold at most 5 keys in their
+     * signing algorithm at once, counting the active key, its successor and those rotated out; at
+     * that limit, revoke a rotated-out key (the error names the oldest) and rotate again. To stop
+     * trusting a key at once — after a leak — use &#x60;revoke_key&#x60; instead. Returns the
+     * &#x60;kid&#x60; of the key rotated out. The public keys are at the &#x60;jwksUri&#x60; of the
+     * credentials: fetch them again, or register the new successor with your authorization server,
+     * before the next rotation. **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+     *
+     * @param webhookOauthId The unique identifier of the OAuth credentials (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;RotateWebhookOauthKeyResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<RotateWebhookOauthKeyResponse>> rotateWebhookOauthKey(
+            UUID webhookOauthId, String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    rotateWebhookOauthKeyRequestBuilder(webhookOauthId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "rotateWebhookOauthKey",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "rotateWebhookOauthKey", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<RotateWebhookOauthKeyResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            RotateWebhookOauthKeyResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<RotateWebhookOauthKeyResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder rotateWebhookOauthKeyRequestBuilder(
+            UUID webhookOauthId, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "rotateWebhookOauthKey", "webhookOauthId", webhookOauthId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks_settings/oauth/{webhookOauthId}/rotate_key"
+                        .replace(
+                                "{webhookOauthId}", ApiClient.urlEncode(webhookOauthId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Update webhook Update a webhook by its id Endpoint Permission: Owner, Admin, Non-Signing
      * Admin.
      *
@@ -2521,6 +3178,123 @@ public class WebhooksV2Api {
 
         try {
             byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(updateWebhookRequest);
+            localVarRequestBuilder.method(
+                    "PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Update a custom headers set Updates only the fields present in the request; anything omitted
+     * is left as it is. &#x60;headers&#x60; is merged name by name rather than replaced: a header
+     * sent with a value is added or overwritten, a header sent as &#x60;null&#x60; is deleted, and
+     * a header you omit is left alone. The change applies to every webhook and OAuth credential set
+     * that uses the set. A change that would leave the set with no headers is refused with a
+     * &#x60;400&#x60; — delete the set instead. Where Fireblocks sends its own
+     * &#x60;Authorization&#x60; header, a custom &#x60;Authorization&#x60; header is not sent: on a
+     * webhook that has OAuth credentials attached (the OAuth bearer token), and on the token
+     * request of OAuth credentials that use &#x60;client_secret_basic&#x60;. **Endpoint
+     * Permissions:** Owner, Admin, Non-Signing Admin.
+     *
+     * @param updateWebhookCustomHeadersRequest (required)
+     * @param webhookCustomHeadersId The unique identifier of the custom headers set (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;WebhookCustomHeadersSet&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<WebhookCustomHeadersSet>> updateWebhookCustomHeaders(
+            UpdateWebhookCustomHeadersRequest updateWebhookCustomHeadersRequest,
+            UUID webhookCustomHeadersId) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    updateWebhookCustomHeadersRequestBuilder(
+                            updateWebhookCustomHeadersRequest, webhookCustomHeadersId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "updateWebhookCustomHeaders",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "updateWebhookCustomHeaders",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<WebhookCustomHeadersSet>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            WebhookCustomHeadersSet>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<WebhookCustomHeadersSet>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder updateWebhookCustomHeadersRequestBuilder(
+            UpdateWebhookCustomHeadersRequest updateWebhookCustomHeadersRequest,
+            UUID webhookCustomHeadersId)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "updateWebhookCustomHeaders",
+                "updateWebhookCustomHeadersRequest",
+                updateWebhookCustomHeadersRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateWebhookCustomHeaders",
+                "webhookCustomHeadersId",
+                webhookCustomHeadersId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks_settings/custom_headers/{webhookCustomHeadersId}"
+                        .replace(
+                                "{webhookCustomHeadersId}",
+                                ApiClient.urlEncode(webhookCustomHeadersId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(updateWebhookCustomHeadersRequest);
             localVarRequestBuilder.method(
                     "PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {
@@ -2643,17 +3417,20 @@ public class WebhooksV2Api {
     /**
      * Update OAuth credentials Updates only the fields present in the request; anything omitted is
      * left as it is. Sending &#x60;clientSecret&#x60; on its own rotates the secret for every
-     * webhook using these credentials. &#x60;customJwtClaims&#x60;, &#x60;customBodyParams&#x60;
-     * and &#x60;customHeaders&#x60; are all merged key by key rather than replaced, the same way a
-     * webhook&#39;s own &#x60;customHeaders&#x60; behaves: a key sent with a value is added or
-     * overwritten, a key sent with a &#x60;null&#x60; value is deleted, and a key you omit is left
-     * alone. Setting one of the three to &#x60;null&#x60; as a whole clears that map, which is the
-     * quick way to empty it without naming every key. There is no ambiguity between the two uses of
+     * webhook using these credentials. &#x60;customJwtClaims&#x60; and &#x60;customBodyParams&#x60;
+     * are merged key by key rather than replaced: a key sent with a value is added or overwritten,
+     * a key sent with a &#x60;null&#x60; value is deleted, and a key you omit is left alone.
+     * Setting one of the two to &#x60;null&#x60; as a whole clears that map, which is the quick way
+     * to empty it without naming every key. There is no ambiguity between the two uses of
      * &#x60;null&#x60; — one names an entry to delete, the other names the field. A claim cannot be
      * set to JSON &#x60;null&#x60;, though, on this endpoint or on create, because &#x60;null&#x60;
-     * is spent on deletion. &#x60;webhookMtlsId&#x60; is a scalar rather than a map, so
-     * &#x60;null&#x60; there does remove it. **Endpoint Permissions:** Owner, Admin, Non-Signing
-     * Admin.
+     * is spent on deletion. &#x60;webhookMtlsId&#x60; and &#x60;webhookCustomHeadersId&#x60; are
+     * scalars rather than maps, so &#x60;null&#x60; there does remove them.
+     * &#x60;webhookCustomHeadersId&#x60; points the credentials at a set of extra token request
+     * headers from &#x60;/v1/webhooks_settings/custom_headers&#x60;; under
+     * &#x60;client_secret_basic&#x60; Fireblocks sends its own &#x60;Authorization&#x60; header
+     * with the credentials, so a custom &#x60;Authorization&#x60; header in the set is not sent.
+     * **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
      *
      * @param updateWebhookOauthRequest (required)
      * @param webhookOauthId The unique identifier of the OAuth credentials (required)

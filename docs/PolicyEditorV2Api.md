@@ -6,6 +6,8 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 |------------- | ------------- | -------------|
 | [**getActivePolicy**](PolicyEditorV2Api.md#getActivePolicy) | **GET** /policy/active_policy | Get the active policy and its validation by policy type |
 | [**getDraft**](PolicyEditorV2Api.md#getDraft) | **GET** /policy/draft | Get the active draft by policy type |
+| [**getDraftReadOnly**](PolicyEditorV2Api.md#getDraftReadOnly) | **GET** /policy/draft/read_only | Get the current draft without starting an edit session |
+| [**getPolicyRuleQuota**](PolicyEditorV2Api.md#getPolicyRuleQuota) | **POST** /policy/rules/quota | Calculate the AOT quota for a policy rule |
 | [**publishDraft**](PolicyEditorV2Api.md#publishDraft) | **POST** /policy/draft | Send publish request for a certain draft id |
 | [**updateDraft**](PolicyEditorV2Api.md#updateDraft) | **PUT** /policy/draft | Update the draft with a new set of rules by policy types |
 
@@ -162,6 +164,167 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | A draft validation response object |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getDraftReadOnly
+
+> CompletableFuture<ApiResponse<ReadOnlyDraftReviewAndValidationResponse>> getDraftReadOnly getDraftReadOnly(policyType)
+
+Get the current draft without starting an edit session
+
+Returns the active draft and its validation for a specific policy type, without taking the edit lock. If no draft exists, the active policy is returned with a null draftId.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.PolicyEditorV2Api;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        PolicyType policyType = PolicyType.fromValue("TRANSFER"); // PolicyType | The policy type(s) to retrieve. Can be a single type or multiple types by repeating the parameter (e.g., ?policyType=TRANSFER&policyType=MINT).
+        try {
+            CompletableFuture<ApiResponse<ReadOnlyDraftReviewAndValidationResponse>> response = fireblocks.policyEditorV2().getDraftReadOnly(policyType);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling PolicyEditorV2Api#getDraftReadOnly");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **policyType** | [**PolicyType**](.md)| The policy type(s) to retrieve. Can be a single type or multiple types by repeating the parameter (e.g., ?policyType&#x3D;TRANSFER&amp;policyType&#x3D;MINT). | [enum: TRANSFER, STAKE, CONTRACT_CALL, TYPED_MESSAGE, APPROVE, MINT, BURN, RAW, COMPLIANCE, DEPLOYMENT, PROGRAM_CALL, DAPP_CONNECTION, UPGRADE, ORDER, AML_CHAINALYSIS_V2_SCREENING, AML_CHAINALYSIS_V2_POST_SCREENING, AML_ELLIPTIC_HOLISTIC_SCREENING, AML_ELLIPTIC_HOLISTIC_POST_SCREENING, TR_NOTABENE_SCREENING, TR_NOTABENE_POST_SCREENING] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**ReadOnlyDraftReviewAndValidationResponse**](ReadOnlyDraftReviewAndValidationResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A draft validation response object |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getPolicyRuleQuota
+
+> CompletableFuture<ApiResponse<PolicyRuleQuotaResponse>> getPolicyRuleQuota getPolicyRuleQuota(policyRuleQuotaRequest, idempotencyKey)
+
+Calculate the AOT quota for a policy rule
+
+Returns the Amount Over Time (AOT) quota calculated for a specific policy rule.  Endpoint Permissions: Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.PolicyEditorV2Api;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        PolicyRuleQuotaRequest policyRuleQuotaRequest = new PolicyRuleQuotaRequest(); // PolicyRuleQuotaRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<PolicyRuleQuotaResponse>> response = fireblocks.policyEditorV2().getPolicyRuleQuota(policyRuleQuotaRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling PolicyEditorV2Api#getPolicyRuleQuota");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **policyRuleQuotaRequest** | [**PolicyRuleQuotaRequest**](PolicyRuleQuotaRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**PolicyRuleQuotaResponse**](PolicyRuleQuotaResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The calculated AOT quota for the rule |  * X-Request-ID -  <br>  |
+| **400** | Invalid request parameters or rule configuration prevents AOT calculation. |  * X-Request-ID -  <br>  |
+| **403** | Caller lacks permission to access the requested rule. |  * X-Request-ID -  <br>  |
+| **404** | The requested policy rule was not found. |  * X-Request-ID -  <br>  |
+| **429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+| **500** | Internal server error while calculating AOT quota. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

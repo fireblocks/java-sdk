@@ -10,6 +10,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**createLegacyAddress**](VaultsApi.md#createLegacyAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy | Convert a segwit address to legacy format |
 | [**createMultipleAccounts**](VaultsApi.md#createMultipleAccounts) | **POST** /vault/accounts/bulk | Bulk creation of new vault accounts |
 | [**createMultipleDepositAddresses**](VaultsApi.md#createMultipleDepositAddresses) | **POST** /vault/accounts/addresses/bulk | Bulk creation of new deposit addresses |
+| [**createOmnibusAddresses**](VaultsApi.md#createOmnibusAddresses) | **POST** /vault/accounts/{vaultAccountId}/omnibus/{protocol}/{assetId}/addresses/bulk | Create omnibus deposit addresses |
 | [**createVaultAccount**](VaultsApi.md#createVaultAccount) | **POST** /vault/accounts | Create a new vault account |
 | [**createVaultAccountAsset**](VaultsApi.md#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new vault wallet |
 | [**createVaultAccountAssetAddress**](VaultsApi.md#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address |
@@ -20,6 +21,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getCreateMultipleVaultAccountsJobStatus**](VaultsApi.md#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts |
 | [**getMaxBipIndexUsed**](VaultsApi.md#getMaxBipIndexUsed) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_bip44_index_used | Get maximum BIP44 index used |
 | [**getMaxSpendableAmount**](VaultsApi.md#getMaxSpendableAmount) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount | Get max spendable amount in a transaction |
+| [**getOmnibusAddresses**](VaultsApi.md#getOmnibusAddresses) | **GET** /vault/accounts/{vaultAccountId}/omnibus/{protocol}/{assetId}/addresses | List omnibus deposit addresses |
 | [**getPagedVaultAccounts**](VaultsApi.md#getPagedVaultAccounts) | **GET** /vault/accounts_paged | Get vault accounts (Paginated) |
 | [**getPublicKeyInfo**](VaultsApi.md#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key for a derivation path |
 | [**getPublicKeyInfoForAddress**](VaultsApi.md#getPublicKeyInfoForAddress) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/{change}/{addressIndex}/public_key_info | Get an asset&#39;s public key |
@@ -28,11 +30,14 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getUsdcGatewayWalletInfoBeta**](VaultsApi.md#getUsdcGatewayWalletInfoBeta) | **GET** /vault/accounts/{vaultAccountId}/usdc_gateway | Get USDC Gateway wallet info |
 | [**getVaultAccount**](VaultsApi.md#getVaultAccount) | **GET** /vault/accounts/{vaultAccountId} | Get a vault account by ID |
 | [**getVaultAccountAsset**](VaultsApi.md#getVaultAccountAsset) | **GET** /vault/accounts/{vaultAccountId}/{assetId} | Get the asset balance for a vault account |
+| [**getVaultAccountAssetAddresses**](VaultsApi.md#getVaultAccountAssetAddresses) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Get asset addresses |
 | [**getVaultAccountAssetAddressesPaginated**](VaultsApi.md#getVaultAccountAssetAddressesPaginated) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated | Get addresses (Paginated) |
+| [**getVaultAccounts**](VaultsApi.md#getVaultAccounts) | **GET** /vault/accounts | Get vault accounts |
 | [**getVaultAssets**](VaultsApi.md#getVaultAssets) | **GET** /vault/assets | Get asset balance for chosen assets |
 | [**getVaultBalanceByAsset**](VaultsApi.md#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by an asset |
 | [**hideVaultAccount**](VaultsApi.md#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console |
 | [**lookupVaultByAddress**](VaultsApi.md#lookupVaultByAddress) | **GET** /vault/lookup_by_address | Look up a vault account by blockchain address |
+| [**registerTempoOmnibusWallet**](VaultsApi.md#registerTempoOmnibusWallet) | **POST** /vault/accounts/{vaultAccountId}/omnibus/TEMPO/{assetId}/register | Register a Tempo omnibus wallet |
 | [**setCustomerRefIdForAddress**](VaultsApi.md#setCustomerRefIdForAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id | Assign AML customer reference ID |
 | [**setUsdcGatewayDepositAutomationBeta**](VaultsApi.md#setUsdcGatewayDepositAutomationBeta) | **POST** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation | Set up a USDC Gateway deposit automation for a vault account |
 | [**setVaultAccountAutoFuel**](VaultsApi.md#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Set auto fueling to on or off |
@@ -134,7 +139,7 @@ No authorization required
 
 Activate a USDC Gateway wallet
 
-Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 
@@ -376,7 +381,7 @@ No authorization required
 
 Bulk creation of new vault accounts
 
-Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts per operation. - With &#x60;vaultType: KEY_LINK&#x60;, creates Key Link vault accounts; set &#x60;autoAssign: true&#x60; to bind them to the workspace&#39;s signing keys (see &#x60;vaultType&#x60; and &#x60;autoAssign&#x60;).  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
+Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - Limited to a maximum of 10,000 accounts per operation. - With &#x60;vaultType: KEY_LINK&#x60;, creates Key Link vault accounts; set &#x60;autoAssign: true&#x60; to bind them to the workspace&#39;s signing keys (see &#x60;vaultType&#x60; and &#x60;autoAssign&#x60;).  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
 
 ### Example
 
@@ -525,6 +530,91 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | A JobCreated object |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## createOmnibusAddresses
+
+> CompletableFuture<ApiResponse<CreateOmnibusAddressesResponse>> createOmnibusAddresses createOmnibusAddresses(createOmnibusAddressesRequest, vaultAccountId, protocol, assetId, idempotencyKey)
+
+Create omnibus deposit addresses
+
+Creates a batch of deposit addresses for the omnibus account of the given vault account, protocol and asset. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.VaultsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        CreateOmnibusAddressesRequest createOmnibusAddressesRequest = new CreateOmnibusAddressesRequest(); // CreateOmnibusAddressesRequest | 
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the omnibus vault account
+        String protocol = "EVM"; // String | The omnibus protocol
+        String assetId = "assetId_example"; // String | The ID of the asset
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<CreateOmnibusAddressesResponse>> response = fireblocks.vaults().createOmnibusAddresses(createOmnibusAddressesRequest, vaultAccountId, protocol, assetId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling VaultsApi#createOmnibusAddresses");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **createOmnibusAddressesRequest** | [**CreateOmnibusAddressesRequest**](CreateOmnibusAddressesRequest.md)|  | |
+| **vaultAccountId** | **String**| The ID of the omnibus vault account | |
+| **protocol** | **String**| The omnibus protocol | [enum: EVM, TEMPO] |
+| **assetId** | **String**| The ID of the asset | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**CreateOmnibusAddressesResponse**](CreateOmnibusAddressesResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | The created deposit addresses |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -781,7 +871,7 @@ No authorization required
 
 Deactivate a USDC Gateway wallet
 
-Deactivates the USDC Gateway wallet associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+Deactivates the USDC Gateway wallet associated with the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 
@@ -860,7 +950,7 @@ No authorization required
 
 Stop a USDC Gateway deposit automation&#39;s schedule
 
-Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 
@@ -1344,6 +1434,95 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getOmnibusAddresses
+
+> CompletableFuture<ApiResponse<ListOmnibusAddressesResponse>> getOmnibusAddresses getOmnibusAddresses(vaultAccountId, protocol, assetId, fromIndex, search, pageCursor, pageSize)
+
+List omnibus deposit addresses
+
+Returns a page of the deposit addresses of the omnibus account of the given vault account, protocol and asset, ordered by index, highest first. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.VaultsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the omnibus vault account
+        String protocol = "EVM"; // String | The omnibus protocol
+        String assetId = "assetId_example"; // String | The ID of the asset
+        Integer fromIndex = 56; // Integer | Return only addresses with an index greater than or equal to this value.
+        String search = "search_example"; // String | Return only addresses that start with this value (case-insensitive). Surrounding whitespace is ignored.
+        String pageCursor = "pageCursor_example"; // String | The cursor returned in `next` of the previous page. Omit for the first page.
+        Integer pageSize = 100; // Integer | The number of addresses per page.
+        try {
+            CompletableFuture<ApiResponse<ListOmnibusAddressesResponse>> response = fireblocks.vaults().getOmnibusAddresses(vaultAccountId, protocol, assetId, fromIndex, search, pageCursor, pageSize);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling VaultsApi#getOmnibusAddresses");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **vaultAccountId** | **String**| The ID of the omnibus vault account | |
+| **protocol** | **String**| The omnibus protocol | [enum: EVM, TEMPO] |
+| **assetId** | **String**| The ID of the asset | |
+| **fromIndex** | **Integer**| Return only addresses with an index greater than or equal to this value. | [optional] |
+| **search** | **String**| Return only addresses that start with this value (case-insensitive). Surrounding whitespace is ignored. | [optional] |
+| **pageCursor** | **String**| The cursor returned in &#x60;next&#x60; of the previous page. Omit for the first page. | [optional] |
+| **pageSize** | **Integer**| The number of addresses per page. | [optional] [default to 100] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**ListOmnibusAddressesResponse**](ListOmnibusAddressesResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A page of deposit addresses |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getPagedVaultAccounts
 
 > CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> getPagedVaultAccounts getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit, tagIds, includeTagIds, excludeTagIds)
@@ -1691,7 +1870,7 @@ No authorization required
 
 Read the USDC Gateway deposit automations for a vault account
 
-Returns the USDC Gateway deposit automations configured for the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns the USDC Gateway deposit automations configured for the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1768,7 +1947,7 @@ No authorization required
 
 Get USDC Gateway wallet info
 
-Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns the USDC Gateway wallet information associated with the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1995,6 +2174,85 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getVaultAccountAssetAddresses
+
+> CompletableFuture<ApiResponse<List<VaultWalletAddress>>> getVaultAccountAssetAddresses getVaultAccountAssetAddresses(vaultAccountId, assetId)
+
+Get asset addresses
+
+DEPRECATED!  - If your application logic or scripts rely on the deprecated endpoint, you should update to account for GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: \&quot;This endpoint is unavailable. - Please use the GET /v1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.VaultsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account to return
+        String assetId = "assetId_example"; // String | The ID of the asset
+        try {
+            CompletableFuture<ApiResponse<List<VaultWalletAddress>>> response = fireblocks.vaults().getVaultAccountAssetAddresses(vaultAccountId, assetId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling VaultsApi#getVaultAccountAssetAddresses");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **vaultAccountId** | **String**| The ID of the vault account to return | |
+| **assetId** | **String**| The ID of the asset | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**List&lt;VaultWalletAddress&gt;**](VaultWalletAddress.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A list of deposit addresses |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getVaultAccountAssetAddressesPaginated
 
 > CompletableFuture<ApiResponse<PaginatedAddressResponse>> getVaultAccountAssetAddressesPaginated getVaultAccountAssetAddressesPaginated(vaultAccountId, assetId, limit, before, after)
@@ -2077,6 +2335,89 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | A paginated list of addresses, and pagination info. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getVaultAccounts
+
+> CompletableFuture<ApiResponse<List<VaultAccount>>> getVaultAccounts getVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId)
+
+Get vault accounts
+
+DEPRECATED - Please use &#x60;/vault/accounts_paged&#x60; endpoint instead. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.VaultsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String namePrefix = "namePrefix_example"; // String | 
+        String nameSuffix = "nameSuffix_example"; // String | 
+        BigDecimal minAmountThreshold = new BigDecimal(78); // BigDecimal | 
+        String assetId = "assetId_example"; // String | 
+        try {
+            CompletableFuture<ApiResponse<List<VaultAccount>>> response = fireblocks.vaults().getVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling VaultsApi#getVaultAccounts");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **namePrefix** | **String**|  | [optional] |
+| **nameSuffix** | **String**|  | [optional] |
+| **minAmountThreshold** | **BigDecimal**|  | [optional] |
+| **assetId** | **String**|  | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**List&lt;VaultAccount&gt;**](VaultAccount.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A list of vault accounts |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -2321,7 +2662,7 @@ No authorization required
 
 Look up a vault account by blockchain address
 
-Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. **Note:** This endpoint is currently in beta and might be subject to changes. 
+Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. 
 
 ### Example
 
@@ -2392,6 +2733,88 @@ No authorization required
 | **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 | **403** | Feature is not enabled for the workspace. |  * X-Request-ID -  <br>  |
 | **404** | Vault account not found for the supplied address |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## registerTempoOmnibusWallet
+
+> CompletableFuture<ApiResponse<RegisterTempoOmnibusResponse>> registerTempoOmnibusWallet registerTempoOmnibusWallet(vaultAccountId, assetId, idempotencyKey)
+
+Register a Tempo omnibus wallet
+
+Registers a Tempo omnibus wallet for the given vault account and asset. Triggering this flow requires the vault account to hold PATH_USD with a balance sufficient to cover the gas fee. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.VaultsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String vaultAccountId = "vaultAccountId_example"; // String | The ID of the omnibus vault account
+        String assetId = "assetId_example"; // String | The Tempo network asset to register for the vault account.
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<RegisterTempoOmnibusResponse>> response = fireblocks.vaults().registerTempoOmnibusWallet(vaultAccountId, assetId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling VaultsApi#registerTempoOmnibusWallet");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **vaultAccountId** | **String**| The ID of the omnibus vault account | |
+| **assetId** | **String**| The Tempo network asset to register for the vault account. | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**RegisterTempoOmnibusResponse**](RegisterTempoOmnibusResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The wallet is already active |  * X-Request-ID -  <br>  |
+| **202** | The wallet activation transaction was submitted |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -2486,7 +2909,7 @@ No authorization required
 
 Set up a USDC Gateway deposit automation for a vault account
 
-Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 
@@ -2808,7 +3231,7 @@ No authorization required
 
 Change a USDC Gateway deposit automation
 
-Changes an existing USDC Gateway deposit automation for a vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+Changes an existing USDC Gateway deposit automation for a vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 

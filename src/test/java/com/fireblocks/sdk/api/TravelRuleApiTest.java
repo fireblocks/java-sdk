@@ -18,6 +18,7 @@ import com.fireblocks.sdk.model.TravelRuleGetAllVASPsResponse;
 import com.fireblocks.sdk.model.TravelRuleUpdateVASPDetails;
 import com.fireblocks.sdk.model.TravelRuleVASP;
 import com.fireblocks.sdk.model.TravelRuleValidateFullTransactionRequest;
+import com.fireblocks.sdk.model.TravelRuleValidateTransactionRequest;
 import com.fireblocks.sdk.model.TravelRuleValidateTransactionResponse;
 import com.fireblocks.sdk.model.TravelRuleVaspForVault;
 import com.fireblocks.sdk.model.TrustProofOfAddressCreateResponse;
@@ -150,5 +151,30 @@ public class TravelRuleApiTest {
         CompletableFuture<ApiResponse<TravelRuleValidateTransactionResponse>> response =
                 api.validateFullTravelRuleTransaction(
                         travelRuleValidateFullTransactionRequest, notation, idempotencyKey);
+    }
+
+    /**
+     * Validate Travel Rule Transaction
+     *
+     * <p>Validate Travel Rule transactions. Checks what beneficiary VASP details are required by
+     * your jurisdiction and the beneficiary&#39;s jurisdiction. **Deprecation Notice** This
+     * endpoint will be deprecated soon in favor of the [validate
+     * full](https://developers.fireblocks.com/reference/validatefulltravelruletransaction)
+     * endpoint. Please update your integrations to use the [validate
+     * full](https://developers.fireblocks.com/reference/validatefulltravelruletransaction) endpoint
+     * to ensure compatibility with future releases. Checks what beneficiary VASP details are
+     * required by your jurisdiction and the beneficiary&#39;s jurisdiction. Learn more about
+     * Fireblocks Travel Rule management in the following
+     * [guide](https://developers.fireblocks.com/docs/define-travel-rule-policies). Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     */
+    @Test
+    public void validateTravelRuleTransactionTest() {
+        TravelRuleValidateTransactionRequest travelRuleValidateTransactionRequest = null;
+        List<String> notation = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<TravelRuleValidateTransactionResponse>> response =
+                api.validateTravelRuleTransaction(
+                        travelRuleValidateTransactionRequest, notation, idempotencyKey);
     }
 }
