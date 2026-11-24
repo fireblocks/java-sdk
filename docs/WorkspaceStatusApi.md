@@ -1,0 +1,82 @@
+# WorkspaceStatusApi
+
+All URIs are relative to https://developers.fireblocks.com/reference/
+
+| Method | HTTP request | Description |
+|------------- | ------------- | -------------|
+| [**getWorkspaceStatus**](WorkspaceStatusApi.md#getWorkspaceStatus) | **GET** /management/workspace_status | Returns current workspace status |
+
+
+
+## getWorkspaceStatus
+
+> CompletableFuture<ApiResponse<GetWorkspaceStatusResponse>> getWorkspaceStatus getWorkspaceStatus()
+
+Returns current workspace status
+
+Returns current workspace status. **Note**: - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.  Endpoint Permission: Admin, Non-Signing Admin.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WorkspaceStatusApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        try {
+            CompletableFuture<ApiResponse<GetWorkspaceStatusResponse>> response = fireblocks.workspaceStatus().getWorkspaceStatus();
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WorkspaceStatusApi#getWorkspaceStatus");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+CompletableFuture<ApiResponse<[**GetWorkspaceStatusResponse**](GetWorkspaceStatusResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Current workspace status |  -  |
+| **404** | Workspace not found |  -  |
+

@@ -311,6 +311,32 @@ public class EmbeddedWalletsApiTest {
     }
 
     /**
+     * Get the public key of an asset
+     *
+     * <p>Gets the public key of an asset associated with a specific account within a Non-Custodial
+     * Wallet
+     */
+    @Test
+    public void getPublicKeyInfoForAddressNcwTest() {
+        UUID xEndUserWalletId = null;
+        String walletId = null;
+        String accountId = null;
+        String assetId = null;
+        BigDecimal change = null;
+        BigDecimal addressIndex = null;
+        Boolean compressed = null;
+        CompletableFuture<ApiResponse<PublicKeyInformation>> response =
+                api.getPublicKeyInfoForAddressNcw(
+                        xEndUserWalletId,
+                        walletId,
+                        accountId,
+                        assetId,
+                        change,
+                        addressIndex,
+                        compressed);
+    }
+
+    /**
      * Get the public key for a derivation path
      *
      * <p>Gets the public key information based on derivation path and signing algorithm within a

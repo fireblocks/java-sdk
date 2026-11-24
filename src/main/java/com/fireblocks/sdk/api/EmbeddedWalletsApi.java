@@ -1989,6 +1989,155 @@ public class EmbeddedWalletsApi {
         return localVarRequestBuilder;
     }
     /**
+     * Get the public key of an asset Gets the public key of an asset associated with a specific
+     * account within a Non-Custodial Wallet
+     *
+     * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
+     *     end-user wallet operations. (required)
+     * @param walletId The ID of the Non-Custodial wallet (required)
+     * @param accountId The ID of the account (required)
+     * @param assetId The ID of the asset (required)
+     * @param change BIP44 derivation path - change value (required)
+     * @param addressIndex BIP44 derivation path - index value (required)
+     * @param compressed Compressed/Uncompressed public key format (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;PublicKeyInformation&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
+     * @deprecated
+     */
+    @Deprecated
+    public CompletableFuture<ApiResponse<PublicKeyInformation>> getPublicKeyInfoForAddressNcw(
+            UUID xEndUserWalletId,
+            String walletId,
+            String accountId,
+            String assetId,
+            BigDecimal change,
+            BigDecimal addressIndex,
+            Boolean compressed) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getPublicKeyInfoForAddressNcwRequestBuilder(
+                            xEndUserWalletId,
+                            walletId,
+                            accountId,
+                            assetId,
+                            change,
+                            addressIndex,
+                            compressed);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getPublicKeyInfoForAddressNcw",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getPublicKeyInfoForAddressNcw",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<PublicKeyInformation>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            PublicKeyInformation>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<PublicKeyInformation>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getPublicKeyInfoForAddressNcwRequestBuilder(
+            UUID xEndUserWalletId,
+            String walletId,
+            String accountId,
+            String assetId,
+            BigDecimal change,
+            BigDecimal addressIndex,
+            Boolean compressed)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getPublicKeyInfoForAddressNcw", "xEndUserWalletId", xEndUserWalletId.toString());
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getPublicKeyInfoForAddressNcw", "walletId", walletId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getPublicKeyInfoForAddressNcw", "accountId", accountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getPublicKeyInfoForAddressNcw", "assetId", assetId);
+        ValidationUtils.assertParamExists("getPublicKeyInfoForAddressNcw", "change", change);
+        ValidationUtils.assertParamExists(
+                "getPublicKeyInfoForAddressNcw", "addressIndex", addressIndex);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/ncw/{walletId}/accounts/{accountId}/{assetId}/{change}/{addressIndex}/public_key_info"
+                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()))
+                        .replace("{accountId}", ApiClient.urlEncode(accountId.toString()))
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()))
+                        .replace("{change}", ApiClient.urlEncode(change.toString()))
+                        .replace("{addressIndex}", ApiClient.urlEncode(addressIndex.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "compressed";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("compressed", compressed));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        if (xEndUserWalletId != null) {
+            localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Get the public key for a derivation path Gets the public key information based on derivation
      * path and signing algorithm within a Non-Custodial Wallet
      *

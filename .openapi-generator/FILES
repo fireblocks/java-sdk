@@ -106,7 +106,7 @@ docs/ApprovalApiKey.md
 docs/ApprovalApiPublicKey.md
 docs/ApprovalRequest.md
 docs/ApprovalRequestItem.md
-docs/ApprovalsBetaApi.md
+docs/ApprovalsApi.md
 docs/ApproveApprovalRequest.md
 docs/ApproversConfig.md
 docs/ApproversConfigApprovalGroupsInner.md
@@ -139,7 +139,6 @@ docs/AssetPriceResponse.md
 docs/AssetResponse.md
 docs/AssetScope.md
 docs/AssetTypeResponse.md
-docs/AssetTypesConfigInner.md
 docs/AssetWallet.md
 docs/AssignVaultsToLegalEntityRequest.md
 docs/AssignVaultsToLegalEntityResponse.md
@@ -167,7 +166,7 @@ docs/BlockchainDeclaredProperties.md
 docs/BlockchainDestination.md
 docs/BlockchainEnvironment.md
 docs/BlockchainExplorer.md
-docs/BlockchainLinkBetaApi.md
+docs/BlockchainLinkApi.md
 docs/BlockchainMedia.md
 docs/BlockchainMetadata.md
 docs/BlockchainNotFoundErrorResponse.md
@@ -197,7 +196,7 @@ docs/CallAccepted.md
 docs/CallbackHandler.md
 docs/CallbackHandlerRequest.md
 docs/CancelTransactionResponse.md
-docs/CantonBetaApi.md
+docs/CantonApi.md
 docs/CantonCall.md
 docs/CantonCallAllowListAdd.md
 docs/CantonCallAllowListRemove.md
@@ -233,7 +232,7 @@ docs/CollectionTokenMetadataAttributeDto.md
 docs/CollectionTokenMetadataDto.md
 docs/CollectionType.md
 docs/ComplianceApi.md
-docs/ComplianceOrchestratorBetaApi.md
+docs/ComplianceOrchestratorApi.md
 docs/ComplianceRequirement.md
 docs/ComplianceResultFullPayload.md
 docs/ComplianceResultStatusesEnum.md
@@ -255,6 +254,7 @@ docs/ConnectedAccountAssetType.md
 docs/ConnectedAccountBalances.md
 docs/ConnectedAccountBalancesResponse.md
 docs/ConnectedAccountCapability.md
+docs/ConnectedAccountCredit.md
 docs/ConnectedAccountErrorResponse.md
 docs/ConnectedAccountManifest.md
 docs/ConnectedAccountRateResponse.md
@@ -348,6 +348,8 @@ docs/CreateMultipleVaultAccountsJobStatus.md
 docs/CreateNcwConnectionRequest.md
 docs/CreateNetworkIdRequest.md
 docs/CreateOffersRequest.md
+docs/CreateOmnibusAddressesRequest.md
+docs/CreateOmnibusAddressesResponse.md
 docs/CreateOrderRequest.md
 docs/CreatePayoutRequest.md
 docs/CreateQuote.md
@@ -369,6 +371,7 @@ docs/CreateVaultAccountConnectionRequest.md
 docs/CreateVaultAccountRequest.md
 docs/CreateVaultAssetResponse.md
 docs/CreateWalletRequest.md
+docs/CreateWebhookCustomHeadersRequest.md
 docs/CreateWebhookMtlsConfigRequest.md
 docs/CreateWebhookOauthRequest.md
 docs/CreateWebhookRequest.md
@@ -385,6 +388,7 @@ docs/DelegationSummary.md
 docs/DeleteApprovalApiKeyResponse.md
 docs/DeleteNetworkConnectionResponse.md
 docs/DeleteNetworkIdResponse.md
+docs/DeleteWebhookCustomHeadersResponse.md
 docs/DeleteWebhookMtlsConfigResponse.md
 docs/DeleteWebhookOauthResponse.md
 docs/DeployLayerZeroAdaptersRequest.md
@@ -536,7 +540,7 @@ docs/GasStationsApi.md
 docs/GaslessInfo.md
 docs/GasslessStandardConfigurations.md
 docs/GasslessStandardConfigurationsGaslessStandardConfigurationsValue.md
-docs/GenieBetaApi.md
+docs/GenieApi.md
 docs/GenieChatMessage.md
 docs/GenieCreateSessionResponse.md
 docs/GenieSendMessageRequest.md
@@ -625,6 +629,7 @@ docs/ListAssetsResponse.md
 docs/ListBlockchainsResponse.md
 docs/ListBlockchainsResponse2.md
 docs/ListLegalEntitiesResponse.md
+docs/ListOmnibusAddressesResponse.md
 docs/ListOwnedCollectionsResponse.md
 docs/ListOwnedTokensResponse.md
 docs/ListUtxosResponse.md
@@ -693,6 +698,7 @@ docs/OfferResponseTransferAccept.md
 docs/OfferResponseTransferReject.md
 docs/OfferResponseTransferWithdraw.md
 docs/OffersResponse.md
+docs/OmnibusAddress.md
 docs/OnchainDataApi.md
 docs/OnchainTransaction.md
 docs/OnchainTransactionsPagedResponse.md
@@ -713,7 +719,7 @@ docs/OrderRequirementFile.md
 docs/OrderSide.md
 docs/OrderStatus.md
 docs/OrderSummary.md
-docs/OtaBetaApi.md
+docs/OtaApi.md
 docs/PaginatedAddressResponse.md
 docs/PaginatedAddressResponsePaging.md
 docs/PaginatedAssetWalletResponse.md
@@ -768,7 +774,6 @@ docs/PolicyAndValidationResponse.md
 docs/PolicyCheckResult.md
 docs/PolicyCurrency.md
 docs/PolicyEditorV2Api.md
-docs/PolicyEditorV2BetaApi.md
 docs/PolicyMetadataEntry.md
 docs/PolicyOperator.md
 docs/PolicyResponse.md
@@ -828,6 +833,8 @@ docs/ReQuoteDetailsReQuote.md
 docs/ReadAbiFunction.md
 docs/ReadCallFunctionDto.md
 docs/ReadCallFunctionDtoAbiFunction.md
+docs/ReadOnlyDraftResponse.md
+docs/ReadOnlyDraftReviewAndValidationResponse.md
 docs/ReasonForPaymentEnum.md
 docs/RecipientHandle.md
 docs/RedeemFundsToLinkedDDAResponse.md
@@ -835,6 +842,7 @@ docs/RegisterApprovalApiKeyRequest.md
 docs/RegisterApprovalApiKeyResponse.md
 docs/RegisterLegalEntityRequest.md
 docs/RegisterNewAssetRequest.md
+docs/RegisterTempoOmnibusResponse.md
 docs/ReissueMultichainTokenRequest.md
 docs/RelatedRequest.md
 docs/RelatedTransaction.md
@@ -857,7 +865,7 @@ docs/ReportListResponse.md
 docs/ReportOutputFormat.md
 docs/ReportStatus.md
 docs/ReportType.md
-docs/ReportsBetaApi.md
+docs/ReportsApi.md
 docs/RescreenTransactionRequest.md
 docs/RescreenTransactionResponse.md
 docs/ResendByQueryRequest.md
@@ -873,6 +881,8 @@ docs/ResetDeviceApi.md
 docs/RespondToConnectionRequest.md
 docs/RetryRequoteRequestDetails.md
 docs/RetryRequoteTypeEnum.md
+docs/RevokeWebhookOauthKeyRequest.md
+docs/RevokeWebhookOauthKeyResponse.md
 docs/RewardInfo.md
 docs/RewardsInfo.md
 docs/RiskLevelEnum.md
@@ -880,6 +890,7 @@ docs/RoleDetails.md
 docs/RoleDetails2.md
 docs/RoleFeeInfo.md
 docs/RoleGrantee.md
+docs/RotateWebhookOauthKeyResponse.md
 docs/Rule.md
 docs/RuleActionEnum.md
 docs/RuleCondition.md
@@ -1126,7 +1137,7 @@ docs/TagType.md
 docs/TagsApi.md
 docs/TagsPagedResponse.md
 docs/TemplatesPaginatedResponse.md
-docs/TempoBetaApi.md
+docs/TempoApi.md
 docs/TempoTransferDestination.md
 docs/TempoTransferDestinationItem.md
 docs/TempoTransferSource.md
@@ -1282,6 +1293,7 @@ docs/UpdateTagRequest.md
 docs/UpdateTokenOwnershipStatusDto.md
 docs/UpdateVaultAccountAssetAddressRequest.md
 docs/UpdateVaultAccountRequest.md
+docs/UpdateWebhookCustomHeadersRequest.md
 docs/UpdateWebhookMtlsConfigRequest.md
 docs/UpdateWebhookOauthRequest.md
 docs/UpdateWebhookRequest.md
@@ -1296,7 +1308,7 @@ docs/UserGroupCreateRequest.md
 docs/UserGroupCreateResponse.md
 docs/UserGroupResponse.md
 docs/UserGroupUpdateRequest.md
-docs/UserGroupsBetaApi.md
+docs/UserGroupsApi.md
 docs/UserResponse.md
 docs/UserRole.md
 docs/UserStatus.md
@@ -1339,12 +1351,14 @@ docs/WalletAsset.md
 docs/WalletAssetAdditionalInfo.md
 docs/Web3ConnectionsApi.md
 docs/Webhook.md
+docs/WebhookCustomHeadersSet.md
 docs/WebhookEvent.md
 docs/WebhookMetric.md
 docs/WebhookMtlsConfig.md
 docs/WebhookMtlsCsrResponse.md
 docs/WebhookMtlsKeyAlgorithm.md
 docs/WebhookOauthCredentials.md
+docs/WebhookOauthSigningAlg.md
 docs/WebhookPaginatedResponse.md
 docs/WebhooksApi.md
 docs/WebhooksV2Api.md
@@ -1356,7 +1370,7 @@ docs/WorkflowExecutionOperation.md
 docs/WorkflowStatusEnum.md
 docs/Workspace.md
 docs/WorkspaceApi.md
-docs/WorkspaceStatusBetaApi.md
+docs/WorkspaceStatusApi.md
 docs/WriteAbiFunction.md
 docs/WriteCallFunctionDto.md
 docs/WriteCallFunctionDtoAbiFunction.md
@@ -1391,13 +1405,13 @@ src/main/java/com/fireblocks/sdk/SystemWrapper.java
 src/main/java/com/fireblocks/sdk/UserAgentUtil.java
 src/main/java/com/fireblocks/sdk/ValidationUtils.java
 src/main/java/com/fireblocks/sdk/api/ApiUserApi.java
-src/main/java/com/fireblocks/sdk/api/ApprovalsBetaApi.java
+src/main/java/com/fireblocks/sdk/api/ApprovalsApi.java
 src/main/java/com/fireblocks/sdk/api/AuditLogsApi.java
-src/main/java/com/fireblocks/sdk/api/BlockchainLinkBetaApi.java
+src/main/java/com/fireblocks/sdk/api/BlockchainLinkApi.java
 src/main/java/com/fireblocks/sdk/api/BlockchainsAssetsApi.java
-src/main/java/com/fireblocks/sdk/api/CantonBetaApi.java
+src/main/java/com/fireblocks/sdk/api/CantonApi.java
 src/main/java/com/fireblocks/sdk/api/ComplianceApi.java
-src/main/java/com/fireblocks/sdk/api/ComplianceOrchestratorBetaApi.java
+src/main/java/com/fireblocks/sdk/api/ComplianceOrchestratorApi.java
 src/main/java/com/fireblocks/sdk/api/ComplianceScreeningConfigurationApi.java
 src/main/java/com/fireblocks/sdk/api/ConnectedAccountsApi.java
 src/main/java/com/fireblocks/sdk/api/ConsoleUserApi.java
@@ -1413,7 +1427,7 @@ src/main/java/com/fireblocks/sdk/api/ExchangeAccountsApi.java
 src/main/java/com/fireblocks/sdk/api/ExternalWalletsApi.java
 src/main/java/com/fireblocks/sdk/api/FiatAccountsApi.java
 src/main/java/com/fireblocks/sdk/api/GasStationsApi.java
-src/main/java/com/fireblocks/sdk/api/GenieBetaApi.java
+src/main/java/com/fireblocks/sdk/api/GenieApi.java
 src/main/java/com/fireblocks/sdk/api/InternalWalletsApi.java
 src/main/java/com/fireblocks/sdk/api/KeyLinkApi.java
 src/main/java/com/fireblocks/sdk/api/KeysApi.java
@@ -1421,23 +1435,22 @@ src/main/java/com/fireblocks/sdk/api/NetworkConnectionsApi.java
 src/main/java/com/fireblocks/sdk/api/NftsApi.java
 src/main/java/com/fireblocks/sdk/api/OffExchangesApi.java
 src/main/java/com/fireblocks/sdk/api/OnchainDataApi.java
-src/main/java/com/fireblocks/sdk/api/OtaBetaApi.java
+src/main/java/com/fireblocks/sdk/api/OtaApi.java
 src/main/java/com/fireblocks/sdk/api/PaymentsPayoutApi.java
 src/main/java/com/fireblocks/sdk/api/PolicyEditorV2Api.java
-src/main/java/com/fireblocks/sdk/api/PolicyEditorV2BetaApi.java
-src/main/java/com/fireblocks/sdk/api/ReportsBetaApi.java
+src/main/java/com/fireblocks/sdk/api/ReportsApi.java
 src/main/java/com/fireblocks/sdk/api/ResetDeviceApi.java
 src/main/java/com/fireblocks/sdk/api/SecurityPostureManagementApi.java
 src/main/java/com/fireblocks/sdk/api/SmartTransferApi.java
 src/main/java/com/fireblocks/sdk/api/StakingApi.java
 src/main/java/com/fireblocks/sdk/api/TagsApi.java
-src/main/java/com/fireblocks/sdk/api/TempoBetaApi.java
+src/main/java/com/fireblocks/sdk/api/TempoApi.java
 src/main/java/com/fireblocks/sdk/api/TokenizationApi.java
 src/main/java/com/fireblocks/sdk/api/TrLinkApi.java
 src/main/java/com/fireblocks/sdk/api/TradingApi.java
 src/main/java/com/fireblocks/sdk/api/TransactionsApi.java
 src/main/java/com/fireblocks/sdk/api/TravelRuleApi.java
-src/main/java/com/fireblocks/sdk/api/UserGroupsBetaApi.java
+src/main/java/com/fireblocks/sdk/api/UserGroupsApi.java
 src/main/java/com/fireblocks/sdk/api/UsersApi.java
 src/main/java/com/fireblocks/sdk/api/UtxoManagementApi.java
 src/main/java/com/fireblocks/sdk/api/VaultsApi.java
@@ -1446,7 +1459,7 @@ src/main/java/com/fireblocks/sdk/api/WebhooksApi.java
 src/main/java/com/fireblocks/sdk/api/WebhooksV2Api.java
 src/main/java/com/fireblocks/sdk/api/WhitelistIpAddressesApi.java
 src/main/java/com/fireblocks/sdk/api/WorkspaceApi.java
-src/main/java/com/fireblocks/sdk/api/WorkspaceStatusBetaApi.java
+src/main/java/com/fireblocks/sdk/api/WorkspaceStatusApi.java
 src/main/java/com/fireblocks/sdk/model/APIUser.java
 src/main/java/com/fireblocks/sdk/model/AbaPaymentInfo.java
 src/main/java/com/fireblocks/sdk/model/AbiFunction.java
@@ -1577,7 +1590,6 @@ src/main/java/com/fireblocks/sdk/model/AssetPriceResponse.java
 src/main/java/com/fireblocks/sdk/model/AssetResponse.java
 src/main/java/com/fireblocks/sdk/model/AssetScope.java
 src/main/java/com/fireblocks/sdk/model/AssetTypeResponse.java
-src/main/java/com/fireblocks/sdk/model/AssetTypesConfigInner.java
 src/main/java/com/fireblocks/sdk/model/AssetWallet.java
 src/main/java/com/fireblocks/sdk/model/AssignVaultsToLegalEntityRequest.java
 src/main/java/com/fireblocks/sdk/model/AssignVaultsToLegalEntityResponse.java
@@ -1686,6 +1698,7 @@ src/main/java/com/fireblocks/sdk/model/ConnectedAccountAssetType.java
 src/main/java/com/fireblocks/sdk/model/ConnectedAccountBalances.java
 src/main/java/com/fireblocks/sdk/model/ConnectedAccountBalancesResponse.java
 src/main/java/com/fireblocks/sdk/model/ConnectedAccountCapability.java
+src/main/java/com/fireblocks/sdk/model/ConnectedAccountCredit.java
 src/main/java/com/fireblocks/sdk/model/ConnectedAccountErrorResponse.java
 src/main/java/com/fireblocks/sdk/model/ConnectedAccountManifest.java
 src/main/java/com/fireblocks/sdk/model/ConnectedAccountRateResponse.java
@@ -1772,6 +1785,8 @@ src/main/java/com/fireblocks/sdk/model/CreateMultipleVaultAccountsJobStatus.java
 src/main/java/com/fireblocks/sdk/model/CreateNcwConnectionRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateNetworkIdRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateOffersRequest.java
+src/main/java/com/fireblocks/sdk/model/CreateOmnibusAddressesRequest.java
+src/main/java/com/fireblocks/sdk/model/CreateOmnibusAddressesResponse.java
 src/main/java/com/fireblocks/sdk/model/CreateOrderRequest.java
 src/main/java/com/fireblocks/sdk/model/CreatePayoutRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateQuote.java
@@ -1793,6 +1808,7 @@ src/main/java/com/fireblocks/sdk/model/CreateVaultAccountConnectionRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateVaultAccountRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateVaultAssetResponse.java
 src/main/java/com/fireblocks/sdk/model/CreateWalletRequest.java
+src/main/java/com/fireblocks/sdk/model/CreateWebhookCustomHeadersRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateWebhookMtlsConfigRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateWebhookOauthRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateWebhookRequest.java
@@ -1809,6 +1825,7 @@ src/main/java/com/fireblocks/sdk/model/DelegationSummary.java
 src/main/java/com/fireblocks/sdk/model/DeleteApprovalApiKeyResponse.java
 src/main/java/com/fireblocks/sdk/model/DeleteNetworkConnectionResponse.java
 src/main/java/com/fireblocks/sdk/model/DeleteNetworkIdResponse.java
+src/main/java/com/fireblocks/sdk/model/DeleteWebhookCustomHeadersResponse.java
 src/main/java/com/fireblocks/sdk/model/DeleteWebhookMtlsConfigResponse.java
 src/main/java/com/fireblocks/sdk/model/DeleteWebhookOauthResponse.java
 src/main/java/com/fireblocks/sdk/model/DeployLayerZeroAdaptersRequest.java
@@ -2038,6 +2055,7 @@ src/main/java/com/fireblocks/sdk/model/ListAssetsResponse.java
 src/main/java/com/fireblocks/sdk/model/ListBlockchainsResponse.java
 src/main/java/com/fireblocks/sdk/model/ListBlockchainsResponse2.java
 src/main/java/com/fireblocks/sdk/model/ListLegalEntitiesResponse.java
+src/main/java/com/fireblocks/sdk/model/ListOmnibusAddressesResponse.java
 src/main/java/com/fireblocks/sdk/model/ListOwnedCollectionsResponse.java
 src/main/java/com/fireblocks/sdk/model/ListOwnedTokensResponse.java
 src/main/java/com/fireblocks/sdk/model/ListUtxosResponse.java
@@ -2103,6 +2121,7 @@ src/main/java/com/fireblocks/sdk/model/OfferResponseTransferAccept.java
 src/main/java/com/fireblocks/sdk/model/OfferResponseTransferReject.java
 src/main/java/com/fireblocks/sdk/model/OfferResponseTransferWithdraw.java
 src/main/java/com/fireblocks/sdk/model/OffersResponse.java
+src/main/java/com/fireblocks/sdk/model/OmnibusAddress.java
 src/main/java/com/fireblocks/sdk/model/OnchainTransaction.java
 src/main/java/com/fireblocks/sdk/model/OnchainTransactionsPagedResponse.java
 src/main/java/com/fireblocks/sdk/model/OnchainTransactionsPagedResponse2.java
@@ -2233,6 +2252,8 @@ src/main/java/com/fireblocks/sdk/model/ReQuoteDetailsReQuote.java
 src/main/java/com/fireblocks/sdk/model/ReadAbiFunction.java
 src/main/java/com/fireblocks/sdk/model/ReadCallFunctionDto.java
 src/main/java/com/fireblocks/sdk/model/ReadCallFunctionDtoAbiFunction.java
+src/main/java/com/fireblocks/sdk/model/ReadOnlyDraftResponse.java
+src/main/java/com/fireblocks/sdk/model/ReadOnlyDraftReviewAndValidationResponse.java
 src/main/java/com/fireblocks/sdk/model/ReasonForPaymentEnum.java
 src/main/java/com/fireblocks/sdk/model/RecipientHandle.java
 src/main/java/com/fireblocks/sdk/model/RedeemFundsToLinkedDDAResponse.java
@@ -2240,6 +2261,7 @@ src/main/java/com/fireblocks/sdk/model/RegisterApprovalApiKeyRequest.java
 src/main/java/com/fireblocks/sdk/model/RegisterApprovalApiKeyResponse.java
 src/main/java/com/fireblocks/sdk/model/RegisterLegalEntityRequest.java
 src/main/java/com/fireblocks/sdk/model/RegisterNewAssetRequest.java
+src/main/java/com/fireblocks/sdk/model/RegisterTempoOmnibusResponse.java
 src/main/java/com/fireblocks/sdk/model/ReissueMultichainTokenRequest.java
 src/main/java/com/fireblocks/sdk/model/RelatedRequest.java
 src/main/java/com/fireblocks/sdk/model/RelatedTransaction.java
@@ -2276,6 +2298,8 @@ src/main/java/com/fireblocks/sdk/model/ResendWebhooksResponse.java
 src/main/java/com/fireblocks/sdk/model/RespondToConnectionRequest.java
 src/main/java/com/fireblocks/sdk/model/RetryRequoteRequestDetails.java
 src/main/java/com/fireblocks/sdk/model/RetryRequoteTypeEnum.java
+src/main/java/com/fireblocks/sdk/model/RevokeWebhookOauthKeyRequest.java
+src/main/java/com/fireblocks/sdk/model/RevokeWebhookOauthKeyResponse.java
 src/main/java/com/fireblocks/sdk/model/RewardInfo.java
 src/main/java/com/fireblocks/sdk/model/RewardsInfo.java
 src/main/java/com/fireblocks/sdk/model/RiskLevelEnum.java
@@ -2283,6 +2307,7 @@ src/main/java/com/fireblocks/sdk/model/RoleDetails.java
 src/main/java/com/fireblocks/sdk/model/RoleDetails2.java
 src/main/java/com/fireblocks/sdk/model/RoleFeeInfo.java
 src/main/java/com/fireblocks/sdk/model/RoleGrantee.java
+src/main/java/com/fireblocks/sdk/model/RotateWebhookOauthKeyResponse.java
 src/main/java/com/fireblocks/sdk/model/Rule.java
 src/main/java/com/fireblocks/sdk/model/RuleActionEnum.java
 src/main/java/com/fireblocks/sdk/model/RuleCondition.java
@@ -2675,6 +2700,7 @@ src/main/java/com/fireblocks/sdk/model/UpdateTagRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateTokenOwnershipStatusDto.java
 src/main/java/com/fireblocks/sdk/model/UpdateVaultAccountAssetAddressRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateVaultAccountRequest.java
+src/main/java/com/fireblocks/sdk/model/UpdateWebhookCustomHeadersRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateWebhookMtlsConfigRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateWebhookOauthRequest.java
 src/main/java/com/fireblocks/sdk/model/UpdateWebhookRequest.java
@@ -2727,12 +2753,14 @@ src/main/java/com/fireblocks/sdk/model/VersionSummary.java
 src/main/java/com/fireblocks/sdk/model/WalletAsset.java
 src/main/java/com/fireblocks/sdk/model/WalletAssetAdditionalInfo.java
 src/main/java/com/fireblocks/sdk/model/Webhook.java
+src/main/java/com/fireblocks/sdk/model/WebhookCustomHeadersSet.java
 src/main/java/com/fireblocks/sdk/model/WebhookEvent.java
 src/main/java/com/fireblocks/sdk/model/WebhookMetric.java
 src/main/java/com/fireblocks/sdk/model/WebhookMtlsConfig.java
 src/main/java/com/fireblocks/sdk/model/WebhookMtlsCsrResponse.java
 src/main/java/com/fireblocks/sdk/model/WebhookMtlsKeyAlgorithm.java
 src/main/java/com/fireblocks/sdk/model/WebhookOauthCredentials.java
+src/main/java/com/fireblocks/sdk/model/WebhookOauthSigningAlg.java
 src/main/java/com/fireblocks/sdk/model/WebhookPaginatedResponse.java
 src/main/java/com/fireblocks/sdk/model/WithdrawRequest.java
 src/main/java/com/fireblocks/sdk/model/WorkflowConfigStatus.java
@@ -2753,13 +2781,13 @@ src/test/java/com/fireblocks/sdk/LifecycleWarningTest.java
 src/test/java/com/fireblocks/sdk/UserAgentUtilTest.java
 src/test/java/com/fireblocks/sdk/ValidationUtilsTest.java
 src/test/java/com/fireblocks/sdk/api/ApiUserApiTest.java
-src/test/java/com/fireblocks/sdk/api/ApprovalsBetaApiTest.java
+src/test/java/com/fireblocks/sdk/api/ApprovalsApiTest.java
 src/test/java/com/fireblocks/sdk/api/AuditLogsApiTest.java
-src/test/java/com/fireblocks/sdk/api/BlockchainLinkBetaApiTest.java
+src/test/java/com/fireblocks/sdk/api/BlockchainLinkApiTest.java
 src/test/java/com/fireblocks/sdk/api/BlockchainsAssetsApiTest.java
-src/test/java/com/fireblocks/sdk/api/CantonBetaApiTest.java
+src/test/java/com/fireblocks/sdk/api/CantonApiTest.java
 src/test/java/com/fireblocks/sdk/api/ComplianceApiTest.java
-src/test/java/com/fireblocks/sdk/api/ComplianceOrchestratorBetaApiTest.java
+src/test/java/com/fireblocks/sdk/api/ComplianceOrchestratorApiTest.java
 src/test/java/com/fireblocks/sdk/api/ComplianceScreeningConfigurationApiTest.java
 src/test/java/com/fireblocks/sdk/api/ConnectedAccountsApiTest.java
 src/test/java/com/fireblocks/sdk/api/ConsoleUserApiTest.java
@@ -2775,7 +2803,7 @@ src/test/java/com/fireblocks/sdk/api/ExchangeAccountsApiTest.java
 src/test/java/com/fireblocks/sdk/api/ExternalWalletsApiTest.java
 src/test/java/com/fireblocks/sdk/api/FiatAccountsApiTest.java
 src/test/java/com/fireblocks/sdk/api/GasStationsApiTest.java
-src/test/java/com/fireblocks/sdk/api/GenieBetaApiTest.java
+src/test/java/com/fireblocks/sdk/api/GenieApiTest.java
 src/test/java/com/fireblocks/sdk/api/InternalWalletsApiTest.java
 src/test/java/com/fireblocks/sdk/api/KeyLinkApiTest.java
 src/test/java/com/fireblocks/sdk/api/KeysApiTest.java
@@ -2783,23 +2811,22 @@ src/test/java/com/fireblocks/sdk/api/NetworkConnectionsApiTest.java
 src/test/java/com/fireblocks/sdk/api/NftsApiTest.java
 src/test/java/com/fireblocks/sdk/api/OffExchangesApiTest.java
 src/test/java/com/fireblocks/sdk/api/OnchainDataApiTest.java
-src/test/java/com/fireblocks/sdk/api/OtaBetaApiTest.java
+src/test/java/com/fireblocks/sdk/api/OtaApiTest.java
 src/test/java/com/fireblocks/sdk/api/PaymentsPayoutApiTest.java
 src/test/java/com/fireblocks/sdk/api/PolicyEditorV2ApiTest.java
-src/test/java/com/fireblocks/sdk/api/PolicyEditorV2BetaApiTest.java
-src/test/java/com/fireblocks/sdk/api/ReportsBetaApiTest.java
+src/test/java/com/fireblocks/sdk/api/ReportsApiTest.java
 src/test/java/com/fireblocks/sdk/api/ResetDeviceApiTest.java
 src/test/java/com/fireblocks/sdk/api/SecurityPostureManagementApiTest.java
 src/test/java/com/fireblocks/sdk/api/SmartTransferApiTest.java
 src/test/java/com/fireblocks/sdk/api/StakingApiTest.java
 src/test/java/com/fireblocks/sdk/api/TagsApiTest.java
-src/test/java/com/fireblocks/sdk/api/TempoBetaApiTest.java
+src/test/java/com/fireblocks/sdk/api/TempoApiTest.java
 src/test/java/com/fireblocks/sdk/api/TokenizationApiTest.java
 src/test/java/com/fireblocks/sdk/api/TrLinkApiTest.java
 src/test/java/com/fireblocks/sdk/api/TradingApiTest.java
 src/test/java/com/fireblocks/sdk/api/TransactionsApiTest.java
 src/test/java/com/fireblocks/sdk/api/TravelRuleApiTest.java
-src/test/java/com/fireblocks/sdk/api/UserGroupsBetaApiTest.java
+src/test/java/com/fireblocks/sdk/api/UserGroupsApiTest.java
 src/test/java/com/fireblocks/sdk/api/UsersApiTest.java
 src/test/java/com/fireblocks/sdk/api/UtxoManagementApiTest.java
 src/test/java/com/fireblocks/sdk/api/VaultsApiTest.java
@@ -2808,7 +2835,7 @@ src/test/java/com/fireblocks/sdk/api/WebhooksApiTest.java
 src/test/java/com/fireblocks/sdk/api/WebhooksV2ApiTest.java
 src/test/java/com/fireblocks/sdk/api/WhitelistIpAddressesApiTest.java
 src/test/java/com/fireblocks/sdk/api/WorkspaceApiTest.java
-src/test/java/com/fireblocks/sdk/api/WorkspaceStatusBetaApiTest.java
+src/test/java/com/fireblocks/sdk/api/WorkspaceStatusApiTest.java
 src/test/java/com/fireblocks/sdk/model/APIUserTest.java
 src/test/java/com/fireblocks/sdk/model/AbaPaymentInfoTest.java
 src/test/java/com/fireblocks/sdk/model/AbiFunctionTest.java
@@ -2938,7 +2965,6 @@ src/test/java/com/fireblocks/sdk/model/AssetResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AssetScopeTest.java
 src/test/java/com/fireblocks/sdk/model/AssetTest.java
 src/test/java/com/fireblocks/sdk/model/AssetTypeResponseTest.java
-src/test/java/com/fireblocks/sdk/model/AssetTypesConfigInnerTest.java
 src/test/java/com/fireblocks/sdk/model/AssetWalletTest.java
 src/test/java/com/fireblocks/sdk/model/AssignVaultsToLegalEntityRequestTest.java
 src/test/java/com/fireblocks/sdk/model/AssignVaultsToLegalEntityResponseTest.java
@@ -3046,6 +3072,7 @@ src/test/java/com/fireblocks/sdk/model/ConnectedAccountAssetTypeTest.java
 src/test/java/com/fireblocks/sdk/model/ConnectedAccountBalancesResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ConnectedAccountBalancesTest.java
 src/test/java/com/fireblocks/sdk/model/ConnectedAccountCapabilityTest.java
+src/test/java/com/fireblocks/sdk/model/ConnectedAccountCreditTest.java
 src/test/java/com/fireblocks/sdk/model/ConnectedAccountErrorResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ConnectedAccountManifestTest.java
 src/test/java/com/fireblocks/sdk/model/ConnectedAccountRateResponseTest.java
@@ -3133,6 +3160,8 @@ src/test/java/com/fireblocks/sdk/model/CreateMultipleVaultAccountsJobStatusTest.
 src/test/java/com/fireblocks/sdk/model/CreateNcwConnectionRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateNetworkIdRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateOffersRequestTest.java
+src/test/java/com/fireblocks/sdk/model/CreateOmnibusAddressesRequestTest.java
+src/test/java/com/fireblocks/sdk/model/CreateOmnibusAddressesResponseTest.java
 src/test/java/com/fireblocks/sdk/model/CreateOrderRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreatePayoutRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateQuoteScopeInnerTest.java
@@ -3154,6 +3183,7 @@ src/test/java/com/fireblocks/sdk/model/CreateVaultAccountConnectionRequestTest.j
 src/test/java/com/fireblocks/sdk/model/CreateVaultAccountRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateVaultAssetResponseTest.java
 src/test/java/com/fireblocks/sdk/model/CreateWalletRequestTest.java
+src/test/java/com/fireblocks/sdk/model/CreateWebhookCustomHeadersRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateWebhookMtlsConfigRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateWebhookOauthRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateWebhookRequestTest.java
@@ -3170,6 +3200,7 @@ src/test/java/com/fireblocks/sdk/model/DelegationTest.java
 src/test/java/com/fireblocks/sdk/model/DeleteApprovalApiKeyResponseTest.java
 src/test/java/com/fireblocks/sdk/model/DeleteNetworkConnectionResponseTest.java
 src/test/java/com/fireblocks/sdk/model/DeleteNetworkIdResponseTest.java
+src/test/java/com/fireblocks/sdk/model/DeleteWebhookCustomHeadersResponseTest.java
 src/test/java/com/fireblocks/sdk/model/DeleteWebhookMtlsConfigResponseTest.java
 src/test/java/com/fireblocks/sdk/model/DeleteWebhookOauthResponseTest.java
 src/test/java/com/fireblocks/sdk/model/DeployLayerZeroAdaptersRequestTest.java
@@ -3399,6 +3430,7 @@ src/test/java/com/fireblocks/sdk/model/ListAssetsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ListBlockchainsResponse2Test.java
 src/test/java/com/fireblocks/sdk/model/ListBlockchainsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ListLegalEntitiesResponseTest.java
+src/test/java/com/fireblocks/sdk/model/ListOmnibusAddressesResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ListOwnedCollectionsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ListOwnedTokensResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ListUtxosResponseTest.java
@@ -3464,6 +3496,7 @@ src/test/java/com/fireblocks/sdk/model/OfferResponseTransferRejectTest.java
 src/test/java/com/fireblocks/sdk/model/OfferResponseTransferWithdrawTest.java
 src/test/java/com/fireblocks/sdk/model/OfferTest.java
 src/test/java/com/fireblocks/sdk/model/OffersResponseTest.java
+src/test/java/com/fireblocks/sdk/model/OmnibusAddressTest.java
 src/test/java/com/fireblocks/sdk/model/OnchainTransactionTest.java
 src/test/java/com/fireblocks/sdk/model/OnchainTransactionsPagedResponse2Test.java
 src/test/java/com/fireblocks/sdk/model/OnchainTransactionsPagedResponseTest.java
@@ -3594,6 +3627,8 @@ src/test/java/com/fireblocks/sdk/model/ReQuoteDetailsTest.java
 src/test/java/com/fireblocks/sdk/model/ReadAbiFunctionTest.java
 src/test/java/com/fireblocks/sdk/model/ReadCallFunctionDtoAbiFunctionTest.java
 src/test/java/com/fireblocks/sdk/model/ReadCallFunctionDtoTest.java
+src/test/java/com/fireblocks/sdk/model/ReadOnlyDraftResponseTest.java
+src/test/java/com/fireblocks/sdk/model/ReadOnlyDraftReviewAndValidationResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ReasonForPaymentEnumTest.java
 src/test/java/com/fireblocks/sdk/model/RecipientHandleTest.java
 src/test/java/com/fireblocks/sdk/model/RedeemFundsToLinkedDDAResponseTest.java
@@ -3601,6 +3636,7 @@ src/test/java/com/fireblocks/sdk/model/RegisterApprovalApiKeyRequestTest.java
 src/test/java/com/fireblocks/sdk/model/RegisterApprovalApiKeyResponseTest.java
 src/test/java/com/fireblocks/sdk/model/RegisterLegalEntityRequestTest.java
 src/test/java/com/fireblocks/sdk/model/RegisterNewAssetRequestTest.java
+src/test/java/com/fireblocks/sdk/model/RegisterTempoOmnibusResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ReissueMultichainTokenRequestTest.java
 src/test/java/com/fireblocks/sdk/model/RelatedRequestTest.java
 src/test/java/com/fireblocks/sdk/model/RelatedTransactionTest.java
@@ -3637,6 +3673,8 @@ src/test/java/com/fireblocks/sdk/model/ResendWebhooksResponseTest.java
 src/test/java/com/fireblocks/sdk/model/RespondToConnectionRequestTest.java
 src/test/java/com/fireblocks/sdk/model/RetryRequoteRequestDetailsTest.java
 src/test/java/com/fireblocks/sdk/model/RetryRequoteTypeEnumTest.java
+src/test/java/com/fireblocks/sdk/model/RevokeWebhookOauthKeyRequestTest.java
+src/test/java/com/fireblocks/sdk/model/RevokeWebhookOauthKeyResponseTest.java
 src/test/java/com/fireblocks/sdk/model/RewardInfoTest.java
 src/test/java/com/fireblocks/sdk/model/RewardsInfoTest.java
 src/test/java/com/fireblocks/sdk/model/RiskLevelEnumTest.java
@@ -3644,6 +3682,7 @@ src/test/java/com/fireblocks/sdk/model/RoleDetails2Test.java
 src/test/java/com/fireblocks/sdk/model/RoleDetailsTest.java
 src/test/java/com/fireblocks/sdk/model/RoleFeeInfoTest.java
 src/test/java/com/fireblocks/sdk/model/RoleGranteeTest.java
+src/test/java/com/fireblocks/sdk/model/RotateWebhookOauthKeyResponseTest.java
 src/test/java/com/fireblocks/sdk/model/RuleActionEnumTest.java
 src/test/java/com/fireblocks/sdk/model/RuleConditionOperatorEnumTest.java
 src/test/java/com/fireblocks/sdk/model/RuleConditionTest.java
@@ -4036,6 +4075,7 @@ src/test/java/com/fireblocks/sdk/model/UpdateTagRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateTokenOwnershipStatusDtoTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateVaultAccountAssetAddressRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateVaultAccountRequestTest.java
+src/test/java/com/fireblocks/sdk/model/UpdateWebhookCustomHeadersRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateWebhookMtlsConfigRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateWebhookOauthRequestTest.java
 src/test/java/com/fireblocks/sdk/model/UpdateWebhookRequestTest.java
@@ -4087,12 +4127,14 @@ src/test/java/com/fireblocks/sdk/model/VerdictConfigTest.java
 src/test/java/com/fireblocks/sdk/model/VersionSummaryTest.java
 src/test/java/com/fireblocks/sdk/model/WalletAssetAdditionalInfoTest.java
 src/test/java/com/fireblocks/sdk/model/WalletAssetTest.java
+src/test/java/com/fireblocks/sdk/model/WebhookCustomHeadersSetTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookEventTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookMetricTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookMtlsConfigTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookMtlsCsrResponseTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookMtlsKeyAlgorithmTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookOauthCredentialsTest.java
+src/test/java/com/fireblocks/sdk/model/WebhookOauthSigningAlgTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookPaginatedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/WebhookTest.java
 src/test/java/com/fireblocks/sdk/model/WithdrawRequestTest.java

@@ -25,6 +25,7 @@ import com.fireblocks.sdk.model.TravelRuleGetAllVASPsResponse;
 import com.fireblocks.sdk.model.TravelRuleUpdateVASPDetails;
 import com.fireblocks.sdk.model.TravelRuleVASP;
 import com.fireblocks.sdk.model.TravelRuleValidateFullTransactionRequest;
+import com.fireblocks.sdk.model.TravelRuleValidateTransactionRequest;
 import com.fireblocks.sdk.model.TravelRuleValidateTransactionResponse;
 import com.fireblocks.sdk.model.TravelRuleVaspForVault;
 import com.fireblocks.sdk.model.TrustProofOfAddressCreateResponse;
@@ -963,6 +964,150 @@ public class TravelRuleApi {
             byte[] localVarPostBody =
                     memberVarObjectMapper.writeValueAsBytes(
                             travelRuleValidateFullTransactionRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Validate Travel Rule Transaction Validate Travel Rule transactions. Checks what beneficiary
+     * VASP details are required by your jurisdiction and the beneficiary&#39;s jurisdiction.
+     * **Deprecation Notice** This endpoint will be deprecated soon in favor of the [validate
+     * full](https://developers.fireblocks.com/reference/validatefulltravelruletransaction)
+     * endpoint. Please update your integrations to use the [validate
+     * full](https://developers.fireblocks.com/reference/validatefulltravelruletransaction) endpoint
+     * to ensure compatibility with future releases. Checks what beneficiary VASP details are
+     * required by your jurisdiction and the beneficiary&#39;s jurisdiction. Learn more about
+     * Fireblocks Travel Rule management in the following
+     * [guide](https://developers.fireblocks.com/docs/define-travel-rule-policies). Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     *
+     * @param travelRuleValidateTransactionRequest (required)
+     * @param notation Specifies the notation of the transaction. Possible values are: -
+     *     &#x60;notabene&#x60;: Uses Notabene notation (default behavior). -
+     *     &#x60;fireblocks&#x60;: Uses Fireblocks notation, with automatic translation of asset
+     *     tickers and amounts. - &#x60;&lt;none&gt;&#x60;: Defaults to &#x60;notabene&#x60; for
+     *     backward compatibility. **Note:** The default value for the &#x60;notation&#x60;
+     *     parameter will change from &#x60;notabene&#x60; to &#x60;fireblocks&#x60; Update your
+     *     integrations accordingly. (optional
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleValidateTransactionResponse&gt;&gt;,
+     *     which completes exceptionally with an {@link ApiException} if the API call fails
+     * @deprecated
+     */
+    @Deprecated
+    public CompletableFuture<ApiResponse<TravelRuleValidateTransactionResponse>>
+            validateTravelRuleTransaction(
+                    TravelRuleValidateTransactionRequest travelRuleValidateTransactionRequest,
+                    List<String> notation,
+                    String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    validateTravelRuleTransactionRequestBuilder(
+                            travelRuleValidateTransactionRequest, notation, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "validateTravelRuleTransaction",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "validateTravelRuleTransaction",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<TravelRuleValidateTransactionResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            TravelRuleValidateTransactionResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<
+                                                                    TravelRuleValidateTransactionResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder validateTravelRuleTransactionRequestBuilder(
+            TravelRuleValidateTransactionRequest travelRuleValidateTransactionRequest,
+            List<String> notation,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "validateTravelRuleTransaction",
+                "travelRuleValidateTransactionRequest",
+                travelRuleValidateTransactionRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/screening/travel_rule/transaction/validate";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "notation";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "notation", notation));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(travelRuleValidateTransactionRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {

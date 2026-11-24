@@ -5,9 +5,11 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**createWebhook**](WebhooksV2Api.md#createWebhook) | **POST** /webhooks | Create a new webhook |
+| [**createWebhookCustomHeaders**](WebhooksV2Api.md#createWebhookCustomHeaders) | **POST** /webhooks_settings/custom_headers | Create a custom headers set |
 | [**createWebhookMtlsConfig**](WebhooksV2Api.md#createWebhookMtlsConfig) | **POST** /webhooks_settings/mtls | Create an mTLS configuration |
 | [**createWebhookOauth**](WebhooksV2Api.md#createWebhookOauth) | **POST** /webhooks_settings/oauth | Create OAuth credentials |
 | [**deleteWebhook**](WebhooksV2Api.md#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook |
+| [**deleteWebhookCustomHeaders**](WebhooksV2Api.md#deleteWebhookCustomHeaders) | **DELETE** /webhooks_settings/custom_headers/{webhookCustomHeadersId} | Delete a custom headers set |
 | [**deleteWebhookMtlsConfig**](WebhooksV2Api.md#deleteWebhookMtlsConfig) | **DELETE** /webhooks_settings/mtls/{webhookMtlsId} | Delete an mTLS configuration |
 | [**deleteWebhookOauth**](WebhooksV2Api.md#deleteWebhookOauth) | **DELETE** /webhooks_settings/oauth/{webhookOauthId} | Delete OAuth credentials |
 | [**getMetrics**](WebhooksV2Api.md#getMetrics) | **GET** /webhooks/{webhookId}/metrics/{metricName} | Get webhook metrics |
@@ -18,6 +20,8 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getResendByQueryJobStatus**](WebhooksV2Api.md#getResendByQueryJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_by_query/jobs/{jobId} | Get resend by query job status |
 | [**getResendJobStatus**](WebhooksV2Api.md#getResendJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_failed/jobs/{jobId} | Get resend job status |
 | [**getWebhook**](WebhooksV2Api.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id |
+| [**getWebhookCustomHeaders**](WebhooksV2Api.md#getWebhookCustomHeaders) | **GET** /webhooks_settings/custom_headers/{webhookCustomHeadersId} | Get a custom headers set by id |
+| [**getWebhookCustomHeadersList**](WebhooksV2Api.md#getWebhookCustomHeadersList) | **GET** /webhooks_settings/custom_headers | Get all custom headers sets |
 | [**getWebhookMtlsConfig**](WebhooksV2Api.md#getWebhookMtlsConfig) | **GET** /webhooks_settings/mtls/{webhookMtlsId} | Get an mTLS configuration by id |
 | [**getWebhookMtlsConfigs**](WebhooksV2Api.md#getWebhookMtlsConfigs) | **GET** /webhooks_settings/mtls | List the uploaded mTLS configurations |
 | [**getWebhookOauth**](WebhooksV2Api.md#getWebhookOauth) | **GET** /webhooks_settings/oauth/{webhookOauthId} | Get OAuth credentials by id |
@@ -27,7 +31,10 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**resendNotificationById**](WebhooksV2Api.md#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id |
 | [**resendNotificationsByQuery**](WebhooksV2Api.md#resendNotificationsByQuery) | **POST** /webhooks/{webhookId}/notifications/resend_by_query | Resend notifications by query |
 | [**resendNotificationsByResourceId**](WebhooksV2Api.md#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id |
+| [**revokeWebhookOauthKey**](WebhooksV2Api.md#revokeWebhookOauthKey) | **POST** /webhooks_settings/oauth/{webhookOauthId}/revoke_key | Revoke a signing key of OAuth credentials |
+| [**rotateWebhookOauthKey**](WebhooksV2Api.md#rotateWebhookOauthKey) | **POST** /webhooks_settings/oauth/{webhookOauthId}/rotate_key | Rotate the signing key of OAuth credentials |
 | [**updateWebhook**](WebhooksV2Api.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook |
+| [**updateWebhookCustomHeaders**](WebhooksV2Api.md#updateWebhookCustomHeaders) | **PATCH** /webhooks_settings/custom_headers/{webhookCustomHeadersId} | Update a custom headers set |
 | [**updateWebhookMtlsConfig**](WebhooksV2Api.md#updateWebhookMtlsConfig) | **PATCH** /webhooks_settings/mtls/{webhookMtlsId} | Update an mTLS configuration |
 | [**updateWebhookOauth**](WebhooksV2Api.md#updateWebhookOauth) | **PATCH** /webhooks_settings/oauth/{webhookOauthId} | Update OAuth credentials |
 
@@ -109,6 +116,85 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | created new webhook successfully |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## createWebhookCustomHeaders
+
+> CompletableFuture<ApiResponse<WebhookCustomHeadersSet>> createWebhookCustomHeaders createWebhookCustomHeaders(createWebhookCustomHeadersRequest, idempotencyKey)
+
+Create a custom headers set
+
+Creates a reusable set of custom HTTP headers. Attach it to a webhook by passing the returned id as that webhook&#39;s &#x60;webhookCustomHeadersId&#x60;, to send the headers with that webhook&#39;s notifications, or to OAuth credentials as their &#x60;webhookCustomHeadersId&#x60;, to send them on the token request to your authorization server. Several webhooks and OAuth credentials may share one set, so changing it covers all of them at once. Header values are write-only and are never returned.  One set of rules applies to every use of a set, whether a webhook or OAuth credentials attach it: a value is a string or an array of strings (one header line per element), except &#x60;Cookie&#x60; and &#x60;Authorization&#x60;, which take a single string. Where Fireblocks sends its own &#x60;Authorization&#x60; header (an OAuth bearer token on a delivery, &#x60;client_secret_basic&#x60; on a token request), a custom &#x60;Authorization&#x60; header is not sent. Attaching a set checks only that it exists in your workspace.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WebhooksV2Api;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        CreateWebhookCustomHeadersRequest createWebhookCustomHeadersRequest = new CreateWebhookCustomHeadersRequest(); // CreateWebhookCustomHeadersRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<WebhookCustomHeadersSet>> response = fireblocks.webhooksV2().createWebhookCustomHeaders(createWebhookCustomHeadersRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WebhooksV2Api#createWebhookCustomHeaders");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **createWebhookCustomHeadersRequest** | [**CreateWebhookCustomHeadersRequest**](CreateWebhookCustomHeadersRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**WebhookCustomHeadersSet**](WebhookCustomHeadersSet.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | created the custom headers set successfully |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -197,7 +283,7 @@ No authorization required
 
 Create OAuth credentials
 
-Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook&#39;s &#x60;webhookOauthId&#x60;. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook&#39;s &#x60;webhookOauthId&#x60;. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  With &#x60;authMethod&#x60; &#x60;private_key_jwt&#x60; no client secret is sent: Fireblocks generates two key pairs for the credentials, the signing key and its successor, and keeps the private halves. The public halves are published at the &#x60;jwksUri&#x60; returned with the credentials; register that URL as the client&#39;s &#x60;jwks_uri&#x60; on your authorization server.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
 
 ### Example
 
@@ -344,6 +430,86 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Deleted webhook object |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## deleteWebhookCustomHeaders
+
+> CompletableFuture<ApiResponse<DeleteWebhookCustomHeadersResponse>> deleteWebhookCustomHeaders deleteWebhookCustomHeaders(webhookCustomHeadersId, forceDelete)
+
+Delete a custom headers set
+
+Deletes a custom headers set. By default the delete is refused while the set is still in use: if any webhook or OAuth credentials use it, nothing is deleted and the request fails with &#x60;409 Conflict&#x60;, naming the reason and listing the ids of the webhooks and OAuth credentials using it. This protects a shared set from being removed out from under the things that depend on it.  Pass &#x60;forceDelete&#x3D;true&#x60; to delete anyway. That detaches everything using the set — it clears each webhook&#39;s and each OAuth credential set&#39;s &#x60;webhookCustomHeadersId&#x60;, it does **not** delete the webhook or the credentials — then deletes the set and returns the deleted resource together with &#x60;detachedWebhookIds&#x60; and &#x60;detachedWebhookOauthIds&#x60;. A detached webhook stops sending these headers with its notifications, and detached OAuth credentials stop sending them on the token request.  When nothing uses the set the delete succeeds either way, and both lists come back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WebhooksV2Api;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID webhookCustomHeadersId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the custom headers set
+        Boolean forceDelete = false; // Boolean | Delete the set even while webhooks or OAuth credentials still use it, detaching them instead of refusing. Leave it unset, or `false`, to get a `409 Conflict` whenever anything still uses the set.
+        try {
+            CompletableFuture<ApiResponse<DeleteWebhookCustomHeadersResponse>> response = fireblocks.webhooksV2().deleteWebhookCustomHeaders(webhookCustomHeadersId, forceDelete);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WebhooksV2Api#deleteWebhookCustomHeaders");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **webhookCustomHeadersId** | **UUID**| The unique identifier of the custom headers set | |
+| **forceDelete** | **Boolean**| Delete the set even while webhooks or OAuth credentials still use it, detaching them instead of refusing. Leave it unset, or &#x60;false&#x60;, to get a &#x60;409 Conflict&#x60; whenever anything still uses the set. | [optional] [default to false] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**DeleteWebhookCustomHeadersResponse**](DeleteWebhookCustomHeadersResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The deleted custom headers set, plus the ids of any webhooks and OAuth credentials that were detached from it |  * X-Request-ID -  <br>  |
+| **409** | Webhooks or OAuth credentials still use this set and &#x60;forceDelete&#x60; was not set. Nothing was deleted. The error message names the reason and the ids of the webhooks and OAuth credentials using it — detach them, or retry with &#x60;forceDelete&#x3D;true&#x60;. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -1157,6 +1323,156 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getWebhookCustomHeaders
+
+> CompletableFuture<ApiResponse<WebhookCustomHeadersSet>> getWebhookCustomHeaders getWebhookCustomHeaders(webhookCustomHeadersId)
+
+Get a custom headers set by id
+
+Retrieve a custom headers set by its id. Header values are never returned, only the header names. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WebhooksV2Api;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID webhookCustomHeadersId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the custom headers set
+        try {
+            CompletableFuture<ApiResponse<WebhookCustomHeadersSet>> response = fireblocks.webhooksV2().getWebhookCustomHeaders(webhookCustomHeadersId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WebhooksV2Api#getWebhookCustomHeaders");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **webhookCustomHeadersId** | **UUID**| The unique identifier of the custom headers set | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**WebhookCustomHeadersSet**](WebhookCustomHeadersSet.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A custom headers set |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getWebhookCustomHeadersList
+
+> CompletableFuture<ApiResponse<List<WebhookCustomHeadersSet>>> getWebhookCustomHeadersList getWebhookCustomHeadersList()
+
+Get all custom headers sets
+
+Lists every custom headers set for the workspace. Header values are never returned, only the header names. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WebhooksV2Api;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        try {
+            CompletableFuture<ApiResponse<List<WebhookCustomHeadersSet>>> response = fireblocks.webhooksV2().getWebhookCustomHeadersList();
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WebhooksV2Api#getWebhookCustomHeadersList");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+CompletableFuture<ApiResponse<[**List&lt;WebhookCustomHeadersSet&gt;**](WebhookCustomHeadersSet.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The workspace&#39;s custom headers sets |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getWebhookMtlsConfig
 
 > CompletableFuture<ApiResponse<WebhookMtlsConfig>> getWebhookMtlsConfig getWebhookMtlsConfig(webhookMtlsId)
@@ -1866,6 +2182,170 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## revokeWebhookOauthKey
+
+> CompletableFuture<ApiResponse<RevokeWebhookOauthKeyResponse>> revokeWebhookOauthKey revokeWebhookOauthKey(webhookOauthId, revokeWebhookOauthKeyRequest, idempotencyKey)
+
+Revoke a signing key of OAuth credentials
+
+Deletes a key of OAuth credentials at once, for when a key may have leaked: it drops out of the published set immediately rather than being kept for 30 days. Revoking never causes an outage.  Without a &#x60;kid&#x60;, revokes the key Fireblocks is signing with: signing switches to the successor, which your authorization server already holds, and a new successor is generated. A cached access token is discarded, so the next delivery fetches a new one.  With the successor&#39;s &#x60;kid&#x60;, deletes the successor and generates a new one; signing is unchanged. With the &#x60;kid&#x60; of a key rotated out by &#x60;rotate_key&#x60; and still published, deletes that key, and a cached access token is discarded as well. Keys left behind by a &#x60;signingAlg&#x60; change drop out of the published set after 5 minutes but are kept for 30 days, and can be revoked by &#x60;kid&#x60; until then. Credentials using &#x60;private_key_jwt&#x60; always keep a key to sign with.  On credentials that no longer use &#x60;private_key_jwt&#x60;, whose keys stay published for 30 days after the switch, a &#x60;kid&#x60; is required: that key is deleted and nothing is generated. The last key they hold can be revoked too, leaving an empty set.  Returns the &#x60;kid&#x60; of the key revoked, which without a &#x60;kid&#x60; in the request is the key Fireblocks was signing with. The public keys are at the &#x60;jwksUri&#x60; of the credentials: fetch them again, or register the new successor with your authorization server. Use &#x60;rotate_key&#x60; for a routine rotation, which keeps the replaced key published for 30 days.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WebhooksV2Api;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID webhookOauthId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the OAuth credentials
+        RevokeWebhookOauthKeyRequest revokeWebhookOauthKeyRequest = new RevokeWebhookOauthKeyRequest(); // RevokeWebhookOauthKeyRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<RevokeWebhookOauthKeyResponse>> response = fireblocks.webhooksV2().revokeWebhookOauthKey(webhookOauthId, revokeWebhookOauthKeyRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WebhooksV2Api#revokeWebhookOauthKey");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **webhookOauthId** | **UUID**| The unique identifier of the OAuth credentials | |
+| **revokeWebhookOauthKeyRequest** | [**RevokeWebhookOauthKeyRequest**](RevokeWebhookOauthKeyRequest.md)|  | [optional] |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**RevokeWebhookOauthKeyResponse**](RevokeWebhookOauthKeyResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The key was revoked; the &#x60;kid&#x60; of the key revoked |  * X-Request-ID -  <br>  |
+| **400** | The request cannot be applied: &#x60;kid&#x60; is &#x60;null&#x60;, empty or longer than 64 characters, or no &#x60;kid&#x60; was sent for credentials that no longer use &#x60;private_key_jwt&#x60;. |  * X-Request-ID -  <br>  |
+| **404** | No such OAuth credentials in this workspace, or they hold no key with this &#x60;kid&#x60;. A key already deleted, by a revoke or at the end of its 30 days, is not found. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## rotateWebhookOauthKey
+
+> CompletableFuture<ApiResponse<RotateWebhookOauthKeyResponse>> rotateWebhookOauthKey rotateWebhookOauthKey(webhookOauthId, idempotencyKey)
+
+Rotate the signing key of OAuth credentials
+
+Switches the OAuth credentials to their successor key and generates a new successor, for credentials using &#x60;private_key_jwt&#x60;. Takes no body. The new signing key is one your authorization server already holds, since the successor is published from the start, so the switch causes no outage.  The key replaced is no longer used to sign, but stays in the published set for 30 days and is then deleted. Rotating again within those 30 days is allowed: each key rotated out keeps its own 30 days, and any of them can be revoked by &#x60;kid&#x60;. The credentials can hold at most 5 keys in their signing algorithm at once, counting the active key, its successor and those rotated out; at that limit, revoke a rotated-out key (the error names the oldest) and rotate again. To stop trusting a key at once — after a leak — use &#x60;revoke_key&#x60; instead.  Returns the &#x60;kid&#x60; of the key rotated out. The public keys are at the &#x60;jwksUri&#x60; of the credentials: fetch them again, or register the new successor with your authorization server, before the next rotation.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WebhooksV2Api;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID webhookOauthId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the OAuth credentials
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<RotateWebhookOauthKeyResponse>> response = fireblocks.webhooksV2().rotateWebhookOauthKey(webhookOauthId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WebhooksV2Api#rotateWebhookOauthKey");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **webhookOauthId** | **UUID**| The unique identifier of the OAuth credentials | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**RotateWebhookOauthKeyResponse**](RotateWebhookOauthKeyResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The key was rotated; the &#x60;kid&#x60; of the key rotated out |  * X-Request-ID -  <br>  |
+| **400** | The credentials do not use &#x60;private_key_jwt&#x60;, so they have no signing key to rotate, or they already hold 5 keys in their signing algorithm and a rotated-out key must be revoked first. |  * X-Request-ID -  <br>  |
+| **404** | No such OAuth credentials in this workspace. |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## updateWebhook
 
 > CompletableFuture<ApiResponse<Webhook>> updateWebhook updateWebhook(updateWebhookRequest, webhookId)
@@ -1942,6 +2422,86 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Updated webhook object |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## updateWebhookCustomHeaders
+
+> CompletableFuture<ApiResponse<WebhookCustomHeadersSet>> updateWebhookCustomHeaders updateWebhookCustomHeaders(updateWebhookCustomHeadersRequest, webhookCustomHeadersId)
+
+Update a custom headers set
+
+Updates only the fields present in the request; anything omitted is left as it is. &#x60;headers&#x60; is merged name by name rather than replaced: a header sent with a value is added or overwritten, a header sent as &#x60;null&#x60; is deleted, and a header you omit is left alone. The change applies to every webhook and OAuth credential set that uses the set.  A change that would leave the set with no headers is refused with a &#x60;400&#x60; — delete the set instead. Where Fireblocks sends its own &#x60;Authorization&#x60; header, a custom &#x60;Authorization&#x60; header is not sent: on a webhook that has OAuth credentials attached (the OAuth bearer token), and on the token request of OAuth credentials that use &#x60;client_secret_basic&#x60;.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WebhooksV2Api;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UpdateWebhookCustomHeadersRequest updateWebhookCustomHeadersRequest = new UpdateWebhookCustomHeadersRequest(); // UpdateWebhookCustomHeadersRequest | 
+        UUID webhookCustomHeadersId = UUID.fromString("44fcead0-7053-4831-a53a-df7fb90d440f"); // UUID | The unique identifier of the custom headers set
+        try {
+            CompletableFuture<ApiResponse<WebhookCustomHeadersSet>> response = fireblocks.webhooksV2().updateWebhookCustomHeaders(updateWebhookCustomHeadersRequest, webhookCustomHeadersId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WebhooksV2Api#updateWebhookCustomHeaders");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **updateWebhookCustomHeadersRequest** | [**UpdateWebhookCustomHeadersRequest**](UpdateWebhookCustomHeadersRequest.md)|  | |
+| **webhookCustomHeadersId** | **UUID**| The unique identifier of the custom headers set | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**WebhookCustomHeadersSet**](WebhookCustomHeadersSet.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Updated custom headers set |  * X-Request-ID -  <br>  |
+| **400** | Neither &#x60;name&#x60; nor &#x60;headers&#x60; was provided, so there is nothing to change, or the change was refused: it would leave the set with no headers, or a header breaks the rules for header names and values. Nothing was changed. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
@@ -2031,7 +2591,7 @@ No authorization required
 
 Update OAuth credentials
 
-Updates only the fields present in the request; anything omitted is left as it is. Sending &#x60;clientSecret&#x60; on its own rotates the secret for every webhook using these credentials.  &#x60;customJwtClaims&#x60;, &#x60;customBodyParams&#x60; and &#x60;customHeaders&#x60; are all merged key by key rather than replaced, the same way a webhook&#39;s own &#x60;customHeaders&#x60; behaves: a key sent with a value is added or overwritten, a key sent with a &#x60;null&#x60; value is deleted, and a key you omit is left alone. Setting one of the three to &#x60;null&#x60; as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of &#x60;null&#x60; — one names an entry to delete, the other names the field. A claim cannot be set to JSON &#x60;null&#x60;, though, on this endpoint or on create, because &#x60;null&#x60; is spent on deletion. &#x60;webhookMtlsId&#x60; is a scalar rather than a map, so &#x60;null&#x60; there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+Updates only the fields present in the request; anything omitted is left as it is. Sending &#x60;clientSecret&#x60; on its own rotates the secret for every webhook using these credentials.  &#x60;customJwtClaims&#x60; and &#x60;customBodyParams&#x60; are merged key by key rather than replaced: a key sent with a value is added or overwritten, a key sent with a &#x60;null&#x60; value is deleted, and a key you omit is left alone. Setting one of the two to &#x60;null&#x60; as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of &#x60;null&#x60; — one names an entry to delete, the other names the field. A claim cannot be set to JSON &#x60;null&#x60;, though, on this endpoint or on create, because &#x60;null&#x60; is spent on deletion. &#x60;webhookMtlsId&#x60; and &#x60;webhookCustomHeadersId&#x60; are scalars rather than maps, so &#x60;null&#x60; there does remove them. &#x60;webhookCustomHeadersId&#x60; points the credentials at a set of extra token request headers from &#x60;/v1/webhooks_settings/custom_headers&#x60;; under &#x60;client_secret_basic&#x60; Fireblocks sends its own &#x60;Authorization&#x60; header with the credentials, so a custom &#x60;Authorization&#x60; header in the set is not sent.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
 
 ### Example
 

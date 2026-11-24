@@ -10,7 +10,7 @@ One destination in a multi-destination transfer. `destination.type` is narrowed 
 |------------ | ------------- | ------------- | -------------|
 |**amount** | **String** | The amount to transfer to this destination, as a numeric string. |  [optional] |
 |**destination** | [**TempoTransferDestination**](TempoTransferDestination.md) |  |  [optional] |
-|**travelRuleMessageId** | **String** | Beta. An identifier of a TravelRule message, already sent to the TravelRule provider. |  [optional] |
+|**travelRuleMessageId** | **String** | Early availability. An identifier of a TravelRule message, already sent to the TravelRule provider. |  [optional] |
 |**customerRefId** | **String** | The ID for AML providers to associate the owner of funds with transactions. |  [optional] |
 
 

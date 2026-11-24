@@ -42,4 +42,16 @@ class SolanaRewardsBreakdownTest {
     void lastRewardSyncedAtTest() {
         // TODO: test lastRewardSyncedAt
     }
+
+    /** Test the property 'latestInflationRewardDate' */
+    @Test
+    void latestInflationRewardDateTest() {
+        // TODO: test latestInflationRewardDate
+    }
+
+    /** Test the property 'latestMevRewardDate' */
+    @Test
+    void latestMevRewardDateTest() {
+        // TODO: test latestMevRewardDate
+    }
 }

@@ -285,8 +285,8 @@ public class TransactionRequest {
      * For Tempo-based transactions only, the asset used to pay the transaction&#39;s network fee,
      * as an asset ID ([see supported
      * assets](https://developers.fireblocks.com/api-reference/blockchains-&amp;-assets/list-assets)).
-     * For any other blockchain, this value is ignored. This feature is currently in beta and might
-     * be subject to changes.
+     * For any other blockchain, this value is ignored. This feature is currently in early
+     * availability and might be subject to changes.
      *
      * @return feeCurrency
      */

@@ -36,7 +36,7 @@ import java.util.UUID;
     Webhook.JSON_PROPERTY_UPDATED_AT,
     Webhook.JSON_PROPERTY_WEBHOOK_MTLS_ID,
     Webhook.JSON_PROPERTY_WEBHOOK_OAUTH_ID,
-    Webhook.JSON_PROPERTY_CUSTOM_HEADERS
+    Webhook.JSON_PROPERTY_WEBHOOK_CUSTOM_HEADERS_ID
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -104,8 +104,8 @@ public class Webhook {
     public static final String JSON_PROPERTY_WEBHOOK_OAUTH_ID = "webhookOauthId";
     @jakarta.annotation.Nullable private UUID webhookOauthId;
 
-    public static final String JSON_PROPERTY_CUSTOM_HEADERS = "customHeaders";
-    @jakarta.annotation.Nullable private List<String> customHeaders;
+    public static final String JSON_PROPERTY_WEBHOOK_CUSTOM_HEADERS_ID = "webhookCustomHeadersId";
+    @jakarta.annotation.Nullable private UUID webhookCustomHeadersId;
 
     public Webhook() {}
 
@@ -343,35 +343,31 @@ public class Webhook {
         this.webhookOauthId = webhookOauthId;
     }
 
-    public Webhook customHeaders(@jakarta.annotation.Nullable List<String> customHeaders) {
-        this.customHeaders = customHeaders;
-        return this;
-    }
-
-    public Webhook addCustomHeadersItem(String customHeadersItem) {
-        if (this.customHeaders == null) {
-            this.customHeaders = new ArrayList<>();
-        }
-        this.customHeaders.add(customHeadersItem);
+    public Webhook webhookCustomHeadersId(
+            @jakarta.annotation.Nullable UUID webhookCustomHeadersId) {
+        this.webhookCustomHeadersId = webhookCustomHeadersId;
         return this;
     }
 
     /**
-     * Names of the custom headers configured for this webhook. Header values are never returned.
+     * The id of the set of custom headers sent with this webhook&#39;s notifications. Absent when
+     * the webhook sends none. Read the set itself from
+     * &#x60;/v1/webhooks_settings/custom_headers/{webhookCustomHeadersId}&#x60;.
      *
-     * @return customHeaders
+     * @return webhookCustomHeadersId
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_CUSTOM_HEADERS_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<String> getCustomHeaders() {
-        return customHeaders;
+    public UUID getWebhookCustomHeadersId() {
+        return webhookCustomHeadersId;
     }
 
-    @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_CUSTOM_HEADERS_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomHeaders(@jakarta.annotation.Nullable List<String> customHeaders) {
-        this.customHeaders = customHeaders;
+    public void setWebhookCustomHeadersId(
+            @jakarta.annotation.Nullable UUID webhookCustomHeadersId) {
+        this.webhookCustomHeadersId = webhookCustomHeadersId;
     }
 
     /** Return true if this Webhook object is equal to o. */
@@ -393,7 +389,7 @@ public class Webhook {
                 && Objects.equals(this.updatedAt, webhook.updatedAt)
                 && Objects.equals(this.webhookMtlsId, webhook.webhookMtlsId)
                 && Objects.equals(this.webhookOauthId, webhook.webhookOauthId)
-                && Objects.equals(this.customHeaders, webhook.customHeaders);
+                && Objects.equals(this.webhookCustomHeadersId, webhook.webhookCustomHeadersId);
     }
 
     @Override
@@ -408,7 +404,7 @@ public class Webhook {
                 updatedAt,
                 webhookMtlsId,
                 webhookOauthId,
-                customHeaders);
+                webhookCustomHeadersId);
     }
 
     @Override
@@ -424,7 +420,9 @@ public class Webhook {
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
         sb.append("    webhookMtlsId: ").append(toIndentedString(webhookMtlsId)).append("\n");
         sb.append("    webhookOauthId: ").append(toIndentedString(webhookOauthId)).append("\n");
-        sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
+        sb.append("    webhookCustomHeadersId: ")
+                .append(toIndentedString(webhookCustomHeadersId))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -569,21 +567,15 @@ public class Webhook {
                             ApiClient.urlEncode(ApiClient.valueToString(getWebhookOauthId()))));
         }
 
-        // add `customHeaders` to the URL query string
-        if (getCustomHeaders() != null) {
-            for (int i = 0; i < getCustomHeaders().size(); i++) {
-                joiner.add(
-                        String.format(
-                                "%scustomHeaders%s%s=%s",
-                                prefix,
-                                suffix,
-                                "".equals(suffix)
-                                        ? ""
-                                        : String.format(
-                                                "%s%d%s", containerPrefix, i, containerSuffix),
-                                ApiClient.urlEncode(
-                                        ApiClient.valueToString(getCustomHeaders().get(i)))));
-            }
+        // add `webhookCustomHeadersId` to the URL query string
+        if (getWebhookCustomHeadersId() != null) {
+            joiner.add(
+                    String.format(
+                            "%swebhookCustomHeadersId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getWebhookCustomHeadersId()))));
         }
 
         return joiner.toString();

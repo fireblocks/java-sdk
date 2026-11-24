@@ -102,7 +102,8 @@ public class TempoTransferDestinationItem {
     }
 
     /**
-     * Beta. An identifier of a TravelRule message, already sent to the TravelRule provider.
+     * Early availability. An identifier of a TravelRule message, already sent to the TravelRule
+     * provider.
      *
      * @return travelRuleMessageId
      */

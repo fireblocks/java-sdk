@@ -22,6 +22,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getEmbeddedWalletSetupStatus**](EmbeddedWalletsApi.md#getEmbeddedWalletSetupStatus) | **GET** /ncw/wallets/{walletId}/setup_status | Get wallet key setup state |
 | [**getEmbeddedWalletSupportedAssets**](EmbeddedWalletsApi.md#getEmbeddedWalletSupportedAssets) | **GET** /ncw/wallets/supported_assets | Retrieve supported assets |
 | [**getEmbeddedWallets**](EmbeddedWalletsApi.md#getEmbeddedWallets) | **GET** /ncw/wallets | List wallets |
+| [**getPublicKeyInfoForAddressNcw**](EmbeddedWalletsApi.md#getPublicKeyInfoForAddressNcw) | **GET** /ncw/{walletId}/accounts/{accountId}/{assetId}/{change}/{addressIndex}/public_key_info | Get the public key of an asset |
 | [**getPublicKeyInfoNcw**](EmbeddedWalletsApi.md#getPublicKeyInfoNcw) | **GET** /ncw/wallets/{walletId}/public_key_info | Get the public key for a derivation path |
 | [**refreshEmbeddedWalletAssetBalance**](EmbeddedWalletsApi.md#refreshEmbeddedWalletAssetBalance) | **PUT** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/balance | Refresh asset balance |
 | [**updateEmbeddedWalletDeviceStatus**](EmbeddedWalletsApi.md#updateEmbeddedWalletDeviceStatus) | **PATCH** /ncw/wallets/{walletId}/devices/{deviceId}/status | Update device status |
@@ -1493,6 +1494,95 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful response |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getPublicKeyInfoForAddressNcw
+
+> CompletableFuture<ApiResponse<PublicKeyInformation>> getPublicKeyInfoForAddressNcw getPublicKeyInfoForAddressNcw(xEndUserWalletId, walletId, accountId, assetId, change, addressIndex, compressed)
+
+Get the public key of an asset
+
+Gets the public key of an asset associated with a specific account within a Non-Custodial Wallet
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.EmbeddedWalletsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID xEndUserWalletId = UUID.randomUUID(); // UUID | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+        String walletId = "550e8400-e29b-41d4-a716-446655440000"; // String | The ID of the Non-Custodial wallet
+        String accountId = "0"; // String | The ID of the account
+        String assetId = "BTC"; // String | The ID of the asset
+        BigDecimal change = new BigDecimal("0"); // BigDecimal | BIP44 derivation path - change value
+        BigDecimal addressIndex = new BigDecimal("0"); // BigDecimal | BIP44 derivation path - index value
+        Boolean compressed = true; // Boolean | Compressed/Uncompressed public key format
+        try {
+            CompletableFuture<ApiResponse<PublicKeyInformation>> response = fireblocks.embeddedWallets().getPublicKeyInfoForAddressNcw(xEndUserWalletId, walletId, accountId, assetId, change, addressIndex, compressed);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling EmbeddedWalletsApi#getPublicKeyInfoForAddressNcw");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **xEndUserWalletId** | **UUID**| Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | |
+| **walletId** | **String**| The ID of the Non-Custodial wallet | |
+| **accountId** | **String**| The ID of the account | |
+| **assetId** | **String**| The ID of the asset | |
+| **change** | **BigDecimal**| BIP44 derivation path - change value | |
+| **addressIndex** | **BigDecimal**| BIP44 derivation path - index value | |
+| **compressed** | **Boolean**| Compressed/Uncompressed public key format | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**PublicKeyInformation**](PublicKeyInformation.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Public Key Information |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

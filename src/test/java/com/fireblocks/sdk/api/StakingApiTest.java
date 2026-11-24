@@ -62,7 +62,7 @@ public class StakingApiTest {
      * Claim accrued rewards
      *
      * <p>Claims available staking rewards for the specified chain and vault. Supported chains:
-     * Solana and Polygon (POL/Matic). Behavior depends on protocol reward distribution.
+     * Solana, Polygon (POL/Matic) and Celestia. Behavior depends on protocol reward distribution.
      */
     @Test
     public void claimRewardsTest() {
@@ -82,8 +82,7 @@ public class StakingApiTest {
      * the same vault account (i.e. same withdrawal credentials). On chain, this translates into a
      * consolidation transaction, where the source validator is consolidated into the destination
      * validator. Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin,
-     * Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and
-     * might be subject to changes.
+     * Non-Signing Admin, Signer, Approver, Editor.
      */
     @Test
     public void consolidateTest() {

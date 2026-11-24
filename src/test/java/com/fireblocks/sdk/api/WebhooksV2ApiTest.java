@@ -14,9 +14,11 @@ package com.fireblocks.sdk.api;
 
 
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.CreateWebhookCustomHeadersRequest;
 import com.fireblocks.sdk.model.CreateWebhookMtlsConfigRequest;
 import com.fireblocks.sdk.model.CreateWebhookOauthRequest;
 import com.fireblocks.sdk.model.CreateWebhookRequest;
+import com.fireblocks.sdk.model.DeleteWebhookCustomHeadersResponse;
 import com.fireblocks.sdk.model.DeleteWebhookMtlsConfigResponse;
 import com.fireblocks.sdk.model.DeleteWebhookOauthResponse;
 import com.fireblocks.sdk.model.NotificationAttemptsPaginatedResponse;
@@ -29,10 +31,15 @@ import com.fireblocks.sdk.model.ResendFailedNotificationsJobStatusResponse;
 import com.fireblocks.sdk.model.ResendFailedNotificationsRequest;
 import com.fireblocks.sdk.model.ResendFailedNotificationsResponse;
 import com.fireblocks.sdk.model.ResendNotificationsByResourceIdRequest;
+import com.fireblocks.sdk.model.RevokeWebhookOauthKeyRequest;
+import com.fireblocks.sdk.model.RevokeWebhookOauthKeyResponse;
+import com.fireblocks.sdk.model.RotateWebhookOauthKeyResponse;
+import com.fireblocks.sdk.model.UpdateWebhookCustomHeadersRequest;
 import com.fireblocks.sdk.model.UpdateWebhookMtlsConfigRequest;
 import com.fireblocks.sdk.model.UpdateWebhookOauthRequest;
 import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
+import com.fireblocks.sdk.model.WebhookCustomHeadersSet;
 import com.fireblocks.sdk.model.WebhookEvent;
 import com.fireblocks.sdk.model.WebhookMetric;
 import com.fireblocks.sdk.model.WebhookMtlsConfig;
@@ -67,6 +74,31 @@ public class WebhooksV2ApiTest {
     }
 
     /**
+     * Create a custom headers set
+     *
+     * <p>Creates a reusable set of custom HTTP headers. Attach it to a webhook by passing the
+     * returned id as that webhook&#39;s &#x60;webhookCustomHeadersId&#x60;, to send the headers
+     * with that webhook&#39;s notifications, or to OAuth credentials as their
+     * &#x60;webhookCustomHeadersId&#x60;, to send them on the token request to your authorization
+     * server. Several webhooks and OAuth credentials may share one set, so changing it covers all
+     * of them at once. Header values are write-only and are never returned. One set of rules
+     * applies to every use of a set, whether a webhook or OAuth credentials attach it: a value is a
+     * string or an array of strings (one header line per element), except &#x60;Cookie&#x60; and
+     * &#x60;Authorization&#x60;, which take a single string. Where Fireblocks sends its own
+     * &#x60;Authorization&#x60; header (an OAuth bearer token on a delivery,
+     * &#x60;client_secret_basic&#x60; on a token request), a custom &#x60;Authorization&#x60;
+     * header is not sent. Attaching a set checks only that it exists in your workspace. **Endpoint
+     * Permissions:** Owner, Admin, Non-Signing Admin.
+     */
+    @Test
+    public void createWebhookCustomHeadersTest() {
+        CreateWebhookCustomHeadersRequest createWebhookCustomHeadersRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<WebhookCustomHeadersSet>> response =
+                api.createWebhookCustomHeaders(createWebhookCustomHeadersRequest, idempotencyKey);
+    }
+
+    /**
      * Create an mTLS configuration
      *
      * <p>Stores a certificate signed against the CSR from &#x60;GET
@@ -92,8 +124,12 @@ public class WebhooksV2ApiTest {
      * <p>Creates a reusable OAuth client credential set. Attach it to a webhook by passing the
      * returned id as that webhook&#39;s &#x60;webhookOauthId&#x60;. Several webhooks may share one
      * credential set, so rotating its client secret covers all of them at once. The client secret
-     * is write-only and is never returned. **Endpoint Permissions:** Owner, Admin, Non-Signing
-     * Admin.
+     * is write-only and is never returned. With &#x60;authMethod&#x60; &#x60;private_key_jwt&#x60;
+     * no client secret is sent: Fireblocks generates two key pairs for the credentials, the signing
+     * key and its successor, and keeps the private halves. The public halves are published at the
+     * &#x60;jwksUri&#x60; returned with the credentials; register that URL as the client&#39;s
+     * &#x60;jwks_uri&#x60; on your authorization server. **Endpoint Permissions:** Owner, Admin,
+     * Non-Signing Admin.
      */
     @Test
     public void createWebhookOauthTest() {
@@ -112,6 +148,30 @@ public class WebhooksV2ApiTest {
     public void deleteWebhookTest() {
         UUID webhookId = null;
         CompletableFuture<ApiResponse<Webhook>> response = api.deleteWebhook(webhookId);
+    }
+
+    /**
+     * Delete a custom headers set
+     *
+     * <p>Deletes a custom headers set. By default the delete is refused while the set is still in
+     * use: if any webhook or OAuth credentials use it, nothing is deleted and the request fails
+     * with &#x60;409 Conflict&#x60;, naming the reason and listing the ids of the webhooks and
+     * OAuth credentials using it. This protects a shared set from being removed out from under the
+     * things that depend on it. Pass &#x60;forceDelete&#x3D;true&#x60; to delete anyway. That
+     * detaches everything using the set — it clears each webhook&#39;s and each OAuth credential
+     * set&#39;s &#x60;webhookCustomHeadersId&#x60;, it does **not** delete the webhook or the
+     * credentials — then deletes the set and returns the deleted resource together with
+     * &#x60;detachedWebhookIds&#x60; and &#x60;detachedWebhookOauthIds&#x60;. A detached webhook
+     * stops sending these headers with its notifications, and detached OAuth credentials stop
+     * sending them on the token request. When nothing uses the set the delete succeeds either way,
+     * and both lists come back empty. **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+     */
+    @Test
+    public void deleteWebhookCustomHeadersTest() {
+        UUID webhookCustomHeadersId = null;
+        Boolean forceDelete = null;
+        CompletableFuture<ApiResponse<DeleteWebhookCustomHeadersResponse>> response =
+                api.deleteWebhookCustomHeaders(webhookCustomHeadersId, forceDelete);
     }
 
     /**
@@ -293,6 +353,31 @@ public class WebhooksV2ApiTest {
     }
 
     /**
+     * Get a custom headers set by id
+     *
+     * <p>Retrieve a custom headers set by its id. Header values are never returned, only the header
+     * names.
+     */
+    @Test
+    public void getWebhookCustomHeadersTest() {
+        UUID webhookCustomHeadersId = null;
+        CompletableFuture<ApiResponse<WebhookCustomHeadersSet>> response =
+                api.getWebhookCustomHeaders(webhookCustomHeadersId);
+    }
+
+    /**
+     * Get all custom headers sets
+     *
+     * <p>Lists every custom headers set for the workspace. Header values are never returned, only
+     * the header names.
+     */
+    @Test
+    public void getWebhookCustomHeadersListTest() {
+        CompletableFuture<ApiResponse<List<WebhookCustomHeadersSet>>> response =
+                api.getWebhookCustomHeadersList();
+    }
+
+    /**
      * Get an mTLS configuration by id
      *
      * <p>Retrieve one stored mTLS configuration by its id.
@@ -420,6 +505,64 @@ public class WebhooksV2ApiTest {
     }
 
     /**
+     * Revoke a signing key of OAuth credentials
+     *
+     * <p>Deletes a key of OAuth credentials at once, for when a key may have leaked: it drops out
+     * of the published set immediately rather than being kept for 30 days. Revoking never causes an
+     * outage. Without a &#x60;kid&#x60;, revokes the key Fireblocks is signing with: signing
+     * switches to the successor, which your authorization server already holds, and a new successor
+     * is generated. A cached access token is discarded, so the next delivery fetches a new one.
+     * With the successor&#39;s &#x60;kid&#x60;, deletes the successor and generates a new one;
+     * signing is unchanged. With the &#x60;kid&#x60; of a key rotated out by &#x60;rotate_key&#x60;
+     * and still published, deletes that key, and a cached access token is discarded as well. Keys
+     * left behind by a &#x60;signingAlg&#x60; change drop out of the published set after 5 minutes
+     * but are kept for 30 days, and can be revoked by &#x60;kid&#x60; until then. Credentials using
+     * &#x60;private_key_jwt&#x60; always keep a key to sign with. On credentials that no longer use
+     * &#x60;private_key_jwt&#x60;, whose keys stay published for 30 days after the switch, a
+     * &#x60;kid&#x60; is required: that key is deleted and nothing is generated. The last key they
+     * hold can be revoked too, leaving an empty set. Returns the &#x60;kid&#x60; of the key
+     * revoked, which without a &#x60;kid&#x60; in the request is the key Fireblocks was signing
+     * with. The public keys are at the &#x60;jwksUri&#x60; of the credentials: fetch them again, or
+     * register the new successor with your authorization server. Use &#x60;rotate_key&#x60; for a
+     * routine rotation, which keeps the replaced key published for 30 days. **Endpoint
+     * Permissions:** Owner, Admin, Non-Signing Admin.
+     */
+    @Test
+    public void revokeWebhookOauthKeyTest() {
+        UUID webhookOauthId = null;
+        RevokeWebhookOauthKeyRequest revokeWebhookOauthKeyRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<RevokeWebhookOauthKeyResponse>> response =
+                api.revokeWebhookOauthKey(
+                        webhookOauthId, revokeWebhookOauthKeyRequest, idempotencyKey);
+    }
+
+    /**
+     * Rotate the signing key of OAuth credentials
+     *
+     * <p>Switches the OAuth credentials to their successor key and generates a new successor, for
+     * credentials using &#x60;private_key_jwt&#x60;. Takes no body. The new signing key is one your
+     * authorization server already holds, since the successor is published from the start, so the
+     * switch causes no outage. The key replaced is no longer used to sign, but stays in the
+     * published set for 30 days and is then deleted. Rotating again within those 30 days is
+     * allowed: each key rotated out keeps its own 30 days, and any of them can be revoked by
+     * &#x60;kid&#x60;. The credentials can hold at most 5 keys in their signing algorithm at once,
+     * counting the active key, its successor and those rotated out; at that limit, revoke a
+     * rotated-out key (the error names the oldest) and rotate again. To stop trusting a key at once
+     * — after a leak — use &#x60;revoke_key&#x60; instead. Returns the &#x60;kid&#x60; of the key
+     * rotated out. The public keys are at the &#x60;jwksUri&#x60; of the credentials: fetch them
+     * again, or register the new successor with your authorization server, before the next
+     * rotation. **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+     */
+    @Test
+    public void rotateWebhookOauthKeyTest() {
+        UUID webhookOauthId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<RotateWebhookOauthKeyResponse>> response =
+                api.rotateWebhookOauthKey(webhookOauthId, idempotencyKey);
+    }
+
+    /**
      * Update webhook
      *
      * <p>Update a webhook by its id Endpoint Permission: Owner, Admin, Non-Signing Admin.
@@ -430,6 +573,28 @@ public class WebhooksV2ApiTest {
         UUID webhookId = null;
         CompletableFuture<ApiResponse<Webhook>> response =
                 api.updateWebhook(updateWebhookRequest, webhookId);
+    }
+
+    /**
+     * Update a custom headers set
+     *
+     * <p>Updates only the fields present in the request; anything omitted is left as it is.
+     * &#x60;headers&#x60; is merged name by name rather than replaced: a header sent with a value
+     * is added or overwritten, a header sent as &#x60;null&#x60; is deleted, and a header you omit
+     * is left alone. The change applies to every webhook and OAuth credential set that uses the
+     * set. A change that would leave the set with no headers is refused with a &#x60;400&#x60; —
+     * delete the set instead. Where Fireblocks sends its own &#x60;Authorization&#x60; header, a
+     * custom &#x60;Authorization&#x60; header is not sent: on a webhook that has OAuth credentials
+     * attached (the OAuth bearer token), and on the token request of OAuth credentials that use
+     * &#x60;client_secret_basic&#x60;. **Endpoint Permissions:** Owner, Admin, Non-Signing Admin.
+     */
+    @Test
+    public void updateWebhookCustomHeadersTest() {
+        UpdateWebhookCustomHeadersRequest updateWebhookCustomHeadersRequest = null;
+        UUID webhookCustomHeadersId = null;
+        CompletableFuture<ApiResponse<WebhookCustomHeadersSet>> response =
+                api.updateWebhookCustomHeaders(
+                        updateWebhookCustomHeadersRequest, webhookCustomHeadersId);
     }
 
     /**
@@ -457,17 +622,20 @@ public class WebhooksV2ApiTest {
      *
      * <p>Updates only the fields present in the request; anything omitted is left as it is. Sending
      * &#x60;clientSecret&#x60; on its own rotates the secret for every webhook using these
-     * credentials. &#x60;customJwtClaims&#x60;, &#x60;customBodyParams&#x60; and
-     * &#x60;customHeaders&#x60; are all merged key by key rather than replaced, the same way a
-     * webhook&#39;s own &#x60;customHeaders&#x60; behaves: a key sent with a value is added or
-     * overwritten, a key sent with a &#x60;null&#x60; value is deleted, and a key you omit is left
-     * alone. Setting one of the three to &#x60;null&#x60; as a whole clears that map, which is the
-     * quick way to empty it without naming every key. There is no ambiguity between the two uses of
-     * &#x60;null&#x60; — one names an entry to delete, the other names the field. A claim cannot be
-     * set to JSON &#x60;null&#x60;, though, on this endpoint or on create, because &#x60;null&#x60;
-     * is spent on deletion. &#x60;webhookMtlsId&#x60; is a scalar rather than a map, so
-     * &#x60;null&#x60; there does remove it. **Endpoint Permissions:** Owner, Admin, Non-Signing
-     * Admin.
+     * credentials. &#x60;customJwtClaims&#x60; and &#x60;customBodyParams&#x60; are merged key by
+     * key rather than replaced: a key sent with a value is added or overwritten, a key sent with a
+     * &#x60;null&#x60; value is deleted, and a key you omit is left alone. Setting one of the two
+     * to &#x60;null&#x60; as a whole clears that map, which is the quick way to empty it without
+     * naming every key. There is no ambiguity between the two uses of &#x60;null&#x60; — one names
+     * an entry to delete, the other names the field. A claim cannot be set to JSON
+     * &#x60;null&#x60;, though, on this endpoint or on create, because &#x60;null&#x60; is spent on
+     * deletion. &#x60;webhookMtlsId&#x60; and &#x60;webhookCustomHeadersId&#x60; are scalars rather
+     * than maps, so &#x60;null&#x60; there does remove them. &#x60;webhookCustomHeadersId&#x60;
+     * points the credentials at a set of extra token request headers from
+     * &#x60;/v1/webhooks_settings/custom_headers&#x60;; under &#x60;client_secret_basic&#x60;
+     * Fireblocks sends its own &#x60;Authorization&#x60; header with the credentials, so a custom
+     * &#x60;Authorization&#x60; header in the set is not sent. **Endpoint Permissions:** Owner,
+     * Admin, Non-Signing Admin.
      */
     @Test
     public void updateWebhookOauthTest() {

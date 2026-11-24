@@ -61,9 +61,9 @@ class UpdateWebhookRequestTest {
         // TODO: test webhookOauthId
     }
 
-    /** Test the property 'customHeaders' */
+    /** Test the property 'webhookCustomHeadersId' */
     @Test
-    void customHeadersTest() {
-        // TODO: test customHeaders
+    void webhookCustomHeadersIdTest() {
+        // TODO: test webhookCustomHeadersId
     }
 }

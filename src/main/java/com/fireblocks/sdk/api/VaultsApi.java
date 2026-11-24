@@ -31,15 +31,19 @@ import com.fireblocks.sdk.model.CreateMultipleAccountsRequest;
 import com.fireblocks.sdk.model.CreateMultipleDepositAddressesJobStatus;
 import com.fireblocks.sdk.model.CreateMultipleDepositAddressesRequest;
 import com.fireblocks.sdk.model.CreateMultipleVaultAccountsJobStatus;
+import com.fireblocks.sdk.model.CreateOmnibusAddressesRequest;
+import com.fireblocks.sdk.model.CreateOmnibusAddressesResponse;
 import com.fireblocks.sdk.model.CreateVaultAccountRequest;
 import com.fireblocks.sdk.model.CreateVaultAssetResponse;
 import com.fireblocks.sdk.model.GetAutomationSettingsResponse;
 import com.fireblocks.sdk.model.GetMaxBipIndexUsedResponse;
 import com.fireblocks.sdk.model.GetMaxSpendableAmountResponse;
 import com.fireblocks.sdk.model.JobCreated;
+import com.fireblocks.sdk.model.ListOmnibusAddressesResponse;
 import com.fireblocks.sdk.model.PaginatedAddressResponse;
 import com.fireblocks.sdk.model.PaginatedAssetWalletResponse;
 import com.fireblocks.sdk.model.PublicKeyInformation;
+import com.fireblocks.sdk.model.RegisterTempoOmnibusResponse;
 import com.fireblocks.sdk.model.RenameVaultAccountResponse;
 import com.fireblocks.sdk.model.SaveAutomationSettingsResponse;
 import com.fireblocks.sdk.model.SetAutoFuelRequest;
@@ -57,6 +61,7 @@ import com.fireblocks.sdk.model.VaultAccountsTagAttachmentOperationsRequest;
 import com.fireblocks.sdk.model.VaultAccountsTagAttachmentOperationsResponse;
 import com.fireblocks.sdk.model.VaultActionStatus;
 import com.fireblocks.sdk.model.VaultAsset;
+import com.fireblocks.sdk.model.VaultWalletAddress;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -266,8 +271,7 @@ public class VaultsApi {
     }
     /**
      * Activate a USDC Gateway wallet Activates the USDC Gateway wallet associated with the given
-     * vault account. If the wallet does not yet exist it is created in an activated state.
-     * **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint
+     * vault account. If the wallet does not yet exist it is created in an activated state. Endpoint
      * Permission: Admin, Non-Signing Admin, Signer, Approver.
      *
      * @param vaultAccountId The ID of the vault account (required)
@@ -577,12 +581,11 @@ public class VaultsApi {
     }
     /**
      * Bulk creation of new vault accounts Create multiple vault accounts by running an async job. -
-     * The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are
-     * currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts
-     * per operation. - With &#x60;vaultType: KEY_LINK&#x60;, creates Key Link vault accounts; set
-     * &#x60;autoAssign: true&#x60; to bind them to the workspace&#39;s signing keys (see
-     * &#x60;vaultType&#x60; and &#x60;autoAssign&#x60;). **Endpoint Permissions:** Admin,
-     * Non-Signing Admin, Signer, Approver, Editor.
+     * The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - Limited to a
+     * maximum of 10,000 accounts per operation. - With &#x60;vaultType: KEY_LINK&#x60;, creates Key
+     * Link vault accounts; set &#x60;autoAssign: true&#x60; to bind them to the workspace&#39;s
+     * signing keys (see &#x60;vaultType&#x60; and &#x60;autoAssign&#x60;). **Endpoint
+     * Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @param createMultipleAccountsRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -775,6 +778,135 @@ public class VaultsApi {
         try {
             byte[] localVarPostBody =
                     memberVarObjectMapper.writeValueAsBytes(createMultipleDepositAddressesRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Create omnibus deposit addresses Creates a batch of deposit addresses for the omnibus account
+     * of the given vault account, protocol and asset. **Note:** This endpoint is currently in beta
+     * and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor.
+     *
+     * @param createOmnibusAddressesRequest (required)
+     * @param vaultAccountId The ID of the omnibus vault account (required)
+     * @param protocol The omnibus protocol (required)
+     * @param assetId The ID of the asset (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateOmnibusAddressesResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<CreateOmnibusAddressesResponse>> createOmnibusAddresses(
+            CreateOmnibusAddressesRequest createOmnibusAddressesRequest,
+            String vaultAccountId,
+            String protocol,
+            String assetId,
+            String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    createOmnibusAddressesRequestBuilder(
+                            createOmnibusAddressesRequest,
+                            vaultAccountId,
+                            protocol,
+                            assetId,
+                            idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "createOmnibusAddresses",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "createOmnibusAddresses", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<CreateOmnibusAddressesResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            CreateOmnibusAddressesResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<CreateOmnibusAddressesResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder createOmnibusAddressesRequestBuilder(
+            CreateOmnibusAddressesRequest createOmnibusAddressesRequest,
+            String vaultAccountId,
+            String protocol,
+            String assetId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "createOmnibusAddresses",
+                "createOmnibusAddressesRequest",
+                createOmnibusAddressesRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "createOmnibusAddresses", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "createOmnibusAddresses", "protocol", protocol);
+        ValidationUtils.assertParamExistsAndNotEmpty("createOmnibusAddresses", "assetId", assetId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/vault/accounts/{vaultAccountId}/omnibus/{protocol}/{assetId}/addresses/bulk"
+                        .replace("{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()))
+                        .replace("{protocol}", ApiClient.urlEncode(protocol.toString()))
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(createOmnibusAddressesRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {
@@ -1146,8 +1278,7 @@ public class VaultsApi {
     }
     /**
      * Deactivate a USDC Gateway wallet Deactivates the USDC Gateway wallet associated with the
-     * given vault account. **Note:** This endpoint is currently in beta and might be subject to
-     * changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
      *
      * @param vaultAccountId The ID of the vault account (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -1243,9 +1374,8 @@ public class VaultsApi {
     /**
      * Stop a USDC Gateway deposit automation&#39;s schedule Stops the schedule for an existing
      * deposit automation. The automation itself stays configured, only its schedule stops. Turn it
-     * back on later with PATCH, without setting up the automation again from scratch. **Note:**
-     * This endpoint is currently in beta and might be subject to changes. Endpoint Permission:
-     * Admin, Non-Signing Admin, Signer, Approver.
+     * back on later with PATCH, without setting up the automation again from scratch. Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver.
      *
      * @param vaultAccountId The ID of the vault account (required)
      * @param automationId The ID of the deposit automation, returned when it was created or read
@@ -1897,6 +2027,150 @@ public class VaultsApi {
         return localVarRequestBuilder;
     }
     /**
+     * List omnibus deposit addresses Returns a page of the deposit addresses of the omnibus account
+     * of the given vault account, protocol and asset, ordered by index, highest first. **Note:**
+     * This endpoint is currently in beta and might be subject to changes. Endpoint Permission:
+     * Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     *
+     * @param vaultAccountId The ID of the omnibus vault account (required)
+     * @param protocol The omnibus protocol (required)
+     * @param assetId The ID of the asset (required)
+     * @param fromIndex Return only addresses with an index greater than or equal to this value.
+     *     (optional)
+     * @param search Return only addresses that start with this value (case-insensitive).
+     *     Surrounding whitespace is ignored. (optional)
+     * @param pageCursor The cursor returned in &#x60;next&#x60; of the previous page. Omit for the
+     *     first page. (optional)
+     * @param pageSize The number of addresses per page. (optional, default to 100)
+     * @return CompletableFuture&lt;ApiResponse&lt;ListOmnibusAddressesResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<ListOmnibusAddressesResponse>> getOmnibusAddresses(
+            String vaultAccountId,
+            String protocol,
+            String assetId,
+            Integer fromIndex,
+            String search,
+            String pageCursor,
+            Integer pageSize) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getOmnibusAddressesRequestBuilder(
+                            vaultAccountId,
+                            protocol,
+                            assetId,
+                            fromIndex,
+                            search,
+                            pageCursor,
+                            pageSize);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getOmnibusAddresses",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getOmnibusAddresses", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ListOmnibusAddressesResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ListOmnibusAddressesResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<ListOmnibusAddressesResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getOmnibusAddressesRequestBuilder(
+            String vaultAccountId,
+            String protocol,
+            String assetId,
+            Integer fromIndex,
+            String search,
+            String pageCursor,
+            Integer pageSize)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getOmnibusAddresses", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty("getOmnibusAddresses", "protocol", protocol);
+        ValidationUtils.assertParamExistsAndNotEmpty("getOmnibusAddresses", "assetId", assetId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/vault/accounts/{vaultAccountId}/omnibus/{protocol}/{assetId}/addresses"
+                        .replace("{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()))
+                        .replace("{protocol}", ApiClient.urlEncode(protocol.toString()))
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "fromIndex";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("fromIndex", fromIndex));
+        localVarQueryParameterBaseName = "search";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("search", search));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Get vault accounts (Paginated) Gets all vault accounts in your workspace. This endpoint
      * returns a limited amount of results with a quick response time. Endpoint Permission: Admin,
      * Non-Signing Admin, Signer, Approver, Editor, Viewer.
@@ -2391,9 +2665,8 @@ public class VaultsApi {
     }
     /**
      * Read the USDC Gateway deposit automations for a vault account Returns the USDC Gateway
-     * deposit automations configured for the given vault account. **Note:** This endpoint is
-     * currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing
-     * Admin, Signer, Approver, Editor, Viewer.
+     * deposit automations configured for the given vault account. Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @param vaultAccountId The ID of the vault account (required)
      * @return CompletableFuture&lt;ApiResponse&lt;GetAutomationSettingsResponse&gt;&gt;, which
@@ -2482,8 +2755,8 @@ public class VaultsApi {
     }
     /**
      * Get USDC Gateway wallet info Returns the USDC Gateway wallet information associated with the
-     * given vault account. **Note:** This endpoint is currently in beta and might be subject to
-     * changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
+     * Viewer.
      *
      * @param vaultAccountId The ID of the vault account (required)
      * @return CompletableFuture&lt;ApiResponse&lt;UsdcGatewayWalletInfoResponse&gt;&gt;, which
@@ -2744,6 +3017,108 @@ public class VaultsApi {
         return localVarRequestBuilder;
     }
     /**
+     * Get asset addresses DEPRECATED! - If your application logic or scripts rely on the deprecated
+     * endpoint, you should update to account for
+     * GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. -
+     * All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your
+     * workspace and you attempt to use it, you will receive the following error message:
+     * \&quot;This endpoint is unavailable. - Please use the GET
+     * /v1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the
+     * wallet addresses associated with the specified vault account and asset in a paginated list.
+     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     *
+     * @param vaultAccountId The ID of the vault account to return (required)
+     * @param assetId The ID of the asset (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;VaultWalletAddress&gt;&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     * @deprecated
+     */
+    @Deprecated
+    public CompletableFuture<ApiResponse<List<VaultWalletAddress>>> getVaultAccountAssetAddresses(
+            String vaultAccountId, String assetId) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getVaultAccountAssetAddressesRequestBuilder(vaultAccountId, assetId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getVaultAccountAssetAddresses",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getVaultAccountAssetAddresses",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<List<VaultWalletAddress>>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            List<
+                                                                                    VaultWalletAddress>>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<VaultWalletAddress>>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getVaultAccountAssetAddressesRequestBuilder(
+            String vaultAccountId, String assetId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getVaultAccountAssetAddresses", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getVaultAccountAssetAddresses", "assetId", assetId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/vault/accounts/{vaultAccountId}/{assetId}/addresses"
+                        .replace("{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()))
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Get addresses (Paginated) Returns a paginated response of the addresses for a given vault
      * account and asset. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,
      * Viewer.
@@ -2842,6 +3217,117 @@ public class VaultsApi {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("before", before));
         localVarQueryParameterBaseName = "after";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("after", after));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get vault accounts DEPRECATED - Please use &#x60;/vault/accounts_paged&#x60; endpoint
+     * instead. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     *
+     * @param namePrefix (optional)
+     * @param nameSuffix (optional)
+     * @param minAmountThreshold (optional)
+     * @param assetId (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;VaultAccount&gt;&gt;&gt;, which completes
+     *     exceptionally with an {@link ApiException} if the API call fails
+     * @deprecated
+     */
+    @Deprecated
+    public CompletableFuture<ApiResponse<List<VaultAccount>>> getVaultAccounts(
+            String namePrefix, String nameSuffix, BigDecimal minAmountThreshold, String assetId) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getVaultAccountsRequestBuilder(
+                            namePrefix, nameSuffix, minAmountThreshold, assetId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "getVaultAccounts",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getVaultAccounts", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<List<VaultAccount>>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            List<
+                                                                                    VaultAccount>>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<List<VaultAccount>>>failedFuture(
+                                                            toApiFailure(localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getVaultAccountsRequestBuilder(
+            String namePrefix, String nameSuffix, BigDecimal minAmountThreshold, String assetId)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/vault/accounts";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "namePrefix";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("namePrefix", namePrefix));
+        localVarQueryParameterBaseName = "nameSuffix";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("nameSuffix", nameSuffix));
+        localVarQueryParameterBaseName = "minAmountThreshold";
+        localVarQueryParams.addAll(
+                ApiClient.parameterToPairs("minAmountThreshold", minAmountThreshold));
+        localVarQueryParameterBaseName = "assetId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("assetId", assetId));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");
@@ -3152,7 +3638,7 @@ public class VaultsApi {
     /**
      * Look up a vault account by blockchain address Resolves a blockchain address to the vault
      * account that owns it. Returns the vault account ID and the blockchains associated with the
-     * address. **Note:** This endpoint is currently in beta and might be subject to changes.
+     * address.
      *
      * @param address The blockchain address to resolve. (required)
      * @return CompletableFuture&lt;ApiResponse&lt;AddressReverseLookupResponse&gt;&gt;, which
@@ -3242,6 +3728,107 @@ public class VaultsApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Register a Tempo omnibus wallet Registers a Tempo omnibus wallet for the given vault account
+     * and asset. Triggering this flow requires the vault account to hold PATH_USD with a balance
+     * sufficient to cover the gas fee. Endpoint Permission: Admin, Non-Signing Admin, Signer,
+     * Approver, Editor.
+     *
+     * @param vaultAccountId The ID of the omnibus vault account (required)
+     * @param assetId The Tempo network asset to register for the vault account. (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;RegisterTempoOmnibusResponse&gt;&gt;, which
+     *     completes exceptionally with an {@link ApiException} if the API call fails
+     */
+    public CompletableFuture<ApiResponse<RegisterTempoOmnibusResponse>> registerTempoOmnibusWallet(
+            String vaultAccountId, String assetId, String idempotencyKey) {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    registerTempoOmnibusWalletRequestBuilder(
+                            vaultAccountId, assetId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                // Ahead of the status check, which fails the future: the lifecycle
+                                // header
+                                // is present on allowed error responses too.
+                                LifecycleWarning.warn(
+                                        localVarResponse.headers(),
+                                        "registerTempoOmnibusWallet",
+                                        localVarResponse.statusCode());
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "registerTempoOmnibusWallet",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<RegisterTempoOmnibusResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            RegisterTempoOmnibusResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            })
+                    .handle(
+                            (localVarApiResponse, localVarThrowable) ->
+                                    localVarThrowable == null
+                                            ? CompletableFuture.completedFuture(localVarApiResponse)
+                                            : CompletableFuture
+                                                    .<ApiResponse<RegisterTempoOmnibusResponse>>
+                                                            failedFuture(
+                                                                    toApiFailure(
+                                                                            localVarThrowable)))
+                    .thenCompose(localVarNormalized -> localVarNormalized);
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder registerTempoOmnibusWalletRequestBuilder(
+            String vaultAccountId, String assetId, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "registerTempoOmnibusWallet", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "registerTempoOmnibusWallet", "assetId", assetId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/vault/accounts/{vaultAccountId}/omnibus/TEMPO/{assetId}/register"
+                        .replace("{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()))
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }
@@ -3382,8 +3969,7 @@ public class VaultsApi {
      * Set up a USDC Gateway deposit automation for a vault account Turns on automatic deposits into
      * the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an
      * error if an automation already exists for this vault account and asset. Use PATCH to change
-     * it instead. **Note:** This endpoint is currently in beta and might be subject to changes.
-     * Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * it instead. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
      *
      * @param automationSettingsRequest (required)
      * @param vaultAccountId The ID of the vault account (required)
@@ -3809,8 +4395,7 @@ public class VaultsApi {
     }
     /**
      * Change a USDC Gateway deposit automation Changes an existing USDC Gateway deposit automation
-     * for a vault account. **Note:** This endpoint is currently in beta and might be subject to
-     * changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * for a vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
      *
      * @param updateAutomationSettingsRequest (required)
      * @param vaultAccountId The ID of the vault account (required)

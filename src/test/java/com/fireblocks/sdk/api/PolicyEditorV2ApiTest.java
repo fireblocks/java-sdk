@@ -16,9 +16,12 @@ package com.fireblocks.sdk.api;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.DraftReviewAndValidationResponse;
 import com.fireblocks.sdk.model.PolicyAndValidationResponse;
+import com.fireblocks.sdk.model.PolicyRuleQuotaRequest;
+import com.fireblocks.sdk.model.PolicyRuleQuotaResponse;
 import com.fireblocks.sdk.model.PolicyType;
 import com.fireblocks.sdk.model.PublishDraftRequest;
 import com.fireblocks.sdk.model.PublishResult;
+import com.fireblocks.sdk.model.ReadOnlyDraftReviewAndValidationResponse;
 import com.fireblocks.sdk.model.UpdateDraftRequest;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
@@ -53,6 +56,33 @@ public class PolicyEditorV2ApiTest {
         PolicyType policyType = null;
         CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>> response =
                 api.getDraft(policyType);
+    }
+
+    /**
+     * Get the current draft without starting an edit session
+     *
+     * <p>Returns the active draft and its validation for a specific policy type, without taking the
+     * edit lock. If no draft exists, the active policy is returned with a null draftId.
+     */
+    @Test
+    public void getDraftReadOnlyTest() {
+        PolicyType policyType = null;
+        CompletableFuture<ApiResponse<ReadOnlyDraftReviewAndValidationResponse>> response =
+                api.getDraftReadOnly(policyType);
+    }
+
+    /**
+     * Calculate the AOT quota for a policy rule
+     *
+     * <p>Returns the Amount Over Time (AOT) quota calculated for a specific policy rule. Endpoint
+     * Permissions: Owner, Admin, Non-Signing Admin.
+     */
+    @Test
+    public void getPolicyRuleQuotaTest() {
+        PolicyRuleQuotaRequest policyRuleQuotaRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<PolicyRuleQuotaResponse>> response =
+                api.getPolicyRuleQuota(policyRuleQuotaRequest, idempotencyKey);
     }
 
     /**

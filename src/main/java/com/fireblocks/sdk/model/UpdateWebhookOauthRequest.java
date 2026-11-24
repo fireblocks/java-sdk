@@ -26,11 +26,15 @@ import java.util.UUID;
 /**
  * A partial update. Every field is optional and an omitted field is left as it is, so &#x60;{
  * \&quot;clientSecret\&quot;: \&quot;new-secret\&quot; }&#x60; rotates the secret and changes
- * nothing else. A rotation applies to every webhook referencing these credentials. The three custom
- * maps merge. A key with a value is upserted, a key with &#x60;null&#x60; is deleted, a key you
- * leave out is untouched, and the whole field set to &#x60;null&#x60; clears the map. There is no
- * ambiguity between the two uses of &#x60;null&#x60; — one names an entry, the other names the
- * field. &#x60;webhookMtlsId&#x60; is a scalar, so &#x60;null&#x60; there removes it.
+ * nothing else. A rotation applies to every webhook referencing these credentials. The result is
+ * checked against the resulting &#x60;authMethod&#x60;, not just the fields sent: the secret
+ * methods must end up with a &#x60;clientSecret&#x60;, and a &#x60;signingAlg&#x60; value is only
+ * valid when the resulting method is &#x60;private_key_jwt&#x60;. The two custom maps merge. A key
+ * with a value is upserted, a key with &#x60;null&#x60; is deleted, a key you leave out is
+ * untouched, and the whole field set to &#x60;null&#x60; clears the map. There is no ambiguity
+ * between the two uses of &#x60;null&#x60; — one names an entry, the other names the field.
+ * &#x60;webhookMtlsId&#x60; and &#x60;webhookCustomHeadersId&#x60; are scalars, so &#x60;null&#x60;
+ * there removes them.
  */
 @JsonPropertyOrder({
     UpdateWebhookOauthRequest.JSON_PROPERTY_NAME,
@@ -38,9 +42,10 @@ import java.util.UUID;
     UpdateWebhookOauthRequest.JSON_PROPERTY_CLIENT_SECRET,
     UpdateWebhookOauthRequest.JSON_PROPERTY_URL,
     UpdateWebhookOauthRequest.JSON_PROPERTY_AUTH_METHOD,
+    UpdateWebhookOauthRequest.JSON_PROPERTY_SIGNING_ALG,
     UpdateWebhookOauthRequest.JSON_PROPERTY_CUSTOM_JWT_CLAIMS,
     UpdateWebhookOauthRequest.JSON_PROPERTY_CUSTOM_BODY_PARAMS,
-    UpdateWebhookOauthRequest.JSON_PROPERTY_CUSTOM_HEADERS,
+    UpdateWebhookOauthRequest.JSON_PROPERTY_WEBHOOK_CUSTOM_HEADERS_ID,
     UpdateWebhookOauthRequest.JSON_PROPERTY_WEBHOOK_MTLS_ID
 })
 @jakarta.annotation.Generated(
@@ -62,14 +67,17 @@ public class UpdateWebhookOauthRequest {
     public static final String JSON_PROPERTY_AUTH_METHOD = "authMethod";
     @jakarta.annotation.Nullable private String authMethod;
 
+    public static final String JSON_PROPERTY_SIGNING_ALG = "signingAlg";
+    @jakarta.annotation.Nullable private WebhookOauthSigningAlg signingAlg;
+
     public static final String JSON_PROPERTY_CUSTOM_JWT_CLAIMS = "customJwtClaims";
     @jakarta.annotation.Nullable private Map<String, Object> customJwtClaims;
 
     public static final String JSON_PROPERTY_CUSTOM_BODY_PARAMS = "customBodyParams";
     @jakarta.annotation.Nullable private Map<String, String> customBodyParams;
 
-    public static final String JSON_PROPERTY_CUSTOM_HEADERS = "customHeaders";
-    @jakarta.annotation.Nullable private Map<String, String> customHeaders;
+    public static final String JSON_PROPERTY_WEBHOOK_CUSTOM_HEADERS_ID = "webhookCustomHeadersId";
+    @jakarta.annotation.Nullable private UUID webhookCustomHeadersId;
 
     public static final String JSON_PROPERTY_WEBHOOK_MTLS_ID = "webhookMtlsId";
     @jakarta.annotation.Nullable private UUID webhookMtlsId;
@@ -132,7 +140,11 @@ public class UpdateWebhookOauthRequest {
      * A new OAuth client secret. Limited to 480 bytes when UTF-8 encoded, so a secret using
      * non-ASCII characters fits fewer than 480 of them. Write-only — never returned in any
      * response. Send this on its own to rotate the secret without changing anything else. Omit to
-     * leave it unchanged.
+     * leave it unchanged. Must not be sent with a value when the resulting &#x60;authMethod&#x60;
+     * is &#x60;private_key_jwt&#x60; (&#x60;400&#x60; otherwise). A secret already stored from
+     * before a switch to &#x60;private_key_jwt&#x60; is kept, unused, so switching back needs no
+     * new one; send &#x60;null&#x60; to clear it. A secret method must still end up with a secret,
+     * so &#x60;null&#x60; is refused unless the resulting method is &#x60;private_key_jwt&#x60;.
      *
      * @return clientSecret
      */
@@ -179,9 +191,15 @@ public class UpdateWebhookOauthRequest {
     }
 
     /**
-     * &#x60;client_secret_basic&#x60;, &#x60;client_secret_post&#x60; or
-     * &#x60;client_secret_jwt&#x60;. Omit to leave it unchanged — it does not revert to the
-     * default.
+     * &#x60;client_secret_basic&#x60;, &#x60;client_secret_post&#x60;,
+     * &#x60;client_secret_jwt&#x60; or &#x60;private_key_jwt&#x60;. Omit to leave it unchanged — it
+     * does not revert to the default. Switching to &#x60;private_key_jwt&#x60; brings back the key
+     * pairs these credentials held before, if they are still kept, and otherwise generates a
+     * signing key and its successor. Either way the first assertion names a &#x60;kid&#x60; your
+     * authorization server may not hold yet, so it fetches the JWKS again. Switching away from
+     * &#x60;private_key_jwt&#x60; empties &#x60;signingAlg&#x60;, and keeps the key pairs published
+     * for 30 days before deleting them, so switching back within that time restores them; it needs
+     * a &#x60;clientSecret&#x60;, either sent here or still stored.
      *
      * @return authMethod
      */
@@ -196,6 +214,41 @@ public class UpdateWebhookOauthRequest {
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setAuthMethod(@jakarta.annotation.Nullable String authMethod) {
         this.authMethod = authMethod;
+    }
+
+    public UpdateWebhookOauthRequest signingAlg(
+            @jakarta.annotation.Nullable WebhookOauthSigningAlg signingAlg) {
+        this.signingAlg = signingAlg;
+        return this;
+    }
+
+    /**
+     * A new algorithm for the key pairs of &#x60;private_key_jwt&#x60; credentials. Omit to leave
+     * it unchanged. A value is only valid when the resulting &#x60;authMethod&#x60; is
+     * &#x60;private_key_jwt&#x60; (&#x60;400&#x60; otherwise); a switch to
+     * &#x60;private_key_jwt&#x60; that omits it uses &#x60;RS256&#x60;, or the algorithm of the key
+     * pairs it brings back. &#x60;null&#x60; means no algorithm, and is accepted only when the
+     * resulting method is &#x60;client_secret_basic&#x60;, &#x60;client_secret_post&#x60; or
+     * &#x60;client_secret_jwt&#x60;; with &#x60;private_key_jwt&#x60; it is a &#x60;400&#x60;. A
+     * change generates a new signing key and successor in the new algorithm, and signing switches
+     * to them at once. The previous keys stay published for 5 minutes and are kept for 30 days:
+     * changing back within that time restores them, with their original expiry, instead of
+     * generating new ones, and &#x60;revoke_key&#x60; can delete them by &#x60;kid&#x60; until
+     * then.
+     *
+     * @return signingAlg
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SIGNING_ALG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public WebhookOauthSigningAlg getSigningAlg() {
+        return signingAlg;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SIGNING_ALG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSigningAlg(@jakarta.annotation.Nullable WebhookOauthSigningAlg signingAlg) {
+        this.signingAlg = signingAlg;
     }
 
     public UpdateWebhookOauthRequest customJwtClaims(
@@ -283,47 +336,36 @@ public class UpdateWebhookOauthRequest {
         this.customBodyParams = customBodyParams;
     }
 
-    public UpdateWebhookOauthRequest customHeaders(
-            @jakarta.annotation.Nullable Map<String, String> customHeaders) {
-        this.customHeaders = customHeaders;
-        return this;
-    }
-
-    public UpdateWebhookOauthRequest putCustomHeadersItem(String key, String customHeadersItem) {
-        if (this.customHeaders == null) {
-            this.customHeaders = new HashMap<>();
-        }
-        this.customHeaders.put(key, customHeadersItem);
+    public UpdateWebhookOauthRequest webhookCustomHeadersId(
+            @jakarta.annotation.Nullable UUID webhookCustomHeadersId) {
+        this.webhookCustomHeadersId = webhookCustomHeadersId;
         return this;
     }
 
     /**
-     * A delta applied to the token request headers — not the webhook delivery headers. A header
-     * with a value is added or replaced, a header with &#x60;null&#x60; is deleted, and one you
-     * leave out is untouched. So &#x60;{ \&quot;X-Api-Key\&quot;: \&quot;new-key\&quot;,
-     * \&quot;X-Tenant\&quot;: null }&#x60; rotates &#x60;X-Api-Key&#x60;, drops
-     * &#x60;X-Tenant&#x60;, and changes nothing else. Send &#x60;customHeaders: null&#x60; to clear
-     * every header in one call. That does not collide with a &#x60;null&#x60; value on a name: one
-     * names the header to delete, the other names the whole field. Names are case-insensitive, so a
-     * &#x60;null&#x60; under one casing deletes a header stored under another, and names are stored
-     * and returned lowercased. Same rules as on create: string values only,
-     * &#x60;Content-Type&#x60;, &#x60;Content-Length&#x60; and &#x60;Host&#x60; reserved,
-     * &#x60;Authorization&#x60; only with &#x60;client_secret_post&#x60; or
-     * &#x60;client_secret_jwt&#x60;, resulting set under 16 KB, values write-only.
+     * The id of the set of custom HTTP headers added to the token request, from
+     * &#x60;/v1/webhooks_settings/custom_headers&#x60;. Omit to leave it unchanged, or send
+     * &#x60;null&#x60; to stop sending extra headers. The same rules apply as for a webhook
+     * delivery, including the reserved header names. Under &#x60;client_secret_basic&#x60;
+     * Fireblocks sends its own &#x60;Authorization&#x60; header with the credentials, and a custom
+     * &#x60;Authorization&#x60; header is not sent. Replaces the inline &#x60;customHeaders&#x60;
+     * field, which is now refused with a &#x60;400&#x60;: use &#x60;webhookCustomHeadersId&#x60;.
+     * An unknown id, or one belonging to another workspace, is a &#x60;404&#x60;.
      *
-     * @return customHeaders
+     * @return webhookCustomHeadersId
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
-    @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
-    public Map<String, String> getCustomHeaders() {
-        return customHeaders;
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_CUSTOM_HEADERS_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UUID getWebhookCustomHeadersId() {
+        return webhookCustomHeadersId;
     }
 
-    @JsonProperty(JSON_PROPERTY_CUSTOM_HEADERS)
-    @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomHeaders(@jakarta.annotation.Nullable Map<String, String> customHeaders) {
-        this.customHeaders = customHeaders;
+    @JsonProperty(JSON_PROPERTY_WEBHOOK_CUSTOM_HEADERS_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setWebhookCustomHeadersId(
+            @jakarta.annotation.Nullable UUID webhookCustomHeadersId) {
+        this.webhookCustomHeadersId = webhookCustomHeadersId;
     }
 
     public UpdateWebhookOauthRequest webhookMtlsId(
@@ -335,9 +377,8 @@ public class UpdateWebhookOauthRequest {
     /**
      * The id of the mTLS configuration presented to the token endpoint, from
      * &#x60;/v1/webhooks_settings/mtls&#x60;. Omit to leave it unchanged, or send &#x60;null&#x60;
-     * to stop using mTLS for the token request. Requires the mTLS feature to be enabled for the
-     * workspace (&#x60;403&#x60; otherwise), a configuration of this workspace (&#x60;404&#x60;
-     * otherwise), and one linked to a private key (&#x60;400&#x60; otherwise).
+     * to stop using mTLS for the token request. Requires a configuration of this workspace
+     * (&#x60;404&#x60; otherwise) that is linked to a private key (&#x60;400&#x60; otherwise).
      *
      * @return webhookMtlsId
      */
@@ -369,9 +410,12 @@ public class UpdateWebhookOauthRequest {
                 && Objects.equals(this.clientSecret, updateWebhookOauthRequest.clientSecret)
                 && Objects.equals(this.url, updateWebhookOauthRequest.url)
                 && Objects.equals(this.authMethod, updateWebhookOauthRequest.authMethod)
+                && Objects.equals(this.signingAlg, updateWebhookOauthRequest.signingAlg)
                 && Objects.equals(this.customJwtClaims, updateWebhookOauthRequest.customJwtClaims)
                 && Objects.equals(this.customBodyParams, updateWebhookOauthRequest.customBodyParams)
-                && Objects.equals(this.customHeaders, updateWebhookOauthRequest.customHeaders)
+                && Objects.equals(
+                        this.webhookCustomHeadersId,
+                        updateWebhookOauthRequest.webhookCustomHeadersId)
                 && Objects.equals(this.webhookMtlsId, updateWebhookOauthRequest.webhookMtlsId);
     }
 
@@ -383,9 +427,10 @@ public class UpdateWebhookOauthRequest {
                 clientSecret,
                 url,
                 authMethod,
+                signingAlg,
                 customJwtClaims,
                 customBodyParams,
-                customHeaders,
+                webhookCustomHeadersId,
                 webhookMtlsId);
     }
 
@@ -398,9 +443,12 @@ public class UpdateWebhookOauthRequest {
         sb.append("    clientSecret: ").append(toIndentedString(clientSecret)).append("\n");
         sb.append("    url: ").append(toIndentedString(url)).append("\n");
         sb.append("    authMethod: ").append(toIndentedString(authMethod)).append("\n");
+        sb.append("    signingAlg: ").append(toIndentedString(signingAlg)).append("\n");
         sb.append("    customJwtClaims: ").append(toIndentedString(customJwtClaims)).append("\n");
         sb.append("    customBodyParams: ").append(toIndentedString(customBodyParams)).append("\n");
-        sb.append("    customHeaders: ").append(toIndentedString(customHeaders)).append("\n");
+        sb.append("    webhookCustomHeadersId: ")
+                .append(toIndentedString(webhookCustomHeadersId))
+                .append("\n");
         sb.append("    webhookMtlsId: ").append(toIndentedString(webhookMtlsId)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -499,6 +547,16 @@ public class UpdateWebhookOauthRequest {
                             ApiClient.urlEncode(ApiClient.valueToString(getAuthMethod()))));
         }
 
+        // add `signingAlg` to the URL query string
+        if (getSigningAlg() != null) {
+            joiner.add(
+                    String.format(
+                            "%ssigningAlg%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getSigningAlg()))));
+        }
+
         // add `customJwtClaims` to the URL query string
         if (getCustomJwtClaims() != null) {
             for (String _key : getCustomJwtClaims().keySet()) {
@@ -535,22 +593,15 @@ public class UpdateWebhookOauthRequest {
             }
         }
 
-        // add `customHeaders` to the URL query string
-        if (getCustomHeaders() != null) {
-            for (String _key : getCustomHeaders().keySet()) {
-                joiner.add(
-                        String.format(
-                                "%scustomHeaders%s%s=%s",
-                                prefix,
-                                suffix,
-                                "".equals(suffix)
-                                        ? ""
-                                        : String.format(
-                                                "%s%d%s", containerPrefix, _key, containerSuffix),
-                                getCustomHeaders().get(_key),
-                                ApiClient.urlEncode(
-                                        ApiClient.valueToString(getCustomHeaders().get(_key)))));
-            }
+        // add `webhookCustomHeadersId` to the URL query string
+        if (getWebhookCustomHeadersId() != null) {
+            joiner.add(
+                    String.format(
+                            "%swebhookCustomHeadersId%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getWebhookCustomHeadersId()))));
         }
 
         // add `webhookMtlsId` to the URL query string

@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fireblocks.sdk.ApiClient;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -26,7 +27,9 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
     SolanaRewardsBreakdown.JSON_PROPERTY_INFLATION,
     SolanaRewardsBreakdown.JSON_PROPERTY_MEV,
-    SolanaRewardsBreakdown.JSON_PROPERTY_LAST_REWARD_SYNCED_AT
+    SolanaRewardsBreakdown.JSON_PROPERTY_LAST_REWARD_SYNCED_AT,
+    SolanaRewardsBreakdown.JSON_PROPERTY_LATEST_INFLATION_REWARD_DATE,
+    SolanaRewardsBreakdown.JSON_PROPERTY_LATEST_MEV_REWARD_DATE
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -40,6 +43,13 @@ public class SolanaRewardsBreakdown {
 
     public static final String JSON_PROPERTY_LAST_REWARD_SYNCED_AT = "lastRewardSyncedAt";
     @jakarta.annotation.Nonnull private OffsetDateTime lastRewardSyncedAt;
+
+    public static final String JSON_PROPERTY_LATEST_INFLATION_REWARD_DATE =
+            "latestInflationRewardDate";
+    @jakarta.annotation.Nullable private LocalDate latestInflationRewardDate;
+
+    public static final String JSON_PROPERTY_LATEST_MEV_REWARD_DATE = "latestMevRewardDate";
+    @jakarta.annotation.Nullable private LocalDate latestMevRewardDate;
 
     public SolanaRewardsBreakdown() {}
 
@@ -107,7 +117,9 @@ public class SolanaRewardsBreakdown {
     }
 
     /**
-     * The last time the rewards were synced (ISO Date).
+     * The time (UTC) of the last sync that fetched this position&#39;s rewards from the rewards
+     * provider. It is updated on every sync, including when nothing new was found, so it is not the
+     * date of the newest reward (see latestInflationRewardDate and latestMevRewardDate).
      *
      * @return lastRewardSyncedAt
      */
@@ -125,6 +137,58 @@ public class SolanaRewardsBreakdown {
         this.lastRewardSyncedAt = lastRewardSyncedAt;
     }
 
+    public SolanaRewardsBreakdown latestInflationRewardDate(
+            @jakarta.annotation.Nullable LocalDate latestInflationRewardDate) {
+        this.latestInflationRewardDate = latestInflationRewardDate;
+        return this;
+    }
+
+    /**
+     * The date (UTC, YYYY-MM-DD) of the newest inflation reward the rewards provider has returned
+     * for this stake account. Null until the provider returns one.
+     *
+     * @return latestInflationRewardDate
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_LATEST_INFLATION_REWARD_DATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public LocalDate getLatestInflationRewardDate() {
+        return latestInflationRewardDate;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LATEST_INFLATION_REWARD_DATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setLatestInflationRewardDate(
+            @jakarta.annotation.Nullable LocalDate latestInflationRewardDate) {
+        this.latestInflationRewardDate = latestInflationRewardDate;
+    }
+
+    public SolanaRewardsBreakdown latestMevRewardDate(
+            @jakarta.annotation.Nullable LocalDate latestMevRewardDate) {
+        this.latestMevRewardDate = latestMevRewardDate;
+        return this;
+    }
+
+    /**
+     * The date (UTC, YYYY-MM-DD) of the newest MEV reward the rewards provider has returned for
+     * this stake account. Null until the provider returns one, and for validators without MEV
+     * rewards.
+     *
+     * @return latestMevRewardDate
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_LATEST_MEV_REWARD_DATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public LocalDate getLatestMevRewardDate() {
+        return latestMevRewardDate;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LATEST_MEV_REWARD_DATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setLatestMevRewardDate(@jakarta.annotation.Nullable LocalDate latestMevRewardDate) {
+        this.latestMevRewardDate = latestMevRewardDate;
+    }
+
     /** Return true if this SolanaRewardsBreakdown object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -138,12 +202,18 @@ public class SolanaRewardsBreakdown {
         return Objects.equals(this.inflation, solanaRewardsBreakdown.inflation)
                 && Objects.equals(this.mev, solanaRewardsBreakdown.mev)
                 && Objects.equals(
-                        this.lastRewardSyncedAt, solanaRewardsBreakdown.lastRewardSyncedAt);
+                        this.lastRewardSyncedAt, solanaRewardsBreakdown.lastRewardSyncedAt)
+                && Objects.equals(
+                        this.latestInflationRewardDate,
+                        solanaRewardsBreakdown.latestInflationRewardDate)
+                && Objects.equals(
+                        this.latestMevRewardDate, solanaRewardsBreakdown.latestMevRewardDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(inflation, mev, lastRewardSyncedAt);
+        return Objects.hash(
+                inflation, mev, lastRewardSyncedAt, latestInflationRewardDate, latestMevRewardDate);
     }
 
     @Override
@@ -154,6 +224,12 @@ public class SolanaRewardsBreakdown {
         sb.append("    mev: ").append(toIndentedString(mev)).append("\n");
         sb.append("    lastRewardSyncedAt: ")
                 .append(toIndentedString(lastRewardSyncedAt))
+                .append("\n");
+        sb.append("    latestInflationRewardDate: ")
+                .append(toIndentedString(latestInflationRewardDate))
+                .append("\n");
+        sb.append("    latestMevRewardDate: ")
+                .append(toIndentedString(latestMevRewardDate))
                 .append("\n");
         sb.append("}");
         return sb.toString();
@@ -230,6 +306,28 @@ public class SolanaRewardsBreakdown {
                             prefix,
                             suffix,
                             ApiClient.urlEncode(ApiClient.valueToString(getLastRewardSyncedAt()))));
+        }
+
+        // add `latestInflationRewardDate` to the URL query string
+        if (getLatestInflationRewardDate() != null) {
+            joiner.add(
+                    String.format(
+                            "%slatestInflationRewardDate%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getLatestInflationRewardDate()))));
+        }
+
+        // add `latestMevRewardDate` to the URL query string
+        if (getLatestMevRewardDate() != null) {
+            joiner.add(
+                    String.format(
+                            "%slatestMevRewardDate%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getLatestMevRewardDate()))));
         }
 
         return joiner.toString();

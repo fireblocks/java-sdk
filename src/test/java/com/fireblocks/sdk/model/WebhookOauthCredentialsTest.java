@@ -55,6 +55,12 @@ class WebhookOauthCredentialsTest {
         // TODO: test authMethod
     }
 
+    /** Test the property 'signingAlg' */
+    @Test
+    void signingAlgTest() {
+        // TODO: test signingAlg
+    }
+
     /** Test the property 'customJwtClaims' */
     @Test
     void customJwtClaimsTest() {
@@ -67,10 +73,10 @@ class WebhookOauthCredentialsTest {
         // TODO: test customBodyParams
     }
 
-    /** Test the property 'customHeaders' */
+    /** Test the property 'webhookCustomHeadersId' */
     @Test
-    void customHeadersTest() {
-        // TODO: test customHeaders
+    void webhookCustomHeadersIdTest() {
+        // TODO: test webhookCustomHeadersId
     }
 
     /** Test the property 'webhookMtlsId' */
@@ -89,5 +95,11 @@ class WebhookOauthCredentialsTest {
     @Test
     void updatedAtTest() {
         // TODO: test updatedAt
+    }
+
+    /** Test the property 'jwksUri' */
+    @Test
+    void jwksUriTest() {
+        // TODO: test jwksUri
     }
 }

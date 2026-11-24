@@ -364,11 +364,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetApprovalsBetaApi() {
+    public void testGetApprovalsApi() {
         setupFireblocks(true, null, null);
-        ApprovalsBetaApi approvalsBeta = fireblocks.approvalsBeta();
-        Assert.assertNotNull(approvalsBeta);
-        Assert.assertSame(approvalsBeta, fireblocks.approvalsBeta());
+        ApprovalsApi approvals = fireblocks.approvals();
+        Assert.assertNotNull(approvals);
+        Assert.assertSame(approvals, fireblocks.approvals());
     }
 
     @Test
@@ -380,11 +380,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetBlockchainLinkBetaApi() {
+    public void testGetBlockchainLinkApi() {
         setupFireblocks(true, null, null);
-        BlockchainLinkBetaApi blockchainLinkBeta = fireblocks.blockchainLinkBeta();
-        Assert.assertNotNull(blockchainLinkBeta);
-        Assert.assertSame(blockchainLinkBeta, fireblocks.blockchainLinkBeta());
+        BlockchainLinkApi blockchainLink = fireblocks.blockchainLink();
+        Assert.assertNotNull(blockchainLink);
+        Assert.assertSame(blockchainLink, fireblocks.blockchainLink());
     }
 
     @Test
@@ -396,11 +396,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetCantonBetaApi() {
+    public void testGetCantonApi() {
         setupFireblocks(true, null, null);
-        CantonBetaApi cantonBeta = fireblocks.cantonBeta();
-        Assert.assertNotNull(cantonBeta);
-        Assert.assertSame(cantonBeta, fireblocks.cantonBeta());
+        CantonApi canton = fireblocks.canton();
+        Assert.assertNotNull(canton);
+        Assert.assertSame(canton, fireblocks.canton());
     }
 
     @Test
@@ -412,12 +412,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetComplianceOrchestratorBetaApi() {
+    public void testGetComplianceOrchestratorApi() {
         setupFireblocks(true, null, null);
-        ComplianceOrchestratorBetaApi complianceOrchestratorBeta =
-                fireblocks.complianceOrchestratorBeta();
-        Assert.assertNotNull(complianceOrchestratorBeta);
-        Assert.assertSame(complianceOrchestratorBeta, fireblocks.complianceOrchestratorBeta());
+        ComplianceOrchestratorApi complianceOrchestrator = fireblocks.complianceOrchestrator();
+        Assert.assertNotNull(complianceOrchestrator);
+        Assert.assertSame(complianceOrchestrator, fireblocks.complianceOrchestrator());
     }
 
     @Test
@@ -543,11 +542,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetGenieBetaApi() {
+    public void testGetGenieApi() {
         setupFireblocks(true, null, null);
-        GenieBetaApi genieBeta = fireblocks.genieBeta();
-        Assert.assertNotNull(genieBeta);
-        Assert.assertSame(genieBeta, fireblocks.genieBeta());
+        GenieApi genie = fireblocks.genie();
+        Assert.assertNotNull(genie);
+        Assert.assertSame(genie, fireblocks.genie());
     }
 
     @Test
@@ -607,11 +606,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetOtaBetaApi() {
+    public void testGetOtaApi() {
         setupFireblocks(true, null, null);
-        OtaBetaApi otaBeta = fireblocks.otaBeta();
-        Assert.assertNotNull(otaBeta);
-        Assert.assertSame(otaBeta, fireblocks.otaBeta());
+        OtaApi ota = fireblocks.ota();
+        Assert.assertNotNull(ota);
+        Assert.assertSame(ota, fireblocks.ota());
     }
 
     @Test
@@ -631,19 +630,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetPolicyEditorV2BetaApi() {
+    public void testGetReportsApi() {
         setupFireblocks(true, null, null);
-        PolicyEditorV2BetaApi policyEditorV2Beta = fireblocks.policyEditorV2Beta();
-        Assert.assertNotNull(policyEditorV2Beta);
-        Assert.assertSame(policyEditorV2Beta, fireblocks.policyEditorV2Beta());
-    }
-
-    @Test
-    public void testGetReportsBetaApi() {
-        setupFireblocks(true, null, null);
-        ReportsBetaApi reportsBeta = fireblocks.reportsBeta();
-        Assert.assertNotNull(reportsBeta);
-        Assert.assertSame(reportsBeta, fireblocks.reportsBeta());
+        ReportsApi reports = fireblocks.reports();
+        Assert.assertNotNull(reports);
+        Assert.assertSame(reports, fireblocks.reports());
     }
 
     @Test
@@ -688,11 +679,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetTempoBetaApi() {
+    public void testGetTempoApi() {
         setupFireblocks(true, null, null);
-        TempoBetaApi tempoBeta = fireblocks.tempoBeta();
-        Assert.assertNotNull(tempoBeta);
-        Assert.assertSame(tempoBeta, fireblocks.tempoBeta());
+        TempoApi tempo = fireblocks.tempo();
+        Assert.assertNotNull(tempo);
+        Assert.assertSame(tempo, fireblocks.tempo());
     }
 
     @Test
@@ -736,11 +727,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetUserGroupsBetaApi() {
+    public void testGetUserGroupsApi() {
         setupFireblocks(true, null, null);
-        UserGroupsBetaApi userGroupsBeta = fireblocks.userGroupsBeta();
-        Assert.assertNotNull(userGroupsBeta);
-        Assert.assertSame(userGroupsBeta, fireblocks.userGroupsBeta());
+        UserGroupsApi userGroups = fireblocks.userGroups();
+        Assert.assertNotNull(userGroups);
+        Assert.assertSame(userGroups, fireblocks.userGroups());
     }
 
     @Test
@@ -808,10 +799,10 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetWorkspaceStatusBetaApi() {
+    public void testGetWorkspaceStatusApi() {
         setupFireblocks(true, null, null);
-        WorkspaceStatusBetaApi workspaceStatusBeta = fireblocks.workspaceStatusBeta();
-        Assert.assertNotNull(workspaceStatusBeta);
-        Assert.assertSame(workspaceStatusBeta, fireblocks.workspaceStatusBeta());
+        WorkspaceStatusApi workspaceStatus = fireblocks.workspaceStatus();
+        Assert.assertNotNull(workspaceStatus);
+        Assert.assertSame(workspaceStatus, fireblocks.workspaceStatus());
     }
 }

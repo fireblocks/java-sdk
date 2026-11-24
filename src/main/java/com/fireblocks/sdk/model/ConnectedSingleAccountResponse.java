@@ -35,7 +35,9 @@ import java.util.StringJoiner;
     ConnectedSingleAccountResponse.JSON_PROPERTY_API_KEY,
     ConnectedSingleAccountResponse.JSON_PROPERTY_PROVIDER_ACCOUNT_NAME,
     ConnectedSingleAccountResponse.JSON_PROPERTY_ACCOUNT_TYPE,
-    ConnectedSingleAccountResponse.JSON_PROPERTY_SUB_ACCOUNTS_IDS
+    ConnectedSingleAccountResponse.JSON_PROPERTY_SUB_ACCOUNTS_IDS,
+    ConnectedSingleAccountResponse.JSON_PROPERTY_TOTAL_CREDIT,
+    ConnectedSingleAccountResponse.JSON_PROPERTY_AVAILABLE_CREDIT
 })
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -73,6 +75,12 @@ public class ConnectedSingleAccountResponse {
 
     public static final String JSON_PROPERTY_SUB_ACCOUNTS_IDS = "subAccountsIds";
     @jakarta.annotation.Nullable private List<String> subAccountsIds;
+
+    public static final String JSON_PROPERTY_TOTAL_CREDIT = "totalCredit";
+    @jakarta.annotation.Nullable private ConnectedAccountCredit totalCredit;
+
+    public static final String JSON_PROPERTY_AVAILABLE_CREDIT = "availableCredit";
+    @jakarta.annotation.Nullable private ConnectedAccountCredit availableCredit;
 
     public ConnectedSingleAccountResponse() {}
 
@@ -367,6 +375,61 @@ public class ConnectedSingleAccountResponse {
         this.subAccountsIds = subAccountsIds;
     }
 
+    public ConnectedSingleAccountResponse totalCredit(
+            @jakarta.annotation.Nullable ConnectedAccountCredit totalCredit) {
+        this.totalCredit = totalCredit;
+        return this;
+    }
+
+    /**
+     * Total credit line available on the account. Returned only by the single-account endpoint (Get
+     * connected account); the list endpoint does not retrieve balances and never populates it.
+     * Omitted when total credit data is unavailable or balance retrieval is skipped. Absence does
+     * not imply zero credit.
+     *
+     * @return totalCredit
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TOTAL_CREDIT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ConnectedAccountCredit getTotalCredit() {
+        return totalCredit;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TOTAL_CREDIT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTotalCredit(@jakarta.annotation.Nullable ConnectedAccountCredit totalCredit) {
+        this.totalCredit = totalCredit;
+    }
+
+    public ConnectedSingleAccountResponse availableCredit(
+            @jakarta.annotation.Nullable ConnectedAccountCredit availableCredit) {
+        this.availableCredit = availableCredit;
+        return this;
+    }
+
+    /**
+     * Remaining unused credit available on the account. Returned only by the single-account
+     * endpoint (Get connected account); the list endpoint does not retrieve balances and never
+     * populates it. Omitted when available credit data is unavailable or balance retrieval is
+     * skipped. Absence does not imply zero credit.
+     *
+     * @return availableCredit
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_AVAILABLE_CREDIT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ConnectedAccountCredit getAvailableCredit() {
+        return availableCredit;
+    }
+
+    @JsonProperty(JSON_PROPERTY_AVAILABLE_CREDIT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAvailableCredit(
+            @jakarta.annotation.Nullable ConnectedAccountCredit availableCredit) {
+        this.availableCredit = availableCredit;
+    }
+
     /** Return true if this ConnectedSingleAccountResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -391,7 +454,10 @@ public class ConnectedSingleAccountResponse {
                         connectedSingleAccountResponse.providerAccountName)
                 && Objects.equals(this.accountType, connectedSingleAccountResponse.accountType)
                 && Objects.equals(
-                        this.subAccountsIds, connectedSingleAccountResponse.subAccountsIds);
+                        this.subAccountsIds, connectedSingleAccountResponse.subAccountsIds)
+                && Objects.equals(this.totalCredit, connectedSingleAccountResponse.totalCredit)
+                && Objects.equals(
+                        this.availableCredit, connectedSingleAccountResponse.availableCredit);
     }
 
     @Override
@@ -407,7 +473,9 @@ public class ConnectedSingleAccountResponse {
                 apiKey,
                 providerAccountName,
                 accountType,
-                subAccountsIds);
+                subAccountsIds,
+                totalCredit,
+                availableCredit);
     }
 
     @Override
@@ -427,6 +495,8 @@ public class ConnectedSingleAccountResponse {
                 .append("\n");
         sb.append("    accountType: ").append(toIndentedString(accountType)).append("\n");
         sb.append("    subAccountsIds: ").append(toIndentedString(subAccountsIds)).append("\n");
+        sb.append("    totalCredit: ").append(toIndentedString(totalCredit)).append("\n");
+        sb.append("    availableCredit: ").append(toIndentedString(availableCredit)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -578,6 +648,16 @@ public class ConnectedSingleAccountResponse {
                                 ApiClient.urlEncode(
                                         ApiClient.valueToString(getSubAccountsIds().get(i)))));
             }
+        }
+
+        // add `totalCredit` to the URL query string
+        if (getTotalCredit() != null) {
+            joiner.add(getTotalCredit().toUrlQueryString(prefix + "totalCredit" + suffix));
+        }
+
+        // add `availableCredit` to the URL query string
+        if (getAvailableCredit() != null) {
+            joiner.add(getAvailableCredit().toUrlQueryString(prefix + "availableCredit" + suffix));
         }
 
         return joiner.toString();
